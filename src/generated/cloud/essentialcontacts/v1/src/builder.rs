@@ -75,6 +75,7 @@ pub mod essential_contacts_service {
     /// # use google_cloud_essentialcontacts_v1::builder;
     /// use builder::essential_contacts_service::CreateContact;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -148,6 +149,7 @@ pub mod essential_contacts_service {
     /// # use google_cloud_essentialcontacts_v1::builder;
     /// use builder::essential_contacts_service::UpdateContact;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -222,8 +224,9 @@ pub mod essential_contacts_service {
     /// # use google_cloud_essentialcontacts_v1::builder;
     /// use builder::essential_contacts_service::ListContacts;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -324,6 +327,7 @@ pub mod essential_contacts_service {
     /// # use google_cloud_essentialcontacts_v1::builder;
     /// use builder::essential_contacts_service::GetContact;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -386,6 +390,7 @@ pub mod essential_contacts_service {
     /// # use google_cloud_essentialcontacts_v1::builder;
     /// use builder::essential_contacts_service::DeleteContact;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -448,8 +453,9 @@ pub mod essential_contacts_service {
     /// # use google_cloud_essentialcontacts_v1::builder;
     /// use builder::essential_contacts_service::ComputeContacts;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -561,6 +567,7 @@ pub mod essential_contacts_service {
     /// # use google_cloud_essentialcontacts_v1::builder;
     /// use builder::essential_contacts_service::SendTestMessage;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });

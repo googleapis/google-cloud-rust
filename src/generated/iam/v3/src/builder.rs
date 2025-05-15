@@ -75,8 +75,9 @@ pub mod policy_bindings {
     /// # use google_cloud_iam_v3::builder;
     /// use builder::policy_bindings::CreatePolicyBinding;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_iam_v3::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -207,6 +208,7 @@ pub mod policy_bindings {
     /// # use google_cloud_iam_v3::builder;
     /// use builder::policy_bindings::GetPolicyBinding;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -272,8 +274,9 @@ pub mod policy_bindings {
     /// # use google_cloud_iam_v3::builder;
     /// use builder::policy_bindings::UpdatePolicyBinding;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_iam_v3::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -397,8 +400,9 @@ pub mod policy_bindings {
     /// # use google_cloud_iam_v3::builder;
     /// use builder::policy_bindings::DeletePolicyBinding;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_iam_v3::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -515,8 +519,9 @@ pub mod policy_bindings {
     /// # use google_cloud_iam_v3::builder;
     /// use builder::policy_bindings::ListPolicyBindings;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -628,8 +633,9 @@ pub mod policy_bindings {
     /// # use google_cloud_iam_v3::builder;
     /// use builder::policy_bindings::SearchTargetPolicyBindings;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -747,6 +753,7 @@ pub mod policy_bindings {
     /// # use google_cloud_iam_v3::builder;
     /// use builder::policy_bindings::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -865,8 +872,9 @@ pub mod principal_access_boundary_policies {
     /// # use google_cloud_iam_v3::builder;
     /// use builder::principal_access_boundary_policies::CreatePrincipalAccessBoundaryPolicy;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_iam_v3::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1004,6 +1012,7 @@ pub mod principal_access_boundary_policies {
     /// # use google_cloud_iam_v3::builder;
     /// use builder::principal_access_boundary_policies::GetPrincipalAccessBoundaryPolicy;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1071,8 +1080,9 @@ pub mod principal_access_boundary_policies {
     /// # use google_cloud_iam_v3::builder;
     /// use builder::principal_access_boundary_policies::UpdatePrincipalAccessBoundaryPolicy;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_iam_v3::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1200,8 +1210,9 @@ pub mod principal_access_boundary_policies {
     /// # use google_cloud_iam_v3::builder;
     /// use builder::principal_access_boundary_policies::DeletePrincipalAccessBoundaryPolicy;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_iam_v3::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1326,8 +1337,9 @@ pub mod principal_access_boundary_policies {
     /// # use google_cloud_iam_v3::builder;
     /// use builder::principal_access_boundary_policies::ListPrincipalAccessBoundaryPolicies;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -1439,8 +1451,9 @@ pub mod principal_access_boundary_policies {
     /// # use google_cloud_iam_v3::builder;
     /// use builder::principal_access_boundary_policies::SearchPrincipalAccessBoundaryPolicyBindings;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -1554,6 +1567,7 @@ pub mod principal_access_boundary_policies {
     /// # use google_cloud_iam_v3::builder;
     /// use builder::principal_access_boundary_policies::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });

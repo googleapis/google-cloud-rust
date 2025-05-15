@@ -75,8 +75,9 @@ pub mod storage_batch_operations {
     /// # use google_cloud_storagebatchoperations_v1::builder;
     /// use builder::storage_batch_operations::ListJobs;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -189,6 +190,7 @@ pub mod storage_batch_operations {
     /// # use google_cloud_storagebatchoperations_v1::builder;
     /// use builder::storage_batch_operations::GetJob;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -251,8 +253,9 @@ pub mod storage_batch_operations {
     /// # use google_cloud_storagebatchoperations_v1::builder;
     /// use builder::storage_batch_operations::CreateJob;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_storagebatchoperations_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -374,6 +377,7 @@ pub mod storage_batch_operations {
     /// # use google_cloud_storagebatchoperations_v1::builder;
     /// use builder::storage_batch_operations::DeleteJob;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -442,6 +446,7 @@ pub mod storage_batch_operations {
     /// # use google_cloud_storagebatchoperations_v1::builder;
     /// use builder::storage_batch_operations::CancelJob;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -510,8 +515,9 @@ pub mod storage_batch_operations {
     /// # use google_cloud_storagebatchoperations_v1::builder;
     /// use builder::storage_batch_operations::ListLocations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -619,6 +625,7 @@ pub mod storage_batch_operations {
     /// # use google_cloud_storagebatchoperations_v1::builder;
     /// use builder::storage_batch_operations::GetLocation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -679,8 +686,9 @@ pub mod storage_batch_operations {
     /// # use google_cloud_storagebatchoperations_v1::builder;
     /// use builder::storage_batch_operations::ListOperations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -790,6 +798,7 @@ pub mod storage_batch_operations {
     /// # use google_cloud_storagebatchoperations_v1::builder;
     /// use builder::storage_batch_operations::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -853,6 +862,7 @@ pub mod storage_batch_operations {
     /// # use google_cloud_storagebatchoperations_v1::builder;
     /// use builder::storage_batch_operations::DeleteOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -916,6 +926,7 @@ pub mod storage_batch_operations {
     /// # use google_cloud_storagebatchoperations_v1::builder;
     /// use builder::storage_batch_operations::CancelOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });

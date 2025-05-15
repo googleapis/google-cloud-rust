@@ -73,8 +73,9 @@ pub mod iam {
     /// # use google_cloud_iam_admin_v1::builder;
     /// use builder::iam::ListServiceAccounts;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -178,6 +179,7 @@ pub mod iam {
     /// # use google_cloud_iam_admin_v1::builder;
     /// use builder::iam::GetServiceAccount;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -241,6 +243,7 @@ pub mod iam {
     /// # use google_cloud_iam_admin_v1::builder;
     /// use builder::iam::CreateServiceAccount;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -321,6 +324,7 @@ pub mod iam {
     /// # use google_cloud_iam_admin_v1::builder;
     /// use builder::iam::UpdateServiceAccount;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -428,6 +432,7 @@ pub mod iam {
     /// # use google_cloud_iam_admin_v1::builder;
     /// use builder::iam::PatchServiceAccount;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -501,6 +506,7 @@ pub mod iam {
     /// # use google_cloud_iam_admin_v1::builder;
     /// use builder::iam::DeleteServiceAccount;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -564,6 +570,7 @@ pub mod iam {
     /// # use google_cloud_iam_admin_v1::builder;
     /// use builder::iam::UndeleteServiceAccount;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -625,6 +632,7 @@ pub mod iam {
     /// # use google_cloud_iam_admin_v1::builder;
     /// use builder::iam::EnableServiceAccount;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -686,6 +694,7 @@ pub mod iam {
     /// # use google_cloud_iam_admin_v1::builder;
     /// use builder::iam::DisableServiceAccount;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -747,6 +756,7 @@ pub mod iam {
     /// # use google_cloud_iam_admin_v1::builder;
     /// use builder::iam::ListServiceAccountKeys;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -821,6 +831,7 @@ pub mod iam {
     /// # use google_cloud_iam_admin_v1::builder;
     /// use builder::iam::GetServiceAccountKey;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -893,6 +904,7 @@ pub mod iam {
     /// # use google_cloud_iam_admin_v1::builder;
     /// use builder::iam::CreateServiceAccountKey;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -976,6 +988,7 @@ pub mod iam {
     /// # use google_cloud_iam_admin_v1::builder;
     /// use builder::iam::UploadServiceAccountKey;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1045,6 +1058,7 @@ pub mod iam {
     /// # use google_cloud_iam_admin_v1::builder;
     /// use builder::iam::DeleteServiceAccountKey;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1110,6 +1124,7 @@ pub mod iam {
     /// # use google_cloud_iam_admin_v1::builder;
     /// use builder::iam::DisableServiceAccountKey;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1175,6 +1190,7 @@ pub mod iam {
     /// # use google_cloud_iam_admin_v1::builder;
     /// use builder::iam::EnableServiceAccountKey;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1240,6 +1256,7 @@ pub mod iam {
     /// # use google_cloud_iam_admin_v1::builder;
     /// use builder::iam::SignBlob;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1310,6 +1327,7 @@ pub mod iam {
     /// # use google_cloud_iam_admin_v1::builder;
     /// use builder::iam::SignJwt;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1380,6 +1398,7 @@ pub mod iam {
     /// # use google_cloud_iam_admin_v1::builder;
     /// use builder::iam::GetIamPolicy;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1449,6 +1468,7 @@ pub mod iam {
     /// # use google_cloud_iam_admin_v1::builder;
     /// use builder::iam::SetIamPolicy;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1529,6 +1549,7 @@ pub mod iam {
     /// # use google_cloud_iam_admin_v1::builder;
     /// use builder::iam::TestIamPermissions;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1605,8 +1626,9 @@ pub mod iam {
     /// # use google_cloud_iam_admin_v1::builder;
     /// use builder::iam::QueryGrantableRoles;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -1716,8 +1738,9 @@ pub mod iam {
     /// # use google_cloud_iam_admin_v1::builder;
     /// use builder::iam::ListRoles;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -1826,6 +1849,7 @@ pub mod iam {
     /// # use google_cloud_iam_admin_v1::builder;
     /// use builder::iam::GetRole;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1884,6 +1908,7 @@ pub mod iam {
     /// # use google_cloud_iam_admin_v1::builder;
     /// use builder::iam::CreateRole;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1954,6 +1979,7 @@ pub mod iam {
     /// # use google_cloud_iam_admin_v1::builder;
     /// use builder::iam::UpdateRole;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2027,6 +2053,7 @@ pub mod iam {
     /// # use google_cloud_iam_admin_v1::builder;
     /// use builder::iam::DeleteRole;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2091,6 +2118,7 @@ pub mod iam {
     /// # use google_cloud_iam_admin_v1::builder;
     /// use builder::iam::UndeleteRole;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2155,8 +2183,9 @@ pub mod iam {
     /// # use google_cloud_iam_admin_v1::builder;
     /// use builder::iam::QueryTestablePermissions;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -2262,6 +2291,7 @@ pub mod iam {
     /// # use google_cloud_iam_admin_v1::builder;
     /// use builder::iam::QueryAuditableServices;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2323,6 +2353,7 @@ pub mod iam {
     /// # use google_cloud_iam_admin_v1::builder;
     /// use builder::iam::LintPolicy;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });

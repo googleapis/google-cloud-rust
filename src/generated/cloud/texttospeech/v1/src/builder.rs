@@ -75,6 +75,7 @@ pub mod text_to_speech {
     /// # use google_cloud_texttospeech_v1::builder;
     /// use builder::text_to_speech::ListVoices;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -135,6 +136,7 @@ pub mod text_to_speech {
     /// # use google_cloud_texttospeech_v1::builder;
     /// use builder::text_to_speech::SynthesizeSpeech;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -236,8 +238,9 @@ pub mod text_to_speech {
     /// # use google_cloud_texttospeech_v1::builder;
     /// use builder::text_to_speech::ListOperations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -347,6 +350,7 @@ pub mod text_to_speech {
     /// # use google_cloud_texttospeech_v1::builder;
     /// use builder::text_to_speech::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -465,8 +469,9 @@ pub mod text_to_speech_long_audio_synthesize {
     /// # use google_cloud_texttospeech_v1::builder;
     /// use builder::text_to_speech_long_audio_synthesize::SynthesizeLongAudio;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_texttospeech_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -613,8 +618,9 @@ pub mod text_to_speech_long_audio_synthesize {
     /// # use google_cloud_texttospeech_v1::builder;
     /// use builder::text_to_speech_long_audio_synthesize::ListOperations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -724,6 +730,7 @@ pub mod text_to_speech_long_audio_synthesize {
     /// # use google_cloud_texttospeech_v1::builder;
     /// use builder::text_to_speech_long_audio_synthesize::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });

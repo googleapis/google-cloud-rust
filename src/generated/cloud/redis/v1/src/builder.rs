@@ -75,8 +75,9 @@ pub mod cloud_redis {
     /// # use google_cloud_redis_v1::builder;
     /// use builder::cloud_redis::ListInstances;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -177,6 +178,7 @@ pub mod cloud_redis {
     /// # use google_cloud_redis_v1::builder;
     /// use builder::cloud_redis::GetInstance;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -239,6 +241,7 @@ pub mod cloud_redis {
     /// # use google_cloud_redis_v1::builder;
     /// use builder::cloud_redis::GetInstanceAuthString;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -304,8 +307,9 @@ pub mod cloud_redis {
     /// # use google_cloud_redis_v1::builder;
     /// use builder::cloud_redis::CreateInstance;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_redis_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -424,8 +428,9 @@ pub mod cloud_redis {
     /// # use google_cloud_redis_v1::builder;
     /// use builder::cloud_redis::UpdateInstance;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_redis_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -539,8 +544,9 @@ pub mod cloud_redis {
     /// # use google_cloud_redis_v1::builder;
     /// use builder::cloud_redis::UpgradeInstance;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_redis_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -648,8 +654,9 @@ pub mod cloud_redis {
     /// # use google_cloud_redis_v1::builder;
     /// use builder::cloud_redis::ImportInstance;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_redis_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -760,8 +767,9 @@ pub mod cloud_redis {
     /// # use google_cloud_redis_v1::builder;
     /// use builder::cloud_redis::ExportInstance;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_redis_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -872,8 +880,9 @@ pub mod cloud_redis {
     /// # use google_cloud_redis_v1::builder;
     /// use builder::cloud_redis::FailoverInstance;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_redis_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -987,8 +996,9 @@ pub mod cloud_redis {
     /// # use google_cloud_redis_v1::builder;
     /// use builder::cloud_redis::DeleteInstance;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_redis_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1090,8 +1100,9 @@ pub mod cloud_redis {
     /// # use google_cloud_redis_v1::builder;
     /// use builder::cloud_redis::RescheduleMaintenance;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_redis_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1216,8 +1227,9 @@ pub mod cloud_redis {
     /// # use google_cloud_redis_v1::builder;
     /// use builder::cloud_redis::ListLocations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -1325,6 +1337,7 @@ pub mod cloud_redis {
     /// # use google_cloud_redis_v1::builder;
     /// use builder::cloud_redis::GetLocation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1385,8 +1398,9 @@ pub mod cloud_redis {
     /// # use google_cloud_redis_v1::builder;
     /// use builder::cloud_redis::ListOperations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -1496,6 +1510,7 @@ pub mod cloud_redis {
     /// # use google_cloud_redis_v1::builder;
     /// use builder::cloud_redis::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1559,6 +1574,7 @@ pub mod cloud_redis {
     /// # use google_cloud_redis_v1::builder;
     /// use builder::cloud_redis::DeleteOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1622,6 +1638,7 @@ pub mod cloud_redis {
     /// # use google_cloud_redis_v1::builder;
     /// use builder::cloud_redis::CancelOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });

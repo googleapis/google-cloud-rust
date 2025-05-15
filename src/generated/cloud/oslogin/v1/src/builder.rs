@@ -75,6 +75,7 @@ pub mod os_login_service {
     /// # use google_cloud_oslogin_v1::builder;
     /// use builder::os_login_service::CreateSshPublicKey;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -153,6 +154,7 @@ pub mod os_login_service {
     /// # use google_cloud_oslogin_v1::builder;
     /// use builder::os_login_service::DeletePosixAccount;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -218,6 +220,7 @@ pub mod os_login_service {
     /// # use google_cloud_oslogin_v1::builder;
     /// use builder::os_login_service::DeleteSshPublicKey;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -283,6 +286,7 @@ pub mod os_login_service {
     /// # use google_cloud_oslogin_v1::builder;
     /// use builder::os_login_service::GetLoginProfile;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -357,6 +361,7 @@ pub mod os_login_service {
     /// # use google_cloud_oslogin_v1::builder;
     /// use builder::os_login_service::GetSshPublicKey;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -419,6 +424,7 @@ pub mod os_login_service {
     /// # use google_cloud_oslogin_v1::builder;
     /// use builder::os_login_service::ImportSshPublicKey;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -512,6 +518,7 @@ pub mod os_login_service {
     /// # use google_cloud_oslogin_v1::builder;
     /// use builder::os_login_service::UpdateSshPublicKey;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });

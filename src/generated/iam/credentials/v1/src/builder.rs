@@ -75,6 +75,7 @@ pub mod iam_credentials {
     /// # use google_cloud_iam_credentials_v1::builder;
     /// use builder::iam_credentials::GenerateAccessToken;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -170,6 +171,7 @@ pub mod iam_credentials {
     /// # use google_cloud_iam_credentials_v1::builder;
     /// use builder::iam_credentials::GenerateIdToken;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -257,6 +259,7 @@ pub mod iam_credentials {
     /// # use google_cloud_iam_credentials_v1::builder;
     /// use builder::iam_credentials::SignBlob;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -338,6 +341,7 @@ pub mod iam_credentials {
     /// # use google_cloud_iam_credentials_v1::builder;
     /// use builder::iam_credentials::SignJwt;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });

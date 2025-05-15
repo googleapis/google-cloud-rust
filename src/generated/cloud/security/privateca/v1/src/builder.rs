@@ -75,6 +75,7 @@ pub mod certificate_authority_service {
     /// # use google_cloud_security_privateca_v1::builder;
     /// use builder::certificate_authority_service::CreateCertificate;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -178,6 +179,7 @@ pub mod certificate_authority_service {
     /// # use google_cloud_security_privateca_v1::builder;
     /// use builder::certificate_authority_service::GetCertificate;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -240,8 +242,9 @@ pub mod certificate_authority_service {
     /// # use google_cloud_security_privateca_v1::builder;
     /// use builder::certificate_authority_service::ListCertificates;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -357,6 +360,7 @@ pub mod certificate_authority_service {
     /// # use google_cloud_security_privateca_v1::builder;
     /// use builder::certificate_authority_service::RevokeCertificate;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -436,6 +440,7 @@ pub mod certificate_authority_service {
     /// # use google_cloud_security_privateca_v1::builder;
     /// use builder::certificate_authority_service::UpdateCertificate;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -521,8 +526,9 @@ pub mod certificate_authority_service {
     /// # use google_cloud_security_privateca_v1::builder;
     /// use builder::certificate_authority_service::ActivateCertificateAuthority;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_security_privateca_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -657,8 +663,9 @@ pub mod certificate_authority_service {
     /// # use google_cloud_security_privateca_v1::builder;
     /// use builder::certificate_authority_service::CreateCertificateAuthority;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_security_privateca_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -793,8 +800,9 @@ pub mod certificate_authority_service {
     /// # use google_cloud_security_privateca_v1::builder;
     /// use builder::certificate_authority_service::DisableCertificateAuthority;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_security_privateca_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -914,8 +922,9 @@ pub mod certificate_authority_service {
     /// # use google_cloud_security_privateca_v1::builder;
     /// use builder::certificate_authority_service::EnableCertificateAuthority;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_security_privateca_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1029,6 +1038,7 @@ pub mod certificate_authority_service {
     /// # use google_cloud_security_privateca_v1::builder;
     /// use builder::certificate_authority_service::FetchCertificateAuthorityCsr;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1096,6 +1106,7 @@ pub mod certificate_authority_service {
     /// # use google_cloud_security_privateca_v1::builder;
     /// use builder::certificate_authority_service::GetCertificateAuthority;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1163,8 +1174,9 @@ pub mod certificate_authority_service {
     /// # use google_cloud_security_privateca_v1::builder;
     /// use builder::certificate_authority_service::ListCertificateAuthorities;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -1286,8 +1298,9 @@ pub mod certificate_authority_service {
     /// # use google_cloud_security_privateca_v1::builder;
     /// use builder::certificate_authority_service::UndeleteCertificateAuthority;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_security_privateca_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1401,8 +1414,9 @@ pub mod certificate_authority_service {
     /// # use google_cloud_security_privateca_v1::builder;
     /// use builder::certificate_authority_service::DeleteCertificateAuthority;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_security_privateca_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1534,8 +1548,9 @@ pub mod certificate_authority_service {
     /// # use google_cloud_security_privateca_v1::builder;
     /// use builder::certificate_authority_service::UpdateCertificateAuthority;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_security_privateca_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1665,8 +1680,9 @@ pub mod certificate_authority_service {
     /// # use google_cloud_security_privateca_v1::builder;
     /// use builder::certificate_authority_service::CreateCaPool;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_security_privateca_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1791,8 +1807,9 @@ pub mod certificate_authority_service {
     /// # use google_cloud_security_privateca_v1::builder;
     /// use builder::certificate_authority_service::UpdateCaPool;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_security_privateca_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1912,6 +1929,7 @@ pub mod certificate_authority_service {
     /// # use google_cloud_security_privateca_v1::builder;
     /// use builder::certificate_authority_service::GetCaPool;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1974,8 +1992,9 @@ pub mod certificate_authority_service {
     /// # use google_cloud_security_privateca_v1::builder;
     /// use builder::certificate_authority_service::ListCaPools;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -2088,8 +2107,9 @@ pub mod certificate_authority_service {
     /// # use google_cloud_security_privateca_v1::builder;
     /// use builder::certificate_authority_service::DeleteCaPool;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_security_privateca_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -2203,6 +2223,7 @@ pub mod certificate_authority_service {
     /// # use google_cloud_security_privateca_v1::builder;
     /// use builder::certificate_authority_service::FetchCaCerts;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2271,6 +2292,7 @@ pub mod certificate_authority_service {
     /// # use google_cloud_security_privateca_v1::builder;
     /// use builder::certificate_authority_service::GetCertificateRevocationList;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2338,8 +2360,9 @@ pub mod certificate_authority_service {
     /// # use google_cloud_security_privateca_v1::builder;
     /// use builder::certificate_authority_service::ListCertificateRevocationLists;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -2461,8 +2484,9 @@ pub mod certificate_authority_service {
     /// # use google_cloud_security_privateca_v1::builder;
     /// use builder::certificate_authority_service::UpdateCertificateRevocationList;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_security_privateca_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -2592,8 +2616,9 @@ pub mod certificate_authority_service {
     /// # use google_cloud_security_privateca_v1::builder;
     /// use builder::certificate_authority_service::CreateCertificateTemplate;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_security_privateca_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -2728,8 +2753,9 @@ pub mod certificate_authority_service {
     /// # use google_cloud_security_privateca_v1::builder;
     /// use builder::certificate_authority_service::DeleteCertificateTemplate;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_security_privateca_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -2842,6 +2868,7 @@ pub mod certificate_authority_service {
     /// # use google_cloud_security_privateca_v1::builder;
     /// use builder::certificate_authority_service::GetCertificateTemplate;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2907,8 +2934,9 @@ pub mod certificate_authority_service {
     /// # use google_cloud_security_privateca_v1::builder;
     /// use builder::certificate_authority_service::ListCertificateTemplates;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -3030,8 +3058,9 @@ pub mod certificate_authority_service {
     /// # use google_cloud_security_privateca_v1::builder;
     /// use builder::certificate_authority_service::UpdateCertificateTemplate;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_security_privateca_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -3161,8 +3190,9 @@ pub mod certificate_authority_service {
     /// # use google_cloud_security_privateca_v1::builder;
     /// use builder::certificate_authority_service::ListLocations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -3270,6 +3300,7 @@ pub mod certificate_authority_service {
     /// # use google_cloud_security_privateca_v1::builder;
     /// use builder::certificate_authority_service::GetLocation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3330,6 +3361,7 @@ pub mod certificate_authority_service {
     /// # use google_cloud_security_privateca_v1::builder;
     /// use builder::certificate_authority_service::SetIamPolicy;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3412,6 +3444,7 @@ pub mod certificate_authority_service {
     /// # use google_cloud_security_privateca_v1::builder;
     /// use builder::certificate_authority_service::GetIamPolicy;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3483,6 +3516,7 @@ pub mod certificate_authority_service {
     /// # use google_cloud_security_privateca_v1::builder;
     /// use builder::certificate_authority_service::TestIamPermissions;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3561,8 +3595,9 @@ pub mod certificate_authority_service {
     /// # use google_cloud_security_privateca_v1::builder;
     /// use builder::certificate_authority_service::ListOperations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -3672,6 +3707,7 @@ pub mod certificate_authority_service {
     /// # use google_cloud_security_privateca_v1::builder;
     /// use builder::certificate_authority_service::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3735,6 +3771,7 @@ pub mod certificate_authority_service {
     /// # use google_cloud_security_privateca_v1::builder;
     /// use builder::certificate_authority_service::DeleteOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3798,6 +3835,7 @@ pub mod certificate_authority_service {
     /// # use google_cloud_security_privateca_v1::builder;
     /// use builder::certificate_authority_service::CancelOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });

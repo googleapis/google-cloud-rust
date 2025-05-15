@@ -75,8 +75,9 @@ pub mod catalog_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::catalog_service::CreateEntryType;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_dataplex_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -201,8 +202,9 @@ pub mod catalog_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::catalog_service::UpdateEntryType;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_dataplex_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -322,8 +324,9 @@ pub mod catalog_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::catalog_service::DeleteEntryType;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_dataplex_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -431,8 +434,9 @@ pub mod catalog_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::catalog_service::ListEntryTypes;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -545,6 +549,7 @@ pub mod catalog_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::catalog_service::GetEntryType;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -607,8 +612,9 @@ pub mod catalog_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::catalog_service::CreateAspectType;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_dataplex_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -736,8 +742,9 @@ pub mod catalog_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::catalog_service::UpdateAspectType;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_dataplex_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -860,8 +867,9 @@ pub mod catalog_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::catalog_service::DeleteAspectType;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_dataplex_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -972,8 +980,9 @@ pub mod catalog_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::catalog_service::ListAspectTypes;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -1086,6 +1095,7 @@ pub mod catalog_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::catalog_service::GetAspectType;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1148,8 +1158,9 @@ pub mod catalog_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::catalog_service::CreateEntryGroup;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_dataplex_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1277,8 +1288,9 @@ pub mod catalog_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::catalog_service::UpdateEntryGroup;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_dataplex_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1401,8 +1413,9 @@ pub mod catalog_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::catalog_service::DeleteEntryGroup;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_dataplex_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1513,8 +1526,9 @@ pub mod catalog_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::catalog_service::ListEntryGroups;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -1627,6 +1641,7 @@ pub mod catalog_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::catalog_service::GetEntryGroup;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1689,6 +1704,7 @@ pub mod catalog_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::catalog_service::CreateEntry;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1770,6 +1786,7 @@ pub mod catalog_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::catalog_service::UpdateEntry;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1867,6 +1884,7 @@ pub mod catalog_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::catalog_service::DeleteEntry;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1929,8 +1947,9 @@ pub mod catalog_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::catalog_service::ListEntries;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -2037,6 +2056,7 @@ pub mod catalog_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::catalog_service::GetEntry;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2127,6 +2147,7 @@ pub mod catalog_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::catalog_service::LookupEntry;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2225,8 +2246,9 @@ pub mod catalog_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::catalog_service::SearchEntries;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -2347,8 +2369,9 @@ pub mod catalog_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::catalog_service::CreateMetadataJob;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_dataplex_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -2476,6 +2499,7 @@ pub mod catalog_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::catalog_service::GetMetadataJob;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2538,8 +2562,9 @@ pub mod catalog_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::catalog_service::ListMetadataJobs;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -2655,6 +2680,7 @@ pub mod catalog_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::catalog_service::CancelMetadataJob;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2720,8 +2746,9 @@ pub mod catalog_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::catalog_service::ListLocations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -2829,6 +2856,7 @@ pub mod catalog_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::catalog_service::GetLocation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2889,6 +2917,7 @@ pub mod catalog_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::catalog_service::SetIamPolicy;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2971,6 +3000,7 @@ pub mod catalog_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::catalog_service::GetIamPolicy;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3042,6 +3072,7 @@ pub mod catalog_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::catalog_service::TestIamPermissions;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3120,8 +3151,9 @@ pub mod catalog_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::catalog_service::ListOperations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -3231,6 +3263,7 @@ pub mod catalog_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::catalog_service::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3294,6 +3327,7 @@ pub mod catalog_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::catalog_service::DeleteOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3357,6 +3391,7 @@ pub mod catalog_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::catalog_service::CancelOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3475,8 +3510,9 @@ pub mod cmek_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::cmek_service::CreateEncryptionConfig;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_dataplex_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -3603,8 +3639,9 @@ pub mod cmek_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::cmek_service::UpdateEncryptionConfig;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_dataplex_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -3724,8 +3761,9 @@ pub mod cmek_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::cmek_service::DeleteEncryptionConfig;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_dataplex_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -3836,8 +3874,9 @@ pub mod cmek_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::cmek_service::ListEncryptionConfigs;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -3955,6 +3994,7 @@ pub mod cmek_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::cmek_service::GetEncryptionConfig;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -4020,8 +4060,9 @@ pub mod cmek_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::cmek_service::ListLocations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -4129,6 +4170,7 @@ pub mod cmek_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::cmek_service::GetLocation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -4189,6 +4231,7 @@ pub mod cmek_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::cmek_service::SetIamPolicy;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -4271,6 +4314,7 @@ pub mod cmek_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::cmek_service::GetIamPolicy;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -4342,6 +4386,7 @@ pub mod cmek_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::cmek_service::TestIamPermissions;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -4420,8 +4465,9 @@ pub mod cmek_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::cmek_service::ListOperations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -4531,6 +4577,7 @@ pub mod cmek_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::cmek_service::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -4594,6 +4641,7 @@ pub mod cmek_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::cmek_service::DeleteOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -4657,6 +4705,7 @@ pub mod cmek_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::cmek_service::CancelOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -4775,6 +4824,7 @@ pub mod content_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::content_service::CreateContent;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -4854,6 +4904,7 @@ pub mod content_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::content_service::UpdateContent;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -4936,6 +4987,7 @@ pub mod content_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::content_service::DeleteContent;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -4998,6 +5050,7 @@ pub mod content_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::content_service::GetContent;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -5069,6 +5122,7 @@ pub mod content_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::content_service::GetIamPolicy;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -5140,6 +5194,7 @@ pub mod content_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::content_service::SetIamPolicy;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -5222,6 +5277,7 @@ pub mod content_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::content_service::TestIamPermissions;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -5300,8 +5356,9 @@ pub mod content_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::content_service::ListContent;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -5408,8 +5465,9 @@ pub mod content_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::content_service::ListLocations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -5517,6 +5575,7 @@ pub mod content_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::content_service::GetLocation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -5577,8 +5636,9 @@ pub mod content_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::content_service::ListOperations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -5688,6 +5748,7 @@ pub mod content_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::content_service::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -5751,6 +5812,7 @@ pub mod content_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::content_service::DeleteOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -5814,6 +5876,7 @@ pub mod content_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::content_service::CancelOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -5932,8 +5995,9 @@ pub mod data_taxonomy_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::data_taxonomy_service::CreateDataTaxonomy;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_dataplex_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -6063,8 +6127,9 @@ pub mod data_taxonomy_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::data_taxonomy_service::UpdateDataTaxonomy;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_dataplex_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -6189,8 +6254,9 @@ pub mod data_taxonomy_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::data_taxonomy_service::DeleteDataTaxonomy;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_dataplex_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -6301,8 +6367,9 @@ pub mod data_taxonomy_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::data_taxonomy_service::ListDataTaxonomies;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -6420,6 +6487,7 @@ pub mod data_taxonomy_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::data_taxonomy_service::GetDataTaxonomy;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -6482,8 +6550,9 @@ pub mod data_taxonomy_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::data_taxonomy_service::CreateDataAttributeBinding;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_dataplex_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -6618,8 +6687,9 @@ pub mod data_taxonomy_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::data_taxonomy_service::UpdateDataAttributeBinding;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_dataplex_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -6749,8 +6819,9 @@ pub mod data_taxonomy_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::data_taxonomy_service::DeleteDataAttributeBinding;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_dataplex_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -6865,8 +6936,9 @@ pub mod data_taxonomy_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::data_taxonomy_service::ListDataAttributeBindings;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -6988,6 +7060,7 @@ pub mod data_taxonomy_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::data_taxonomy_service::GetDataAttributeBinding;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -7055,8 +7128,9 @@ pub mod data_taxonomy_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::data_taxonomy_service::CreateDataAttribute;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_dataplex_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -7187,8 +7261,9 @@ pub mod data_taxonomy_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::data_taxonomy_service::UpdateDataAttribute;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_dataplex_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -7314,8 +7389,9 @@ pub mod data_taxonomy_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::data_taxonomy_service::DeleteDataAttribute;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_dataplex_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -7426,8 +7502,9 @@ pub mod data_taxonomy_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::data_taxonomy_service::ListDataAttributes;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -7545,6 +7622,7 @@ pub mod data_taxonomy_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::data_taxonomy_service::GetDataAttribute;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -7610,8 +7688,9 @@ pub mod data_taxonomy_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::data_taxonomy_service::ListLocations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -7719,6 +7798,7 @@ pub mod data_taxonomy_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::data_taxonomy_service::GetLocation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -7779,6 +7859,7 @@ pub mod data_taxonomy_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::data_taxonomy_service::SetIamPolicy;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -7861,6 +7942,7 @@ pub mod data_taxonomy_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::data_taxonomy_service::GetIamPolicy;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -7932,6 +8014,7 @@ pub mod data_taxonomy_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::data_taxonomy_service::TestIamPermissions;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -8010,8 +8093,9 @@ pub mod data_taxonomy_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::data_taxonomy_service::ListOperations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -8121,6 +8205,7 @@ pub mod data_taxonomy_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::data_taxonomy_service::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -8184,6 +8269,7 @@ pub mod data_taxonomy_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::data_taxonomy_service::DeleteOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -8247,6 +8333,7 @@ pub mod data_taxonomy_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::data_taxonomy_service::CancelOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -8365,8 +8452,9 @@ pub mod data_scan_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::data_scan_service::CreateDataScan;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_dataplex_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -8491,8 +8579,9 @@ pub mod data_scan_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::data_scan_service::UpdateDataScan;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_dataplex_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -8610,8 +8699,9 @@ pub mod data_scan_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::data_scan_service::DeleteDataScan;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_dataplex_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -8719,6 +8809,7 @@ pub mod data_scan_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::data_scan_service::GetDataScan;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -8790,8 +8881,9 @@ pub mod data_scan_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::data_scan_service::ListDataScans;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -8904,6 +8996,7 @@ pub mod data_scan_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::data_scan_service::RunDataScan;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -8966,6 +9059,7 @@ pub mod data_scan_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::data_scan_service::GetDataScanJob;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -9037,8 +9131,9 @@ pub mod data_scan_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::data_scan_service::ListDataScanJobs;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -9148,6 +9243,7 @@ pub mod data_scan_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::data_scan_service::GenerateDataQualityRules;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -9215,8 +9311,9 @@ pub mod data_scan_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::data_scan_service::ListLocations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -9324,6 +9421,7 @@ pub mod data_scan_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::data_scan_service::GetLocation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -9384,6 +9482,7 @@ pub mod data_scan_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::data_scan_service::SetIamPolicy;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -9466,6 +9565,7 @@ pub mod data_scan_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::data_scan_service::GetIamPolicy;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -9537,6 +9637,7 @@ pub mod data_scan_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::data_scan_service::TestIamPermissions;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -9615,8 +9716,9 @@ pub mod data_scan_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::data_scan_service::ListOperations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -9726,6 +9828,7 @@ pub mod data_scan_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::data_scan_service::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -9789,6 +9892,7 @@ pub mod data_scan_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::data_scan_service::DeleteOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -9852,6 +9956,7 @@ pub mod data_scan_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::data_scan_service::CancelOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -9970,6 +10075,7 @@ pub mod metadata_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::metadata_service::CreateEntity;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -10049,6 +10155,7 @@ pub mod metadata_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::metadata_service::UpdateEntity;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -10120,6 +10227,7 @@ pub mod metadata_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::metadata_service::DeleteEntity;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -10190,6 +10298,7 @@ pub mod metadata_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::metadata_service::GetEntity;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -10261,8 +10370,9 @@ pub mod metadata_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::metadata_service::ListEntities;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -10380,6 +10490,7 @@ pub mod metadata_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::metadata_service::CreatePartition;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -10459,6 +10570,7 @@ pub mod metadata_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::metadata_service::DeletePartition;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -10528,6 +10640,7 @@ pub mod metadata_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::metadata_service::GetPartition;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -10590,8 +10703,9 @@ pub mod metadata_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::metadata_service::ListPartitions;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -10698,8 +10812,9 @@ pub mod metadata_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::metadata_service::ListLocations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -10807,6 +10922,7 @@ pub mod metadata_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::metadata_service::GetLocation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -10867,6 +10983,7 @@ pub mod metadata_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::metadata_service::SetIamPolicy;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -10949,6 +11066,7 @@ pub mod metadata_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::metadata_service::GetIamPolicy;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -11020,6 +11138,7 @@ pub mod metadata_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::metadata_service::TestIamPermissions;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -11098,8 +11217,9 @@ pub mod metadata_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::metadata_service::ListOperations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -11209,6 +11329,7 @@ pub mod metadata_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::metadata_service::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -11272,6 +11393,7 @@ pub mod metadata_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::metadata_service::DeleteOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -11335,6 +11457,7 @@ pub mod metadata_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::metadata_service::CancelOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -11453,8 +11576,9 @@ pub mod dataplex_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::dataplex_service::CreateLake;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_dataplex_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -11576,8 +11700,9 @@ pub mod dataplex_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::dataplex_service::UpdateLake;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_dataplex_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -11694,8 +11819,9 @@ pub mod dataplex_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::dataplex_service::DeleteLake;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_dataplex_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -11797,8 +11923,9 @@ pub mod dataplex_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::dataplex_service::ListLakes;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -11911,6 +12038,7 @@ pub mod dataplex_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::dataplex_service::GetLake;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -11973,8 +12101,9 @@ pub mod dataplex_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::dataplex_service::ListLakeActions;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -12075,8 +12204,9 @@ pub mod dataplex_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::dataplex_service::CreateZone;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_dataplex_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -12198,8 +12328,9 @@ pub mod dataplex_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::dataplex_service::UpdateZone;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_dataplex_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -12316,8 +12447,9 @@ pub mod dataplex_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::dataplex_service::DeleteZone;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_dataplex_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -12419,8 +12551,9 @@ pub mod dataplex_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::dataplex_service::ListZones;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -12533,6 +12666,7 @@ pub mod dataplex_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::dataplex_service::GetZone;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -12595,8 +12729,9 @@ pub mod dataplex_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::dataplex_service::ListZoneActions;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -12697,8 +12832,9 @@ pub mod dataplex_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::dataplex_service::CreateAsset;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_dataplex_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -12823,8 +12959,9 @@ pub mod dataplex_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::dataplex_service::UpdateAsset;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_dataplex_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -12944,8 +13081,9 @@ pub mod dataplex_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::dataplex_service::DeleteAsset;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_dataplex_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -13047,8 +13185,9 @@ pub mod dataplex_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::dataplex_service::ListAssets;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -13161,6 +13300,7 @@ pub mod dataplex_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::dataplex_service::GetAsset;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -13223,8 +13363,9 @@ pub mod dataplex_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::dataplex_service::ListAssetActions;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -13328,8 +13469,9 @@ pub mod dataplex_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::dataplex_service::CreateTask;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_dataplex_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -13451,8 +13593,9 @@ pub mod dataplex_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::dataplex_service::UpdateTask;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_dataplex_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -13569,8 +13712,9 @@ pub mod dataplex_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::dataplex_service::DeleteTask;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_dataplex_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -13672,8 +13816,9 @@ pub mod dataplex_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::dataplex_service::ListTasks;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -13786,6 +13931,7 @@ pub mod dataplex_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::dataplex_service::GetTask;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -13848,8 +13994,9 @@ pub mod dataplex_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::dataplex_service::ListJobs;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -13950,6 +14097,7 @@ pub mod dataplex_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::dataplex_service::RunTask;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -14034,6 +14182,7 @@ pub mod dataplex_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::dataplex_service::GetJob;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -14096,6 +14245,7 @@ pub mod dataplex_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::dataplex_service::CancelJob;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -14158,8 +14308,9 @@ pub mod dataplex_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::dataplex_service::CreateEnvironment;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_dataplex_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -14289,8 +14440,9 @@ pub mod dataplex_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::dataplex_service::UpdateEnvironment;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_dataplex_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -14415,8 +14567,9 @@ pub mod dataplex_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::dataplex_service::DeleteEnvironment;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_dataplex_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -14521,8 +14674,9 @@ pub mod dataplex_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::dataplex_service::ListEnvironments;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -14638,6 +14792,7 @@ pub mod dataplex_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::dataplex_service::GetEnvironment;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -14700,8 +14855,9 @@ pub mod dataplex_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::dataplex_service::ListSessions;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -14808,8 +14964,9 @@ pub mod dataplex_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::dataplex_service::ListLocations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -14917,6 +15074,7 @@ pub mod dataplex_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::dataplex_service::GetLocation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -14977,6 +15135,7 @@ pub mod dataplex_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::dataplex_service::SetIamPolicy;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -15059,6 +15218,7 @@ pub mod dataplex_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::dataplex_service::GetIamPolicy;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -15130,6 +15290,7 @@ pub mod dataplex_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::dataplex_service::TestIamPermissions;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -15208,8 +15369,9 @@ pub mod dataplex_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::dataplex_service::ListOperations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -15319,6 +15481,7 @@ pub mod dataplex_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::dataplex_service::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -15382,6 +15545,7 @@ pub mod dataplex_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::dataplex_service::DeleteOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -15445,6 +15609,7 @@ pub mod dataplex_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::dataplex_service::CancelOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });

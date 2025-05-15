@@ -77,6 +77,7 @@ pub mod public_certificate_authority_service {
     /// # use google_cloud_security_publicca_v1::builder;
     /// use builder::public_certificate_authority_service::CreateExternalAccountKey;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });

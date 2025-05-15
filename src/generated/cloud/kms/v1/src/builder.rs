@@ -73,8 +73,9 @@ pub mod autokey {
     /// # use google_cloud_kms_v1::builder;
     /// use builder::autokey::CreateKeyHandle;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_kms_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -192,6 +193,7 @@ pub mod autokey {
     /// # use google_cloud_kms_v1::builder;
     /// use builder::autokey::GetKeyHandle;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -252,8 +254,9 @@ pub mod autokey {
     /// # use google_cloud_kms_v1::builder;
     /// use builder::autokey::ListKeyHandles;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -358,8 +361,9 @@ pub mod autokey {
     /// # use google_cloud_kms_v1::builder;
     /// use builder::autokey::ListLocations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -465,6 +469,7 @@ pub mod autokey {
     /// # use google_cloud_kms_v1::builder;
     /// use builder::autokey::GetLocation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -523,6 +528,7 @@ pub mod autokey {
     /// # use google_cloud_kms_v1::builder;
     /// use builder::autokey::SetIamPolicy;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -603,6 +609,7 @@ pub mod autokey {
     /// # use google_cloud_kms_v1::builder;
     /// use builder::autokey::GetIamPolicy;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -672,6 +679,7 @@ pub mod autokey {
     /// # use google_cloud_kms_v1::builder;
     /// use builder::autokey::TestIamPermissions;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -748,6 +756,7 @@ pub mod autokey {
     /// # use google_cloud_kms_v1::builder;
     /// use builder::autokey::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -864,6 +873,7 @@ pub mod autokey_admin {
     /// # use google_cloud_kms_v1::builder;
     /// use builder::autokey_admin::UpdateAutokeyConfig;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -943,6 +953,7 @@ pub mod autokey_admin {
     /// # use google_cloud_kms_v1::builder;
     /// use builder::autokey_admin::GetAutokeyConfig;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1008,6 +1019,7 @@ pub mod autokey_admin {
     /// # use google_cloud_kms_v1::builder;
     /// use builder::autokey_admin::ShowEffectiveAutokeyConfig;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1075,8 +1087,9 @@ pub mod autokey_admin {
     /// # use google_cloud_kms_v1::builder;
     /// use builder::autokey_admin::ListLocations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -1184,6 +1197,7 @@ pub mod autokey_admin {
     /// # use google_cloud_kms_v1::builder;
     /// use builder::autokey_admin::GetLocation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1244,6 +1258,7 @@ pub mod autokey_admin {
     /// # use google_cloud_kms_v1::builder;
     /// use builder::autokey_admin::SetIamPolicy;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1326,6 +1341,7 @@ pub mod autokey_admin {
     /// # use google_cloud_kms_v1::builder;
     /// use builder::autokey_admin::GetIamPolicy;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1397,6 +1413,7 @@ pub mod autokey_admin {
     /// # use google_cloud_kms_v1::builder;
     /// use builder::autokey_admin::TestIamPermissions;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1475,6 +1492,7 @@ pub mod autokey_admin {
     /// # use google_cloud_kms_v1::builder;
     /// use builder::autokey_admin::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1593,8 +1611,9 @@ pub mod ekm_service {
     /// # use google_cloud_kms_v1::builder;
     /// use builder::ekm_service::ListEkmConnections;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -1712,6 +1731,7 @@ pub mod ekm_service {
     /// # use google_cloud_kms_v1::builder;
     /// use builder::ekm_service::GetEkmConnection;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1777,6 +1797,7 @@ pub mod ekm_service {
     /// # use google_cloud_kms_v1::builder;
     /// use builder::ekm_service::CreateEkmConnection;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1861,6 +1882,7 @@ pub mod ekm_service {
     /// # use google_cloud_kms_v1::builder;
     /// use builder::ekm_service::UpdateEkmConnection;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1940,6 +1962,7 @@ pub mod ekm_service {
     /// # use google_cloud_kms_v1::builder;
     /// use builder::ekm_service::GetEkmConfig;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2002,6 +2025,7 @@ pub mod ekm_service {
     /// # use google_cloud_kms_v1::builder;
     /// use builder::ekm_service::UpdateEkmConfig;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2078,6 +2102,7 @@ pub mod ekm_service {
     /// # use google_cloud_kms_v1::builder;
     /// use builder::ekm_service::VerifyConnectivity;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2143,8 +2168,9 @@ pub mod ekm_service {
     /// # use google_cloud_kms_v1::builder;
     /// use builder::ekm_service::ListLocations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -2252,6 +2278,7 @@ pub mod ekm_service {
     /// # use google_cloud_kms_v1::builder;
     /// use builder::ekm_service::GetLocation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2312,6 +2339,7 @@ pub mod ekm_service {
     /// # use google_cloud_kms_v1::builder;
     /// use builder::ekm_service::SetIamPolicy;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2394,6 +2422,7 @@ pub mod ekm_service {
     /// # use google_cloud_kms_v1::builder;
     /// use builder::ekm_service::GetIamPolicy;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2465,6 +2494,7 @@ pub mod ekm_service {
     /// # use google_cloud_kms_v1::builder;
     /// use builder::ekm_service::TestIamPermissions;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2543,6 +2573,7 @@ pub mod ekm_service {
     /// # use google_cloud_kms_v1::builder;
     /// use builder::ekm_service::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2661,8 +2692,9 @@ pub mod key_management_service {
     /// # use google_cloud_kms_v1::builder;
     /// use builder::key_management_service::ListKeyRings;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -2775,8 +2807,9 @@ pub mod key_management_service {
     /// # use google_cloud_kms_v1::builder;
     /// use builder::key_management_service::ListCryptoKeys;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -2898,8 +2931,9 @@ pub mod key_management_service {
     /// # use google_cloud_kms_v1::builder;
     /// use builder::key_management_service::ListCryptoKeyVersions;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -3026,8 +3060,9 @@ pub mod key_management_service {
     /// # use google_cloud_kms_v1::builder;
     /// use builder::key_management_service::ListImportJobs;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -3140,6 +3175,7 @@ pub mod key_management_service {
     /// # use google_cloud_kms_v1::builder;
     /// use builder::key_management_service::GetKeyRing;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3202,6 +3238,7 @@ pub mod key_management_service {
     /// # use google_cloud_kms_v1::builder;
     /// use builder::key_management_service::GetCryptoKey;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3264,6 +3301,7 @@ pub mod key_management_service {
     /// # use google_cloud_kms_v1::builder;
     /// use builder::key_management_service::GetCryptoKeyVersion;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3329,6 +3367,7 @@ pub mod key_management_service {
     /// # use google_cloud_kms_v1::builder;
     /// use builder::key_management_service::GetPublicKey;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3400,6 +3439,7 @@ pub mod key_management_service {
     /// # use google_cloud_kms_v1::builder;
     /// use builder::key_management_service::GetImportJob;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3462,6 +3502,7 @@ pub mod key_management_service {
     /// # use google_cloud_kms_v1::builder;
     /// use builder::key_management_service::CreateKeyRing;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3543,6 +3584,7 @@ pub mod key_management_service {
     /// # use google_cloud_kms_v1::builder;
     /// use builder::key_management_service::CreateCryptoKey;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3630,6 +3672,7 @@ pub mod key_management_service {
     /// # use google_cloud_kms_v1::builder;
     /// use builder::key_management_service::CreateCryptoKeyVersion;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3708,6 +3751,7 @@ pub mod key_management_service {
     /// # use google_cloud_kms_v1::builder;
     /// use builder::key_management_service::ImportCryptoKeyVersion;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3833,6 +3877,7 @@ pub mod key_management_service {
     /// # use google_cloud_kms_v1::builder;
     /// use builder::key_management_service::CreateImportJob;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3914,6 +3959,7 @@ pub mod key_management_service {
     /// # use google_cloud_kms_v1::builder;
     /// use builder::key_management_service::UpdateCryptoKey;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3990,6 +4036,7 @@ pub mod key_management_service {
     /// # use google_cloud_kms_v1::builder;
     /// use builder::key_management_service::UpdateCryptoKeyVersion;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -4071,6 +4118,7 @@ pub mod key_management_service {
     /// # use google_cloud_kms_v1::builder;
     /// use builder::key_management_service::UpdateCryptoKeyPrimaryVersion;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -4146,6 +4194,7 @@ pub mod key_management_service {
     /// # use google_cloud_kms_v1::builder;
     /// use builder::key_management_service::DestroyCryptoKeyVersion;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -4213,6 +4262,7 @@ pub mod key_management_service {
     /// # use google_cloud_kms_v1::builder;
     /// use builder::key_management_service::RestoreCryptoKeyVersion;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -4280,6 +4330,7 @@ pub mod key_management_service {
     /// # use google_cloud_kms_v1::builder;
     /// use builder::key_management_service::Encrypt;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -4376,6 +4427,7 @@ pub mod key_management_service {
     /// # use google_cloud_kms_v1::builder;
     /// use builder::key_management_service::Decrypt;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -4472,6 +4524,7 @@ pub mod key_management_service {
     /// # use google_cloud_kms_v1::builder;
     /// use builder::key_management_service::RawEncrypt;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -4583,6 +4636,7 @@ pub mod key_management_service {
     /// # use google_cloud_kms_v1::builder;
     /// use builder::key_management_service::RawDecrypt;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -4702,6 +4756,7 @@ pub mod key_management_service {
     /// # use google_cloud_kms_v1::builder;
     /// use builder::key_management_service::AsymmetricSign;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -4797,6 +4852,7 @@ pub mod key_management_service {
     /// # use google_cloud_kms_v1::builder;
     /// use builder::key_management_service::AsymmetricDecrypt;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -4879,6 +4935,7 @@ pub mod key_management_service {
     /// # use google_cloud_kms_v1::builder;
     /// use builder::key_management_service::MacSign;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -4958,6 +5015,7 @@ pub mod key_management_service {
     /// # use google_cloud_kms_v1::builder;
     /// use builder::key_management_service::MacVerify;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -5054,6 +5112,7 @@ pub mod key_management_service {
     /// # use google_cloud_kms_v1::builder;
     /// use builder::key_management_service::GenerateRandomBytes;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -5132,8 +5191,9 @@ pub mod key_management_service {
     /// # use google_cloud_kms_v1::builder;
     /// use builder::key_management_service::ListLocations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -5241,6 +5301,7 @@ pub mod key_management_service {
     /// # use google_cloud_kms_v1::builder;
     /// use builder::key_management_service::GetLocation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -5301,6 +5362,7 @@ pub mod key_management_service {
     /// # use google_cloud_kms_v1::builder;
     /// use builder::key_management_service::SetIamPolicy;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -5383,6 +5445,7 @@ pub mod key_management_service {
     /// # use google_cloud_kms_v1::builder;
     /// use builder::key_management_service::GetIamPolicy;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -5454,6 +5517,7 @@ pub mod key_management_service {
     /// # use google_cloud_kms_v1::builder;
     /// use builder::key_management_service::TestIamPermissions;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -5532,6 +5596,7 @@ pub mod key_management_service {
     /// # use google_cloud_kms_v1::builder;
     /// use builder::key_management_service::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });

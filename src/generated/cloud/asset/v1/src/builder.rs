@@ -75,8 +75,9 @@ pub mod asset_service {
     /// # use google_cloud_asset_v1::builder;
     /// use builder::asset_service::ExportAssets;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_asset_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -224,8 +225,9 @@ pub mod asset_service {
     /// # use google_cloud_asset_v1::builder;
     /// use builder::asset_service::ListAssets;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -360,6 +362,7 @@ pub mod asset_service {
     /// # use google_cloud_asset_v1::builder;
     /// use builder::asset_service::BatchGetAssetsHistory;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -462,6 +465,7 @@ pub mod asset_service {
     /// # use google_cloud_asset_v1::builder;
     /// use builder::asset_service::CreateFeed;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -540,6 +544,7 @@ pub mod asset_service {
     /// # use google_cloud_asset_v1::builder;
     /// use builder::asset_service::GetFeed;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -602,6 +607,7 @@ pub mod asset_service {
     /// # use google_cloud_asset_v1::builder;
     /// use builder::asset_service::ListFeeds;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -664,6 +670,7 @@ pub mod asset_service {
     /// # use google_cloud_asset_v1::builder;
     /// use builder::asset_service::UpdateFeed;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -737,6 +744,7 @@ pub mod asset_service {
     /// # use google_cloud_asset_v1::builder;
     /// use builder::asset_service::DeleteFeed;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -799,8 +807,9 @@ pub mod asset_service {
     /// # use google_cloud_asset_v1::builder;
     /// use builder::asset_service::SearchAllResources;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -935,8 +944,9 @@ pub mod asset_service {
     /// # use google_cloud_asset_v1::builder;
     /// use builder::asset_service::SearchAllIamPolicies;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -1065,6 +1075,7 @@ pub mod asset_service {
     /// # use google_cloud_asset_v1::builder;
     /// use builder::asset_service::AnalyzeIamPolicy;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1150,8 +1161,9 @@ pub mod asset_service {
     /// # use google_cloud_asset_v1::builder;
     /// use builder::asset_service::AnalyzeIamPolicyLongrunning;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_asset_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1285,6 +1297,7 @@ pub mod asset_service {
     /// # use google_cloud_asset_v1::builder;
     /// use builder::asset_service::AnalyzeMove;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1364,6 +1377,7 @@ pub mod asset_service {
     /// # use google_cloud_asset_v1::builder;
     /// use builder::asset_service::QueryAssets;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1530,6 +1544,7 @@ pub mod asset_service {
     /// # use google_cloud_asset_v1::builder;
     /// use builder::asset_service::CreateSavedQuery;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1614,6 +1629,7 @@ pub mod asset_service {
     /// # use google_cloud_asset_v1::builder;
     /// use builder::asset_service::GetSavedQuery;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1676,8 +1692,9 @@ pub mod asset_service {
     /// # use google_cloud_asset_v1::builder;
     /// use builder::asset_service::ListSavedQueries;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -1787,6 +1804,7 @@ pub mod asset_service {
     /// # use google_cloud_asset_v1::builder;
     /// use builder::asset_service::UpdateSavedQuery;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1866,6 +1884,7 @@ pub mod asset_service {
     /// # use google_cloud_asset_v1::builder;
     /// use builder::asset_service::DeleteSavedQuery;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1931,6 +1950,7 @@ pub mod asset_service {
     /// # use google_cloud_asset_v1::builder;
     /// use builder::asset_service::BatchGetEffectiveIamPolicies;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2011,8 +2031,9 @@ pub mod asset_service {
     /// # use google_cloud_asset_v1::builder;
     /// use builder::asset_service::AnalyzeOrgPolicies;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -2132,8 +2153,9 @@ pub mod asset_service {
     /// # use google_cloud_asset_v1::builder;
     /// use builder::asset_service::AnalyzeOrgPolicyGovernedContainers;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -2259,8 +2281,9 @@ pub mod asset_service {
     /// # use google_cloud_asset_v1::builder;
     /// use builder::asset_service::AnalyzeOrgPolicyGovernedAssets;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -2384,6 +2407,7 @@ pub mod asset_service {
     /// # use google_cloud_asset_v1::builder;
     /// use builder::asset_service::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });

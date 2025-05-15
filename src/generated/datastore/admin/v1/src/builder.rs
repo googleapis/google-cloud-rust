@@ -75,8 +75,9 @@ pub mod datastore_admin {
     /// # use google_cloud_datastore_admin_v1::builder;
     /// use builder::datastore_admin::ExportEntities;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_datastore_admin_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -207,8 +208,9 @@ pub mod datastore_admin {
     /// # use google_cloud_datastore_admin_v1::builder;
     /// use builder::datastore_admin::ImportEntities;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_datastore_admin_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -339,8 +341,9 @@ pub mod datastore_admin {
     /// # use google_cloud_datastore_admin_v1::builder;
     /// use builder::datastore_admin::CreateIndex;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_datastore_admin_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -447,8 +450,9 @@ pub mod datastore_admin {
     /// # use google_cloud_datastore_admin_v1::builder;
     /// use builder::datastore_admin::DeleteIndex;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_datastore_admin_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -552,6 +556,7 @@ pub mod datastore_admin {
     /// # use google_cloud_datastore_admin_v1::builder;
     /// use builder::datastore_admin::GetIndex;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -618,8 +623,9 @@ pub mod datastore_admin {
     /// # use google_cloud_datastore_admin_v1::builder;
     /// use builder::datastore_admin::ListIndexes;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -724,8 +730,9 @@ pub mod datastore_admin {
     /// # use google_cloud_datastore_admin_v1::builder;
     /// use builder::datastore_admin::ListOperations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -835,6 +842,7 @@ pub mod datastore_admin {
     /// # use google_cloud_datastore_admin_v1::builder;
     /// use builder::datastore_admin::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -898,6 +906,7 @@ pub mod datastore_admin {
     /// # use google_cloud_datastore_admin_v1::builder;
     /// use builder::datastore_admin::DeleteOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -961,6 +970,7 @@ pub mod datastore_admin {
     /// # use google_cloud_datastore_admin_v1::builder;
     /// use builder::datastore_admin::CancelOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });

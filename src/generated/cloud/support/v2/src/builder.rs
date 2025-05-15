@@ -75,8 +75,9 @@ pub mod case_attachment_service {
     /// # use google_cloud_support_v2::builder;
     /// use builder::case_attachment_service::ListAttachments;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -232,6 +233,7 @@ pub mod case_service {
     /// # use google_cloud_support_v2::builder;
     /// use builder::case_service::GetCase;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -294,8 +296,9 @@ pub mod case_service {
     /// # use google_cloud_support_v2::builder;
     /// use builder::case_service::ListCases;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -402,8 +405,9 @@ pub mod case_service {
     /// # use google_cloud_support_v2::builder;
     /// use builder::case_service::SearchCases;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -508,6 +512,7 @@ pub mod case_service {
     /// # use google_cloud_support_v2::builder;
     /// use builder::case_service::CreateCase;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -578,6 +583,7 @@ pub mod case_service {
     /// # use google_cloud_support_v2::builder;
     /// use builder::case_service::UpdateCase;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -649,6 +655,7 @@ pub mod case_service {
     /// # use google_cloud_support_v2::builder;
     /// use builder::case_service::EscalateCase;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -720,6 +727,7 @@ pub mod case_service {
     /// # use google_cloud_support_v2::builder;
     /// use builder::case_service::CloseCase;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -782,8 +790,9 @@ pub mod case_service {
     /// # use google_cloud_support_v2::builder;
     /// use builder::case_service::SearchCaseClassifications;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -946,8 +955,9 @@ pub mod comment_service {
     /// # use google_cloud_support_v2::builder;
     /// use builder::comment_service::ListComments;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -1048,6 +1058,7 @@ pub mod comment_service {
     /// # use google_cloud_support_v2::builder;
     /// use builder::comment_service::CreateComment;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });

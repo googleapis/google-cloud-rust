@@ -75,6 +75,7 @@ pub mod language_service {
     /// # use google_cloud_language_v2::builder;
     /// use builder::language_service::AnalyzeSentiment;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -149,6 +150,7 @@ pub mod language_service {
     /// # use google_cloud_language_v2::builder;
     /// use builder::language_service::AnalyzeEntities;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -220,6 +222,7 @@ pub mod language_service {
     /// # use google_cloud_language_v2::builder;
     /// use builder::language_service::ClassifyText;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -285,6 +288,7 @@ pub mod language_service {
     /// # use google_cloud_language_v2::builder;
     /// use builder::language_service::ModerateText;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -359,6 +363,7 @@ pub mod language_service {
     /// # use google_cloud_language_v2::builder;
     /// use builder::language_service::AnnotateText;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });

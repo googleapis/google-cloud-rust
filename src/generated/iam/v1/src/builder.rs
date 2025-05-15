@@ -75,6 +75,7 @@ pub mod iam_policy {
     /// # use google_cloud_iam_v1::builder;
     /// use builder::iam_policy::SetIamPolicy;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -157,6 +158,7 @@ pub mod iam_policy {
     /// # use google_cloud_iam_v1::builder;
     /// use builder::iam_policy::GetIamPolicy;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -228,6 +230,7 @@ pub mod iam_policy {
     /// # use google_cloud_iam_v1::builder;
     /// use builder::iam_policy::TestIamPermissions;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });

@@ -73,8 +73,9 @@ pub mod lustre {
     /// # use google_cloud_lustre_v1::builder;
     /// use builder::lustre::ListInstances;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -185,6 +186,7 @@ pub mod lustre {
     /// # use google_cloud_lustre_v1::builder;
     /// use builder::lustre::GetInstance;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -245,8 +247,9 @@ pub mod lustre {
     /// # use google_cloud_lustre_v1::builder;
     /// use builder::lustre::CreateInstance;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_lustre_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -369,8 +372,9 @@ pub mod lustre {
     /// # use google_cloud_lustre_v1::builder;
     /// use builder::lustre::UpdateInstance;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_lustre_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -486,8 +490,9 @@ pub mod lustre {
     /// # use google_cloud_lustre_v1::builder;
     /// use builder::lustre::DeleteInstance;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_lustre_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -593,8 +598,9 @@ pub mod lustre {
     /// # use google_cloud_lustre_v1::builder;
     /// use builder::lustre::ImportData;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_lustre_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -757,8 +763,9 @@ pub mod lustre {
     /// # use google_cloud_lustre_v1::builder;
     /// use builder::lustre::ExportData;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_lustre_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -921,8 +928,9 @@ pub mod lustre {
     /// # use google_cloud_lustre_v1::builder;
     /// use builder::lustre::ListLocations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -1028,6 +1036,7 @@ pub mod lustre {
     /// # use google_cloud_lustre_v1::builder;
     /// use builder::lustre::GetLocation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1086,8 +1095,9 @@ pub mod lustre {
     /// # use google_cloud_lustre_v1::builder;
     /// use builder::lustre::ListOperations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -1195,6 +1205,7 @@ pub mod lustre {
     /// # use google_cloud_lustre_v1::builder;
     /// use builder::lustre::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1256,6 +1267,7 @@ pub mod lustre {
     /// # use google_cloud_lustre_v1::builder;
     /// use builder::lustre::DeleteOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1317,6 +1329,7 @@ pub mod lustre {
     /// # use google_cloud_lustre_v1::builder;
     /// use builder::lustre::CancelOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });

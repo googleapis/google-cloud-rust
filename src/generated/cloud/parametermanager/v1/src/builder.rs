@@ -75,8 +75,9 @@ pub mod parameter_manager {
     /// # use google_cloud_parametermanager_v1::builder;
     /// use builder::parameter_manager::ListParameters;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -189,6 +190,7 @@ pub mod parameter_manager {
     /// # use google_cloud_parametermanager_v1::builder;
     /// use builder::parameter_manager::GetParameter;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -251,6 +253,7 @@ pub mod parameter_manager {
     /// # use google_cloud_parametermanager_v1::builder;
     /// use builder::parameter_manager::CreateParameter;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -338,6 +341,7 @@ pub mod parameter_manager {
     /// # use google_cloud_parametermanager_v1::builder;
     /// use builder::parameter_manager::UpdateParameter;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -418,6 +422,7 @@ pub mod parameter_manager {
     /// # use google_cloud_parametermanager_v1::builder;
     /// use builder::parameter_manager::DeleteParameter;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -486,8 +491,9 @@ pub mod parameter_manager {
     /// # use google_cloud_parametermanager_v1::builder;
     /// use builder::parameter_manager::ListParameterVersions;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -605,6 +611,7 @@ pub mod parameter_manager {
     /// # use google_cloud_parametermanager_v1::builder;
     /// use builder::parameter_manager::GetParameterVersion;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -676,6 +683,7 @@ pub mod parameter_manager {
     /// # use google_cloud_parametermanager_v1::builder;
     /// use builder::parameter_manager::RenderParameterVersion;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -741,6 +749,7 @@ pub mod parameter_manager {
     /// # use google_cloud_parametermanager_v1::builder;
     /// use builder::parameter_manager::CreateParameterVersion;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -833,6 +842,7 @@ pub mod parameter_manager {
     /// # use google_cloud_parametermanager_v1::builder;
     /// use builder::parameter_manager::UpdateParameterVersion;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -918,6 +928,7 @@ pub mod parameter_manager {
     /// # use google_cloud_parametermanager_v1::builder;
     /// use builder::parameter_manager::DeleteParameterVersion;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -989,8 +1000,9 @@ pub mod parameter_manager {
     /// # use google_cloud_parametermanager_v1::builder;
     /// use builder::parameter_manager::ListLocations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -1098,6 +1110,7 @@ pub mod parameter_manager {
     /// # use google_cloud_parametermanager_v1::builder;
     /// use builder::parameter_manager::GetLocation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });

@@ -75,8 +75,9 @@ pub mod workflows {
     /// # use google_cloud_workflows_v1::builder;
     /// use builder::workflows::ListWorkflows;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -189,6 +190,7 @@ pub mod workflows {
     /// # use google_cloud_workflows_v1::builder;
     /// use builder::workflows::GetWorkflow;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -257,8 +259,9 @@ pub mod workflows {
     /// # use google_cloud_workflows_v1::builder;
     /// use builder::workflows::CreateWorkflow;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_workflows_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -377,8 +380,9 @@ pub mod workflows {
     /// # use google_cloud_workflows_v1::builder;
     /// use builder::workflows::DeleteWorkflow;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_workflows_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -480,8 +484,9 @@ pub mod workflows {
     /// # use google_cloud_workflows_v1::builder;
     /// use builder::workflows::UpdateWorkflow;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_workflows_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -593,8 +598,9 @@ pub mod workflows {
     /// # use google_cloud_workflows_v1::builder;
     /// use builder::workflows::ListWorkflowRevisions;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -700,8 +706,9 @@ pub mod workflows {
     /// # use google_cloud_workflows_v1::builder;
     /// use builder::workflows::ListLocations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -809,6 +816,7 @@ pub mod workflows {
     /// # use google_cloud_workflows_v1::builder;
     /// use builder::workflows::GetLocation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -869,8 +877,9 @@ pub mod workflows {
     /// # use google_cloud_workflows_v1::builder;
     /// use builder::workflows::ListOperations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -980,6 +989,7 @@ pub mod workflows {
     /// # use google_cloud_workflows_v1::builder;
     /// use builder::workflows::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1043,6 +1053,7 @@ pub mod workflows {
     /// # use google_cloud_workflows_v1::builder;
     /// use builder::workflows::DeleteOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });

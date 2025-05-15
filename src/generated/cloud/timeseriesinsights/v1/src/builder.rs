@@ -75,8 +75,9 @@ pub mod timeseries_insights_controller {
     /// # use google_cloud_timeseriesinsights_v1::builder;
     /// use builder::timeseries_insights_controller::ListDataSets;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -177,6 +178,7 @@ pub mod timeseries_insights_controller {
     /// # use google_cloud_timeseriesinsights_v1::builder;
     /// use builder::timeseries_insights_controller::CreateDataSet;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -250,6 +252,7 @@ pub mod timeseries_insights_controller {
     /// # use google_cloud_timeseriesinsights_v1::builder;
     /// use builder::timeseries_insights_controller::DeleteDataSet;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -312,6 +315,7 @@ pub mod timeseries_insights_controller {
     /// # use google_cloud_timeseriesinsights_v1::builder;
     /// use builder::timeseries_insights_controller::AppendEvents;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -385,6 +389,7 @@ pub mod timeseries_insights_controller {
     /// # use google_cloud_timeseriesinsights_v1::builder;
     /// use builder::timeseries_insights_controller::QueryDataSet;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -499,6 +504,7 @@ pub mod timeseries_insights_controller {
     /// # use google_cloud_timeseriesinsights_v1::builder;
     /// use builder::timeseries_insights_controller::EvaluateSlice;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -605,6 +611,7 @@ pub mod timeseries_insights_controller {
     /// # use google_cloud_timeseriesinsights_v1::builder;
     /// use builder::timeseries_insights_controller::EvaluateTimeseries;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });

@@ -75,8 +75,9 @@ pub mod secret_manager_service {
     /// # use google_cloud_secretmanager_v1::builder;
     /// use builder::secret_manager_service::ListSecrets;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -183,6 +184,7 @@ pub mod secret_manager_service {
     /// # use google_cloud_secretmanager_v1::builder;
     /// use builder::secret_manager_service::CreateSecret;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -264,6 +266,7 @@ pub mod secret_manager_service {
     /// # use google_cloud_secretmanager_v1::builder;
     /// use builder::secret_manager_service::AddSecretVersion;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -340,6 +343,7 @@ pub mod secret_manager_service {
     /// # use google_cloud_secretmanager_v1::builder;
     /// use builder::secret_manager_service::GetSecret;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -402,6 +406,7 @@ pub mod secret_manager_service {
     /// # use google_cloud_secretmanager_v1::builder;
     /// use builder::secret_manager_service::UpdateSecret;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -478,6 +483,7 @@ pub mod secret_manager_service {
     /// # use google_cloud_secretmanager_v1::builder;
     /// use builder::secret_manager_service::DeleteSecret;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -546,8 +552,9 @@ pub mod secret_manager_service {
     /// # use google_cloud_secretmanager_v1::builder;
     /// use builder::secret_manager_service::ListSecretVersions;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -659,6 +666,7 @@ pub mod secret_manager_service {
     /// # use google_cloud_secretmanager_v1::builder;
     /// use builder::secret_manager_service::GetSecretVersion;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -724,6 +732,7 @@ pub mod secret_manager_service {
     /// # use google_cloud_secretmanager_v1::builder;
     /// use builder::secret_manager_service::AccessSecretVersion;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -789,6 +798,7 @@ pub mod secret_manager_service {
     /// # use google_cloud_secretmanager_v1::builder;
     /// use builder::secret_manager_service::DisableSecretVersion;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -860,6 +870,7 @@ pub mod secret_manager_service {
     /// # use google_cloud_secretmanager_v1::builder;
     /// use builder::secret_manager_service::EnableSecretVersion;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -931,6 +942,7 @@ pub mod secret_manager_service {
     /// # use google_cloud_secretmanager_v1::builder;
     /// use builder::secret_manager_service::DestroySecretVersion;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1002,6 +1014,7 @@ pub mod secret_manager_service {
     /// # use google_cloud_secretmanager_v1::builder;
     /// use builder::secret_manager_service::SetIamPolicy;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1084,6 +1097,7 @@ pub mod secret_manager_service {
     /// # use google_cloud_secretmanager_v1::builder;
     /// use builder::secret_manager_service::GetIamPolicy;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1155,6 +1169,7 @@ pub mod secret_manager_service {
     /// # use google_cloud_secretmanager_v1::builder;
     /// use builder::secret_manager_service::TestIamPermissions;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1233,8 +1248,9 @@ pub mod secret_manager_service {
     /// # use google_cloud_secretmanager_v1::builder;
     /// use builder::secret_manager_service::ListLocations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -1342,6 +1358,7 @@ pub mod secret_manager_service {
     /// # use google_cloud_secretmanager_v1::builder;
     /// use builder::secret_manager_service::GetLocation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });

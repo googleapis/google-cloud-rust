@@ -75,8 +75,9 @@ pub mod executions {
     /// # use google_cloud_workflows_executions_v1::builder;
     /// use builder::executions::ListExecutions;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -195,6 +196,7 @@ pub mod executions {
     /// # use google_cloud_workflows_executions_v1::builder;
     /// use builder::executions::CreateExecution;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -268,6 +270,7 @@ pub mod executions {
     /// # use google_cloud_workflows_executions_v1::builder;
     /// use builder::executions::GetExecution;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -336,6 +339,7 @@ pub mod executions {
     /// # use google_cloud_workflows_executions_v1::builder;
     /// use builder::executions::CancelExecution;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });

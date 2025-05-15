@@ -75,8 +75,9 @@ pub mod edge_container {
     /// # use google_cloud_edgecontainer_v1::builder;
     /// use builder::edge_container::ListClusters;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -189,6 +190,7 @@ pub mod edge_container {
     /// # use google_cloud_edgecontainer_v1::builder;
     /// use builder::edge_container::GetCluster;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -251,8 +253,9 @@ pub mod edge_container {
     /// # use google_cloud_edgecontainer_v1::builder;
     /// use builder::edge_container::CreateCluster;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_edgecontainer_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -377,8 +380,9 @@ pub mod edge_container {
     /// # use google_cloud_edgecontainer_v1::builder;
     /// use builder::edge_container::UpdateCluster;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_edgecontainer_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -494,8 +498,9 @@ pub mod edge_container {
     /// # use google_cloud_edgecontainer_v1::builder;
     /// use builder::edge_container::UpgradeCluster;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_edgecontainer_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -618,8 +623,9 @@ pub mod edge_container {
     /// # use google_cloud_edgecontainer_v1::builder;
     /// use builder::edge_container::DeleteCluster;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_edgecontainer_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -727,6 +733,7 @@ pub mod edge_container {
     /// # use google_cloud_edgecontainer_v1::builder;
     /// use builder::edge_container::GenerateAccessToken;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -792,6 +799,7 @@ pub mod edge_container {
     /// # use google_cloud_edgecontainer_v1::builder;
     /// use builder::edge_container::GenerateOfflineCredential;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -859,8 +867,9 @@ pub mod edge_container {
     /// # use google_cloud_edgecontainer_v1::builder;
     /// use builder::edge_container::ListNodePools;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -973,6 +982,7 @@ pub mod edge_container {
     /// # use google_cloud_edgecontainer_v1::builder;
     /// use builder::edge_container::GetNodePool;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1035,8 +1045,9 @@ pub mod edge_container {
     /// # use google_cloud_edgecontainer_v1::builder;
     /// use builder::edge_container::CreateNodePool;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_edgecontainer_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1161,8 +1172,9 @@ pub mod edge_container {
     /// # use google_cloud_edgecontainer_v1::builder;
     /// use builder::edge_container::UpdateNodePool;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_edgecontainer_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1278,8 +1290,9 @@ pub mod edge_container {
     /// # use google_cloud_edgecontainer_v1::builder;
     /// use builder::edge_container::DeleteNodePool;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_edgecontainer_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1387,8 +1400,9 @@ pub mod edge_container {
     /// # use google_cloud_edgecontainer_v1::builder;
     /// use builder::edge_container::ListMachines;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -1501,6 +1515,7 @@ pub mod edge_container {
     /// # use google_cloud_edgecontainer_v1::builder;
     /// use builder::edge_container::GetMachine;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1563,8 +1578,9 @@ pub mod edge_container {
     /// # use google_cloud_edgecontainer_v1::builder;
     /// use builder::edge_container::ListVpnConnections;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -1682,6 +1698,7 @@ pub mod edge_container {
     /// # use google_cloud_edgecontainer_v1::builder;
     /// use builder::edge_container::GetVpnConnection;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1747,8 +1764,9 @@ pub mod edge_container {
     /// # use google_cloud_edgecontainer_v1::builder;
     /// use builder::edge_container::CreateVpnConnection;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_edgecontainer_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1879,8 +1897,9 @@ pub mod edge_container {
     /// # use google_cloud_edgecontainer_v1::builder;
     /// use builder::edge_container::DeleteVpnConnection;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_edgecontainer_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1991,6 +2010,7 @@ pub mod edge_container {
     /// # use google_cloud_edgecontainer_v1::builder;
     /// use builder::edge_container::GetServerConfig;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2053,8 +2073,9 @@ pub mod edge_container {
     /// # use google_cloud_edgecontainer_v1::builder;
     /// use builder::edge_container::ListLocations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -2162,6 +2183,7 @@ pub mod edge_container {
     /// # use google_cloud_edgecontainer_v1::builder;
     /// use builder::edge_container::GetLocation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2222,8 +2244,9 @@ pub mod edge_container {
     /// # use google_cloud_edgecontainer_v1::builder;
     /// use builder::edge_container::ListOperations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -2333,6 +2356,7 @@ pub mod edge_container {
     /// # use google_cloud_edgecontainer_v1::builder;
     /// use builder::edge_container::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2396,6 +2420,7 @@ pub mod edge_container {
     /// # use google_cloud_edgecontainer_v1::builder;
     /// use builder::edge_container::DeleteOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2459,6 +2484,7 @@ pub mod edge_container {
     /// # use google_cloud_edgecontainer_v1::builder;
     /// use builder::edge_container::CancelOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });

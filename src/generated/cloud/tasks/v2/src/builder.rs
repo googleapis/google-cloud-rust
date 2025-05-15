@@ -75,8 +75,9 @@ pub mod cloud_tasks {
     /// # use google_cloud_tasks_v2::builder;
     /// use builder::cloud_tasks::ListQueues;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -183,6 +184,7 @@ pub mod cloud_tasks {
     /// # use google_cloud_tasks_v2::builder;
     /// use builder::cloud_tasks::GetQueue;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -245,6 +247,7 @@ pub mod cloud_tasks {
     /// # use google_cloud_tasks_v2::builder;
     /// use builder::cloud_tasks::CreateQueue;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -318,6 +321,7 @@ pub mod cloud_tasks {
     /// # use google_cloud_tasks_v2::builder;
     /// use builder::cloud_tasks::UpdateQueue;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -392,6 +396,7 @@ pub mod cloud_tasks {
     /// # use google_cloud_tasks_v2::builder;
     /// use builder::cloud_tasks::DeleteQueue;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -454,6 +459,7 @@ pub mod cloud_tasks {
     /// # use google_cloud_tasks_v2::builder;
     /// use builder::cloud_tasks::PurgeQueue;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -516,6 +522,7 @@ pub mod cloud_tasks {
     /// # use google_cloud_tasks_v2::builder;
     /// use builder::cloud_tasks::PauseQueue;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -578,6 +585,7 @@ pub mod cloud_tasks {
     /// # use google_cloud_tasks_v2::builder;
     /// use builder::cloud_tasks::ResumeQueue;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -640,6 +648,7 @@ pub mod cloud_tasks {
     /// # use google_cloud_tasks_v2::builder;
     /// use builder::cloud_tasks::GetIamPolicy;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -711,6 +720,7 @@ pub mod cloud_tasks {
     /// # use google_cloud_tasks_v2::builder;
     /// use builder::cloud_tasks::SetIamPolicy;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -793,6 +803,7 @@ pub mod cloud_tasks {
     /// # use google_cloud_tasks_v2::builder;
     /// use builder::cloud_tasks::TestIamPermissions;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -871,8 +882,9 @@ pub mod cloud_tasks {
     /// # use google_cloud_tasks_v2::builder;
     /// use builder::cloud_tasks::ListTasks;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -979,6 +991,7 @@ pub mod cloud_tasks {
     /// # use google_cloud_tasks_v2::builder;
     /// use builder::cloud_tasks::GetTask;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1047,6 +1060,7 @@ pub mod cloud_tasks {
     /// # use google_cloud_tasks_v2::builder;
     /// use builder::cloud_tasks::CreateTask;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1123,6 +1137,7 @@ pub mod cloud_tasks {
     /// # use google_cloud_tasks_v2::builder;
     /// use builder::cloud_tasks::DeleteTask;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1185,6 +1200,7 @@ pub mod cloud_tasks {
     /// # use google_cloud_tasks_v2::builder;
     /// use builder::cloud_tasks::RunTask;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1253,8 +1269,9 @@ pub mod cloud_tasks {
     /// # use google_cloud_tasks_v2::builder;
     /// use builder::cloud_tasks::ListLocations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -1362,6 +1379,7 @@ pub mod cloud_tasks {
     /// # use google_cloud_tasks_v2::builder;
     /// use builder::cloud_tasks::GetLocation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });

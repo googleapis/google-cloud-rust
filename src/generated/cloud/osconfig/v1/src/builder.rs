@@ -75,6 +75,7 @@ pub mod os_config_service {
     /// # use google_cloud_osconfig_v1::builder;
     /// use builder::os_config_service::ExecutePatchJob;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -192,6 +193,7 @@ pub mod os_config_service {
     /// # use google_cloud_osconfig_v1::builder;
     /// use builder::os_config_service::GetPatchJob;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -254,6 +256,7 @@ pub mod os_config_service {
     /// # use google_cloud_osconfig_v1::builder;
     /// use builder::os_config_service::CancelPatchJob;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -316,8 +319,9 @@ pub mod os_config_service {
     /// # use google_cloud_osconfig_v1::builder;
     /// use builder::os_config_service::ListPatchJobs;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -424,8 +428,9 @@ pub mod os_config_service {
     /// # use google_cloud_osconfig_v1::builder;
     /// use builder::os_config_service::ListPatchJobInstanceDetails;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -541,6 +546,7 @@ pub mod os_config_service {
     /// # use google_cloud_osconfig_v1::builder;
     /// use builder::os_config_service::CreatePatchDeployment;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -625,6 +631,7 @@ pub mod os_config_service {
     /// # use google_cloud_osconfig_v1::builder;
     /// use builder::os_config_service::GetPatchDeployment;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -690,8 +697,9 @@ pub mod os_config_service {
     /// # use google_cloud_osconfig_v1::builder;
     /// use builder::os_config_service::ListPatchDeployments;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -797,6 +805,7 @@ pub mod os_config_service {
     /// # use google_cloud_osconfig_v1::builder;
     /// use builder::os_config_service::DeletePatchDeployment;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -862,6 +871,7 @@ pub mod os_config_service {
     /// # use google_cloud_osconfig_v1::builder;
     /// use builder::os_config_service::UpdatePatchDeployment;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -939,6 +949,7 @@ pub mod os_config_service {
     /// # use google_cloud_osconfig_v1::builder;
     /// use builder::os_config_service::PausePatchDeployment;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1004,6 +1015,7 @@ pub mod os_config_service {
     /// # use google_cloud_osconfig_v1::builder;
     /// use builder::os_config_service::ResumePatchDeployment;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1069,6 +1081,7 @@ pub mod os_config_service {
     /// # use google_cloud_osconfig_v1::builder;
     /// use builder::os_config_service::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1132,6 +1145,7 @@ pub mod os_config_service {
     /// # use google_cloud_osconfig_v1::builder;
     /// use builder::os_config_service::CancelOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1250,8 +1264,9 @@ pub mod os_config_zonal_service {
     /// # use google_cloud_osconfig_v1::builder;
     /// use builder::os_config_zonal_service::CreateOSPolicyAssignment;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_osconfig_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1382,8 +1397,9 @@ pub mod os_config_zonal_service {
     /// # use google_cloud_osconfig_v1::builder;
     /// use builder::os_config_zonal_service::UpdateOSPolicyAssignment;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_osconfig_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1507,6 +1523,7 @@ pub mod os_config_zonal_service {
     /// # use google_cloud_osconfig_v1::builder;
     /// use builder::os_config_zonal_service::GetOSPolicyAssignment;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1572,8 +1589,9 @@ pub mod os_config_zonal_service {
     /// # use google_cloud_osconfig_v1::builder;
     /// use builder::os_config_zonal_service::ListOSPolicyAssignments;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -1683,8 +1701,9 @@ pub mod os_config_zonal_service {
     /// # use google_cloud_osconfig_v1::builder;
     /// use builder::os_config_zonal_service::ListOSPolicyAssignmentRevisions;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -1794,8 +1813,9 @@ pub mod os_config_zonal_service {
     /// # use google_cloud_osconfig_v1::builder;
     /// use builder::os_config_zonal_service::DeleteOSPolicyAssignment;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_osconfig_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1907,6 +1927,7 @@ pub mod os_config_zonal_service {
     /// # use google_cloud_osconfig_v1::builder;
     /// use builder::os_config_zonal_service::GetOSPolicyAssignmentReport;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1974,8 +1995,9 @@ pub mod os_config_zonal_service {
     /// # use google_cloud_osconfig_v1::builder;
     /// use builder::os_config_zonal_service::ListOSPolicyAssignmentReports;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -2091,6 +2113,7 @@ pub mod os_config_zonal_service {
     /// # use google_cloud_osconfig_v1::builder;
     /// use builder::os_config_zonal_service::GetInventory;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2159,8 +2182,9 @@ pub mod os_config_zonal_service {
     /// # use google_cloud_osconfig_v1::builder;
     /// use builder::os_config_zonal_service::ListInventories;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -2273,6 +2297,7 @@ pub mod os_config_zonal_service {
     /// # use google_cloud_osconfig_v1::builder;
     /// use builder::os_config_zonal_service::GetVulnerabilityReport;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2338,8 +2363,9 @@ pub mod os_config_zonal_service {
     /// # use google_cloud_osconfig_v1::builder;
     /// use builder::os_config_zonal_service::ListVulnerabilityReports;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -2455,6 +2481,7 @@ pub mod os_config_zonal_service {
     /// # use google_cloud_osconfig_v1::builder;
     /// use builder::os_config_zonal_service::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2518,6 +2545,7 @@ pub mod os_config_zonal_service {
     /// # use google_cloud_osconfig_v1::builder;
     /// use builder::os_config_zonal_service::CancelOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });

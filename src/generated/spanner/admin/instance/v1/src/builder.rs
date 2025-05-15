@@ -75,8 +75,9 @@ pub mod instance_admin {
     /// # use google_cloud_spanner_admin_instance_v1::builder;
     /// use builder::instance_admin::ListInstanceConfigs;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -182,6 +183,7 @@ pub mod instance_admin {
     /// # use google_cloud_spanner_admin_instance_v1::builder;
     /// use builder::instance_admin::GetInstanceConfig;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -247,8 +249,9 @@ pub mod instance_admin {
     /// # use google_cloud_spanner_admin_instance_v1::builder;
     /// use builder::instance_admin::CreateInstanceConfig;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_spanner_admin_instance_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -379,8 +382,9 @@ pub mod instance_admin {
     /// # use google_cloud_spanner_admin_instance_v1::builder;
     /// use builder::instance_admin::UpdateInstanceConfig;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_spanner_admin_instance_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -506,6 +510,7 @@ pub mod instance_admin {
     /// # use google_cloud_spanner_admin_instance_v1::builder;
     /// use builder::instance_admin::DeleteInstanceConfig;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -583,8 +588,9 @@ pub mod instance_admin {
     /// # use google_cloud_spanner_admin_instance_v1::builder;
     /// use builder::instance_admin::ListInstanceConfigOperations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -700,8 +706,9 @@ pub mod instance_admin {
     /// # use google_cloud_spanner_admin_instance_v1::builder;
     /// use builder::instance_admin::ListInstances;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -817,8 +824,9 @@ pub mod instance_admin {
     /// # use google_cloud_spanner_admin_instance_v1::builder;
     /// use builder::instance_admin::ListInstancePartitions;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -935,6 +943,7 @@ pub mod instance_admin {
     /// # use google_cloud_spanner_admin_instance_v1::builder;
     /// use builder::instance_admin::GetInstance;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1006,8 +1015,9 @@ pub mod instance_admin {
     /// # use google_cloud_spanner_admin_instance_v1::builder;
     /// use builder::instance_admin::CreateInstance;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_spanner_admin_instance_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1129,8 +1139,9 @@ pub mod instance_admin {
     /// # use google_cloud_spanner_admin_instance_v1::builder;
     /// use builder::instance_admin::UpdateInstance;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_spanner_admin_instance_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1247,6 +1258,7 @@ pub mod instance_admin {
     /// # use google_cloud_spanner_admin_instance_v1::builder;
     /// use builder::instance_admin::DeleteInstance;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1309,6 +1321,7 @@ pub mod instance_admin {
     /// # use google_cloud_spanner_admin_instance_v1::builder;
     /// use builder::instance_admin::SetIamPolicy;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1391,6 +1404,7 @@ pub mod instance_admin {
     /// # use google_cloud_spanner_admin_instance_v1::builder;
     /// use builder::instance_admin::GetIamPolicy;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1462,6 +1476,7 @@ pub mod instance_admin {
     /// # use google_cloud_spanner_admin_instance_v1::builder;
     /// use builder::instance_admin::TestIamPermissions;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1540,6 +1555,7 @@ pub mod instance_admin {
     /// # use google_cloud_spanner_admin_instance_v1::builder;
     /// use builder::instance_admin::GetInstancePartition;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1605,8 +1621,9 @@ pub mod instance_admin {
     /// # use google_cloud_spanner_admin_instance_v1::builder;
     /// use builder::instance_admin::CreateInstancePartition;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_spanner_admin_instance_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1737,6 +1754,7 @@ pub mod instance_admin {
     /// # use google_cloud_spanner_admin_instance_v1::builder;
     /// use builder::instance_admin::DeleteInstancePartition;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1810,8 +1828,9 @@ pub mod instance_admin {
     /// # use google_cloud_spanner_admin_instance_v1::builder;
     /// use builder::instance_admin::UpdateInstancePartition;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_spanner_admin_instance_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1937,8 +1956,9 @@ pub mod instance_admin {
     /// # use google_cloud_spanner_admin_instance_v1::builder;
     /// use builder::instance_admin::ListInstancePartitionOperations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -2063,8 +2083,9 @@ pub mod instance_admin {
     /// # use google_cloud_spanner_admin_instance_v1::builder;
     /// use builder::instance_admin::MoveInstance;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_spanner_admin_instance_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -2175,8 +2196,9 @@ pub mod instance_admin {
     /// # use google_cloud_spanner_admin_instance_v1::builder;
     /// use builder::instance_admin::ListOperations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -2286,6 +2308,7 @@ pub mod instance_admin {
     /// # use google_cloud_spanner_admin_instance_v1::builder;
     /// use builder::instance_admin::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2349,6 +2372,7 @@ pub mod instance_admin {
     /// # use google_cloud_spanner_admin_instance_v1::builder;
     /// use builder::instance_admin::DeleteOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2412,6 +2436,7 @@ pub mod instance_admin {
     /// # use google_cloud_spanner_admin_instance_v1::builder;
     /// use builder::instance_admin::CancelOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });

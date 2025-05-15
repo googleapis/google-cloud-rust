@@ -75,8 +75,9 @@ pub mod alert_policy_service {
     /// # use google_cloud_monitoring_v3::builder;
     /// use builder::alert_policy_service::ListAlertPolicies;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -192,6 +193,7 @@ pub mod alert_policy_service {
     /// # use google_cloud_monitoring_v3::builder;
     /// use builder::alert_policy_service::GetAlertPolicy;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -254,6 +256,7 @@ pub mod alert_policy_service {
     /// # use google_cloud_monitoring_v3::builder;
     /// use builder::alert_policy_service::CreateAlertPolicy;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -330,6 +333,7 @@ pub mod alert_policy_service {
     /// # use google_cloud_monitoring_v3::builder;
     /// use builder::alert_policy_service::DeleteAlertPolicy;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -395,6 +399,7 @@ pub mod alert_policy_service {
     /// # use google_cloud_monitoring_v3::builder;
     /// use builder::alert_policy_service::UpdateAlertPolicy;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -527,8 +532,9 @@ pub mod group_service {
     /// # use google_cloud_monitoring_v3::builder;
     /// use builder::group_service::ListGroups;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -680,6 +686,7 @@ pub mod group_service {
     /// # use google_cloud_monitoring_v3::builder;
     /// use builder::group_service::GetGroup;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -742,6 +749,7 @@ pub mod group_service {
     /// # use google_cloud_monitoring_v3::builder;
     /// use builder::group_service::CreateGroup;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -821,6 +829,7 @@ pub mod group_service {
     /// # use google_cloud_monitoring_v3::builder;
     /// use builder::group_service::UpdateGroup;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -892,6 +901,7 @@ pub mod group_service {
     /// # use google_cloud_monitoring_v3::builder;
     /// use builder::group_service::DeleteGroup;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -960,8 +970,9 @@ pub mod group_service {
     /// # use google_cloud_monitoring_v3::builder;
     /// use builder::group_service::ListGroupMembers;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -1135,8 +1146,9 @@ pub mod metric_service {
     /// # use google_cloud_monitoring_v3::builder;
     /// use builder::metric_service::ListMonitoredResourceDescriptors;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -1252,6 +1264,7 @@ pub mod metric_service {
     /// # use google_cloud_monitoring_v3::builder;
     /// use builder::metric_service::GetMonitoredResourceDescriptor;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1319,8 +1332,9 @@ pub mod metric_service {
     /// # use google_cloud_monitoring_v3::builder;
     /// use builder::metric_service::ListMetricDescriptors;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -1438,6 +1452,7 @@ pub mod metric_service {
     /// # use google_cloud_monitoring_v3::builder;
     /// use builder::metric_service::GetMetricDescriptor;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1503,6 +1518,7 @@ pub mod metric_service {
     /// # use google_cloud_monitoring_v3::builder;
     /// use builder::metric_service::CreateMetricDescriptor;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1579,6 +1595,7 @@ pub mod metric_service {
     /// # use google_cloud_monitoring_v3::builder;
     /// use builder::metric_service::DeleteMetricDescriptor;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1644,8 +1661,9 @@ pub mod metric_service {
     /// # use google_cloud_monitoring_v3::builder;
     /// use builder::metric_service::ListTimeSeries;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -1802,6 +1820,7 @@ pub mod metric_service {
     /// # use google_cloud_monitoring_v3::builder;
     /// use builder::metric_service::CreateTimeSeries;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1880,6 +1899,7 @@ pub mod metric_service {
     /// # use google_cloud_monitoring_v3::builder;
     /// use builder::metric_service::CreateServiceTimeSeries;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2013,8 +2033,9 @@ pub mod notification_channel_service {
     /// # use google_cloud_monitoring_v3::builder;
     /// use builder::notification_channel_service::ListNotificationChannelDescriptors;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -2126,6 +2147,7 @@ pub mod notification_channel_service {
     /// # use google_cloud_monitoring_v3::builder;
     /// use builder::notification_channel_service::GetNotificationChannelDescriptor;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2193,8 +2215,9 @@ pub mod notification_channel_service {
     /// # use google_cloud_monitoring_v3::builder;
     /// use builder::notification_channel_service::ListNotificationChannels;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -2316,6 +2339,7 @@ pub mod notification_channel_service {
     /// # use google_cloud_monitoring_v3::builder;
     /// use builder::notification_channel_service::GetNotificationChannel;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2381,6 +2405,7 @@ pub mod notification_channel_service {
     /// # use google_cloud_monitoring_v3::builder;
     /// use builder::notification_channel_service::CreateNotificationChannel;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2461,6 +2486,7 @@ pub mod notification_channel_service {
     /// # use google_cloud_monitoring_v3::builder;
     /// use builder::notification_channel_service::UpdateNotificationChannel;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2542,6 +2568,7 @@ pub mod notification_channel_service {
     /// # use google_cloud_monitoring_v3::builder;
     /// use builder::notification_channel_service::DeleteNotificationChannel;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2615,6 +2642,7 @@ pub mod notification_channel_service {
     /// # use google_cloud_monitoring_v3::builder;
     /// use builder::notification_channel_service::SendNotificationChannelVerificationCode;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2684,6 +2712,7 @@ pub mod notification_channel_service {
     /// # use google_cloud_monitoring_v3::builder;
     /// use builder::notification_channel_service::GetNotificationChannelVerificationCode;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2764,6 +2793,7 @@ pub mod notification_channel_service {
     /// # use google_cloud_monitoring_v3::builder;
     /// use builder::notification_channel_service::VerifyNotificationChannel;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2894,8 +2924,9 @@ pub mod query_service {
     /// # use google_cloud_monitoring_v3::builder;
     /// use builder::query_service::QueryTimeSeries;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -3059,6 +3090,7 @@ pub mod service_monitoring_service {
     /// # use google_cloud_monitoring_v3::builder;
     /// use builder::service_monitoring_service::CreateService;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3138,6 +3170,7 @@ pub mod service_monitoring_service {
     /// # use google_cloud_monitoring_v3::builder;
     /// use builder::service_monitoring_service::GetService;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3200,8 +3233,9 @@ pub mod service_monitoring_service {
     /// # use google_cloud_monitoring_v3::builder;
     /// use builder::service_monitoring_service::ListServices;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -3308,6 +3342,7 @@ pub mod service_monitoring_service {
     /// # use google_cloud_monitoring_v3::builder;
     /// use builder::service_monitoring_service::UpdateService;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3382,6 +3417,7 @@ pub mod service_monitoring_service {
     /// # use google_cloud_monitoring_v3::builder;
     /// use builder::service_monitoring_service::DeleteService;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3444,6 +3480,7 @@ pub mod service_monitoring_service {
     /// # use google_cloud_monitoring_v3::builder;
     /// use builder::service_monitoring_service::CreateServiceLevelObjective;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3533,6 +3570,7 @@ pub mod service_monitoring_service {
     /// # use google_cloud_monitoring_v3::builder;
     /// use builder::service_monitoring_service::GetServiceLevelObjective;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3609,8 +3647,9 @@ pub mod service_monitoring_service {
     /// # use google_cloud_monitoring_v3::builder;
     /// use builder::service_monitoring_service::ListServiceLevelObjectives;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -3735,6 +3774,7 @@ pub mod service_monitoring_service {
     /// # use google_cloud_monitoring_v3::builder;
     /// use builder::service_monitoring_service::UpdateServiceLevelObjective;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3816,6 +3856,7 @@ pub mod service_monitoring_service {
     /// # use google_cloud_monitoring_v3::builder;
     /// use builder::service_monitoring_service::DeleteServiceLevelObjective;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3938,6 +3979,7 @@ pub mod snooze_service {
     /// # use google_cloud_monitoring_v3::builder;
     /// use builder::snooze_service::CreateSnooze;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -4011,8 +4053,9 @@ pub mod snooze_service {
     /// # use google_cloud_monitoring_v3::builder;
     /// use builder::snooze_service::ListSnoozes;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -4119,6 +4162,7 @@ pub mod snooze_service {
     /// # use google_cloud_monitoring_v3::builder;
     /// use builder::snooze_service::GetSnooze;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -4181,6 +4225,7 @@ pub mod snooze_service {
     /// # use google_cloud_monitoring_v3::builder;
     /// use builder::snooze_service::UpdateSnooze;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -4312,8 +4357,9 @@ pub mod uptime_check_service {
     /// # use google_cloud_monitoring_v3::builder;
     /// use builder::uptime_check_service::ListUptimeCheckConfigs;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -4427,6 +4473,7 @@ pub mod uptime_check_service {
     /// # use google_cloud_monitoring_v3::builder;
     /// use builder::uptime_check_service::GetUptimeCheckConfig;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -4492,6 +4539,7 @@ pub mod uptime_check_service {
     /// # use google_cloud_monitoring_v3::builder;
     /// use builder::uptime_check_service::CreateUptimeCheckConfig;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -4572,6 +4620,7 @@ pub mod uptime_check_service {
     /// # use google_cloud_monitoring_v3::builder;
     /// use builder::uptime_check_service::UpdateUptimeCheckConfig;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -4653,6 +4702,7 @@ pub mod uptime_check_service {
     /// # use google_cloud_monitoring_v3::builder;
     /// use builder::uptime_check_service::DeleteUptimeCheckConfig;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -4720,8 +4770,9 @@ pub mod uptime_check_service {
     /// # use google_cloud_monitoring_v3::builder;
     /// use builder::uptime_check_service::ListUptimeCheckIps;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;

@@ -75,8 +75,9 @@ pub mod reachability_service {
     /// # use google_cloud_networkmanagement_v1::builder;
     /// use builder::reachability_service::ListConnectivityTests;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -194,6 +195,7 @@ pub mod reachability_service {
     /// # use google_cloud_networkmanagement_v1::builder;
     /// use builder::reachability_service::GetConnectivityTest;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -259,8 +261,9 @@ pub mod reachability_service {
     /// # use google_cloud_networkmanagement_v1::builder;
     /// use builder::reachability_service::CreateConnectivityTest;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_networkmanagement_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -385,8 +388,9 @@ pub mod reachability_service {
     /// # use google_cloud_networkmanagement_v1::builder;
     /// use builder::reachability_service::UpdateConnectivityTest;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_networkmanagement_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -506,8 +510,9 @@ pub mod reachability_service {
     /// # use google_cloud_networkmanagement_v1::builder;
     /// use builder::reachability_service::RerunConnectivityTest;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_networkmanagement_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -613,8 +618,9 @@ pub mod reachability_service {
     /// # use google_cloud_networkmanagement_v1::builder;
     /// use builder::reachability_service::DeleteConnectivityTest;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_networkmanagement_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -719,8 +725,9 @@ pub mod reachability_service {
     /// # use google_cloud_networkmanagement_v1::builder;
     /// use builder::reachability_service::ListLocations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -828,6 +835,7 @@ pub mod reachability_service {
     /// # use google_cloud_networkmanagement_v1::builder;
     /// use builder::reachability_service::GetLocation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -888,6 +896,7 @@ pub mod reachability_service {
     /// # use google_cloud_networkmanagement_v1::builder;
     /// use builder::reachability_service::SetIamPolicy;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -970,6 +979,7 @@ pub mod reachability_service {
     /// # use google_cloud_networkmanagement_v1::builder;
     /// use builder::reachability_service::GetIamPolicy;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1041,6 +1051,7 @@ pub mod reachability_service {
     /// # use google_cloud_networkmanagement_v1::builder;
     /// use builder::reachability_service::TestIamPermissions;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1119,8 +1130,9 @@ pub mod reachability_service {
     /// # use google_cloud_networkmanagement_v1::builder;
     /// use builder::reachability_service::ListOperations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -1230,6 +1242,7 @@ pub mod reachability_service {
     /// # use google_cloud_networkmanagement_v1::builder;
     /// use builder::reachability_service::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1293,6 +1306,7 @@ pub mod reachability_service {
     /// # use google_cloud_networkmanagement_v1::builder;
     /// use builder::reachability_service::DeleteOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1356,6 +1370,7 @@ pub mod reachability_service {
     /// # use google_cloud_networkmanagement_v1::builder;
     /// use builder::reachability_service::CancelOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1474,8 +1489,9 @@ pub mod vpc_flow_logs_service {
     /// # use google_cloud_networkmanagement_v1::builder;
     /// use builder::vpc_flow_logs_service::ListVpcFlowLogsConfigs;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -1595,6 +1611,7 @@ pub mod vpc_flow_logs_service {
     /// # use google_cloud_networkmanagement_v1::builder;
     /// use builder::vpc_flow_logs_service::GetVpcFlowLogsConfig;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1660,8 +1677,9 @@ pub mod vpc_flow_logs_service {
     /// # use google_cloud_networkmanagement_v1::builder;
     /// use builder::vpc_flow_logs_service::CreateVpcFlowLogsConfig;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_networkmanagement_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1790,8 +1808,9 @@ pub mod vpc_flow_logs_service {
     /// # use google_cloud_networkmanagement_v1::builder;
     /// use builder::vpc_flow_logs_service::UpdateVpcFlowLogsConfig;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_networkmanagement_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1915,8 +1934,9 @@ pub mod vpc_flow_logs_service {
     /// # use google_cloud_networkmanagement_v1::builder;
     /// use builder::vpc_flow_logs_service::DeleteVpcFlowLogsConfig;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_networkmanagement_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -2023,8 +2043,9 @@ pub mod vpc_flow_logs_service {
     /// # use google_cloud_networkmanagement_v1::builder;
     /// use builder::vpc_flow_logs_service::ListLocations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -2132,6 +2153,7 @@ pub mod vpc_flow_logs_service {
     /// # use google_cloud_networkmanagement_v1::builder;
     /// use builder::vpc_flow_logs_service::GetLocation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2192,6 +2214,7 @@ pub mod vpc_flow_logs_service {
     /// # use google_cloud_networkmanagement_v1::builder;
     /// use builder::vpc_flow_logs_service::SetIamPolicy;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2274,6 +2297,7 @@ pub mod vpc_flow_logs_service {
     /// # use google_cloud_networkmanagement_v1::builder;
     /// use builder::vpc_flow_logs_service::GetIamPolicy;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2345,6 +2369,7 @@ pub mod vpc_flow_logs_service {
     /// # use google_cloud_networkmanagement_v1::builder;
     /// use builder::vpc_flow_logs_service::TestIamPermissions;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2423,8 +2448,9 @@ pub mod vpc_flow_logs_service {
     /// # use google_cloud_networkmanagement_v1::builder;
     /// use builder::vpc_flow_logs_service::ListOperations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -2534,6 +2560,7 @@ pub mod vpc_flow_logs_service {
     /// # use google_cloud_networkmanagement_v1::builder;
     /// use builder::vpc_flow_logs_service::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2597,6 +2624,7 @@ pub mod vpc_flow_logs_service {
     /// # use google_cloud_networkmanagement_v1::builder;
     /// use builder::vpc_flow_logs_service::DeleteOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2660,6 +2688,7 @@ pub mod vpc_flow_logs_service {
     /// # use google_cloud_networkmanagement_v1::builder;
     /// use builder::vpc_flow_logs_service::CancelOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });

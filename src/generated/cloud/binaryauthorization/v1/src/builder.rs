@@ -75,6 +75,7 @@ pub mod binauthz_management_service_v_1 {
     /// # use google_cloud_binaryauthorization_v1::builder;
     /// use builder::binauthz_management_service_v_1::GetPolicy;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -137,6 +138,7 @@ pub mod binauthz_management_service_v_1 {
     /// # use google_cloud_binaryauthorization_v1::builder;
     /// use builder::binauthz_management_service_v_1::UpdatePolicy;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -202,6 +204,7 @@ pub mod binauthz_management_service_v_1 {
     /// # use google_cloud_binaryauthorization_v1::builder;
     /// use builder::binauthz_management_service_v_1::CreateAttestor;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -283,6 +286,7 @@ pub mod binauthz_management_service_v_1 {
     /// # use google_cloud_binaryauthorization_v1::builder;
     /// use builder::binauthz_management_service_v_1::GetAttestor;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -345,6 +349,7 @@ pub mod binauthz_management_service_v_1 {
     /// # use google_cloud_binaryauthorization_v1::builder;
     /// use builder::binauthz_management_service_v_1::UpdateAttestor;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -410,8 +415,9 @@ pub mod binauthz_management_service_v_1 {
     /// # use google_cloud_binaryauthorization_v1::builder;
     /// use builder::binauthz_management_service_v_1::ListAttestors;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -512,6 +518,7 @@ pub mod binauthz_management_service_v_1 {
     /// # use google_cloud_binaryauthorization_v1::builder;
     /// use builder::binauthz_management_service_v_1::DeleteAttestor;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -629,6 +636,7 @@ pub mod system_policy_v_1 {
     /// # use google_cloud_binaryauthorization_v1::builder;
     /// use builder::system_policy_v_1::GetSystemPolicy;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -746,6 +754,7 @@ pub mod validation_helper_v_1 {
     /// # use google_cloud_binaryauthorization_v1::builder;
     /// use builder::validation_helper_v_1::ValidateAttestationOccurrence;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });

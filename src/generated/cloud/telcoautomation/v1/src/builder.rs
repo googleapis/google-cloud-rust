@@ -75,8 +75,9 @@ pub mod telco_automation {
     /// # use google_cloud_telcoautomation_v1::builder;
     /// use builder::telco_automation::ListOrchestrationClusters;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -198,6 +199,7 @@ pub mod telco_automation {
     /// # use google_cloud_telcoautomation_v1::builder;
     /// use builder::telco_automation::GetOrchestrationCluster;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -265,8 +267,9 @@ pub mod telco_automation {
     /// # use google_cloud_telcoautomation_v1::builder;
     /// use builder::telco_automation::CreateOrchestrationCluster;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_telcoautomation_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -401,8 +404,9 @@ pub mod telco_automation {
     /// # use google_cloud_telcoautomation_v1::builder;
     /// use builder::telco_automation::DeleteOrchestrationCluster;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_telcoautomation_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -515,8 +519,9 @@ pub mod telco_automation {
     /// # use google_cloud_telcoautomation_v1::builder;
     /// use builder::telco_automation::ListEdgeSlms;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -629,6 +634,7 @@ pub mod telco_automation {
     /// # use google_cloud_telcoautomation_v1::builder;
     /// use builder::telco_automation::GetEdgeSlm;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -691,8 +697,9 @@ pub mod telco_automation {
     /// # use google_cloud_telcoautomation_v1::builder;
     /// use builder::telco_automation::CreateEdgeSlm;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_telcoautomation_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -817,8 +824,9 @@ pub mod telco_automation {
     /// # use google_cloud_telcoautomation_v1::builder;
     /// use builder::telco_automation::DeleteEdgeSlm;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_telcoautomation_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -926,6 +934,7 @@ pub mod telco_automation {
     /// # use google_cloud_telcoautomation_v1::builder;
     /// use builder::telco_automation::CreateBlueprint;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1005,6 +1014,7 @@ pub mod telco_automation {
     /// # use google_cloud_telcoautomation_v1::builder;
     /// use builder::telco_automation::UpdateBlueprint;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1081,6 +1091,7 @@ pub mod telco_automation {
     /// # use google_cloud_telcoautomation_v1::builder;
     /// use builder::telco_automation::GetBlueprint;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1149,6 +1160,7 @@ pub mod telco_automation {
     /// # use google_cloud_telcoautomation_v1::builder;
     /// use builder::telco_automation::DeleteBlueprint;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1211,8 +1223,9 @@ pub mod telco_automation {
     /// # use google_cloud_telcoautomation_v1::builder;
     /// use builder::telco_automation::ListBlueprints;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -1319,6 +1332,7 @@ pub mod telco_automation {
     /// # use google_cloud_telcoautomation_v1::builder;
     /// use builder::telco_automation::ApproveBlueprint;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1384,6 +1398,7 @@ pub mod telco_automation {
     /// # use google_cloud_telcoautomation_v1::builder;
     /// use builder::telco_automation::ProposeBlueprint;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1449,6 +1464,7 @@ pub mod telco_automation {
     /// # use google_cloud_telcoautomation_v1::builder;
     /// use builder::telco_automation::RejectBlueprint;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1511,8 +1527,9 @@ pub mod telco_automation {
     /// # use google_cloud_telcoautomation_v1::builder;
     /// use builder::telco_automation::ListBlueprintRevisions;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -1620,8 +1637,9 @@ pub mod telco_automation {
     /// # use google_cloud_telcoautomation_v1::builder;
     /// use builder::telco_automation::SearchBlueprintRevisions;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -1739,8 +1757,9 @@ pub mod telco_automation {
     /// # use google_cloud_telcoautomation_v1::builder;
     /// use builder::telco_automation::SearchDeploymentRevisions;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -1858,6 +1877,7 @@ pub mod telco_automation {
     /// # use google_cloud_telcoautomation_v1::builder;
     /// use builder::telco_automation::DiscardBlueprintChanges;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1925,8 +1945,9 @@ pub mod telco_automation {
     /// # use google_cloud_telcoautomation_v1::builder;
     /// use builder::telco_automation::ListPublicBlueprints;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -2032,6 +2053,7 @@ pub mod telco_automation {
     /// # use google_cloud_telcoautomation_v1::builder;
     /// use builder::telco_automation::GetPublicBlueprint;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2097,6 +2119,7 @@ pub mod telco_automation {
     /// # use google_cloud_telcoautomation_v1::builder;
     /// use builder::telco_automation::CreateDeployment;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2179,6 +2202,7 @@ pub mod telco_automation {
     /// # use google_cloud_telcoautomation_v1::builder;
     /// use builder::telco_automation::UpdateDeployment;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2258,6 +2282,7 @@ pub mod telco_automation {
     /// # use google_cloud_telcoautomation_v1::builder;
     /// use builder::telco_automation::GetDeployment;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2326,6 +2351,7 @@ pub mod telco_automation {
     /// # use google_cloud_telcoautomation_v1::builder;
     /// use builder::telco_automation::RemoveDeployment;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2391,8 +2417,9 @@ pub mod telco_automation {
     /// # use google_cloud_telcoautomation_v1::builder;
     /// use builder::telco_automation::ListDeployments;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -2499,8 +2526,9 @@ pub mod telco_automation {
     /// # use google_cloud_telcoautomation_v1::builder;
     /// use builder::telco_automation::ListDeploymentRevisions;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -2610,6 +2638,7 @@ pub mod telco_automation {
     /// # use google_cloud_telcoautomation_v1::builder;
     /// use builder::telco_automation::DiscardDeploymentChanges;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2677,6 +2706,7 @@ pub mod telco_automation {
     /// # use google_cloud_telcoautomation_v1::builder;
     /// use builder::telco_automation::ApplyDeployment;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2739,6 +2769,7 @@ pub mod telco_automation {
     /// # use google_cloud_telcoautomation_v1::builder;
     /// use builder::telco_automation::ComputeDeploymentStatus;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2806,6 +2837,7 @@ pub mod telco_automation {
     /// # use google_cloud_telcoautomation_v1::builder;
     /// use builder::telco_automation::RollbackDeployment;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2879,6 +2911,7 @@ pub mod telco_automation {
     /// # use google_cloud_telcoautomation_v1::builder;
     /// use builder::telco_automation::GetHydratedDeployment;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2944,8 +2977,9 @@ pub mod telco_automation {
     /// # use google_cloud_telcoautomation_v1::builder;
     /// use builder::telco_automation::ListHydratedDeployments;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -3055,6 +3089,7 @@ pub mod telco_automation {
     /// # use google_cloud_telcoautomation_v1::builder;
     /// use builder::telco_automation::UpdateHydratedDeployment;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3138,6 +3173,7 @@ pub mod telco_automation {
     /// # use google_cloud_telcoautomation_v1::builder;
     /// use builder::telco_automation::ApplyHydratedDeployment;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3205,8 +3241,9 @@ pub mod telco_automation {
     /// # use google_cloud_telcoautomation_v1::builder;
     /// use builder::telco_automation::ListLocations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -3314,6 +3351,7 @@ pub mod telco_automation {
     /// # use google_cloud_telcoautomation_v1::builder;
     /// use builder::telco_automation::GetLocation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3374,8 +3412,9 @@ pub mod telco_automation {
     /// # use google_cloud_telcoautomation_v1::builder;
     /// use builder::telco_automation::ListOperations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -3485,6 +3524,7 @@ pub mod telco_automation {
     /// # use google_cloud_telcoautomation_v1::builder;
     /// use builder::telco_automation::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3548,6 +3588,7 @@ pub mod telco_automation {
     /// # use google_cloud_telcoautomation_v1::builder;
     /// use builder::telco_automation::DeleteOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3611,6 +3652,7 @@ pub mod telco_automation {
     /// # use google_cloud_telcoautomation_v1::builder;
     /// use builder::telco_automation::CancelOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });

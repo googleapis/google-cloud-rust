@@ -75,8 +75,9 @@ pub mod org_policy {
     /// # use google_cloud_orgpolicy_v2::builder;
     /// use builder::org_policy::ListConstraints;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -177,8 +178,9 @@ pub mod org_policy {
     /// # use google_cloud_orgpolicy_v2::builder;
     /// use builder::org_policy::ListPolicies;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -279,6 +281,7 @@ pub mod org_policy {
     /// # use google_cloud_orgpolicy_v2::builder;
     /// use builder::org_policy::GetPolicy;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -341,6 +344,7 @@ pub mod org_policy {
     /// # use google_cloud_orgpolicy_v2::builder;
     /// use builder::org_policy::GetEffectivePolicy;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -406,6 +410,7 @@ pub mod org_policy {
     /// # use google_cloud_orgpolicy_v2::builder;
     /// use builder::org_policy::CreatePolicy;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -479,6 +484,7 @@ pub mod org_policy {
     /// # use google_cloud_orgpolicy_v2::builder;
     /// use builder::org_policy::UpdatePolicy;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -553,6 +559,7 @@ pub mod org_policy {
     /// # use google_cloud_orgpolicy_v2::builder;
     /// use builder::org_policy::DeletePolicy;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -621,6 +628,7 @@ pub mod org_policy {
     /// # use google_cloud_orgpolicy_v2::builder;
     /// use builder::org_policy::CreateCustomConstraint;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -699,6 +707,7 @@ pub mod org_policy {
     /// # use google_cloud_orgpolicy_v2::builder;
     /// use builder::org_policy::UpdateCustomConstraint;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -769,6 +778,7 @@ pub mod org_policy {
     /// # use google_cloud_orgpolicy_v2::builder;
     /// use builder::org_policy::GetCustomConstraint;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -834,8 +844,9 @@ pub mod org_policy {
     /// # use google_cloud_orgpolicy_v2::builder;
     /// use builder::org_policy::ListCustomConstraints;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -941,6 +952,7 @@ pub mod org_policy {
     /// # use google_cloud_orgpolicy_v2::builder;
     /// use builder::org_policy::DeleteCustomConstraint;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });

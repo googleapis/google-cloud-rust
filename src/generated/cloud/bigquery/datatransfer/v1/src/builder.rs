@@ -75,6 +75,7 @@ pub mod data_transfer_service {
     /// # use google_cloud_bigquery_datatransfer_v1::builder;
     /// use builder::data_transfer_service::GetDataSource;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -137,8 +138,9 @@ pub mod data_transfer_service {
     /// # use google_cloud_bigquery_datatransfer_v1::builder;
     /// use builder::data_transfer_service::ListDataSources;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -239,6 +241,7 @@ pub mod data_transfer_service {
     /// # use google_cloud_bigquery_datatransfer_v1::builder;
     /// use builder::data_transfer_service::CreateTransferConfig;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -334,6 +337,7 @@ pub mod data_transfer_service {
     /// # use google_cloud_bigquery_datatransfer_v1::builder;
     /// use builder::data_transfer_service::UpdateTransferConfig;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -432,6 +436,7 @@ pub mod data_transfer_service {
     /// # use google_cloud_bigquery_datatransfer_v1::builder;
     /// use builder::data_transfer_service::DeleteTransferConfig;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -497,6 +502,7 @@ pub mod data_transfer_service {
     /// # use google_cloud_bigquery_datatransfer_v1::builder;
     /// use builder::data_transfer_service::GetTransferConfig;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -562,8 +568,9 @@ pub mod data_transfer_service {
     /// # use google_cloud_bigquery_datatransfer_v1::builder;
     /// use builder::data_transfer_service::ListTransferConfigs;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -680,6 +687,7 @@ pub mod data_transfer_service {
     /// # use google_cloud_bigquery_datatransfer_v1::builder;
     /// use builder::data_transfer_service::ScheduleTransferRuns;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -764,6 +772,7 @@ pub mod data_transfer_service {
     /// # use google_cloud_bigquery_datatransfer_v1::builder;
     /// use builder::data_transfer_service::StartManualTransferRuns;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -873,6 +882,7 @@ pub mod data_transfer_service {
     /// # use google_cloud_bigquery_datatransfer_v1::builder;
     /// use builder::data_transfer_service::GetTransferRun;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -935,6 +945,7 @@ pub mod data_transfer_service {
     /// # use google_cloud_bigquery_datatransfer_v1::builder;
     /// use builder::data_transfer_service::DeleteTransferRun;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1000,8 +1011,9 @@ pub mod data_transfer_service {
     /// # use google_cloud_bigquery_datatransfer_v1::builder;
     /// use builder::data_transfer_service::ListTransferRuns;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -1125,8 +1137,9 @@ pub mod data_transfer_service {
     /// # use google_cloud_bigquery_datatransfer_v1::builder;
     /// use builder::data_transfer_service::ListTransferLogs;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -1241,6 +1254,7 @@ pub mod data_transfer_service {
     /// # use google_cloud_bigquery_datatransfer_v1::builder;
     /// use builder::data_transfer_service::CheckValidCreds;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1303,6 +1317,7 @@ pub mod data_transfer_service {
     /// # use google_cloud_bigquery_datatransfer_v1::builder;
     /// use builder::data_transfer_service::EnrollDataSources;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1379,6 +1394,7 @@ pub mod data_transfer_service {
     /// # use google_cloud_bigquery_datatransfer_v1::builder;
     /// use builder::data_transfer_service::UnenrollDataSources;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1455,8 +1471,9 @@ pub mod data_transfer_service {
     /// # use google_cloud_bigquery_datatransfer_v1::builder;
     /// use builder::data_transfer_service::ListLocations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -1564,6 +1581,7 @@ pub mod data_transfer_service {
     /// # use google_cloud_bigquery_datatransfer_v1::builder;
     /// use builder::data_transfer_service::GetLocation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });

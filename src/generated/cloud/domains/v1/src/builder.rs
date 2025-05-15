@@ -73,6 +73,7 @@ pub mod domains {
     /// # use google_cloud_domains_v1::builder;
     /// use builder::domains::SearchDomains;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -141,6 +142,7 @@ pub mod domains {
     /// # use google_cloud_domains_v1::builder;
     /// use builder::domains::RetrieveRegisterParameters;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -214,8 +216,9 @@ pub mod domains {
     /// # use google_cloud_domains_v1::builder;
     /// use builder::domains::RegisterDomain;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_domains_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -365,6 +368,7 @@ pub mod domains {
     /// # use google_cloud_domains_v1::builder;
     /// use builder::domains::RetrieveTransferParameters;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -438,8 +442,9 @@ pub mod domains {
     /// # use google_cloud_domains_v1::builder;
     /// use builder::domains::TransferDomain;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_domains_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -589,8 +594,9 @@ pub mod domains {
     /// # use google_cloud_domains_v1::builder;
     /// use builder::domains::ListRegistrations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -698,6 +704,7 @@ pub mod domains {
     /// # use google_cloud_domains_v1::builder;
     /// use builder::domains::GetRegistration;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -758,8 +765,9 @@ pub mod domains {
     /// # use google_cloud_domains_v1::builder;
     /// use builder::domains::UpdateRegistration;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_domains_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -874,8 +882,9 @@ pub mod domains {
     /// # use google_cloud_domains_v1::builder;
     /// use builder::domains::ConfigureManagementSettings;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_domains_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1002,8 +1011,9 @@ pub mod domains {
     /// # use google_cloud_domains_v1::builder;
     /// use builder::domains::ConfigureDnsSettings;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_domains_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1132,8 +1142,9 @@ pub mod domains {
     /// # use google_cloud_domains_v1::builder;
     /// use builder::domains::ConfigureContactSettings;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_domains_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1275,8 +1286,9 @@ pub mod domains {
     /// # use google_cloud_domains_v1::builder;
     /// use builder::domains::ExportRegistration;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_domains_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1379,8 +1391,9 @@ pub mod domains {
     /// # use google_cloud_domains_v1::builder;
     /// use builder::domains::DeleteRegistration;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_domains_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1483,6 +1496,7 @@ pub mod domains {
     /// # use google_cloud_domains_v1::builder;
     /// use builder::domains::RetrieveAuthorizationCode;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1548,6 +1562,7 @@ pub mod domains {
     /// # use google_cloud_domains_v1::builder;
     /// use builder::domains::ResetAuthorizationCode;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1611,8 +1626,9 @@ pub mod domains {
     /// # use google_cloud_domains_v1::builder;
     /// use builder::domains::ListOperations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -1720,6 +1736,7 @@ pub mod domains {
     /// # use google_cloud_domains_v1::builder;
     /// use builder::domains::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });

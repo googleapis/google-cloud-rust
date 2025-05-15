@@ -75,8 +75,9 @@ pub mod managed_identities_service {
     /// # use google_cloud_managedidentities_v1::builder;
     /// use builder::managed_identities_service::CreateMicrosoftAdDomain;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_managedidentities_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -198,6 +199,7 @@ pub mod managed_identities_service {
     /// # use google_cloud_managedidentities_v1::builder;
     /// use builder::managed_identities_service::ResetAdminPassword;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -263,8 +265,9 @@ pub mod managed_identities_service {
     /// # use google_cloud_managedidentities_v1::builder;
     /// use builder::managed_identities_service::ListDomains;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -377,6 +380,7 @@ pub mod managed_identities_service {
     /// # use google_cloud_managedidentities_v1::builder;
     /// use builder::managed_identities_service::GetDomain;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -439,8 +443,9 @@ pub mod managed_identities_service {
     /// # use google_cloud_managedidentities_v1::builder;
     /// use builder::managed_identities_service::UpdateDomain;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_managedidentities_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -552,8 +557,9 @@ pub mod managed_identities_service {
     /// # use google_cloud_managedidentities_v1::builder;
     /// use builder::managed_identities_service::DeleteDomain;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_managedidentities_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -655,8 +661,9 @@ pub mod managed_identities_service {
     /// # use google_cloud_managedidentities_v1::builder;
     /// use builder::managed_identities_service::AttachTrust;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_managedidentities_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -765,8 +772,9 @@ pub mod managed_identities_service {
     /// # use google_cloud_managedidentities_v1::builder;
     /// use builder::managed_identities_service::ReconfigureTrust;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_managedidentities_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -888,8 +896,9 @@ pub mod managed_identities_service {
     /// # use google_cloud_managedidentities_v1::builder;
     /// use builder::managed_identities_service::DetachTrust;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_managedidentities_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -998,8 +1007,9 @@ pub mod managed_identities_service {
     /// # use google_cloud_managedidentities_v1::builder;
     /// use builder::managed_identities_service::ValidateTrust;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_managedidentities_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1108,8 +1118,9 @@ pub mod managed_identities_service {
     /// # use google_cloud_managedidentities_v1::builder;
     /// use builder::managed_identities_service::ListOperations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -1219,6 +1230,7 @@ pub mod managed_identities_service {
     /// # use google_cloud_managedidentities_v1::builder;
     /// use builder::managed_identities_service::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1282,6 +1294,7 @@ pub mod managed_identities_service {
     /// # use google_cloud_managedidentities_v1::builder;
     /// use builder::managed_identities_service::DeleteOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1345,6 +1358,7 @@ pub mod managed_identities_service {
     /// # use google_cloud_managedidentities_v1::builder;
     /// use builder::managed_identities_service::CancelOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });

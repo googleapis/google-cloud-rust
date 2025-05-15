@@ -75,6 +75,7 @@ pub mod cluster_manager {
     /// # use google_cloud_container_v1::builder;
     /// use builder::cluster_manager::ListClusters;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -149,6 +150,7 @@ pub mod cluster_manager {
     /// # use google_cloud_container_v1::builder;
     /// use builder::cluster_manager::GetCluster;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -230,6 +232,7 @@ pub mod cluster_manager {
     /// # use google_cloud_container_v1::builder;
     /// use builder::cluster_manager::CreateCluster;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -315,6 +318,7 @@ pub mod cluster_manager {
     /// # use google_cloud_container_v1::builder;
     /// use builder::cluster_manager::UpdateCluster;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -407,6 +411,7 @@ pub mod cluster_manager {
     /// # use google_cloud_container_v1::builder;
     /// use builder::cluster_manager::UpdateNodePool;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -750,6 +755,7 @@ pub mod cluster_manager {
     /// # use google_cloud_container_v1::builder;
     /// use builder::cluster_manager::SetNodePoolAutoscaling;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -852,6 +858,7 @@ pub mod cluster_manager {
     /// # use google_cloud_container_v1::builder;
     /// use builder::cluster_manager::SetLoggingService;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -944,6 +951,7 @@ pub mod cluster_manager {
     /// # use google_cloud_container_v1::builder;
     /// use builder::cluster_manager::SetMonitoringService;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1036,6 +1044,7 @@ pub mod cluster_manager {
     /// # use google_cloud_container_v1::builder;
     /// use builder::cluster_manager::SetAddonsConfig;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1128,6 +1137,7 @@ pub mod cluster_manager {
     /// # use google_cloud_container_v1::builder;
     /// use builder::cluster_manager::SetLocations;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1222,6 +1232,7 @@ pub mod cluster_manager {
     /// # use google_cloud_container_v1::builder;
     /// use builder::cluster_manager::UpdateMaster;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1311,6 +1322,7 @@ pub mod cluster_manager {
     /// # use google_cloud_container_v1::builder;
     /// use builder::cluster_manager::SetMasterAuth;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1414,6 +1426,7 @@ pub mod cluster_manager {
     /// # use google_cloud_container_v1::builder;
     /// use builder::cluster_manager::DeleteCluster;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1495,6 +1508,7 @@ pub mod cluster_manager {
     /// # use google_cloud_container_v1::builder;
     /// use builder::cluster_manager::ListOperations;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1569,6 +1583,7 @@ pub mod cluster_manager {
     /// # use google_cloud_container_v1::builder;
     /// use builder::cluster_manager::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1650,6 +1665,7 @@ pub mod cluster_manager {
     /// # use google_cloud_container_v1::builder;
     /// use builder::cluster_manager::CancelOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1731,6 +1747,7 @@ pub mod cluster_manager {
     /// # use google_cloud_container_v1::builder;
     /// use builder::cluster_manager::GetServerConfig;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1805,6 +1822,7 @@ pub mod cluster_manager {
     /// # use google_cloud_container_v1::builder;
     /// use builder::cluster_manager::GetJSONWebKeys;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1865,6 +1883,7 @@ pub mod cluster_manager {
     /// # use google_cloud_container_v1::builder;
     /// use builder::cluster_manager::ListNodePools;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1946,6 +1965,7 @@ pub mod cluster_manager {
     /// # use google_cloud_container_v1::builder;
     /// use builder::cluster_manager::GetNodePool;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2034,6 +2054,7 @@ pub mod cluster_manager {
     /// # use google_cloud_container_v1::builder;
     /// use builder::cluster_manager::CreateNodePool;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2126,6 +2147,7 @@ pub mod cluster_manager {
     /// # use google_cloud_container_v1::builder;
     /// use builder::cluster_manager::DeleteNodePool;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2214,6 +2236,7 @@ pub mod cluster_manager {
     /// # use google_cloud_container_v1::builder;
     /// use builder::cluster_manager::CompleteNodePoolUpgrade;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2279,6 +2302,7 @@ pub mod cluster_manager {
     /// # use google_cloud_container_v1::builder;
     /// use builder::cluster_manager::RollbackNodePoolUpgrade;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2378,6 +2402,7 @@ pub mod cluster_manager {
     /// # use google_cloud_container_v1::builder;
     /// use builder::cluster_manager::SetNodePoolManagement;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2480,6 +2505,7 @@ pub mod cluster_manager {
     /// # use google_cloud_container_v1::builder;
     /// use builder::cluster_manager::SetLabels;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2583,6 +2609,7 @@ pub mod cluster_manager {
     /// # use google_cloud_container_v1::builder;
     /// use builder::cluster_manager::SetLegacyAbac;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2672,6 +2699,7 @@ pub mod cluster_manager {
     /// # use google_cloud_container_v1::builder;
     /// use builder::cluster_manager::StartIPRotation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2759,6 +2787,7 @@ pub mod cluster_manager {
     /// # use google_cloud_container_v1::builder;
     /// use builder::cluster_manager::CompleteIPRotation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2843,6 +2872,7 @@ pub mod cluster_manager {
     /// # use google_cloud_container_v1::builder;
     /// use builder::cluster_manager::SetNodePoolSize;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2939,6 +2969,7 @@ pub mod cluster_manager {
     /// # use google_cloud_container_v1::builder;
     /// use builder::cluster_manager::SetNetworkPolicy;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3034,6 +3065,7 @@ pub mod cluster_manager {
     /// # use google_cloud_container_v1::builder;
     /// use builder::cluster_manager::SetMaintenancePolicy;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3134,8 +3166,9 @@ pub mod cluster_manager {
     /// # use google_cloud_container_v1::builder;
     /// use builder::cluster_manager::ListUsableSubnetworks;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -3245,6 +3278,7 @@ pub mod cluster_manager {
     /// # use google_cloud_container_v1::builder;
     /// use builder::cluster_manager::CheckAutopilotCompatibility;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });

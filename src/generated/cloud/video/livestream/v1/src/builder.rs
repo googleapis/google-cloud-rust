@@ -75,8 +75,9 @@ pub mod livestream_service {
     /// # use google_cloud_video_livestream_v1::builder;
     /// use builder::livestream_service::CreateChannel;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_video_livestream_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -201,8 +202,9 @@ pub mod livestream_service {
     /// # use google_cloud_video_livestream_v1::builder;
     /// use builder::livestream_service::ListChannels;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -315,6 +317,7 @@ pub mod livestream_service {
     /// # use google_cloud_video_livestream_v1::builder;
     /// use builder::livestream_service::GetChannel;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -377,8 +380,9 @@ pub mod livestream_service {
     /// # use google_cloud_video_livestream_v1::builder;
     /// use builder::livestream_service::DeleteChannel;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_video_livestream_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -492,8 +496,9 @@ pub mod livestream_service {
     /// # use google_cloud_video_livestream_v1::builder;
     /// use builder::livestream_service::UpdateChannel;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_video_livestream_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -611,8 +616,9 @@ pub mod livestream_service {
     /// # use google_cloud_video_livestream_v1::builder;
     /// use builder::livestream_service::StartChannel;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_video_livestream_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -721,8 +727,9 @@ pub mod livestream_service {
     /// # use google_cloud_video_livestream_v1::builder;
     /// use builder::livestream_service::StopChannel;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_video_livestream_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -831,8 +838,9 @@ pub mod livestream_service {
     /// # use google_cloud_video_livestream_v1::builder;
     /// use builder::livestream_service::CreateInput;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_video_livestream_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -957,8 +965,9 @@ pub mod livestream_service {
     /// # use google_cloud_video_livestream_v1::builder;
     /// use builder::livestream_service::ListInputs;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -1071,6 +1080,7 @@ pub mod livestream_service {
     /// # use google_cloud_video_livestream_v1::builder;
     /// use builder::livestream_service::GetInput;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1133,8 +1143,9 @@ pub mod livestream_service {
     /// # use google_cloud_video_livestream_v1::builder;
     /// use builder::livestream_service::DeleteInput;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_video_livestream_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1242,8 +1253,9 @@ pub mod livestream_service {
     /// # use google_cloud_video_livestream_v1::builder;
     /// use builder::livestream_service::UpdateInput;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_video_livestream_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1361,6 +1373,7 @@ pub mod livestream_service {
     /// # use google_cloud_video_livestream_v1::builder;
     /// use builder::livestream_service::CreateEvent;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1448,8 +1461,9 @@ pub mod livestream_service {
     /// # use google_cloud_video_livestream_v1::builder;
     /// use builder::livestream_service::ListEvents;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -1562,6 +1576,7 @@ pub mod livestream_service {
     /// # use google_cloud_video_livestream_v1::builder;
     /// use builder::livestream_service::GetEvent;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1624,6 +1639,7 @@ pub mod livestream_service {
     /// # use google_cloud_video_livestream_v1::builder;
     /// use builder::livestream_service::DeleteEvent;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1692,8 +1708,9 @@ pub mod livestream_service {
     /// # use google_cloud_video_livestream_v1::builder;
     /// use builder::livestream_service::ListClips;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -1806,6 +1823,7 @@ pub mod livestream_service {
     /// # use google_cloud_video_livestream_v1::builder;
     /// use builder::livestream_service::GetClip;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1868,8 +1886,9 @@ pub mod livestream_service {
     /// # use google_cloud_video_livestream_v1::builder;
     /// use builder::livestream_service::CreateClip;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_video_livestream_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1991,8 +2010,9 @@ pub mod livestream_service {
     /// # use google_cloud_video_livestream_v1::builder;
     /// use builder::livestream_service::DeleteClip;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_video_livestream_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -2100,8 +2120,9 @@ pub mod livestream_service {
     /// # use google_cloud_video_livestream_v1::builder;
     /// use builder::livestream_service::CreateAsset;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_video_livestream_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -2226,8 +2247,9 @@ pub mod livestream_service {
     /// # use google_cloud_video_livestream_v1::builder;
     /// use builder::livestream_service::DeleteAsset;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_video_livestream_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -2335,6 +2357,7 @@ pub mod livestream_service {
     /// # use google_cloud_video_livestream_v1::builder;
     /// use builder::livestream_service::GetAsset;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2397,8 +2420,9 @@ pub mod livestream_service {
     /// # use google_cloud_video_livestream_v1::builder;
     /// use builder::livestream_service::ListAssets;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -2511,6 +2535,7 @@ pub mod livestream_service {
     /// # use google_cloud_video_livestream_v1::builder;
     /// use builder::livestream_service::GetPool;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2573,8 +2598,9 @@ pub mod livestream_service {
     /// # use google_cloud_video_livestream_v1::builder;
     /// use builder::livestream_service::UpdatePool;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_video_livestream_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -2689,8 +2715,9 @@ pub mod livestream_service {
     /// # use google_cloud_video_livestream_v1::builder;
     /// use builder::livestream_service::ListLocations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -2798,6 +2825,7 @@ pub mod livestream_service {
     /// # use google_cloud_video_livestream_v1::builder;
     /// use builder::livestream_service::GetLocation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2858,8 +2886,9 @@ pub mod livestream_service {
     /// # use google_cloud_video_livestream_v1::builder;
     /// use builder::livestream_service::ListOperations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -2969,6 +2998,7 @@ pub mod livestream_service {
     /// # use google_cloud_video_livestream_v1::builder;
     /// use builder::livestream_service::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3032,6 +3062,7 @@ pub mod livestream_service {
     /// # use google_cloud_video_livestream_v1::builder;
     /// use builder::livestream_service::DeleteOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3095,6 +3126,7 @@ pub mod livestream_service {
     /// # use google_cloud_video_livestream_v1::builder;
     /// use builder::livestream_service::CancelOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });

@@ -73,8 +73,9 @@ pub mod api_keys {
     /// # use google_cloud_apikeys_v2::builder;
     /// use builder::api_keys::CreateKey;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_apikeys_v2::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -188,8 +189,9 @@ pub mod api_keys {
     /// # use google_cloud_apikeys_v2::builder;
     /// use builder::api_keys::ListKeys;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -294,6 +296,7 @@ pub mod api_keys {
     /// # use google_cloud_apikeys_v2::builder;
     /// use builder::api_keys::GetKey;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -354,6 +357,7 @@ pub mod api_keys {
     /// # use google_cloud_apikeys_v2::builder;
     /// use builder::api_keys::GetKeyString;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -414,8 +418,9 @@ pub mod api_keys {
     /// # use google_cloud_apikeys_v2::builder;
     /// use builder::api_keys::UpdateKey;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_apikeys_v2::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -524,8 +529,9 @@ pub mod api_keys {
     /// # use google_cloud_apikeys_v2::builder;
     /// use builder::api_keys::DeleteKey;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_apikeys_v2::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -631,8 +637,9 @@ pub mod api_keys {
     /// # use google_cloud_apikeys_v2::builder;
     /// use builder::api_keys::UndeleteKey;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_apikeys_v2::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -732,6 +739,7 @@ pub mod api_keys {
     /// # use google_cloud_apikeys_v2::builder;
     /// use builder::api_keys::LookupKey;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -792,6 +800,7 @@ pub mod api_keys {
     /// # use google_cloud_apikeys_v2::builder;
     /// use builder::api_keys::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });

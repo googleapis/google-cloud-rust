@@ -75,6 +75,7 @@ pub mod security_center {
     /// # use google_cloud_securitycenter_v2::builder;
     /// use builder::security_center::BatchCreateResourceValueConfigs;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -155,8 +156,9 @@ pub mod security_center {
     /// # use google_cloud_securitycenter_v2::builder;
     /// use builder::security_center::BulkMuteFindings;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_securitycenter_v2::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -277,6 +279,7 @@ pub mod security_center {
     /// # use google_cloud_securitycenter_v2::builder;
     /// use builder::security_center::CreateBigQueryExport;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -361,6 +364,7 @@ pub mod security_center {
     /// # use google_cloud_securitycenter_v2::builder;
     /// use builder::security_center::CreateFinding;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -442,6 +446,7 @@ pub mod security_center {
     /// # use google_cloud_securitycenter_v2::builder;
     /// use builder::security_center::CreateMuteConfig;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -526,6 +531,7 @@ pub mod security_center {
     /// # use google_cloud_securitycenter_v2::builder;
     /// use builder::security_center::CreateNotificationConfig;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -614,6 +620,7 @@ pub mod security_center {
     /// # use google_cloud_securitycenter_v2::builder;
     /// use builder::security_center::CreateSource;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -687,6 +694,7 @@ pub mod security_center {
     /// # use google_cloud_securitycenter_v2::builder;
     /// use builder::security_center::DeleteBigQueryExport;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -752,6 +760,7 @@ pub mod security_center {
     /// # use google_cloud_securitycenter_v2::builder;
     /// use builder::security_center::DeleteMuteConfig;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -817,6 +826,7 @@ pub mod security_center {
     /// # use google_cloud_securitycenter_v2::builder;
     /// use builder::security_center::DeleteNotificationConfig;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -884,6 +894,7 @@ pub mod security_center {
     /// # use google_cloud_securitycenter_v2::builder;
     /// use builder::security_center::DeleteResourceValueConfig;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -951,6 +962,7 @@ pub mod security_center {
     /// # use google_cloud_securitycenter_v2::builder;
     /// use builder::security_center::GetBigQueryExport;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1016,6 +1028,7 @@ pub mod security_center {
     /// # use google_cloud_securitycenter_v2::builder;
     /// use builder::security_center::GetSimulation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1078,6 +1091,7 @@ pub mod security_center {
     /// # use google_cloud_securitycenter_v2::builder;
     /// use builder::security_center::GetValuedResource;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1143,6 +1157,7 @@ pub mod security_center {
     /// # use google_cloud_securitycenter_v2::builder;
     /// use builder::security_center::GetIamPolicy;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1214,6 +1229,7 @@ pub mod security_center {
     /// # use google_cloud_securitycenter_v2::builder;
     /// use builder::security_center::GetMuteConfig;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1276,6 +1292,7 @@ pub mod security_center {
     /// # use google_cloud_securitycenter_v2::builder;
     /// use builder::security_center::GetNotificationConfig;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1341,6 +1358,7 @@ pub mod security_center {
     /// # use google_cloud_securitycenter_v2::builder;
     /// use builder::security_center::GetResourceValueConfig;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1406,6 +1424,7 @@ pub mod security_center {
     /// # use google_cloud_securitycenter_v2::builder;
     /// use builder::security_center::GetSource;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1468,8 +1487,9 @@ pub mod security_center {
     /// # use google_cloud_securitycenter_v2::builder;
     /// use builder::security_center::GroupFindings;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -1584,8 +1604,9 @@ pub mod security_center {
     /// # use google_cloud_securitycenter_v2::builder;
     /// use builder::security_center::ListAttackPaths;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -1692,8 +1713,9 @@ pub mod security_center {
     /// # use google_cloud_securitycenter_v2::builder;
     /// use builder::security_center::ListBigQueryExports;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -1799,8 +1821,9 @@ pub mod security_center {
     /// # use google_cloud_securitycenter_v2::builder;
     /// use builder::security_center::ListFindings;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -1922,8 +1945,9 @@ pub mod security_center {
     /// # use google_cloud_securitycenter_v2::builder;
     /// use builder::security_center::ListMuteConfigs;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -2024,8 +2048,9 @@ pub mod security_center {
     /// # use google_cloud_securitycenter_v2::builder;
     /// use builder::security_center::ListNotificationConfigs;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -2135,8 +2160,9 @@ pub mod security_center {
     /// # use google_cloud_securitycenter_v2::builder;
     /// use builder::security_center::ListResourceValueConfigs;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -2246,8 +2272,9 @@ pub mod security_center {
     /// # use google_cloud_securitycenter_v2::builder;
     /// use builder::security_center::ListSources;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -2348,8 +2375,9 @@ pub mod security_center {
     /// # use google_cloud_securitycenter_v2::builder;
     /// use builder::security_center::ListValuedResources;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -2467,6 +2495,7 @@ pub mod security_center {
     /// # use google_cloud_securitycenter_v2::builder;
     /// use builder::security_center::SetFindingState;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2537,6 +2566,7 @@ pub mod security_center {
     /// # use google_cloud_securitycenter_v2::builder;
     /// use builder::security_center::SetIamPolicy;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2619,6 +2649,7 @@ pub mod security_center {
     /// # use google_cloud_securitycenter_v2::builder;
     /// use builder::security_center::SetMute;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2689,6 +2720,7 @@ pub mod security_center {
     /// # use google_cloud_securitycenter_v2::builder;
     /// use builder::security_center::TestIamPermissions;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2767,6 +2799,7 @@ pub mod security_center {
     /// # use google_cloud_securitycenter_v2::builder;
     /// use builder::security_center::UpdateBigQueryExport;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2844,6 +2877,7 @@ pub mod security_center {
     /// # use google_cloud_securitycenter_v2::builder;
     /// use builder::security_center::UpdateExternalSystem;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2921,6 +2955,7 @@ pub mod security_center {
     /// # use google_cloud_securitycenter_v2::builder;
     /// use builder::security_center::UpdateFinding;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2995,6 +3030,7 @@ pub mod security_center {
     /// # use google_cloud_securitycenter_v2::builder;
     /// use builder::security_center::UpdateMuteConfig;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3072,6 +3108,7 @@ pub mod security_center {
     /// # use google_cloud_securitycenter_v2::builder;
     /// use builder::security_center::UpdateNotificationConfig;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3153,6 +3190,7 @@ pub mod security_center {
     /// # use google_cloud_securitycenter_v2::builder;
     /// use builder::security_center::UpdateResourceValueConfig;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3234,6 +3272,7 @@ pub mod security_center {
     /// # use google_cloud_securitycenter_v2::builder;
     /// use builder::security_center::UpdateSecurityMarks;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3311,6 +3350,7 @@ pub mod security_center {
     /// # use google_cloud_securitycenter_v2::builder;
     /// use builder::security_center::UpdateSource;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3385,8 +3425,9 @@ pub mod security_center {
     /// # use google_cloud_securitycenter_v2::builder;
     /// use builder::security_center::ListOperations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -3496,6 +3537,7 @@ pub mod security_center {
     /// # use google_cloud_securitycenter_v2::builder;
     /// use builder::security_center::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3559,6 +3601,7 @@ pub mod security_center {
     /// # use google_cloud_securitycenter_v2::builder;
     /// use builder::security_center::DeleteOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3622,6 +3665,7 @@ pub mod security_center {
     /// # use google_cloud_securitycenter_v2::builder;
     /// use builder::security_center::CancelOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });

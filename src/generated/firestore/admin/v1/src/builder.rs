@@ -75,8 +75,9 @@ pub mod firestore_admin {
     /// # use google_cloud_firestore_admin_v1::builder;
     /// use builder::firestore_admin::CreateIndex;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_firestore_admin_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -187,8 +188,9 @@ pub mod firestore_admin {
     /// # use google_cloud_firestore_admin_v1::builder;
     /// use builder::firestore_admin::ListIndexes;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -295,6 +297,7 @@ pub mod firestore_admin {
     /// # use google_cloud_firestore_admin_v1::builder;
     /// use builder::firestore_admin::GetIndex;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -357,6 +360,7 @@ pub mod firestore_admin {
     /// # use google_cloud_firestore_admin_v1::builder;
     /// use builder::firestore_admin::DeleteIndex;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -419,6 +423,7 @@ pub mod firestore_admin {
     /// # use google_cloud_firestore_admin_v1::builder;
     /// use builder::firestore_admin::GetField;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -481,8 +486,9 @@ pub mod firestore_admin {
     /// # use google_cloud_firestore_admin_v1::builder;
     /// use builder::firestore_admin::UpdateField;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_firestore_admin_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -594,8 +600,9 @@ pub mod firestore_admin {
     /// # use google_cloud_firestore_admin_v1::builder;
     /// use builder::firestore_admin::ListFields;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -702,8 +709,9 @@ pub mod firestore_admin {
     /// # use google_cloud_firestore_admin_v1::builder;
     /// use builder::firestore_admin::ExportDocuments;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_firestore_admin_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -843,8 +851,9 @@ pub mod firestore_admin {
     /// # use google_cloud_firestore_admin_v1::builder;
     /// use builder::firestore_admin::ImportDocuments;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_firestore_admin_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -975,8 +984,9 @@ pub mod firestore_admin {
     /// # use google_cloud_firestore_admin_v1::builder;
     /// use builder::firestore_admin::BulkDeleteDocuments;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_firestore_admin_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1106,8 +1116,9 @@ pub mod firestore_admin {
     /// # use google_cloud_firestore_admin_v1::builder;
     /// use builder::firestore_admin::CreateDatabase;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_firestore_admin_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1229,6 +1240,7 @@ pub mod firestore_admin {
     /// # use google_cloud_firestore_admin_v1::builder;
     /// use builder::firestore_admin::GetDatabase;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1291,6 +1303,7 @@ pub mod firestore_admin {
     /// # use google_cloud_firestore_admin_v1::builder;
     /// use builder::firestore_admin::ListDatabases;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1359,8 +1372,9 @@ pub mod firestore_admin {
     /// # use google_cloud_firestore_admin_v1::builder;
     /// use builder::firestore_admin::UpdateDatabase;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_firestore_admin_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1475,8 +1489,9 @@ pub mod firestore_admin {
     /// # use google_cloud_firestore_admin_v1::builder;
     /// use builder::firestore_admin::DeleteDatabase;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_firestore_admin_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1585,6 +1600,7 @@ pub mod firestore_admin {
     /// # use google_cloud_firestore_admin_v1::builder;
     /// use builder::firestore_admin::CreateUserCreds;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1666,6 +1682,7 @@ pub mod firestore_admin {
     /// # use google_cloud_firestore_admin_v1::builder;
     /// use builder::firestore_admin::GetUserCreds;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1728,6 +1745,7 @@ pub mod firestore_admin {
     /// # use google_cloud_firestore_admin_v1::builder;
     /// use builder::firestore_admin::ListUserCreds;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1790,6 +1808,7 @@ pub mod firestore_admin {
     /// # use google_cloud_firestore_admin_v1::builder;
     /// use builder::firestore_admin::EnableUserCreds;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1852,6 +1871,7 @@ pub mod firestore_admin {
     /// # use google_cloud_firestore_admin_v1::builder;
     /// use builder::firestore_admin::DisableUserCreds;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1917,6 +1937,7 @@ pub mod firestore_admin {
     /// # use google_cloud_firestore_admin_v1::builder;
     /// use builder::firestore_admin::ResetUserPassword;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1982,6 +2003,7 @@ pub mod firestore_admin {
     /// # use google_cloud_firestore_admin_v1::builder;
     /// use builder::firestore_admin::DeleteUserCreds;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2044,6 +2066,7 @@ pub mod firestore_admin {
     /// # use google_cloud_firestore_admin_v1::builder;
     /// use builder::firestore_admin::GetBackup;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2106,6 +2129,7 @@ pub mod firestore_admin {
     /// # use google_cloud_firestore_admin_v1::builder;
     /// use builder::firestore_admin::ListBackups;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2174,6 +2198,7 @@ pub mod firestore_admin {
     /// # use google_cloud_firestore_admin_v1::builder;
     /// use builder::firestore_admin::DeleteBackup;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2236,8 +2261,9 @@ pub mod firestore_admin {
     /// # use google_cloud_firestore_admin_v1::builder;
     /// use builder::firestore_admin::RestoreDatabase;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_firestore_admin_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -2367,6 +2393,7 @@ pub mod firestore_admin {
     /// # use google_cloud_firestore_admin_v1::builder;
     /// use builder::firestore_admin::CreateBackupSchedule;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2443,6 +2470,7 @@ pub mod firestore_admin {
     /// # use google_cloud_firestore_admin_v1::builder;
     /// use builder::firestore_admin::GetBackupSchedule;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2508,6 +2536,7 @@ pub mod firestore_admin {
     /// # use google_cloud_firestore_admin_v1::builder;
     /// use builder::firestore_admin::ListBackupSchedules;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2573,6 +2602,7 @@ pub mod firestore_admin {
     /// # use google_cloud_firestore_admin_v1::builder;
     /// use builder::firestore_admin::UpdateBackupSchedule;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2650,6 +2680,7 @@ pub mod firestore_admin {
     /// # use google_cloud_firestore_admin_v1::builder;
     /// use builder::firestore_admin::DeleteBackupSchedule;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2715,8 +2746,9 @@ pub mod firestore_admin {
     /// # use google_cloud_firestore_admin_v1::builder;
     /// use builder::firestore_admin::ListOperations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -2826,6 +2858,7 @@ pub mod firestore_admin {
     /// # use google_cloud_firestore_admin_v1::builder;
     /// use builder::firestore_admin::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2889,6 +2922,7 @@ pub mod firestore_admin {
     /// # use google_cloud_firestore_admin_v1::builder;
     /// use builder::firestore_admin::DeleteOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2952,6 +2986,7 @@ pub mod firestore_admin {
     /// # use google_cloud_firestore_admin_v1::builder;
     /// use builder::firestore_admin::CancelOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });

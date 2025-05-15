@@ -75,8 +75,9 @@ pub mod cloud_memcache {
     /// # use google_cloud_memcache_v1::builder;
     /// use builder::cloud_memcache::ListInstances;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -189,6 +190,7 @@ pub mod cloud_memcache {
     /// # use google_cloud_memcache_v1::builder;
     /// use builder::cloud_memcache::GetInstance;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -251,8 +253,9 @@ pub mod cloud_memcache {
     /// # use google_cloud_memcache_v1::builder;
     /// use builder::cloud_memcache::CreateInstance;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_memcache_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -371,8 +374,9 @@ pub mod cloud_memcache {
     /// # use google_cloud_memcache_v1::builder;
     /// use builder::cloud_memcache::UpdateInstance;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_memcache_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -486,8 +490,9 @@ pub mod cloud_memcache {
     /// # use google_cloud_memcache_v1::builder;
     /// use builder::cloud_memcache::UpdateParameters;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_memcache_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -610,8 +615,9 @@ pub mod cloud_memcache {
     /// # use google_cloud_memcache_v1::builder;
     /// use builder::cloud_memcache::DeleteInstance;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_memcache_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -713,8 +719,9 @@ pub mod cloud_memcache {
     /// # use google_cloud_memcache_v1::builder;
     /// use builder::cloud_memcache::ApplyParameters;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_memcache_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -831,8 +838,9 @@ pub mod cloud_memcache {
     /// # use google_cloud_memcache_v1::builder;
     /// use builder::cloud_memcache::RescheduleMaintenance;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_memcache_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -957,8 +965,9 @@ pub mod cloud_memcache {
     /// # use google_cloud_memcache_v1::builder;
     /// use builder::cloud_memcache::ListLocations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -1066,6 +1075,7 @@ pub mod cloud_memcache {
     /// # use google_cloud_memcache_v1::builder;
     /// use builder::cloud_memcache::GetLocation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1126,8 +1136,9 @@ pub mod cloud_memcache {
     /// # use google_cloud_memcache_v1::builder;
     /// use builder::cloud_memcache::ListOperations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -1237,6 +1248,7 @@ pub mod cloud_memcache {
     /// # use google_cloud_memcache_v1::builder;
     /// use builder::cloud_memcache::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1300,6 +1312,7 @@ pub mod cloud_memcache {
     /// # use google_cloud_memcache_v1::builder;
     /// use builder::cloud_memcache::DeleteOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1363,6 +1376,7 @@ pub mod cloud_memcache {
     /// # use google_cloud_memcache_v1::builder;
     /// use builder::cloud_memcache::CancelOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });

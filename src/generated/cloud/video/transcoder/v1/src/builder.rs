@@ -75,6 +75,7 @@ pub mod transcoder_service {
     /// # use google_cloud_video_transcoder_v1::builder;
     /// use builder::transcoder_service::CreateJob;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -145,8 +146,9 @@ pub mod transcoder_service {
     /// # use google_cloud_video_transcoder_v1::builder;
     /// use builder::transcoder_service::ListJobs;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -259,6 +261,7 @@ pub mod transcoder_service {
     /// # use google_cloud_video_transcoder_v1::builder;
     /// use builder::transcoder_service::GetJob;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -321,6 +324,7 @@ pub mod transcoder_service {
     /// # use google_cloud_video_transcoder_v1::builder;
     /// use builder::transcoder_service::DeleteJob;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -389,6 +393,7 @@ pub mod transcoder_service {
     /// # use google_cloud_video_transcoder_v1::builder;
     /// use builder::transcoder_service::CreateJobTemplate;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -473,8 +478,9 @@ pub mod transcoder_service {
     /// # use google_cloud_video_transcoder_v1::builder;
     /// use builder::transcoder_service::ListJobTemplates;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -590,6 +596,7 @@ pub mod transcoder_service {
     /// # use google_cloud_video_transcoder_v1::builder;
     /// use builder::transcoder_service::GetJobTemplate;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -652,6 +659,7 @@ pub mod transcoder_service {
     /// # use google_cloud_video_transcoder_v1::builder;
     /// use builder::transcoder_service::DeleteJobTemplate;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });

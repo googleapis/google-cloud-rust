@@ -75,8 +75,9 @@ pub mod vm_migration {
     /// # use google_cloud_vmmigration_v1::builder;
     /// use builder::vm_migration::ListSources;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -191,6 +192,7 @@ pub mod vm_migration {
     /// # use google_cloud_vmmigration_v1::builder;
     /// use builder::vm_migration::GetSource;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -253,8 +255,9 @@ pub mod vm_migration {
     /// # use google_cloud_vmmigration_v1::builder;
     /// use builder::vm_migration::CreateSource;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_vmmigration_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -379,8 +382,9 @@ pub mod vm_migration {
     /// # use google_cloud_vmmigration_v1::builder;
     /// use builder::vm_migration::UpdateSource;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_vmmigration_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -498,8 +502,9 @@ pub mod vm_migration {
     /// # use google_cloud_vmmigration_v1::builder;
     /// use builder::vm_migration::DeleteSource;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_vmmigration_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -607,6 +612,7 @@ pub mod vm_migration {
     /// # use google_cloud_vmmigration_v1::builder;
     /// use builder::vm_migration::FetchInventory;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -675,8 +681,9 @@ pub mod vm_migration {
     /// # use google_cloud_vmmigration_v1::builder;
     /// use builder::vm_migration::ListUtilizationReports;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -804,6 +811,7 @@ pub mod vm_migration {
     /// # use google_cloud_vmmigration_v1::builder;
     /// use builder::vm_migration::GetUtilizationReport;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -875,8 +883,9 @@ pub mod vm_migration {
     /// # use google_cloud_vmmigration_v1::builder;
     /// use builder::vm_migration::CreateUtilizationReport;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_vmmigration_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1011,8 +1020,9 @@ pub mod vm_migration {
     /// # use google_cloud_vmmigration_v1::builder;
     /// use builder::vm_migration::DeleteUtilizationReport;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_vmmigration_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1125,8 +1135,9 @@ pub mod vm_migration {
     /// # use google_cloud_vmmigration_v1::builder;
     /// use builder::vm_migration::ListDatacenterConnectors;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -1250,6 +1261,7 @@ pub mod vm_migration {
     /// # use google_cloud_vmmigration_v1::builder;
     /// use builder::vm_migration::GetDatacenterConnector;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1315,8 +1327,9 @@ pub mod vm_migration {
     /// # use google_cloud_vmmigration_v1::builder;
     /// use builder::vm_migration::CreateDatacenterConnector;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_vmmigration_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1451,8 +1464,9 @@ pub mod vm_migration {
     /// # use google_cloud_vmmigration_v1::builder;
     /// use builder::vm_migration::DeleteDatacenterConnector;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_vmmigration_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1565,8 +1579,9 @@ pub mod vm_migration {
     /// # use google_cloud_vmmigration_v1::builder;
     /// use builder::vm_migration::UpgradeAppliance;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_vmmigration_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1678,8 +1693,9 @@ pub mod vm_migration {
     /// # use google_cloud_vmmigration_v1::builder;
     /// use builder::vm_migration::CreateMigratingVm;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_vmmigration_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1809,8 +1825,9 @@ pub mod vm_migration {
     /// # use google_cloud_vmmigration_v1::builder;
     /// use builder::vm_migration::ListMigratingVms;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -1934,6 +1951,7 @@ pub mod vm_migration {
     /// # use google_cloud_vmmigration_v1::builder;
     /// use builder::vm_migration::GetMigratingVm;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2002,8 +2020,9 @@ pub mod vm_migration {
     /// # use google_cloud_vmmigration_v1::builder;
     /// use builder::vm_migration::UpdateMigratingVm;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_vmmigration_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -2126,8 +2145,9 @@ pub mod vm_migration {
     /// # use google_cloud_vmmigration_v1::builder;
     /// use builder::vm_migration::DeleteMigratingVm;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_vmmigration_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -2232,8 +2252,9 @@ pub mod vm_migration {
     /// # use google_cloud_vmmigration_v1::builder;
     /// use builder::vm_migration::StartMigration;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_vmmigration_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -2336,8 +2357,9 @@ pub mod vm_migration {
     /// # use google_cloud_vmmigration_v1::builder;
     /// use builder::vm_migration::ResumeMigration;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_vmmigration_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -2440,8 +2462,9 @@ pub mod vm_migration {
     /// # use google_cloud_vmmigration_v1::builder;
     /// use builder::vm_migration::PauseMigration;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_vmmigration_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -2544,8 +2567,9 @@ pub mod vm_migration {
     /// # use google_cloud_vmmigration_v1::builder;
     /// use builder::vm_migration::FinalizeMigration;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_vmmigration_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -2651,8 +2675,9 @@ pub mod vm_migration {
     /// # use google_cloud_vmmigration_v1::builder;
     /// use builder::vm_migration::CreateCloneJob;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_vmmigration_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -2777,8 +2802,9 @@ pub mod vm_migration {
     /// # use google_cloud_vmmigration_v1::builder;
     /// use builder::vm_migration::CancelCloneJob;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_vmmigration_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -2881,8 +2907,9 @@ pub mod vm_migration {
     /// # use google_cloud_vmmigration_v1::builder;
     /// use builder::vm_migration::ListCloneJobs;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -2997,6 +3024,7 @@ pub mod vm_migration {
     /// # use google_cloud_vmmigration_v1::builder;
     /// use builder::vm_migration::GetCloneJob;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3059,8 +3087,9 @@ pub mod vm_migration {
     /// # use google_cloud_vmmigration_v1::builder;
     /// use builder::vm_migration::CreateCutoverJob;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_vmmigration_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -3188,8 +3217,9 @@ pub mod vm_migration {
     /// # use google_cloud_vmmigration_v1::builder;
     /// use builder::vm_migration::CancelCutoverJob;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_vmmigration_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -3295,8 +3325,9 @@ pub mod vm_migration {
     /// # use google_cloud_vmmigration_v1::builder;
     /// use builder::vm_migration::ListCutoverJobs;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -3411,6 +3442,7 @@ pub mod vm_migration {
     /// # use google_cloud_vmmigration_v1::builder;
     /// use builder::vm_migration::GetCutoverJob;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3473,8 +3505,9 @@ pub mod vm_migration {
     /// # use google_cloud_vmmigration_v1::builder;
     /// use builder::vm_migration::ListGroups;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -3589,6 +3622,7 @@ pub mod vm_migration {
     /// # use google_cloud_vmmigration_v1::builder;
     /// use builder::vm_migration::GetGroup;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3651,8 +3685,9 @@ pub mod vm_migration {
     /// # use google_cloud_vmmigration_v1::builder;
     /// use builder::vm_migration::CreateGroup;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_vmmigration_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -3777,8 +3812,9 @@ pub mod vm_migration {
     /// # use google_cloud_vmmigration_v1::builder;
     /// use builder::vm_migration::UpdateGroup;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_vmmigration_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -3896,8 +3932,9 @@ pub mod vm_migration {
     /// # use google_cloud_vmmigration_v1::builder;
     /// use builder::vm_migration::DeleteGroup;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_vmmigration_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -4005,8 +4042,9 @@ pub mod vm_migration {
     /// # use google_cloud_vmmigration_v1::builder;
     /// use builder::vm_migration::AddGroupMigration;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_vmmigration_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -4118,8 +4156,9 @@ pub mod vm_migration {
     /// # use google_cloud_vmmigration_v1::builder;
     /// use builder::vm_migration::RemoveGroupMigration;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_vmmigration_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -4231,8 +4270,9 @@ pub mod vm_migration {
     /// # use google_cloud_vmmigration_v1::builder;
     /// use builder::vm_migration::ListTargetProjects;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -4352,6 +4392,7 @@ pub mod vm_migration {
     /// # use google_cloud_vmmigration_v1::builder;
     /// use builder::vm_migration::GetTargetProject;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -4417,8 +4458,9 @@ pub mod vm_migration {
     /// # use google_cloud_vmmigration_v1::builder;
     /// use builder::vm_migration::CreateTargetProject;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_vmmigration_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -4549,8 +4591,9 @@ pub mod vm_migration {
     /// # use google_cloud_vmmigration_v1::builder;
     /// use builder::vm_migration::UpdateTargetProject;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_vmmigration_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -4674,8 +4717,9 @@ pub mod vm_migration {
     /// # use google_cloud_vmmigration_v1::builder;
     /// use builder::vm_migration::DeleteTargetProject;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_vmmigration_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -4786,8 +4830,9 @@ pub mod vm_migration {
     /// # use google_cloud_vmmigration_v1::builder;
     /// use builder::vm_migration::ListReplicationCycles;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -4907,6 +4952,7 @@ pub mod vm_migration {
     /// # use google_cloud_vmmigration_v1::builder;
     /// use builder::vm_migration::GetReplicationCycle;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -4972,8 +5018,9 @@ pub mod vm_migration {
     /// # use google_cloud_vmmigration_v1::builder;
     /// use builder::vm_migration::ListLocations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -5081,6 +5128,7 @@ pub mod vm_migration {
     /// # use google_cloud_vmmigration_v1::builder;
     /// use builder::vm_migration::GetLocation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -5141,8 +5189,9 @@ pub mod vm_migration {
     /// # use google_cloud_vmmigration_v1::builder;
     /// use builder::vm_migration::ListOperations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -5252,6 +5301,7 @@ pub mod vm_migration {
     /// # use google_cloud_vmmigration_v1::builder;
     /// use builder::vm_migration::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -5315,6 +5365,7 @@ pub mod vm_migration {
     /// # use google_cloud_vmmigration_v1::builder;
     /// use builder::vm_migration::DeleteOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -5378,6 +5429,7 @@ pub mod vm_migration {
     /// # use google_cloud_vmmigration_v1::builder;
     /// use builder::vm_migration::CancelOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });

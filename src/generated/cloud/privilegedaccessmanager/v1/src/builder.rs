@@ -75,6 +75,7 @@ pub mod privileged_access_manager {
     /// # use google_cloud_privilegedaccessmanager_v1::builder;
     /// use builder::privileged_access_manager::CheckOnboardingStatus;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -140,8 +141,9 @@ pub mod privileged_access_manager {
     /// # use google_cloud_privilegedaccessmanager_v1::builder;
     /// use builder::privileged_access_manager::ListEntitlements;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -257,8 +259,9 @@ pub mod privileged_access_manager {
     /// # use google_cloud_privilegedaccessmanager_v1::builder;
     /// use builder::privileged_access_manager::SearchEntitlements;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -383,6 +386,7 @@ pub mod privileged_access_manager {
     /// # use google_cloud_privilegedaccessmanager_v1::builder;
     /// use builder::privileged_access_manager::GetEntitlement;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -445,8 +449,9 @@ pub mod privileged_access_manager {
     /// # use google_cloud_privilegedaccessmanager_v1::builder;
     /// use builder::privileged_access_manager::CreateEntitlement;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_privilegedaccessmanager_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -576,8 +581,9 @@ pub mod privileged_access_manager {
     /// # use google_cloud_privilegedaccessmanager_v1::builder;
     /// use builder::privileged_access_manager::DeleteEntitlement;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_privilegedaccessmanager_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -694,8 +700,9 @@ pub mod privileged_access_manager {
     /// # use google_cloud_privilegedaccessmanager_v1::builder;
     /// use builder::privileged_access_manager::UpdateEntitlement;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_privilegedaccessmanager_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -814,8 +821,9 @@ pub mod privileged_access_manager {
     /// # use google_cloud_privilegedaccessmanager_v1::builder;
     /// use builder::privileged_access_manager::ListGrants;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -928,8 +936,9 @@ pub mod privileged_access_manager {
     /// # use google_cloud_privilegedaccessmanager_v1::builder;
     /// use builder::privileged_access_manager::SearchGrants;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -1049,6 +1058,7 @@ pub mod privileged_access_manager {
     /// # use google_cloud_privilegedaccessmanager_v1::builder;
     /// use builder::privileged_access_manager::GetGrant;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1111,6 +1121,7 @@ pub mod privileged_access_manager {
     /// # use google_cloud_privilegedaccessmanager_v1::builder;
     /// use builder::privileged_access_manager::CreateGrant;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1190,6 +1201,7 @@ pub mod privileged_access_manager {
     /// # use google_cloud_privilegedaccessmanager_v1::builder;
     /// use builder::privileged_access_manager::ApproveGrant;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1258,6 +1270,7 @@ pub mod privileged_access_manager {
     /// # use google_cloud_privilegedaccessmanager_v1::builder;
     /// use builder::privileged_access_manager::DenyGrant;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1326,8 +1339,9 @@ pub mod privileged_access_manager {
     /// # use google_cloud_privilegedaccessmanager_v1::builder;
     /// use builder::privileged_access_manager::RevokeGrant;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_privilegedaccessmanager_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1433,8 +1447,9 @@ pub mod privileged_access_manager {
     /// # use google_cloud_privilegedaccessmanager_v1::builder;
     /// use builder::privileged_access_manager::ListLocations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -1542,6 +1557,7 @@ pub mod privileged_access_manager {
     /// # use google_cloud_privilegedaccessmanager_v1::builder;
     /// use builder::privileged_access_manager::GetLocation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1602,8 +1618,9 @@ pub mod privileged_access_manager {
     /// # use google_cloud_privilegedaccessmanager_v1::builder;
     /// use builder::privileged_access_manager::ListOperations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -1713,6 +1730,7 @@ pub mod privileged_access_manager {
     /// # use google_cloud_privilegedaccessmanager_v1::builder;
     /// use builder::privileged_access_manager::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1776,6 +1794,7 @@ pub mod privileged_access_manager {
     /// # use google_cloud_privilegedaccessmanager_v1::builder;
     /// use builder::privileged_access_manager::DeleteOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });

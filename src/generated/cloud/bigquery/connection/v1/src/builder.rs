@@ -75,6 +75,7 @@ pub mod connection_service {
     /// # use google_cloud_bigquery_connection_v1::builder;
     /// use builder::connection_service::CreateConnection;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -157,6 +158,7 @@ pub mod connection_service {
     /// # use google_cloud_bigquery_connection_v1::builder;
     /// use builder::connection_service::GetConnection;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -219,8 +221,9 @@ pub mod connection_service {
     /// # use google_cloud_bigquery_connection_v1::builder;
     /// use builder::connection_service::ListConnections;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -323,6 +326,7 @@ pub mod connection_service {
     /// # use google_cloud_bigquery_connection_v1::builder;
     /// use builder::connection_service::UpdateConnection;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -410,6 +414,7 @@ pub mod connection_service {
     /// # use google_cloud_bigquery_connection_v1::builder;
     /// use builder::connection_service::DeleteConnection;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -475,6 +480,7 @@ pub mod connection_service {
     /// # use google_cloud_bigquery_connection_v1::builder;
     /// use builder::connection_service::GetIamPolicy;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -546,6 +552,7 @@ pub mod connection_service {
     /// # use google_cloud_bigquery_connection_v1::builder;
     /// use builder::connection_service::SetIamPolicy;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -628,6 +635,7 @@ pub mod connection_service {
     /// # use google_cloud_bigquery_connection_v1::builder;
     /// use builder::connection_service::TestIamPermissions;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });

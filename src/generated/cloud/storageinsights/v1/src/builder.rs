@@ -75,8 +75,9 @@ pub mod storage_insights {
     /// # use google_cloud_storageinsights_v1::builder;
     /// use builder::storage_insights::ListReportConfigs;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -192,6 +193,7 @@ pub mod storage_insights {
     /// # use google_cloud_storageinsights_v1::builder;
     /// use builder::storage_insights::GetReportConfig;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -254,6 +256,7 @@ pub mod storage_insights {
     /// # use google_cloud_storageinsights_v1::builder;
     /// use builder::storage_insights::CreateReportConfig;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -336,6 +339,7 @@ pub mod storage_insights {
     /// # use google_cloud_storageinsights_v1::builder;
     /// use builder::storage_insights::UpdateReportConfig;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -421,6 +425,7 @@ pub mod storage_insights {
     /// # use google_cloud_storageinsights_v1::builder;
     /// use builder::storage_insights::DeleteReportConfig;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -498,8 +503,9 @@ pub mod storage_insights {
     /// # use google_cloud_storageinsights_v1::builder;
     /// use builder::storage_insights::ListReportDetails;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -615,6 +621,7 @@ pub mod storage_insights {
     /// # use google_cloud_storageinsights_v1::builder;
     /// use builder::storage_insights::GetReportDetail;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -677,8 +684,9 @@ pub mod storage_insights {
     /// # use google_cloud_storageinsights_v1::builder;
     /// use builder::storage_insights::ListLocations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -786,6 +794,7 @@ pub mod storage_insights {
     /// # use google_cloud_storageinsights_v1::builder;
     /// use builder::storage_insights::GetLocation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -846,8 +855,9 @@ pub mod storage_insights {
     /// # use google_cloud_storageinsights_v1::builder;
     /// use builder::storage_insights::ListOperations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -957,6 +967,7 @@ pub mod storage_insights {
     /// # use google_cloud_storageinsights_v1::builder;
     /// use builder::storage_insights::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1020,6 +1031,7 @@ pub mod storage_insights {
     /// # use google_cloud_storageinsights_v1::builder;
     /// use builder::storage_insights::DeleteOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1083,6 +1095,7 @@ pub mod storage_insights {
     /// # use google_cloud_storageinsights_v1::builder;
     /// use builder::storage_insights::CancelOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });

@@ -75,6 +75,7 @@ pub mod cloud_billing {
     /// # use google_cloud_billing_v1::builder;
     /// use builder::cloud_billing::GetBillingAccount;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -140,8 +141,9 @@ pub mod cloud_billing {
     /// # use google_cloud_billing_v1::builder;
     /// use builder::cloud_billing::ListBillingAccounts;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -251,6 +253,7 @@ pub mod cloud_billing {
     /// # use google_cloud_billing_v1::builder;
     /// use builder::cloud_billing::UpdateBillingAccount;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -336,6 +339,7 @@ pub mod cloud_billing {
     /// # use google_cloud_billing_v1::builder;
     /// use builder::cloud_billing::CreateBillingAccount;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -410,8 +414,9 @@ pub mod cloud_billing {
     /// # use google_cloud_billing_v1::builder;
     /// use builder::cloud_billing::ListProjectBillingInfo;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -519,6 +524,7 @@ pub mod cloud_billing {
     /// # use google_cloud_billing_v1::builder;
     /// use builder::cloud_billing::GetProjectBillingInfo;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -584,6 +590,7 @@ pub mod cloud_billing {
     /// # use google_cloud_billing_v1::builder;
     /// use builder::cloud_billing::UpdateProjectBillingInfo;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -662,6 +669,7 @@ pub mod cloud_billing {
     /// # use google_cloud_billing_v1::builder;
     /// use builder::cloud_billing::GetIamPolicy;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -733,6 +741,7 @@ pub mod cloud_billing {
     /// # use google_cloud_billing_v1::builder;
     /// use builder::cloud_billing::SetIamPolicy;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -815,6 +824,7 @@ pub mod cloud_billing {
     /// # use google_cloud_billing_v1::builder;
     /// use builder::cloud_billing::TestIamPermissions;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -893,6 +903,7 @@ pub mod cloud_billing {
     /// # use google_cloud_billing_v1::builder;
     /// use builder::cloud_billing::MoveBillingAccount;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1021,8 +1032,9 @@ pub mod cloud_catalog {
     /// # use google_cloud_billing_v1::builder;
     /// use builder::cloud_catalog::ListServices;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -1115,8 +1127,9 @@ pub mod cloud_catalog {
     /// # use google_cloud_billing_v1::builder;
     /// use builder::cloud_catalog::ListSkus;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;

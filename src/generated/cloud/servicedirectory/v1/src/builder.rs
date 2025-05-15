@@ -75,6 +75,7 @@ pub mod lookup_service {
     /// # use google_cloud_servicedirectory_v1::builder;
     /// use builder::lookup_service::ResolveService;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -149,8 +150,9 @@ pub mod lookup_service {
     /// # use google_cloud_servicedirectory_v1::builder;
     /// use builder::lookup_service::ListLocations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -258,6 +260,7 @@ pub mod lookup_service {
     /// # use google_cloud_servicedirectory_v1::builder;
     /// use builder::lookup_service::GetLocation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -373,6 +376,7 @@ pub mod registration_service {
     /// # use google_cloud_servicedirectory_v1::builder;
     /// use builder::registration_service::CreateNamespace;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -454,8 +458,9 @@ pub mod registration_service {
     /// # use google_cloud_servicedirectory_v1::builder;
     /// use builder::registration_service::ListNamespaces;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -568,6 +573,7 @@ pub mod registration_service {
     /// # use google_cloud_servicedirectory_v1::builder;
     /// use builder::registration_service::GetNamespace;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -630,6 +636,7 @@ pub mod registration_service {
     /// # use google_cloud_servicedirectory_v1::builder;
     /// use builder::registration_service::UpdateNamespace;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -706,6 +713,7 @@ pub mod registration_service {
     /// # use google_cloud_servicedirectory_v1::builder;
     /// use builder::registration_service::DeleteNamespace;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -768,6 +776,7 @@ pub mod registration_service {
     /// # use google_cloud_servicedirectory_v1::builder;
     /// use builder::registration_service::CreateService;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -849,8 +858,9 @@ pub mod registration_service {
     /// # use google_cloud_servicedirectory_v1::builder;
     /// use builder::registration_service::ListServices;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -963,6 +973,7 @@ pub mod registration_service {
     /// # use google_cloud_servicedirectory_v1::builder;
     /// use builder::registration_service::GetService;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1025,6 +1036,7 @@ pub mod registration_service {
     /// # use google_cloud_servicedirectory_v1::builder;
     /// use builder::registration_service::UpdateService;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1101,6 +1113,7 @@ pub mod registration_service {
     /// # use google_cloud_servicedirectory_v1::builder;
     /// use builder::registration_service::DeleteService;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1163,6 +1176,7 @@ pub mod registration_service {
     /// # use google_cloud_servicedirectory_v1::builder;
     /// use builder::registration_service::CreateEndpoint;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1244,8 +1258,9 @@ pub mod registration_service {
     /// # use google_cloud_servicedirectory_v1::builder;
     /// use builder::registration_service::ListEndpoints;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -1358,6 +1373,7 @@ pub mod registration_service {
     /// # use google_cloud_servicedirectory_v1::builder;
     /// use builder::registration_service::GetEndpoint;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1420,6 +1436,7 @@ pub mod registration_service {
     /// # use google_cloud_servicedirectory_v1::builder;
     /// use builder::registration_service::UpdateEndpoint;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1496,6 +1513,7 @@ pub mod registration_service {
     /// # use google_cloud_servicedirectory_v1::builder;
     /// use builder::registration_service::DeleteEndpoint;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1558,6 +1576,7 @@ pub mod registration_service {
     /// # use google_cloud_servicedirectory_v1::builder;
     /// use builder::registration_service::GetIamPolicy;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1629,6 +1648,7 @@ pub mod registration_service {
     /// # use google_cloud_servicedirectory_v1::builder;
     /// use builder::registration_service::SetIamPolicy;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1711,6 +1731,7 @@ pub mod registration_service {
     /// # use google_cloud_servicedirectory_v1::builder;
     /// use builder::registration_service::TestIamPermissions;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1789,8 +1810,9 @@ pub mod registration_service {
     /// # use google_cloud_servicedirectory_v1::builder;
     /// use builder::registration_service::ListLocations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -1898,6 +1920,7 @@ pub mod registration_service {
     /// # use google_cloud_servicedirectory_v1::builder;
     /// use builder::registration_service::GetLocation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });

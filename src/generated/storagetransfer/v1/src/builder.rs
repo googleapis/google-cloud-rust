@@ -75,6 +75,7 @@ pub mod storage_transfer_service {
     /// # use google_cloud_storagetransfer_v1::builder;
     /// use builder::storage_transfer_service::GetGoogleServiceAccount;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -142,6 +143,7 @@ pub mod storage_transfer_service {
     /// # use google_cloud_storagetransfer_v1::builder;
     /// use builder::storage_transfer_service::CreateTransferJob;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -210,6 +212,7 @@ pub mod storage_transfer_service {
     /// # use google_cloud_storagetransfer_v1::builder;
     /// use builder::storage_transfer_service::UpdateTransferJob;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -303,6 +306,7 @@ pub mod storage_transfer_service {
     /// # use google_cloud_storagetransfer_v1::builder;
     /// use builder::storage_transfer_service::GetTransferJob;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -373,8 +377,9 @@ pub mod storage_transfer_service {
     /// # use google_cloud_storagetransfer_v1::builder;
     /// use builder::storage_transfer_service::ListTransferJobs;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -478,6 +483,7 @@ pub mod storage_transfer_service {
     /// # use google_cloud_storagetransfer_v1::builder;
     /// use builder::storage_transfer_service::PauseTransferOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -543,6 +549,7 @@ pub mod storage_transfer_service {
     /// # use google_cloud_storagetransfer_v1::builder;
     /// use builder::storage_transfer_service::ResumeTransferOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -610,8 +617,9 @@ pub mod storage_transfer_service {
     /// # use google_cloud_storagetransfer_v1::builder;
     /// use builder::storage_transfer_service::RunTransferJob;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_storagetransfer_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -721,6 +729,7 @@ pub mod storage_transfer_service {
     /// # use google_cloud_storagetransfer_v1::builder;
     /// use builder::storage_transfer_service::DeleteTransferJob;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -794,6 +803,7 @@ pub mod storage_transfer_service {
     /// # use google_cloud_storagetransfer_v1::builder;
     /// use builder::storage_transfer_service::CreateAgentPool;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -875,6 +885,7 @@ pub mod storage_transfer_service {
     /// # use google_cloud_storagetransfer_v1::builder;
     /// use builder::storage_transfer_service::UpdateAgentPool;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -949,6 +960,7 @@ pub mod storage_transfer_service {
     /// # use google_cloud_storagetransfer_v1::builder;
     /// use builder::storage_transfer_service::GetAgentPool;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1011,8 +1023,9 @@ pub mod storage_transfer_service {
     /// # use google_cloud_storagetransfer_v1::builder;
     /// use builder::storage_transfer_service::ListAgentPools;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -1119,6 +1132,7 @@ pub mod storage_transfer_service {
     /// # use google_cloud_storagetransfer_v1::builder;
     /// use builder::storage_transfer_service::DeleteAgentPool;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1181,8 +1195,9 @@ pub mod storage_transfer_service {
     /// # use google_cloud_storagetransfer_v1::builder;
     /// use builder::storage_transfer_service::ListOperations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -1292,6 +1307,7 @@ pub mod storage_transfer_service {
     /// # use google_cloud_storagetransfer_v1::builder;
     /// use builder::storage_transfer_service::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1355,6 +1371,7 @@ pub mod storage_transfer_service {
     /// # use google_cloud_storagetransfer_v1::builder;
     /// use builder::storage_transfer_service::CancelOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });

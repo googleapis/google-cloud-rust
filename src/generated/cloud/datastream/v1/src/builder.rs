@@ -75,8 +75,9 @@ pub mod datastream {
     /// # use google_cloud_datastream_v1::builder;
     /// use builder::datastream::ListConnectionProfiles;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -196,6 +197,7 @@ pub mod datastream {
     /// # use google_cloud_datastream_v1::builder;
     /// use builder::datastream::GetConnectionProfile;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -261,8 +263,9 @@ pub mod datastream {
     /// # use google_cloud_datastream_v1::builder;
     /// use builder::datastream::CreateConnectionProfile;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_datastream_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -409,8 +412,9 @@ pub mod datastream {
     /// # use google_cloud_datastream_v1::builder;
     /// use builder::datastream::UpdateConnectionProfile;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_datastream_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -550,8 +554,9 @@ pub mod datastream {
     /// # use google_cloud_datastream_v1::builder;
     /// use builder::datastream::DeleteConnectionProfile;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_datastream_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -664,6 +669,7 @@ pub mod datastream {
     /// # use google_cloud_datastream_v1::builder;
     /// use builder::datastream::DiscoverConnectionProfile;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -879,8 +885,9 @@ pub mod datastream {
     /// # use google_cloud_datastream_v1::builder;
     /// use builder::datastream::ListStreams;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -993,6 +1000,7 @@ pub mod datastream {
     /// # use google_cloud_datastream_v1::builder;
     /// use builder::datastream::GetStream;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1055,8 +1063,9 @@ pub mod datastream {
     /// # use google_cloud_datastream_v1::builder;
     /// use builder::datastream::CreateStream;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_datastream_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1193,8 +1202,9 @@ pub mod datastream {
     /// # use google_cloud_datastream_v1::builder;
     /// use builder::datastream::UpdateStream;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_datastream_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1324,8 +1334,9 @@ pub mod datastream {
     /// # use google_cloud_datastream_v1::builder;
     /// use builder::datastream::DeleteStream;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_datastream_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1433,8 +1444,9 @@ pub mod datastream {
     /// # use google_cloud_datastream_v1::builder;
     /// use builder::datastream::RunStream;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_datastream_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1549,6 +1561,7 @@ pub mod datastream {
     /// # use google_cloud_datastream_v1::builder;
     /// use builder::datastream::GetStreamObject;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1611,6 +1624,7 @@ pub mod datastream {
     /// # use google_cloud_datastream_v1::builder;
     /// use builder::datastream::LookupStreamObject;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1689,8 +1703,9 @@ pub mod datastream {
     /// # use google_cloud_datastream_v1::builder;
     /// use builder::datastream::ListStreamObjects;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -1794,6 +1809,7 @@ pub mod datastream {
     /// # use google_cloud_datastream_v1::builder;
     /// use builder::datastream::StartBackfillJob;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1859,6 +1875,7 @@ pub mod datastream {
     /// # use google_cloud_datastream_v1::builder;
     /// use builder::datastream::StopBackfillJob;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1921,6 +1938,7 @@ pub mod datastream {
     /// # use google_cloud_datastream_v1::builder;
     /// use builder::datastream::FetchStaticIps;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1995,8 +2013,9 @@ pub mod datastream {
     /// # use google_cloud_datastream_v1::builder;
     /// use builder::datastream::CreatePrivateConnection;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_datastream_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -2137,6 +2156,7 @@ pub mod datastream {
     /// # use google_cloud_datastream_v1::builder;
     /// use builder::datastream::GetPrivateConnection;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2202,8 +2222,9 @@ pub mod datastream {
     /// # use google_cloud_datastream_v1::builder;
     /// use builder::datastream::ListPrivateConnections;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -2323,8 +2344,9 @@ pub mod datastream {
     /// # use google_cloud_datastream_v1::builder;
     /// use builder::datastream::DeletePrivateConnection;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_datastream_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -2443,8 +2465,9 @@ pub mod datastream {
     /// # use google_cloud_datastream_v1::builder;
     /// use builder::datastream::CreateRoute;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_datastream_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -2569,6 +2592,7 @@ pub mod datastream {
     /// # use google_cloud_datastream_v1::builder;
     /// use builder::datastream::GetRoute;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2631,8 +2655,9 @@ pub mod datastream {
     /// # use google_cloud_datastream_v1::builder;
     /// use builder::datastream::ListRoutes;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -2745,8 +2770,9 @@ pub mod datastream {
     /// # use google_cloud_datastream_v1::builder;
     /// use builder::datastream::DeleteRoute;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_datastream_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -2854,8 +2880,9 @@ pub mod datastream {
     /// # use google_cloud_datastream_v1::builder;
     /// use builder::datastream::ListLocations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -2963,6 +2990,7 @@ pub mod datastream {
     /// # use google_cloud_datastream_v1::builder;
     /// use builder::datastream::GetLocation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3023,8 +3051,9 @@ pub mod datastream {
     /// # use google_cloud_datastream_v1::builder;
     /// use builder::datastream::ListOperations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -3134,6 +3163,7 @@ pub mod datastream {
     /// # use google_cloud_datastream_v1::builder;
     /// use builder::datastream::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3197,6 +3227,7 @@ pub mod datastream {
     /// # use google_cloud_datastream_v1::builder;
     /// use builder::datastream::DeleteOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3260,6 +3291,7 @@ pub mod datastream {
     /// # use google_cloud_datastream_v1::builder;
     /// use builder::datastream::CancelOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });

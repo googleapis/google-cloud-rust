@@ -75,8 +75,9 @@ pub mod assured_workloads_service {
     /// # use google_cloud_assuredworkloads_v1::builder;
     /// use builder::assured_workloads_service::CreateWorkload;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_assuredworkloads_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -196,6 +197,7 @@ pub mod assured_workloads_service {
     /// # use google_cloud_assuredworkloads_v1::builder;
     /// use builder::assured_workloads_service::UpdateWorkload;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -272,6 +274,7 @@ pub mod assured_workloads_service {
     /// # use google_cloud_assuredworkloads_v1::builder;
     /// use builder::assured_workloads_service::RestrictAllowedResources;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -352,6 +355,7 @@ pub mod assured_workloads_service {
     /// # use google_cloud_assuredworkloads_v1::builder;
     /// use builder::assured_workloads_service::DeleteWorkload;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -420,6 +424,7 @@ pub mod assured_workloads_service {
     /// # use google_cloud_assuredworkloads_v1::builder;
     /// use builder::assured_workloads_service::GetWorkload;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -482,8 +487,9 @@ pub mod assured_workloads_service {
     /// # use google_cloud_assuredworkloads_v1::builder;
     /// use builder::assured_workloads_service::ListWorkloads;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -590,8 +596,9 @@ pub mod assured_workloads_service {
     /// # use google_cloud_assuredworkloads_v1::builder;
     /// use builder::assured_workloads_service::ListOperations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -701,6 +708,7 @@ pub mod assured_workloads_service {
     /// # use google_cloud_assuredworkloads_v1::builder;
     /// use builder::assured_workloads_service::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });

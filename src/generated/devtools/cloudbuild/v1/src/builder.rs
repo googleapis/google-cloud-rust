@@ -75,8 +75,9 @@ pub mod cloud_build {
     /// # use google_cloud_build_v1::builder;
     /// use builder::cloud_build::CreateBuild;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_build_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -193,6 +194,7 @@ pub mod cloud_build {
     /// # use google_cloud_build_v1::builder;
     /// use builder::cloud_build::GetBuild;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -269,8 +271,9 @@ pub mod cloud_build {
     /// # use google_cloud_build_v1::builder;
     /// use builder::cloud_build::ListBuilds;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -383,6 +386,7 @@ pub mod cloud_build {
     /// # use google_cloud_build_v1::builder;
     /// use builder::cloud_build::CancelBuild;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -459,8 +463,9 @@ pub mod cloud_build {
     /// # use google_cloud_build_v1::builder;
     /// use builder::cloud_build::RetryBuild;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_build_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -574,8 +579,9 @@ pub mod cloud_build {
     /// # use google_cloud_build_v1::builder;
     /// use builder::cloud_build::ApproveBuild;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_build_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -684,6 +690,7 @@ pub mod cloud_build {
     /// # use google_cloud_build_v1::builder;
     /// use builder::cloud_build::CreateBuildTrigger;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -766,6 +773,7 @@ pub mod cloud_build {
     /// # use google_cloud_build_v1::builder;
     /// use builder::cloud_build::GetBuildTrigger;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -842,8 +850,9 @@ pub mod cloud_build {
     /// # use google_cloud_build_v1::builder;
     /// use builder::cloud_build::ListBuildTriggers;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -953,6 +962,7 @@ pub mod cloud_build {
     /// # use google_cloud_build_v1::builder;
     /// use builder::cloud_build::DeleteBuildTrigger;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1032,6 +1042,7 @@ pub mod cloud_build {
     /// # use google_cloud_build_v1::builder;
     /// use builder::cloud_build::UpdateBuildTrigger;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1125,8 +1136,9 @@ pub mod cloud_build {
     /// # use google_cloud_build_v1::builder;
     /// use builder::cloud_build::RunBuildTrigger;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_build_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1249,6 +1261,7 @@ pub mod cloud_build {
     /// # use google_cloud_build_v1::builder;
     /// use builder::cloud_build::ReceiveTriggerWebhook;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1339,8 +1352,9 @@ pub mod cloud_build {
     /// # use google_cloud_build_v1::builder;
     /// use builder::cloud_build::CreateWorkerPool;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_build_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1471,6 +1485,7 @@ pub mod cloud_build {
     /// # use google_cloud_build_v1::builder;
     /// use builder::cloud_build::GetWorkerPool;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1533,8 +1548,9 @@ pub mod cloud_build {
     /// # use google_cloud_build_v1::builder;
     /// use builder::cloud_build::DeleteWorkerPool;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_build_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1662,8 +1678,9 @@ pub mod cloud_build {
     /// # use google_cloud_build_v1::builder;
     /// use builder::cloud_build::UpdateWorkerPool;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_build_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1787,8 +1804,9 @@ pub mod cloud_build {
     /// # use google_cloud_build_v1::builder;
     /// use builder::cloud_build::ListWorkerPools;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -1889,6 +1907,7 @@ pub mod cloud_build {
     /// # use google_cloud_build_v1::builder;
     /// use builder::cloud_build::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1952,6 +1971,7 @@ pub mod cloud_build {
     /// # use google_cloud_build_v1::builder;
     /// use builder::cloud_build::CancelOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });

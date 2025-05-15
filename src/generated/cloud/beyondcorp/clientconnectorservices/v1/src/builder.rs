@@ -75,8 +75,9 @@ pub mod client_connector_services_service {
     /// # use google_cloud_beyondcorp_clientconnectorservices_v1::builder;
     /// use builder::client_connector_services_service::ListClientConnectorServices;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -198,6 +199,7 @@ pub mod client_connector_services_service {
     /// # use google_cloud_beyondcorp_clientconnectorservices_v1::builder;
     /// use builder::client_connector_services_service::GetClientConnectorService;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -265,8 +267,9 @@ pub mod client_connector_services_service {
     /// # use google_cloud_beyondcorp_clientconnectorservices_v1::builder;
     /// use builder::client_connector_services_service::CreateClientConnectorService;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_beyondcorp_clientconnectorservices_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -410,8 +413,9 @@ pub mod client_connector_services_service {
     /// # use google_cloud_beyondcorp_clientconnectorservices_v1::builder;
     /// use builder::client_connector_services_service::UpdateClientConnectorService;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_beyondcorp_clientconnectorservices_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -555,8 +559,9 @@ pub mod client_connector_services_service {
     /// # use google_cloud_beyondcorp_clientconnectorservices_v1::builder;
     /// use builder::client_connector_services_service::DeleteClientConnectorService;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_beyondcorp_clientconnectorservices_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -680,8 +685,9 @@ pub mod client_connector_services_service {
     /// # use google_cloud_beyondcorp_clientconnectorservices_v1::builder;
     /// use builder::client_connector_services_service::ListLocations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -789,6 +795,7 @@ pub mod client_connector_services_service {
     /// # use google_cloud_beyondcorp_clientconnectorservices_v1::builder;
     /// use builder::client_connector_services_service::GetLocation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -849,6 +856,7 @@ pub mod client_connector_services_service {
     /// # use google_cloud_beyondcorp_clientconnectorservices_v1::builder;
     /// use builder::client_connector_services_service::SetIamPolicy;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -931,6 +939,7 @@ pub mod client_connector_services_service {
     /// # use google_cloud_beyondcorp_clientconnectorservices_v1::builder;
     /// use builder::client_connector_services_service::GetIamPolicy;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1002,6 +1011,7 @@ pub mod client_connector_services_service {
     /// # use google_cloud_beyondcorp_clientconnectorservices_v1::builder;
     /// use builder::client_connector_services_service::TestIamPermissions;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1080,8 +1090,9 @@ pub mod client_connector_services_service {
     /// # use google_cloud_beyondcorp_clientconnectorservices_v1::builder;
     /// use builder::client_connector_services_service::ListOperations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -1191,6 +1202,7 @@ pub mod client_connector_services_service {
     /// # use google_cloud_beyondcorp_clientconnectorservices_v1::builder;
     /// use builder::client_connector_services_service::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1254,6 +1266,7 @@ pub mod client_connector_services_service {
     /// # use google_cloud_beyondcorp_clientconnectorservices_v1::builder;
     /// use builder::client_connector_services_service::DeleteOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1317,6 +1330,7 @@ pub mod client_connector_services_service {
     /// # use google_cloud_beyondcorp_clientconnectorservices_v1::builder;
     /// use builder::client_connector_services_service::CancelOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });

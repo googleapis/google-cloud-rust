@@ -75,6 +75,7 @@ pub mod data_policy_service {
     /// # use google_cloud_bigquery_datapolicies_v1::builder;
     /// use builder::data_policy_service::CreateDataPolicy;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -151,6 +152,7 @@ pub mod data_policy_service {
     /// # use google_cloud_bigquery_datapolicies_v1::builder;
     /// use builder::data_policy_service::UpdateDataPolicy;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -228,6 +230,7 @@ pub mod data_policy_service {
     /// # use google_cloud_bigquery_datapolicies_v1::builder;
     /// use builder::data_policy_service::RenameDataPolicy;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -301,6 +304,7 @@ pub mod data_policy_service {
     /// # use google_cloud_bigquery_datapolicies_v1::builder;
     /// use builder::data_policy_service::DeleteDataPolicy;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -366,6 +370,7 @@ pub mod data_policy_service {
     /// # use google_cloud_bigquery_datapolicies_v1::builder;
     /// use builder::data_policy_service::GetDataPolicy;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -428,8 +433,9 @@ pub mod data_policy_service {
     /// # use google_cloud_bigquery_datapolicies_v1::builder;
     /// use builder::data_policy_service::ListDataPolicies;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -539,6 +545,7 @@ pub mod data_policy_service {
     /// # use google_cloud_bigquery_datapolicies_v1::builder;
     /// use builder::data_policy_service::GetIamPolicy;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -610,6 +617,7 @@ pub mod data_policy_service {
     /// # use google_cloud_bigquery_datapolicies_v1::builder;
     /// use builder::data_policy_service::SetIamPolicy;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -692,6 +700,7 @@ pub mod data_policy_service {
     /// # use google_cloud_bigquery_datapolicies_v1::builder;
     /// use builder::data_policy_service::TestIamPermissions;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });

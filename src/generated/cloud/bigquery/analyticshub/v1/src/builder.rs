@@ -75,8 +75,9 @@ pub mod analytics_hub_service {
     /// # use google_cloud_bigquery_analyticshub_v1::builder;
     /// use builder::analytics_hub_service::ListDataExchanges;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -180,8 +181,9 @@ pub mod analytics_hub_service {
     /// # use google_cloud_bigquery_analyticshub_v1::builder;
     /// use builder::analytics_hub_service::ListOrgDataExchanges;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -287,6 +289,7 @@ pub mod analytics_hub_service {
     /// # use google_cloud_bigquery_analyticshub_v1::builder;
     /// use builder::analytics_hub_service::GetDataExchange;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -349,6 +352,7 @@ pub mod analytics_hub_service {
     /// # use google_cloud_bigquery_analyticshub_v1::builder;
     /// use builder::analytics_hub_service::CreateDataExchange;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -433,6 +437,7 @@ pub mod analytics_hub_service {
     /// # use google_cloud_bigquery_analyticshub_v1::builder;
     /// use builder::analytics_hub_service::UpdateDataExchange;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -512,6 +517,7 @@ pub mod analytics_hub_service {
     /// # use google_cloud_bigquery_analyticshub_v1::builder;
     /// use builder::analytics_hub_service::DeleteDataExchange;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -577,8 +583,9 @@ pub mod analytics_hub_service {
     /// # use google_cloud_bigquery_analyticshub_v1::builder;
     /// use builder::analytics_hub_service::ListListings;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -679,6 +686,7 @@ pub mod analytics_hub_service {
     /// # use google_cloud_bigquery_analyticshub_v1::builder;
     /// use builder::analytics_hub_service::GetListing;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -741,6 +749,7 @@ pub mod analytics_hub_service {
     /// # use google_cloud_bigquery_analyticshub_v1::builder;
     /// use builder::analytics_hub_service::CreateListing;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -822,6 +831,7 @@ pub mod analytics_hub_service {
     /// # use google_cloud_bigquery_analyticshub_v1::builder;
     /// use builder::analytics_hub_service::UpdateListing;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -898,6 +908,7 @@ pub mod analytics_hub_service {
     /// # use google_cloud_bigquery_analyticshub_v1::builder;
     /// use builder::analytics_hub_service::DeleteListing;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -966,6 +977,7 @@ pub mod analytics_hub_service {
     /// # use google_cloud_bigquery_analyticshub_v1::builder;
     /// use builder::analytics_hub_service::SubscribeListing;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1075,8 +1087,9 @@ pub mod analytics_hub_service {
     /// # use google_cloud_bigquery_analyticshub_v1::builder;
     /// use builder::analytics_hub_service::SubscribeDataExchange;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_bigquery_analyticshub_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1215,8 +1228,9 @@ pub mod analytics_hub_service {
     /// # use google_cloud_bigquery_analyticshub_v1::builder;
     /// use builder::analytics_hub_service::RefreshSubscription;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_bigquery_analyticshub_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1322,6 +1336,7 @@ pub mod analytics_hub_service {
     /// # use google_cloud_bigquery_analyticshub_v1::builder;
     /// use builder::analytics_hub_service::GetSubscription;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1384,8 +1399,9 @@ pub mod analytics_hub_service {
     /// # use google_cloud_bigquery_analyticshub_v1::builder;
     /// use builder::analytics_hub_service::ListSubscriptions;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -1495,8 +1511,9 @@ pub mod analytics_hub_service {
     /// # use google_cloud_bigquery_analyticshub_v1::builder;
     /// use builder::analytics_hub_service::ListSharedResourceSubscriptions;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -1612,6 +1629,7 @@ pub mod analytics_hub_service {
     /// # use google_cloud_bigquery_analyticshub_v1::builder;
     /// use builder::analytics_hub_service::RevokeSubscription;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1683,8 +1701,9 @@ pub mod analytics_hub_service {
     /// # use google_cloud_bigquery_analyticshub_v1::builder;
     /// use builder::analytics_hub_service::DeleteSubscription;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_bigquery_analyticshub_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1789,6 +1808,7 @@ pub mod analytics_hub_service {
     /// # use google_cloud_bigquery_analyticshub_v1::builder;
     /// use builder::analytics_hub_service::GetIamPolicy;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1860,6 +1880,7 @@ pub mod analytics_hub_service {
     /// # use google_cloud_bigquery_analyticshub_v1::builder;
     /// use builder::analytics_hub_service::SetIamPolicy;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1942,6 +1963,7 @@ pub mod analytics_hub_service {
     /// # use google_cloud_bigquery_analyticshub_v1::builder;
     /// use builder::analytics_hub_service::TestIamPermissions;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2020,6 +2042,7 @@ pub mod analytics_hub_service {
     /// # use google_cloud_bigquery_analyticshub_v1::builder;
     /// use builder::analytics_hub_service::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });

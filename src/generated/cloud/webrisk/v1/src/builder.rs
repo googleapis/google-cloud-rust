@@ -75,6 +75,7 @@ pub mod web_risk_service {
     /// # use google_cloud_webrisk_v1::builder;
     /// use builder::web_risk_service::ComputeThreatListDiff;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -159,6 +160,7 @@ pub mod web_risk_service {
     /// # use google_cloud_webrisk_v1::builder;
     /// use builder::web_risk_service::SearchUris;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -234,6 +236,7 @@ pub mod web_risk_service {
     /// # use google_cloud_webrisk_v1::builder;
     /// use builder::web_risk_service::SearchHashes;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -307,6 +310,7 @@ pub mod web_risk_service {
     /// # use google_cloud_webrisk_v1::builder;
     /// use builder::web_risk_service::CreateSubmission;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -383,8 +387,9 @@ pub mod web_risk_service {
     /// # use google_cloud_webrisk_v1::builder;
     /// use builder::web_risk_service::SubmitUri;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_webrisk_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -513,8 +518,9 @@ pub mod web_risk_service {
     /// # use google_cloud_webrisk_v1::builder;
     /// use builder::web_risk_service::ListOperations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -624,6 +630,7 @@ pub mod web_risk_service {
     /// # use google_cloud_webrisk_v1::builder;
     /// use builder::web_risk_service::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -687,6 +694,7 @@ pub mod web_risk_service {
     /// # use google_cloud_webrisk_v1::builder;
     /// use builder::web_risk_service::DeleteOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -750,6 +758,7 @@ pub mod web_risk_service {
     /// # use google_cloud_webrisk_v1::builder;
     /// use builder::web_risk_service::CancelOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });

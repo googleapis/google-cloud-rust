@@ -75,8 +75,9 @@ pub mod bigtable_instance_admin {
     /// # use google_cloud_bigtable_admin_v2::builder;
     /// use builder::bigtable_instance_admin::CreateInstance;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_bigtable_admin_v2::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -211,6 +212,7 @@ pub mod bigtable_instance_admin {
     /// # use google_cloud_bigtable_admin_v2::builder;
     /// use builder::bigtable_instance_admin::GetInstance;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -273,6 +275,7 @@ pub mod bigtable_instance_admin {
     /// # use google_cloud_bigtable_admin_v2::builder;
     /// use builder::bigtable_instance_admin::ListInstances;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -341,6 +344,7 @@ pub mod bigtable_instance_admin {
     /// # use google_cloud_bigtable_admin_v2::builder;
     /// use builder::bigtable_instance_admin::UpdateInstance;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -453,8 +457,9 @@ pub mod bigtable_instance_admin {
     /// # use google_cloud_bigtable_admin_v2::builder;
     /// use builder::bigtable_instance_admin::PartialUpdateInstance;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_bigtable_admin_v2::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -574,6 +579,7 @@ pub mod bigtable_instance_admin {
     /// # use google_cloud_bigtable_admin_v2::builder;
     /// use builder::bigtable_instance_admin::DeleteInstance;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -636,8 +642,9 @@ pub mod bigtable_instance_admin {
     /// # use google_cloud_bigtable_admin_v2::builder;
     /// use builder::bigtable_instance_admin::CreateCluster;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_bigtable_admin_v2::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -758,6 +765,7 @@ pub mod bigtable_instance_admin {
     /// # use google_cloud_bigtable_admin_v2::builder;
     /// use builder::bigtable_instance_admin::GetCluster;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -820,6 +828,7 @@ pub mod bigtable_instance_admin {
     /// # use google_cloud_bigtable_admin_v2::builder;
     /// use builder::bigtable_instance_admin::ListClusters;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -888,8 +897,9 @@ pub mod bigtable_instance_admin {
     /// # use google_cloud_bigtable_admin_v2::builder;
     /// use builder::bigtable_instance_admin::UpdateCluster;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_bigtable_admin_v2::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1060,8 +1070,9 @@ pub mod bigtable_instance_admin {
     /// # use google_cloud_bigtable_admin_v2::builder;
     /// use builder::bigtable_instance_admin::PartialUpdateCluster;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_bigtable_admin_v2::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1181,6 +1192,7 @@ pub mod bigtable_instance_admin {
     /// # use google_cloud_bigtable_admin_v2::builder;
     /// use builder::bigtable_instance_admin::DeleteCluster;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1243,6 +1255,7 @@ pub mod bigtable_instance_admin {
     /// # use google_cloud_bigtable_admin_v2::builder;
     /// use builder::bigtable_instance_admin::CreateAppProfile;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1333,6 +1346,7 @@ pub mod bigtable_instance_admin {
     /// # use google_cloud_bigtable_admin_v2::builder;
     /// use builder::bigtable_instance_admin::GetAppProfile;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1395,8 +1409,9 @@ pub mod bigtable_instance_admin {
     /// # use google_cloud_bigtable_admin_v2::builder;
     /// use builder::bigtable_instance_admin::ListAppProfiles;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -1497,8 +1512,9 @@ pub mod bigtable_instance_admin {
     /// # use google_cloud_bigtable_admin_v2::builder;
     /// use builder::bigtable_instance_admin::UpdateAppProfile;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_bigtable_admin_v2::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1624,6 +1640,7 @@ pub mod bigtable_instance_admin {
     /// # use google_cloud_bigtable_admin_v2::builder;
     /// use builder::bigtable_instance_admin::DeleteAppProfile;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1697,6 +1714,7 @@ pub mod bigtable_instance_admin {
     /// # use google_cloud_bigtable_admin_v2::builder;
     /// use builder::bigtable_instance_admin::GetIamPolicy;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1768,6 +1786,7 @@ pub mod bigtable_instance_admin {
     /// # use google_cloud_bigtable_admin_v2::builder;
     /// use builder::bigtable_instance_admin::SetIamPolicy;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1850,6 +1869,7 @@ pub mod bigtable_instance_admin {
     /// # use google_cloud_bigtable_admin_v2::builder;
     /// use builder::bigtable_instance_admin::TestIamPermissions;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1928,8 +1948,9 @@ pub mod bigtable_instance_admin {
     /// # use google_cloud_bigtable_admin_v2::builder;
     /// use builder::bigtable_instance_admin::ListHotTablets;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -2045,8 +2066,9 @@ pub mod bigtable_instance_admin {
     /// # use google_cloud_bigtable_admin_v2::builder;
     /// use builder::bigtable_instance_admin::CreateLogicalView;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_bigtable_admin_v2::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -2171,6 +2193,7 @@ pub mod bigtable_instance_admin {
     /// # use google_cloud_bigtable_admin_v2::builder;
     /// use builder::bigtable_instance_admin::GetLogicalView;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2233,8 +2256,9 @@ pub mod bigtable_instance_admin {
     /// # use google_cloud_bigtable_admin_v2::builder;
     /// use builder::bigtable_instance_admin::ListLogicalViews;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -2338,8 +2362,9 @@ pub mod bigtable_instance_admin {
     /// # use google_cloud_bigtable_admin_v2::builder;
     /// use builder::bigtable_instance_admin::UpdateLogicalView;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_bigtable_admin_v2::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -2457,6 +2482,7 @@ pub mod bigtable_instance_admin {
     /// # use google_cloud_bigtable_admin_v2::builder;
     /// use builder::bigtable_instance_admin::DeleteLogicalView;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2528,8 +2554,9 @@ pub mod bigtable_instance_admin {
     /// # use google_cloud_bigtable_admin_v2::builder;
     /// use builder::bigtable_instance_admin::CreateMaterializedView;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_bigtable_admin_v2::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -2656,6 +2683,7 @@ pub mod bigtable_instance_admin {
     /// # use google_cloud_bigtable_admin_v2::builder;
     /// use builder::bigtable_instance_admin::GetMaterializedView;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2721,8 +2749,9 @@ pub mod bigtable_instance_admin {
     /// # use google_cloud_bigtable_admin_v2::builder;
     /// use builder::bigtable_instance_admin::ListMaterializedViews;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -2828,8 +2857,9 @@ pub mod bigtable_instance_admin {
     /// # use google_cloud_bigtable_admin_v2::builder;
     /// use builder::bigtable_instance_admin::UpdateMaterializedView;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_bigtable_admin_v2::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -2949,6 +2979,7 @@ pub mod bigtable_instance_admin {
     /// # use google_cloud_bigtable_admin_v2::builder;
     /// use builder::bigtable_instance_admin::DeleteMaterializedView;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3020,8 +3051,9 @@ pub mod bigtable_instance_admin {
     /// # use google_cloud_bigtable_admin_v2::builder;
     /// use builder::bigtable_instance_admin::ListOperations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -3131,6 +3163,7 @@ pub mod bigtable_instance_admin {
     /// # use google_cloud_bigtable_admin_v2::builder;
     /// use builder::bigtable_instance_admin::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3194,6 +3227,7 @@ pub mod bigtable_instance_admin {
     /// # use google_cloud_bigtable_admin_v2::builder;
     /// use builder::bigtable_instance_admin::DeleteOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3257,6 +3291,7 @@ pub mod bigtable_instance_admin {
     /// # use google_cloud_bigtable_admin_v2::builder;
     /// use builder::bigtable_instance_admin::CancelOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3375,6 +3410,7 @@ pub mod bigtable_table_admin {
     /// # use google_cloud_bigtable_admin_v2::builder;
     /// use builder::bigtable_table_admin::CreateTable;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3467,8 +3503,9 @@ pub mod bigtable_table_admin {
     /// # use google_cloud_bigtable_admin_v2::builder;
     /// use builder::bigtable_table_admin::CreateTableFromSnapshot;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_bigtable_admin_v2::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -3592,8 +3629,9 @@ pub mod bigtable_table_admin {
     /// # use google_cloud_bigtable_admin_v2::builder;
     /// use builder::bigtable_table_admin::ListTables;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -3700,6 +3738,7 @@ pub mod bigtable_table_admin {
     /// # use google_cloud_bigtable_admin_v2::builder;
     /// use builder::bigtable_table_admin::GetTable;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3768,8 +3807,9 @@ pub mod bigtable_table_admin {
     /// # use google_cloud_bigtable_admin_v2::builder;
     /// use builder::bigtable_table_admin::UpdateTable;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_bigtable_admin_v2::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -3889,6 +3929,7 @@ pub mod bigtable_table_admin {
     /// # use google_cloud_bigtable_admin_v2::builder;
     /// use builder::bigtable_table_admin::DeleteTable;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3951,8 +3992,9 @@ pub mod bigtable_table_admin {
     /// # use google_cloud_bigtable_admin_v2::builder;
     /// use builder::bigtable_table_admin::UndeleteTable;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_bigtable_admin_v2::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -4052,8 +4094,9 @@ pub mod bigtable_table_admin {
     /// # use google_cloud_bigtable_admin_v2::builder;
     /// use builder::bigtable_table_admin::CreateAuthorizedView;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_bigtable_admin_v2::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -4178,8 +4221,9 @@ pub mod bigtable_table_admin {
     /// # use google_cloud_bigtable_admin_v2::builder;
     /// use builder::bigtable_table_admin::ListAuthorizedViews;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -4294,6 +4338,7 @@ pub mod bigtable_table_admin {
     /// # use google_cloud_bigtable_admin_v2::builder;
     /// use builder::bigtable_table_admin::GetAuthorizedView;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -4368,8 +4413,9 @@ pub mod bigtable_table_admin {
     /// # use google_cloud_bigtable_admin_v2::builder;
     /// use builder::bigtable_table_admin::UpdateAuthorizedView;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_bigtable_admin_v2::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -4493,6 +4539,7 @@ pub mod bigtable_table_admin {
     /// # use google_cloud_bigtable_admin_v2::builder;
     /// use builder::bigtable_table_admin::DeleteAuthorizedView;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -4564,6 +4611,7 @@ pub mod bigtable_table_admin {
     /// # use google_cloud_bigtable_admin_v2::builder;
     /// use builder::bigtable_table_admin::ModifyColumnFamilies;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -4648,6 +4696,7 @@ pub mod bigtable_table_admin {
     /// # use google_cloud_bigtable_admin_v2::builder;
     /// use builder::bigtable_table_admin::DropRowRange;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -4742,6 +4791,7 @@ pub mod bigtable_table_admin {
     /// # use google_cloud_bigtable_admin_v2::builder;
     /// use builder::bigtable_table_admin::GenerateConsistencyToken;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -4809,6 +4859,7 @@ pub mod bigtable_table_admin {
     /// # use google_cloud_bigtable_admin_v2::builder;
     /// use builder::bigtable_table_admin::CheckConsistency;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -4924,8 +4975,9 @@ pub mod bigtable_table_admin {
     /// # use google_cloud_bigtable_admin_v2::builder;
     /// use builder::bigtable_table_admin::SnapshotTable;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_bigtable_admin_v2::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -5055,6 +5107,7 @@ pub mod bigtable_table_admin {
     /// # use google_cloud_bigtable_admin_v2::builder;
     /// use builder::bigtable_table_admin::GetSnapshot;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -5117,8 +5170,9 @@ pub mod bigtable_table_admin {
     /// # use google_cloud_bigtable_admin_v2::builder;
     /// use builder::bigtable_table_admin::ListSnapshots;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -5219,6 +5273,7 @@ pub mod bigtable_table_admin {
     /// # use google_cloud_bigtable_admin_v2::builder;
     /// use builder::bigtable_table_admin::DeleteSnapshot;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -5281,8 +5336,9 @@ pub mod bigtable_table_admin {
     /// # use google_cloud_bigtable_admin_v2::builder;
     /// use builder::bigtable_table_admin::CreateBackup;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_bigtable_admin_v2::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -5401,6 +5457,7 @@ pub mod bigtable_table_admin {
     /// # use google_cloud_bigtable_admin_v2::builder;
     /// use builder::bigtable_table_admin::GetBackup;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -5463,6 +5520,7 @@ pub mod bigtable_table_admin {
     /// # use google_cloud_bigtable_admin_v2::builder;
     /// use builder::bigtable_table_admin::UpdateBackup;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -5539,6 +5597,7 @@ pub mod bigtable_table_admin {
     /// # use google_cloud_bigtable_admin_v2::builder;
     /// use builder::bigtable_table_admin::DeleteBackup;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -5601,8 +5660,9 @@ pub mod bigtable_table_admin {
     /// # use google_cloud_bigtable_admin_v2::builder;
     /// use builder::bigtable_table_admin::ListBackups;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -5715,8 +5775,9 @@ pub mod bigtable_table_admin {
     /// # use google_cloud_bigtable_admin_v2::builder;
     /// use builder::bigtable_table_admin::RestoreTable;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_bigtable_admin_v2::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -5846,8 +5907,9 @@ pub mod bigtable_table_admin {
     /// # use google_cloud_bigtable_admin_v2::builder;
     /// use builder::bigtable_table_admin::CopyBackup;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_bigtable_admin_v2::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -5974,6 +6036,7 @@ pub mod bigtable_table_admin {
     /// # use google_cloud_bigtable_admin_v2::builder;
     /// use builder::bigtable_table_admin::GetIamPolicy;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -6045,6 +6108,7 @@ pub mod bigtable_table_admin {
     /// # use google_cloud_bigtable_admin_v2::builder;
     /// use builder::bigtable_table_admin::SetIamPolicy;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -6127,6 +6191,7 @@ pub mod bigtable_table_admin {
     /// # use google_cloud_bigtable_admin_v2::builder;
     /// use builder::bigtable_table_admin::TestIamPermissions;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -6205,8 +6270,9 @@ pub mod bigtable_table_admin {
     /// # use google_cloud_bigtable_admin_v2::builder;
     /// use builder::bigtable_table_admin::ListOperations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -6316,6 +6382,7 @@ pub mod bigtable_table_admin {
     /// # use google_cloud_bigtable_admin_v2::builder;
     /// use builder::bigtable_table_admin::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -6379,6 +6446,7 @@ pub mod bigtable_table_admin {
     /// # use google_cloud_bigtable_admin_v2::builder;
     /// use builder::bigtable_table_admin::DeleteOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -6442,6 +6510,7 @@ pub mod bigtable_table_admin {
     /// # use google_cloud_bigtable_admin_v2::builder;
     /// use builder::bigtable_table_admin::CancelOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
