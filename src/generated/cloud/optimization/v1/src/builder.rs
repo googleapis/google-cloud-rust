@@ -132,7 +132,7 @@ pub mod fleet_routing {
         }
 
         /// Sets or clear the value of [timeout][crate::model::OptimizeToursRequest::timeout].
-        pub fn maybe_timeout<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_timeout<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
         {
@@ -150,7 +150,7 @@ pub mod fleet_routing {
         }
 
         /// Sets or clear the value of [model][crate::model::OptimizeToursRequest::model].
-        pub fn maybe_model<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_model<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::ShipmentModel>,
         {
@@ -198,7 +198,10 @@ pub mod fleet_routing {
         }
 
         /// Sets or clear the value of [injected_solution_constraint][crate::model::OptimizeToursRequest::injected_solution_constraint].
-        pub fn maybe_injected_solution_constraint<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_injected_solution_constraint<T>(
+            mut self,
+            v: std::option::Option<T>,
+        ) -> Self
         where
             T: std::convert::Into<crate::model::InjectedSolutionConstraint>,
         {
@@ -271,7 +274,10 @@ pub mod fleet_routing {
         }
 
         /// Sets or clear the value of [geodesic_meters_per_second][crate::model::OptimizeToursRequest::geodesic_meters_per_second].
-        pub fn maybe_geodesic_meters_per_second<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_geodesic_meters_per_second<T>(
+            mut self,
+            v: std::option::Option<T>,
+        ) -> Self
         where
             T: std::convert::Into<f64>,
         {
@@ -289,7 +295,7 @@ pub mod fleet_routing {
         }
 
         /// Sets or clear the value of [max_validation_errors][crate::model::OptimizeToursRequest::max_validation_errors].
-        pub fn maybe_max_validation_errors<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_max_validation_errors<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<i32>,
         {

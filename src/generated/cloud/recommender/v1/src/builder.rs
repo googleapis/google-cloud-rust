@@ -965,7 +965,7 @@ pub mod recommender {
         /// Sets or clear the value of [recommender_config][crate::model::UpdateRecommenderConfigRequest::recommender_config].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_recommender_config<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_recommender_config<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::RecommenderConfig>,
         {
@@ -983,7 +983,7 @@ pub mod recommender {
         }
 
         /// Sets or clear the value of [update_mask][crate::model::UpdateRecommenderConfigRequest::update_mask].
-        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
         {
@@ -1135,7 +1135,7 @@ pub mod recommender {
         /// Sets or clear the value of [insight_type_config][crate::model::UpdateInsightTypeConfigRequest::insight_type_config].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_insight_type_config<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_insight_type_config<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::InsightTypeConfig>,
         {
@@ -1153,7 +1153,7 @@ pub mod recommender {
         }
 
         /// Sets or clear the value of [update_mask][crate::model::UpdateInsightTypeConfigRequest::update_mask].
-        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
         {

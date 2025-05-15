@@ -275,7 +275,7 @@ impl CreateJobRequest {
     }
 
     /// Sets or clear the value of [job][crate::model::CreateJobRequest::job].
-    pub fn maybe_job<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_job<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Job>,
     {
@@ -478,7 +478,7 @@ impl OperationMetadata {
     }
 
     /// Sets or clear the value of [create_time][crate::model::OperationMetadata::create_time].
-    pub fn maybe_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -496,7 +496,7 @@ impl OperationMetadata {
     }
 
     /// Sets or clear the value of [end_time][crate::model::OperationMetadata::end_time].
-    pub fn maybe_end_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -526,7 +526,7 @@ impl OperationMetadata {
     }
 
     /// Sets or clear the value of [job][crate::model::OperationMetadata::job].
-    pub fn maybe_job<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_job<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Job>,
     {
@@ -626,7 +626,7 @@ impl Job {
     }
 
     /// Sets or clear the value of [logging_config][crate::model::Job::logging_config].
-    pub fn maybe_logging_config<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_logging_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::LoggingConfig>,
     {
@@ -644,7 +644,7 @@ impl Job {
     }
 
     /// Sets or clear the value of [create_time][crate::model::Job::create_time].
-    pub fn maybe_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -662,7 +662,7 @@ impl Job {
     }
 
     /// Sets or clear the value of [schedule_time][crate::model::Job::schedule_time].
-    pub fn maybe_schedule_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_schedule_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -680,7 +680,7 @@ impl Job {
     }
 
     /// Sets or clear the value of [complete_time][crate::model::Job::complete_time].
-    pub fn maybe_complete_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_complete_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -698,7 +698,7 @@ impl Job {
     }
 
     /// Sets or clear the value of [counters][crate::model::Job::counters].
-    pub fn maybe_counters<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_counters<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Counters>,
     {
@@ -1603,7 +1603,7 @@ impl RewriteObject {
     }
 
     /// Sets or clear the value of [kms_key][crate::model::RewriteObject::kms_key].
-    pub fn maybe_kms_key<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_kms_key<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
     {
@@ -1695,7 +1695,7 @@ impl PutMetadata {
     }
 
     /// Sets or clear the value of [content_disposition][crate::model::PutMetadata::content_disposition].
-    pub fn maybe_content_disposition<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_content_disposition<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
     {
@@ -1713,7 +1713,7 @@ impl PutMetadata {
     }
 
     /// Sets or clear the value of [content_encoding][crate::model::PutMetadata::content_encoding].
-    pub fn maybe_content_encoding<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_content_encoding<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
     {
@@ -1731,7 +1731,7 @@ impl PutMetadata {
     }
 
     /// Sets or clear the value of [content_language][crate::model::PutMetadata::content_language].
-    pub fn maybe_content_language<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_content_language<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
     {
@@ -1749,7 +1749,7 @@ impl PutMetadata {
     }
 
     /// Sets or clear the value of [content_type][crate::model::PutMetadata::content_type].
-    pub fn maybe_content_type<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_content_type<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
     {
@@ -1767,7 +1767,7 @@ impl PutMetadata {
     }
 
     /// Sets or clear the value of [cache_control][crate::model::PutMetadata::cache_control].
-    pub fn maybe_cache_control<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_cache_control<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
     {
@@ -1785,7 +1785,7 @@ impl PutMetadata {
     }
 
     /// Sets or clear the value of [custom_time][crate::model::PutMetadata::custom_time].
-    pub fn maybe_custom_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_custom_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
     {

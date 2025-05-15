@@ -166,7 +166,7 @@ impl Span {
     }
 
     /// Sets or clear the value of [display_name][crate::model::Span::display_name].
-    pub fn maybe_display_name<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_display_name<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::TruncatableString>,
     {
@@ -184,7 +184,7 @@ impl Span {
     }
 
     /// Sets or clear the value of [start_time][crate::model::Span::start_time].
-    pub fn maybe_start_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -202,7 +202,7 @@ impl Span {
     }
 
     /// Sets or clear the value of [end_time][crate::model::Span::end_time].
-    pub fn maybe_end_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -220,7 +220,7 @@ impl Span {
     }
 
     /// Sets or clear the value of [attributes][crate::model::Span::attributes].
-    pub fn maybe_attributes<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_attributes<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::span::Attributes>,
     {
@@ -238,7 +238,7 @@ impl Span {
     }
 
     /// Sets or clear the value of [stack_trace][crate::model::Span::stack_trace].
-    pub fn maybe_stack_trace<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_stack_trace<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::StackTrace>,
     {
@@ -256,7 +256,7 @@ impl Span {
     }
 
     /// Sets or clear the value of [time_events][crate::model::Span::time_events].
-    pub fn maybe_time_events<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_time_events<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::span::TimeEvents>,
     {
@@ -274,7 +274,7 @@ impl Span {
     }
 
     /// Sets or clear the value of [links][crate::model::Span::links].
-    pub fn maybe_links<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_links<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::span::Links>,
     {
@@ -292,7 +292,7 @@ impl Span {
     }
 
     /// Sets or clear the value of [status][crate::model::Span::status].
-    pub fn maybe_status<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_status<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<rpc::model::Status>,
     {
@@ -310,7 +310,7 @@ impl Span {
     }
 
     /// Sets or clear the value of [same_process_as_parent_span][crate::model::Span::same_process_as_parent_span].
-    pub fn maybe_same_process_as_parent_span<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_same_process_as_parent_span<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::BoolValue>,
     {
@@ -328,7 +328,7 @@ impl Span {
     }
 
     /// Sets or clear the value of [child_span_count][crate::model::Span::child_span_count].
-    pub fn maybe_child_span_count<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_child_span_count<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Int32Value>,
     {
@@ -450,7 +450,7 @@ pub mod span {
         }
 
         /// Sets or clear the value of [time][crate::model::span::TimeEvent::time].
-        pub fn maybe_time<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_time<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
         {
@@ -585,7 +585,7 @@ pub mod span {
             }
 
             /// Sets or clear the value of [description][crate::model::span::time_event::Annotation::description].
-            pub fn maybe_description<T>(mut self, v: std::option::Option<T>) -> Self
+            pub fn set_or_clear_description<T>(mut self, v: std::option::Option<T>) -> Self
             where
                 T: std::convert::Into<crate::model::TruncatableString>,
             {
@@ -603,7 +603,7 @@ pub mod span {
             }
 
             /// Sets or clear the value of [attributes][crate::model::span::time_event::Annotation::attributes].
-            pub fn maybe_attributes<T>(mut self, v: std::option::Option<T>) -> Self
+            pub fn set_or_clear_attributes<T>(mut self, v: std::option::Option<T>) -> Self
             where
                 T: std::convert::Into<crate::model::span::Attributes>,
             {
@@ -977,7 +977,7 @@ pub mod span {
         }
 
         /// Sets or clear the value of [attributes][crate::model::span::Link::attributes].
-        pub fn maybe_attributes<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_attributes<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::span::Attributes>,
         {
@@ -1522,7 +1522,7 @@ impl StackTrace {
     }
 
     /// Sets or clear the value of [stack_frames][crate::model::StackTrace::stack_frames].
-    pub fn maybe_stack_frames<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_stack_frames<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::stack_trace::StackFrames>,
     {
@@ -1609,7 +1609,7 @@ pub mod stack_trace {
         }
 
         /// Sets or clear the value of [function_name][crate::model::stack_trace::StackFrame::function_name].
-        pub fn maybe_function_name<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_function_name<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::TruncatableString>,
         {
@@ -1627,7 +1627,7 @@ pub mod stack_trace {
         }
 
         /// Sets or clear the value of [original_function_name][crate::model::stack_trace::StackFrame::original_function_name].
-        pub fn maybe_original_function_name<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_original_function_name<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::TruncatableString>,
         {
@@ -1645,7 +1645,7 @@ pub mod stack_trace {
         }
 
         /// Sets or clear the value of [file_name][crate::model::stack_trace::StackFrame::file_name].
-        pub fn maybe_file_name<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_file_name<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::TruncatableString>,
         {
@@ -1675,7 +1675,7 @@ pub mod stack_trace {
         }
 
         /// Sets or clear the value of [load_module][crate::model::stack_trace::StackFrame::load_module].
-        pub fn maybe_load_module<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_load_module<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Module>,
         {
@@ -1693,7 +1693,7 @@ pub mod stack_trace {
         }
 
         /// Sets or clear the value of [source_version][crate::model::stack_trace::StackFrame::source_version].
-        pub fn maybe_source_version<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_source_version<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::TruncatableString>,
         {
@@ -1793,7 +1793,7 @@ impl Module {
     }
 
     /// Sets or clear the value of [module][crate::model::Module::module].
-    pub fn maybe_module<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_module<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::TruncatableString>,
     {
@@ -1811,7 +1811,7 @@ impl Module {
     }
 
     /// Sets or clear the value of [build_id][crate::model::Module::build_id].
-    pub fn maybe_build_id<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_build_id<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::TruncatableString>,
     {

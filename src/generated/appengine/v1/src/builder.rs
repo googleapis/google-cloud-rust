@@ -229,7 +229,7 @@ pub mod applications {
         }
 
         /// Sets or clear the value of [application][crate::model::CreateApplicationRequest::application].
-        pub fn maybe_application<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_application<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Application>,
         {
@@ -352,7 +352,7 @@ pub mod applications {
         }
 
         /// Sets or clear the value of [application][crate::model::UpdateApplicationRequest::application].
-        pub fn maybe_application<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_application<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Application>,
         {
@@ -370,7 +370,7 @@ pub mod applications {
         }
 
         /// Sets or clear the value of [update_mask][crate::model::UpdateApplicationRequest::update_mask].
-        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
         {
@@ -973,7 +973,7 @@ pub mod services {
         }
 
         /// Sets or clear the value of [service][crate::model::UpdateServiceRequest::service].
-        pub fn maybe_service<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_service<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Service>,
         {
@@ -991,7 +991,7 @@ pub mod services {
         }
 
         /// Sets or clear the value of [update_mask][crate::model::UpdateServiceRequest::update_mask].
-        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
         {
@@ -1606,7 +1606,7 @@ pub mod versions {
         }
 
         /// Sets or clear the value of [version][crate::model::CreateVersionRequest::version].
-        pub fn maybe_version<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_version<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Version>,
         {
@@ -1721,7 +1721,7 @@ pub mod versions {
         }
 
         /// Sets or clear the value of [version][crate::model::UpdateVersionRequest::version].
-        pub fn maybe_version<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_version<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Version>,
         {
@@ -1739,7 +1739,7 @@ pub mod versions {
         }
 
         /// Sets or clear the value of [update_mask][crate::model::UpdateVersionRequest::update_mask].
-        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
         {
@@ -2918,7 +2918,7 @@ pub mod firewall {
         }
 
         /// Sets or clear the value of [rule][crate::model::CreateIngressRuleRequest::rule].
-        pub fn maybe_rule<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_rule<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::FirewallRule>,
         {
@@ -3055,7 +3055,7 @@ pub mod firewall {
         }
 
         /// Sets or clear the value of [rule][crate::model::UpdateIngressRuleRequest::rule].
-        pub fn maybe_rule<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_rule<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::FirewallRule>,
         {
@@ -3073,7 +3073,7 @@ pub mod firewall {
         }
 
         /// Sets or clear the value of [update_mask][crate::model::UpdateIngressRuleRequest::update_mask].
-        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
         {
@@ -3962,7 +3962,7 @@ pub mod authorized_certificates {
         }
 
         /// Sets or clear the value of [certificate][crate::model::CreateAuthorizedCertificateRequest::certificate].
-        pub fn maybe_certificate<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_certificate<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::AuthorizedCertificate>,
         {
@@ -4045,7 +4045,7 @@ pub mod authorized_certificates {
         }
 
         /// Sets or clear the value of [certificate][crate::model::UpdateAuthorizedCertificateRequest::certificate].
-        pub fn maybe_certificate<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_certificate<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::AuthorizedCertificate>,
         {
@@ -4063,7 +4063,7 @@ pub mod authorized_certificates {
         }
 
         /// Sets or clear the value of [update_mask][crate::model::UpdateAuthorizedCertificateRequest::update_mask].
-        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
         {
@@ -4648,7 +4648,7 @@ pub mod domain_mappings {
         }
 
         /// Sets or clear the value of [domain_mapping][crate::model::CreateDomainMappingRequest::domain_mapping].
-        pub fn maybe_domain_mapping<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_domain_mapping<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::DomainMapping>,
         {
@@ -4780,7 +4780,7 @@ pub mod domain_mappings {
         }
 
         /// Sets or clear the value of [domain_mapping][crate::model::UpdateDomainMappingRequest::domain_mapping].
-        pub fn maybe_domain_mapping<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_domain_mapping<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::DomainMapping>,
         {
@@ -4798,7 +4798,7 @@ pub mod domain_mappings {
         }
 
         /// Sets or clear the value of [update_mask][crate::model::UpdateDomainMappingRequest::update_mask].
-        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
         {

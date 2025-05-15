@@ -381,7 +381,7 @@ pub mod telco_automation {
         /// Sets or clear the value of [orchestration_cluster][crate::model::CreateOrchestrationClusterRequest::orchestration_cluster].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_orchestration_cluster<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_orchestration_cluster<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::OrchestrationCluster>,
         {
@@ -808,7 +808,7 @@ pub mod telco_automation {
         /// Sets or clear the value of [edge_slm][crate::model::CreateEdgeSlmRequest::edge_slm].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_edge_slm<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_edge_slm<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::EdgeSlm>,
         {
@@ -1013,7 +1013,7 @@ pub mod telco_automation {
         /// Sets or clear the value of [blueprint][crate::model::CreateBlueprintRequest::blueprint].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_blueprint<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_blueprint<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Blueprint>,
         {
@@ -1089,7 +1089,7 @@ pub mod telco_automation {
         /// Sets or clear the value of [blueprint][crate::model::UpdateBlueprintRequest::blueprint].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_blueprint<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_blueprint<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Blueprint>,
         {
@@ -1111,7 +1111,7 @@ pub mod telco_automation {
         /// Sets or clear the value of [update_mask][crate::model::UpdateBlueprintRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
         {
@@ -2220,7 +2220,7 @@ pub mod telco_automation {
         /// Sets or clear the value of [deployment][crate::model::CreateDeploymentRequest::deployment].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_deployment<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_deployment<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Deployment>,
         {
@@ -2299,7 +2299,7 @@ pub mod telco_automation {
         /// Sets or clear the value of [deployment][crate::model::UpdateDeploymentRequest::deployment].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_deployment<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_deployment<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Deployment>,
         {
@@ -2321,7 +2321,7 @@ pub mod telco_automation {
         /// Sets or clear the value of [update_mask][crate::model::UpdateDeploymentRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
         {
@@ -3199,7 +3199,7 @@ pub mod telco_automation {
         /// Sets or clear the value of [hydrated_deployment][crate::model::UpdateHydratedDeploymentRequest::hydrated_deployment].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_hydrated_deployment<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_hydrated_deployment<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::HydratedDeployment>,
         {
@@ -3221,7 +3221,7 @@ pub mod telco_automation {
         /// Sets or clear the value of [update_mask][crate::model::UpdateHydratedDeploymentRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
         {

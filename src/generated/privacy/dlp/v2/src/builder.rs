@@ -130,7 +130,7 @@ pub mod dlp_service {
         }
 
         /// Sets or clear the value of [inspect_config][crate::model::InspectContentRequest::inspect_config].
-        pub fn maybe_inspect_config<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_inspect_config<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::InspectConfig>,
         {
@@ -148,7 +148,7 @@ pub mod dlp_service {
         }
 
         /// Sets or clear the value of [item][crate::model::InspectContentRequest::item].
-        pub fn maybe_item<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_item<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::ContentItem>,
         {
@@ -244,7 +244,7 @@ pub mod dlp_service {
         }
 
         /// Sets or clear the value of [inspect_config][crate::model::RedactImageRequest::inspect_config].
-        pub fn maybe_inspect_config<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_inspect_config<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::InspectConfig>,
         {
@@ -279,7 +279,7 @@ pub mod dlp_service {
         }
 
         /// Sets or clear the value of [byte_item][crate::model::RedactImageRequest::byte_item].
-        pub fn maybe_byte_item<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_byte_item<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::ByteContentItem>,
         {
@@ -360,7 +360,7 @@ pub mod dlp_service {
         }
 
         /// Sets or clear the value of [deidentify_config][crate::model::DeidentifyContentRequest::deidentify_config].
-        pub fn maybe_deidentify_config<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_deidentify_config<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::DeidentifyConfig>,
         {
@@ -378,7 +378,7 @@ pub mod dlp_service {
         }
 
         /// Sets or clear the value of [inspect_config][crate::model::DeidentifyContentRequest::inspect_config].
-        pub fn maybe_inspect_config<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_inspect_config<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::InspectConfig>,
         {
@@ -396,7 +396,7 @@ pub mod dlp_service {
         }
 
         /// Sets or clear the value of [item][crate::model::DeidentifyContentRequest::item].
-        pub fn maybe_item<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_item<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::ContentItem>,
         {
@@ -497,7 +497,7 @@ pub mod dlp_service {
         }
 
         /// Sets or clear the value of [reidentify_config][crate::model::ReidentifyContentRequest::reidentify_config].
-        pub fn maybe_reidentify_config<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_reidentify_config<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::DeidentifyConfig>,
         {
@@ -515,7 +515,7 @@ pub mod dlp_service {
         }
 
         /// Sets or clear the value of [inspect_config][crate::model::ReidentifyContentRequest::inspect_config].
-        pub fn maybe_inspect_config<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_inspect_config<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::InspectConfig>,
         {
@@ -533,7 +533,7 @@ pub mod dlp_service {
         }
 
         /// Sets or clear the value of [item][crate::model::ReidentifyContentRequest::item].
-        pub fn maybe_item<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_item<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::ContentItem>,
         {
@@ -716,7 +716,7 @@ pub mod dlp_service {
         /// Sets or clear the value of [inspect_template][crate::model::CreateInspectTemplateRequest::inspect_template].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_inspect_template<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_inspect_template<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::InspectTemplate>,
         {
@@ -811,7 +811,7 @@ pub mod dlp_service {
         }
 
         /// Sets or clear the value of [inspect_template][crate::model::UpdateInspectTemplateRequest::inspect_template].
-        pub fn maybe_inspect_template<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_inspect_template<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::InspectTemplate>,
         {
@@ -829,7 +829,7 @@ pub mod dlp_service {
         }
 
         /// Sets or clear the value of [update_mask][crate::model::UpdateInspectTemplateRequest::update_mask].
-        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
         {
@@ -1167,7 +1167,7 @@ pub mod dlp_service {
         /// Sets or clear the value of [deidentify_template][crate::model::CreateDeidentifyTemplateRequest::deidentify_template].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_deidentify_template<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_deidentify_template<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::DeidentifyTemplate>,
         {
@@ -1264,7 +1264,7 @@ pub mod dlp_service {
         }
 
         /// Sets or clear the value of [deidentify_template][crate::model::UpdateDeidentifyTemplateRequest::deidentify_template].
-        pub fn maybe_deidentify_template<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_deidentify_template<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::DeidentifyTemplate>,
         {
@@ -1282,7 +1282,7 @@ pub mod dlp_service {
         }
 
         /// Sets or clear the value of [update_mask][crate::model::UpdateDeidentifyTemplateRequest::update_mask].
-        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
         {
@@ -1624,7 +1624,7 @@ pub mod dlp_service {
         /// Sets or clear the value of [job_trigger][crate::model::CreateJobTriggerRequest::job_trigger].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_job_trigger<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_job_trigger<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::JobTrigger>,
         {
@@ -1719,7 +1719,7 @@ pub mod dlp_service {
         }
 
         /// Sets or clear the value of [job_trigger][crate::model::UpdateJobTriggerRequest::job_trigger].
-        pub fn maybe_job_trigger<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_job_trigger<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::JobTrigger>,
         {
@@ -1737,7 +1737,7 @@ pub mod dlp_service {
         }
 
         /// Sets or clear the value of [update_mask][crate::model::UpdateJobTriggerRequest::update_mask].
-        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
         {
@@ -1822,7 +1822,7 @@ pub mod dlp_service {
         }
 
         /// Sets or clear the value of [hybrid_item][crate::model::HybridInspectJobTriggerRequest::hybrid_item].
-        pub fn maybe_hybrid_item<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_hybrid_item<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::HybridContentItem>,
         {
@@ -2227,7 +2227,7 @@ pub mod dlp_service {
         /// Sets or clear the value of [discovery_config][crate::model::CreateDiscoveryConfigRequest::discovery_config].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_discovery_config<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_discovery_config<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::DiscoveryConfig>,
         {
@@ -2320,7 +2320,7 @@ pub mod dlp_service {
         /// Sets or clear the value of [discovery_config][crate::model::UpdateDiscoveryConfigRequest::discovery_config].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_discovery_config<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_discovery_config<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::DiscoveryConfig>,
         {
@@ -2338,7 +2338,7 @@ pub mod dlp_service {
         }
 
         /// Sets or clear the value of [update_mask][crate::model::UpdateDiscoveryConfigRequest::update_mask].
-        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
         {
@@ -3096,7 +3096,7 @@ pub mod dlp_service {
         /// Sets or clear the value of [config][crate::model::CreateStoredInfoTypeRequest::config].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_config<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_config<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::StoredInfoTypeConfig>,
         {
@@ -3191,7 +3191,7 @@ pub mod dlp_service {
         }
 
         /// Sets or clear the value of [config][crate::model::UpdateStoredInfoTypeRequest::config].
-        pub fn maybe_config<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_config<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::StoredInfoTypeConfig>,
         {
@@ -3209,7 +3209,7 @@ pub mod dlp_service {
         }
 
         /// Sets or clear the value of [update_mask][crate::model::UpdateStoredInfoTypeRequest::update_mask].
-        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
         {
@@ -4421,7 +4421,7 @@ pub mod dlp_service {
         }
 
         /// Sets or clear the value of [hybrid_item][crate::model::HybridInspectDlpJobRequest::hybrid_item].
-        pub fn maybe_hybrid_item<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_hybrid_item<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::HybridContentItem>,
         {
@@ -4570,7 +4570,7 @@ pub mod dlp_service {
         /// Sets or clear the value of [connection][crate::model::CreateConnectionRequest::connection].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_connection<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_connection<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Connection>,
         {
@@ -5003,7 +5003,7 @@ pub mod dlp_service {
         /// Sets or clear the value of [connection][crate::model::UpdateConnectionRequest::connection].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_connection<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_connection<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Connection>,
         {
@@ -5021,7 +5021,7 @@ pub mod dlp_service {
         }
 
         /// Sets or clear the value of [update_mask][crate::model::UpdateConnectionRequest::update_mask].
-        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
         {

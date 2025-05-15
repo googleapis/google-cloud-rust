@@ -435,7 +435,7 @@ impl CreateBillingAccountRequest {
     }
 
     /// Sets or clear the value of [billing_account][crate::model::CreateBillingAccountRequest::billing_account].
-    pub fn maybe_billing_account<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_billing_account<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::BillingAccount>,
     {
@@ -501,7 +501,7 @@ impl UpdateBillingAccountRequest {
     }
 
     /// Sets or clear the value of [account][crate::model::UpdateBillingAccountRequest::account].
-    pub fn maybe_account<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_account<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::BillingAccount>,
     {
@@ -519,7 +519,7 @@ impl UpdateBillingAccountRequest {
     }
 
     /// Sets or clear the value of [update_mask][crate::model::UpdateBillingAccountRequest::update_mask].
-    pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
     {
@@ -731,7 +731,7 @@ impl UpdateProjectBillingInfoRequest {
     }
 
     /// Sets or clear the value of [project_billing_info][crate::model::UpdateProjectBillingInfoRequest::project_billing_info].
-    pub fn maybe_project_billing_info<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_project_billing_info<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ProjectBillingInfo>,
     {
@@ -945,7 +945,7 @@ impl Sku {
     }
 
     /// Sets or clear the value of [category][crate::model::Sku::category].
-    pub fn maybe_category<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_category<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Category>,
     {
@@ -994,7 +994,7 @@ impl Sku {
     }
 
     /// Sets or clear the value of [geo_taxonomy][crate::model::Sku::geo_taxonomy].
-    pub fn maybe_geo_taxonomy<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_geo_taxonomy<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::GeoTaxonomy>,
     {
@@ -1134,7 +1134,7 @@ impl PricingInfo {
     }
 
     /// Sets or clear the value of [effective_time][crate::model::PricingInfo::effective_time].
-    pub fn maybe_effective_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_effective_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -1158,7 +1158,7 @@ impl PricingInfo {
     }
 
     /// Sets or clear the value of [pricing_expression][crate::model::PricingInfo::pricing_expression].
-    pub fn maybe_pricing_expression<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_pricing_expression<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::PricingExpression>,
     {
@@ -1176,7 +1176,7 @@ impl PricingInfo {
     }
 
     /// Sets or clear the value of [aggregation_info][crate::model::PricingInfo::aggregation_info].
-    pub fn maybe_aggregation_info<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_aggregation_info<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::AggregationInfo>,
     {
@@ -1376,7 +1376,7 @@ pub mod pricing_expression {
         }
 
         /// Sets or clear the value of [unit_price][crate::model::pricing_expression::TierRate::unit_price].
-        pub fn maybe_unit_price<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_unit_price<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<gtype::model::Money>,
         {
@@ -2095,7 +2095,7 @@ impl ListSkusRequest {
     }
 
     /// Sets or clear the value of [start_time][crate::model::ListSkusRequest::start_time].
-    pub fn maybe_start_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -2113,7 +2113,7 @@ impl ListSkusRequest {
     }
 
     /// Sets or clear the value of [end_time][crate::model::ListSkusRequest::end_time].
-    pub fn maybe_end_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {

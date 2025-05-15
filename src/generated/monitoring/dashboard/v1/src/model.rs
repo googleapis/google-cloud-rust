@@ -217,7 +217,7 @@ impl Aggregation {
     }
 
     /// Sets or clear the value of [alignment_period][crate::model::Aggregation::alignment_period].
-    pub fn maybe_alignment_period<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_alignment_period<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
     {
@@ -944,7 +944,7 @@ impl PickTimeSeriesFilter {
     }
 
     /// Sets or clear the value of [interval][crate::model::PickTimeSeriesFilter::interval].
-    pub fn maybe_interval<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_interval<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<gtype::model::Interval>,
     {
@@ -1994,7 +1994,7 @@ impl CreateDashboardRequest {
     }
 
     /// Sets or clear the value of [dashboard][crate::model::CreateDashboardRequest::dashboard].
-    pub fn maybe_dashboard<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_dashboard<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Dashboard>,
     {
@@ -2244,7 +2244,7 @@ impl UpdateDashboardRequest {
     }
 
     /// Sets or clear the value of [dashboard][crate::model::UpdateDashboardRequest::dashboard].
-    pub fn maybe_dashboard<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_dashboard<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Dashboard>,
     {
@@ -2583,7 +2583,7 @@ pub mod mosaic_layout {
         }
 
         /// Sets or clear the value of [widget][crate::model::mosaic_layout::Tile::widget].
-        pub fn maybe_widget<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_widget<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Widget>,
         {
@@ -3108,7 +3108,7 @@ impl TimeSeriesFilter {
     }
 
     /// Sets or clear the value of [aggregation][crate::model::TimeSeriesFilter::aggregation].
-    pub fn maybe_aggregation<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_aggregation<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Aggregation>,
     {
@@ -3126,7 +3126,7 @@ impl TimeSeriesFilter {
     }
 
     /// Sets or clear the value of [secondary_aggregation][crate::model::TimeSeriesFilter::secondary_aggregation].
-    pub fn maybe_secondary_aggregation<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_secondary_aggregation<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Aggregation>,
     {
@@ -3285,7 +3285,7 @@ impl TimeSeriesFilterRatio {
     }
 
     /// Sets or clear the value of [numerator][crate::model::TimeSeriesFilterRatio::numerator].
-    pub fn maybe_numerator<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_numerator<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::time_series_filter_ratio::RatioPart>,
     {
@@ -3303,7 +3303,7 @@ impl TimeSeriesFilterRatio {
     }
 
     /// Sets or clear the value of [denominator][crate::model::TimeSeriesFilterRatio::denominator].
-    pub fn maybe_denominator<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_denominator<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::time_series_filter_ratio::RatioPart>,
     {
@@ -3321,7 +3321,7 @@ impl TimeSeriesFilterRatio {
     }
 
     /// Sets or clear the value of [secondary_aggregation][crate::model::TimeSeriesFilterRatio::secondary_aggregation].
-    pub fn maybe_secondary_aggregation<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_secondary_aggregation<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Aggregation>,
     {
@@ -3469,7 +3469,7 @@ pub mod time_series_filter_ratio {
         }
 
         /// Sets or clear the value of [aggregation][crate::model::time_series_filter_ratio::RatioPart::aggregation].
-        pub fn maybe_aggregation<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_aggregation<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Aggregation>,
         {
@@ -4100,7 +4100,7 @@ pub mod pie_chart {
         }
 
         /// Sets or clear the value of [time_series_query][crate::model::pie_chart::PieChartDataSet::time_series_query].
-        pub fn maybe_time_series_query<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_time_series_query<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::TimeSeriesQuery>,
         {
@@ -4127,7 +4127,7 @@ pub mod pie_chart {
         }
 
         /// Sets or clear the value of [min_alignment_period][crate::model::pie_chart::PieChartDataSet::min_alignment_period].
-        pub fn maybe_min_alignment_period<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_min_alignment_period<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
         {
@@ -4352,7 +4352,7 @@ impl Scorecard {
     }
 
     /// Sets or clear the value of [time_series_query][crate::model::Scorecard::time_series_query].
-    pub fn maybe_time_series_query<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_time_series_query<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::TimeSeriesQuery>,
     {
@@ -4576,7 +4576,7 @@ pub mod scorecard {
         }
 
         /// Sets or clear the value of [min_alignment_period][crate::model::scorecard::SparkChartView::min_alignment_period].
-        pub fn maybe_min_alignment_period<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_min_alignment_period<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
         {
@@ -4796,7 +4796,7 @@ pub mod time_series_table {
         }
 
         /// Sets or clear the value of [time_series_query][crate::model::time_series_table::TableDataSet::time_series_query].
-        pub fn maybe_time_series_query<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_time_series_query<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::TimeSeriesQuery>,
         {
@@ -4823,7 +4823,7 @@ pub mod time_series_table {
         }
 
         /// Sets or clear the value of [min_alignment_period][crate::model::time_series_table::TableDataSet::min_alignment_period].
-        pub fn maybe_min_alignment_period<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_min_alignment_period<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
         {
@@ -4841,7 +4841,7 @@ pub mod time_series_table {
         }
 
         /// Sets or clear the value of [table_display_options][crate::model::time_series_table::TableDataSet::table_display_options].
-        pub fn maybe_table_display_options<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_table_display_options<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::TableDisplayOptions>,
         {
@@ -5119,7 +5119,7 @@ impl Text {
     }
 
     /// Sets or clear the value of [style][crate::model::Text::style].
-    pub fn maybe_style<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_style<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::text::TextStyle>,
     {
@@ -6710,7 +6710,7 @@ impl XyChart {
     }
 
     /// Sets or clear the value of [timeshift_duration][crate::model::XyChart::timeshift_duration].
-    pub fn maybe_timeshift_duration<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_timeshift_duration<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
     {
@@ -6739,7 +6739,7 @@ impl XyChart {
     }
 
     /// Sets or clear the value of [x_axis][crate::model::XyChart::x_axis].
-    pub fn maybe_x_axis<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_x_axis<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::xy_chart::Axis>,
     {
@@ -6757,7 +6757,7 @@ impl XyChart {
     }
 
     /// Sets or clear the value of [y_axis][crate::model::XyChart::y_axis].
-    pub fn maybe_y_axis<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_y_axis<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::xy_chart::Axis>,
     {
@@ -6775,7 +6775,7 @@ impl XyChart {
     }
 
     /// Sets or clear the value of [y2_axis][crate::model::XyChart::y2_axis].
-    pub fn maybe_y2_axis<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_y2_axis<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::xy_chart::Axis>,
     {
@@ -6793,7 +6793,7 @@ impl XyChart {
     }
 
     /// Sets or clear the value of [chart_options][crate::model::XyChart::chart_options].
-    pub fn maybe_chart_options<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_chart_options<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ChartOptions>,
     {
@@ -6863,7 +6863,7 @@ pub mod xy_chart {
         }
 
         /// Sets or clear the value of [time_series_query][crate::model::xy_chart::DataSet::time_series_query].
-        pub fn maybe_time_series_query<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_time_series_query<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::TimeSeriesQuery>,
         {
@@ -6899,7 +6899,7 @@ pub mod xy_chart {
         }
 
         /// Sets or clear the value of [min_alignment_period][crate::model::xy_chart::DataSet::min_alignment_period].
-        pub fn maybe_min_alignment_period<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_min_alignment_period<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
         {

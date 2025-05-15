@@ -120,7 +120,7 @@ impl MigrationWorkflow {
     }
 
     /// Sets or clear the value of [create_time][crate::model::MigrationWorkflow::create_time].
-    pub fn maybe_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -138,7 +138,7 @@ impl MigrationWorkflow {
     }
 
     /// Sets or clear the value of [last_update_time][crate::model::MigrationWorkflow::last_update_time].
-    pub fn maybe_last_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_last_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -421,7 +421,7 @@ impl MigrationTask {
     }
 
     /// Sets or clear the value of [processing_error][crate::model::MigrationTask::processing_error].
-    pub fn maybe_processing_error<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_processing_error<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<rpc::model::ErrorInfo>,
     {
@@ -439,7 +439,7 @@ impl MigrationTask {
     }
 
     /// Sets or clear the value of [create_time][crate::model::MigrationTask::create_time].
-    pub fn maybe_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -457,7 +457,7 @@ impl MigrationTask {
     }
 
     /// Sets or clear the value of [last_update_time][crate::model::MigrationTask::last_update_time].
-    pub fn maybe_last_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_last_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -503,7 +503,7 @@ impl MigrationTask {
     }
 
     /// Sets or clear the value of [task_result][crate::model::MigrationTask::task_result].
-    pub fn maybe_task_result<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_task_result<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::MigrationTaskResult>,
     {
@@ -893,7 +893,7 @@ impl MigrationSubtask {
     }
 
     /// Sets or clear the value of [processing_error][crate::model::MigrationSubtask::processing_error].
-    pub fn maybe_processing_error<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_processing_error<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<rpc::model::ErrorInfo>,
     {
@@ -928,7 +928,7 @@ impl MigrationSubtask {
     }
 
     /// Sets or clear the value of [create_time][crate::model::MigrationSubtask::create_time].
-    pub fn maybe_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -946,7 +946,7 @@ impl MigrationSubtask {
     }
 
     /// Sets or clear the value of [last_update_time][crate::model::MigrationSubtask::last_update_time].
-    pub fn maybe_last_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_last_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -1319,7 +1319,7 @@ impl ResourceErrorDetail {
     }
 
     /// Sets or clear the value of [resource_info][crate::model::ResourceErrorDetail::resource_info].
-    pub fn maybe_resource_info<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_resource_info<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<rpc::model::ResourceInfo>,
     {
@@ -1385,7 +1385,7 @@ impl ErrorDetail {
     }
 
     /// Sets or clear the value of [location][crate::model::ErrorDetail::location].
-    pub fn maybe_location<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_location<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ErrorLocation>,
     {
@@ -1403,7 +1403,7 @@ impl ErrorDetail {
     }
 
     /// Sets or clear the value of [error_info][crate::model::ErrorDetail::error_info].
-    pub fn maybe_error_info<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_error_info<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<rpc::model::ErrorInfo>,
     {
@@ -1588,7 +1588,7 @@ impl Point {
     }
 
     /// Sets or clear the value of [interval][crate::model::Point::interval].
-    pub fn maybe_interval<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_interval<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::TimeInterval>,
     {
@@ -1606,7 +1606,7 @@ impl Point {
     }
 
     /// Sets or clear the value of [value][crate::model::Point::value].
-    pub fn maybe_value<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_value<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::TypedValue>,
     {
@@ -1658,7 +1658,7 @@ impl TimeInterval {
     }
 
     /// Sets or clear the value of [start_time][crate::model::TimeInterval::start_time].
-    pub fn maybe_start_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -1676,7 +1676,7 @@ impl TimeInterval {
     }
 
     /// Sets or clear the value of [end_time][crate::model::TimeInterval::end_time].
-    pub fn maybe_end_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -1915,7 +1915,7 @@ impl CreateMigrationWorkflowRequest {
     }
 
     /// Sets or clear the value of [migration_workflow][crate::model::CreateMigrationWorkflowRequest::migration_workflow].
-    pub fn maybe_migration_workflow<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_migration_workflow<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::MigrationWorkflow>,
     {
@@ -1970,7 +1970,7 @@ impl GetMigrationWorkflowRequest {
     }
 
     /// Sets or clear the value of [read_mask][crate::model::GetMigrationWorkflowRequest::read_mask].
-    pub fn maybe_read_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_read_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
     {
@@ -2038,7 +2038,7 @@ impl ListMigrationWorkflowsRequest {
     }
 
     /// Sets or clear the value of [read_mask][crate::model::ListMigrationWorkflowsRequest::read_mask].
-    pub fn maybe_read_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_read_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
     {
@@ -2233,7 +2233,7 @@ impl GetMigrationSubtaskRequest {
     }
 
     /// Sets or clear the value of [read_mask][crate::model::GetMigrationSubtaskRequest::read_mask].
-    pub fn maybe_read_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_read_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
     {
@@ -2307,7 +2307,7 @@ impl ListMigrationSubtasksRequest {
     }
 
     /// Sets or clear the value of [read_mask][crate::model::ListMigrationSubtasksRequest::read_mask].
-    pub fn maybe_read_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_read_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
     {
@@ -2467,7 +2467,7 @@ impl TranslationConfigDetails {
     }
 
     /// Sets or clear the value of [source_dialect][crate::model::TranslationConfigDetails::source_dialect].
-    pub fn maybe_source_dialect<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_source_dialect<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Dialect>,
     {
@@ -2485,7 +2485,7 @@ impl TranslationConfigDetails {
     }
 
     /// Sets or clear the value of [target_dialect][crate::model::TranslationConfigDetails::target_dialect].
-    pub fn maybe_target_dialect<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_target_dialect<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Dialect>,
     {
@@ -2503,7 +2503,7 @@ impl TranslationConfigDetails {
     }
 
     /// Sets or clear the value of [source_env][crate::model::TranslationConfigDetails::source_env].
-    pub fn maybe_source_env<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_source_env<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::SourceEnv>,
     {
@@ -3894,7 +3894,7 @@ impl ObjectNameMapping {
     }
 
     /// Sets or clear the value of [source][crate::model::ObjectNameMapping::source].
-    pub fn maybe_source<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_source<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::NameMappingKey>,
     {
@@ -3912,7 +3912,7 @@ impl ObjectNameMapping {
     }
 
     /// Sets or clear the value of [target][crate::model::ObjectNameMapping::target].
-    pub fn maybe_target<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_target<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::NameMappingValue>,
     {
@@ -4383,7 +4383,7 @@ impl TranslationDetails {
     }
 
     /// Sets or clear the value of [source_environment][crate::model::TranslationDetails::source_environment].
-    pub fn maybe_source_environment<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_source_environment<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::SourceEnvironment>,
     {
@@ -4453,7 +4453,7 @@ impl SourceTargetMapping {
     }
 
     /// Sets or clear the value of [source_spec][crate::model::SourceTargetMapping::source_spec].
-    pub fn maybe_source_spec<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_source_spec<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::SourceSpec>,
     {
@@ -4471,7 +4471,7 @@ impl SourceTargetMapping {
     }
 
     /// Sets or clear the value of [target_spec][crate::model::SourceTargetMapping::target_spec].
-    pub fn maybe_target_spec<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_target_spec<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::TargetSpec>,
     {

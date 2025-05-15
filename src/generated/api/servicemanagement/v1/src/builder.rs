@@ -339,7 +339,7 @@ pub mod service_manager {
         /// Sets or clear the value of [service][crate::model::CreateServiceRequest::service].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_service<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_service<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::ManagedService>,
         {
@@ -822,7 +822,7 @@ pub mod service_manager {
         /// Sets or clear the value of [service_config][crate::model::CreateServiceConfigRequest::service_config].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_service_config<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_service_config<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<api::model::Service>,
         {
@@ -951,7 +951,7 @@ pub mod service_manager {
         /// Sets or clear the value of [config_source][crate::model::SubmitConfigSourceRequest::config_source].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_config_source<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_config_source<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::ConfigSource>,
         {
@@ -1271,7 +1271,7 @@ pub mod service_manager {
         /// Sets or clear the value of [rollout][crate::model::CreateServiceRolloutRequest::rollout].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_rollout<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_rollout<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Rollout>,
         {
@@ -1350,7 +1350,7 @@ pub mod service_manager {
         /// Sets or clear the value of [new_config][crate::model::GenerateConfigReportRequest::new_config].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_new_config<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_new_config<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Any>,
         {
@@ -1368,7 +1368,7 @@ pub mod service_manager {
         }
 
         /// Sets or clear the value of [old_config][crate::model::GenerateConfigReportRequest::old_config].
-        pub fn maybe_old_config<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_old_config<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Any>,
         {
@@ -1452,7 +1452,7 @@ pub mod service_manager {
         /// Sets or clear the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<iam_v1::model::Policy>,
         {
@@ -1470,7 +1470,7 @@ pub mod service_manager {
         }
 
         /// Sets or clear the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
-        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
         {
@@ -1550,7 +1550,7 @@ pub mod service_manager {
         }
 
         /// Sets or clear the value of [options][iam_v1::model::GetIamPolicyRequest::options].
-        pub fn maybe_options<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
         {

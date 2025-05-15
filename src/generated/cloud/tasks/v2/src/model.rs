@@ -293,7 +293,7 @@ impl CreateQueueRequest {
     }
 
     /// Sets or clear the value of [queue][crate::model::CreateQueueRequest::queue].
-    pub fn maybe_queue<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_queue<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Queue>,
     {
@@ -354,7 +354,7 @@ impl UpdateQueueRequest {
     }
 
     /// Sets or clear the value of [queue][crate::model::UpdateQueueRequest::queue].
-    pub fn maybe_queue<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_queue<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Queue>,
     {
@@ -372,7 +372,7 @@ impl UpdateQueueRequest {
     }
 
     /// Sets or clear the value of [update_mask][crate::model::UpdateQueueRequest::update_mask].
-    pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
     {
@@ -869,7 +869,7 @@ impl CreateTaskRequest {
     }
 
     /// Sets or clear the value of [task][crate::model::CreateTaskRequest::task].
-    pub fn maybe_task<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_task<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Task>,
     {
@@ -1154,7 +1154,7 @@ impl Queue {
     }
 
     /// Sets or clear the value of [app_engine_routing_override][crate::model::Queue::app_engine_routing_override].
-    pub fn maybe_app_engine_routing_override<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_app_engine_routing_override<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::AppEngineRouting>,
     {
@@ -1172,7 +1172,7 @@ impl Queue {
     }
 
     /// Sets or clear the value of [rate_limits][crate::model::Queue::rate_limits].
-    pub fn maybe_rate_limits<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_rate_limits<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::RateLimits>,
     {
@@ -1190,7 +1190,7 @@ impl Queue {
     }
 
     /// Sets or clear the value of [retry_config][crate::model::Queue::retry_config].
-    pub fn maybe_retry_config<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_retry_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::RetryConfig>,
     {
@@ -1214,7 +1214,7 @@ impl Queue {
     }
 
     /// Sets or clear the value of [purge_time][crate::model::Queue::purge_time].
-    pub fn maybe_purge_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_purge_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -1232,7 +1232,7 @@ impl Queue {
     }
 
     /// Sets or clear the value of [stackdriver_logging_config][crate::model::Queue::stackdriver_logging_config].
-    pub fn maybe_stackdriver_logging_config<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_stackdriver_logging_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::StackdriverLoggingConfig>,
     {
@@ -1685,7 +1685,7 @@ impl RetryConfig {
     }
 
     /// Sets or clear the value of [max_retry_duration][crate::model::RetryConfig::max_retry_duration].
-    pub fn maybe_max_retry_duration<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_max_retry_duration<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
     {
@@ -1703,7 +1703,7 @@ impl RetryConfig {
     }
 
     /// Sets or clear the value of [min_backoff][crate::model::RetryConfig::min_backoff].
-    pub fn maybe_min_backoff<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_min_backoff<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
     {
@@ -1721,7 +1721,7 @@ impl RetryConfig {
     }
 
     /// Sets or clear the value of [max_backoff][crate::model::RetryConfig::max_backoff].
-    pub fn maybe_max_backoff<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_max_backoff<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
     {
@@ -2246,7 +2246,7 @@ impl AppEngineHttpRequest {
     }
 
     /// Sets or clear the value of [app_engine_routing][crate::model::AppEngineHttpRequest::app_engine_routing].
-    pub fn maybe_app_engine_routing<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_app_engine_routing<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::AppEngineRouting>,
     {
@@ -2693,7 +2693,7 @@ impl Task {
     }
 
     /// Sets or clear the value of [schedule_time][crate::model::Task::schedule_time].
-    pub fn maybe_schedule_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_schedule_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -2711,7 +2711,7 @@ impl Task {
     }
 
     /// Sets or clear the value of [create_time][crate::model::Task::create_time].
-    pub fn maybe_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -2729,7 +2729,7 @@ impl Task {
     }
 
     /// Sets or clear the value of [dispatch_deadline][crate::model::Task::dispatch_deadline].
-    pub fn maybe_dispatch_deadline<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_dispatch_deadline<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
     {
@@ -2759,7 +2759,7 @@ impl Task {
     }
 
     /// Sets or clear the value of [first_attempt][crate::model::Task::first_attempt].
-    pub fn maybe_first_attempt<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_first_attempt<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Attempt>,
     {
@@ -2777,7 +2777,7 @@ impl Task {
     }
 
     /// Sets or clear the value of [last_attempt][crate::model::Task::last_attempt].
-    pub fn maybe_last_attempt<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_last_attempt<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Attempt>,
     {
@@ -3104,7 +3104,7 @@ impl Attempt {
     }
 
     /// Sets or clear the value of [schedule_time][crate::model::Attempt::schedule_time].
-    pub fn maybe_schedule_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_schedule_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -3122,7 +3122,7 @@ impl Attempt {
     }
 
     /// Sets or clear the value of [dispatch_time][crate::model::Attempt::dispatch_time].
-    pub fn maybe_dispatch_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_dispatch_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -3140,7 +3140,7 @@ impl Attempt {
     }
 
     /// Sets or clear the value of [response_time][crate::model::Attempt::response_time].
-    pub fn maybe_response_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_response_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -3158,7 +3158,7 @@ impl Attempt {
     }
 
     /// Sets or clear the value of [response_status][crate::model::Attempt::response_status].
-    pub fn maybe_response_status<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_response_status<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<rpc::model::Status>,
     {

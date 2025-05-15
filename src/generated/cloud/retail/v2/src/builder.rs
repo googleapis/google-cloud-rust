@@ -181,7 +181,7 @@ pub mod analytics_service {
         /// Sets or clear the value of [output_config][crate::model::ExportAnalyticsMetricsRequest::output_config].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_output_config<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_output_config<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::OutputConfig>,
         {
@@ -594,7 +594,7 @@ pub mod catalog_service {
         /// Sets or clear the value of [catalog][crate::model::UpdateCatalogRequest::catalog].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_catalog<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_catalog<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Catalog>,
         {
@@ -612,7 +612,7 @@ pub mod catalog_service {
         }
 
         /// Sets or clear the value of [update_mask][crate::model::UpdateCatalogRequest::update_mask].
-        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
         {
@@ -900,7 +900,7 @@ pub mod catalog_service {
         /// Sets or clear the value of [completion_config][crate::model::UpdateCompletionConfigRequest::completion_config].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_completion_config<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_completion_config<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::CompletionConfig>,
         {
@@ -918,7 +918,7 @@ pub mod catalog_service {
         }
 
         /// Sets or clear the value of [update_mask][crate::model::UpdateCompletionConfigRequest::update_mask].
-        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
         {
@@ -1062,7 +1062,7 @@ pub mod catalog_service {
         /// Sets or clear the value of [attributes_config][crate::model::UpdateAttributesConfigRequest::attributes_config].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_attributes_config<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_attributes_config<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::AttributesConfig>,
         {
@@ -1080,7 +1080,7 @@ pub mod catalog_service {
         }
 
         /// Sets or clear the value of [update_mask][crate::model::UpdateAttributesConfigRequest::update_mask].
-        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
         {
@@ -1167,7 +1167,7 @@ pub mod catalog_service {
         /// Sets or clear the value of [catalog_attribute][crate::model::AddCatalogAttributeRequest::catalog_attribute].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_catalog_attribute<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_catalog_attribute<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::CatalogAttribute>,
         {
@@ -1329,7 +1329,7 @@ pub mod catalog_service {
         /// Sets or clear the value of [catalog_attribute][crate::model::ReplaceCatalogAttributeRequest::catalog_attribute].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_catalog_attribute<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_catalog_attribute<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::CatalogAttribute>,
         {
@@ -1347,7 +1347,7 @@ pub mod catalog_service {
         }
 
         /// Sets or clear the value of [update_mask][crate::model::ReplaceCatalogAttributeRequest::update_mask].
-        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
         {
@@ -1822,7 +1822,7 @@ pub mod completion_service {
         /// Sets or clear the value of [input_config][crate::model::ImportCompletionDataRequest::input_config].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_input_config<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_input_config<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::CompletionDataInputConfig>,
         {
@@ -2141,7 +2141,7 @@ pub mod control_service {
         /// Sets or clear the value of [control][crate::model::CreateControlRequest::control].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_control<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_control<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Control>,
         {
@@ -2287,7 +2287,7 @@ pub mod control_service {
         /// Sets or clear the value of [control][crate::model::UpdateControlRequest::control].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_control<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_control<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Control>,
         {
@@ -2305,7 +2305,7 @@ pub mod control_service {
         }
 
         /// Sets or clear the value of [update_mask][crate::model::UpdateControlRequest::update_mask].
-        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
         {
@@ -2788,7 +2788,7 @@ pub mod generative_question_service {
         /// Sets or clear the value of [generative_questions_feature_config][crate::model::UpdateGenerativeQuestionsFeatureConfigRequest::generative_questions_feature_config].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_generative_questions_feature_config<T>(
+        pub fn set_or_clear_generative_questions_feature_config<T>(
             mut self,
             v: std::option::Option<T>,
         ) -> Self
@@ -2809,7 +2809,7 @@ pub mod generative_question_service {
         }
 
         /// Sets or clear the value of [update_mask][crate::model::UpdateGenerativeQuestionsFeatureConfigRequest::update_mask].
-        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
         {
@@ -3024,7 +3024,10 @@ pub mod generative_question_service {
         /// Sets or clear the value of [generative_question_config][crate::model::UpdateGenerativeQuestionConfigRequest::generative_question_config].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_generative_question_config<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_generative_question_config<T>(
+            mut self,
+            v: std::option::Option<T>,
+        ) -> Self
         where
             T: std::convert::Into<crate::model::GenerativeQuestionConfig>,
         {
@@ -3042,7 +3045,7 @@ pub mod generative_question_service {
         }
 
         /// Sets or clear the value of [update_mask][crate::model::UpdateGenerativeQuestionConfigRequest::update_mask].
-        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
         {
@@ -3474,7 +3477,7 @@ pub mod model_service {
         /// Sets or clear the value of [model][crate::model::CreateModelRequest::model].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_model<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_model<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Model>,
         {
@@ -3906,7 +3909,7 @@ pub mod model_service {
         /// Sets or clear the value of [model][crate::model::UpdateModelRequest::model].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_model<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_model<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Model>,
         {
@@ -3924,7 +3927,7 @@ pub mod model_service {
         }
 
         /// Sets or clear the value of [update_mask][crate::model::UpdateModelRequest::update_mask].
-        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
         {
@@ -4341,7 +4344,7 @@ pub mod prediction_service {
         /// Sets or clear the value of [user_event][crate::model::PredictRequest::user_event].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_user_event<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_user_event<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::UserEvent>,
         {
@@ -4701,7 +4704,7 @@ pub mod product_service {
         /// Sets or clear the value of [product][crate::model::CreateProductRequest::product].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_product<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_product<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Product>,
         {
@@ -4897,7 +4900,7 @@ pub mod product_service {
         }
 
         /// Sets or clear the value of [read_mask][crate::model::ListProductsRequest::read_mask].
-        pub fn maybe_read_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_read_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
         {
@@ -4973,7 +4976,7 @@ pub mod product_service {
         /// Sets or clear the value of [product][crate::model::UpdateProductRequest::product].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_product<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_product<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Product>,
         {
@@ -4991,7 +4994,7 @@ pub mod product_service {
         }
 
         /// Sets or clear the value of [update_mask][crate::model::UpdateProductRequest::update_mask].
-        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
         {
@@ -5310,7 +5313,7 @@ pub mod product_service {
         /// Sets or clear the value of [input_config][crate::model::ImportProductsRequest::input_config].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_input_config<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_input_config<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::ProductInputConfig>,
         {
@@ -5328,7 +5331,7 @@ pub mod product_service {
         }
 
         /// Sets or clear the value of [errors_config][crate::model::ImportProductsRequest::errors_config].
-        pub fn maybe_errors_config<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_errors_config<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::ImportErrorsConfig>,
         {
@@ -5346,7 +5349,7 @@ pub mod product_service {
         }
 
         /// Sets or clear the value of [update_mask][crate::model::ImportProductsRequest::update_mask].
-        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
         {
@@ -5481,7 +5484,7 @@ pub mod product_service {
         /// Sets or clear the value of [inventory][crate::model::SetInventoryRequest::inventory].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_inventory<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_inventory<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Product>,
         {
@@ -5499,7 +5502,7 @@ pub mod product_service {
         }
 
         /// Sets or clear the value of [set_mask][crate::model::SetInventoryRequest::set_mask].
-        pub fn maybe_set_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_set_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
         {
@@ -5517,7 +5520,7 @@ pub mod product_service {
         }
 
         /// Sets or clear the value of [set_time][crate::model::SetInventoryRequest::set_time].
-        pub fn maybe_set_time<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_set_time<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
         {
@@ -5671,7 +5674,7 @@ pub mod product_service {
         }
 
         /// Sets or clear the value of [add_time][crate::model::AddFulfillmentPlacesRequest::add_time].
-        pub fn maybe_add_time<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_add_time<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
         {
@@ -5827,7 +5830,7 @@ pub mod product_service {
         }
 
         /// Sets or clear the value of [remove_time][crate::model::RemoveFulfillmentPlacesRequest::remove_time].
-        pub fn maybe_remove_time<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_remove_time<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
         {
@@ -5973,7 +5976,7 @@ pub mod product_service {
         }
 
         /// Sets or clear the value of [add_mask][crate::model::AddLocalInventoriesRequest::add_mask].
-        pub fn maybe_add_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_add_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
         {
@@ -5991,7 +5994,7 @@ pub mod product_service {
         }
 
         /// Sets or clear the value of [add_time][crate::model::AddLocalInventoriesRequest::add_time].
-        pub fn maybe_add_time<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_add_time<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
         {
@@ -6137,7 +6140,7 @@ pub mod product_service {
         }
 
         /// Sets or clear the value of [remove_time][crate::model::RemoveLocalInventoriesRequest::remove_time].
-        pub fn maybe_remove_time<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_remove_time<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
         {
@@ -6500,7 +6503,7 @@ pub mod search_service {
         }
 
         /// Sets or clear the value of [user_info][crate::model::SearchRequest::user_info].
-        pub fn maybe_user_info<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_user_info<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::UserInfo>,
         {
@@ -6567,7 +6570,7 @@ pub mod search_service {
 
         /// Sets or clear the value of [dynamic_facet_spec][crate::model::SearchRequest::dynamic_facet_spec].
         #[deprecated]
-        pub fn maybe_dynamic_facet_spec<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_dynamic_facet_spec<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::search_request::DynamicFacetSpec>,
         {
@@ -6585,7 +6588,7 @@ pub mod search_service {
         }
 
         /// Sets or clear the value of [boost_spec][crate::model::SearchRequest::boost_spec].
-        pub fn maybe_boost_spec<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_boost_spec<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::search_request::BoostSpec>,
         {
@@ -6603,7 +6606,7 @@ pub mod search_service {
         }
 
         /// Sets or clear the value of [query_expansion_spec][crate::model::SearchRequest::query_expansion_spec].
-        pub fn maybe_query_expansion_spec<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_query_expansion_spec<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::search_request::QueryExpansionSpec>,
         {
@@ -6652,7 +6655,7 @@ pub mod search_service {
         }
 
         /// Sets or clear the value of [personalization_spec][crate::model::SearchRequest::personalization_spec].
-        pub fn maybe_personalization_spec<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_personalization_spec<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::search_request::PersonalizationSpec>,
         {
@@ -6681,7 +6684,7 @@ pub mod search_service {
         }
 
         /// Sets or clear the value of [spell_correction_spec][crate::model::SearchRequest::spell_correction_spec].
-        pub fn maybe_spell_correction_spec<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_spell_correction_spec<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::search_request::SpellCorrectionSpec>,
         {
@@ -6705,7 +6708,10 @@ pub mod search_service {
         }
 
         /// Sets or clear the value of [conversational_search_spec][crate::model::SearchRequest::conversational_search_spec].
-        pub fn maybe_conversational_search_spec<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_conversational_search_spec<T>(
+            mut self,
+            v: std::option::Option<T>,
+        ) -> Self
         where
             T: std::convert::Into<crate::model::search_request::ConversationalSearchSpec>,
         {
@@ -6723,7 +6729,7 @@ pub mod search_service {
         }
 
         /// Sets or clear the value of [tile_navigation_spec][crate::model::SearchRequest::tile_navigation_spec].
-        pub fn maybe_tile_navigation_spec<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_tile_navigation_spec<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::search_request::TileNavigationSpec>,
         {
@@ -7057,7 +7063,7 @@ pub mod serving_config_service {
         /// Sets or clear the value of [serving_config][crate::model::CreateServingConfigRequest::serving_config].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_serving_config<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_serving_config<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::ServingConfig>,
         {
@@ -7209,7 +7215,7 @@ pub mod serving_config_service {
         /// Sets or clear the value of [serving_config][crate::model::UpdateServingConfigRequest::serving_config].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_serving_config<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_serving_config<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::ServingConfig>,
         {
@@ -7227,7 +7233,7 @@ pub mod serving_config_service {
         }
 
         /// Sets or clear the value of [update_mask][crate::model::UpdateServingConfigRequest::update_mask].
-        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
         {
@@ -7852,7 +7858,7 @@ pub mod user_event_service {
         /// Sets or clear the value of [user_event][crate::model::WriteUserEventRequest::user_event].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_user_event<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_user_event<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::UserEvent>,
         {
@@ -8223,7 +8229,7 @@ pub mod user_event_service {
         /// Sets or clear the value of [input_config][crate::model::ImportUserEventsRequest::input_config].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_input_config<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_input_config<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::UserEventInputConfig>,
         {
@@ -8241,7 +8247,7 @@ pub mod user_event_service {
         }
 
         /// Sets or clear the value of [errors_config][crate::model::ImportUserEventsRequest::errors_config].
-        pub fn maybe_errors_config<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_errors_config<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::ImportErrorsConfig>,
         {

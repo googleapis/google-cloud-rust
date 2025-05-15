@@ -130,7 +130,7 @@ pub mod compliance {
         }
 
         /// Sets or clear the value of [info][crate::model::RepeatRequest::info].
-        pub fn maybe_info<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_info<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::ComplianceData>,
         {
@@ -154,7 +154,7 @@ pub mod compliance {
         }
 
         /// Sets or clear the value of [intended_binding_uri][crate::model::RepeatRequest::intended_binding_uri].
-        pub fn maybe_intended_binding_uri<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_intended_binding_uri<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<std::string::String>,
         {
@@ -190,7 +190,7 @@ pub mod compliance {
         }
 
         /// Sets or clear the value of [p_int32][crate::model::RepeatRequest::p_int32].
-        pub fn maybe_p_int32<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_p_int32<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<i32>,
         {
@@ -208,7 +208,7 @@ pub mod compliance {
         }
 
         /// Sets or clear the value of [p_int64][crate::model::RepeatRequest::p_int64].
-        pub fn maybe_p_int64<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_p_int64<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<i64>,
         {
@@ -226,7 +226,7 @@ pub mod compliance {
         }
 
         /// Sets or clear the value of [p_double][crate::model::RepeatRequest::p_double].
-        pub fn maybe_p_double<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_p_double<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<f64>,
         {
@@ -304,7 +304,7 @@ pub mod compliance {
         }
 
         /// Sets or clear the value of [info][crate::model::RepeatRequest::info].
-        pub fn maybe_info<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_info<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::ComplianceData>,
         {
@@ -328,7 +328,7 @@ pub mod compliance {
         }
 
         /// Sets or clear the value of [intended_binding_uri][crate::model::RepeatRequest::intended_binding_uri].
-        pub fn maybe_intended_binding_uri<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_intended_binding_uri<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<std::string::String>,
         {
@@ -364,7 +364,7 @@ pub mod compliance {
         }
 
         /// Sets or clear the value of [p_int32][crate::model::RepeatRequest::p_int32].
-        pub fn maybe_p_int32<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_p_int32<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<i32>,
         {
@@ -382,7 +382,7 @@ pub mod compliance {
         }
 
         /// Sets or clear the value of [p_int64][crate::model::RepeatRequest::p_int64].
-        pub fn maybe_p_int64<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_p_int64<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<i64>,
         {
@@ -400,7 +400,7 @@ pub mod compliance {
         }
 
         /// Sets or clear the value of [p_double][crate::model::RepeatRequest::p_double].
-        pub fn maybe_p_double<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_p_double<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<f64>,
         {
@@ -478,7 +478,7 @@ pub mod compliance {
         }
 
         /// Sets or clear the value of [info][crate::model::RepeatRequest::info].
-        pub fn maybe_info<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_info<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::ComplianceData>,
         {
@@ -502,7 +502,7 @@ pub mod compliance {
         }
 
         /// Sets or clear the value of [intended_binding_uri][crate::model::RepeatRequest::intended_binding_uri].
-        pub fn maybe_intended_binding_uri<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_intended_binding_uri<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<std::string::String>,
         {
@@ -538,7 +538,7 @@ pub mod compliance {
         }
 
         /// Sets or clear the value of [p_int32][crate::model::RepeatRequest::p_int32].
-        pub fn maybe_p_int32<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_p_int32<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<i32>,
         {
@@ -556,7 +556,7 @@ pub mod compliance {
         }
 
         /// Sets or clear the value of [p_int64][crate::model::RepeatRequest::p_int64].
-        pub fn maybe_p_int64<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_p_int64<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<i64>,
         {
@@ -574,7 +574,7 @@ pub mod compliance {
         }
 
         /// Sets or clear the value of [p_double][crate::model::RepeatRequest::p_double].
-        pub fn maybe_p_double<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_p_double<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<f64>,
         {
@@ -652,7 +652,7 @@ pub mod compliance {
         }
 
         /// Sets or clear the value of [info][crate::model::RepeatRequest::info].
-        pub fn maybe_info<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_info<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::ComplianceData>,
         {
@@ -676,7 +676,7 @@ pub mod compliance {
         }
 
         /// Sets or clear the value of [intended_binding_uri][crate::model::RepeatRequest::intended_binding_uri].
-        pub fn maybe_intended_binding_uri<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_intended_binding_uri<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<std::string::String>,
         {
@@ -712,7 +712,7 @@ pub mod compliance {
         }
 
         /// Sets or clear the value of [p_int32][crate::model::RepeatRequest::p_int32].
-        pub fn maybe_p_int32<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_p_int32<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<i32>,
         {
@@ -730,7 +730,7 @@ pub mod compliance {
         }
 
         /// Sets or clear the value of [p_int64][crate::model::RepeatRequest::p_int64].
-        pub fn maybe_p_int64<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_p_int64<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<i64>,
         {
@@ -748,7 +748,7 @@ pub mod compliance {
         }
 
         /// Sets or clear the value of [p_double][crate::model::RepeatRequest::p_double].
-        pub fn maybe_p_double<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_p_double<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<f64>,
         {
@@ -826,7 +826,7 @@ pub mod compliance {
         }
 
         /// Sets or clear the value of [info][crate::model::RepeatRequest::info].
-        pub fn maybe_info<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_info<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::ComplianceData>,
         {
@@ -850,7 +850,7 @@ pub mod compliance {
         }
 
         /// Sets or clear the value of [intended_binding_uri][crate::model::RepeatRequest::intended_binding_uri].
-        pub fn maybe_intended_binding_uri<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_intended_binding_uri<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<std::string::String>,
         {
@@ -886,7 +886,7 @@ pub mod compliance {
         }
 
         /// Sets or clear the value of [p_int32][crate::model::RepeatRequest::p_int32].
-        pub fn maybe_p_int32<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_p_int32<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<i32>,
         {
@@ -904,7 +904,7 @@ pub mod compliance {
         }
 
         /// Sets or clear the value of [p_int64][crate::model::RepeatRequest::p_int64].
-        pub fn maybe_p_int64<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_p_int64<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<i64>,
         {
@@ -922,7 +922,7 @@ pub mod compliance {
         }
 
         /// Sets or clear the value of [p_double][crate::model::RepeatRequest::p_double].
-        pub fn maybe_p_double<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_p_double<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<f64>,
         {
@@ -1000,7 +1000,7 @@ pub mod compliance {
         }
 
         /// Sets or clear the value of [info][crate::model::RepeatRequest::info].
-        pub fn maybe_info<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_info<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::ComplianceData>,
         {
@@ -1024,7 +1024,7 @@ pub mod compliance {
         }
 
         /// Sets or clear the value of [intended_binding_uri][crate::model::RepeatRequest::intended_binding_uri].
-        pub fn maybe_intended_binding_uri<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_intended_binding_uri<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<std::string::String>,
         {
@@ -1060,7 +1060,7 @@ pub mod compliance {
         }
 
         /// Sets or clear the value of [p_int32][crate::model::RepeatRequest::p_int32].
-        pub fn maybe_p_int32<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_p_int32<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<i32>,
         {
@@ -1078,7 +1078,7 @@ pub mod compliance {
         }
 
         /// Sets or clear the value of [p_int64][crate::model::RepeatRequest::p_int64].
-        pub fn maybe_p_int64<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_p_int64<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<i64>,
         {
@@ -1096,7 +1096,7 @@ pub mod compliance {
         }
 
         /// Sets or clear the value of [p_double][crate::model::RepeatRequest::p_double].
-        pub fn maybe_p_double<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_p_double<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<f64>,
         {
@@ -1174,7 +1174,7 @@ pub mod compliance {
         }
 
         /// Sets or clear the value of [info][crate::model::RepeatRequest::info].
-        pub fn maybe_info<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_info<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::ComplianceData>,
         {
@@ -1198,7 +1198,7 @@ pub mod compliance {
         }
 
         /// Sets or clear the value of [intended_binding_uri][crate::model::RepeatRequest::intended_binding_uri].
-        pub fn maybe_intended_binding_uri<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_intended_binding_uri<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<std::string::String>,
         {
@@ -1234,7 +1234,7 @@ pub mod compliance {
         }
 
         /// Sets or clear the value of [p_int32][crate::model::RepeatRequest::p_int32].
-        pub fn maybe_p_int32<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_p_int32<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<i32>,
         {
@@ -1252,7 +1252,7 @@ pub mod compliance {
         }
 
         /// Sets or clear the value of [p_int64][crate::model::RepeatRequest::p_int64].
-        pub fn maybe_p_int64<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_p_int64<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<i64>,
         {
@@ -1270,7 +1270,7 @@ pub mod compliance {
         }
 
         /// Sets or clear the value of [p_double][crate::model::RepeatRequest::p_double].
-        pub fn maybe_p_double<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_p_double<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<f64>,
         {
@@ -1348,7 +1348,7 @@ pub mod compliance {
         }
 
         /// Sets or clear the value of [info][crate::model::RepeatRequest::info].
-        pub fn maybe_info<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_info<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::ComplianceData>,
         {
@@ -1372,7 +1372,7 @@ pub mod compliance {
         }
 
         /// Sets or clear the value of [intended_binding_uri][crate::model::RepeatRequest::intended_binding_uri].
-        pub fn maybe_intended_binding_uri<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_intended_binding_uri<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<std::string::String>,
         {
@@ -1408,7 +1408,7 @@ pub mod compliance {
         }
 
         /// Sets or clear the value of [p_int32][crate::model::RepeatRequest::p_int32].
-        pub fn maybe_p_int32<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_p_int32<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<i32>,
         {
@@ -1426,7 +1426,7 @@ pub mod compliance {
         }
 
         /// Sets or clear the value of [p_int64][crate::model::RepeatRequest::p_int64].
-        pub fn maybe_p_int64<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_p_int64<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<i64>,
         {
@@ -1444,7 +1444,7 @@ pub mod compliance {
         }
 
         /// Sets or clear the value of [p_double][crate::model::RepeatRequest::p_double].
-        pub fn maybe_p_double<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_p_double<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<f64>,
         {
@@ -1576,7 +1576,7 @@ pub mod compliance {
         }
 
         /// Sets or clear the value of [request][crate::model::EnumResponse::request].
-        pub fn maybe_request<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_request<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::EnumRequest>,
         {
@@ -1835,7 +1835,7 @@ pub mod compliance {
         /// Sets or clear the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<iam_v1::model::Policy>,
         {
@@ -1853,7 +1853,7 @@ pub mod compliance {
         }
 
         /// Sets or clear the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
-        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
         {
@@ -1933,7 +1933,7 @@ pub mod compliance {
         }
 
         /// Sets or clear the value of [options][iam_v1::model::GetIamPolicyRequest::options].
-        pub fn maybe_options<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
         {
@@ -2458,7 +2458,7 @@ pub mod echo {
         }
 
         /// Sets or clear the value of [other_request_id][crate::model::EchoRequest::other_request_id].
-        pub fn maybe_other_request_id<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_other_request_id<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<std::string::String>,
         {
@@ -3135,7 +3135,7 @@ pub mod echo {
         }
 
         /// Sets or clear the value of [response_delay][crate::model::BlockRequest::response_delay].
-        pub fn maybe_response_delay<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_response_delay<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
         {
@@ -3420,7 +3420,7 @@ pub mod echo {
         /// Sets or clear the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<iam_v1::model::Policy>,
         {
@@ -3438,7 +3438,7 @@ pub mod echo {
         }
 
         /// Sets or clear the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
-        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
         {
@@ -3516,7 +3516,7 @@ pub mod echo {
         }
 
         /// Sets or clear the value of [options][iam_v1::model::GetIamPolicyRequest::options].
-        pub fn maybe_options<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
         {
@@ -4007,7 +4007,7 @@ pub mod identity {
         }
 
         /// Sets or clear the value of [user][crate::model::CreateUserRequest::user].
-        pub fn maybe_user<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_user<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::User>,
         {
@@ -4137,7 +4137,7 @@ pub mod identity {
         }
 
         /// Sets or clear the value of [user][crate::model::UpdateUserRequest::user].
-        pub fn maybe_user<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_user<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::User>,
         {
@@ -4155,7 +4155,7 @@ pub mod identity {
         }
 
         /// Sets or clear the value of [update_mask][crate::model::UpdateUserRequest::update_mask].
-        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
         {
@@ -4554,7 +4554,7 @@ pub mod identity {
         /// Sets or clear the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<iam_v1::model::Policy>,
         {
@@ -4572,7 +4572,7 @@ pub mod identity {
         }
 
         /// Sets or clear the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
-        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
         {
@@ -4650,7 +4650,7 @@ pub mod identity {
         }
 
         /// Sets or clear the value of [options][iam_v1::model::GetIamPolicyRequest::options].
-        pub fn maybe_options<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
         {
@@ -5145,7 +5145,7 @@ pub mod messaging {
         }
 
         /// Sets or clear the value of [room][crate::model::CreateRoomRequest::room].
-        pub fn maybe_room<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_room<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Room>,
         {
@@ -5279,7 +5279,7 @@ pub mod messaging {
         }
 
         /// Sets or clear the value of [room][crate::model::UpdateRoomRequest::room].
-        pub fn maybe_room<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_room<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Room>,
         {
@@ -5297,7 +5297,7 @@ pub mod messaging {
         }
 
         /// Sets or clear the value of [update_mask][crate::model::UpdateRoomRequest::update_mask].
-        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
         {
@@ -5533,7 +5533,7 @@ pub mod messaging {
         }
 
         /// Sets or clear the value of [blurb][crate::model::CreateBlurbRequest::blurb].
-        pub fn maybe_blurb<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_blurb<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Blurb>,
         {
@@ -5667,7 +5667,7 @@ pub mod messaging {
         }
 
         /// Sets or clear the value of [blurb][crate::model::UpdateBlurbRequest::blurb].
-        pub fn maybe_blurb<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_blurb<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Blurb>,
         {
@@ -5685,7 +5685,7 @@ pub mod messaging {
         }
 
         /// Sets or clear the value of [update_mask][crate::model::UpdateBlurbRequest::update_mask].
-        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
         {
@@ -6224,7 +6224,7 @@ pub mod messaging {
         /// Sets or clear the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<iam_v1::model::Policy>,
         {
@@ -6242,7 +6242,7 @@ pub mod messaging {
         }
 
         /// Sets or clear the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
-        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
         {
@@ -6322,7 +6322,7 @@ pub mod messaging {
         }
 
         /// Sets or clear the value of [options][iam_v1::model::GetIamPolicyRequest::options].
-        pub fn maybe_options<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
         {
@@ -6827,7 +6827,7 @@ pub mod sequence_service {
         }
 
         /// Sets or clear the value of [sequence][crate::model::CreateSequenceRequest::sequence].
-        pub fn maybe_sequence<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_sequence<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Sequence>,
         {
@@ -6904,7 +6904,7 @@ pub mod sequence_service {
         }
 
         /// Sets or clear the value of [streaming_sequence][crate::model::CreateStreamingSequenceRequest::streaming_sequence].
-        pub fn maybe_streaming_sequence<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_streaming_sequence<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::StreamingSequence>,
         {
@@ -7351,7 +7351,7 @@ pub mod sequence_service {
         /// Sets or clear the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<iam_v1::model::Policy>,
         {
@@ -7369,7 +7369,7 @@ pub mod sequence_service {
         }
 
         /// Sets or clear the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
-        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
         {
@@ -7449,7 +7449,7 @@ pub mod sequence_service {
         }
 
         /// Sets or clear the value of [options][iam_v1::model::GetIamPolicyRequest::options].
-        pub fn maybe_options<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
         {
@@ -7950,7 +7950,7 @@ pub mod testing {
         }
 
         /// Sets or clear the value of [session][crate::model::CreateSessionRequest::session].
-        pub fn maybe_session<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_session<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Session>,
         {
@@ -8694,7 +8694,7 @@ pub mod testing {
         /// Sets or clear the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<iam_v1::model::Policy>,
         {
@@ -8712,7 +8712,7 @@ pub mod testing {
         }
 
         /// Sets or clear the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
-        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
         {
@@ -8790,7 +8790,7 @@ pub mod testing {
         }
 
         /// Sets or clear the value of [options][iam_v1::model::GetIamPolicyRequest::options].
-        pub fn maybe_options<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
         {

@@ -141,7 +141,7 @@ pub mod autoscaling_policy_service {
         /// Sets or clear the value of [policy][crate::model::CreateAutoscalingPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::AutoscalingPolicy>,
         {
@@ -222,7 +222,7 @@ pub mod autoscaling_policy_service {
         /// Sets or clear the value of [policy][crate::model::UpdateAutoscalingPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::AutoscalingPolicy>,
         {
@@ -549,7 +549,7 @@ pub mod autoscaling_policy_service {
         /// Sets or clear the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<iam_v1::model::Policy>,
         {
@@ -567,7 +567,7 @@ pub mod autoscaling_policy_service {
         }
 
         /// Sets or clear the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
-        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
         {
@@ -647,7 +647,7 @@ pub mod autoscaling_policy_service {
         }
 
         /// Sets or clear the value of [options][iam_v1::model::GetIamPolicyRequest::options].
-        pub fn maybe_options<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
         {
@@ -1203,7 +1203,7 @@ pub mod batch_controller {
         /// Sets or clear the value of [batch][crate::model::CreateBatchRequest::batch].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_batch<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_batch<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Batch>,
         {
@@ -1537,7 +1537,7 @@ pub mod batch_controller {
         /// Sets or clear the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<iam_v1::model::Policy>,
         {
@@ -1555,7 +1555,7 @@ pub mod batch_controller {
         }
 
         /// Sets or clear the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
-        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
         {
@@ -1635,7 +1635,7 @@ pub mod batch_controller {
         }
 
         /// Sets or clear the value of [options][iam_v1::model::GetIamPolicyRequest::options].
-        pub fn maybe_options<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
         {
@@ -2202,7 +2202,7 @@ pub mod cluster_controller {
         /// Sets or clear the value of [cluster][crate::model::CreateClusterRequest::cluster].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_cluster<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_cluster<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Cluster>,
         {
@@ -2359,7 +2359,7 @@ pub mod cluster_controller {
         /// Sets or clear the value of [cluster][crate::model::UpdateClusterRequest::cluster].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_cluster<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_cluster<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Cluster>,
         {
@@ -2377,7 +2377,10 @@ pub mod cluster_controller {
         }
 
         /// Sets or clear the value of [graceful_decommission_timeout][crate::model::UpdateClusterRequest::graceful_decommission_timeout].
-        pub fn maybe_graceful_decommission_timeout<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_graceful_decommission_timeout<T>(
+            mut self,
+            v: std::option::Option<T>,
+        ) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
         {
@@ -2399,7 +2402,7 @@ pub mod cluster_controller {
         /// Sets or clear the value of [update_mask][crate::model::UpdateClusterRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
         {
@@ -3150,7 +3153,7 @@ pub mod cluster_controller {
         }
 
         /// Sets or clear the value of [diagnosis_interval][crate::model::DiagnoseClusterRequest::diagnosis_interval].
-        pub fn maybe_diagnosis_interval<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_diagnosis_interval<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<gtype::model::Interval>,
         {
@@ -3256,7 +3259,7 @@ pub mod cluster_controller {
         /// Sets or clear the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<iam_v1::model::Policy>,
         {
@@ -3274,7 +3277,7 @@ pub mod cluster_controller {
         }
 
         /// Sets or clear the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
-        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
         {
@@ -3354,7 +3357,7 @@ pub mod cluster_controller {
         }
 
         /// Sets or clear the value of [options][iam_v1::model::GetIamPolicyRequest::options].
-        pub fn maybe_options<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
         {
@@ -3879,7 +3882,7 @@ pub mod job_controller {
         /// Sets or clear the value of [job][crate::model::SubmitJobRequest::job].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_job<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_job<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Job>,
         {
@@ -4013,7 +4016,7 @@ pub mod job_controller {
         /// Sets or clear the value of [job][crate::model::SubmitJobRequest::job].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_job<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_job<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Job>,
         {
@@ -4328,7 +4331,7 @@ pub mod job_controller {
         /// Sets or clear the value of [job][crate::model::UpdateJobRequest::job].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_job<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_job<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Job>,
         {
@@ -4350,7 +4353,7 @@ pub mod job_controller {
         /// Sets or clear the value of [update_mask][crate::model::UpdateJobRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
         {
@@ -4590,7 +4593,7 @@ pub mod job_controller {
         /// Sets or clear the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<iam_v1::model::Policy>,
         {
@@ -4608,7 +4611,7 @@ pub mod job_controller {
         }
 
         /// Sets or clear the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
-        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
         {
@@ -4688,7 +4691,7 @@ pub mod job_controller {
         }
 
         /// Sets or clear the value of [options][iam_v1::model::GetIamPolicyRequest::options].
-        pub fn maybe_options<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
         {
@@ -5247,7 +5250,7 @@ pub mod node_group_controller {
         /// Sets or clear the value of [node_group][crate::model::CreateNodeGroupRequest::node_group].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_node_group<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_node_group<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::NodeGroup>,
         {
@@ -5395,7 +5398,10 @@ pub mod node_group_controller {
         }
 
         /// Sets or clear the value of [graceful_decommission_timeout][crate::model::ResizeNodeGroupRequest::graceful_decommission_timeout].
-        pub fn maybe_graceful_decommission_timeout<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_graceful_decommission_timeout<T>(
+            mut self,
+            v: std::option::Option<T>,
+        ) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
         {
@@ -5541,7 +5547,7 @@ pub mod node_group_controller {
         /// Sets or clear the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<iam_v1::model::Policy>,
         {
@@ -5559,7 +5565,7 @@ pub mod node_group_controller {
         }
 
         /// Sets or clear the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
-        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
         {
@@ -5639,7 +5645,7 @@ pub mod node_group_controller {
         }
 
         /// Sets or clear the value of [options][iam_v1::model::GetIamPolicyRequest::options].
-        pub fn maybe_options<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
         {
@@ -6159,7 +6165,7 @@ pub mod session_template_controller {
         /// Sets or clear the value of [session_template][crate::model::CreateSessionTemplateRequest::session_template].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_session_template<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_session_template<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::SessionTemplate>,
         {
@@ -6238,7 +6244,7 @@ pub mod session_template_controller {
         /// Sets or clear the value of [session_template][crate::model::UpdateSessionTemplateRequest::session_template].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_session_template<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_session_template<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::SessionTemplate>,
         {
@@ -6565,7 +6571,7 @@ pub mod session_template_controller {
         /// Sets or clear the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<iam_v1::model::Policy>,
         {
@@ -6583,7 +6589,7 @@ pub mod session_template_controller {
         }
 
         /// Sets or clear the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
-        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
         {
@@ -6663,7 +6669,7 @@ pub mod session_template_controller {
         }
 
         /// Sets or clear the value of [options][iam_v1::model::GetIamPolicyRequest::options].
-        pub fn maybe_options<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
         {
@@ -7222,7 +7228,7 @@ pub mod session_controller {
         /// Sets or clear the value of [session][crate::model::CreateSessionRequest::session].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_session<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_session<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Session>,
         {
@@ -7713,7 +7719,7 @@ pub mod session_controller {
         /// Sets or clear the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<iam_v1::model::Policy>,
         {
@@ -7731,7 +7737,7 @@ pub mod session_controller {
         }
 
         /// Sets or clear the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
-        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
         {
@@ -7811,7 +7817,7 @@ pub mod session_controller {
         }
 
         /// Sets or clear the value of [options][iam_v1::model::GetIamPolicyRequest::options].
-        pub fn maybe_options<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
         {
@@ -8331,7 +8337,7 @@ pub mod workflow_template_service {
         /// Sets or clear the value of [template][crate::model::CreateWorkflowTemplateRequest::template].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_template<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_template<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::WorkflowTemplate>,
         {
@@ -8663,7 +8669,7 @@ pub mod workflow_template_service {
         /// Sets or clear the value of [template][crate::model::InstantiateInlineWorkflowTemplateRequest::template].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_template<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_template<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::WorkflowTemplate>,
         {
@@ -8748,7 +8754,7 @@ pub mod workflow_template_service {
         /// Sets or clear the value of [template][crate::model::UpdateWorkflowTemplateRequest::template].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_template<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_template<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::WorkflowTemplate>,
         {
@@ -9010,7 +9016,7 @@ pub mod workflow_template_service {
         /// Sets or clear the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<iam_v1::model::Policy>,
         {
@@ -9028,7 +9034,7 @@ pub mod workflow_template_service {
         }
 
         /// Sets or clear the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
-        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
         {
@@ -9108,7 +9114,7 @@ pub mod workflow_template_service {
         }
 
         /// Sets or clear the value of [options][iam_v1::model::GetIamPolicyRequest::options].
-        pub fn maybe_options<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
         {

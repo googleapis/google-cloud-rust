@@ -199,7 +199,7 @@ pub mod assignment_protocol {
         }
 
         /// Sets or clear the value of [inactive_license_ttl][crate::model::assignment_protocol::AutoAssignmentType::inactive_license_ttl].
-        pub fn maybe_inactive_license_ttl<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_inactive_license_ttl<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
         {
@@ -277,7 +277,7 @@ impl LicensePool {
     }
 
     /// Sets or clear the value of [license_assignment_protocol][crate::model::LicensePool::license_assignment_protocol].
-    pub fn maybe_license_assignment_protocol<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_license_assignment_protocol<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::AssignmentProtocol>,
     {
@@ -374,7 +374,7 @@ impl UpdateLicensePoolRequest {
     }
 
     /// Sets or clear the value of [license_pool][crate::model::UpdateLicensePoolRequest::license_pool].
-    pub fn maybe_license_pool<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_license_pool<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::LicensePool>,
     {
@@ -392,7 +392,7 @@ impl UpdateLicensePoolRequest {
     }
 
     /// Sets or clear the value of [update_mask][crate::model::UpdateLicensePoolRequest::update_mask].
-    pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
     {
@@ -662,7 +662,7 @@ impl LicensedUser {
     }
 
     /// Sets or clear the value of [assign_time][crate::model::LicensedUser::assign_time].
-    pub fn maybe_assign_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_assign_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -680,7 +680,7 @@ impl LicensedUser {
     }
 
     /// Sets or clear the value of [recent_usage_time][crate::model::LicensedUser::recent_usage_time].
-    pub fn maybe_recent_usage_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_recent_usage_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -858,7 +858,7 @@ impl Order {
     }
 
     /// Sets or clear the value of [create_time][crate::model::Order::create_time].
-    pub fn maybe_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -876,7 +876,7 @@ impl Order {
     }
 
     /// Sets or clear the value of [update_time][crate::model::Order::update_time].
-    pub fn maybe_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -950,7 +950,7 @@ impl LineItem {
     }
 
     /// Sets or clear the value of [line_item_info][crate::model::LineItem::line_item_info].
-    pub fn maybe_line_item_info<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_line_item_info<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::LineItemInfo>,
     {
@@ -968,7 +968,7 @@ impl LineItem {
     }
 
     /// Sets or clear the value of [pending_change][crate::model::LineItem::pending_change].
-    pub fn maybe_pending_change<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_pending_change<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::LineItemChange>,
     {
@@ -1081,7 +1081,7 @@ impl LineItemChange {
     }
 
     /// Sets or clear the value of [old_line_item_info][crate::model::LineItemChange::old_line_item_info].
-    pub fn maybe_old_line_item_info<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_old_line_item_info<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::LineItemInfo>,
     {
@@ -1099,7 +1099,7 @@ impl LineItemChange {
     }
 
     /// Sets or clear the value of [new_line_item_info][crate::model::LineItemChange::new_line_item_info].
-    pub fn maybe_new_line_item_info<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_new_line_item_info<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::LineItemInfo>,
     {
@@ -1143,7 +1143,7 @@ impl LineItemChange {
     }
 
     /// Sets or clear the value of [change_effective_time][crate::model::LineItemChange::change_effective_time].
-    pub fn maybe_change_effective_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_change_effective_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -1161,7 +1161,7 @@ impl LineItemChange {
     }
 
     /// Sets or clear the value of [create_time][crate::model::LineItemChange::create_time].
-    pub fn maybe_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -1179,7 +1179,7 @@ impl LineItemChange {
     }
 
     /// Sets or clear the value of [update_time][crate::model::LineItemChange::update_time].
-    pub fn maybe_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -1250,7 +1250,7 @@ impl LineItemInfo {
     }
 
     /// Sets or clear the value of [subscription][crate::model::LineItemInfo::subscription].
-    pub fn maybe_subscription<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_subscription<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Subscription>,
     {
@@ -1304,7 +1304,7 @@ impl Parameter {
     }
 
     /// Sets or clear the value of [value][crate::model::Parameter::value].
-    pub fn maybe_value<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_value<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::parameter::Value>,
     {
@@ -1499,7 +1499,7 @@ impl Subscription {
     }
 
     /// Sets or clear the value of [start_time][crate::model::Subscription::start_time].
-    pub fn maybe_start_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -1517,7 +1517,7 @@ impl Subscription {
     }
 
     /// Sets or clear the value of [end_time][crate::model::Subscription::end_time].
-    pub fn maybe_end_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -1967,7 +1967,7 @@ pub mod modify_order_request {
         }
 
         /// Sets or clear the value of [new_line_item_info][crate::model::modify_order_request::Modification::new_line_item_info].
-        pub fn maybe_new_line_item_info<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_new_line_item_info<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::LineItemInfo>,
         {

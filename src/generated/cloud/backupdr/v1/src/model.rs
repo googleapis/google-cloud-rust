@@ -482,7 +482,7 @@ impl ManagementServer {
     }
 
     /// Sets or clear the value of [create_time][crate::model::ManagementServer::create_time].
-    pub fn maybe_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -500,7 +500,7 @@ impl ManagementServer {
     }
 
     /// Sets or clear the value of [update_time][crate::model::ManagementServer::update_time].
-    pub fn maybe_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -527,7 +527,7 @@ impl ManagementServer {
     }
 
     /// Sets or clear the value of [management_uri][crate::model::ManagementServer::management_uri].
-    pub fn maybe_management_uri<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_management_uri<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ManagementURI>,
     {
@@ -545,7 +545,7 @@ impl ManagementServer {
     }
 
     /// Sets or clear the value of [workforce_identity_based_management_uri][crate::model::ManagementServer::workforce_identity_based_management_uri].
-    pub fn maybe_workforce_identity_based_management_uri<T>(
+    pub fn set_or_clear_workforce_identity_based_management_uri<T>(
         mut self,
         v: std::option::Option<T>,
     ) -> Self
@@ -601,7 +601,7 @@ impl ManagementServer {
     }
 
     /// Sets or clear the value of [workforce_identity_based_oauth2_client_id][crate::model::ManagementServer::workforce_identity_based_oauth2_client_id].
-    pub fn maybe_workforce_identity_based_oauth2_client_id<T>(
+    pub fn set_or_clear_workforce_identity_based_oauth2_client_id<T>(
         mut self,
         v: std::option::Option<T>,
     ) -> Self
@@ -633,7 +633,7 @@ impl ManagementServer {
     }
 
     /// Sets or clear the value of [satisfies_pzs][crate::model::ManagementServer::satisfies_pzs].
-    pub fn maybe_satisfies_pzs<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_satisfies_pzs<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::BoolValue>,
     {
@@ -1024,7 +1024,7 @@ impl ListManagementServersRequest {
     }
 
     /// Sets or clear the value of [filter][crate::model::ListManagementServersRequest::filter].
-    pub fn maybe_filter<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_filter<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
     {
@@ -1042,7 +1042,7 @@ impl ListManagementServersRequest {
     }
 
     /// Sets or clear the value of [order_by][crate::model::ListManagementServersRequest::order_by].
-    pub fn maybe_order_by<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_order_by<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
     {
@@ -1247,7 +1247,7 @@ impl CreateManagementServerRequest {
     }
 
     /// Sets or clear the value of [management_server][crate::model::CreateManagementServerRequest::management_server].
-    pub fn maybe_management_server<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_management_server<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ManagementServer>,
     {
@@ -1508,7 +1508,7 @@ impl OperationMetadata {
     }
 
     /// Sets or clear the value of [create_time][crate::model::OperationMetadata::create_time].
-    pub fn maybe_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -1526,7 +1526,7 @@ impl OperationMetadata {
     }
 
     /// Sets or clear the value of [end_time][crate::model::OperationMetadata::end_time].
-    pub fn maybe_end_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -1695,7 +1695,7 @@ impl BackupPlan {
     }
 
     /// Sets or clear the value of [create_time][crate::model::BackupPlan::create_time].
-    pub fn maybe_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -1713,7 +1713,7 @@ impl BackupPlan {
     }
 
     /// Sets or clear the value of [update_time][crate::model::BackupPlan::update_time].
-    pub fn maybe_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -2184,7 +2184,7 @@ impl StandardSchedule {
     }
 
     /// Sets or clear the value of [week_day_of_month][crate::model::StandardSchedule::week_day_of_month].
-    pub fn maybe_week_day_of_month<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_week_day_of_month<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::WeekDayOfMonth>,
     {
@@ -2213,7 +2213,7 @@ impl StandardSchedule {
     }
 
     /// Sets or clear the value of [backup_window][crate::model::StandardSchedule::backup_window].
-    pub fn maybe_backup_window<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_backup_window<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::BackupWindow>,
     {
@@ -2720,7 +2720,7 @@ impl CreateBackupPlanRequest {
     }
 
     /// Sets or clear the value of [backup_plan][crate::model::CreateBackupPlanRequest::backup_plan].
-    pub fn maybe_backup_plan<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_backup_plan<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::BackupPlan>,
     {
@@ -3104,7 +3104,7 @@ impl BackupPlanAssociation {
     }
 
     /// Sets or clear the value of [create_time][crate::model::BackupPlanAssociation::create_time].
-    pub fn maybe_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -3122,7 +3122,7 @@ impl BackupPlanAssociation {
     }
 
     /// Sets or clear the value of [update_time][crate::model::BackupPlanAssociation::update_time].
-    pub fn maybe_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -3373,7 +3373,7 @@ impl RuleConfigInfo {
     }
 
     /// Sets or clear the value of [last_backup_error][crate::model::RuleConfigInfo::last_backup_error].
-    pub fn maybe_last_backup_error<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_last_backup_error<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<rpc::model::Status>,
     {
@@ -3391,7 +3391,7 @@ impl RuleConfigInfo {
     }
 
     /// Sets or clear the value of [last_successful_backup_consistency_time][crate::model::RuleConfigInfo::last_successful_backup_consistency_time].
-    pub fn maybe_last_successful_backup_consistency_time<T>(
+    pub fn set_or_clear_last_successful_backup_consistency_time<T>(
         mut self,
         v: std::option::Option<T>,
     ) -> Self
@@ -3633,7 +3633,7 @@ impl CreateBackupPlanAssociationRequest {
     }
 
     /// Sets or clear the value of [backup_plan_association][crate::model::CreateBackupPlanAssociationRequest::backup_plan_association].
-    pub fn maybe_backup_plan_association<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_backup_plan_association<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::BackupPlanAssociation>,
     {
@@ -4069,7 +4069,7 @@ impl BackupVault {
     }
 
     /// Sets or clear the value of [description][crate::model::BackupVault::description].
-    pub fn maybe_description<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_description<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
     {
@@ -4099,7 +4099,7 @@ impl BackupVault {
     }
 
     /// Sets or clear the value of [create_time][crate::model::BackupVault::create_time].
-    pub fn maybe_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -4117,7 +4117,7 @@ impl BackupVault {
     }
 
     /// Sets or clear the value of [update_time][crate::model::BackupVault::update_time].
-    pub fn maybe_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -4135,7 +4135,7 @@ impl BackupVault {
     }
 
     /// Sets or clear the value of [backup_minimum_enforced_retention_duration][crate::model::BackupVault::backup_minimum_enforced_retention_duration].
-    pub fn maybe_backup_minimum_enforced_retention_duration<T>(
+    pub fn set_or_clear_backup_minimum_enforced_retention_duration<T>(
         mut self,
         v: std::option::Option<T>,
     ) -> Self
@@ -4156,7 +4156,7 @@ impl BackupVault {
     }
 
     /// Sets or clear the value of [deletable][crate::model::BackupVault::deletable].
-    pub fn maybe_deletable<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_deletable<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<bool>,
     {
@@ -4174,7 +4174,7 @@ impl BackupVault {
     }
 
     /// Sets or clear the value of [etag][crate::model::BackupVault::etag].
-    pub fn maybe_etag<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_etag<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
     {
@@ -4201,7 +4201,7 @@ impl BackupVault {
     }
 
     /// Sets or clear the value of [effective_time][crate::model::BackupVault::effective_time].
-    pub fn maybe_effective_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_effective_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -4671,7 +4671,7 @@ impl DataSource {
     }
 
     /// Sets or clear the value of [create_time][crate::model::DataSource::create_time].
-    pub fn maybe_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -4689,7 +4689,7 @@ impl DataSource {
     }
 
     /// Sets or clear the value of [update_time][crate::model::DataSource::update_time].
-    pub fn maybe_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -4707,7 +4707,7 @@ impl DataSource {
     }
 
     /// Sets or clear the value of [backup_count][crate::model::DataSource::backup_count].
-    pub fn maybe_backup_count<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_backup_count<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<i64>,
     {
@@ -4725,7 +4725,7 @@ impl DataSource {
     }
 
     /// Sets or clear the value of [etag][crate::model::DataSource::etag].
-    pub fn maybe_etag<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_etag<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
     {
@@ -4743,7 +4743,7 @@ impl DataSource {
     }
 
     /// Sets or clear the value of [total_stored_bytes][crate::model::DataSource::total_stored_bytes].
-    pub fn maybe_total_stored_bytes<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_total_stored_bytes<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<i64>,
     {
@@ -4770,7 +4770,7 @@ impl DataSource {
     }
 
     /// Sets or clear the value of [backup_config_info][crate::model::DataSource::backup_config_info].
-    pub fn maybe_backup_config_info<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_backup_config_info<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::BackupConfigInfo>,
     {
@@ -5089,7 +5089,7 @@ impl BackupConfigInfo {
     }
 
     /// Sets or clear the value of [last_successful_backup_consistency_time][crate::model::BackupConfigInfo::last_successful_backup_consistency_time].
-    pub fn maybe_last_successful_backup_consistency_time<T>(
+    pub fn set_or_clear_last_successful_backup_consistency_time<T>(
         mut self,
         v: std::option::Option<T>,
     ) -> Self
@@ -5110,7 +5110,7 @@ impl BackupConfigInfo {
     }
 
     /// Sets or clear the value of [last_backup_error][crate::model::BackupConfigInfo::last_backup_error].
-    pub fn maybe_last_backup_error<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_last_backup_error<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<rpc::model::Status>,
     {
@@ -6024,7 +6024,7 @@ impl BackupLock {
     }
 
     /// Sets or clear the value of [lock_until_time][crate::model::BackupLock::lock_until_time].
-    pub fn maybe_lock_until_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_lock_until_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -6239,7 +6239,7 @@ impl Backup {
     }
 
     /// Sets or clear the value of [description][crate::model::Backup::description].
-    pub fn maybe_description<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_description<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
     {
@@ -6257,7 +6257,7 @@ impl Backup {
     }
 
     /// Sets or clear the value of [create_time][crate::model::Backup::create_time].
-    pub fn maybe_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -6275,7 +6275,7 @@ impl Backup {
     }
 
     /// Sets or clear the value of [update_time][crate::model::Backup::update_time].
-    pub fn maybe_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -6305,7 +6305,7 @@ impl Backup {
     }
 
     /// Sets or clear the value of [enforced_retention_end_time][crate::model::Backup::enforced_retention_end_time].
-    pub fn maybe_enforced_retention_end_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_enforced_retention_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -6323,7 +6323,7 @@ impl Backup {
     }
 
     /// Sets or clear the value of [expire_time][crate::model::Backup::expire_time].
-    pub fn maybe_expire_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_expire_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -6341,7 +6341,7 @@ impl Backup {
     }
 
     /// Sets or clear the value of [consistency_time][crate::model::Backup::consistency_time].
-    pub fn maybe_consistency_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_consistency_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -6359,7 +6359,7 @@ impl Backup {
     }
 
     /// Sets or clear the value of [etag][crate::model::Backup::etag].
-    pub fn maybe_etag<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_etag<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
     {
@@ -6970,7 +6970,7 @@ impl CreateBackupVaultRequest {
     }
 
     /// Sets or clear the value of [backup_vault][crate::model::CreateBackupVaultRequest::backup_vault].
-    pub fn maybe_backup_vault<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_backup_vault<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::BackupVault>,
     {
@@ -7435,7 +7435,7 @@ impl UpdateBackupVaultRequest {
     }
 
     /// Sets or clear the value of [update_mask][crate::model::UpdateBackupVaultRequest::update_mask].
-    pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
     {
@@ -7453,7 +7453,7 @@ impl UpdateBackupVaultRequest {
     }
 
     /// Sets or clear the value of [backup_vault][crate::model::UpdateBackupVaultRequest::backup_vault].
-    pub fn maybe_backup_vault<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_backup_vault<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::BackupVault>,
     {
@@ -7847,7 +7847,7 @@ impl UpdateDataSourceRequest {
     }
 
     /// Sets or clear the value of [update_mask][crate::model::UpdateDataSourceRequest::update_mask].
-    pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
     {
@@ -7865,7 +7865,7 @@ impl UpdateDataSourceRequest {
     }
 
     /// Sets or clear the value of [data_source][crate::model::UpdateDataSourceRequest::data_source].
-    pub fn maybe_data_source<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_data_source<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::DataSource>,
     {
@@ -8159,7 +8159,7 @@ impl UpdateBackupRequest {
     }
 
     /// Sets or clear the value of [update_mask][crate::model::UpdateBackupRequest::update_mask].
-    pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
     {
@@ -8177,7 +8177,7 @@ impl UpdateBackupRequest {
     }
 
     /// Sets or clear the value of [backup][crate::model::UpdateBackupRequest::backup].
-    pub fn maybe_backup<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_backup<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Backup>,
     {
@@ -8472,7 +8472,7 @@ impl RestoreBackupResponse {
     }
 
     /// Sets or clear the value of [target_resource][crate::model::RestoreBackupResponse::target_resource].
-    pub fn maybe_target_resource<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_target_resource<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::TargetResource>,
     {
@@ -8673,7 +8673,7 @@ impl BackupApplianceBackupProperties {
     }
 
     /// Sets or clear the value of [generation_id][crate::model::BackupApplianceBackupProperties::generation_id].
-    pub fn maybe_generation_id<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_generation_id<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<i32>,
     {
@@ -8691,7 +8691,7 @@ impl BackupApplianceBackupProperties {
     }
 
     /// Sets or clear the value of [finalize_time][crate::model::BackupApplianceBackupProperties::finalize_time].
-    pub fn maybe_finalize_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_finalize_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -8709,7 +8709,7 @@ impl BackupApplianceBackupProperties {
     }
 
     /// Sets or clear the value of [recovery_range_start_time][crate::model::BackupApplianceBackupProperties::recovery_range_start_time].
-    pub fn maybe_recovery_range_start_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_recovery_range_start_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -8727,7 +8727,7 @@ impl BackupApplianceBackupProperties {
     }
 
     /// Sets or clear the value of [recovery_range_end_time][crate::model::BackupApplianceBackupProperties::recovery_range_end_time].
-    pub fn maybe_recovery_range_end_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_recovery_range_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -8853,7 +8853,7 @@ impl ComputeInstanceBackupProperties {
     }
 
     /// Sets or clear the value of [description][crate::model::ComputeInstanceBackupProperties::description].
-    pub fn maybe_description<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_description<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
     {
@@ -8871,7 +8871,7 @@ impl ComputeInstanceBackupProperties {
     }
 
     /// Sets or clear the value of [tags][crate::model::ComputeInstanceBackupProperties::tags].
-    pub fn maybe_tags<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_tags<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Tags>,
     {
@@ -8889,7 +8889,7 @@ impl ComputeInstanceBackupProperties {
     }
 
     /// Sets or clear the value of [machine_type][crate::model::ComputeInstanceBackupProperties::machine_type].
-    pub fn maybe_machine_type<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_machine_type<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
     {
@@ -8907,7 +8907,7 @@ impl ComputeInstanceBackupProperties {
     }
 
     /// Sets or clear the value of [can_ip_forward][crate::model::ComputeInstanceBackupProperties::can_ip_forward].
-    pub fn maybe_can_ip_forward<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_can_ip_forward<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<bool>,
     {
@@ -8947,7 +8947,7 @@ impl ComputeInstanceBackupProperties {
     }
 
     /// Sets or clear the value of [metadata][crate::model::ComputeInstanceBackupProperties::metadata].
-    pub fn maybe_metadata<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_metadata<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Metadata>,
     {
@@ -8976,7 +8976,7 @@ impl ComputeInstanceBackupProperties {
     }
 
     /// Sets or clear the value of [scheduling][crate::model::ComputeInstanceBackupProperties::scheduling].
-    pub fn maybe_scheduling<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_scheduling<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Scheduling>,
     {
@@ -9005,7 +9005,7 @@ impl ComputeInstanceBackupProperties {
     }
 
     /// Sets or clear the value of [min_cpu_platform][crate::model::ComputeInstanceBackupProperties::min_cpu_platform].
-    pub fn maybe_min_cpu_platform<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_min_cpu_platform<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
     {
@@ -9023,7 +9023,7 @@ impl ComputeInstanceBackupProperties {
     }
 
     /// Sets or clear the value of [key_revocation_action_type][crate::model::ComputeInstanceBackupProperties::key_revocation_action_type].
-    pub fn maybe_key_revocation_action_type<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_key_revocation_action_type<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::KeyRevocationActionType>,
     {
@@ -9041,7 +9041,7 @@ impl ComputeInstanceBackupProperties {
     }
 
     /// Sets or clear the value of [source_instance][crate::model::ComputeInstanceBackupProperties::source_instance].
-    pub fn maybe_source_instance<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_source_instance<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
     {
@@ -9215,7 +9215,7 @@ impl ComputeInstanceRestoreProperties {
     }
 
     /// Sets or clear the value of [name][crate::model::ComputeInstanceRestoreProperties::name].
-    pub fn maybe_name<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_name<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
     {
@@ -9233,7 +9233,7 @@ impl ComputeInstanceRestoreProperties {
     }
 
     /// Sets or clear the value of [advanced_machine_features][crate::model::ComputeInstanceRestoreProperties::advanced_machine_features].
-    pub fn maybe_advanced_machine_features<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_advanced_machine_features<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::AdvancedMachineFeatures>,
     {
@@ -9251,7 +9251,7 @@ impl ComputeInstanceRestoreProperties {
     }
 
     /// Sets or clear the value of [can_ip_forward][crate::model::ComputeInstanceRestoreProperties::can_ip_forward].
-    pub fn maybe_can_ip_forward<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_can_ip_forward<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<bool>,
     {
@@ -9269,7 +9269,7 @@ impl ComputeInstanceRestoreProperties {
     }
 
     /// Sets or clear the value of [confidential_instance_config][crate::model::ComputeInstanceRestoreProperties::confidential_instance_config].
-    pub fn maybe_confidential_instance_config<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_confidential_instance_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ConfidentialInstanceConfig>,
     {
@@ -9287,7 +9287,7 @@ impl ComputeInstanceRestoreProperties {
     }
 
     /// Sets or clear the value of [deletion_protection][crate::model::ComputeInstanceRestoreProperties::deletion_protection].
-    pub fn maybe_deletion_protection<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_deletion_protection<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<bool>,
     {
@@ -9305,7 +9305,7 @@ impl ComputeInstanceRestoreProperties {
     }
 
     /// Sets or clear the value of [description][crate::model::ComputeInstanceRestoreProperties::description].
-    pub fn maybe_description<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_description<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
     {
@@ -9334,7 +9334,7 @@ impl ComputeInstanceRestoreProperties {
     }
 
     /// Sets or clear the value of [display_device][crate::model::ComputeInstanceRestoreProperties::display_device].
-    pub fn maybe_display_device<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_display_device<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::DisplayDevice>,
     {
@@ -9363,7 +9363,7 @@ impl ComputeInstanceRestoreProperties {
     }
 
     /// Sets or clear the value of [hostname][crate::model::ComputeInstanceRestoreProperties::hostname].
-    pub fn maybe_hostname<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_hostname<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
     {
@@ -9381,7 +9381,7 @@ impl ComputeInstanceRestoreProperties {
     }
 
     /// Sets or clear the value of [instance_encryption_key][crate::model::ComputeInstanceRestoreProperties::instance_encryption_key].
-    pub fn maybe_instance_encryption_key<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_instance_encryption_key<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CustomerEncryptionKey>,
     {
@@ -9399,7 +9399,7 @@ impl ComputeInstanceRestoreProperties {
     }
 
     /// Sets or clear the value of [key_revocation_action_type][crate::model::ComputeInstanceRestoreProperties::key_revocation_action_type].
-    pub fn maybe_key_revocation_action_type<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_key_revocation_action_type<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::KeyRevocationActionType>,
     {
@@ -9429,7 +9429,7 @@ impl ComputeInstanceRestoreProperties {
     }
 
     /// Sets or clear the value of [machine_type][crate::model::ComputeInstanceRestoreProperties::machine_type].
-    pub fn maybe_machine_type<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_machine_type<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
     {
@@ -9447,7 +9447,7 @@ impl ComputeInstanceRestoreProperties {
     }
 
     /// Sets or clear the value of [metadata][crate::model::ComputeInstanceRestoreProperties::metadata].
-    pub fn maybe_metadata<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_metadata<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Metadata>,
     {
@@ -9465,7 +9465,7 @@ impl ComputeInstanceRestoreProperties {
     }
 
     /// Sets or clear the value of [min_cpu_platform][crate::model::ComputeInstanceRestoreProperties::min_cpu_platform].
-    pub fn maybe_min_cpu_platform<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_min_cpu_platform<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
     {
@@ -9494,7 +9494,7 @@ impl ComputeInstanceRestoreProperties {
     }
 
     /// Sets or clear the value of [network_performance_config][crate::model::ComputeInstanceRestoreProperties::network_performance_config].
-    pub fn maybe_network_performance_config<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_network_performance_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::NetworkPerformanceConfig>,
     {
@@ -9512,7 +9512,7 @@ impl ComputeInstanceRestoreProperties {
     }
 
     /// Sets or clear the value of [params][crate::model::ComputeInstanceRestoreProperties::params].
-    pub fn maybe_params<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_params<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::InstanceParams>,
     {
@@ -9532,7 +9532,7 @@ impl ComputeInstanceRestoreProperties {
     }
 
     /// Sets or clear the value of [private_ipv6_google_access][crate::model::ComputeInstanceRestoreProperties::private_ipv6_google_access].
-    pub fn maybe_private_ipv6_google_access<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_private_ipv6_google_access<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<
                 crate::model::compute_instance_restore_properties::InstancePrivateIpv6GoogleAccess,
@@ -9552,7 +9552,7 @@ impl ComputeInstanceRestoreProperties {
     }
 
     /// Sets or clear the value of [allocation_affinity][crate::model::ComputeInstanceRestoreProperties::allocation_affinity].
-    pub fn maybe_allocation_affinity<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_allocation_affinity<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::AllocationAffinity>,
     {
@@ -9581,7 +9581,7 @@ impl ComputeInstanceRestoreProperties {
     }
 
     /// Sets or clear the value of [scheduling][crate::model::ComputeInstanceRestoreProperties::scheduling].
-    pub fn maybe_scheduling<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_scheduling<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Scheduling>,
     {
@@ -9610,7 +9610,7 @@ impl ComputeInstanceRestoreProperties {
     }
 
     /// Sets or clear the value of [tags][crate::model::ComputeInstanceRestoreProperties::tags].
-    pub fn maybe_tags<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_tags<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Tags>,
     {
@@ -9949,7 +9949,7 @@ impl AdvancedMachineFeatures {
     }
 
     /// Sets or clear the value of [enable_nested_virtualization][crate::model::AdvancedMachineFeatures::enable_nested_virtualization].
-    pub fn maybe_enable_nested_virtualization<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_enable_nested_virtualization<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<bool>,
     {
@@ -9967,7 +9967,7 @@ impl AdvancedMachineFeatures {
     }
 
     /// Sets or clear the value of [threads_per_core][crate::model::AdvancedMachineFeatures::threads_per_core].
-    pub fn maybe_threads_per_core<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_threads_per_core<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<i32>,
     {
@@ -9985,7 +9985,7 @@ impl AdvancedMachineFeatures {
     }
 
     /// Sets or clear the value of [visible_core_count][crate::model::AdvancedMachineFeatures::visible_core_count].
-    pub fn maybe_visible_core_count<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_visible_core_count<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<i32>,
     {
@@ -10003,7 +10003,7 @@ impl AdvancedMachineFeatures {
     }
 
     /// Sets or clear the value of [enable_uefi_networking][crate::model::AdvancedMachineFeatures::enable_uefi_networking].
-    pub fn maybe_enable_uefi_networking<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_enable_uefi_networking<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<bool>,
     {
@@ -10048,7 +10048,7 @@ impl ConfidentialInstanceConfig {
     }
 
     /// Sets or clear the value of [enable_confidential_compute][crate::model::ConfidentialInstanceConfig::enable_confidential_compute].
-    pub fn maybe_enable_confidential_compute<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_enable_confidential_compute<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<bool>,
     {
@@ -10092,7 +10092,7 @@ impl DisplayDevice {
     }
 
     /// Sets or clear the value of [enable_display][crate::model::DisplayDevice::enable_display].
-    pub fn maybe_enable_display<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_enable_display<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<bool>,
     {
@@ -10143,7 +10143,7 @@ impl AcceleratorConfig {
     }
 
     /// Sets or clear the value of [accelerator_type][crate::model::AcceleratorConfig::accelerator_type].
-    pub fn maybe_accelerator_type<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_accelerator_type<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
     {
@@ -10161,7 +10161,7 @@ impl AcceleratorConfig {
     }
 
     /// Sets or clear the value of [accelerator_count][crate::model::AcceleratorConfig::accelerator_count].
-    pub fn maybe_accelerator_count<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_accelerator_count<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<i32>,
     {
@@ -10211,7 +10211,7 @@ impl CustomerEncryptionKey {
     }
 
     /// Sets or clear the value of [kms_key_service_account][crate::model::CustomerEncryptionKey::kms_key_service_account].
-    pub fn maybe_kms_key_service_account<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_kms_key_service_account<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
     {
@@ -10375,7 +10375,7 @@ impl Entry {
     }
 
     /// Sets or clear the value of [key][crate::model::Entry::key].
-    pub fn maybe_key<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_key<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
     {
@@ -10393,7 +10393,7 @@ impl Entry {
     }
 
     /// Sets or clear the value of [value][crate::model::Entry::value].
-    pub fn maybe_value<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_value<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
     {
@@ -10548,7 +10548,7 @@ impl NetworkInterface {
     }
 
     /// Sets or clear the value of [network][crate::model::NetworkInterface::network].
-    pub fn maybe_network<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_network<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
     {
@@ -10566,7 +10566,7 @@ impl NetworkInterface {
     }
 
     /// Sets or clear the value of [subnetwork][crate::model::NetworkInterface::subnetwork].
-    pub fn maybe_subnetwork<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_subnetwork<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
     {
@@ -10584,7 +10584,7 @@ impl NetworkInterface {
     }
 
     /// Sets or clear the value of [ip_address][crate::model::NetworkInterface::ip_address].
-    pub fn maybe_ip_address<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_ip_address<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
     {
@@ -10602,7 +10602,7 @@ impl NetworkInterface {
     }
 
     /// Sets or clear the value of [ipv6_address][crate::model::NetworkInterface::ipv6_address].
-    pub fn maybe_ipv6_address<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_ipv6_address<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
     {
@@ -10620,7 +10620,7 @@ impl NetworkInterface {
     }
 
     /// Sets or clear the value of [internal_ipv6_prefix_length][crate::model::NetworkInterface::internal_ipv6_prefix_length].
-    pub fn maybe_internal_ipv6_prefix_length<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_internal_ipv6_prefix_length<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<i32>,
     {
@@ -10638,7 +10638,7 @@ impl NetworkInterface {
     }
 
     /// Sets or clear the value of [name][crate::model::NetworkInterface::name].
-    pub fn maybe_name<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_name<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
     {
@@ -10689,7 +10689,7 @@ impl NetworkInterface {
     }
 
     /// Sets or clear the value of [stack_type][crate::model::NetworkInterface::stack_type].
-    pub fn maybe_stack_type<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_stack_type<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::network_interface::StackType>,
     {
@@ -10707,7 +10707,7 @@ impl NetworkInterface {
     }
 
     /// Sets or clear the value of [ipv6_access_type][crate::model::NetworkInterface::ipv6_access_type].
-    pub fn maybe_ipv6_access_type<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_ipv6_access_type<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::network_interface::Ipv6AccessType>,
     {
@@ -10725,7 +10725,7 @@ impl NetworkInterface {
     }
 
     /// Sets or clear the value of [queue_count][crate::model::NetworkInterface::queue_count].
-    pub fn maybe_queue_count<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_queue_count<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<i32>,
     {
@@ -10743,7 +10743,7 @@ impl NetworkInterface {
     }
 
     /// Sets or clear the value of [nic_type][crate::model::NetworkInterface::nic_type].
-    pub fn maybe_nic_type<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_nic_type<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::network_interface::NicType>,
     {
@@ -10761,7 +10761,7 @@ impl NetworkInterface {
     }
 
     /// Sets or clear the value of [network_attachment][crate::model::NetworkInterface::network_attachment].
-    pub fn maybe_network_attachment<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_network_attachment<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
     {
@@ -11211,7 +11211,7 @@ impl NetworkPerformanceConfig {
     }
 
     /// Sets or clear the value of [total_egress_bandwidth_tier][crate::model::NetworkPerformanceConfig::total_egress_bandwidth_tier].
-    pub fn maybe_total_egress_bandwidth_tier<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_total_egress_bandwidth_tier<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::network_performance_config::Tier>,
     {
@@ -11428,7 +11428,7 @@ impl AccessConfig {
     }
 
     /// Sets or clear the value of [r#type][crate::model::AccessConfig::type].
-    pub fn maybe_type<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_type<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::access_config::AccessType>,
     {
@@ -11446,7 +11446,7 @@ impl AccessConfig {
     }
 
     /// Sets or clear the value of [name][crate::model::AccessConfig::name].
-    pub fn maybe_name<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_name<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
     {
@@ -11464,7 +11464,7 @@ impl AccessConfig {
     }
 
     /// Sets or clear the value of [external_ip][crate::model::AccessConfig::external_ip].
-    pub fn maybe_external_ip<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_external_ip<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
     {
@@ -11482,7 +11482,7 @@ impl AccessConfig {
     }
 
     /// Sets or clear the value of [external_ipv6][crate::model::AccessConfig::external_ipv6].
-    pub fn maybe_external_ipv6<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_external_ipv6<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
     {
@@ -11500,7 +11500,7 @@ impl AccessConfig {
     }
 
     /// Sets or clear the value of [external_ipv6_prefix_length][crate::model::AccessConfig::external_ipv6_prefix_length].
-    pub fn maybe_external_ipv6_prefix_length<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_external_ipv6_prefix_length<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<i32>,
     {
@@ -11518,7 +11518,7 @@ impl AccessConfig {
     }
 
     /// Sets or clear the value of [set_public_ptr][crate::model::AccessConfig::set_public_ptr].
-    pub fn maybe_set_public_ptr<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_set_public_ptr<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<bool>,
     {
@@ -11536,7 +11536,7 @@ impl AccessConfig {
     }
 
     /// Sets or clear the value of [public_ptr_domain_name][crate::model::AccessConfig::public_ptr_domain_name].
-    pub fn maybe_public_ptr_domain_name<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_public_ptr_domain_name<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
     {
@@ -11554,7 +11554,7 @@ impl AccessConfig {
     }
 
     /// Sets or clear the value of [network_tier][crate::model::AccessConfig::network_tier].
-    pub fn maybe_network_tier<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_network_tier<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::access_config::NetworkTier>,
     {
@@ -11876,7 +11876,7 @@ impl AliasIpRange {
     }
 
     /// Sets or clear the value of [ip_cidr_range][crate::model::AliasIpRange::ip_cidr_range].
-    pub fn maybe_ip_cidr_range<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_ip_cidr_range<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
     {
@@ -11894,7 +11894,7 @@ impl AliasIpRange {
     }
 
     /// Sets or clear the value of [subnetwork_range_name][crate::model::AliasIpRange::subnetwork_range_name].
-    pub fn maybe_subnetwork_range_name<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_subnetwork_range_name<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
     {
@@ -11985,7 +11985,7 @@ impl AllocationAffinity {
     }
 
     /// Sets or clear the value of [consume_allocation_type][crate::model::AllocationAffinity::consume_allocation_type].
-    pub fn maybe_consume_allocation_type<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_consume_allocation_type<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::allocation_affinity::Type>,
     {
@@ -12003,7 +12003,7 @@ impl AllocationAffinity {
     }
 
     /// Sets or clear the value of [key][crate::model::AllocationAffinity::key].
-    pub fn maybe_key<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_key<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
     {
@@ -12239,7 +12239,7 @@ impl Scheduling {
     }
 
     /// Sets or clear the value of [on_host_maintenance][crate::model::Scheduling::on_host_maintenance].
-    pub fn maybe_on_host_maintenance<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_on_host_maintenance<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::scheduling::OnHostMaintenance>,
     {
@@ -12257,7 +12257,7 @@ impl Scheduling {
     }
 
     /// Sets or clear the value of [automatic_restart][crate::model::Scheduling::automatic_restart].
-    pub fn maybe_automatic_restart<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_automatic_restart<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<bool>,
     {
@@ -12275,7 +12275,7 @@ impl Scheduling {
     }
 
     /// Sets or clear the value of [preemptible][crate::model::Scheduling::preemptible].
-    pub fn maybe_preemptible<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_preemptible<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<bool>,
     {
@@ -12304,7 +12304,7 @@ impl Scheduling {
     }
 
     /// Sets or clear the value of [min_node_cpus][crate::model::Scheduling::min_node_cpus].
-    pub fn maybe_min_node_cpus<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_min_node_cpus<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<i32>,
     {
@@ -12322,7 +12322,7 @@ impl Scheduling {
     }
 
     /// Sets or clear the value of [provisioning_model][crate::model::Scheduling::provisioning_model].
-    pub fn maybe_provisioning_model<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_provisioning_model<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::scheduling::ProvisioningModel>,
     {
@@ -12340,7 +12340,7 @@ impl Scheduling {
     }
 
     /// Sets or clear the value of [instance_termination_action][crate::model::Scheduling::instance_termination_action].
-    pub fn maybe_instance_termination_action<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_instance_termination_action<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::scheduling::InstanceTerminationAction>,
     {
@@ -12358,7 +12358,7 @@ impl Scheduling {
     }
 
     /// Sets or clear the value of [local_ssd_recovery_timeout][crate::model::Scheduling::local_ssd_recovery_timeout].
-    pub fn maybe_local_ssd_recovery_timeout<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_local_ssd_recovery_timeout<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::SchedulingDuration>,
     {
@@ -12416,7 +12416,7 @@ pub mod scheduling {
         }
 
         /// Sets or clear the value of [key][crate::model::scheduling::NodeAffinity::key].
-        pub fn maybe_key<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_key<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<std::string::String>,
         {
@@ -12434,7 +12434,7 @@ pub mod scheduling {
         }
 
         /// Sets or clear the value of [operator][crate::model::scheduling::NodeAffinity::operator].
-        pub fn maybe_operator<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_operator<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::scheduling::node_affinity::Operator>,
         {
@@ -13042,7 +13042,7 @@ impl SchedulingDuration {
     }
 
     /// Sets or clear the value of [seconds][crate::model::SchedulingDuration::seconds].
-    pub fn maybe_seconds<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_seconds<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<i64>,
     {
@@ -13060,7 +13060,7 @@ impl SchedulingDuration {
     }
 
     /// Sets or clear the value of [nanos][crate::model::SchedulingDuration::nanos].
-    pub fn maybe_nanos<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_nanos<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<i32>,
     {
@@ -13108,7 +13108,7 @@ impl ServiceAccount {
     }
 
     /// Sets or clear the value of [email][crate::model::ServiceAccount::email].
-    pub fn maybe_email<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_email<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
     {
@@ -13278,7 +13278,7 @@ impl AttachedDisk {
     }
 
     /// Sets or clear the value of [initialize_params][crate::model::AttachedDisk::initialize_params].
-    pub fn maybe_initialize_params<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_initialize_params<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::attached_disk::InitializeParams>,
     {
@@ -13296,7 +13296,7 @@ impl AttachedDisk {
     }
 
     /// Sets or clear the value of [device_name][crate::model::AttachedDisk::device_name].
-    pub fn maybe_device_name<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_device_name<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
     {
@@ -13314,7 +13314,7 @@ impl AttachedDisk {
     }
 
     /// Sets or clear the value of [kind][crate::model::AttachedDisk::kind].
-    pub fn maybe_kind<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_kind<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
     {
@@ -13334,7 +13334,7 @@ impl AttachedDisk {
 
     /// Sets or clear the value of [disk_type_deprecated][crate::model::AttachedDisk::disk_type_deprecated].
     #[deprecated]
-    pub fn maybe_disk_type_deprecated<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_disk_type_deprecated<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::attached_disk::DiskType>,
     {
@@ -13352,7 +13352,7 @@ impl AttachedDisk {
     }
 
     /// Sets or clear the value of [mode][crate::model::AttachedDisk::mode].
-    pub fn maybe_mode<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_mode<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::attached_disk::DiskMode>,
     {
@@ -13370,7 +13370,7 @@ impl AttachedDisk {
     }
 
     /// Sets or clear the value of [source][crate::model::AttachedDisk::source].
-    pub fn maybe_source<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_source<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
     {
@@ -13388,7 +13388,7 @@ impl AttachedDisk {
     }
 
     /// Sets or clear the value of [index][crate::model::AttachedDisk::index].
-    pub fn maybe_index<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_index<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<i64>,
     {
@@ -13406,7 +13406,7 @@ impl AttachedDisk {
     }
 
     /// Sets or clear the value of [boot][crate::model::AttachedDisk::boot].
-    pub fn maybe_boot<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_boot<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<bool>,
     {
@@ -13424,7 +13424,7 @@ impl AttachedDisk {
     }
 
     /// Sets or clear the value of [auto_delete][crate::model::AttachedDisk::auto_delete].
-    pub fn maybe_auto_delete<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_auto_delete<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<bool>,
     {
@@ -13453,7 +13453,7 @@ impl AttachedDisk {
     }
 
     /// Sets or clear the value of [disk_interface][crate::model::AttachedDisk::disk_interface].
-    pub fn maybe_disk_interface<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_disk_interface<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::attached_disk::DiskInterface>,
     {
@@ -13482,7 +13482,7 @@ impl AttachedDisk {
     }
 
     /// Sets or clear the value of [disk_encryption_key][crate::model::AttachedDisk::disk_encryption_key].
-    pub fn maybe_disk_encryption_key<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_disk_encryption_key<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CustomerEncryptionKey>,
     {
@@ -13500,7 +13500,7 @@ impl AttachedDisk {
     }
 
     /// Sets or clear the value of [disk_size_gb][crate::model::AttachedDisk::disk_size_gb].
-    pub fn maybe_disk_size_gb<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_disk_size_gb<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<i64>,
     {
@@ -13518,7 +13518,7 @@ impl AttachedDisk {
     }
 
     /// Sets or clear the value of [saved_state][crate::model::AttachedDisk::saved_state].
-    pub fn maybe_saved_state<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_saved_state<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::attached_disk::DiskSavedState>,
     {
@@ -13536,7 +13536,7 @@ impl AttachedDisk {
     }
 
     /// Sets or clear the value of [disk_type][crate::model::AttachedDisk::disk_type].
-    pub fn maybe_disk_type<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_disk_type<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
     {
@@ -13554,7 +13554,7 @@ impl AttachedDisk {
     }
 
     /// Sets or clear the value of [r#type][crate::model::AttachedDisk::type].
-    pub fn maybe_type<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_type<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::attached_disk::DiskType>,
     {
@@ -13609,7 +13609,7 @@ pub mod attached_disk {
         }
 
         /// Sets or clear the value of [disk_name][crate::model::attached_disk::InitializeParams::disk_name].
-        pub fn maybe_disk_name<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_disk_name<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<std::string::String>,
         {
@@ -14213,7 +14213,7 @@ impl GuestOsFeature {
     }
 
     /// Sets or clear the value of [r#type][crate::model::GuestOsFeature::type].
-    pub fn maybe_type<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_type<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::guest_os_feature::FeatureType>,
     {

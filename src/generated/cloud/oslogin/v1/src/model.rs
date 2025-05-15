@@ -135,7 +135,7 @@ impl CreateSshPublicKeyRequest {
     }
 
     /// Sets or clear the value of [ssh_public_key][crate::model::CreateSshPublicKeyRequest::ssh_public_key].
-    pub fn maybe_ssh_public_key<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_ssh_public_key<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<oslogin_common::model::SshPublicKey>,
     {
@@ -353,7 +353,7 @@ impl ImportSshPublicKeyRequest {
     }
 
     /// Sets or clear the value of [ssh_public_key][crate::model::ImportSshPublicKeyRequest::ssh_public_key].
-    pub fn maybe_ssh_public_key<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_ssh_public_key<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<oslogin_common::model::SshPublicKey>,
     {
@@ -418,7 +418,7 @@ impl ImportSshPublicKeyResponse {
     }
 
     /// Sets or clear the value of [login_profile][crate::model::ImportSshPublicKeyResponse::login_profile].
-    pub fn maybe_login_profile<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_login_profile<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::LoginProfile>,
     {
@@ -484,7 +484,7 @@ impl UpdateSshPublicKeyRequest {
     }
 
     /// Sets or clear the value of [ssh_public_key][crate::model::UpdateSshPublicKeyRequest::ssh_public_key].
-    pub fn maybe_ssh_public_key<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_ssh_public_key<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<oslogin_common::model::SshPublicKey>,
     {
@@ -502,7 +502,7 @@ impl UpdateSshPublicKeyRequest {
     }
 
     /// Sets or clear the value of [update_mask][crate::model::UpdateSshPublicKeyRequest::update_mask].
-    pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
     {

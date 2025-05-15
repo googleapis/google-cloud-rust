@@ -173,7 +173,7 @@ impl BloomFilter {
     }
 
     /// Sets or clear the value of [bits][crate::model::BloomFilter::bits].
-    pub fn maybe_bits<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_bits<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::BitSequence>,
     {
@@ -737,7 +737,7 @@ impl Document {
     }
 
     /// Sets or clear the value of [create_time][crate::model::Document::create_time].
-    pub fn maybe_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -755,7 +755,7 @@ impl Document {
     }
 
     /// Sets or clear the value of [update_time][crate::model::Document::update_time].
-    pub fn maybe_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -1301,7 +1301,7 @@ impl GetDocumentRequest {
     }
 
     /// Sets or clear the value of [mask][crate::model::GetDocumentRequest::mask].
-    pub fn maybe_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::DocumentMask>,
     {
@@ -1552,7 +1552,7 @@ impl ListDocumentsRequest {
     }
 
     /// Sets or clear the value of [mask][crate::model::ListDocumentsRequest::mask].
-    pub fn maybe_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::DocumentMask>,
     {
@@ -1818,7 +1818,7 @@ impl CreateDocumentRequest {
     }
 
     /// Sets or clear the value of [document][crate::model::CreateDocumentRequest::document].
-    pub fn maybe_document<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_document<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Document>,
     {
@@ -1836,7 +1836,7 @@ impl CreateDocumentRequest {
     }
 
     /// Sets or clear the value of [mask][crate::model::CreateDocumentRequest::mask].
-    pub fn maybe_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::DocumentMask>,
     {
@@ -1906,7 +1906,7 @@ impl UpdateDocumentRequest {
     }
 
     /// Sets or clear the value of [document][crate::model::UpdateDocumentRequest::document].
-    pub fn maybe_document<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_document<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Document>,
     {
@@ -1924,7 +1924,7 @@ impl UpdateDocumentRequest {
     }
 
     /// Sets or clear the value of [update_mask][crate::model::UpdateDocumentRequest::update_mask].
-    pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::DocumentMask>,
     {
@@ -1942,7 +1942,7 @@ impl UpdateDocumentRequest {
     }
 
     /// Sets or clear the value of [mask][crate::model::UpdateDocumentRequest::mask].
-    pub fn maybe_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::DocumentMask>,
     {
@@ -1960,7 +1960,7 @@ impl UpdateDocumentRequest {
     }
 
     /// Sets or clear the value of [current_document][crate::model::UpdateDocumentRequest::current_document].
-    pub fn maybe_current_document<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_current_document<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Precondition>,
     {
@@ -2019,7 +2019,7 @@ impl DeleteDocumentRequest {
     }
 
     /// Sets or clear the value of [current_document][crate::model::DeleteDocumentRequest::current_document].
-    pub fn maybe_current_document<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_current_document<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Precondition>,
     {
@@ -2102,7 +2102,7 @@ impl BatchGetDocumentsRequest {
     }
 
     /// Sets or clear the value of [mask][crate::model::BatchGetDocumentsRequest::mask].
-    pub fn maybe_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::DocumentMask>,
     {
@@ -2321,7 +2321,7 @@ impl BatchGetDocumentsResponse {
     }
 
     /// Sets or clear the value of [read_time][crate::model::BatchGetDocumentsResponse::read_time].
-    pub fn maybe_read_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_read_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -2480,7 +2480,7 @@ impl BeginTransactionRequest {
     }
 
     /// Sets or clear the value of [options][crate::model::BeginTransactionRequest::options].
-    pub fn maybe_options<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::TransactionOptions>,
     {
@@ -2644,7 +2644,7 @@ impl CommitResponse {
     }
 
     /// Sets or clear the value of [commit_time][crate::model::CommitResponse::commit_time].
-    pub fn maybe_commit_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_commit_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -2760,7 +2760,7 @@ impl RunQueryRequest {
     }
 
     /// Sets or clear the value of [explain_options][crate::model::RunQueryRequest::explain_options].
-    pub fn maybe_explain_options<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_explain_options<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ExplainOptions>,
     {
@@ -3067,7 +3067,7 @@ impl RunQueryResponse {
     }
 
     /// Sets or clear the value of [document][crate::model::RunQueryResponse::document].
-    pub fn maybe_document<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_document<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Document>,
     {
@@ -3085,7 +3085,7 @@ impl RunQueryResponse {
     }
 
     /// Sets or clear the value of [read_time][crate::model::RunQueryResponse::read_time].
-    pub fn maybe_read_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_read_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -3109,7 +3109,7 @@ impl RunQueryResponse {
     }
 
     /// Sets or clear the value of [explain_metrics][crate::model::RunQueryResponse::explain_metrics].
-    pub fn maybe_explain_metrics<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_explain_metrics<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ExplainMetrics>,
     {
@@ -3246,7 +3246,7 @@ impl RunAggregationQueryRequest {
     }
 
     /// Sets or clear the value of [explain_options][crate::model::RunAggregationQueryRequest::explain_options].
-    pub fn maybe_explain_options<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_explain_options<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ExplainOptions>,
     {
@@ -3542,7 +3542,7 @@ impl RunAggregationQueryResponse {
     }
 
     /// Sets or clear the value of [result][crate::model::RunAggregationQueryResponse::result].
-    pub fn maybe_result<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_result<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::AggregationResult>,
     {
@@ -3566,7 +3566,7 @@ impl RunAggregationQueryResponse {
     }
 
     /// Sets or clear the value of [read_time][crate::model::RunAggregationQueryResponse::read_time].
-    pub fn maybe_read_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_read_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -3584,7 +3584,7 @@ impl RunAggregationQueryResponse {
     }
 
     /// Sets or clear the value of [explain_metrics][crate::model::RunAggregationQueryResponse::explain_metrics].
-    pub fn maybe_explain_metrics<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_explain_metrics<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ExplainMetrics>,
     {
@@ -4117,7 +4117,7 @@ impl WriteResponse {
     }
 
     /// Sets or clear the value of [commit_time][crate::model::WriteResponse::commit_time].
-    pub fn maybe_commit_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_commit_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -4625,7 +4625,7 @@ impl Target {
     }
 
     /// Sets or clear the value of [expected_count][crate::model::Target::expected_count].
-    pub fn maybe_expected_count<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_expected_count<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Int32Value>,
     {
@@ -5075,7 +5075,7 @@ impl TargetChange {
     }
 
     /// Sets or clear the value of [cause][crate::model::TargetChange::cause].
-    pub fn maybe_cause<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_cause<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<rpc::model::Status>,
     {
@@ -5099,7 +5099,7 @@ impl TargetChange {
     }
 
     /// Sets or clear the value of [read_time][crate::model::TargetChange::read_time].
-    pub fn maybe_read_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_read_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -5752,7 +5752,7 @@ impl StructuredQuery {
     }
 
     /// Sets or clear the value of [select][crate::model::StructuredQuery::select].
-    pub fn maybe_select<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_select<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::structured_query::Projection>,
     {
@@ -5781,7 +5781,7 @@ impl StructuredQuery {
     }
 
     /// Sets or clear the value of [r#where][crate::model::StructuredQuery::where].
-    pub fn maybe_where<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_where<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::structured_query::Filter>,
     {
@@ -5810,7 +5810,7 @@ impl StructuredQuery {
     }
 
     /// Sets or clear the value of [start_at][crate::model::StructuredQuery::start_at].
-    pub fn maybe_start_at<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_start_at<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Cursor>,
     {
@@ -5828,7 +5828,7 @@ impl StructuredQuery {
     }
 
     /// Sets or clear the value of [end_at][crate::model::StructuredQuery::end_at].
-    pub fn maybe_end_at<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_end_at<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Cursor>,
     {
@@ -5852,7 +5852,7 @@ impl StructuredQuery {
     }
 
     /// Sets or clear the value of [limit][crate::model::StructuredQuery::limit].
-    pub fn maybe_limit<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_limit<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Int32Value>,
     {
@@ -5870,7 +5870,7 @@ impl StructuredQuery {
     }
 
     /// Sets or clear the value of [find_nearest][crate::model::StructuredQuery::find_nearest].
-    pub fn maybe_find_nearest<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_find_nearest<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::structured_query::FindNearest>,
     {
@@ -6358,7 +6358,7 @@ pub mod structured_query {
         }
 
         /// Sets or clear the value of [field][crate::model::structured_query::FieldFilter::field].
-        pub fn maybe_field<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_field<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::structured_query::FieldReference>,
         {
@@ -6387,7 +6387,7 @@ pub mod structured_query {
         }
 
         /// Sets or clear the value of [value][crate::model::structured_query::FieldFilter::value].
-        pub fn maybe_value<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_value<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Value>,
         {
@@ -6949,7 +6949,7 @@ pub mod structured_query {
         }
 
         /// Sets or clear the value of [field][crate::model::structured_query::Order::field].
-        pub fn maybe_field<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_field<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::structured_query::FieldReference>,
         {
@@ -7120,7 +7120,7 @@ pub mod structured_query {
         }
 
         /// Sets or clear the value of [vector_field][crate::model::structured_query::FindNearest::vector_field].
-        pub fn maybe_vector_field<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_vector_field<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::structured_query::FieldReference>,
         {
@@ -7138,7 +7138,7 @@ pub mod structured_query {
         }
 
         /// Sets or clear the value of [query_vector][crate::model::structured_query::FindNearest::query_vector].
-        pub fn maybe_query_vector<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_query_vector<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Value>,
         {
@@ -7167,7 +7167,7 @@ pub mod structured_query {
         }
 
         /// Sets or clear the value of [limit][crate::model::structured_query::FindNearest::limit].
-        pub fn maybe_limit<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_limit<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Int32Value>,
         {
@@ -7194,7 +7194,7 @@ pub mod structured_query {
         }
 
         /// Sets or clear the value of [distance_threshold][crate::model::structured_query::FindNearest::distance_threshold].
-        pub fn maybe_distance_threshold<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_distance_threshold<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::DoubleValue>,
         {
@@ -7857,7 +7857,7 @@ pub mod structured_aggregation_query {
             }
 
             /// Sets or clear the value of [up_to][crate::model::structured_aggregation_query::aggregation::Count::up_to].
-            pub fn maybe_up_to<T>(mut self, v: std::option::Option<T>) -> Self
+            pub fn set_or_clear_up_to<T>(mut self, v: std::option::Option<T>) -> Self
             where
                 T: std::convert::Into<wkt::Int64Value>,
             {
@@ -7922,7 +7922,7 @@ pub mod structured_aggregation_query {
             }
 
             /// Sets or clear the value of [field][crate::model::structured_aggregation_query::aggregation::Sum::field].
-            pub fn maybe_field<T>(mut self, v: std::option::Option<T>) -> Self
+            pub fn set_or_clear_field<T>(mut self, v: std::option::Option<T>) -> Self
             where
                 T: std::convert::Into<crate::model::structured_query::FieldReference>,
             {
@@ -7977,7 +7977,7 @@ pub mod structured_aggregation_query {
             }
 
             /// Sets or clear the value of [field][crate::model::structured_aggregation_query::aggregation::Avg::field].
-            pub fn maybe_field<T>(mut self, v: std::option::Option<T>) -> Self
+            pub fn set_or_clear_field<T>(mut self, v: std::option::Option<T>) -> Self
             where
                 T: std::convert::Into<crate::model::structured_query::FieldReference>,
             {
@@ -8180,7 +8180,7 @@ impl ExplainMetrics {
     }
 
     /// Sets or clear the value of [plan_summary][crate::model::ExplainMetrics::plan_summary].
-    pub fn maybe_plan_summary<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_plan_summary<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::PlanSummary>,
     {
@@ -8198,7 +8198,7 @@ impl ExplainMetrics {
     }
 
     /// Sets or clear the value of [execution_stats][crate::model::ExplainMetrics::execution_stats].
-    pub fn maybe_execution_stats<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_execution_stats<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ExecutionStats>,
     {
@@ -8315,7 +8315,7 @@ impl ExecutionStats {
     }
 
     /// Sets or clear the value of [execution_duration][crate::model::ExecutionStats::execution_duration].
-    pub fn maybe_execution_duration<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_execution_duration<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
     {
@@ -8339,7 +8339,7 @@ impl ExecutionStats {
     }
 
     /// Sets or clear the value of [debug_stats][crate::model::ExecutionStats::debug_stats].
-    pub fn maybe_debug_stats<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_debug_stats<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Struct>,
     {
@@ -8410,7 +8410,7 @@ impl Write {
     }
 
     /// Sets or clear the value of [update_mask][crate::model::Write::update_mask].
-    pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::DocumentMask>,
     {
@@ -8439,7 +8439,7 @@ impl Write {
     }
 
     /// Sets or clear the value of [current_document][crate::model::Write::current_document].
-    pub fn maybe_current_document<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_current_document<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Precondition>,
     {
@@ -9170,7 +9170,7 @@ impl WriteResult {
     }
 
     /// Sets or clear the value of [update_time][crate::model::WriteResult::update_time].
-    pub fn maybe_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -9248,7 +9248,7 @@ impl DocumentChange {
     }
 
     /// Sets or clear the value of [document][crate::model::DocumentChange::document].
-    pub fn maybe_document<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_document<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Document>,
     {
@@ -9355,7 +9355,7 @@ impl DocumentDelete {
     }
 
     /// Sets or clear the value of [read_time][crate::model::DocumentDelete::read_time].
-    pub fn maybe_read_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_read_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -9441,7 +9441,7 @@ impl DocumentRemove {
     }
 
     /// Sets or clear the value of [read_time][crate::model::DocumentRemove::read_time].
-    pub fn maybe_read_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_read_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -9528,7 +9528,7 @@ impl ExistenceFilter {
     }
 
     /// Sets or clear the value of [unchanged_names][crate::model::ExistenceFilter::unchanged_names].
-    pub fn maybe_unchanged_names<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_unchanged_names<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::BloomFilter>,
     {

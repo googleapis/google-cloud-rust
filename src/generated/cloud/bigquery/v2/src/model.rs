@@ -448,7 +448,7 @@ impl DatasetAccessEntry {
     }
 
     /// Sets or clear the value of [dataset][crate::model::DatasetAccessEntry::dataset].
-    pub fn maybe_dataset<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_dataset<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::DatasetReference>,
     {
@@ -751,7 +751,7 @@ impl Access {
     }
 
     /// Sets or clear the value of [view][crate::model::Access::view].
-    pub fn maybe_view<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_view<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::TableReference>,
     {
@@ -769,7 +769,7 @@ impl Access {
     }
 
     /// Sets or clear the value of [routine][crate::model::Access::routine].
-    pub fn maybe_routine<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_routine<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::RoutineReference>,
     {
@@ -787,7 +787,7 @@ impl Access {
     }
 
     /// Sets or clear the value of [dataset][crate::model::Access::dataset].
-    pub fn maybe_dataset<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_dataset<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::DatasetAccessEntry>,
     {
@@ -805,7 +805,7 @@ impl Access {
     }
 
     /// Sets or clear the value of [condition][crate::model::Access::condition].
-    pub fn maybe_condition<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_condition<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<gtype::model::Expr>,
     {
@@ -1089,7 +1089,7 @@ impl Dataset {
     }
 
     /// Sets or clear the value of [dataset_reference][crate::model::Dataset::dataset_reference].
-    pub fn maybe_dataset_reference<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_dataset_reference<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::DatasetReference>,
     {
@@ -1107,7 +1107,7 @@ impl Dataset {
     }
 
     /// Sets or clear the value of [friendly_name][crate::model::Dataset::friendly_name].
-    pub fn maybe_friendly_name<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_friendly_name<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::StringValue>,
     {
@@ -1125,7 +1125,7 @@ impl Dataset {
     }
 
     /// Sets or clear the value of [description][crate::model::Dataset::description].
-    pub fn maybe_description<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_description<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::StringValue>,
     {
@@ -1143,7 +1143,7 @@ impl Dataset {
     }
 
     /// Sets or clear the value of [default_table_expiration_ms][crate::model::Dataset::default_table_expiration_ms].
-    pub fn maybe_default_table_expiration_ms<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_default_table_expiration_ms<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Int64Value>,
     {
@@ -1161,7 +1161,10 @@ impl Dataset {
     }
 
     /// Sets or clear the value of [default_partition_expiration_ms][crate::model::Dataset::default_partition_expiration_ms].
-    pub fn maybe_default_partition_expiration_ms<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_default_partition_expiration_ms<T>(
+        mut self,
+        v: std::option::Option<T>,
+    ) -> Self
     where
         T: std::convert::Into<wkt::Int64Value>,
     {
@@ -1220,7 +1223,10 @@ impl Dataset {
     }
 
     /// Sets or clear the value of [default_encryption_configuration][crate::model::Dataset::default_encryption_configuration].
-    pub fn maybe_default_encryption_configuration<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_default_encryption_configuration<T>(
+        mut self,
+        v: std::option::Option<T>,
+    ) -> Self
     where
         T: std::convert::Into<crate::model::EncryptionConfiguration>,
     {
@@ -1238,7 +1244,7 @@ impl Dataset {
     }
 
     /// Sets or clear the value of [satisfies_pzs][crate::model::Dataset::satisfies_pzs].
-    pub fn maybe_satisfies_pzs<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_satisfies_pzs<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::BoolValue>,
     {
@@ -1256,7 +1262,7 @@ impl Dataset {
     }
 
     /// Sets or clear the value of [satisfies_pzi][crate::model::Dataset::satisfies_pzi].
-    pub fn maybe_satisfies_pzi<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_satisfies_pzi<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::BoolValue>,
     {
@@ -1280,7 +1286,7 @@ impl Dataset {
     }
 
     /// Sets or clear the value of [linked_dataset_source][crate::model::Dataset::linked_dataset_source].
-    pub fn maybe_linked_dataset_source<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_linked_dataset_source<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::LinkedDatasetSource>,
     {
@@ -1298,7 +1304,7 @@ impl Dataset {
     }
 
     /// Sets or clear the value of [linked_dataset_metadata][crate::model::Dataset::linked_dataset_metadata].
-    pub fn maybe_linked_dataset_metadata<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_linked_dataset_metadata<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::LinkedDatasetMetadata>,
     {
@@ -1316,7 +1322,7 @@ impl Dataset {
     }
 
     /// Sets or clear the value of [external_dataset_reference][crate::model::Dataset::external_dataset_reference].
-    pub fn maybe_external_dataset_reference<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_external_dataset_reference<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ExternalDatasetReference>,
     {
@@ -1334,7 +1340,10 @@ impl Dataset {
     }
 
     /// Sets or clear the value of [external_catalog_dataset_options][crate::model::Dataset::external_catalog_dataset_options].
-    pub fn maybe_external_catalog_dataset_options<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_external_catalog_dataset_options<T>(
+        mut self,
+        v: std::option::Option<T>,
+    ) -> Self
     where
         T: std::convert::Into<crate::model::ExternalCatalogDatasetOptions>,
     {
@@ -1352,7 +1361,7 @@ impl Dataset {
     }
 
     /// Sets or clear the value of [is_case_insensitive][crate::model::Dataset::is_case_insensitive].
-    pub fn maybe_is_case_insensitive<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_is_case_insensitive<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::BoolValue>,
     {
@@ -1370,7 +1379,7 @@ impl Dataset {
     }
 
     /// Sets or clear the value of [default_collation][crate::model::Dataset::default_collation].
-    pub fn maybe_default_collation<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_default_collation<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::StringValue>,
     {
@@ -1399,7 +1408,7 @@ impl Dataset {
     }
 
     /// Sets or clear the value of [max_time_travel_hours][crate::model::Dataset::max_time_travel_hours].
-    pub fn maybe_max_time_travel_hours<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_max_time_travel_hours<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Int64Value>,
     {
@@ -1440,7 +1449,7 @@ impl Dataset {
     }
 
     /// Sets or clear the value of [restrictions][crate::model::Dataset::restrictions].
-    pub fn maybe_restrictions<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_restrictions<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::RestrictionConfig>,
     {
@@ -1678,7 +1687,7 @@ impl LinkedDatasetSource {
     }
 
     /// Sets or clear the value of [source_dataset][crate::model::LinkedDatasetSource::source_dataset].
-    pub fn maybe_source_dataset<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_source_dataset<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::DatasetReference>,
     {
@@ -2172,7 +2181,7 @@ impl InsertDatasetRequest {
     }
 
     /// Sets or clear the value of [dataset][crate::model::InsertDatasetRequest::dataset].
-    pub fn maybe_dataset<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_dataset<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Dataset>,
     {
@@ -2273,7 +2282,7 @@ impl UpdateOrPatchDatasetRequest {
     }
 
     /// Sets or clear the value of [dataset][crate::model::UpdateOrPatchDatasetRequest::dataset].
-    pub fn maybe_dataset<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_dataset<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Dataset>,
     {
@@ -2565,7 +2574,7 @@ impl ListDatasetsRequest {
     }
 
     /// Sets or clear the value of [max_results][crate::model::ListDatasetsRequest::max_results].
-    pub fn maybe_max_results<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_max_results<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::UInt32Value>,
     {
@@ -2665,7 +2674,7 @@ impl ListFormatDataset {
     }
 
     /// Sets or clear the value of [dataset_reference][crate::model::ListFormatDataset::dataset_reference].
-    pub fn maybe_dataset_reference<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_dataset_reference<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::DatasetReference>,
     {
@@ -2695,7 +2704,7 @@ impl ListFormatDataset {
     }
 
     /// Sets or clear the value of [friendly_name][crate::model::ListFormatDataset::friendly_name].
-    pub fn maybe_friendly_name<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_friendly_name<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::StringValue>,
     {
@@ -2858,7 +2867,7 @@ impl UndeleteDatasetRequest {
     }
 
     /// Sets or clear the value of [deletion_time][crate::model::UndeleteDatasetRequest::deletion_time].
-    pub fn maybe_deletion_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_deletion_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -2948,7 +2957,7 @@ impl EncryptionConfiguration {
     }
 
     /// Sets or clear the value of [kms_key_name][crate::model::EncryptionConfiguration::kms_key_name].
-    pub fn maybe_kms_key_name<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_kms_key_name<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::StringValue>,
     {
@@ -3140,7 +3149,7 @@ impl ExternalCatalogTableOptions {
     }
 
     /// Sets or clear the value of [storage_descriptor][crate::model::ExternalCatalogTableOptions::storage_descriptor].
-    pub fn maybe_storage_descriptor<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_storage_descriptor<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::StorageDescriptor>,
     {
@@ -3228,7 +3237,7 @@ impl StorageDescriptor {
     }
 
     /// Sets or clear the value of [serde_info][crate::model::StorageDescriptor::serde_info].
-    pub fn maybe_serde_info<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_serde_info<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::SerDeInfo>,
     {
@@ -3341,7 +3350,7 @@ impl AvroOptions {
     }
 
     /// Sets or clear the value of [use_avro_logical_types][crate::model::AvroOptions::use_avro_logical_types].
-    pub fn maybe_use_avro_logical_types<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_use_avro_logical_types<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::BoolValue>,
     {
@@ -3394,7 +3403,7 @@ impl ParquetOptions {
     }
 
     /// Sets or clear the value of [enum_as_string][crate::model::ParquetOptions::enum_as_string].
-    pub fn maybe_enum_as_string<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_enum_as_string<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::BoolValue>,
     {
@@ -3412,7 +3421,7 @@ impl ParquetOptions {
     }
 
     /// Sets or clear the value of [enable_list_inference][crate::model::ParquetOptions::enable_list_inference].
-    pub fn maybe_enable_list_inference<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_enable_list_inference<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::BoolValue>,
     {
@@ -3573,7 +3582,7 @@ impl CsvOptions {
     }
 
     /// Sets or clear the value of [skip_leading_rows][crate::model::CsvOptions::skip_leading_rows].
-    pub fn maybe_skip_leading_rows<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_skip_leading_rows<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Int64Value>,
     {
@@ -3591,7 +3600,7 @@ impl CsvOptions {
     }
 
     /// Sets or clear the value of [quote][crate::model::CsvOptions::quote].
-    pub fn maybe_quote<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_quote<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::StringValue>,
     {
@@ -3609,7 +3618,7 @@ impl CsvOptions {
     }
 
     /// Sets or clear the value of [allow_quoted_newlines][crate::model::CsvOptions::allow_quoted_newlines].
-    pub fn maybe_allow_quoted_newlines<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_allow_quoted_newlines<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::BoolValue>,
     {
@@ -3627,7 +3636,7 @@ impl CsvOptions {
     }
 
     /// Sets or clear the value of [allow_jagged_rows][crate::model::CsvOptions::allow_jagged_rows].
-    pub fn maybe_allow_jagged_rows<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_allow_jagged_rows<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::BoolValue>,
     {
@@ -3651,7 +3660,10 @@ impl CsvOptions {
     }
 
     /// Sets or clear the value of [preserve_ascii_control_characters][crate::model::CsvOptions::preserve_ascii_control_characters].
-    pub fn maybe_preserve_ascii_control_characters<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_preserve_ascii_control_characters<T>(
+        mut self,
+        v: std::option::Option<T>,
+    ) -> Self
     where
         T: std::convert::Into<wkt::BoolValue>,
     {
@@ -3669,7 +3681,7 @@ impl CsvOptions {
     }
 
     /// Sets or clear the value of [null_marker][crate::model::CsvOptions::null_marker].
-    pub fn maybe_null_marker<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_null_marker<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::StringValue>,
     {
@@ -3823,7 +3835,7 @@ impl BigtableColumn {
     }
 
     /// Sets or clear the value of [qualifier_encoded][crate::model::BigtableColumn::qualifier_encoded].
-    pub fn maybe_qualifier_encoded<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_qualifier_encoded<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::BytesValue>,
     {
@@ -3841,7 +3853,7 @@ impl BigtableColumn {
     }
 
     /// Sets or clear the value of [qualifier_string][crate::model::BigtableColumn::qualifier_string].
-    pub fn maybe_qualifier_string<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_qualifier_string<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::StringValue>,
     {
@@ -3877,7 +3889,7 @@ impl BigtableColumn {
     }
 
     /// Sets or clear the value of [only_read_latest][crate::model::BigtableColumn::only_read_latest].
-    pub fn maybe_only_read_latest<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_only_read_latest<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::BoolValue>,
     {
@@ -3996,7 +4008,7 @@ impl BigtableColumnFamily {
     }
 
     /// Sets or clear the value of [only_read_latest][crate::model::BigtableColumnFamily::only_read_latest].
-    pub fn maybe_only_read_latest<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_only_read_latest<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::BoolValue>,
     {
@@ -4080,7 +4092,10 @@ impl BigtableOptions {
     }
 
     /// Sets or clear the value of [ignore_unspecified_column_families][crate::model::BigtableOptions::ignore_unspecified_column_families].
-    pub fn maybe_ignore_unspecified_column_families<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_ignore_unspecified_column_families<T>(
+        mut self,
+        v: std::option::Option<T>,
+    ) -> Self
     where
         T: std::convert::Into<wkt::BoolValue>,
     {
@@ -4098,7 +4113,7 @@ impl BigtableOptions {
     }
 
     /// Sets or clear the value of [read_rowkey_as_string][crate::model::BigtableOptions::read_rowkey_as_string].
-    pub fn maybe_read_rowkey_as_string<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_read_rowkey_as_string<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::BoolValue>,
     {
@@ -4116,7 +4131,10 @@ impl BigtableOptions {
     }
 
     /// Sets or clear the value of [output_column_families_as_json][crate::model::BigtableOptions::output_column_families_as_json].
-    pub fn maybe_output_column_families_as_json<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_output_column_families_as_json<T>(
+        mut self,
+        v: std::option::Option<T>,
+    ) -> Self
     where
         T: std::convert::Into<wkt::BoolValue>,
     {
@@ -4179,7 +4197,7 @@ impl GoogleSheetsOptions {
     }
 
     /// Sets or clear the value of [skip_leading_rows][crate::model::GoogleSheetsOptions::skip_leading_rows].
-    pub fn maybe_skip_leading_rows<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_skip_leading_rows<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Int64Value>,
     {
@@ -4442,7 +4460,7 @@ impl ExternalDataConfiguration {
     }
 
     /// Sets or clear the value of [schema][crate::model::ExternalDataConfiguration::schema].
-    pub fn maybe_schema<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_schema<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::TableSchema>,
     {
@@ -4466,7 +4484,7 @@ impl ExternalDataConfiguration {
     }
 
     /// Sets or clear the value of [max_bad_records][crate::model::ExternalDataConfiguration::max_bad_records].
-    pub fn maybe_max_bad_records<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_max_bad_records<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Int32Value>,
     {
@@ -4484,7 +4502,7 @@ impl ExternalDataConfiguration {
     }
 
     /// Sets or clear the value of [autodetect][crate::model::ExternalDataConfiguration::autodetect].
-    pub fn maybe_autodetect<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_autodetect<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::BoolValue>,
     {
@@ -4502,7 +4520,7 @@ impl ExternalDataConfiguration {
     }
 
     /// Sets or clear the value of [ignore_unknown_values][crate::model::ExternalDataConfiguration::ignore_unknown_values].
-    pub fn maybe_ignore_unknown_values<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_ignore_unknown_values<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::BoolValue>,
     {
@@ -4526,7 +4544,7 @@ impl ExternalDataConfiguration {
     }
 
     /// Sets or clear the value of [csv_options][crate::model::ExternalDataConfiguration::csv_options].
-    pub fn maybe_csv_options<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_csv_options<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CsvOptions>,
     {
@@ -4544,7 +4562,7 @@ impl ExternalDataConfiguration {
     }
 
     /// Sets or clear the value of [json_options][crate::model::ExternalDataConfiguration::json_options].
-    pub fn maybe_json_options<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_json_options<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::JsonOptions>,
     {
@@ -4562,7 +4580,7 @@ impl ExternalDataConfiguration {
     }
 
     /// Sets or clear the value of [bigtable_options][crate::model::ExternalDataConfiguration::bigtable_options].
-    pub fn maybe_bigtable_options<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_bigtable_options<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::BigtableOptions>,
     {
@@ -4580,7 +4598,7 @@ impl ExternalDataConfiguration {
     }
 
     /// Sets or clear the value of [google_sheets_options][crate::model::ExternalDataConfiguration::google_sheets_options].
-    pub fn maybe_google_sheets_options<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_google_sheets_options<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::GoogleSheetsOptions>,
     {
@@ -4598,7 +4616,7 @@ impl ExternalDataConfiguration {
     }
 
     /// Sets or clear the value of [hive_partitioning_options][crate::model::ExternalDataConfiguration::hive_partitioning_options].
-    pub fn maybe_hive_partitioning_options<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_hive_partitioning_options<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::HivePartitioningOptions>,
     {
@@ -4633,7 +4651,7 @@ impl ExternalDataConfiguration {
     }
 
     /// Sets or clear the value of [avro_options][crate::model::ExternalDataConfiguration::avro_options].
-    pub fn maybe_avro_options<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_avro_options<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::AvroOptions>,
     {
@@ -4660,7 +4678,7 @@ impl ExternalDataConfiguration {
     }
 
     /// Sets or clear the value of [parquet_options][crate::model::ExternalDataConfiguration::parquet_options].
-    pub fn maybe_parquet_options<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_parquet_options<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ParquetOptions>,
     {
@@ -4678,7 +4696,7 @@ impl ExternalDataConfiguration {
     }
 
     /// Sets or clear the value of [object_metadata][crate::model::ExternalDataConfiguration::object_metadata].
-    pub fn maybe_object_metadata<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_object_metadata<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::external_data_configuration::ObjectMetadata>,
     {
@@ -4696,7 +4714,7 @@ impl ExternalDataConfiguration {
     }
 
     /// Sets or clear the value of [reference_file_schema_uri][crate::model::ExternalDataConfiguration::reference_file_schema_uri].
-    pub fn maybe_reference_file_schema_uri<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_reference_file_schema_uri<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::StringValue>,
     {
@@ -4725,7 +4743,7 @@ impl ExternalDataConfiguration {
     }
 
     /// Sets or clear the value of [time_zone][crate::model::ExternalDataConfiguration::time_zone].
-    pub fn maybe_time_zone<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_time_zone<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
     {
@@ -4743,7 +4761,7 @@ impl ExternalDataConfiguration {
     }
 
     /// Sets or clear the value of [date_format][crate::model::ExternalDataConfiguration::date_format].
-    pub fn maybe_date_format<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_date_format<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
     {
@@ -4761,7 +4779,7 @@ impl ExternalDataConfiguration {
     }
 
     /// Sets or clear the value of [datetime_format][crate::model::ExternalDataConfiguration::datetime_format].
-    pub fn maybe_datetime_format<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_datetime_format<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
     {
@@ -4779,7 +4797,7 @@ impl ExternalDataConfiguration {
     }
 
     /// Sets or clear the value of [time_format][crate::model::ExternalDataConfiguration::time_format].
-    pub fn maybe_time_format<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_time_format<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
     {
@@ -4797,7 +4815,7 @@ impl ExternalDataConfiguration {
     }
 
     /// Sets or clear the value of [timestamp_format][crate::model::ExternalDataConfiguration::timestamp_format].
-    pub fn maybe_timestamp_format<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_timestamp_format<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
     {
@@ -5236,7 +5254,7 @@ impl HivePartitioningOptions {
     }
 
     /// Sets or clear the value of [require_partition_filter][crate::model::HivePartitioningOptions::require_partition_filter].
-    pub fn maybe_require_partition_filter<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_require_partition_filter<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::BoolValue>,
     {
@@ -5673,7 +5691,7 @@ impl TransformColumn {
     }
 
     /// Sets or clear the value of [r#type][crate::model::TransformColumn::type].
-    pub fn maybe_type<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_type<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::StandardSqlDataType>,
     {
@@ -5840,7 +5858,7 @@ impl Model {
     }
 
     /// Sets or clear the value of [model_reference][crate::model::Model::model_reference].
-    pub fn maybe_model_reference<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_model_reference<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ModelReference>,
     {
@@ -5906,7 +5924,7 @@ impl Model {
     }
 
     /// Sets or clear the value of [encryption_configuration][crate::model::Model::encryption_configuration].
-    pub fn maybe_encryption_configuration<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_encryption_configuration<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::EncryptionConfiguration>,
     {
@@ -5977,7 +5995,7 @@ impl Model {
     }
 
     /// Sets or clear the value of [hparam_search_spaces][crate::model::Model::hparam_search_spaces].
-    pub fn maybe_hparam_search_spaces<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_hparam_search_spaces<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::model::HparamSearchSpaces>,
     {
@@ -6023,7 +6041,7 @@ impl Model {
     }
 
     /// Sets or clear the value of [remote_model_info][crate::model::Model::remote_model_info].
-    pub fn maybe_remote_model_info<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_remote_model_info<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::RemoteModelInfo>,
     {
@@ -7200,7 +7218,7 @@ pub mod model {
         }
 
         /// Sets or clear the value of [mean_absolute_error][crate::model::model::RegressionMetrics::mean_absolute_error].
-        pub fn maybe_mean_absolute_error<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_mean_absolute_error<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::DoubleValue>,
         {
@@ -7218,7 +7236,7 @@ pub mod model {
         }
 
         /// Sets or clear the value of [mean_squared_error][crate::model::model::RegressionMetrics::mean_squared_error].
-        pub fn maybe_mean_squared_error<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_mean_squared_error<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::DoubleValue>,
         {
@@ -7236,7 +7254,7 @@ pub mod model {
         }
 
         /// Sets or clear the value of [mean_squared_log_error][crate::model::model::RegressionMetrics::mean_squared_log_error].
-        pub fn maybe_mean_squared_log_error<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_mean_squared_log_error<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::DoubleValue>,
         {
@@ -7254,7 +7272,7 @@ pub mod model {
         }
 
         /// Sets or clear the value of [median_absolute_error][crate::model::model::RegressionMetrics::median_absolute_error].
-        pub fn maybe_median_absolute_error<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_median_absolute_error<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::DoubleValue>,
         {
@@ -7272,7 +7290,7 @@ pub mod model {
         }
 
         /// Sets or clear the value of [r_squared][crate::model::model::RegressionMetrics::r_squared].
-        pub fn maybe_r_squared<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_r_squared<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::DoubleValue>,
         {
@@ -7361,7 +7379,7 @@ pub mod model {
         }
 
         /// Sets or clear the value of [precision][crate::model::model::AggregateClassificationMetrics::precision].
-        pub fn maybe_precision<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_precision<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::DoubleValue>,
         {
@@ -7379,7 +7397,7 @@ pub mod model {
         }
 
         /// Sets or clear the value of [recall][crate::model::model::AggregateClassificationMetrics::recall].
-        pub fn maybe_recall<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_recall<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::DoubleValue>,
         {
@@ -7397,7 +7415,7 @@ pub mod model {
         }
 
         /// Sets or clear the value of [accuracy][crate::model::model::AggregateClassificationMetrics::accuracy].
-        pub fn maybe_accuracy<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_accuracy<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::DoubleValue>,
         {
@@ -7415,7 +7433,7 @@ pub mod model {
         }
 
         /// Sets or clear the value of [threshold][crate::model::model::AggregateClassificationMetrics::threshold].
-        pub fn maybe_threshold<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_threshold<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::DoubleValue>,
         {
@@ -7433,7 +7451,7 @@ pub mod model {
         }
 
         /// Sets or clear the value of [f1_score][crate::model::model::AggregateClassificationMetrics::f1_score].
-        pub fn maybe_f1_score<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_f1_score<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::DoubleValue>,
         {
@@ -7451,7 +7469,7 @@ pub mod model {
         }
 
         /// Sets or clear the value of [log_loss][crate::model::model::AggregateClassificationMetrics::log_loss].
-        pub fn maybe_log_loss<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_log_loss<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::DoubleValue>,
         {
@@ -7469,7 +7487,7 @@ pub mod model {
         }
 
         /// Sets or clear the value of [roc_auc][crate::model::model::AggregateClassificationMetrics::roc_auc].
-        pub fn maybe_roc_auc<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_roc_auc<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::DoubleValue>,
         {
@@ -7528,7 +7546,7 @@ pub mod model {
         }
 
         /// Sets or clear the value of [aggregate_classification_metrics][crate::model::model::BinaryClassificationMetrics::aggregate_classification_metrics].
-        pub fn maybe_aggregate_classification_metrics<T>(
+        pub fn set_or_clear_aggregate_classification_metrics<T>(
             mut self,
             v: std::option::Option<T>,
         ) -> Self
@@ -7654,7 +7672,10 @@ pub mod model {
             }
 
             /// Sets or clear the value of [positive_class_threshold][crate::model::model::binary_classification_metrics::BinaryConfusionMatrix::positive_class_threshold].
-            pub fn maybe_positive_class_threshold<T>(mut self, v: std::option::Option<T>) -> Self
+            pub fn set_or_clear_positive_class_threshold<T>(
+                mut self,
+                v: std::option::Option<T>,
+            ) -> Self
             where
                 T: std::convert::Into<wkt::DoubleValue>,
             {
@@ -7672,7 +7693,7 @@ pub mod model {
             }
 
             /// Sets or clear the value of [true_positives][crate::model::model::binary_classification_metrics::BinaryConfusionMatrix::true_positives].
-            pub fn maybe_true_positives<T>(mut self, v: std::option::Option<T>) -> Self
+            pub fn set_or_clear_true_positives<T>(mut self, v: std::option::Option<T>) -> Self
             where
                 T: std::convert::Into<wkt::Int64Value>,
             {
@@ -7690,7 +7711,7 @@ pub mod model {
             }
 
             /// Sets or clear the value of [false_positives][crate::model::model::binary_classification_metrics::BinaryConfusionMatrix::false_positives].
-            pub fn maybe_false_positives<T>(mut self, v: std::option::Option<T>) -> Self
+            pub fn set_or_clear_false_positives<T>(mut self, v: std::option::Option<T>) -> Self
             where
                 T: std::convert::Into<wkt::Int64Value>,
             {
@@ -7708,7 +7729,7 @@ pub mod model {
             }
 
             /// Sets or clear the value of [true_negatives][crate::model::model::binary_classification_metrics::BinaryConfusionMatrix::true_negatives].
-            pub fn maybe_true_negatives<T>(mut self, v: std::option::Option<T>) -> Self
+            pub fn set_or_clear_true_negatives<T>(mut self, v: std::option::Option<T>) -> Self
             where
                 T: std::convert::Into<wkt::Int64Value>,
             {
@@ -7726,7 +7747,7 @@ pub mod model {
             }
 
             /// Sets or clear the value of [false_negatives][crate::model::model::binary_classification_metrics::BinaryConfusionMatrix::false_negatives].
-            pub fn maybe_false_negatives<T>(mut self, v: std::option::Option<T>) -> Self
+            pub fn set_or_clear_false_negatives<T>(mut self, v: std::option::Option<T>) -> Self
             where
                 T: std::convert::Into<wkt::Int64Value>,
             {
@@ -7744,7 +7765,7 @@ pub mod model {
             }
 
             /// Sets or clear the value of [precision][crate::model::model::binary_classification_metrics::BinaryConfusionMatrix::precision].
-            pub fn maybe_precision<T>(mut self, v: std::option::Option<T>) -> Self
+            pub fn set_or_clear_precision<T>(mut self, v: std::option::Option<T>) -> Self
             where
                 T: std::convert::Into<wkt::DoubleValue>,
             {
@@ -7762,7 +7783,7 @@ pub mod model {
             }
 
             /// Sets or clear the value of [recall][crate::model::model::binary_classification_metrics::BinaryConfusionMatrix::recall].
-            pub fn maybe_recall<T>(mut self, v: std::option::Option<T>) -> Self
+            pub fn set_or_clear_recall<T>(mut self, v: std::option::Option<T>) -> Self
             where
                 T: std::convert::Into<wkt::DoubleValue>,
             {
@@ -7780,7 +7801,7 @@ pub mod model {
             }
 
             /// Sets or clear the value of [f1_score][crate::model::model::binary_classification_metrics::BinaryConfusionMatrix::f1_score].
-            pub fn maybe_f1_score<T>(mut self, v: std::option::Option<T>) -> Self
+            pub fn set_or_clear_f1_score<T>(mut self, v: std::option::Option<T>) -> Self
             where
                 T: std::convert::Into<wkt::DoubleValue>,
             {
@@ -7798,7 +7819,7 @@ pub mod model {
             }
 
             /// Sets or clear the value of [accuracy][crate::model::model::binary_classification_metrics::BinaryConfusionMatrix::accuracy].
-            pub fn maybe_accuracy<T>(mut self, v: std::option::Option<T>) -> Self
+            pub fn set_or_clear_accuracy<T>(mut self, v: std::option::Option<T>) -> Self
             where
                 T: std::convert::Into<wkt::DoubleValue>,
             {
@@ -7849,7 +7870,7 @@ pub mod model {
         }
 
         /// Sets or clear the value of [aggregate_classification_metrics][crate::model::model::MultiClassClassificationMetrics::aggregate_classification_metrics].
-        pub fn maybe_aggregate_classification_metrics<T>(
+        pub fn set_or_clear_aggregate_classification_metrics<T>(
             mut self,
             v: std::option::Option<T>,
         ) -> Self
@@ -7922,7 +7943,7 @@ pub mod model {
             }
 
             /// Sets or clear the value of [confidence_threshold][crate::model::model::multi_class_classification_metrics::ConfusionMatrix::confidence_threshold].
-            pub fn maybe_confidence_threshold<T>(mut self, v: std::option::Option<T>) -> Self
+            pub fn set_or_clear_confidence_threshold<T>(mut self, v: std::option::Option<T>) -> Self
             where
                 T: std::convert::Into<wkt::DoubleValue>,
             {
@@ -7998,7 +8019,7 @@ pub mod model {
                 }
 
                 /// Sets or clear the value of [item_count][crate::model::model::multi_class_classification_metrics::confusion_matrix::Entry::item_count].
-                pub fn maybe_item_count<T>(mut self, v: std::option::Option<T>) -> Self
+                pub fn set_or_clear_item_count<T>(mut self, v: std::option::Option<T>) -> Self
                 where
                     T: std::convert::Into<wkt::Int64Value>,
                 {
@@ -8105,7 +8126,7 @@ pub mod model {
         }
 
         /// Sets or clear the value of [davies_bouldin_index][crate::model::model::ClusteringMetrics::davies_bouldin_index].
-        pub fn maybe_davies_bouldin_index<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_davies_bouldin_index<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::DoubleValue>,
         {
@@ -8123,7 +8144,7 @@ pub mod model {
         }
 
         /// Sets or clear the value of [mean_squared_distance][crate::model::model::ClusteringMetrics::mean_squared_distance].
-        pub fn maybe_mean_squared_distance<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_mean_squared_distance<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::DoubleValue>,
         {
@@ -8213,7 +8234,7 @@ pub mod model {
             }
 
             /// Sets or clear the value of [count][crate::model::model::clustering_metrics::Cluster::count].
-            pub fn maybe_count<T>(mut self, v: std::option::Option<T>) -> Self
+            pub fn set_or_clear_count<T>(mut self, v: std::option::Option<T>) -> Self
             where
                 T: std::convert::Into<wkt::Int64Value>,
             {
@@ -8440,7 +8461,7 @@ pub mod model {
                         }
 
                         /// Sets or clear the value of [count][crate::model::model::clustering_metrics::cluster::feature_value::categorical_value::CategoryCount::count].
-                        pub fn maybe_count<T>(mut self, v: std::option::Option<T>) -> Self
+                        pub fn set_or_clear_count<T>(mut self, v: std::option::Option<T>) -> Self
                         where
                             T: std::convert::Into<wkt::Int64Value>,
                         {
@@ -8525,7 +8546,7 @@ pub mod model {
         }
 
         /// Sets or clear the value of [mean_average_precision][crate::model::model::RankingMetrics::mean_average_precision].
-        pub fn maybe_mean_average_precision<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_mean_average_precision<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::DoubleValue>,
         {
@@ -8543,7 +8564,7 @@ pub mod model {
         }
 
         /// Sets or clear the value of [mean_squared_error][crate::model::model::RankingMetrics::mean_squared_error].
-        pub fn maybe_mean_squared_error<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_mean_squared_error<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::DoubleValue>,
         {
@@ -8561,7 +8582,7 @@ pub mod model {
         }
 
         /// Sets or clear the value of [normalized_discounted_cumulative_gain][crate::model::model::RankingMetrics::normalized_discounted_cumulative_gain].
-        pub fn maybe_normalized_discounted_cumulative_gain<T>(
+        pub fn set_or_clear_normalized_discounted_cumulative_gain<T>(
             mut self,
             v: std::option::Option<T>,
         ) -> Self
@@ -8582,7 +8603,7 @@ pub mod model {
         }
 
         /// Sets or clear the value of [average_rank][crate::model::model::RankingMetrics::average_rank].
-        pub fn maybe_average_rank<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_average_rank<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::DoubleValue>,
         {
@@ -8715,7 +8736,7 @@ pub mod model {
             }
 
             /// Sets or clear the value of [non_seasonal_order][crate::model::model::arima_forecasting_metrics::ArimaSingleModelForecastingMetrics::non_seasonal_order].
-            pub fn maybe_non_seasonal_order<T>(mut self, v: std::option::Option<T>) -> Self
+            pub fn set_or_clear_non_seasonal_order<T>(mut self, v: std::option::Option<T>) -> Self
             where
                 T: std::convert::Into<crate::model::model::ArimaOrder>,
             {
@@ -8733,7 +8754,10 @@ pub mod model {
             }
 
             /// Sets or clear the value of [arima_fitting_metrics][crate::model::model::arima_forecasting_metrics::ArimaSingleModelForecastingMetrics::arima_fitting_metrics].
-            pub fn maybe_arima_fitting_metrics<T>(mut self, v: std::option::Option<T>) -> Self
+            pub fn set_or_clear_arima_fitting_metrics<T>(
+                mut self,
+                v: std::option::Option<T>,
+            ) -> Self
             where
                 T: std::convert::Into<crate::model::model::ArimaFittingMetrics>,
             {
@@ -8751,7 +8775,7 @@ pub mod model {
             }
 
             /// Sets or clear the value of [has_drift][crate::model::model::arima_forecasting_metrics::ArimaSingleModelForecastingMetrics::has_drift].
-            pub fn maybe_has_drift<T>(mut self, v: std::option::Option<T>) -> Self
+            pub fn set_or_clear_has_drift<T>(mut self, v: std::option::Option<T>) -> Self
             where
                 T: std::convert::Into<wkt::BoolValue>,
             {
@@ -8800,7 +8824,7 @@ pub mod model {
             }
 
             /// Sets or clear the value of [has_holiday_effect][crate::model::model::arima_forecasting_metrics::ArimaSingleModelForecastingMetrics::has_holiday_effect].
-            pub fn maybe_has_holiday_effect<T>(mut self, v: std::option::Option<T>) -> Self
+            pub fn set_or_clear_has_holiday_effect<T>(mut self, v: std::option::Option<T>) -> Self
             where
                 T: std::convert::Into<wkt::BoolValue>,
             {
@@ -8818,7 +8842,7 @@ pub mod model {
             }
 
             /// Sets or clear the value of [has_spikes_and_dips][crate::model::model::arima_forecasting_metrics::ArimaSingleModelForecastingMetrics::has_spikes_and_dips].
-            pub fn maybe_has_spikes_and_dips<T>(mut self, v: std::option::Option<T>) -> Self
+            pub fn set_or_clear_has_spikes_and_dips<T>(mut self, v: std::option::Option<T>) -> Self
             where
                 T: std::convert::Into<wkt::BoolValue>,
             {
@@ -8836,7 +8860,7 @@ pub mod model {
             }
 
             /// Sets or clear the value of [has_step_changes][crate::model::model::arima_forecasting_metrics::ArimaSingleModelForecastingMetrics::has_step_changes].
-            pub fn maybe_has_step_changes<T>(mut self, v: std::option::Option<T>) -> Self
+            pub fn set_or_clear_has_step_changes<T>(mut self, v: std::option::Option<T>) -> Self
             where
                 T: std::convert::Into<wkt::BoolValue>,
             {
@@ -8883,7 +8907,10 @@ pub mod model {
         }
 
         /// Sets or clear the value of [total_explained_variance_ratio][crate::model::model::DimensionalityReductionMetrics::total_explained_variance_ratio].
-        pub fn maybe_total_explained_variance_ratio<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_total_explained_variance_ratio<T>(
+            mut self,
+            v: std::option::Option<T>,
+        ) -> Self
         where
             T: std::convert::Into<wkt::DoubleValue>,
         {
@@ -9252,7 +9279,7 @@ pub mod model {
         }
 
         /// Sets or clear the value of [training_table][crate::model::model::DataSplitResult::training_table].
-        pub fn maybe_training_table<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_training_table<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::TableReference>,
         {
@@ -9270,7 +9297,7 @@ pub mod model {
         }
 
         /// Sets or clear the value of [evaluation_table][crate::model::model::DataSplitResult::evaluation_table].
-        pub fn maybe_evaluation_table<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_evaluation_table<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::TableReference>,
         {
@@ -9288,7 +9315,7 @@ pub mod model {
         }
 
         /// Sets or clear the value of [test_table][crate::model::model::DataSplitResult::test_table].
-        pub fn maybe_test_table<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_test_table<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::TableReference>,
         {
@@ -9343,7 +9370,7 @@ pub mod model {
         }
 
         /// Sets or clear the value of [p][crate::model::model::ArimaOrder::p].
-        pub fn maybe_p<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_p<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Int64Value>,
         {
@@ -9361,7 +9388,7 @@ pub mod model {
         }
 
         /// Sets or clear the value of [d][crate::model::model::ArimaOrder::d].
-        pub fn maybe_d<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_d<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Int64Value>,
         {
@@ -9379,7 +9406,7 @@ pub mod model {
         }
 
         /// Sets or clear the value of [q][crate::model::model::ArimaOrder::q].
-        pub fn maybe_q<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_q<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Int64Value>,
         {
@@ -9434,7 +9461,7 @@ pub mod model {
         }
 
         /// Sets or clear the value of [log_likelihood][crate::model::model::ArimaFittingMetrics::log_likelihood].
-        pub fn maybe_log_likelihood<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_log_likelihood<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::DoubleValue>,
         {
@@ -9452,7 +9479,7 @@ pub mod model {
         }
 
         /// Sets or clear the value of [aic][crate::model::model::ArimaFittingMetrics::aic].
-        pub fn maybe_aic<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_aic<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::DoubleValue>,
         {
@@ -9470,7 +9497,7 @@ pub mod model {
         }
 
         /// Sets or clear the value of [variance][crate::model::model::ArimaFittingMetrics::variance].
-        pub fn maybe_variance<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_variance<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::DoubleValue>,
         {
@@ -9586,7 +9613,7 @@ pub mod model {
             }
 
             /// Sets or clear the value of [attribution][crate::model::model::global_explanation::Explanation::attribution].
-            pub fn maybe_attribution<T>(mut self, v: std::option::Option<T>) -> Self
+            pub fn set_or_clear_attribution<T>(mut self, v: std::option::Option<T>) -> Self
             where
                 T: std::convert::Into<wkt::DoubleValue>,
             {
@@ -10171,7 +10198,7 @@ pub mod model {
         }
 
         /// Sets or clear the value of [training_options][crate::model::model::TrainingRun::training_options].
-        pub fn maybe_training_options<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_training_options<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::model::training_run::TrainingOptions>,
         {
@@ -10189,7 +10216,7 @@ pub mod model {
         }
 
         /// Sets or clear the value of [start_time][crate::model::model::TrainingRun::start_time].
-        pub fn maybe_start_time<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
         {
@@ -10218,7 +10245,7 @@ pub mod model {
         }
 
         /// Sets or clear the value of [evaluation_metrics][crate::model::model::TrainingRun::evaluation_metrics].
-        pub fn maybe_evaluation_metrics<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_evaluation_metrics<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::model::EvaluationMetrics>,
         {
@@ -10236,7 +10263,7 @@ pub mod model {
         }
 
         /// Sets or clear the value of [data_split_result][crate::model::model::TrainingRun::data_split_result].
-        pub fn maybe_data_split_result<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_data_split_result<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::model::DataSplitResult>,
         {
@@ -10254,7 +10281,10 @@ pub mod model {
         }
 
         /// Sets or clear the value of [model_level_global_explanation][crate::model::model::TrainingRun::model_level_global_explanation].
-        pub fn maybe_model_level_global_explanation<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_model_level_global_explanation<T>(
+            mut self,
+            v: std::option::Option<T>,
+        ) -> Self
         where
             T: std::convert::Into<crate::model::model::GlobalExplanation>,
         {
@@ -10819,7 +10849,7 @@ pub mod model {
             }
 
             /// Sets or clear the value of [l1_regularization][crate::model::model::training_run::TrainingOptions::l1_regularization].
-            pub fn maybe_l1_regularization<T>(mut self, v: std::option::Option<T>) -> Self
+            pub fn set_or_clear_l1_regularization<T>(mut self, v: std::option::Option<T>) -> Self
             where
                 T: std::convert::Into<wkt::DoubleValue>,
             {
@@ -10837,7 +10867,7 @@ pub mod model {
             }
 
             /// Sets or clear the value of [l2_regularization][crate::model::model::training_run::TrainingOptions::l2_regularization].
-            pub fn maybe_l2_regularization<T>(mut self, v: std::option::Option<T>) -> Self
+            pub fn set_or_clear_l2_regularization<T>(mut self, v: std::option::Option<T>) -> Self
             where
                 T: std::convert::Into<wkt::DoubleValue>,
             {
@@ -10855,7 +10885,10 @@ pub mod model {
             }
 
             /// Sets or clear the value of [min_relative_progress][crate::model::model::training_run::TrainingOptions::min_relative_progress].
-            pub fn maybe_min_relative_progress<T>(mut self, v: std::option::Option<T>) -> Self
+            pub fn set_or_clear_min_relative_progress<T>(
+                mut self,
+                v: std::option::Option<T>,
+            ) -> Self
             where
                 T: std::convert::Into<wkt::DoubleValue>,
             {
@@ -10873,7 +10906,7 @@ pub mod model {
             }
 
             /// Sets or clear the value of [warm_start][crate::model::model::training_run::TrainingOptions::warm_start].
-            pub fn maybe_warm_start<T>(mut self, v: std::option::Option<T>) -> Self
+            pub fn set_or_clear_warm_start<T>(mut self, v: std::option::Option<T>) -> Self
             where
                 T: std::convert::Into<wkt::BoolValue>,
             {
@@ -10891,7 +10924,7 @@ pub mod model {
             }
 
             /// Sets or clear the value of [early_stop][crate::model::model::training_run::TrainingOptions::early_stop].
-            pub fn maybe_early_stop<T>(mut self, v: std::option::Option<T>) -> Self
+            pub fn set_or_clear_early_stop<T>(mut self, v: std::option::Option<T>) -> Self
             where
                 T: std::convert::Into<wkt::BoolValue>,
             {
@@ -11049,7 +11082,7 @@ pub mod model {
             }
 
             /// Sets or clear the value of [dropout][crate::model::model::training_run::TrainingOptions::dropout].
-            pub fn maybe_dropout<T>(mut self, v: std::option::Option<T>) -> Self
+            pub fn set_or_clear_dropout<T>(mut self, v: std::option::Option<T>) -> Self
             where
                 T: std::convert::Into<wkt::DoubleValue>,
             {
@@ -11079,7 +11112,7 @@ pub mod model {
             }
 
             /// Sets or clear the value of [min_split_loss][crate::model::model::training_run::TrainingOptions::min_split_loss].
-            pub fn maybe_min_split_loss<T>(mut self, v: std::option::Option<T>) -> Self
+            pub fn set_or_clear_min_split_loss<T>(mut self, v: std::option::Option<T>) -> Self
             where
                 T: std::convert::Into<wkt::DoubleValue>,
             {
@@ -11108,7 +11141,7 @@ pub mod model {
             }
 
             /// Sets or clear the value of [num_parallel_tree][crate::model::model::training_run::TrainingOptions::num_parallel_tree].
-            pub fn maybe_num_parallel_tree<T>(mut self, v: std::option::Option<T>) -> Self
+            pub fn set_or_clear_num_parallel_tree<T>(mut self, v: std::option::Option<T>) -> Self
             where
                 T: std::convert::Into<wkt::Int64Value>,
             {
@@ -11150,7 +11183,10 @@ pub mod model {
             }
 
             /// Sets or clear the value of [min_tree_child_weight][crate::model::model::training_run::TrainingOptions::min_tree_child_weight].
-            pub fn maybe_min_tree_child_weight<T>(mut self, v: std::option::Option<T>) -> Self
+            pub fn set_or_clear_min_tree_child_weight<T>(
+                mut self,
+                v: std::option::Option<T>,
+            ) -> Self
             where
                 T: std::convert::Into<wkt::Int64Value>,
             {
@@ -11168,7 +11204,7 @@ pub mod model {
             }
 
             /// Sets or clear the value of [colsample_bytree][crate::model::model::training_run::TrainingOptions::colsample_bytree].
-            pub fn maybe_colsample_bytree<T>(mut self, v: std::option::Option<T>) -> Self
+            pub fn set_or_clear_colsample_bytree<T>(mut self, v: std::option::Option<T>) -> Self
             where
                 T: std::convert::Into<wkt::DoubleValue>,
             {
@@ -11186,7 +11222,7 @@ pub mod model {
             }
 
             /// Sets or clear the value of [colsample_bylevel][crate::model::model::training_run::TrainingOptions::colsample_bylevel].
-            pub fn maybe_colsample_bylevel<T>(mut self, v: std::option::Option<T>) -> Self
+            pub fn set_or_clear_colsample_bylevel<T>(mut self, v: std::option::Option<T>) -> Self
             where
                 T: std::convert::Into<wkt::DoubleValue>,
             {
@@ -11204,7 +11240,7 @@ pub mod model {
             }
 
             /// Sets or clear the value of [colsample_bynode][crate::model::model::training_run::TrainingOptions::colsample_bynode].
-            pub fn maybe_colsample_bynode<T>(mut self, v: std::option::Option<T>) -> Self
+            pub fn set_or_clear_colsample_bynode<T>(mut self, v: std::option::Option<T>) -> Self
             where
                 T: std::convert::Into<wkt::DoubleValue>,
             {
@@ -11237,7 +11273,7 @@ pub mod model {
             }
 
             /// Sets or clear the value of [wals_alpha][crate::model::model::training_run::TrainingOptions::wals_alpha].
-            pub fn maybe_wals_alpha<T>(mut self, v: std::option::Option<T>) -> Self
+            pub fn set_or_clear_wals_alpha<T>(mut self, v: std::option::Option<T>) -> Self
             where
                 T: std::convert::Into<wkt::DoubleValue>,
             {
@@ -11293,7 +11329,7 @@ pub mod model {
             }
 
             /// Sets or clear the value of [auto_arima][crate::model::model::training_run::TrainingOptions::auto_arima].
-            pub fn maybe_auto_arima<T>(mut self, v: std::option::Option<T>) -> Self
+            pub fn set_or_clear_auto_arima<T>(mut self, v: std::option::Option<T>) -> Self
             where
                 T: std::convert::Into<wkt::BoolValue>,
             {
@@ -11311,7 +11347,7 @@ pub mod model {
             }
 
             /// Sets or clear the value of [non_seasonal_order][crate::model::model::training_run::TrainingOptions::non_seasonal_order].
-            pub fn maybe_non_seasonal_order<T>(mut self, v: std::option::Option<T>) -> Self
+            pub fn set_or_clear_non_seasonal_order<T>(mut self, v: std::option::Option<T>) -> Self
             where
                 T: std::convert::Into<crate::model::model::ArimaOrder>,
             {
@@ -11338,7 +11374,7 @@ pub mod model {
             }
 
             /// Sets or clear the value of [calculate_p_values][crate::model::model::training_run::TrainingOptions::calculate_p_values].
-            pub fn maybe_calculate_p_values<T>(mut self, v: std::option::Option<T>) -> Self
+            pub fn set_or_clear_calculate_p_values<T>(mut self, v: std::option::Option<T>) -> Self
             where
                 T: std::convert::Into<wkt::BoolValue>,
             {
@@ -11356,7 +11392,7 @@ pub mod model {
             }
 
             /// Sets or clear the value of [include_drift][crate::model::model::training_run::TrainingOptions::include_drift].
-            pub fn maybe_include_drift<T>(mut self, v: std::option::Option<T>) -> Self
+            pub fn set_or_clear_include_drift<T>(mut self, v: std::option::Option<T>) -> Self
             where
                 T: std::convert::Into<wkt::BoolValue>,
             {
@@ -11475,7 +11511,10 @@ pub mod model {
             }
 
             /// Sets or clear the value of [decompose_time_series][crate::model::model::training_run::TrainingOptions::decompose_time_series].
-            pub fn maybe_decompose_time_series<T>(mut self, v: std::option::Option<T>) -> Self
+            pub fn set_or_clear_decompose_time_series<T>(
+                mut self,
+                v: std::option::Option<T>,
+            ) -> Self
             where
                 T: std::convert::Into<wkt::BoolValue>,
             {
@@ -11493,7 +11532,10 @@ pub mod model {
             }
 
             /// Sets or clear the value of [clean_spikes_and_dips][crate::model::model::training_run::TrainingOptions::clean_spikes_and_dips].
-            pub fn maybe_clean_spikes_and_dips<T>(mut self, v: std::option::Option<T>) -> Self
+            pub fn set_or_clear_clean_spikes_and_dips<T>(
+                mut self,
+                v: std::option::Option<T>,
+            ) -> Self
             where
                 T: std::convert::Into<wkt::BoolValue>,
             {
@@ -11511,7 +11553,7 @@ pub mod model {
             }
 
             /// Sets or clear the value of [adjust_step_changes][crate::model::model::training_run::TrainingOptions::adjust_step_changes].
-            pub fn maybe_adjust_step_changes<T>(mut self, v: std::option::Option<T>) -> Self
+            pub fn set_or_clear_adjust_step_changes<T>(mut self, v: std::option::Option<T>) -> Self
             where
                 T: std::convert::Into<wkt::BoolValue>,
             {
@@ -11529,7 +11571,10 @@ pub mod model {
             }
 
             /// Sets or clear the value of [enable_global_explain][crate::model::model::training_run::TrainingOptions::enable_global_explain].
-            pub fn maybe_enable_global_explain<T>(mut self, v: std::option::Option<T>) -> Self
+            pub fn set_or_clear_enable_global_explain<T>(
+                mut self,
+                v: std::option::Option<T>,
+            ) -> Self
             where
                 T: std::convert::Into<wkt::BoolValue>,
             {
@@ -11642,7 +11687,7 @@ pub mod model {
             }
 
             /// Sets or clear the value of [approx_global_feature_contrib][crate::model::model::training_run::TrainingOptions::approx_global_feature_contrib].
-            pub fn maybe_approx_global_feature_contrib<T>(
+            pub fn set_or_clear_approx_global_feature_contrib<T>(
                 mut self,
                 v: std::option::Option<T>,
             ) -> Self
@@ -11663,7 +11708,7 @@ pub mod model {
             }
 
             /// Sets or clear the value of [fit_intercept][crate::model::model::training_run::TrainingOptions::fit_intercept].
-            pub fn maybe_fit_intercept<T>(mut self, v: std::option::Option<T>) -> Self
+            pub fn set_or_clear_fit_intercept<T>(mut self, v: std::option::Option<T>) -> Self
             where
                 T: std::convert::Into<wkt::BoolValue>,
             {
@@ -11699,7 +11744,7 @@ pub mod model {
             }
 
             /// Sets or clear the value of [scale_features][crate::model::model::training_run::TrainingOptions::scale_features].
-            pub fn maybe_scale_features<T>(mut self, v: std::option::Option<T>) -> Self
+            pub fn set_or_clear_scale_features<T>(mut self, v: std::option::Option<T>) -> Self
             where
                 T: std::convert::Into<wkt::BoolValue>,
             {
@@ -11728,7 +11773,7 @@ pub mod model {
             }
 
             /// Sets or clear the value of [auto_class_weights][crate::model::model::training_run::TrainingOptions::auto_class_weights].
-            pub fn maybe_auto_class_weights<T>(mut self, v: std::option::Option<T>) -> Self
+            pub fn set_or_clear_auto_class_weights<T>(mut self, v: std::option::Option<T>) -> Self
             where
                 T: std::convert::Into<wkt::BoolValue>,
             {
@@ -11770,7 +11815,7 @@ pub mod model {
             }
 
             /// Sets or clear the value of [standardize_features][crate::model::model::training_run::TrainingOptions::standardize_features].
-            pub fn maybe_standardize_features<T>(mut self, v: std::option::Option<T>) -> Self
+            pub fn set_or_clear_standardize_features<T>(mut self, v: std::option::Option<T>) -> Self
             where
                 T: std::convert::Into<wkt::BoolValue>,
             {
@@ -11827,7 +11872,7 @@ pub mod model {
             }
 
             /// Sets or clear the value of [contribution_metric][crate::model::model::training_run::TrainingOptions::contribution_metric].
-            pub fn maybe_contribution_metric<T>(mut self, v: std::option::Option<T>) -> Self
+            pub fn set_or_clear_contribution_metric<T>(mut self, v: std::option::Option<T>) -> Self
             where
                 T: std::convert::Into<std::string::String>,
             {
@@ -11845,7 +11890,7 @@ pub mod model {
             }
 
             /// Sets or clear the value of [is_test_column][crate::model::model::training_run::TrainingOptions::is_test_column].
-            pub fn maybe_is_test_column<T>(mut self, v: std::option::Option<T>) -> Self
+            pub fn set_or_clear_is_test_column<T>(mut self, v: std::option::Option<T>) -> Self
             where
                 T: std::convert::Into<std::string::String>,
             {
@@ -11863,7 +11908,7 @@ pub mod model {
             }
 
             /// Sets or clear the value of [min_apriori_support][crate::model::model::training_run::TrainingOptions::min_apriori_support].
-            pub fn maybe_min_apriori_support<T>(mut self, v: std::option::Option<T>) -> Self
+            pub fn set_or_clear_min_apriori_support<T>(mut self, v: std::option::Option<T>) -> Self
             where
                 T: std::convert::Into<f64>,
             {
@@ -11944,7 +11989,7 @@ pub mod model {
             }
 
             /// Sets or clear the value of [index][crate::model::model::training_run::IterationResult::index].
-            pub fn maybe_index<T>(mut self, v: std::option::Option<T>) -> Self
+            pub fn set_or_clear_index<T>(mut self, v: std::option::Option<T>) -> Self
             where
                 T: std::convert::Into<wkt::Int32Value>,
             {
@@ -11962,7 +12007,7 @@ pub mod model {
             }
 
             /// Sets or clear the value of [duration_ms][crate::model::model::training_run::IterationResult::duration_ms].
-            pub fn maybe_duration_ms<T>(mut self, v: std::option::Option<T>) -> Self
+            pub fn set_or_clear_duration_ms<T>(mut self, v: std::option::Option<T>) -> Self
             where
                 T: std::convert::Into<wkt::Int64Value>,
             {
@@ -11980,7 +12025,7 @@ pub mod model {
             }
 
             /// Sets or clear the value of [training_loss][crate::model::model::training_run::IterationResult::training_loss].
-            pub fn maybe_training_loss<T>(mut self, v: std::option::Option<T>) -> Self
+            pub fn set_or_clear_training_loss<T>(mut self, v: std::option::Option<T>) -> Self
             where
                 T: std::convert::Into<wkt::DoubleValue>,
             {
@@ -11998,7 +12043,7 @@ pub mod model {
             }
 
             /// Sets or clear the value of [eval_loss][crate::model::model::training_run::IterationResult::eval_loss].
-            pub fn maybe_eval_loss<T>(mut self, v: std::option::Option<T>) -> Self
+            pub fn set_or_clear_eval_loss<T>(mut self, v: std::option::Option<T>) -> Self
             where
                 T: std::convert::Into<wkt::DoubleValue>,
             {
@@ -12037,7 +12082,7 @@ pub mod model {
             }
 
             /// Sets or clear the value of [arima_result][crate::model::model::training_run::IterationResult::arima_result].
-            pub fn maybe_arima_result<T>(mut self, v: std::option::Option<T>) -> Self
+            pub fn set_or_clear_arima_result<T>(mut self, v: std::option::Option<T>) -> Self
             where
                 T: std::convert::Into<
                         crate::model::model::training_run::iteration_result::ArimaResult,
@@ -12119,7 +12164,7 @@ pub mod model {
                 }
 
                 /// Sets or clear the value of [cluster_radius][crate::model::model::training_run::iteration_result::ClusterInfo::cluster_radius].
-                pub fn maybe_cluster_radius<T>(mut self, v: std::option::Option<T>) -> Self
+                pub fn set_or_clear_cluster_radius<T>(mut self, v: std::option::Option<T>) -> Self
                 where
                     T: std::convert::Into<wkt::DoubleValue>,
                 {
@@ -12137,7 +12182,7 @@ pub mod model {
                 }
 
                 /// Sets or clear the value of [cluster_size][crate::model::model::training_run::iteration_result::ClusterInfo::cluster_size].
-                pub fn maybe_cluster_size<T>(mut self, v: std::option::Option<T>) -> Self
+                pub fn set_or_clear_cluster_size<T>(mut self, v: std::option::Option<T>) -> Self
                 where
                     T: std::convert::Into<wkt::Int64Value>,
                 {
@@ -12279,7 +12324,7 @@ pub mod model {
                     }
 
                     /// Sets or clear the value of [intercept_coefficient][crate::model::model::training_run::iteration_result::arima_result::ArimaCoefficients::intercept_coefficient].
-                    pub fn maybe_intercept_coefficient<T>(
+                    pub fn set_or_clear_intercept_coefficient<T>(
                         mut self,
                         v: std::option::Option<T>,
                     ) -> Self
@@ -12378,7 +12423,10 @@ pub mod model {
                     }
 
                     /// Sets or clear the value of [non_seasonal_order][crate::model::model::training_run::iteration_result::arima_result::ArimaModelInfo::non_seasonal_order].
-                    pub fn maybe_non_seasonal_order<T>(mut self, v: std::option::Option<T>) -> Self
+                    pub fn set_or_clear_non_seasonal_order<T>(
+                        mut self,
+                        v: std::option::Option<T>,
+                    ) -> Self
                     where
                         T: std::convert::Into<crate::model::model::ArimaOrder>,
                     {
@@ -12395,7 +12443,7 @@ pub mod model {
                     }
 
                     /// Sets or clear the value of [arima_coefficients][crate::model::model::training_run::iteration_result::arima_result::ArimaModelInfo::arima_coefficients].
-                    pub fn maybe_arima_coefficients<T>(mut self, v: std::option::Option<T>) -> Self
+                    pub fn set_or_clear_arima_coefficients<T>(mut self, v: std::option::Option<T>) -> Self
                     where T: std::convert::Into<crate::model::model::training_run::iteration_result::arima_result::ArimaCoefficients>
                     {
                         self.arima_coefficients = v.map(|x| x.into());
@@ -12412,7 +12460,7 @@ pub mod model {
                     }
 
                     /// Sets or clear the value of [arima_fitting_metrics][crate::model::model::training_run::iteration_result::arima_result::ArimaModelInfo::arima_fitting_metrics].
-                    pub fn maybe_arima_fitting_metrics<T>(
+                    pub fn set_or_clear_arima_fitting_metrics<T>(
                         mut self,
                         v: std::option::Option<T>,
                     ) -> Self
@@ -12433,7 +12481,7 @@ pub mod model {
                     }
 
                     /// Sets or clear the value of [has_drift][crate::model::model::training_run::iteration_result::arima_result::ArimaModelInfo::has_drift].
-                    pub fn maybe_has_drift<T>(mut self, v: std::option::Option<T>) -> Self
+                    pub fn set_or_clear_has_drift<T>(mut self, v: std::option::Option<T>) -> Self
                     where
                         T: std::convert::Into<wkt::BoolValue>,
                     {
@@ -12484,7 +12532,10 @@ pub mod model {
                     }
 
                     /// Sets or clear the value of [has_holiday_effect][crate::model::model::training_run::iteration_result::arima_result::ArimaModelInfo::has_holiday_effect].
-                    pub fn maybe_has_holiday_effect<T>(mut self, v: std::option::Option<T>) -> Self
+                    pub fn set_or_clear_has_holiday_effect<T>(
+                        mut self,
+                        v: std::option::Option<T>,
+                    ) -> Self
                     where
                         T: std::convert::Into<wkt::BoolValue>,
                     {
@@ -12502,7 +12553,10 @@ pub mod model {
                     }
 
                     /// Sets or clear the value of [has_spikes_and_dips][crate::model::model::training_run::iteration_result::arima_result::ArimaModelInfo::has_spikes_and_dips].
-                    pub fn maybe_has_spikes_and_dips<T>(mut self, v: std::option::Option<T>) -> Self
+                    pub fn set_or_clear_has_spikes_and_dips<T>(
+                        mut self,
+                        v: std::option::Option<T>,
+                    ) -> Self
                     where
                         T: std::convert::Into<wkt::BoolValue>,
                     {
@@ -12520,7 +12574,10 @@ pub mod model {
                     }
 
                     /// Sets or clear the value of [has_step_changes][crate::model::model::training_run::iteration_result::arima_result::ArimaModelInfo::has_step_changes].
-                    pub fn maybe_has_step_changes<T>(mut self, v: std::option::Option<T>) -> Self
+                    pub fn set_or_clear_has_step_changes<T>(
+                        mut self,
+                        v: std::option::Option<T>,
+                    ) -> Self
                     where
                         T: std::convert::Into<wkt::BoolValue>,
                     {
@@ -12585,7 +12642,10 @@ pub mod model {
                 }
 
                 /// Sets or clear the value of [principal_component_id][crate::model::model::training_run::iteration_result::PrincipalComponentInfo::principal_component_id].
-                pub fn maybe_principal_component_id<T>(mut self, v: std::option::Option<T>) -> Self
+                pub fn set_or_clear_principal_component_id<T>(
+                    mut self,
+                    v: std::option::Option<T>,
+                ) -> Self
                 where
                     T: std::convert::Into<wkt::Int64Value>,
                 {
@@ -12603,7 +12663,10 @@ pub mod model {
                 }
 
                 /// Sets or clear the value of [explained_variance][crate::model::model::training_run::iteration_result::PrincipalComponentInfo::explained_variance].
-                pub fn maybe_explained_variance<T>(mut self, v: std::option::Option<T>) -> Self
+                pub fn set_or_clear_explained_variance<T>(
+                    mut self,
+                    v: std::option::Option<T>,
+                ) -> Self
                 where
                     T: std::convert::Into<wkt::DoubleValue>,
                 {
@@ -12621,7 +12684,7 @@ pub mod model {
                 }
 
                 /// Sets or clear the value of [explained_variance_ratio][crate::model::model::training_run::iteration_result::PrincipalComponentInfo::explained_variance_ratio].
-                pub fn maybe_explained_variance_ratio<T>(
+                pub fn set_or_clear_explained_variance_ratio<T>(
                     mut self,
                     v: std::option::Option<T>,
                 ) -> Self
@@ -12642,7 +12705,7 @@ pub mod model {
                 }
 
                 /// Sets or clear the value of [cumulative_explained_variance_ratio][crate::model::model::training_run::iteration_result::PrincipalComponentInfo::cumulative_explained_variance_ratio].
-                pub fn maybe_cumulative_explained_variance_ratio<T>(
+                pub fn set_or_clear_cumulative_explained_variance_ratio<T>(
                     mut self,
                     v: std::option::Option<T>,
                 ) -> Self
@@ -12821,7 +12884,7 @@ pub mod model {
             }
 
             /// Sets or clear the value of [min][crate::model::model::double_hparam_search_space::DoubleRange::min].
-            pub fn maybe_min<T>(mut self, v: std::option::Option<T>) -> Self
+            pub fn set_or_clear_min<T>(mut self, v: std::option::Option<T>) -> Self
             where
                 T: std::convert::Into<wkt::DoubleValue>,
             {
@@ -12839,7 +12902,7 @@ pub mod model {
             }
 
             /// Sets or clear the value of [max][crate::model::model::double_hparam_search_space::DoubleRange::max].
-            pub fn maybe_max<T>(mut self, v: std::option::Option<T>) -> Self
+            pub fn set_or_clear_max<T>(mut self, v: std::option::Option<T>) -> Self
             where
                 T: std::convert::Into<wkt::DoubleValue>,
             {
@@ -13062,7 +13125,7 @@ pub mod model {
             }
 
             /// Sets or clear the value of [min][crate::model::model::int_hparam_search_space::IntRange::min].
-            pub fn maybe_min<T>(mut self, v: std::option::Option<T>) -> Self
+            pub fn set_or_clear_min<T>(mut self, v: std::option::Option<T>) -> Self
             where
                 T: std::convert::Into<wkt::Int64Value>,
             {
@@ -13080,7 +13143,7 @@ pub mod model {
             }
 
             /// Sets or clear the value of [max][crate::model::model::int_hparam_search_space::IntRange::max].
-            pub fn maybe_max<T>(mut self, v: std::option::Option<T>) -> Self
+            pub fn set_or_clear_max<T>(mut self, v: std::option::Option<T>) -> Self
             where
                 T: std::convert::Into<wkt::Int64Value>,
             {
@@ -13384,7 +13447,7 @@ pub mod model {
         }
 
         /// Sets or clear the value of [learn_rate][crate::model::model::HparamSearchSpaces::learn_rate].
-        pub fn maybe_learn_rate<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_learn_rate<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::model::DoubleHparamSearchSpace>,
         {
@@ -13402,7 +13465,7 @@ pub mod model {
         }
 
         /// Sets or clear the value of [l1_reg][crate::model::model::HparamSearchSpaces::l1_reg].
-        pub fn maybe_l1_reg<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_l1_reg<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::model::DoubleHparamSearchSpace>,
         {
@@ -13420,7 +13483,7 @@ pub mod model {
         }
 
         /// Sets or clear the value of [l2_reg][crate::model::model::HparamSearchSpaces::l2_reg].
-        pub fn maybe_l2_reg<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_l2_reg<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::model::DoubleHparamSearchSpace>,
         {
@@ -13438,7 +13501,7 @@ pub mod model {
         }
 
         /// Sets or clear the value of [num_clusters][crate::model::model::HparamSearchSpaces::num_clusters].
-        pub fn maybe_num_clusters<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_num_clusters<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::model::IntHparamSearchSpace>,
         {
@@ -13456,7 +13519,7 @@ pub mod model {
         }
 
         /// Sets or clear the value of [num_factors][crate::model::model::HparamSearchSpaces::num_factors].
-        pub fn maybe_num_factors<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_num_factors<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::model::IntHparamSearchSpace>,
         {
@@ -13474,7 +13537,7 @@ pub mod model {
         }
 
         /// Sets or clear the value of [hidden_units][crate::model::model::HparamSearchSpaces::hidden_units].
-        pub fn maybe_hidden_units<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_hidden_units<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::model::IntArrayHparamSearchSpace>,
         {
@@ -13492,7 +13555,7 @@ pub mod model {
         }
 
         /// Sets or clear the value of [batch_size][crate::model::model::HparamSearchSpaces::batch_size].
-        pub fn maybe_batch_size<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_batch_size<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::model::IntHparamSearchSpace>,
         {
@@ -13510,7 +13573,7 @@ pub mod model {
         }
 
         /// Sets or clear the value of [dropout][crate::model::model::HparamSearchSpaces::dropout].
-        pub fn maybe_dropout<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_dropout<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::model::DoubleHparamSearchSpace>,
         {
@@ -13528,7 +13591,7 @@ pub mod model {
         }
 
         /// Sets or clear the value of [max_tree_depth][crate::model::model::HparamSearchSpaces::max_tree_depth].
-        pub fn maybe_max_tree_depth<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_max_tree_depth<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::model::IntHparamSearchSpace>,
         {
@@ -13546,7 +13609,7 @@ pub mod model {
         }
 
         /// Sets or clear the value of [subsample][crate::model::model::HparamSearchSpaces::subsample].
-        pub fn maybe_subsample<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_subsample<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::model::DoubleHparamSearchSpace>,
         {
@@ -13564,7 +13627,7 @@ pub mod model {
         }
 
         /// Sets or clear the value of [min_split_loss][crate::model::model::HparamSearchSpaces::min_split_loss].
-        pub fn maybe_min_split_loss<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_min_split_loss<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::model::DoubleHparamSearchSpace>,
         {
@@ -13582,7 +13645,7 @@ pub mod model {
         }
 
         /// Sets or clear the value of [wals_alpha][crate::model::model::HparamSearchSpaces::wals_alpha].
-        pub fn maybe_wals_alpha<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_wals_alpha<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::model::DoubleHparamSearchSpace>,
         {
@@ -13600,7 +13663,7 @@ pub mod model {
         }
 
         /// Sets or clear the value of [booster_type][crate::model::model::HparamSearchSpaces::booster_type].
-        pub fn maybe_booster_type<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_booster_type<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::model::StringHparamSearchSpace>,
         {
@@ -13618,7 +13681,7 @@ pub mod model {
         }
 
         /// Sets or clear the value of [num_parallel_tree][crate::model::model::HparamSearchSpaces::num_parallel_tree].
-        pub fn maybe_num_parallel_tree<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_num_parallel_tree<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::model::IntHparamSearchSpace>,
         {
@@ -13636,7 +13699,7 @@ pub mod model {
         }
 
         /// Sets or clear the value of [dart_normalize_type][crate::model::model::HparamSearchSpaces::dart_normalize_type].
-        pub fn maybe_dart_normalize_type<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_dart_normalize_type<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::model::StringHparamSearchSpace>,
         {
@@ -13654,7 +13717,7 @@ pub mod model {
         }
 
         /// Sets or clear the value of [tree_method][crate::model::model::HparamSearchSpaces::tree_method].
-        pub fn maybe_tree_method<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_tree_method<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::model::StringHparamSearchSpace>,
         {
@@ -13672,7 +13735,7 @@ pub mod model {
         }
 
         /// Sets or clear the value of [min_tree_child_weight][crate::model::model::HparamSearchSpaces::min_tree_child_weight].
-        pub fn maybe_min_tree_child_weight<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_min_tree_child_weight<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::model::IntHparamSearchSpace>,
         {
@@ -13690,7 +13753,7 @@ pub mod model {
         }
 
         /// Sets or clear the value of [colsample_bytree][crate::model::model::HparamSearchSpaces::colsample_bytree].
-        pub fn maybe_colsample_bytree<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_colsample_bytree<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::model::DoubleHparamSearchSpace>,
         {
@@ -13708,7 +13771,7 @@ pub mod model {
         }
 
         /// Sets or clear the value of [colsample_bylevel][crate::model::model::HparamSearchSpaces::colsample_bylevel].
-        pub fn maybe_colsample_bylevel<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_colsample_bylevel<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::model::DoubleHparamSearchSpace>,
         {
@@ -13726,7 +13789,7 @@ pub mod model {
         }
 
         /// Sets or clear the value of [colsample_bynode][crate::model::model::HparamSearchSpaces::colsample_bynode].
-        pub fn maybe_colsample_bynode<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_colsample_bynode<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::model::DoubleHparamSearchSpace>,
         {
@@ -13744,7 +13807,7 @@ pub mod model {
         }
 
         /// Sets or clear the value of [activation_fn][crate::model::model::HparamSearchSpaces::activation_fn].
-        pub fn maybe_activation_fn<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_activation_fn<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::model::StringHparamSearchSpace>,
         {
@@ -13762,7 +13825,7 @@ pub mod model {
         }
 
         /// Sets or clear the value of [optimizer][crate::model::model::HparamSearchSpaces::optimizer].
-        pub fn maybe_optimizer<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_optimizer<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::model::StringHparamSearchSpace>,
         {
@@ -13870,7 +13933,7 @@ pub mod model {
         }
 
         /// Sets or clear the value of [hparams][crate::model::model::HparamTuningTrial::hparams].
-        pub fn maybe_hparams<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_hparams<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::model::training_run::TrainingOptions>,
         {
@@ -13888,7 +13951,7 @@ pub mod model {
         }
 
         /// Sets or clear the value of [evaluation_metrics][crate::model::model::HparamTuningTrial::evaluation_metrics].
-        pub fn maybe_evaluation_metrics<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_evaluation_metrics<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::model::EvaluationMetrics>,
         {
@@ -13926,7 +13989,7 @@ pub mod model {
         }
 
         /// Sets or clear the value of [training_loss][crate::model::model::HparamTuningTrial::training_loss].
-        pub fn maybe_training_loss<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_training_loss<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::DoubleValue>,
         {
@@ -13944,7 +14007,7 @@ pub mod model {
         }
 
         /// Sets or clear the value of [eval_loss][crate::model::model::HparamTuningTrial::eval_loss].
-        pub fn maybe_eval_loss<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_eval_loss<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::DoubleValue>,
         {
@@ -13962,7 +14025,7 @@ pub mod model {
         }
 
         /// Sets or clear the value of [hparam_tuning_evaluation_metrics][crate::model::model::HparamTuningTrial::hparam_tuning_evaluation_metrics].
-        pub fn maybe_hparam_tuning_evaluation_metrics<T>(
+        pub fn set_or_clear_hparam_tuning_evaluation_metrics<T>(
             mut self,
             v: std::option::Option<T>,
         ) -> Self
@@ -16300,7 +16363,7 @@ impl PatchModelRequest {
     }
 
     /// Sets or clear the value of [model][crate::model::PatchModelRequest::model].
-    pub fn maybe_model<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_model<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Model>,
     {
@@ -16422,7 +16485,7 @@ impl ListModelsRequest {
     }
 
     /// Sets or clear the value of [max_results][crate::model::ListModelsRequest::max_results].
-    pub fn maybe_max_results<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_max_results<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::UInt32Value>,
     {
@@ -16624,7 +16687,7 @@ impl PartitionedColumn {
     }
 
     /// Sets or clear the value of [field][crate::model::PartitionedColumn::field].
-    pub fn maybe_field<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_field<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
     {
@@ -16679,7 +16742,7 @@ impl AggregationThresholdPolicy {
     }
 
     /// Sets or clear the value of [threshold][crate::model::AggregationThresholdPolicy::threshold].
-    pub fn maybe_threshold<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_threshold<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<i64>,
     {
@@ -16809,7 +16872,7 @@ impl DifferentialPrivacyPolicy {
     }
 
     /// Sets or clear the value of [max_epsilon_per_query][crate::model::DifferentialPrivacyPolicy::max_epsilon_per_query].
-    pub fn maybe_max_epsilon_per_query<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_max_epsilon_per_query<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<f64>,
     {
@@ -16827,7 +16890,7 @@ impl DifferentialPrivacyPolicy {
     }
 
     /// Sets or clear the value of [delta_per_query][crate::model::DifferentialPrivacyPolicy::delta_per_query].
-    pub fn maybe_delta_per_query<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_delta_per_query<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<f64>,
     {
@@ -16845,7 +16908,7 @@ impl DifferentialPrivacyPolicy {
     }
 
     /// Sets or clear the value of [max_groups_contributed][crate::model::DifferentialPrivacyPolicy::max_groups_contributed].
-    pub fn maybe_max_groups_contributed<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_max_groups_contributed<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<i64>,
     {
@@ -16863,7 +16926,7 @@ impl DifferentialPrivacyPolicy {
     }
 
     /// Sets or clear the value of [privacy_unit_column][crate::model::DifferentialPrivacyPolicy::privacy_unit_column].
-    pub fn maybe_privacy_unit_column<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_privacy_unit_column<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
     {
@@ -16881,7 +16944,7 @@ impl DifferentialPrivacyPolicy {
     }
 
     /// Sets or clear the value of [epsilon_budget][crate::model::DifferentialPrivacyPolicy::epsilon_budget].
-    pub fn maybe_epsilon_budget<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_epsilon_budget<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<f64>,
     {
@@ -16899,7 +16962,7 @@ impl DifferentialPrivacyPolicy {
     }
 
     /// Sets or clear the value of [delta_budget][crate::model::DifferentialPrivacyPolicy::delta_budget].
-    pub fn maybe_delta_budget<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_delta_budget<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<f64>,
     {
@@ -16917,7 +16980,7 @@ impl DifferentialPrivacyPolicy {
     }
 
     /// Sets or clear the value of [epsilon_budget_remaining][crate::model::DifferentialPrivacyPolicy::epsilon_budget_remaining].
-    pub fn maybe_epsilon_budget_remaining<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_epsilon_budget_remaining<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<f64>,
     {
@@ -16935,7 +16998,7 @@ impl DifferentialPrivacyPolicy {
     }
 
     /// Sets or clear the value of [delta_budget_remaining][crate::model::DifferentialPrivacyPolicy::delta_budget_remaining].
-    pub fn maybe_delta_budget_remaining<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_delta_budget_remaining<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<f64>,
     {
@@ -16988,7 +17051,7 @@ impl JoinRestrictionPolicy {
     }
 
     /// Sets or clear the value of [join_condition][crate::model::JoinRestrictionPolicy::join_condition].
-    pub fn maybe_join_condition<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_join_condition<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::join_restriction_policy::JoinCondition>,
     {
@@ -17205,7 +17268,7 @@ impl PrivacyPolicy {
     }
 
     /// Sets or clear the value of [join_restriction_policy][crate::model::PrivacyPolicy::join_restriction_policy].
-    pub fn maybe_join_restriction_policy<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_join_restriction_policy<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::JoinRestrictionPolicy>,
     {
@@ -17435,7 +17498,7 @@ impl QueryParameterStructType {
     }
 
     /// Sets or clear the value of [r#type][crate::model::QueryParameterStructType::type].
-    pub fn maybe_type<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_type<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::QueryParameterType>,
     {
@@ -17505,7 +17568,7 @@ impl QueryParameterType {
     }
 
     /// Sets or clear the value of [array_type][crate::model::QueryParameterType::array_type].
-    pub fn maybe_array_type<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_array_type<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::QueryParameterType>,
     {
@@ -17534,7 +17597,7 @@ impl QueryParameterType {
     }
 
     /// Sets or clear the value of [range_element_type][crate::model::QueryParameterType::range_element_type].
-    pub fn maybe_range_element_type<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_range_element_type<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::QueryParameterType>,
     {
@@ -17584,7 +17647,7 @@ impl RangeValue {
     }
 
     /// Sets or clear the value of [start][crate::model::RangeValue::start].
-    pub fn maybe_start<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_start<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::QueryParameterValue>,
     {
@@ -17602,7 +17665,7 @@ impl RangeValue {
     }
 
     /// Sets or clear the value of [end][crate::model::RangeValue::end].
-    pub fn maybe_end<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_end<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::QueryParameterValue>,
     {
@@ -17663,7 +17726,7 @@ impl QueryParameterValue {
     }
 
     /// Sets or clear the value of [value][crate::model::QueryParameterValue::value].
-    pub fn maybe_value<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_value<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::StringValue>,
     {
@@ -17704,7 +17767,7 @@ impl QueryParameterValue {
     }
 
     /// Sets or clear the value of [range_value][crate::model::QueryParameterValue::range_value].
-    pub fn maybe_range_value<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_range_value<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::RangeValue>,
     {
@@ -17774,7 +17837,7 @@ impl QueryParameter {
     }
 
     /// Sets or clear the value of [parameter_type][crate::model::QueryParameter::parameter_type].
-    pub fn maybe_parameter_type<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_parameter_type<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::QueryParameterType>,
     {
@@ -17792,7 +17855,7 @@ impl QueryParameter {
     }
 
     /// Sets or clear the value of [parameter_value][crate::model::QueryParameter::parameter_value].
-    pub fn maybe_parameter_value<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_parameter_value<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::QueryParameterValue>,
     {
@@ -17846,7 +17909,7 @@ impl RangePartitioning {
     }
 
     /// Sets or clear the value of [range][crate::model::RangePartitioning::range].
-    pub fn maybe_range<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_range<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::range_partitioning::Range>,
     {
@@ -18259,7 +18322,7 @@ impl Routine {
     }
 
     /// Sets or clear the value of [routine_reference][crate::model::Routine::routine_reference].
-    pub fn maybe_routine_reference<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_routine_reference<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::RoutineReference>,
     {
@@ -18318,7 +18381,7 @@ impl Routine {
     }
 
     /// Sets or clear the value of [return_type][crate::model::Routine::return_type].
-    pub fn maybe_return_type<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_return_type<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::StandardSqlDataType>,
     {
@@ -18336,7 +18399,7 @@ impl Routine {
     }
 
     /// Sets or clear the value of [return_table_type][crate::model::Routine::return_table_type].
-    pub fn maybe_return_table_type<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_return_table_type<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::StandardSqlTableType>,
     {
@@ -18395,7 +18458,7 @@ impl Routine {
     }
 
     /// Sets or clear the value of [strict_mode][crate::model::Routine::strict_mode].
-    pub fn maybe_strict_mode<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_strict_mode<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::BoolValue>,
     {
@@ -18413,7 +18476,7 @@ impl Routine {
     }
 
     /// Sets or clear the value of [remote_function_options][crate::model::Routine::remote_function_options].
-    pub fn maybe_remote_function_options<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_remote_function_options<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::routine::RemoteFunctionOptions>,
     {
@@ -18431,7 +18494,7 @@ impl Routine {
     }
 
     /// Sets or clear the value of [spark_options][crate::model::Routine::spark_options].
-    pub fn maybe_spark_options<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_spark_options<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::SparkOptions>,
     {
@@ -18537,7 +18600,7 @@ pub mod routine {
         }
 
         /// Sets or clear the value of [data_type][crate::model::routine::Argument::data_type].
-        pub fn maybe_data_type<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_data_type<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::StandardSqlDataType>,
         {
@@ -18555,7 +18618,7 @@ pub mod routine {
         }
 
         /// Sets or clear the value of [is_aggregate][crate::model::routine::Argument::is_aggregate].
-        pub fn maybe_is_aggregate<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_is_aggregate<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::BoolValue>,
         {
@@ -19905,7 +19968,7 @@ impl InsertRoutineRequest {
     }
 
     /// Sets or clear the value of [routine][crate::model::InsertRoutineRequest::routine].
-    pub fn maybe_routine<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_routine<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Routine>,
     {
@@ -19979,7 +20042,7 @@ impl UpdateRoutineRequest {
     }
 
     /// Sets or clear the value of [routine][crate::model::UpdateRoutineRequest::routine].
-    pub fn maybe_routine<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_routine<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Routine>,
     {
@@ -20060,7 +20123,7 @@ impl PatchRoutineRequest {
     }
 
     /// Sets or clear the value of [routine][crate::model::PatchRoutineRequest::routine].
-    pub fn maybe_routine<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_routine<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Routine>,
     {
@@ -20078,7 +20141,7 @@ impl PatchRoutineRequest {
     }
 
     /// Sets or clear the value of [field_mask][crate::model::PatchRoutineRequest::field_mask].
-    pub fn maybe_field_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_field_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
     {
@@ -20206,7 +20269,7 @@ impl ListRoutinesRequest {
     }
 
     /// Sets or clear the value of [max_results][crate::model::ListRoutinesRequest::max_results].
-    pub fn maybe_max_results<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_max_results<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::UInt32Value>,
     {
@@ -20593,7 +20656,7 @@ impl CreateRowAccessPolicyRequest {
     }
 
     /// Sets or clear the value of [row_access_policy][crate::model::CreateRowAccessPolicyRequest::row_access_policy].
-    pub fn maybe_row_access_policy<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_row_access_policy<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::RowAccessPolicy>,
     {
@@ -20677,7 +20740,7 @@ impl UpdateRowAccessPolicyRequest {
     }
 
     /// Sets or clear the value of [row_access_policy][crate::model::UpdateRowAccessPolicyRequest::row_access_policy].
-    pub fn maybe_row_access_policy<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_row_access_policy<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::RowAccessPolicy>,
     {
@@ -20763,7 +20826,7 @@ impl DeleteRowAccessPolicyRequest {
     }
 
     /// Sets or clear the value of [force][crate::model::DeleteRowAccessPolicyRequest::force].
-    pub fn maybe_force<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_force<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<bool>,
     {
@@ -20854,7 +20917,7 @@ impl BatchDeleteRowAccessPoliciesRequest {
     }
 
     /// Sets or clear the value of [force][crate::model::BatchDeleteRowAccessPoliciesRequest::force].
-    pub fn maybe_force<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_force<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<bool>,
     {
@@ -20960,7 +21023,7 @@ impl RowAccessPolicy {
     }
 
     /// Sets or clear the value of [row_access_policy_reference][crate::model::RowAccessPolicy::row_access_policy_reference].
-    pub fn maybe_row_access_policy_reference<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_row_access_policy_reference<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::RowAccessPolicyReference>,
     {
@@ -20987,7 +21050,7 @@ impl RowAccessPolicy {
     }
 
     /// Sets or clear the value of [creation_time][crate::model::RowAccessPolicy::creation_time].
-    pub fn maybe_creation_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_creation_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -21005,7 +21068,7 @@ impl RowAccessPolicy {
     }
 
     /// Sets or clear the value of [last_modified_time][crate::model::RowAccessPolicy::last_modified_time].
-    pub fn maybe_last_modified_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_last_modified_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -21588,7 +21651,7 @@ impl StandardSqlField {
     }
 
     /// Sets or clear the value of [r#type][crate::model::StandardSqlField::type].
-    pub fn maybe_type<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_type<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::StandardSqlDataType>,
     {
@@ -21722,7 +21785,7 @@ impl SystemVariables {
     }
 
     /// Sets or clear the value of [values][crate::model::SystemVariables::values].
-    pub fn maybe_values<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_values<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Struct>,
     {
@@ -21789,7 +21852,7 @@ impl TableReplicationInfo {
     }
 
     /// Sets or clear the value of [source_table][crate::model::TableReplicationInfo::source_table].
-    pub fn maybe_source_table<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_source_table<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::TableReference>,
     {
@@ -21833,7 +21896,7 @@ impl TableReplicationInfo {
     }
 
     /// Sets or clear the value of [replication_error][crate::model::TableReplicationInfo::replication_error].
-    pub fn maybe_replication_error<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_replication_error<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ErrorProto>,
     {
@@ -22077,7 +22140,7 @@ impl ViewDefinition {
     }
 
     /// Sets or clear the value of [use_legacy_sql][crate::model::ViewDefinition::use_legacy_sql].
-    pub fn maybe_use_legacy_sql<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_use_legacy_sql<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::BoolValue>,
     {
@@ -22101,7 +22164,7 @@ impl ViewDefinition {
     }
 
     /// Sets or clear the value of [privacy_policy][crate::model::ViewDefinition::privacy_policy].
-    pub fn maybe_privacy_policy<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_privacy_policy<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::PrivacyPolicy>,
     {
@@ -22236,7 +22299,7 @@ impl MaterializedViewDefinition {
     }
 
     /// Sets or clear the value of [enable_refresh][crate::model::MaterializedViewDefinition::enable_refresh].
-    pub fn maybe_enable_refresh<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_enable_refresh<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::BoolValue>,
     {
@@ -22254,7 +22317,7 @@ impl MaterializedViewDefinition {
     }
 
     /// Sets or clear the value of [refresh_interval_ms][crate::model::MaterializedViewDefinition::refresh_interval_ms].
-    pub fn maybe_refresh_interval_ms<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_refresh_interval_ms<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::UInt64Value>,
     {
@@ -22272,7 +22335,10 @@ impl MaterializedViewDefinition {
     }
 
     /// Sets or clear the value of [allow_non_incremental_definition][crate::model::MaterializedViewDefinition::allow_non_incremental_definition].
-    pub fn maybe_allow_non_incremental_definition<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_allow_non_incremental_definition<T>(
+        mut self,
+        v: std::option::Option<T>,
+    ) -> Self
     where
         T: std::convert::Into<wkt::BoolValue>,
     {
@@ -22324,7 +22390,7 @@ impl MaterializedViewStatus {
     }
 
     /// Sets or clear the value of [refresh_watermark][crate::model::MaterializedViewStatus::refresh_watermark].
-    pub fn maybe_refresh_watermark<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_refresh_watermark<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -22342,7 +22408,7 @@ impl MaterializedViewStatus {
     }
 
     /// Sets or clear the value of [last_refresh_status][crate::model::MaterializedViewStatus::last_refresh_status].
-    pub fn maybe_last_refresh_status<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_last_refresh_status<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ErrorProto>,
     {
@@ -22391,7 +22457,7 @@ impl SnapshotDefinition {
     }
 
     /// Sets or clear the value of [base_table_reference][crate::model::SnapshotDefinition::base_table_reference].
-    pub fn maybe_base_table_reference<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_base_table_reference<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::TableReference>,
     {
@@ -22409,7 +22475,7 @@ impl SnapshotDefinition {
     }
 
     /// Sets or clear the value of [snapshot_time][crate::model::SnapshotDefinition::snapshot_time].
-    pub fn maybe_snapshot_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_snapshot_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -22458,7 +22524,7 @@ impl CloneDefinition {
     }
 
     /// Sets or clear the value of [base_table_reference][crate::model::CloneDefinition::base_table_reference].
-    pub fn maybe_base_table_reference<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_base_table_reference<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::TableReference>,
     {
@@ -22476,7 +22542,7 @@ impl CloneDefinition {
     }
 
     /// Sets or clear the value of [clone_time][crate::model::CloneDefinition::clone_time].
-    pub fn maybe_clone_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_clone_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -22900,7 +22966,7 @@ impl Table {
     }
 
     /// Sets or clear the value of [table_reference][crate::model::Table::table_reference].
-    pub fn maybe_table_reference<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_table_reference<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::TableReference>,
     {
@@ -22918,7 +22984,7 @@ impl Table {
     }
 
     /// Sets or clear the value of [friendly_name][crate::model::Table::friendly_name].
-    pub fn maybe_friendly_name<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_friendly_name<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::StringValue>,
     {
@@ -22936,7 +23002,7 @@ impl Table {
     }
 
     /// Sets or clear the value of [description][crate::model::Table::description].
-    pub fn maybe_description<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_description<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::StringValue>,
     {
@@ -22966,7 +23032,7 @@ impl Table {
     }
 
     /// Sets or clear the value of [schema][crate::model::Table::schema].
-    pub fn maybe_schema<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_schema<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::TableSchema>,
     {
@@ -22984,7 +23050,7 @@ impl Table {
     }
 
     /// Sets or clear the value of [time_partitioning][crate::model::Table::time_partitioning].
-    pub fn maybe_time_partitioning<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_time_partitioning<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::TimePartitioning>,
     {
@@ -23002,7 +23068,7 @@ impl Table {
     }
 
     /// Sets or clear the value of [range_partitioning][crate::model::Table::range_partitioning].
-    pub fn maybe_range_partitioning<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_range_partitioning<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::RangePartitioning>,
     {
@@ -23020,7 +23086,7 @@ impl Table {
     }
 
     /// Sets or clear the value of [clustering][crate::model::Table::clustering].
-    pub fn maybe_clustering<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_clustering<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Clustering>,
     {
@@ -23038,7 +23104,7 @@ impl Table {
     }
 
     /// Sets or clear the value of [require_partition_filter][crate::model::Table::require_partition_filter].
-    pub fn maybe_require_partition_filter<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_require_partition_filter<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::BoolValue>,
     {
@@ -23056,7 +23122,7 @@ impl Table {
     }
 
     /// Sets or clear the value of [partition_definition][crate::model::Table::partition_definition].
-    pub fn maybe_partition_definition<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_partition_definition<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::PartitioningDefinition>,
     {
@@ -23074,7 +23140,7 @@ impl Table {
     }
 
     /// Sets or clear the value of [num_bytes][crate::model::Table::num_bytes].
-    pub fn maybe_num_bytes<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_num_bytes<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Int64Value>,
     {
@@ -23092,7 +23158,7 @@ impl Table {
     }
 
     /// Sets or clear the value of [num_physical_bytes][crate::model::Table::num_physical_bytes].
-    pub fn maybe_num_physical_bytes<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_num_physical_bytes<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Int64Value>,
     {
@@ -23110,7 +23176,7 @@ impl Table {
     }
 
     /// Sets or clear the value of [num_long_term_bytes][crate::model::Table::num_long_term_bytes].
-    pub fn maybe_num_long_term_bytes<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_num_long_term_bytes<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Int64Value>,
     {
@@ -23128,7 +23194,7 @@ impl Table {
     }
 
     /// Sets or clear the value of [num_rows][crate::model::Table::num_rows].
-    pub fn maybe_num_rows<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_num_rows<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::UInt64Value>,
     {
@@ -23152,7 +23218,7 @@ impl Table {
     }
 
     /// Sets or clear the value of [expiration_time][crate::model::Table::expiration_time].
-    pub fn maybe_expiration_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_expiration_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Int64Value>,
     {
@@ -23182,7 +23248,7 @@ impl Table {
     }
 
     /// Sets or clear the value of [view][crate::model::Table::view].
-    pub fn maybe_view<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_view<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ViewDefinition>,
     {
@@ -23200,7 +23266,7 @@ impl Table {
     }
 
     /// Sets or clear the value of [materialized_view][crate::model::Table::materialized_view].
-    pub fn maybe_materialized_view<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_materialized_view<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::MaterializedViewDefinition>,
     {
@@ -23218,7 +23284,7 @@ impl Table {
     }
 
     /// Sets or clear the value of [materialized_view_status][crate::model::Table::materialized_view_status].
-    pub fn maybe_materialized_view_status<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_materialized_view_status<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::MaterializedViewStatus>,
     {
@@ -23236,7 +23302,7 @@ impl Table {
     }
 
     /// Sets or clear the value of [external_data_configuration][crate::model::Table::external_data_configuration].
-    pub fn maybe_external_data_configuration<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_external_data_configuration<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ExternalDataConfiguration>,
     {
@@ -23254,7 +23320,7 @@ impl Table {
     }
 
     /// Sets or clear the value of [biglake_configuration][crate::model::Table::biglake_configuration].
-    pub fn maybe_biglake_configuration<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_biglake_configuration<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::BigLakeConfiguration>,
     {
@@ -23287,7 +23353,7 @@ impl Table {
     }
 
     /// Sets or clear the value of [streaming_buffer][crate::model::Table::streaming_buffer].
-    pub fn maybe_streaming_buffer<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_streaming_buffer<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Streamingbuffer>,
     {
@@ -23305,7 +23371,7 @@ impl Table {
     }
 
     /// Sets or clear the value of [encryption_configuration][crate::model::Table::encryption_configuration].
-    pub fn maybe_encryption_configuration<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_encryption_configuration<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::EncryptionConfiguration>,
     {
@@ -23323,7 +23389,7 @@ impl Table {
     }
 
     /// Sets or clear the value of [snapshot_definition][crate::model::Table::snapshot_definition].
-    pub fn maybe_snapshot_definition<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_snapshot_definition<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::SnapshotDefinition>,
     {
@@ -23341,7 +23407,7 @@ impl Table {
     }
 
     /// Sets or clear the value of [default_collation][crate::model::Table::default_collation].
-    pub fn maybe_default_collation<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_default_collation<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::StringValue>,
     {
@@ -23370,7 +23436,7 @@ impl Table {
     }
 
     /// Sets or clear the value of [clone_definition][crate::model::Table::clone_definition].
-    pub fn maybe_clone_definition<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_clone_definition<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CloneDefinition>,
     {
@@ -23388,7 +23454,10 @@ impl Table {
     }
 
     /// Sets or clear the value of [num_time_travel_physical_bytes][crate::model::Table::num_time_travel_physical_bytes].
-    pub fn maybe_num_time_travel_physical_bytes<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_num_time_travel_physical_bytes<T>(
+        mut self,
+        v: std::option::Option<T>,
+    ) -> Self
     where
         T: std::convert::Into<wkt::Int64Value>,
     {
@@ -23406,7 +23475,7 @@ impl Table {
     }
 
     /// Sets or clear the value of [num_total_logical_bytes][crate::model::Table::num_total_logical_bytes].
-    pub fn maybe_num_total_logical_bytes<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_num_total_logical_bytes<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Int64Value>,
     {
@@ -23424,7 +23493,7 @@ impl Table {
     }
 
     /// Sets or clear the value of [num_active_logical_bytes][crate::model::Table::num_active_logical_bytes].
-    pub fn maybe_num_active_logical_bytes<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_num_active_logical_bytes<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Int64Value>,
     {
@@ -23442,7 +23511,7 @@ impl Table {
     }
 
     /// Sets or clear the value of [num_long_term_logical_bytes][crate::model::Table::num_long_term_logical_bytes].
-    pub fn maybe_num_long_term_logical_bytes<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_num_long_term_logical_bytes<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Int64Value>,
     {
@@ -23460,7 +23529,7 @@ impl Table {
     }
 
     /// Sets or clear the value of [num_current_physical_bytes][crate::model::Table::num_current_physical_bytes].
-    pub fn maybe_num_current_physical_bytes<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_num_current_physical_bytes<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Int64Value>,
     {
@@ -23478,7 +23547,7 @@ impl Table {
     }
 
     /// Sets or clear the value of [num_total_physical_bytes][crate::model::Table::num_total_physical_bytes].
-    pub fn maybe_num_total_physical_bytes<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_num_total_physical_bytes<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Int64Value>,
     {
@@ -23496,7 +23565,7 @@ impl Table {
     }
 
     /// Sets or clear the value of [num_active_physical_bytes][crate::model::Table::num_active_physical_bytes].
-    pub fn maybe_num_active_physical_bytes<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_num_active_physical_bytes<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Int64Value>,
     {
@@ -23514,7 +23583,7 @@ impl Table {
     }
 
     /// Sets or clear the value of [num_long_term_physical_bytes][crate::model::Table::num_long_term_physical_bytes].
-    pub fn maybe_num_long_term_physical_bytes<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_num_long_term_physical_bytes<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Int64Value>,
     {
@@ -23532,7 +23601,7 @@ impl Table {
     }
 
     /// Sets or clear the value of [num_partitions][crate::model::Table::num_partitions].
-    pub fn maybe_num_partitions<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_num_partitions<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Int64Value>,
     {
@@ -23556,7 +23625,7 @@ impl Table {
     }
 
     /// Sets or clear the value of [restrictions][crate::model::Table::restrictions].
-    pub fn maybe_restrictions<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_restrictions<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::RestrictionConfig>,
     {
@@ -23574,7 +23643,7 @@ impl Table {
     }
 
     /// Sets or clear the value of [table_constraints][crate::model::Table::table_constraints].
-    pub fn maybe_table_constraints<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_table_constraints<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::TableConstraints>,
     {
@@ -23604,7 +23673,7 @@ impl Table {
     }
 
     /// Sets or clear the value of [table_replication_info][crate::model::Table::table_replication_info].
-    pub fn maybe_table_replication_info<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_table_replication_info<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::TableReplicationInfo>,
     {
@@ -23633,7 +23702,10 @@ impl Table {
     }
 
     /// Sets or clear the value of [external_catalog_table_options][crate::model::Table::external_catalog_table_options].
-    pub fn maybe_external_catalog_table_options<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_external_catalog_table_options<T>(
+        mut self,
+        v: std::option::Option<T>,
+    ) -> Self
     where
         T: std::convert::Into<crate::model::ExternalCatalogTableOptions>,
     {
@@ -23930,7 +24002,7 @@ impl InsertTableRequest {
     }
 
     /// Sets or clear the value of [table][crate::model::InsertTableRequest::table].
-    pub fn maybe_table<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_table<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Table>,
     {
@@ -24007,7 +24079,7 @@ impl UpdateOrPatchTableRequest {
     }
 
     /// Sets or clear the value of [table][crate::model::UpdateOrPatchTableRequest::table].
-    pub fn maybe_table<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_table<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Table>,
     {
@@ -24135,7 +24207,7 @@ impl ListTablesRequest {
     }
 
     /// Sets or clear the value of [max_results][crate::model::ListTablesRequest::max_results].
-    pub fn maybe_max_results<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_max_results<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::UInt32Value>,
     {
@@ -24190,7 +24262,7 @@ impl ListFormatView {
     }
 
     /// Sets or clear the value of [use_legacy_sql][crate::model::ListFormatView::use_legacy_sql].
-    pub fn maybe_use_legacy_sql<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_use_legacy_sql<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::BoolValue>,
     {
@@ -24208,7 +24280,7 @@ impl ListFormatView {
     }
 
     /// Sets or clear the value of [privacy_policy][crate::model::ListFormatView::privacy_policy].
-    pub fn maybe_privacy_policy<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_privacy_policy<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::PrivacyPolicy>,
     {
@@ -24319,7 +24391,7 @@ impl ListFormatTable {
     }
 
     /// Sets or clear the value of [table_reference][crate::model::ListFormatTable::table_reference].
-    pub fn maybe_table_reference<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_table_reference<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::TableReference>,
     {
@@ -24337,7 +24409,7 @@ impl ListFormatTable {
     }
 
     /// Sets or clear the value of [friendly_name][crate::model::ListFormatTable::friendly_name].
-    pub fn maybe_friendly_name<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_friendly_name<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::StringValue>,
     {
@@ -24361,7 +24433,7 @@ impl ListFormatTable {
     }
 
     /// Sets or clear the value of [time_partitioning][crate::model::ListFormatTable::time_partitioning].
-    pub fn maybe_time_partitioning<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_time_partitioning<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::TimePartitioning>,
     {
@@ -24379,7 +24451,7 @@ impl ListFormatTable {
     }
 
     /// Sets or clear the value of [range_partitioning][crate::model::ListFormatTable::range_partitioning].
-    pub fn maybe_range_partitioning<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_range_partitioning<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::RangePartitioning>,
     {
@@ -24397,7 +24469,7 @@ impl ListFormatTable {
     }
 
     /// Sets or clear the value of [clustering][crate::model::ListFormatTable::clustering].
-    pub fn maybe_clustering<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_clustering<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Clustering>,
     {
@@ -24427,7 +24499,7 @@ impl ListFormatTable {
     }
 
     /// Sets or clear the value of [view][crate::model::ListFormatTable::view].
-    pub fn maybe_view<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_view<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ListFormatView>,
     {
@@ -24457,7 +24529,7 @@ impl ListFormatTable {
     }
 
     /// Sets or clear the value of [require_partition_filter][crate::model::ListFormatTable::require_partition_filter].
-    pub fn maybe_require_partition_filter<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_require_partition_filter<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::BoolValue>,
     {
@@ -24546,7 +24618,7 @@ impl TableList {
     }
 
     /// Sets or clear the value of [total_items][crate::model::TableList::total_items].
-    pub fn maybe_total_items<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_total_items<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Int32Value>,
     {
@@ -24691,7 +24763,7 @@ impl ForeignKey {
     }
 
     /// Sets or clear the value of [referenced_table][crate::model::ForeignKey::referenced_table].
-    pub fn maybe_referenced_table<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_referenced_table<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::TableReference>,
     {
@@ -24753,7 +24825,7 @@ impl TableConstraints {
     }
 
     /// Sets or clear the value of [primary_key][crate::model::TableConstraints::primary_key].
-    pub fn maybe_primary_key<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_primary_key<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::PrimaryKey>,
     {
@@ -24884,7 +24956,7 @@ impl TableSchema {
     }
 
     /// Sets or clear the value of [foreign_type_info][crate::model::TableSchema::foreign_type_info].
-    pub fn maybe_foreign_type_info<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_foreign_type_info<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ForeignTypeInfo>,
     {
@@ -25097,7 +25169,7 @@ impl DataPolicyOption {
     }
 
     /// Sets or clear the value of [name][crate::model::DataPolicyOption::name].
-    pub fn maybe_name<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_name<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
     {
@@ -25309,7 +25381,7 @@ impl TableFieldSchema {
     }
 
     /// Sets or clear the value of [description][crate::model::TableFieldSchema::description].
-    pub fn maybe_description<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_description<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::StringValue>,
     {
@@ -25327,7 +25399,7 @@ impl TableFieldSchema {
     }
 
     /// Sets or clear the value of [policy_tags][crate::model::TableFieldSchema::policy_tags].
-    pub fn maybe_policy_tags<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_policy_tags<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::table_field_schema::PolicyTagList>,
     {
@@ -25385,7 +25457,7 @@ impl TableFieldSchema {
     }
 
     /// Sets or clear the value of [collation][crate::model::TableFieldSchema::collation].
-    pub fn maybe_collation<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_collation<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::StringValue>,
     {
@@ -25403,7 +25475,7 @@ impl TableFieldSchema {
     }
 
     /// Sets or clear the value of [default_value_expression][crate::model::TableFieldSchema::default_value_expression].
-    pub fn maybe_default_value_expression<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_default_value_expression<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::StringValue>,
     {
@@ -25421,7 +25493,7 @@ impl TableFieldSchema {
     }
 
     /// Sets or clear the value of [range_element_type][crate::model::TableFieldSchema::range_element_type].
-    pub fn maybe_range_element_type<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_range_element_type<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::table_field_schema::FieldElementType>,
     {
@@ -25723,7 +25795,7 @@ impl TimePartitioning {
     }
 
     /// Sets or clear the value of [expiration_ms][crate::model::TimePartitioning::expiration_ms].
-    pub fn maybe_expiration_ms<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_expiration_ms<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Int64Value>,
     {
@@ -25741,7 +25813,7 @@ impl TimePartitioning {
     }
 
     /// Sets or clear the value of [field][crate::model::TimePartitioning::field].
-    pub fn maybe_field<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_field<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::StringValue>,
     {
@@ -25798,7 +25870,7 @@ impl UserDefinedFunctionResource {
     }
 
     /// Sets or clear the value of [resource_uri][crate::model::UserDefinedFunctionResource::resource_uri].
-    pub fn maybe_resource_uri<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_resource_uri<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::StringValue>,
     {
@@ -25816,7 +25888,7 @@ impl UserDefinedFunctionResource {
     }
 
     /// Sets or clear the value of [inline_code][crate::model::UserDefinedFunctionResource::inline_code].
-    pub fn maybe_inline_code<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_inline_code<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::StringValue>,
     {

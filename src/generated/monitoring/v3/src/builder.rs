@@ -318,7 +318,7 @@ pub mod alert_policy_service {
         /// Sets or clear the value of [alert_policy][crate::model::CreateAlertPolicyRequest::alert_policy].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_alert_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_alert_policy<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::AlertPolicy>,
         {
@@ -458,7 +458,7 @@ pub mod alert_policy_service {
         }
 
         /// Sets or clear the value of [update_mask][crate::model::UpdateAlertPolicyRequest::update_mask].
-        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
         {
@@ -480,7 +480,7 @@ pub mod alert_policy_service {
         /// Sets or clear the value of [alert_policy][crate::model::UpdateAlertPolicyRequest::alert_policy].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_alert_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_alert_policy<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::AlertPolicy>,
         {
@@ -834,7 +834,7 @@ pub mod group_service {
         /// Sets or clear the value of [group][crate::model::CreateGroupRequest::group].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_group<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_group<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Group>,
         {
@@ -916,7 +916,7 @@ pub mod group_service {
         /// Sets or clear the value of [group][crate::model::UpdateGroupRequest::group].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_group<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_group<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Group>,
         {
@@ -1119,7 +1119,7 @@ pub mod group_service {
         }
 
         /// Sets or clear the value of [interval][crate::model::ListGroupMembersRequest::interval].
-        pub fn maybe_interval<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_interval<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::TimeInterval>,
         {
@@ -1629,7 +1629,7 @@ pub mod metric_service {
         /// Sets or clear the value of [metric_descriptor][crate::model::CreateMetricDescriptorRequest::metric_descriptor].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_metric_descriptor<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_metric_descriptor<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<api::model::MetricDescriptor>,
         {
@@ -1814,7 +1814,7 @@ pub mod metric_service {
         /// Sets or clear the value of [interval][crate::model::ListTimeSeriesRequest::interval].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_interval<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_interval<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::TimeInterval>,
         {
@@ -1832,7 +1832,7 @@ pub mod metric_service {
         }
 
         /// Sets or clear the value of [aggregation][crate::model::ListTimeSeriesRequest::aggregation].
-        pub fn maybe_aggregation<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_aggregation<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Aggregation>,
         {
@@ -1850,7 +1850,7 @@ pub mod metric_service {
         }
 
         /// Sets or clear the value of [secondary_aggregation][crate::model::ListTimeSeriesRequest::secondary_aggregation].
-        pub fn maybe_secondary_aggregation<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_secondary_aggregation<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Aggregation>,
         {
@@ -2547,7 +2547,7 @@ pub mod notification_channel_service {
         /// Sets or clear the value of [notification_channel][crate::model::CreateNotificationChannelRequest::notification_channel].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_notification_channel<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_notification_channel<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::NotificationChannel>,
         {
@@ -2624,7 +2624,7 @@ pub mod notification_channel_service {
         }
 
         /// Sets or clear the value of [update_mask][crate::model::UpdateNotificationChannelRequest::update_mask].
-        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
         {
@@ -2646,7 +2646,7 @@ pub mod notification_channel_service {
         /// Sets or clear the value of [notification_channel][crate::model::UpdateNotificationChannelRequest::notification_channel].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_notification_channel<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_notification_channel<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::NotificationChannel>,
         {
@@ -2877,7 +2877,7 @@ pub mod notification_channel_service {
         }
 
         /// Sets or clear the value of [expire_time][crate::model::GetNotificationChannelVerificationCodeRequest::expire_time].
-        pub fn maybe_expire_time<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_expire_time<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
         {
@@ -3262,7 +3262,7 @@ pub mod service_monitoring_service {
         /// Sets or clear the value of [service][crate::model::CreateServiceRequest::service].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_service<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_service<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Service>,
         {
@@ -3508,7 +3508,7 @@ pub mod service_monitoring_service {
         /// Sets or clear the value of [service][crate::model::UpdateServiceRequest::service].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_service<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_service<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Service>,
         {
@@ -3526,7 +3526,7 @@ pub mod service_monitoring_service {
         }
 
         /// Sets or clear the value of [update_mask][crate::model::UpdateServiceRequest::update_mask].
-        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
         {
@@ -3686,7 +3686,7 @@ pub mod service_monitoring_service {
         /// Sets or clear the value of [service_level_objective][crate::model::CreateServiceLevelObjectiveRequest::service_level_objective].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_service_level_objective<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_service_level_objective<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::ServiceLevelObjective>,
         {
@@ -3969,7 +3969,7 @@ pub mod service_monitoring_service {
         /// Sets or clear the value of [service_level_objective][crate::model::UpdateServiceLevelObjectiveRequest::service_level_objective].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_service_level_objective<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_service_level_objective<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::ServiceLevelObjective>,
         {
@@ -3987,7 +3987,7 @@ pub mod service_monitoring_service {
         }
 
         /// Sets or clear the value of [update_mask][crate::model::UpdateServiceLevelObjectiveRequest::update_mask].
-        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
         {
@@ -4193,7 +4193,7 @@ pub mod snooze_service {
         /// Sets or clear the value of [snooze][crate::model::CreateSnoozeRequest::snooze].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_snooze<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_snooze<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Snooze>,
         {
@@ -4439,7 +4439,7 @@ pub mod snooze_service {
         /// Sets or clear the value of [snooze][crate::model::UpdateSnoozeRequest::snooze].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_snooze<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_snooze<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Snooze>,
         {
@@ -4461,7 +4461,7 @@ pub mod snooze_service {
         /// Sets or clear the value of [update_mask][crate::model::UpdateSnoozeRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
         {
@@ -4785,7 +4785,7 @@ pub mod uptime_check_service {
         /// Sets or clear the value of [uptime_check_config][crate::model::CreateUptimeCheckConfigRequest::uptime_check_config].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_uptime_check_config<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_uptime_check_config<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::UptimeCheckConfig>,
         {
@@ -4862,7 +4862,7 @@ pub mod uptime_check_service {
         }
 
         /// Sets or clear the value of [update_mask][crate::model::UpdateUptimeCheckConfigRequest::update_mask].
-        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
         {
@@ -4884,7 +4884,7 @@ pub mod uptime_check_service {
         /// Sets or clear the value of [uptime_check_config][crate::model::UpdateUptimeCheckConfigRequest::uptime_check_config].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_uptime_check_config<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_uptime_check_config<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::UptimeCheckConfig>,
         {

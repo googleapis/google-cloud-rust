@@ -373,7 +373,7 @@ pub mod reachability_service {
         /// Sets or clear the value of [resource][crate::model::CreateConnectivityTestRequest::resource].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_resource<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_resource<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::ConnectivityTest>,
         {
@@ -494,7 +494,7 @@ pub mod reachability_service {
         /// Sets or clear the value of [update_mask][crate::model::UpdateConnectivityTestRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
         {
@@ -516,7 +516,7 @@ pub mod reachability_service {
         /// Sets or clear the value of [resource][crate::model::UpdateConnectivityTestRequest::resource].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_resource<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_resource<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::ConnectivityTest>,
         {
@@ -982,7 +982,7 @@ pub mod reachability_service {
         /// Sets or clear the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<iam_v1::model::Policy>,
         {
@@ -1000,7 +1000,7 @@ pub mod reachability_service {
         }
 
         /// Sets or clear the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
-        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
         {
@@ -1080,7 +1080,7 @@ pub mod reachability_service {
         }
 
         /// Sets or clear the value of [options][iam_v1::model::GetIamPolicyRequest::options].
-        pub fn maybe_options<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
         {
@@ -1838,7 +1838,7 @@ pub mod vpc_flow_logs_service {
         /// Sets or clear the value of [vpc_flow_logs_config][crate::model::CreateVpcFlowLogsConfigRequest::vpc_flow_logs_config].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_vpc_flow_logs_config<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_vpc_flow_logs_config<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::VpcFlowLogsConfig>,
         {
@@ -1961,7 +1961,7 @@ pub mod vpc_flow_logs_service {
         /// Sets or clear the value of [update_mask][crate::model::UpdateVpcFlowLogsConfigRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
         {
@@ -1983,7 +1983,7 @@ pub mod vpc_flow_logs_service {
         /// Sets or clear the value of [vpc_flow_logs_config][crate::model::UpdateVpcFlowLogsConfigRequest::vpc_flow_logs_config].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_vpc_flow_logs_config<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_vpc_flow_logs_config<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::VpcFlowLogsConfig>,
         {
@@ -2344,7 +2344,7 @@ pub mod vpc_flow_logs_service {
         /// Sets or clear the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<iam_v1::model::Policy>,
         {
@@ -2362,7 +2362,7 @@ pub mod vpc_flow_logs_service {
         }
 
         /// Sets or clear the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
-        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
         {
@@ -2442,7 +2442,7 @@ pub mod vpc_flow_logs_service {
         }
 
         /// Sets or clear the value of [options][iam_v1::model::GetIamPolicyRequest::options].
-        pub fn maybe_options<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
         {

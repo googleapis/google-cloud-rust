@@ -209,7 +209,10 @@ impl AdvancedVoiceOptions {
     }
 
     /// Sets or clear the value of [low_latency_journey_synthesis][crate::model::AdvancedVoiceOptions::low_latency_journey_synthesis].
-    pub fn maybe_low_latency_journey_synthesis<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_low_latency_journey_synthesis<T>(
+        mut self,
+        v: std::option::Option<T>,
+    ) -> Self
     where
         T: std::convert::Into<bool>,
     {
@@ -265,7 +268,7 @@ impl SynthesizeSpeechRequest {
     }
 
     /// Sets or clear the value of [input][crate::model::SynthesizeSpeechRequest::input].
-    pub fn maybe_input<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_input<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::SynthesisInput>,
     {
@@ -283,7 +286,7 @@ impl SynthesizeSpeechRequest {
     }
 
     /// Sets or clear the value of [voice][crate::model::SynthesizeSpeechRequest::voice].
-    pub fn maybe_voice<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_voice<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::VoiceSelectionParams>,
     {
@@ -301,7 +304,7 @@ impl SynthesizeSpeechRequest {
     }
 
     /// Sets or clear the value of [audio_config][crate::model::SynthesizeSpeechRequest::audio_config].
-    pub fn maybe_audio_config<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_audio_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::AudioConfig>,
     {
@@ -319,7 +322,7 @@ impl SynthesizeSpeechRequest {
     }
 
     /// Sets or clear the value of [advanced_voice_options][crate::model::SynthesizeSpeechRequest::advanced_voice_options].
-    pub fn maybe_advanced_voice_options<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_advanced_voice_options<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::AdvancedVoiceOptions>,
     {
@@ -375,7 +378,7 @@ impl CustomPronunciationParams {
     }
 
     /// Sets or clear the value of [phrase][crate::model::CustomPronunciationParams::phrase].
-    pub fn maybe_phrase<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_phrase<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
     {
@@ -393,7 +396,7 @@ impl CustomPronunciationParams {
     }
 
     /// Sets or clear the value of [phonetic_encoding][crate::model::CustomPronunciationParams::phonetic_encoding].
-    pub fn maybe_phonetic_encoding<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_phonetic_encoding<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::custom_pronunciation_params::PhoneticEncoding>,
     {
@@ -411,7 +414,7 @@ impl CustomPronunciationParams {
     }
 
     /// Sets or clear the value of [pronunciation][crate::model::CustomPronunciationParams::pronunciation].
-    pub fn maybe_pronunciation<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_pronunciation<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
     {
@@ -769,7 +772,7 @@ impl SynthesisInput {
     }
 
     /// Sets or clear the value of [custom_pronunciations][crate::model::SynthesisInput::custom_pronunciations].
-    pub fn maybe_custom_pronunciations<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_custom_pronunciations<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CustomPronunciations>,
     {
@@ -1009,7 +1012,7 @@ impl VoiceSelectionParams {
     }
 
     /// Sets or clear the value of [custom_voice][crate::model::VoiceSelectionParams::custom_voice].
-    pub fn maybe_custom_voice<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_custom_voice<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CustomVoiceParams>,
     {
@@ -1027,7 +1030,7 @@ impl VoiceSelectionParams {
     }
 
     /// Sets or clear the value of [voice_clone][crate::model::VoiceSelectionParams::voice_clone].
-    pub fn maybe_voice_clone<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_voice_clone<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::VoiceCloneParams>,
     {
@@ -1525,7 +1528,7 @@ impl StreamingSynthesizeConfig {
     }
 
     /// Sets or clear the value of [voice][crate::model::StreamingSynthesizeConfig::voice].
-    pub fn maybe_voice<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_voice<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::VoiceSelectionParams>,
     {
@@ -1543,7 +1546,7 @@ impl StreamingSynthesizeConfig {
     }
 
     /// Sets or clear the value of [streaming_audio_config][crate::model::StreamingSynthesizeConfig::streaming_audio_config].
-    pub fn maybe_streaming_audio_config<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_streaming_audio_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::StreamingAudioConfig>,
     {
@@ -1561,7 +1564,7 @@ impl StreamingSynthesizeConfig {
     }
 
     /// Sets or clear the value of [custom_pronunciations][crate::model::StreamingSynthesizeConfig::custom_pronunciations].
-    pub fn maybe_custom_pronunciations<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_custom_pronunciations<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CustomPronunciations>,
     {
@@ -1911,7 +1914,7 @@ impl SynthesizeLongAudioRequest {
     }
 
     /// Sets or clear the value of [input][crate::model::SynthesizeLongAudioRequest::input].
-    pub fn maybe_input<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_input<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::SynthesisInput>,
     {
@@ -1929,7 +1932,7 @@ impl SynthesizeLongAudioRequest {
     }
 
     /// Sets or clear the value of [audio_config][crate::model::SynthesizeLongAudioRequest::audio_config].
-    pub fn maybe_audio_config<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_audio_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::AudioConfig>,
     {
@@ -1953,7 +1956,7 @@ impl SynthesizeLongAudioRequest {
     }
 
     /// Sets or clear the value of [voice][crate::model::SynthesizeLongAudioRequest::voice].
-    pub fn maybe_voice<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_voice<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::VoiceSelectionParams>,
     {
@@ -2029,7 +2032,7 @@ impl SynthesizeLongAudioMetadata {
     }
 
     /// Sets or clear the value of [start_time][crate::model::SynthesizeLongAudioMetadata::start_time].
-    pub fn maybe_start_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -2049,7 +2052,7 @@ impl SynthesizeLongAudioMetadata {
 
     /// Sets or clear the value of [last_update_time][crate::model::SynthesizeLongAudioMetadata::last_update_time].
     #[deprecated]
-    pub fn maybe_last_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_last_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {

@@ -320,7 +320,7 @@ pub mod parameter_manager {
         /// Sets or clear the value of [parameter][crate::model::CreateParameterRequest::parameter].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_parameter<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_parameter<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Parameter>,
         {
@@ -398,7 +398,7 @@ pub mod parameter_manager {
         }
 
         /// Sets or clear the value of [update_mask][crate::model::UpdateParameterRequest::update_mask].
-        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
         {
@@ -420,7 +420,7 @@ pub mod parameter_manager {
         /// Sets or clear the value of [parameter][crate::model::UpdateParameterRequest::parameter].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_parameter<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_parameter<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Parameter>,
         {
@@ -844,7 +844,7 @@ pub mod parameter_manager {
         /// Sets or clear the value of [parameter_version][crate::model::CreateParameterVersionRequest::parameter_version].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_parameter_version<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_parameter_version<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::ParameterVersion>,
         {
@@ -925,7 +925,7 @@ pub mod parameter_manager {
         }
 
         /// Sets or clear the value of [update_mask][crate::model::UpdateParameterVersionRequest::update_mask].
-        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
         {
@@ -947,7 +947,7 @@ pub mod parameter_manager {
         /// Sets or clear the value of [parameter_version][crate::model::UpdateParameterVersionRequest::parameter_version].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_parameter_version<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_parameter_version<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::ParameterVersion>,
         {

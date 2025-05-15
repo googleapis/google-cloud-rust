@@ -362,7 +362,7 @@ pub mod developer_connect {
         /// Sets or clear the value of [connection][crate::model::CreateConnectionRequest::connection].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_connection<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_connection<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Connection>,
         {
@@ -492,7 +492,7 @@ pub mod developer_connect {
         /// Sets or clear the value of [update_mask][crate::model::UpdateConnectionRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
         {
@@ -514,7 +514,7 @@ pub mod developer_connect {
         /// Sets or clear the value of [connection][crate::model::UpdateConnectionRequest::connection].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_connection<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_connection<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Connection>,
         {
@@ -787,7 +787,7 @@ pub mod developer_connect {
         /// Sets or clear the value of [git_repository_link][crate::model::CreateGitRepositoryLinkRequest::git_repository_link].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_git_repository_link<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_git_repository_link<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::GitRepositoryLink>,
         {

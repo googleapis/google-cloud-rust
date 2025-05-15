@@ -84,7 +84,7 @@ impl CreateConnectionRequest {
     }
 
     /// Sets or clear the value of [connection][crate::model::CreateConnectionRequest::connection].
-    pub fn maybe_connection<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_connection<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Connection>,
     {
@@ -302,7 +302,7 @@ impl UpdateConnectionRequest {
     }
 
     /// Sets or clear the value of [connection][crate::model::UpdateConnectionRequest::connection].
-    pub fn maybe_connection<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_connection<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Connection>,
     {
@@ -320,7 +320,7 @@ impl UpdateConnectionRequest {
     }
 
     /// Sets or clear the value of [update_mask][crate::model::UpdateConnectionRequest::update_mask].
-    pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
     {
@@ -768,7 +768,7 @@ impl CloudSqlProperties {
     }
 
     /// Sets or clear the value of [credential][crate::model::CloudSqlProperties::credential].
-    pub fn maybe_credential<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_credential<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CloudSqlCredential>,
     {
@@ -1590,7 +1590,7 @@ impl SparkProperties {
     }
 
     /// Sets or clear the value of [metastore_service_config][crate::model::SparkProperties::metastore_service_config].
-    pub fn maybe_metastore_service_config<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_metastore_service_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::MetastoreServiceConfig>,
     {
@@ -1608,7 +1608,7 @@ impl SparkProperties {
     }
 
     /// Sets or clear the value of [spark_history_server_config][crate::model::SparkProperties::spark_history_server_config].
-    pub fn maybe_spark_history_server_config<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_spark_history_server_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::SparkHistoryServerConfig>,
     {

@@ -99,7 +99,7 @@ impl CheckRequest {
     }
 
     /// Sets or clear the value of [attributes][crate::model::CheckRequest::attributes].
-    pub fn maybe_attributes<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_attributes<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<rpc_context::model::AttributeContext>,
     {
@@ -251,7 +251,7 @@ impl CheckResponse {
     }
 
     /// Sets or clear the value of [status][crate::model::CheckResponse::status].
-    pub fn maybe_status<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_status<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<rpc::model::Status>,
     {

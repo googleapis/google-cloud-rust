@@ -82,7 +82,7 @@ impl SetIamPolicyRequest {
     }
 
     /// Sets or clear the value of [policy][crate::model::SetIamPolicyRequest::policy].
-    pub fn maybe_policy<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Policy>,
     {
@@ -100,7 +100,7 @@ impl SetIamPolicyRequest {
     }
 
     /// Sets or clear the value of [update_mask][crate::model::SetIamPolicyRequest::update_mask].
-    pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
     {
@@ -156,7 +156,7 @@ impl GetIamPolicyRequest {
     }
 
     /// Sets or clear the value of [options][crate::model::GetIamPolicyRequest::options].
-    pub fn maybe_options<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::GetPolicyOptions>,
     {
@@ -603,7 +603,7 @@ impl Binding {
     }
 
     /// Sets or clear the value of [condition][crate::model::Binding::condition].
-    pub fn maybe_condition<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_condition<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<gtype::model::Expr>,
     {
@@ -1058,7 +1058,7 @@ impl BindingDelta {
     }
 
     /// Sets or clear the value of [condition][crate::model::BindingDelta::condition].
-    pub fn maybe_condition<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_condition<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<gtype::model::Expr>,
     {

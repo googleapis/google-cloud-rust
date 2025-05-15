@@ -374,7 +374,7 @@ pub mod connectors {
         /// Sets or clear the value of [connection][crate::model::CreateConnectionRequest::connection].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_connection<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_connection<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Connection>,
         {
@@ -492,7 +492,7 @@ pub mod connectors {
         /// Sets or clear the value of [connection][crate::model::UpdateConnectionRequest::connection].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_connection<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_connection<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Connection>,
         {
@@ -514,7 +514,7 @@ pub mod connectors {
         /// Sets or clear the value of [update_mask][crate::model::UpdateConnectionRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
         {
@@ -1929,7 +1929,7 @@ pub mod connectors {
         /// Sets or clear the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<iam_v1::model::Policy>,
         {
@@ -1947,7 +1947,7 @@ pub mod connectors {
         }
 
         /// Sets or clear the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
-        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
         {
@@ -2027,7 +2027,7 @@ pub mod connectors {
         }
 
         /// Sets or clear the value of [options][iam_v1::model::GetIamPolicyRequest::options].
-        pub fn maybe_options<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
         {

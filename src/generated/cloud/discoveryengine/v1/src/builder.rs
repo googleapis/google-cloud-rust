@@ -537,7 +537,7 @@ pub mod completion_service {
         }
 
         /// Sets or clear the value of [error_config][crate::model::ImportCompletionSuggestionsRequest::error_config].
-        pub fn maybe_error_config<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_error_config<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::ImportErrorConfig>,
         {
@@ -1085,7 +1085,7 @@ pub mod control_service {
         /// Sets or clear the value of [control][crate::model::CreateControlRequest::control].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_control<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_control<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Control>,
         {
@@ -1231,7 +1231,7 @@ pub mod control_service {
         /// Sets or clear the value of [control][crate::model::UpdateControlRequest::control].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_control<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_control<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Control>,
         {
@@ -1249,7 +1249,7 @@ pub mod control_service {
         }
 
         /// Sets or clear the value of [update_mask][crate::model::UpdateControlRequest::update_mask].
-        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
         {
@@ -1798,7 +1798,7 @@ pub mod conversational_search_service {
         /// Sets or clear the value of [query][crate::model::ConverseConversationRequest::query].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_query<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_query<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::TextInput>,
         {
@@ -1822,7 +1822,7 @@ pub mod conversational_search_service {
         }
 
         /// Sets or clear the value of [conversation][crate::model::ConverseConversationRequest::conversation].
-        pub fn maybe_conversation<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_conversation<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Conversation>,
         {
@@ -1857,7 +1857,7 @@ pub mod conversational_search_service {
         }
 
         /// Sets or clear the value of [summary_spec][crate::model::ConverseConversationRequest::summary_spec].
-        pub fn maybe_summary_spec<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_summary_spec<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::search_request::content_search_spec::SummarySpec>,
         {
@@ -1881,7 +1881,7 @@ pub mod conversational_search_service {
         }
 
         /// Sets or clear the value of [boost_spec][crate::model::ConverseConversationRequest::boost_spec].
-        pub fn maybe_boost_spec<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_boost_spec<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::search_request::BoostSpec>,
         {
@@ -1968,7 +1968,7 @@ pub mod conversational_search_service {
         /// Sets or clear the value of [conversation][crate::model::CreateConversationRequest::conversation].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_conversation<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_conversation<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Conversation>,
         {
@@ -2112,7 +2112,7 @@ pub mod conversational_search_service {
         /// Sets or clear the value of [conversation][crate::model::UpdateConversationRequest::conversation].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_conversation<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_conversation<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Conversation>,
         {
@@ -2130,7 +2130,7 @@ pub mod conversational_search_service {
         }
 
         /// Sets or clear the value of [update_mask][crate::model::UpdateConversationRequest::update_mask].
-        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
         {
@@ -2393,7 +2393,7 @@ pub mod conversational_search_service {
         /// Sets or clear the value of [query][crate::model::AnswerQueryRequest::query].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_query<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_query<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Query>,
         {
@@ -2417,7 +2417,7 @@ pub mod conversational_search_service {
         }
 
         /// Sets or clear the value of [safety_spec][crate::model::AnswerQueryRequest::safety_spec].
-        pub fn maybe_safety_spec<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_safety_spec<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::answer_query_request::SafetySpec>,
         {
@@ -2435,7 +2435,7 @@ pub mod conversational_search_service {
         }
 
         /// Sets or clear the value of [related_questions_spec][crate::model::AnswerQueryRequest::related_questions_spec].
-        pub fn maybe_related_questions_spec<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_related_questions_spec<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::answer_query_request::RelatedQuestionsSpec>,
         {
@@ -2453,7 +2453,7 @@ pub mod conversational_search_service {
         }
 
         /// Sets or clear the value of [grounding_spec][crate::model::AnswerQueryRequest::grounding_spec].
-        pub fn maybe_grounding_spec<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_grounding_spec<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::answer_query_request::GroundingSpec>,
         {
@@ -2471,7 +2471,7 @@ pub mod conversational_search_service {
         }
 
         /// Sets or clear the value of [answer_generation_spec][crate::model::AnswerQueryRequest::answer_generation_spec].
-        pub fn maybe_answer_generation_spec<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_answer_generation_spec<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::answer_query_request::AnswerGenerationSpec>,
         {
@@ -2489,7 +2489,7 @@ pub mod conversational_search_service {
         }
 
         /// Sets or clear the value of [search_spec][crate::model::AnswerQueryRequest::search_spec].
-        pub fn maybe_search_spec<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_search_spec<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::answer_query_request::SearchSpec>,
         {
@@ -2507,7 +2507,7 @@ pub mod conversational_search_service {
         }
 
         /// Sets or clear the value of [query_understanding_spec][crate::model::AnswerQueryRequest::query_understanding_spec].
-        pub fn maybe_query_understanding_spec<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_query_understanding_spec<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::answer_query_request::QueryUnderstandingSpec>,
         {
@@ -2549,7 +2549,7 @@ pub mod conversational_search_service {
         }
 
         /// Sets or clear the value of [end_user_spec][crate::model::AnswerQueryRequest::end_user_spec].
-        pub fn maybe_end_user_spec<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_end_user_spec<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::answer_query_request::EndUserSpec>,
         {
@@ -2695,7 +2695,7 @@ pub mod conversational_search_service {
         /// Sets or clear the value of [session][crate::model::CreateSessionRequest::session].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_session<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_session<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Session>,
         {
@@ -2833,7 +2833,7 @@ pub mod conversational_search_service {
         /// Sets or clear the value of [session][crate::model::UpdateSessionRequest::session].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_session<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_session<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Session>,
         {
@@ -2851,7 +2851,7 @@ pub mod conversational_search_service {
         }
 
         /// Sets or clear the value of [update_mask][crate::model::UpdateSessionRequest::update_mask].
-        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
         {
@@ -3451,7 +3451,7 @@ pub mod data_store_service {
         /// Sets or clear the value of [data_store][crate::model::CreateDataStoreRequest::data_store].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_data_store<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_data_store<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::DataStore>,
         {
@@ -3821,7 +3821,7 @@ pub mod data_store_service {
         /// Sets or clear the value of [data_store][crate::model::UpdateDataStoreRequest::data_store].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_data_store<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_data_store<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::DataStore>,
         {
@@ -3839,7 +3839,7 @@ pub mod data_store_service {
         }
 
         /// Sets or clear the value of [update_mask][crate::model::UpdateDataStoreRequest::update_mask].
-        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
         {
@@ -4379,7 +4379,7 @@ pub mod document_service {
         /// Sets or clear the value of [document][crate::model::CreateDocumentRequest::document].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_document<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_document<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Document>,
         {
@@ -4463,7 +4463,7 @@ pub mod document_service {
         /// Sets or clear the value of [document][crate::model::UpdateDocumentRequest::document].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_document<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_document<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Document>,
         {
@@ -4487,7 +4487,7 @@ pub mod document_service {
         }
 
         /// Sets or clear the value of [update_mask][crate::model::UpdateDocumentRequest::update_mask].
-        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
         {
@@ -4671,7 +4671,7 @@ pub mod document_service {
         }
 
         /// Sets or clear the value of [error_config][crate::model::ImportDocumentsRequest::error_config].
-        pub fn maybe_error_config<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_error_config<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::ImportErrorConfig>,
         {
@@ -4700,7 +4700,7 @@ pub mod document_service {
         }
 
         /// Sets or clear the value of [update_mask][crate::model::ImportDocumentsRequest::update_mask].
-        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
         {
@@ -4995,7 +4995,7 @@ pub mod document_service {
         }
 
         /// Sets or clear the value of [error_config][crate::model::PurgeDocumentsRequest::error_config].
-        pub fn maybe_error_config<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_error_config<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::PurgeErrorConfig>,
         {
@@ -5132,7 +5132,7 @@ pub mod document_service {
         /// Sets or clear the value of [matcher][crate::model::BatchGetDocumentsMetadataRequest::matcher].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_matcher<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_matcher<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::batch_get_documents_metadata_request::Matcher>,
         {
@@ -5547,7 +5547,7 @@ pub mod engine_service {
         /// Sets or clear the value of [engine][crate::model::CreateEngineRequest::engine].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_engine<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_engine<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Engine>,
         {
@@ -5735,7 +5735,7 @@ pub mod engine_service {
         /// Sets or clear the value of [engine][crate::model::UpdateEngineRequest::engine].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_engine<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_engine<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Engine>,
         {
@@ -5753,7 +5753,7 @@ pub mod engine_service {
         }
 
         /// Sets or clear the value of [update_mask][crate::model::UpdateEngineRequest::update_mask].
-        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
         {
@@ -6300,7 +6300,7 @@ pub mod grounded_generation_service {
         }
 
         /// Sets or clear the value of [system_instruction][crate::model::GenerateGroundedContentRequest::system_instruction].
-        pub fn maybe_system_instruction<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_system_instruction<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::GroundedGenerationContent>,
         {
@@ -6329,7 +6329,7 @@ pub mod grounded_generation_service {
         }
 
         /// Sets or clear the value of [generation_spec][crate::model::GenerateGroundedContentRequest::generation_spec].
-        pub fn maybe_generation_spec<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_generation_spec<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::generate_grounded_content_request::GenerationSpec>,
         {
@@ -6347,7 +6347,7 @@ pub mod grounded_generation_service {
         }
 
         /// Sets or clear the value of [grounding_spec][crate::model::GenerateGroundedContentRequest::grounding_spec].
-        pub fn maybe_grounding_spec<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_grounding_spec<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::generate_grounded_content_request::GroundingSpec>,
         {
@@ -6455,7 +6455,7 @@ pub mod grounded_generation_service {
         }
 
         /// Sets or clear the value of [grounding_spec][crate::model::CheckGroundingRequest::grounding_spec].
-        pub fn maybe_grounding_spec<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_grounding_spec<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::CheckGroundingSpec>,
         {
@@ -7659,7 +7659,7 @@ pub mod recommendation_service {
         /// Sets or clear the value of [user_event][crate::model::RecommendRequest::user_event].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_user_event<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_user_event<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::UserEvent>,
         {
@@ -8278,7 +8278,7 @@ pub mod schema_service {
         /// Sets or clear the value of [schema][crate::model::CreateSchemaRequest::schema].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_schema<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_schema<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Schema>,
         {
@@ -8401,7 +8401,7 @@ pub mod schema_service {
         /// Sets or clear the value of [schema][crate::model::UpdateSchemaRequest::schema].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_schema<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_schema<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Schema>,
         {
@@ -8923,7 +8923,7 @@ pub mod search_service {
         }
 
         /// Sets or clear the value of [image_query][crate::model::SearchRequest::image_query].
-        pub fn maybe_image_query<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_image_query<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::search_request::ImageQuery>,
         {
@@ -8994,7 +8994,7 @@ pub mod search_service {
         }
 
         /// Sets or clear the value of [user_info][crate::model::SearchRequest::user_info].
-        pub fn maybe_user_info<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_user_info<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::UserInfo>,
         {
@@ -9029,7 +9029,7 @@ pub mod search_service {
         }
 
         /// Sets or clear the value of [boost_spec][crate::model::SearchRequest::boost_spec].
-        pub fn maybe_boost_spec<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_boost_spec<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::search_request::BoostSpec>,
         {
@@ -9058,7 +9058,7 @@ pub mod search_service {
         }
 
         /// Sets or clear the value of [query_expansion_spec][crate::model::SearchRequest::query_expansion_spec].
-        pub fn maybe_query_expansion_spec<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_query_expansion_spec<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::search_request::QueryExpansionSpec>,
         {
@@ -9076,7 +9076,7 @@ pub mod search_service {
         }
 
         /// Sets or clear the value of [spell_correction_spec][crate::model::SearchRequest::spell_correction_spec].
-        pub fn maybe_spell_correction_spec<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_spell_correction_spec<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::search_request::SpellCorrectionSpec>,
         {
@@ -9100,7 +9100,7 @@ pub mod search_service {
         }
 
         /// Sets or clear the value of [content_search_spec][crate::model::SearchRequest::content_search_spec].
-        pub fn maybe_content_search_spec<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_content_search_spec<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::search_request::ContentSearchSpec>,
         {
@@ -9135,7 +9135,7 @@ pub mod search_service {
         }
 
         /// Sets or clear the value of [search_as_you_type_spec][crate::model::SearchRequest::search_as_you_type_spec].
-        pub fn maybe_search_as_you_type_spec<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_search_as_you_type_spec<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::search_request::SearchAsYouTypeSpec>,
         {
@@ -9153,7 +9153,7 @@ pub mod search_service {
         }
 
         /// Sets or clear the value of [display_spec][crate::model::SearchRequest::display_spec].
-        pub fn maybe_display_spec<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_display_spec<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::search_request::DisplaySpec>,
         {
@@ -9177,7 +9177,7 @@ pub mod search_service {
         }
 
         /// Sets or clear the value of [session_spec][crate::model::SearchRequest::session_spec].
-        pub fn maybe_session_spec<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_session_spec<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::search_request::SessionSpec>,
         {
@@ -9206,7 +9206,7 @@ pub mod search_service {
         }
 
         /// Sets or clear the value of [relevance_score_spec][crate::model::SearchRequest::relevance_score_spec].
-        pub fn maybe_relevance_score_spec<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_relevance_score_spec<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::search_request::RelevanceScoreSpec>,
         {
@@ -9326,7 +9326,7 @@ pub mod search_service {
         }
 
         /// Sets or clear the value of [image_query][crate::model::SearchRequest::image_query].
-        pub fn maybe_image_query<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_image_query<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::search_request::ImageQuery>,
         {
@@ -9397,7 +9397,7 @@ pub mod search_service {
         }
 
         /// Sets or clear the value of [user_info][crate::model::SearchRequest::user_info].
-        pub fn maybe_user_info<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_user_info<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::UserInfo>,
         {
@@ -9432,7 +9432,7 @@ pub mod search_service {
         }
 
         /// Sets or clear the value of [boost_spec][crate::model::SearchRequest::boost_spec].
-        pub fn maybe_boost_spec<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_boost_spec<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::search_request::BoostSpec>,
         {
@@ -9461,7 +9461,7 @@ pub mod search_service {
         }
 
         /// Sets or clear the value of [query_expansion_spec][crate::model::SearchRequest::query_expansion_spec].
-        pub fn maybe_query_expansion_spec<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_query_expansion_spec<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::search_request::QueryExpansionSpec>,
         {
@@ -9479,7 +9479,7 @@ pub mod search_service {
         }
 
         /// Sets or clear the value of [spell_correction_spec][crate::model::SearchRequest::spell_correction_spec].
-        pub fn maybe_spell_correction_spec<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_spell_correction_spec<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::search_request::SpellCorrectionSpec>,
         {
@@ -9503,7 +9503,7 @@ pub mod search_service {
         }
 
         /// Sets or clear the value of [content_search_spec][crate::model::SearchRequest::content_search_spec].
-        pub fn maybe_content_search_spec<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_content_search_spec<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::search_request::ContentSearchSpec>,
         {
@@ -9538,7 +9538,7 @@ pub mod search_service {
         }
 
         /// Sets or clear the value of [search_as_you_type_spec][crate::model::SearchRequest::search_as_you_type_spec].
-        pub fn maybe_search_as_you_type_spec<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_search_as_you_type_spec<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::search_request::SearchAsYouTypeSpec>,
         {
@@ -9556,7 +9556,7 @@ pub mod search_service {
         }
 
         /// Sets or clear the value of [display_spec][crate::model::SearchRequest::display_spec].
-        pub fn maybe_display_spec<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_display_spec<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::search_request::DisplaySpec>,
         {
@@ -9580,7 +9580,7 @@ pub mod search_service {
         }
 
         /// Sets or clear the value of [session_spec][crate::model::SearchRequest::session_spec].
-        pub fn maybe_session_spec<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_session_spec<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::search_request::SessionSpec>,
         {
@@ -9609,7 +9609,7 @@ pub mod search_service {
         }
 
         /// Sets or clear the value of [relevance_score_spec][crate::model::SearchRequest::relevance_score_spec].
-        pub fn maybe_relevance_score_spec<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_relevance_score_spec<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::search_request::RelevanceScoreSpec>,
         {
@@ -10034,7 +10034,7 @@ pub mod search_tuning_service {
         }
 
         /// Sets or clear the value of [error_config][crate::model::TrainCustomModelRequest::error_config].
-        pub fn maybe_error_config<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_error_config<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::ImportErrorConfig>,
         {
@@ -10507,7 +10507,7 @@ pub mod serving_config_service {
         /// Sets or clear the value of [serving_config][crate::model::UpdateServingConfigRequest::serving_config].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_serving_config<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_serving_config<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::ServingConfig>,
         {
@@ -10525,7 +10525,7 @@ pub mod serving_config_service {
         }
 
         /// Sets or clear the value of [update_mask][crate::model::UpdateServingConfigRequest::update_mask].
-        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
         {
@@ -11011,7 +11011,7 @@ pub mod site_search_engine_service {
         /// Sets or clear the value of [target_site][crate::model::CreateTargetSiteRequest::target_site].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_target_site<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_target_site<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::TargetSite>,
         {
@@ -11316,7 +11316,7 @@ pub mod site_search_engine_service {
         /// Sets or clear the value of [target_site][crate::model::UpdateTargetSiteRequest::target_site].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_target_site<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_target_site<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::TargetSite>,
         {
@@ -11650,7 +11650,7 @@ pub mod site_search_engine_service {
         /// Sets or clear the value of [sitemap][crate::model::CreateSitemapRequest::sitemap].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_sitemap<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_sitemap<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Sitemap>,
         {
@@ -11834,7 +11834,7 @@ pub mod site_search_engine_service {
         }
 
         /// Sets or clear the value of [matcher][crate::model::FetchSitemapsRequest::matcher].
-        pub fn maybe_matcher<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_matcher<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::fetch_sitemaps_request::Matcher>,
         {
@@ -12775,7 +12775,7 @@ pub mod user_event_service {
         /// Sets or clear the value of [user_event][crate::model::WriteUserEventRequest::user_event].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_user_event<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_user_event<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::UserEvent>,
         {
@@ -12872,7 +12872,7 @@ pub mod user_event_service {
         }
 
         /// Sets or clear the value of [uri][crate::model::CollectUserEventRequest::uri].
-        pub fn maybe_uri<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_uri<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<std::string::String>,
         {
@@ -12890,7 +12890,7 @@ pub mod user_event_service {
         }
 
         /// Sets or clear the value of [ets][crate::model::CollectUserEventRequest::ets].
-        pub fn maybe_ets<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_ets<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<i64>,
         {
@@ -13135,7 +13135,7 @@ pub mod user_event_service {
         }
 
         /// Sets or clear the value of [error_config][crate::model::ImportUserEventsRequest::error_config].
-        pub fn maybe_error_config<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_error_config<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::ImportErrorConfig>,
         {

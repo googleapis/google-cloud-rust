@@ -173,7 +173,7 @@ pub mod backup_dr {
         }
 
         /// Sets or clear the value of [filter][crate::model::ListManagementServersRequest::filter].
-        pub fn maybe_filter<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_filter<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<std::string::String>,
         {
@@ -191,7 +191,7 @@ pub mod backup_dr {
         }
 
         /// Sets or clear the value of [order_by][crate::model::ListManagementServersRequest::order_by].
-        pub fn maybe_order_by<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_order_by<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<std::string::String>,
         {
@@ -389,7 +389,7 @@ pub mod backup_dr {
         /// Sets or clear the value of [management_server][crate::model::CreateManagementServerRequest::management_server].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_management_server<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_management_server<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::ManagementServer>,
         {
@@ -639,7 +639,7 @@ pub mod backup_dr {
         /// Sets or clear the value of [backup_vault][crate::model::CreateBackupVaultRequest::backup_vault].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_backup_vault<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_backup_vault<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::BackupVault>,
         {
@@ -1077,7 +1077,7 @@ pub mod backup_dr {
         /// Sets or clear the value of [update_mask][crate::model::UpdateBackupVaultRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
         {
@@ -1099,7 +1099,7 @@ pub mod backup_dr {
         /// Sets or clear the value of [backup_vault][crate::model::UpdateBackupVaultRequest::backup_vault].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_backup_vault<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_backup_vault<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::BackupVault>,
         {
@@ -1545,7 +1545,7 @@ pub mod backup_dr {
         /// Sets or clear the value of [update_mask][crate::model::UpdateDataSourceRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
         {
@@ -1567,7 +1567,7 @@ pub mod backup_dr {
         /// Sets or clear the value of [data_source][crate::model::UpdateDataSourceRequest::data_source].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_data_source<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_data_source<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::DataSource>,
         {
@@ -1876,7 +1876,7 @@ pub mod backup_dr {
         /// Sets or clear the value of [update_mask][crate::model::UpdateBackupRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
         {
@@ -1898,7 +1898,7 @@ pub mod backup_dr {
         /// Sets or clear the value of [backup][crate::model::UpdateBackupRequest::backup].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_backup<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_backup<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Backup>,
         {
@@ -2307,7 +2307,7 @@ pub mod backup_dr {
         /// Sets or clear the value of [backup_plan][crate::model::CreateBackupPlanRequest::backup_plan].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_backup_plan<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_backup_plan<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::BackupPlan>,
         {
@@ -2735,7 +2735,7 @@ pub mod backup_dr {
         /// Sets or clear the value of [backup_plan_association][crate::model::CreateBackupPlanAssociationRequest::backup_plan_association].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_backup_plan_association<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_backup_plan_association<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::BackupPlanAssociation>,
         {
@@ -3515,7 +3515,7 @@ pub mod backup_dr {
         /// Sets or clear the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<iam_v1::model::Policy>,
         {
@@ -3533,7 +3533,7 @@ pub mod backup_dr {
         }
 
         /// Sets or clear the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
-        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
         {
@@ -3611,7 +3611,7 @@ pub mod backup_dr {
         }
 
         /// Sets or clear the value of [options][iam_v1::model::GetIamPolicyRequest::options].
-        pub fn maybe_options<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
         {

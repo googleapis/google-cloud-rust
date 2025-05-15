@@ -357,7 +357,7 @@ pub mod workflows {
         /// Sets or clear the value of [workflow][crate::model::CreateWorkflowRequest::workflow].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_workflow<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_workflow<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Workflow>,
         {
@@ -583,7 +583,7 @@ pub mod workflows {
         /// Sets or clear the value of [workflow][crate::model::UpdateWorkflowRequest::workflow].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_workflow<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_workflow<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Workflow>,
         {
@@ -601,7 +601,7 @@ pub mod workflows {
         }
 
         /// Sets or clear the value of [update_mask][crate::model::UpdateWorkflowRequest::update_mask].
-        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
         {

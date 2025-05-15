@@ -105,7 +105,7 @@ impl AttributeContext {
     }
 
     /// Sets or clear the value of [origin][crate::model::AttributeContext::origin].
-    pub fn maybe_origin<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_origin<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::attribute_context::Peer>,
     {
@@ -123,7 +123,7 @@ impl AttributeContext {
     }
 
     /// Sets or clear the value of [source][crate::model::AttributeContext::source].
-    pub fn maybe_source<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_source<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::attribute_context::Peer>,
     {
@@ -141,7 +141,7 @@ impl AttributeContext {
     }
 
     /// Sets or clear the value of [destination][crate::model::AttributeContext::destination].
-    pub fn maybe_destination<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_destination<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::attribute_context::Peer>,
     {
@@ -159,7 +159,7 @@ impl AttributeContext {
     }
 
     /// Sets or clear the value of [request][crate::model::AttributeContext::request].
-    pub fn maybe_request<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_request<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::attribute_context::Request>,
     {
@@ -177,7 +177,7 @@ impl AttributeContext {
     }
 
     /// Sets or clear the value of [response][crate::model::AttributeContext::response].
-    pub fn maybe_response<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_response<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::attribute_context::Response>,
     {
@@ -195,7 +195,7 @@ impl AttributeContext {
     }
 
     /// Sets or clear the value of [resource][crate::model::AttributeContext::resource].
-    pub fn maybe_resource<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_resource<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::attribute_context::Resource>,
     {
@@ -213,7 +213,7 @@ impl AttributeContext {
     }
 
     /// Sets or clear the value of [api][crate::model::AttributeContext::api].
-    pub fn maybe_api<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_api<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::attribute_context::Api>,
     {
@@ -510,7 +510,7 @@ pub mod attribute_context {
         }
 
         /// Sets or clear the value of [claims][crate::model::attribute_context::Auth::claims].
-        pub fn maybe_claims<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_claims<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Struct>,
         {
@@ -671,7 +671,7 @@ pub mod attribute_context {
         }
 
         /// Sets or clear the value of [time][crate::model::attribute_context::Request::time].
-        pub fn maybe_time<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_time<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
         {
@@ -707,7 +707,7 @@ pub mod attribute_context {
         }
 
         /// Sets or clear the value of [auth][crate::model::attribute_context::Request::auth].
-        pub fn maybe_auth<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_auth<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::attribute_context::Auth>,
         {
@@ -800,7 +800,7 @@ pub mod attribute_context {
         }
 
         /// Sets or clear the value of [time][crate::model::attribute_context::Response::time].
-        pub fn maybe_time<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_time<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
         {
@@ -818,7 +818,7 @@ pub mod attribute_context {
         }
 
         /// Sets or clear the value of [backend_latency][crate::model::attribute_context::Response::backend_latency].
-        pub fn maybe_backend_latency<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_backend_latency<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
         {
@@ -1006,7 +1006,7 @@ pub mod attribute_context {
         }
 
         /// Sets or clear the value of [create_time][crate::model::attribute_context::Resource::create_time].
-        pub fn maybe_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
         {
@@ -1024,7 +1024,7 @@ pub mod attribute_context {
         }
 
         /// Sets or clear the value of [update_time][crate::model::attribute_context::Resource::update_time].
-        pub fn maybe_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
         {
@@ -1042,7 +1042,7 @@ pub mod attribute_context {
         }
 
         /// Sets or clear the value of [delete_time][crate::model::attribute_context::Resource::delete_time].
-        pub fn maybe_delete_time<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_delete_time<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
         {
@@ -1128,7 +1128,7 @@ impl AuditContext {
     }
 
     /// Sets or clear the value of [scrubbed_request][crate::model::AuditContext::scrubbed_request].
-    pub fn maybe_scrubbed_request<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_scrubbed_request<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Struct>,
     {
@@ -1146,7 +1146,7 @@ impl AuditContext {
     }
 
     /// Sets or clear the value of [scrubbed_response][crate::model::AuditContext::scrubbed_response].
-    pub fn maybe_scrubbed_response<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_scrubbed_response<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Struct>,
     {

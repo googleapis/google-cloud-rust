@@ -359,7 +359,7 @@ pub mod edge_container {
         /// Sets or clear the value of [cluster][crate::model::CreateClusterRequest::cluster].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_cluster<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_cluster<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Cluster>,
         {
@@ -476,7 +476,7 @@ pub mod edge_container {
         }
 
         /// Sets or clear the value of [update_mask][crate::model::UpdateClusterRequest::update_mask].
-        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
         {
@@ -494,7 +494,7 @@ pub mod edge_container {
         }
 
         /// Sets or clear the value of [cluster][crate::model::UpdateClusterRequest::cluster].
-        pub fn maybe_cluster<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_cluster<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Cluster>,
         {
@@ -1172,7 +1172,7 @@ pub mod edge_container {
         /// Sets or clear the value of [node_pool][crate::model::CreateNodePoolRequest::node_pool].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_node_pool<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_node_pool<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::NodePool>,
         {
@@ -1289,7 +1289,7 @@ pub mod edge_container {
         }
 
         /// Sets or clear the value of [update_mask][crate::model::UpdateNodePoolRequest::update_mask].
-        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
         {
@@ -1307,7 +1307,7 @@ pub mod edge_container {
         }
 
         /// Sets or clear the value of [node_pool][crate::model::UpdateNodePoolRequest::node_pool].
-        pub fn maybe_node_pool<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_node_pool<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::NodePool>,
         {
@@ -1919,7 +1919,7 @@ pub mod edge_container {
         /// Sets or clear the value of [vpn_connection][crate::model::CreateVpnConnectionRequest::vpn_connection].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_vpn_connection<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_vpn_connection<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::VpnConnection>,
         {

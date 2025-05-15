@@ -190,7 +190,7 @@ pub mod binauthz_management_service_v_1 {
         /// Sets or clear the value of [policy][crate::model::UpdatePolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Policy>,
         {
@@ -282,7 +282,7 @@ pub mod binauthz_management_service_v_1 {
         /// Sets or clear the value of [attestor][crate::model::CreateAttestorRequest::attestor].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_attestor<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_attestor<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Attestor>,
         {
@@ -420,7 +420,7 @@ pub mod binauthz_management_service_v_1 {
         /// Sets or clear the value of [attestor][crate::model::UpdateAttestorRequest::attestor].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_attestor<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_attestor<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Attestor>,
         {
@@ -845,7 +845,7 @@ pub mod validation_helper_v_1 {
         /// Sets or clear the value of [attestation][crate::model::ValidateAttestationOccurrenceRequest::attestation].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_attestation<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_attestation<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<grafeas::model::AttestationOccurrence>,
         {

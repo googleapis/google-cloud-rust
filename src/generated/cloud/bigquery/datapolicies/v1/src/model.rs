@@ -72,7 +72,7 @@ impl CreateDataPolicyRequest {
     }
 
     /// Sets or clear the value of [data_policy][crate::model::CreateDataPolicyRequest::data_policy].
-    pub fn maybe_data_policy<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_data_policy<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::DataPolicy>,
     {
@@ -128,7 +128,7 @@ impl UpdateDataPolicyRequest {
     }
 
     /// Sets or clear the value of [data_policy][crate::model::UpdateDataPolicyRequest::data_policy].
-    pub fn maybe_data_policy<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_data_policy<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::DataPolicy>,
     {
@@ -146,7 +146,7 @@ impl UpdateDataPolicyRequest {
     }
 
     /// Sets or clear the value of [update_mask][crate::model::UpdateDataPolicyRequest::update_mask].
-    pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
     {

@@ -367,7 +367,7 @@ pub mod vmware_engine {
         /// Sets or clear the value of [private_cloud][crate::model::CreatePrivateCloudRequest::private_cloud].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_private_cloud<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_private_cloud<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::PrivateCloud>,
         {
@@ -499,7 +499,7 @@ pub mod vmware_engine {
         /// Sets or clear the value of [private_cloud][crate::model::UpdatePrivateCloudRequest::private_cloud].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_private_cloud<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_private_cloud<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::PrivateCloud>,
         {
@@ -521,7 +521,7 @@ pub mod vmware_engine {
         /// Sets or clear the value of [update_mask][crate::model::UpdatePrivateCloudRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
         {
@@ -663,7 +663,7 @@ pub mod vmware_engine {
         }
 
         /// Sets or clear the value of [delay_hours][crate::model::DeletePrivateCloudRequest::delay_hours].
-        pub fn maybe_delay_hours<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_delay_hours<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<i32>,
         {
@@ -1082,7 +1082,7 @@ pub mod vmware_engine {
         /// Sets or clear the value of [cluster][crate::model::CreateClusterRequest::cluster].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_cluster<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_cluster<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Cluster>,
         {
@@ -1209,7 +1209,7 @@ pub mod vmware_engine {
         /// Sets or clear the value of [update_mask][crate::model::UpdateClusterRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
         {
@@ -1231,7 +1231,7 @@ pub mod vmware_engine {
         /// Sets or clear the value of [cluster][crate::model::UpdateClusterRequest::cluster].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_cluster<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_cluster<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Cluster>,
         {
@@ -1942,7 +1942,7 @@ pub mod vmware_engine {
         /// Sets or clear the value of [external_address][crate::model::CreateExternalAddressRequest::external_address].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_external_address<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_external_address<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::ExternalAddress>,
         {
@@ -2077,7 +2077,7 @@ pub mod vmware_engine {
         /// Sets or clear the value of [update_mask][crate::model::UpdateExternalAddressRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
         {
@@ -2099,7 +2099,7 @@ pub mod vmware_engine {
         /// Sets or clear the value of [external_address][crate::model::UpdateExternalAddressRequest::external_address].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_external_address<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_external_address<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::ExternalAddress>,
         {
@@ -2496,7 +2496,7 @@ pub mod vmware_engine {
         /// Sets or clear the value of [update_mask][crate::model::UpdateSubnetRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
         {
@@ -2518,7 +2518,7 @@ pub mod vmware_engine {
         /// Sets or clear the value of [subnet][crate::model::UpdateSubnetRequest::subnet].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_subnet<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_subnet<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Subnet>,
         {
@@ -2837,7 +2837,7 @@ pub mod vmware_engine {
         /// Sets or clear the value of [external_access_rule][crate::model::CreateExternalAccessRuleRequest::external_access_rule].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_external_access_rule<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_external_access_rule<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::ExternalAccessRule>,
         {
@@ -2974,7 +2974,7 @@ pub mod vmware_engine {
         /// Sets or clear the value of [update_mask][crate::model::UpdateExternalAccessRuleRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
         {
@@ -2996,7 +2996,7 @@ pub mod vmware_engine {
         /// Sets or clear the value of [external_access_rule][crate::model::UpdateExternalAccessRuleRequest::external_access_rule].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_external_access_rule<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_external_access_rule<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::ExternalAccessRule>,
         {
@@ -3429,7 +3429,7 @@ pub mod vmware_engine {
         /// Sets or clear the value of [logging_server][crate::model::CreateLoggingServerRequest::logging_server].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_logging_server<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_logging_server<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::LoggingServer>,
         {
@@ -3564,7 +3564,7 @@ pub mod vmware_engine {
         /// Sets or clear the value of [update_mask][crate::model::UpdateLoggingServerRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
         {
@@ -3586,7 +3586,7 @@ pub mod vmware_engine {
         /// Sets or clear the value of [logging_server][crate::model::UpdateLoggingServerRequest::logging_server].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_logging_server<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_logging_server<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::LoggingServer>,
         {
@@ -4428,7 +4428,7 @@ pub mod vmware_engine {
         /// Sets or clear the value of [dns_forwarding][crate::model::UpdateDnsForwardingRequest::dns_forwarding].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_dns_forwarding<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_dns_forwarding<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::DnsForwarding>,
         {
@@ -4450,7 +4450,7 @@ pub mod vmware_engine {
         /// Sets or clear the value of [update_mask][crate::model::UpdateDnsForwardingRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
         {
@@ -4777,7 +4777,7 @@ pub mod vmware_engine {
         /// Sets or clear the value of [network_peering][crate::model::CreateNetworkPeeringRequest::network_peering].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_network_peering<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_network_peering<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::NetworkPeering>,
         {
@@ -5016,7 +5016,7 @@ pub mod vmware_engine {
         /// Sets or clear the value of [network_peering][crate::model::UpdateNetworkPeeringRequest::network_peering].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_network_peering<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_network_peering<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::NetworkPeering>,
         {
@@ -5038,7 +5038,7 @@ pub mod vmware_engine {
         /// Sets or clear the value of [update_mask][crate::model::UpdateNetworkPeeringRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
         {
@@ -5284,7 +5284,7 @@ pub mod vmware_engine {
         /// Sets or clear the value of [hcx_activation_key][crate::model::CreateHcxActivationKeyRequest::hcx_activation_key].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_hcx_activation_key<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_hcx_activation_key<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::HcxActivationKey>,
         {
@@ -5791,7 +5791,7 @@ pub mod vmware_engine {
         /// Sets or clear the value of [network_policy][crate::model::CreateNetworkPolicyRequest::network_policy].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_network_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_network_policy<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::NetworkPolicy>,
         {
@@ -5918,7 +5918,7 @@ pub mod vmware_engine {
         /// Sets or clear the value of [network_policy][crate::model::UpdateNetworkPolicyRequest::network_policy].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_network_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_network_policy<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::NetworkPolicy>,
         {
@@ -5940,7 +5940,7 @@ pub mod vmware_engine {
         /// Sets or clear the value of [update_mask][crate::model::UpdateNetworkPolicyRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
         {
@@ -6379,7 +6379,10 @@ pub mod vmware_engine {
         /// Sets or clear the value of [management_dns_zone_binding][crate::model::CreateManagementDnsZoneBindingRequest::management_dns_zone_binding].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_management_dns_zone_binding<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_management_dns_zone_binding<T>(
+            mut self,
+            v: std::option::Option<T>,
+        ) -> Self
         where
             T: std::convert::Into<crate::model::ManagementDnsZoneBinding>,
         {
@@ -6519,7 +6522,7 @@ pub mod vmware_engine {
         /// Sets or clear the value of [update_mask][crate::model::UpdateManagementDnsZoneBindingRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
         {
@@ -6541,7 +6544,10 @@ pub mod vmware_engine {
         /// Sets or clear the value of [management_dns_zone_binding][crate::model::UpdateManagementDnsZoneBindingRequest::management_dns_zone_binding].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_management_dns_zone_binding<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_management_dns_zone_binding<T>(
+            mut self,
+            v: std::option::Option<T>,
+        ) -> Self
         where
             T: std::convert::Into<crate::model::ManagementDnsZoneBinding>,
         {
@@ -6915,7 +6921,7 @@ pub mod vmware_engine {
         /// Sets or clear the value of [vmware_engine_network][crate::model::CreateVmwareEngineNetworkRequest::vmware_engine_network].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_vmware_engine_network<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_vmware_engine_network<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::VmwareEngineNetwork>,
         {
@@ -7044,7 +7050,7 @@ pub mod vmware_engine {
         /// Sets or clear the value of [vmware_engine_network][crate::model::UpdateVmwareEngineNetworkRequest::vmware_engine_network].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_vmware_engine_network<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_vmware_engine_network<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::VmwareEngineNetwork>,
         {
@@ -7066,7 +7072,7 @@ pub mod vmware_engine {
         /// Sets or clear the value of [update_mask][crate::model::UpdateVmwareEngineNetworkRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
         {
@@ -7519,7 +7525,7 @@ pub mod vmware_engine {
         /// Sets or clear the value of [private_connection][crate::model::CreatePrivateConnectionRequest::private_connection].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_private_connection<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_private_connection<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::PrivateConnection>,
         {
@@ -7834,7 +7840,7 @@ pub mod vmware_engine {
         /// Sets or clear the value of [private_connection][crate::model::UpdatePrivateConnectionRequest::private_connection].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_private_connection<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_private_connection<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::PrivateConnection>,
         {
@@ -7856,7 +7862,7 @@ pub mod vmware_engine {
         /// Sets or clear the value of [update_mask][crate::model::UpdatePrivateConnectionRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
         {
@@ -8218,7 +8224,7 @@ pub mod vmware_engine {
         /// Sets or clear the value of [principal][crate::model::GrantDnsBindPermissionRequest::principal].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_principal<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_principal<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Principal>,
         {
@@ -8420,7 +8426,7 @@ pub mod vmware_engine {
         /// Sets or clear the value of [principal][crate::model::RevokeDnsBindPermissionRequest::principal].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_principal<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_principal<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Principal>,
         {
@@ -8679,7 +8685,7 @@ pub mod vmware_engine {
         /// Sets or clear the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<iam_v1::model::Policy>,
         {
@@ -8697,7 +8703,7 @@ pub mod vmware_engine {
         }
 
         /// Sets or clear the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
-        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
         {
@@ -8777,7 +8783,7 @@ pub mod vmware_engine {
         }
 
         /// Sets or clear the value of [options][iam_v1::model::GetIamPolicyRequest::options].
-        pub fn maybe_options<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
         {

@@ -175,7 +175,7 @@ pub mod livestream_service {
         /// Sets or clear the value of [channel][crate::model::CreateChannelRequest::channel].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_channel<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_channel<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Channel>,
         {
@@ -591,7 +591,7 @@ pub mod livestream_service {
         }
 
         /// Sets or clear the value of [update_mask][crate::model::UpdateChannelRequest::update_mask].
-        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
         {
@@ -613,7 +613,7 @@ pub mod livestream_service {
         /// Sets or clear the value of [channel][crate::model::UpdateChannelRequest::channel].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_channel<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_channel<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Channel>,
         {
@@ -962,7 +962,7 @@ pub mod livestream_service {
         /// Sets or clear the value of [input][crate::model::CreateInputRequest::input].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_input<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_input<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Input>,
         {
@@ -1372,7 +1372,7 @@ pub mod livestream_service {
         }
 
         /// Sets or clear the value of [update_mask][crate::model::UpdateInputRequest::update_mask].
-        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
         {
@@ -1394,7 +1394,7 @@ pub mod livestream_service {
         /// Sets or clear the value of [input][crate::model::UpdateInputRequest::input].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_input<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_input<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Input>,
         {
@@ -1484,7 +1484,7 @@ pub mod livestream_service {
         /// Sets or clear the value of [event][crate::model::CreateEventRequest::event].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_event<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_event<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Event>,
         {
@@ -2049,7 +2049,7 @@ pub mod livestream_service {
         /// Sets or clear the value of [clip][crate::model::CreateClipRequest::clip].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_clip<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_clip<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Clip>,
         {
@@ -2287,7 +2287,7 @@ pub mod livestream_service {
         /// Sets or clear the value of [asset][crate::model::CreateAssetRequest::asset].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_asset<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_asset<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Asset>,
         {
@@ -2759,7 +2759,7 @@ pub mod livestream_service {
         }
 
         /// Sets or clear the value of [update_mask][crate::model::UpdatePoolRequest::update_mask].
-        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
         {
@@ -2781,7 +2781,7 @@ pub mod livestream_service {
         /// Sets or clear the value of [pool][crate::model::UpdatePoolRequest::pool].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_pool<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_pool<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Pool>,
         {

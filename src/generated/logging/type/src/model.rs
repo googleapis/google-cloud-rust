@@ -186,7 +186,7 @@ impl HttpRequest {
     }
 
     /// Sets or clear the value of [latency][crate::model::HttpRequest::latency].
-    pub fn maybe_latency<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_latency<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
     {

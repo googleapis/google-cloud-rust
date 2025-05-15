@@ -136,7 +136,7 @@ pub mod company_service {
         /// Sets or clear the value of [company][crate::model::CreateCompanyRequest::company].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_company<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_company<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Company>,
         {
@@ -274,7 +274,7 @@ pub mod company_service {
         /// Sets or clear the value of [company][crate::model::UpdateCompanyRequest::company].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_company<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_company<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Company>,
         {
@@ -292,7 +292,7 @@ pub mod company_service {
         }
 
         /// Sets or clear the value of [update_mask][crate::model::UpdateCompanyRequest::update_mask].
-        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
         {
@@ -898,7 +898,7 @@ pub mod event_service {
         /// Sets or clear the value of [client_event][crate::model::CreateClientEventRequest::client_event].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_client_event<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_client_event<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::ClientEvent>,
         {
@@ -1100,7 +1100,7 @@ pub mod job_service {
         /// Sets or clear the value of [job][crate::model::CreateJobRequest::job].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_job<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_job<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Job>,
         {
@@ -1355,7 +1355,7 @@ pub mod job_service {
         /// Sets or clear the value of [job][crate::model::UpdateJobRequest::job].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_job<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_job<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Job>,
         {
@@ -1373,7 +1373,7 @@ pub mod job_service {
         }
 
         /// Sets or clear the value of [update_mask][crate::model::UpdateJobRequest::update_mask].
-        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
         {
@@ -1508,7 +1508,7 @@ pub mod job_service {
         }
 
         /// Sets or clear the value of [update_mask][crate::model::BatchUpdateJobsRequest::update_mask].
-        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
         {
@@ -1894,7 +1894,7 @@ pub mod job_service {
         /// Sets or clear the value of [request_metadata][crate::model::SearchJobsRequest::request_metadata].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_request_metadata<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_request_metadata<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::RequestMetadata>,
         {
@@ -1912,7 +1912,7 @@ pub mod job_service {
         }
 
         /// Sets or clear the value of [job_query][crate::model::SearchJobsRequest::job_query].
-        pub fn maybe_job_query<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_job_query<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::JobQuery>,
         {
@@ -1988,7 +1988,7 @@ pub mod job_service {
         }
 
         /// Sets or clear the value of [custom_ranking_info][crate::model::SearchJobsRequest::custom_ranking_info].
-        pub fn maybe_custom_ranking_info<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_custom_ranking_info<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::search_jobs_request::CustomRankingInfo>,
         {
@@ -2110,7 +2110,7 @@ pub mod job_service {
         /// Sets or clear the value of [request_metadata][crate::model::SearchJobsRequest::request_metadata].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_request_metadata<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_request_metadata<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::RequestMetadata>,
         {
@@ -2128,7 +2128,7 @@ pub mod job_service {
         }
 
         /// Sets or clear the value of [job_query][crate::model::SearchJobsRequest::job_query].
-        pub fn maybe_job_query<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_job_query<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::JobQuery>,
         {
@@ -2204,7 +2204,7 @@ pub mod job_service {
         }
 
         /// Sets or clear the value of [custom_ranking_info][crate::model::SearchJobsRequest::custom_ranking_info].
-        pub fn maybe_custom_ranking_info<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_custom_ranking_info<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::search_jobs_request::CustomRankingInfo>,
         {
@@ -2435,7 +2435,7 @@ pub mod tenant_service {
         /// Sets or clear the value of [tenant][crate::model::CreateTenantRequest::tenant].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_tenant<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_tenant<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Tenant>,
         {
@@ -2573,7 +2573,7 @@ pub mod tenant_service {
         /// Sets or clear the value of [tenant][crate::model::UpdateTenantRequest::tenant].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_tenant<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_tenant<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Tenant>,
         {
@@ -2591,7 +2591,7 @@ pub mod tenant_service {
         }
 
         /// Sets or clear the value of [update_mask][crate::model::UpdateTenantRequest::update_mask].
-        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
         {

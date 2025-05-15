@@ -180,7 +180,7 @@ pub mod autokey {
         /// Sets or clear the value of [key_handle][crate::model::CreateKeyHandleRequest::key_handle].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_key_handle<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_key_handle<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::KeyHandle>,
         {
@@ -593,7 +593,7 @@ pub mod autokey {
         /// Sets or clear the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<iam_v1::model::Policy>,
         {
@@ -611,7 +611,7 @@ pub mod autokey {
         }
 
         /// Sets or clear the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
-        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
         {
@@ -689,7 +689,7 @@ pub mod autokey {
         }
 
         /// Sets or clear the value of [options][iam_v1::model::GetIamPolicyRequest::options].
-        pub fn maybe_options<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
         {
@@ -960,7 +960,7 @@ pub mod autokey_admin {
         /// Sets or clear the value of [autokey_config][crate::model::UpdateAutokeyConfigRequest::autokey_config].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_autokey_config<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_autokey_config<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::AutokeyConfig>,
         {
@@ -982,7 +982,7 @@ pub mod autokey_admin {
         /// Sets or clear the value of [update_mask][crate::model::UpdateAutokeyConfigRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
         {
@@ -1367,7 +1367,7 @@ pub mod autokey_admin {
         /// Sets or clear the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<iam_v1::model::Policy>,
         {
@@ -1385,7 +1385,7 @@ pub mod autokey_admin {
         }
 
         /// Sets or clear the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
-        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
         {
@@ -1465,7 +1465,7 @@ pub mod autokey_admin {
         }
 
         /// Sets or clear the value of [options][iam_v1::model::GetIamPolicyRequest::options].
-        pub fn maybe_options<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
         {
@@ -1940,7 +1940,7 @@ pub mod ekm_service {
         /// Sets or clear the value of [ekm_connection][crate::model::CreateEkmConnectionRequest::ekm_connection].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_ekm_connection<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_ekm_connection<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::EkmConnection>,
         {
@@ -2019,7 +2019,7 @@ pub mod ekm_service {
         /// Sets or clear the value of [ekm_connection][crate::model::UpdateEkmConnectionRequest::ekm_connection].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_ekm_connection<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_ekm_connection<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::EkmConnection>,
         {
@@ -2041,7 +2041,7 @@ pub mod ekm_service {
         /// Sets or clear the value of [update_mask][crate::model::UpdateEkmConnectionRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
         {
@@ -2179,7 +2179,7 @@ pub mod ekm_service {
         /// Sets or clear the value of [ekm_config][crate::model::UpdateEkmConfigRequest::ekm_config].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_ekm_config<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_ekm_config<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::EkmConfig>,
         {
@@ -2201,7 +2201,7 @@ pub mod ekm_service {
         /// Sets or clear the value of [update_mask][crate::model::UpdateEkmConfigRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
         {
@@ -2519,7 +2519,7 @@ pub mod ekm_service {
         /// Sets or clear the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<iam_v1::model::Policy>,
         {
@@ -2537,7 +2537,7 @@ pub mod ekm_service {
         }
 
         /// Sets or clear the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
-        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
         {
@@ -2617,7 +2617,7 @@ pub mod ekm_service {
         }
 
         /// Sets or clear the value of [options][iam_v1::model::GetIamPolicyRequest::options].
-        pub fn maybe_options<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
         {
@@ -3706,7 +3706,7 @@ pub mod key_management_service {
         /// Sets or clear the value of [key_ring][crate::model::CreateKeyRingRequest::key_ring].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_key_ring<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_key_ring<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::KeyRing>,
         {
@@ -3798,7 +3798,7 @@ pub mod key_management_service {
         /// Sets or clear the value of [crypto_key][crate::model::CreateCryptoKeyRequest::crypto_key].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_crypto_key<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_crypto_key<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::CryptoKey>,
         {
@@ -3891,7 +3891,7 @@ pub mod key_management_service {
         /// Sets or clear the value of [crypto_key_version][crate::model::CreateCryptoKeyVersionRequest::crypto_key_version].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_crypto_key_version<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_crypto_key_version<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::CryptoKeyVersion>,
         {
@@ -4108,7 +4108,7 @@ pub mod key_management_service {
         /// Sets or clear the value of [import_job][crate::model::CreateImportJobRequest::import_job].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_import_job<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_import_job<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::ImportJob>,
         {
@@ -4184,7 +4184,7 @@ pub mod key_management_service {
         /// Sets or clear the value of [crypto_key][crate::model::UpdateCryptoKeyRequest::crypto_key].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_crypto_key<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_crypto_key<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::CryptoKey>,
         {
@@ -4206,7 +4206,7 @@ pub mod key_management_service {
         /// Sets or clear the value of [update_mask][crate::model::UpdateCryptoKeyRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
         {
@@ -4285,7 +4285,7 @@ pub mod key_management_service {
         /// Sets or clear the value of [crypto_key_version][crate::model::UpdateCryptoKeyVersionRequest::crypto_key_version].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_crypto_key_version<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_crypto_key_version<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::CryptoKeyVersion>,
         {
@@ -4307,7 +4307,7 @@ pub mod key_management_service {
         /// Sets or clear the value of [update_mask][crate::model::UpdateCryptoKeyVersionRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
         {
@@ -4610,7 +4610,7 @@ pub mod key_management_service {
         }
 
         /// Sets or clear the value of [plaintext_crc32c][crate::model::EncryptRequest::plaintext_crc32c].
-        pub fn maybe_plaintext_crc32c<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_plaintext_crc32c<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Int64Value>,
         {
@@ -4629,7 +4629,7 @@ pub mod key_management_service {
         }
 
         /// Sets or clear the value of [additional_authenticated_data_crc32c][crate::model::EncryptRequest::additional_authenticated_data_crc32c].
-        pub fn maybe_additional_authenticated_data_crc32c<T>(
+        pub fn set_or_clear_additional_authenticated_data_crc32c<T>(
             mut self,
             v: std::option::Option<T>,
         ) -> Self
@@ -4726,7 +4726,7 @@ pub mod key_management_service {
         }
 
         /// Sets or clear the value of [ciphertext_crc32c][crate::model::DecryptRequest::ciphertext_crc32c].
-        pub fn maybe_ciphertext_crc32c<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_ciphertext_crc32c<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Int64Value>,
         {
@@ -4745,7 +4745,7 @@ pub mod key_management_service {
         }
 
         /// Sets or clear the value of [additional_authenticated_data_crc32c][crate::model::DecryptRequest::additional_authenticated_data_crc32c].
-        pub fn maybe_additional_authenticated_data_crc32c<T>(
+        pub fn set_or_clear_additional_authenticated_data_crc32c<T>(
             mut self,
             v: std::option::Option<T>,
         ) -> Self
@@ -4842,7 +4842,7 @@ pub mod key_management_service {
         }
 
         /// Sets or clear the value of [plaintext_crc32c][crate::model::RawEncryptRequest::plaintext_crc32c].
-        pub fn maybe_plaintext_crc32c<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_plaintext_crc32c<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Int64Value>,
         {
@@ -4861,7 +4861,7 @@ pub mod key_management_service {
         }
 
         /// Sets or clear the value of [additional_authenticated_data_crc32c][crate::model::RawEncryptRequest::additional_authenticated_data_crc32c].
-        pub fn maybe_additional_authenticated_data_crc32c<T>(
+        pub fn set_or_clear_additional_authenticated_data_crc32c<T>(
             mut self,
             v: std::option::Option<T>,
         ) -> Self
@@ -4888,7 +4888,10 @@ pub mod key_management_service {
         }
 
         /// Sets or clear the value of [initialization_vector_crc32c][crate::model::RawEncryptRequest::initialization_vector_crc32c].
-        pub fn maybe_initialization_vector_crc32c<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_initialization_vector_crc32c<T>(
+            mut self,
+            v: std::option::Option<T>,
+        ) -> Self
         where
             T: std::convert::Into<wkt::Int64Value>,
         {
@@ -4996,7 +4999,7 @@ pub mod key_management_service {
         }
 
         /// Sets or clear the value of [ciphertext_crc32c][crate::model::RawDecryptRequest::ciphertext_crc32c].
-        pub fn maybe_ciphertext_crc32c<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_ciphertext_crc32c<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Int64Value>,
         {
@@ -5015,7 +5018,7 @@ pub mod key_management_service {
         }
 
         /// Sets or clear the value of [additional_authenticated_data_crc32c][crate::model::RawDecryptRequest::additional_authenticated_data_crc32c].
-        pub fn maybe_additional_authenticated_data_crc32c<T>(
+        pub fn set_or_clear_additional_authenticated_data_crc32c<T>(
             mut self,
             v: std::option::Option<T>,
         ) -> Self
@@ -5036,7 +5039,10 @@ pub mod key_management_service {
         }
 
         /// Sets or clear the value of [initialization_vector_crc32c][crate::model::RawDecryptRequest::initialization_vector_crc32c].
-        pub fn maybe_initialization_vector_crc32c<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_initialization_vector_crc32c<T>(
+            mut self,
+            v: std::option::Option<T>,
+        ) -> Self
         where
             T: std::convert::Into<wkt::Int64Value>,
         {
@@ -5116,7 +5122,7 @@ pub mod key_management_service {
         }
 
         /// Sets or clear the value of [digest][crate::model::AsymmetricSignRequest::digest].
-        pub fn maybe_digest<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_digest<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Digest>,
         {
@@ -5134,7 +5140,7 @@ pub mod key_management_service {
         }
 
         /// Sets or clear the value of [digest_crc32c][crate::model::AsymmetricSignRequest::digest_crc32c].
-        pub fn maybe_digest_crc32c<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_digest_crc32c<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Int64Value>,
         {
@@ -5158,7 +5164,7 @@ pub mod key_management_service {
         }
 
         /// Sets or clear the value of [data_crc32c][crate::model::AsymmetricSignRequest::data_crc32c].
-        pub fn maybe_data_crc32c<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_data_crc32c<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Int64Value>,
         {
@@ -5249,7 +5255,7 @@ pub mod key_management_service {
         }
 
         /// Sets or clear the value of [ciphertext_crc32c][crate::model::AsymmetricDecryptRequest::ciphertext_crc32c].
-        pub fn maybe_ciphertext_crc32c<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_ciphertext_crc32c<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Int64Value>,
         {
@@ -5337,7 +5343,7 @@ pub mod key_management_service {
         }
 
         /// Sets or clear the value of [data_crc32c][crate::model::MacSignRequest::data_crc32c].
-        pub fn maybe_data_crc32c<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_data_crc32c<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Int64Value>,
         {
@@ -5425,7 +5431,7 @@ pub mod key_management_service {
         }
 
         /// Sets or clear the value of [data_crc32c][crate::model::MacVerifyRequest::data_crc32c].
-        pub fn maybe_data_crc32c<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_data_crc32c<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Int64Value>,
         {
@@ -5451,7 +5457,7 @@ pub mod key_management_service {
         }
 
         /// Sets or clear the value of [mac_crc32c][crate::model::MacVerifyRequest::mac_crc32c].
-        pub fn maybe_mac_crc32c<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_mac_crc32c<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Int64Value>,
         {
@@ -5782,7 +5788,7 @@ pub mod key_management_service {
         /// Sets or clear the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<iam_v1::model::Policy>,
         {
@@ -5800,7 +5806,7 @@ pub mod key_management_service {
         }
 
         /// Sets or clear the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
-        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
         {
@@ -5880,7 +5886,7 @@ pub mod key_management_service {
         }
 
         /// Sets or clear the value of [options][iam_v1::model::GetIamPolicyRequest::options].
-        pub fn maybe_options<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
         {

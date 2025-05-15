@@ -182,7 +182,7 @@ impl CreateDeploymentRequest {
     }
 
     /// Sets or clear the value of [deployment][crate::model::CreateDeploymentRequest::deployment].
-    pub fn maybe_deployment<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_deployment<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Deployment>,
     {
@@ -226,7 +226,7 @@ impl ReplaceDeploymentRequest {
     }
 
     /// Sets or clear the value of [deployment][crate::model::ReplaceDeploymentRequest::deployment].
-    pub fn maybe_deployment<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_deployment<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Deployment>,
     {
@@ -586,7 +586,7 @@ impl InstallStatus {
     }
 
     /// Sets or clear the value of [installed][crate::model::InstallStatus::installed].
-    pub fn maybe_installed<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_installed<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::BoolValue>,
     {
@@ -663,7 +663,7 @@ impl Deployment {
     }
 
     /// Sets or clear the value of [add_ons][crate::model::Deployment::add_ons].
-    pub fn maybe_add_ons<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_add_ons<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::AddOns>,
     {
@@ -741,7 +741,7 @@ impl AddOns {
     }
 
     /// Sets or clear the value of [common][crate::model::AddOns::common].
-    pub fn maybe_common<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_common<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<apps_script_type::model::CommonAddOnManifest>,
     {
@@ -759,7 +759,7 @@ impl AddOns {
     }
 
     /// Sets or clear the value of [gmail][crate::model::AddOns::gmail].
-    pub fn maybe_gmail<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_gmail<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<apps_script_gmail::model::GmailAddOnManifest>,
     {
@@ -777,7 +777,7 @@ impl AddOns {
     }
 
     /// Sets or clear the value of [drive][crate::model::AddOns::drive].
-    pub fn maybe_drive<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_drive<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<apps_script_drive::model::DriveAddOnManifest>,
     {
@@ -795,7 +795,7 @@ impl AddOns {
     }
 
     /// Sets or clear the value of [calendar][crate::model::AddOns::calendar].
-    pub fn maybe_calendar<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_calendar<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<apps_script_calendar::model::CalendarAddOnManifest>,
     {
@@ -813,7 +813,7 @@ impl AddOns {
     }
 
     /// Sets or clear the value of [docs][crate::model::AddOns::docs].
-    pub fn maybe_docs<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_docs<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<apps_script_docs::model::DocsAddOnManifest>,
     {
@@ -831,7 +831,7 @@ impl AddOns {
     }
 
     /// Sets or clear the value of [sheets][crate::model::AddOns::sheets].
-    pub fn maybe_sheets<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_sheets<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<apps_script_sheets::model::SheetsAddOnManifest>,
     {
@@ -849,7 +849,7 @@ impl AddOns {
     }
 
     /// Sets or clear the value of [slides][crate::model::AddOns::slides].
-    pub fn maybe_slides<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_slides<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<apps_script_slides::model::SlidesAddOnManifest>,
     {
@@ -867,7 +867,7 @@ impl AddOns {
     }
 
     /// Sets or clear the value of [http_options][crate::model::AddOns::http_options].
-    pub fn maybe_http_options<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_http_options<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<apps_script_type::model::HttpOptions>,
     {

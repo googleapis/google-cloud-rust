@@ -175,7 +175,7 @@ pub mod firestore_admin {
         /// Sets or clear the value of [index][crate::model::CreateIndexRequest::index].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_index<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_index<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Index>,
         {
@@ -584,7 +584,7 @@ pub mod firestore_admin {
         /// Sets or clear the value of [field][crate::model::UpdateFieldRequest::field].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_field<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_field<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Field>,
         {
@@ -602,7 +602,7 @@ pub mod firestore_admin {
         }
 
         /// Sets or clear the value of [update_mask][crate::model::UpdateFieldRequest::update_mask].
-        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
         {
@@ -860,7 +860,7 @@ pub mod firestore_admin {
         }
 
         /// Sets or clear the value of [snapshot_time][crate::model::ExportDocumentsRequest::snapshot_time].
-        pub fn maybe_snapshot_time<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_snapshot_time<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
         {
@@ -1249,7 +1249,7 @@ pub mod firestore_admin {
         /// Sets or clear the value of [database][crate::model::CreateDatabaseRequest::database].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_database<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_database<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Database>,
         {
@@ -1505,7 +1505,7 @@ pub mod firestore_admin {
         /// Sets or clear the value of [database][crate::model::UpdateDatabaseRequest::database].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_database<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_database<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Database>,
         {
@@ -1523,7 +1523,7 @@ pub mod firestore_admin {
         }
 
         /// Sets or clear the value of [update_mask][crate::model::UpdateDatabaseRequest::update_mask].
-        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
         {
@@ -1717,7 +1717,7 @@ pub mod firestore_admin {
         /// Sets or clear the value of [user_creds][crate::model::CreateUserCredsRequest::user_creds].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_user_creds<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_user_creds<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::UserCreds>,
         {
@@ -2433,7 +2433,7 @@ pub mod firestore_admin {
         }
 
         /// Sets or clear the value of [encryption_config][crate::model::RestoreDatabaseRequest::encryption_config].
-        pub fn maybe_encryption_config<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_encryption_config<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::database::EncryptionConfig>,
         {
@@ -2520,7 +2520,7 @@ pub mod firestore_admin {
         /// Sets or clear the value of [backup_schedule][crate::model::CreateBackupScheduleRequest::backup_schedule].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_backup_schedule<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_backup_schedule<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::BackupSchedule>,
         {
@@ -2729,7 +2729,7 @@ pub mod firestore_admin {
         /// Sets or clear the value of [backup_schedule][crate::model::UpdateBackupScheduleRequest::backup_schedule].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_backup_schedule<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_backup_schedule<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::BackupSchedule>,
         {
@@ -2747,7 +2747,7 @@ pub mod firestore_admin {
         }
 
         /// Sets or clear the value of [update_mask][crate::model::UpdateBackupScheduleRequest::update_mask].
-        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
         {

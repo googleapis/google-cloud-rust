@@ -137,7 +137,7 @@ impl AutonomousDatabase {
     }
 
     /// Sets or clear the value of [properties][crate::model::AutonomousDatabase::properties].
-    pub fn maybe_properties<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_properties<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::AutonomousDatabaseProperties>,
     {
@@ -179,7 +179,7 @@ impl AutonomousDatabase {
     }
 
     /// Sets or clear the value of [create_time][crate::model::AutonomousDatabase::create_time].
-    pub fn maybe_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -647,7 +647,7 @@ impl AutonomousDatabaseProperties {
     }
 
     /// Sets or clear the value of [apex_details][crate::model::AutonomousDatabaseProperties::apex_details].
-    pub fn maybe_apex_details<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_apex_details<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::AutonomousDatabaseApex>,
     {
@@ -665,7 +665,10 @@ impl AutonomousDatabaseProperties {
     }
 
     /// Sets or clear the value of [are_primary_allowlisted_ips_used][crate::model::AutonomousDatabaseProperties::are_primary_allowlisted_ips_used].
-    pub fn maybe_are_primary_allowlisted_ips_used<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_are_primary_allowlisted_ips_used<T>(
+        mut self,
+        v: std::option::Option<T>,
+    ) -> Self
     where
         T: std::convert::Into<bool>,
     {
@@ -718,7 +721,7 @@ impl AutonomousDatabaseProperties {
     }
 
     /// Sets or clear the value of [connection_strings][crate::model::AutonomousDatabaseProperties::connection_strings].
-    pub fn maybe_connection_strings<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_connection_strings<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::AutonomousDatabaseConnectionStrings>,
     {
@@ -736,7 +739,7 @@ impl AutonomousDatabaseProperties {
     }
 
     /// Sets or clear the value of [connection_urls][crate::model::AutonomousDatabaseProperties::connection_urls].
-    pub fn maybe_connection_urls<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_connection_urls<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::AutonomousDatabaseConnectionUrls>,
     {
@@ -754,7 +757,10 @@ impl AutonomousDatabaseProperties {
     }
 
     /// Sets or clear the value of [failed_data_recovery_duration][crate::model::AutonomousDatabaseProperties::failed_data_recovery_duration].
-    pub fn maybe_failed_data_recovery_duration<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_failed_data_recovery_duration<T>(
+        mut self,
+        v: std::option::Option<T>,
+    ) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
     {
@@ -793,7 +799,7 @@ impl AutonomousDatabaseProperties {
     }
 
     /// Sets or clear the value of [local_standby_db][crate::model::AutonomousDatabaseProperties::local_standby_db].
-    pub fn maybe_local_standby_db<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_local_standby_db<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::AutonomousDatabaseStandbySummary>,
     {
@@ -989,7 +995,7 @@ impl AutonomousDatabaseProperties {
     }
 
     /// Sets or clear the value of [next_long_term_backup_time][crate::model::AutonomousDatabaseProperties::next_long_term_backup_time].
-    pub fn maybe_next_long_term_backup_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_next_long_term_backup_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -1007,7 +1013,7 @@ impl AutonomousDatabaseProperties {
     }
 
     /// Sets or clear the value of [maintenance_begin_time][crate::model::AutonomousDatabaseProperties::maintenance_begin_time].
-    pub fn maybe_maintenance_begin_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_maintenance_begin_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -1025,7 +1031,7 @@ impl AutonomousDatabaseProperties {
     }
 
     /// Sets or clear the value of [maintenance_end_time][crate::model::AutonomousDatabaseProperties::maintenance_end_time].
-    pub fn maybe_maintenance_end_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_maintenance_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -2674,7 +2680,7 @@ impl AutonomousDatabaseConnectionStrings {
     }
 
     /// Sets or clear the value of [all_connection_strings][crate::model::AutonomousDatabaseConnectionStrings::all_connection_strings].
-    pub fn maybe_all_connection_strings<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_all_connection_strings<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::AllConnectionStrings>,
     {
@@ -3916,7 +3922,7 @@ impl AutonomousDatabaseStandbySummary {
     }
 
     /// Sets or clear the value of [lag_time_duration][crate::model::AutonomousDatabaseStandbySummary::lag_time_duration].
-    pub fn maybe_lag_time_duration<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_lag_time_duration<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
     {
@@ -3949,7 +3955,7 @@ impl AutonomousDatabaseStandbySummary {
     }
 
     /// Sets or clear the value of [data_guard_role_changed_time][crate::model::AutonomousDatabaseStandbySummary::data_guard_role_changed_time].
-    pub fn maybe_data_guard_role_changed_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_data_guard_role_changed_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -3967,7 +3973,10 @@ impl AutonomousDatabaseStandbySummary {
     }
 
     /// Sets or clear the value of [disaster_recovery_role_changed_time][crate::model::AutonomousDatabaseStandbySummary::disaster_recovery_role_changed_time].
-    pub fn maybe_disaster_recovery_role_changed_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_disaster_recovery_role_changed_time<T>(
+        mut self,
+        v: std::option::Option<T>,
+    ) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -4025,7 +4034,7 @@ impl ScheduledOperationDetails {
     }
 
     /// Sets or clear the value of [start_time][crate::model::ScheduledOperationDetails::start_time].
-    pub fn maybe_start_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<gtype::model::TimeOfDay>,
     {
@@ -4043,7 +4052,7 @@ impl ScheduledOperationDetails {
     }
 
     /// Sets or clear the value of [stop_time][crate::model::ScheduledOperationDetails::stop_time].
-    pub fn maybe_stop_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_stop_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<gtype::model::TimeOfDay>,
     {
@@ -4328,7 +4337,7 @@ impl AutonomousDatabaseBackup {
     }
 
     /// Sets or clear the value of [properties][crate::model::AutonomousDatabaseBackup::properties].
-    pub fn maybe_properties<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_properties<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::AutonomousDatabaseBackupProperties>,
     {
@@ -4573,7 +4582,7 @@ impl AutonomousDatabaseBackupProperties {
     }
 
     /// Sets or clear the value of [available_till_time][crate::model::AutonomousDatabaseBackupProperties::available_till_time].
-    pub fn maybe_available_till_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_available_till_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -4591,7 +4600,7 @@ impl AutonomousDatabaseBackupProperties {
     }
 
     /// Sets or clear the value of [end_time][crate::model::AutonomousDatabaseBackupProperties::end_time].
-    pub fn maybe_end_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -4609,7 +4618,7 @@ impl AutonomousDatabaseBackupProperties {
     }
 
     /// Sets or clear the value of [start_time][crate::model::AutonomousDatabaseBackupProperties::start_time].
-    pub fn maybe_start_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -5089,7 +5098,7 @@ impl DbNode {
     }
 
     /// Sets or clear the value of [properties][crate::model::DbNode::properties].
-    pub fn maybe_properties<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_properties<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::DbNodeProperties>,
     {
@@ -5446,7 +5455,7 @@ impl DbServer {
     }
 
     /// Sets or clear the value of [properties][crate::model::DbServer::properties].
-    pub fn maybe_properties<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_properties<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::DbServerProperties>,
     {
@@ -5940,7 +5949,7 @@ impl Entitlement {
     }
 
     /// Sets or clear the value of [cloud_account_details][crate::model::Entitlement::cloud_account_details].
-    pub fn maybe_cloud_account_details<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_cloud_account_details<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CloudAccountDetails>,
     {
@@ -6187,7 +6196,7 @@ impl CloudAccountDetails {
     }
 
     /// Sets or clear the value of [link_existing_account_uri][crate::model::CloudAccountDetails::link_existing_account_uri].
-    pub fn maybe_link_existing_account_uri<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_link_existing_account_uri<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
     {
@@ -6205,7 +6214,7 @@ impl CloudAccountDetails {
     }
 
     /// Sets or clear the value of [account_creation_uri][crate::model::CloudAccountDetails::account_creation_uri].
-    pub fn maybe_account_creation_uri<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_account_creation_uri<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
     {
@@ -6301,7 +6310,7 @@ impl CloudExadataInfrastructure {
     }
 
     /// Sets or clear the value of [properties][crate::model::CloudExadataInfrastructure::properties].
-    pub fn maybe_properties<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_properties<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CloudExadataInfrastructureProperties>,
     {
@@ -6331,7 +6340,7 @@ impl CloudExadataInfrastructure {
     }
 
     /// Sets or clear the value of [create_time][crate::model::CloudExadataInfrastructure::create_time].
-    pub fn maybe_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -6521,7 +6530,7 @@ impl CloudExadataInfrastructureProperties {
     }
 
     /// Sets or clear the value of [maintenance_window][crate::model::CloudExadataInfrastructureProperties::maintenance_window].
-    pub fn maybe_maintenance_window<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_maintenance_window<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::MaintenanceWindow>,
     {
@@ -6649,7 +6658,7 @@ impl CloudExadataInfrastructureProperties {
     }
 
     /// Sets or clear the value of [next_maintenance_run_time][crate::model::CloudExadataInfrastructureProperties::next_maintenance_run_time].
-    pub fn maybe_next_maintenance_run_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_next_maintenance_run_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -6667,7 +6676,10 @@ impl CloudExadataInfrastructureProperties {
     }
 
     /// Sets or clear the value of [next_security_maintenance_run_time][crate::model::CloudExadataInfrastructureProperties::next_security_maintenance_run_time].
-    pub fn maybe_next_security_maintenance_run_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_next_security_maintenance_run_time<T>(
+        mut self,
+        v: std::option::Option<T>,
+    ) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -7619,7 +7631,7 @@ impl CreateCloudExadataInfrastructureRequest {
     }
 
     /// Sets or clear the value of [cloud_exadata_infrastructure][crate::model::CreateCloudExadataInfrastructureRequest::cloud_exadata_infrastructure].
-    pub fn maybe_cloud_exadata_infrastructure<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_cloud_exadata_infrastructure<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CloudExadataInfrastructure>,
     {
@@ -7929,7 +7941,7 @@ impl CreateCloudVmClusterRequest {
     }
 
     /// Sets or clear the value of [cloud_vm_cluster][crate::model::CreateCloudVmClusterRequest::cloud_vm_cluster].
-    pub fn maybe_cloud_vm_cluster<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_cloud_vm_cluster<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CloudVmCluster>,
     {
@@ -8658,7 +8670,7 @@ impl OperationMetadata {
     }
 
     /// Sets or clear the value of [create_time][crate::model::OperationMetadata::create_time].
-    pub fn maybe_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -8676,7 +8688,7 @@ impl OperationMetadata {
     }
 
     /// Sets or clear the value of [end_time][crate::model::OperationMetadata::end_time].
-    pub fn maybe_end_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -8963,7 +8975,7 @@ impl CreateAutonomousDatabaseRequest {
     }
 
     /// Sets or clear the value of [autonomous_database][crate::model::CreateAutonomousDatabaseRequest::autonomous_database].
-    pub fn maybe_autonomous_database<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_autonomous_database<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::AutonomousDatabase>,
     {
@@ -9074,7 +9086,7 @@ impl RestoreAutonomousDatabaseRequest {
     }
 
     /// Sets or clear the value of [restore_time][crate::model::RestoreAutonomousDatabaseRequest::restore_time].
-    pub fn maybe_restore_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_restore_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -9763,7 +9775,7 @@ impl CloudVmCluster {
     }
 
     /// Sets or clear the value of [properties][crate::model::CloudVmCluster::properties].
-    pub fn maybe_properties<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_properties<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CloudVmClusterProperties>,
     {
@@ -9793,7 +9805,7 @@ impl CloudVmCluster {
     }
 
     /// Sets or clear the value of [create_time][crate::model::CloudVmCluster::create_time].
-    pub fn maybe_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -10009,7 +10021,7 @@ impl CloudVmClusterProperties {
     }
 
     /// Sets or clear the value of [time_zone][crate::model::CloudVmClusterProperties::time_zone].
-    pub fn maybe_time_zone<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_time_zone<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<gtype::model::TimeZone>,
     {
@@ -10109,7 +10121,10 @@ impl CloudVmClusterProperties {
     }
 
     /// Sets or clear the value of [diagnostics_data_collection_options][crate::model::CloudVmClusterProperties::diagnostics_data_collection_options].
-    pub fn maybe_diagnostics_data_collection_options<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_diagnostics_data_collection_options<T>(
+        mut self,
+        v: std::option::Option<T>,
+    ) -> Self
     where
         T: std::convert::Into<crate::model::DataCollectionOptions>,
     {

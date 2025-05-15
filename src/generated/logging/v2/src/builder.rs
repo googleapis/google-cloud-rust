@@ -192,7 +192,7 @@ pub mod logging_service_v_2 {
         }
 
         /// Sets or clear the value of [resource][crate::model::WriteLogEntriesRequest::resource].
-        pub fn maybe_resource<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_resource<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<api::model::MonitoredResource>,
         {
@@ -1122,7 +1122,7 @@ pub mod config_service_v_2 {
         /// Sets or clear the value of [bucket][crate::model::CreateBucketRequest::bucket].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_bucket<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_bucket<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::LogBucket>,
         {
@@ -1245,7 +1245,7 @@ pub mod config_service_v_2 {
         /// Sets or clear the value of [bucket][crate::model::UpdateBucketRequest::bucket].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_bucket<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_bucket<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::LogBucket>,
         {
@@ -1267,7 +1267,7 @@ pub mod config_service_v_2 {
         /// Sets or clear the value of [update_mask][crate::model::UpdateBucketRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
         {
@@ -1359,7 +1359,7 @@ pub mod config_service_v_2 {
         /// Sets or clear the value of [bucket][crate::model::CreateBucketRequest::bucket].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_bucket<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_bucket<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::LogBucket>,
         {
@@ -1443,7 +1443,7 @@ pub mod config_service_v_2 {
         /// Sets or clear the value of [bucket][crate::model::UpdateBucketRequest::bucket].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_bucket<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_bucket<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::LogBucket>,
         {
@@ -1465,7 +1465,7 @@ pub mod config_service_v_2 {
         /// Sets or clear the value of [update_mask][crate::model::UpdateBucketRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
         {
@@ -1845,7 +1845,7 @@ pub mod config_service_v_2 {
         /// Sets or clear the value of [view][crate::model::CreateViewRequest::view].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_view<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_view<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::LogView>,
         {
@@ -1929,7 +1929,7 @@ pub mod config_service_v_2 {
         /// Sets or clear the value of [view][crate::model::UpdateViewRequest::view].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_view<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_view<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::LogView>,
         {
@@ -1947,7 +1947,7 @@ pub mod config_service_v_2 {
         }
 
         /// Sets or clear the value of [update_mask][crate::model::UpdateViewRequest::update_mask].
-        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
         {
@@ -2257,7 +2257,7 @@ pub mod config_service_v_2 {
         /// Sets or clear the value of [sink][crate::model::CreateSinkRequest::sink].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_sink<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_sink<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::LogSink>,
         {
@@ -2347,7 +2347,7 @@ pub mod config_service_v_2 {
         /// Sets or clear the value of [sink][crate::model::UpdateSinkRequest::sink].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_sink<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_sink<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::LogSink>,
         {
@@ -2371,7 +2371,7 @@ pub mod config_service_v_2 {
         }
 
         /// Sets or clear the value of [update_mask][crate::model::UpdateSinkRequest::update_mask].
-        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
         {
@@ -2554,7 +2554,7 @@ pub mod config_service_v_2 {
         /// Sets or clear the value of [link][crate::model::CreateLinkRequest::link].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_link<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_link<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Link>,
         {
@@ -3077,7 +3077,7 @@ pub mod config_service_v_2 {
         /// Sets or clear the value of [exclusion][crate::model::CreateExclusionRequest::exclusion].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_exclusion<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_exclusion<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::LogExclusion>,
         {
@@ -3161,7 +3161,7 @@ pub mod config_service_v_2 {
         /// Sets or clear the value of [exclusion][crate::model::UpdateExclusionRequest::exclusion].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_exclusion<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_exclusion<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::LogExclusion>,
         {
@@ -3183,7 +3183,7 @@ pub mod config_service_v_2 {
         /// Sets or clear the value of [update_mask][crate::model::UpdateExclusionRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
         {
@@ -3394,7 +3394,7 @@ pub mod config_service_v_2 {
         /// Sets or clear the value of [cmek_settings][crate::model::UpdateCmekSettingsRequest::cmek_settings].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_cmek_settings<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_cmek_settings<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::CmekSettings>,
         {
@@ -3412,7 +3412,7 @@ pub mod config_service_v_2 {
         }
 
         /// Sets or clear the value of [update_mask][crate::model::UpdateCmekSettingsRequest::update_mask].
-        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
         {
@@ -3558,7 +3558,7 @@ pub mod config_service_v_2 {
         /// Sets or clear the value of [settings][crate::model::UpdateSettingsRequest::settings].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_settings<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_settings<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Settings>,
         {
@@ -3576,7 +3576,7 @@ pub mod config_service_v_2 {
         }
 
         /// Sets or clear the value of [update_mask][crate::model::UpdateSettingsRequest::update_mask].
-        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
         {
@@ -4234,7 +4234,7 @@ pub mod metrics_service_v_2 {
         /// Sets or clear the value of [metric][crate::model::CreateLogMetricRequest::metric].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_metric<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_metric<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::LogMetric>,
         {
@@ -4318,7 +4318,7 @@ pub mod metrics_service_v_2 {
         /// Sets or clear the value of [metric][crate::model::UpdateLogMetricRequest::metric].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_metric<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_metric<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::LogMetric>,
         {

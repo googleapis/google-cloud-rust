@@ -307,7 +307,7 @@ pub mod iam {
         }
 
         /// Sets or clear the value of [service_account][crate::model::CreateServiceAccountRequest::service_account].
-        pub fn maybe_service_account<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_service_account<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::ServiceAccount>,
         {
@@ -487,7 +487,7 @@ pub mod iam {
         }
 
         /// Sets or clear the value of [service_account][crate::model::PatchServiceAccountRequest::service_account].
-        pub fn maybe_service_account<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_service_account<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::ServiceAccount>,
         {
@@ -505,7 +505,7 @@ pub mod iam {
         }
 
         /// Sets or clear the value of [update_mask][crate::model::PatchServiceAccountRequest::update_mask].
-        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
         {
@@ -1462,7 +1462,7 @@ pub mod iam {
         }
 
         /// Sets or clear the value of [options][iam_v1::model::GetIamPolicyRequest::options].
-        pub fn maybe_options<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
         {
@@ -1544,7 +1544,7 @@ pub mod iam {
         /// Sets or clear the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<iam_v1::model::Policy>,
         {
@@ -1562,7 +1562,7 @@ pub mod iam {
         }
 
         /// Sets or clear the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
-        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
         {
@@ -1999,7 +1999,7 @@ pub mod iam {
         }
 
         /// Sets or clear the value of [role][crate::model::CreateRoleRequest::role].
-        pub fn maybe_role<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_role<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Role>,
         {
@@ -2075,7 +2075,7 @@ pub mod iam {
         }
 
         /// Sets or clear the value of [role][crate::model::UpdateRoleRequest::role].
-        pub fn maybe_role<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_role<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Role>,
         {
@@ -2093,7 +2093,7 @@ pub mod iam {
         }
 
         /// Sets or clear the value of [update_mask][crate::model::UpdateRoleRequest::update_mask].
-        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
         {

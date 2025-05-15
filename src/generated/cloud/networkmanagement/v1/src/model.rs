@@ -158,7 +158,7 @@ impl ConnectivityTest {
     }
 
     /// Sets or clear the value of [source][crate::model::ConnectivityTest::source].
-    pub fn maybe_source<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_source<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Endpoint>,
     {
@@ -176,7 +176,7 @@ impl ConnectivityTest {
     }
 
     /// Sets or clear the value of [destination][crate::model::ConnectivityTest::destination].
-    pub fn maybe_destination<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_destination<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Endpoint>,
     {
@@ -229,7 +229,7 @@ impl ConnectivityTest {
     }
 
     /// Sets or clear the value of [create_time][crate::model::ConnectivityTest::create_time].
-    pub fn maybe_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -247,7 +247,7 @@ impl ConnectivityTest {
     }
 
     /// Sets or clear the value of [update_time][crate::model::ConnectivityTest::update_time].
-    pub fn maybe_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -265,7 +265,7 @@ impl ConnectivityTest {
     }
 
     /// Sets or clear the value of [reachability_details][crate::model::ConnectivityTest::reachability_details].
-    pub fn maybe_reachability_details<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_reachability_details<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ReachabilityDetails>,
     {
@@ -283,7 +283,7 @@ impl ConnectivityTest {
     }
 
     /// Sets or clear the value of [probing_details][crate::model::ConnectivityTest::probing_details].
-    pub fn maybe_probing_details<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_probing_details<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ProbingDetails>,
     {
@@ -307,7 +307,7 @@ impl ConnectivityTest {
     }
 
     /// Sets or clear the value of [return_reachability_details][crate::model::ConnectivityTest::return_reachability_details].
-    pub fn maybe_return_reachability_details<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_return_reachability_details<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ReachabilityDetails>,
     {
@@ -478,7 +478,7 @@ impl Endpoint {
     }
 
     /// Sets or clear the value of [forwarding_rule_target][crate::model::Endpoint::forwarding_rule_target].
-    pub fn maybe_forwarding_rule_target<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_forwarding_rule_target<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::endpoint::ForwardingRuleTarget>,
     {
@@ -496,7 +496,7 @@ impl Endpoint {
     }
 
     /// Sets or clear the value of [load_balancer_id][crate::model::Endpoint::load_balancer_id].
-    pub fn maybe_load_balancer_id<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_load_balancer_id<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
     {
@@ -514,7 +514,7 @@ impl Endpoint {
     }
 
     /// Sets or clear the value of [load_balancer_type][crate::model::Endpoint::load_balancer_type].
-    pub fn maybe_load_balancer_type<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_load_balancer_type<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::LoadBalancerType>,
     {
@@ -568,7 +568,7 @@ impl Endpoint {
     }
 
     /// Sets or clear the value of [cloud_function][crate::model::Endpoint::cloud_function].
-    pub fn maybe_cloud_function<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_cloud_function<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::endpoint::CloudFunctionEndpoint>,
     {
@@ -586,7 +586,7 @@ impl Endpoint {
     }
 
     /// Sets or clear the value of [app_engine_version][crate::model::Endpoint::app_engine_version].
-    pub fn maybe_app_engine_version<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_app_engine_version<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::endpoint::AppEngineVersionEndpoint>,
     {
@@ -604,7 +604,7 @@ impl Endpoint {
     }
 
     /// Sets or clear the value of [cloud_run_revision][crate::model::Endpoint::cloud_run_revision].
-    pub fn maybe_cloud_run_revision<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_cloud_run_revision<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::endpoint::CloudRunRevisionEndpoint>,
     {
@@ -1084,7 +1084,7 @@ impl ReachabilityDetails {
     }
 
     /// Sets or clear the value of [verify_time][crate::model::ReachabilityDetails::verify_time].
-    pub fn maybe_verify_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_verify_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -1102,7 +1102,7 @@ impl ReachabilityDetails {
     }
 
     /// Sets or clear the value of [error][crate::model::ReachabilityDetails::error].
-    pub fn maybe_error<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_error<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<rpc::model::Status>,
     {
@@ -1456,7 +1456,7 @@ impl ProbingDetails {
     }
 
     /// Sets or clear the value of [verify_time][crate::model::ProbingDetails::verify_time].
-    pub fn maybe_verify_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_verify_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -1474,7 +1474,7 @@ impl ProbingDetails {
     }
 
     /// Sets or clear the value of [error][crate::model::ProbingDetails::error].
-    pub fn maybe_error<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_error<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<rpc::model::Status>,
     {
@@ -1515,7 +1515,7 @@ impl ProbingDetails {
     }
 
     /// Sets or clear the value of [endpoint_info][crate::model::ProbingDetails::endpoint_info].
-    pub fn maybe_endpoint_info<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_endpoint_info<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::EndpointInfo>,
     {
@@ -1533,7 +1533,7 @@ impl ProbingDetails {
     }
 
     /// Sets or clear the value of [probing_latency][crate::model::ProbingDetails::probing_latency].
-    pub fn maybe_probing_latency<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_probing_latency<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::LatencyDistribution>,
     {
@@ -1551,7 +1551,7 @@ impl ProbingDetails {
     }
 
     /// Sets or clear the value of [destination_egress_location][crate::model::ProbingDetails::destination_egress_location].
-    pub fn maybe_destination_egress_location<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_destination_egress_location<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::probing_details::EdgeLocation>,
     {
@@ -2152,7 +2152,7 @@ impl CreateConnectivityTestRequest {
     }
 
     /// Sets or clear the value of [resource][crate::model::CreateConnectivityTestRequest::resource].
-    pub fn maybe_resource<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_resource<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ConnectivityTest>,
     {
@@ -2201,7 +2201,7 @@ impl UpdateConnectivityTestRequest {
     }
 
     /// Sets or clear the value of [update_mask][crate::model::UpdateConnectivityTestRequest::update_mask].
-    pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
     {
@@ -2219,7 +2219,7 @@ impl UpdateConnectivityTestRequest {
     }
 
     /// Sets or clear the value of [resource][crate::model::UpdateConnectivityTestRequest::resource].
-    pub fn maybe_resource<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_resource<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ConnectivityTest>,
     {
@@ -2356,7 +2356,7 @@ impl OperationMetadata {
     }
 
     /// Sets or clear the value of [create_time][crate::model::OperationMetadata::create_time].
-    pub fn maybe_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -2374,7 +2374,7 @@ impl OperationMetadata {
     }
 
     /// Sets or clear the value of [end_time][crate::model::OperationMetadata::end_time].
-    pub fn maybe_end_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -2477,7 +2477,7 @@ impl Trace {
     }
 
     /// Sets or clear the value of [endpoint_info][crate::model::Trace::endpoint_info].
-    pub fn maybe_endpoint_info<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_endpoint_info<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::EndpointInfo>,
     {
@@ -4739,7 +4739,7 @@ impl RouteInfo {
     }
 
     /// Sets or clear the value of [ncc_hub_uri][crate::model::RouteInfo::ncc_hub_uri].
-    pub fn maybe_ncc_hub_uri<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_ncc_hub_uri<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
     {
@@ -4757,7 +4757,7 @@ impl RouteInfo {
     }
 
     /// Sets or clear the value of [ncc_spoke_uri][crate::model::RouteInfo::ncc_spoke_uri].
-    pub fn maybe_ncc_spoke_uri<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_ncc_spoke_uri<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
     {
@@ -4775,7 +4775,10 @@ impl RouteInfo {
     }
 
     /// Sets or clear the value of [advertised_route_source_router_uri][crate::model::RouteInfo::advertised_route_source_router_uri].
-    pub fn maybe_advertised_route_source_router_uri<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_advertised_route_source_router_uri<T>(
+        mut self,
+        v: std::option::Option<T>,
+    ) -> Self
     where
         T: std::convert::Into<std::string::String>,
     {
@@ -4795,7 +4798,10 @@ impl RouteInfo {
 
     /// Sets or clear the value of [advertised_route_next_hop_uri][crate::model::RouteInfo::advertised_route_next_hop_uri].
     #[deprecated]
-    pub fn maybe_advertised_route_next_hop_uri<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_advertised_route_next_hop_uri<T>(
+        mut self,
+        v: std::option::Option<T>,
+    ) -> Self
     where
         T: std::convert::Into<std::string::String>,
     {
@@ -10838,7 +10844,7 @@ impl CreateVpcFlowLogsConfigRequest {
     }
 
     /// Sets or clear the value of [vpc_flow_logs_config][crate::model::CreateVpcFlowLogsConfigRequest::vpc_flow_logs_config].
-    pub fn maybe_vpc_flow_logs_config<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_vpc_flow_logs_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::VpcFlowLogsConfig>,
     {
@@ -10887,7 +10893,7 @@ impl UpdateVpcFlowLogsConfigRequest {
     }
 
     /// Sets or clear the value of [update_mask][crate::model::UpdateVpcFlowLogsConfigRequest::update_mask].
-    pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
     {
@@ -10905,7 +10911,7 @@ impl UpdateVpcFlowLogsConfigRequest {
     }
 
     /// Sets or clear the value of [vpc_flow_logs_config][crate::model::UpdateVpcFlowLogsConfigRequest::vpc_flow_logs_config].
-    pub fn maybe_vpc_flow_logs_config<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_vpc_flow_logs_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::VpcFlowLogsConfig>,
     {
@@ -11053,7 +11059,7 @@ impl VpcFlowLogsConfig {
     }
 
     /// Sets or clear the value of [description][crate::model::VpcFlowLogsConfig::description].
-    pub fn maybe_description<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_description<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
     {
@@ -11071,7 +11077,7 @@ impl VpcFlowLogsConfig {
     }
 
     /// Sets or clear the value of [state][crate::model::VpcFlowLogsConfig::state].
-    pub fn maybe_state<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_state<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::vpc_flow_logs_config::State>,
     {
@@ -11089,7 +11095,7 @@ impl VpcFlowLogsConfig {
     }
 
     /// Sets or clear the value of [aggregation_interval][crate::model::VpcFlowLogsConfig::aggregation_interval].
-    pub fn maybe_aggregation_interval<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_aggregation_interval<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::vpc_flow_logs_config::AggregationInterval>,
     {
@@ -11107,7 +11113,7 @@ impl VpcFlowLogsConfig {
     }
 
     /// Sets or clear the value of [flow_sampling][crate::model::VpcFlowLogsConfig::flow_sampling].
-    pub fn maybe_flow_sampling<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_flow_sampling<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<f32>,
     {
@@ -11125,7 +11131,7 @@ impl VpcFlowLogsConfig {
     }
 
     /// Sets or clear the value of [metadata][crate::model::VpcFlowLogsConfig::metadata].
-    pub fn maybe_metadata<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_metadata<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::vpc_flow_logs_config::Metadata>,
     {
@@ -11154,7 +11160,7 @@ impl VpcFlowLogsConfig {
     }
 
     /// Sets or clear the value of [filter_expr][crate::model::VpcFlowLogsConfig::filter_expr].
-    pub fn maybe_filter_expr<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_filter_expr<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
     {
@@ -11172,7 +11178,7 @@ impl VpcFlowLogsConfig {
     }
 
     /// Sets or clear the value of [target_resource_state][crate::model::VpcFlowLogsConfig::target_resource_state].
-    pub fn maybe_target_resource_state<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_target_resource_state<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::vpc_flow_logs_config::TargetResourceState>,
     {
@@ -11202,7 +11208,7 @@ impl VpcFlowLogsConfig {
     }
 
     /// Sets or clear the value of [create_time][crate::model::VpcFlowLogsConfig::create_time].
-    pub fn maybe_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -11220,7 +11226,7 @@ impl VpcFlowLogsConfig {
     }
 
     /// Sets or clear the value of [update_time][crate::model::VpcFlowLogsConfig::update_time].
-    pub fn maybe_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {

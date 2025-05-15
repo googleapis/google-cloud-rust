@@ -320,7 +320,7 @@ pub mod model_armor {
         /// Sets or clear the value of [template][crate::model::CreateTemplateRequest::template].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_template<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_template<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Template>,
         {
@@ -402,7 +402,7 @@ pub mod model_armor {
         /// Sets or clear the value of [update_mask][crate::model::UpdateTemplateRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
         {
@@ -424,7 +424,7 @@ pub mod model_armor {
         /// Sets or clear the value of [template][crate::model::UpdateTemplateRequest::template].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_template<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_template<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Template>,
         {
@@ -639,7 +639,7 @@ pub mod model_armor {
         /// Sets or clear the value of [floor_setting][crate::model::UpdateFloorSettingRequest::floor_setting].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_floor_setting<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_floor_setting<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::FloorSetting>,
         {
@@ -657,7 +657,7 @@ pub mod model_armor {
         }
 
         /// Sets or clear the value of [update_mask][crate::model::UpdateFloorSettingRequest::update_mask].
-        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
         {
@@ -744,7 +744,7 @@ pub mod model_armor {
         /// Sets or clear the value of [user_prompt_data][crate::model::SanitizeUserPromptRequest::user_prompt_data].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_user_prompt_data<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_user_prompt_data<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::DataItem>,
         {
@@ -831,7 +831,7 @@ pub mod model_armor {
         /// Sets or clear the value of [model_response_data][crate::model::SanitizeModelResponseRequest::model_response_data].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_model_response_data<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_model_response_data<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::DataItem>,
         {

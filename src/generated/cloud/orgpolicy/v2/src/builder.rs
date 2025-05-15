@@ -467,7 +467,7 @@ pub mod org_policy {
         /// Sets or clear the value of [policy][crate::model::CreatePolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Policy>,
         {
@@ -543,7 +543,7 @@ pub mod org_policy {
         /// Sets or clear the value of [policy][crate::model::UpdatePolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Policy>,
         {
@@ -561,7 +561,7 @@ pub mod org_policy {
         }
 
         /// Sets or clear the value of [update_mask][crate::model::UpdatePolicyRequest::update_mask].
-        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
         {
@@ -716,7 +716,7 @@ pub mod org_policy {
         /// Sets or clear the value of [custom_constraint][crate::model::CreateCustomConstraintRequest::custom_constraint].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_custom_constraint<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_custom_constraint<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::CustomConstraint>,
         {
@@ -795,7 +795,7 @@ pub mod org_policy {
         /// Sets or clear the value of [custom_constraint][crate::model::UpdateCustomConstraintRequest::custom_constraint].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_custom_constraint<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_custom_constraint<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::CustomConstraint>,
         {

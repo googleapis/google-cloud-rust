@@ -145,7 +145,7 @@ pub mod certificate_authority_service {
         /// Sets or clear the value of [certificate][crate::model::CreateCertificateRequest::certificate].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_certificate<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_certificate<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Certificate>,
         {
@@ -503,7 +503,7 @@ pub mod certificate_authority_service {
         /// Sets or clear the value of [certificate][crate::model::UpdateCertificateRequest::certificate].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_certificate<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_certificate<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Certificate>,
         {
@@ -525,7 +525,7 @@ pub mod certificate_authority_service {
         /// Sets or clear the value of [update_mask][crate::model::UpdateCertificateRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
         {
@@ -670,7 +670,7 @@ pub mod certificate_authority_service {
         /// Sets or clear the value of [subordinate_config][crate::model::ActivateCertificateAuthorityRequest::subordinate_config].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_subordinate_config<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_subordinate_config<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::SubordinateConfig>,
         {
@@ -815,7 +815,7 @@ pub mod certificate_authority_service {
         /// Sets or clear the value of [certificate_authority][crate::model::CreateCertificateAuthorityRequest::certificate_authority].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_certificate_authority<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_certificate_authority<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::CertificateAuthority>,
         {
@@ -1685,7 +1685,7 @@ pub mod certificate_authority_service {
         /// Sets or clear the value of [certificate_authority][crate::model::UpdateCertificateAuthorityRequest::certificate_authority].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_certificate_authority<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_certificate_authority<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::CertificateAuthority>,
         {
@@ -1707,7 +1707,7 @@ pub mod certificate_authority_service {
         /// Sets or clear the value of [update_mask][crate::model::UpdateCertificateAuthorityRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
         {
@@ -1844,7 +1844,7 @@ pub mod certificate_authority_service {
         /// Sets or clear the value of [ca_pool][crate::model::CreateCaPoolRequest::ca_pool].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_ca_pool<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_ca_pool<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::CaPool>,
         {
@@ -1965,7 +1965,7 @@ pub mod certificate_authority_service {
         /// Sets or clear the value of [ca_pool][crate::model::UpdateCaPoolRequest::ca_pool].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_ca_pool<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_ca_pool<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::CaPool>,
         {
@@ -1987,7 +1987,7 @@ pub mod certificate_authority_service {
         /// Sets or clear the value of [update_mask][crate::model::UpdateCaPoolRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
         {
@@ -2665,7 +2665,10 @@ pub mod certificate_authority_service {
         /// Sets or clear the value of [certificate_revocation_list][crate::model::UpdateCertificateRevocationListRequest::certificate_revocation_list].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_certificate_revocation_list<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_certificate_revocation_list<T>(
+            mut self,
+            v: std::option::Option<T>,
+        ) -> Self
         where
             T: std::convert::Into<crate::model::CertificateRevocationList>,
         {
@@ -2687,7 +2690,7 @@ pub mod certificate_authority_service {
         /// Sets or clear the value of [update_mask][crate::model::UpdateCertificateRevocationListRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
         {
@@ -2832,7 +2835,7 @@ pub mod certificate_authority_service {
         /// Sets or clear the value of [certificate_template][crate::model::CreateCertificateTemplateRequest::certificate_template].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_certificate_template<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_certificate_template<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::CertificateTemplate>,
         {
@@ -3263,7 +3266,7 @@ pub mod certificate_authority_service {
         /// Sets or clear the value of [certificate_template][crate::model::UpdateCertificateTemplateRequest::certificate_template].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_certificate_template<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_certificate_template<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::CertificateTemplate>,
         {
@@ -3285,7 +3288,7 @@ pub mod certificate_authority_service {
         /// Sets or clear the value of [update_mask][crate::model::UpdateCertificateTemplateRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
         {
@@ -3544,7 +3547,7 @@ pub mod certificate_authority_service {
         /// Sets or clear the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<iam_v1::model::Policy>,
         {
@@ -3562,7 +3565,7 @@ pub mod certificate_authority_service {
         }
 
         /// Sets or clear the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
-        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
         {
@@ -3642,7 +3645,7 @@ pub mod certificate_authority_service {
         }
 
         /// Sets or clear the value of [options][iam_v1::model::GetIamPolicyRequest::options].
-        pub fn maybe_options<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
         {

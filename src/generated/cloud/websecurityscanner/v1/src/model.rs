@@ -266,7 +266,7 @@ impl Finding {
     }
 
     /// Sets or clear the value of [form][crate::model::Finding::form].
-    pub fn maybe_form<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_form<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Form>,
     {
@@ -284,7 +284,7 @@ impl Finding {
     }
 
     /// Sets or clear the value of [outdated_library][crate::model::Finding::outdated_library].
-    pub fn maybe_outdated_library<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_outdated_library<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::OutdatedLibrary>,
     {
@@ -302,7 +302,7 @@ impl Finding {
     }
 
     /// Sets or clear the value of [violating_resource][crate::model::Finding::violating_resource].
-    pub fn maybe_violating_resource<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_violating_resource<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ViolatingResource>,
     {
@@ -320,7 +320,7 @@ impl Finding {
     }
 
     /// Sets or clear the value of [vulnerable_headers][crate::model::Finding::vulnerable_headers].
-    pub fn maybe_vulnerable_headers<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_vulnerable_headers<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::VulnerableHeaders>,
     {
@@ -338,7 +338,7 @@ impl Finding {
     }
 
     /// Sets or clear the value of [vulnerable_parameters][crate::model::Finding::vulnerable_parameters].
-    pub fn maybe_vulnerable_parameters<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_vulnerable_parameters<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::VulnerableParameters>,
     {
@@ -356,7 +356,7 @@ impl Finding {
     }
 
     /// Sets or clear the value of [xss][crate::model::Finding::xss].
-    pub fn maybe_xss<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_xss<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Xss>,
     {
@@ -374,7 +374,7 @@ impl Finding {
     }
 
     /// Sets or clear the value of [xxe][crate::model::Finding::xxe].
-    pub fn maybe_xxe<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_xxe<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Xxe>,
     {
@@ -1459,7 +1459,7 @@ impl ScanConfig {
     }
 
     /// Sets or clear the value of [authentication][crate::model::ScanConfig::authentication].
-    pub fn maybe_authentication<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_authentication<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::scan_config::Authentication>,
     {
@@ -1497,7 +1497,7 @@ impl ScanConfig {
     }
 
     /// Sets or clear the value of [schedule][crate::model::ScanConfig::schedule].
-    pub fn maybe_schedule<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_schedule<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::scan_config::Schedule>,
     {
@@ -2002,7 +2002,7 @@ pub mod scan_config {
         }
 
         /// Sets or clear the value of [schedule_time][crate::model::scan_config::Schedule::schedule_time].
-        pub fn maybe_schedule_time<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_schedule_time<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
         {
@@ -3086,7 +3086,7 @@ impl ScanRun {
     }
 
     /// Sets or clear the value of [start_time][crate::model::ScanRun::start_time].
-    pub fn maybe_start_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -3104,7 +3104,7 @@ impl ScanRun {
     }
 
     /// Sets or clear the value of [end_time][crate::model::ScanRun::end_time].
-    pub fn maybe_end_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -3146,7 +3146,7 @@ impl ScanRun {
     }
 
     /// Sets or clear the value of [error_trace][crate::model::ScanRun::error_trace].
-    pub fn maybe_error_trace<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_error_trace<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ScanRunErrorTrace>,
     {
@@ -3508,7 +3508,7 @@ impl ScanRunErrorTrace {
     }
 
     /// Sets or clear the value of [scan_config_error][crate::model::ScanRunErrorTrace::scan_config_error].
-    pub fn maybe_scan_config_error<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_scan_config_error<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ScanConfigError>,
     {
@@ -3811,7 +3811,7 @@ impl ScanRunLog {
     }
 
     /// Sets or clear the value of [error_trace][crate::model::ScanRunLog::error_trace].
-    pub fn maybe_error_trace<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_error_trace<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ScanRunErrorTrace>,
     {
@@ -4072,7 +4072,7 @@ impl CreateScanConfigRequest {
     }
 
     /// Sets or clear the value of [scan_config][crate::model::CreateScanConfigRequest::scan_config].
-    pub fn maybe_scan_config<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_scan_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ScanConfig>,
     {
@@ -4247,7 +4247,7 @@ impl UpdateScanConfigRequest {
     }
 
     /// Sets or clear the value of [scan_config][crate::model::UpdateScanConfigRequest::scan_config].
-    pub fn maybe_scan_config<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_scan_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ScanConfig>,
     {
@@ -4265,7 +4265,7 @@ impl UpdateScanConfigRequest {
     }
 
     /// Sets or clear the value of [update_mask][crate::model::UpdateScanConfigRequest::update_mask].
-    pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
     {

@@ -126,7 +126,7 @@ impl AdaptiveMtDataset {
     }
 
     /// Sets or clear the value of [create_time][crate::model::AdaptiveMtDataset::create_time].
-    pub fn maybe_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -144,7 +144,7 @@ impl AdaptiveMtDataset {
     }
 
     /// Sets or clear the value of [update_time][crate::model::AdaptiveMtDataset::update_time].
-    pub fn maybe_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -199,7 +199,7 @@ impl CreateAdaptiveMtDatasetRequest {
     }
 
     /// Sets or clear the value of [adaptive_mt_dataset][crate::model::CreateAdaptiveMtDatasetRequest::adaptive_mt_dataset].
-    pub fn maybe_adaptive_mt_dataset<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_adaptive_mt_dataset<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::AdaptiveMtDataset>,
     {
@@ -488,7 +488,7 @@ impl AdaptiveMtTranslateRequest {
     }
 
     /// Sets or clear the value of [reference_sentence_config][crate::model::AdaptiveMtTranslateRequest::reference_sentence_config].
-    pub fn maybe_reference_sentence_config<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_reference_sentence_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::adaptive_mt_translate_request::ReferenceSentenceConfig>,
     {
@@ -506,7 +506,7 @@ impl AdaptiveMtTranslateRequest {
     }
 
     /// Sets or clear the value of [glossary_config][crate::model::AdaptiveMtTranslateRequest::glossary_config].
-    pub fn maybe_glossary_config<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_glossary_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::adaptive_mt_translate_request::GlossaryConfig>,
     {
@@ -907,7 +907,7 @@ impl AdaptiveMtFile {
     }
 
     /// Sets or clear the value of [create_time][crate::model::AdaptiveMtFile::create_time].
-    pub fn maybe_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -925,7 +925,7 @@ impl AdaptiveMtFile {
     }
 
     /// Sets or clear the value of [update_time][crate::model::AdaptiveMtFile::update_time].
-    pub fn maybe_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -1170,7 +1170,7 @@ impl ImportAdaptiveMtFileResponse {
     }
 
     /// Sets or clear the value of [adaptive_mt_file][crate::model::ImportAdaptiveMtFileResponse::adaptive_mt_file].
-    pub fn maybe_adaptive_mt_file<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_adaptive_mt_file<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::AdaptiveMtFile>,
     {
@@ -1370,7 +1370,7 @@ impl AdaptiveMtSentence {
     }
 
     /// Sets or clear the value of [create_time][crate::model::AdaptiveMtSentence::create_time].
-    pub fn maybe_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -1388,7 +1388,7 @@ impl AdaptiveMtSentence {
     }
 
     /// Sets or clear the value of [update_time][crate::model::AdaptiveMtSentence::update_time].
-    pub fn maybe_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -1563,7 +1563,7 @@ impl ImportDataRequest {
     }
 
     /// Sets or clear the value of [input_config][crate::model::ImportDataRequest::input_config].
-    pub fn maybe_input_config<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_input_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::DatasetInputConfig>,
     {
@@ -1772,7 +1772,7 @@ impl ImportDataMetadata {
     }
 
     /// Sets or clear the value of [create_time][crate::model::ImportDataMetadata::create_time].
-    pub fn maybe_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -1790,7 +1790,7 @@ impl ImportDataMetadata {
     }
 
     /// Sets or clear the value of [update_time][crate::model::ImportDataMetadata::update_time].
-    pub fn maybe_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -1808,7 +1808,7 @@ impl ImportDataMetadata {
     }
 
     /// Sets or clear the value of [error][crate::model::ImportDataMetadata::error].
-    pub fn maybe_error<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_error<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<rpc::model::Status>,
     {
@@ -1863,7 +1863,7 @@ impl ExportDataRequest {
     }
 
     /// Sets or clear the value of [output_config][crate::model::ExportDataRequest::output_config].
-    pub fn maybe_output_config<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_output_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::DatasetOutputConfig>,
     {
@@ -2012,7 +2012,7 @@ impl ExportDataMetadata {
     }
 
     /// Sets or clear the value of [create_time][crate::model::ExportDataMetadata::create_time].
-    pub fn maybe_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -2030,7 +2030,7 @@ impl ExportDataMetadata {
     }
 
     /// Sets or clear the value of [update_time][crate::model::ExportDataMetadata::update_time].
-    pub fn maybe_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -2048,7 +2048,7 @@ impl ExportDataMetadata {
     }
 
     /// Sets or clear the value of [error][crate::model::ExportDataMetadata::error].
-    pub fn maybe_error<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_error<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<rpc::model::Status>,
     {
@@ -2141,7 +2141,7 @@ impl DeleteDatasetMetadata {
     }
 
     /// Sets or clear the value of [create_time][crate::model::DeleteDatasetMetadata::create_time].
-    pub fn maybe_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -2159,7 +2159,7 @@ impl DeleteDatasetMetadata {
     }
 
     /// Sets or clear the value of [update_time][crate::model::DeleteDatasetMetadata::update_time].
-    pub fn maybe_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -2177,7 +2177,7 @@ impl DeleteDatasetMetadata {
     }
 
     /// Sets or clear the value of [error][crate::model::DeleteDatasetMetadata::error].
-    pub fn maybe_error<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_error<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<rpc::model::Status>,
     {
@@ -2382,7 +2382,7 @@ impl CreateDatasetRequest {
     }
 
     /// Sets or clear the value of [dataset][crate::model::CreateDatasetRequest::dataset].
-    pub fn maybe_dataset<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_dataset<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Dataset>,
     {
@@ -2443,7 +2443,7 @@ impl CreateDatasetMetadata {
     }
 
     /// Sets or clear the value of [create_time][crate::model::CreateDatasetMetadata::create_time].
-    pub fn maybe_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -2461,7 +2461,7 @@ impl CreateDatasetMetadata {
     }
 
     /// Sets or clear the value of [update_time][crate::model::CreateDatasetMetadata::update_time].
-    pub fn maybe_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -2479,7 +2479,7 @@ impl CreateDatasetMetadata {
     }
 
     /// Sets or clear the value of [error][crate::model::CreateDatasetMetadata::error].
-    pub fn maybe_error<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_error<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<rpc::model::Status>,
     {
@@ -2784,7 +2784,7 @@ pub mod batch_transfer_resources_response {
         }
 
         /// Sets or clear the value of [error][crate::model::batch_transfer_resources_response::TransferResourceResponse::error].
-        pub fn maybe_error<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_error<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<rpc::model::Status>,
         {
@@ -2923,7 +2923,7 @@ impl Dataset {
     }
 
     /// Sets or clear the value of [create_time][crate::model::Dataset::create_time].
-    pub fn maybe_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -2941,7 +2941,7 @@ impl Dataset {
     }
 
     /// Sets or clear the value of [update_time][crate::model::Dataset::update_time].
-    pub fn maybe_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -2996,7 +2996,7 @@ impl CreateModelRequest {
     }
 
     /// Sets or clear the value of [model][crate::model::CreateModelRequest::model].
-    pub fn maybe_model<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_model<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Model>,
     {
@@ -3057,7 +3057,7 @@ impl CreateModelMetadata {
     }
 
     /// Sets or clear the value of [create_time][crate::model::CreateModelMetadata::create_time].
-    pub fn maybe_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -3075,7 +3075,7 @@ impl CreateModelMetadata {
     }
 
     /// Sets or clear the value of [update_time][crate::model::CreateModelMetadata::update_time].
-    pub fn maybe_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -3093,7 +3093,7 @@ impl CreateModelMetadata {
     }
 
     /// Sets or clear the value of [error][crate::model::CreateModelMetadata::error].
-    pub fn maybe_error<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_error<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<rpc::model::Status>,
     {
@@ -3349,7 +3349,7 @@ impl DeleteModelMetadata {
     }
 
     /// Sets or clear the value of [create_time][crate::model::DeleteModelMetadata::create_time].
-    pub fn maybe_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -3367,7 +3367,7 @@ impl DeleteModelMetadata {
     }
 
     /// Sets or clear the value of [update_time][crate::model::DeleteModelMetadata::update_time].
-    pub fn maybe_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -3385,7 +3385,7 @@ impl DeleteModelMetadata {
     }
 
     /// Sets or clear the value of [error][crate::model::DeleteModelMetadata::error].
-    pub fn maybe_error<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_error<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<rpc::model::Status>,
     {
@@ -3525,7 +3525,7 @@ impl Model {
     }
 
     /// Sets or clear the value of [create_time][crate::model::Model::create_time].
-    pub fn maybe_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -3543,7 +3543,7 @@ impl Model {
     }
 
     /// Sets or clear the value of [update_time][crate::model::Model::update_time].
-    pub fn maybe_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -3840,7 +3840,7 @@ pub mod glossary_entry {
         }
 
         /// Sets or clear the value of [source_term][crate::model::glossary_entry::GlossaryTermsPair::source_term].
-        pub fn maybe_source_term<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_source_term<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::GlossaryTerm>,
         {
@@ -3858,7 +3858,7 @@ pub mod glossary_entry {
         }
 
         /// Sets or clear the value of [target_term][crate::model::glossary_entry::GlossaryTermsPair::target_term].
-        pub fn maybe_target_term<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_target_term<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::GlossaryTerm>,
         {
@@ -4159,7 +4159,7 @@ impl TranslateTextRequest {
     }
 
     /// Sets or clear the value of [glossary_config][crate::model::TranslateTextRequest::glossary_config].
-    pub fn maybe_glossary_config<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_glossary_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::TranslateTextGlossaryConfig>,
     {
@@ -4177,7 +4177,7 @@ impl TranslateTextRequest {
     }
 
     /// Sets or clear the value of [transliteration_config][crate::model::TranslateTextRequest::transliteration_config].
-    pub fn maybe_transliteration_config<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_transliteration_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::TransliterationConfig>,
     {
@@ -4340,7 +4340,7 @@ impl Translation {
     }
 
     /// Sets or clear the value of [glossary_config][crate::model::Translation::glossary_config].
-    pub fn maybe_glossary_config<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_glossary_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::TranslateTextGlossaryConfig>,
     {
@@ -5730,7 +5730,7 @@ impl TranslateDocumentRequest {
     }
 
     /// Sets or clear the value of [document_input_config][crate::model::TranslateDocumentRequest::document_input_config].
-    pub fn maybe_document_input_config<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_document_input_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::DocumentInputConfig>,
     {
@@ -5748,7 +5748,7 @@ impl TranslateDocumentRequest {
     }
 
     /// Sets or clear the value of [document_output_config][crate::model::TranslateDocumentRequest::document_output_config].
-    pub fn maybe_document_output_config<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_document_output_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::DocumentOutputConfig>,
     {
@@ -5772,7 +5772,7 @@ impl TranslateDocumentRequest {
     }
 
     /// Sets or clear the value of [glossary_config][crate::model::TranslateDocumentRequest::glossary_config].
-    pub fn maybe_glossary_config<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_glossary_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::TranslateTextGlossaryConfig>,
     {
@@ -5946,7 +5946,7 @@ impl TranslateDocumentResponse {
     }
 
     /// Sets or clear the value of [document_translation][crate::model::TranslateDocumentResponse::document_translation].
-    pub fn maybe_document_translation<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_document_translation<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::DocumentTranslation>,
     {
@@ -5964,7 +5964,10 @@ impl TranslateDocumentResponse {
     }
 
     /// Sets or clear the value of [glossary_document_translation][crate::model::TranslateDocumentResponse::glossary_document_translation].
-    pub fn maybe_glossary_document_translation<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_glossary_document_translation<T>(
+        mut self,
+        v: std::option::Option<T>,
+    ) -> Self
     where
         T: std::convert::Into<crate::model::DocumentTranslation>,
     {
@@ -5988,7 +5991,7 @@ impl TranslateDocumentResponse {
     }
 
     /// Sets or clear the value of [glossary_config][crate::model::TranslateDocumentResponse::glossary_config].
-    pub fn maybe_glossary_config<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_glossary_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::TranslateTextGlossaryConfig>,
     {
@@ -6146,7 +6149,7 @@ impl BatchTranslateTextRequest {
     }
 
     /// Sets or clear the value of [output_config][crate::model::BatchTranslateTextRequest::output_config].
-    pub fn maybe_output_config<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_output_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::OutputConfig>,
     {
@@ -6262,7 +6265,7 @@ impl BatchTranslateMetadata {
     }
 
     /// Sets or clear the value of [submit_time][crate::model::BatchTranslateMetadata::submit_time].
-    pub fn maybe_submit_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_submit_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -6515,7 +6518,7 @@ impl BatchTranslateResponse {
     }
 
     /// Sets or clear the value of [submit_time][crate::model::BatchTranslateResponse::submit_time].
-    pub fn maybe_submit_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_submit_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -6533,7 +6536,7 @@ impl BatchTranslateResponse {
     }
 
     /// Sets or clear the value of [end_time][crate::model::BatchTranslateResponse::end_time].
-    pub fn maybe_end_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -6714,7 +6717,7 @@ impl Glossary {
     }
 
     /// Sets or clear the value of [input_config][crate::model::Glossary::input_config].
-    pub fn maybe_input_config<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_input_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::GlossaryInputConfig>,
     {
@@ -6738,7 +6741,7 @@ impl Glossary {
     }
 
     /// Sets or clear the value of [submit_time][crate::model::Glossary::submit_time].
-    pub fn maybe_submit_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_submit_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -6756,7 +6759,7 @@ impl Glossary {
     }
 
     /// Sets or clear the value of [end_time][crate::model::Glossary::end_time].
-    pub fn maybe_end_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -6996,7 +6999,7 @@ impl CreateGlossaryRequest {
     }
 
     /// Sets or clear the value of [glossary][crate::model::CreateGlossaryRequest::glossary].
-    pub fn maybe_glossary<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_glossary<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Glossary>,
     {
@@ -7045,7 +7048,7 @@ impl UpdateGlossaryRequest {
     }
 
     /// Sets or clear the value of [glossary][crate::model::UpdateGlossaryRequest::glossary].
-    pub fn maybe_glossary<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_glossary<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Glossary>,
     {
@@ -7063,7 +7066,7 @@ impl UpdateGlossaryRequest {
     }
 
     /// Sets or clear the value of [update_mask][crate::model::UpdateGlossaryRequest::update_mask].
-    pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
     {
@@ -7508,7 +7511,7 @@ impl CreateGlossaryEntryRequest {
     }
 
     /// Sets or clear the value of [glossary_entry][crate::model::CreateGlossaryEntryRequest::glossary_entry].
-    pub fn maybe_glossary_entry<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_glossary_entry<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::GlossaryEntry>,
     {
@@ -7552,7 +7555,7 @@ impl UpdateGlossaryEntryRequest {
     }
 
     /// Sets or clear the value of [glossary_entry][crate::model::UpdateGlossaryEntryRequest::glossary_entry].
-    pub fn maybe_glossary_entry<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_glossary_entry<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::GlossaryEntry>,
     {
@@ -7622,7 +7625,7 @@ impl CreateGlossaryMetadata {
     }
 
     /// Sets or clear the value of [submit_time][crate::model::CreateGlossaryMetadata::submit_time].
-    pub fn maybe_submit_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_submit_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -7838,7 +7841,7 @@ impl UpdateGlossaryMetadata {
     }
 
     /// Sets or clear the value of [glossary][crate::model::UpdateGlossaryMetadata::glossary].
-    pub fn maybe_glossary<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_glossary<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Glossary>,
     {
@@ -7865,7 +7868,7 @@ impl UpdateGlossaryMetadata {
     }
 
     /// Sets or clear the value of [submit_time][crate::model::UpdateGlossaryMetadata::submit_time].
-    pub fn maybe_submit_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_submit_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -8095,7 +8098,7 @@ impl DeleteGlossaryMetadata {
     }
 
     /// Sets or clear the value of [submit_time][crate::model::DeleteGlossaryMetadata::submit_time].
-    pub fn maybe_submit_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_submit_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -8321,7 +8324,7 @@ impl DeleteGlossaryResponse {
     }
 
     /// Sets or clear the value of [submit_time][crate::model::DeleteGlossaryResponse::submit_time].
-    pub fn maybe_submit_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_submit_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -8339,7 +8342,7 @@ impl DeleteGlossaryResponse {
     }
 
     /// Sets or clear the value of [end_time][crate::model::DeleteGlossaryResponse::end_time].
-    pub fn maybe_end_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -8507,7 +8510,7 @@ impl BatchTranslateDocumentRequest {
     }
 
     /// Sets or clear the value of [output_config][crate::model::BatchTranslateDocumentRequest::output_config].
-    pub fn maybe_output_config<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_output_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::BatchDocumentOutputConfig>,
     {
@@ -8958,7 +8961,7 @@ impl BatchTranslateDocumentResponse {
     }
 
     /// Sets or clear the value of [submit_time][crate::model::BatchTranslateDocumentResponse::submit_time].
-    pub fn maybe_submit_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_submit_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -8976,7 +8979,7 @@ impl BatchTranslateDocumentResponse {
     }
 
     /// Sets or clear the value of [end_time][crate::model::BatchTranslateDocumentResponse::end_time].
-    pub fn maybe_end_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -9129,7 +9132,7 @@ impl BatchTranslateDocumentMetadata {
     }
 
     /// Sets or clear the value of [submit_time][crate::model::BatchTranslateDocumentMetadata::submit_time].
-    pub fn maybe_submit_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_submit_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {

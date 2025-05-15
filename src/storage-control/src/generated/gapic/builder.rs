@@ -84,7 +84,7 @@ pub mod storage {
         }
 
         /// Sets or clear the value of [if_metageneration_match][crate::model::DeleteBucketRequest::if_metageneration_match].
-        pub fn maybe_if_metageneration_match<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_if_metageneration_match<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<i64>,
         {
@@ -102,7 +102,10 @@ pub mod storage {
         }
 
         /// Sets or clear the value of [if_metageneration_not_match][crate::model::DeleteBucketRequest::if_metageneration_not_match].
-        pub fn maybe_if_metageneration_not_match<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_if_metageneration_not_match<T>(
+            mut self,
+            v: std::option::Option<T>,
+        ) -> Self
         where
             T: std::convert::Into<i64>,
         {
@@ -164,7 +167,7 @@ pub mod storage {
         }
 
         /// Sets or clear the value of [if_metageneration_match][crate::model::GetBucketRequest::if_metageneration_match].
-        pub fn maybe_if_metageneration_match<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_if_metageneration_match<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<i64>,
         {
@@ -182,7 +185,10 @@ pub mod storage {
         }
 
         /// Sets or clear the value of [if_metageneration_not_match][crate::model::GetBucketRequest::if_metageneration_not_match].
-        pub fn maybe_if_metageneration_not_match<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_if_metageneration_not_match<T>(
+            mut self,
+            v: std::option::Option<T>,
+        ) -> Self
         where
             T: std::convert::Into<i64>,
         {
@@ -200,7 +206,7 @@ pub mod storage {
         }
 
         /// Sets or clear the value of [read_mask][crate::model::GetBucketRequest::read_mask].
-        pub fn maybe_read_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_read_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
         {
@@ -262,7 +268,7 @@ pub mod storage {
         }
 
         /// Sets or clear the value of [bucket][crate::model::CreateBucketRequest::bucket].
-        pub fn maybe_bucket<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_bucket<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Bucket>,
         {
@@ -389,7 +395,7 @@ pub mod storage {
         }
 
         /// Sets or clear the value of [read_mask][crate::model::ListBucketsRequest::read_mask].
-        pub fn maybe_read_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_read_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
         {
@@ -508,7 +514,7 @@ pub mod storage {
         }
 
         /// Sets or clear the value of [options][iam_v1::model::GetIamPolicyRequest::options].
-        pub fn maybe_options<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
         {
@@ -574,7 +580,7 @@ pub mod storage {
         /// Sets or clear the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<iam_v1::model::Policy>,
         {
@@ -592,7 +598,7 @@ pub mod storage {
         }
 
         /// Sets or clear the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
-        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
         {
@@ -710,7 +716,7 @@ pub mod storage {
         /// Sets or clear the value of [bucket][crate::model::UpdateBucketRequest::bucket].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_bucket<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_bucket<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Bucket>,
         {
@@ -728,7 +734,7 @@ pub mod storage {
         }
 
         /// Sets or clear the value of [if_metageneration_match][crate::model::UpdateBucketRequest::if_metageneration_match].
-        pub fn maybe_if_metageneration_match<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_if_metageneration_match<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<i64>,
         {
@@ -746,7 +752,10 @@ pub mod storage {
         }
 
         /// Sets or clear the value of [if_metageneration_not_match][crate::model::UpdateBucketRequest::if_metageneration_not_match].
-        pub fn maybe_if_metageneration_not_match<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_if_metageneration_not_match<T>(
+            mut self,
+            v: std::option::Option<T>,
+        ) -> Self
         where
             T: std::convert::Into<i64>,
         {
@@ -783,7 +792,7 @@ pub mod storage {
         /// Sets or clear the value of [update_mask][crate::model::UpdateBucketRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
         {
@@ -841,7 +850,7 @@ pub mod storage {
         /// Sets or clear the value of [destination][crate::model::ComposeObjectRequest::destination].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_destination<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_destination<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Object>,
         {
@@ -879,7 +888,7 @@ pub mod storage {
         }
 
         /// Sets or clear the value of [if_generation_match][crate::model::ComposeObjectRequest::if_generation_match].
-        pub fn maybe_if_generation_match<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_if_generation_match<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<i64>,
         {
@@ -897,7 +906,7 @@ pub mod storage {
         }
 
         /// Sets or clear the value of [if_metageneration_match][crate::model::ComposeObjectRequest::if_metageneration_match].
-        pub fn maybe_if_metageneration_match<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_if_metageneration_match<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<i64>,
         {
@@ -921,7 +930,10 @@ pub mod storage {
         }
 
         /// Sets or clear the value of [common_object_request_params][crate::model::ComposeObjectRequest::common_object_request_params].
-        pub fn maybe_common_object_request_params<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_common_object_request_params<T>(
+            mut self,
+            v: std::option::Option<T>,
+        ) -> Self
         where
             T: std::convert::Into<crate::model::CommonObjectRequestParams>,
         {
@@ -939,7 +951,7 @@ pub mod storage {
         }
 
         /// Sets or clear the value of [object_checksums][crate::model::ComposeObjectRequest::object_checksums].
-        pub fn maybe_object_checksums<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_object_checksums<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::ObjectChecksums>,
         {
@@ -1015,7 +1027,7 @@ pub mod storage {
         }
 
         /// Sets or clear the value of [if_generation_match][crate::model::DeleteObjectRequest::if_generation_match].
-        pub fn maybe_if_generation_match<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_if_generation_match<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<i64>,
         {
@@ -1033,7 +1045,7 @@ pub mod storage {
         }
 
         /// Sets or clear the value of [if_generation_not_match][crate::model::DeleteObjectRequest::if_generation_not_match].
-        pub fn maybe_if_generation_not_match<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_if_generation_not_match<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<i64>,
         {
@@ -1051,7 +1063,7 @@ pub mod storage {
         }
 
         /// Sets or clear the value of [if_metageneration_match][crate::model::DeleteObjectRequest::if_metageneration_match].
-        pub fn maybe_if_metageneration_match<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_if_metageneration_match<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<i64>,
         {
@@ -1069,7 +1081,10 @@ pub mod storage {
         }
 
         /// Sets or clear the value of [if_metageneration_not_match][crate::model::DeleteObjectRequest::if_metageneration_not_match].
-        pub fn maybe_if_metageneration_not_match<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_if_metageneration_not_match<T>(
+            mut self,
+            v: std::option::Option<T>,
+        ) -> Self
         where
             T: std::convert::Into<i64>,
         {
@@ -1087,7 +1102,10 @@ pub mod storage {
         }
 
         /// Sets or clear the value of [common_object_request_params][crate::model::DeleteObjectRequest::common_object_request_params].
-        pub fn maybe_common_object_request_params<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_common_object_request_params<T>(
+            mut self,
+            v: std::option::Option<T>,
+        ) -> Self
         where
             T: std::convert::Into<crate::model::CommonObjectRequestParams>,
         {
@@ -1171,7 +1189,7 @@ pub mod storage {
         }
 
         /// Sets or clear the value of [if_generation_match][crate::model::RestoreObjectRequest::if_generation_match].
-        pub fn maybe_if_generation_match<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_if_generation_match<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<i64>,
         {
@@ -1189,7 +1207,7 @@ pub mod storage {
         }
 
         /// Sets or clear the value of [if_generation_not_match][crate::model::RestoreObjectRequest::if_generation_not_match].
-        pub fn maybe_if_generation_not_match<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_if_generation_not_match<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<i64>,
         {
@@ -1207,7 +1225,7 @@ pub mod storage {
         }
 
         /// Sets or clear the value of [if_metageneration_match][crate::model::RestoreObjectRequest::if_metageneration_match].
-        pub fn maybe_if_metageneration_match<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_if_metageneration_match<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<i64>,
         {
@@ -1225,7 +1243,10 @@ pub mod storage {
         }
 
         /// Sets or clear the value of [if_metageneration_not_match][crate::model::RestoreObjectRequest::if_metageneration_not_match].
-        pub fn maybe_if_metageneration_not_match<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_if_metageneration_not_match<T>(
+            mut self,
+            v: std::option::Option<T>,
+        ) -> Self
         where
             T: std::convert::Into<i64>,
         {
@@ -1243,7 +1264,7 @@ pub mod storage {
         }
 
         /// Sets or clear the value of [copy_source_acl][crate::model::RestoreObjectRequest::copy_source_acl].
-        pub fn maybe_copy_source_acl<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_copy_source_acl<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<bool>,
         {
@@ -1261,7 +1282,10 @@ pub mod storage {
         }
 
         /// Sets or clear the value of [common_object_request_params][crate::model::RestoreObjectRequest::common_object_request_params].
-        pub fn maybe_common_object_request_params<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_common_object_request_params<T>(
+            mut self,
+            v: std::option::Option<T>,
+        ) -> Self
         where
             T: std::convert::Into<crate::model::CommonObjectRequestParams>,
         {
@@ -1337,7 +1361,7 @@ pub mod storage {
         }
 
         /// Sets or clear the value of [soft_deleted][crate::model::GetObjectRequest::soft_deleted].
-        pub fn maybe_soft_deleted<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_soft_deleted<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<bool>,
         {
@@ -1355,7 +1379,7 @@ pub mod storage {
         }
 
         /// Sets or clear the value of [if_generation_match][crate::model::GetObjectRequest::if_generation_match].
-        pub fn maybe_if_generation_match<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_if_generation_match<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<i64>,
         {
@@ -1373,7 +1397,7 @@ pub mod storage {
         }
 
         /// Sets or clear the value of [if_generation_not_match][crate::model::GetObjectRequest::if_generation_not_match].
-        pub fn maybe_if_generation_not_match<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_if_generation_not_match<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<i64>,
         {
@@ -1391,7 +1415,7 @@ pub mod storage {
         }
 
         /// Sets or clear the value of [if_metageneration_match][crate::model::GetObjectRequest::if_metageneration_match].
-        pub fn maybe_if_metageneration_match<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_if_metageneration_match<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<i64>,
         {
@@ -1409,7 +1433,10 @@ pub mod storage {
         }
 
         /// Sets or clear the value of [if_metageneration_not_match][crate::model::GetObjectRequest::if_metageneration_not_match].
-        pub fn maybe_if_metageneration_not_match<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_if_metageneration_not_match<T>(
+            mut self,
+            v: std::option::Option<T>,
+        ) -> Self
         where
             T: std::convert::Into<i64>,
         {
@@ -1427,7 +1454,10 @@ pub mod storage {
         }
 
         /// Sets or clear the value of [common_object_request_params][crate::model::GetObjectRequest::common_object_request_params].
-        pub fn maybe_common_object_request_params<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_common_object_request_params<T>(
+            mut self,
+            v: std::option::Option<T>,
+        ) -> Self
         where
             T: std::convert::Into<crate::model::CommonObjectRequestParams>,
         {
@@ -1445,7 +1475,7 @@ pub mod storage {
         }
 
         /// Sets or clear the value of [read_mask][crate::model::GetObjectRequest::read_mask].
-        pub fn maybe_read_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_read_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
         {
@@ -1509,7 +1539,7 @@ pub mod storage {
         /// Sets or clear the value of [object][crate::model::UpdateObjectRequest::object].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_object<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_object<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Object>,
         {
@@ -1527,7 +1557,7 @@ pub mod storage {
         }
 
         /// Sets or clear the value of [if_generation_match][crate::model::UpdateObjectRequest::if_generation_match].
-        pub fn maybe_if_generation_match<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_if_generation_match<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<i64>,
         {
@@ -1545,7 +1575,7 @@ pub mod storage {
         }
 
         /// Sets or clear the value of [if_generation_not_match][crate::model::UpdateObjectRequest::if_generation_not_match].
-        pub fn maybe_if_generation_not_match<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_if_generation_not_match<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<i64>,
         {
@@ -1563,7 +1593,7 @@ pub mod storage {
         }
 
         /// Sets or clear the value of [if_metageneration_match][crate::model::UpdateObjectRequest::if_metageneration_match].
-        pub fn maybe_if_metageneration_match<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_if_metageneration_match<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<i64>,
         {
@@ -1581,7 +1611,10 @@ pub mod storage {
         }
 
         /// Sets or clear the value of [if_metageneration_not_match][crate::model::UpdateObjectRequest::if_metageneration_not_match].
-        pub fn maybe_if_metageneration_not_match<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_if_metageneration_not_match<T>(
+            mut self,
+            v: std::option::Option<T>,
+        ) -> Self
         where
             T: std::convert::Into<i64>,
         {
@@ -1609,7 +1642,7 @@ pub mod storage {
         /// Sets or clear the value of [update_mask][crate::model::UpdateObjectRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
         {
@@ -1627,7 +1660,10 @@ pub mod storage {
         }
 
         /// Sets or clear the value of [common_object_request_params][crate::model::UpdateObjectRequest::common_object_request_params].
-        pub fn maybe_common_object_request_params<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_common_object_request_params<T>(
+            mut self,
+            v: std::option::Option<T>,
+        ) -> Self
         where
             T: std::convert::Into<crate::model::CommonObjectRequestParams>,
         {
@@ -1749,7 +1785,7 @@ pub mod storage {
         }
 
         /// Sets or clear the value of [read_mask][crate::model::ListObjectsRequest::read_mask].
-        pub fn maybe_read_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_read_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
         {
@@ -1855,7 +1891,7 @@ pub mod storage {
         }
 
         /// Sets or clear the value of [destination][crate::model::RewriteObjectRequest::destination].
-        pub fn maybe_destination<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_destination<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Object>,
         {
@@ -1910,7 +1946,7 @@ pub mod storage {
         }
 
         /// Sets or clear the value of [if_generation_match][crate::model::RewriteObjectRequest::if_generation_match].
-        pub fn maybe_if_generation_match<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_if_generation_match<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<i64>,
         {
@@ -1928,7 +1964,7 @@ pub mod storage {
         }
 
         /// Sets or clear the value of [if_generation_not_match][crate::model::RewriteObjectRequest::if_generation_not_match].
-        pub fn maybe_if_generation_not_match<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_if_generation_not_match<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<i64>,
         {
@@ -1946,7 +1982,7 @@ pub mod storage {
         }
 
         /// Sets or clear the value of [if_metageneration_match][crate::model::RewriteObjectRequest::if_metageneration_match].
-        pub fn maybe_if_metageneration_match<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_if_metageneration_match<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<i64>,
         {
@@ -1964,7 +2000,10 @@ pub mod storage {
         }
 
         /// Sets or clear the value of [if_metageneration_not_match][crate::model::RewriteObjectRequest::if_metageneration_not_match].
-        pub fn maybe_if_metageneration_not_match<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_if_metageneration_not_match<T>(
+            mut self,
+            v: std::option::Option<T>,
+        ) -> Self
         where
             T: std::convert::Into<i64>,
         {
@@ -1982,7 +2021,10 @@ pub mod storage {
         }
 
         /// Sets or clear the value of [if_source_generation_match][crate::model::RewriteObjectRequest::if_source_generation_match].
-        pub fn maybe_if_source_generation_match<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_if_source_generation_match<T>(
+            mut self,
+            v: std::option::Option<T>,
+        ) -> Self
         where
             T: std::convert::Into<i64>,
         {
@@ -2000,7 +2042,10 @@ pub mod storage {
         }
 
         /// Sets or clear the value of [if_source_generation_not_match][crate::model::RewriteObjectRequest::if_source_generation_not_match].
-        pub fn maybe_if_source_generation_not_match<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_if_source_generation_not_match<T>(
+            mut self,
+            v: std::option::Option<T>,
+        ) -> Self
         where
             T: std::convert::Into<i64>,
         {
@@ -2018,7 +2063,10 @@ pub mod storage {
         }
 
         /// Sets or clear the value of [if_source_metageneration_match][crate::model::RewriteObjectRequest::if_source_metageneration_match].
-        pub fn maybe_if_source_metageneration_match<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_if_source_metageneration_match<T>(
+            mut self,
+            v: std::option::Option<T>,
+        ) -> Self
         where
             T: std::convert::Into<i64>,
         {
@@ -2036,7 +2084,7 @@ pub mod storage {
         }
 
         /// Sets or clear the value of [if_source_metageneration_not_match][crate::model::RewriteObjectRequest::if_source_metageneration_not_match].
-        pub fn maybe_if_source_metageneration_not_match<T>(
+        pub fn set_or_clear_if_source_metageneration_not_match<T>(
             mut self,
             v: std::option::Option<T>,
         ) -> Self
@@ -2090,7 +2138,10 @@ pub mod storage {
         }
 
         /// Sets or clear the value of [common_object_request_params][crate::model::RewriteObjectRequest::common_object_request_params].
-        pub fn maybe_common_object_request_params<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_common_object_request_params<T>(
+            mut self,
+            v: std::option::Option<T>,
+        ) -> Self
         where
             T: std::convert::Into<crate::model::CommonObjectRequestParams>,
         {
@@ -2108,7 +2159,7 @@ pub mod storage {
         }
 
         /// Sets or clear the value of [object_checksums][crate::model::RewriteObjectRequest::object_checksums].
-        pub fn maybe_object_checksums<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_object_checksums<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::ObjectChecksums>,
         {
@@ -2186,7 +2237,10 @@ pub mod storage {
         }
 
         /// Sets or clear the value of [if_source_generation_match][crate::model::MoveObjectRequest::if_source_generation_match].
-        pub fn maybe_if_source_generation_match<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_if_source_generation_match<T>(
+            mut self,
+            v: std::option::Option<T>,
+        ) -> Self
         where
             T: std::convert::Into<i64>,
         {
@@ -2204,7 +2258,10 @@ pub mod storage {
         }
 
         /// Sets or clear the value of [if_source_generation_not_match][crate::model::MoveObjectRequest::if_source_generation_not_match].
-        pub fn maybe_if_source_generation_not_match<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_if_source_generation_not_match<T>(
+            mut self,
+            v: std::option::Option<T>,
+        ) -> Self
         where
             T: std::convert::Into<i64>,
         {
@@ -2222,7 +2279,10 @@ pub mod storage {
         }
 
         /// Sets or clear the value of [if_source_metageneration_match][crate::model::MoveObjectRequest::if_source_metageneration_match].
-        pub fn maybe_if_source_metageneration_match<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_if_source_metageneration_match<T>(
+            mut self,
+            v: std::option::Option<T>,
+        ) -> Self
         where
             T: std::convert::Into<i64>,
         {
@@ -2240,7 +2300,7 @@ pub mod storage {
         }
 
         /// Sets or clear the value of [if_source_metageneration_not_match][crate::model::MoveObjectRequest::if_source_metageneration_not_match].
-        pub fn maybe_if_source_metageneration_not_match<T>(
+        pub fn set_or_clear_if_source_metageneration_not_match<T>(
             mut self,
             v: std::option::Option<T>,
         ) -> Self
@@ -2261,7 +2321,7 @@ pub mod storage {
         }
 
         /// Sets or clear the value of [if_generation_match][crate::model::MoveObjectRequest::if_generation_match].
-        pub fn maybe_if_generation_match<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_if_generation_match<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<i64>,
         {
@@ -2279,7 +2339,7 @@ pub mod storage {
         }
 
         /// Sets or clear the value of [if_generation_not_match][crate::model::MoveObjectRequest::if_generation_not_match].
-        pub fn maybe_if_generation_not_match<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_if_generation_not_match<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<i64>,
         {
@@ -2297,7 +2357,7 @@ pub mod storage {
         }
 
         /// Sets or clear the value of [if_metageneration_match][crate::model::MoveObjectRequest::if_metageneration_match].
-        pub fn maybe_if_metageneration_match<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_if_metageneration_match<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<i64>,
         {
@@ -2315,7 +2375,10 @@ pub mod storage {
         }
 
         /// Sets or clear the value of [if_metageneration_not_match][crate::model::MoveObjectRequest::if_metageneration_not_match].
-        pub fn maybe_if_metageneration_not_match<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_if_metageneration_not_match<T>(
+            mut self,
+            v: std::option::Option<T>,
+        ) -> Self
         where
             T: std::convert::Into<i64>,
         {

@@ -152,7 +152,7 @@ impl OperationMetadata {
     }
 
     /// Sets or clear the value of [start_time][crate::model::OperationMetadata::start_time].
-    pub fn maybe_start_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -974,7 +974,7 @@ impl Rollout {
     }
 
     /// Sets or clear the value of [create_time][crate::model::Rollout::create_time].
-    pub fn maybe_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -1566,7 +1566,7 @@ impl CreateServiceRequest {
     }
 
     /// Sets or clear the value of [service][crate::model::CreateServiceRequest::service].
-    pub fn maybe_service<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_service<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ManagedService>,
     {
@@ -1678,7 +1678,7 @@ impl UndeleteServiceResponse {
     }
 
     /// Sets or clear the value of [service][crate::model::UndeleteServiceResponse::service].
-    pub fn maybe_service<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_service<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ManagedService>,
     {
@@ -2043,7 +2043,7 @@ impl CreateServiceConfigRequest {
     }
 
     /// Sets or clear the value of [service_config][crate::model::CreateServiceConfigRequest::service_config].
-    pub fn maybe_service_config<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_service_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<api::model::Service>,
     {
@@ -2105,7 +2105,7 @@ impl SubmitConfigSourceRequest {
     }
 
     /// Sets or clear the value of [config_source][crate::model::SubmitConfigSourceRequest::config_source].
-    pub fn maybe_config_source<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_config_source<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ConfigSource>,
     {
@@ -2155,7 +2155,7 @@ impl SubmitConfigSourceResponse {
     }
 
     /// Sets or clear the value of [service_config][crate::model::SubmitConfigSourceResponse::service_config].
-    pub fn maybe_service_config<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_service_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<api::model::Service>,
     {
@@ -2211,7 +2211,7 @@ impl CreateServiceRolloutRequest {
     }
 
     /// Sets or clear the value of [rollout][crate::model::CreateServiceRolloutRequest::rollout].
-    pub fn maybe_rollout<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_rollout<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Rollout>,
     {
@@ -2476,7 +2476,7 @@ impl GenerateConfigReportRequest {
     }
 
     /// Sets or clear the value of [new_config][crate::model::GenerateConfigReportRequest::new_config].
-    pub fn maybe_new_config<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_new_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Any>,
     {
@@ -2494,7 +2494,7 @@ impl GenerateConfigReportRequest {
     }
 
     /// Sets or clear the value of [old_config][crate::model::GenerateConfigReportRequest::old_config].
-    pub fn maybe_old_config<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_old_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Any>,
     {

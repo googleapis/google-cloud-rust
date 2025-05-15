@@ -93,7 +93,7 @@ impl OrchestrationCluster {
     }
 
     /// Sets or clear the value of [management_config][crate::model::OrchestrationCluster::management_config].
-    pub fn maybe_management_config<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_management_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ManagementConfig>,
     {
@@ -111,7 +111,7 @@ impl OrchestrationCluster {
     }
 
     /// Sets or clear the value of [create_time][crate::model::OrchestrationCluster::create_time].
-    pub fn maybe_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -129,7 +129,7 @@ impl OrchestrationCluster {
     }
 
     /// Sets or clear the value of [update_time][crate::model::OrchestrationCluster::update_time].
-    pub fn maybe_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -400,7 +400,7 @@ impl EdgeSlm {
     }
 
     /// Sets or clear the value of [create_time][crate::model::EdgeSlm::create_time].
-    pub fn maybe_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -418,7 +418,7 @@ impl EdgeSlm {
     }
 
     /// Sets or clear the value of [update_time][crate::model::EdgeSlm::update_time].
-    pub fn maybe_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -871,7 +871,7 @@ impl Blueprint {
     }
 
     /// Sets or clear the value of [revision_create_time][crate::model::Blueprint::revision_create_time].
-    pub fn maybe_revision_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_revision_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -933,7 +933,7 @@ impl Blueprint {
     }
 
     /// Sets or clear the value of [create_time][crate::model::Blueprint::create_time].
-    pub fn maybe_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -951,7 +951,7 @@ impl Blueprint {
     }
 
     /// Sets or clear the value of [update_time][crate::model::Blueprint::update_time].
-    pub fn maybe_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -1348,7 +1348,7 @@ impl Deployment {
     }
 
     /// Sets or clear the value of [revision_create_time][crate::model::Deployment::revision_create_time].
-    pub fn maybe_revision_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_revision_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -1410,7 +1410,7 @@ impl Deployment {
     }
 
     /// Sets or clear the value of [create_time][crate::model::Deployment::create_time].
-    pub fn maybe_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -1428,7 +1428,7 @@ impl Deployment {
     }
 
     /// Sets or clear the value of [update_time][crate::model::Deployment::update_time].
-    pub fn maybe_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -2095,7 +2095,7 @@ impl CreateOrchestrationClusterRequest {
     }
 
     /// Sets or clear the value of [orchestration_cluster][crate::model::CreateOrchestrationClusterRequest::orchestration_cluster].
-    pub fn maybe_orchestration_cluster<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_orchestration_cluster<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::OrchestrationCluster>,
     {
@@ -2418,7 +2418,7 @@ impl CreateEdgeSlmRequest {
     }
 
     /// Sets or clear the value of [edge_slm][crate::model::CreateEdgeSlmRequest::edge_slm].
-    pub fn maybe_edge_slm<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_edge_slm<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::EdgeSlm>,
     {
@@ -2544,7 +2544,7 @@ impl CreateBlueprintRequest {
     }
 
     /// Sets or clear the value of [blueprint][crate::model::CreateBlueprintRequest::blueprint].
-    pub fn maybe_blueprint<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_blueprint<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Blueprint>,
     {
@@ -2593,7 +2593,7 @@ impl UpdateBlueprintRequest {
     }
 
     /// Sets or clear the value of [blueprint][crate::model::UpdateBlueprintRequest::blueprint].
-    pub fn maybe_blueprint<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_blueprint<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Blueprint>,
     {
@@ -2611,7 +2611,7 @@ impl UpdateBlueprintRequest {
     }
 
     /// Sets or clear the value of [update_mask][crate::model::UpdateBlueprintRequest::update_mask].
-    pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
     {
@@ -3437,7 +3437,7 @@ impl CreateDeploymentRequest {
     }
 
     /// Sets or clear the value of [deployment][crate::model::CreateDeploymentRequest::deployment].
-    pub fn maybe_deployment<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_deployment<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Deployment>,
     {
@@ -3486,7 +3486,7 @@ impl UpdateDeploymentRequest {
     }
 
     /// Sets or clear the value of [deployment][crate::model::UpdateDeploymentRequest::deployment].
-    pub fn maybe_deployment<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_deployment<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Deployment>,
     {
@@ -3504,7 +3504,7 @@ impl UpdateDeploymentRequest {
     }
 
     /// Sets or clear the value of [update_mask][crate::model::UpdateDeploymentRequest::update_mask].
-    pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
     {
@@ -4258,7 +4258,7 @@ impl OperationMetadata {
     }
 
     /// Sets or clear the value of [create_time][crate::model::OperationMetadata::create_time].
-    pub fn maybe_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -4276,7 +4276,7 @@ impl OperationMetadata {
     }
 
     /// Sets or clear the value of [end_time][crate::model::OperationMetadata::end_time].
-    pub fn maybe_end_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -4505,7 +4505,7 @@ impl UpdateHydratedDeploymentRequest {
     }
 
     /// Sets or clear the value of [hydrated_deployment][crate::model::UpdateHydratedDeploymentRequest::hydrated_deployment].
-    pub fn maybe_hydrated_deployment<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_hydrated_deployment<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::HydratedDeployment>,
     {
@@ -4523,7 +4523,7 @@ impl UpdateHydratedDeploymentRequest {
     }
 
     /// Sets or clear the value of [update_mask][crate::model::UpdateHydratedDeploymentRequest::update_mask].
-    pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
     {
@@ -4828,7 +4828,10 @@ impl StandardManagementConfig {
     }
 
     /// Sets or clear the value of [master_authorized_networks_config][crate::model::StandardManagementConfig::master_authorized_networks_config].
-    pub fn maybe_master_authorized_networks_config<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_master_authorized_networks_config<T>(
+        mut self,
+        v: std::option::Option<T>,
+    ) -> Self
     where
         T: std::convert::Into<crate::model::MasterAuthorizedNetworksConfig>,
     {
@@ -4975,7 +4978,10 @@ impl FullManagementConfig {
     }
 
     /// Sets or clear the value of [master_authorized_networks_config][crate::model::FullManagementConfig::master_authorized_networks_config].
-    pub fn maybe_master_authorized_networks_config<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_master_authorized_networks_config<T>(
+        mut self,
+        v: std::option::Option<T>,
+    ) -> Self
     where
         T: std::convert::Into<crate::model::MasterAuthorizedNetworksConfig>,
     {
@@ -5250,7 +5256,7 @@ impl ResourceStatus {
     }
 
     /// Sets or clear the value of [nf_deploy_status][crate::model::ResourceStatus::nf_deploy_status].
-    pub fn maybe_nf_deploy_status<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_nf_deploy_status<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::NFDeployStatus>,
     {
@@ -5376,7 +5382,7 @@ impl NFDeploySiteStatus {
     }
 
     /// Sets or clear the value of [hydration][crate::model::NFDeploySiteStatus::hydration].
-    pub fn maybe_hydration<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_hydration<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::HydrationStatus>,
     {
@@ -5394,7 +5400,7 @@ impl NFDeploySiteStatus {
     }
 
     /// Sets or clear the value of [workload][crate::model::NFDeploySiteStatus::workload].
-    pub fn maybe_workload<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_workload<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::WorkloadStatus>,
     {
@@ -5442,7 +5448,7 @@ impl HydrationStatus {
     }
 
     /// Sets or clear the value of [site_version][crate::model::HydrationStatus::site_version].
-    pub fn maybe_site_version<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_site_version<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::SiteVersion>,
     {
@@ -5548,7 +5554,7 @@ impl WorkloadStatus {
     }
 
     /// Sets or clear the value of [site_version][crate::model::WorkloadStatus::site_version].
-    pub fn maybe_site_version<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_site_version<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::SiteVersion>,
     {

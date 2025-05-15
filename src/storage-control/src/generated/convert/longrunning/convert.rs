@@ -131,7 +131,7 @@ impl gaxi::prost::FromProto<longrunning::model::WaitOperationRequest> for WaitOp
         Ok(
             longrunning::model::WaitOperationRequest::new()
                 .set_name(self.name)
-                .maybe_timeout(self.timeout.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_timeout(self.timeout.map(|v| v.cnv()).transpose()?)
         )
     }
 }

@@ -84,7 +84,7 @@ impl Notification {
     }
 
     /// Sets or clear the value of [subject][crate::model::Notification::subject].
-    pub fn maybe_subject<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_subject<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Subject>,
     {
@@ -113,7 +113,7 @@ impl Notification {
     }
 
     /// Sets or clear the value of [create_time][crate::model::Notification::create_time].
-    pub fn maybe_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -220,7 +220,7 @@ impl Subject {
     }
 
     /// Sets or clear the value of [text][crate::model::Subject::text].
-    pub fn maybe_text<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_text<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Text>,
     {
@@ -276,7 +276,7 @@ impl Message {
     }
 
     /// Sets or clear the value of [body][crate::model::Message::body].
-    pub fn maybe_body<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::message::Body>,
     {
@@ -305,7 +305,7 @@ impl Message {
     }
 
     /// Sets or clear the value of [create_time][crate::model::Message::create_time].
-    pub fn maybe_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -323,7 +323,7 @@ impl Message {
     }
 
     /// Sets or clear the value of [localization_time][crate::model::Message::localization_time].
-    pub fn maybe_localization_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_localization_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -372,7 +372,7 @@ pub mod message {
         }
 
         /// Sets or clear the value of [text][crate::model::message::Body::text].
-        pub fn maybe_text<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_text<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Text>,
         {
@@ -941,7 +941,7 @@ impl UpdateSettingsRequest {
     }
 
     /// Sets or clear the value of [settings][crate::model::UpdateSettingsRequest::settings].
-    pub fn maybe_settings<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_settings<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Settings>,
     {

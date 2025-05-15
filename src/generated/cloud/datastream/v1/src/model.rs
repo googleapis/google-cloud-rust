@@ -964,7 +964,7 @@ impl CreateConnectionProfileRequest {
     }
 
     /// Sets or clear the value of [connection_profile][crate::model::CreateConnectionProfileRequest::connection_profile].
-    pub fn maybe_connection_profile<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_connection_profile<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ConnectionProfile>,
     {
@@ -1059,7 +1059,7 @@ impl UpdateConnectionProfileRequest {
     }
 
     /// Sets or clear the value of [update_mask][crate::model::UpdateConnectionProfileRequest::update_mask].
-    pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
     {
@@ -1077,7 +1077,7 @@ impl UpdateConnectionProfileRequest {
     }
 
     /// Sets or clear the value of [connection_profile][crate::model::UpdateConnectionProfileRequest::connection_profile].
-    pub fn maybe_connection_profile<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_connection_profile<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ConnectionProfile>,
     {
@@ -1425,7 +1425,7 @@ impl CreateStreamRequest {
     }
 
     /// Sets or clear the value of [stream][crate::model::CreateStreamRequest::stream].
-    pub fn maybe_stream<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_stream<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Stream>,
     {
@@ -1520,7 +1520,7 @@ impl UpdateStreamRequest {
     }
 
     /// Sets or clear the value of [update_mask][crate::model::UpdateStreamRequest::update_mask].
-    pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
     {
@@ -1538,7 +1538,7 @@ impl UpdateStreamRequest {
     }
 
     /// Sets or clear the value of [stream][crate::model::UpdateStreamRequest::stream].
-    pub fn maybe_stream<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_stream<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Stream>,
     {
@@ -1670,7 +1670,7 @@ impl RunStreamRequest {
     }
 
     /// Sets or clear the value of [cdc_strategy][crate::model::RunStreamRequest::cdc_strategy].
-    pub fn maybe_cdc_strategy<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_cdc_strategy<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CdcStrategy>,
     {
@@ -1763,7 +1763,7 @@ impl LookupStreamObjectRequest {
     }
 
     /// Sets or clear the value of [source_object_identifier][crate::model::LookupStreamObjectRequest::source_object_identifier].
-    pub fn maybe_source_object_identifier<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_source_object_identifier<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::SourceObjectIdentifier>,
     {
@@ -1840,7 +1840,7 @@ impl StartBackfillJobResponse {
     }
 
     /// Sets or clear the value of [object][crate::model::StartBackfillJobResponse::object].
-    pub fn maybe_object<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_object<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::StreamObject>,
     {
@@ -1918,7 +1918,7 @@ impl StopBackfillJobResponse {
     }
 
     /// Sets or clear the value of [object][crate::model::StopBackfillJobResponse::object].
-    pub fn maybe_object<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_object<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::StreamObject>,
     {
@@ -2117,7 +2117,7 @@ impl OperationMetadata {
     }
 
     /// Sets or clear the value of [create_time][crate::model::OperationMetadata::create_time].
-    pub fn maybe_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -2135,7 +2135,7 @@ impl OperationMetadata {
     }
 
     /// Sets or clear the value of [end_time][crate::model::OperationMetadata::end_time].
-    pub fn maybe_end_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -2183,7 +2183,7 @@ impl OperationMetadata {
     }
 
     /// Sets or clear the value of [validation_result][crate::model::OperationMetadata::validation_result].
-    pub fn maybe_validation_result<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_validation_result<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ValidationResult>,
     {
@@ -2270,7 +2270,7 @@ impl CreatePrivateConnectionRequest {
     }
 
     /// Sets or clear the value of [private_connection][crate::model::CreatePrivateConnectionRequest::private_connection].
-    pub fn maybe_private_connection<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_private_connection<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::PrivateConnection>,
     {
@@ -2617,7 +2617,7 @@ impl CreateRouteRequest {
     }
 
     /// Sets or clear the value of [route][crate::model::CreateRouteRequest::route].
-    pub fn maybe_route<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_route<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Route>,
     {
@@ -2989,7 +2989,7 @@ impl OracleProfile {
     }
 
     /// Sets or clear the value of [oracle_ssl_config][crate::model::OracleProfile::oracle_ssl_config].
-    pub fn maybe_oracle_ssl_config<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_oracle_ssl_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::OracleSslConfig>,
     {
@@ -3007,7 +3007,7 @@ impl OracleProfile {
     }
 
     /// Sets or clear the value of [oracle_asm_config][crate::model::OracleProfile::oracle_asm_config].
-    pub fn maybe_oracle_asm_config<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_oracle_asm_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::OracleAsmConfig>,
     {
@@ -3132,7 +3132,7 @@ impl OracleAsmConfig {
     }
 
     /// Sets or clear the value of [oracle_ssl_config][crate::model::OracleAsmConfig::oracle_ssl_config].
-    pub fn maybe_oracle_ssl_config<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_oracle_ssl_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::OracleSslConfig>,
     {
@@ -3231,7 +3231,7 @@ impl MysqlProfile {
     }
 
     /// Sets or clear the value of [ssl_config][crate::model::MysqlProfile::ssl_config].
-    pub fn maybe_ssl_config<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_ssl_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::MysqlSslConfig>,
     {
@@ -3353,7 +3353,7 @@ impl PostgresqlProfile {
     }
 
     /// Sets or clear the value of [ssl_config][crate::model::PostgresqlProfile::ssl_config].
-    pub fn maybe_ssl_config<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_ssl_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::PostgresqlSslConfig>,
     {
@@ -4094,7 +4094,7 @@ impl PrivateConnection {
     }
 
     /// Sets or clear the value of [create_time][crate::model::PrivateConnection::create_time].
-    pub fn maybe_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -4112,7 +4112,7 @@ impl PrivateConnection {
     }
 
     /// Sets or clear the value of [update_time][crate::model::PrivateConnection::update_time].
-    pub fn maybe_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -4157,7 +4157,7 @@ impl PrivateConnection {
     }
 
     /// Sets or clear the value of [error][crate::model::PrivateConnection::error].
-    pub fn maybe_error<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_error<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Error>,
     {
@@ -4175,7 +4175,7 @@ impl PrivateConnection {
     }
 
     /// Sets or clear the value of [satisfies_pzs][crate::model::PrivateConnection::satisfies_pzs].
-    pub fn maybe_satisfies_pzs<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_satisfies_pzs<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<bool>,
     {
@@ -4193,7 +4193,7 @@ impl PrivateConnection {
     }
 
     /// Sets or clear the value of [satisfies_pzi][crate::model::PrivateConnection::satisfies_pzi].
-    pub fn maybe_satisfies_pzi<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_satisfies_pzi<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<bool>,
     {
@@ -4211,7 +4211,7 @@ impl PrivateConnection {
     }
 
     /// Sets or clear the value of [vpc_peering_config][crate::model::PrivateConnection::vpc_peering_config].
-    pub fn maybe_vpc_peering_config<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_vpc_peering_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::VpcPeeringConfig>,
     {
@@ -4481,7 +4481,7 @@ impl Route {
     }
 
     /// Sets or clear the value of [create_time][crate::model::Route::create_time].
-    pub fn maybe_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -4499,7 +4499,7 @@ impl Route {
     }
 
     /// Sets or clear the value of [update_time][crate::model::Route::update_time].
-    pub fn maybe_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -5004,7 +5004,7 @@ impl ConnectionProfile {
     }
 
     /// Sets or clear the value of [create_time][crate::model::ConnectionProfile::create_time].
-    pub fn maybe_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -5022,7 +5022,7 @@ impl ConnectionProfile {
     }
 
     /// Sets or clear the value of [update_time][crate::model::ConnectionProfile::update_time].
-    pub fn maybe_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -5058,7 +5058,7 @@ impl ConnectionProfile {
     }
 
     /// Sets or clear the value of [satisfies_pzs][crate::model::ConnectionProfile::satisfies_pzs].
-    pub fn maybe_satisfies_pzs<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_satisfies_pzs<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<bool>,
     {
@@ -5076,7 +5076,7 @@ impl ConnectionProfile {
     }
 
     /// Sets or clear the value of [satisfies_pzi][crate::model::ConnectionProfile::satisfies_pzi].
-    pub fn maybe_satisfies_pzi<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_satisfies_pzi<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<bool>,
     {
@@ -5772,7 +5772,7 @@ impl OracleSourceConfig {
     }
 
     /// Sets or clear the value of [include_objects][crate::model::OracleSourceConfig::include_objects].
-    pub fn maybe_include_objects<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_include_objects<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::OracleRdbms>,
     {
@@ -5790,7 +5790,7 @@ impl OracleSourceConfig {
     }
 
     /// Sets or clear the value of [exclude_objects][crate::model::OracleSourceConfig::exclude_objects].
-    pub fn maybe_exclude_objects<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_exclude_objects<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::OracleRdbms>,
     {
@@ -6571,7 +6571,7 @@ impl PostgresqlSourceConfig {
     }
 
     /// Sets or clear the value of [include_objects][crate::model::PostgresqlSourceConfig::include_objects].
-    pub fn maybe_include_objects<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_include_objects<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::PostgresqlRdbms>,
     {
@@ -6589,7 +6589,7 @@ impl PostgresqlSourceConfig {
     }
 
     /// Sets or clear the value of [exclude_objects][crate::model::PostgresqlSourceConfig::exclude_objects].
-    pub fn maybe_exclude_objects<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_exclude_objects<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::PostgresqlRdbms>,
     {
@@ -6905,7 +6905,7 @@ impl SqlServerSourceConfig {
     }
 
     /// Sets or clear the value of [include_objects][crate::model::SqlServerSourceConfig::include_objects].
-    pub fn maybe_include_objects<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_include_objects<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::SqlServerRdbms>,
     {
@@ -6923,7 +6923,7 @@ impl SqlServerSourceConfig {
     }
 
     /// Sets or clear the value of [exclude_objects][crate::model::SqlServerSourceConfig::exclude_objects].
-    pub fn maybe_exclude_objects<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_exclude_objects<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::SqlServerRdbms>,
     {
@@ -7384,7 +7384,7 @@ impl MysqlSourceConfig {
     }
 
     /// Sets or clear the value of [include_objects][crate::model::MysqlSourceConfig::include_objects].
-    pub fn maybe_include_objects<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_include_objects<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::MysqlRdbms>,
     {
@@ -7402,7 +7402,7 @@ impl MysqlSourceConfig {
     }
 
     /// Sets or clear the value of [exclude_objects][crate::model::MysqlSourceConfig::exclude_objects].
-    pub fn maybe_exclude_objects<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_exclude_objects<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::MysqlRdbms>,
     {
@@ -7606,7 +7606,7 @@ impl SalesforceSourceConfig {
     }
 
     /// Sets or clear the value of [include_objects][crate::model::SalesforceSourceConfig::include_objects].
-    pub fn maybe_include_objects<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_include_objects<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::SalesforceOrg>,
     {
@@ -7624,7 +7624,7 @@ impl SalesforceSourceConfig {
     }
 
     /// Sets or clear the value of [exclude_objects][crate::model::SalesforceSourceConfig::exclude_objects].
-    pub fn maybe_exclude_objects<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_exclude_objects<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::SalesforceOrg>,
     {
@@ -7642,7 +7642,7 @@ impl SalesforceSourceConfig {
     }
 
     /// Sets or clear the value of [polling_interval][crate::model::SalesforceSourceConfig::polling_interval].
-    pub fn maybe_polling_interval<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_polling_interval<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
     {
@@ -8431,7 +8431,7 @@ impl GcsDestinationConfig {
     }
 
     /// Sets or clear the value of [file_rotation_interval][crate::model::GcsDestinationConfig::file_rotation_interval].
-    pub fn maybe_file_rotation_interval<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_file_rotation_interval<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
     {
@@ -8586,7 +8586,7 @@ impl BigQueryDestinationConfig {
     }
 
     /// Sets or clear the value of [data_freshness][crate::model::BigQueryDestinationConfig::data_freshness].
-    pub fn maybe_data_freshness<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_data_freshness<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
     {
@@ -8604,7 +8604,7 @@ impl BigQueryDestinationConfig {
     }
 
     /// Sets or clear the value of [blmt_config][crate::model::BigQueryDestinationConfig::blmt_config].
-    pub fn maybe_blmt_config<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_blmt_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::big_query_destination_config::BlmtConfig>,
     {
@@ -8865,7 +8865,7 @@ pub mod big_query_destination_config {
         }
 
         /// Sets or clear the value of [dataset_template][crate::model::big_query_destination_config::SourceHierarchyDatasets::dataset_template].
-        pub fn maybe_dataset_template<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_dataset_template<T>(mut self, v: std::option::Option<T>) -> Self
         where T: std::convert::Into<crate::model::big_query_destination_config::source_hierarchy_datasets::DatasetTemplate>
         {
             self.dataset_template = v.map(|x| x.into());
@@ -9611,7 +9611,7 @@ impl Stream {
     }
 
     /// Sets or clear the value of [create_time][crate::model::Stream::create_time].
-    pub fn maybe_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -9629,7 +9629,7 @@ impl Stream {
     }
 
     /// Sets or clear the value of [update_time][crate::model::Stream::update_time].
-    pub fn maybe_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -9665,7 +9665,7 @@ impl Stream {
     }
 
     /// Sets or clear the value of [source_config][crate::model::Stream::source_config].
-    pub fn maybe_source_config<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_source_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::SourceConfig>,
     {
@@ -9683,7 +9683,7 @@ impl Stream {
     }
 
     /// Sets or clear the value of [destination_config][crate::model::Stream::destination_config].
-    pub fn maybe_destination_config<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_destination_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::DestinationConfig>,
     {
@@ -9718,7 +9718,10 @@ impl Stream {
     }
 
     /// Sets or clear the value of [customer_managed_encryption_key][crate::model::Stream::customer_managed_encryption_key].
-    pub fn maybe_customer_managed_encryption_key<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_customer_managed_encryption_key<T>(
+        mut self,
+        v: std::option::Option<T>,
+    ) -> Self
     where
         T: std::convert::Into<std::string::String>,
     {
@@ -9736,7 +9739,7 @@ impl Stream {
     }
 
     /// Sets or clear the value of [last_recovery_time][crate::model::Stream::last_recovery_time].
-    pub fn maybe_last_recovery_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_last_recovery_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -9754,7 +9757,7 @@ impl Stream {
     }
 
     /// Sets or clear the value of [satisfies_pzs][crate::model::Stream::satisfies_pzs].
-    pub fn maybe_satisfies_pzs<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_satisfies_pzs<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<bool>,
     {
@@ -9772,7 +9775,7 @@ impl Stream {
     }
 
     /// Sets or clear the value of [satisfies_pzi][crate::model::Stream::satisfies_pzi].
-    pub fn maybe_satisfies_pzi<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_satisfies_pzi<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<bool>,
     {
@@ -10369,7 +10372,7 @@ impl StreamObject {
     }
 
     /// Sets or clear the value of [create_time][crate::model::StreamObject::create_time].
-    pub fn maybe_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -10387,7 +10390,7 @@ impl StreamObject {
     }
 
     /// Sets or clear the value of [update_time][crate::model::StreamObject::update_time].
-    pub fn maybe_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -10422,7 +10425,7 @@ impl StreamObject {
     }
 
     /// Sets or clear the value of [backfill_job][crate::model::StreamObject::backfill_job].
-    pub fn maybe_backfill_job<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_backfill_job<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::BackfillJob>,
     {
@@ -10440,7 +10443,7 @@ impl StreamObject {
     }
 
     /// Sets or clear the value of [source_object][crate::model::StreamObject::source_object].
-    pub fn maybe_source_object<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_source_object<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::SourceObjectIdentifier>,
     {
@@ -10977,7 +10980,7 @@ impl BackfillJob {
     }
 
     /// Sets or clear the value of [last_start_time][crate::model::BackfillJob::last_start_time].
-    pub fn maybe_last_start_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_last_start_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -10995,7 +10998,7 @@ impl BackfillJob {
     }
 
     /// Sets or clear the value of [last_end_time][crate::model::BackfillJob::last_end_time].
-    pub fn maybe_last_end_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_last_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -11394,7 +11397,7 @@ impl Error {
     }
 
     /// Sets or clear the value of [error_time][crate::model::Error::error_time].
-    pub fn maybe_error_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_error_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -12401,7 +12404,7 @@ impl MysqlLogPosition {
     }
 
     /// Sets or clear the value of [log_position][crate::model::MysqlLogPosition::log_position].
-    pub fn maybe_log_position<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_log_position<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<i32>,
     {

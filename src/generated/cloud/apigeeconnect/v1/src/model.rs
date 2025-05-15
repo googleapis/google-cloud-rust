@@ -196,7 +196,7 @@ impl Connection {
     }
 
     /// Sets or clear the value of [cluster][crate::model::Connection::cluster].
-    pub fn maybe_cluster<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_cluster<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Cluster>,
     {
@@ -313,7 +313,7 @@ impl EgressRequest {
     }
 
     /// Sets or clear the value of [payload][crate::model::EgressRequest::payload].
-    pub fn maybe_payload<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_payload<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Payload>,
     {
@@ -352,7 +352,7 @@ impl EgressRequest {
     }
 
     /// Sets or clear the value of [timeout][crate::model::EgressRequest::timeout].
-    pub fn maybe_timeout<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_timeout<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
     {
@@ -587,7 +587,7 @@ impl EgressResponse {
     }
 
     /// Sets or clear the value of [http_response][crate::model::EgressResponse::http_response].
-    pub fn maybe_http_response<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_http_response<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::HttpResponse>,
     {
@@ -605,7 +605,7 @@ impl EgressResponse {
     }
 
     /// Sets or clear the value of [status][crate::model::EgressResponse::status].
-    pub fn maybe_status<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_status<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<rpc::model::Status>,
     {
@@ -706,7 +706,7 @@ impl HttpRequest {
     }
 
     /// Sets or clear the value of [url][crate::model::HttpRequest::url].
-    pub fn maybe_url<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_url<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Url>,
     {

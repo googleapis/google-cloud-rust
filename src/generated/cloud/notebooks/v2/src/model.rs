@@ -160,7 +160,7 @@ impl Event {
     }
 
     /// Sets or clear the value of [report_time][crate::model::Event::report_time].
-    pub fn maybe_report_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_report_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -1381,7 +1381,7 @@ impl GceSetup {
     }
 
     /// Sets or clear the value of [boot_disk][crate::model::GceSetup::boot_disk].
-    pub fn maybe_boot_disk<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_boot_disk<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::BootDisk>,
     {
@@ -1410,7 +1410,7 @@ impl GceSetup {
     }
 
     /// Sets or clear the value of [shielded_instance_config][crate::model::GceSetup::shielded_instance_config].
-    pub fn maybe_shielded_instance_config<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_shielded_instance_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ShieldedInstanceConfig>,
     {
@@ -1474,7 +1474,7 @@ impl GceSetup {
     }
 
     /// Sets or clear the value of [gpu_driver_config][crate::model::GceSetup::gpu_driver_config].
-    pub fn maybe_gpu_driver_config<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_gpu_driver_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::GPUDriverConfig>,
     {
@@ -1671,7 +1671,7 @@ impl UpgradeHistoryEntry {
     }
 
     /// Sets or clear the value of [create_time][crate::model::UpgradeHistoryEntry::create_time].
-    pub fn maybe_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -2150,7 +2150,7 @@ impl Instance {
     }
 
     /// Sets or clear the value of [create_time][crate::model::Instance::create_time].
-    pub fn maybe_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -2168,7 +2168,7 @@ impl Instance {
     }
 
     /// Sets or clear the value of [update_time][crate::model::Instance::update_time].
-    pub fn maybe_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -2320,7 +2320,7 @@ impl OperationMetadata {
     }
 
     /// Sets or clear the value of [create_time][crate::model::OperationMetadata::create_time].
-    pub fn maybe_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -2338,7 +2338,7 @@ impl OperationMetadata {
     }
 
     /// Sets or clear the value of [end_time][crate::model::OperationMetadata::end_time].
-    pub fn maybe_end_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -2630,7 +2630,7 @@ impl CreateInstanceRequest {
     }
 
     /// Sets or clear the value of [instance][crate::model::CreateInstanceRequest::instance].
-    pub fn maybe_instance<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_instance<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Instance>,
     {
@@ -2688,7 +2688,7 @@ impl UpdateInstanceRequest {
     }
 
     /// Sets or clear the value of [instance][crate::model::UpdateInstanceRequest::instance].
-    pub fn maybe_instance<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_instance<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Instance>,
     {
@@ -2706,7 +2706,7 @@ impl UpdateInstanceRequest {
     }
 
     /// Sets or clear the value of [update_mask][crate::model::UpdateInstanceRequest::update_mask].
-    pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
     {
@@ -3101,7 +3101,7 @@ impl DiagnoseInstanceRequest {
     }
 
     /// Sets or clear the value of [diagnostic_config][crate::model::DiagnoseInstanceRequest::diagnostic_config].
-    pub fn maybe_diagnostic_config<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_diagnostic_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::DiagnosticConfig>,
     {

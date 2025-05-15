@@ -468,7 +468,7 @@ pub mod data_fusion {
         }
 
         /// Sets or clear the value of [instance][crate::model::CreateInstanceRequest::instance].
-        pub fn maybe_instance<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_instance<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Instance>,
         {
@@ -686,7 +686,7 @@ pub mod data_fusion {
         /// Sets or clear the value of [instance][crate::model::UpdateInstanceRequest::instance].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_instance<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_instance<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Instance>,
         {
@@ -704,7 +704,7 @@ pub mod data_fusion {
         }
 
         /// Sets or clear the value of [update_mask][crate::model::UpdateInstanceRequest::update_mask].
-        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
         {

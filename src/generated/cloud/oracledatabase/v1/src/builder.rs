@@ -372,7 +372,10 @@ pub mod oracle_database {
         /// Sets or clear the value of [cloud_exadata_infrastructure][crate::model::CreateCloudExadataInfrastructureRequest::cloud_exadata_infrastructure].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_cloud_exadata_infrastructure<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_cloud_exadata_infrastructure<T>(
+            mut self,
+            v: std::option::Option<T>,
+        ) -> Self
         where
             T: std::convert::Into<crate::model::CloudExadataInfrastructure>,
         {
@@ -813,7 +816,7 @@ pub mod oracle_database {
         /// Sets or clear the value of [cloud_vm_cluster][crate::model::CreateCloudVmClusterRequest::cloud_vm_cluster].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_cloud_vm_cluster<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_cloud_vm_cluster<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::CloudVmCluster>,
         {
@@ -1782,7 +1785,7 @@ pub mod oracle_database {
         /// Sets or clear the value of [autonomous_database][crate::model::CreateAutonomousDatabaseRequest::autonomous_database].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_autonomous_database<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_autonomous_database<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::AutonomousDatabase>,
         {
@@ -2033,7 +2036,7 @@ pub mod oracle_database {
         /// Sets or clear the value of [restore_time][crate::model::RestoreAutonomousDatabaseRequest::restore_time].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_restore_time<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_restore_time<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
         {

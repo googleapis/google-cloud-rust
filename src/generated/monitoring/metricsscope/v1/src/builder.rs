@@ -315,7 +315,7 @@ pub mod metrics_scopes {
         /// Sets or clear the value of [monitored_project][crate::model::CreateMonitoredProjectRequest::monitored_project].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_monitored_project<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_monitored_project<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::MonitoredProject>,
         {

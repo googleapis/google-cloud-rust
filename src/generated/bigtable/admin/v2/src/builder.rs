@@ -186,7 +186,7 @@ pub mod bigtable_instance_admin {
         /// Sets or clear the value of [instance][crate::model::CreateInstanceRequest::instance].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_instance<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_instance<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Instance>,
         {
@@ -438,7 +438,7 @@ pub mod bigtable_instance_admin {
         }
 
         /// Sets or clear the value of [create_time][crate::model::Instance::create_time].
-        pub fn maybe_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
         {
@@ -456,7 +456,7 @@ pub mod bigtable_instance_admin {
         }
 
         /// Sets or clear the value of [satisfies_pzs][crate::model::Instance::satisfies_pzs].
-        pub fn maybe_satisfies_pzs<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_satisfies_pzs<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<bool>,
         {
@@ -474,7 +474,7 @@ pub mod bigtable_instance_admin {
         }
 
         /// Sets or clear the value of [satisfies_pzi][crate::model::Instance::satisfies_pzi].
-        pub fn maybe_satisfies_pzi<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_satisfies_pzi<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<bool>,
         {
@@ -595,7 +595,7 @@ pub mod bigtable_instance_admin {
         /// Sets or clear the value of [instance][crate::model::PartialUpdateInstanceRequest::instance].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_instance<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_instance<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Instance>,
         {
@@ -617,7 +617,7 @@ pub mod bigtable_instance_admin {
         /// Sets or clear the value of [update_mask][crate::model::PartialUpdateInstanceRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
         {
@@ -812,7 +812,7 @@ pub mod bigtable_instance_admin {
         /// Sets or clear the value of [cluster][crate::model::CreateClusterRequest::cluster].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_cluster<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_cluster<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Cluster>,
         {
@@ -1097,7 +1097,7 @@ pub mod bigtable_instance_admin {
         }
 
         /// Sets or clear the value of [encryption_config][crate::model::Cluster::encryption_config].
-        pub fn maybe_encryption_config<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_encryption_config<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::cluster::EncryptionConfig>,
         {
@@ -1242,7 +1242,7 @@ pub mod bigtable_instance_admin {
         /// Sets or clear the value of [cluster][crate::model::PartialUpdateClusterRequest::cluster].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_cluster<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_cluster<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Cluster>,
         {
@@ -1264,7 +1264,7 @@ pub mod bigtable_instance_admin {
         /// Sets or clear the value of [update_mask][crate::model::PartialUpdateClusterRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
         {
@@ -1421,7 +1421,7 @@ pub mod bigtable_instance_admin {
         /// Sets or clear the value of [app_profile][crate::model::CreateAppProfileRequest::app_profile].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_app_profile<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_app_profile<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::AppProfile>,
         {
@@ -1712,7 +1712,7 @@ pub mod bigtable_instance_admin {
         /// Sets or clear the value of [app_profile][crate::model::UpdateAppProfileRequest::app_profile].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_app_profile<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_app_profile<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::AppProfile>,
         {
@@ -1734,7 +1734,7 @@ pub mod bigtable_instance_admin {
         /// Sets or clear the value of [update_mask][crate::model::UpdateAppProfileRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
         {
@@ -1893,7 +1893,7 @@ pub mod bigtable_instance_admin {
         }
 
         /// Sets or clear the value of [options][iam_v1::model::GetIamPolicyRequest::options].
-        pub fn maybe_options<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
         {
@@ -1977,7 +1977,7 @@ pub mod bigtable_instance_admin {
         /// Sets or clear the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<iam_v1::model::Policy>,
         {
@@ -1995,7 +1995,7 @@ pub mod bigtable_instance_admin {
         }
 
         /// Sets or clear the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
-        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
         {
@@ -2181,7 +2181,7 @@ pub mod bigtable_instance_admin {
         }
 
         /// Sets or clear the value of [start_time][crate::model::ListHotTabletsRequest::start_time].
-        pub fn maybe_start_time<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
         {
@@ -2199,7 +2199,7 @@ pub mod bigtable_instance_admin {
         }
 
         /// Sets or clear the value of [end_time][crate::model::ListHotTabletsRequest::end_time].
-        pub fn maybe_end_time<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
         {
@@ -2348,7 +2348,7 @@ pub mod bigtable_instance_admin {
         /// Sets or clear the value of [logical_view][crate::model::CreateLogicalViewRequest::logical_view].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_logical_view<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_logical_view<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::LogicalView>,
         {
@@ -2636,7 +2636,7 @@ pub mod bigtable_instance_admin {
         /// Sets or clear the value of [logical_view][crate::model::UpdateLogicalViewRequest::logical_view].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_logical_view<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_logical_view<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::LogicalView>,
         {
@@ -2654,7 +2654,7 @@ pub mod bigtable_instance_admin {
         }
 
         /// Sets or clear the value of [update_mask][crate::model::UpdateLogicalViewRequest::update_mask].
-        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
         {
@@ -2862,7 +2862,7 @@ pub mod bigtable_instance_admin {
         /// Sets or clear the value of [materialized_view][crate::model::CreateMaterializedViewRequest::materialized_view].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_materialized_view<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_materialized_view<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::MaterializedView>,
         {
@@ -3155,7 +3155,7 @@ pub mod bigtable_instance_admin {
         /// Sets or clear the value of [materialized_view][crate::model::UpdateMaterializedViewRequest::materialized_view].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_materialized_view<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_materialized_view<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::MaterializedView>,
         {
@@ -3173,7 +3173,7 @@ pub mod bigtable_instance_admin {
         }
 
         /// Sets or clear the value of [update_mask][crate::model::UpdateMaterializedViewRequest::update_mask].
-        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
         {
@@ -3691,7 +3691,7 @@ pub mod bigtable_table_admin {
         /// Sets or clear the value of [table][crate::model::CreateTableRequest::table].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_table<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_table<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Table>,
         {
@@ -4118,7 +4118,7 @@ pub mod bigtable_table_admin {
         /// Sets or clear the value of [table][crate::model::UpdateTableRequest::table].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_table<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_table<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Table>,
         {
@@ -4140,7 +4140,7 @@ pub mod bigtable_table_admin {
         /// Sets or clear the value of [update_mask][crate::model::UpdateTableRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
         {
@@ -4446,7 +4446,7 @@ pub mod bigtable_table_admin {
         /// Sets or clear the value of [authorized_view][crate::model::CreateAuthorizedViewRequest::authorized_view].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_authorized_view<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_authorized_view<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::AuthorizedView>,
         {
@@ -4757,7 +4757,7 @@ pub mod bigtable_table_admin {
         /// Sets or clear the value of [authorized_view][crate::model::UpdateAuthorizedViewRequest::authorized_view].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_authorized_view<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_authorized_view<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::AuthorizedView>,
         {
@@ -4775,7 +4775,7 @@ pub mod bigtable_table_admin {
         }
 
         /// Sets or clear the value of [update_mask][crate::model::UpdateAuthorizedViewRequest::update_mask].
-        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
         {
@@ -5349,7 +5349,7 @@ pub mod bigtable_table_admin {
         }
 
         /// Sets or clear the value of [ttl][crate::model::SnapshotTableRequest::ttl].
-        pub fn maybe_ttl<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_ttl<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
         {
@@ -5712,7 +5712,7 @@ pub mod bigtable_table_admin {
         /// Sets or clear the value of [backup][crate::model::CreateBackupRequest::backup].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_backup<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_backup<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Backup>,
         {
@@ -5850,7 +5850,7 @@ pub mod bigtable_table_admin {
         /// Sets or clear the value of [backup][crate::model::UpdateBackupRequest::backup].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_backup<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_backup<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Backup>,
         {
@@ -5872,7 +5872,7 @@ pub mod bigtable_table_admin {
         /// Sets or clear the value of [update_mask][crate::model::UpdateBackupRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
         {
@@ -6318,7 +6318,7 @@ pub mod bigtable_table_admin {
         /// Sets or clear the value of [expire_time][crate::model::CopyBackupRequest::expire_time].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_expire_time<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_expire_time<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
         {
@@ -6398,7 +6398,7 @@ pub mod bigtable_table_admin {
         }
 
         /// Sets or clear the value of [options][iam_v1::model::GetIamPolicyRequest::options].
-        pub fn maybe_options<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
         {
@@ -6482,7 +6482,7 @@ pub mod bigtable_table_admin {
         /// Sets or clear the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<iam_v1::model::Policy>,
         {
@@ -6500,7 +6500,7 @@ pub mod bigtable_table_admin {
         }
 
         /// Sets or clear the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
-        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
         {

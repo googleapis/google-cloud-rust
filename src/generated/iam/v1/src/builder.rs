@@ -136,7 +136,7 @@ pub mod iam_policy {
         /// Sets or clear the value of [policy][crate::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Policy>,
         {
@@ -154,7 +154,7 @@ pub mod iam_policy {
         }
 
         /// Sets or clear the value of [update_mask][crate::model::SetIamPolicyRequest::update_mask].
-        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
         {
@@ -234,7 +234,7 @@ pub mod iam_policy {
         }
 
         /// Sets or clear the value of [options][crate::model::GetIamPolicyRequest::options].
-        pub fn maybe_options<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::GetPolicyOptions>,
         {

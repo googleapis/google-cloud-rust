@@ -194,7 +194,7 @@ impl WorkstationCluster {
     }
 
     /// Sets or clear the value of [create_time][crate::model::WorkstationCluster::create_time].
-    pub fn maybe_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -212,7 +212,7 @@ impl WorkstationCluster {
     }
 
     /// Sets or clear the value of [update_time][crate::model::WorkstationCluster::update_time].
-    pub fn maybe_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -230,7 +230,7 @@ impl WorkstationCluster {
     }
 
     /// Sets or clear the value of [delete_time][crate::model::WorkstationCluster::delete_time].
-    pub fn maybe_delete_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_delete_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -275,7 +275,7 @@ impl WorkstationCluster {
     }
 
     /// Sets or clear the value of [private_cluster_config][crate::model::WorkstationCluster::private_cluster_config].
-    pub fn maybe_private_cluster_config<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_private_cluster_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::workstation_cluster::PrivateClusterConfig>,
     {
@@ -631,7 +631,7 @@ impl WorkstationConfig {
     }
 
     /// Sets or clear the value of [create_time][crate::model::WorkstationConfig::create_time].
-    pub fn maybe_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -649,7 +649,7 @@ impl WorkstationConfig {
     }
 
     /// Sets or clear the value of [update_time][crate::model::WorkstationConfig::update_time].
-    pub fn maybe_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -667,7 +667,7 @@ impl WorkstationConfig {
     }
 
     /// Sets or clear the value of [delete_time][crate::model::WorkstationConfig::delete_time].
-    pub fn maybe_delete_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_delete_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -691,7 +691,7 @@ impl WorkstationConfig {
     }
 
     /// Sets or clear the value of [idle_timeout][crate::model::WorkstationConfig::idle_timeout].
-    pub fn maybe_idle_timeout<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_idle_timeout<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
     {
@@ -709,7 +709,7 @@ impl WorkstationConfig {
     }
 
     /// Sets or clear the value of [running_timeout][crate::model::WorkstationConfig::running_timeout].
-    pub fn maybe_running_timeout<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_running_timeout<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
     {
@@ -727,7 +727,7 @@ impl WorkstationConfig {
     }
 
     /// Sets or clear the value of [host][crate::model::WorkstationConfig::host].
-    pub fn maybe_host<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_host<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::workstation_config::Host>,
     {
@@ -756,7 +756,7 @@ impl WorkstationConfig {
     }
 
     /// Sets or clear the value of [container][crate::model::WorkstationConfig::container].
-    pub fn maybe_container<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_container<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::workstation_config::Container>,
     {
@@ -774,7 +774,7 @@ impl WorkstationConfig {
     }
 
     /// Sets or clear the value of [encryption_key][crate::model::WorkstationConfig::encryption_key].
-    pub fn maybe_encryption_key<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_encryption_key<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::workstation_config::CustomerEncryptionKey>,
     {
@@ -1133,7 +1133,7 @@ pub mod workstation_config {
             }
 
             /// Sets or clear the value of [shielded_instance_config][crate::model::workstation_config::host::GceInstance::shielded_instance_config].
-            pub fn maybe_shielded_instance_config<T>(mut self, v: std::option::Option<T>) -> Self
+            pub fn set_or_clear_shielded_instance_config<T>(mut self, v: std::option::Option<T>) -> Self
             where T: std::convert::Into<crate::model::workstation_config::host::gce_instance::GceShieldedInstanceConfig>
             {
                 self.shielded_instance_config = v.map(|x| x.into());
@@ -1149,7 +1149,7 @@ pub mod workstation_config {
             }
 
             /// Sets or clear the value of [confidential_instance_config][crate::model::workstation_config::host::GceInstance::confidential_instance_config].
-            pub fn maybe_confidential_instance_config<T>(mut self, v: std::option::Option<T>) -> Self
+            pub fn set_or_clear_confidential_instance_config<T>(mut self, v: std::option::Option<T>) -> Self
             where T: std::convert::Into<crate::model::workstation_config::host::gce_instance::GceConfidentialInstanceConfig>
             {
                 self.confidential_instance_config = v.map(|x| x.into());
@@ -1991,7 +1991,7 @@ impl Workstation {
     }
 
     /// Sets or clear the value of [create_time][crate::model::Workstation::create_time].
-    pub fn maybe_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -2009,7 +2009,7 @@ impl Workstation {
     }
 
     /// Sets or clear the value of [update_time][crate::model::Workstation::update_time].
-    pub fn maybe_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -2027,7 +2027,7 @@ impl Workstation {
     }
 
     /// Sets or clear the value of [start_time][crate::model::Workstation::start_time].
-    pub fn maybe_start_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -2045,7 +2045,7 @@ impl Workstation {
     }
 
     /// Sets or clear the value of [delete_time][crate::model::Workstation::delete_time].
-    pub fn maybe_delete_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_delete_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -2454,7 +2454,7 @@ impl CreateWorkstationClusterRequest {
     }
 
     /// Sets or clear the value of [workstation_cluster][crate::model::CreateWorkstationClusterRequest::workstation_cluster].
-    pub fn maybe_workstation_cluster<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_workstation_cluster<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::WorkstationCluster>,
     {
@@ -2520,7 +2520,7 @@ impl UpdateWorkstationClusterRequest {
     }
 
     /// Sets or clear the value of [workstation_cluster][crate::model::UpdateWorkstationClusterRequest::workstation_cluster].
-    pub fn maybe_workstation_cluster<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_workstation_cluster<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::WorkstationCluster>,
     {
@@ -2538,7 +2538,7 @@ impl UpdateWorkstationClusterRequest {
     }
 
     /// Sets or clear the value of [update_mask][crate::model::UpdateWorkstationClusterRequest::update_mask].
-    pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
     {
@@ -2980,7 +2980,7 @@ impl CreateWorkstationConfigRequest {
     }
 
     /// Sets or clear the value of [workstation_config][crate::model::CreateWorkstationConfigRequest::workstation_config].
-    pub fn maybe_workstation_config<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_workstation_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::WorkstationConfig>,
     {
@@ -3046,7 +3046,7 @@ impl UpdateWorkstationConfigRequest {
     }
 
     /// Sets or clear the value of [workstation_config][crate::model::UpdateWorkstationConfigRequest::workstation_config].
-    pub fn maybe_workstation_config<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_workstation_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::WorkstationConfig>,
     {
@@ -3064,7 +3064,7 @@ impl UpdateWorkstationConfigRequest {
     }
 
     /// Sets or clear the value of [update_mask][crate::model::UpdateWorkstationConfigRequest::update_mask].
-    pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
     {
@@ -3503,7 +3503,7 @@ impl CreateWorkstationRequest {
     }
 
     /// Sets or clear the value of [workstation][crate::model::CreateWorkstationRequest::workstation].
-    pub fn maybe_workstation<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_workstation<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Workstation>,
     {
@@ -3569,7 +3569,7 @@ impl UpdateWorkstationRequest {
     }
 
     /// Sets or clear the value of [workstation][crate::model::UpdateWorkstationRequest::workstation].
-    pub fn maybe_workstation<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_workstation<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Workstation>,
     {
@@ -3587,7 +3587,7 @@ impl UpdateWorkstationRequest {
     }
 
     /// Sets or clear the value of [update_mask][crate::model::UpdateWorkstationRequest::update_mask].
-    pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
     {
@@ -3947,7 +3947,7 @@ impl GenerateAccessTokenResponse {
     }
 
     /// Sets or clear the value of [expire_time][crate::model::GenerateAccessTokenResponse::expire_time].
-    pub fn maybe_expire_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_expire_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -4016,7 +4016,7 @@ impl OperationMetadata {
     }
 
     /// Sets or clear the value of [create_time][crate::model::OperationMetadata::create_time].
-    pub fn maybe_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -4034,7 +4034,7 @@ impl OperationMetadata {
     }
 
     /// Sets or clear the value of [end_time][crate::model::OperationMetadata::end_time].
-    pub fn maybe_end_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {

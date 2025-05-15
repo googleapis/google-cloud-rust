@@ -377,7 +377,7 @@ pub mod datastream {
         /// Sets or clear the value of [connection_profile][crate::model::CreateConnectionProfileRequest::connection_profile].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_connection_profile<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_connection_profile<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::ConnectionProfile>,
         {
@@ -514,7 +514,7 @@ pub mod datastream {
         }
 
         /// Sets or clear the value of [update_mask][crate::model::UpdateConnectionProfileRequest::update_mask].
-        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
         {
@@ -536,7 +536,7 @@ pub mod datastream {
         /// Sets or clear the value of [connection_profile][crate::model::UpdateConnectionProfileRequest::connection_profile].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_connection_profile<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_connection_profile<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::ConnectionProfile>,
         {
@@ -1190,7 +1190,7 @@ pub mod datastream {
         /// Sets or clear the value of [stream][crate::model::CreateStreamRequest::stream].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_stream<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_stream<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Stream>,
         {
@@ -1319,7 +1319,7 @@ pub mod datastream {
         }
 
         /// Sets or clear the value of [update_mask][crate::model::UpdateStreamRequest::update_mask].
-        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
         {
@@ -1341,7 +1341,7 @@ pub mod datastream {
         /// Sets or clear the value of [stream][crate::model::UpdateStreamRequest::stream].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_stream<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_stream<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Stream>,
         {
@@ -1587,7 +1587,7 @@ pub mod datastream {
         }
 
         /// Sets or clear the value of [cdc_strategy][crate::model::RunStreamRequest::cdc_strategy].
-        pub fn maybe_cdc_strategy<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_cdc_strategy<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::CdcStrategy>,
         {
@@ -1742,7 +1742,7 @@ pub mod datastream {
         /// Sets or clear the value of [source_object_identifier][crate::model::LookupStreamObjectRequest::source_object_identifier].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_source_object_identifier<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_source_object_identifier<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::SourceObjectIdentifier>,
         {
@@ -2187,7 +2187,7 @@ pub mod datastream {
         /// Sets or clear the value of [private_connection][crate::model::CreatePrivateConnectionRequest::private_connection].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_private_connection<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_private_connection<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::PrivateConnection>,
         {
@@ -2636,7 +2636,7 @@ pub mod datastream {
         /// Sets or clear the value of [route][crate::model::CreateRouteRequest::route].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_route<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_route<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Route>,
         {

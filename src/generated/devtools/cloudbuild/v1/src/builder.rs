@@ -181,7 +181,7 @@ pub mod cloud_build {
         /// Sets or clear the value of [build][crate::model::CreateBuildRequest::build].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_build<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_build<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Build>,
         {
@@ -681,7 +681,7 @@ pub mod cloud_build {
         }
 
         /// Sets or clear the value of [approval_result][crate::model::ApproveBuildRequest::approval_result].
-        pub fn maybe_approval_result<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_approval_result<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::ApprovalResult>,
         {
@@ -774,7 +774,7 @@ pub mod cloud_build {
         /// Sets or clear the value of [trigger][crate::model::CreateBuildTriggerRequest::trigger].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_trigger<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_trigger<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::BuildTrigger>,
         {
@@ -1135,7 +1135,7 @@ pub mod cloud_build {
         /// Sets or clear the value of [trigger][crate::model::UpdateBuildTriggerRequest::trigger].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_trigger<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_trigger<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::BuildTrigger>,
         {
@@ -1153,7 +1153,7 @@ pub mod cloud_build {
         }
 
         /// Sets or clear the value of [update_mask][crate::model::UpdateBuildTriggerRequest::update_mask].
-        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
         {
@@ -1286,7 +1286,7 @@ pub mod cloud_build {
         }
 
         /// Sets or clear the value of [source][crate::model::RunBuildTriggerRequest::source].
-        pub fn maybe_source<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_source<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::RepoSource>,
         {
@@ -1367,7 +1367,7 @@ pub mod cloud_build {
         }
 
         /// Sets or clear the value of [body][crate::model::ReceiveTriggerWebhookRequest::body].
-        pub fn maybe_body<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<api::model::HttpBody>,
         {
@@ -1514,7 +1514,7 @@ pub mod cloud_build {
         /// Sets or clear the value of [worker_pool][crate::model::CreateWorkerPoolRequest::worker_pool].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_worker_pool<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_worker_pool<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::WorkerPool>,
         {
@@ -1840,7 +1840,7 @@ pub mod cloud_build {
         /// Sets or clear the value of [worker_pool][crate::model::UpdateWorkerPoolRequest::worker_pool].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_worker_pool<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_worker_pool<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::WorkerPool>,
         {
@@ -1858,7 +1858,7 @@ pub mod cloud_build {
         }
 
         /// Sets or clear the value of [update_mask][crate::model::UpdateWorkerPoolRequest::update_mask].
-        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
         {

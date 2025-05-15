@@ -132,7 +132,7 @@ pub mod firestore {
         }
 
         /// Sets or clear the value of [mask][crate::model::GetDocumentRequest::mask].
-        pub fn maybe_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::DocumentMask>,
         {
@@ -301,7 +301,7 @@ pub mod firestore {
         }
 
         /// Sets or clear the value of [mask][crate::model::ListDocumentsRequest::mask].
-        pub fn maybe_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::DocumentMask>,
         {
@@ -420,7 +420,7 @@ pub mod firestore {
         /// Sets or clear the value of [document][crate::model::UpdateDocumentRequest::document].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_document<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_document<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Document>,
         {
@@ -438,7 +438,7 @@ pub mod firestore {
         }
 
         /// Sets or clear the value of [update_mask][crate::model::UpdateDocumentRequest::update_mask].
-        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::DocumentMask>,
         {
@@ -456,7 +456,7 @@ pub mod firestore {
         }
 
         /// Sets or clear the value of [mask][crate::model::UpdateDocumentRequest::mask].
-        pub fn maybe_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::DocumentMask>,
         {
@@ -474,7 +474,7 @@ pub mod firestore {
         }
 
         /// Sets or clear the value of [current_document][crate::model::UpdateDocumentRequest::current_document].
-        pub fn maybe_current_document<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_current_document<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Precondition>,
         {
@@ -554,7 +554,7 @@ pub mod firestore {
         }
 
         /// Sets or clear the value of [current_document][crate::model::DeleteDocumentRequest::current_document].
-        pub fn maybe_current_document<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_current_document<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Precondition>,
         {
@@ -637,7 +637,7 @@ pub mod firestore {
         }
 
         /// Sets or clear the value of [options][crate::model::BeginTransactionRequest::options].
-        pub fn maybe_options<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::TransactionOptions>,
         {
@@ -1234,7 +1234,7 @@ pub mod firestore {
         /// Sets or clear the value of [document][crate::model::CreateDocumentRequest::document].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_document<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_document<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Document>,
         {
@@ -1252,7 +1252,7 @@ pub mod firestore {
         }
 
         /// Sets or clear the value of [mask][crate::model::CreateDocumentRequest::mask].
-        pub fn maybe_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::DocumentMask>,
         {

@@ -614,7 +614,7 @@ impl Image {
     }
 
     /// Sets or clear the value of [source][crate::model::Image::source].
-    pub fn maybe_source<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_source<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ImageSource>,
     {
@@ -728,7 +728,7 @@ impl FaceAnnotation {
     }
 
     /// Sets or clear the value of [bounding_poly][crate::model::FaceAnnotation::bounding_poly].
-    pub fn maybe_bounding_poly<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_bounding_poly<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::BoundingPoly>,
     {
@@ -746,7 +746,7 @@ impl FaceAnnotation {
     }
 
     /// Sets or clear the value of [fd_bounding_poly][crate::model::FaceAnnotation::fd_bounding_poly].
-    pub fn maybe_fd_bounding_poly<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_fd_bounding_poly<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::BoundingPoly>,
     {
@@ -912,7 +912,7 @@ pub mod face_annotation {
         }
 
         /// Sets or clear the value of [position][crate::model::face_annotation::Landmark::position].
-        pub fn maybe_position<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_position<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Position>,
         {
@@ -1353,7 +1353,7 @@ impl LocationInfo {
     }
 
     /// Sets or clear the value of [lat_lng][crate::model::LocationInfo::lat_lng].
-    pub fn maybe_lat_lng<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_lat_lng<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<gtype::model::LatLng>,
     {
@@ -1540,7 +1540,7 @@ impl EntityAnnotation {
     }
 
     /// Sets or clear the value of [bounding_poly][crate::model::EntityAnnotation::bounding_poly].
-    pub fn maybe_bounding_poly<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_bounding_poly<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::BoundingPoly>,
     {
@@ -1649,7 +1649,7 @@ impl LocalizedObjectAnnotation {
     }
 
     /// Sets or clear the value of [bounding_poly][crate::model::LocalizedObjectAnnotation::bounding_poly].
-    pub fn maybe_bounding_poly<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_bounding_poly<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::BoundingPoly>,
     {
@@ -1775,7 +1775,7 @@ impl LatLongRect {
     }
 
     /// Sets or clear the value of [min_lat_lng][crate::model::LatLongRect::min_lat_lng].
-    pub fn maybe_min_lat_lng<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_min_lat_lng<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<gtype::model::LatLng>,
     {
@@ -1793,7 +1793,7 @@ impl LatLongRect {
     }
 
     /// Sets or clear the value of [max_lat_lng][crate::model::LatLongRect::max_lat_lng].
-    pub fn maybe_max_lat_lng<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_max_lat_lng<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<gtype::model::LatLng>,
     {
@@ -1849,7 +1849,7 @@ impl ColorInfo {
     }
 
     /// Sets or clear the value of [color][crate::model::ColorInfo::color].
-    pub fn maybe_color<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_color<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<gtype::model::Color>,
     {
@@ -1942,7 +1942,7 @@ impl ImageProperties {
     }
 
     /// Sets or clear the value of [dominant_colors][crate::model::ImageProperties::dominant_colors].
-    pub fn maybe_dominant_colors<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_dominant_colors<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::DominantColorsAnnotation>,
     {
@@ -1998,7 +1998,7 @@ impl CropHint {
     }
 
     /// Sets or clear the value of [bounding_poly][crate::model::CropHint::bounding_poly].
-    pub fn maybe_bounding_poly<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_bounding_poly<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::BoundingPoly>,
     {
@@ -2254,7 +2254,7 @@ impl ImageContext {
     }
 
     /// Sets or clear the value of [lat_long_rect][crate::model::ImageContext::lat_long_rect].
-    pub fn maybe_lat_long_rect<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_lat_long_rect<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::LatLongRect>,
     {
@@ -2283,7 +2283,7 @@ impl ImageContext {
     }
 
     /// Sets or clear the value of [crop_hints_params][crate::model::ImageContext::crop_hints_params].
-    pub fn maybe_crop_hints_params<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_crop_hints_params<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CropHintsParams>,
     {
@@ -2301,7 +2301,7 @@ impl ImageContext {
     }
 
     /// Sets or clear the value of [product_search_params][crate::model::ImageContext::product_search_params].
-    pub fn maybe_product_search_params<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_product_search_params<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ProductSearchParams>,
     {
@@ -2319,7 +2319,7 @@ impl ImageContext {
     }
 
     /// Sets or clear the value of [web_detection_params][crate::model::ImageContext::web_detection_params].
-    pub fn maybe_web_detection_params<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_web_detection_params<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::WebDetectionParams>,
     {
@@ -2337,7 +2337,7 @@ impl ImageContext {
     }
 
     /// Sets or clear the value of [text_detection_params][crate::model::ImageContext::text_detection_params].
-    pub fn maybe_text_detection_params<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_text_detection_params<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::TextDetectionParams>,
     {
@@ -2390,7 +2390,7 @@ impl AnnotateImageRequest {
     }
 
     /// Sets or clear the value of [image][crate::model::AnnotateImageRequest::image].
-    pub fn maybe_image<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_image<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Image>,
     {
@@ -2419,7 +2419,7 @@ impl AnnotateImageRequest {
     }
 
     /// Sets or clear the value of [image_context][crate::model::AnnotateImageRequest::image_context].
-    pub fn maybe_image_context<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_image_context<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ImageContext>,
     {
@@ -2632,7 +2632,7 @@ impl AnnotateImageResponse {
     }
 
     /// Sets or clear the value of [full_text_annotation][crate::model::AnnotateImageResponse::full_text_annotation].
-    pub fn maybe_full_text_annotation<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_full_text_annotation<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::TextAnnotation>,
     {
@@ -2650,7 +2650,7 @@ impl AnnotateImageResponse {
     }
 
     /// Sets or clear the value of [safe_search_annotation][crate::model::AnnotateImageResponse::safe_search_annotation].
-    pub fn maybe_safe_search_annotation<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_safe_search_annotation<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::SafeSearchAnnotation>,
     {
@@ -2668,7 +2668,7 @@ impl AnnotateImageResponse {
     }
 
     /// Sets or clear the value of [image_properties_annotation][crate::model::AnnotateImageResponse::image_properties_annotation].
-    pub fn maybe_image_properties_annotation<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_image_properties_annotation<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ImageProperties>,
     {
@@ -2686,7 +2686,7 @@ impl AnnotateImageResponse {
     }
 
     /// Sets or clear the value of [crop_hints_annotation][crate::model::AnnotateImageResponse::crop_hints_annotation].
-    pub fn maybe_crop_hints_annotation<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_crop_hints_annotation<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CropHintsAnnotation>,
     {
@@ -2704,7 +2704,7 @@ impl AnnotateImageResponse {
     }
 
     /// Sets or clear the value of [web_detection][crate::model::AnnotateImageResponse::web_detection].
-    pub fn maybe_web_detection<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_web_detection<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::WebDetection>,
     {
@@ -2722,7 +2722,7 @@ impl AnnotateImageResponse {
     }
 
     /// Sets or clear the value of [product_search_results][crate::model::AnnotateImageResponse::product_search_results].
-    pub fn maybe_product_search_results<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_product_search_results<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ProductSearchResults>,
     {
@@ -2740,7 +2740,7 @@ impl AnnotateImageResponse {
     }
 
     /// Sets or clear the value of [error][crate::model::AnnotateImageResponse::error].
-    pub fn maybe_error<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_error<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<rpc::model::Status>,
     {
@@ -2758,7 +2758,7 @@ impl AnnotateImageResponse {
     }
 
     /// Sets or clear the value of [context][crate::model::AnnotateImageResponse::context].
-    pub fn maybe_context<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_context<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ImageAnnotationContext>,
     {
@@ -2943,7 +2943,7 @@ impl AnnotateFileRequest {
     }
 
     /// Sets or clear the value of [input_config][crate::model::AnnotateFileRequest::input_config].
-    pub fn maybe_input_config<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_input_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::InputConfig>,
     {
@@ -2972,7 +2972,7 @@ impl AnnotateFileRequest {
     }
 
     /// Sets or clear the value of [image_context][crate::model::AnnotateFileRequest::image_context].
-    pub fn maybe_image_context<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_image_context<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ImageContext>,
     {
@@ -3042,7 +3042,7 @@ impl AnnotateFileResponse {
     }
 
     /// Sets or clear the value of [input_config][crate::model::AnnotateFileResponse::input_config].
-    pub fn maybe_input_config<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_input_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::InputConfig>,
     {
@@ -3077,7 +3077,7 @@ impl AnnotateFileResponse {
     }
 
     /// Sets or clear the value of [error][crate::model::AnnotateFileResponse::error].
-    pub fn maybe_error<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_error<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<rpc::model::Status>,
     {
@@ -3251,7 +3251,7 @@ impl AsyncAnnotateFileRequest {
     }
 
     /// Sets or clear the value of [input_config][crate::model::AsyncAnnotateFileRequest::input_config].
-    pub fn maybe_input_config<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_input_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::InputConfig>,
     {
@@ -3280,7 +3280,7 @@ impl AsyncAnnotateFileRequest {
     }
 
     /// Sets or clear the value of [image_context][crate::model::AsyncAnnotateFileRequest::image_context].
-    pub fn maybe_image_context<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_image_context<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ImageContext>,
     {
@@ -3298,7 +3298,7 @@ impl AsyncAnnotateFileRequest {
     }
 
     /// Sets or clear the value of [output_config][crate::model::AsyncAnnotateFileRequest::output_config].
-    pub fn maybe_output_config<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_output_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::OutputConfig>,
     {
@@ -3342,7 +3342,7 @@ impl AsyncAnnotateFileResponse {
     }
 
     /// Sets or clear the value of [output_config][crate::model::AsyncAnnotateFileResponse::output_config].
-    pub fn maybe_output_config<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_output_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::OutputConfig>,
     {
@@ -3425,7 +3425,7 @@ impl AsyncBatchAnnotateImagesRequest {
     }
 
     /// Sets or clear the value of [output_config][crate::model::AsyncBatchAnnotateImagesRequest::output_config].
-    pub fn maybe_output_config<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_output_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::OutputConfig>,
     {
@@ -3487,7 +3487,7 @@ impl AsyncBatchAnnotateImagesResponse {
     }
 
     /// Sets or clear the value of [output_config][crate::model::AsyncBatchAnnotateImagesResponse::output_config].
-    pub fn maybe_output_config<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_output_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::OutputConfig>,
     {
@@ -3664,7 +3664,7 @@ impl InputConfig {
     }
 
     /// Sets or clear the value of [gcs_source][crate::model::InputConfig::gcs_source].
-    pub fn maybe_gcs_source<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_gcs_source<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::GcsSource>,
     {
@@ -3734,7 +3734,7 @@ impl OutputConfig {
     }
 
     /// Sets or clear the value of [gcs_destination][crate::model::OutputConfig::gcs_destination].
-    pub fn maybe_gcs_destination<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_gcs_destination<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::GcsDestination>,
     {
@@ -3887,7 +3887,7 @@ impl OperationMetadata {
     }
 
     /// Sets or clear the value of [create_time][crate::model::OperationMetadata::create_time].
-    pub fn maybe_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -3905,7 +3905,7 @@ impl OperationMetadata {
     }
 
     /// Sets or clear the value of [update_time][crate::model::OperationMetadata::update_time].
-    pub fn maybe_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -4133,7 +4133,7 @@ impl ProductSearchParams {
     }
 
     /// Sets or clear the value of [bounding_poly][crate::model::ProductSearchParams::bounding_poly].
-    pub fn maybe_bounding_poly<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_bounding_poly<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::BoundingPoly>,
     {
@@ -4213,7 +4213,7 @@ impl ProductSearchResults {
     }
 
     /// Sets or clear the value of [index_time][crate::model::ProductSearchResults::index_time].
-    pub fn maybe_index_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_index_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -4295,7 +4295,7 @@ pub mod product_search_results {
         }
 
         /// Sets or clear the value of [product][crate::model::product_search_results::Result::product].
-        pub fn maybe_product<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_product<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Product>,
         {
@@ -4429,7 +4429,7 @@ pub mod product_search_results {
         }
 
         /// Sets or clear the value of [bounding_poly][crate::model::product_search_results::GroupedResult::bounding_poly].
-        pub fn maybe_bounding_poly<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_bounding_poly<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::BoundingPoly>,
         {
@@ -4689,7 +4689,7 @@ impl ProductSet {
     }
 
     /// Sets or clear the value of [index_time][crate::model::ProductSet::index_time].
-    pub fn maybe_index_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_index_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -4707,7 +4707,7 @@ impl ProductSet {
     }
 
     /// Sets or clear the value of [index_error][crate::model::ProductSet::index_error].
-    pub fn maybe_index_error<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_index_error<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<rpc::model::Status>,
     {
@@ -4843,7 +4843,7 @@ impl CreateProductRequest {
     }
 
     /// Sets or clear the value of [product][crate::model::CreateProductRequest::product].
-    pub fn maybe_product<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_product<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Product>,
     {
@@ -5056,7 +5056,7 @@ impl UpdateProductRequest {
     }
 
     /// Sets or clear the value of [product][crate::model::UpdateProductRequest::product].
-    pub fn maybe_product<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_product<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Product>,
     {
@@ -5074,7 +5074,7 @@ impl UpdateProductRequest {
     }
 
     /// Sets or clear the value of [update_mask][crate::model::UpdateProductRequest::update_mask].
-    pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
     {
@@ -5172,7 +5172,7 @@ impl CreateProductSetRequest {
     }
 
     /// Sets or clear the value of [product_set][crate::model::CreateProductSetRequest::product_set].
-    pub fn maybe_product_set<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_product_set<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ProductSet>,
     {
@@ -5382,7 +5382,7 @@ impl UpdateProductSetRequest {
     }
 
     /// Sets or clear the value of [product_set][crate::model::UpdateProductSetRequest::product_set].
-    pub fn maybe_product_set<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_product_set<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ProductSet>,
     {
@@ -5400,7 +5400,7 @@ impl UpdateProductSetRequest {
     }
 
     /// Sets or clear the value of [update_mask][crate::model::UpdateProductSetRequest::update_mask].
-    pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
     {
@@ -5501,7 +5501,7 @@ impl CreateReferenceImageRequest {
     }
 
     /// Sets or clear the value of [reference_image][crate::model::CreateReferenceImageRequest::reference_image].
-    pub fn maybe_reference_image<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_reference_image<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ReferenceImage>,
     {
@@ -6171,7 +6171,7 @@ impl ImportProductSetsRequest {
     }
 
     /// Sets or clear the value of [input_config][crate::model::ImportProductSetsRequest::input_config].
-    pub fn maybe_input_config<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_input_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ImportProductSetsInputConfig>,
     {
@@ -6303,7 +6303,7 @@ impl BatchOperationMetadata {
     }
 
     /// Sets or clear the value of [submit_time][crate::model::BatchOperationMetadata::submit_time].
-    pub fn maybe_submit_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_submit_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -6321,7 +6321,7 @@ impl BatchOperationMetadata {
     }
 
     /// Sets or clear the value of [end_time][crate::model::BatchOperationMetadata::end_time].
-    pub fn maybe_end_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -7027,7 +7027,7 @@ pub mod text_annotation {
         }
 
         /// Sets or clear the value of [detected_break][crate::model::text_annotation::TextProperty::detected_break].
-        pub fn maybe_detected_break<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_detected_break<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::text_annotation::DetectedBreak>,
         {
@@ -7091,7 +7091,7 @@ impl Page {
     }
 
     /// Sets or clear the value of [property][crate::model::Page::property].
-    pub fn maybe_property<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_property<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::text_annotation::TextProperty>,
     {
@@ -7204,7 +7204,7 @@ impl Block {
     }
 
     /// Sets or clear the value of [property][crate::model::Block::property].
-    pub fn maybe_property<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_property<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::text_annotation::TextProperty>,
     {
@@ -7222,7 +7222,7 @@ impl Block {
     }
 
     /// Sets or clear the value of [bounding_box][crate::model::Block::bounding_box].
-    pub fn maybe_bounding_box<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_bounding_box<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::BoundingPoly>,
     {
@@ -7479,7 +7479,7 @@ impl Paragraph {
     }
 
     /// Sets or clear the value of [property][crate::model::Paragraph::property].
-    pub fn maybe_property<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_property<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::text_annotation::TextProperty>,
     {
@@ -7497,7 +7497,7 @@ impl Paragraph {
     }
 
     /// Sets or clear the value of [bounding_box][crate::model::Paragraph::bounding_box].
-    pub fn maybe_bounding_box<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_bounding_box<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::BoundingPoly>,
     {
@@ -7587,7 +7587,7 @@ impl Word {
     }
 
     /// Sets or clear the value of [property][crate::model::Word::property].
-    pub fn maybe_property<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_property<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::text_annotation::TextProperty>,
     {
@@ -7605,7 +7605,7 @@ impl Word {
     }
 
     /// Sets or clear the value of [bounding_box][crate::model::Word::bounding_box].
-    pub fn maybe_bounding_box<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_bounding_box<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::BoundingPoly>,
     {
@@ -7694,7 +7694,7 @@ impl Symbol {
     }
 
     /// Sets or clear the value of [property][crate::model::Symbol::property].
-    pub fn maybe_property<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_property<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::text_annotation::TextProperty>,
     {
@@ -7712,7 +7712,7 @@ impl Symbol {
     }
 
     /// Sets or clear the value of [bounding_box][crate::model::Symbol::bounding_box].
-    pub fn maybe_bounding_box<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_bounding_box<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::BoundingPoly>,
     {

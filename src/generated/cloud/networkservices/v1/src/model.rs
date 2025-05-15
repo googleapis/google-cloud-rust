@@ -93,7 +93,7 @@ impl OperationMetadata {
     }
 
     /// Sets or clear the value of [create_time][crate::model::OperationMetadata::create_time].
-    pub fn maybe_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -111,7 +111,7 @@ impl OperationMetadata {
     }
 
     /// Sets or clear the value of [end_time][crate::model::OperationMetadata::end_time].
-    pub fn maybe_end_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -611,7 +611,7 @@ impl ExtensionChain {
     }
 
     /// Sets or clear the value of [match_condition][crate::model::ExtensionChain::match_condition].
-    pub fn maybe_match_condition<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_match_condition<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::extension_chain::MatchCondition>,
     {
@@ -802,7 +802,7 @@ pub mod extension_chain {
         }
 
         /// Sets or clear the value of [timeout][crate::model::extension_chain::Extension::timeout].
-        pub fn maybe_timeout<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_timeout<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
         {
@@ -928,7 +928,7 @@ impl LbTrafficExtension {
     }
 
     /// Sets or clear the value of [create_time][crate::model::LbTrafficExtension::create_time].
-    pub fn maybe_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -946,7 +946,7 @@ impl LbTrafficExtension {
     }
 
     /// Sets or clear the value of [update_time][crate::model::LbTrafficExtension::update_time].
-    pub fn maybe_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -1013,7 +1013,7 @@ impl LbTrafficExtension {
     }
 
     /// Sets or clear the value of [metadata][crate::model::LbTrafficExtension::metadata].
-    pub fn maybe_metadata<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_metadata<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Struct>,
     {
@@ -1283,7 +1283,7 @@ impl CreateLbTrafficExtensionRequest {
     }
 
     /// Sets or clear the value of [lb_traffic_extension][crate::model::CreateLbTrafficExtensionRequest::lb_traffic_extension].
-    pub fn maybe_lb_traffic_extension<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_lb_traffic_extension<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::LbTrafficExtension>,
     {
@@ -1357,7 +1357,7 @@ impl UpdateLbTrafficExtensionRequest {
     }
 
     /// Sets or clear the value of [update_mask][crate::model::UpdateLbTrafficExtensionRequest::update_mask].
-    pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
     {
@@ -1375,7 +1375,7 @@ impl UpdateLbTrafficExtensionRequest {
     }
 
     /// Sets or clear the value of [lb_traffic_extension][crate::model::UpdateLbTrafficExtensionRequest::lb_traffic_extension].
-    pub fn maybe_lb_traffic_extension<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_lb_traffic_extension<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::LbTrafficExtension>,
     {
@@ -1544,7 +1544,7 @@ impl LbRouteExtension {
     }
 
     /// Sets or clear the value of [create_time][crate::model::LbRouteExtension::create_time].
-    pub fn maybe_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -1562,7 +1562,7 @@ impl LbRouteExtension {
     }
 
     /// Sets or clear the value of [update_time][crate::model::LbRouteExtension::update_time].
-    pub fn maybe_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -1629,7 +1629,7 @@ impl LbRouteExtension {
     }
 
     /// Sets or clear the value of [metadata][crate::model::LbRouteExtension::metadata].
-    pub fn maybe_metadata<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_metadata<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Struct>,
     {
@@ -1899,7 +1899,7 @@ impl CreateLbRouteExtensionRequest {
     }
 
     /// Sets or clear the value of [lb_route_extension][crate::model::CreateLbRouteExtensionRequest::lb_route_extension].
-    pub fn maybe_lb_route_extension<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_lb_route_extension<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::LbRouteExtension>,
     {
@@ -1973,7 +1973,7 @@ impl UpdateLbRouteExtensionRequest {
     }
 
     /// Sets or clear the value of [update_mask][crate::model::UpdateLbRouteExtensionRequest::update_mask].
-    pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
     {
@@ -1991,7 +1991,7 @@ impl UpdateLbRouteExtensionRequest {
     }
 
     /// Sets or clear the value of [lb_route_extension][crate::model::UpdateLbRouteExtensionRequest::lb_route_extension].
-    pub fn maybe_lb_route_extension<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_lb_route_extension<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::LbRouteExtension>,
     {
@@ -2165,7 +2165,7 @@ impl EndpointPolicy {
     }
 
     /// Sets or clear the value of [create_time][crate::model::EndpointPolicy::create_time].
-    pub fn maybe_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -2183,7 +2183,7 @@ impl EndpointPolicy {
     }
 
     /// Sets or clear the value of [update_time][crate::model::EndpointPolicy::update_time].
-    pub fn maybe_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -2231,7 +2231,7 @@ impl EndpointPolicy {
     }
 
     /// Sets or clear the value of [endpoint_matcher][crate::model::EndpointPolicy::endpoint_matcher].
-    pub fn maybe_endpoint_matcher<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_endpoint_matcher<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::EndpointMatcher>,
     {
@@ -2249,7 +2249,7 @@ impl EndpointPolicy {
     }
 
     /// Sets or clear the value of [traffic_port_selector][crate::model::EndpointPolicy::traffic_port_selector].
-    pub fn maybe_traffic_port_selector<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_traffic_port_selector<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::TrafficPortSelector>,
     {
@@ -2632,7 +2632,7 @@ impl CreateEndpointPolicyRequest {
     }
 
     /// Sets or clear the value of [endpoint_policy][crate::model::CreateEndpointPolicyRequest::endpoint_policy].
-    pub fn maybe_endpoint_policy<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_endpoint_policy<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::EndpointPolicy>,
     {
@@ -2684,7 +2684,7 @@ impl UpdateEndpointPolicyRequest {
     }
 
     /// Sets or clear the value of [update_mask][crate::model::UpdateEndpointPolicyRequest::update_mask].
-    pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
     {
@@ -2702,7 +2702,7 @@ impl UpdateEndpointPolicyRequest {
     }
 
     /// Sets or clear the value of [endpoint_policy][crate::model::UpdateEndpointPolicyRequest::endpoint_policy].
-    pub fn maybe_endpoint_policy<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_endpoint_policy<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::EndpointPolicy>,
     {
@@ -2843,7 +2843,7 @@ impl Gateway {
     }
 
     /// Sets or clear the value of [create_time][crate::model::Gateway::create_time].
-    pub fn maybe_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -2861,7 +2861,7 @@ impl Gateway {
     }
 
     /// Sets or clear the value of [update_time][crate::model::Gateway::update_time].
-    pub fn maybe_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -3270,7 +3270,7 @@ impl CreateGatewayRequest {
     }
 
     /// Sets or clear the value of [gateway][crate::model::CreateGatewayRequest::gateway].
-    pub fn maybe_gateway<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_gateway<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Gateway>,
     {
@@ -3322,7 +3322,7 @@ impl UpdateGatewayRequest {
     }
 
     /// Sets or clear the value of [update_mask][crate::model::UpdateGatewayRequest::update_mask].
-    pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
     {
@@ -3340,7 +3340,7 @@ impl UpdateGatewayRequest {
     }
 
     /// Sets or clear the value of [gateway][crate::model::UpdateGatewayRequest::gateway].
-    pub fn maybe_gateway<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_gateway<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Gateway>,
     {
@@ -3512,7 +3512,7 @@ impl GrpcRoute {
     }
 
     /// Sets or clear the value of [create_time][crate::model::GrpcRoute::create_time].
-    pub fn maybe_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -3530,7 +3530,7 @@ impl GrpcRoute {
     }
 
     /// Sets or clear the value of [update_time][crate::model::GrpcRoute::update_time].
-    pub fn maybe_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -3682,7 +3682,7 @@ pub mod grpc_route {
         }
 
         /// Sets or clear the value of [case_sensitive][crate::model::grpc_route::MethodMatch::case_sensitive].
-        pub fn maybe_case_sensitive<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_case_sensitive<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<bool>,
         {
@@ -4072,7 +4072,7 @@ pub mod grpc_route {
         }
 
         /// Sets or clear the value of [method][crate::model::grpc_route::RouteMatch::method].
-        pub fn maybe_method<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_method<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::grpc_route::MethodMatch>,
         {
@@ -4146,7 +4146,7 @@ pub mod grpc_route {
         }
 
         /// Sets or clear the value of [weight][crate::model::grpc_route::Destination::weight].
-        pub fn maybe_weight<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_weight<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<i32>,
         {
@@ -4260,7 +4260,7 @@ pub mod grpc_route {
         }
 
         /// Sets or clear the value of [delay][crate::model::grpc_route::FaultInjectionPolicy::delay].
-        pub fn maybe_delay<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_delay<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::grpc_route::fault_injection_policy::Delay>,
         {
@@ -4278,7 +4278,7 @@ pub mod grpc_route {
         }
 
         /// Sets or clear the value of [abort][crate::model::grpc_route::FaultInjectionPolicy::abort].
-        pub fn maybe_abort<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_abort<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::grpc_route::fault_injection_policy::Abort>,
         {
@@ -4334,7 +4334,7 @@ pub mod grpc_route {
             }
 
             /// Sets or clear the value of [fixed_delay][crate::model::grpc_route::fault_injection_policy::Delay::fixed_delay].
-            pub fn maybe_fixed_delay<T>(mut self, v: std::option::Option<T>) -> Self
+            pub fn set_or_clear_fixed_delay<T>(mut self, v: std::option::Option<T>) -> Self
             where
                 T: std::convert::Into<wkt::Duration>,
             {
@@ -4352,7 +4352,7 @@ pub mod grpc_route {
             }
 
             /// Sets or clear the value of [percentage][crate::model::grpc_route::fault_injection_policy::Delay::percentage].
-            pub fn maybe_percentage<T>(mut self, v: std::option::Option<T>) -> Self
+            pub fn set_or_clear_percentage<T>(mut self, v: std::option::Option<T>) -> Self
             where
                 T: std::convert::Into<i32>,
             {
@@ -4405,7 +4405,7 @@ pub mod grpc_route {
             }
 
             /// Sets or clear the value of [http_status][crate::model::grpc_route::fault_injection_policy::Abort::http_status].
-            pub fn maybe_http_status<T>(mut self, v: std::option::Option<T>) -> Self
+            pub fn set_or_clear_http_status<T>(mut self, v: std::option::Option<T>) -> Self
             where
                 T: std::convert::Into<i32>,
             {
@@ -4423,7 +4423,7 @@ pub mod grpc_route {
             }
 
             /// Sets or clear the value of [percentage][crate::model::grpc_route::fault_injection_policy::Abort::percentage].
-            pub fn maybe_percentage<T>(mut self, v: std::option::Option<T>) -> Self
+            pub fn set_or_clear_percentage<T>(mut self, v: std::option::Option<T>) -> Self
             where
                 T: std::convert::Into<i32>,
             {
@@ -4568,7 +4568,7 @@ pub mod grpc_route {
         }
 
         /// Sets or clear the value of [fault_injection_policy][crate::model::grpc_route::RouteAction::fault_injection_policy].
-        pub fn maybe_fault_injection_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_fault_injection_policy<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::grpc_route::FaultInjectionPolicy>,
         {
@@ -4586,7 +4586,7 @@ pub mod grpc_route {
         }
 
         /// Sets or clear the value of [timeout][crate::model::grpc_route::RouteAction::timeout].
-        pub fn maybe_timeout<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_timeout<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
         {
@@ -4604,7 +4604,7 @@ pub mod grpc_route {
         }
 
         /// Sets or clear the value of [retry_policy][crate::model::grpc_route::RouteAction::retry_policy].
-        pub fn maybe_retry_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_retry_policy<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::grpc_route::RetryPolicy>,
         {
@@ -4667,7 +4667,7 @@ pub mod grpc_route {
         }
 
         /// Sets or clear the value of [action][crate::model::grpc_route::RouteRule::action].
-        pub fn maybe_action<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_action<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::grpc_route::RouteAction>,
         {
@@ -4884,7 +4884,7 @@ impl CreateGrpcRouteRequest {
     }
 
     /// Sets or clear the value of [grpc_route][crate::model::CreateGrpcRouteRequest::grpc_route].
-    pub fn maybe_grpc_route<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_grpc_route<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::GrpcRoute>,
     {
@@ -4936,7 +4936,7 @@ impl UpdateGrpcRouteRequest {
     }
 
     /// Sets or clear the value of [update_mask][crate::model::UpdateGrpcRouteRequest::update_mask].
-    pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
     {
@@ -4954,7 +4954,7 @@ impl UpdateGrpcRouteRequest {
     }
 
     /// Sets or clear the value of [grpc_route][crate::model::UpdateGrpcRouteRequest::grpc_route].
-    pub fn maybe_grpc_route<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_grpc_route<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::GrpcRoute>,
     {
@@ -5125,7 +5125,7 @@ impl HttpRoute {
     }
 
     /// Sets or clear the value of [create_time][crate::model::HttpRoute::create_time].
-    pub fn maybe_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -5143,7 +5143,7 @@ impl HttpRoute {
     }
 
     /// Sets or clear the value of [update_time][crate::model::HttpRoute::update_time].
-    pub fn maybe_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -6261,7 +6261,7 @@ pub mod http_route {
         }
 
         /// Sets or clear the value of [delay][crate::model::http_route::FaultInjectionPolicy::delay].
-        pub fn maybe_delay<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_delay<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::http_route::fault_injection_policy::Delay>,
         {
@@ -6279,7 +6279,7 @@ pub mod http_route {
         }
 
         /// Sets or clear the value of [abort][crate::model::http_route::FaultInjectionPolicy::abort].
-        pub fn maybe_abort<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_abort<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::http_route::fault_injection_policy::Abort>,
         {
@@ -6335,7 +6335,7 @@ pub mod http_route {
             }
 
             /// Sets or clear the value of [fixed_delay][crate::model::http_route::fault_injection_policy::Delay::fixed_delay].
-            pub fn maybe_fixed_delay<T>(mut self, v: std::option::Option<T>) -> Self
+            pub fn set_or_clear_fixed_delay<T>(mut self, v: std::option::Option<T>) -> Self
             where
                 T: std::convert::Into<wkt::Duration>,
             {
@@ -6603,7 +6603,7 @@ pub mod http_route {
         }
 
         /// Sets or clear the value of [per_try_timeout][crate::model::http_route::RetryPolicy::per_try_timeout].
-        pub fn maybe_per_try_timeout<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_per_try_timeout<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
         {
@@ -6651,7 +6651,7 @@ pub mod http_route {
         }
 
         /// Sets or clear the value of [destination][crate::model::http_route::RequestMirrorPolicy::destination].
-        pub fn maybe_destination<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_destination<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::http_route::Destination>,
         {
@@ -6902,7 +6902,7 @@ pub mod http_route {
         }
 
         /// Sets or clear the value of [redirect][crate::model::http_route::RouteAction::redirect].
-        pub fn maybe_redirect<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_redirect<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::http_route::Redirect>,
         {
@@ -6920,7 +6920,7 @@ pub mod http_route {
         }
 
         /// Sets or clear the value of [fault_injection_policy][crate::model::http_route::RouteAction::fault_injection_policy].
-        pub fn maybe_fault_injection_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_fault_injection_policy<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::http_route::FaultInjectionPolicy>,
         {
@@ -6938,7 +6938,7 @@ pub mod http_route {
         }
 
         /// Sets or clear the value of [request_header_modifier][crate::model::http_route::RouteAction::request_header_modifier].
-        pub fn maybe_request_header_modifier<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_request_header_modifier<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::http_route::HeaderModifier>,
         {
@@ -6956,7 +6956,7 @@ pub mod http_route {
         }
 
         /// Sets or clear the value of [response_header_modifier][crate::model::http_route::RouteAction::response_header_modifier].
-        pub fn maybe_response_header_modifier<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_response_header_modifier<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::http_route::HeaderModifier>,
         {
@@ -6974,7 +6974,7 @@ pub mod http_route {
         }
 
         /// Sets or clear the value of [url_rewrite][crate::model::http_route::RouteAction::url_rewrite].
-        pub fn maybe_url_rewrite<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_url_rewrite<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::http_route::URLRewrite>,
         {
@@ -6992,7 +6992,7 @@ pub mod http_route {
         }
 
         /// Sets or clear the value of [timeout][crate::model::http_route::RouteAction::timeout].
-        pub fn maybe_timeout<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_timeout<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
         {
@@ -7010,7 +7010,7 @@ pub mod http_route {
         }
 
         /// Sets or clear the value of [retry_policy][crate::model::http_route::RouteAction::retry_policy].
-        pub fn maybe_retry_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_retry_policy<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::http_route::RetryPolicy>,
         {
@@ -7028,7 +7028,7 @@ pub mod http_route {
         }
 
         /// Sets or clear the value of [request_mirror_policy][crate::model::http_route::RouteAction::request_mirror_policy].
-        pub fn maybe_request_mirror_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_request_mirror_policy<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::http_route::RequestMirrorPolicy>,
         {
@@ -7046,7 +7046,7 @@ pub mod http_route {
         }
 
         /// Sets or clear the value of [cors_policy][crate::model::http_route::RouteAction::cors_policy].
-        pub fn maybe_cors_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_cors_policy<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::http_route::CorsPolicy>,
         {
@@ -7114,7 +7114,7 @@ pub mod http_route {
         }
 
         /// Sets or clear the value of [action][crate::model::http_route::RouteRule::action].
-        pub fn maybe_action<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_action<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::http_route::RouteAction>,
         {
@@ -7331,7 +7331,7 @@ impl CreateHttpRouteRequest {
     }
 
     /// Sets or clear the value of [http_route][crate::model::CreateHttpRouteRequest::http_route].
-    pub fn maybe_http_route<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_http_route<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::HttpRoute>,
     {
@@ -7383,7 +7383,7 @@ impl UpdateHttpRouteRequest {
     }
 
     /// Sets or clear the value of [update_mask][crate::model::UpdateHttpRouteRequest::update_mask].
-    pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
     {
@@ -7401,7 +7401,7 @@ impl UpdateHttpRouteRequest {
     }
 
     /// Sets or clear the value of [http_route][crate::model::UpdateHttpRouteRequest::http_route].
-    pub fn maybe_http_route<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_http_route<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::HttpRoute>,
     {
@@ -7523,7 +7523,7 @@ impl Mesh {
     }
 
     /// Sets or clear the value of [create_time][crate::model::Mesh::create_time].
-    pub fn maybe_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -7541,7 +7541,7 @@ impl Mesh {
     }
 
     /// Sets or clear the value of [update_time][crate::model::Mesh::update_time].
-    pub fn maybe_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -7781,7 +7781,7 @@ impl CreateMeshRequest {
     }
 
     /// Sets or clear the value of [mesh][crate::model::CreateMeshRequest::mesh].
-    pub fn maybe_mesh<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_mesh<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Mesh>,
     {
@@ -7833,7 +7833,7 @@ impl UpdateMeshRequest {
     }
 
     /// Sets or clear the value of [update_mask][crate::model::UpdateMeshRequest::update_mask].
-    pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
     {
@@ -7851,7 +7851,7 @@ impl UpdateMeshRequest {
     }
 
     /// Sets or clear the value of [mesh][crate::model::UpdateMeshRequest::mesh].
-    pub fn maybe_mesh<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_mesh<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Mesh>,
     {
@@ -7964,7 +7964,7 @@ impl ServiceBinding {
     }
 
     /// Sets or clear the value of [create_time][crate::model::ServiceBinding::create_time].
-    pub fn maybe_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -7982,7 +7982,7 @@ impl ServiceBinding {
     }
 
     /// Sets or clear the value of [update_time][crate::model::ServiceBinding::update_time].
-    pub fn maybe_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -8219,7 +8219,7 @@ impl CreateServiceBindingRequest {
     }
 
     /// Sets or clear the value of [service_binding][crate::model::CreateServiceBindingRequest::service_binding].
-    pub fn maybe_service_binding<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_service_binding<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ServiceBinding>,
     {
@@ -8355,7 +8355,7 @@ impl TcpRoute {
     }
 
     /// Sets or clear the value of [create_time][crate::model::TcpRoute::create_time].
-    pub fn maybe_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -8373,7 +8373,7 @@ impl TcpRoute {
     }
 
     /// Sets or clear the value of [update_time][crate::model::TcpRoute::update_time].
-    pub fn maybe_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -8492,7 +8492,7 @@ pub mod tcp_route {
         }
 
         /// Sets or clear the value of [action][crate::model::tcp_route::RouteRule::action].
-        pub fn maybe_action<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_action<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::tcp_route::RouteAction>,
         {
@@ -8872,7 +8872,7 @@ impl CreateTcpRouteRequest {
     }
 
     /// Sets or clear the value of [tcp_route][crate::model::CreateTcpRouteRequest::tcp_route].
-    pub fn maybe_tcp_route<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_tcp_route<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::TcpRoute>,
     {
@@ -8924,7 +8924,7 @@ impl UpdateTcpRouteRequest {
     }
 
     /// Sets or clear the value of [update_mask][crate::model::UpdateTcpRouteRequest::update_mask].
-    pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
     {
@@ -8942,7 +8942,7 @@ impl UpdateTcpRouteRequest {
     }
 
     /// Sets or clear the value of [tcp_route][crate::model::UpdateTcpRouteRequest::tcp_route].
-    pub fn maybe_tcp_route<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_tcp_route<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::TcpRoute>,
     {
@@ -9074,7 +9074,7 @@ impl TlsRoute {
     }
 
     /// Sets or clear the value of [create_time][crate::model::TlsRoute::create_time].
-    pub fn maybe_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -9092,7 +9092,7 @@ impl TlsRoute {
     }
 
     /// Sets or clear the value of [update_time][crate::model::TlsRoute::update_time].
-    pub fn maybe_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -9197,7 +9197,7 @@ pub mod tls_route {
         }
 
         /// Sets or clear the value of [action][crate::model::tls_route::RouteRule::action].
-        pub fn maybe_action<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_action<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::tls_route::RouteAction>,
         {
@@ -9566,7 +9566,7 @@ impl CreateTlsRouteRequest {
     }
 
     /// Sets or clear the value of [tls_route][crate::model::CreateTlsRouteRequest::tls_route].
-    pub fn maybe_tls_route<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_tls_route<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::TlsRoute>,
     {
@@ -9618,7 +9618,7 @@ impl UpdateTlsRouteRequest {
     }
 
     /// Sets or clear the value of [update_mask][crate::model::UpdateTlsRouteRequest::update_mask].
-    pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
     {
@@ -9636,7 +9636,7 @@ impl UpdateTlsRouteRequest {
     }
 
     /// Sets or clear the value of [tls_route][crate::model::UpdateTlsRouteRequest::tls_route].
-    pub fn maybe_tls_route<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_tls_route<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::TlsRoute>,
     {

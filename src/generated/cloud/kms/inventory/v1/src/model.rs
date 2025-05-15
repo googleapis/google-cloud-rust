@@ -626,7 +626,7 @@ impl ProtectedResource {
     }
 
     /// Sets or clear the value of [create_time][crate::model::ProtectedResource::create_time].
-    pub fn maybe_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {

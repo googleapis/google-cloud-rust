@@ -141,7 +141,7 @@ pub mod migration_service {
         /// Sets or clear the value of [migration_workflow][crate::model::CreateMigrationWorkflowRequest::migration_workflow].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_migration_workflow<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_migration_workflow<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::MigrationWorkflow>,
         {
@@ -224,7 +224,7 @@ pub mod migration_service {
         }
 
         /// Sets or clear the value of [read_mask][crate::model::GetMigrationWorkflowRequest::read_mask].
-        pub fn maybe_read_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_read_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
         {
@@ -339,7 +339,7 @@ pub mod migration_service {
         }
 
         /// Sets or clear the value of [read_mask][crate::model::ListMigrationWorkflowsRequest::read_mask].
-        pub fn maybe_read_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_read_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
         {
@@ -566,7 +566,7 @@ pub mod migration_service {
         }
 
         /// Sets or clear the value of [read_mask][crate::model::GetMigrationSubtaskRequest::read_mask].
-        pub fn maybe_read_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_read_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
         {
@@ -679,7 +679,7 @@ pub mod migration_service {
         }
 
         /// Sets or clear the value of [read_mask][crate::model::ListMigrationSubtasksRequest::read_mask].
-        pub fn maybe_read_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_read_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
         {

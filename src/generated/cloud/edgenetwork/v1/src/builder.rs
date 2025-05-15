@@ -659,7 +659,7 @@ pub mod edge_network {
         /// Sets or clear the value of [network][crate::model::CreateNetworkRequest::network].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_network<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_network<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Network>,
         {
@@ -1081,7 +1081,7 @@ pub mod edge_network {
         /// Sets or clear the value of [subnet][crate::model::CreateSubnetRequest::subnet].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_subnet<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_subnet<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Subnet>,
         {
@@ -1202,7 +1202,7 @@ pub mod edge_network {
         /// Sets or clear the value of [update_mask][crate::model::UpdateSubnetRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
         {
@@ -1224,7 +1224,7 @@ pub mod edge_network {
         /// Sets or clear the value of [subnet][crate::model::UpdateSubnetRequest::subnet].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_subnet<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_subnet<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Subnet>,
         {
@@ -1915,7 +1915,7 @@ pub mod edge_network {
         /// Sets or clear the value of [interconnect_attachment][crate::model::CreateInterconnectAttachmentRequest::interconnect_attachment].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_interconnect_attachment<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_interconnect_attachment<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::InterconnectAttachment>,
         {
@@ -2404,7 +2404,7 @@ pub mod edge_network {
         /// Sets or clear the value of [router][crate::model::CreateRouterRequest::router].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_router<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_router<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Router>,
         {
@@ -2525,7 +2525,7 @@ pub mod edge_network {
         /// Sets or clear the value of [update_mask][crate::model::UpdateRouterRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
         {
@@ -2547,7 +2547,7 @@ pub mod edge_network {
         /// Sets or clear the value of [router][crate::model::UpdateRouterRequest::router].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_router<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_router<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Router>,
         {

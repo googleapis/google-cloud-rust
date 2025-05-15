@@ -94,7 +94,7 @@ impl CreateInstanceRequest {
     }
 
     /// Sets or clear the value of [instance][crate::model::CreateInstanceRequest::instance].
-    pub fn maybe_instance<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_instance<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Instance>,
     {
@@ -298,7 +298,7 @@ impl PartialUpdateInstanceRequest {
     }
 
     /// Sets or clear the value of [instance][crate::model::PartialUpdateInstanceRequest::instance].
-    pub fn maybe_instance<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_instance<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Instance>,
     {
@@ -316,7 +316,7 @@ impl PartialUpdateInstanceRequest {
     }
 
     /// Sets or clear the value of [update_mask][crate::model::PartialUpdateInstanceRequest::update_mask].
-    pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
     {
@@ -417,7 +417,7 @@ impl CreateClusterRequest {
     }
 
     /// Sets or clear the value of [cluster][crate::model::CreateClusterRequest::cluster].
-    pub fn maybe_cluster<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_cluster<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Cluster>,
     {
@@ -647,7 +647,7 @@ impl CreateInstanceMetadata {
     }
 
     /// Sets or clear the value of [original_request][crate::model::CreateInstanceMetadata::original_request].
-    pub fn maybe_original_request<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_original_request<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CreateInstanceRequest>,
     {
@@ -665,7 +665,7 @@ impl CreateInstanceMetadata {
     }
 
     /// Sets or clear the value of [request_time][crate::model::CreateInstanceMetadata::request_time].
-    pub fn maybe_request_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_request_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -683,7 +683,7 @@ impl CreateInstanceMetadata {
     }
 
     /// Sets or clear the value of [finish_time][crate::model::CreateInstanceMetadata::finish_time].
-    pub fn maybe_finish_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_finish_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -735,7 +735,7 @@ impl UpdateInstanceMetadata {
     }
 
     /// Sets or clear the value of [original_request][crate::model::UpdateInstanceMetadata::original_request].
-    pub fn maybe_original_request<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_original_request<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::PartialUpdateInstanceRequest>,
     {
@@ -753,7 +753,7 @@ impl UpdateInstanceMetadata {
     }
 
     /// Sets or clear the value of [request_time][crate::model::UpdateInstanceMetadata::request_time].
-    pub fn maybe_request_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_request_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -771,7 +771,7 @@ impl UpdateInstanceMetadata {
     }
 
     /// Sets or clear the value of [finish_time][crate::model::UpdateInstanceMetadata::finish_time].
-    pub fn maybe_finish_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_finish_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -837,7 +837,7 @@ impl CreateClusterMetadata {
     }
 
     /// Sets or clear the value of [original_request][crate::model::CreateClusterMetadata::original_request].
-    pub fn maybe_original_request<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_original_request<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CreateClusterRequest>,
     {
@@ -855,7 +855,7 @@ impl CreateClusterMetadata {
     }
 
     /// Sets or clear the value of [request_time][crate::model::CreateClusterMetadata::request_time].
-    pub fn maybe_request_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_request_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -873,7 +873,7 @@ impl CreateClusterMetadata {
     }
 
     /// Sets or clear the value of [finish_time][crate::model::CreateClusterMetadata::finish_time].
-    pub fn maybe_finish_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_finish_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -1157,7 +1157,7 @@ impl UpdateClusterMetadata {
     }
 
     /// Sets or clear the value of [original_request][crate::model::UpdateClusterMetadata::original_request].
-    pub fn maybe_original_request<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_original_request<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Cluster>,
     {
@@ -1175,7 +1175,7 @@ impl UpdateClusterMetadata {
     }
 
     /// Sets or clear the value of [request_time][crate::model::UpdateClusterMetadata::request_time].
-    pub fn maybe_request_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_request_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -1193,7 +1193,7 @@ impl UpdateClusterMetadata {
     }
 
     /// Sets or clear the value of [finish_time][crate::model::UpdateClusterMetadata::finish_time].
-    pub fn maybe_finish_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_finish_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -1245,7 +1245,7 @@ impl PartialUpdateClusterMetadata {
     }
 
     /// Sets or clear the value of [request_time][crate::model::PartialUpdateClusterMetadata::request_time].
-    pub fn maybe_request_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_request_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -1263,7 +1263,7 @@ impl PartialUpdateClusterMetadata {
     }
 
     /// Sets or clear the value of [finish_time][crate::model::PartialUpdateClusterMetadata::finish_time].
-    pub fn maybe_finish_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_finish_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -1281,7 +1281,7 @@ impl PartialUpdateClusterMetadata {
     }
 
     /// Sets or clear the value of [original_request][crate::model::PartialUpdateClusterMetadata::original_request].
-    pub fn maybe_original_request<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_original_request<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::PartialUpdateClusterRequest>,
     {
@@ -1330,7 +1330,7 @@ impl PartialUpdateClusterRequest {
     }
 
     /// Sets or clear the value of [cluster][crate::model::PartialUpdateClusterRequest::cluster].
-    pub fn maybe_cluster<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_cluster<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Cluster>,
     {
@@ -1348,7 +1348,7 @@ impl PartialUpdateClusterRequest {
     }
 
     /// Sets or clear the value of [update_mask][crate::model::PartialUpdateClusterRequest::update_mask].
-    pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
     {
@@ -1420,7 +1420,7 @@ impl CreateAppProfileRequest {
     }
 
     /// Sets or clear the value of [app_profile][crate::model::CreateAppProfileRequest::app_profile].
-    pub fn maybe_app_profile<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_app_profile<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::AppProfile>,
     {
@@ -1657,7 +1657,7 @@ impl UpdateAppProfileRequest {
     }
 
     /// Sets or clear the value of [app_profile][crate::model::UpdateAppProfileRequest::app_profile].
-    pub fn maybe_app_profile<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_app_profile<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::AppProfile>,
     {
@@ -1675,7 +1675,7 @@ impl UpdateAppProfileRequest {
     }
 
     /// Sets or clear the value of [update_mask][crate::model::UpdateAppProfileRequest::update_mask].
-    pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
     {
@@ -1828,7 +1828,7 @@ impl ListHotTabletsRequest {
     }
 
     /// Sets or clear the value of [start_time][crate::model::ListHotTabletsRequest::start_time].
-    pub fn maybe_start_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -1846,7 +1846,7 @@ impl ListHotTabletsRequest {
     }
 
     /// Sets or clear the value of [end_time][crate::model::ListHotTabletsRequest::end_time].
-    pub fn maybe_end_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -1991,7 +1991,7 @@ impl CreateLogicalViewRequest {
     }
 
     /// Sets or clear the value of [logical_view][crate::model::CreateLogicalViewRequest::logical_view].
-    pub fn maybe_logical_view<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_logical_view<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::LogicalView>,
     {
@@ -2044,7 +2044,7 @@ impl CreateLogicalViewMetadata {
     }
 
     /// Sets or clear the value of [original_request][crate::model::CreateLogicalViewMetadata::original_request].
-    pub fn maybe_original_request<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_original_request<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CreateLogicalViewRequest>,
     {
@@ -2062,7 +2062,7 @@ impl CreateLogicalViewMetadata {
     }
 
     /// Sets or clear the value of [start_time][crate::model::CreateLogicalViewMetadata::start_time].
-    pub fn maybe_start_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -2080,7 +2080,7 @@ impl CreateLogicalViewMetadata {
     }
 
     /// Sets or clear the value of [end_time][crate::model::CreateLogicalViewMetadata::end_time].
-    pub fn maybe_end_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -2286,7 +2286,7 @@ impl UpdateLogicalViewRequest {
     }
 
     /// Sets or clear the value of [logical_view][crate::model::UpdateLogicalViewRequest::logical_view].
-    pub fn maybe_logical_view<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_logical_view<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::LogicalView>,
     {
@@ -2304,7 +2304,7 @@ impl UpdateLogicalViewRequest {
     }
 
     /// Sets or clear the value of [update_mask][crate::model::UpdateLogicalViewRequest::update_mask].
-    pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
     {
@@ -2357,7 +2357,7 @@ impl UpdateLogicalViewMetadata {
     }
 
     /// Sets or clear the value of [original_request][crate::model::UpdateLogicalViewMetadata::original_request].
-    pub fn maybe_original_request<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_original_request<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::UpdateLogicalViewRequest>,
     {
@@ -2375,7 +2375,7 @@ impl UpdateLogicalViewMetadata {
     }
 
     /// Sets or clear the value of [start_time][crate::model::UpdateLogicalViewMetadata::start_time].
-    pub fn maybe_start_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -2393,7 +2393,7 @@ impl UpdateLogicalViewMetadata {
     }
 
     /// Sets or clear the value of [end_time][crate::model::UpdateLogicalViewMetadata::end_time].
-    pub fn maybe_end_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -2509,7 +2509,7 @@ impl CreateMaterializedViewRequest {
     }
 
     /// Sets or clear the value of [materialized_view][crate::model::CreateMaterializedViewRequest::materialized_view].
-    pub fn maybe_materialized_view<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_materialized_view<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::MaterializedView>,
     {
@@ -2562,7 +2562,7 @@ impl CreateMaterializedViewMetadata {
     }
 
     /// Sets or clear the value of [original_request][crate::model::CreateMaterializedViewMetadata::original_request].
-    pub fn maybe_original_request<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_original_request<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CreateMaterializedViewRequest>,
     {
@@ -2580,7 +2580,7 @@ impl CreateMaterializedViewMetadata {
     }
 
     /// Sets or clear the value of [start_time][crate::model::CreateMaterializedViewMetadata::start_time].
-    pub fn maybe_start_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -2598,7 +2598,7 @@ impl CreateMaterializedViewMetadata {
     }
 
     /// Sets or clear the value of [end_time][crate::model::CreateMaterializedViewMetadata::end_time].
-    pub fn maybe_end_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -2805,7 +2805,7 @@ impl UpdateMaterializedViewRequest {
     }
 
     /// Sets or clear the value of [materialized_view][crate::model::UpdateMaterializedViewRequest::materialized_view].
-    pub fn maybe_materialized_view<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_materialized_view<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::MaterializedView>,
     {
@@ -2823,7 +2823,7 @@ impl UpdateMaterializedViewRequest {
     }
 
     /// Sets or clear the value of [update_mask][crate::model::UpdateMaterializedViewRequest::update_mask].
-    pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
     {
@@ -2876,7 +2876,7 @@ impl UpdateMaterializedViewMetadata {
     }
 
     /// Sets or clear the value of [original_request][crate::model::UpdateMaterializedViewMetadata::original_request].
-    pub fn maybe_original_request<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_original_request<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::UpdateMaterializedViewRequest>,
     {
@@ -2894,7 +2894,7 @@ impl UpdateMaterializedViewMetadata {
     }
 
     /// Sets or clear the value of [start_time][crate::model::UpdateMaterializedViewMetadata::start_time].
-    pub fn maybe_start_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -2912,7 +2912,7 @@ impl UpdateMaterializedViewMetadata {
     }
 
     /// Sets or clear the value of [end_time][crate::model::UpdateMaterializedViewMetadata::end_time].
-    pub fn maybe_end_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -3170,7 +3170,7 @@ impl RestoreTableMetadata {
     }
 
     /// Sets or clear the value of [progress][crate::model::RestoreTableMetadata::progress].
-    pub fn maybe_progress<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_progress<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::OperationProgress>,
     {
@@ -3288,7 +3288,7 @@ impl OptimizeRestoredTableMetadata {
     }
 
     /// Sets or clear the value of [progress][crate::model::OptimizeRestoredTableMetadata::progress].
-    pub fn maybe_progress<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_progress<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::OperationProgress>,
     {
@@ -3377,7 +3377,7 @@ impl CreateTableRequest {
     }
 
     /// Sets or clear the value of [table][crate::model::CreateTableRequest::table].
-    pub fn maybe_table<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_table<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Table>,
     {
@@ -3871,7 +3871,7 @@ impl UpdateTableRequest {
     }
 
     /// Sets or clear the value of [table][crate::model::UpdateTableRequest::table].
-    pub fn maybe_table<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_table<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Table>,
     {
@@ -3889,7 +3889,7 @@ impl UpdateTableRequest {
     }
 
     /// Sets or clear the value of [update_mask][crate::model::UpdateTableRequest::update_mask].
-    pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
     {
@@ -3956,7 +3956,7 @@ impl UpdateTableMetadata {
     }
 
     /// Sets or clear the value of [start_time][crate::model::UpdateTableMetadata::start_time].
-    pub fn maybe_start_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -3974,7 +3974,7 @@ impl UpdateTableMetadata {
     }
 
     /// Sets or clear the value of [end_time][crate::model::UpdateTableMetadata::end_time].
-    pub fn maybe_end_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -4109,7 +4109,7 @@ impl UndeleteTableMetadata {
     }
 
     /// Sets or clear the value of [start_time][crate::model::UndeleteTableMetadata::start_time].
-    pub fn maybe_start_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -4127,7 +4127,7 @@ impl UndeleteTableMetadata {
     }
 
     /// Sets or clear the value of [end_time][crate::model::UndeleteTableMetadata::end_time].
-    pub fn maybe_end_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -4258,7 +4258,7 @@ pub mod modify_column_families_request {
         }
 
         /// Sets or clear the value of [update_mask][crate::model::modify_column_families_request::Modification::update_mask].
-        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
         {
@@ -4790,7 +4790,7 @@ impl SnapshotTableRequest {
     }
 
     /// Sets or clear the value of [ttl][crate::model::SnapshotTableRequest::ttl].
-    pub fn maybe_ttl<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_ttl<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
     {
@@ -5073,7 +5073,7 @@ impl SnapshotTableMetadata {
     }
 
     /// Sets or clear the value of [original_request][crate::model::SnapshotTableMetadata::original_request].
-    pub fn maybe_original_request<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_original_request<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::SnapshotTableRequest>,
     {
@@ -5091,7 +5091,7 @@ impl SnapshotTableMetadata {
     }
 
     /// Sets or clear the value of [request_time][crate::model::SnapshotTableMetadata::request_time].
-    pub fn maybe_request_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_request_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -5109,7 +5109,7 @@ impl SnapshotTableMetadata {
     }
 
     /// Sets or clear the value of [finish_time][crate::model::SnapshotTableMetadata::finish_time].
-    pub fn maybe_finish_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_finish_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -5167,7 +5167,7 @@ impl CreateTableFromSnapshotMetadata {
     }
 
     /// Sets or clear the value of [original_request][crate::model::CreateTableFromSnapshotMetadata::original_request].
-    pub fn maybe_original_request<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_original_request<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CreateTableFromSnapshotRequest>,
     {
@@ -5185,7 +5185,7 @@ impl CreateTableFromSnapshotMetadata {
     }
 
     /// Sets or clear the value of [request_time][crate::model::CreateTableFromSnapshotMetadata::request_time].
-    pub fn maybe_request_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_request_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -5203,7 +5203,7 @@ impl CreateTableFromSnapshotMetadata {
     }
 
     /// Sets or clear the value of [finish_time][crate::model::CreateTableFromSnapshotMetadata::finish_time].
-    pub fn maybe_finish_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_finish_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -5277,7 +5277,7 @@ impl CreateBackupRequest {
     }
 
     /// Sets or clear the value of [backup][crate::model::CreateBackupRequest::backup].
-    pub fn maybe_backup<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_backup<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Backup>,
     {
@@ -5348,7 +5348,7 @@ impl CreateBackupMetadata {
     }
 
     /// Sets or clear the value of [start_time][crate::model::CreateBackupMetadata::start_time].
-    pub fn maybe_start_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -5366,7 +5366,7 @@ impl CreateBackupMetadata {
     }
 
     /// Sets or clear the value of [end_time][crate::model::CreateBackupMetadata::end_time].
-    pub fn maybe_end_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -5425,7 +5425,7 @@ impl UpdateBackupRequest {
     }
 
     /// Sets or clear the value of [backup][crate::model::UpdateBackupRequest::backup].
-    pub fn maybe_backup<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_backup<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Backup>,
     {
@@ -5443,7 +5443,7 @@ impl UpdateBackupRequest {
     }
 
     /// Sets or clear the value of [update_mask][crate::model::UpdateBackupRequest::update_mask].
-    pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
     {
@@ -5820,7 +5820,7 @@ impl CopyBackupRequest {
     }
 
     /// Sets or clear the value of [expire_time][crate::model::CopyBackupRequest::expire_time].
-    pub fn maybe_expire_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_expire_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -5887,7 +5887,7 @@ impl CopyBackupMetadata {
     }
 
     /// Sets or clear the value of [source_backup_info][crate::model::CopyBackupMetadata::source_backup_info].
-    pub fn maybe_source_backup_info<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_source_backup_info<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::BackupInfo>,
     {
@@ -5905,7 +5905,7 @@ impl CopyBackupMetadata {
     }
 
     /// Sets or clear the value of [progress][crate::model::CopyBackupMetadata::progress].
-    pub fn maybe_progress<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_progress<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::OperationProgress>,
     {
@@ -5980,7 +5980,7 @@ impl CreateAuthorizedViewRequest {
     }
 
     /// Sets or clear the value of [authorized_view][crate::model::CreateAuthorizedViewRequest::authorized_view].
-    pub fn maybe_authorized_view<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_authorized_view<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::AuthorizedView>,
     {
@@ -6032,7 +6032,7 @@ impl CreateAuthorizedViewMetadata {
     }
 
     /// Sets or clear the value of [original_request][crate::model::CreateAuthorizedViewMetadata::original_request].
-    pub fn maybe_original_request<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_original_request<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CreateAuthorizedViewRequest>,
     {
@@ -6050,7 +6050,7 @@ impl CreateAuthorizedViewMetadata {
     }
 
     /// Sets or clear the value of [request_time][crate::model::CreateAuthorizedViewMetadata::request_time].
-    pub fn maybe_request_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_request_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -6068,7 +6068,7 @@ impl CreateAuthorizedViewMetadata {
     }
 
     /// Sets or clear the value of [finish_time][crate::model::CreateAuthorizedViewMetadata::finish_time].
-    pub fn maybe_finish_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_finish_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -6327,7 +6327,7 @@ impl UpdateAuthorizedViewRequest {
     }
 
     /// Sets or clear the value of [authorized_view][crate::model::UpdateAuthorizedViewRequest::authorized_view].
-    pub fn maybe_authorized_view<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_authorized_view<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::AuthorizedView>,
     {
@@ -6345,7 +6345,7 @@ impl UpdateAuthorizedViewRequest {
     }
 
     /// Sets or clear the value of [update_mask][crate::model::UpdateAuthorizedViewRequest::update_mask].
-    pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
     {
@@ -6407,7 +6407,7 @@ impl UpdateAuthorizedViewMetadata {
     }
 
     /// Sets or clear the value of [original_request][crate::model::UpdateAuthorizedViewMetadata::original_request].
-    pub fn maybe_original_request<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_original_request<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::UpdateAuthorizedViewRequest>,
     {
@@ -6425,7 +6425,7 @@ impl UpdateAuthorizedViewMetadata {
     }
 
     /// Sets or clear the value of [request_time][crate::model::UpdateAuthorizedViewMetadata::request_time].
-    pub fn maybe_request_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_request_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -6443,7 +6443,7 @@ impl UpdateAuthorizedViewMetadata {
     }
 
     /// Sets or clear the value of [finish_time][crate::model::UpdateAuthorizedViewMetadata::finish_time].
-    pub fn maybe_finish_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_finish_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -6554,7 +6554,7 @@ impl OperationProgress {
     }
 
     /// Sets or clear the value of [start_time][crate::model::OperationProgress::start_time].
-    pub fn maybe_start_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -6572,7 +6572,7 @@ impl OperationProgress {
     }
 
     /// Sets or clear the value of [end_time][crate::model::OperationProgress::end_time].
-    pub fn maybe_end_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -6700,7 +6700,7 @@ impl Instance {
     }
 
     /// Sets or clear the value of [create_time][crate::model::Instance::create_time].
-    pub fn maybe_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -6718,7 +6718,7 @@ impl Instance {
     }
 
     /// Sets or clear the value of [satisfies_pzs][crate::model::Instance::satisfies_pzs].
-    pub fn maybe_satisfies_pzs<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_satisfies_pzs<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<bool>,
     {
@@ -6736,7 +6736,7 @@ impl Instance {
     }
 
     /// Sets or clear the value of [satisfies_pzi][crate::model::Instance::satisfies_pzi].
-    pub fn maybe_satisfies_pzi<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_satisfies_pzi<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<bool>,
     {
@@ -7231,7 +7231,7 @@ impl Cluster {
     }
 
     /// Sets or clear the value of [encryption_config][crate::model::Cluster::encryption_config].
-    pub fn maybe_encryption_config<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_encryption_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::cluster::EncryptionConfig>,
     {
@@ -7325,7 +7325,7 @@ pub mod cluster {
         }
 
         /// Sets or clear the value of [autoscaling_limits][crate::model::cluster::ClusterAutoscalingConfig::autoscaling_limits].
-        pub fn maybe_autoscaling_limits<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_autoscaling_limits<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::AutoscalingLimits>,
         {
@@ -7343,7 +7343,7 @@ pub mod cluster {
         }
 
         /// Sets or clear the value of [autoscaling_targets][crate::model::cluster::ClusterAutoscalingConfig::autoscaling_targets].
-        pub fn maybe_autoscaling_targets<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_autoscaling_targets<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::AutoscalingTargets>,
         {
@@ -7388,7 +7388,10 @@ pub mod cluster {
         }
 
         /// Sets or clear the value of [cluster_autoscaling_config][crate::model::cluster::ClusterConfig::cluster_autoscaling_config].
-        pub fn maybe_cluster_autoscaling_config<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_cluster_autoscaling_config<T>(
+            mut self,
+            v: std::option::Option<T>,
+        ) -> Self
         where
             T: std::convert::Into<crate::model::cluster::ClusterAutoscalingConfig>,
         {
@@ -8295,7 +8298,7 @@ pub mod app_profile {
         }
 
         /// Sets or clear the value of [compute_billing_owner][crate::model::app_profile::DataBoostIsolationReadOnly::compute_billing_owner].
-        pub fn maybe_compute_billing_owner<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_compute_billing_owner<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<
                     crate::model::app_profile::data_boost_isolation_read_only::ComputeBillingOwner,
@@ -8701,7 +8704,7 @@ impl HotTablet {
     }
 
     /// Sets or clear the value of [start_time][crate::model::HotTablet::start_time].
-    pub fn maybe_start_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -8719,7 +8722,7 @@ impl HotTablet {
     }
 
     /// Sets or clear the value of [end_time][crate::model::HotTablet::end_time].
-    pub fn maybe_end_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -9013,7 +9016,7 @@ impl ChangeStreamConfig {
     }
 
     /// Sets or clear the value of [retention_period][crate::model::ChangeStreamConfig::retention_period].
-    pub fn maybe_retention_period<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_retention_period<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
     {
@@ -9204,7 +9207,7 @@ impl Table {
     }
 
     /// Sets or clear the value of [restore_info][crate::model::Table::restore_info].
-    pub fn maybe_restore_info<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_restore_info<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::RestoreInfo>,
     {
@@ -9222,7 +9225,7 @@ impl Table {
     }
 
     /// Sets or clear the value of [change_stream_config][crate::model::Table::change_stream_config].
-    pub fn maybe_change_stream_config<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_change_stream_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ChangeStreamConfig>,
     {
@@ -9246,7 +9249,7 @@ impl Table {
     }
 
     /// Sets or clear the value of [row_key_schema][crate::model::Table::row_key_schema].
-    pub fn maybe_row_key_schema<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_row_key_schema<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::r#type::Struct>,
     {
@@ -9574,7 +9577,7 @@ pub mod table {
         }
 
         /// Sets or clear the value of [retention_period][crate::model::table::AutomatedBackupPolicy::retention_period].
-        pub fn maybe_retention_period<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_retention_period<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
         {
@@ -9592,7 +9595,7 @@ pub mod table {
         }
 
         /// Sets or clear the value of [frequency][crate::model::table::AutomatedBackupPolicy::frequency].
-        pub fn maybe_frequency<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_frequency<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
         {
@@ -10329,7 +10332,7 @@ impl ColumnFamily {
     }
 
     /// Sets or clear the value of [gc_rule][crate::model::ColumnFamily::gc_rule].
-    pub fn maybe_gc_rule<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_gc_rule<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::GcRule>,
     {
@@ -10347,7 +10350,7 @@ impl ColumnFamily {
     }
 
     /// Sets or clear the value of [value_type][crate::model::ColumnFamily::value_type].
-    pub fn maybe_value_type<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_value_type<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Type>,
     {
@@ -10649,7 +10652,7 @@ impl EncryptionInfo {
     }
 
     /// Sets or clear the value of [encryption_status][crate::model::EncryptionInfo::encryption_status].
-    pub fn maybe_encryption_status<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_encryption_status<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<rpc::model::Status>,
     {
@@ -10892,7 +10895,7 @@ impl Snapshot {
     }
 
     /// Sets or clear the value of [source_table][crate::model::Snapshot::source_table].
-    pub fn maybe_source_table<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_source_table<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Table>,
     {
@@ -10916,7 +10919,7 @@ impl Snapshot {
     }
 
     /// Sets or clear the value of [create_time][crate::model::Snapshot::create_time].
-    pub fn maybe_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -10934,7 +10937,7 @@ impl Snapshot {
     }
 
     /// Sets or clear the value of [delete_time][crate::model::Snapshot::delete_time].
-    pub fn maybe_delete_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_delete_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -11223,7 +11226,7 @@ impl Backup {
     }
 
     /// Sets or clear the value of [expire_time][crate::model::Backup::expire_time].
-    pub fn maybe_expire_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_expire_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -11241,7 +11244,7 @@ impl Backup {
     }
 
     /// Sets or clear the value of [start_time][crate::model::Backup::start_time].
-    pub fn maybe_start_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -11259,7 +11262,7 @@ impl Backup {
     }
 
     /// Sets or clear the value of [end_time][crate::model::Backup::end_time].
-    pub fn maybe_end_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -11289,7 +11292,7 @@ impl Backup {
     }
 
     /// Sets or clear the value of [encryption_info][crate::model::Backup::encryption_info].
-    pub fn maybe_encryption_info<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_encryption_info<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::EncryptionInfo>,
     {
@@ -11316,7 +11319,7 @@ impl Backup {
     }
 
     /// Sets or clear the value of [hot_to_standard_time][crate::model::Backup::hot_to_standard_time].
-    pub fn maybe_hot_to_standard_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_hot_to_standard_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -11663,7 +11666,7 @@ impl BackupInfo {
     }
 
     /// Sets or clear the value of [start_time][crate::model::BackupInfo::start_time].
-    pub fn maybe_start_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -11681,7 +11684,7 @@ impl BackupInfo {
     }
 
     /// Sets or clear the value of [end_time][crate::model::BackupInfo::end_time].
-    pub fn maybe_end_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -12110,7 +12113,7 @@ pub mod r#type {
         }
 
         /// Sets or clear the value of [encoding][crate::model::r#type::Bytes::encoding].
-        pub fn maybe_encoding<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_encoding<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::r#type::bytes::Encoding>,
         {
@@ -12278,7 +12281,7 @@ pub mod r#type {
         }
 
         /// Sets or clear the value of [encoding][crate::model::r#type::String::encoding].
-        pub fn maybe_encoding<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_encoding<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::r#type::string::Encoding>,
         {
@@ -12522,7 +12525,7 @@ pub mod r#type {
         }
 
         /// Sets or clear the value of [encoding][crate::model::r#type::Int64::encoding].
-        pub fn maybe_encoding<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_encoding<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::r#type::int_64::Encoding>,
         {
@@ -12703,7 +12706,7 @@ pub mod r#type {
 
                 /// Sets or clear the value of [bytes_type][crate::model::r#type::int_64::encoding::BigEndianBytes::bytes_type].
                 #[deprecated]
-                pub fn maybe_bytes_type<T>(mut self, v: std::option::Option<T>) -> Self
+                pub fn set_or_clear_bytes_type<T>(mut self, v: std::option::Option<T>) -> Self
                 where
                     T: std::convert::Into<crate::model::r#type::Bytes>,
                 {
@@ -12862,7 +12865,7 @@ pub mod r#type {
         }
 
         /// Sets or clear the value of [encoding][crate::model::r#type::Timestamp::encoding].
-        pub fn maybe_encoding<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_encoding<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::r#type::timestamp::Encoding>,
         {
@@ -13049,7 +13052,7 @@ pub mod r#type {
         }
 
         /// Sets or clear the value of [encoding][crate::model::r#type::Struct::encoding].
-        pub fn maybe_encoding<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_encoding<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::r#type::r#struct::Encoding>,
         {
@@ -13113,7 +13116,7 @@ pub mod r#type {
             }
 
             /// Sets or clear the value of [r#type][crate::model::r#type::r#struct::Field::type].
-            pub fn maybe_type<T>(mut self, v: std::option::Option<T>) -> Self
+            pub fn set_or_clear_type<T>(mut self, v: std::option::Option<T>) -> Self
             where
                 T: std::convert::Into<crate::model::Type>,
             {
@@ -13469,7 +13472,7 @@ pub mod r#type {
         }
 
         /// Sets or clear the value of [element_type][crate::model::r#type::Array::element_type].
-        pub fn maybe_element_type<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_element_type<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Type>,
         {
@@ -13524,7 +13527,7 @@ pub mod r#type {
         }
 
         /// Sets or clear the value of [key_type][crate::model::r#type::Map::key_type].
-        pub fn maybe_key_type<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_key_type<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Type>,
         {
@@ -13542,7 +13545,7 @@ pub mod r#type {
         }
 
         /// Sets or clear the value of [value_type][crate::model::r#type::Map::value_type].
-        pub fn maybe_value_type<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_value_type<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Type>,
         {
@@ -13602,7 +13605,7 @@ pub mod r#type {
         }
 
         /// Sets or clear the value of [input_type][crate::model::r#type::Aggregate::input_type].
-        pub fn maybe_input_type<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_input_type<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Type>,
         {
@@ -13620,7 +13623,7 @@ pub mod r#type {
         }
 
         /// Sets or clear the value of [state_type][crate::model::r#type::Aggregate::state_type].
-        pub fn maybe_state_type<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_state_type<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Type>,
         {

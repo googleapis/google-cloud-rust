@@ -569,7 +569,7 @@ pub mod case_service {
         /// Sets or clear the value of [case][crate::model::CreateCaseRequest::case].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_case<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_case<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Case>,
         {
@@ -645,7 +645,7 @@ pub mod case_service {
         /// Sets or clear the value of [case][crate::model::UpdateCaseRequest::case].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_case<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_case<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Case>,
         {
@@ -663,7 +663,7 @@ pub mod case_service {
         }
 
         /// Sets or clear the value of [update_mask][crate::model::UpdateCaseRequest::update_mask].
-        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
         {
@@ -743,7 +743,7 @@ pub mod case_service {
         }
 
         /// Sets or clear the value of [escalation][crate::model::EscalateCaseRequest::escalation].
-        pub fn maybe_escalation<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_escalation<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Escalation>,
         {
@@ -1155,7 +1155,7 @@ pub mod comment_service {
         /// Sets or clear the value of [comment][crate::model::CreateCommentRequest::comment].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_comment<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_comment<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Comment>,
         {

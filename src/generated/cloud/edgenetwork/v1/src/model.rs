@@ -88,7 +88,7 @@ impl Zone {
     }
 
     /// Sets or clear the value of [create_time][crate::model::Zone::create_time].
-    pub fn maybe_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -106,7 +106,7 @@ impl Zone {
     }
 
     /// Sets or clear the value of [update_time][crate::model::Zone::update_time].
-    pub fn maybe_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -199,7 +199,7 @@ impl Network {
     }
 
     /// Sets or clear the value of [create_time][crate::model::Network::create_time].
-    pub fn maybe_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -217,7 +217,7 @@ impl Network {
     }
 
     /// Sets or clear the value of [update_time][crate::model::Network::update_time].
-    pub fn maybe_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -335,7 +335,7 @@ impl Subnet {
     }
 
     /// Sets or clear the value of [create_time][crate::model::Subnet::create_time].
-    pub fn maybe_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -353,7 +353,7 @@ impl Subnet {
     }
 
     /// Sets or clear the value of [update_time][crate::model::Subnet::update_time].
-    pub fn maybe_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -646,7 +646,7 @@ impl Interconnect {
     }
 
     /// Sets or clear the value of [create_time][crate::model::Interconnect::create_time].
-    pub fn maybe_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -664,7 +664,7 @@ impl Interconnect {
     }
 
     /// Sets or clear the value of [update_time][crate::model::Interconnect::update_time].
-    pub fn maybe_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -941,7 +941,7 @@ impl InterconnectAttachment {
     }
 
     /// Sets or clear the value of [create_time][crate::model::InterconnectAttachment::create_time].
-    pub fn maybe_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -959,7 +959,7 @@ impl InterconnectAttachment {
     }
 
     /// Sets or clear the value of [update_time][crate::model::InterconnectAttachment::update_time].
-    pub fn maybe_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -1100,7 +1100,7 @@ impl Router {
     }
 
     /// Sets or clear the value of [create_time][crate::model::Router::create_time].
-    pub fn maybe_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -1118,7 +1118,7 @@ impl Router {
     }
 
     /// Sets or clear the value of [update_time][crate::model::Router::update_time].
-    pub fn maybe_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -1182,7 +1182,7 @@ impl Router {
     }
 
     /// Sets or clear the value of [bgp][crate::model::Router::bgp].
-    pub fn maybe_bgp<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_bgp<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::router::Bgp>,
     {
@@ -1698,7 +1698,7 @@ pub mod interconnect_diagnostics {
         }
 
         /// Sets or clear the value of [lacp_status][crate::model::interconnect_diagnostics::LinkStatus::lacp_status].
-        pub fn maybe_lacp_status<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_lacp_status<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::interconnect_diagnostics::LinkLACPStatus>,
         {
@@ -1727,7 +1727,7 @@ pub mod interconnect_diagnostics {
         }
 
         /// Sets or clear the value of [packet_counts][crate::model::interconnect_diagnostics::LinkStatus::packet_counts].
-        pub fn maybe_packet_counts<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_packet_counts<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::interconnect_diagnostics::PacketCounts>,
         {
@@ -2337,7 +2337,7 @@ pub mod router_status {
         }
 
         /// Sets or clear the value of [prefix_counter][crate::model::router_status::BgpPeerStatus::prefix_counter].
-        pub fn maybe_prefix_counter<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_prefix_counter<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::router_status::PrefixCounter>,
         {
@@ -3017,7 +3017,7 @@ impl CreateNetworkRequest {
     }
 
     /// Sets or clear the value of [network][crate::model::CreateNetworkRequest::network].
-    pub fn maybe_network<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_network<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Network>,
     {
@@ -3340,7 +3340,7 @@ impl CreateSubnetRequest {
     }
 
     /// Sets or clear the value of [subnet][crate::model::CreateSubnetRequest::subnet].
-    pub fn maybe_subnet<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_subnet<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Subnet>,
     {
@@ -3414,7 +3414,7 @@ impl UpdateSubnetRequest {
     }
 
     /// Sets or clear the value of [update_mask][crate::model::UpdateSubnetRequest::update_mask].
-    pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
     {
@@ -3432,7 +3432,7 @@ impl UpdateSubnetRequest {
     }
 
     /// Sets or clear the value of [subnet][crate::model::UpdateSubnetRequest::subnet].
-    pub fn maybe_subnet<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_subnet<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Subnet>,
     {
@@ -3939,7 +3939,7 @@ impl CreateInterconnectAttachmentRequest {
     }
 
     /// Sets or clear the value of [interconnect_attachment][crate::model::CreateInterconnectAttachmentRequest::interconnect_attachment].
-    pub fn maybe_interconnect_attachment<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_interconnect_attachment<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::InterconnectAttachment>,
     {
@@ -4262,7 +4262,7 @@ impl CreateRouterRequest {
     }
 
     /// Sets or clear the value of [router][crate::model::CreateRouterRequest::router].
-    pub fn maybe_router<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_router<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Router>,
     {
@@ -4336,7 +4336,7 @@ impl UpdateRouterRequest {
     }
 
     /// Sets or clear the value of [update_mask][crate::model::UpdateRouterRequest::update_mask].
-    pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
     {
@@ -4354,7 +4354,7 @@ impl UpdateRouterRequest {
     }
 
     /// Sets or clear the value of [router][crate::model::UpdateRouterRequest::router].
-    pub fn maybe_router<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_router<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Router>,
     {
@@ -4488,7 +4488,7 @@ impl OperationMetadata {
     }
 
     /// Sets or clear the value of [create_time][crate::model::OperationMetadata::create_time].
-    pub fn maybe_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -4506,7 +4506,7 @@ impl OperationMetadata {
     }
 
     /// Sets or clear the value of [end_time][crate::model::OperationMetadata::end_time].
-    pub fn maybe_end_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -4616,7 +4616,7 @@ impl DiagnoseNetworkResponse {
     }
 
     /// Sets or clear the value of [update_time][crate::model::DiagnoseNetworkResponse::update_time].
-    pub fn maybe_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -4634,7 +4634,7 @@ impl DiagnoseNetworkResponse {
     }
 
     /// Sets or clear the value of [result][crate::model::DiagnoseNetworkResponse::result].
-    pub fn maybe_result<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_result<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::diagnose_network_response::NetworkStatus>,
     {
@@ -4917,7 +4917,7 @@ impl DiagnoseInterconnectResponse {
     }
 
     /// Sets or clear the value of [update_time][crate::model::DiagnoseInterconnectResponse::update_time].
-    pub fn maybe_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -4935,7 +4935,7 @@ impl DiagnoseInterconnectResponse {
     }
 
     /// Sets or clear the value of [result][crate::model::DiagnoseInterconnectResponse::result].
-    pub fn maybe_result<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_result<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::InterconnectDiagnostics>,
     {
@@ -5015,7 +5015,7 @@ impl DiagnoseRouterResponse {
     }
 
     /// Sets or clear the value of [update_time][crate::model::DiagnoseRouterResponse::update_time].
-    pub fn maybe_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -5033,7 +5033,7 @@ impl DiagnoseRouterResponse {
     }
 
     /// Sets or clear the value of [result][crate::model::DiagnoseRouterResponse::result].
-    pub fn maybe_result<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_result<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::RouterStatus>,
     {

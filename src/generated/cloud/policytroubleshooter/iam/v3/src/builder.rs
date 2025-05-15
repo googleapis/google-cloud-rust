@@ -127,7 +127,7 @@ pub mod policy_troubleshooter {
         }
 
         /// Sets or clear the value of [access_tuple][crate::model::TroubleshootIamPolicyRequest::access_tuple].
-        pub fn maybe_access_tuple<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_access_tuple<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::AccessTuple>,
         {

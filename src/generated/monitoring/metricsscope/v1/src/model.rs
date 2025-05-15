@@ -87,7 +87,7 @@ impl MetricsScope {
     }
 
     /// Sets or clear the value of [create_time][crate::model::MetricsScope::create_time].
-    pub fn maybe_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -105,7 +105,7 @@ impl MetricsScope {
     }
 
     /// Sets or clear the value of [update_time][crate::model::MetricsScope::update_time].
-    pub fn maybe_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -176,7 +176,7 @@ impl MonitoredProject {
     }
 
     /// Sets or clear the value of [create_time][crate::model::MonitoredProject::create_time].
-    pub fn maybe_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -345,7 +345,7 @@ impl CreateMonitoredProjectRequest {
     }
 
     /// Sets or clear the value of [monitored_project][crate::model::CreateMonitoredProjectRequest::monitored_project].
-    pub fn maybe_monitored_project<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_monitored_project<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::MonitoredProject>,
     {
@@ -444,7 +444,7 @@ impl OperationMetadata {
     }
 
     /// Sets or clear the value of [create_time][crate::model::OperationMetadata::create_time].
-    pub fn maybe_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -462,7 +462,7 @@ impl OperationMetadata {
     }
 
     /// Sets or clear the value of [update_time][crate::model::OperationMetadata::update_time].
-    pub fn maybe_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {

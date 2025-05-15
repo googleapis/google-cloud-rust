@@ -123,7 +123,7 @@ impl Configuration {
     }
 
     /// Sets or clear the value of [current_billing_info][crate::model::Configuration::current_billing_info].
-    pub fn maybe_current_billing_info<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_current_billing_info<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::BillingInfo>,
     {
@@ -141,7 +141,7 @@ impl Configuration {
     }
 
     /// Sets or clear the value of [next_billing_info][crate::model::Configuration::next_billing_info].
-    pub fn maybe_next_billing_info<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_next_billing_info<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::BillingInfo>,
     {
@@ -159,7 +159,7 @@ impl Configuration {
     }
 
     /// Sets or clear the value of [create_time][crate::model::Configuration::create_time].
-    pub fn maybe_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -177,7 +177,7 @@ impl Configuration {
     }
 
     /// Sets or clear the value of [update_time][crate::model::Configuration::update_time].
-    pub fn maybe_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -394,7 +394,7 @@ impl BillingInfo {
     }
 
     /// Sets or clear the value of [start_time][crate::model::BillingInfo::start_time].
-    pub fn maybe_start_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -412,7 +412,7 @@ impl BillingInfo {
     }
 
     /// Sets or clear the value of [end_time][crate::model::BillingInfo::end_time].
-    pub fn maybe_end_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -866,7 +866,7 @@ impl Instance {
     }
 
     /// Sets or clear the value of [create_time][crate::model::Instance::create_time].
-    pub fn maybe_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -884,7 +884,7 @@ impl Instance {
     }
 
     /// Sets or clear the value of [update_time][crate::model::Instance::update_time].
-    pub fn maybe_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -1420,7 +1420,7 @@ impl CreateConfigurationRequest {
     }
 
     /// Sets or clear the value of [configuration][crate::model::CreateConfigurationRequest::configuration].
-    pub fn maybe_configuration<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_configuration<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Configuration>,
     {
@@ -1494,7 +1494,7 @@ impl UpdateConfigurationRequest {
     }
 
     /// Sets or clear the value of [update_mask][crate::model::UpdateConfigurationRequest::update_mask].
-    pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
     {
@@ -1512,7 +1512,7 @@ impl UpdateConfigurationRequest {
     }
 
     /// Sets or clear the value of [configuration][crate::model::UpdateConfigurationRequest::configuration].
-    pub fn maybe_configuration<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_configuration<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Configuration>,
     {
@@ -1813,7 +1813,7 @@ impl QueryConfigurationLicenseUsageRequest {
     }
 
     /// Sets or clear the value of [start_time][crate::model::QueryConfigurationLicenseUsageRequest::start_time].
-    pub fn maybe_start_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -1831,7 +1831,7 @@ impl QueryConfigurationLicenseUsageRequest {
     }
 
     /// Sets or clear the value of [end_time][crate::model::QueryConfigurationLicenseUsageRequest::end_time].
-    pub fn maybe_end_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -2137,7 +2137,7 @@ impl AggregateUsageRequest {
     }
 
     /// Sets or clear the value of [start_time][crate::model::AggregateUsageRequest::start_time].
-    pub fn maybe_start_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -2155,7 +2155,7 @@ impl AggregateUsageRequest {
     }
 
     /// Sets or clear the value of [end_time][crate::model::AggregateUsageRequest::end_time].
-    pub fn maybe_end_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -2488,7 +2488,7 @@ impl OperationMetadata {
     }
 
     /// Sets or clear the value of [create_time][crate::model::OperationMetadata::create_time].
-    pub fn maybe_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -2506,7 +2506,7 @@ impl OperationMetadata {
     }
 
     /// Sets or clear the value of [end_time][crate::model::OperationMetadata::end_time].
-    pub fn maybe_end_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {

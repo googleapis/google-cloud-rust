@@ -205,7 +205,7 @@ impl ExplainedPolicy {
     }
 
     /// Sets or clear the value of [policy][crate::model::ExplainedPolicy::policy].
-    pub fn maybe_policy<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<iam_v1::model::Policy>,
     {
@@ -385,7 +385,7 @@ impl BindingExplanation {
     }
 
     /// Sets or clear the value of [condition][crate::model::BindingExplanation::condition].
-    pub fn maybe_condition<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_condition<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<gtype::model::Expr>,
     {
@@ -821,7 +821,7 @@ impl Replay {
     }
 
     /// Sets or clear the value of [config][crate::model::Replay::config].
-    pub fn maybe_config<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ReplayConfig>,
     {
@@ -839,7 +839,7 @@ impl Replay {
     }
 
     /// Sets or clear the value of [results_summary][crate::model::Replay::results_summary].
-    pub fn maybe_results_summary<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_results_summary<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::replay::ResultsSummary>,
     {
@@ -934,7 +934,7 @@ pub mod replay {
         }
 
         /// Sets or clear the value of [oldest_date][crate::model::replay::ResultsSummary::oldest_date].
-        pub fn maybe_oldest_date<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_oldest_date<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<gtype::model::Date>,
         {
@@ -952,7 +952,7 @@ pub mod replay {
         }
 
         /// Sets or clear the value of [newest_date][crate::model::replay::ResultsSummary::newest_date].
-        pub fn maybe_newest_date<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_newest_date<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<gtype::model::Date>,
         {
@@ -1187,7 +1187,7 @@ impl ReplayResult {
     }
 
     /// Sets or clear the value of [access_tuple][crate::model::ReplayResult::access_tuple].
-    pub fn maybe_access_tuple<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_access_tuple<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::AccessTuple>,
     {
@@ -1205,7 +1205,7 @@ impl ReplayResult {
     }
 
     /// Sets or clear the value of [last_seen_date][crate::model::ReplayResult::last_seen_date].
-    pub fn maybe_last_seen_date<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_last_seen_date<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<gtype::model::Date>,
     {
@@ -1362,7 +1362,7 @@ impl CreateReplayRequest {
     }
 
     /// Sets or clear the value of [replay][crate::model::CreateReplayRequest::replay].
-    pub fn maybe_replay<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_replay<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Replay>,
     {
@@ -1406,7 +1406,7 @@ impl ReplayOperationMetadata {
     }
 
     /// Sets or clear the value of [start_time][crate::model::ReplayOperationMetadata::start_time].
-    pub fn maybe_start_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -1863,7 +1863,7 @@ impl ReplayDiff {
     }
 
     /// Sets or clear the value of [access_diff][crate::model::ReplayDiff::access_diff].
-    pub fn maybe_access_diff<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_access_diff<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::AccessStateDiff>,
     {
@@ -1926,7 +1926,7 @@ impl AccessStateDiff {
     }
 
     /// Sets or clear the value of [baseline][crate::model::AccessStateDiff::baseline].
-    pub fn maybe_baseline<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_baseline<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ExplainedAccess>,
     {
@@ -1944,7 +1944,7 @@ impl AccessStateDiff {
     }
 
     /// Sets or clear the value of [simulated][crate::model::AccessStateDiff::simulated].
-    pub fn maybe_simulated<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_simulated<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ExplainedAccess>,
     {

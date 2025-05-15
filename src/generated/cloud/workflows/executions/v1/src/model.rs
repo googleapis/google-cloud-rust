@@ -131,7 +131,7 @@ impl Execution {
     }
 
     /// Sets or clear the value of [start_time][crate::model::Execution::start_time].
-    pub fn maybe_start_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -149,7 +149,7 @@ impl Execution {
     }
 
     /// Sets or clear the value of [end_time][crate::model::Execution::end_time].
-    pub fn maybe_end_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -167,7 +167,7 @@ impl Execution {
     }
 
     /// Sets or clear the value of [duration][crate::model::Execution::duration].
-    pub fn maybe_duration<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_duration<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
     {
@@ -206,7 +206,7 @@ impl Execution {
     }
 
     /// Sets or clear the value of [error][crate::model::Execution::error].
-    pub fn maybe_error<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_error<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::execution::Error>,
     {
@@ -242,7 +242,7 @@ impl Execution {
     }
 
     /// Sets or clear the value of [status][crate::model::Execution::status].
-    pub fn maybe_status<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_status<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::execution::Status>,
     {
@@ -272,7 +272,7 @@ impl Execution {
     }
 
     /// Sets or clear the value of [state_error][crate::model::Execution::state_error].
-    pub fn maybe_state_error<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_state_error<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::execution::StateError>,
     {
@@ -341,7 +341,7 @@ pub mod execution {
         }
 
         /// Sets or clear the value of [position][crate::model::execution::StackTraceElement::position].
-        pub fn maybe_position<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_position<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::execution::stack_trace_element::Position>,
         {
@@ -506,7 +506,7 @@ pub mod execution {
         }
 
         /// Sets or clear the value of [stack_trace][crate::model::execution::Error::stack_trace].
-        pub fn maybe_stack_trace<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_stack_trace<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::execution::StackTrace>,
         {
@@ -1307,7 +1307,7 @@ impl CreateExecutionRequest {
     }
 
     /// Sets or clear the value of [execution][crate::model::CreateExecutionRequest::execution].
-    pub fn maybe_execution<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_execution<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Execution>,
     {

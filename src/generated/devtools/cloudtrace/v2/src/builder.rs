@@ -225,7 +225,7 @@ pub mod trace_service {
         /// Sets or clear the value of [display_name][crate::model::Span::display_name].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_display_name<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_display_name<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::TruncatableString>,
         {
@@ -247,7 +247,7 @@ pub mod trace_service {
         /// Sets or clear the value of [start_time][crate::model::Span::start_time].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_start_time<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
         {
@@ -269,7 +269,7 @@ pub mod trace_service {
         /// Sets or clear the value of [end_time][crate::model::Span::end_time].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_end_time<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
         {
@@ -287,7 +287,7 @@ pub mod trace_service {
         }
 
         /// Sets or clear the value of [attributes][crate::model::Span::attributes].
-        pub fn maybe_attributes<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_attributes<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::span::Attributes>,
         {
@@ -305,7 +305,7 @@ pub mod trace_service {
         }
 
         /// Sets or clear the value of [stack_trace][crate::model::Span::stack_trace].
-        pub fn maybe_stack_trace<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_stack_trace<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::StackTrace>,
         {
@@ -323,7 +323,7 @@ pub mod trace_service {
         }
 
         /// Sets or clear the value of [time_events][crate::model::Span::time_events].
-        pub fn maybe_time_events<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_time_events<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::span::TimeEvents>,
         {
@@ -341,7 +341,7 @@ pub mod trace_service {
         }
 
         /// Sets or clear the value of [links][crate::model::Span::links].
-        pub fn maybe_links<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_links<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::span::Links>,
         {
@@ -359,7 +359,7 @@ pub mod trace_service {
         }
 
         /// Sets or clear the value of [status][crate::model::Span::status].
-        pub fn maybe_status<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_status<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<rpc::model::Status>,
         {
@@ -377,7 +377,10 @@ pub mod trace_service {
         }
 
         /// Sets or clear the value of [same_process_as_parent_span][crate::model::Span::same_process_as_parent_span].
-        pub fn maybe_same_process_as_parent_span<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_same_process_as_parent_span<T>(
+            mut self,
+            v: std::option::Option<T>,
+        ) -> Self
         where
             T: std::convert::Into<wkt::BoolValue>,
         {
@@ -395,7 +398,7 @@ pub mod trace_service {
         }
 
         /// Sets or clear the value of [child_span_count][crate::model::Span::child_span_count].
-        pub fn maybe_child_span_count<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_child_span_count<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Int32Value>,
         {

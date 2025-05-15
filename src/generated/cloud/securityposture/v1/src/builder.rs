@@ -460,7 +460,7 @@ pub mod security_posture {
         /// Sets or clear the value of [posture][crate::model::CreatePostureRequest::posture].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_posture<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_posture<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Posture>,
         {
@@ -575,7 +575,7 @@ pub mod security_posture {
         /// Sets or clear the value of [update_mask][crate::model::UpdatePostureRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
         {
@@ -597,7 +597,7 @@ pub mod security_posture {
         /// Sets or clear the value of [posture][crate::model::UpdatePostureRequest::posture].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_posture<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_posture<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Posture>,
         {
@@ -1150,7 +1150,7 @@ pub mod security_posture {
         /// Sets or clear the value of [posture_deployment][crate::model::CreatePostureDeploymentRequest::posture_deployment].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_posture_deployment<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_posture_deployment<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::PostureDeployment>,
         {
@@ -1273,7 +1273,7 @@ pub mod security_posture {
         /// Sets or clear the value of [update_mask][crate::model::UpdatePostureDeploymentRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
         {
@@ -1295,7 +1295,7 @@ pub mod security_posture {
         /// Sets or clear the value of [posture_deployment][crate::model::UpdatePostureDeploymentRequest::posture_deployment].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_posture_deployment<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_posture_deployment<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::PostureDeployment>,
         {

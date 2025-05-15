@@ -96,7 +96,7 @@ impl CreateTransferJobRequest {
     }
 
     /// Sets or clear the value of [transfer_job][crate::model::CreateTransferJobRequest::transfer_job].
-    pub fn maybe_transfer_job<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_transfer_job<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::TransferJob>,
     {
@@ -201,7 +201,7 @@ impl UpdateTransferJobRequest {
     }
 
     /// Sets or clear the value of [transfer_job][crate::model::UpdateTransferJobRequest::transfer_job].
-    pub fn maybe_transfer_job<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_transfer_job<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::TransferJob>,
     {
@@ -219,7 +219,10 @@ impl UpdateTransferJobRequest {
     }
 
     /// Sets or clear the value of [update_transfer_job_field_mask][crate::model::UpdateTransferJobRequest::update_transfer_job_field_mask].
-    pub fn maybe_update_transfer_job_field_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_update_transfer_job_field_mask<T>(
+        mut self,
+        v: std::option::Option<T>,
+    ) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
     {
@@ -627,7 +630,7 @@ impl CreateAgentPoolRequest {
     }
 
     /// Sets or clear the value of [agent_pool][crate::model::CreateAgentPoolRequest::agent_pool].
-    pub fn maybe_agent_pool<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_agent_pool<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::AgentPool>,
     {
@@ -707,7 +710,7 @@ impl UpdateAgentPoolRequest {
     }
 
     /// Sets or clear the value of [agent_pool][crate::model::UpdateAgentPoolRequest::agent_pool].
-    pub fn maybe_agent_pool<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_agent_pool<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::AgentPool>,
     {
@@ -725,7 +728,7 @@ impl UpdateAgentPoolRequest {
     }
 
     /// Sets or clear the value of [update_mask][crate::model::UpdateAgentPoolRequest::update_mask].
-    pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
     {
@@ -1227,7 +1230,7 @@ impl ObjectConditions {
     }
 
     /// Sets or clear the value of [min_time_elapsed_since_last_modification][crate::model::ObjectConditions::min_time_elapsed_since_last_modification].
-    pub fn maybe_min_time_elapsed_since_last_modification<T>(
+    pub fn set_or_clear_min_time_elapsed_since_last_modification<T>(
         mut self,
         v: std::option::Option<T>,
     ) -> Self
@@ -1248,7 +1251,7 @@ impl ObjectConditions {
     }
 
     /// Sets or clear the value of [max_time_elapsed_since_last_modification][crate::model::ObjectConditions::max_time_elapsed_since_last_modification].
-    pub fn maybe_max_time_elapsed_since_last_modification<T>(
+    pub fn set_or_clear_max_time_elapsed_since_last_modification<T>(
         mut self,
         v: std::option::Option<T>,
     ) -> Self
@@ -1291,7 +1294,7 @@ impl ObjectConditions {
     }
 
     /// Sets or clear the value of [last_modified_since][crate::model::ObjectConditions::last_modified_since].
-    pub fn maybe_last_modified_since<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_last_modified_since<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -1309,7 +1312,7 @@ impl ObjectConditions {
     }
 
     /// Sets or clear the value of [last_modified_before][crate::model::ObjectConditions::last_modified_before].
-    pub fn maybe_last_modified_before<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_last_modified_before<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -1516,7 +1519,7 @@ impl AwsS3Data {
     }
 
     /// Sets or clear the value of [aws_access_key][crate::model::AwsS3Data::aws_access_key].
-    pub fn maybe_aws_access_key<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_aws_access_key<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::AwsAccessKey>,
     {
@@ -1702,7 +1705,7 @@ impl AzureBlobStorageData {
     }
 
     /// Sets or clear the value of [azure_credentials][crate::model::AzureBlobStorageData::azure_credentials].
-    pub fn maybe_azure_credentials<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_azure_credentials<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::AzureCredentials>,
     {
@@ -2708,7 +2711,7 @@ impl AgentPool {
     }
 
     /// Sets or clear the value of [bandwidth_limit][crate::model::AgentPool::bandwidth_limit].
-    pub fn maybe_bandwidth_limit<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_bandwidth_limit<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::agent_pool::BandwidthLimit>,
     {
@@ -3004,7 +3007,7 @@ impl TransferOptions {
     }
 
     /// Sets or clear the value of [metadata_options][crate::model::TransferOptions::metadata_options].
-    pub fn maybe_metadata_options<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_metadata_options<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::MetadataOptions>,
     {
@@ -3238,7 +3241,7 @@ impl TransferSpec {
     }
 
     /// Sets or clear the value of [object_conditions][crate::model::TransferSpec::object_conditions].
-    pub fn maybe_object_conditions<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_object_conditions<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ObjectConditions>,
     {
@@ -3256,7 +3259,7 @@ impl TransferSpec {
     }
 
     /// Sets or clear the value of [transfer_options][crate::model::TransferSpec::transfer_options].
-    pub fn maybe_transfer_options<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_transfer_options<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::TransferOptions>,
     {
@@ -3274,7 +3277,7 @@ impl TransferSpec {
     }
 
     /// Sets or clear the value of [transfer_manifest][crate::model::TransferSpec::transfer_manifest].
-    pub fn maybe_transfer_manifest<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_transfer_manifest<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::TransferManifest>,
     {
@@ -3759,7 +3762,7 @@ impl ReplicationSpec {
     }
 
     /// Sets or clear the value of [object_conditions][crate::model::ReplicationSpec::object_conditions].
-    pub fn maybe_object_conditions<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_object_conditions<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ObjectConditions>,
     {
@@ -3777,7 +3780,7 @@ impl ReplicationSpec {
     }
 
     /// Sets or clear the value of [transfer_options][crate::model::ReplicationSpec::transfer_options].
-    pub fn maybe_transfer_options<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_transfer_options<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::TransferOptions>,
     {
@@ -5458,7 +5461,7 @@ impl Schedule {
     }
 
     /// Sets or clear the value of [schedule_start_date][crate::model::Schedule::schedule_start_date].
-    pub fn maybe_schedule_start_date<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_schedule_start_date<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<gtype::model::Date>,
     {
@@ -5476,7 +5479,7 @@ impl Schedule {
     }
 
     /// Sets or clear the value of [schedule_end_date][crate::model::Schedule::schedule_end_date].
-    pub fn maybe_schedule_end_date<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_schedule_end_date<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<gtype::model::Date>,
     {
@@ -5494,7 +5497,7 @@ impl Schedule {
     }
 
     /// Sets or clear the value of [start_time_of_day][crate::model::Schedule::start_time_of_day].
-    pub fn maybe_start_time_of_day<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_start_time_of_day<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<gtype::model::TimeOfDay>,
     {
@@ -5512,7 +5515,7 @@ impl Schedule {
     }
 
     /// Sets or clear the value of [end_time_of_day][crate::model::Schedule::end_time_of_day].
-    pub fn maybe_end_time_of_day<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_end_time_of_day<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<gtype::model::TimeOfDay>,
     {
@@ -5530,7 +5533,7 @@ impl Schedule {
     }
 
     /// Sets or clear the value of [repeat_interval][crate::model::Schedule::repeat_interval].
-    pub fn maybe_repeat_interval<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_repeat_interval<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
     {
@@ -5597,7 +5600,7 @@ impl EventStream {
     }
 
     /// Sets or clear the value of [event_stream_start_time][crate::model::EventStream::event_stream_start_time].
-    pub fn maybe_event_stream_start_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_event_stream_start_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -5615,7 +5618,7 @@ impl EventStream {
     }
 
     /// Sets or clear the value of [event_stream_expiration_time][crate::model::EventStream::event_stream_expiration_time].
-    pub fn maybe_event_stream_expiration_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_event_stream_expiration_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -5773,7 +5776,7 @@ impl TransferJob {
     }
 
     /// Sets or clear the value of [transfer_spec][crate::model::TransferJob::transfer_spec].
-    pub fn maybe_transfer_spec<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_transfer_spec<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::TransferSpec>,
     {
@@ -5791,7 +5794,7 @@ impl TransferJob {
     }
 
     /// Sets or clear the value of [replication_spec][crate::model::TransferJob::replication_spec].
-    pub fn maybe_replication_spec<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_replication_spec<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ReplicationSpec>,
     {
@@ -5809,7 +5812,7 @@ impl TransferJob {
     }
 
     /// Sets or clear the value of [notification_config][crate::model::TransferJob::notification_config].
-    pub fn maybe_notification_config<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_notification_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::NotificationConfig>,
     {
@@ -5827,7 +5830,7 @@ impl TransferJob {
     }
 
     /// Sets or clear the value of [logging_config][crate::model::TransferJob::logging_config].
-    pub fn maybe_logging_config<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_logging_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::LoggingConfig>,
     {
@@ -5845,7 +5848,7 @@ impl TransferJob {
     }
 
     /// Sets or clear the value of [schedule][crate::model::TransferJob::schedule].
-    pub fn maybe_schedule<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_schedule<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Schedule>,
     {
@@ -5863,7 +5866,7 @@ impl TransferJob {
     }
 
     /// Sets or clear the value of [event_stream][crate::model::TransferJob::event_stream].
-    pub fn maybe_event_stream<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_event_stream<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::EventStream>,
     {
@@ -5890,7 +5893,7 @@ impl TransferJob {
     }
 
     /// Sets or clear the value of [creation_time][crate::model::TransferJob::creation_time].
-    pub fn maybe_creation_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_creation_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -5908,7 +5911,7 @@ impl TransferJob {
     }
 
     /// Sets or clear the value of [last_modification_time][crate::model::TransferJob::last_modification_time].
-    pub fn maybe_last_modification_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_last_modification_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -5926,7 +5929,7 @@ impl TransferJob {
     }
 
     /// Sets or clear the value of [deletion_time][crate::model::TransferJob::deletion_time].
-    pub fn maybe_deletion_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_deletion_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -7330,7 +7333,7 @@ impl TransferOperation {
     }
 
     /// Sets or clear the value of [transfer_spec][crate::model::TransferOperation::transfer_spec].
-    pub fn maybe_transfer_spec<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_transfer_spec<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::TransferSpec>,
     {
@@ -7348,7 +7351,7 @@ impl TransferOperation {
     }
 
     /// Sets or clear the value of [notification_config][crate::model::TransferOperation::notification_config].
-    pub fn maybe_notification_config<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_notification_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::NotificationConfig>,
     {
@@ -7366,7 +7369,7 @@ impl TransferOperation {
     }
 
     /// Sets or clear the value of [logging_config][crate::model::TransferOperation::logging_config].
-    pub fn maybe_logging_config<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_logging_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::LoggingConfig>,
     {
@@ -7384,7 +7387,7 @@ impl TransferOperation {
     }
 
     /// Sets or clear the value of [start_time][crate::model::TransferOperation::start_time].
-    pub fn maybe_start_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -7402,7 +7405,7 @@ impl TransferOperation {
     }
 
     /// Sets or clear the value of [end_time][crate::model::TransferOperation::end_time].
-    pub fn maybe_end_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -7429,7 +7432,7 @@ impl TransferOperation {
     }
 
     /// Sets or clear the value of [counters][crate::model::TransferOperation::counters].
-    pub fn maybe_counters<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_counters<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::TransferCounters>,
     {

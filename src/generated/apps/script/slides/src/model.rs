@@ -60,7 +60,7 @@ impl SlidesAddOnManifest {
     }
 
     /// Sets or clear the value of [homepage_trigger][crate::model::SlidesAddOnManifest::homepage_trigger].
-    pub fn maybe_homepage_trigger<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_homepage_trigger<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<apps_script_type::model::HomepageExtensionPoint>,
     {
@@ -78,7 +78,10 @@ impl SlidesAddOnManifest {
     }
 
     /// Sets or clear the value of [on_file_scope_granted_trigger][crate::model::SlidesAddOnManifest::on_file_scope_granted_trigger].
-    pub fn maybe_on_file_scope_granted_trigger<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_on_file_scope_granted_trigger<T>(
+        mut self,
+        v: std::option::Option<T>,
+    ) -> Self
     where
         T: std::convert::Into<crate::model::SlidesExtensionPoint>,
     {

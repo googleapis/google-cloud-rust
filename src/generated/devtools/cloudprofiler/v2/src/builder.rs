@@ -130,7 +130,7 @@ pub mod profiler_service {
         }
 
         /// Sets or clear the value of [deployment][crate::model::CreateProfileRequest::deployment].
-        pub fn maybe_deployment<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_deployment<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Deployment>,
         {
@@ -222,7 +222,7 @@ pub mod profiler_service {
         }
 
         /// Sets or clear the value of [profile][crate::model::CreateOfflineProfileRequest::profile].
-        pub fn maybe_profile<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_profile<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Profile>,
         {
@@ -294,7 +294,7 @@ pub mod profiler_service {
         }
 
         /// Sets or clear the value of [profile][crate::model::UpdateProfileRequest::profile].
-        pub fn maybe_profile<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_profile<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Profile>,
         {
@@ -312,7 +312,7 @@ pub mod profiler_service {
         }
 
         /// Sets or clear the value of [update_mask][crate::model::UpdateProfileRequest::update_mask].
-        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
         {

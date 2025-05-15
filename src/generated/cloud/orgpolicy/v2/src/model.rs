@@ -479,7 +479,7 @@ pub mod constraint {
             }
 
             /// Sets or clear the value of [default_value][crate::model::constraint::custom_constraint_definition::Parameter::default_value].
-            pub fn maybe_default_value<T>(mut self, v: std::option::Option<T>) -> Self
+            pub fn set_or_clear_default_value<T>(mut self, v: std::option::Option<T>) -> Self
             where
                 T: std::convert::Into<wkt::Value>,
             {
@@ -508,7 +508,7 @@ pub mod constraint {
             }
 
             /// Sets or clear the value of [metadata][crate::model::constraint::custom_constraint_definition::Parameter::metadata].
-            pub fn maybe_metadata<T>(mut self, v: std::option::Option<T>) -> Self
+            pub fn set_or_clear_metadata<T>(mut self, v: std::option::Option<T>) -> Self
             where
                 T: std::convert::Into<
                         crate::model::constraint::custom_constraint_definition::parameter::Metadata,
@@ -1059,7 +1059,10 @@ pub mod constraint {
         }
 
         /// Sets or clear the value of [custom_constraint_definition][crate::model::constraint::BooleanConstraint::custom_constraint_definition].
-        pub fn maybe_custom_constraint_definition<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_custom_constraint_definition<T>(
+            mut self,
+            v: std::option::Option<T>,
+        ) -> Self
         where
             T: std::convert::Into<crate::model::constraint::CustomConstraintDefinition>,
         {
@@ -1363,7 +1366,7 @@ impl CustomConstraint {
     }
 
     /// Sets or clear the value of [update_time][crate::model::CustomConstraint::update_time].
-    pub fn maybe_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -1748,7 +1751,7 @@ impl Policy {
     }
 
     /// Sets or clear the value of [spec][crate::model::Policy::spec].
-    pub fn maybe_spec<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_spec<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::PolicySpec>,
     {
@@ -1768,7 +1771,7 @@ impl Policy {
 
     /// Sets or clear the value of [alternate][crate::model::Policy::alternate].
     #[deprecated]
-    pub fn maybe_alternate<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_alternate<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::AlternatePolicySpec>,
     {
@@ -1786,7 +1789,7 @@ impl Policy {
     }
 
     /// Sets or clear the value of [dry_run_spec][crate::model::Policy::dry_run_spec].
-    pub fn maybe_dry_run_spec<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_dry_run_spec<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::PolicySpec>,
     {
@@ -1849,7 +1852,7 @@ impl AlternatePolicySpec {
     }
 
     /// Sets or clear the value of [spec][crate::model::AlternatePolicySpec::spec].
-    pub fn maybe_spec<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_spec<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::PolicySpec>,
     {
@@ -1945,7 +1948,7 @@ impl PolicySpec {
     }
 
     /// Sets or clear the value of [update_time][crate::model::PolicySpec::update_time].
-    pub fn maybe_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -2042,7 +2045,7 @@ pub mod policy_spec {
         }
 
         /// Sets or clear the value of [condition][crate::model::policy_spec::PolicyRule::condition].
-        pub fn maybe_condition<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_condition<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<gtype::model::Expr>,
         {
@@ -2060,7 +2063,7 @@ pub mod policy_spec {
         }
 
         /// Sets or clear the value of [parameters][crate::model::policy_spec::PolicyRule::parameters].
-        pub fn maybe_parameters<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_parameters<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Struct>,
         {
@@ -2665,7 +2668,7 @@ impl CreatePolicyRequest {
     }
 
     /// Sets or clear the value of [policy][crate::model::CreatePolicyRequest::policy].
-    pub fn maybe_policy<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Policy>,
     {
@@ -2716,7 +2719,7 @@ impl UpdatePolicyRequest {
     }
 
     /// Sets or clear the value of [policy][crate::model::UpdatePolicyRequest::policy].
-    pub fn maybe_policy<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Policy>,
     {
@@ -2734,7 +2737,7 @@ impl UpdatePolicyRequest {
     }
 
     /// Sets or clear the value of [update_mask][crate::model::UpdatePolicyRequest::update_mask].
-    pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
     {
@@ -2837,7 +2840,7 @@ impl CreateCustomConstraintRequest {
     }
 
     /// Sets or clear the value of [custom_constraint][crate::model::CreateCustomConstraintRequest::custom_constraint].
-    pub fn maybe_custom_constraint<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_custom_constraint<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CustomConstraint>,
     {
@@ -3042,7 +3045,7 @@ impl UpdateCustomConstraintRequest {
     }
 
     /// Sets or clear the value of [custom_constraint][crate::model::UpdateCustomConstraintRequest::custom_constraint].
-    pub fn maybe_custom_constraint<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_custom_constraint<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CustomConstraint>,
     {

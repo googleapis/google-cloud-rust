@@ -30,8 +30,8 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::DeleteBucketRequest>
         Ok(
             crate::generated::gapic::model::DeleteBucketRequest::new()
                 .set_name(self.name)
-                .maybe_if_metageneration_match(self.if_metageneration_match.map(|v| v.cnv()).transpose()?)
-                .maybe_if_metageneration_not_match(self.if_metageneration_not_match.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_if_metageneration_match(self.if_metageneration_match.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_if_metageneration_not_match(self.if_metageneration_not_match.map(|v| v.cnv()).transpose()?)
         )
     }
 }
@@ -53,9 +53,9 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::GetBucketRequest> fo
         Ok(
             crate::generated::gapic::model::GetBucketRequest::new()
                 .set_name(self.name)
-                .maybe_if_metageneration_match(self.if_metageneration_match.map(|v| v.cnv()).transpose()?)
-                .maybe_if_metageneration_not_match(self.if_metageneration_not_match.map(|v| v.cnv()).transpose()?)
-                .maybe_read_mask(self.read_mask.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_if_metageneration_match(self.if_metageneration_match.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_if_metageneration_not_match(self.if_metageneration_not_match.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_read_mask(self.read_mask.map(|v| v.cnv()).transpose()?)
         )
     }
 }
@@ -78,7 +78,7 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::CreateBucketRequest>
         Ok(
             crate::generated::gapic::model::CreateBucketRequest::new()
                 .set_parent(self.parent)
-                .maybe_bucket(self.bucket.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_bucket(self.bucket.map(|v| v.cnv()).transpose()?)
                 .set_bucket_id(self.bucket_id)
                 .set_predefined_acl(self.predefined_acl)
                 .set_predefined_default_object_acl(self.predefined_default_object_acl)
@@ -107,7 +107,7 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::ListBucketsRequest> 
                 .set_page_size(self.page_size)
                 .set_page_token(self.page_token)
                 .set_prefix(self.prefix)
-                .maybe_read_mask(self.read_mask.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_read_mask(self.read_mask.map(|v| v.cnv()).transpose()?)
         )
     }
 }
@@ -174,12 +174,12 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::UpdateBucketRequest>
     fn cnv(self) -> std::result::Result<crate::generated::gapic::model::UpdateBucketRequest, gaxi::prost::ConvertError> {
         Ok(
             crate::generated::gapic::model::UpdateBucketRequest::new()
-                .maybe_bucket(self.bucket.map(|v| v.cnv()).transpose()?)
-                .maybe_if_metageneration_match(self.if_metageneration_match.map(|v| v.cnv()).transpose()?)
-                .maybe_if_metageneration_not_match(self.if_metageneration_not_match.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_bucket(self.bucket.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_if_metageneration_match(self.if_metageneration_match.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_if_metageneration_not_match(self.if_metageneration_not_match.map(|v| v.cnv()).transpose()?)
                 .set_predefined_acl(self.predefined_acl)
                 .set_predefined_default_object_acl(self.predefined_default_object_acl)
-                .maybe_update_mask(self.update_mask.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_update_mask(self.update_mask.map(|v| v.cnv()).transpose()?)
         )
     }
 }
@@ -197,7 +197,7 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::compose_object_reque
     fn cnv(self) -> std::result::Result<crate::generated::gapic::model::compose_object_request::source_object::ObjectPreconditions, gaxi::prost::ConvertError> {
         Ok(
             crate::generated::gapic::model::compose_object_request::source_object::ObjectPreconditions::new()
-                .maybe_if_generation_match(self.if_generation_match.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_if_generation_match(self.if_generation_match.map(|v| v.cnv()).transpose()?)
         )
     }
 }
@@ -219,7 +219,7 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::compose_object_reque
             crate::generated::gapic::model::compose_object_request::SourceObject::new()
                 .set_name(self.name)
                 .set_generation(self.generation)
-                .maybe_object_preconditions(self.object_preconditions.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_object_preconditions(self.object_preconditions.map(|v| v.cnv()).transpose()?)
         )
     }
 }
@@ -247,15 +247,15 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::ComposeObjectRequest
     fn cnv(self) -> std::result::Result<crate::generated::gapic::model::ComposeObjectRequest, gaxi::prost::ConvertError> {
         Ok(
             crate::generated::gapic::model::ComposeObjectRequest::new()
-                .maybe_destination(self.destination.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_destination(self.destination.map(|v| v.cnv()).transpose()?)
                 .set_source_objects(self.source_objects.into_iter().map(|v| v.cnv())
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
                 .set_destination_predefined_acl(self.destination_predefined_acl)
-                .maybe_if_generation_match(self.if_generation_match.map(|v| v.cnv()).transpose()?)
-                .maybe_if_metageneration_match(self.if_metageneration_match.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_if_generation_match(self.if_generation_match.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_if_metageneration_match(self.if_metageneration_match.map(|v| v.cnv()).transpose()?)
                 .set_kms_key(self.kms_key)
-                .maybe_common_object_request_params(self.common_object_request_params.map(|v| v.cnv()).transpose()?)
-                .maybe_object_checksums(self.object_checksums.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_common_object_request_params(self.common_object_request_params.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_object_checksums(self.object_checksums.map(|v| v.cnv()).transpose()?)
         )
     }
 }
@@ -283,11 +283,11 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::DeleteObjectRequest>
                 .set_bucket(self.bucket)
                 .set_object(self.object)
                 .set_generation(self.generation)
-                .maybe_if_generation_match(self.if_generation_match.map(|v| v.cnv()).transpose()?)
-                .maybe_if_generation_not_match(self.if_generation_not_match.map(|v| v.cnv()).transpose()?)
-                .maybe_if_metageneration_match(self.if_metageneration_match.map(|v| v.cnv()).transpose()?)
-                .maybe_if_metageneration_not_match(self.if_metageneration_not_match.map(|v| v.cnv()).transpose()?)
-                .maybe_common_object_request_params(self.common_object_request_params.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_if_generation_match(self.if_generation_match.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_if_generation_not_match(self.if_generation_not_match.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_if_metageneration_match(self.if_metageneration_match.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_if_metageneration_not_match(self.if_metageneration_not_match.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_common_object_request_params(self.common_object_request_params.map(|v| v.cnv()).transpose()?)
         )
     }
 }
@@ -318,12 +318,12 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::RestoreObjectRequest
                 .set_object(self.object)
                 .set_generation(self.generation)
                 .set_restore_token(self.restore_token)
-                .maybe_if_generation_match(self.if_generation_match.map(|v| v.cnv()).transpose()?)
-                .maybe_if_generation_not_match(self.if_generation_not_match.map(|v| v.cnv()).transpose()?)
-                .maybe_if_metageneration_match(self.if_metageneration_match.map(|v| v.cnv()).transpose()?)
-                .maybe_if_metageneration_not_match(self.if_metageneration_not_match.map(|v| v.cnv()).transpose()?)
-                .maybe_copy_source_acl(self.copy_source_acl.map(|v| v.cnv()).transpose()?)
-                .maybe_common_object_request_params(self.common_object_request_params.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_if_generation_match(self.if_generation_match.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_if_generation_not_match(self.if_generation_not_match.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_if_metageneration_match(self.if_metageneration_match.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_if_metageneration_not_match(self.if_metageneration_not_match.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_copy_source_acl(self.copy_source_acl.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_common_object_request_params(self.common_object_request_params.map(|v| v.cnv()).transpose()?)
         )
     }
 }
@@ -354,13 +354,13 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::GetObjectRequest> fo
                 .set_bucket(self.bucket)
                 .set_object(self.object)
                 .set_generation(self.generation)
-                .maybe_soft_deleted(self.soft_deleted.map(|v| v.cnv()).transpose()?)
-                .maybe_if_generation_match(self.if_generation_match.map(|v| v.cnv()).transpose()?)
-                .maybe_if_generation_not_match(self.if_generation_not_match.map(|v| v.cnv()).transpose()?)
-                .maybe_if_metageneration_match(self.if_metageneration_match.map(|v| v.cnv()).transpose()?)
-                .maybe_if_metageneration_not_match(self.if_metageneration_not_match.map(|v| v.cnv()).transpose()?)
-                .maybe_common_object_request_params(self.common_object_request_params.map(|v| v.cnv()).transpose()?)
-                .maybe_read_mask(self.read_mask.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_soft_deleted(self.soft_deleted.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_if_generation_match(self.if_generation_match.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_if_generation_not_match(self.if_generation_not_match.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_if_metageneration_match(self.if_metageneration_match.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_if_metageneration_not_match(self.if_metageneration_not_match.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_common_object_request_params(self.common_object_request_params.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_read_mask(self.read_mask.map(|v| v.cnv()).transpose()?)
                 .set_restore_token(self.restore_token)
         )
     }
@@ -398,7 +398,7 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::ListObjectsRequest> 
                 .set_include_trailing_delimiter(self.include_trailing_delimiter)
                 .set_prefix(self.prefix)
                 .set_versions(self.versions)
-                .maybe_read_mask(self.read_mask.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_read_mask(self.read_mask.map(|v| v.cnv()).transpose()?)
                 .set_lexicographic_start(self.lexicographic_start)
                 .set_lexicographic_end(self.lexicographic_end)
                 .set_soft_deleted(self.soft_deleted)
@@ -446,26 +446,26 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::RewriteObjectRequest
                 .set_destination_name(self.destination_name)
                 .set_destination_bucket(self.destination_bucket)
                 .set_destination_kms_key(self.destination_kms_key)
-                .maybe_destination(self.destination.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_destination(self.destination.map(|v| v.cnv()).transpose()?)
                 .set_source_bucket(self.source_bucket)
                 .set_source_object(self.source_object)
                 .set_source_generation(self.source_generation)
                 .set_rewrite_token(self.rewrite_token)
                 .set_destination_predefined_acl(self.destination_predefined_acl)
-                .maybe_if_generation_match(self.if_generation_match.map(|v| v.cnv()).transpose()?)
-                .maybe_if_generation_not_match(self.if_generation_not_match.map(|v| v.cnv()).transpose()?)
-                .maybe_if_metageneration_match(self.if_metageneration_match.map(|v| v.cnv()).transpose()?)
-                .maybe_if_metageneration_not_match(self.if_metageneration_not_match.map(|v| v.cnv()).transpose()?)
-                .maybe_if_source_generation_match(self.if_source_generation_match.map(|v| v.cnv()).transpose()?)
-                .maybe_if_source_generation_not_match(self.if_source_generation_not_match.map(|v| v.cnv()).transpose()?)
-                .maybe_if_source_metageneration_match(self.if_source_metageneration_match.map(|v| v.cnv()).transpose()?)
-                .maybe_if_source_metageneration_not_match(self.if_source_metageneration_not_match.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_if_generation_match(self.if_generation_match.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_if_generation_not_match(self.if_generation_not_match.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_if_metageneration_match(self.if_metageneration_match.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_if_metageneration_not_match(self.if_metageneration_not_match.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_if_source_generation_match(self.if_source_generation_match.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_if_source_generation_not_match(self.if_source_generation_not_match.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_if_source_metageneration_match(self.if_source_metageneration_match.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_if_source_metageneration_not_match(self.if_source_metageneration_not_match.map(|v| v.cnv()).transpose()?)
                 .set_max_bytes_rewritten_per_call(self.max_bytes_rewritten_per_call)
                 .set_copy_source_encryption_algorithm(self.copy_source_encryption_algorithm)
                 .set_copy_source_encryption_key_bytes(self.copy_source_encryption_key_bytes)
                 .set_copy_source_encryption_key_sha256_bytes(self.copy_source_encryption_key_sha256_bytes)
-                .maybe_common_object_request_params(self.common_object_request_params.map(|v| v.cnv()).transpose()?)
-                .maybe_object_checksums(self.object_checksums.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_common_object_request_params(self.common_object_request_params.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_object_checksums(self.object_checksums.map(|v| v.cnv()).transpose()?)
         )
     }
 }
@@ -491,7 +491,7 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::RewriteResponse> for
                 .set_object_size(self.object_size)
                 .set_done(self.done)
                 .set_rewrite_token(self.rewrite_token)
-                .maybe_resource(self.resource.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_resource(self.resource.map(|v| v.cnv()).transpose()?)
         )
     }
 }
@@ -522,14 +522,14 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::MoveObjectRequest> f
                 .set_bucket(self.bucket)
                 .set_source_object(self.source_object)
                 .set_destination_object(self.destination_object)
-                .maybe_if_source_generation_match(self.if_source_generation_match.map(|v| v.cnv()).transpose()?)
-                .maybe_if_source_generation_not_match(self.if_source_generation_not_match.map(|v| v.cnv()).transpose()?)
-                .maybe_if_source_metageneration_match(self.if_source_metageneration_match.map(|v| v.cnv()).transpose()?)
-                .maybe_if_source_metageneration_not_match(self.if_source_metageneration_not_match.map(|v| v.cnv()).transpose()?)
-                .maybe_if_generation_match(self.if_generation_match.map(|v| v.cnv()).transpose()?)
-                .maybe_if_generation_not_match(self.if_generation_not_match.map(|v| v.cnv()).transpose()?)
-                .maybe_if_metageneration_match(self.if_metageneration_match.map(|v| v.cnv()).transpose()?)
-                .maybe_if_metageneration_not_match(self.if_metageneration_not_match.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_if_source_generation_match(self.if_source_generation_match.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_if_source_generation_not_match(self.if_source_generation_not_match.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_if_source_metageneration_match(self.if_source_metageneration_match.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_if_source_metageneration_not_match(self.if_source_metageneration_not_match.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_if_generation_match(self.if_generation_match.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_if_generation_not_match(self.if_generation_not_match.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_if_metageneration_match(self.if_metageneration_match.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_if_metageneration_not_match(self.if_metageneration_not_match.map(|v| v.cnv()).transpose()?)
         )
     }
 }
@@ -554,14 +554,14 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::UpdateObjectRequest>
     fn cnv(self) -> std::result::Result<crate::generated::gapic::model::UpdateObjectRequest, gaxi::prost::ConvertError> {
         Ok(
             crate::generated::gapic::model::UpdateObjectRequest::new()
-                .maybe_object(self.object.map(|v| v.cnv()).transpose()?)
-                .maybe_if_generation_match(self.if_generation_match.map(|v| v.cnv()).transpose()?)
-                .maybe_if_generation_not_match(self.if_generation_not_match.map(|v| v.cnv()).transpose()?)
-                .maybe_if_metageneration_match(self.if_metageneration_match.map(|v| v.cnv()).transpose()?)
-                .maybe_if_metageneration_not_match(self.if_metageneration_not_match.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_object(self.object.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_if_generation_match(self.if_generation_match.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_if_generation_not_match(self.if_generation_not_match.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_if_metageneration_match(self.if_metageneration_match.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_if_metageneration_not_match(self.if_metageneration_not_match.map(|v| v.cnv()).transpose()?)
                 .set_predefined_acl(self.predefined_acl)
-                .maybe_update_mask(self.update_mask.map(|v| v.cnv()).transpose()?)
-                .maybe_common_object_request_params(self.common_object_request_params.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_update_mask(self.update_mask.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_common_object_request_params(self.common_object_request_params.map(|v| v.cnv()).transpose()?)
         )
     }
 }
@@ -698,7 +698,7 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::bucket::iam_config::
         Ok(
             crate::generated::gapic::model::bucket::iam_config::UniformBucketLevelAccess::new()
                 .set_enabled(self.enabled)
-                .maybe_lock_time(self.lock_time.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_lock_time(self.lock_time.map(|v| v.cnv()).transpose()?)
         )
     }
 }
@@ -717,7 +717,7 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::bucket::IamConfig> f
     fn cnv(self) -> std::result::Result<crate::generated::gapic::model::bucket::IamConfig, gaxi::prost::ConvertError> {
         Ok(
             crate::generated::gapic::model::bucket::IamConfig::new()
-                .maybe_uniform_bucket_level_access(self.uniform_bucket_level_access.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_uniform_bucket_level_access(self.uniform_bucket_level_access.map(|v| v.cnv()).transpose()?)
                 .set_public_access_prevention(self.public_access_prevention)
         )
     }
@@ -775,16 +775,16 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::bucket::lifecycle::r
     fn cnv(self) -> std::result::Result<crate::generated::gapic::model::bucket::lifecycle::rule::Condition, gaxi::prost::ConvertError> {
         Ok(
             crate::generated::gapic::model::bucket::lifecycle::rule::Condition::new()
-                .maybe_age_days(self.age_days.map(|v| v.cnv()).transpose()?)
-                .maybe_created_before(self.created_before.map(|v| v.cnv()).transpose()?)
-                .maybe_is_live(self.is_live.map(|v| v.cnv()).transpose()?)
-                .maybe_num_newer_versions(self.num_newer_versions.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_age_days(self.age_days.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_created_before(self.created_before.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_is_live(self.is_live.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_num_newer_versions(self.num_newer_versions.map(|v| v.cnv()).transpose()?)
                 .set_matches_storage_class(self.matches_storage_class.into_iter().map(|v| v.cnv())
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
-                .maybe_days_since_custom_time(self.days_since_custom_time.map(|v| v.cnv()).transpose()?)
-                .maybe_custom_time_before(self.custom_time_before.map(|v| v.cnv()).transpose()?)
-                .maybe_days_since_noncurrent_time(self.days_since_noncurrent_time.map(|v| v.cnv()).transpose()?)
-                .maybe_noncurrent_time_before(self.noncurrent_time_before.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_days_since_custom_time(self.days_since_custom_time.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_custom_time_before(self.custom_time_before.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_days_since_noncurrent_time(self.days_since_noncurrent_time.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_noncurrent_time_before(self.noncurrent_time_before.map(|v| v.cnv()).transpose()?)
                 .set_matches_prefix(self.matches_prefix.into_iter().map(|v| v.cnv())
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
                 .set_matches_suffix(self.matches_suffix.into_iter().map(|v| v.cnv())
@@ -807,8 +807,8 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::bucket::lifecycle::R
     fn cnv(self) -> std::result::Result<crate::generated::gapic::model::bucket::lifecycle::Rule, gaxi::prost::ConvertError> {
         Ok(
             crate::generated::gapic::model::bucket::lifecycle::Rule::new()
-                .maybe_action(self.action.map(|v| v.cnv()).transpose()?)
-                .maybe_condition(self.condition.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_action(self.action.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_condition(self.condition.map(|v| v.cnv()).transpose()?)
         )
     }
 }
@@ -870,9 +870,9 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::bucket::RetentionPol
     fn cnv(self) -> std::result::Result<crate::generated::gapic::model::bucket::RetentionPolicy, gaxi::prost::ConvertError> {
         Ok(
             crate::generated::gapic::model::bucket::RetentionPolicy::new()
-                .maybe_effective_time(self.effective_time.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_effective_time(self.effective_time.map(|v| v.cnv()).transpose()?)
                 .set_is_locked(self.is_locked)
-                .maybe_retention_duration(self.retention_duration.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_retention_duration(self.retention_duration.map(|v| v.cnv()).transpose()?)
         )
     }
 }
@@ -891,8 +891,8 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::bucket::SoftDeletePo
     fn cnv(self) -> std::result::Result<crate::generated::gapic::model::bucket::SoftDeletePolicy, gaxi::prost::ConvertError> {
         Ok(
             crate::generated::gapic::model::bucket::SoftDeletePolicy::new()
-                .maybe_retention_duration(self.retention_duration.map(|v| v.cnv()).transpose()?)
-                .maybe_effective_time(self.effective_time.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_retention_duration(self.retention_duration.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_effective_time(self.effective_time.map(|v| v.cnv()).transpose()?)
         )
     }
 }
@@ -974,9 +974,9 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::bucket::Autoclass> f
         Ok(
             crate::generated::gapic::model::bucket::Autoclass::new()
                 .set_enabled(self.enabled)
-                .maybe_toggle_time(self.toggle_time.map(|v| v.cnv()).transpose()?)
-                .maybe_terminal_storage_class(self.terminal_storage_class.map(|v| v.cnv()).transpose()?)
-                .maybe_terminal_storage_class_update_time(self.terminal_storage_class_update_time.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_toggle_time(self.toggle_time.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_terminal_storage_class(self.terminal_storage_class.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_terminal_storage_class_update_time(self.terminal_storage_class_update_time.map(|v| v.cnv()).transpose()?)
         )
     }
 }
@@ -1067,29 +1067,29 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::Bucket> for Bucket {
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
                 .set_default_object_acl(self.default_object_acl.into_iter().map(|v| v.cnv())
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
-                .maybe_lifecycle(self.lifecycle.map(|v| v.cnv()).transpose()?)
-                .maybe_create_time(self.create_time.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_lifecycle(self.lifecycle.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_create_time(self.create_time.map(|v| v.cnv()).transpose()?)
                 .set_cors(self.cors.into_iter().map(|v| v.cnv())
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
-                .maybe_update_time(self.update_time.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_update_time(self.update_time.map(|v| v.cnv()).transpose()?)
                 .set_default_event_based_hold(self.default_event_based_hold)
                 .set_labels(self.labels.into_iter()
                     .map(|(k, v)| {
                         gaxi::prost::pair_transpose(k.cnv(), v.cnv())
                     }).collect::<std::result::Result<std::collections::HashMap<_, _>, _>>()?)
-                .maybe_website(self.website.map(|v| v.cnv()).transpose()?)
-                .maybe_versioning(self.versioning.map(|v| v.cnv()).transpose()?)
-                .maybe_logging(self.logging.map(|v| v.cnv()).transpose()?)
-                .maybe_owner(self.owner.map(|v| v.cnv()).transpose()?)
-                .maybe_encryption(self.encryption.map(|v| v.cnv()).transpose()?)
-                .maybe_billing(self.billing.map(|v| v.cnv()).transpose()?)
-                .maybe_retention_policy(self.retention_policy.map(|v| v.cnv()).transpose()?)
-                .maybe_iam_config(self.iam_config.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_website(self.website.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_versioning(self.versioning.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_logging(self.logging.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_owner(self.owner.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_encryption(self.encryption.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_billing(self.billing.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_retention_policy(self.retention_policy.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_iam_config(self.iam_config.map(|v| v.cnv()).transpose()?)
                 .set_satisfies_pzs(self.satisfies_pzs)
-                .maybe_custom_placement_config(self.custom_placement_config.map(|v| v.cnv()).transpose()?)
-                .maybe_autoclass(self.autoclass.map(|v| v.cnv()).transpose()?)
-                .maybe_hierarchical_namespace(self.hierarchical_namespace.map(|v| v.cnv()).transpose()?)
-                .maybe_soft_delete_policy(self.soft_delete_policy.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_custom_placement_config(self.custom_placement_config.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_autoclass(self.autoclass.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_hierarchical_namespace(self.hierarchical_namespace.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_soft_delete_policy(self.soft_delete_policy.map(|v| v.cnv()).transpose()?)
         )
     }
 }
@@ -1123,7 +1123,7 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::BucketAccessControl>
                 .set_etag(self.etag)
                 .set_email(self.email)
                 .set_domain(self.domain)
-                .maybe_project_team(self.project_team.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_project_team(self.project_team.map(|v| v.cnv()).transpose()?)
         )
     }
 }
@@ -1142,7 +1142,7 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::ObjectChecksums> for
     fn cnv(self) -> std::result::Result<crate::generated::gapic::model::ObjectChecksums, gaxi::prost::ConvertError> {
         Ok(
             crate::generated::gapic::model::ObjectChecksums::new()
-                .maybe_crc32c(self.crc32c.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_crc32c(self.crc32c.map(|v| v.cnv()).transpose()?)
                 .set_md5_hash(self.md5_hash)
         )
     }
@@ -1222,7 +1222,7 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::Object> for Object {
                 .set_bucket(self.bucket)
                 .set_etag(self.etag)
                 .set_generation(self.generation)
-                .maybe_restore_token(self.restore_token.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_restore_token(self.restore_token.map(|v| v.cnv()).transpose()?)
                 .set_metageneration(self.metageneration)
                 .set_storage_class(self.storage_class)
                 .set_size(self.size)
@@ -1232,27 +1232,27 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::Object> for Object {
                 .set_acl(self.acl.into_iter().map(|v| v.cnv())
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
                 .set_content_language(self.content_language)
-                .maybe_delete_time(self.delete_time.map(|v| v.cnv()).transpose()?)
-                .maybe_finalize_time(self.finalize_time.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_delete_time(self.delete_time.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_finalize_time(self.finalize_time.map(|v| v.cnv()).transpose()?)
                 .set_content_type(self.content_type)
-                .maybe_create_time(self.create_time.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_create_time(self.create_time.map(|v| v.cnv()).transpose()?)
                 .set_component_count(self.component_count)
-                .maybe_checksums(self.checksums.map(|v| v.cnv()).transpose()?)
-                .maybe_update_time(self.update_time.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_checksums(self.checksums.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_update_time(self.update_time.map(|v| v.cnv()).transpose()?)
                 .set_kms_key(self.kms_key)
-                .maybe_update_storage_class_time(self.update_storage_class_time.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_update_storage_class_time(self.update_storage_class_time.map(|v| v.cnv()).transpose()?)
                 .set_temporary_hold(self.temporary_hold)
-                .maybe_retention_expire_time(self.retention_expire_time.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_retention_expire_time(self.retention_expire_time.map(|v| v.cnv()).transpose()?)
                 .set_metadata(self.metadata.into_iter()
                     .map(|(k, v)| {
                         gaxi::prost::pair_transpose(k.cnv(), v.cnv())
                     }).collect::<std::result::Result<std::collections::HashMap<_, _>, _>>()?)
-                .maybe_event_based_hold(self.event_based_hold.map(|v| v.cnv()).transpose()?)
-                .maybe_owner(self.owner.map(|v| v.cnv()).transpose()?)
-                .maybe_customer_encryption(self.customer_encryption.map(|v| v.cnv()).transpose()?)
-                .maybe_custom_time(self.custom_time.map(|v| v.cnv()).transpose()?)
-                .maybe_soft_delete_time(self.soft_delete_time.map(|v| v.cnv()).transpose()?)
-                .maybe_hard_delete_time(self.hard_delete_time.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_event_based_hold(self.event_based_hold.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_owner(self.owner.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_customer_encryption(self.customer_encryption.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_custom_time(self.custom_time.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_soft_delete_time(self.soft_delete_time.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_hard_delete_time(self.hard_delete_time.map(|v| v.cnv()).transpose()?)
         )
     }
 }
@@ -1286,7 +1286,7 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::ObjectAccessControl>
                 .set_etag(self.etag)
                 .set_email(self.email)
                 .set_domain(self.domain)
-                .maybe_project_team(self.project_team.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_project_team(self.project_team.map(|v| v.cnv()).transpose()?)
         )
     }
 }

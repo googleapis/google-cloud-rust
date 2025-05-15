@@ -300,7 +300,7 @@ pub mod cloud_scheduler {
         /// Sets or clear the value of [job][crate::model::CreateJobRequest::job].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_job<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_job<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Job>,
         {
@@ -376,7 +376,7 @@ pub mod cloud_scheduler {
         /// Sets or clear the value of [job][crate::model::UpdateJobRequest::job].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_job<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_job<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Job>,
         {
@@ -394,7 +394,7 @@ pub mod cloud_scheduler {
         }
 
         /// Sets or clear the value of [update_mask][crate::model::UpdateJobRequest::update_mask].
-        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
         {

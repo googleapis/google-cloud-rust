@@ -136,7 +136,7 @@ pub mod essential_contacts_service {
         /// Sets or clear the value of [contact][crate::model::CreateContactRequest::contact].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_contact<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_contact<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Contact>,
         {
@@ -212,7 +212,7 @@ pub mod essential_contacts_service {
         /// Sets or clear the value of [contact][crate::model::UpdateContactRequest::contact].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_contact<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_contact<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Contact>,
         {
@@ -230,7 +230,7 @@ pub mod essential_contacts_service {
         }
 
         /// Sets or clear the value of [update_mask][crate::model::UpdateContactRequest::update_mask].
-        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
         {

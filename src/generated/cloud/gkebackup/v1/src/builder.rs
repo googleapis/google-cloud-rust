@@ -178,7 +178,7 @@ pub mod backup_for_gke {
         /// Sets or clear the value of [backup_plan][crate::model::CreateBackupPlanRequest::backup_plan].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_backup_plan<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_backup_plan<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::BackupPlan>,
         {
@@ -480,7 +480,7 @@ pub mod backup_for_gke {
         /// Sets or clear the value of [backup_plan][crate::model::UpdateBackupPlanRequest::backup_plan].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_backup_plan<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_backup_plan<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::BackupPlan>,
         {
@@ -498,7 +498,7 @@ pub mod backup_for_gke {
         }
 
         /// Sets or clear the value of [update_mask][crate::model::UpdateBackupPlanRequest::update_mask].
-        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
         {
@@ -739,7 +739,7 @@ pub mod backup_for_gke {
         /// Sets or clear the value of [backup_channel][crate::model::CreateBackupChannelRequest::backup_channel].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_backup_channel<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_backup_channel<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::BackupChannel>,
         {
@@ -1050,7 +1050,7 @@ pub mod backup_for_gke {
         /// Sets or clear the value of [backup_channel][crate::model::UpdateBackupChannelRequest::backup_channel].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_backup_channel<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_backup_channel<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::BackupChannel>,
         {
@@ -1068,7 +1068,7 @@ pub mod backup_for_gke {
         }
 
         /// Sets or clear the value of [update_mask][crate::model::UpdateBackupChannelRequest::update_mask].
-        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
         {
@@ -1491,7 +1491,7 @@ pub mod backup_for_gke {
         }
 
         /// Sets or clear the value of [backup][crate::model::CreateBackupRequest::backup].
-        pub fn maybe_backup<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_backup<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Backup>,
         {
@@ -1794,7 +1794,7 @@ pub mod backup_for_gke {
         /// Sets or clear the value of [backup][crate::model::UpdateBackupRequest::backup].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_backup<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_backup<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Backup>,
         {
@@ -1812,7 +1812,7 @@ pub mod backup_for_gke {
         }
 
         /// Sets or clear the value of [update_mask][crate::model::UpdateBackupRequest::update_mask].
-        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
         {
@@ -2234,7 +2234,7 @@ pub mod backup_for_gke {
         /// Sets or clear the value of [restore_plan][crate::model::CreateRestorePlanRequest::restore_plan].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_restore_plan<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_restore_plan<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::RestorePlan>,
         {
@@ -2541,7 +2541,7 @@ pub mod backup_for_gke {
         /// Sets or clear the value of [restore_plan][crate::model::UpdateRestorePlanRequest::restore_plan].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_restore_plan<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_restore_plan<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::RestorePlan>,
         {
@@ -2559,7 +2559,7 @@ pub mod backup_for_gke {
         }
 
         /// Sets or clear the value of [update_mask][crate::model::UpdateRestorePlanRequest::update_mask].
-        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
         {
@@ -2806,7 +2806,7 @@ pub mod backup_for_gke {
         /// Sets or clear the value of [restore_channel][crate::model::CreateRestoreChannelRequest::restore_channel].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_restore_channel<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_restore_channel<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::RestoreChannel>,
         {
@@ -3117,7 +3117,7 @@ pub mod backup_for_gke {
         /// Sets or clear the value of [restore_channel][crate::model::UpdateRestoreChannelRequest::restore_channel].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_restore_channel<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_restore_channel<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::RestoreChannel>,
         {
@@ -3135,7 +3135,7 @@ pub mod backup_for_gke {
         }
 
         /// Sets or clear the value of [update_mask][crate::model::UpdateRestoreChannelRequest::update_mask].
-        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
         {
@@ -3558,7 +3558,7 @@ pub mod backup_for_gke {
         /// Sets or clear the value of [restore][crate::model::CreateRestoreRequest::restore].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_restore<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_restore<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Restore>,
         {
@@ -3857,7 +3857,7 @@ pub mod backup_for_gke {
         /// Sets or clear the value of [restore][crate::model::UpdateRestoreRequest::restore].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_restore<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_restore<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Restore>,
         {
@@ -3875,7 +3875,7 @@ pub mod backup_for_gke {
         }
 
         /// Sets or clear the value of [update_mask][crate::model::UpdateRestoreRequest::update_mask].
-        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
         {
@@ -4494,7 +4494,7 @@ pub mod backup_for_gke {
         /// Sets or clear the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<iam_v1::model::Policy>,
         {
@@ -4512,7 +4512,7 @@ pub mod backup_for_gke {
         }
 
         /// Sets or clear the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
-        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
         {
@@ -4592,7 +4592,7 @@ pub mod backup_for_gke {
         }
 
         /// Sets or clear the value of [options][iam_v1::model::GetIamPolicyRequest::options].
-        pub fn maybe_options<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
         {

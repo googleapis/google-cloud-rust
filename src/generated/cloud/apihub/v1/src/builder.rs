@@ -138,7 +138,7 @@ pub mod api_hub {
         /// Sets or clear the value of [api][crate::model::CreateApiRequest::api].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_api<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_api<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Api>,
         {
@@ -378,7 +378,7 @@ pub mod api_hub {
         /// Sets or clear the value of [api][crate::model::UpdateApiRequest::api].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_api<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_api<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Api>,
         {
@@ -400,7 +400,7 @@ pub mod api_hub {
         /// Sets or clear the value of [update_mask][crate::model::UpdateApiRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
         {
@@ -554,7 +554,7 @@ pub mod api_hub {
         /// Sets or clear the value of [version][crate::model::CreateVersionRequest::version].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_version<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_version<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Version>,
         {
@@ -794,7 +794,7 @@ pub mod api_hub {
         /// Sets or clear the value of [version][crate::model::UpdateVersionRequest::version].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_version<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_version<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Version>,
         {
@@ -816,7 +816,7 @@ pub mod api_hub {
         /// Sets or clear the value of [update_mask][crate::model::UpdateVersionRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
         {
@@ -970,7 +970,7 @@ pub mod api_hub {
         /// Sets or clear the value of [spec][crate::model::CreateSpecRequest::spec].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_spec<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_spec<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Spec>,
         {
@@ -1270,7 +1270,7 @@ pub mod api_hub {
         /// Sets or clear the value of [spec][crate::model::UpdateSpecRequest::spec].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_spec<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_spec<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Spec>,
         {
@@ -1292,7 +1292,7 @@ pub mod api_hub {
         /// Sets or clear the value of [update_mask][crate::model::UpdateSpecRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
         {
@@ -1672,7 +1672,7 @@ pub mod api_hub {
         /// Sets or clear the value of [deployment][crate::model::CreateDeploymentRequest::deployment].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_deployment<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_deployment<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Deployment>,
         {
@@ -1915,7 +1915,7 @@ pub mod api_hub {
         /// Sets or clear the value of [deployment][crate::model::UpdateDeploymentRequest::deployment].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_deployment<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_deployment<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Deployment>,
         {
@@ -1937,7 +1937,7 @@ pub mod api_hub {
         /// Sets or clear the value of [update_mask][crate::model::UpdateDeploymentRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
         {
@@ -2088,7 +2088,7 @@ pub mod api_hub {
         /// Sets or clear the value of [attribute][crate::model::CreateAttributeRequest::attribute].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_attribute<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_attribute<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Attribute>,
         {
@@ -2222,7 +2222,7 @@ pub mod api_hub {
         /// Sets or clear the value of [attribute][crate::model::UpdateAttributeRequest::attribute].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_attribute<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_attribute<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Attribute>,
         {
@@ -2244,7 +2244,7 @@ pub mod api_hub {
         /// Sets or clear the value of [update_mask][crate::model::UpdateAttributeRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
         {
@@ -2615,7 +2615,7 @@ pub mod api_hub {
         /// Sets or clear the value of [external_api][crate::model::CreateExternalApiRequest::external_api].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_external_api<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_external_api<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::ExternalApi>,
         {
@@ -2752,7 +2752,7 @@ pub mod api_hub {
         /// Sets or clear the value of [external_api][crate::model::UpdateExternalApiRequest::external_api].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_external_api<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_external_api<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::ExternalApi>,
         {
@@ -2774,7 +2774,7 @@ pub mod api_hub {
         /// Sets or clear the value of [update_mask][crate::model::UpdateExternalApiRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
         {
@@ -3545,7 +3545,7 @@ pub mod api_hub_dependencies {
         /// Sets or clear the value of [dependency][crate::model::CreateDependencyRequest::dependency].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_dependency<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_dependency<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Dependency>,
         {
@@ -3686,7 +3686,7 @@ pub mod api_hub_dependencies {
         /// Sets or clear the value of [dependency][crate::model::UpdateDependencyRequest::dependency].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_dependency<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_dependency<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Dependency>,
         {
@@ -3708,7 +3708,7 @@ pub mod api_hub_dependencies {
         /// Sets or clear the value of [update_mask][crate::model::UpdateDependencyRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
         {
@@ -4508,7 +4508,10 @@ pub mod host_project_registration_service {
         /// Sets or clear the value of [host_project_registration][crate::model::CreateHostProjectRegistrationRequest::host_project_registration].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_host_project_registration<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_host_project_registration<T>(
+            mut self,
+            v: std::option::Option<T>,
+        ) -> Self
         where
             T: std::convert::Into<crate::model::HostProjectRegistration>,
         {
@@ -5363,7 +5366,7 @@ pub mod linting_service {
         /// Sets or clear the value of [style_guide][crate::model::UpdateStyleGuideRequest::style_guide].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_style_guide<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_style_guide<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::StyleGuide>,
         {
@@ -5381,7 +5384,7 @@ pub mod linting_service {
         }
 
         /// Sets or clear the value of [update_mask][crate::model::UpdateStyleGuideRequest::update_mask].
-        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
         {
@@ -6877,7 +6880,7 @@ pub mod provisioning {
         /// Sets or clear the value of [api_hub_instance][crate::model::CreateApiHubInstanceRequest::api_hub_instance].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_api_hub_instance<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_api_hub_instance<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::ApiHubInstance>,
         {
@@ -7631,7 +7634,10 @@ pub mod runtime_project_attachment_service {
         /// Sets or clear the value of [runtime_project_attachment][crate::model::CreateRuntimeProjectAttachmentRequest::runtime_project_attachment].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_runtime_project_attachment<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_runtime_project_attachment<T>(
+            mut self,
+            v: std::option::Option<T>,
+        ) -> Self
         where
             T: std::convert::Into<crate::model::RuntimeProjectAttachment>,
         {

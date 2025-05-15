@@ -238,7 +238,7 @@ pub mod timeseries_insights_controller {
         /// Sets or clear the value of [dataset][crate::model::CreateDataSetRequest::dataset].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_dataset<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_dataset<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::DataSet>,
         {
@@ -457,7 +457,7 @@ pub mod timeseries_insights_controller {
         /// Sets or clear the value of [detection_time][crate::model::QueryDataSetRequest::detection_time].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_detection_time<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_detection_time<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
         {
@@ -475,7 +475,7 @@ pub mod timeseries_insights_controller {
         }
 
         /// Sets or clear the value of [num_returned_slices][crate::model::QueryDataSetRequest::num_returned_slices].
-        pub fn maybe_num_returned_slices<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_num_returned_slices<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<i32>,
         {
@@ -493,7 +493,7 @@ pub mod timeseries_insights_controller {
         }
 
         /// Sets or clear the value of [slicing_params][crate::model::QueryDataSetRequest::slicing_params].
-        pub fn maybe_slicing_params<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_slicing_params<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::SlicingParams>,
         {
@@ -511,7 +511,7 @@ pub mod timeseries_insights_controller {
         }
 
         /// Sets or clear the value of [timeseries_params][crate::model::QueryDataSetRequest::timeseries_params].
-        pub fn maybe_timeseries_params<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_timeseries_params<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::TimeseriesParams>,
         {
@@ -529,7 +529,7 @@ pub mod timeseries_insights_controller {
         }
 
         /// Sets or clear the value of [forecast_params][crate::model::QueryDataSetRequest::forecast_params].
-        pub fn maybe_forecast_params<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_forecast_params<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::ForecastParams>,
         {
@@ -632,7 +632,7 @@ pub mod timeseries_insights_controller {
         /// Sets or clear the value of [detection_time][crate::model::EvaluateSliceRequest::detection_time].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_detection_time<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_detection_time<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
         {
@@ -650,7 +650,7 @@ pub mod timeseries_insights_controller {
         }
 
         /// Sets or clear the value of [timeseries_params][crate::model::EvaluateSliceRequest::timeseries_params].
-        pub fn maybe_timeseries_params<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_timeseries_params<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::TimeseriesParams>,
         {
@@ -668,7 +668,7 @@ pub mod timeseries_insights_controller {
         }
 
         /// Sets or clear the value of [forecast_params][crate::model::EvaluateSliceRequest::forecast_params].
-        pub fn maybe_forecast_params<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_forecast_params<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::ForecastParams>,
         {
@@ -751,7 +751,7 @@ pub mod timeseries_insights_controller {
         }
 
         /// Sets or clear the value of [timeseries][crate::model::EvaluateTimeseriesRequest::timeseries].
-        pub fn maybe_timeseries<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_timeseries<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Timeseries>,
         {
@@ -769,7 +769,7 @@ pub mod timeseries_insights_controller {
         }
 
         /// Sets or clear the value of [granularity][crate::model::EvaluateTimeseriesRequest::granularity].
-        pub fn maybe_granularity<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_granularity<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
         {
@@ -787,7 +787,7 @@ pub mod timeseries_insights_controller {
         }
 
         /// Sets or clear the value of [forecast_params][crate::model::EvaluateTimeseriesRequest::forecast_params].
-        pub fn maybe_forecast_params<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_forecast_params<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::ForecastParams>,
         {

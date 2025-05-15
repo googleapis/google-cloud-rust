@@ -301,7 +301,7 @@ impl CreateAppGatewayRequest {
     }
 
     /// Sets or clear the value of [app_gateway][crate::model::CreateAppGatewayRequest::app_gateway].
-    pub fn maybe_app_gateway<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_app_gateway<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::AppGateway>,
     {
@@ -473,7 +473,7 @@ impl AppGateway {
     }
 
     /// Sets or clear the value of [create_time][crate::model::AppGateway::create_time].
-    pub fn maybe_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -491,7 +491,7 @@ impl AppGateway {
     }
 
     /// Sets or clear the value of [update_time][crate::model::AppGateway::update_time].
-    pub fn maybe_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -1087,7 +1087,7 @@ impl AppGatewayOperationMetadata {
     }
 
     /// Sets or clear the value of [create_time][crate::model::AppGatewayOperationMetadata::create_time].
-    pub fn maybe_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -1105,7 +1105,7 @@ impl AppGatewayOperationMetadata {
     }
 
     /// Sets or clear the value of [end_time][crate::model::AppGatewayOperationMetadata::end_time].
-    pub fn maybe_end_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {

@@ -351,7 +351,7 @@ pub mod ids {
         /// Sets or clear the value of [endpoint][crate::model::CreateEndpointRequest::endpoint].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_endpoint<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_endpoint<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Endpoint>,
         {

@@ -212,7 +212,7 @@ pub mod g_suite_add_ons {
         /// Sets or clear the value of [deployment][crate::model::CreateDeploymentRequest::deployment].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_deployment<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_deployment<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Deployment>,
         {
@@ -291,7 +291,7 @@ pub mod g_suite_add_ons {
         /// Sets or clear the value of [deployment][crate::model::ReplaceDeploymentRequest::deployment].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_deployment<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_deployment<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Deployment>,
         {

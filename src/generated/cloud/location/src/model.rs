@@ -273,7 +273,7 @@ impl Location {
     }
 
     /// Sets or clear the value of [metadata][crate::model::Location::metadata].
-    pub fn maybe_metadata<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_metadata<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Any>,
     {

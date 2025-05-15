@@ -136,7 +136,7 @@ pub mod transcoder_service {
         /// Sets or clear the value of [job][crate::model::CreateJobRequest::job].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_job<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_job<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Job>,
         {
@@ -467,7 +467,7 @@ pub mod transcoder_service {
         /// Sets or clear the value of [job_template][crate::model::CreateJobTemplateRequest::job_template].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_job_template<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_job_template<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::JobTemplate>,
         {

@@ -159,7 +159,7 @@ impl DataExchange {
     }
 
     /// Sets or clear the value of [sharing_environment_config][crate::model::DataExchange::sharing_environment_config].
-    pub fn maybe_sharing_environment_config<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_sharing_environment_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::SharingEnvironmentConfig>,
     {
@@ -177,7 +177,7 @@ impl DataExchange {
     }
 
     /// Sets or clear the value of [discovery_type][crate::model::DataExchange::discovery_type].
-    pub fn maybe_discovery_type<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_discovery_type<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::DiscoveryType>,
     {
@@ -195,7 +195,10 @@ impl DataExchange {
     }
 
     /// Sets or clear the value of [log_linked_dataset_query_user_email][crate::model::DataExchange::log_linked_dataset_query_user_email].
-    pub fn maybe_log_linked_dataset_query_user_email<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_log_linked_dataset_query_user_email<T>(
+        mut self,
+        v: std::option::Option<T>,
+    ) -> Self
     where
         T: std::convert::Into<bool>,
     {
@@ -393,7 +396,7 @@ pub mod sharing_environment_config {
         }
 
         /// Sets or clear the value of [single_selected_resource_sharing_restriction][crate::model::sharing_environment_config::DcrExchangeConfig::single_selected_resource_sharing_restriction].
-        pub fn maybe_single_selected_resource_sharing_restriction<T>(
+        pub fn set_or_clear_single_selected_resource_sharing_restriction<T>(
             mut self,
             v: std::option::Option<T>,
         ) -> Self
@@ -414,7 +417,7 @@ pub mod sharing_environment_config {
         }
 
         /// Sets or clear the value of [single_linked_dataset_per_cleanroom][crate::model::sharing_environment_config::DcrExchangeConfig::single_linked_dataset_per_cleanroom].
-        pub fn maybe_single_linked_dataset_per_cleanroom<T>(
+        pub fn set_or_clear_single_linked_dataset_per_cleanroom<T>(
             mut self,
             v: std::option::Option<T>,
         ) -> Self
@@ -628,7 +631,7 @@ impl DestinationDataset {
     }
 
     /// Sets or clear the value of [dataset_reference][crate::model::DestinationDataset::dataset_reference].
-    pub fn maybe_dataset_reference<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_dataset_reference<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::DestinationDatasetReference>,
     {
@@ -646,7 +649,7 @@ impl DestinationDataset {
     }
 
     /// Sets or clear the value of [friendly_name][crate::model::DestinationDataset::friendly_name].
-    pub fn maybe_friendly_name<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_friendly_name<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::StringValue>,
     {
@@ -664,7 +667,7 @@ impl DestinationDataset {
     }
 
     /// Sets or clear the value of [description][crate::model::DestinationDataset::description].
-    pub fn maybe_description<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_description<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::StringValue>,
     {
@@ -726,7 +729,7 @@ impl DestinationPubSubSubscription {
     }
 
     /// Sets or clear the value of [pubsub_subscription][crate::model::DestinationPubSubSubscription::pubsub_subscription].
-    pub fn maybe_pubsub_subscription<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_pubsub_subscription<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::PubSubSubscription>,
     {
@@ -902,7 +905,7 @@ impl Listing {
     }
 
     /// Sets or clear the value of [data_provider][crate::model::Listing::data_provider].
-    pub fn maybe_data_provider<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_data_provider<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::DataProvider>,
     {
@@ -931,7 +934,7 @@ impl Listing {
     }
 
     /// Sets or clear the value of [publisher][crate::model::Listing::publisher].
-    pub fn maybe_publisher<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_publisher<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Publisher>,
     {
@@ -955,7 +958,7 @@ impl Listing {
     }
 
     /// Sets or clear the value of [restricted_export_config][crate::model::Listing::restricted_export_config].
-    pub fn maybe_restricted_export_config<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_restricted_export_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::listing::RestrictedExportConfig>,
     {
@@ -973,7 +976,7 @@ impl Listing {
     }
 
     /// Sets or clear the value of [discovery_type][crate::model::Listing::discovery_type].
-    pub fn maybe_discovery_type<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_discovery_type<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::DiscoveryType>,
     {
@@ -1000,7 +1003,7 @@ impl Listing {
     }
 
     /// Sets or clear the value of [commercial_info][crate::model::Listing::commercial_info].
-    pub fn maybe_commercial_info<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_commercial_info<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::listing::CommercialInfo>,
     {
@@ -1018,7 +1021,10 @@ impl Listing {
     }
 
     /// Sets or clear the value of [log_linked_dataset_query_user_email][crate::model::Listing::log_linked_dataset_query_user_email].
-    pub fn maybe_log_linked_dataset_query_user_email<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_log_linked_dataset_query_user_email<T>(
+        mut self,
+        v: std::option::Option<T>,
+    ) -> Self
     where
         T: std::convert::Into<bool>,
     {
@@ -1036,7 +1042,7 @@ impl Listing {
     }
 
     /// Sets or clear the value of [allow_only_metadata_sharing][crate::model::Listing::allow_only_metadata_sharing].
-    pub fn maybe_allow_only_metadata_sharing<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_allow_only_metadata_sharing<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<bool>,
     {
@@ -1196,7 +1202,7 @@ pub mod listing {
         }
 
         /// Sets or clear the value of [restricted_export_policy][crate::model::listing::BigQueryDatasetSource::restricted_export_policy].
-        pub fn maybe_restricted_export_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_restricted_export_policy<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<
                     crate::model::listing::big_query_dataset_source::RestrictedExportPolicy,
@@ -1368,7 +1374,7 @@ pub mod listing {
             }
 
             /// Sets or clear the value of [enabled][crate::model::listing::big_query_dataset_source::RestrictedExportPolicy::enabled].
-            pub fn maybe_enabled<T>(mut self, v: std::option::Option<T>) -> Self
+            pub fn set_or_clear_enabled<T>(mut self, v: std::option::Option<T>) -> Self
             where
                 T: std::convert::Into<wkt::BoolValue>,
             {
@@ -1386,7 +1392,7 @@ pub mod listing {
             }
 
             /// Sets or clear the value of [restrict_direct_table_access][crate::model::listing::big_query_dataset_source::RestrictedExportPolicy::restrict_direct_table_access].
-            pub fn maybe_restrict_direct_table_access<T>(
+            pub fn set_or_clear_restrict_direct_table_access<T>(
                 mut self,
                 v: std::option::Option<T>,
             ) -> Self
@@ -1407,7 +1413,10 @@ pub mod listing {
             }
 
             /// Sets or clear the value of [restrict_query_result][crate::model::listing::big_query_dataset_source::RestrictedExportPolicy::restrict_query_result].
-            pub fn maybe_restrict_query_result<T>(mut self, v: std::option::Option<T>) -> Self
+            pub fn set_or_clear_restrict_query_result<T>(
+                mut self,
+                v: std::option::Option<T>,
+            ) -> Self
             where
                 T: std::convert::Into<wkt::BoolValue>,
             {
@@ -1565,7 +1574,7 @@ pub mod listing {
         }
 
         /// Sets or clear the value of [cloud_marketplace][crate::model::listing::CommercialInfo::cloud_marketplace].
-        pub fn maybe_cloud_marketplace<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_cloud_marketplace<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<
                     crate::model::listing::commercial_info::GoogleCloudMarketplaceInfo,
@@ -1623,7 +1632,7 @@ pub mod listing {
             }
 
             /// Sets or clear the value of [service][crate::model::listing::commercial_info::GoogleCloudMarketplaceInfo::service].
-            pub fn maybe_service<T>(mut self, v: std::option::Option<T>) -> Self
+            pub fn set_or_clear_service<T>(mut self, v: std::option::Option<T>) -> Self
             where
                 T: std::convert::Into<std::string::String>,
             {
@@ -1640,7 +1649,7 @@ pub mod listing {
             }
 
             /// Sets or clear the value of [commercial_state][crate::model::listing::commercial_info::GoogleCloudMarketplaceInfo::commercial_state].
-            pub fn maybe_commercial_state<T>(mut self, v: std::option::Option<T>) -> Self
+            pub fn set_or_clear_commercial_state<T>(mut self, v: std::option::Option<T>) -> Self
             where T: std::convert::Into<crate::model::listing::commercial_info::google_cloud_marketplace_info::CommercialState>
             {
                 self.commercial_state = v.map(|x| x.into());
@@ -2275,7 +2284,7 @@ impl Subscription {
     }
 
     /// Sets or clear the value of [creation_time][crate::model::Subscription::creation_time].
-    pub fn maybe_creation_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_creation_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -2293,7 +2302,7 @@ impl Subscription {
     }
 
     /// Sets or clear the value of [last_modify_time][crate::model::Subscription::last_modify_time].
-    pub fn maybe_last_modify_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_last_modify_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -2376,7 +2385,7 @@ impl Subscription {
     }
 
     /// Sets or clear the value of [commercial_info][crate::model::Subscription::commercial_info].
-    pub fn maybe_commercial_info<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_commercial_info<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::subscription::CommercialInfo>,
     {
@@ -2394,7 +2403,10 @@ impl Subscription {
     }
 
     /// Sets or clear the value of [log_linked_dataset_query_user_email][crate::model::Subscription::log_linked_dataset_query_user_email].
-    pub fn maybe_log_linked_dataset_query_user_email<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_log_linked_dataset_query_user_email<T>(
+        mut self,
+        v: std::option::Option<T>,
+    ) -> Self
     where
         T: std::convert::Into<bool>,
     {
@@ -2412,7 +2424,7 @@ impl Subscription {
     }
 
     /// Sets or clear the value of [destination_dataset][crate::model::Subscription::destination_dataset].
-    pub fn maybe_destination_dataset<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_destination_dataset<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::DestinationDataset>,
     {
@@ -2653,7 +2665,7 @@ pub mod subscription {
         }
 
         /// Sets or clear the value of [cloud_marketplace][crate::model::subscription::CommercialInfo::cloud_marketplace].
-        pub fn maybe_cloud_marketplace<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_cloud_marketplace<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<
                     crate::model::subscription::commercial_info::GoogleCloudMarketplaceInfo,
@@ -3185,7 +3197,7 @@ impl CreateDataExchangeRequest {
     }
 
     /// Sets or clear the value of [data_exchange][crate::model::CreateDataExchangeRequest::data_exchange].
-    pub fn maybe_data_exchange<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_data_exchange<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::DataExchange>,
     {
@@ -3235,7 +3247,7 @@ impl UpdateDataExchangeRequest {
     }
 
     /// Sets or clear the value of [update_mask][crate::model::UpdateDataExchangeRequest::update_mask].
-    pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
     {
@@ -3253,7 +3265,7 @@ impl UpdateDataExchangeRequest {
     }
 
     /// Sets or clear the value of [data_exchange][crate::model::UpdateDataExchangeRequest::data_exchange].
-    pub fn maybe_data_exchange<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_data_exchange<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::DataExchange>,
     {
@@ -3502,7 +3514,7 @@ impl CreateListingRequest {
     }
 
     /// Sets or clear the value of [listing][crate::model::CreateListingRequest::listing].
-    pub fn maybe_listing<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_listing<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Listing>,
     {
@@ -3552,7 +3564,7 @@ impl UpdateListingRequest {
     }
 
     /// Sets or clear the value of [update_mask][crate::model::UpdateListingRequest::update_mask].
-    pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
     {
@@ -3570,7 +3582,7 @@ impl UpdateListingRequest {
     }
 
     /// Sets or clear the value of [listing][crate::model::UpdateListingRequest::listing].
-    pub fn maybe_listing<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_listing<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Listing>,
     {
@@ -3797,7 +3809,7 @@ impl SubscribeListingResponse {
     }
 
     /// Sets or clear the value of [subscription][crate::model::SubscribeListingResponse::subscription].
-    pub fn maybe_subscription<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_subscription<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Subscription>,
     {
@@ -3872,7 +3884,7 @@ impl SubscribeDataExchangeRequest {
     }
 
     /// Sets or clear the value of [destination_dataset][crate::model::SubscribeDataExchangeRequest::destination_dataset].
-    pub fn maybe_destination_dataset<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_destination_dataset<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::DestinationDataset>,
     {
@@ -3931,7 +3943,7 @@ impl SubscribeDataExchangeResponse {
     }
 
     /// Sets or clear the value of [subscription][crate::model::SubscribeDataExchangeResponse::subscription].
-    pub fn maybe_subscription<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_subscription<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Subscription>,
     {
@@ -4008,7 +4020,7 @@ impl RefreshSubscriptionResponse {
     }
 
     /// Sets or clear the value of [subscription][crate::model::RefreshSubscriptionResponse::subscription].
-    pub fn maybe_subscription<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_subscription<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Subscription>,
     {
@@ -4481,7 +4493,7 @@ impl OperationMetadata {
     }
 
     /// Sets or clear the value of [create_time][crate::model::OperationMetadata::create_time].
-    pub fn maybe_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -4499,7 +4511,7 @@ impl OperationMetadata {
     }
 
     /// Sets or clear the value of [end_time][crate::model::OperationMetadata::end_time].
-    pub fn maybe_end_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -4718,7 +4730,7 @@ impl PubSubSubscription {
     }
 
     /// Sets or clear the value of [push_config][crate::model::PubSubSubscription::push_config].
-    pub fn maybe_push_config<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_push_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::PushConfig>,
     {
@@ -4736,7 +4748,7 @@ impl PubSubSubscription {
     }
 
     /// Sets or clear the value of [bigquery_config][crate::model::PubSubSubscription::bigquery_config].
-    pub fn maybe_bigquery_config<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_bigquery_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::BigQueryConfig>,
     {
@@ -4754,7 +4766,7 @@ impl PubSubSubscription {
     }
 
     /// Sets or clear the value of [cloud_storage_config][crate::model::PubSubSubscription::cloud_storage_config].
-    pub fn maybe_cloud_storage_config<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_cloud_storage_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CloudStorageConfig>,
     {
@@ -4784,7 +4796,7 @@ impl PubSubSubscription {
     }
 
     /// Sets or clear the value of [message_retention_duration][crate::model::PubSubSubscription::message_retention_duration].
-    pub fn maybe_message_retention_duration<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_message_retention_duration<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
     {
@@ -4820,7 +4832,7 @@ impl PubSubSubscription {
     }
 
     /// Sets or clear the value of [expiration_policy][crate::model::PubSubSubscription::expiration_policy].
-    pub fn maybe_expiration_policy<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_expiration_policy<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ExpirationPolicy>,
     {
@@ -4844,7 +4856,7 @@ impl PubSubSubscription {
     }
 
     /// Sets or clear the value of [dead_letter_policy][crate::model::PubSubSubscription::dead_letter_policy].
-    pub fn maybe_dead_letter_policy<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_dead_letter_policy<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::DeadLetterPolicy>,
     {
@@ -4862,7 +4874,7 @@ impl PubSubSubscription {
     }
 
     /// Sets or clear the value of [retry_policy][crate::model::PubSubSubscription::retry_policy].
-    pub fn maybe_retry_policy<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_retry_policy<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::RetryPolicy>,
     {
@@ -4946,7 +4958,7 @@ impl RetryPolicy {
     }
 
     /// Sets or clear the value of [minimum_backoff][crate::model::RetryPolicy::minimum_backoff].
-    pub fn maybe_minimum_backoff<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_minimum_backoff<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
     {
@@ -4964,7 +4976,7 @@ impl RetryPolicy {
     }
 
     /// Sets or clear the value of [maximum_backoff][crate::model::RetryPolicy::maximum_backoff].
-    pub fn maybe_maximum_backoff<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_maximum_backoff<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
     {
@@ -5083,7 +5095,7 @@ impl ExpirationPolicy {
     }
 
     /// Sets or clear the value of [ttl][crate::model::ExpirationPolicy::ttl].
-    pub fn maybe_ttl<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_ttl<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
     {
@@ -5666,7 +5678,7 @@ impl CloudStorageConfig {
     }
 
     /// Sets or clear the value of [max_duration][crate::model::CloudStorageConfig::max_duration].
-    pub fn maybe_max_duration<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_max_duration<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
     {

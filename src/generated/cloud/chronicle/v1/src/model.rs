@@ -80,7 +80,7 @@ impl CreateDataAccessLabelRequest {
     }
 
     /// Sets or clear the value of [data_access_label][crate::model::CreateDataAccessLabelRequest::data_access_label].
-    pub fn maybe_data_access_label<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_data_access_label<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::DataAccessLabel>,
     {
@@ -311,7 +311,7 @@ impl UpdateDataAccessLabelRequest {
     }
 
     /// Sets or clear the value of [data_access_label][crate::model::UpdateDataAccessLabelRequest::data_access_label].
-    pub fn maybe_data_access_label<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_data_access_label<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::DataAccessLabel>,
     {
@@ -329,7 +329,7 @@ impl UpdateDataAccessLabelRequest {
     }
 
     /// Sets or clear the value of [update_mask][crate::model::UpdateDataAccessLabelRequest::update_mask].
-    pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
     {
@@ -424,7 +424,7 @@ impl CreateDataAccessScopeRequest {
     }
 
     /// Sets or clear the value of [data_access_scope][crate::model::CreateDataAccessScopeRequest::data_access_scope].
-    pub fn maybe_data_access_scope<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_data_access_scope<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::DataAccessScope>,
     {
@@ -602,7 +602,10 @@ impl ListDataAccessScopesResponse {
     }
 
     /// Sets or clear the value of [global_data_access_scope_granted][crate::model::ListDataAccessScopesResponse::global_data_access_scope_granted].
-    pub fn maybe_global_data_access_scope_granted<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_global_data_access_scope_granted<T>(
+        mut self,
+        v: std::option::Option<T>,
+    ) -> Self
     where
         T: std::convert::Into<bool>,
     {
@@ -678,7 +681,7 @@ impl UpdateDataAccessScopeRequest {
     }
 
     /// Sets or clear the value of [data_access_scope][crate::model::UpdateDataAccessScopeRequest::data_access_scope].
-    pub fn maybe_data_access_scope<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_data_access_scope<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::DataAccessScope>,
     {
@@ -696,7 +699,7 @@ impl UpdateDataAccessScopeRequest {
     }
 
     /// Sets or clear the value of [update_mask][crate::model::UpdateDataAccessScopeRequest::update_mask].
-    pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
     {
@@ -817,7 +820,7 @@ impl DataAccessLabel {
     }
 
     /// Sets or clear the value of [create_time][crate::model::DataAccessLabel::create_time].
-    pub fn maybe_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -835,7 +838,7 @@ impl DataAccessLabel {
     }
 
     /// Sets or clear the value of [update_time][crate::model::DataAccessLabel::update_time].
-    pub fn maybe_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -1044,7 +1047,7 @@ impl DataAccessScope {
     }
 
     /// Sets or clear the value of [create_time][crate::model::DataAccessScope::create_time].
-    pub fn maybe_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -1062,7 +1065,7 @@ impl DataAccessScope {
     }
 
     /// Sets or clear the value of [update_time][crate::model::DataAccessScope::update_time].
-    pub fn maybe_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -1432,7 +1435,7 @@ impl Watchlist {
     }
 
     /// Sets or clear the value of [entity_population_mechanism][crate::model::Watchlist::entity_population_mechanism].
-    pub fn maybe_entity_population_mechanism<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_entity_population_mechanism<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::watchlist::EntityPopulationMechanism>,
     {
@@ -1450,7 +1453,7 @@ impl Watchlist {
     }
 
     /// Sets or clear the value of [entity_count][crate::model::Watchlist::entity_count].
-    pub fn maybe_entity_count<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_entity_count<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::watchlist::EntityCount>,
     {
@@ -1468,7 +1471,7 @@ impl Watchlist {
     }
 
     /// Sets or clear the value of [create_time][crate::model::Watchlist::create_time].
-    pub fn maybe_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -1486,7 +1489,7 @@ impl Watchlist {
     }
 
     /// Sets or clear the value of [update_time][crate::model::Watchlist::update_time].
-    pub fn maybe_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -1504,7 +1507,7 @@ impl Watchlist {
     }
 
     /// Sets or clear the value of [watchlist_user_preferences][crate::model::Watchlist::watchlist_user_preferences].
-    pub fn maybe_watchlist_user_preferences<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_watchlist_user_preferences<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::WatchlistUserPreferences>,
     {
@@ -1947,7 +1950,7 @@ impl CreateWatchlistRequest {
     }
 
     /// Sets or clear the value of [watchlist][crate::model::CreateWatchlistRequest::watchlist].
-    pub fn maybe_watchlist<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_watchlist<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Watchlist>,
     {
@@ -1999,7 +2002,7 @@ impl UpdateWatchlistRequest {
     }
 
     /// Sets or clear the value of [watchlist][crate::model::UpdateWatchlistRequest::watchlist].
-    pub fn maybe_watchlist<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_watchlist<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Watchlist>,
     {
@@ -2017,7 +2020,7 @@ impl UpdateWatchlistRequest {
     }
 
     /// Sets or clear the value of [update_mask][crate::model::UpdateWatchlistRequest::update_mask].
-    pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
     {
@@ -2175,7 +2178,7 @@ impl ScopeInfo {
     }
 
     /// Sets or clear the value of [reference_list_scope][crate::model::ScopeInfo::reference_list_scope].
-    pub fn maybe_reference_list_scope<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_reference_list_scope<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ReferenceListScope>,
     {
@@ -2462,7 +2465,7 @@ impl CreateReferenceListRequest {
     }
 
     /// Sets or clear the value of [reference_list][crate::model::CreateReferenceListRequest::reference_list].
-    pub fn maybe_reference_list<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_reference_list<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ReferenceList>,
     {
@@ -2526,7 +2529,7 @@ impl UpdateReferenceListRequest {
     }
 
     /// Sets or clear the value of [reference_list][crate::model::UpdateReferenceListRequest::reference_list].
-    pub fn maybe_reference_list<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_reference_list<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ReferenceList>,
     {
@@ -2544,7 +2547,7 @@ impl UpdateReferenceListRequest {
     }
 
     /// Sets or clear the value of [update_mask][crate::model::UpdateReferenceListRequest::update_mask].
-    pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
     {
@@ -2645,7 +2648,7 @@ impl ReferenceList {
     }
 
     /// Sets or clear the value of [revision_create_time][crate::model::ReferenceList::revision_create_time].
-    pub fn maybe_revision_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_revision_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -2706,7 +2709,7 @@ impl ReferenceList {
     }
 
     /// Sets or clear the value of [scope_info][crate::model::ReferenceList::scope_info].
-    pub fn maybe_scope_info<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_scope_info<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ScopeInfo>,
     {
@@ -2911,7 +2914,7 @@ impl Rule {
     }
 
     /// Sets or clear the value of [severity][crate::model::Rule::severity].
-    pub fn maybe_severity<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_severity<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Severity>,
     {
@@ -2941,7 +2944,7 @@ impl Rule {
     }
 
     /// Sets or clear the value of [create_time][crate::model::Rule::create_time].
-    pub fn maybe_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -2959,7 +2962,7 @@ impl Rule {
     }
 
     /// Sets or clear the value of [revision_create_time][crate::model::Rule::revision_create_time].
-    pub fn maybe_revision_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_revision_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -3046,7 +3049,7 @@ impl Rule {
     }
 
     /// Sets or clear the value of [inputs_used][crate::model::Rule::inputs_used].
-    pub fn maybe_inputs_used<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_inputs_used<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::InputsUsed>,
     {
@@ -3309,7 +3312,7 @@ impl RuleDeployment {
     }
 
     /// Sets or clear the value of [archive_time][crate::model::RuleDeployment::archive_time].
-    pub fn maybe_archive_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_archive_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -3369,7 +3372,10 @@ impl RuleDeployment {
     }
 
     /// Sets or clear the value of [last_alert_status_change_time][crate::model::RuleDeployment::last_alert_status_change_time].
-    pub fn maybe_last_alert_status_change_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_last_alert_status_change_time<T>(
+        mut self,
+        v: std::option::Option<T>,
+    ) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -3588,7 +3594,7 @@ impl Retrohunt {
     }
 
     /// Sets or clear the value of [process_interval][crate::model::Retrohunt::process_interval].
-    pub fn maybe_process_interval<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_process_interval<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<gtype::model::Interval>,
     {
@@ -3606,7 +3612,7 @@ impl Retrohunt {
     }
 
     /// Sets or clear the value of [execution_interval][crate::model::Retrohunt::execution_interval].
-    pub fn maybe_execution_interval<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_execution_interval<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<gtype::model::Interval>,
     {
@@ -3828,7 +3834,7 @@ impl CreateRuleRequest {
     }
 
     /// Sets or clear the value of [rule][crate::model::CreateRuleRequest::rule].
-    pub fn maybe_rule<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_rule<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Rule>,
     {
@@ -4070,7 +4076,7 @@ impl UpdateRuleRequest {
     }
 
     /// Sets or clear the value of [rule][crate::model::UpdateRuleRequest::rule].
-    pub fn maybe_rule<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_rule<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Rule>,
     {
@@ -4088,7 +4094,7 @@ impl UpdateRuleRequest {
     }
 
     /// Sets or clear the value of [update_mask][crate::model::UpdateRuleRequest::update_mask].
-    pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
     {
@@ -4327,7 +4333,7 @@ impl CreateRetrohuntRequest {
     }
 
     /// Sets or clear the value of [retrohunt][crate::model::CreateRetrohuntRequest::retrohunt].
-    pub fn maybe_retrohunt<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_retrohunt<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Retrohunt>,
     {
@@ -4718,7 +4724,7 @@ impl UpdateRuleDeploymentRequest {
     }
 
     /// Sets or clear the value of [rule_deployment][crate::model::UpdateRuleDeploymentRequest::rule_deployment].
-    pub fn maybe_rule_deployment<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_rule_deployment<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::RuleDeployment>,
     {
@@ -4736,7 +4742,7 @@ impl UpdateRuleDeploymentRequest {
     }
 
     /// Sets or clear the value of [update_mask][crate::model::UpdateRuleDeploymentRequest::update_mask].
-    pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
     {
@@ -4865,7 +4871,7 @@ impl CompilationDiagnostic {
     }
 
     /// Sets or clear the value of [position][crate::model::CompilationDiagnostic::position].
-    pub fn maybe_position<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_position<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CompilationPosition>,
     {
@@ -5113,7 +5119,7 @@ impl RetrohuntMetadata {
     }
 
     /// Sets or clear the value of [execution_interval][crate::model::RetrohuntMetadata::execution_interval].
-    pub fn maybe_execution_interval<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_execution_interval<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<gtype::model::Interval>,
     {

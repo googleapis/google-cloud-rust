@@ -343,7 +343,7 @@ pub mod eventarc {
         /// Sets or clear the value of [trigger][crate::model::CreateTriggerRequest::trigger].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_trigger<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_trigger<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Trigger>,
         {
@@ -466,7 +466,7 @@ pub mod eventarc {
         }
 
         /// Sets or clear the value of [trigger][crate::model::UpdateTriggerRequest::trigger].
-        pub fn maybe_trigger<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_trigger<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Trigger>,
         {
@@ -484,7 +484,7 @@ pub mod eventarc {
         }
 
         /// Sets or clear the value of [update_mask][crate::model::UpdateTriggerRequest::update_mask].
-        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
         {
@@ -900,7 +900,7 @@ pub mod eventarc {
         /// Sets or clear the value of [channel][crate::model::CreateChannelRequest::channel].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_channel<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_channel<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Channel>,
         {
@@ -1023,7 +1023,7 @@ pub mod eventarc {
         }
 
         /// Sets or clear the value of [channel][crate::model::UpdateChannelRequest::channel].
-        pub fn maybe_channel<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_channel<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Channel>,
         {
@@ -1041,7 +1041,7 @@ pub mod eventarc {
         }
 
         /// Sets or clear the value of [update_mask][crate::model::UpdateChannelRequest::update_mask].
-        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
         {
@@ -1623,7 +1623,7 @@ pub mod eventarc {
         /// Sets or clear the value of [channel_connection][crate::model::CreateChannelConnectionRequest::channel_connection].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_channel_connection<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_channel_connection<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::ChannelConnection>,
         {
@@ -1880,7 +1880,7 @@ pub mod eventarc {
         /// Sets or clear the value of [google_channel_config][crate::model::UpdateGoogleChannelConfigRequest::google_channel_config].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_google_channel_config<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_google_channel_config<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::GoogleChannelConfig>,
         {
@@ -1898,7 +1898,7 @@ pub mod eventarc {
         }
 
         /// Sets or clear the value of [update_mask][crate::model::UpdateGoogleChannelConfigRequest::update_mask].
-        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
         {
@@ -2274,7 +2274,7 @@ pub mod eventarc {
         /// Sets or clear the value of [message_bus][crate::model::CreateMessageBusRequest::message_bus].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_message_bus<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_message_bus<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::MessageBus>,
         {
@@ -2404,7 +2404,7 @@ pub mod eventarc {
         /// Sets or clear the value of [message_bus][crate::model::UpdateMessageBusRequest::message_bus].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_message_bus<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_message_bus<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::MessageBus>,
         {
@@ -2422,7 +2422,7 @@ pub mod eventarc {
         }
 
         /// Sets or clear the value of [update_mask][crate::model::UpdateMessageBusRequest::update_mask].
-        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
         {
@@ -2850,7 +2850,7 @@ pub mod eventarc {
         /// Sets or clear the value of [enrollment][crate::model::CreateEnrollmentRequest::enrollment].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_enrollment<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_enrollment<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Enrollment>,
         {
@@ -2980,7 +2980,7 @@ pub mod eventarc {
         /// Sets or clear the value of [enrollment][crate::model::UpdateEnrollmentRequest::enrollment].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_enrollment<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_enrollment<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Enrollment>,
         {
@@ -2998,7 +2998,7 @@ pub mod eventarc {
         }
 
         /// Sets or clear the value of [update_mask][crate::model::UpdateEnrollmentRequest::update_mask].
-        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
         {
@@ -3423,7 +3423,7 @@ pub mod eventarc {
         /// Sets or clear the value of [pipeline][crate::model::CreatePipelineRequest::pipeline].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_pipeline<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_pipeline<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Pipeline>,
         {
@@ -3550,7 +3550,7 @@ pub mod eventarc {
         /// Sets or clear the value of [pipeline][crate::model::UpdatePipelineRequest::pipeline].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_pipeline<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_pipeline<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Pipeline>,
         {
@@ -3568,7 +3568,7 @@ pub mod eventarc {
         }
 
         /// Sets or clear the value of [update_mask][crate::model::UpdatePipelineRequest::update_mask].
-        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
         {
@@ -4004,7 +4004,7 @@ pub mod eventarc {
         /// Sets or clear the value of [google_api_source][crate::model::CreateGoogleApiSourceRequest::google_api_source].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_google_api_source<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_google_api_source<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::GoogleApiSource>,
         {
@@ -4137,7 +4137,7 @@ pub mod eventarc {
         /// Sets or clear the value of [google_api_source][crate::model::UpdateGoogleApiSourceRequest::google_api_source].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_google_api_source<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_google_api_source<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::GoogleApiSource>,
         {
@@ -4155,7 +4155,7 @@ pub mod eventarc {
         }
 
         /// Sets or clear the value of [update_mask][crate::model::UpdateGoogleApiSourceRequest::update_mask].
-        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
         {
@@ -4537,7 +4537,7 @@ pub mod eventarc {
         /// Sets or clear the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<iam_v1::model::Policy>,
         {
@@ -4555,7 +4555,7 @@ pub mod eventarc {
         }
 
         /// Sets or clear the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
-        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
         {
@@ -4633,7 +4633,7 @@ pub mod eventarc {
         }
 
         /// Sets or clear the value of [options][iam_v1::model::GetIamPolicyRequest::options].
-        pub fn maybe_options<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
         {

@@ -137,7 +137,7 @@ impl CreateExternalAccountKeyRequest {
     }
 
     /// Sets or clear the value of [external_account_key][crate::model::CreateExternalAccountKeyRequest::external_account_key].
-    pub fn maybe_external_account_key<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_external_account_key<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ExternalAccountKey>,
     {

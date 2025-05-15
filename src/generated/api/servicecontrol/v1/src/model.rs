@@ -104,7 +104,7 @@ impl CheckError {
     }
 
     /// Sets or clear the value of [status][crate::model::CheckError::status].
-    pub fn maybe_status<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_status<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<rpc::model::Status>,
     {
@@ -1042,7 +1042,7 @@ impl HttpRequest {
     }
 
     /// Sets or clear the value of [latency][crate::model::HttpRequest::latency].
-    pub fn maybe_latency<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_latency<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
     {
@@ -1171,7 +1171,7 @@ impl LogEntry {
     }
 
     /// Sets or clear the value of [timestamp][crate::model::LogEntry::timestamp].
-    pub fn maybe_timestamp<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_timestamp<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -1198,7 +1198,7 @@ impl LogEntry {
     }
 
     /// Sets or clear the value of [http_request][crate::model::LogEntry::http_request].
-    pub fn maybe_http_request<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_http_request<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::HttpRequest>,
     {
@@ -1240,7 +1240,7 @@ impl LogEntry {
     }
 
     /// Sets or clear the value of [operation][crate::model::LogEntry::operation].
-    pub fn maybe_operation<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_operation<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::LogEntryOperation>,
     {
@@ -1258,7 +1258,7 @@ impl LogEntry {
     }
 
     /// Sets or clear the value of [source_location][crate::model::LogEntry::source_location].
-    pub fn maybe_source_location<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_source_location<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::LogEntrySourceLocation>,
     {
@@ -1579,7 +1579,7 @@ impl MetricValue {
     }
 
     /// Sets or clear the value of [start_time][crate::model::MetricValue::start_time].
-    pub fn maybe_start_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -1597,7 +1597,7 @@ impl MetricValue {
     }
 
     /// Sets or clear the value of [end_time][crate::model::MetricValue::end_time].
-    pub fn maybe_end_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -1951,7 +1951,7 @@ impl Operation {
     }
 
     /// Sets or clear the value of [start_time][crate::model::Operation::start_time].
-    pub fn maybe_start_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -1969,7 +1969,7 @@ impl Operation {
     }
 
     /// Sets or clear the value of [end_time][crate::model::Operation::end_time].
-    pub fn maybe_end_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -2220,7 +2220,7 @@ impl AllocateQuotaRequest {
     }
 
     /// Sets or clear the value of [allocate_operation][crate::model::AllocateQuotaRequest::allocate_operation].
-    pub fn maybe_allocate_operation<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_allocate_operation<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::QuotaOperation>,
     {
@@ -2705,7 +2705,7 @@ impl QuotaError {
     }
 
     /// Sets or clear the value of [status][crate::model::QuotaError::status].
-    pub fn maybe_status<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_status<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<rpc::model::Status>,
     {
@@ -2937,7 +2937,7 @@ impl CheckRequest {
     }
 
     /// Sets or clear the value of [operation][crate::model::CheckRequest::operation].
-    pub fn maybe_operation<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_operation<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Operation>,
     {
@@ -3049,7 +3049,7 @@ impl CheckResponse {
     }
 
     /// Sets or clear the value of [check_info][crate::model::CheckResponse::check_info].
-    pub fn maybe_check_info<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_check_info<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::check_response::CheckInfo>,
     {
@@ -3121,7 +3121,7 @@ pub mod check_response {
         }
 
         /// Sets or clear the value of [consumer_info][crate::model::check_response::CheckInfo::consumer_info].
-        pub fn maybe_consumer_info<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_consumer_info<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::check_response::ConsumerInfo>,
         {
@@ -3581,7 +3581,7 @@ pub mod report_response {
         }
 
         /// Sets or clear the value of [status][crate::model::report_response::ReportError::status].
-        pub fn maybe_status<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_status<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<rpc::model::Status>,
         {

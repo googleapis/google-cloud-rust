@@ -364,7 +364,7 @@ pub mod image_annotator {
         /// Sets or clear the value of [output_config][crate::model::AsyncBatchAnnotateImagesRequest::output_config].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_output_config<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_output_config<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::OutputConfig>,
         {
@@ -719,7 +719,7 @@ pub mod product_search {
         /// Sets or clear the value of [product_set][crate::model::CreateProductSetRequest::product_set].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_product_set<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_product_set<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::ProductSet>,
         {
@@ -968,7 +968,7 @@ pub mod product_search {
         /// Sets or clear the value of [product_set][crate::model::UpdateProductSetRequest::product_set].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_product_set<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_product_set<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::ProductSet>,
         {
@@ -986,7 +986,7 @@ pub mod product_search {
         }
 
         /// Sets or clear the value of [update_mask][crate::model::UpdateProductSetRequest::update_mask].
-        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
         {
@@ -1135,7 +1135,7 @@ pub mod product_search {
         /// Sets or clear the value of [product][crate::model::CreateProductRequest::product].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_product<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_product<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Product>,
         {
@@ -1381,7 +1381,7 @@ pub mod product_search {
         /// Sets or clear the value of [product][crate::model::UpdateProductRequest::product].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_product<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_product<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Product>,
         {
@@ -1399,7 +1399,7 @@ pub mod product_search {
         }
 
         /// Sets or clear the value of [update_mask][crate::model::UpdateProductRequest::update_mask].
-        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
         {
@@ -1548,7 +1548,7 @@ pub mod product_search {
         /// Sets or clear the value of [reference_image][crate::model::CreateReferenceImageRequest::reference_image].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_reference_image<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_reference_image<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::ReferenceImage>,
         {
@@ -2181,7 +2181,7 @@ pub mod product_search {
         /// Sets or clear the value of [input_config][crate::model::ImportProductSetsRequest::input_config].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_input_config<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_input_config<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::ImportProductSetsInputConfig>,
         {

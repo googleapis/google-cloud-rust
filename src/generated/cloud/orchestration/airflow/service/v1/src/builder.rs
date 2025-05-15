@@ -174,7 +174,7 @@ pub mod environments {
         }
 
         /// Sets or clear the value of [environment][crate::model::CreateEnvironmentRequest::environment].
-        pub fn maybe_environment<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_environment<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Environment>,
         {
@@ -459,7 +459,7 @@ pub mod environments {
         }
 
         /// Sets or clear the value of [environment][crate::model::UpdateEnvironmentRequest::environment].
-        pub fn maybe_environment<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_environment<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Environment>,
         {
@@ -477,7 +477,7 @@ pub mod environments {
         }
 
         /// Sets or clear the value of [update_mask][crate::model::UpdateEnvironmentRequest::update_mask].
-        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
         {
@@ -1148,7 +1148,7 @@ pub mod environments {
         /// Sets or clear the value of [user_workloads_secret][crate::model::CreateUserWorkloadsSecretRequest::user_workloads_secret].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_user_workloads_secret<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_user_workloads_secret<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::UserWorkloadsSecret>,
         {
@@ -1401,7 +1401,7 @@ pub mod environments {
         }
 
         /// Sets or clear the value of [user_workloads_secret][crate::model::UpdateUserWorkloadsSecretRequest::user_workloads_secret].
-        pub fn maybe_user_workloads_secret<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_user_workloads_secret<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::UserWorkloadsSecret>,
         {
@@ -1557,7 +1557,10 @@ pub mod environments {
         /// Sets or clear the value of [user_workloads_config_map][crate::model::CreateUserWorkloadsConfigMapRequest::user_workloads_config_map].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_user_workloads_config_map<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_user_workloads_config_map<T>(
+            mut self,
+            v: std::option::Option<T>,
+        ) -> Self
         where
             T: std::convert::Into<crate::model::UserWorkloadsConfigMap>,
         {
@@ -1812,7 +1815,10 @@ pub mod environments {
         }
 
         /// Sets or clear the value of [user_workloads_config_map][crate::model::UpdateUserWorkloadsConfigMapRequest::user_workloads_config_map].
-        pub fn maybe_user_workloads_config_map<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_user_workloads_config_map<T>(
+            mut self,
+            v: std::option::Option<T>,
+        ) -> Self
         where
             T: std::convert::Into<crate::model::UserWorkloadsConfigMap>,
         {

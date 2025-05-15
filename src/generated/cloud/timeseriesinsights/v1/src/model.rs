@@ -147,7 +147,7 @@ impl DataSource {
     }
 
     /// Sets or clear the value of [bq_mapping][crate::model::DataSource::bq_mapping].
-    pub fn maybe_bq_mapping<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_bq_mapping<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::BigqueryMapping>,
     {
@@ -254,7 +254,7 @@ impl DataSet {
     }
 
     /// Sets or clear the value of [status][crate::model::DataSet::status].
-    pub fn maybe_status<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_status<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<rpc::model::Status>,
     {
@@ -272,7 +272,7 @@ impl DataSet {
     }
 
     /// Sets or clear the value of [ttl][crate::model::DataSet::ttl].
-    pub fn maybe_ttl<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_ttl<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
     {
@@ -714,7 +714,7 @@ impl Event {
     }
 
     /// Sets or clear the value of [event_time][crate::model::Event::event_time].
-    pub fn maybe_event_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_event_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -873,7 +873,7 @@ impl CreateDataSetRequest {
     }
 
     /// Sets or clear the value of [dataset][crate::model::CreateDataSetRequest::dataset].
-    pub fn maybe_dataset<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_dataset<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::DataSet>,
     {
@@ -1238,7 +1238,7 @@ impl ForecastParams {
     }
 
     /// Sets or clear the value of [noise_threshold][crate::model::ForecastParams::noise_threshold].
-    pub fn maybe_noise_threshold<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_noise_threshold<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<f64>,
     {
@@ -1265,7 +1265,7 @@ impl ForecastParams {
     }
 
     /// Sets or clear the value of [horizon_duration][crate::model::ForecastParams::horizon_duration].
-    pub fn maybe_horizon_duration<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_horizon_duration<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
     {
@@ -1481,7 +1481,7 @@ impl TimeseriesPoint {
     }
 
     /// Sets or clear the value of [time][crate::model::TimeseriesPoint::time].
-    pub fn maybe_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -1499,7 +1499,7 @@ impl TimeseriesPoint {
     }
 
     /// Sets or clear the value of [value][crate::model::TimeseriesPoint::value].
-    pub fn maybe_value<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_value<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<f64>,
     {
@@ -1708,7 +1708,7 @@ impl EvaluatedSlice {
     }
 
     /// Sets or clear the value of [detection_point_actual][crate::model::EvaluatedSlice::detection_point_actual].
-    pub fn maybe_detection_point_actual<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_detection_point_actual<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<f64>,
     {
@@ -1726,7 +1726,7 @@ impl EvaluatedSlice {
     }
 
     /// Sets or clear the value of [detection_point_forecast][crate::model::EvaluatedSlice::detection_point_forecast].
-    pub fn maybe_detection_point_forecast<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_detection_point_forecast<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<f64>,
     {
@@ -1744,7 +1744,7 @@ impl EvaluatedSlice {
     }
 
     /// Sets or clear the value of [expected_deviation][crate::model::EvaluatedSlice::expected_deviation].
-    pub fn maybe_expected_deviation<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_expected_deviation<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<f64>,
     {
@@ -1762,7 +1762,7 @@ impl EvaluatedSlice {
     }
 
     /// Sets or clear the value of [anomaly_score][crate::model::EvaluatedSlice::anomaly_score].
-    pub fn maybe_anomaly_score<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_anomaly_score<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<f64>,
     {
@@ -1780,7 +1780,7 @@ impl EvaluatedSlice {
     }
 
     /// Sets or clear the value of [history][crate::model::EvaluatedSlice::history].
-    pub fn maybe_history<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_history<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Timeseries>,
     {
@@ -1798,7 +1798,7 @@ impl EvaluatedSlice {
     }
 
     /// Sets or clear the value of [forecast][crate::model::EvaluatedSlice::forecast].
-    pub fn maybe_forecast<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_forecast<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Timeseries>,
     {
@@ -1816,7 +1816,7 @@ impl EvaluatedSlice {
     }
 
     /// Sets or clear the value of [status][crate::model::EvaluatedSlice::status].
-    pub fn maybe_status<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_status<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<rpc::model::Status>,
     {
@@ -2088,7 +2088,7 @@ impl TimeseriesParams {
     }
 
     /// Sets or clear the value of [forecast_history][crate::model::TimeseriesParams::forecast_history].
-    pub fn maybe_forecast_history<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_forecast_history<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
     {
@@ -2106,7 +2106,7 @@ impl TimeseriesParams {
     }
 
     /// Sets or clear the value of [granularity][crate::model::TimeseriesParams::granularity].
-    pub fn maybe_granularity<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_granularity<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
     {
@@ -2124,7 +2124,7 @@ impl TimeseriesParams {
     }
 
     /// Sets or clear the value of [metric][crate::model::TimeseriesParams::metric].
-    pub fn maybe_metric<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_metric<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
     {
@@ -2395,7 +2395,7 @@ impl QueryDataSetRequest {
     }
 
     /// Sets or clear the value of [detection_time][crate::model::QueryDataSetRequest::detection_time].
-    pub fn maybe_detection_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_detection_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -2413,7 +2413,7 @@ impl QueryDataSetRequest {
     }
 
     /// Sets or clear the value of [num_returned_slices][crate::model::QueryDataSetRequest::num_returned_slices].
-    pub fn maybe_num_returned_slices<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_num_returned_slices<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<i32>,
     {
@@ -2431,7 +2431,7 @@ impl QueryDataSetRequest {
     }
 
     /// Sets or clear the value of [slicing_params][crate::model::QueryDataSetRequest::slicing_params].
-    pub fn maybe_slicing_params<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_slicing_params<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::SlicingParams>,
     {
@@ -2449,7 +2449,7 @@ impl QueryDataSetRequest {
     }
 
     /// Sets or clear the value of [timeseries_params][crate::model::QueryDataSetRequest::timeseries_params].
-    pub fn maybe_timeseries_params<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_timeseries_params<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::TimeseriesParams>,
     {
@@ -2467,7 +2467,7 @@ impl QueryDataSetRequest {
     }
 
     /// Sets or clear the value of [forecast_params][crate::model::QueryDataSetRequest::forecast_params].
-    pub fn maybe_forecast_params<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_forecast_params<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ForecastParams>,
     {
@@ -2615,7 +2615,7 @@ impl EvaluateSliceRequest {
     }
 
     /// Sets or clear the value of [detection_time][crate::model::EvaluateSliceRequest::detection_time].
-    pub fn maybe_detection_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_detection_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -2633,7 +2633,7 @@ impl EvaluateSliceRequest {
     }
 
     /// Sets or clear the value of [timeseries_params][crate::model::EvaluateSliceRequest::timeseries_params].
-    pub fn maybe_timeseries_params<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_timeseries_params<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::TimeseriesParams>,
     {
@@ -2651,7 +2651,7 @@ impl EvaluateSliceRequest {
     }
 
     /// Sets or clear the value of [forecast_params][crate::model::EvaluateSliceRequest::forecast_params].
-    pub fn maybe_forecast_params<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_forecast_params<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ForecastParams>,
     {
@@ -2734,7 +2734,7 @@ impl EvaluateTimeseriesRequest {
     }
 
     /// Sets or clear the value of [timeseries][crate::model::EvaluateTimeseriesRequest::timeseries].
-    pub fn maybe_timeseries<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_timeseries<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Timeseries>,
     {
@@ -2752,7 +2752,7 @@ impl EvaluateTimeseriesRequest {
     }
 
     /// Sets or clear the value of [granularity][crate::model::EvaluateTimeseriesRequest::granularity].
-    pub fn maybe_granularity<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_granularity<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
     {
@@ -2770,7 +2770,7 @@ impl EvaluateTimeseriesRequest {
     }
 
     /// Sets or clear the value of [forecast_params][crate::model::EvaluateTimeseriesRequest::forecast_params].
-    pub fn maybe_forecast_params<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_forecast_params<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ForecastParams>,
     {

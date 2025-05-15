@@ -158,7 +158,7 @@ impl AuthenticationRule {
     }
 
     /// Sets or clear the value of [oauth][crate::model::AuthenticationRule::oauth].
-    pub fn maybe_oauth<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_oauth<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::OAuthRequirements>,
     {
@@ -1317,7 +1317,7 @@ impl CommonLanguageSettings {
     }
 
     /// Sets or clear the value of [selective_gapic_generation][crate::model::CommonLanguageSettings::selective_gapic_generation].
-    pub fn maybe_selective_gapic_generation<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_selective_gapic_generation<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::SelectiveGapicGeneration>,
     {
@@ -1424,7 +1424,7 @@ impl ClientLibrarySettings {
     }
 
     /// Sets or clear the value of [java_settings][crate::model::ClientLibrarySettings::java_settings].
-    pub fn maybe_java_settings<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_java_settings<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::JavaSettings>,
     {
@@ -1442,7 +1442,7 @@ impl ClientLibrarySettings {
     }
 
     /// Sets or clear the value of [cpp_settings][crate::model::ClientLibrarySettings::cpp_settings].
-    pub fn maybe_cpp_settings<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_cpp_settings<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CppSettings>,
     {
@@ -1460,7 +1460,7 @@ impl ClientLibrarySettings {
     }
 
     /// Sets or clear the value of [php_settings][crate::model::ClientLibrarySettings::php_settings].
-    pub fn maybe_php_settings<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_php_settings<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::PhpSettings>,
     {
@@ -1478,7 +1478,7 @@ impl ClientLibrarySettings {
     }
 
     /// Sets or clear the value of [python_settings][crate::model::ClientLibrarySettings::python_settings].
-    pub fn maybe_python_settings<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_python_settings<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::PythonSettings>,
     {
@@ -1496,7 +1496,7 @@ impl ClientLibrarySettings {
     }
 
     /// Sets or clear the value of [node_settings][crate::model::ClientLibrarySettings::node_settings].
-    pub fn maybe_node_settings<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_node_settings<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::NodeSettings>,
     {
@@ -1514,7 +1514,7 @@ impl ClientLibrarySettings {
     }
 
     /// Sets or clear the value of [dotnet_settings][crate::model::ClientLibrarySettings::dotnet_settings].
-    pub fn maybe_dotnet_settings<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_dotnet_settings<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::DotnetSettings>,
     {
@@ -1532,7 +1532,7 @@ impl ClientLibrarySettings {
     }
 
     /// Sets or clear the value of [ruby_settings][crate::model::ClientLibrarySettings::ruby_settings].
-    pub fn maybe_ruby_settings<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_ruby_settings<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::RubySettings>,
     {
@@ -1550,7 +1550,7 @@ impl ClientLibrarySettings {
     }
 
     /// Sets or clear the value of [go_settings][crate::model::ClientLibrarySettings::go_settings].
-    pub fn maybe_go_settings<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_go_settings<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::GoSettings>,
     {
@@ -1814,7 +1814,7 @@ impl JavaSettings {
     }
 
     /// Sets or clear the value of [common][crate::model::JavaSettings::common].
-    pub fn maybe_common<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_common<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CommonLanguageSettings>,
     {
@@ -1858,7 +1858,7 @@ impl CppSettings {
     }
 
     /// Sets or clear the value of [common][crate::model::CppSettings::common].
-    pub fn maybe_common<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_common<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CommonLanguageSettings>,
     {
@@ -1902,7 +1902,7 @@ impl PhpSettings {
     }
 
     /// Sets or clear the value of [common][crate::model::PhpSettings::common].
-    pub fn maybe_common<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_common<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CommonLanguageSettings>,
     {
@@ -1951,7 +1951,7 @@ impl PythonSettings {
     }
 
     /// Sets or clear the value of [common][crate::model::PythonSettings::common].
-    pub fn maybe_common<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_common<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CommonLanguageSettings>,
     {
@@ -1969,7 +1969,7 @@ impl PythonSettings {
     }
 
     /// Sets or clear the value of [experimental_features][crate::model::PythonSettings::experimental_features].
-    pub fn maybe_experimental_features<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_experimental_features<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::python_settings::ExperimentalFeatures>,
     {
@@ -2088,7 +2088,7 @@ impl NodeSettings {
     }
 
     /// Sets or clear the value of [common][crate::model::NodeSettings::common].
-    pub fn maybe_common<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_common<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CommonLanguageSettings>,
     {
@@ -2167,7 +2167,7 @@ impl DotnetSettings {
     }
 
     /// Sets or clear the value of [common][crate::model::DotnetSettings::common].
-    pub fn maybe_common<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_common<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CommonLanguageSettings>,
     {
@@ -2268,7 +2268,7 @@ impl RubySettings {
     }
 
     /// Sets or clear the value of [common][crate::model::RubySettings::common].
-    pub fn maybe_common<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_common<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CommonLanguageSettings>,
     {
@@ -2323,7 +2323,7 @@ impl GoSettings {
     }
 
     /// Sets or clear the value of [common][crate::model::GoSettings::common].
-    pub fn maybe_common<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_common<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CommonLanguageSettings>,
     {
@@ -2424,7 +2424,7 @@ impl MethodSettings {
     }
 
     /// Sets or clear the value of [long_running][crate::model::MethodSettings::long_running].
-    pub fn maybe_long_running<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_long_running<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::method_settings::LongRunning>,
     {
@@ -2506,7 +2506,7 @@ pub mod method_settings {
         }
 
         /// Sets or clear the value of [initial_poll_delay][crate::model::method_settings::LongRunning::initial_poll_delay].
-        pub fn maybe_initial_poll_delay<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_initial_poll_delay<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
         {
@@ -2530,7 +2530,7 @@ pub mod method_settings {
         }
 
         /// Sets or clear the value of [max_poll_delay][crate::model::method_settings::LongRunning::max_poll_delay].
-        pub fn maybe_max_poll_delay<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_max_poll_delay<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
         {
@@ -2548,7 +2548,7 @@ pub mod method_settings {
         }
 
         /// Sets or clear the value of [total_poll_timeout][crate::model::method_settings::LongRunning::total_poll_timeout].
-        pub fn maybe_total_poll_timeout<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_total_poll_timeout<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
         {
@@ -3369,7 +3369,7 @@ impl Distribution {
     }
 
     /// Sets or clear the value of [range][crate::model::Distribution::range].
-    pub fn maybe_range<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_range<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::distribution::Range>,
     {
@@ -3387,7 +3387,7 @@ impl Distribution {
     }
 
     /// Sets or clear the value of [bucket_options][crate::model::Distribution::bucket_options].
-    pub fn maybe_bucket_options<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_bucket_options<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::distribution::BucketOptions>,
     {
@@ -3889,7 +3889,7 @@ pub mod distribution {
         }
 
         /// Sets or clear the value of [timestamp][crate::model::distribution::Exemplar::timestamp].
-        pub fn maybe_timestamp<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_timestamp<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
         {
@@ -6014,7 +6014,7 @@ impl MetricDescriptor {
     }
 
     /// Sets or clear the value of [metadata][crate::model::MetricDescriptor::metadata].
-    pub fn maybe_metadata<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_metadata<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::metric_descriptor::MetricDescriptorMetadata>,
     {
@@ -6115,7 +6115,7 @@ pub mod metric_descriptor {
         }
 
         /// Sets or clear the value of [sample_period][crate::model::metric_descriptor::MetricDescriptorMetadata::sample_period].
-        pub fn maybe_sample_period<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_sample_period<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
         {
@@ -6133,7 +6133,7 @@ pub mod metric_descriptor {
         }
 
         /// Sets or clear the value of [ingest_delay][crate::model::metric_descriptor::MetricDescriptorMetadata::ingest_delay].
-        pub fn maybe_ingest_delay<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_ingest_delay<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
         {
@@ -6921,7 +6921,7 @@ impl MonitoredResourceMetadata {
     }
 
     /// Sets or clear the value of [system_labels][crate::model::MonitoredResourceMetadata::system_labels].
-    pub fn maybe_system_labels<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_system_labels<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Struct>,
     {
@@ -9007,7 +9007,7 @@ impl Service {
     }
 
     /// Sets or clear the value of [documentation][crate::model::Service::documentation].
-    pub fn maybe_documentation<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_documentation<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Documentation>,
     {
@@ -9025,7 +9025,7 @@ impl Service {
     }
 
     /// Sets or clear the value of [backend][crate::model::Service::backend].
-    pub fn maybe_backend<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_backend<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Backend>,
     {
@@ -9043,7 +9043,7 @@ impl Service {
     }
 
     /// Sets or clear the value of [http][crate::model::Service::http].
-    pub fn maybe_http<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_http<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Http>,
     {
@@ -9061,7 +9061,7 @@ impl Service {
     }
 
     /// Sets or clear the value of [quota][crate::model::Service::quota].
-    pub fn maybe_quota<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_quota<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Quota>,
     {
@@ -9079,7 +9079,7 @@ impl Service {
     }
 
     /// Sets or clear the value of [authentication][crate::model::Service::authentication].
-    pub fn maybe_authentication<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_authentication<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Authentication>,
     {
@@ -9097,7 +9097,7 @@ impl Service {
     }
 
     /// Sets or clear the value of [context][crate::model::Service::context].
-    pub fn maybe_context<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_context<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Context>,
     {
@@ -9115,7 +9115,7 @@ impl Service {
     }
 
     /// Sets or clear the value of [usage][crate::model::Service::usage].
-    pub fn maybe_usage<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_usage<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Usage>,
     {
@@ -9144,7 +9144,7 @@ impl Service {
     }
 
     /// Sets or clear the value of [control][crate::model::Service::control].
-    pub fn maybe_control<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_control<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Control>,
     {
@@ -9195,7 +9195,7 @@ impl Service {
     }
 
     /// Sets or clear the value of [billing][crate::model::Service::billing].
-    pub fn maybe_billing<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_billing<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Billing>,
     {
@@ -9213,7 +9213,7 @@ impl Service {
     }
 
     /// Sets or clear the value of [logging][crate::model::Service::logging].
-    pub fn maybe_logging<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_logging<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Logging>,
     {
@@ -9231,7 +9231,7 @@ impl Service {
     }
 
     /// Sets or clear the value of [monitoring][crate::model::Service::monitoring].
-    pub fn maybe_monitoring<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_monitoring<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Monitoring>,
     {
@@ -9249,7 +9249,7 @@ impl Service {
     }
 
     /// Sets or clear the value of [system_parameters][crate::model::Service::system_parameters].
-    pub fn maybe_system_parameters<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_system_parameters<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::SystemParameters>,
     {
@@ -9267,7 +9267,7 @@ impl Service {
     }
 
     /// Sets or clear the value of [source_info][crate::model::Service::source_info].
-    pub fn maybe_source_info<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_source_info<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::SourceInfo>,
     {
@@ -9285,7 +9285,7 @@ impl Service {
     }
 
     /// Sets or clear the value of [publishing][crate::model::Service::publishing].
-    pub fn maybe_publishing<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_publishing<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Publishing>,
     {
@@ -9303,7 +9303,7 @@ impl Service {
     }
 
     /// Sets or clear the value of [config_version][crate::model::Service::config_version].
-    pub fn maybe_config_version<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_config_version<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::UInt32Value>,
     {

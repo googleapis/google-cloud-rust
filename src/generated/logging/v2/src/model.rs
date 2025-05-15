@@ -235,7 +235,7 @@ impl LogEntry {
     }
 
     /// Sets or clear the value of [resource][crate::model::LogEntry::resource].
-    pub fn maybe_resource<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_resource<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<api::model::MonitoredResource>,
     {
@@ -253,7 +253,7 @@ impl LogEntry {
     }
 
     /// Sets or clear the value of [timestamp][crate::model::LogEntry::timestamp].
-    pub fn maybe_timestamp<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_timestamp<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -271,7 +271,7 @@ impl LogEntry {
     }
 
     /// Sets or clear the value of [receive_timestamp][crate::model::LogEntry::receive_timestamp].
-    pub fn maybe_receive_timestamp<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_receive_timestamp<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -304,7 +304,7 @@ impl LogEntry {
     }
 
     /// Sets or clear the value of [http_request][crate::model::LogEntry::http_request].
-    pub fn maybe_http_request<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_http_request<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<logging_type::model::HttpRequest>,
     {
@@ -334,7 +334,7 @@ impl LogEntry {
     }
 
     /// Sets or clear the value of [operation][crate::model::LogEntry::operation].
-    pub fn maybe_operation<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_operation<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::LogEntryOperation>,
     {
@@ -370,7 +370,7 @@ impl LogEntry {
     }
 
     /// Sets or clear the value of [source_location][crate::model::LogEntry::source_location].
-    pub fn maybe_source_location<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_source_location<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::LogEntrySourceLocation>,
     {
@@ -388,7 +388,7 @@ impl LogEntry {
     }
 
     /// Sets or clear the value of [split][crate::model::LogEntry::split].
-    pub fn maybe_split<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_split<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::LogSplit>,
     {
@@ -870,7 +870,7 @@ impl WriteLogEntriesRequest {
     }
 
     /// Sets or clear the value of [resource][crate::model::WriteLogEntriesRequest::resource].
-    pub fn maybe_resource<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_resource<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<api::model::MonitoredResource>,
     {
@@ -1490,7 +1490,7 @@ impl TailLogEntriesRequest {
     }
 
     /// Sets or clear the value of [buffer_window][crate::model::TailLogEntriesRequest::buffer_window].
-    pub fn maybe_buffer_window<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_buffer_window<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
     {
@@ -1819,7 +1819,7 @@ impl IndexConfig {
     }
 
     /// Sets or clear the value of [create_time][crate::model::IndexConfig::create_time].
-    pub fn maybe_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -1945,7 +1945,7 @@ impl LogBucket {
     }
 
     /// Sets or clear the value of [create_time][crate::model::LogBucket::create_time].
-    pub fn maybe_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -1963,7 +1963,7 @@ impl LogBucket {
     }
 
     /// Sets or clear the value of [update_time][crate::model::LogBucket::update_time].
-    pub fn maybe_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -2030,7 +2030,7 @@ impl LogBucket {
     }
 
     /// Sets or clear the value of [cmek_settings][crate::model::LogBucket::cmek_settings].
-    pub fn maybe_cmek_settings<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_cmek_settings<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CmekSettings>,
     {
@@ -2119,7 +2119,7 @@ impl LogView {
     }
 
     /// Sets or clear the value of [create_time][crate::model::LogView::create_time].
-    pub fn maybe_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -2137,7 +2137,7 @@ impl LogView {
     }
 
     /// Sets or clear the value of [update_time][crate::model::LogView::update_time].
-    pub fn maybe_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -2371,7 +2371,7 @@ impl LogSink {
     }
 
     /// Sets or clear the value of [create_time][crate::model::LogSink::create_time].
-    pub fn maybe_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -2389,7 +2389,7 @@ impl LogSink {
     }
 
     /// Sets or clear the value of [update_time][crate::model::LogSink::update_time].
-    pub fn maybe_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -2707,7 +2707,7 @@ impl Link {
     }
 
     /// Sets or clear the value of [create_time][crate::model::Link::create_time].
-    pub fn maybe_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -2734,7 +2734,7 @@ impl Link {
     }
 
     /// Sets or clear the value of [bigquery_dataset][crate::model::Link::bigquery_dataset].
-    pub fn maybe_bigquery_dataset<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_bigquery_dataset<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::BigQueryDataset>,
     {
@@ -2999,7 +2999,7 @@ impl CreateBucketRequest {
     }
 
     /// Sets or clear the value of [bucket][crate::model::CreateBucketRequest::bucket].
-    pub fn maybe_bucket<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_bucket<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::LogBucket>,
     {
@@ -3075,7 +3075,7 @@ impl UpdateBucketRequest {
     }
 
     /// Sets or clear the value of [bucket][crate::model::UpdateBucketRequest::bucket].
-    pub fn maybe_bucket<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_bucket<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::LogBucket>,
     {
@@ -3093,7 +3093,7 @@ impl UpdateBucketRequest {
     }
 
     /// Sets or clear the value of [update_mask][crate::model::UpdateBucketRequest::update_mask].
-    pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
     {
@@ -3421,7 +3421,7 @@ impl CreateViewRequest {
     }
 
     /// Sets or clear the value of [view][crate::model::CreateViewRequest::view].
-    pub fn maybe_view<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_view<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::LogView>,
     {
@@ -3494,7 +3494,7 @@ impl UpdateViewRequest {
     }
 
     /// Sets or clear the value of [view][crate::model::UpdateViewRequest::view].
-    pub fn maybe_view<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_view<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::LogView>,
     {
@@ -3512,7 +3512,7 @@ impl UpdateViewRequest {
     }
 
     /// Sets or clear the value of [update_mask][crate::model::UpdateViewRequest::update_mask].
-    pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
     {
@@ -3846,7 +3846,7 @@ impl CreateSinkRequest {
     }
 
     /// Sets or clear the value of [sink][crate::model::CreateSinkRequest::sink].
-    pub fn maybe_sink<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_sink<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::LogSink>,
     {
@@ -3954,7 +3954,7 @@ impl UpdateSinkRequest {
     }
 
     /// Sets or clear the value of [sink][crate::model::UpdateSinkRequest::sink].
-    pub fn maybe_sink<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_sink<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::LogSink>,
     {
@@ -3978,7 +3978,7 @@ impl UpdateSinkRequest {
     }
 
     /// Sets or clear the value of [update_mask][crate::model::UpdateSinkRequest::update_mask].
-    pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
     {
@@ -4089,7 +4089,7 @@ impl CreateLinkRequest {
     }
 
     /// Sets or clear the value of [link][crate::model::CreateLinkRequest::link].
-    pub fn maybe_link<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_link<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Link>,
     {
@@ -4404,7 +4404,7 @@ impl LogExclusion {
     }
 
     /// Sets or clear the value of [create_time][crate::model::LogExclusion::create_time].
-    pub fn maybe_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -4422,7 +4422,7 @@ impl LogExclusion {
     }
 
     /// Sets or clear the value of [update_time][crate::model::LogExclusion::update_time].
-    pub fn maybe_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -4659,7 +4659,7 @@ impl CreateExclusionRequest {
     }
 
     /// Sets or clear the value of [exclusion][crate::model::CreateExclusionRequest::exclusion].
-    pub fn maybe_exclusion<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_exclusion<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::LogExclusion>,
     {
@@ -4738,7 +4738,7 @@ impl UpdateExclusionRequest {
     }
 
     /// Sets or clear the value of [exclusion][crate::model::UpdateExclusionRequest::exclusion].
-    pub fn maybe_exclusion<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_exclusion<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::LogExclusion>,
     {
@@ -4756,7 +4756,7 @@ impl UpdateExclusionRequest {
     }
 
     /// Sets or clear the value of [update_mask][crate::model::UpdateExclusionRequest::update_mask].
-    pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
     {
@@ -4946,7 +4946,7 @@ impl UpdateCmekSettingsRequest {
     }
 
     /// Sets or clear the value of [cmek_settings][crate::model::UpdateCmekSettingsRequest::cmek_settings].
-    pub fn maybe_cmek_settings<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_cmek_settings<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CmekSettings>,
     {
@@ -4964,7 +4964,7 @@ impl UpdateCmekSettingsRequest {
     }
 
     /// Sets or clear the value of [update_mask][crate::model::UpdateCmekSettingsRequest::update_mask].
-    pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
     {
@@ -5243,7 +5243,7 @@ impl UpdateSettingsRequest {
     }
 
     /// Sets or clear the value of [settings][crate::model::UpdateSettingsRequest::settings].
-    pub fn maybe_settings<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_settings<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Settings>,
     {
@@ -5261,7 +5261,7 @@ impl UpdateSettingsRequest {
     }
 
     /// Sets or clear the value of [update_mask][crate::model::UpdateSettingsRequest::update_mask].
-    pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
     {
@@ -5514,7 +5514,7 @@ impl CopyLogEntriesMetadata {
     }
 
     /// Sets or clear the value of [start_time][crate::model::CopyLogEntriesMetadata::start_time].
-    pub fn maybe_start_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -5532,7 +5532,7 @@ impl CopyLogEntriesMetadata {
     }
 
     /// Sets or clear the value of [end_time][crate::model::CopyLogEntriesMetadata::end_time].
-    pub fn maybe_end_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -5562,7 +5562,7 @@ impl CopyLogEntriesMetadata {
     }
 
     /// Sets or clear the value of [request][crate::model::CopyLogEntriesMetadata::request].
-    pub fn maybe_request<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_request<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CopyLogEntriesRequest>,
     {
@@ -5661,7 +5661,7 @@ impl BucketMetadata {
     }
 
     /// Sets or clear the value of [start_time][crate::model::BucketMetadata::start_time].
-    pub fn maybe_start_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -5679,7 +5679,7 @@ impl BucketMetadata {
     }
 
     /// Sets or clear the value of [end_time][crate::model::BucketMetadata::end_time].
-    pub fn maybe_end_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -5834,7 +5834,7 @@ impl LinkMetadata {
     }
 
     /// Sets or clear the value of [start_time][crate::model::LinkMetadata::start_time].
-    pub fn maybe_start_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -5852,7 +5852,7 @@ impl LinkMetadata {
     }
 
     /// Sets or clear the value of [end_time][crate::model::LinkMetadata::end_time].
-    pub fn maybe_end_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -6199,7 +6199,7 @@ impl LogMetric {
     }
 
     /// Sets or clear the value of [metric_descriptor][crate::model::LogMetric::metric_descriptor].
-    pub fn maybe_metric_descriptor<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_metric_descriptor<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<api::model::MetricDescriptor>,
     {
@@ -6235,7 +6235,7 @@ impl LogMetric {
     }
 
     /// Sets or clear the value of [bucket_options][crate::model::LogMetric::bucket_options].
-    pub fn maybe_bucket_options<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_bucket_options<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<api::model::distribution::BucketOptions>,
     {
@@ -6253,7 +6253,7 @@ impl LogMetric {
     }
 
     /// Sets or clear the value of [create_time][crate::model::LogMetric::create_time].
-    pub fn maybe_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -6271,7 +6271,7 @@ impl LogMetric {
     }
 
     /// Sets or clear the value of [update_time][crate::model::LogMetric::update_time].
-    pub fn maybe_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -6633,7 +6633,7 @@ impl CreateLogMetricRequest {
     }
 
     /// Sets or clear the value of [metric][crate::model::CreateLogMetricRequest::metric].
-    pub fn maybe_metric<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_metric<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::LogMetric>,
     {
@@ -6695,7 +6695,7 @@ impl UpdateLogMetricRequest {
     }
 
     /// Sets or clear the value of [metric][crate::model::UpdateLogMetricRequest::metric].
-    pub fn maybe_metric<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_metric<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::LogMetric>,
     {

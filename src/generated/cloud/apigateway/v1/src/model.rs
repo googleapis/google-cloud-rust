@@ -96,7 +96,7 @@ impl Api {
     }
 
     /// Sets or clear the value of [create_time][crate::model::Api::create_time].
-    pub fn maybe_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -114,7 +114,7 @@ impl Api {
     }
 
     /// Sets or clear the value of [update_time][crate::model::Api::update_time].
-    pub fn maybe_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -417,7 +417,7 @@ impl ApiConfig {
     }
 
     /// Sets or clear the value of [create_time][crate::model::ApiConfig::create_time].
-    pub fn maybe_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -435,7 +435,7 @@ impl ApiConfig {
     }
 
     /// Sets or clear the value of [update_time][crate::model::ApiConfig::update_time].
-    pub fn maybe_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -606,7 +606,7 @@ pub mod api_config {
         }
 
         /// Sets or clear the value of [document][crate::model::api_config::OpenApiDocument::document].
-        pub fn maybe_document<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_document<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::api_config::File>,
         {
@@ -663,7 +663,7 @@ pub mod api_config {
         }
 
         /// Sets or clear the value of [file_descriptor_set][crate::model::api_config::GrpcServiceDefinition::file_descriptor_set].
-        pub fn maybe_file_descriptor_set<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_file_descriptor_set<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::api_config::File>,
         {
@@ -920,7 +920,7 @@ impl Gateway {
     }
 
     /// Sets or clear the value of [create_time][crate::model::Gateway::create_time].
-    pub fn maybe_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -938,7 +938,7 @@ impl Gateway {
     }
 
     /// Sets or clear the value of [update_time][crate::model::Gateway::update_time].
-    pub fn maybe_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -1384,7 +1384,7 @@ impl CreateGatewayRequest {
     }
 
     /// Sets or clear the value of [gateway][crate::model::CreateGatewayRequest::gateway].
-    pub fn maybe_gateway<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_gateway<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Gateway>,
     {
@@ -1436,7 +1436,7 @@ impl UpdateGatewayRequest {
     }
 
     /// Sets or clear the value of [update_mask][crate::model::UpdateGatewayRequest::update_mask].
-    pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
     {
@@ -1454,7 +1454,7 @@ impl UpdateGatewayRequest {
     }
 
     /// Sets or clear the value of [gateway][crate::model::UpdateGatewayRequest::gateway].
-    pub fn maybe_gateway<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_gateway<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Gateway>,
     {
@@ -1735,7 +1735,7 @@ impl CreateApiRequest {
     }
 
     /// Sets or clear the value of [api][crate::model::CreateApiRequest::api].
-    pub fn maybe_api<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_api<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Api>,
     {
@@ -1787,7 +1787,7 @@ impl UpdateApiRequest {
     }
 
     /// Sets or clear the value of [update_mask][crate::model::UpdateApiRequest::update_mask].
-    pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
     {
@@ -1805,7 +1805,7 @@ impl UpdateApiRequest {
     }
 
     /// Sets or clear the value of [api][crate::model::UpdateApiRequest::api].
-    pub fn maybe_api<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_api<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Api>,
     {
@@ -2236,7 +2236,7 @@ impl CreateApiConfigRequest {
     }
 
     /// Sets or clear the value of [api_config][crate::model::CreateApiConfigRequest::api_config].
-    pub fn maybe_api_config<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_api_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ApiConfig>,
     {
@@ -2288,7 +2288,7 @@ impl UpdateApiConfigRequest {
     }
 
     /// Sets or clear the value of [update_mask][crate::model::UpdateApiConfigRequest::update_mask].
-    pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
     {
@@ -2306,7 +2306,7 @@ impl UpdateApiConfigRequest {
     }
 
     /// Sets or clear the value of [api_config][crate::model::UpdateApiConfigRequest::api_config].
-    pub fn maybe_api_config<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_api_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ApiConfig>,
     {
@@ -2416,7 +2416,7 @@ impl OperationMetadata {
     }
 
     /// Sets or clear the value of [create_time][crate::model::OperationMetadata::create_time].
-    pub fn maybe_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -2434,7 +2434,7 @@ impl OperationMetadata {
     }
 
     /// Sets or clear the value of [end_time][crate::model::OperationMetadata::end_time].
-    pub fn maybe_end_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {

@@ -173,7 +173,7 @@ pub mod api_keys {
         /// Sets or clear the value of [key][crate::model::CreateKeyRequest::key].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_key<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_key<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Key>,
         {
@@ -520,7 +520,7 @@ pub mod api_keys {
         /// Sets or clear the value of [key][crate::model::UpdateKeyRequest::key].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_key<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_key<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Key>,
         {
@@ -538,7 +538,7 @@ pub mod api_keys {
         }
 
         /// Sets or clear the value of [update_mask][crate::model::UpdateKeyRequest::update_mask].
-        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
         {

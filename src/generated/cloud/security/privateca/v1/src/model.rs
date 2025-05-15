@@ -234,7 +234,7 @@ impl CertificateAuthority {
     }
 
     /// Sets or clear the value of [config][crate::model::CertificateAuthority::config].
-    pub fn maybe_config<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CertificateConfig>,
     {
@@ -252,7 +252,7 @@ impl CertificateAuthority {
     }
 
     /// Sets or clear the value of [lifetime][crate::model::CertificateAuthority::lifetime].
-    pub fn maybe_lifetime<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_lifetime<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
     {
@@ -270,7 +270,7 @@ impl CertificateAuthority {
     }
 
     /// Sets or clear the value of [key_spec][crate::model::CertificateAuthority::key_spec].
-    pub fn maybe_key_spec<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_key_spec<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::certificate_authority::KeyVersionSpec>,
     {
@@ -288,7 +288,7 @@ impl CertificateAuthority {
     }
 
     /// Sets or clear the value of [subordinate_config][crate::model::CertificateAuthority::subordinate_config].
-    pub fn maybe_subordinate_config<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_subordinate_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::SubordinateConfig>,
     {
@@ -349,7 +349,7 @@ impl CertificateAuthority {
     }
 
     /// Sets or clear the value of [access_urls][crate::model::CertificateAuthority::access_urls].
-    pub fn maybe_access_urls<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_access_urls<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::certificate_authority::AccessUrls>,
     {
@@ -367,7 +367,7 @@ impl CertificateAuthority {
     }
 
     /// Sets or clear the value of [create_time][crate::model::CertificateAuthority::create_time].
-    pub fn maybe_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -385,7 +385,7 @@ impl CertificateAuthority {
     }
 
     /// Sets or clear the value of [update_time][crate::model::CertificateAuthority::update_time].
-    pub fn maybe_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -403,7 +403,7 @@ impl CertificateAuthority {
     }
 
     /// Sets or clear the value of [delete_time][crate::model::CertificateAuthority::delete_time].
-    pub fn maybe_delete_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_delete_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -421,7 +421,7 @@ impl CertificateAuthority {
     }
 
     /// Sets or clear the value of [expire_time][crate::model::CertificateAuthority::expire_time].
-    pub fn maybe_expire_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_expire_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -1260,7 +1260,7 @@ impl CaPool {
     }
 
     /// Sets or clear the value of [issuance_policy][crate::model::CaPool::issuance_policy].
-    pub fn maybe_issuance_policy<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_issuance_policy<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ca_pool::IssuancePolicy>,
     {
@@ -1278,7 +1278,7 @@ impl CaPool {
     }
 
     /// Sets or clear the value of [publishing_options][crate::model::CaPool::publishing_options].
-    pub fn maybe_publishing_options<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_publishing_options<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ca_pool::PublishingOptions>,
     {
@@ -1678,7 +1678,7 @@ pub mod ca_pool {
         }
 
         /// Sets or clear the value of [maximum_lifetime][crate::model::ca_pool::IssuancePolicy::maximum_lifetime].
-        pub fn maybe_maximum_lifetime<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_maximum_lifetime<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
         {
@@ -1696,7 +1696,7 @@ pub mod ca_pool {
         }
 
         /// Sets or clear the value of [allowed_issuance_modes][crate::model::ca_pool::IssuancePolicy::allowed_issuance_modes].
-        pub fn maybe_allowed_issuance_modes<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_allowed_issuance_modes<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::ca_pool::issuance_policy::IssuanceModes>,
         {
@@ -1714,7 +1714,7 @@ pub mod ca_pool {
         }
 
         /// Sets or clear the value of [baseline_values][crate::model::ca_pool::IssuancePolicy::baseline_values].
-        pub fn maybe_baseline_values<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_baseline_values<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::X509Parameters>,
         {
@@ -1732,7 +1732,7 @@ pub mod ca_pool {
         }
 
         /// Sets or clear the value of [identity_constraints][crate::model::ca_pool::IssuancePolicy::identity_constraints].
-        pub fn maybe_identity_constraints<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_identity_constraints<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::CertificateIdentityConstraints>,
         {
@@ -1750,7 +1750,7 @@ pub mod ca_pool {
         }
 
         /// Sets or clear the value of [passthrough_extensions][crate::model::ca_pool::IssuancePolicy::passthrough_extensions].
-        pub fn maybe_passthrough_extensions<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_passthrough_extensions<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::CertificateExtensionConstraints>,
         {
@@ -2521,7 +2521,7 @@ impl CertificateRevocationList {
     }
 
     /// Sets or clear the value of [create_time][crate::model::CertificateRevocationList::create_time].
-    pub fn maybe_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -2539,7 +2539,7 @@ impl CertificateRevocationList {
     }
 
     /// Sets or clear the value of [update_time][crate::model::CertificateRevocationList::update_time].
-    pub fn maybe_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -2927,7 +2927,7 @@ impl Certificate {
     }
 
     /// Sets or clear the value of [lifetime][crate::model::Certificate::lifetime].
-    pub fn maybe_lifetime<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_lifetime<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
     {
@@ -2963,7 +2963,7 @@ impl Certificate {
     }
 
     /// Sets or clear the value of [revocation_details][crate::model::Certificate::revocation_details].
-    pub fn maybe_revocation_details<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_revocation_details<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::certificate::RevocationDetails>,
     {
@@ -2987,7 +2987,7 @@ impl Certificate {
     }
 
     /// Sets or clear the value of [certificate_description][crate::model::Certificate::certificate_description].
-    pub fn maybe_certificate_description<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_certificate_description<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CertificateDescription>,
     {
@@ -3016,7 +3016,7 @@ impl Certificate {
     }
 
     /// Sets or clear the value of [create_time][crate::model::Certificate::create_time].
-    pub fn maybe_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -3034,7 +3034,7 @@ impl Certificate {
     }
 
     /// Sets or clear the value of [update_time][crate::model::Certificate::update_time].
-    pub fn maybe_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -3181,7 +3181,7 @@ pub mod certificate {
         }
 
         /// Sets or clear the value of [revocation_time][crate::model::certificate::RevocationDetails::revocation_time].
-        pub fn maybe_revocation_time<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_revocation_time<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
         {
@@ -3355,7 +3355,7 @@ impl CertificateTemplate {
     }
 
     /// Sets or clear the value of [maximum_lifetime][crate::model::CertificateTemplate::maximum_lifetime].
-    pub fn maybe_maximum_lifetime<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_maximum_lifetime<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
     {
@@ -3373,7 +3373,7 @@ impl CertificateTemplate {
     }
 
     /// Sets or clear the value of [predefined_values][crate::model::CertificateTemplate::predefined_values].
-    pub fn maybe_predefined_values<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_predefined_values<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::X509Parameters>,
     {
@@ -3391,7 +3391,7 @@ impl CertificateTemplate {
     }
 
     /// Sets or clear the value of [identity_constraints][crate::model::CertificateTemplate::identity_constraints].
-    pub fn maybe_identity_constraints<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_identity_constraints<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CertificateIdentityConstraints>,
     {
@@ -3409,7 +3409,7 @@ impl CertificateTemplate {
     }
 
     /// Sets or clear the value of [passthrough_extensions][crate::model::CertificateTemplate::passthrough_extensions].
-    pub fn maybe_passthrough_extensions<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_passthrough_extensions<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CertificateExtensionConstraints>,
     {
@@ -3433,7 +3433,7 @@ impl CertificateTemplate {
     }
 
     /// Sets or clear the value of [create_time][crate::model::CertificateTemplate::create_time].
-    pub fn maybe_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -3451,7 +3451,7 @@ impl CertificateTemplate {
     }
 
     /// Sets or clear the value of [update_time][crate::model::CertificateTemplate::update_time].
-    pub fn maybe_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -3540,7 +3540,7 @@ impl X509Parameters {
     }
 
     /// Sets or clear the value of [key_usage][crate::model::X509Parameters::key_usage].
-    pub fn maybe_key_usage<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_key_usage<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::KeyUsage>,
     {
@@ -3558,7 +3558,7 @@ impl X509Parameters {
     }
 
     /// Sets or clear the value of [ca_options][crate::model::X509Parameters::ca_options].
-    pub fn maybe_ca_options<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_ca_options<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::x_509_parameters::CaOptions>,
     {
@@ -3598,7 +3598,7 @@ impl X509Parameters {
     }
 
     /// Sets or clear the value of [name_constraints][crate::model::X509Parameters::name_constraints].
-    pub fn maybe_name_constraints<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_name_constraints<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::x_509_parameters::NameConstraints>,
     {
@@ -3669,7 +3669,7 @@ pub mod x_509_parameters {
         }
 
         /// Sets or clear the value of [is_ca][crate::model::x_509_parameters::CaOptions::is_ca].
-        pub fn maybe_is_ca<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_is_ca<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<bool>,
         {
@@ -3687,7 +3687,7 @@ pub mod x_509_parameters {
         }
 
         /// Sets or clear the value of [max_issuer_path_length][crate::model::x_509_parameters::CaOptions::max_issuer_path_length].
-        pub fn maybe_max_issuer_path_length<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_max_issuer_path_length<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<i32>,
         {
@@ -4311,7 +4311,7 @@ impl CertificateConfig {
     }
 
     /// Sets or clear the value of [subject_config][crate::model::CertificateConfig::subject_config].
-    pub fn maybe_subject_config<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_subject_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::certificate_config::SubjectConfig>,
     {
@@ -4329,7 +4329,7 @@ impl CertificateConfig {
     }
 
     /// Sets or clear the value of [x509_config][crate::model::CertificateConfig::x509_config].
-    pub fn maybe_x509_config<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_x509_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::X509Parameters>,
     {
@@ -4347,7 +4347,7 @@ impl CertificateConfig {
     }
 
     /// Sets or clear the value of [public_key][crate::model::CertificateConfig::public_key].
-    pub fn maybe_public_key<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_public_key<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::PublicKey>,
     {
@@ -4365,7 +4365,7 @@ impl CertificateConfig {
     }
 
     /// Sets or clear the value of [subject_key_id][crate::model::CertificateConfig::subject_key_id].
-    pub fn maybe_subject_key_id<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_subject_key_id<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::certificate_config::KeyId>,
     {
@@ -4420,7 +4420,7 @@ pub mod certificate_config {
         }
 
         /// Sets or clear the value of [subject][crate::model::certificate_config::SubjectConfig::subject].
-        pub fn maybe_subject<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_subject<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Subject>,
         {
@@ -4438,7 +4438,7 @@ pub mod certificate_config {
         }
 
         /// Sets or clear the value of [subject_alt_name][crate::model::certificate_config::SubjectConfig::subject_alt_name].
-        pub fn maybe_subject_alt_name<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_subject_alt_name<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::SubjectAltNames>,
         {
@@ -4558,7 +4558,7 @@ impl CertificateDescription {
     }
 
     /// Sets or clear the value of [subject_description][crate::model::CertificateDescription::subject_description].
-    pub fn maybe_subject_description<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_subject_description<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::certificate_description::SubjectDescription>,
     {
@@ -4576,7 +4576,7 @@ impl CertificateDescription {
     }
 
     /// Sets or clear the value of [x509_description][crate::model::CertificateDescription::x509_description].
-    pub fn maybe_x509_description<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_x509_description<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::X509Parameters>,
     {
@@ -4594,7 +4594,7 @@ impl CertificateDescription {
     }
 
     /// Sets or clear the value of [public_key][crate::model::CertificateDescription::public_key].
-    pub fn maybe_public_key<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_public_key<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::PublicKey>,
     {
@@ -4612,7 +4612,7 @@ impl CertificateDescription {
     }
 
     /// Sets or clear the value of [subject_key_id][crate::model::CertificateDescription::subject_key_id].
-    pub fn maybe_subject_key_id<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_subject_key_id<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::certificate_description::KeyId>,
     {
@@ -4630,7 +4630,7 @@ impl CertificateDescription {
     }
 
     /// Sets or clear the value of [authority_key_id][crate::model::CertificateDescription::authority_key_id].
-    pub fn maybe_authority_key_id<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_authority_key_id<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::certificate_description::KeyId>,
     {
@@ -4670,7 +4670,7 @@ impl CertificateDescription {
     }
 
     /// Sets or clear the value of [cert_fingerprint][crate::model::CertificateDescription::cert_fingerprint].
-    pub fn maybe_cert_fingerprint<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_cert_fingerprint<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::certificate_description::CertificateFingerprint>,
     {
@@ -4744,7 +4744,7 @@ pub mod certificate_description {
         }
 
         /// Sets or clear the value of [subject][crate::model::certificate_description::SubjectDescription::subject].
-        pub fn maybe_subject<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_subject<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Subject>,
         {
@@ -4762,7 +4762,7 @@ pub mod certificate_description {
         }
 
         /// Sets or clear the value of [subject_alt_name][crate::model::certificate_description::SubjectDescription::subject_alt_name].
-        pub fn maybe_subject_alt_name<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_subject_alt_name<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::SubjectAltNames>,
         {
@@ -4789,7 +4789,7 @@ pub mod certificate_description {
         }
 
         /// Sets or clear the value of [lifetime][crate::model::certificate_description::SubjectDescription::lifetime].
-        pub fn maybe_lifetime<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_lifetime<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
         {
@@ -4807,7 +4807,7 @@ pub mod certificate_description {
         }
 
         /// Sets or clear the value of [not_before_time][crate::model::certificate_description::SubjectDescription::not_before_time].
-        pub fn maybe_not_before_time<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_not_before_time<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
         {
@@ -4825,7 +4825,7 @@ pub mod certificate_description {
         }
 
         /// Sets or clear the value of [not_after_time][crate::model::certificate_description::SubjectDescription::not_after_time].
-        pub fn maybe_not_after_time<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_not_after_time<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
         {
@@ -4993,7 +4993,7 @@ impl X509Extension {
     }
 
     /// Sets or clear the value of [object_id][crate::model::X509Extension::object_id].
-    pub fn maybe_object_id<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_object_id<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ObjectId>,
     {
@@ -5064,7 +5064,7 @@ impl KeyUsage {
     }
 
     /// Sets or clear the value of [base_key_usage][crate::model::KeyUsage::base_key_usage].
-    pub fn maybe_base_key_usage<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_base_key_usage<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::key_usage::KeyUsageOptions>,
     {
@@ -5082,7 +5082,7 @@ impl KeyUsage {
     }
 
     /// Sets or clear the value of [extended_key_usage][crate::model::KeyUsage::extended_key_usage].
-    pub fn maybe_extended_key_usage<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_extended_key_usage<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::key_usage::ExtendedKeyUsageOptions>,
     {
@@ -5595,7 +5595,7 @@ impl CertificateIdentityConstraints {
     }
 
     /// Sets or clear the value of [cel_expression][crate::model::CertificateIdentityConstraints::cel_expression].
-    pub fn maybe_cel_expression<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_cel_expression<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<gtype::model::Expr>,
     {
@@ -5613,7 +5613,7 @@ impl CertificateIdentityConstraints {
     }
 
     /// Sets or clear the value of [allow_subject_passthrough][crate::model::CertificateIdentityConstraints::allow_subject_passthrough].
-    pub fn maybe_allow_subject_passthrough<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_allow_subject_passthrough<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<bool>,
     {
@@ -5631,7 +5631,10 @@ impl CertificateIdentityConstraints {
     }
 
     /// Sets or clear the value of [allow_subject_alt_names_passthrough][crate::model::CertificateIdentityConstraints::allow_subject_alt_names_passthrough].
-    pub fn maybe_allow_subject_alt_names_passthrough<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_allow_subject_alt_names_passthrough<T>(
+        mut self,
+        v: std::option::Option<T>,
+    ) -> Self
     where
         T: std::convert::Into<bool>,
     {
@@ -6050,7 +6053,7 @@ impl CreateCertificateRequest {
     }
 
     /// Sets or clear the value of [certificate][crate::model::CreateCertificateRequest::certificate].
-    pub fn maybe_certificate<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_certificate<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Certificate>,
     {
@@ -6437,7 +6440,7 @@ impl UpdateCertificateRequest {
     }
 
     /// Sets or clear the value of [certificate][crate::model::UpdateCertificateRequest::certificate].
-    pub fn maybe_certificate<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_certificate<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Certificate>,
     {
@@ -6455,7 +6458,7 @@ impl UpdateCertificateRequest {
     }
 
     /// Sets or clear the value of [update_mask][crate::model::UpdateCertificateRequest::update_mask].
-    pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
     {
@@ -6555,7 +6558,7 @@ impl ActivateCertificateAuthorityRequest {
     }
 
     /// Sets or clear the value of [subordinate_config][crate::model::ActivateCertificateAuthorityRequest::subordinate_config].
-    pub fn maybe_subordinate_config<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_subordinate_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::SubordinateConfig>,
     {
@@ -6658,7 +6661,7 @@ impl CreateCertificateAuthorityRequest {
     }
 
     /// Sets or clear the value of [certificate_authority][crate::model::CreateCertificateAuthorityRequest::certificate_authority].
-    pub fn maybe_certificate_authority<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_certificate_authority<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CertificateAuthority>,
     {
@@ -7321,7 +7324,7 @@ impl UpdateCertificateAuthorityRequest {
     }
 
     /// Sets or clear the value of [certificate_authority][crate::model::UpdateCertificateAuthorityRequest::certificate_authority].
-    pub fn maybe_certificate_authority<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_certificate_authority<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CertificateAuthority>,
     {
@@ -7339,7 +7342,7 @@ impl UpdateCertificateAuthorityRequest {
     }
 
     /// Sets or clear the value of [update_mask][crate::model::UpdateCertificateAuthorityRequest::update_mask].
-    pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
     {
@@ -7436,7 +7439,7 @@ impl CreateCaPoolRequest {
     }
 
     /// Sets or clear the value of [ca_pool][crate::model::CreateCaPoolRequest::ca_pool].
-    pub fn maybe_ca_pool<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_ca_pool<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CaPool>,
     {
@@ -7512,7 +7515,7 @@ impl UpdateCaPoolRequest {
     }
 
     /// Sets or clear the value of [ca_pool][crate::model::UpdateCaPoolRequest::ca_pool].
-    pub fn maybe_ca_pool<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_ca_pool<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CaPool>,
     {
@@ -7530,7 +7533,7 @@ impl UpdateCaPoolRequest {
     }
 
     /// Sets or clear the value of [update_mask][crate::model::UpdateCaPoolRequest::update_mask].
-    pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
     {
@@ -8259,7 +8262,7 @@ impl UpdateCertificateRevocationListRequest {
     }
 
     /// Sets or clear the value of [certificate_revocation_list][crate::model::UpdateCertificateRevocationListRequest::certificate_revocation_list].
-    pub fn maybe_certificate_revocation_list<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_certificate_revocation_list<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CertificateRevocationList>,
     {
@@ -8277,7 +8280,7 @@ impl UpdateCertificateRevocationListRequest {
     }
 
     /// Sets or clear the value of [update_mask][crate::model::UpdateCertificateRevocationListRequest::update_mask].
-    pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
     {
@@ -8378,7 +8381,7 @@ impl CreateCertificateTemplateRequest {
     }
 
     /// Sets or clear the value of [certificate_template][crate::model::CreateCertificateTemplateRequest::certificate_template].
-    pub fn maybe_certificate_template<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_certificate_template<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CertificateTemplate>,
     {
@@ -8733,7 +8736,7 @@ impl UpdateCertificateTemplateRequest {
     }
 
     /// Sets or clear the value of [certificate_template][crate::model::UpdateCertificateTemplateRequest::certificate_template].
-    pub fn maybe_certificate_template<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_certificate_template<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CertificateTemplate>,
     {
@@ -8751,7 +8754,7 @@ impl UpdateCertificateTemplateRequest {
     }
 
     /// Sets or clear the value of [update_mask][crate::model::UpdateCertificateTemplateRequest::update_mask].
-    pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
     {
@@ -8831,7 +8834,7 @@ impl OperationMetadata {
     }
 
     /// Sets or clear the value of [create_time][crate::model::OperationMetadata::create_time].
-    pub fn maybe_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -8849,7 +8852,7 @@ impl OperationMetadata {
     }
 
     /// Sets or clear the value of [end_time][crate::model::OperationMetadata::end_time].
-    pub fn maybe_end_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {

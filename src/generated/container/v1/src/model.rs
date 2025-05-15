@@ -106,7 +106,7 @@ impl LinuxNodeConfig {
     }
 
     /// Sets or clear the value of [hugepages][crate::model::LinuxNodeConfig::hugepages].
-    pub fn maybe_hugepages<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_hugepages<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::linux_node_config::HugepagesConfig>,
     {
@@ -161,7 +161,7 @@ pub mod linux_node_config {
         }
 
         /// Sets or clear the value of [hugepage_size2m][crate::model::linux_node_config::HugepagesConfig::hugepage_size2m].
-        pub fn maybe_hugepage_size2m<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_hugepage_size2m<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<i32>,
         {
@@ -179,7 +179,7 @@ pub mod linux_node_config {
         }
 
         /// Sets or clear the value of [hugepage_size1g][crate::model::linux_node_config::HugepagesConfig::hugepage_size1g].
-        pub fn maybe_hugepage_size1g<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_hugepage_size1g<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<i32>,
         {
@@ -587,7 +587,7 @@ impl NodeKubeletConfig {
     }
 
     /// Sets or clear the value of [cpu_cfs_quota][crate::model::NodeKubeletConfig::cpu_cfs_quota].
-    pub fn maybe_cpu_cfs_quota<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_cpu_cfs_quota<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::BoolValue>,
     {
@@ -620,7 +620,7 @@ impl NodeKubeletConfig {
     }
 
     /// Sets or clear the value of [insecure_kubelet_readonly_port_enabled][crate::model::NodeKubeletConfig::insecure_kubelet_readonly_port_enabled].
-    pub fn maybe_insecure_kubelet_readonly_port_enabled<T>(
+    pub fn set_or_clear_insecure_kubelet_readonly_port_enabled<T>(
         mut self,
         v: std::option::Option<T>,
     ) -> Self
@@ -1054,7 +1054,7 @@ impl NodeConfig {
     }
 
     /// Sets or clear the value of [workload_metadata_config][crate::model::NodeConfig::workload_metadata_config].
-    pub fn maybe_workload_metadata_config<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_workload_metadata_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::WorkloadMetadataConfig>,
     {
@@ -1083,7 +1083,7 @@ impl NodeConfig {
     }
 
     /// Sets or clear the value of [sandbox_config][crate::model::NodeConfig::sandbox_config].
-    pub fn maybe_sandbox_config<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_sandbox_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::SandboxConfig>,
     {
@@ -1107,7 +1107,7 @@ impl NodeConfig {
     }
 
     /// Sets or clear the value of [reservation_affinity][crate::model::NodeConfig::reservation_affinity].
-    pub fn maybe_reservation_affinity<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_reservation_affinity<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ReservationAffinity>,
     {
@@ -1125,7 +1125,7 @@ impl NodeConfig {
     }
 
     /// Sets or clear the value of [shielded_instance_config][crate::model::NodeConfig::shielded_instance_config].
-    pub fn maybe_shielded_instance_config<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_shielded_instance_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ShieldedInstanceConfig>,
     {
@@ -1143,7 +1143,7 @@ impl NodeConfig {
     }
 
     /// Sets or clear the value of [linux_node_config][crate::model::NodeConfig::linux_node_config].
-    pub fn maybe_linux_node_config<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_linux_node_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::LinuxNodeConfig>,
     {
@@ -1161,7 +1161,7 @@ impl NodeConfig {
     }
 
     /// Sets or clear the value of [kubelet_config][crate::model::NodeConfig::kubelet_config].
-    pub fn maybe_kubelet_config<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_kubelet_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::NodeKubeletConfig>,
     {
@@ -1188,7 +1188,7 @@ impl NodeConfig {
     }
 
     /// Sets or clear the value of [gcfs_config][crate::model::NodeConfig::gcfs_config].
-    pub fn maybe_gcfs_config<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_gcfs_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::GcfsConfig>,
     {
@@ -1206,7 +1206,7 @@ impl NodeConfig {
     }
 
     /// Sets or clear the value of [advanced_machine_features][crate::model::NodeConfig::advanced_machine_features].
-    pub fn maybe_advanced_machine_features<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_advanced_machine_features<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::AdvancedMachineFeatures>,
     {
@@ -1224,7 +1224,7 @@ impl NodeConfig {
     }
 
     /// Sets or clear the value of [gvnic][crate::model::NodeConfig::gvnic].
-    pub fn maybe_gvnic<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_gvnic<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::VirtualNIC>,
     {
@@ -1248,7 +1248,7 @@ impl NodeConfig {
     }
 
     /// Sets or clear the value of [confidential_nodes][crate::model::NodeConfig::confidential_nodes].
-    pub fn maybe_confidential_nodes<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_confidential_nodes<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ConfidentialNodes>,
     {
@@ -1266,7 +1266,7 @@ impl NodeConfig {
     }
 
     /// Sets or clear the value of [fast_socket][crate::model::NodeConfig::fast_socket].
-    pub fn maybe_fast_socket<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_fast_socket<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::FastSocket>,
     {
@@ -1296,7 +1296,7 @@ impl NodeConfig {
     }
 
     /// Sets or clear the value of [logging_config][crate::model::NodeConfig::logging_config].
-    pub fn maybe_logging_config<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_logging_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::NodePoolLoggingConfig>,
     {
@@ -1314,7 +1314,7 @@ impl NodeConfig {
     }
 
     /// Sets or clear the value of [windows_node_config][crate::model::NodeConfig::windows_node_config].
-    pub fn maybe_windows_node_config<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_windows_node_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::WindowsNodeConfig>,
     {
@@ -1332,7 +1332,7 @@ impl NodeConfig {
     }
 
     /// Sets or clear the value of [local_nvme_ssd_block_config][crate::model::NodeConfig::local_nvme_ssd_block_config].
-    pub fn maybe_local_nvme_ssd_block_config<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_local_nvme_ssd_block_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::LocalNvmeSsdBlockConfig>,
     {
@@ -1350,7 +1350,10 @@ impl NodeConfig {
     }
 
     /// Sets or clear the value of [ephemeral_storage_local_ssd_config][crate::model::NodeConfig::ephemeral_storage_local_ssd_config].
-    pub fn maybe_ephemeral_storage_local_ssd_config<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_ephemeral_storage_local_ssd_config<T>(
+        mut self,
+        v: std::option::Option<T>,
+    ) -> Self
     where
         T: std::convert::Into<crate::model::EphemeralStorageLocalSsdConfig>,
     {
@@ -1368,7 +1371,7 @@ impl NodeConfig {
     }
 
     /// Sets or clear the value of [sole_tenant_config][crate::model::NodeConfig::sole_tenant_config].
-    pub fn maybe_sole_tenant_config<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_sole_tenant_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::SoleTenantConfig>,
     {
@@ -1386,7 +1389,7 @@ impl NodeConfig {
     }
 
     /// Sets or clear the value of [containerd_config][crate::model::NodeConfig::containerd_config].
-    pub fn maybe_containerd_config<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_containerd_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ContainerdConfig>,
     {
@@ -1404,7 +1407,7 @@ impl NodeConfig {
     }
 
     /// Sets or clear the value of [resource_manager_tags][crate::model::NodeConfig::resource_manager_tags].
-    pub fn maybe_resource_manager_tags<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_resource_manager_tags<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ResourceManagerTags>,
     {
@@ -1450,7 +1453,10 @@ impl NodeConfig {
     }
 
     /// Sets or clear the value of [secondary_boot_disk_update_strategy][crate::model::NodeConfig::secondary_boot_disk_update_strategy].
-    pub fn maybe_secondary_boot_disk_update_strategy<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_secondary_boot_disk_update_strategy<T>(
+        mut self,
+        v: std::option::Option<T>,
+    ) -> Self
     where
         T: std::convert::Into<crate::model::SecondaryBootDiskUpdateStrategy>,
     {
@@ -1468,7 +1474,7 @@ impl NodeConfig {
     }
 
     /// Sets or clear the value of [local_ssd_encryption_mode][crate::model::NodeConfig::local_ssd_encryption_mode].
-    pub fn maybe_local_ssd_encryption_mode<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_local_ssd_encryption_mode<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::node_config::LocalSsdEncryptionMode>,
     {
@@ -1815,7 +1821,7 @@ impl AdvancedMachineFeatures {
     }
 
     /// Sets or clear the value of [threads_per_core][crate::model::AdvancedMachineFeatures::threads_per_core].
-    pub fn maybe_threads_per_core<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_threads_per_core<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<i64>,
     {
@@ -1833,7 +1839,7 @@ impl AdvancedMachineFeatures {
     }
 
     /// Sets or clear the value of [enable_nested_virtualization][crate::model::AdvancedMachineFeatures::enable_nested_virtualization].
-    pub fn maybe_enable_nested_virtualization<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_enable_nested_virtualization<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<bool>,
     {
@@ -1982,7 +1988,7 @@ impl NodeNetworkConfig {
     }
 
     /// Sets or clear the value of [enable_private_nodes][crate::model::NodeNetworkConfig::enable_private_nodes].
-    pub fn maybe_enable_private_nodes<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_enable_private_nodes<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<bool>,
     {
@@ -2000,7 +2006,7 @@ impl NodeNetworkConfig {
     }
 
     /// Sets or clear the value of [network_performance_config][crate::model::NodeNetworkConfig::network_performance_config].
-    pub fn maybe_network_performance_config<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_network_performance_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::node_network_config::NetworkPerformanceConfig>,
     {
@@ -2018,7 +2024,10 @@ impl NodeNetworkConfig {
     }
 
     /// Sets or clear the value of [pod_cidr_overprovision_config][crate::model::NodeNetworkConfig::pod_cidr_overprovision_config].
-    pub fn maybe_pod_cidr_overprovision_config<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_pod_cidr_overprovision_config<T>(
+        mut self,
+        v: std::option::Option<T>,
+    ) -> Self
     where
         T: std::convert::Into<crate::model::PodCIDROverprovisionConfig>,
     {
@@ -2099,7 +2108,10 @@ pub mod node_network_config {
         }
 
         /// Sets or clear the value of [total_egress_bandwidth_tier][crate::model::node_network_config::NetworkPerformanceConfig::total_egress_bandwidth_tier].
-        pub fn maybe_total_egress_bandwidth_tier<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_total_egress_bandwidth_tier<T>(
+            mut self,
+            v: std::option::Option<T>,
+        ) -> Self
         where
             T: std::convert::Into<
                     crate::model::node_network_config::network_performance_config::Tier,
@@ -2348,7 +2360,7 @@ impl AdditionalPodNetworkConfig {
     }
 
     /// Sets or clear the value of [max_pods_per_node][crate::model::AdditionalPodNetworkConfig::max_pods_per_node].
-    pub fn maybe_max_pods_per_node<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_max_pods_per_node<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::MaxPodsConstraint>,
     {
@@ -3105,7 +3117,10 @@ impl ContainerdConfig {
     }
 
     /// Sets or clear the value of [private_registry_access_config][crate::model::ContainerdConfig::private_registry_access_config].
-    pub fn maybe_private_registry_access_config<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_private_registry_access_config<T>(
+        mut self,
+        v: std::option::Option<T>,
+    ) -> Self
     where
         T: std::convert::Into<crate::model::containerd_config::PrivateRegistryAccessConfig>,
     {
@@ -3769,7 +3784,7 @@ impl MasterAuth {
     }
 
     /// Sets or clear the value of [client_certificate_config][crate::model::MasterAuth::client_certificate_config].
-    pub fn maybe_client_certificate_config<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_client_certificate_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ClientCertificateConfig>,
     {
@@ -3937,7 +3952,7 @@ impl AddonsConfig {
     }
 
     /// Sets or clear the value of [http_load_balancing][crate::model::AddonsConfig::http_load_balancing].
-    pub fn maybe_http_load_balancing<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_http_load_balancing<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::HttpLoadBalancing>,
     {
@@ -3955,7 +3970,7 @@ impl AddonsConfig {
     }
 
     /// Sets or clear the value of [horizontal_pod_autoscaling][crate::model::AddonsConfig::horizontal_pod_autoscaling].
-    pub fn maybe_horizontal_pod_autoscaling<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_horizontal_pod_autoscaling<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::HorizontalPodAutoscaling>,
     {
@@ -3975,7 +3990,7 @@ impl AddonsConfig {
 
     /// Sets or clear the value of [kubernetes_dashboard][crate::model::AddonsConfig::kubernetes_dashboard].
     #[deprecated]
-    pub fn maybe_kubernetes_dashboard<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_kubernetes_dashboard<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::KubernetesDashboard>,
     {
@@ -3993,7 +4008,7 @@ impl AddonsConfig {
     }
 
     /// Sets or clear the value of [network_policy_config][crate::model::AddonsConfig::network_policy_config].
-    pub fn maybe_network_policy_config<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_network_policy_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::NetworkPolicyConfig>,
     {
@@ -4011,7 +4026,7 @@ impl AddonsConfig {
     }
 
     /// Sets or clear the value of [cloud_run_config][crate::model::AddonsConfig::cloud_run_config].
-    pub fn maybe_cloud_run_config<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_cloud_run_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CloudRunConfig>,
     {
@@ -4029,7 +4044,7 @@ impl AddonsConfig {
     }
 
     /// Sets or clear the value of [dns_cache_config][crate::model::AddonsConfig::dns_cache_config].
-    pub fn maybe_dns_cache_config<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_dns_cache_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::DnsCacheConfig>,
     {
@@ -4047,7 +4062,7 @@ impl AddonsConfig {
     }
 
     /// Sets or clear the value of [config_connector_config][crate::model::AddonsConfig::config_connector_config].
-    pub fn maybe_config_connector_config<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_config_connector_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ConfigConnectorConfig>,
     {
@@ -4065,7 +4080,7 @@ impl AddonsConfig {
     }
 
     /// Sets or clear the value of [gce_persistent_disk_csi_driver_config][crate::model::AddonsConfig::gce_persistent_disk_csi_driver_config].
-    pub fn maybe_gce_persistent_disk_csi_driver_config<T>(
+    pub fn set_or_clear_gce_persistent_disk_csi_driver_config<T>(
         mut self,
         v: std::option::Option<T>,
     ) -> Self
@@ -4086,7 +4101,10 @@ impl AddonsConfig {
     }
 
     /// Sets or clear the value of [gcp_filestore_csi_driver_config][crate::model::AddonsConfig::gcp_filestore_csi_driver_config].
-    pub fn maybe_gcp_filestore_csi_driver_config<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_gcp_filestore_csi_driver_config<T>(
+        mut self,
+        v: std::option::Option<T>,
+    ) -> Self
     where
         T: std::convert::Into<crate::model::GcpFilestoreCsiDriverConfig>,
     {
@@ -4104,7 +4122,7 @@ impl AddonsConfig {
     }
 
     /// Sets or clear the value of [gke_backup_agent_config][crate::model::AddonsConfig::gke_backup_agent_config].
-    pub fn maybe_gke_backup_agent_config<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_gke_backup_agent_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::GkeBackupAgentConfig>,
     {
@@ -4122,7 +4140,7 @@ impl AddonsConfig {
     }
 
     /// Sets or clear the value of [gcs_fuse_csi_driver_config][crate::model::AddonsConfig::gcs_fuse_csi_driver_config].
-    pub fn maybe_gcs_fuse_csi_driver_config<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_gcs_fuse_csi_driver_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::GcsFuseCsiDriverConfig>,
     {
@@ -4140,7 +4158,7 @@ impl AddonsConfig {
     }
 
     /// Sets or clear the value of [stateful_ha_config][crate::model::AddonsConfig::stateful_ha_config].
-    pub fn maybe_stateful_ha_config<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_stateful_ha_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::StatefulHAConfig>,
     {
@@ -4158,7 +4176,10 @@ impl AddonsConfig {
     }
 
     /// Sets or clear the value of [parallelstore_csi_driver_config][crate::model::AddonsConfig::parallelstore_csi_driver_config].
-    pub fn maybe_parallelstore_csi_driver_config<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_parallelstore_csi_driver_config<T>(
+        mut self,
+        v: std::option::Option<T>,
+    ) -> Self
     where
         T: std::convert::Into<crate::model::ParallelstoreCsiDriverConfig>,
     {
@@ -4176,7 +4197,7 @@ impl AddonsConfig {
     }
 
     /// Sets or clear the value of [ray_operator_config][crate::model::AddonsConfig::ray_operator_config].
-    pub fn maybe_ray_operator_config<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_ray_operator_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::RayOperatorConfig>,
     {
@@ -4545,7 +4566,7 @@ impl PrivateClusterConfig {
 
     /// Sets or clear the value of [master_global_access_config][crate::model::PrivateClusterConfig::master_global_access_config].
     #[deprecated]
-    pub fn maybe_master_global_access_config<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_master_global_access_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::PrivateClusterMasterGlobalAccessConfig>,
     {
@@ -5003,7 +5024,7 @@ impl RayOperatorConfig {
     }
 
     /// Sets or clear the value of [ray_cluster_logging_config][crate::model::RayOperatorConfig::ray_cluster_logging_config].
-    pub fn maybe_ray_cluster_logging_config<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_ray_cluster_logging_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::RayClusterLoggingConfig>,
     {
@@ -5021,7 +5042,10 @@ impl RayOperatorConfig {
     }
 
     /// Sets or clear the value of [ray_cluster_monitoring_config][crate::model::RayOperatorConfig::ray_cluster_monitoring_config].
-    pub fn maybe_ray_cluster_monitoring_config<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_ray_cluster_monitoring_config<T>(
+        mut self,
+        v: std::option::Option<T>,
+    ) -> Self
     where
         T: std::convert::Into<crate::model::RayClusterMonitoringConfig>,
     {
@@ -5162,7 +5186,10 @@ impl MasterAuthorizedNetworksConfig {
     }
 
     /// Sets or clear the value of [gcp_public_cidrs_access_enabled][crate::model::MasterAuthorizedNetworksConfig::gcp_public_cidrs_access_enabled].
-    pub fn maybe_gcp_public_cidrs_access_enabled<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_gcp_public_cidrs_access_enabled<T>(
+        mut self,
+        v: std::option::Option<T>,
+    ) -> Self
     where
         T: std::convert::Into<bool>,
     {
@@ -5180,7 +5207,7 @@ impl MasterAuthorizedNetworksConfig {
     }
 
     /// Sets or clear the value of [private_endpoint_enforcement_enabled][crate::model::MasterAuthorizedNetworksConfig::private_endpoint_enforcement_enabled].
-    pub fn maybe_private_endpoint_enforcement_enabled<T>(
+    pub fn set_or_clear_private_endpoint_enforcement_enabled<T>(
         mut self,
         v: std::option::Option<T>,
     ) -> Self
@@ -6009,7 +6036,10 @@ impl IPAllocationPolicy {
     }
 
     /// Sets or clear the value of [pod_cidr_overprovision_config][crate::model::IPAllocationPolicy::pod_cidr_overprovision_config].
-    pub fn maybe_pod_cidr_overprovision_config<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_pod_cidr_overprovision_config<T>(
+        mut self,
+        v: std::option::Option<T>,
+    ) -> Self
     where
         T: std::convert::Into<crate::model::PodCIDROverprovisionConfig>,
     {
@@ -6045,7 +6075,7 @@ impl IPAllocationPolicy {
     }
 
     /// Sets or clear the value of [additional_pod_ranges_config][crate::model::IPAllocationPolicy::additional_pod_ranges_config].
-    pub fn maybe_additional_pod_ranges_config<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_additional_pod_ranges_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::AdditionalPodRangesConfig>,
     {
@@ -6559,7 +6589,7 @@ impl Cluster {
 
     /// Sets or clear the value of [node_config][crate::model::Cluster::node_config].
     #[deprecated]
-    pub fn maybe_node_config<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_node_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::NodeConfig>,
     {
@@ -6577,7 +6607,7 @@ impl Cluster {
     }
 
     /// Sets or clear the value of [master_auth][crate::model::Cluster::master_auth].
-    pub fn maybe_master_auth<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_master_auth<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::MasterAuth>,
     {
@@ -6625,7 +6655,7 @@ impl Cluster {
     }
 
     /// Sets or clear the value of [addons_config][crate::model::Cluster::addons_config].
-    pub fn maybe_addons_config<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_addons_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::AddonsConfig>,
     {
@@ -6698,7 +6728,7 @@ impl Cluster {
     }
 
     /// Sets or clear the value of [legacy_abac][crate::model::Cluster::legacy_abac].
-    pub fn maybe_legacy_abac<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_legacy_abac<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::LegacyAbac>,
     {
@@ -6716,7 +6746,7 @@ impl Cluster {
     }
 
     /// Sets or clear the value of [network_policy][crate::model::Cluster::network_policy].
-    pub fn maybe_network_policy<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_network_policy<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::NetworkPolicy>,
     {
@@ -6734,7 +6764,7 @@ impl Cluster {
     }
 
     /// Sets or clear the value of [ip_allocation_policy][crate::model::Cluster::ip_allocation_policy].
-    pub fn maybe_ip_allocation_policy<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_ip_allocation_policy<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::IPAllocationPolicy>,
     {
@@ -6754,7 +6784,10 @@ impl Cluster {
 
     /// Sets or clear the value of [master_authorized_networks_config][crate::model::Cluster::master_authorized_networks_config].
     #[deprecated]
-    pub fn maybe_master_authorized_networks_config<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_master_authorized_networks_config<T>(
+        mut self,
+        v: std::option::Option<T>,
+    ) -> Self
     where
         T: std::convert::Into<crate::model::MasterAuthorizedNetworksConfig>,
     {
@@ -6772,7 +6805,7 @@ impl Cluster {
     }
 
     /// Sets or clear the value of [maintenance_policy][crate::model::Cluster::maintenance_policy].
-    pub fn maybe_maintenance_policy<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_maintenance_policy<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::MaintenancePolicy>,
     {
@@ -6790,7 +6823,7 @@ impl Cluster {
     }
 
     /// Sets or clear the value of [binary_authorization][crate::model::Cluster::binary_authorization].
-    pub fn maybe_binary_authorization<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_binary_authorization<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::BinaryAuthorization>,
     {
@@ -6808,7 +6841,7 @@ impl Cluster {
     }
 
     /// Sets or clear the value of [autoscaling][crate::model::Cluster::autoscaling].
-    pub fn maybe_autoscaling<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_autoscaling<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ClusterAutoscaling>,
     {
@@ -6826,7 +6859,7 @@ impl Cluster {
     }
 
     /// Sets or clear the value of [network_config][crate::model::Cluster::network_config].
-    pub fn maybe_network_config<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_network_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::NetworkConfig>,
     {
@@ -6844,7 +6877,7 @@ impl Cluster {
     }
 
     /// Sets or clear the value of [default_max_pods_constraint][crate::model::Cluster::default_max_pods_constraint].
-    pub fn maybe_default_max_pods_constraint<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_default_max_pods_constraint<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::MaxPodsConstraint>,
     {
@@ -6862,7 +6895,7 @@ impl Cluster {
     }
 
     /// Sets or clear the value of [resource_usage_export_config][crate::model::Cluster::resource_usage_export_config].
-    pub fn maybe_resource_usage_export_config<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_resource_usage_export_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ResourceUsageExportConfig>,
     {
@@ -6880,7 +6913,7 @@ impl Cluster {
     }
 
     /// Sets or clear the value of [authenticator_groups_config][crate::model::Cluster::authenticator_groups_config].
-    pub fn maybe_authenticator_groups_config<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_authenticator_groups_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::AuthenticatorGroupsConfig>,
     {
@@ -6898,7 +6931,7 @@ impl Cluster {
     }
 
     /// Sets or clear the value of [private_cluster_config][crate::model::Cluster::private_cluster_config].
-    pub fn maybe_private_cluster_config<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_private_cluster_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::PrivateClusterConfig>,
     {
@@ -6916,7 +6949,7 @@ impl Cluster {
     }
 
     /// Sets or clear the value of [database_encryption][crate::model::Cluster::database_encryption].
-    pub fn maybe_database_encryption<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_database_encryption<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::DatabaseEncryption>,
     {
@@ -6934,7 +6967,7 @@ impl Cluster {
     }
 
     /// Sets or clear the value of [vertical_pod_autoscaling][crate::model::Cluster::vertical_pod_autoscaling].
-    pub fn maybe_vertical_pod_autoscaling<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_vertical_pod_autoscaling<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::VerticalPodAutoscaling>,
     {
@@ -6952,7 +6985,7 @@ impl Cluster {
     }
 
     /// Sets or clear the value of [shielded_nodes][crate::model::Cluster::shielded_nodes].
-    pub fn maybe_shielded_nodes<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_shielded_nodes<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ShieldedNodes>,
     {
@@ -6970,7 +7003,7 @@ impl Cluster {
     }
 
     /// Sets or clear the value of [release_channel][crate::model::Cluster::release_channel].
-    pub fn maybe_release_channel<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_release_channel<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ReleaseChannel>,
     {
@@ -6988,7 +7021,7 @@ impl Cluster {
     }
 
     /// Sets or clear the value of [workload_identity_config][crate::model::Cluster::workload_identity_config].
-    pub fn maybe_workload_identity_config<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_workload_identity_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::WorkloadIdentityConfig>,
     {
@@ -7006,7 +7039,7 @@ impl Cluster {
     }
 
     /// Sets or clear the value of [mesh_certificates][crate::model::Cluster::mesh_certificates].
-    pub fn maybe_mesh_certificates<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_mesh_certificates<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::MeshCertificates>,
     {
@@ -7024,7 +7057,7 @@ impl Cluster {
     }
 
     /// Sets or clear the value of [cost_management_config][crate::model::Cluster::cost_management_config].
-    pub fn maybe_cost_management_config<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_cost_management_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CostManagementConfig>,
     {
@@ -7042,7 +7075,7 @@ impl Cluster {
     }
 
     /// Sets or clear the value of [notification_config][crate::model::Cluster::notification_config].
-    pub fn maybe_notification_config<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_notification_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::NotificationConfig>,
     {
@@ -7060,7 +7093,7 @@ impl Cluster {
     }
 
     /// Sets or clear the value of [confidential_nodes][crate::model::Cluster::confidential_nodes].
-    pub fn maybe_confidential_nodes<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_confidential_nodes<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ConfidentialNodes>,
     {
@@ -7078,7 +7111,7 @@ impl Cluster {
     }
 
     /// Sets or clear the value of [identity_service_config][crate::model::Cluster::identity_service_config].
-    pub fn maybe_identity_service_config<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_identity_service_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::IdentityServiceConfig>,
     {
@@ -7237,7 +7270,7 @@ impl Cluster {
     }
 
     /// Sets or clear the value of [autopilot][crate::model::Cluster::autopilot].
-    pub fn maybe_autopilot<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_autopilot<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Autopilot>,
     {
@@ -7261,7 +7294,7 @@ impl Cluster {
     }
 
     /// Sets or clear the value of [node_pool_defaults][crate::model::Cluster::node_pool_defaults].
-    pub fn maybe_node_pool_defaults<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_node_pool_defaults<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::NodePoolDefaults>,
     {
@@ -7279,7 +7312,7 @@ impl Cluster {
     }
 
     /// Sets or clear the value of [logging_config][crate::model::Cluster::logging_config].
-    pub fn maybe_logging_config<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_logging_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::LoggingConfig>,
     {
@@ -7297,7 +7330,7 @@ impl Cluster {
     }
 
     /// Sets or clear the value of [monitoring_config][crate::model::Cluster::monitoring_config].
-    pub fn maybe_monitoring_config<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_monitoring_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::MonitoringConfig>,
     {
@@ -7315,7 +7348,7 @@ impl Cluster {
     }
 
     /// Sets or clear the value of [node_pool_auto_config][crate::model::Cluster::node_pool_auto_config].
-    pub fn maybe_node_pool_auto_config<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_node_pool_auto_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::NodePoolAutoConfig>,
     {
@@ -7339,7 +7372,7 @@ impl Cluster {
     }
 
     /// Sets or clear the value of [fleet][crate::model::Cluster::fleet].
-    pub fn maybe_fleet<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_fleet<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Fleet>,
     {
@@ -7357,7 +7390,7 @@ impl Cluster {
     }
 
     /// Sets or clear the value of [security_posture_config][crate::model::Cluster::security_posture_config].
-    pub fn maybe_security_posture_config<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_security_posture_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::SecurityPostureConfig>,
     {
@@ -7375,7 +7408,10 @@ impl Cluster {
     }
 
     /// Sets or clear the value of [control_plane_endpoints_config][crate::model::Cluster::control_plane_endpoints_config].
-    pub fn maybe_control_plane_endpoints_config<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_control_plane_endpoints_config<T>(
+        mut self,
+        v: std::option::Option<T>,
+    ) -> Self
     where
         T: std::convert::Into<crate::model::ControlPlaneEndpointsConfig>,
     {
@@ -7393,7 +7429,7 @@ impl Cluster {
     }
 
     /// Sets or clear the value of [enable_k8s_beta_apis][crate::model::Cluster::enable_k8s_beta_apis].
-    pub fn maybe_enable_k8s_beta_apis<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_enable_k8s_beta_apis<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::K8sBetaAPIConfig>,
     {
@@ -7411,7 +7447,7 @@ impl Cluster {
     }
 
     /// Sets or clear the value of [enterprise_config][crate::model::Cluster::enterprise_config].
-    pub fn maybe_enterprise_config<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_enterprise_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::EnterpriseConfig>,
     {
@@ -7429,7 +7465,7 @@ impl Cluster {
     }
 
     /// Sets or clear the value of [secret_manager_config][crate::model::Cluster::secret_manager_config].
-    pub fn maybe_secret_manager_config<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_secret_manager_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::SecretManagerConfig>,
     {
@@ -7447,7 +7483,7 @@ impl Cluster {
     }
 
     /// Sets or clear the value of [compliance_posture_config][crate::model::Cluster::compliance_posture_config].
-    pub fn maybe_compliance_posture_config<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_compliance_posture_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CompliancePostureConfig>,
     {
@@ -7465,7 +7501,7 @@ impl Cluster {
     }
 
     /// Sets or clear the value of [satisfies_pzs][crate::model::Cluster::satisfies_pzs].
-    pub fn maybe_satisfies_pzs<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_satisfies_pzs<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<bool>,
     {
@@ -7483,7 +7519,7 @@ impl Cluster {
     }
 
     /// Sets or clear the value of [satisfies_pzi][crate::model::Cluster::satisfies_pzi].
-    pub fn maybe_satisfies_pzi<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_satisfies_pzi<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<bool>,
     {
@@ -7501,7 +7537,7 @@ impl Cluster {
     }
 
     /// Sets or clear the value of [user_managed_keys_config][crate::model::Cluster::user_managed_keys_config].
-    pub fn maybe_user_managed_keys_config<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_user_managed_keys_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::UserManagedKeysConfig>,
     {
@@ -7519,7 +7555,7 @@ impl Cluster {
     }
 
     /// Sets or clear the value of [rbac_binding_config][crate::model::Cluster::rbac_binding_config].
-    pub fn maybe_rbac_binding_config<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_rbac_binding_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::RBACBindingConfig>,
     {
@@ -7741,7 +7777,7 @@ impl RBACBindingConfig {
     }
 
     /// Sets or clear the value of [enable_insecure_binding_system_unauthenticated][crate::model::RBACBindingConfig::enable_insecure_binding_system_unauthenticated].
-    pub fn maybe_enable_insecure_binding_system_unauthenticated<T>(
+    pub fn set_or_clear_enable_insecure_binding_system_unauthenticated<T>(
         mut self,
         v: std::option::Option<T>,
     ) -> Self
@@ -7762,7 +7798,7 @@ impl RBACBindingConfig {
     }
 
     /// Sets or clear the value of [enable_insecure_binding_system_authenticated][crate::model::RBACBindingConfig::enable_insecure_binding_system_authenticated].
-    pub fn maybe_enable_insecure_binding_system_authenticated<T>(
+    pub fn set_or_clear_enable_insecure_binding_system_authenticated<T>(
         mut self,
         v: std::option::Option<T>,
     ) -> Self
@@ -7948,7 +7984,7 @@ impl CompliancePostureConfig {
     }
 
     /// Sets or clear the value of [mode][crate::model::CompliancePostureConfig::mode].
-    pub fn maybe_mode<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_mode<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::compliance_posture_config::Mode>,
     {
@@ -8008,7 +8044,7 @@ pub mod compliance_posture_config {
         }
 
         /// Sets or clear the value of [standard][crate::model::compliance_posture_config::ComplianceStandard::standard].
-        pub fn maybe_standard<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_standard<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<std::string::String>,
         {
@@ -8228,7 +8264,7 @@ impl SecurityPostureConfig {
     }
 
     /// Sets or clear the value of [mode][crate::model::SecurityPostureConfig::mode].
-    pub fn maybe_mode<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_mode<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::security_posture_config::Mode>,
     {
@@ -8246,7 +8282,7 @@ impl SecurityPostureConfig {
     }
 
     /// Sets or clear the value of [vulnerability_mode][crate::model::SecurityPostureConfig::vulnerability_mode].
-    pub fn maybe_vulnerability_mode<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_vulnerability_mode<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::security_posture_config::VulnerabilityMode>,
     {
@@ -8596,7 +8632,7 @@ impl NodePoolAutoConfig {
     }
 
     /// Sets or clear the value of [network_tags][crate::model::NodePoolAutoConfig::network_tags].
-    pub fn maybe_network_tags<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_network_tags<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::NetworkTags>,
     {
@@ -8614,7 +8650,7 @@ impl NodePoolAutoConfig {
     }
 
     /// Sets or clear the value of [resource_manager_tags][crate::model::NodePoolAutoConfig::resource_manager_tags].
-    pub fn maybe_resource_manager_tags<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_resource_manager_tags<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ResourceManagerTags>,
     {
@@ -8632,7 +8668,7 @@ impl NodePoolAutoConfig {
     }
 
     /// Sets or clear the value of [node_kubelet_config][crate::model::NodePoolAutoConfig::node_kubelet_config].
-    pub fn maybe_node_kubelet_config<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_node_kubelet_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::NodeKubeletConfig>,
     {
@@ -8650,7 +8686,7 @@ impl NodePoolAutoConfig {
     }
 
     /// Sets or clear the value of [linux_node_config][crate::model::NodePoolAutoConfig::linux_node_config].
-    pub fn maybe_linux_node_config<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_linux_node_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::LinuxNodeConfig>,
     {
@@ -8694,7 +8730,7 @@ impl NodePoolDefaults {
     }
 
     /// Sets or clear the value of [node_config_defaults][crate::model::NodePoolDefaults::node_config_defaults].
-    pub fn maybe_node_config_defaults<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_node_config_defaults<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::NodeConfigDefaults>,
     {
@@ -8752,7 +8788,7 @@ impl NodeConfigDefaults {
     }
 
     /// Sets or clear the value of [gcfs_config][crate::model::NodeConfigDefaults::gcfs_config].
-    pub fn maybe_gcfs_config<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_gcfs_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::GcfsConfig>,
     {
@@ -8770,7 +8806,7 @@ impl NodeConfigDefaults {
     }
 
     /// Sets or clear the value of [logging_config][crate::model::NodeConfigDefaults::logging_config].
-    pub fn maybe_logging_config<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_logging_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::NodePoolLoggingConfig>,
     {
@@ -8788,7 +8824,7 @@ impl NodeConfigDefaults {
     }
 
     /// Sets or clear the value of [containerd_config][crate::model::NodeConfigDefaults::containerd_config].
-    pub fn maybe_containerd_config<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_containerd_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ContainerdConfig>,
     {
@@ -8806,7 +8842,7 @@ impl NodeConfigDefaults {
     }
 
     /// Sets or clear the value of [node_kubelet_config][crate::model::NodeConfigDefaults::node_kubelet_config].
-    pub fn maybe_node_kubelet_config<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_node_kubelet_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::NodeKubeletConfig>,
     {
@@ -9237,7 +9273,7 @@ impl ClusterUpdate {
     }
 
     /// Sets or clear the value of [desired_addons_config][crate::model::ClusterUpdate::desired_addons_config].
-    pub fn maybe_desired_addons_config<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_desired_addons_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::AddonsConfig>,
     {
@@ -9273,7 +9309,7 @@ impl ClusterUpdate {
     }
 
     /// Sets or clear the value of [desired_database_encryption][crate::model::ClusterUpdate::desired_database_encryption].
-    pub fn maybe_desired_database_encryption<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_desired_database_encryption<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::DatabaseEncryption>,
     {
@@ -9291,7 +9327,10 @@ impl ClusterUpdate {
     }
 
     /// Sets or clear the value of [desired_workload_identity_config][crate::model::ClusterUpdate::desired_workload_identity_config].
-    pub fn maybe_desired_workload_identity_config<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_desired_workload_identity_config<T>(
+        mut self,
+        v: std::option::Option<T>,
+    ) -> Self
     where
         T: std::convert::Into<crate::model::WorkloadIdentityConfig>,
     {
@@ -9309,7 +9348,7 @@ impl ClusterUpdate {
     }
 
     /// Sets or clear the value of [desired_mesh_certificates][crate::model::ClusterUpdate::desired_mesh_certificates].
-    pub fn maybe_desired_mesh_certificates<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_desired_mesh_certificates<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::MeshCertificates>,
     {
@@ -9327,7 +9366,7 @@ impl ClusterUpdate {
     }
 
     /// Sets or clear the value of [desired_shielded_nodes][crate::model::ClusterUpdate::desired_shielded_nodes].
-    pub fn maybe_desired_shielded_nodes<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_desired_shielded_nodes<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ShieldedNodes>,
     {
@@ -9345,7 +9384,10 @@ impl ClusterUpdate {
     }
 
     /// Sets or clear the value of [desired_cost_management_config][crate::model::ClusterUpdate::desired_cost_management_config].
-    pub fn maybe_desired_cost_management_config<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_desired_cost_management_config<T>(
+        mut self,
+        v: std::option::Option<T>,
+    ) -> Self
     where
         T: std::convert::Into<crate::model::CostManagementConfig>,
     {
@@ -9363,7 +9405,7 @@ impl ClusterUpdate {
     }
 
     /// Sets or clear the value of [desired_dns_config][crate::model::ClusterUpdate::desired_dns_config].
-    pub fn maybe_desired_dns_config<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_desired_dns_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::DNSConfig>,
     {
@@ -9381,7 +9423,10 @@ impl ClusterUpdate {
     }
 
     /// Sets or clear the value of [desired_node_pool_autoscaling][crate::model::ClusterUpdate::desired_node_pool_autoscaling].
-    pub fn maybe_desired_node_pool_autoscaling<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_desired_node_pool_autoscaling<T>(
+        mut self,
+        v: std::option::Option<T>,
+    ) -> Self
     where
         T: std::convert::Into<crate::model::NodePoolAutoscaling>,
     {
@@ -9412,7 +9457,7 @@ impl ClusterUpdate {
 
     /// Sets or clear the value of [desired_master_authorized_networks_config][crate::model::ClusterUpdate::desired_master_authorized_networks_config].
     #[deprecated]
-    pub fn maybe_desired_master_authorized_networks_config<T>(
+    pub fn set_or_clear_desired_master_authorized_networks_config<T>(
         mut self,
         v: std::option::Option<T>,
     ) -> Self
@@ -9433,7 +9478,7 @@ impl ClusterUpdate {
     }
 
     /// Sets or clear the value of [desired_cluster_autoscaling][crate::model::ClusterUpdate::desired_cluster_autoscaling].
-    pub fn maybe_desired_cluster_autoscaling<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_desired_cluster_autoscaling<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ClusterAutoscaling>,
     {
@@ -9451,7 +9496,7 @@ impl ClusterUpdate {
     }
 
     /// Sets or clear the value of [desired_binary_authorization][crate::model::ClusterUpdate::desired_binary_authorization].
-    pub fn maybe_desired_binary_authorization<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_desired_binary_authorization<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::BinaryAuthorization>,
     {
@@ -9478,7 +9523,7 @@ impl ClusterUpdate {
     }
 
     /// Sets or clear the value of [desired_resource_usage_export_config][crate::model::ClusterUpdate::desired_resource_usage_export_config].
-    pub fn maybe_desired_resource_usage_export_config<T>(
+    pub fn set_or_clear_desired_resource_usage_export_config<T>(
         mut self,
         v: std::option::Option<T>,
     ) -> Self
@@ -9499,7 +9544,10 @@ impl ClusterUpdate {
     }
 
     /// Sets or clear the value of [desired_vertical_pod_autoscaling][crate::model::ClusterUpdate::desired_vertical_pod_autoscaling].
-    pub fn maybe_desired_vertical_pod_autoscaling<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_desired_vertical_pod_autoscaling<T>(
+        mut self,
+        v: std::option::Option<T>,
+    ) -> Self
     where
         T: std::convert::Into<crate::model::VerticalPodAutoscaling>,
     {
@@ -9519,7 +9567,10 @@ impl ClusterUpdate {
 
     /// Sets or clear the value of [desired_private_cluster_config][crate::model::ClusterUpdate::desired_private_cluster_config].
     #[deprecated]
-    pub fn maybe_desired_private_cluster_config<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_desired_private_cluster_config<T>(
+        mut self,
+        v: std::option::Option<T>,
+    ) -> Self
     where
         T: std::convert::Into<crate::model::PrivateClusterConfig>,
     {
@@ -9537,7 +9588,7 @@ impl ClusterUpdate {
     }
 
     /// Sets or clear the value of [desired_intra_node_visibility_config][crate::model::ClusterUpdate::desired_intra_node_visibility_config].
-    pub fn maybe_desired_intra_node_visibility_config<T>(
+    pub fn set_or_clear_desired_intra_node_visibility_config<T>(
         mut self,
         v: std::option::Option<T>,
     ) -> Self
@@ -9558,7 +9609,7 @@ impl ClusterUpdate {
     }
 
     /// Sets or clear the value of [desired_default_snat_status][crate::model::ClusterUpdate::desired_default_snat_status].
-    pub fn maybe_desired_default_snat_status<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_desired_default_snat_status<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::DefaultSnatStatus>,
     {
@@ -9576,7 +9627,7 @@ impl ClusterUpdate {
     }
 
     /// Sets or clear the value of [desired_release_channel][crate::model::ClusterUpdate::desired_release_channel].
-    pub fn maybe_desired_release_channel<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_desired_release_channel<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ReleaseChannel>,
     {
@@ -9594,7 +9645,10 @@ impl ClusterUpdate {
     }
 
     /// Sets or clear the value of [desired_l4ilb_subsetting_config][crate::model::ClusterUpdate::desired_l4ilb_subsetting_config].
-    pub fn maybe_desired_l4ilb_subsetting_config<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_desired_l4ilb_subsetting_config<T>(
+        mut self,
+        v: std::option::Option<T>,
+    ) -> Self
     where
         T: std::convert::Into<crate::model::ILBSubsettingConfig>,
     {
@@ -9632,7 +9686,7 @@ impl ClusterUpdate {
     }
 
     /// Sets or clear the value of [desired_notification_config][crate::model::ClusterUpdate::desired_notification_config].
-    pub fn maybe_desired_notification_config<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_desired_notification_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::NotificationConfig>,
     {
@@ -9650,7 +9704,10 @@ impl ClusterUpdate {
     }
 
     /// Sets or clear the value of [desired_authenticator_groups_config][crate::model::ClusterUpdate::desired_authenticator_groups_config].
-    pub fn maybe_desired_authenticator_groups_config<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_desired_authenticator_groups_config<T>(
+        mut self,
+        v: std::option::Option<T>,
+    ) -> Self
     where
         T: std::convert::Into<crate::model::AuthenticatorGroupsConfig>,
     {
@@ -9668,7 +9725,7 @@ impl ClusterUpdate {
     }
 
     /// Sets or clear the value of [desired_logging_config][crate::model::ClusterUpdate::desired_logging_config].
-    pub fn maybe_desired_logging_config<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_desired_logging_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::LoggingConfig>,
     {
@@ -9686,7 +9743,7 @@ impl ClusterUpdate {
     }
 
     /// Sets or clear the value of [desired_monitoring_config][crate::model::ClusterUpdate::desired_monitoring_config].
-    pub fn maybe_desired_monitoring_config<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_desired_monitoring_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::MonitoringConfig>,
     {
@@ -9704,7 +9761,10 @@ impl ClusterUpdate {
     }
 
     /// Sets or clear the value of [desired_identity_service_config][crate::model::ClusterUpdate::desired_identity_service_config].
-    pub fn maybe_desired_identity_service_config<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_desired_identity_service_config<T>(
+        mut self,
+        v: std::option::Option<T>,
+    ) -> Self
     where
         T: std::convert::Into<crate::model::IdentityServiceConfig>,
     {
@@ -9722,7 +9782,10 @@ impl ClusterUpdate {
     }
 
     /// Sets or clear the value of [desired_service_external_ips_config][crate::model::ClusterUpdate::desired_service_external_ips_config].
-    pub fn maybe_desired_service_external_ips_config<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_desired_service_external_ips_config<T>(
+        mut self,
+        v: std::option::Option<T>,
+    ) -> Self
     where
         T: std::convert::Into<crate::model::ServiceExternalIPsConfig>,
     {
@@ -9742,7 +9805,10 @@ impl ClusterUpdate {
 
     /// Sets or clear the value of [desired_enable_private_endpoint][crate::model::ClusterUpdate::desired_enable_private_endpoint].
     #[deprecated]
-    pub fn maybe_desired_enable_private_endpoint<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_desired_enable_private_endpoint<T>(
+        mut self,
+        v: std::option::Option<T>,
+    ) -> Self
     where
         T: std::convert::Into<bool>,
     {
@@ -9760,7 +9826,7 @@ impl ClusterUpdate {
     }
 
     /// Sets or clear the value of [desired_default_enable_private_nodes][crate::model::ClusterUpdate::desired_default_enable_private_nodes].
-    pub fn maybe_desired_default_enable_private_nodes<T>(
+    pub fn set_or_clear_desired_default_enable_private_nodes<T>(
         mut self,
         v: std::option::Option<T>,
     ) -> Self
@@ -9781,7 +9847,7 @@ impl ClusterUpdate {
     }
 
     /// Sets or clear the value of [desired_control_plane_endpoints_config][crate::model::ClusterUpdate::desired_control_plane_endpoints_config].
-    pub fn maybe_desired_control_plane_endpoints_config<T>(
+    pub fn set_or_clear_desired_control_plane_endpoints_config<T>(
         mut self,
         v: std::option::Option<T>,
     ) -> Self
@@ -9811,7 +9877,7 @@ impl ClusterUpdate {
     }
 
     /// Sets or clear the value of [desired_gcfs_config][crate::model::ClusterUpdate::desired_gcfs_config].
-    pub fn maybe_desired_gcfs_config<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_desired_gcfs_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::GcfsConfig>,
     {
@@ -9829,7 +9895,7 @@ impl ClusterUpdate {
     }
 
     /// Sets or clear the value of [desired_node_pool_auto_config_network_tags][crate::model::ClusterUpdate::desired_node_pool_auto_config_network_tags].
-    pub fn maybe_desired_node_pool_auto_config_network_tags<T>(
+    pub fn set_or_clear_desired_node_pool_auto_config_network_tags<T>(
         mut self,
         v: std::option::Option<T>,
     ) -> Self
@@ -9850,7 +9916,7 @@ impl ClusterUpdate {
     }
 
     /// Sets or clear the value of [desired_gateway_api_config][crate::model::ClusterUpdate::desired_gateway_api_config].
-    pub fn maybe_desired_gateway_api_config<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_desired_gateway_api_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::GatewayAPIConfig>,
     {
@@ -9874,7 +9940,10 @@ impl ClusterUpdate {
     }
 
     /// Sets or clear the value of [desired_node_pool_logging_config][crate::model::ClusterUpdate::desired_node_pool_logging_config].
-    pub fn maybe_desired_node_pool_logging_config<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_desired_node_pool_logging_config<T>(
+        mut self,
+        v: std::option::Option<T>,
+    ) -> Self
     where
         T: std::convert::Into<crate::model::NodePoolLoggingConfig>,
     {
@@ -9892,7 +9961,7 @@ impl ClusterUpdate {
     }
 
     /// Sets or clear the value of [desired_fleet][crate::model::ClusterUpdate::desired_fleet].
-    pub fn maybe_desired_fleet<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_desired_fleet<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Fleet>,
     {
@@ -9919,7 +9988,7 @@ impl ClusterUpdate {
     }
 
     /// Sets or clear the value of [additional_pod_ranges_config][crate::model::ClusterUpdate::additional_pod_ranges_config].
-    pub fn maybe_additional_pod_ranges_config<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_additional_pod_ranges_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::AdditionalPodRangesConfig>,
     {
@@ -9937,7 +10006,7 @@ impl ClusterUpdate {
     }
 
     /// Sets or clear the value of [removed_additional_pod_ranges_config][crate::model::ClusterUpdate::removed_additional_pod_ranges_config].
-    pub fn maybe_removed_additional_pod_ranges_config<T>(
+    pub fn set_or_clear_removed_additional_pod_ranges_config<T>(
         mut self,
         v: std::option::Option<T>,
     ) -> Self
@@ -9958,7 +10027,7 @@ impl ClusterUpdate {
     }
 
     /// Sets or clear the value of [enable_k8s_beta_apis][crate::model::ClusterUpdate::enable_k8s_beta_apis].
-    pub fn maybe_enable_k8s_beta_apis<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_enable_k8s_beta_apis<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::K8sBetaAPIConfig>,
     {
@@ -9976,7 +10045,10 @@ impl ClusterUpdate {
     }
 
     /// Sets or clear the value of [desired_security_posture_config][crate::model::ClusterUpdate::desired_security_posture_config].
-    pub fn maybe_desired_security_posture_config<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_desired_security_posture_config<T>(
+        mut self,
+        v: std::option::Option<T>,
+    ) -> Self
     where
         T: std::convert::Into<crate::model::SecurityPostureConfig>,
     {
@@ -9994,7 +10066,10 @@ impl ClusterUpdate {
     }
 
     /// Sets or clear the value of [desired_network_performance_config][crate::model::ClusterUpdate::desired_network_performance_config].
-    pub fn maybe_desired_network_performance_config<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_desired_network_performance_config<T>(
+        mut self,
+        v: std::option::Option<T>,
+    ) -> Self
     where
         T: std::convert::Into<crate::model::network_config::ClusterNetworkPerformanceConfig>,
     {
@@ -10012,7 +10087,10 @@ impl ClusterUpdate {
     }
 
     /// Sets or clear the value of [desired_enable_fqdn_network_policy][crate::model::ClusterUpdate::desired_enable_fqdn_network_policy].
-    pub fn maybe_desired_enable_fqdn_network_policy<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_desired_enable_fqdn_network_policy<T>(
+        mut self,
+        v: std::option::Option<T>,
+    ) -> Self
     where
         T: std::convert::Into<bool>,
     {
@@ -10030,7 +10108,7 @@ impl ClusterUpdate {
     }
 
     /// Sets or clear the value of [desired_autopilot_workload_policy_config][crate::model::ClusterUpdate::desired_autopilot_workload_policy_config].
-    pub fn maybe_desired_autopilot_workload_policy_config<T>(
+    pub fn set_or_clear_desired_autopilot_workload_policy_config<T>(
         mut self,
         v: std::option::Option<T>,
     ) -> Self
@@ -10051,7 +10129,7 @@ impl ClusterUpdate {
     }
 
     /// Sets or clear the value of [desired_k8s_beta_apis][crate::model::ClusterUpdate::desired_k8s_beta_apis].
-    pub fn maybe_desired_k8s_beta_apis<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_desired_k8s_beta_apis<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::K8sBetaAPIConfig>,
     {
@@ -10069,7 +10147,7 @@ impl ClusterUpdate {
     }
 
     /// Sets or clear the value of [desired_containerd_config][crate::model::ClusterUpdate::desired_containerd_config].
-    pub fn maybe_desired_containerd_config<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_desired_containerd_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ContainerdConfig>,
     {
@@ -10087,7 +10165,10 @@ impl ClusterUpdate {
     }
 
     /// Sets or clear the value of [desired_enable_multi_networking][crate::model::ClusterUpdate::desired_enable_multi_networking].
-    pub fn maybe_desired_enable_multi_networking<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_desired_enable_multi_networking<T>(
+        mut self,
+        v: std::option::Option<T>,
+    ) -> Self
     where
         T: std::convert::Into<bool>,
     {
@@ -10106,7 +10187,7 @@ impl ClusterUpdate {
     }
 
     /// Sets or clear the value of [desired_node_pool_auto_config_resource_manager_tags][crate::model::ClusterUpdate::desired_node_pool_auto_config_resource_manager_tags].
-    pub fn maybe_desired_node_pool_auto_config_resource_manager_tags<T>(
+    pub fn set_or_clear_desired_node_pool_auto_config_resource_manager_tags<T>(
         mut self,
         v: std::option::Option<T>,
     ) -> Self
@@ -10127,7 +10208,7 @@ impl ClusterUpdate {
     }
 
     /// Sets or clear the value of [desired_in_transit_encryption_config][crate::model::ClusterUpdate::desired_in_transit_encryption_config].
-    pub fn maybe_desired_in_transit_encryption_config<T>(
+    pub fn set_or_clear_desired_in_transit_encryption_config<T>(
         mut self,
         v: std::option::Option<T>,
     ) -> Self
@@ -10148,7 +10229,7 @@ impl ClusterUpdate {
     }
 
     /// Sets or clear the value of [desired_enable_cilium_clusterwide_network_policy][crate::model::ClusterUpdate::desired_enable_cilium_clusterwide_network_policy].
-    pub fn maybe_desired_enable_cilium_clusterwide_network_policy<T>(
+    pub fn set_or_clear_desired_enable_cilium_clusterwide_network_policy<T>(
         mut self,
         v: std::option::Option<T>,
     ) -> Self
@@ -10169,7 +10250,10 @@ impl ClusterUpdate {
     }
 
     /// Sets or clear the value of [desired_secret_manager_config][crate::model::ClusterUpdate::desired_secret_manager_config].
-    pub fn maybe_desired_secret_manager_config<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_desired_secret_manager_config<T>(
+        mut self,
+        v: std::option::Option<T>,
+    ) -> Self
     where
         T: std::convert::Into<crate::model::SecretManagerConfig>,
     {
@@ -10187,7 +10271,10 @@ impl ClusterUpdate {
     }
 
     /// Sets or clear the value of [desired_compliance_posture_config][crate::model::ClusterUpdate::desired_compliance_posture_config].
-    pub fn maybe_desired_compliance_posture_config<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_desired_compliance_posture_config<T>(
+        mut self,
+        v: std::option::Option<T>,
+    ) -> Self
     where
         T: std::convert::Into<crate::model::CompliancePostureConfig>,
     {
@@ -10205,7 +10292,7 @@ impl ClusterUpdate {
     }
 
     /// Sets or clear the value of [desired_node_kubelet_config][crate::model::ClusterUpdate::desired_node_kubelet_config].
-    pub fn maybe_desired_node_kubelet_config<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_desired_node_kubelet_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::NodeKubeletConfig>,
     {
@@ -10223,7 +10310,7 @@ impl ClusterUpdate {
     }
 
     /// Sets or clear the value of [desired_node_pool_auto_config_kubelet_config][crate::model::ClusterUpdate::desired_node_pool_auto_config_kubelet_config].
-    pub fn maybe_desired_node_pool_auto_config_kubelet_config<T>(
+    pub fn set_or_clear_desired_node_pool_auto_config_kubelet_config<T>(
         mut self,
         v: std::option::Option<T>,
     ) -> Self
@@ -10244,7 +10331,7 @@ impl ClusterUpdate {
     }
 
     /// Sets or clear the value of [user_managed_keys_config][crate::model::ClusterUpdate::user_managed_keys_config].
-    pub fn maybe_user_managed_keys_config<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_user_managed_keys_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::UserManagedKeysConfig>,
     {
@@ -10262,7 +10349,7 @@ impl ClusterUpdate {
     }
 
     /// Sets or clear the value of [desired_rbac_binding_config][crate::model::ClusterUpdate::desired_rbac_binding_config].
-    pub fn maybe_desired_rbac_binding_config<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_desired_rbac_binding_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::RBACBindingConfig>,
     {
@@ -10280,7 +10367,7 @@ impl ClusterUpdate {
     }
 
     /// Sets or clear the value of [desired_enterprise_config][crate::model::ClusterUpdate::desired_enterprise_config].
-    pub fn maybe_desired_enterprise_config<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_desired_enterprise_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::DesiredEnterpriseConfig>,
     {
@@ -10298,7 +10385,7 @@ impl ClusterUpdate {
     }
 
     /// Sets or clear the value of [desired_node_pool_auto_config_linux_node_config][crate::model::ClusterUpdate::desired_node_pool_auto_config_linux_node_config].
-    pub fn maybe_desired_node_pool_auto_config_linux_node_config<T>(
+    pub fn set_or_clear_desired_node_pool_auto_config_linux_node_config<T>(
         mut self,
         v: std::option::Option<T>,
     ) -> Self
@@ -10636,7 +10723,7 @@ impl Operation {
     }
 
     /// Sets or clear the value of [progress][crate::model::Operation::progress].
-    pub fn maybe_progress<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_progress<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::OperationProgress>,
     {
@@ -10678,7 +10765,7 @@ impl Operation {
     }
 
     /// Sets or clear the value of [error][crate::model::Operation::error].
-    pub fn maybe_error<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_error<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<rpc::model::Status>,
     {
@@ -11483,7 +11570,7 @@ impl CreateClusterRequest {
     }
 
     /// Sets or clear the value of [cluster][crate::model::CreateClusterRequest::cluster].
-    pub fn maybe_cluster<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_cluster<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Cluster>,
     {
@@ -11655,7 +11742,7 @@ impl UpdateClusterRequest {
     }
 
     /// Sets or clear the value of [update][crate::model::UpdateClusterRequest::update].
-    pub fn maybe_update<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_update<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ClusterUpdate>,
     {
@@ -11942,7 +12029,7 @@ impl UpdateNodePoolRequest {
     }
 
     /// Sets or clear the value of [workload_metadata_config][crate::model::UpdateNodePoolRequest::workload_metadata_config].
-    pub fn maybe_workload_metadata_config<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_workload_metadata_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::WorkloadMetadataConfig>,
     {
@@ -11960,7 +12047,7 @@ impl UpdateNodePoolRequest {
     }
 
     /// Sets or clear the value of [upgrade_settings][crate::model::UpdateNodePoolRequest::upgrade_settings].
-    pub fn maybe_upgrade_settings<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_upgrade_settings<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::node_pool::UpgradeSettings>,
     {
@@ -11978,7 +12065,7 @@ impl UpdateNodePoolRequest {
     }
 
     /// Sets or clear the value of [tags][crate::model::UpdateNodePoolRequest::tags].
-    pub fn maybe_tags<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_tags<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::NetworkTags>,
     {
@@ -11996,7 +12083,7 @@ impl UpdateNodePoolRequest {
     }
 
     /// Sets or clear the value of [taints][crate::model::UpdateNodePoolRequest::taints].
-    pub fn maybe_taints<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_taints<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::NodeTaints>,
     {
@@ -12014,7 +12101,7 @@ impl UpdateNodePoolRequest {
     }
 
     /// Sets or clear the value of [labels][crate::model::UpdateNodePoolRequest::labels].
-    pub fn maybe_labels<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_labels<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::NodeLabels>,
     {
@@ -12032,7 +12119,7 @@ impl UpdateNodePoolRequest {
     }
 
     /// Sets or clear the value of [linux_node_config][crate::model::UpdateNodePoolRequest::linux_node_config].
-    pub fn maybe_linux_node_config<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_linux_node_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::LinuxNodeConfig>,
     {
@@ -12050,7 +12137,7 @@ impl UpdateNodePoolRequest {
     }
 
     /// Sets or clear the value of [kubelet_config][crate::model::UpdateNodePoolRequest::kubelet_config].
-    pub fn maybe_kubelet_config<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_kubelet_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::NodeKubeletConfig>,
     {
@@ -12068,7 +12155,7 @@ impl UpdateNodePoolRequest {
     }
 
     /// Sets or clear the value of [node_network_config][crate::model::UpdateNodePoolRequest::node_network_config].
-    pub fn maybe_node_network_config<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_node_network_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::NodeNetworkConfig>,
     {
@@ -12086,7 +12173,7 @@ impl UpdateNodePoolRequest {
     }
 
     /// Sets or clear the value of [gcfs_config][crate::model::UpdateNodePoolRequest::gcfs_config].
-    pub fn maybe_gcfs_config<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_gcfs_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::GcfsConfig>,
     {
@@ -12104,7 +12191,7 @@ impl UpdateNodePoolRequest {
     }
 
     /// Sets or clear the value of [confidential_nodes][crate::model::UpdateNodePoolRequest::confidential_nodes].
-    pub fn maybe_confidential_nodes<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_confidential_nodes<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ConfidentialNodes>,
     {
@@ -12122,7 +12209,7 @@ impl UpdateNodePoolRequest {
     }
 
     /// Sets or clear the value of [gvnic][crate::model::UpdateNodePoolRequest::gvnic].
-    pub fn maybe_gvnic<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_gvnic<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::VirtualNIC>,
     {
@@ -12146,7 +12233,7 @@ impl UpdateNodePoolRequest {
     }
 
     /// Sets or clear the value of [fast_socket][crate::model::UpdateNodePoolRequest::fast_socket].
-    pub fn maybe_fast_socket<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_fast_socket<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::FastSocket>,
     {
@@ -12164,7 +12251,7 @@ impl UpdateNodePoolRequest {
     }
 
     /// Sets or clear the value of [logging_config][crate::model::UpdateNodePoolRequest::logging_config].
-    pub fn maybe_logging_config<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_logging_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::NodePoolLoggingConfig>,
     {
@@ -12182,7 +12269,7 @@ impl UpdateNodePoolRequest {
     }
 
     /// Sets or clear the value of [resource_labels][crate::model::UpdateNodePoolRequest::resource_labels].
-    pub fn maybe_resource_labels<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_resource_labels<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ResourceLabels>,
     {
@@ -12200,7 +12287,7 @@ impl UpdateNodePoolRequest {
     }
 
     /// Sets or clear the value of [windows_node_config][crate::model::UpdateNodePoolRequest::windows_node_config].
-    pub fn maybe_windows_node_config<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_windows_node_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::WindowsNodeConfig>,
     {
@@ -12247,7 +12334,7 @@ impl UpdateNodePoolRequest {
     }
 
     /// Sets or clear the value of [resource_manager_tags][crate::model::UpdateNodePoolRequest::resource_manager_tags].
-    pub fn maybe_resource_manager_tags<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_resource_manager_tags<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ResourceManagerTags>,
     {
@@ -12265,7 +12352,7 @@ impl UpdateNodePoolRequest {
     }
 
     /// Sets or clear the value of [containerd_config][crate::model::UpdateNodePoolRequest::containerd_config].
-    pub fn maybe_containerd_config<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_containerd_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ContainerdConfig>,
     {
@@ -12283,7 +12370,7 @@ impl UpdateNodePoolRequest {
     }
 
     /// Sets or clear the value of [queued_provisioning][crate::model::UpdateNodePoolRequest::queued_provisioning].
-    pub fn maybe_queued_provisioning<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_queued_provisioning<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::node_pool::QueuedProvisioning>,
     {
@@ -12399,7 +12486,7 @@ impl SetNodePoolAutoscalingRequest {
     }
 
     /// Sets or clear the value of [autoscaling][crate::model::SetNodePoolAutoscalingRequest::autoscaling].
-    pub fn maybe_autoscaling<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_autoscaling<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::NodePoolAutoscaling>,
     {
@@ -12690,7 +12777,7 @@ impl SetAddonsConfigRequest {
     }
 
     /// Sets or clear the value of [addons_config][crate::model::SetAddonsConfigRequest::addons_config].
-    pub fn maybe_addons_config<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_addons_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::AddonsConfig>,
     {
@@ -12989,7 +13076,7 @@ impl SetMasterAuthRequest {
     }
 
     /// Sets or clear the value of [update][crate::model::SetMasterAuthRequest::update].
-    pub fn maybe_update<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_update<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::MasterAuth>,
     {
@@ -13944,7 +14031,7 @@ impl CreateNodePoolRequest {
     }
 
     /// Sets or clear the value of [node_pool][crate::model::CreateNodePoolRequest::node_pool].
-    pub fn maybe_node_pool<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_node_pool<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::NodePool>,
     {
@@ -14252,7 +14339,7 @@ impl BlueGreenSettings {
     }
 
     /// Sets or clear the value of [node_pool_soak_duration][crate::model::BlueGreenSettings::node_pool_soak_duration].
-    pub fn maybe_node_pool_soak_duration<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_node_pool_soak_duration<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
     {
@@ -14357,7 +14444,7 @@ pub mod blue_green_settings {
         }
 
         /// Sets or clear the value of [batch_soak_duration][crate::model::blue_green_settings::StandardRolloutPolicy::batch_soak_duration].
-        pub fn maybe_batch_soak_duration<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_batch_soak_duration<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
         {
@@ -14618,7 +14705,7 @@ impl NodePool {
     }
 
     /// Sets or clear the value of [config][crate::model::NodePool::config].
-    pub fn maybe_config<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::NodeConfig>,
     {
@@ -14653,7 +14740,7 @@ impl NodePool {
     }
 
     /// Sets or clear the value of [network_config][crate::model::NodePool::network_config].
-    pub fn maybe_network_config<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_network_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::NodeNetworkConfig>,
     {
@@ -14710,7 +14797,7 @@ impl NodePool {
     }
 
     /// Sets or clear the value of [autoscaling][crate::model::NodePool::autoscaling].
-    pub fn maybe_autoscaling<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_autoscaling<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::NodePoolAutoscaling>,
     {
@@ -14728,7 +14815,7 @@ impl NodePool {
     }
 
     /// Sets or clear the value of [management][crate::model::NodePool::management].
-    pub fn maybe_management<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_management<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::NodeManagement>,
     {
@@ -14746,7 +14833,7 @@ impl NodePool {
     }
 
     /// Sets or clear the value of [max_pods_constraint][crate::model::NodePool::max_pods_constraint].
-    pub fn maybe_max_pods_constraint<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_max_pods_constraint<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::MaxPodsConstraint>,
     {
@@ -14781,7 +14868,7 @@ impl NodePool {
     }
 
     /// Sets or clear the value of [upgrade_settings][crate::model::NodePool::upgrade_settings].
-    pub fn maybe_upgrade_settings<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_upgrade_settings<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::node_pool::UpgradeSettings>,
     {
@@ -14799,7 +14886,7 @@ impl NodePool {
     }
 
     /// Sets or clear the value of [placement_policy][crate::model::NodePool::placement_policy].
-    pub fn maybe_placement_policy<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_placement_policy<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::node_pool::PlacementPolicy>,
     {
@@ -14817,7 +14904,7 @@ impl NodePool {
     }
 
     /// Sets or clear the value of [update_info][crate::model::NodePool::update_info].
-    pub fn maybe_update_info<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_update_info<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::node_pool::UpdateInfo>,
     {
@@ -14841,7 +14928,7 @@ impl NodePool {
     }
 
     /// Sets or clear the value of [queued_provisioning][crate::model::NodePool::queued_provisioning].
-    pub fn maybe_queued_provisioning<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_queued_provisioning<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::node_pool::QueuedProvisioning>,
     {
@@ -14859,7 +14946,7 @@ impl NodePool {
     }
 
     /// Sets or clear the value of [best_effort_provisioning][crate::model::NodePool::best_effort_provisioning].
-    pub fn maybe_best_effort_provisioning<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_best_effort_provisioning<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::BestEffortProvisioning>,
     {
@@ -14982,7 +15069,7 @@ pub mod node_pool {
         }
 
         /// Sets or clear the value of [strategy][crate::model::node_pool::UpgradeSettings::strategy].
-        pub fn maybe_strategy<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_strategy<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::NodePoolUpdateStrategy>,
         {
@@ -15000,7 +15087,7 @@ pub mod node_pool {
         }
 
         /// Sets or clear the value of [blue_green_settings][crate::model::node_pool::UpgradeSettings::blue_green_settings].
-        pub fn maybe_blue_green_settings<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_blue_green_settings<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::BlueGreenSettings>,
         {
@@ -15046,7 +15133,7 @@ pub mod node_pool {
         }
 
         /// Sets or clear the value of [blue_green_info][crate::model::node_pool::UpdateInfo::blue_green_info].
-        pub fn maybe_blue_green_info<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_blue_green_info<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::node_pool::update_info::BlueGreenInfo>,
         {
@@ -15794,7 +15881,7 @@ impl NodeManagement {
     }
 
     /// Sets or clear the value of [upgrade_options][crate::model::NodeManagement::upgrade_options].
-    pub fn maybe_upgrade_options<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_upgrade_options<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::AutoUpgradeOptions>,
     {
@@ -15941,7 +16028,7 @@ impl MaintenancePolicy {
     }
 
     /// Sets or clear the value of [window][crate::model::MaintenancePolicy::window].
-    pub fn maybe_window<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_window<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::MaintenanceWindow>,
     {
@@ -16142,7 +16229,7 @@ impl TimeWindow {
     }
 
     /// Sets or clear the value of [start_time][crate::model::TimeWindow::start_time].
-    pub fn maybe_start_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -16160,7 +16247,7 @@ impl TimeWindow {
     }
 
     /// Sets or clear the value of [end_time][crate::model::TimeWindow::end_time].
-    pub fn maybe_end_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -16483,7 +16570,7 @@ impl RecurringTimeWindow {
     }
 
     /// Sets or clear the value of [window][crate::model::RecurringTimeWindow::window].
-    pub fn maybe_window<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_window<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::TimeWindow>,
     {
@@ -16642,7 +16729,7 @@ impl SetNodePoolManagementRequest {
     }
 
     /// Sets or clear the value of [management][crate::model::SetNodePoolManagementRequest::management].
-    pub fn maybe_management<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_management<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::NodeManagement>,
     {
@@ -17016,7 +17103,10 @@ impl ClusterAutoscaling {
     }
 
     /// Sets or clear the value of [autoprovisioning_node_pool_defaults][crate::model::ClusterAutoscaling::autoprovisioning_node_pool_defaults].
-    pub fn maybe_autoprovisioning_node_pool_defaults<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_autoprovisioning_node_pool_defaults<T>(
+        mut self,
+        v: std::option::Option<T>,
+    ) -> Self
     where
         T: std::convert::Into<crate::model::AutoprovisioningNodePoolDefaults>,
     {
@@ -17291,7 +17381,7 @@ impl AutoprovisioningNodePoolDefaults {
     }
 
     /// Sets or clear the value of [upgrade_settings][crate::model::AutoprovisioningNodePoolDefaults::upgrade_settings].
-    pub fn maybe_upgrade_settings<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_upgrade_settings<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::node_pool::UpgradeSettings>,
     {
@@ -17309,7 +17399,7 @@ impl AutoprovisioningNodePoolDefaults {
     }
 
     /// Sets or clear the value of [management][crate::model::AutoprovisioningNodePoolDefaults::management].
-    pub fn maybe_management<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_management<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::NodeManagement>,
     {
@@ -17349,7 +17439,7 @@ impl AutoprovisioningNodePoolDefaults {
     }
 
     /// Sets or clear the value of [shielded_instance_config][crate::model::AutoprovisioningNodePoolDefaults::shielded_instance_config].
-    pub fn maybe_shielded_instance_config<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_shielded_instance_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ShieldedInstanceConfig>,
     {
@@ -17382,7 +17472,7 @@ impl AutoprovisioningNodePoolDefaults {
     }
 
     /// Sets or clear the value of [insecure_kubelet_readonly_port_enabled][crate::model::AutoprovisioningNodePoolDefaults::insecure_kubelet_readonly_port_enabled].
-    pub fn maybe_insecure_kubelet_readonly_port_enabled<T>(
+    pub fn set_or_clear_insecure_kubelet_readonly_port_enabled<T>(
         mut self,
         v: std::option::Option<T>,
     ) -> Self
@@ -18132,7 +18222,7 @@ impl AcceleratorConfig {
     }
 
     /// Sets or clear the value of [gpu_sharing_config][crate::model::AcceleratorConfig::gpu_sharing_config].
-    pub fn maybe_gpu_sharing_config<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_gpu_sharing_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::GPUSharingConfig>,
     {
@@ -18150,7 +18240,10 @@ impl AcceleratorConfig {
     }
 
     /// Sets or clear the value of [gpu_driver_installation_config][crate::model::AcceleratorConfig::gpu_driver_installation_config].
-    pub fn maybe_gpu_driver_installation_config<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_gpu_driver_installation_config<T>(
+        mut self,
+        v: std::option::Option<T>,
+    ) -> Self
     where
         T: std::convert::Into<crate::model::GPUDriverInstallationConfig>,
     {
@@ -18207,7 +18300,7 @@ impl GPUSharingConfig {
     }
 
     /// Sets or clear the value of [gpu_sharing_strategy][crate::model::GPUSharingConfig::gpu_sharing_strategy].
-    pub fn maybe_gpu_sharing_strategy<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_gpu_sharing_strategy<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::gpu_sharing_config::GPUSharingStrategy>,
     {
@@ -18391,7 +18484,7 @@ impl GPUDriverInstallationConfig {
     }
 
     /// Sets or clear the value of [gpu_driver_version][crate::model::GPUDriverInstallationConfig::gpu_driver_version].
-    pub fn maybe_gpu_driver_version<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_gpu_driver_version<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::gpu_driver_installation_config::GPUDriverVersion>,
     {
@@ -18806,7 +18899,7 @@ impl SetNetworkPolicyRequest {
     }
 
     /// Sets or clear the value of [network_policy][crate::model::SetNetworkPolicyRequest::network_policy].
-    pub fn maybe_network_policy<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_network_policy<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::NetworkPolicy>,
     {
@@ -18896,7 +18989,7 @@ impl SetMaintenancePolicyRequest {
     }
 
     /// Sets or clear the value of [maintenance_policy][crate::model::SetMaintenancePolicyRequest::maintenance_policy].
-    pub fn maybe_maintenance_policy<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_maintenance_policy<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::MaintenancePolicy>,
     {
@@ -19274,7 +19367,7 @@ impl NetworkConfig {
     }
 
     /// Sets or clear the value of [default_snat_status][crate::model::NetworkConfig::default_snat_status].
-    pub fn maybe_default_snat_status<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_default_snat_status<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::DefaultSnatStatus>,
     {
@@ -19318,7 +19411,7 @@ impl NetworkConfig {
     }
 
     /// Sets or clear the value of [dns_config][crate::model::NetworkConfig::dns_config].
-    pub fn maybe_dns_config<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_dns_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::DNSConfig>,
     {
@@ -19336,7 +19429,7 @@ impl NetworkConfig {
     }
 
     /// Sets or clear the value of [service_external_ips_config][crate::model::NetworkConfig::service_external_ips_config].
-    pub fn maybe_service_external_ips_config<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_service_external_ips_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ServiceExternalIPsConfig>,
     {
@@ -19354,7 +19447,7 @@ impl NetworkConfig {
     }
 
     /// Sets or clear the value of [gateway_api_config][crate::model::NetworkConfig::gateway_api_config].
-    pub fn maybe_gateway_api_config<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_gateway_api_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::GatewayAPIConfig>,
     {
@@ -19378,7 +19471,7 @@ impl NetworkConfig {
     }
 
     /// Sets or clear the value of [network_performance_config][crate::model::NetworkConfig::network_performance_config].
-    pub fn maybe_network_performance_config<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_network_performance_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::network_config::ClusterNetworkPerformanceConfig>,
     {
@@ -19396,7 +19489,7 @@ impl NetworkConfig {
     }
 
     /// Sets or clear the value of [enable_fqdn_network_policy][crate::model::NetworkConfig::enable_fqdn_network_policy].
-    pub fn maybe_enable_fqdn_network_policy<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_enable_fqdn_network_policy<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<bool>,
     {
@@ -19414,7 +19507,7 @@ impl NetworkConfig {
     }
 
     /// Sets or clear the value of [in_transit_encryption_config][crate::model::NetworkConfig::in_transit_encryption_config].
-    pub fn maybe_in_transit_encryption_config<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_in_transit_encryption_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::InTransitEncryptionConfig>,
     {
@@ -19432,7 +19525,7 @@ impl NetworkConfig {
     }
 
     /// Sets or clear the value of [enable_cilium_clusterwide_network_policy][crate::model::NetworkConfig::enable_cilium_clusterwide_network_policy].
-    pub fn maybe_enable_cilium_clusterwide_network_policy<T>(
+    pub fn set_or_clear_enable_cilium_clusterwide_network_policy<T>(
         mut self,
         v: std::option::Option<T>,
     ) -> Self
@@ -19453,7 +19546,7 @@ impl NetworkConfig {
     }
 
     /// Sets or clear the value of [default_enable_private_nodes][crate::model::NetworkConfig::default_enable_private_nodes].
-    pub fn maybe_default_enable_private_nodes<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_default_enable_private_nodes<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<bool>,
     {
@@ -19506,7 +19599,10 @@ pub mod network_config {
         }
 
         /// Sets or clear the value of [total_egress_bandwidth_tier][crate::model::network_config::ClusterNetworkPerformanceConfig::total_egress_bandwidth_tier].
-        pub fn maybe_total_egress_bandwidth_tier<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_total_egress_bandwidth_tier<T>(
+            mut self,
+            v: std::option::Option<T>,
+        ) -> Self
         where
             T: std::convert::Into<
                     crate::model::network_config::cluster_network_performance_config::Tier,
@@ -20294,7 +20390,7 @@ impl AutopilotCompatibilityIssue {
     }
 
     /// Sets or clear the value of [last_observation][crate::model::AutopilotCompatibilityIssue::last_observation].
-    pub fn maybe_last_observation<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_last_observation<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -21337,7 +21433,7 @@ impl MeshCertificates {
     }
 
     /// Sets or clear the value of [enable_certificates][crate::model::MeshCertificates::enable_certificates].
-    pub fn maybe_enable_certificates<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_enable_certificates<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::BoolValue>,
     {
@@ -21416,7 +21512,7 @@ impl DatabaseEncryption {
     }
 
     /// Sets or clear the value of [current_state][crate::model::DatabaseEncryption::current_state].
-    pub fn maybe_current_state<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_current_state<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::database_encryption::CurrentState>,
     {
@@ -21511,7 +21607,7 @@ pub mod database_encryption {
         }
 
         /// Sets or clear the value of [timestamp][crate::model::database_encryption::OperationError::timestamp].
-        pub fn maybe_timestamp<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_timestamp<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
         {
@@ -22304,7 +22400,7 @@ impl ResourceUsageExportConfig {
     }
 
     /// Sets or clear the value of [bigquery_destination][crate::model::ResourceUsageExportConfig::bigquery_destination].
-    pub fn maybe_bigquery_destination<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_bigquery_destination<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::resource_usage_export_config::BigQueryDestination>,
     {
@@ -22330,7 +22426,7 @@ impl ResourceUsageExportConfig {
     }
 
     /// Sets or clear the value of [consumption_metering_config][crate::model::ResourceUsageExportConfig::consumption_metering_config].
-    pub fn maybe_consumption_metering_config<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_consumption_metering_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<
                 crate::model::resource_usage_export_config::ConsumptionMeteringConfig,
@@ -22611,7 +22707,7 @@ impl NotificationConfig {
     }
 
     /// Sets or clear the value of [pubsub][crate::model::NotificationConfig::pubsub].
-    pub fn maybe_pubsub<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_pubsub<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::notification_config::PubSub>,
     {
@@ -22683,7 +22779,7 @@ pub mod notification_config {
         }
 
         /// Sets or clear the value of [filter][crate::model::notification_config::PubSub::filter].
-        pub fn maybe_filter<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_filter<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::notification_config::Filter>,
         {
@@ -22977,7 +23073,7 @@ impl UpgradeEvent {
     }
 
     /// Sets or clear the value of [operation_start_time][crate::model::UpgradeEvent::operation_start_time].
-    pub fn maybe_operation_start_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_operation_start_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -23086,7 +23182,7 @@ impl UpgradeInfoEvent {
     }
 
     /// Sets or clear the value of [start_time][crate::model::UpgradeInfoEvent::start_time].
-    pub fn maybe_start_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -23104,7 +23200,7 @@ impl UpgradeInfoEvent {
     }
 
     /// Sets or clear the value of [end_time][crate::model::UpgradeInfoEvent::end_time].
-    pub fn maybe_end_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -23362,7 +23458,7 @@ impl UpgradeAvailableEvent {
     }
 
     /// Sets or clear the value of [release_channel][crate::model::UpgradeAvailableEvent::release_channel].
-    pub fn maybe_release_channel<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_release_channel<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ReleaseChannel>,
     {
@@ -23577,7 +23673,7 @@ impl Autopilot {
     }
 
     /// Sets or clear the value of [workload_policy_config][crate::model::Autopilot::workload_policy_config].
-    pub fn maybe_workload_policy_config<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_workload_policy_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::WorkloadPolicyConfig>,
     {
@@ -23622,7 +23718,7 @@ impl WorkloadPolicyConfig {
     }
 
     /// Sets or clear the value of [allow_net_admin][crate::model::WorkloadPolicyConfig::allow_net_admin].
-    pub fn maybe_allow_net_admin<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_allow_net_admin<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<bool>,
     {
@@ -23666,7 +23762,7 @@ impl LoggingConfig {
     }
 
     /// Sets or clear the value of [component_config][crate::model::LoggingConfig::component_config].
-    pub fn maybe_component_config<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_component_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::LoggingComponentConfig>,
     {
@@ -23962,7 +24058,7 @@ impl MonitoringConfig {
     }
 
     /// Sets or clear the value of [component_config][crate::model::MonitoringConfig::component_config].
-    pub fn maybe_component_config<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_component_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::MonitoringComponentConfig>,
     {
@@ -23980,7 +24076,7 @@ impl MonitoringConfig {
     }
 
     /// Sets or clear the value of [managed_prometheus_config][crate::model::MonitoringConfig::managed_prometheus_config].
-    pub fn maybe_managed_prometheus_config<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_managed_prometheus_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ManagedPrometheusConfig>,
     {
@@ -23998,7 +24094,7 @@ impl MonitoringConfig {
     }
 
     /// Sets or clear the value of [advanced_datapath_observability_config][crate::model::MonitoringConfig::advanced_datapath_observability_config].
-    pub fn maybe_advanced_datapath_observability_config<T>(
+    pub fn set_or_clear_advanced_datapath_observability_config<T>(
         mut self,
         v: std::option::Option<T>,
     ) -> Self
@@ -24070,7 +24166,7 @@ impl AdvancedDatapathObservabilityConfig {
     }
 
     /// Sets or clear the value of [enable_relay][crate::model::AdvancedDatapathObservabilityConfig::enable_relay].
-    pub fn maybe_enable_relay<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_enable_relay<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<bool>,
     {
@@ -24292,7 +24388,7 @@ impl NodePoolLoggingConfig {
     }
 
     /// Sets or clear the value of [variant_config][crate::model::NodePoolLoggingConfig::variant_config].
-    pub fn maybe_variant_config<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_variant_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::LoggingVariantConfig>,
     {
@@ -24857,7 +24953,7 @@ impl ControlPlaneEndpointsConfig {
     }
 
     /// Sets or clear the value of [dns_endpoint_config][crate::model::ControlPlaneEndpointsConfig::dns_endpoint_config].
-    pub fn maybe_dns_endpoint_config<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_dns_endpoint_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::control_plane_endpoints_config::DNSEndpointConfig>,
     {
@@ -24875,7 +24971,7 @@ impl ControlPlaneEndpointsConfig {
     }
 
     /// Sets or clear the value of [ip_endpoints_config][crate::model::ControlPlaneEndpointsConfig::ip_endpoints_config].
-    pub fn maybe_ip_endpoints_config<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_ip_endpoints_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::control_plane_endpoints_config::IPEndpointsConfig>,
     {
@@ -24941,7 +25037,7 @@ pub mod control_plane_endpoints_config {
         }
 
         /// Sets or clear the value of [allow_external_traffic][crate::model::control_plane_endpoints_config::DNSEndpointConfig::allow_external_traffic].
-        pub fn maybe_allow_external_traffic<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_allow_external_traffic<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<bool>,
         {
@@ -25029,7 +25125,7 @@ pub mod control_plane_endpoints_config {
         }
 
         /// Sets or clear the value of [enabled][crate::model::control_plane_endpoints_config::IPEndpointsConfig::enabled].
-        pub fn maybe_enabled<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_enabled<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<bool>,
         {
@@ -25047,7 +25143,7 @@ pub mod control_plane_endpoints_config {
         }
 
         /// Sets or clear the value of [enable_public_endpoint][crate::model::control_plane_endpoints_config::IPEndpointsConfig::enable_public_endpoint].
-        pub fn maybe_enable_public_endpoint<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_enable_public_endpoint<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<bool>,
         {
@@ -25065,7 +25161,7 @@ pub mod control_plane_endpoints_config {
         }
 
         /// Sets or clear the value of [global_access][crate::model::control_plane_endpoints_config::IPEndpointsConfig::global_access].
-        pub fn maybe_global_access<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_global_access<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<bool>,
         {
@@ -25083,7 +25179,10 @@ pub mod control_plane_endpoints_config {
         }
 
         /// Sets or clear the value of [authorized_networks_config][crate::model::control_plane_endpoints_config::IPEndpointsConfig::authorized_networks_config].
-        pub fn maybe_authorized_networks_config<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_authorized_networks_config<T>(
+            mut self,
+            v: std::option::Option<T>,
+        ) -> Self
         where
             T: std::convert::Into<crate::model::MasterAuthorizedNetworksConfig>,
         {
@@ -25486,7 +25585,7 @@ impl SecretManagerConfig {
     }
 
     /// Sets or clear the value of [enabled][crate::model::SecretManagerConfig::enabled].
-    pub fn maybe_enabled<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_enabled<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<bool>,
     {

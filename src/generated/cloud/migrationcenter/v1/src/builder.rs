@@ -316,7 +316,7 @@ pub mod migration_center {
         /// Sets or clear the value of [update_mask][crate::model::UpdateAssetRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
         {
@@ -338,7 +338,7 @@ pub mod migration_center {
         /// Sets or clear the value of [asset][crate::model::UpdateAssetRequest::asset].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_asset<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_asset<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Asset>,
         {
@@ -657,7 +657,7 @@ pub mod migration_center {
         }
 
         /// Sets or clear the value of [frames][crate::model::ReportAssetFramesRequest::frames].
-        pub fn maybe_frames<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_frames<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Frames>,
         {
@@ -878,7 +878,7 @@ pub mod migration_center {
         /// Sets or clear the value of [import_job][crate::model::CreateImportJobRequest::import_job].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_import_job<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_import_job<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::ImportJob>,
         {
@@ -1302,7 +1302,7 @@ pub mod migration_center {
         /// Sets or clear the value of [update_mask][crate::model::UpdateImportJobRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
         {
@@ -1324,7 +1324,7 @@ pub mod migration_center {
         /// Sets or clear the value of [import_job][crate::model::UpdateImportJobRequest::import_job].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_import_job<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_import_job<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::ImportJob>,
         {
@@ -1872,7 +1872,7 @@ pub mod migration_center {
         /// Sets or clear the value of [import_data_file][crate::model::CreateImportDataFileRequest::import_data_file].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_import_data_file<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_import_data_file<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::ImportDataFile>,
         {
@@ -2297,7 +2297,7 @@ pub mod migration_center {
         /// Sets or clear the value of [group][crate::model::CreateGroupRequest::group].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_group<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_group<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Group>,
         {
@@ -2418,7 +2418,7 @@ pub mod migration_center {
         /// Sets or clear the value of [update_mask][crate::model::UpdateGroupRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
         {
@@ -2440,7 +2440,7 @@ pub mod migration_center {
         /// Sets or clear the value of [group][crate::model::UpdateGroupRequest::group].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_group<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_group<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Group>,
         {
@@ -2687,7 +2687,7 @@ pub mod migration_center {
         /// Sets or clear the value of [assets][crate::model::AddAssetsToGroupRequest::assets].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_assets<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_assets<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::AssetList>,
         {
@@ -2825,7 +2825,7 @@ pub mod migration_center {
         /// Sets or clear the value of [assets][crate::model::RemoveAssetsFromGroupRequest::assets].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_assets<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_assets<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::AssetList>,
         {
@@ -3314,7 +3314,7 @@ pub mod migration_center {
         /// Sets or clear the value of [source][crate::model::CreateSourceRequest::source].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_source<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_source<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Source>,
         {
@@ -3435,7 +3435,7 @@ pub mod migration_center {
         /// Sets or clear the value of [update_mask][crate::model::UpdateSourceRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
         {
@@ -3457,7 +3457,7 @@ pub mod migration_center {
         /// Sets or clear the value of [source][crate::model::UpdateSourceRequest::source].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_source<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_source<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Source>,
         {
@@ -3887,7 +3887,7 @@ pub mod migration_center {
         /// Sets or clear the value of [preference_set][crate::model::CreatePreferenceSetRequest::preference_set].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_preference_set<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_preference_set<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::PreferenceSet>,
         {
@@ -4014,7 +4014,7 @@ pub mod migration_center {
         /// Sets or clear the value of [update_mask][crate::model::UpdatePreferenceSetRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
         {
@@ -4036,7 +4036,7 @@ pub mod migration_center {
         /// Sets or clear the value of [preference_set][crate::model::UpdatePreferenceSetRequest::preference_set].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_preference_set<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_preference_set<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::PreferenceSet>,
         {
@@ -4331,7 +4331,7 @@ pub mod migration_center {
         /// Sets or clear the value of [update_mask][crate::model::UpdateSettingsRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
         {
@@ -4353,7 +4353,7 @@ pub mod migration_center {
         /// Sets or clear the value of [settings][crate::model::UpdateSettingsRequest::settings].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_settings<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_settings<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Settings>,
         {
@@ -4495,7 +4495,7 @@ pub mod migration_center {
         /// Sets or clear the value of [report_config][crate::model::CreateReportConfigRequest::report_config].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_report_config<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_report_config<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::ReportConfig>,
         {
@@ -4929,7 +4929,7 @@ pub mod migration_center {
         /// Sets or clear the value of [report][crate::model::CreateReportRequest::report].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_report<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_report<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Report>,
         {

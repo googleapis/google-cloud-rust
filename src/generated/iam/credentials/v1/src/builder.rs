@@ -159,7 +159,7 @@ pub mod iam_credentials {
         }
 
         /// Sets or clear the value of [lifetime][crate::model::GenerateAccessTokenRequest::lifetime].
-        pub fn maybe_lifetime<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_lifetime<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
         {

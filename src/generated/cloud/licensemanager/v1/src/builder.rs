@@ -373,7 +373,7 @@ pub mod license_manager {
         /// Sets or clear the value of [configuration][crate::model::CreateConfigurationRequest::configuration].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_configuration<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_configuration<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Configuration>,
         {
@@ -496,7 +496,7 @@ pub mod license_manager {
         }
 
         /// Sets or clear the value of [update_mask][crate::model::UpdateConfigurationRequest::update_mask].
-        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
         {
@@ -518,7 +518,7 @@ pub mod license_manager {
         /// Sets or clear the value of [configuration][crate::model::UpdateConfigurationRequest::configuration].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_configuration<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_configuration<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Configuration>,
         {
@@ -1131,7 +1131,7 @@ pub mod license_manager {
         /// Sets or clear the value of [start_time][crate::model::QueryConfigurationLicenseUsageRequest::start_time].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_start_time<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
         {
@@ -1153,7 +1153,7 @@ pub mod license_manager {
         /// Sets or clear the value of [end_time][crate::model::QueryConfigurationLicenseUsageRequest::end_time].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_end_time<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
         {
@@ -1289,7 +1289,7 @@ pub mod license_manager {
         /// Sets or clear the value of [start_time][crate::model::AggregateUsageRequest::start_time].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_start_time<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
         {
@@ -1311,7 +1311,7 @@ pub mod license_manager {
         /// Sets or clear the value of [end_time][crate::model::AggregateUsageRequest::end_time].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_end_time<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
         {

@@ -314,7 +314,7 @@ pub mod domains {
         /// Sets or clear the value of [registration][crate::model::RegisterDomainRequest::registration].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_registration<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_registration<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Registration>,
         {
@@ -358,7 +358,7 @@ pub mod domains {
         /// Sets or clear the value of [yearly_price][crate::model::RegisterDomainRequest::yearly_price].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_yearly_price<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_yearly_price<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<gtype::model::Money>,
         {
@@ -560,7 +560,7 @@ pub mod domains {
         /// Sets or clear the value of [registration][crate::model::TransferDomainRequest::registration].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_registration<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_registration<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Registration>,
         {
@@ -593,7 +593,7 @@ pub mod domains {
         /// Sets or clear the value of [yearly_price][crate::model::TransferDomainRequest::yearly_price].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_yearly_price<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_yearly_price<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<gtype::model::Money>,
         {
@@ -611,7 +611,7 @@ pub mod domains {
         }
 
         /// Sets or clear the value of [authorization_code][crate::model::TransferDomainRequest::authorization_code].
-        pub fn maybe_authorization_code<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_authorization_code<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::AuthorizationCode>,
         {
@@ -900,7 +900,7 @@ pub mod domains {
         }
 
         /// Sets or clear the value of [registration][crate::model::UpdateRegistrationRequest::registration].
-        pub fn maybe_registration<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_registration<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Registration>,
         {
@@ -922,7 +922,7 @@ pub mod domains {
         /// Sets or clear the value of [update_mask][crate::model::UpdateRegistrationRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
         {
@@ -1046,7 +1046,7 @@ pub mod domains {
         }
 
         /// Sets or clear the value of [management_settings][crate::model::ConfigureManagementSettingsRequest::management_settings].
-        pub fn maybe_management_settings<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_management_settings<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::ManagementSettings>,
         {
@@ -1068,7 +1068,7 @@ pub mod domains {
         /// Sets or clear the value of [update_mask][crate::model::ConfigureManagementSettingsRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
         {
@@ -1190,7 +1190,7 @@ pub mod domains {
         }
 
         /// Sets or clear the value of [dns_settings][crate::model::ConfigureDnsSettingsRequest::dns_settings].
-        pub fn maybe_dns_settings<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_dns_settings<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::DnsSettings>,
         {
@@ -1212,7 +1212,7 @@ pub mod domains {
         /// Sets or clear the value of [update_mask][crate::model::ConfigureDnsSettingsRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
         {
@@ -1342,7 +1342,7 @@ pub mod domains {
         }
 
         /// Sets or clear the value of [contact_settings][crate::model::ConfigureContactSettingsRequest::contact_settings].
-        pub fn maybe_contact_settings<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_contact_settings<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::ContactSettings>,
         {
@@ -1364,7 +1364,7 @@ pub mod domains {
         /// Sets or clear the value of [update_mask][crate::model::ConfigureContactSettingsRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
         {

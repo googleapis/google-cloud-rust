@@ -221,7 +221,7 @@ pub mod dataset_service {
         /// Sets or clear the value of [dataset][crate::model::InsertDatasetRequest::dataset].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_dataset<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_dataset<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Dataset>,
         {
@@ -322,7 +322,7 @@ pub mod dataset_service {
         /// Sets or clear the value of [dataset][crate::model::UpdateOrPatchDatasetRequest::dataset].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_dataset<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_dataset<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Dataset>,
         {
@@ -434,7 +434,7 @@ pub mod dataset_service {
         /// Sets or clear the value of [dataset][crate::model::UpdateOrPatchDatasetRequest::dataset].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_dataset<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_dataset<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Dataset>,
         {
@@ -607,7 +607,7 @@ pub mod dataset_service {
         }
 
         /// Sets or clear the value of [max_results][crate::model::ListDatasetsRequest::max_results].
-        pub fn maybe_max_results<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_max_results<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::UInt32Value>,
         {
@@ -713,7 +713,7 @@ pub mod dataset_service {
         }
 
         /// Sets or clear the value of [deletion_time][crate::model::UndeleteDatasetRequest::deletion_time].
-        pub fn maybe_deletion_time<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_deletion_time<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
         {
@@ -934,7 +934,7 @@ pub mod model_service {
         }
 
         /// Sets or clear the value of [max_results][crate::model::ListModelsRequest::max_results].
-        pub fn maybe_max_results<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_max_results<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::UInt32Value>,
         {
@@ -1040,7 +1040,7 @@ pub mod model_service {
         /// Sets or clear the value of [model][crate::model::PatchModelRequest::model].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_model<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_model<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Model>,
         {
@@ -1463,7 +1463,7 @@ pub mod routine_service {
         /// Sets or clear the value of [routine][crate::model::InsertRoutineRequest::routine].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_routine<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_routine<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Routine>,
         {
@@ -1563,7 +1563,7 @@ pub mod routine_service {
         /// Sets or clear the value of [routine][crate::model::UpdateRoutineRequest::routine].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_routine<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_routine<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Routine>,
         {
@@ -1729,7 +1729,7 @@ pub mod routine_service {
         }
 
         /// Sets or clear the value of [max_results][crate::model::ListRoutinesRequest::max_results].
-        pub fn maybe_max_results<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_max_results<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::UInt32Value>,
         {
@@ -2111,7 +2111,7 @@ pub mod row_access_policy_service {
         /// Sets or clear the value of [row_access_policy][crate::model::CreateRowAccessPolicyRequest::row_access_policy].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_row_access_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_row_access_policy<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::RowAccessPolicy>,
         {
@@ -2222,7 +2222,7 @@ pub mod row_access_policy_service {
         /// Sets or clear the value of [row_access_policy][crate::model::UpdateRowAccessPolicyRequest::row_access_policy].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_row_access_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_row_access_policy<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::RowAccessPolicy>,
         {
@@ -2329,7 +2329,7 @@ pub mod row_access_policy_service {
         }
 
         /// Sets or clear the value of [force][crate::model::DeleteRowAccessPolicyRequest::force].
-        pub fn maybe_force<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_force<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<bool>,
         {
@@ -2443,7 +2443,7 @@ pub mod row_access_policy_service {
         }
 
         /// Sets or clear the value of [force][crate::model::BatchDeleteRowAccessPoliciesRequest::force].
-        pub fn maybe_force<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_force<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<bool>,
         {
@@ -2683,7 +2683,7 @@ pub mod table_service {
         /// Sets or clear the value of [table][crate::model::InsertTableRequest::table].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_table<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_table<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Table>,
         {
@@ -2786,7 +2786,7 @@ pub mod table_service {
         /// Sets or clear the value of [table][crate::model::UpdateOrPatchTableRequest::table].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_table<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_table<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Table>,
         {
@@ -2895,7 +2895,7 @@ pub mod table_service {
         /// Sets or clear the value of [table][crate::model::UpdateOrPatchTableRequest::table].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_table<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_table<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Table>,
         {
@@ -3067,7 +3067,7 @@ pub mod table_service {
         }
 
         /// Sets or clear the value of [max_results][crate::model::ListTablesRequest::max_results].
-        pub fn maybe_max_results<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_max_results<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::UInt32Value>,
         {

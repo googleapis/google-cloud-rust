@@ -67,7 +67,7 @@ impl TroubleshootIamPolicyRequest {
     }
 
     /// Sets or clear the value of [access_tuple][crate::model::TroubleshootIamPolicyRequest::access_tuple].
-    pub fn maybe_access_tuple<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_access_tuple<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::AccessTuple>,
     {
@@ -141,7 +141,7 @@ impl TroubleshootIamPolicyResponse {
     }
 
     /// Sets or clear the value of [access_tuple][crate::model::TroubleshootIamPolicyResponse::access_tuple].
-    pub fn maybe_access_tuple<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_access_tuple<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::AccessTuple>,
     {
@@ -159,7 +159,7 @@ impl TroubleshootIamPolicyResponse {
     }
 
     /// Sets or clear the value of [allow_policy_explanation][crate::model::TroubleshootIamPolicyResponse::allow_policy_explanation].
-    pub fn maybe_allow_policy_explanation<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_allow_policy_explanation<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::AllowPolicyExplanation>,
     {
@@ -177,7 +177,7 @@ impl TroubleshootIamPolicyResponse {
     }
 
     /// Sets or clear the value of [deny_policy_explanation][crate::model::TroubleshootIamPolicyResponse::deny_policy_explanation].
-    pub fn maybe_deny_policy_explanation<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_deny_policy_explanation<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::DenyPolicyExplanation>,
     {
@@ -440,7 +440,7 @@ impl AccessTuple {
     }
 
     /// Sets or clear the value of [condition_context][crate::model::AccessTuple::condition_context].
-    pub fn maybe_condition_context<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_condition_context<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ConditionContext>,
     {
@@ -502,7 +502,7 @@ impl ConditionContext {
     }
 
     /// Sets or clear the value of [resource][crate::model::ConditionContext::resource].
-    pub fn maybe_resource<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_resource<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::condition_context::Resource>,
     {
@@ -520,7 +520,7 @@ impl ConditionContext {
     }
 
     /// Sets or clear the value of [destination][crate::model::ConditionContext::destination].
-    pub fn maybe_destination<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_destination<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::condition_context::Peer>,
     {
@@ -538,7 +538,7 @@ impl ConditionContext {
     }
 
     /// Sets or clear the value of [request][crate::model::ConditionContext::request].
-    pub fn maybe_request<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_request<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::condition_context::Request>,
     {
@@ -716,7 +716,7 @@ pub mod condition_context {
         }
 
         /// Sets or clear the value of [receive_time][crate::model::condition_context::Request::receive_time].
-        pub fn maybe_receive_time<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_receive_time<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
         {
@@ -1023,7 +1023,7 @@ impl ExplainedAllowPolicy {
     }
 
     /// Sets or clear the value of [policy][crate::model::ExplainedAllowPolicy::policy].
-    pub fn maybe_policy<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<iam_v1::model::Policy>,
     {
@@ -1176,7 +1176,7 @@ impl AllowBindingExplanation {
     }
 
     /// Sets or clear the value of [combined_membership][crate::model::AllowBindingExplanation::combined_membership].
-    pub fn maybe_combined_membership<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_combined_membership<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::allow_binding_explanation::AnnotatedAllowMembership>,
     {
@@ -1215,7 +1215,7 @@ impl AllowBindingExplanation {
     }
 
     /// Sets or clear the value of [condition][crate::model::AllowBindingExplanation::condition].
-    pub fn maybe_condition<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_condition<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<gtype::model::Expr>,
     {
@@ -1233,7 +1233,7 @@ impl AllowBindingExplanation {
     }
 
     /// Sets or clear the value of [condition_explanation][crate::model::AllowBindingExplanation::condition_explanation].
-    pub fn maybe_condition_explanation<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_condition_explanation<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ConditionExplanation>,
     {
@@ -1561,7 +1561,7 @@ impl ExplainedDenyPolicy {
     }
 
     /// Sets or clear the value of [policy][crate::model::ExplainedDenyPolicy::policy].
-    pub fn maybe_policy<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<iam_v2::model::Policy>,
     {
@@ -1733,7 +1733,7 @@ impl DenyRuleExplanation {
     }
 
     /// Sets or clear the value of [combined_denied_permission][crate::model::DenyRuleExplanation::combined_denied_permission].
-    pub fn maybe_combined_denied_permission<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_combined_denied_permission<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::deny_rule_explanation::AnnotatedPermissionMatching>,
     {
@@ -1763,7 +1763,10 @@ impl DenyRuleExplanation {
     }
 
     /// Sets or clear the value of [combined_exception_permission][crate::model::DenyRuleExplanation::combined_exception_permission].
-    pub fn maybe_combined_exception_permission<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_combined_exception_permission<T>(
+        mut self,
+        v: std::option::Option<T>,
+    ) -> Self
     where
         T: std::convert::Into<crate::model::deny_rule_explanation::AnnotatedPermissionMatching>,
     {
@@ -1793,7 +1796,7 @@ impl DenyRuleExplanation {
     }
 
     /// Sets or clear the value of [combined_denied_principal][crate::model::DenyRuleExplanation::combined_denied_principal].
-    pub fn maybe_combined_denied_principal<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_combined_denied_principal<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::deny_rule_explanation::AnnotatedDenyPrincipalMatching>,
     {
@@ -1823,7 +1826,7 @@ impl DenyRuleExplanation {
     }
 
     /// Sets or clear the value of [combined_exception_principal][crate::model::DenyRuleExplanation::combined_exception_principal].
-    pub fn maybe_combined_exception_principal<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_combined_exception_principal<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::deny_rule_explanation::AnnotatedDenyPrincipalMatching>,
     {
@@ -1862,7 +1865,7 @@ impl DenyRuleExplanation {
     }
 
     /// Sets or clear the value of [condition][crate::model::DenyRuleExplanation::condition].
-    pub fn maybe_condition<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_condition<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<gtype::model::Expr>,
     {
@@ -1880,7 +1883,7 @@ impl DenyRuleExplanation {
     }
 
     /// Sets or clear the value of [condition_explanation][crate::model::DenyRuleExplanation::condition_explanation].
-    pub fn maybe_condition_explanation<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_condition_explanation<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ConditionExplanation>,
     {
@@ -2041,7 +2044,7 @@ impl ConditionExplanation {
     }
 
     /// Sets or clear the value of [value][crate::model::ConditionExplanation::value].
-    pub fn maybe_value<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_value<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Value>,
     {
@@ -2139,7 +2142,7 @@ pub mod condition_explanation {
         }
 
         /// Sets or clear the value of [value][crate::model::condition_explanation::EvaluationState::value].
-        pub fn maybe_value<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_value<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Value>,
         {

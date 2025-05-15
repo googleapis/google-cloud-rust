@@ -285,7 +285,7 @@ impl ResolveServiceResponse {
     }
 
     /// Sets or clear the value of [service][crate::model::ResolveServiceResponse::service].
-    pub fn maybe_service<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_service<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Service>,
     {
@@ -425,7 +425,7 @@ impl CreateNamespaceRequest {
     }
 
     /// Sets or clear the value of [namespace][crate::model::CreateNamespaceRequest::namespace].
-    pub fn maybe_namespace<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_namespace<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Namespace>,
     {
@@ -689,7 +689,7 @@ impl UpdateNamespaceRequest {
     }
 
     /// Sets or clear the value of [namespace][crate::model::UpdateNamespaceRequest::namespace].
-    pub fn maybe_namespace<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_namespace<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Namespace>,
     {
@@ -707,7 +707,7 @@ impl UpdateNamespaceRequest {
     }
 
     /// Sets or clear the value of [update_mask][crate::model::UpdateNamespaceRequest::update_mask].
-    pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
     {
@@ -815,7 +815,7 @@ impl CreateServiceRequest {
     }
 
     /// Sets or clear the value of [service][crate::model::CreateServiceRequest::service].
-    pub fn maybe_service<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_service<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Service>,
     {
@@ -1084,7 +1084,7 @@ impl UpdateServiceRequest {
     }
 
     /// Sets or clear the value of [service][crate::model::UpdateServiceRequest::service].
-    pub fn maybe_service<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_service<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Service>,
     {
@@ -1102,7 +1102,7 @@ impl UpdateServiceRequest {
     }
 
     /// Sets or clear the value of [update_mask][crate::model::UpdateServiceRequest::update_mask].
-    pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
     {
@@ -1210,7 +1210,7 @@ impl CreateEndpointRequest {
     }
 
     /// Sets or clear the value of [endpoint][crate::model::CreateEndpointRequest::endpoint].
-    pub fn maybe_endpoint<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_endpoint<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Endpoint>,
     {
@@ -1482,7 +1482,7 @@ impl UpdateEndpointRequest {
     }
 
     /// Sets or clear the value of [endpoint][crate::model::UpdateEndpointRequest::endpoint].
-    pub fn maybe_endpoint<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_endpoint<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Endpoint>,
     {
@@ -1500,7 +1500,7 @@ impl UpdateEndpointRequest {
     }
 
     /// Sets or clear the value of [update_mask][crate::model::UpdateEndpointRequest::update_mask].
-    pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
     {

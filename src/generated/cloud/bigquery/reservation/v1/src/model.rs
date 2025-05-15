@@ -177,7 +177,7 @@ impl Reservation {
     }
 
     /// Sets or clear the value of [autoscale][crate::model::Reservation::autoscale].
-    pub fn maybe_autoscale<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_autoscale<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::reservation::Autoscale>,
     {
@@ -201,7 +201,7 @@ impl Reservation {
     }
 
     /// Sets or clear the value of [creation_time][crate::model::Reservation::creation_time].
-    pub fn maybe_creation_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_creation_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -219,7 +219,7 @@ impl Reservation {
     }
 
     /// Sets or clear the value of [update_time][crate::model::Reservation::update_time].
-    pub fn maybe_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -276,7 +276,7 @@ impl Reservation {
     }
 
     /// Sets or clear the value of [replication_status][crate::model::Reservation::replication_status].
-    pub fn maybe_replication_status<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_replication_status<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::reservation::ReplicationStatus>,
     {
@@ -386,7 +386,7 @@ pub mod reservation {
         }
 
         /// Sets or clear the value of [error][crate::model::reservation::ReplicationStatus::error].
-        pub fn maybe_error<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_error<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<rpc::model::Status>,
         {
@@ -404,7 +404,7 @@ pub mod reservation {
         }
 
         /// Sets or clear the value of [last_error_time][crate::model::reservation::ReplicationStatus::last_error_time].
-        pub fn maybe_last_error_time<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_last_error_time<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
         {
@@ -422,7 +422,7 @@ pub mod reservation {
         }
 
         /// Sets or clear the value of [last_replication_time][crate::model::reservation::ReplicationStatus::last_replication_time].
-        pub fn maybe_last_replication_time<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_last_replication_time<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
         {
@@ -565,7 +565,7 @@ impl CapacityCommitment {
     }
 
     /// Sets or clear the value of [commitment_start_time][crate::model::CapacityCommitment::commitment_start_time].
-    pub fn maybe_commitment_start_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_commitment_start_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -583,7 +583,7 @@ impl CapacityCommitment {
     }
 
     /// Sets or clear the value of [commitment_end_time][crate::model::CapacityCommitment::commitment_end_time].
-    pub fn maybe_commitment_end_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_commitment_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -601,7 +601,7 @@ impl CapacityCommitment {
     }
 
     /// Sets or clear the value of [failure_status][crate::model::CapacityCommitment::failure_status].
-    pub fn maybe_failure_status<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_failure_status<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<rpc::model::Status>,
     {
@@ -1054,7 +1054,7 @@ impl CreateReservationRequest {
     }
 
     /// Sets or clear the value of [reservation][crate::model::CreateReservationRequest::reservation].
-    pub fn maybe_reservation<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_reservation<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Reservation>,
     {
@@ -1298,7 +1298,7 @@ impl UpdateReservationRequest {
     }
 
     /// Sets or clear the value of [reservation][crate::model::UpdateReservationRequest::reservation].
-    pub fn maybe_reservation<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_reservation<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Reservation>,
     {
@@ -1316,7 +1316,7 @@ impl UpdateReservationRequest {
     }
 
     /// Sets or clear the value of [update_mask][crate::model::UpdateReservationRequest::update_mask].
-    pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
     {
@@ -1420,7 +1420,7 @@ impl CreateCapacityCommitmentRequest {
     }
 
     /// Sets or clear the value of [capacity_commitment][crate::model::CreateCapacityCommitmentRequest::capacity_commitment].
-    pub fn maybe_capacity_commitment<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_capacity_commitment<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CapacityCommitment>,
     {
@@ -1694,7 +1694,7 @@ impl UpdateCapacityCommitmentRequest {
     }
 
     /// Sets or clear the value of [capacity_commitment][crate::model::UpdateCapacityCommitmentRequest::capacity_commitment].
-    pub fn maybe_capacity_commitment<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_capacity_commitment<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CapacityCommitment>,
     {
@@ -1712,7 +1712,7 @@ impl UpdateCapacityCommitmentRequest {
     }
 
     /// Sets or clear the value of [update_mask][crate::model::UpdateCapacityCommitmentRequest::update_mask].
-    pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
     {
@@ -1810,7 +1810,7 @@ impl SplitCapacityCommitmentResponse {
     }
 
     /// Sets or clear the value of [first][crate::model::SplitCapacityCommitmentResponse::first].
-    pub fn maybe_first<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_first<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CapacityCommitment>,
     {
@@ -1828,7 +1828,7 @@ impl SplitCapacityCommitmentResponse {
     }
 
     /// Sets or clear the value of [second][crate::model::SplitCapacityCommitmentResponse::second].
-    pub fn maybe_second<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_second<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CapacityCommitment>,
     {
@@ -2335,7 +2335,7 @@ impl CreateAssignmentRequest {
     }
 
     /// Sets or clear the value of [assignment][crate::model::CreateAssignmentRequest::assignment].
-    pub fn maybe_assignment<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_assignment<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Assignment>,
     {
@@ -2905,7 +2905,7 @@ impl UpdateAssignmentRequest {
     }
 
     /// Sets or clear the value of [assignment][crate::model::UpdateAssignmentRequest::assignment].
-    pub fn maybe_assignment<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_assignment<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Assignment>,
     {
@@ -2923,7 +2923,7 @@ impl UpdateAssignmentRequest {
     }
 
     /// Sets or clear the value of [update_mask][crate::model::UpdateAssignmentRequest::update_mask].
-    pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
     {
@@ -3041,7 +3041,7 @@ impl BiReservation {
     }
 
     /// Sets or clear the value of [update_time][crate::model::BiReservation::update_time].
-    pub fn maybe_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -3139,7 +3139,7 @@ impl UpdateBiReservationRequest {
     }
 
     /// Sets or clear the value of [bi_reservation][crate::model::UpdateBiReservationRequest::bi_reservation].
-    pub fn maybe_bi_reservation<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_bi_reservation<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::BiReservation>,
     {
@@ -3157,7 +3157,7 @@ impl UpdateBiReservationRequest {
     }
 
     /// Sets or clear the value of [update_mask][crate::model::UpdateBiReservationRequest::update_mask].
-    pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
     {

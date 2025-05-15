@@ -105,7 +105,7 @@ impl AnalyzeIamPolicyLongrunningMetadata {
     }
 
     /// Sets or clear the value of [create_time][crate::model::AnalyzeIamPolicyLongrunningMetadata::create_time].
-    pub fn maybe_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -215,7 +215,7 @@ impl ExportAssetsRequest {
     }
 
     /// Sets or clear the value of [read_time][crate::model::ExportAssetsRequest::read_time].
-    pub fn maybe_read_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_read_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -253,7 +253,7 @@ impl ExportAssetsRequest {
     }
 
     /// Sets or clear the value of [output_config][crate::model::ExportAssetsRequest::output_config].
-    pub fn maybe_output_config<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_output_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::OutputConfig>,
     {
@@ -326,7 +326,7 @@ impl ExportAssetsResponse {
     }
 
     /// Sets or clear the value of [read_time][crate::model::ExportAssetsResponse::read_time].
-    pub fn maybe_read_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_read_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -344,7 +344,7 @@ impl ExportAssetsResponse {
     }
 
     /// Sets or clear the value of [output_config][crate::model::ExportAssetsResponse::output_config].
-    pub fn maybe_output_config<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_output_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::OutputConfig>,
     {
@@ -362,7 +362,7 @@ impl ExportAssetsResponse {
     }
 
     /// Sets or clear the value of [output_result][crate::model::ExportAssetsResponse::output_result].
-    pub fn maybe_output_result<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_output_result<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::OutputResult>,
     {
@@ -479,7 +479,7 @@ impl ListAssetsRequest {
     }
 
     /// Sets or clear the value of [read_time][crate::model::ListAssetsRequest::read_time].
-    pub fn maybe_read_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_read_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -576,7 +576,7 @@ impl ListAssetsResponse {
     }
 
     /// Sets or clear the value of [read_time][crate::model::ListAssetsResponse::read_time].
-    pub fn maybe_read_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_read_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -722,7 +722,7 @@ impl BatchGetAssetsHistoryRequest {
     }
 
     /// Sets or clear the value of [read_time_window][crate::model::BatchGetAssetsHistoryRequest::read_time_window].
-    pub fn maybe_read_time_window<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_read_time_window<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::TimeWindow>,
     {
@@ -842,7 +842,7 @@ impl CreateFeedRequest {
     }
 
     /// Sets or clear the value of [feed][crate::model::CreateFeedRequest::feed].
-    pub fn maybe_feed<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_feed<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Feed>,
     {
@@ -1001,7 +1001,7 @@ impl UpdateFeedRequest {
     }
 
     /// Sets or clear the value of [feed][crate::model::UpdateFeedRequest::feed].
-    pub fn maybe_feed<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_feed<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Feed>,
     {
@@ -1019,7 +1019,7 @@ impl UpdateFeedRequest {
     }
 
     /// Sets or clear the value of [update_mask][crate::model::UpdateFeedRequest::update_mask].
-    pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
     {
@@ -1548,7 +1548,7 @@ impl BigQueryDestination {
     }
 
     /// Sets or clear the value of [partition_spec][crate::model::BigQueryDestination::partition_spec].
-    pub fn maybe_partition_spec<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_partition_spec<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::PartitionSpec>,
     {
@@ -2013,7 +2013,7 @@ impl Feed {
     }
 
     /// Sets or clear the value of [feed_output_config][crate::model::Feed::feed_output_config].
-    pub fn maybe_feed_output_config<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_feed_output_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::FeedOutputConfig>,
     {
@@ -2031,7 +2031,7 @@ impl Feed {
     }
 
     /// Sets or clear the value of [condition][crate::model::Feed::condition].
-    pub fn maybe_condition<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_condition<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<gtype::model::Expr>,
     {
@@ -2307,7 +2307,7 @@ impl SearchAllResourcesRequest {
     }
 
     /// Sets or clear the value of [read_mask][crate::model::SearchAllResourcesRequest::read_mask].
-    pub fn maybe_read_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_read_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
     {
@@ -2692,7 +2692,7 @@ impl IamPolicyAnalysisQuery {
     }
 
     /// Sets or clear the value of [resource_selector][crate::model::IamPolicyAnalysisQuery::resource_selector].
-    pub fn maybe_resource_selector<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_resource_selector<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::iam_policy_analysis_query::ResourceSelector>,
     {
@@ -2710,7 +2710,7 @@ impl IamPolicyAnalysisQuery {
     }
 
     /// Sets or clear the value of [identity_selector][crate::model::IamPolicyAnalysisQuery::identity_selector].
-    pub fn maybe_identity_selector<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_identity_selector<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::iam_policy_analysis_query::IdentitySelector>,
     {
@@ -2728,7 +2728,7 @@ impl IamPolicyAnalysisQuery {
     }
 
     /// Sets or clear the value of [access_selector][crate::model::IamPolicyAnalysisQuery::access_selector].
-    pub fn maybe_access_selector<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_access_selector<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::iam_policy_analysis_query::AccessSelector>,
     {
@@ -2746,7 +2746,7 @@ impl IamPolicyAnalysisQuery {
     }
 
     /// Sets or clear the value of [options][crate::model::IamPolicyAnalysisQuery::options].
-    pub fn maybe_options<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::iam_policy_analysis_query::Options>,
     {
@@ -2764,7 +2764,7 @@ impl IamPolicyAnalysisQuery {
     }
 
     /// Sets or clear the value of [condition_context][crate::model::IamPolicyAnalysisQuery::condition_context].
-    pub fn maybe_condition_context<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_condition_context<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::iam_policy_analysis_query::ConditionContext>,
     {
@@ -3259,7 +3259,7 @@ impl AnalyzeIamPolicyRequest {
     }
 
     /// Sets or clear the value of [analysis_query][crate::model::AnalyzeIamPolicyRequest::analysis_query].
-    pub fn maybe_analysis_query<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_analysis_query<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::IamPolicyAnalysisQuery>,
     {
@@ -3286,7 +3286,7 @@ impl AnalyzeIamPolicyRequest {
     }
 
     /// Sets or clear the value of [execution_timeout][crate::model::AnalyzeIamPolicyRequest::execution_timeout].
-    pub fn maybe_execution_timeout<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_execution_timeout<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
     {
@@ -3354,7 +3354,7 @@ impl AnalyzeIamPolicyResponse {
     }
 
     /// Sets or clear the value of [main_analysis][crate::model::AnalyzeIamPolicyResponse::main_analysis].
-    pub fn maybe_main_analysis<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_main_analysis<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::analyze_iam_policy_response::IamPolicyAnalysis>,
     {
@@ -3440,7 +3440,7 @@ pub mod analyze_iam_policy_response {
         }
 
         /// Sets or clear the value of [analysis_query][crate::model::analyze_iam_policy_response::IamPolicyAnalysis::analysis_query].
-        pub fn maybe_analysis_query<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_analysis_query<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::IamPolicyAnalysisQuery>,
         {
@@ -3953,7 +3953,7 @@ impl AnalyzeIamPolicyLongrunningRequest {
     }
 
     /// Sets or clear the value of [analysis_query][crate::model::AnalyzeIamPolicyLongrunningRequest::analysis_query].
-    pub fn maybe_analysis_query<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_analysis_query<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::IamPolicyAnalysisQuery>,
     {
@@ -3980,7 +3980,7 @@ impl AnalyzeIamPolicyLongrunningRequest {
     }
 
     /// Sets or clear the value of [output_config][crate::model::AnalyzeIamPolicyLongrunningRequest::output_config].
-    pub fn maybe_output_config<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_output_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::IamPolicyAnalysisOutputConfig>,
     {
@@ -4097,7 +4097,7 @@ impl SavedQuery {
     }
 
     /// Sets or clear the value of [create_time][crate::model::SavedQuery::create_time].
-    pub fn maybe_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -4121,7 +4121,7 @@ impl SavedQuery {
     }
 
     /// Sets or clear the value of [last_update_time][crate::model::SavedQuery::last_update_time].
-    pub fn maybe_last_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_last_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -4157,7 +4157,7 @@ impl SavedQuery {
     }
 
     /// Sets or clear the value of [content][crate::model::SavedQuery::content].
-    pub fn maybe_content<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_content<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::saved_query::QueryContent>,
     {
@@ -4333,7 +4333,7 @@ impl CreateSavedQueryRequest {
     }
 
     /// Sets or clear the value of [saved_query][crate::model::CreateSavedQueryRequest::saved_query].
-    pub fn maybe_saved_query<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_saved_query<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::SavedQuery>,
     {
@@ -4569,7 +4569,7 @@ impl UpdateSavedQueryRequest {
     }
 
     /// Sets or clear the value of [saved_query][crate::model::UpdateSavedQueryRequest::saved_query].
-    pub fn maybe_saved_query<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_saved_query<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::SavedQuery>,
     {
@@ -4587,7 +4587,7 @@ impl UpdateSavedQueryRequest {
     }
 
     /// Sets or clear the value of [update_mask][crate::model::UpdateSavedQueryRequest::update_mask].
-    pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
     {
@@ -5121,7 +5121,7 @@ impl QueryAssetsOutputConfig {
     }
 
     /// Sets or clear the value of [bigquery_destination][crate::model::QueryAssetsOutputConfig::bigquery_destination].
-    pub fn maybe_bigquery_destination<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_bigquery_destination<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::query_assets_output_config::BigQueryDestination>,
     {
@@ -5320,7 +5320,7 @@ impl QueryAssetsRequest {
     }
 
     /// Sets or clear the value of [timeout][crate::model::QueryAssetsRequest::timeout].
-    pub fn maybe_timeout<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_timeout<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
     {
@@ -5338,7 +5338,7 @@ impl QueryAssetsRequest {
     }
 
     /// Sets or clear the value of [output_config][crate::model::QueryAssetsRequest::output_config].
-    pub fn maybe_output_config<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_output_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::QueryAssetsOutputConfig>,
     {
@@ -5757,7 +5757,7 @@ impl QueryResult {
     }
 
     /// Sets or clear the value of [schema][crate::model::QueryResult::schema].
-    pub fn maybe_schema<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_schema<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::TableSchema>,
     {
@@ -6165,7 +6165,7 @@ pub mod batch_get_effective_iam_policies_response {
             }
 
             /// Sets or clear the value of [policy][crate::model::batch_get_effective_iam_policies_response::effective_iam_policy::PolicyInfo::policy].
-            pub fn maybe_policy<T>(mut self, v: std::option::Option<T>) -> Self
+            pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
             where
                 T: std::convert::Into<iam_v1::model::Policy>,
             {
@@ -6351,7 +6351,7 @@ pub mod analyzer_org_policy {
         }
 
         /// Sets or clear the value of [condition][crate::model::analyzer_org_policy::Rule::condition].
-        pub fn maybe_condition<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_condition<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<gtype::model::Expr>,
         {
@@ -6369,7 +6369,7 @@ pub mod analyzer_org_policy {
         }
 
         /// Sets or clear the value of [condition_evaluation][crate::model::analyzer_org_policy::Rule::condition_evaluation].
-        pub fn maybe_condition_evaluation<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_condition_evaluation<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::ConditionEvaluation>,
         {
@@ -7663,7 +7663,7 @@ impl AnalyzeOrgPoliciesRequest {
     }
 
     /// Sets or clear the value of [page_size][crate::model::AnalyzeOrgPoliciesRequest::page_size].
-    pub fn maybe_page_size<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_page_size<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<i32>,
     {
@@ -7745,7 +7745,7 @@ impl AnalyzeOrgPoliciesResponse {
     }
 
     /// Sets or clear the value of [constraint][crate::model::AnalyzeOrgPoliciesResponse::constraint].
-    pub fn maybe_constraint<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_constraint<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::AnalyzerOrgPolicyConstraint>,
     {
@@ -7849,7 +7849,7 @@ pub mod analyze_org_policies_response {
         }
 
         /// Sets or clear the value of [consolidated_policy][crate::model::analyze_org_policies_response::OrgPolicyResult::consolidated_policy].
-        pub fn maybe_consolidated_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_consolidated_policy<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::AnalyzerOrgPolicy>,
         {
@@ -7992,7 +7992,7 @@ impl AnalyzeOrgPolicyGovernedContainersRequest {
     }
 
     /// Sets or clear the value of [page_size][crate::model::AnalyzeOrgPolicyGovernedContainersRequest::page_size].
-    pub fn maybe_page_size<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_page_size<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<i32>,
     {
@@ -8071,7 +8071,7 @@ impl AnalyzeOrgPolicyGovernedContainersResponse {
     }
 
     /// Sets or clear the value of [constraint][crate::model::AnalyzeOrgPolicyGovernedContainersResponse::constraint].
-    pub fn maybe_constraint<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_constraint<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::AnalyzerOrgPolicyConstraint>,
     {
@@ -8214,7 +8214,7 @@ pub mod analyze_org_policy_governed_containers_response {
         }
 
         /// Sets or clear the value of [consolidated_policy][crate::model::analyze_org_policy_governed_containers_response::GovernedContainer::consolidated_policy].
-        pub fn maybe_consolidated_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_consolidated_policy<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::AnalyzerOrgPolicy>,
         {
@@ -8385,7 +8385,7 @@ impl AnalyzeOrgPolicyGovernedAssetsRequest {
     }
 
     /// Sets or clear the value of [page_size][crate::model::AnalyzeOrgPolicyGovernedAssetsRequest::page_size].
-    pub fn maybe_page_size<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_page_size<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<i32>,
     {
@@ -8463,7 +8463,7 @@ impl AnalyzeOrgPolicyGovernedAssetsResponse {
     }
 
     /// Sets or clear the value of [constraint][crate::model::AnalyzeOrgPolicyGovernedAssetsResponse::constraint].
-    pub fn maybe_constraint<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_constraint<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::AnalyzerOrgPolicyConstraint>,
     {
@@ -8715,7 +8715,7 @@ pub mod analyze_org_policy_governed_assets_response {
         }
 
         /// Sets or clear the value of [policy][crate::model::analyze_org_policy_governed_assets_response::GovernedIamPolicy::policy].
-        pub fn maybe_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<iam_v1::model::Policy>,
         {
@@ -8816,7 +8816,7 @@ pub mod analyze_org_policy_governed_assets_response {
         }
 
         /// Sets or clear the value of [consolidated_policy][crate::model::analyze_org_policy_governed_assets_response::GovernedAsset::consolidated_policy].
-        pub fn maybe_consolidated_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_consolidated_policy<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::AnalyzerOrgPolicy>,
         {
@@ -9003,7 +9003,7 @@ impl TemporalAsset {
     }
 
     /// Sets or clear the value of [window][crate::model::TemporalAsset::window].
-    pub fn maybe_window<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_window<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::TimeWindow>,
     {
@@ -9027,7 +9027,7 @@ impl TemporalAsset {
     }
 
     /// Sets or clear the value of [asset][crate::model::TemporalAsset::asset].
-    pub fn maybe_asset<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_asset<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Asset>,
     {
@@ -9056,7 +9056,7 @@ impl TemporalAsset {
     }
 
     /// Sets or clear the value of [prior_asset][crate::model::TemporalAsset::prior_asset].
-    pub fn maybe_prior_asset<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_prior_asset<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Asset>,
     {
@@ -9257,7 +9257,7 @@ impl TimeWindow {
     }
 
     /// Sets or clear the value of [start_time][crate::model::TimeWindow::start_time].
-    pub fn maybe_start_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -9275,7 +9275,7 @@ impl TimeWindow {
     }
 
     /// Sets or clear the value of [end_time][crate::model::TimeWindow::end_time].
-    pub fn maybe_end_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -9492,7 +9492,7 @@ impl Asset {
     }
 
     /// Sets or clear the value of [update_time][crate::model::Asset::update_time].
-    pub fn maybe_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -9522,7 +9522,7 @@ impl Asset {
     }
 
     /// Sets or clear the value of [resource][crate::model::Asset::resource].
-    pub fn maybe_resource<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_resource<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Resource>,
     {
@@ -9540,7 +9540,7 @@ impl Asset {
     }
 
     /// Sets or clear the value of [iam_policy][crate::model::Asset::iam_policy].
-    pub fn maybe_iam_policy<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_iam_policy<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<iam_v1::model::Policy>,
     {
@@ -9569,7 +9569,7 @@ impl Asset {
     }
 
     /// Sets or clear the value of [os_inventory][crate::model::Asset::os_inventory].
-    pub fn maybe_os_inventory<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_os_inventory<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<osconfig_v1::model::Inventory>,
     {
@@ -9589,7 +9589,7 @@ impl Asset {
 
     /// Sets or clear the value of [related_assets][crate::model::Asset::related_assets].
     #[deprecated]
-    pub fn maybe_related_assets<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_related_assets<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::RelatedAssets>,
     {
@@ -9607,7 +9607,7 @@ impl Asset {
     }
 
     /// Sets or clear the value of [related_asset][crate::model::Asset::related_asset].
-    pub fn maybe_related_asset<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_related_asset<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::RelatedAsset>,
     {
@@ -9878,7 +9878,7 @@ impl Resource {
     }
 
     /// Sets or clear the value of [data][crate::model::Resource::data].
-    pub fn maybe_data<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_data<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Struct>,
     {
@@ -9936,7 +9936,7 @@ impl RelatedAssets {
     }
 
     /// Sets or clear the value of [relationship_attributes][crate::model::RelatedAssets::relationship_attributes].
-    pub fn maybe_relationship_attributes<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_relationship_attributes<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::RelationshipAttributes>,
     {
@@ -10172,7 +10172,7 @@ impl Tag {
     }
 
     /// Sets or clear the value of [tag_key][crate::model::Tag::tag_key].
-    pub fn maybe_tag_key<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_tag_key<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
     {
@@ -10190,7 +10190,7 @@ impl Tag {
     }
 
     /// Sets or clear the value of [tag_key_id][crate::model::Tag::tag_key_id].
-    pub fn maybe_tag_key_id<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_tag_key_id<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
     {
@@ -10208,7 +10208,7 @@ impl Tag {
     }
 
     /// Sets or clear the value of [tag_value][crate::model::Tag::tag_value].
-    pub fn maybe_tag_value<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_tag_value<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
     {
@@ -10226,7 +10226,7 @@ impl Tag {
     }
 
     /// Sets or clear the value of [tag_value_id][crate::model::Tag::tag_value_id].
-    pub fn maybe_tag_value_id<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_tag_value_id<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
     {
@@ -10290,7 +10290,7 @@ impl EffectiveTagDetails {
     }
 
     /// Sets or clear the value of [attached_resource][crate::model::EffectiveTagDetails::attached_resource].
-    pub fn maybe_attached_resource<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_attached_resource<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
     {
@@ -10848,7 +10848,7 @@ impl ResourceSearchResult {
     }
 
     /// Sets or clear the value of [create_time][crate::model::ResourceSearchResult::create_time].
-    pub fn maybe_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -10866,7 +10866,7 @@ impl ResourceSearchResult {
     }
 
     /// Sets or clear the value of [update_time][crate::model::ResourceSearchResult::update_time].
-    pub fn maybe_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -10890,7 +10890,7 @@ impl ResourceSearchResult {
     }
 
     /// Sets or clear the value of [additional_attributes][crate::model::ResourceSearchResult::additional_attributes].
-    pub fn maybe_additional_attributes<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_additional_attributes<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Struct>,
     {
@@ -11094,7 +11094,7 @@ impl VersionedResource {
     }
 
     /// Sets or clear the value of [resource][crate::model::VersionedResource::resource].
-    pub fn maybe_resource<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_resource<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Struct>,
     {
@@ -11388,7 +11388,7 @@ impl IamPolicySearchResult {
     }
 
     /// Sets or clear the value of [policy][crate::model::IamPolicySearchResult::policy].
-    pub fn maybe_policy<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<iam_v1::model::Policy>,
     {
@@ -11406,7 +11406,7 @@ impl IamPolicySearchResult {
     }
 
     /// Sets or clear the value of [explanation][crate::model::IamPolicySearchResult::explanation].
-    pub fn maybe_explanation<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_explanation<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::iam_policy_search_result::Explanation>,
     {
@@ -11823,7 +11823,7 @@ impl IamPolicyAnalysisResult {
     }
 
     /// Sets or clear the value of [iam_binding][crate::model::IamPolicyAnalysisResult::iam_binding].
-    pub fn maybe_iam_binding<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_iam_binding<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<iam_v1::model::Binding>,
     {
@@ -11852,7 +11852,7 @@ impl IamPolicyAnalysisResult {
     }
 
     /// Sets or clear the value of [identity_list][crate::model::IamPolicyAnalysisResult::identity_list].
-    pub fn maybe_identity_list<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_identity_list<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::iam_policy_analysis_result::IdentityList>,
     {
@@ -11921,7 +11921,7 @@ pub mod iam_policy_analysis_result {
         }
 
         /// Sets or clear the value of [analysis_state][crate::model::iam_policy_analysis_result::Resource::analysis_state].
-        pub fn maybe_analysis_state<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_analysis_state<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::IamPolicyAnalysisState>,
         {
@@ -11969,7 +11969,7 @@ pub mod iam_policy_analysis_result {
         }
 
         /// Sets or clear the value of [analysis_state][crate::model::iam_policy_analysis_result::Access::analysis_state].
-        pub fn maybe_analysis_state<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_analysis_state<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::IamPolicyAnalysisState>,
         {
@@ -12118,7 +12118,7 @@ pub mod iam_policy_analysis_result {
         }
 
         /// Sets or clear the value of [analysis_state][crate::model::iam_policy_analysis_result::Identity::analysis_state].
-        pub fn maybe_analysis_state<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_analysis_state<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::IamPolicyAnalysisState>,
         {
@@ -12283,7 +12283,7 @@ pub mod iam_policy_analysis_result {
         }
 
         /// Sets or clear the value of [condition_evaluation][crate::model::iam_policy_analysis_result::AccessControlList::condition_evaluation].
-        pub fn maybe_condition_evaluation<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_condition_evaluation<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::ConditionEvaluation>,
         {

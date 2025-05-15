@@ -97,7 +97,7 @@ impl ClientConnectorService {
     }
 
     /// Sets or clear the value of [create_time][crate::model::ClientConnectorService::create_time].
-    pub fn maybe_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -115,7 +115,7 @@ impl ClientConnectorService {
     }
 
     /// Sets or clear the value of [update_time][crate::model::ClientConnectorService::update_time].
-    pub fn maybe_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -139,7 +139,7 @@ impl ClientConnectorService {
     }
 
     /// Sets or clear the value of [ingress][crate::model::ClientConnectorService::ingress].
-    pub fn maybe_ingress<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_ingress<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::client_connector_service::Ingress>,
     {
@@ -157,7 +157,7 @@ impl ClientConnectorService {
     }
 
     /// Sets or clear the value of [egress][crate::model::ClientConnectorService::egress].
-    pub fn maybe_egress<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_egress<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::client_connector_service::Egress>,
     {
@@ -1084,7 +1084,7 @@ impl CreateClientConnectorServiceRequest {
     }
 
     /// Sets or clear the value of [client_connector_service][crate::model::CreateClientConnectorServiceRequest::client_connector_service].
-    pub fn maybe_client_connector_service<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_client_connector_service<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ClientConnectorService>,
     {
@@ -1175,7 +1175,7 @@ impl UpdateClientConnectorServiceRequest {
     }
 
     /// Sets or clear the value of [update_mask][crate::model::UpdateClientConnectorServiceRequest::update_mask].
-    pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
     {
@@ -1193,7 +1193,7 @@ impl UpdateClientConnectorServiceRequest {
     }
 
     /// Sets or clear the value of [client_connector_service][crate::model::UpdateClientConnectorServiceRequest::client_connector_service].
-    pub fn maybe_client_connector_service<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_client_connector_service<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ClientConnectorService>,
     {
@@ -1350,7 +1350,7 @@ impl ClientConnectorServiceOperationMetadata {
     }
 
     /// Sets or clear the value of [create_time][crate::model::ClientConnectorServiceOperationMetadata::create_time].
-    pub fn maybe_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -1368,7 +1368,7 @@ impl ClientConnectorServiceOperationMetadata {
     }
 
     /// Sets or clear the value of [end_time][crate::model::ClientConnectorServiceOperationMetadata::end_time].
-    pub fn maybe_end_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {

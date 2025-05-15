@@ -86,7 +86,7 @@ impl OpMetadata {
     }
 
     /// Sets or clear the value of [create_time][crate::model::OpMetadata::create_time].
-    pub fn maybe_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -104,7 +104,7 @@ impl OpMetadata {
     }
 
     /// Sets or clear the value of [end_time][crate::model::OpMetadata::end_time].
-    pub fn maybe_end_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -205,7 +205,7 @@ impl CreateMicrosoftAdDomainRequest {
     }
 
     /// Sets or clear the value of [domain][crate::model::CreateMicrosoftAdDomainRequest::domain].
-    pub fn maybe_domain<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_domain<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Domain>,
     {
@@ -529,7 +529,7 @@ impl UpdateDomainRequest {
     }
 
     /// Sets or clear the value of [update_mask][crate::model::UpdateDomainRequest::update_mask].
-    pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
     {
@@ -547,7 +547,7 @@ impl UpdateDomainRequest {
     }
 
     /// Sets or clear the value of [domain][crate::model::UpdateDomainRequest::domain].
-    pub fn maybe_domain<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_domain<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Domain>,
     {
@@ -637,7 +637,7 @@ impl AttachTrustRequest {
     }
 
     /// Sets or clear the value of [trust][crate::model::AttachTrustRequest::trust].
-    pub fn maybe_trust<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_trust<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Trust>,
     {
@@ -757,7 +757,7 @@ impl DetachTrustRequest {
     }
 
     /// Sets or clear the value of [trust][crate::model::DetachTrustRequest::trust].
-    pub fn maybe_trust<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_trust<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Trust>,
     {
@@ -813,7 +813,7 @@ impl ValidateTrustRequest {
     }
 
     /// Sets or clear the value of [trust][crate::model::ValidateTrustRequest::trust].
-    pub fn maybe_trust<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_trust<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Trust>,
     {
@@ -977,7 +977,7 @@ impl Domain {
     }
 
     /// Sets or clear the value of [create_time][crate::model::Domain::create_time].
-    pub fn maybe_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -995,7 +995,7 @@ impl Domain {
     }
 
     /// Sets or clear the value of [update_time][crate::model::Domain::update_time].
-    pub fn maybe_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -1333,7 +1333,7 @@ impl Trust {
     }
 
     /// Sets or clear the value of [create_time][crate::model::Trust::create_time].
-    pub fn maybe_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -1351,7 +1351,7 @@ impl Trust {
     }
 
     /// Sets or clear the value of [update_time][crate::model::Trust::update_time].
-    pub fn maybe_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -1384,7 +1384,7 @@ impl Trust {
     }
 
     /// Sets or clear the value of [last_trust_heartbeat_time][crate::model::Trust::last_trust_heartbeat_time].
-    pub fn maybe_last_trust_heartbeat_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_last_trust_heartbeat_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {

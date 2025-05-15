@@ -974,7 +974,7 @@ impl ReplicaConfig {
     }
 
     /// Sets or clear the value of [last_active_sync_time][crate::model::ReplicaConfig::last_active_sync_time].
-    pub fn maybe_last_active_sync_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_last_active_sync_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -1620,7 +1620,7 @@ impl Instance {
     }
 
     /// Sets or clear the value of [create_time][crate::model::Instance::create_time].
-    pub fn maybe_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -1684,7 +1684,7 @@ impl Instance {
     }
 
     /// Sets or clear the value of [satisfies_pzs][crate::model::Instance::satisfies_pzs].
-    pub fn maybe_satisfies_pzs<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_satisfies_pzs<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::BoolValue>,
     {
@@ -1725,7 +1725,7 @@ impl Instance {
     }
 
     /// Sets or clear the value of [replication][crate::model::Instance::replication].
-    pub fn maybe_replication<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_replication<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Replication>,
     {
@@ -1770,7 +1770,7 @@ impl Instance {
     }
 
     /// Sets or clear the value of [performance_config][crate::model::Instance::performance_config].
-    pub fn maybe_performance_config<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_performance_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::instance::PerformanceConfig>,
     {
@@ -1788,7 +1788,7 @@ impl Instance {
     }
 
     /// Sets or clear the value of [performance_limits][crate::model::Instance::performance_limits].
-    pub fn maybe_performance_limits<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_performance_limits<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::instance::PerformanceLimits>,
     {
@@ -2809,7 +2809,7 @@ impl CreateInstanceRequest {
     }
 
     /// Sets or clear the value of [instance][crate::model::CreateInstanceRequest::instance].
-    pub fn maybe_instance<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_instance<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Instance>,
     {
@@ -2899,7 +2899,7 @@ impl UpdateInstanceRequest {
     }
 
     /// Sets or clear the value of [update_mask][crate::model::UpdateInstanceRequest::update_mask].
-    pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
     {
@@ -2917,7 +2917,7 @@ impl UpdateInstanceRequest {
     }
 
     /// Sets or clear the value of [instance][crate::model::UpdateInstanceRequest::instance].
-    pub fn maybe_instance<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_instance<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Instance>,
     {
@@ -3372,7 +3372,7 @@ impl Snapshot {
     }
 
     /// Sets or clear the value of [create_time][crate::model::Snapshot::create_time].
-    pub fn maybe_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -3616,7 +3616,7 @@ impl CreateSnapshotRequest {
     }
 
     /// Sets or clear the value of [snapshot][crate::model::CreateSnapshotRequest::snapshot].
-    pub fn maybe_snapshot<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_snapshot<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Snapshot>,
     {
@@ -3731,7 +3731,7 @@ impl UpdateSnapshotRequest {
     }
 
     /// Sets or clear the value of [update_mask][crate::model::UpdateSnapshotRequest::update_mask].
-    pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
     {
@@ -3749,7 +3749,7 @@ impl UpdateSnapshotRequest {
     }
 
     /// Sets or clear the value of [snapshot][crate::model::UpdateSnapshotRequest::snapshot].
-    pub fn maybe_snapshot<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_snapshot<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Snapshot>,
     {
@@ -4054,7 +4054,7 @@ impl Backup {
     }
 
     /// Sets or clear the value of [create_time][crate::model::Backup::create_time].
-    pub fn maybe_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -4126,7 +4126,7 @@ impl Backup {
     }
 
     /// Sets or clear the value of [satisfies_pzs][crate::model::Backup::satisfies_pzs].
-    pub fn maybe_satisfies_pzs<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_satisfies_pzs<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::BoolValue>,
     {
@@ -4388,7 +4388,7 @@ impl CreateBackupRequest {
     }
 
     /// Sets or clear the value of [backup][crate::model::CreateBackupRequest::backup].
-    pub fn maybe_backup<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_backup<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Backup>,
     {
@@ -4478,7 +4478,7 @@ impl UpdateBackupRequest {
     }
 
     /// Sets or clear the value of [backup][crate::model::UpdateBackupRequest::backup].
-    pub fn maybe_backup<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_backup<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Backup>,
     {
@@ -4496,7 +4496,7 @@ impl UpdateBackupRequest {
     }
 
     /// Sets or clear the value of [update_mask][crate::model::UpdateBackupRequest::update_mask].
-    pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
     {

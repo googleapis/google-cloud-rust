@@ -359,7 +359,7 @@ pub mod api_gateway_service {
         /// Sets or clear the value of [gateway][crate::model::CreateGatewayRequest::gateway].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_gateway<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_gateway<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Gateway>,
         {
@@ -470,7 +470,7 @@ pub mod api_gateway_service {
         }
 
         /// Sets or clear the value of [update_mask][crate::model::UpdateGatewayRequest::update_mask].
-        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
         {
@@ -492,7 +492,7 @@ pub mod api_gateway_service {
         /// Sets or clear the value of [gateway][crate::model::UpdateGatewayRequest::gateway].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_gateway<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_gateway<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Gateway>,
         {
@@ -902,7 +902,7 @@ pub mod api_gateway_service {
         /// Sets or clear the value of [api][crate::model::CreateApiRequest::api].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_api<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_api<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Api>,
         {
@@ -1013,7 +1013,7 @@ pub mod api_gateway_service {
         }
 
         /// Sets or clear the value of [update_mask][crate::model::UpdateApiRequest::update_mask].
-        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
         {
@@ -1035,7 +1035,7 @@ pub mod api_gateway_service {
         /// Sets or clear the value of [api][crate::model::UpdateApiRequest::api].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_api<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_api<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Api>,
         {
@@ -1454,7 +1454,7 @@ pub mod api_gateway_service {
         /// Sets or clear the value of [api_config][crate::model::CreateApiConfigRequest::api_config].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_api_config<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_api_config<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::ApiConfig>,
         {
@@ -1565,7 +1565,7 @@ pub mod api_gateway_service {
         }
 
         /// Sets or clear the value of [update_mask][crate::model::UpdateApiConfigRequest::update_mask].
-        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
         {
@@ -1587,7 +1587,7 @@ pub mod api_gateway_service {
         /// Sets or clear the value of [api_config][crate::model::UpdateApiConfigRequest::api_config].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_api_config<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_api_config<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::ApiConfig>,
         {

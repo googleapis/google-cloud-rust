@@ -96,7 +96,7 @@ impl Service {
     }
 
     /// Sets or clear the value of [config][crate::model::Service::config].
-    pub fn maybe_config<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ServiceConfig>,
     {
@@ -214,7 +214,7 @@ impl ServiceConfig {
     }
 
     /// Sets or clear the value of [documentation][crate::model::ServiceConfig::documentation].
-    pub fn maybe_documentation<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_documentation<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<api::model::Documentation>,
     {
@@ -232,7 +232,7 @@ impl ServiceConfig {
     }
 
     /// Sets or clear the value of [quota][crate::model::ServiceConfig::quota].
-    pub fn maybe_quota<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_quota<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<api::model::Quota>,
     {
@@ -250,7 +250,7 @@ impl ServiceConfig {
     }
 
     /// Sets or clear the value of [authentication][crate::model::ServiceConfig::authentication].
-    pub fn maybe_authentication<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_authentication<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<api::model::Authentication>,
     {
@@ -268,7 +268,7 @@ impl ServiceConfig {
     }
 
     /// Sets or clear the value of [usage][crate::model::ServiceConfig::usage].
-    pub fn maybe_usage<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_usage<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<api::model::Usage>,
     {
@@ -308,7 +308,7 @@ impl ServiceConfig {
     }
 
     /// Sets or clear the value of [monitoring][crate::model::ServiceConfig::monitoring].
-    pub fn maybe_monitoring<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_monitoring<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<api::model::Monitoring>,
     {
@@ -434,7 +434,7 @@ impl EnableServiceResponse {
     }
 
     /// Sets or clear the value of [service][crate::model::EnableServiceResponse::service].
-    pub fn maybe_service<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_service<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Service>,
     {
@@ -689,7 +689,7 @@ impl DisableServiceResponse {
     }
 
     /// Sets or clear the value of [service][crate::model::DisableServiceResponse::service].
-    pub fn maybe_service<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_service<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Service>,
     {

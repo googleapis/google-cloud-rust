@@ -351,7 +351,7 @@ pub mod aml {
         /// Sets or clear the value of [instance][crate::model::CreateInstanceRequest::instance].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_instance<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_instance<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Instance>,
         {
@@ -466,7 +466,7 @@ pub mod aml {
         }
 
         /// Sets or clear the value of [update_mask][crate::model::UpdateInstanceRequest::update_mask].
-        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
         {
@@ -488,7 +488,7 @@ pub mod aml {
         /// Sets or clear the value of [instance][crate::model::UpdateInstanceRequest::instance].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_instance<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_instance<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Instance>,
         {
@@ -877,7 +877,7 @@ pub mod aml {
         /// Sets or clear the value of [dataset][crate::model::ExportRegisteredPartiesRequest::dataset].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_dataset<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_dataset<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::BigQueryDestination>,
         {
@@ -1186,7 +1186,7 @@ pub mod aml {
         /// Sets or clear the value of [dataset][crate::model::CreateDatasetRequest::dataset].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_dataset<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_dataset<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Dataset>,
         {
@@ -1301,7 +1301,7 @@ pub mod aml {
         }
 
         /// Sets or clear the value of [update_mask][crate::model::UpdateDatasetRequest::update_mask].
-        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
         {
@@ -1323,7 +1323,7 @@ pub mod aml {
         /// Sets or clear the value of [dataset][crate::model::UpdateDatasetRequest::dataset].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_dataset<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_dataset<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Dataset>,
         {
@@ -1737,7 +1737,7 @@ pub mod aml {
         /// Sets or clear the value of [model][crate::model::CreateModelRequest::model].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_model<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_model<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Model>,
         {
@@ -1852,7 +1852,7 @@ pub mod aml {
         }
 
         /// Sets or clear the value of [update_mask][crate::model::UpdateModelRequest::update_mask].
-        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
         {
@@ -1874,7 +1874,7 @@ pub mod aml {
         /// Sets or clear the value of [model][crate::model::UpdateModelRequest::model].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_model<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_model<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Model>,
         {
@@ -2007,7 +2007,10 @@ pub mod aml {
         /// Sets or clear the value of [structured_metadata_destination][crate::model::ExportModelMetadataRequest::structured_metadata_destination].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_structured_metadata_destination<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_structured_metadata_destination<T>(
+            mut self,
+            v: std::option::Option<T>,
+        ) -> Self
         where
             T: std::convert::Into<crate::model::BigQueryDestination>,
         {
@@ -2423,7 +2426,7 @@ pub mod aml {
         /// Sets or clear the value of [engine_config][crate::model::CreateEngineConfigRequest::engine_config].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_engine_config<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_engine_config<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::EngineConfig>,
         {
@@ -2543,7 +2546,7 @@ pub mod aml {
         }
 
         /// Sets or clear the value of [update_mask][crate::model::UpdateEngineConfigRequest::update_mask].
-        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
         {
@@ -2565,7 +2568,7 @@ pub mod aml {
         /// Sets or clear the value of [engine_config][crate::model::UpdateEngineConfigRequest::engine_config].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_engine_config<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_engine_config<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::EngineConfig>,
         {
@@ -2702,7 +2705,10 @@ pub mod aml {
         /// Sets or clear the value of [structured_metadata_destination][crate::model::ExportEngineConfigMetadataRequest::structured_metadata_destination].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_structured_metadata_destination<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_structured_metadata_destination<T>(
+            mut self,
+            v: std::option::Option<T>,
+        ) -> Self
         where
             T: std::convert::Into<crate::model::BigQueryDestination>,
         {
@@ -3307,7 +3313,7 @@ pub mod aml {
         /// Sets or clear the value of [prediction_result][crate::model::CreatePredictionResultRequest::prediction_result].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_prediction_result<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_prediction_result<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::PredictionResult>,
         {
@@ -3428,7 +3434,7 @@ pub mod aml {
         }
 
         /// Sets or clear the value of [update_mask][crate::model::UpdatePredictionResultRequest::update_mask].
-        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
         {
@@ -3450,7 +3456,7 @@ pub mod aml {
         /// Sets or clear the value of [prediction_result][crate::model::UpdatePredictionResultRequest::prediction_result].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_prediction_result<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_prediction_result<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::PredictionResult>,
         {
@@ -3587,7 +3593,10 @@ pub mod aml {
         /// Sets or clear the value of [structured_metadata_destination][crate::model::ExportPredictionResultMetadataRequest::structured_metadata_destination].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_structured_metadata_destination<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_structured_metadata_destination<T>(
+            mut self,
+            v: std::option::Option<T>,
+        ) -> Self
         where
             T: std::convert::Into<crate::model::BigQueryDestination>,
         {
@@ -4012,7 +4021,7 @@ pub mod aml {
         /// Sets or clear the value of [backtest_result][crate::model::CreateBacktestResultRequest::backtest_result].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_backtest_result<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_backtest_result<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::BacktestResult>,
         {
@@ -4133,7 +4142,7 @@ pub mod aml {
         }
 
         /// Sets or clear the value of [update_mask][crate::model::UpdateBacktestResultRequest::update_mask].
-        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
         {
@@ -4155,7 +4164,7 @@ pub mod aml {
         /// Sets or clear the value of [backtest_result][crate::model::UpdateBacktestResultRequest::backtest_result].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_backtest_result<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_backtest_result<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::BacktestResult>,
         {
@@ -4292,7 +4301,10 @@ pub mod aml {
         /// Sets or clear the value of [structured_metadata_destination][crate::model::ExportBacktestResultMetadataRequest::structured_metadata_destination].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_structured_metadata_destination<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_structured_metadata_destination<T>(
+            mut self,
+            v: std::option::Option<T>,
+        ) -> Self
         where
             T: std::convert::Into<crate::model::BigQueryDestination>,
         {

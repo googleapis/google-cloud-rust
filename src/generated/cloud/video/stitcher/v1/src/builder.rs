@@ -175,7 +175,7 @@ pub mod video_stitcher_service {
         /// Sets or clear the value of [cdn_key][crate::model::CreateCdnKeyRequest::cdn_key].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_cdn_key<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_cdn_key<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::CdnKey>,
         {
@@ -577,7 +577,7 @@ pub mod video_stitcher_service {
         /// Sets or clear the value of [cdn_key][crate::model::UpdateCdnKeyRequest::cdn_key].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_cdn_key<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_cdn_key<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::CdnKey>,
         {
@@ -599,7 +599,7 @@ pub mod video_stitcher_service {
         /// Sets or clear the value of [update_mask][crate::model::UpdateCdnKeyRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
         {
@@ -686,7 +686,7 @@ pub mod video_stitcher_service {
         /// Sets or clear the value of [vod_session][crate::model::CreateVodSessionRequest::vod_session].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_vod_session<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_vod_session<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::VodSession>,
         {
@@ -1395,7 +1395,7 @@ pub mod video_stitcher_service {
         /// Sets or clear the value of [slate][crate::model::CreateSlateRequest::slate].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_slate<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_slate<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Slate>,
         {
@@ -1692,7 +1692,7 @@ pub mod video_stitcher_service {
         /// Sets or clear the value of [slate][crate::model::UpdateSlateRequest::slate].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_slate<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_slate<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Slate>,
         {
@@ -1714,7 +1714,7 @@ pub mod video_stitcher_service {
         /// Sets or clear the value of [update_mask][crate::model::UpdateSlateRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
         {
@@ -1904,7 +1904,7 @@ pub mod video_stitcher_service {
         /// Sets or clear the value of [live_session][crate::model::CreateLiveSessionRequest::live_session].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_live_session<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_live_session<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::LiveSession>,
         {
@@ -2100,7 +2100,7 @@ pub mod video_stitcher_service {
         /// Sets or clear the value of [live_config][crate::model::CreateLiveConfigRequest::live_config].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_live_config<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_live_config<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::LiveConfig>,
         {
@@ -2506,7 +2506,7 @@ pub mod video_stitcher_service {
         /// Sets or clear the value of [live_config][crate::model::UpdateLiveConfigRequest::live_config].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_live_config<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_live_config<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::LiveConfig>,
         {
@@ -2528,7 +2528,7 @@ pub mod video_stitcher_service {
         /// Sets or clear the value of [update_mask][crate::model::UpdateLiveConfigRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
         {
@@ -2659,7 +2659,7 @@ pub mod video_stitcher_service {
         /// Sets or clear the value of [vod_config][crate::model::CreateVodConfigRequest::vod_config].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_vod_config<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_vod_config<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::VodConfig>,
         {
@@ -3059,7 +3059,7 @@ pub mod video_stitcher_service {
         /// Sets or clear the value of [vod_config][crate::model::UpdateVodConfigRequest::vod_config].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_vod_config<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_vod_config<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::VodConfig>,
         {
@@ -3081,7 +3081,7 @@ pub mod video_stitcher_service {
         /// Sets or clear the value of [update_mask][crate::model::UpdateVodConfigRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
         {

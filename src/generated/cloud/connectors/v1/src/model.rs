@@ -260,7 +260,7 @@ pub mod auth_config {
         }
 
         /// Sets or clear the value of [password][crate::model::auth_config::UserPassword::password].
-        pub fn maybe_password<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_password<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Secret>,
         {
@@ -314,7 +314,7 @@ pub mod auth_config {
         }
 
         /// Sets or clear the value of [client_key][crate::model::auth_config::Oauth2JwtBearer::client_key].
-        pub fn maybe_client_key<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_client_key<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Secret>,
         {
@@ -332,7 +332,7 @@ pub mod auth_config {
         }
 
         /// Sets or clear the value of [jwt_claims][crate::model::auth_config::Oauth2JwtBearer::jwt_claims].
-        pub fn maybe_jwt_claims<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_jwt_claims<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::auth_config::oauth_2_jwt_bearer::JwtClaims>,
         {
@@ -448,7 +448,7 @@ pub mod auth_config {
         }
 
         /// Sets or clear the value of [client_secret][crate::model::auth_config::Oauth2ClientCredentials::client_secret].
-        pub fn maybe_client_secret<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_client_secret<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Secret>,
         {
@@ -510,7 +510,7 @@ pub mod auth_config {
         }
 
         /// Sets or clear the value of [ssh_client_cert][crate::model::auth_config::SshPublicKey::ssh_client_cert].
-        pub fn maybe_ssh_client_cert<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_ssh_client_cert<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Secret>,
         {
@@ -534,7 +534,7 @@ pub mod auth_config {
         }
 
         /// Sets or clear the value of [ssh_client_cert_pass][crate::model::auth_config::SshPublicKey::ssh_client_cert_pass].
-        pub fn maybe_ssh_client_cert_pass<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_ssh_client_cert_pass<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Secret>,
         {
@@ -693,7 +693,7 @@ impl OperationMetadata {
     }
 
     /// Sets or clear the value of [create_time][crate::model::OperationMetadata::create_time].
-    pub fn maybe_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -711,7 +711,7 @@ impl OperationMetadata {
     }
 
     /// Sets or clear the value of [end_time][crate::model::OperationMetadata::end_time].
-    pub fn maybe_end_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -872,7 +872,7 @@ impl ConfigVariableTemplate {
     }
 
     /// Sets or clear the value of [role_grant][crate::model::ConfigVariableTemplate::role_grant].
-    pub fn maybe_role_grant<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_role_grant<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::RoleGrant>,
     {
@@ -901,7 +901,7 @@ impl ConfigVariableTemplate {
     }
 
     /// Sets or clear the value of [authorization_code_link][crate::model::ConfigVariableTemplate::authorization_code_link].
-    pub fn maybe_authorization_code_link<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_authorization_code_link<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::AuthorizationCodeLink>,
     {
@@ -1532,7 +1532,7 @@ impl RoleGrant {
     }
 
     /// Sets or clear the value of [resource][crate::model::RoleGrant::resource].
-    pub fn maybe_resource<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_resource<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::role_grant::Resource>,
     {
@@ -2087,7 +2087,7 @@ impl Connection {
     }
 
     /// Sets or clear the value of [create_time][crate::model::Connection::create_time].
-    pub fn maybe_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -2105,7 +2105,7 @@ impl Connection {
     }
 
     /// Sets or clear the value of [update_time][crate::model::Connection::update_time].
-    pub fn maybe_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -2150,7 +2150,7 @@ impl Connection {
     }
 
     /// Sets or clear the value of [status][crate::model::Connection::status].
-    pub fn maybe_status<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_status<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ConnectionStatus>,
     {
@@ -2179,7 +2179,7 @@ impl Connection {
     }
 
     /// Sets or clear the value of [auth_config][crate::model::Connection::auth_config].
-    pub fn maybe_auth_config<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_auth_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::AuthConfig>,
     {
@@ -2197,7 +2197,7 @@ impl Connection {
     }
 
     /// Sets or clear the value of [lock_config][crate::model::Connection::lock_config].
-    pub fn maybe_lock_config<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_lock_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::LockConfig>,
     {
@@ -2262,7 +2262,7 @@ impl Connection {
     }
 
     /// Sets or clear the value of [node_config][crate::model::Connection::node_config].
-    pub fn maybe_node_config<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_node_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::NodeConfig>,
     {
@@ -2280,7 +2280,7 @@ impl Connection {
     }
 
     /// Sets or clear the value of [ssl_config][crate::model::Connection::ssl_config].
-    pub fn maybe_ssl_config<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_ssl_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::SslConfig>,
     {
@@ -2418,7 +2418,7 @@ impl ConnectionSchemaMetadata {
     }
 
     /// Sets or clear the value of [update_time][crate::model::ConnectionSchemaMetadata::update_time].
-    pub fn maybe_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -2436,7 +2436,7 @@ impl ConnectionSchemaMetadata {
     }
 
     /// Sets or clear the value of [refresh_time][crate::model::ConnectionSchemaMetadata::refresh_time].
-    pub fn maybe_refresh_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_refresh_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -2749,7 +2749,7 @@ pub mod runtime_entity_schema {
         }
 
         /// Sets or clear the value of [default_value][crate::model::runtime_entity_schema::Field::default_value].
-        pub fn maybe_default_value<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_default_value<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Value>,
         {
@@ -2767,7 +2767,7 @@ pub mod runtime_entity_schema {
         }
 
         /// Sets or clear the value of [additional_details][crate::model::runtime_entity_schema::Field::additional_details].
-        pub fn maybe_additional_details<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_additional_details<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Struct>,
         {
@@ -2922,7 +2922,7 @@ pub mod runtime_action_schema {
         }
 
         /// Sets or clear the value of [default_value][crate::model::runtime_action_schema::InputParameter::default_value].
-        pub fn maybe_default_value<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_default_value<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Value>,
         {
@@ -3288,7 +3288,7 @@ impl CreateConnectionRequest {
     }
 
     /// Sets or clear the value of [connection][crate::model::CreateConnectionRequest::connection].
-    pub fn maybe_connection<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_connection<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Connection>,
     {
@@ -3354,7 +3354,7 @@ impl UpdateConnectionRequest {
     }
 
     /// Sets or clear the value of [connection][crate::model::UpdateConnectionRequest::connection].
-    pub fn maybe_connection<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_connection<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Connection>,
     {
@@ -3372,7 +3372,7 @@ impl UpdateConnectionRequest {
     }
 
     /// Sets or clear the value of [update_mask][crate::model::UpdateConnectionRequest::update_mask].
-    pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
     {
@@ -4057,7 +4057,7 @@ impl Connector {
     }
 
     /// Sets or clear the value of [create_time][crate::model::Connector::create_time].
-    pub fn maybe_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -4075,7 +4075,7 @@ impl Connector {
     }
 
     /// Sets or clear the value of [update_time][crate::model::Connector::update_time].
-    pub fn maybe_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -4404,7 +4404,7 @@ impl ConnectorVersion {
     }
 
     /// Sets or clear the value of [create_time][crate::model::ConnectorVersion::create_time].
-    pub fn maybe_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -4422,7 +4422,7 @@ impl ConnectorVersion {
     }
 
     /// Sets or clear the value of [update_time][crate::model::ConnectorVersion::update_time].
-    pub fn maybe_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -4489,7 +4489,7 @@ impl ConnectorVersion {
     }
 
     /// Sets or clear the value of [supported_runtime_features][crate::model::ConnectorVersion::supported_runtime_features].
-    pub fn maybe_supported_runtime_features<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_supported_runtime_features<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::SupportedRuntimeFeatures>,
     {
@@ -4513,7 +4513,7 @@ impl ConnectorVersion {
     }
 
     /// Sets or clear the value of [egress_control_config][crate::model::ConnectorVersion::egress_control_config].
-    pub fn maybe_egress_control_config<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_egress_control_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::EgressControlConfig>,
     {
@@ -4542,7 +4542,7 @@ impl ConnectorVersion {
     }
 
     /// Sets or clear the value of [role_grant][crate::model::ConnectorVersion::role_grant].
-    pub fn maybe_role_grant<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_role_grant<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::RoleGrant>,
     {
@@ -4560,7 +4560,7 @@ impl ConnectorVersion {
     }
 
     /// Sets or clear the value of [ssl_config_template][crate::model::ConnectorVersion::ssl_config_template].
-    pub fn maybe_ssl_config_template<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_ssl_config_template<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::SslConfigTemplate>,
     {
@@ -5012,7 +5012,7 @@ impl ExtractionRule {
     }
 
     /// Sets or clear the value of [source][crate::model::ExtractionRule::source].
-    pub fn maybe_source<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_source<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::extraction_rule::Source>,
     {
@@ -5448,7 +5448,7 @@ impl Provider {
     }
 
     /// Sets or clear the value of [create_time][crate::model::Provider::create_time].
-    pub fn maybe_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -5466,7 +5466,7 @@ impl Provider {
     }
 
     /// Sets or clear the value of [update_time][crate::model::Provider::update_time].
-    pub fn maybe_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -6304,7 +6304,7 @@ impl SslConfig {
     }
 
     /// Sets or clear the value of [private_server_certificate][crate::model::SslConfig::private_server_certificate].
-    pub fn maybe_private_server_certificate<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_private_server_certificate<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Secret>,
     {
@@ -6322,7 +6322,7 @@ impl SslConfig {
     }
 
     /// Sets or clear the value of [client_certificate][crate::model::SslConfig::client_certificate].
-    pub fn maybe_client_certificate<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_client_certificate<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Secret>,
     {
@@ -6340,7 +6340,7 @@ impl SslConfig {
     }
 
     /// Sets or clear the value of [client_private_key][crate::model::SslConfig::client_private_key].
-    pub fn maybe_client_private_key<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_client_private_key<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Secret>,
     {
@@ -6358,7 +6358,7 @@ impl SslConfig {
     }
 
     /// Sets or clear the value of [client_private_key_pass][crate::model::SslConfig::client_private_key_pass].
-    pub fn maybe_client_private_key_pass<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_client_private_key_pass<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Secret>,
     {

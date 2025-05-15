@@ -85,7 +85,7 @@ impl Challenge {
     }
 
     /// Sets or clear the value of [create_time][crate::model::Challenge::create_time].
-    pub fn maybe_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -103,7 +103,7 @@ impl Challenge {
     }
 
     /// Sets or clear the value of [expire_time][crate::model::Challenge::expire_time].
-    pub fn maybe_expire_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_expire_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -171,7 +171,7 @@ impl CreateChallengeRequest {
     }
 
     /// Sets or clear the value of [challenge][crate::model::CreateChallengeRequest::challenge].
-    pub fn maybe_challenge<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_challenge<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Challenge>,
     {
@@ -254,7 +254,7 @@ impl VerifyAttestationRequest {
     }
 
     /// Sets or clear the value of [gcp_credentials][crate::model::VerifyAttestationRequest::gcp_credentials].
-    pub fn maybe_gcp_credentials<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_gcp_credentials<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::GcpCredentials>,
     {
@@ -272,7 +272,7 @@ impl VerifyAttestationRequest {
     }
 
     /// Sets or clear the value of [tpm_attestation][crate::model::VerifyAttestationRequest::tpm_attestation].
-    pub fn maybe_tpm_attestation<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_tpm_attestation<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::TpmAttestation>,
     {
@@ -290,7 +290,7 @@ impl VerifyAttestationRequest {
     }
 
     /// Sets or clear the value of [confidential_space_info][crate::model::VerifyAttestationRequest::confidential_space_info].
-    pub fn maybe_confidential_space_info<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_confidential_space_info<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ConfidentialSpaceInfo>,
     {
@@ -308,7 +308,7 @@ impl VerifyAttestationRequest {
     }
 
     /// Sets or clear the value of [token_options][crate::model::VerifyAttestationRequest::token_options].
-    pub fn maybe_token_options<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_token_options<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::TokenOptions>,
     {
@@ -785,7 +785,7 @@ pub mod token_options {
         }
 
         /// Sets or clear the value of [allowed_principal_tags][crate::model::token_options::AwsPrincipalTagsOptions::allowed_principal_tags].
-        pub fn maybe_allowed_principal_tags<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_allowed_principal_tags<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<
                     crate::model::token_options::aws_principal_tags_options::AllowedPrincipalTags,
@@ -837,7 +837,7 @@ pub mod token_options {
             }
 
             /// Sets or clear the value of [container_image_signatures][crate::model::token_options::aws_principal_tags_options::AllowedPrincipalTags::container_image_signatures].
-            pub fn maybe_container_image_signatures<T>(mut self, v: std::option::Option<T>) -> Self
+            pub fn set_or_clear_container_image_signatures<T>(mut self, v: std::option::Option<T>) -> Self
             where T: std::convert::Into<crate::model::token_options::aws_principal_tags_options::allowed_principal_tags::ContainerImageSignatures>
             {
                 self.container_image_signatures = v.map(|x| x.into());

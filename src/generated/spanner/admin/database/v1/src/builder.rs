@@ -295,7 +295,7 @@ pub mod database_admin {
         }
 
         /// Sets or clear the value of [encryption_config][crate::model::CreateDatabaseRequest::encryption_config].
-        pub fn maybe_encryption_config<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_encryption_config<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::EncryptionConfig>,
         {
@@ -490,7 +490,7 @@ pub mod database_admin {
         /// Sets or clear the value of [database][crate::model::UpdateDatabaseRequest::database].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_database<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_database<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Database>,
         {
@@ -512,7 +512,7 @@ pub mod database_admin {
         /// Sets or clear the value of [update_mask][crate::model::UpdateDatabaseRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
         {
@@ -852,7 +852,7 @@ pub mod database_admin {
         /// Sets or clear the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<iam_v1::model::Policy>,
         {
@@ -870,7 +870,7 @@ pub mod database_admin {
         }
 
         /// Sets or clear the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
-        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
         {
@@ -950,7 +950,7 @@ pub mod database_admin {
         }
 
         /// Sets or clear the value of [options][iam_v1::model::GetIamPolicyRequest::options].
-        pub fn maybe_options<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
         {
@@ -1159,7 +1159,7 @@ pub mod database_admin {
         /// Sets or clear the value of [backup][crate::model::CreateBackupRequest::backup].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_backup<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_backup<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Backup>,
         {
@@ -1177,7 +1177,7 @@ pub mod database_admin {
         }
 
         /// Sets or clear the value of [encryption_config][crate::model::CreateBackupRequest::encryption_config].
-        pub fn maybe_encryption_config<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_encryption_config<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::CreateBackupEncryptionConfig>,
         {
@@ -1316,7 +1316,7 @@ pub mod database_admin {
         /// Sets or clear the value of [expire_time][crate::model::CopyBackupRequest::expire_time].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_expire_time<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_expire_time<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
         {
@@ -1334,7 +1334,7 @@ pub mod database_admin {
         }
 
         /// Sets or clear the value of [encryption_config][crate::model::CopyBackupRequest::encryption_config].
-        pub fn maybe_encryption_config<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_encryption_config<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::CopyBackupEncryptionConfig>,
         {
@@ -1472,7 +1472,7 @@ pub mod database_admin {
         /// Sets or clear the value of [backup][crate::model::UpdateBackupRequest::backup].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_backup<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_backup<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Backup>,
         {
@@ -1494,7 +1494,7 @@ pub mod database_admin {
         /// Sets or clear the value of [update_mask][crate::model::UpdateBackupRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
         {
@@ -1794,7 +1794,7 @@ pub mod database_admin {
         }
 
         /// Sets or clear the value of [encryption_config][crate::model::RestoreDatabaseRequest::encryption_config].
-        pub fn maybe_encryption_config<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_encryption_config<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::RestoreDatabaseEncryptionConfig>,
         {
@@ -2325,7 +2325,7 @@ pub mod database_admin {
         /// Sets or clear the value of [backup_schedule][crate::model::CreateBackupScheduleRequest::backup_schedule].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_backup_schedule<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_backup_schedule<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::BackupSchedule>,
         {
@@ -2469,7 +2469,7 @@ pub mod database_admin {
         /// Sets or clear the value of [backup_schedule][crate::model::UpdateBackupScheduleRequest::backup_schedule].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_backup_schedule<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_backup_schedule<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::BackupSchedule>,
         {
@@ -2491,7 +2491,7 @@ pub mod database_admin {
         /// Sets or clear the value of [update_mask][crate::model::UpdateBackupScheduleRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
         {

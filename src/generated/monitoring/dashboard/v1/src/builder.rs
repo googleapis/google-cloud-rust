@@ -136,7 +136,7 @@ pub mod dashboards_service {
         /// Sets or clear the value of [dashboard][crate::model::CreateDashboardRequest::dashboard].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_dashboard<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_dashboard<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Dashboard>,
         {
@@ -444,7 +444,7 @@ pub mod dashboards_service {
         /// Sets or clear the value of [dashboard][crate::model::UpdateDashboardRequest::dashboard].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_dashboard<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_dashboard<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Dashboard>,
         {

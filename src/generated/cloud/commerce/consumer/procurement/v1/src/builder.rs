@@ -193,7 +193,7 @@ pub mod license_management_service {
         /// Sets or clear the value of [license_pool][crate::model::UpdateLicensePoolRequest::license_pool].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_license_pool<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_license_pool<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::LicensePool>,
         {
@@ -215,7 +215,7 @@ pub mod license_management_service {
         /// Sets or clear the value of [update_mask][crate::model::UpdateLicensePoolRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
         {

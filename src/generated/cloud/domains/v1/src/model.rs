@@ -147,7 +147,7 @@ impl Registration {
     }
 
     /// Sets or clear the value of [create_time][crate::model::Registration::create_time].
-    pub fn maybe_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -165,7 +165,7 @@ impl Registration {
     }
 
     /// Sets or clear the value of [expire_time][crate::model::Registration::expire_time].
-    pub fn maybe_expire_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_expire_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -215,7 +215,7 @@ impl Registration {
     }
 
     /// Sets or clear the value of [management_settings][crate::model::Registration::management_settings].
-    pub fn maybe_management_settings<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_management_settings<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ManagementSettings>,
     {
@@ -233,7 +233,7 @@ impl Registration {
     }
 
     /// Sets or clear the value of [dns_settings][crate::model::Registration::dns_settings].
-    pub fn maybe_dns_settings<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_dns_settings<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::DnsSettings>,
     {
@@ -251,7 +251,7 @@ impl Registration {
     }
 
     /// Sets or clear the value of [contact_settings][crate::model::Registration::contact_settings].
-    pub fn maybe_contact_settings<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_contact_settings<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ContactSettings>,
     {
@@ -269,7 +269,7 @@ impl Registration {
     }
 
     /// Sets or clear the value of [pending_contact_settings][crate::model::Registration::pending_contact_settings].
-    pub fn maybe_pending_contact_settings<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_pending_contact_settings<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ContactSettings>,
     {
@@ -1811,7 +1811,7 @@ impl ContactSettings {
     }
 
     /// Sets or clear the value of [registrant_contact][crate::model::ContactSettings::registrant_contact].
-    pub fn maybe_registrant_contact<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_registrant_contact<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::contact_settings::Contact>,
     {
@@ -1829,7 +1829,7 @@ impl ContactSettings {
     }
 
     /// Sets or clear the value of [admin_contact][crate::model::ContactSettings::admin_contact].
-    pub fn maybe_admin_contact<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_admin_contact<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::contact_settings::Contact>,
     {
@@ -1847,7 +1847,7 @@ impl ContactSettings {
     }
 
     /// Sets or clear the value of [technical_contact][crate::model::ContactSettings::technical_contact].
-    pub fn maybe_technical_contact<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_technical_contact<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::contact_settings::Contact>,
     {
@@ -1910,7 +1910,7 @@ pub mod contact_settings {
         }
 
         /// Sets or clear the value of [postal_address][crate::model::contact_settings::Contact::postal_address].
-        pub fn maybe_postal_address<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_postal_address<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<gtype::model::PostalAddress>,
         {
@@ -2097,7 +2097,7 @@ impl RetrieveRegisterParametersResponse {
     }
 
     /// Sets or clear the value of [register_parameters][crate::model::RetrieveRegisterParametersResponse::register_parameters].
-    pub fn maybe_register_parameters<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_register_parameters<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::RegisterParameters>,
     {
@@ -2175,7 +2175,7 @@ impl RegisterDomainRequest {
     }
 
     /// Sets or clear the value of [registration][crate::model::RegisterDomainRequest::registration].
-    pub fn maybe_registration<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_registration<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Registration>,
     {
@@ -2215,7 +2215,7 @@ impl RegisterDomainRequest {
     }
 
     /// Sets or clear the value of [yearly_price][crate::model::RegisterDomainRequest::yearly_price].
-    pub fn maybe_yearly_price<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_yearly_price<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<gtype::model::Money>,
     {
@@ -2307,7 +2307,7 @@ impl RetrieveTransferParametersResponse {
     }
 
     /// Sets or clear the value of [transfer_parameters][crate::model::RetrieveTransferParametersResponse::transfer_parameters].
-    pub fn maybe_transfer_parameters<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_transfer_parameters<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::TransferParameters>,
     {
@@ -2389,7 +2389,7 @@ impl TransferDomainRequest {
     }
 
     /// Sets or clear the value of [registration][crate::model::TransferDomainRequest::registration].
-    pub fn maybe_registration<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_registration<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Registration>,
     {
@@ -2418,7 +2418,7 @@ impl TransferDomainRequest {
     }
 
     /// Sets or clear the value of [yearly_price][crate::model::TransferDomainRequest::yearly_price].
-    pub fn maybe_yearly_price<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_yearly_price<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<gtype::model::Money>,
     {
@@ -2436,7 +2436,7 @@ impl TransferDomainRequest {
     }
 
     /// Sets or clear the value of [authorization_code][crate::model::TransferDomainRequest::authorization_code].
-    pub fn maybe_authorization_code<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_authorization_code<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::AuthorizationCode>,
     {
@@ -2666,7 +2666,7 @@ impl UpdateRegistrationRequest {
     }
 
     /// Sets or clear the value of [registration][crate::model::UpdateRegistrationRequest::registration].
-    pub fn maybe_registration<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_registration<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Registration>,
     {
@@ -2684,7 +2684,7 @@ impl UpdateRegistrationRequest {
     }
 
     /// Sets or clear the value of [update_mask][crate::model::UpdateRegistrationRequest::update_mask].
-    pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
     {
@@ -2745,7 +2745,7 @@ impl ConfigureManagementSettingsRequest {
     }
 
     /// Sets or clear the value of [management_settings][crate::model::ConfigureManagementSettingsRequest::management_settings].
-    pub fn maybe_management_settings<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_management_settings<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ManagementSettings>,
     {
@@ -2763,7 +2763,7 @@ impl ConfigureManagementSettingsRequest {
     }
 
     /// Sets or clear the value of [update_mask][crate::model::ConfigureManagementSettingsRequest::update_mask].
-    pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
     {
@@ -2834,7 +2834,7 @@ impl ConfigureDnsSettingsRequest {
     }
 
     /// Sets or clear the value of [dns_settings][crate::model::ConfigureDnsSettingsRequest::dns_settings].
-    pub fn maybe_dns_settings<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_dns_settings<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::DnsSettings>,
     {
@@ -2852,7 +2852,7 @@ impl ConfigureDnsSettingsRequest {
     }
 
     /// Sets or clear the value of [update_mask][crate::model::ConfigureDnsSettingsRequest::update_mask].
-    pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
     {
@@ -2928,7 +2928,7 @@ impl ConfigureContactSettingsRequest {
     }
 
     /// Sets or clear the value of [contact_settings][crate::model::ConfigureContactSettingsRequest::contact_settings].
-    pub fn maybe_contact_settings<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_contact_settings<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ContactSettings>,
     {
@@ -2946,7 +2946,7 @@ impl ConfigureContactSettingsRequest {
     }
 
     /// Sets or clear the value of [update_mask][crate::model::ConfigureContactSettingsRequest::update_mask].
-    pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
     {
@@ -3195,7 +3195,7 @@ impl RegisterParameters {
     }
 
     /// Sets or clear the value of [yearly_price][crate::model::RegisterParameters::yearly_price].
-    pub fn maybe_yearly_price<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_yearly_price<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<gtype::model::Money>,
     {
@@ -3461,7 +3461,7 @@ impl TransferParameters {
     }
 
     /// Sets or clear the value of [yearly_price][crate::model::TransferParameters::yearly_price].
-    pub fn maybe_yearly_price<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_yearly_price<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<gtype::model::Money>,
     {
@@ -3558,7 +3558,7 @@ impl OperationMetadata {
     }
 
     /// Sets or clear the value of [create_time][crate::model::OperationMetadata::create_time].
-    pub fn maybe_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -3576,7 +3576,7 @@ impl OperationMetadata {
     }
 
     /// Sets or clear the value of [end_time][crate::model::OperationMetadata::end_time].
-    pub fn maybe_end_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {

@@ -191,7 +191,7 @@ impl Deployment {
     }
 
     /// Sets or clear the value of [create_time][crate::model::Deployment::create_time].
-    pub fn maybe_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -209,7 +209,7 @@ impl Deployment {
     }
 
     /// Sets or clear the value of [update_time][crate::model::Deployment::update_time].
-    pub fn maybe_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -269,7 +269,7 @@ impl Deployment {
     }
 
     /// Sets or clear the value of [delete_results][crate::model::Deployment::delete_results].
-    pub fn maybe_delete_results<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_delete_results<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ApplyResults>,
     {
@@ -316,7 +316,7 @@ impl Deployment {
     }
 
     /// Sets or clear the value of [artifacts_gcs_bucket][crate::model::Deployment::artifacts_gcs_bucket].
-    pub fn maybe_artifacts_gcs_bucket<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_artifacts_gcs_bucket<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
     {
@@ -334,7 +334,7 @@ impl Deployment {
     }
 
     /// Sets or clear the value of [service_account][crate::model::Deployment::service_account].
-    pub fn maybe_service_account<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_service_account<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
     {
@@ -352,7 +352,7 @@ impl Deployment {
     }
 
     /// Sets or clear the value of [import_existing_resources][crate::model::Deployment::import_existing_resources].
-    pub fn maybe_import_existing_resources<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_import_existing_resources<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<bool>,
     {
@@ -370,7 +370,7 @@ impl Deployment {
     }
 
     /// Sets or clear the value of [worker_pool][crate::model::Deployment::worker_pool].
-    pub fn maybe_worker_pool<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_worker_pool<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
     {
@@ -397,7 +397,7 @@ impl Deployment {
     }
 
     /// Sets or clear the value of [tf_version_constraint][crate::model::Deployment::tf_version_constraint].
-    pub fn maybe_tf_version_constraint<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_tf_version_constraint<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
     {
@@ -1157,7 +1157,7 @@ impl TerraformVariable {
     }
 
     /// Sets or clear the value of [input_value][crate::model::TerraformVariable::input_value].
-    pub fn maybe_input_value<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_input_value<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Value>,
     {
@@ -1272,7 +1272,7 @@ impl TerraformOutput {
     }
 
     /// Sets or clear the value of [value][crate::model::TerraformOutput::value].
-    pub fn maybe_value<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_value<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Value>,
     {
@@ -1775,7 +1775,7 @@ impl CreateDeploymentRequest {
     }
 
     /// Sets or clear the value of [deployment][crate::model::CreateDeploymentRequest::deployment].
-    pub fn maybe_deployment<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_deployment<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Deployment>,
     {
@@ -1855,7 +1855,7 @@ impl UpdateDeploymentRequest {
     }
 
     /// Sets or clear the value of [update_mask][crate::model::UpdateDeploymentRequest::update_mask].
-    pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
     {
@@ -1873,7 +1873,7 @@ impl UpdateDeploymentRequest {
     }
 
     /// Sets or clear the value of [deployment][crate::model::UpdateDeploymentRequest::deployment].
-    pub fn maybe_deployment<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_deployment<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Deployment>,
     {
@@ -2179,7 +2179,7 @@ impl OperationMetadata {
     }
 
     /// Sets or clear the value of [create_time][crate::model::OperationMetadata::create_time].
-    pub fn maybe_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -2197,7 +2197,7 @@ impl OperationMetadata {
     }
 
     /// Sets or clear the value of [end_time][crate::model::OperationMetadata::end_time].
-    pub fn maybe_end_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -2472,7 +2472,7 @@ impl Revision {
     }
 
     /// Sets or clear the value of [create_time][crate::model::Revision::create_time].
-    pub fn maybe_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -2490,7 +2490,7 @@ impl Revision {
     }
 
     /// Sets or clear the value of [update_time][crate::model::Revision::update_time].
-    pub fn maybe_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -2523,7 +2523,7 @@ impl Revision {
     }
 
     /// Sets or clear the value of [apply_results][crate::model::Revision::apply_results].
-    pub fn maybe_apply_results<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_apply_results<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ApplyResults>,
     {
@@ -3193,7 +3193,7 @@ impl TerraformError {
     }
 
     /// Sets or clear the value of [error][crate::model::TerraformError::error].
-    pub fn maybe_error<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_error<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<rpc::model::Status>,
     {
@@ -3248,7 +3248,7 @@ impl GitSource {
     }
 
     /// Sets or clear the value of [repo][crate::model::GitSource::repo].
-    pub fn maybe_repo<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_repo<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
     {
@@ -3266,7 +3266,7 @@ impl GitSource {
     }
 
     /// Sets or clear the value of [directory][crate::model::GitSource::directory].
-    pub fn maybe_directory<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_directory<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
     {
@@ -3284,7 +3284,7 @@ impl GitSource {
     }
 
     /// Sets or clear the value of [r#ref][crate::model::GitSource::ref].
-    pub fn maybe_ref<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_ref<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
     {
@@ -3351,7 +3351,7 @@ impl DeploymentOperationMetadata {
     }
 
     /// Sets or clear the value of [apply_results][crate::model::DeploymentOperationMetadata::apply_results].
-    pub fn maybe_apply_results<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_apply_results<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ApplyResults>,
     {
@@ -3646,7 +3646,7 @@ impl Resource {
     }
 
     /// Sets or clear the value of [terraform_info][crate::model::Resource::terraform_info].
-    pub fn maybe_terraform_info<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_terraform_info<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ResourceTerraformInfo>,
     {
@@ -4692,7 +4692,7 @@ impl LockInfo {
     }
 
     /// Sets or clear the value of [create_time][crate::model::LockInfo::create_time].
-    pub fn maybe_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -4847,7 +4847,7 @@ impl Preview {
     }
 
     /// Sets or clear the value of [create_time][crate::model::Preview::create_time].
-    pub fn maybe_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -4904,7 +4904,7 @@ impl Preview {
     }
 
     /// Sets or clear the value of [artifacts_gcs_bucket][crate::model::Preview::artifacts_gcs_bucket].
-    pub fn maybe_artifacts_gcs_bucket<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_artifacts_gcs_bucket<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
     {
@@ -4922,7 +4922,7 @@ impl Preview {
     }
 
     /// Sets or clear the value of [worker_pool][crate::model::Preview::worker_pool].
-    pub fn maybe_worker_pool<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_worker_pool<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
     {
@@ -4949,7 +4949,7 @@ impl Preview {
     }
 
     /// Sets or clear the value of [error_status][crate::model::Preview::error_status].
-    pub fn maybe_error_status<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_error_status<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<rpc::model::Status>,
     {
@@ -4990,7 +4990,7 @@ impl Preview {
     }
 
     /// Sets or clear the value of [preview_artifacts][crate::model::Preview::preview_artifacts].
-    pub fn maybe_preview_artifacts<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_preview_artifacts<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::PreviewArtifacts>,
     {
@@ -5020,7 +5020,7 @@ impl Preview {
     }
 
     /// Sets or clear the value of [tf_version_constraint][crate::model::Preview::tf_version_constraint].
-    pub fn maybe_tf_version_constraint<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_tf_version_constraint<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
     {
@@ -5629,7 +5629,7 @@ impl PreviewOperationMetadata {
     }
 
     /// Sets or clear the value of [preview_artifacts][crate::model::PreviewOperationMetadata::preview_artifacts].
-    pub fn maybe_preview_artifacts<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_preview_artifacts<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::PreviewArtifacts>,
     {
@@ -5965,7 +5965,7 @@ impl CreatePreviewRequest {
     }
 
     /// Sets or clear the value of [preview][crate::model::CreatePreviewRequest::preview].
-    pub fn maybe_preview<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_preview<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Preview>,
     {
@@ -6315,7 +6315,7 @@ impl ExportPreviewResultResponse {
     }
 
     /// Sets or clear the value of [result][crate::model::ExportPreviewResultResponse::result].
-    pub fn maybe_result<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_result<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::PreviewResult>,
     {
@@ -6633,7 +6633,7 @@ impl TerraformVersion {
     }
 
     /// Sets or clear the value of [support_time][crate::model::TerraformVersion::support_time].
-    pub fn maybe_support_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_support_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -6651,7 +6651,7 @@ impl TerraformVersion {
     }
 
     /// Sets or clear the value of [deprecate_time][crate::model::TerraformVersion::deprecate_time].
-    pub fn maybe_deprecate_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_deprecate_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -6669,7 +6669,7 @@ impl TerraformVersion {
     }
 
     /// Sets or clear the value of [obsolete_time][crate::model::TerraformVersion::obsolete_time].
-    pub fn maybe_obsolete_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_obsolete_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {

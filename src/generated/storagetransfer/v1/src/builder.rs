@@ -198,7 +198,7 @@ pub mod storage_transfer_service {
         /// Sets or clear the value of [transfer_job][crate::model::CreateTransferJobRequest::transfer_job].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_transfer_job<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_transfer_job<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::TransferJob>,
         {
@@ -293,7 +293,7 @@ pub mod storage_transfer_service {
         /// Sets or clear the value of [transfer_job][crate::model::UpdateTransferJobRequest::transfer_job].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_transfer_job<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_transfer_job<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::TransferJob>,
         {
@@ -311,7 +311,10 @@ pub mod storage_transfer_service {
         }
 
         /// Sets or clear the value of [update_transfer_job_field_mask][crate::model::UpdateTransferJobRequest::update_transfer_job_field_mask].
-        pub fn maybe_update_transfer_job_field_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_update_transfer_job_field_mask<T>(
+            mut self,
+            v: std::option::Option<T>,
+        ) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
         {
@@ -886,7 +889,7 @@ pub mod storage_transfer_service {
         /// Sets or clear the value of [agent_pool][crate::model::CreateAgentPoolRequest::agent_pool].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_agent_pool<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_agent_pool<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::AgentPool>,
         {
@@ -970,7 +973,7 @@ pub mod storage_transfer_service {
         /// Sets or clear the value of [agent_pool][crate::model::UpdateAgentPoolRequest::agent_pool].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_agent_pool<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_agent_pool<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::AgentPool>,
         {
@@ -988,7 +991,7 @@ pub mod storage_transfer_service {
         }
 
         /// Sets or clear the value of [update_mask][crate::model::UpdateAgentPoolRequest::update_mask].
-        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
         {

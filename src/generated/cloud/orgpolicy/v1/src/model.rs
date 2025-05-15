@@ -120,7 +120,7 @@ impl Policy {
     }
 
     /// Sets or clear the value of [update_time][crate::model::Policy::update_time].
-    pub fn maybe_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {

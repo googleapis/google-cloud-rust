@@ -92,7 +92,7 @@ impl OperationMetadata {
     }
 
     /// Sets or clear the value of [create_time][crate::model::OperationMetadata::create_time].
-    pub fn maybe_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -110,7 +110,7 @@ impl OperationMetadata {
     }
 
     /// Sets or clear the value of [end_time][crate::model::OperationMetadata::end_time].
-    pub fn maybe_end_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -319,7 +319,7 @@ impl PolicyBinding {
     }
 
     /// Sets or clear the value of [target][crate::model::PolicyBinding::target].
-    pub fn maybe_target<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_target<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::policy_binding::Target>,
     {
@@ -358,7 +358,7 @@ impl PolicyBinding {
     }
 
     /// Sets or clear the value of [condition][crate::model::PolicyBinding::condition].
-    pub fn maybe_condition<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_condition<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<gtype::model::Expr>,
     {
@@ -376,7 +376,7 @@ impl PolicyBinding {
     }
 
     /// Sets or clear the value of [create_time][crate::model::PolicyBinding::create_time].
-    pub fn maybe_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -394,7 +394,7 @@ impl PolicyBinding {
     }
 
     /// Sets or clear the value of [update_time][crate::model::PolicyBinding::update_time].
-    pub fn maybe_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -720,7 +720,7 @@ impl CreatePolicyBindingRequest {
     }
 
     /// Sets or clear the value of [policy_binding][crate::model::CreatePolicyBindingRequest::policy_binding].
-    pub fn maybe_policy_binding<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_policy_binding<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::PolicyBinding>,
     {
@@ -821,7 +821,7 @@ impl UpdatePolicyBindingRequest {
     }
 
     /// Sets or clear the value of [policy_binding][crate::model::UpdatePolicyBindingRequest::policy_binding].
-    pub fn maybe_policy_binding<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_policy_binding<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::PolicyBinding>,
     {
@@ -845,7 +845,7 @@ impl UpdatePolicyBindingRequest {
     }
 
     /// Sets or clear the value of [update_mask][crate::model::UpdatePolicyBindingRequest::update_mask].
-    pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
     {
@@ -1291,7 +1291,10 @@ impl CreatePrincipalAccessBoundaryPolicyRequest {
     }
 
     /// Sets or clear the value of [principal_access_boundary_policy][crate::model::CreatePrincipalAccessBoundaryPolicyRequest::principal_access_boundary_policy].
-    pub fn maybe_principal_access_boundary_policy<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_principal_access_boundary_policy<T>(
+        mut self,
+        v: std::option::Option<T>,
+    ) -> Self
     where
         T: std::convert::Into<crate::model::PrincipalAccessBoundaryPolicy>,
     {
@@ -1389,7 +1392,10 @@ impl UpdatePrincipalAccessBoundaryPolicyRequest {
     }
 
     /// Sets or clear the value of [principal_access_boundary_policy][crate::model::UpdatePrincipalAccessBoundaryPolicyRequest::principal_access_boundary_policy].
-    pub fn maybe_principal_access_boundary_policy<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_principal_access_boundary_policy<T>(
+        mut self,
+        v: std::option::Option<T>,
+    ) -> Self
     where
         T: std::convert::Into<crate::model::PrincipalAccessBoundaryPolicy>,
     {
@@ -1413,7 +1419,7 @@ impl UpdatePrincipalAccessBoundaryPolicyRequest {
     }
 
     /// Sets or clear the value of [update_mask][crate::model::UpdatePrincipalAccessBoundaryPolicyRequest::update_mask].
-    pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
     {
@@ -1857,7 +1863,7 @@ impl PrincipalAccessBoundaryPolicy {
     }
 
     /// Sets or clear the value of [create_time][crate::model::PrincipalAccessBoundaryPolicy::create_time].
-    pub fn maybe_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -1875,7 +1881,7 @@ impl PrincipalAccessBoundaryPolicy {
     }
 
     /// Sets or clear the value of [update_time][crate::model::PrincipalAccessBoundaryPolicy::update_time].
-    pub fn maybe_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -1893,7 +1899,7 @@ impl PrincipalAccessBoundaryPolicy {
     }
 
     /// Sets or clear the value of [details][crate::model::PrincipalAccessBoundaryPolicy::details].
-    pub fn maybe_details<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_details<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::PrincipalAccessBoundaryPolicyDetails>,
     {

@@ -131,7 +131,7 @@ pub mod language_service {
         /// Sets or clear the value of [document][crate::model::AnalyzeSentimentRequest::document].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_document<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_document<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Document>,
         {
@@ -213,7 +213,7 @@ pub mod language_service {
         /// Sets or clear the value of [document][crate::model::AnalyzeEntitiesRequest::document].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_document<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_document<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Document>,
         {
@@ -295,7 +295,7 @@ pub mod language_service {
         /// Sets or clear the value of [document][crate::model::ClassifyTextRequest::document].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_document<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_document<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Document>,
         {
@@ -371,7 +371,7 @@ pub mod language_service {
         /// Sets or clear the value of [document][crate::model::ModerateTextRequest::document].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_document<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_document<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Document>,
         {
@@ -456,7 +456,7 @@ pub mod language_service {
         /// Sets or clear the value of [document][crate::model::AnnotateTextRequest::document].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_document<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_document<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Document>,
         {
@@ -478,7 +478,7 @@ pub mod language_service {
         /// Sets or clear the value of [features][crate::model::AnnotateTextRequest::features].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_features<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_features<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::annotate_text_request::Features>,
         {

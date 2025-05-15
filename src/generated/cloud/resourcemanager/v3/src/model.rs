@@ -133,7 +133,7 @@ impl Folder {
     }
 
     /// Sets or clear the value of [create_time][crate::model::Folder::create_time].
-    pub fn maybe_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -151,7 +151,7 @@ impl Folder {
     }
 
     /// Sets or clear the value of [update_time][crate::model::Folder::update_time].
-    pub fn maybe_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -169,7 +169,7 @@ impl Folder {
     }
 
     /// Sets or clear the value of [delete_time][crate::model::Folder::delete_time].
-    pub fn maybe_delete_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_delete_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -679,7 +679,7 @@ impl CreateFolderRequest {
     }
 
     /// Sets or clear the value of [folder][crate::model::CreateFolderRequest::folder].
-    pub fn maybe_folder<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_folder<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Folder>,
     {
@@ -781,7 +781,7 @@ impl UpdateFolderRequest {
     }
 
     /// Sets or clear the value of [folder][crate::model::UpdateFolderRequest::folder].
-    pub fn maybe_folder<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_folder<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Folder>,
     {
@@ -799,7 +799,7 @@ impl UpdateFolderRequest {
     }
 
     /// Sets or clear the value of [update_mask][crate::model::UpdateFolderRequest::update_mask].
-    pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
     {
@@ -1142,7 +1142,7 @@ impl Organization {
     }
 
     /// Sets or clear the value of [create_time][crate::model::Organization::create_time].
-    pub fn maybe_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -1160,7 +1160,7 @@ impl Organization {
     }
 
     /// Sets or clear the value of [update_time][crate::model::Organization::update_time].
-    pub fn maybe_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -1178,7 +1178,7 @@ impl Organization {
     }
 
     /// Sets or clear the value of [delete_time][crate::model::Organization::delete_time].
-    pub fn maybe_delete_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_delete_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -1738,7 +1738,7 @@ impl Project {
     }
 
     /// Sets or clear the value of [create_time][crate::model::Project::create_time].
-    pub fn maybe_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -1756,7 +1756,7 @@ impl Project {
     }
 
     /// Sets or clear the value of [update_time][crate::model::Project::update_time].
-    pub fn maybe_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -1774,7 +1774,7 @@ impl Project {
     }
 
     /// Sets or clear the value of [delete_time][crate::model::Project::delete_time].
-    pub fn maybe_delete_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_delete_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -2359,7 +2359,7 @@ impl CreateProjectRequest {
     }
 
     /// Sets or clear the value of [project][crate::model::CreateProjectRequest::project].
-    pub fn maybe_project<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_project<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Project>,
     {
@@ -2415,7 +2415,7 @@ impl CreateProjectMetadata {
     }
 
     /// Sets or clear the value of [create_time][crate::model::CreateProjectMetadata::create_time].
-    pub fn maybe_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -2484,7 +2484,7 @@ impl UpdateProjectRequest {
     }
 
     /// Sets or clear the value of [project][crate::model::UpdateProjectRequest::project].
-    pub fn maybe_project<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_project<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Project>,
     {
@@ -2502,7 +2502,7 @@ impl UpdateProjectRequest {
     }
 
     /// Sets or clear the value of [update_mask][crate::model::UpdateProjectRequest::update_mask].
-    pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
     {
@@ -2862,7 +2862,7 @@ impl CreateTagBindingRequest {
     }
 
     /// Sets or clear the value of [tag_binding][crate::model::CreateTagBindingRequest::tag_binding].
-    pub fn maybe_tag_binding<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_tag_binding<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::TagBinding>,
     {
@@ -3384,7 +3384,7 @@ impl TagHold {
     }
 
     /// Sets or clear the value of [create_time][crate::model::TagHold::create_time].
-    pub fn maybe_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -3444,7 +3444,7 @@ impl CreateTagHoldRequest {
     }
 
     /// Sets or clear the value of [tag_hold][crate::model::CreateTagHoldRequest::tag_hold].
-    pub fn maybe_tag_hold<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_tag_hold<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::TagHold>,
     {
@@ -3823,7 +3823,7 @@ impl TagKey {
     }
 
     /// Sets or clear the value of [create_time][crate::model::TagKey::create_time].
-    pub fn maybe_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -3841,7 +3841,7 @@ impl TagKey {
     }
 
     /// Sets or clear the value of [update_time][crate::model::TagKey::update_time].
-    pub fn maybe_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -4102,7 +4102,7 @@ impl CreateTagKeyRequest {
     }
 
     /// Sets or clear the value of [tag_key][crate::model::CreateTagKeyRequest::tag_key].
-    pub fn maybe_tag_key<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_tag_key<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::TagKey>,
     {
@@ -4188,7 +4188,7 @@ impl UpdateTagKeyRequest {
     }
 
     /// Sets or clear the value of [tag_key][crate::model::UpdateTagKeyRequest::tag_key].
-    pub fn maybe_tag_key<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_tag_key<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::TagKey>,
     {
@@ -4206,7 +4206,7 @@ impl UpdateTagKeyRequest {
     }
 
     /// Sets or clear the value of [update_mask][crate::model::UpdateTagKeyRequest::update_mask].
-    pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
     {
@@ -4429,7 +4429,7 @@ impl TagValue {
     }
 
     /// Sets or clear the value of [create_time][crate::model::TagValue::create_time].
-    pub fn maybe_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -4447,7 +4447,7 @@ impl TagValue {
     }
 
     /// Sets or clear the value of [update_time][crate::model::TagValue::update_time].
-    pub fn maybe_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -4698,7 +4698,7 @@ impl CreateTagValueRequest {
     }
 
     /// Sets or clear the value of [tag_value][crate::model::CreateTagValueRequest::tag_value].
-    pub fn maybe_tag_value<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_tag_value<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::TagValue>,
     {
@@ -4782,7 +4782,7 @@ impl UpdateTagValueRequest {
     }
 
     /// Sets or clear the value of [tag_value][crate::model::UpdateTagValueRequest::tag_value].
-    pub fn maybe_tag_value<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_tag_value<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::TagValue>,
     {
@@ -4800,7 +4800,7 @@ impl UpdateTagValueRequest {
     }
 
     /// Sets or clear the value of [update_mask][crate::model::UpdateTagValueRequest::update_mask].
-    pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
     {

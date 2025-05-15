@@ -136,7 +136,7 @@ pub mod confidential_computing {
         /// Sets or clear the value of [challenge][crate::model::CreateChallengeRequest::challenge].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_challenge<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_challenge<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Challenge>,
         {
@@ -219,7 +219,7 @@ pub mod confidential_computing {
         }
 
         /// Sets or clear the value of [gcp_credentials][crate::model::VerifyAttestationRequest::gcp_credentials].
-        pub fn maybe_gcp_credentials<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_gcp_credentials<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::GcpCredentials>,
         {
@@ -241,7 +241,7 @@ pub mod confidential_computing {
         /// Sets or clear the value of [tpm_attestation][crate::model::VerifyAttestationRequest::tpm_attestation].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_tpm_attestation<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_tpm_attestation<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::TpmAttestation>,
         {
@@ -259,7 +259,7 @@ pub mod confidential_computing {
         }
 
         /// Sets or clear the value of [confidential_space_info][crate::model::VerifyAttestationRequest::confidential_space_info].
-        pub fn maybe_confidential_space_info<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_confidential_space_info<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::ConfidentialSpaceInfo>,
         {
@@ -277,7 +277,7 @@ pub mod confidential_computing {
         }
 
         /// Sets or clear the value of [token_options][crate::model::VerifyAttestationRequest::token_options].
-        pub fn maybe_token_options<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_token_options<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::TokenOptions>,
         {

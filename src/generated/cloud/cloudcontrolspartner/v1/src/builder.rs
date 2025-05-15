@@ -803,7 +803,7 @@ pub mod cloud_controls_partner_core {
         /// Sets or clear the value of [customer][crate::model::CreateCustomerRequest::customer].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_customer<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_customer<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Customer>,
         {
@@ -887,7 +887,7 @@ pub mod cloud_controls_partner_core {
         /// Sets or clear the value of [customer][crate::model::UpdateCustomerRequest::customer].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_customer<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_customer<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Customer>,
         {
@@ -905,7 +905,7 @@ pub mod cloud_controls_partner_core {
         }
 
         /// Sets or clear the value of [update_mask][crate::model::UpdateCustomerRequest::update_mask].
-        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
         {
@@ -1154,7 +1154,7 @@ pub mod cloud_controls_partner_monitoring {
         }
 
         /// Sets or clear the value of [interval][crate::model::ListViolationsRequest::interval].
-        pub fn maybe_interval<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_interval<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<gtype::model::Interval>,
         {

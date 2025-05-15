@@ -307,7 +307,7 @@ pub mod access_approval {
         }
 
         /// Sets or clear the value of [expire_time][crate::model::ApproveApprovalRequestMessage::expire_time].
-        pub fn maybe_expire_time<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_expire_time<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
         {
@@ -577,7 +577,7 @@ pub mod access_approval {
         }
 
         /// Sets or clear the value of [settings][crate::model::UpdateAccessApprovalSettingsMessage::settings].
-        pub fn maybe_settings<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_settings<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::AccessApprovalSettings>,
         {
@@ -595,7 +595,7 @@ pub mod access_approval {
         }
 
         /// Sets or clear the value of [update_mask][crate::model::UpdateAccessApprovalSettingsMessage::update_mask].
-        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
         {

@@ -183,7 +183,7 @@ pub mod rapid_migration_assessment {
         /// Sets or clear the value of [collector][crate::model::CreateCollectorRequest::collector].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_collector<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_collector<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Collector>,
         {
@@ -315,7 +315,7 @@ pub mod rapid_migration_assessment {
         /// Sets or clear the value of [annotation][crate::model::CreateAnnotationRequest::annotation].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_annotation<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_annotation<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Annotation>,
         {
@@ -674,7 +674,7 @@ pub mod rapid_migration_assessment {
         /// Sets or clear the value of [update_mask][crate::model::UpdateCollectorRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
         {
@@ -696,7 +696,7 @@ pub mod rapid_migration_assessment {
         /// Sets or clear the value of [collector][crate::model::UpdateCollectorRequest::collector].
         ///
         /// This is a **required** field for requests.
-        pub fn maybe_collector<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_collector<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Collector>,
         {

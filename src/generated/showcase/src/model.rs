@@ -104,7 +104,7 @@ impl RepeatRequest {
     }
 
     /// Sets or clear the value of [info][crate::model::RepeatRequest::info].
-    pub fn maybe_info<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_info<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ComplianceData>,
     {
@@ -128,7 +128,7 @@ impl RepeatRequest {
     }
 
     /// Sets or clear the value of [intended_binding_uri][crate::model::RepeatRequest::intended_binding_uri].
-    pub fn maybe_intended_binding_uri<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_intended_binding_uri<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
     {
@@ -164,7 +164,7 @@ impl RepeatRequest {
     }
 
     /// Sets or clear the value of [p_int32][crate::model::RepeatRequest::p_int32].
-    pub fn maybe_p_int32<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_p_int32<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<i32>,
     {
@@ -182,7 +182,7 @@ impl RepeatRequest {
     }
 
     /// Sets or clear the value of [p_int64][crate::model::RepeatRequest::p_int64].
-    pub fn maybe_p_int64<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_p_int64<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<i64>,
     {
@@ -200,7 +200,7 @@ impl RepeatRequest {
     }
 
     /// Sets or clear the value of [p_double][crate::model::RepeatRequest::p_double].
-    pub fn maybe_p_double<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_p_double<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<f64>,
     {
@@ -246,7 +246,7 @@ impl RepeatResponse {
     }
 
     /// Sets or clear the value of [request][crate::model::RepeatResponse::request].
-    pub fn maybe_request<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_request<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::RepeatRequest>,
     {
@@ -568,7 +568,7 @@ impl ComplianceData {
     }
 
     /// Sets or clear the value of [f_child][crate::model::ComplianceData::f_child].
-    pub fn maybe_f_child<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_f_child<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ComplianceDataChild>,
     {
@@ -586,7 +586,7 @@ impl ComplianceData {
     }
 
     /// Sets or clear the value of [p_string][crate::model::ComplianceData::p_string].
-    pub fn maybe_p_string<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_p_string<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
     {
@@ -604,7 +604,7 @@ impl ComplianceData {
     }
 
     /// Sets or clear the value of [p_int32][crate::model::ComplianceData::p_int32].
-    pub fn maybe_p_int32<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_p_int32<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<i32>,
     {
@@ -622,7 +622,7 @@ impl ComplianceData {
     }
 
     /// Sets or clear the value of [p_double][crate::model::ComplianceData::p_double].
-    pub fn maybe_p_double<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_p_double<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<f64>,
     {
@@ -640,7 +640,7 @@ impl ComplianceData {
     }
 
     /// Sets or clear the value of [p_bool][crate::model::ComplianceData::p_bool].
-    pub fn maybe_p_bool<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_p_bool<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<bool>,
     {
@@ -658,7 +658,7 @@ impl ComplianceData {
     }
 
     /// Sets or clear the value of [p_kingdom][crate::model::ComplianceData::p_kingdom].
-    pub fn maybe_p_kingdom<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_p_kingdom<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::compliance_data::LifeKingdom>,
     {
@@ -676,7 +676,7 @@ impl ComplianceData {
     }
 
     /// Sets or clear the value of [p_child][crate::model::ComplianceData::p_child].
-    pub fn maybe_p_child<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_p_child<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ComplianceDataChild>,
     {
@@ -941,7 +941,7 @@ impl ComplianceDataChild {
     }
 
     /// Sets or clear the value of [f_child][crate::model::ComplianceDataChild::f_child].
-    pub fn maybe_f_child<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_f_child<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ComplianceDataGrandchild>,
     {
@@ -959,7 +959,7 @@ impl ComplianceDataChild {
     }
 
     /// Sets or clear the value of [p_string][crate::model::ComplianceDataChild::p_string].
-    pub fn maybe_p_string<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_p_string<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
     {
@@ -977,7 +977,7 @@ impl ComplianceDataChild {
     }
 
     /// Sets or clear the value of [p_float][crate::model::ComplianceDataChild::p_float].
-    pub fn maybe_p_float<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_p_float<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<f32>,
     {
@@ -995,7 +995,7 @@ impl ComplianceDataChild {
     }
 
     /// Sets or clear the value of [p_double][crate::model::ComplianceDataChild::p_double].
-    pub fn maybe_p_double<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_p_double<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<f64>,
     {
@@ -1013,7 +1013,7 @@ impl ComplianceDataChild {
     }
 
     /// Sets or clear the value of [p_bool][crate::model::ComplianceDataChild::p_bool].
-    pub fn maybe_p_bool<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_p_bool<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<bool>,
     {
@@ -1037,7 +1037,7 @@ impl ComplianceDataChild {
     }
 
     /// Sets or clear the value of [p_child][crate::model::ComplianceDataChild::p_child].
-    pub fn maybe_p_child<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_p_child<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ComplianceDataGrandchild>,
     {
@@ -1163,7 +1163,7 @@ impl EnumResponse {
     }
 
     /// Sets or clear the value of [request][crate::model::EnumResponse::request].
-    pub fn maybe_request<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_request<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::EnumRequest>,
     {
@@ -1258,7 +1258,7 @@ impl EchoRequest {
     }
 
     /// Sets or clear the value of [other_request_id][crate::model::EchoRequest::other_request_id].
-    pub fn maybe_other_request_id<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_other_request_id<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
     {
@@ -1499,7 +1499,7 @@ impl EchoErrorDetailsResponse {
     }
 
     /// Sets or clear the value of [single_detail][crate::model::EchoErrorDetailsResponse::single_detail].
-    pub fn maybe_single_detail<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_single_detail<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::echo_error_details_response::SingleDetail>,
     {
@@ -1517,7 +1517,7 @@ impl EchoErrorDetailsResponse {
     }
 
     /// Sets or clear the value of [multiple_details][crate::model::EchoErrorDetailsResponse::multiple_details].
-    pub fn maybe_multiple_details<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_multiple_details<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::echo_error_details_response::MultipleDetails>,
     {
@@ -1564,7 +1564,7 @@ pub mod echo_error_details_response {
         }
 
         /// Sets or clear the value of [error][crate::model::echo_error_details_response::SingleDetail::error].
-        pub fn maybe_error<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_error<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::ErrorWithSingleDetail>,
         {
@@ -1606,7 +1606,7 @@ pub mod echo_error_details_response {
         }
 
         /// Sets or clear the value of [error][crate::model::echo_error_details_response::MultipleDetails::error].
-        pub fn maybe_error<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_error<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::ErrorWithMultipleDetails>,
         {
@@ -1649,7 +1649,7 @@ impl ErrorWithSingleDetail {
     }
 
     /// Sets or clear the value of [details][crate::model::ErrorWithSingleDetail::details].
-    pub fn maybe_details<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_details<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Any>,
     {
@@ -1831,7 +1831,7 @@ impl ExpandRequest {
     }
 
     /// Sets or clear the value of [error][crate::model::ExpandRequest::error].
-    pub fn maybe_error<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_error<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<rpc::model::Status>,
     {
@@ -1849,7 +1849,7 @@ impl ExpandRequest {
     }
 
     /// Sets or clear the value of [stream_wait_time][crate::model::ExpandRequest::stream_wait_time].
-    pub fn maybe_stream_wait_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_stream_wait_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
     {
@@ -2358,7 +2358,7 @@ impl WaitMetadata {
     }
 
     /// Sets or clear the value of [end_time][crate::model::WaitMetadata::end_time].
-    pub fn maybe_end_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -2405,7 +2405,7 @@ impl BlockRequest {
     }
 
     /// Sets or clear the value of [response_delay][crate::model::BlockRequest::response_delay].
-    pub fn maybe_response_delay<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_response_delay<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
     {
@@ -2621,7 +2621,7 @@ impl User {
     }
 
     /// Sets or clear the value of [create_time][crate::model::User::create_time].
-    pub fn maybe_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -2639,7 +2639,7 @@ impl User {
     }
 
     /// Sets or clear the value of [update_time][crate::model::User::update_time].
-    pub fn maybe_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -2657,7 +2657,7 @@ impl User {
     }
 
     /// Sets or clear the value of [age][crate::model::User::age].
-    pub fn maybe_age<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_age<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<i32>,
     {
@@ -2675,7 +2675,7 @@ impl User {
     }
 
     /// Sets or clear the value of [height_feet][crate::model::User::height_feet].
-    pub fn maybe_height_feet<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_height_feet<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<f64>,
     {
@@ -2693,7 +2693,7 @@ impl User {
     }
 
     /// Sets or clear the value of [nickname][crate::model::User::nickname].
-    pub fn maybe_nickname<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_nickname<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
     {
@@ -2711,7 +2711,7 @@ impl User {
     }
 
     /// Sets or clear the value of [enable_notifications][crate::model::User::enable_notifications].
-    pub fn maybe_enable_notifications<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_enable_notifications<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<bool>,
     {
@@ -2756,7 +2756,7 @@ impl CreateUserRequest {
     }
 
     /// Sets or clear the value of [user][crate::model::CreateUserRequest::user].
-    pub fn maybe_user<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_user<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::User>,
     {
@@ -2839,7 +2839,7 @@ impl UpdateUserRequest {
     }
 
     /// Sets or clear the value of [user][crate::model::UpdateUserRequest::user].
-    pub fn maybe_user<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_user<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::User>,
     {
@@ -2857,7 +2857,7 @@ impl UpdateUserRequest {
     }
 
     /// Sets or clear the value of [update_mask][crate::model::UpdateUserRequest::update_mask].
-    pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
     {
@@ -3079,7 +3079,7 @@ impl Room {
     }
 
     /// Sets or clear the value of [create_time][crate::model::Room::create_time].
-    pub fn maybe_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -3097,7 +3097,7 @@ impl Room {
     }
 
     /// Sets or clear the value of [update_time][crate::model::Room::update_time].
-    pub fn maybe_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -3142,7 +3142,7 @@ impl CreateRoomRequest {
     }
 
     /// Sets or clear the value of [room][crate::model::CreateRoomRequest::room].
-    pub fn maybe_room<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_room<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Room>,
     {
@@ -3225,7 +3225,7 @@ impl UpdateRoomRequest {
     }
 
     /// Sets or clear the value of [room][crate::model::UpdateRoomRequest::room].
-    pub fn maybe_room<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_room<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Room>,
     {
@@ -3243,7 +3243,7 @@ impl UpdateRoomRequest {
     }
 
     /// Sets or clear the value of [update_mask][crate::model::UpdateRoomRequest::update_mask].
-    pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
     {
@@ -3465,7 +3465,7 @@ impl Blurb {
     }
 
     /// Sets or clear the value of [create_time][crate::model::Blurb::create_time].
-    pub fn maybe_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -3483,7 +3483,7 @@ impl Blurb {
     }
 
     /// Sets or clear the value of [update_time][crate::model::Blurb::update_time].
-    pub fn maybe_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -3686,7 +3686,7 @@ impl CreateBlurbRequest {
     }
 
     /// Sets or clear the value of [blurb][crate::model::CreateBlurbRequest::blurb].
-    pub fn maybe_blurb<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_blurb<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Blurb>,
     {
@@ -3769,7 +3769,7 @@ impl UpdateBlurbRequest {
     }
 
     /// Sets or clear the value of [blurb][crate::model::UpdateBlurbRequest::blurb].
-    pub fn maybe_blurb<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_blurb<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Blurb>,
     {
@@ -3787,7 +3787,7 @@ impl UpdateBlurbRequest {
     }
 
     /// Sets or clear the value of [update_mask][crate::model::UpdateBlurbRequest::update_mask].
-    pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
     {
@@ -4057,7 +4057,7 @@ impl SearchBlurbsMetadata {
     }
 
     /// Sets or clear the value of [retry_info][crate::model::SearchBlurbsMetadata::retry_info].
-    pub fn maybe_retry_info<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_retry_info<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<rpc::model::RetryInfo>,
     {
@@ -4163,7 +4163,7 @@ impl StreamBlurbsRequest {
     }
 
     /// Sets or clear the value of [expire_time][crate::model::StreamBlurbsRequest::expire_time].
-    pub fn maybe_expire_time<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_expire_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
     {
@@ -4211,7 +4211,7 @@ impl StreamBlurbsResponse {
     }
 
     /// Sets or clear the value of [blurb][crate::model::StreamBlurbsResponse::blurb].
-    pub fn maybe_blurb<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_blurb<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Blurb>,
     {
@@ -4589,7 +4589,7 @@ impl RestError {
     }
 
     /// Sets or clear the value of [error][crate::model::RestError::error].
-    pub fn maybe_error<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_error<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::rest_error::Status>,
     {
@@ -4759,7 +4759,7 @@ pub mod sequence {
         }
 
         /// Sets or clear the value of [status][crate::model::sequence::Response::status].
-        pub fn maybe_status<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_status<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<rpc::model::Status>,
         {
@@ -4777,7 +4777,7 @@ pub mod sequence {
         }
 
         /// Sets or clear the value of [delay][crate::model::sequence::Response::delay].
-        pub fn maybe_delay<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_delay<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
         {
@@ -4891,7 +4891,7 @@ pub mod streaming_sequence {
         }
 
         /// Sets or clear the value of [status][crate::model::streaming_sequence::Response::status].
-        pub fn maybe_status<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_status<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<rpc::model::Status>,
         {
@@ -4909,7 +4909,7 @@ pub mod streaming_sequence {
         }
 
         /// Sets or clear the value of [delay][crate::model::streaming_sequence::Response::delay].
-        pub fn maybe_delay<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_delay<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
         {
@@ -5034,7 +5034,7 @@ pub mod streaming_sequence_report {
         }
 
         /// Sets or clear the value of [attempt_deadline][crate::model::streaming_sequence_report::Attempt::attempt_deadline].
-        pub fn maybe_attempt_deadline<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_attempt_deadline<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
         {
@@ -5052,7 +5052,7 @@ pub mod streaming_sequence_report {
         }
 
         /// Sets or clear the value of [response_time][crate::model::streaming_sequence_report::Attempt::response_time].
-        pub fn maybe_response_time<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_response_time<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
         {
@@ -5070,7 +5070,7 @@ pub mod streaming_sequence_report {
         }
 
         /// Sets or clear the value of [attempt_delay][crate::model::streaming_sequence_report::Attempt::attempt_delay].
-        pub fn maybe_attempt_delay<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_attempt_delay<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
         {
@@ -5088,7 +5088,7 @@ pub mod streaming_sequence_report {
         }
 
         /// Sets or clear the value of [status][crate::model::streaming_sequence_report::Attempt::status].
-        pub fn maybe_status<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_status<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<rpc::model::Status>,
         {
@@ -5207,7 +5207,7 @@ pub mod sequence_report {
         }
 
         /// Sets or clear the value of [attempt_deadline][crate::model::sequence_report::Attempt::attempt_deadline].
-        pub fn maybe_attempt_deadline<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_attempt_deadline<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
         {
@@ -5225,7 +5225,7 @@ pub mod sequence_report {
         }
 
         /// Sets or clear the value of [response_time][crate::model::sequence_report::Attempt::response_time].
-        pub fn maybe_response_time<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_response_time<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
         {
@@ -5243,7 +5243,7 @@ pub mod sequence_report {
         }
 
         /// Sets or clear the value of [attempt_delay][crate::model::sequence_report::Attempt::attempt_delay].
-        pub fn maybe_attempt_delay<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_attempt_delay<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
         {
@@ -5261,7 +5261,7 @@ pub mod sequence_report {
         }
 
         /// Sets or clear the value of [status][crate::model::sequence_report::Attempt::status].
-        pub fn maybe_status<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_status<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<rpc::model::Status>,
         {
@@ -5304,7 +5304,7 @@ impl CreateSequenceRequest {
     }
 
     /// Sets or clear the value of [sequence][crate::model::CreateSequenceRequest::sequence].
-    pub fn maybe_sequence<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_sequence<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Sequence>,
     {
@@ -5346,7 +5346,7 @@ impl CreateStreamingSequenceRequest {
     }
 
     /// Sets or clear the value of [streaming_sequence][crate::model::CreateStreamingSequenceRequest::streaming_sequence].
-    pub fn maybe_streaming_sequence<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_streaming_sequence<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::StreamingSequence>,
     {
@@ -5744,7 +5744,7 @@ impl CreateSessionRequest {
     }
 
     /// Sets or clear the value of [session][crate::model::CreateSessionRequest::session].
-    pub fn maybe_session<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_session<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Session>,
     {
@@ -6286,7 +6286,7 @@ pub mod test {
         }
 
         /// Sets or clear the value of [request][crate::model::test::Blueprint::request].
-        pub fn maybe_request<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_request<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::test::blueprint::Invocation>,
         {
@@ -7001,7 +7001,7 @@ impl TestRun {
     }
 
     /// Sets or clear the value of [issue][crate::model::TestRun::issue].
-    pub fn maybe_issue<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_issue<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Issue>,
     {
@@ -7134,7 +7134,7 @@ impl VerifyTestResponse {
     }
 
     /// Sets or clear the value of [issue][crate::model::VerifyTestResponse::issue].
-    pub fn maybe_issue<T>(mut self, v: std::option::Option<T>) -> Self
+    pub fn set_or_clear_issue<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Issue>,
     {
