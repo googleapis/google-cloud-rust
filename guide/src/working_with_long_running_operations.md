@@ -44,6 +44,8 @@ file. We use:
 
 ```toml
 {{#include ../samples/Cargo.toml:speech}}
+
+{{#include ../samples/Cargo.toml:lro}}
 ```
 
 And:

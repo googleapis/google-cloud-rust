@@ -23,7 +23,7 @@ pub async fn client_backoff(project_id: &str) -> crate::Result<()> {
     // ANCHOR: client-backoff-use
     use google_cloud_gax::exponential_backoff::ExponentialBackoffBuilder;
     // ANCHOR_END: client-backoff-use
-    use speech::Poller;
+    use google_cloud_lro::Poller;
     use std::time::Duration;
 
     // ANCHOR: client-backoff-client
@@ -83,7 +83,7 @@ pub async fn rpc_backoff(project_id: &str) -> crate::Result<()> {
     // ANCHOR: rpc-backoff-builder-trait
     use google_cloud_gax::options::RequestOptionsBuilder;
     // ANCHOR_END: rpc-backoff-builder-trait
-    use speech::Poller;
+    use google_cloud_lro::Poller;
 
     // ANCHOR: rpc-backoff-client
     let client = speech::client::Speech::builder().build().await?;
@@ -140,7 +140,7 @@ pub async fn client_errors(project_id: &str) -> crate::Result<()> {
     use google_cloud_gax::polling_error_policy::PollingErrorPolicyExt;
     use std::time::Duration;
     // ANCHOR_END: client-errors-use
-    use speech::Poller;
+    use google_cloud_lro::Poller;
 
     // ANCHOR: client-errors-client
     let client = speech::client::Speech::builder()
@@ -199,7 +199,7 @@ pub async fn rpc_errors(project_id: &str) -> crate::Result<()> {
     // ANCHOR: rpc-errors-builder-trait
     use google_cloud_gax::options::RequestOptionsBuilder;
     // ANCHOR_END: rpc-errors-builder-trait
-    use speech::Poller;
+    use google_cloud_lro::Poller;
 
     // ANCHOR: rpc-errors-client
     let client = speech::client::Speech::builder().build().await?;

@@ -38,7 +38,7 @@ mod my_application {
         client: &speech::client::Speech,
         project_id: &str,
     ) -> Result<Option<wkt::Duration>> {
-        use speech::Poller;
+        use google_cloud_lro::Poller;
         client
             .batch_recognize()
             .set_recognizer(format!(
