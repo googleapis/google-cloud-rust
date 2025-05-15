@@ -220,11 +220,20 @@ pub mod applications {
         }
 
         /// Sets the value of [application][crate::model::CreateApplicationRequest::application].
-        pub fn set_application<T: Into<std::option::Option<crate::model::Application>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.application = v.into();
+        pub fn set_application<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Application>,
+        {
+            self.0.request.application = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [application][crate::model::CreateApplicationRequest::application].
+        pub fn maybe_application<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Application>,
+        {
+            self.0.request.application = v.map(|x| x.into());
             self
         }
     }
@@ -334,20 +343,38 @@ pub mod applications {
         }
 
         /// Sets the value of [application][crate::model::UpdateApplicationRequest::application].
-        pub fn set_application<T: Into<std::option::Option<crate::model::Application>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.application = v.into();
+        pub fn set_application<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Application>,
+        {
+            self.0.request.application = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [application][crate::model::UpdateApplicationRequest::application].
+        pub fn maybe_application<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Application>,
+        {
+            self.0.request.application = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateApplicationRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [update_mask][crate::model::UpdateApplicationRequest::update_mask].
+        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -937,20 +964,38 @@ pub mod services {
         }
 
         /// Sets the value of [service][crate::model::UpdateServiceRequest::service].
-        pub fn set_service<T: Into<std::option::Option<crate::model::Service>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.service = v.into();
+        pub fn set_service<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Service>,
+        {
+            self.0.request.service = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [service][crate::model::UpdateServiceRequest::service].
+        pub fn maybe_service<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Service>,
+        {
+            self.0.request.service = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateServiceRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [update_mask][crate::model::UpdateServiceRequest::update_mask].
+        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
@@ -1552,11 +1597,20 @@ pub mod versions {
         }
 
         /// Sets the value of [version][crate::model::CreateVersionRequest::version].
-        pub fn set_version<T: Into<std::option::Option<crate::model::Version>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.version = v.into();
+        pub fn set_version<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Version>,
+        {
+            self.0.request.version = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [version][crate::model::CreateVersionRequest::version].
+        pub fn maybe_version<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Version>,
+        {
+            self.0.request.version = v.map(|x| x.into());
             self
         }
     }
@@ -1658,20 +1712,38 @@ pub mod versions {
         }
 
         /// Sets the value of [version][crate::model::UpdateVersionRequest::version].
-        pub fn set_version<T: Into<std::option::Option<crate::model::Version>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.version = v.into();
+        pub fn set_version<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Version>,
+        {
+            self.0.request.version = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [version][crate::model::UpdateVersionRequest::version].
+        pub fn maybe_version<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Version>,
+        {
+            self.0.request.version = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateVersionRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [update_mask][crate::model::UpdateVersionRequest::update_mask].
+        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -2837,11 +2909,20 @@ pub mod firewall {
         }
 
         /// Sets the value of [rule][crate::model::CreateIngressRuleRequest::rule].
-        pub fn set_rule<T: Into<std::option::Option<crate::model::FirewallRule>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.rule = v.into();
+        pub fn set_rule<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::FirewallRule>,
+        {
+            self.0.request.rule = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [rule][crate::model::CreateIngressRuleRequest::rule].
+        pub fn maybe_rule<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::FirewallRule>,
+        {
+            self.0.request.rule = v.map(|x| x.into());
             self
         }
     }
@@ -2965,20 +3046,38 @@ pub mod firewall {
         }
 
         /// Sets the value of [rule][crate::model::UpdateIngressRuleRequest::rule].
-        pub fn set_rule<T: Into<std::option::Option<crate::model::FirewallRule>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.rule = v.into();
+        pub fn set_rule<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::FirewallRule>,
+        {
+            self.0.request.rule = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [rule][crate::model::UpdateIngressRuleRequest::rule].
+        pub fn maybe_rule<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::FirewallRule>,
+        {
+            self.0.request.rule = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateIngressRuleRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [update_mask][crate::model::UpdateIngressRuleRequest::update_mask].
+        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -3854,13 +3953,20 @@ pub mod authorized_certificates {
         }
 
         /// Sets the value of [certificate][crate::model::CreateAuthorizedCertificateRequest::certificate].
-        pub fn set_certificate<
-            T: Into<std::option::Option<crate::model::AuthorizedCertificate>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.certificate = v.into();
+        pub fn set_certificate<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::AuthorizedCertificate>,
+        {
+            self.0.request.certificate = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [certificate][crate::model::CreateAuthorizedCertificateRequest::certificate].
+        pub fn maybe_certificate<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::AuthorizedCertificate>,
+        {
+            self.0.request.certificate = v.map(|x| x.into());
             self
         }
     }
@@ -3930,22 +4036,38 @@ pub mod authorized_certificates {
         }
 
         /// Sets the value of [certificate][crate::model::UpdateAuthorizedCertificateRequest::certificate].
-        pub fn set_certificate<
-            T: Into<std::option::Option<crate::model::AuthorizedCertificate>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.certificate = v.into();
+        pub fn set_certificate<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::AuthorizedCertificate>,
+        {
+            self.0.request.certificate = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [certificate][crate::model::UpdateAuthorizedCertificateRequest::certificate].
+        pub fn maybe_certificate<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::AuthorizedCertificate>,
+        {
+            self.0.request.certificate = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateAuthorizedCertificateRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [update_mask][crate::model::UpdateAuthorizedCertificateRequest::update_mask].
+        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -4517,11 +4639,20 @@ pub mod domain_mappings {
         }
 
         /// Sets the value of [domain_mapping][crate::model::CreateDomainMappingRequest::domain_mapping].
-        pub fn set_domain_mapping<T: Into<std::option::Option<crate::model::DomainMapping>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.domain_mapping = v.into();
+        pub fn set_domain_mapping<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::DomainMapping>,
+        {
+            self.0.request.domain_mapping = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [domain_mapping][crate::model::CreateDomainMappingRequest::domain_mapping].
+        pub fn maybe_domain_mapping<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::DomainMapping>,
+        {
+            self.0.request.domain_mapping = v.map(|x| x.into());
             self
         }
 
@@ -4640,20 +4771,38 @@ pub mod domain_mappings {
         }
 
         /// Sets the value of [domain_mapping][crate::model::UpdateDomainMappingRequest::domain_mapping].
-        pub fn set_domain_mapping<T: Into<std::option::Option<crate::model::DomainMapping>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.domain_mapping = v.into();
+        pub fn set_domain_mapping<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::DomainMapping>,
+        {
+            self.0.request.domain_mapping = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [domain_mapping][crate::model::UpdateDomainMappingRequest::domain_mapping].
+        pub fn maybe_domain_mapping<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::DomainMapping>,
+        {
+            self.0.request.domain_mapping = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateDomainMappingRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [update_mask][crate::model::UpdateDomainMappingRequest::update_mask].
+        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }

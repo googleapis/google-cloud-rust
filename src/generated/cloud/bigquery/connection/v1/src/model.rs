@@ -75,11 +75,20 @@ impl CreateConnectionRequest {
     }
 
     /// Sets the value of [connection][crate::model::CreateConnectionRequest::connection].
-    pub fn set_connection<T: std::convert::Into<std::option::Option<crate::model::Connection>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.connection = v.into();
+    pub fn set_connection<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::Connection>,
+    {
+        self.connection = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [connection][crate::model::CreateConnectionRequest::connection].
+    pub fn maybe_connection<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::Connection>,
+    {
+        self.connection = v.map(|x| x.into());
         self
     }
 }
@@ -284,20 +293,38 @@ impl UpdateConnectionRequest {
     }
 
     /// Sets the value of [connection][crate::model::UpdateConnectionRequest::connection].
-    pub fn set_connection<T: std::convert::Into<std::option::Option<crate::model::Connection>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.connection = v.into();
+    pub fn set_connection<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::Connection>,
+    {
+        self.connection = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [connection][crate::model::UpdateConnectionRequest::connection].
+    pub fn maybe_connection<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::Connection>,
+    {
+        self.connection = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateConnectionRequest::update_mask].
-    pub fn set_update_mask<T: std::convert::Into<std::option::Option<wkt::FieldMask>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.update_mask = v.into();
+    pub fn set_update_mask<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [update_mask][crate::model::UpdateConnectionRequest::update_mask].
+    pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = v.map(|x| x.into());
         self
     }
 }
@@ -732,13 +759,20 @@ impl CloudSqlProperties {
     }
 
     /// Sets the value of [credential][crate::model::CloudSqlProperties::credential].
-    pub fn set_credential<
-        T: std::convert::Into<std::option::Option<crate::model::CloudSqlCredential>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.credential = v.into();
+    pub fn set_credential<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::CloudSqlCredential>,
+    {
+        self.credential = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [credential][crate::model::CloudSqlProperties::credential].
+    pub fn maybe_credential<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::CloudSqlCredential>,
+    {
+        self.credential = v.map(|x| x.into());
         self
     }
 
@@ -1547,24 +1581,38 @@ impl SparkProperties {
     }
 
     /// Sets the value of [metastore_service_config][crate::model::SparkProperties::metastore_service_config].
-    pub fn set_metastore_service_config<
-        T: std::convert::Into<std::option::Option<crate::model::MetastoreServiceConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.metastore_service_config = v.into();
+    pub fn set_metastore_service_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::MetastoreServiceConfig>,
+    {
+        self.metastore_service_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [metastore_service_config][crate::model::SparkProperties::metastore_service_config].
+    pub fn maybe_metastore_service_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::MetastoreServiceConfig>,
+    {
+        self.metastore_service_config = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [spark_history_server_config][crate::model::SparkProperties::spark_history_server_config].
-    pub fn set_spark_history_server_config<
-        T: std::convert::Into<std::option::Option<crate::model::SparkHistoryServerConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.spark_history_server_config = v.into();
+    pub fn set_spark_history_server_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::SparkHistoryServerConfig>,
+    {
+        self.spark_history_server_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [spark_history_server_config][crate::model::SparkProperties::spark_history_server_config].
+    pub fn maybe_spark_history_server_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::SparkHistoryServerConfig>,
+    {
+        self.spark_history_server_config = v.map(|x| x.into());
         self
     }
 }

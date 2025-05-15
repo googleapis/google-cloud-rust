@@ -81,11 +81,22 @@ pub mod storage_control {
         /// Sets the value of [folder][crate::model::CreateFolderRequest::folder].
         ///
         /// This is a **required** field for requests.
-        pub fn set_folder<T: Into<std::option::Option<crate::model::Folder>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.folder = v.into();
+        pub fn set_folder<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Folder>,
+        {
+            self.0.request.folder = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [folder][crate::model::CreateFolderRequest::folder].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_folder<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Folder>,
+        {
+            self.0.request.folder = v.map(|x| x.into());
             self
         }
 
@@ -156,20 +167,38 @@ pub mod storage_control {
         }
 
         /// Sets the value of [if_metageneration_match][crate::model::DeleteFolderRequest::if_metageneration_match].
-        pub fn set_if_metageneration_match<T: Into<std::option::Option<i64>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.if_metageneration_match = v.into();
+        pub fn set_if_metageneration_match<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<i64>,
+        {
+            self.0.request.if_metageneration_match = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [if_metageneration_match][crate::model::DeleteFolderRequest::if_metageneration_match].
+        pub fn maybe_if_metageneration_match<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<i64>,
+        {
+            self.0.request.if_metageneration_match = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [if_metageneration_not_match][crate::model::DeleteFolderRequest::if_metageneration_not_match].
-        pub fn set_if_metageneration_not_match<T: Into<std::option::Option<i64>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.if_metageneration_not_match = v.into();
+        pub fn set_if_metageneration_not_match<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<i64>,
+        {
+            self.0.request.if_metageneration_not_match = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [if_metageneration_not_match][crate::model::DeleteFolderRequest::if_metageneration_not_match].
+        pub fn maybe_if_metageneration_not_match<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<i64>,
+        {
+            self.0.request.if_metageneration_not_match = v.map(|x| x.into());
             self
         }
 
@@ -226,20 +255,38 @@ pub mod storage_control {
         }
 
         /// Sets the value of [if_metageneration_match][crate::model::GetFolderRequest::if_metageneration_match].
-        pub fn set_if_metageneration_match<T: Into<std::option::Option<i64>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.if_metageneration_match = v.into();
+        pub fn set_if_metageneration_match<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<i64>,
+        {
+            self.0.request.if_metageneration_match = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [if_metageneration_match][crate::model::GetFolderRequest::if_metageneration_match].
+        pub fn maybe_if_metageneration_match<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<i64>,
+        {
+            self.0.request.if_metageneration_match = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [if_metageneration_not_match][crate::model::GetFolderRequest::if_metageneration_not_match].
-        pub fn set_if_metageneration_not_match<T: Into<std::option::Option<i64>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.if_metageneration_not_match = v.into();
+        pub fn set_if_metageneration_not_match<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<i64>,
+        {
+            self.0.request.if_metageneration_not_match = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [if_metageneration_not_match][crate::model::GetFolderRequest::if_metageneration_not_match].
+        pub fn maybe_if_metageneration_not_match<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<i64>,
+        {
+            self.0.request.if_metageneration_not_match = v.map(|x| x.into());
             self
         }
 
@@ -449,20 +496,38 @@ pub mod storage_control {
         }
 
         /// Sets the value of [if_metageneration_match][crate::model::RenameFolderRequest::if_metageneration_match].
-        pub fn set_if_metageneration_match<T: Into<std::option::Option<i64>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.if_metageneration_match = v.into();
+        pub fn set_if_metageneration_match<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<i64>,
+        {
+            self.0.request.if_metageneration_match = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [if_metageneration_match][crate::model::RenameFolderRequest::if_metageneration_match].
+        pub fn maybe_if_metageneration_match<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<i64>,
+        {
+            self.0.request.if_metageneration_match = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [if_metageneration_not_match][crate::model::RenameFolderRequest::if_metageneration_not_match].
-        pub fn set_if_metageneration_not_match<T: Into<std::option::Option<i64>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.if_metageneration_not_match = v.into();
+        pub fn set_if_metageneration_not_match<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<i64>,
+        {
+            self.0.request.if_metageneration_not_match = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [if_metageneration_not_match][crate::model::RenameFolderRequest::if_metageneration_not_match].
+        pub fn maybe_if_metageneration_not_match<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<i64>,
+        {
+            self.0.request.if_metageneration_not_match = v.map(|x| x.into());
             self
         }
 
@@ -585,11 +650,22 @@ pub mod storage_control {
         /// Sets the value of [managed_folder][crate::model::CreateManagedFolderRequest::managed_folder].
         ///
         /// This is a **required** field for requests.
-        pub fn set_managed_folder<T: Into<std::option::Option<crate::model::ManagedFolder>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.managed_folder = v.into();
+        pub fn set_managed_folder<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::ManagedFolder>,
+        {
+            self.0.request.managed_folder = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [managed_folder][crate::model::CreateManagedFolderRequest::managed_folder].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_managed_folder<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::ManagedFolder>,
+        {
+            self.0.request.managed_folder = v.map(|x| x.into());
             self
         }
 
@@ -657,20 +733,38 @@ pub mod storage_control {
         }
 
         /// Sets the value of [if_metageneration_match][crate::model::DeleteManagedFolderRequest::if_metageneration_match].
-        pub fn set_if_metageneration_match<T: Into<std::option::Option<i64>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.if_metageneration_match = v.into();
+        pub fn set_if_metageneration_match<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<i64>,
+        {
+            self.0.request.if_metageneration_match = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [if_metageneration_match][crate::model::DeleteManagedFolderRequest::if_metageneration_match].
+        pub fn maybe_if_metageneration_match<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<i64>,
+        {
+            self.0.request.if_metageneration_match = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [if_metageneration_not_match][crate::model::DeleteManagedFolderRequest::if_metageneration_not_match].
-        pub fn set_if_metageneration_not_match<T: Into<std::option::Option<i64>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.if_metageneration_not_match = v.into();
+        pub fn set_if_metageneration_not_match<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<i64>,
+        {
+            self.0.request.if_metageneration_not_match = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [if_metageneration_not_match][crate::model::DeleteManagedFolderRequest::if_metageneration_not_match].
+        pub fn maybe_if_metageneration_not_match<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<i64>,
+        {
+            self.0.request.if_metageneration_not_match = v.map(|x| x.into());
             self
         }
 
@@ -736,20 +830,38 @@ pub mod storage_control {
         }
 
         /// Sets the value of [if_metageneration_match][crate::model::GetManagedFolderRequest::if_metageneration_match].
-        pub fn set_if_metageneration_match<T: Into<std::option::Option<i64>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.if_metageneration_match = v.into();
+        pub fn set_if_metageneration_match<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<i64>,
+        {
+            self.0.request.if_metageneration_match = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [if_metageneration_match][crate::model::GetManagedFolderRequest::if_metageneration_match].
+        pub fn maybe_if_metageneration_match<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<i64>,
+        {
+            self.0.request.if_metageneration_match = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [if_metageneration_not_match][crate::model::GetManagedFolderRequest::if_metageneration_not_match].
-        pub fn set_if_metageneration_not_match<T: Into<std::option::Option<i64>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.if_metageneration_not_match = v.into();
+        pub fn set_if_metageneration_not_match<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<i64>,
+        {
+            self.0.request.if_metageneration_not_match = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [if_metageneration_not_match][crate::model::GetManagedFolderRequest::if_metageneration_not_match].
+        pub fn maybe_if_metageneration_not_match<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<i64>,
+        {
+            self.0.request.if_metageneration_not_match = v.map(|x| x.into());
             self
         }
 
@@ -946,11 +1058,22 @@ pub mod storage_control {
         /// Sets the value of [anywhere_cache][crate::model::CreateAnywhereCacheRequest::anywhere_cache].
         ///
         /// This is a **required** field for requests.
-        pub fn set_anywhere_cache<T: Into<std::option::Option<crate::model::AnywhereCache>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.anywhere_cache = v.into();
+        pub fn set_anywhere_cache<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::AnywhereCache>,
+        {
+            self.0.request.anywhere_cache = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [anywhere_cache][crate::model::CreateAnywhereCacheRequest::anywhere_cache].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_anywhere_cache<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::AnywhereCache>,
+        {
+            self.0.request.anywhere_cache = v.map(|x| x.into());
             self
         }
 
@@ -1040,22 +1163,44 @@ pub mod storage_control {
         /// Sets the value of [anywhere_cache][crate::model::UpdateAnywhereCacheRequest::anywhere_cache].
         ///
         /// This is a **required** field for requests.
-        pub fn set_anywhere_cache<T: Into<std::option::Option<crate::model::AnywhereCache>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.anywhere_cache = v.into();
+        pub fn set_anywhere_cache<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::AnywhereCache>,
+        {
+            self.0.request.anywhere_cache = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [anywhere_cache][crate::model::UpdateAnywhereCacheRequest::anywhere_cache].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_anywhere_cache<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::AnywhereCache>,
+        {
+            self.0.request.anywhere_cache = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateAnywhereCacheRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [update_mask][crate::model::UpdateAnywhereCacheRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 

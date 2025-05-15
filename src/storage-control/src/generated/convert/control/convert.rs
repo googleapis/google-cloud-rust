@@ -51,9 +51,9 @@ impl gaxi::prost::FromProto<crate::generated::gapic_control::model::Folder> for 
             crate::generated::gapic_control::model::Folder::new()
                 .set_name(self.name)
                 .set_metageneration(self.metageneration)
-                .set_create_time(self.create_time.map(|v| v.cnv()).transpose()?)
-                .set_update_time(self.update_time.map(|v| v.cnv()).transpose()?)
-                .set_pending_rename_info(self.pending_rename_info.map(|v| v.cnv()).transpose()?)
+                .maybe_create_time(self.create_time.map(|v| v.cnv()).transpose()?)
+                .maybe_update_time(self.update_time.map(|v| v.cnv()).transpose()?)
+                .maybe_pending_rename_info(self.pending_rename_info.map(|v| v.cnv()).transpose()?)
         )
     }
 }
@@ -75,8 +75,8 @@ impl gaxi::prost::FromProto<crate::generated::gapic_control::model::GetFolderReq
         Ok(
             crate::generated::gapic_control::model::GetFolderRequest::new()
                 .set_name(self.name)
-                .set_if_metageneration_match(self.if_metageneration_match.map(|v| v.cnv()).transpose()?)
-                .set_if_metageneration_not_match(self.if_metageneration_not_match.map(|v| v.cnv()).transpose()?)
+                .maybe_if_metageneration_match(self.if_metageneration_match.map(|v| v.cnv()).transpose()?)
+                .maybe_if_metageneration_not_match(self.if_metageneration_not_match.map(|v| v.cnv()).transpose()?)
                 .set_request_id(self.request_id)
         )
     }
@@ -100,7 +100,7 @@ impl gaxi::prost::FromProto<crate::generated::gapic_control::model::CreateFolder
         Ok(
             crate::generated::gapic_control::model::CreateFolderRequest::new()
                 .set_parent(self.parent)
-                .set_folder(self.folder.map(|v| v.cnv()).transpose()?)
+                .maybe_folder(self.folder.map(|v| v.cnv()).transpose()?)
                 .set_folder_id(self.folder_id)
                 .set_recursive(self.recursive)
                 .set_request_id(self.request_id)
@@ -125,8 +125,8 @@ impl gaxi::prost::FromProto<crate::generated::gapic_control::model::DeleteFolder
         Ok(
             crate::generated::gapic_control::model::DeleteFolderRequest::new()
                 .set_name(self.name)
-                .set_if_metageneration_match(self.if_metageneration_match.map(|v| v.cnv()).transpose()?)
-                .set_if_metageneration_not_match(self.if_metageneration_not_match.map(|v| v.cnv()).transpose()?)
+                .maybe_if_metageneration_match(self.if_metageneration_match.map(|v| v.cnv()).transpose()?)
+                .maybe_if_metageneration_not_match(self.if_metageneration_not_match.map(|v| v.cnv()).transpose()?)
                 .set_request_id(self.request_id)
         )
     }
@@ -207,8 +207,8 @@ impl gaxi::prost::FromProto<crate::generated::gapic_control::model::RenameFolder
             crate::generated::gapic_control::model::RenameFolderRequest::new()
                 .set_name(self.name)
                 .set_destination_folder_id(self.destination_folder_id)
-                .set_if_metageneration_match(self.if_metageneration_match.map(|v| v.cnv()).transpose()?)
-                .set_if_metageneration_not_match(self.if_metageneration_not_match.map(|v| v.cnv()).transpose()?)
+                .maybe_if_metageneration_match(self.if_metageneration_match.map(|v| v.cnv()).transpose()?)
+                .maybe_if_metageneration_not_match(self.if_metageneration_not_match.map(|v| v.cnv()).transpose()?)
                 .set_request_id(self.request_id)
         )
     }
@@ -232,9 +232,9 @@ impl gaxi::prost::FromProto<crate::generated::gapic_control::model::CommonLongRu
     fn cnv(self) -> std::result::Result<crate::generated::gapic_control::model::CommonLongRunningOperationMetadata, gaxi::prost::ConvertError> {
         Ok(
             crate::generated::gapic_control::model::CommonLongRunningOperationMetadata::new()
-                .set_create_time(self.create_time.map(|v| v.cnv()).transpose()?)
-                .set_end_time(self.end_time.map(|v| v.cnv()).transpose()?)
-                .set_update_time(self.update_time.map(|v| v.cnv()).transpose()?)
+                .maybe_create_time(self.create_time.map(|v| v.cnv()).transpose()?)
+                .maybe_end_time(self.end_time.map(|v| v.cnv()).transpose()?)
+                .maybe_update_time(self.update_time.map(|v| v.cnv()).transpose()?)
                 .set_type(self.r#type)
                 .set_requested_cancellation(self.requested_cancellation)
                 .set_progress_percent(self.progress_percent)
@@ -257,7 +257,7 @@ impl gaxi::prost::FromProto<crate::generated::gapic_control::model::RenameFolder
     fn cnv(self) -> std::result::Result<crate::generated::gapic_control::model::RenameFolderMetadata, gaxi::prost::ConvertError> {
         Ok(
             crate::generated::gapic_control::model::RenameFolderMetadata::new()
-                .set_common_metadata(self.common_metadata.map(|v| v.cnv()).transpose()?)
+                .maybe_common_metadata(self.common_metadata.map(|v| v.cnv()).transpose()?)
                 .set_source_folder_id(self.source_folder_id)
                 .set_destination_folder_id(self.destination_folder_id)
         )
@@ -324,8 +324,8 @@ impl gaxi::prost::FromProto<crate::generated::gapic_control::model::StorageLayou
                 .set_name(self.name)
                 .set_location(self.location)
                 .set_location_type(self.location_type)
-                .set_custom_placement_config(self.custom_placement_config.map(|v| v.cnv()).transpose()?)
-                .set_hierarchical_namespace(self.hierarchical_namespace.map(|v| v.cnv()).transpose()?)
+                .maybe_custom_placement_config(self.custom_placement_config.map(|v| v.cnv()).transpose()?)
+                .maybe_hierarchical_namespace(self.hierarchical_namespace.map(|v| v.cnv()).transpose()?)
         )
     }
 }
@@ -370,8 +370,8 @@ impl gaxi::prost::FromProto<crate::generated::gapic_control::model::ManagedFolde
             crate::generated::gapic_control::model::ManagedFolder::new()
                 .set_name(self.name)
                 .set_metageneration(self.metageneration)
-                .set_create_time(self.create_time.map(|v| v.cnv()).transpose()?)
-                .set_update_time(self.update_time.map(|v| v.cnv()).transpose()?)
+                .maybe_create_time(self.create_time.map(|v| v.cnv()).transpose()?)
+                .maybe_update_time(self.update_time.map(|v| v.cnv()).transpose()?)
         )
     }
 }
@@ -393,8 +393,8 @@ impl gaxi::prost::FromProto<crate::generated::gapic_control::model::GetManagedFo
         Ok(
             crate::generated::gapic_control::model::GetManagedFolderRequest::new()
                 .set_name(self.name)
-                .set_if_metageneration_match(self.if_metageneration_match.map(|v| v.cnv()).transpose()?)
-                .set_if_metageneration_not_match(self.if_metageneration_not_match.map(|v| v.cnv()).transpose()?)
+                .maybe_if_metageneration_match(self.if_metageneration_match.map(|v| v.cnv()).transpose()?)
+                .maybe_if_metageneration_not_match(self.if_metageneration_not_match.map(|v| v.cnv()).transpose()?)
                 .set_request_id(self.request_id)
         )
     }
@@ -417,7 +417,7 @@ impl gaxi::prost::FromProto<crate::generated::gapic_control::model::CreateManage
         Ok(
             crate::generated::gapic_control::model::CreateManagedFolderRequest::new()
                 .set_parent(self.parent)
-                .set_managed_folder(self.managed_folder.map(|v| v.cnv()).transpose()?)
+                .maybe_managed_folder(self.managed_folder.map(|v| v.cnv()).transpose()?)
                 .set_managed_folder_id(self.managed_folder_id)
                 .set_request_id(self.request_id)
         )
@@ -442,8 +442,8 @@ impl gaxi::prost::FromProto<crate::generated::gapic_control::model::DeleteManage
         Ok(
             crate::generated::gapic_control::model::DeleteManagedFolderRequest::new()
                 .set_name(self.name)
-                .set_if_metageneration_match(self.if_metageneration_match.map(|v| v.cnv()).transpose()?)
-                .set_if_metageneration_not_match(self.if_metageneration_not_match.map(|v| v.cnv()).transpose()?)
+                .maybe_if_metageneration_match(self.if_metageneration_match.map(|v| v.cnv()).transpose()?)
+                .maybe_if_metageneration_not_match(self.if_metageneration_not_match.map(|v| v.cnv()).transpose()?)
                 .set_allow_non_empty(self.allow_non_empty)
                 .set_request_id(self.request_id)
         )
@@ -517,11 +517,11 @@ impl gaxi::prost::FromProto<crate::generated::gapic_control::model::CreateAnywhe
     fn cnv(self) -> std::result::Result<crate::generated::gapic_control::model::CreateAnywhereCacheMetadata, gaxi::prost::ConvertError> {
         Ok(
             crate::generated::gapic_control::model::CreateAnywhereCacheMetadata::new()
-                .set_common_metadata(self.common_metadata.map(|v| v.cnv()).transpose()?)
-                .set_anywhere_cache_id(self.anywhere_cache_id.map(|v| v.cnv()).transpose()?)
-                .set_zone(self.zone.map(|v| v.cnv()).transpose()?)
-                .set_ttl(self.ttl.map(|v| v.cnv()).transpose()?)
-                .set_admission_policy(self.admission_policy.map(|v| v.cnv()).transpose()?)
+                .maybe_common_metadata(self.common_metadata.map(|v| v.cnv()).transpose()?)
+                .maybe_anywhere_cache_id(self.anywhere_cache_id.map(|v| v.cnv()).transpose()?)
+                .maybe_zone(self.zone.map(|v| v.cnv()).transpose()?)
+                .maybe_ttl(self.ttl.map(|v| v.cnv()).transpose()?)
+                .maybe_admission_policy(self.admission_policy.map(|v| v.cnv()).transpose()?)
         )
     }
 }
@@ -543,11 +543,11 @@ impl gaxi::prost::FromProto<crate::generated::gapic_control::model::UpdateAnywhe
     fn cnv(self) -> std::result::Result<crate::generated::gapic_control::model::UpdateAnywhereCacheMetadata, gaxi::prost::ConvertError> {
         Ok(
             crate::generated::gapic_control::model::UpdateAnywhereCacheMetadata::new()
-                .set_common_metadata(self.common_metadata.map(|v| v.cnv()).transpose()?)
-                .set_anywhere_cache_id(self.anywhere_cache_id.map(|v| v.cnv()).transpose()?)
-                .set_zone(self.zone.map(|v| v.cnv()).transpose()?)
-                .set_ttl(self.ttl.map(|v| v.cnv()).transpose()?)
-                .set_admission_policy(self.admission_policy.map(|v| v.cnv()).transpose()?)
+                .maybe_common_metadata(self.common_metadata.map(|v| v.cnv()).transpose()?)
+                .maybe_anywhere_cache_id(self.anywhere_cache_id.map(|v| v.cnv()).transpose()?)
+                .maybe_zone(self.zone.map(|v| v.cnv()).transpose()?)
+                .maybe_ttl(self.ttl.map(|v| v.cnv()).transpose()?)
+                .maybe_admission_policy(self.admission_policy.map(|v| v.cnv()).transpose()?)
         )
     }
 }
@@ -574,11 +574,11 @@ impl gaxi::prost::FromProto<crate::generated::gapic_control::model::AnywhereCach
             crate::generated::gapic_control::model::AnywhereCache::new()
                 .set_name(self.name)
                 .set_zone(self.zone)
-                .set_ttl(self.ttl.map(|v| v.cnv()).transpose()?)
+                .maybe_ttl(self.ttl.map(|v| v.cnv()).transpose()?)
                 .set_admission_policy(self.admission_policy)
                 .set_state(self.state)
-                .set_create_time(self.create_time.map(|v| v.cnv()).transpose()?)
-                .set_update_time(self.update_time.map(|v| v.cnv()).transpose()?)
+                .maybe_create_time(self.create_time.map(|v| v.cnv()).transpose()?)
+                .maybe_update_time(self.update_time.map(|v| v.cnv()).transpose()?)
                 .set_pending_update(self.pending_update)
         )
     }
@@ -600,7 +600,7 @@ impl gaxi::prost::FromProto<crate::generated::gapic_control::model::CreateAnywhe
         Ok(
             crate::generated::gapic_control::model::CreateAnywhereCacheRequest::new()
                 .set_parent(self.parent)
-                .set_anywhere_cache(self.anywhere_cache.map(|v| v.cnv()).transpose()?)
+                .maybe_anywhere_cache(self.anywhere_cache.map(|v| v.cnv()).transpose()?)
                 .set_request_id(self.request_id)
         )
     }
@@ -621,8 +621,8 @@ impl gaxi::prost::FromProto<crate::generated::gapic_control::model::UpdateAnywhe
     fn cnv(self) -> std::result::Result<crate::generated::gapic_control::model::UpdateAnywhereCacheRequest, gaxi::prost::ConvertError> {
         Ok(
             crate::generated::gapic_control::model::UpdateAnywhereCacheRequest::new()
-                .set_anywhere_cache(self.anywhere_cache.map(|v| v.cnv()).transpose()?)
-                .set_update_mask(self.update_mask.map(|v| v.cnv()).transpose()?)
+                .maybe_anywhere_cache(self.anywhere_cache.map(|v| v.cnv()).transpose()?)
+                .maybe_update_mask(self.update_mask.map(|v| v.cnv()).transpose()?)
                 .set_request_id(self.request_id)
         )
     }

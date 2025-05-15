@@ -105,31 +105,56 @@ impl Folder {
     }
 
     /// Sets the value of [create_time][crate::model::Folder::create_time].
-    pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.create_time = v.into();
+    pub fn set_create_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [create_time][crate::model::Folder::create_time].
+    pub fn maybe_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [update_time][crate::model::Folder::update_time].
-    pub fn set_update_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.update_time = v.into();
+    pub fn set_update_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [update_time][crate::model::Folder::update_time].
+    pub fn maybe_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [pending_rename_info][crate::model::Folder::pending_rename_info].
-    pub fn set_pending_rename_info<
-        T: std::convert::Into<std::option::Option<crate::model::PendingRenameInfo>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.pending_rename_info = v.into();
+    pub fn set_pending_rename_info<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::PendingRenameInfo>,
+    {
+        self.pending_rename_info = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [pending_rename_info][crate::model::Folder::pending_rename_info].
+    pub fn maybe_pending_rename_info<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::PendingRenameInfo>,
+    {
+        self.pending_rename_info = v.map(|x| x.into());
         self
     }
 }
@@ -185,20 +210,38 @@ impl GetFolderRequest {
     }
 
     /// Sets the value of [if_metageneration_match][crate::model::GetFolderRequest::if_metageneration_match].
-    pub fn set_if_metageneration_match<T: std::convert::Into<std::option::Option<i64>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.if_metageneration_match = v.into();
+    pub fn set_if_metageneration_match<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<i64>,
+    {
+        self.if_metageneration_match = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [if_metageneration_match][crate::model::GetFolderRequest::if_metageneration_match].
+    pub fn maybe_if_metageneration_match<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<i64>,
+    {
+        self.if_metageneration_match = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [if_metageneration_not_match][crate::model::GetFolderRequest::if_metageneration_not_match].
-    pub fn set_if_metageneration_not_match<T: std::convert::Into<std::option::Option<i64>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.if_metageneration_not_match = v.into();
+    pub fn set_if_metageneration_not_match<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<i64>,
+    {
+        self.if_metageneration_not_match = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [if_metageneration_not_match][crate::model::GetFolderRequest::if_metageneration_not_match].
+    pub fn maybe_if_metageneration_not_match<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<i64>,
+    {
+        self.if_metageneration_not_match = v.map(|x| x.into());
         self
     }
 
@@ -268,11 +311,20 @@ impl CreateFolderRequest {
     }
 
     /// Sets the value of [folder][crate::model::CreateFolderRequest::folder].
-    pub fn set_folder<T: std::convert::Into<std::option::Option<crate::model::Folder>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.folder = v.into();
+    pub fn set_folder<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::Folder>,
+    {
+        self.folder = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [folder][crate::model::CreateFolderRequest::folder].
+    pub fn maybe_folder<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::Folder>,
+    {
+        self.folder = v.map(|x| x.into());
         self
     }
 
@@ -346,20 +398,38 @@ impl DeleteFolderRequest {
     }
 
     /// Sets the value of [if_metageneration_match][crate::model::DeleteFolderRequest::if_metageneration_match].
-    pub fn set_if_metageneration_match<T: std::convert::Into<std::option::Option<i64>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.if_metageneration_match = v.into();
+    pub fn set_if_metageneration_match<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<i64>,
+    {
+        self.if_metageneration_match = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [if_metageneration_match][crate::model::DeleteFolderRequest::if_metageneration_match].
+    pub fn maybe_if_metageneration_match<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<i64>,
+    {
+        self.if_metageneration_match = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [if_metageneration_not_match][crate::model::DeleteFolderRequest::if_metageneration_not_match].
-    pub fn set_if_metageneration_not_match<T: std::convert::Into<std::option::Option<i64>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.if_metageneration_not_match = v.into();
+    pub fn set_if_metageneration_not_match<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<i64>,
+    {
+        self.if_metageneration_not_match = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [if_metageneration_not_match][crate::model::DeleteFolderRequest::if_metageneration_not_match].
+    pub fn maybe_if_metageneration_not_match<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<i64>,
+    {
+        self.if_metageneration_not_match = v.map(|x| x.into());
         self
     }
 
@@ -619,20 +689,38 @@ impl RenameFolderRequest {
     }
 
     /// Sets the value of [if_metageneration_match][crate::model::RenameFolderRequest::if_metageneration_match].
-    pub fn set_if_metageneration_match<T: std::convert::Into<std::option::Option<i64>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.if_metageneration_match = v.into();
+    pub fn set_if_metageneration_match<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<i64>,
+    {
+        self.if_metageneration_match = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [if_metageneration_match][crate::model::RenameFolderRequest::if_metageneration_match].
+    pub fn maybe_if_metageneration_match<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<i64>,
+    {
+        self.if_metageneration_match = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [if_metageneration_not_match][crate::model::RenameFolderRequest::if_metageneration_not_match].
-    pub fn set_if_metageneration_not_match<T: std::convert::Into<std::option::Option<i64>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.if_metageneration_not_match = v.into();
+    pub fn set_if_metageneration_not_match<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<i64>,
+    {
+        self.if_metageneration_not_match = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [if_metageneration_not_match][crate::model::RenameFolderRequest::if_metageneration_not_match].
+    pub fn maybe_if_metageneration_not_match<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<i64>,
+    {
+        self.if_metageneration_not_match = v.map(|x| x.into());
         self
     }
 
@@ -693,29 +781,56 @@ impl CommonLongRunningOperationMetadata {
     }
 
     /// Sets the value of [create_time][crate::model::CommonLongRunningOperationMetadata::create_time].
-    pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.create_time = v.into();
+    pub fn set_create_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [create_time][crate::model::CommonLongRunningOperationMetadata::create_time].
+    pub fn maybe_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [end_time][crate::model::CommonLongRunningOperationMetadata::end_time].
-    pub fn set_end_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.end_time = v.into();
+    pub fn set_end_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.end_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [end_time][crate::model::CommonLongRunningOperationMetadata::end_time].
+    pub fn maybe_end_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.end_time = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [update_time][crate::model::CommonLongRunningOperationMetadata::update_time].
-    pub fn set_update_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.update_time = v.into();
+    pub fn set_update_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [update_time][crate::model::CommonLongRunningOperationMetadata::update_time].
+    pub fn maybe_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = v.map(|x| x.into());
         self
     }
 
@@ -773,13 +888,20 @@ impl RenameFolderMetadata {
     }
 
     /// Sets the value of [common_metadata][crate::model::RenameFolderMetadata::common_metadata].
-    pub fn set_common_metadata<
-        T: std::convert::Into<std::option::Option<crate::model::CommonLongRunningOperationMetadata>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.common_metadata = v.into();
+    pub fn set_common_metadata<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::CommonLongRunningOperationMetadata>,
+    {
+        self.common_metadata = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [common_metadata][crate::model::RenameFolderMetadata::common_metadata].
+    pub fn maybe_common_metadata<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::CommonLongRunningOperationMetadata>,
+    {
+        self.common_metadata = v.map(|x| x.into());
         self
     }
 
@@ -868,28 +990,38 @@ impl StorageLayout {
     }
 
     /// Sets the value of [custom_placement_config][crate::model::StorageLayout::custom_placement_config].
-    pub fn set_custom_placement_config<
-        T: std::convert::Into<
-                std::option::Option<crate::model::storage_layout::CustomPlacementConfig>,
-            >,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.custom_placement_config = v.into();
+    pub fn set_custom_placement_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::storage_layout::CustomPlacementConfig>,
+    {
+        self.custom_placement_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [custom_placement_config][crate::model::StorageLayout::custom_placement_config].
+    pub fn maybe_custom_placement_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::storage_layout::CustomPlacementConfig>,
+    {
+        self.custom_placement_config = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [hierarchical_namespace][crate::model::StorageLayout::hierarchical_namespace].
-    pub fn set_hierarchical_namespace<
-        T: std::convert::Into<
-                std::option::Option<crate::model::storage_layout::HierarchicalNamespace>,
-            >,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.hierarchical_namespace = v.into();
+    pub fn set_hierarchical_namespace<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::storage_layout::HierarchicalNamespace>,
+    {
+        self.hierarchical_namespace = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [hierarchical_namespace][crate::model::StorageLayout::hierarchical_namespace].
+    pub fn maybe_hierarchical_namespace<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::storage_layout::HierarchicalNamespace>,
+    {
+        self.hierarchical_namespace = v.map(|x| x.into());
         self
     }
 }
@@ -1081,20 +1213,38 @@ impl ManagedFolder {
     }
 
     /// Sets the value of [create_time][crate::model::ManagedFolder::create_time].
-    pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.create_time = v.into();
+    pub fn set_create_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [create_time][crate::model::ManagedFolder::create_time].
+    pub fn maybe_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [update_time][crate::model::ManagedFolder::update_time].
-    pub fn set_update_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.update_time = v.into();
+    pub fn set_update_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [update_time][crate::model::ManagedFolder::update_time].
+    pub fn maybe_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = v.map(|x| x.into());
         self
     }
 }
@@ -1150,20 +1300,38 @@ impl GetManagedFolderRequest {
     }
 
     /// Sets the value of [if_metageneration_match][crate::model::GetManagedFolderRequest::if_metageneration_match].
-    pub fn set_if_metageneration_match<T: std::convert::Into<std::option::Option<i64>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.if_metageneration_match = v.into();
+    pub fn set_if_metageneration_match<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<i64>,
+    {
+        self.if_metageneration_match = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [if_metageneration_match][crate::model::GetManagedFolderRequest::if_metageneration_match].
+    pub fn maybe_if_metageneration_match<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<i64>,
+    {
+        self.if_metageneration_match = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [if_metageneration_not_match][crate::model::GetManagedFolderRequest::if_metageneration_not_match].
-    pub fn set_if_metageneration_not_match<T: std::convert::Into<std::option::Option<i64>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.if_metageneration_not_match = v.into();
+    pub fn set_if_metageneration_not_match<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<i64>,
+    {
+        self.if_metageneration_not_match = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [if_metageneration_not_match][crate::model::GetManagedFolderRequest::if_metageneration_not_match].
+    pub fn maybe_if_metageneration_not_match<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<i64>,
+    {
+        self.if_metageneration_not_match = v.map(|x| x.into());
         self
     }
 
@@ -1223,13 +1391,20 @@ impl CreateManagedFolderRequest {
     }
 
     /// Sets the value of [managed_folder][crate::model::CreateManagedFolderRequest::managed_folder].
-    pub fn set_managed_folder<
-        T: std::convert::Into<std::option::Option<crate::model::ManagedFolder>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.managed_folder = v.into();
+    pub fn set_managed_folder<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::ManagedFolder>,
+    {
+        self.managed_folder = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [managed_folder][crate::model::CreateManagedFolderRequest::managed_folder].
+    pub fn maybe_managed_folder<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::ManagedFolder>,
+    {
+        self.managed_folder = v.map(|x| x.into());
         self
     }
 
@@ -1307,20 +1482,38 @@ impl DeleteManagedFolderRequest {
     }
 
     /// Sets the value of [if_metageneration_match][crate::model::DeleteManagedFolderRequest::if_metageneration_match].
-    pub fn set_if_metageneration_match<T: std::convert::Into<std::option::Option<i64>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.if_metageneration_match = v.into();
+    pub fn set_if_metageneration_match<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<i64>,
+    {
+        self.if_metageneration_match = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [if_metageneration_match][crate::model::DeleteManagedFolderRequest::if_metageneration_match].
+    pub fn maybe_if_metageneration_match<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<i64>,
+    {
+        self.if_metageneration_match = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [if_metageneration_not_match][crate::model::DeleteManagedFolderRequest::if_metageneration_not_match].
-    pub fn set_if_metageneration_not_match<T: std::convert::Into<std::option::Option<i64>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.if_metageneration_not_match = v.into();
+    pub fn set_if_metageneration_not_match<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<i64>,
+    {
+        self.if_metageneration_not_match = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [if_metageneration_not_match][crate::model::DeleteManagedFolderRequest::if_metageneration_not_match].
+    pub fn maybe_if_metageneration_not_match<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<i64>,
+    {
+        self.if_metageneration_not_match = v.map(|x| x.into());
         self
     }
 
@@ -1523,51 +1716,92 @@ impl CreateAnywhereCacheMetadata {
     }
 
     /// Sets the value of [common_metadata][crate::model::CreateAnywhereCacheMetadata::common_metadata].
-    pub fn set_common_metadata<
-        T: std::convert::Into<std::option::Option<crate::model::CommonLongRunningOperationMetadata>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.common_metadata = v.into();
+    pub fn set_common_metadata<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::CommonLongRunningOperationMetadata>,
+    {
+        self.common_metadata = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [common_metadata][crate::model::CreateAnywhereCacheMetadata::common_metadata].
+    pub fn maybe_common_metadata<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::CommonLongRunningOperationMetadata>,
+    {
+        self.common_metadata = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [anywhere_cache_id][crate::model::CreateAnywhereCacheMetadata::anywhere_cache_id].
-    pub fn set_anywhere_cache_id<
-        T: std::convert::Into<std::option::Option<std::string::String>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.anywhere_cache_id = v.into();
+    pub fn set_anywhere_cache_id<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.anywhere_cache_id = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [anywhere_cache_id][crate::model::CreateAnywhereCacheMetadata::anywhere_cache_id].
+    pub fn maybe_anywhere_cache_id<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.anywhere_cache_id = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [zone][crate::model::CreateAnywhereCacheMetadata::zone].
-    pub fn set_zone<T: std::convert::Into<std::option::Option<std::string::String>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.zone = v.into();
+    pub fn set_zone<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.zone = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [zone][crate::model::CreateAnywhereCacheMetadata::zone].
+    pub fn maybe_zone<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.zone = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [ttl][crate::model::CreateAnywhereCacheMetadata::ttl].
-    pub fn set_ttl<T: std::convert::Into<std::option::Option<wkt::Duration>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.ttl = v.into();
+    pub fn set_ttl<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Duration>,
+    {
+        self.ttl = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [ttl][crate::model::CreateAnywhereCacheMetadata::ttl].
+    pub fn maybe_ttl<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Duration>,
+    {
+        self.ttl = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [admission_policy][crate::model::CreateAnywhereCacheMetadata::admission_policy].
-    pub fn set_admission_policy<T: std::convert::Into<std::option::Option<std::string::String>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.admission_policy = v.into();
+    pub fn set_admission_policy<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.admission_policy = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [admission_policy][crate::model::CreateAnywhereCacheMetadata::admission_policy].
+    pub fn maybe_admission_policy<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.admission_policy = v.map(|x| x.into());
         self
     }
 }
@@ -1620,51 +1854,92 @@ impl UpdateAnywhereCacheMetadata {
     }
 
     /// Sets the value of [common_metadata][crate::model::UpdateAnywhereCacheMetadata::common_metadata].
-    pub fn set_common_metadata<
-        T: std::convert::Into<std::option::Option<crate::model::CommonLongRunningOperationMetadata>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.common_metadata = v.into();
+    pub fn set_common_metadata<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::CommonLongRunningOperationMetadata>,
+    {
+        self.common_metadata = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [common_metadata][crate::model::UpdateAnywhereCacheMetadata::common_metadata].
+    pub fn maybe_common_metadata<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::CommonLongRunningOperationMetadata>,
+    {
+        self.common_metadata = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [anywhere_cache_id][crate::model::UpdateAnywhereCacheMetadata::anywhere_cache_id].
-    pub fn set_anywhere_cache_id<
-        T: std::convert::Into<std::option::Option<std::string::String>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.anywhere_cache_id = v.into();
+    pub fn set_anywhere_cache_id<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.anywhere_cache_id = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [anywhere_cache_id][crate::model::UpdateAnywhereCacheMetadata::anywhere_cache_id].
+    pub fn maybe_anywhere_cache_id<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.anywhere_cache_id = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [zone][crate::model::UpdateAnywhereCacheMetadata::zone].
-    pub fn set_zone<T: std::convert::Into<std::option::Option<std::string::String>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.zone = v.into();
+    pub fn set_zone<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.zone = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [zone][crate::model::UpdateAnywhereCacheMetadata::zone].
+    pub fn maybe_zone<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.zone = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [ttl][crate::model::UpdateAnywhereCacheMetadata::ttl].
-    pub fn set_ttl<T: std::convert::Into<std::option::Option<wkt::Duration>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.ttl = v.into();
+    pub fn set_ttl<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Duration>,
+    {
+        self.ttl = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [ttl][crate::model::UpdateAnywhereCacheMetadata::ttl].
+    pub fn maybe_ttl<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Duration>,
+    {
+        self.ttl = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [admission_policy][crate::model::UpdateAnywhereCacheMetadata::admission_policy].
-    pub fn set_admission_policy<T: std::convert::Into<std::option::Option<std::string::String>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.admission_policy = v.into();
+    pub fn set_admission_policy<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.admission_policy = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [admission_policy][crate::model::UpdateAnywhereCacheMetadata::admission_policy].
+    pub fn maybe_admission_policy<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.admission_policy = v.map(|x| x.into());
         self
     }
 }
@@ -1747,11 +2022,20 @@ impl AnywhereCache {
     }
 
     /// Sets the value of [ttl][crate::model::AnywhereCache::ttl].
-    pub fn set_ttl<T: std::convert::Into<std::option::Option<wkt::Duration>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.ttl = v.into();
+    pub fn set_ttl<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Duration>,
+    {
+        self.ttl = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [ttl][crate::model::AnywhereCache::ttl].
+    pub fn maybe_ttl<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Duration>,
+    {
+        self.ttl = v.map(|x| x.into());
         self
     }
 
@@ -1771,20 +2055,38 @@ impl AnywhereCache {
     }
 
     /// Sets the value of [create_time][crate::model::AnywhereCache::create_time].
-    pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.create_time = v.into();
+    pub fn set_create_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [create_time][crate::model::AnywhereCache::create_time].
+    pub fn maybe_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [update_time][crate::model::AnywhereCache::update_time].
-    pub fn set_update_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.update_time = v.into();
+    pub fn set_update_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [update_time][crate::model::AnywhereCache::update_time].
+    pub fn maybe_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = v.map(|x| x.into());
         self
     }
 
@@ -1841,13 +2143,20 @@ impl CreateAnywhereCacheRequest {
     }
 
     /// Sets the value of [anywhere_cache][crate::model::CreateAnywhereCacheRequest::anywhere_cache].
-    pub fn set_anywhere_cache<
-        T: std::convert::Into<std::option::Option<crate::model::AnywhereCache>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.anywhere_cache = v.into();
+    pub fn set_anywhere_cache<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::AnywhereCache>,
+    {
+        self.anywhere_cache = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [anywhere_cache][crate::model::CreateAnywhereCacheRequest::anywhere_cache].
+    pub fn maybe_anywhere_cache<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::AnywhereCache>,
+    {
+        self.anywhere_cache = v.map(|x| x.into());
         self
     }
 
@@ -1902,22 +2211,38 @@ impl UpdateAnywhereCacheRequest {
     }
 
     /// Sets the value of [anywhere_cache][crate::model::UpdateAnywhereCacheRequest::anywhere_cache].
-    pub fn set_anywhere_cache<
-        T: std::convert::Into<std::option::Option<crate::model::AnywhereCache>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.anywhere_cache = v.into();
+    pub fn set_anywhere_cache<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::AnywhereCache>,
+    {
+        self.anywhere_cache = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [anywhere_cache][crate::model::UpdateAnywhereCacheRequest::anywhere_cache].
+    pub fn maybe_anywhere_cache<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::AnywhereCache>,
+    {
+        self.anywhere_cache = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateAnywhereCacheRequest::update_mask].
-    pub fn set_update_mask<T: std::convert::Into<std::option::Option<wkt::FieldMask>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.update_mask = v.into();
+    pub fn set_update_mask<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [update_mask][crate::model::UpdateAnywhereCacheRequest::update_mask].
+    pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = v.map(|x| x.into());
         self
     }
 

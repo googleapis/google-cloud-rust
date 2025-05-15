@@ -201,11 +201,22 @@ pub mod g_suite_add_ons {
         /// Sets the value of [deployment][crate::model::CreateDeploymentRequest::deployment].
         ///
         /// This is a **required** field for requests.
-        pub fn set_deployment<T: Into<std::option::Option<crate::model::Deployment>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.deployment = v.into();
+        pub fn set_deployment<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Deployment>,
+        {
+            self.0.request.deployment = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [deployment][crate::model::CreateDeploymentRequest::deployment].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_deployment<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Deployment>,
+        {
+            self.0.request.deployment = v.map(|x| x.into());
             self
         }
     }
@@ -269,11 +280,22 @@ pub mod g_suite_add_ons {
         /// Sets the value of [deployment][crate::model::ReplaceDeploymentRequest::deployment].
         ///
         /// This is a **required** field for requests.
-        pub fn set_deployment<T: Into<std::option::Option<crate::model::Deployment>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.deployment = v.into();
+        pub fn set_deployment<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Deployment>,
+        {
+            self.0.request.deployment = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [deployment][crate::model::ReplaceDeploymentRequest::deployment].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_deployment<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Deployment>,
+        {
+            self.0.request.deployment = v.map(|x| x.into());
             self
         }
     }

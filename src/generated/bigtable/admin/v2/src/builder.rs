@@ -175,11 +175,22 @@ pub mod bigtable_instance_admin {
         /// Sets the value of [instance][crate::model::CreateInstanceRequest::instance].
         ///
         /// This is a **required** field for requests.
-        pub fn set_instance<T: Into<std::option::Option<crate::model::Instance>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.instance = v.into();
+        pub fn set_instance<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Instance>,
+        {
+            self.0.request.instance = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [instance][crate::model::CreateInstanceRequest::instance].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_instance<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Instance>,
+        {
+            self.0.request.instance = v.map(|x| x.into());
             self
         }
 
@@ -418,23 +429,56 @@ pub mod bigtable_instance_admin {
         }
 
         /// Sets the value of [create_time][crate::model::Instance::create_time].
-        pub fn set_create_time<T: Into<std::option::Option<wkt::Timestamp>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.create_time = v.into();
+        pub fn set_create_time<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Timestamp>,
+        {
+            self.0.request.create_time = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [create_time][crate::model::Instance::create_time].
+        pub fn maybe_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Timestamp>,
+        {
+            self.0.request.create_time = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [satisfies_pzs][crate::model::Instance::satisfies_pzs].
-        pub fn set_satisfies_pzs<T: Into<std::option::Option<bool>>>(mut self, v: T) -> Self {
-            self.0.request.satisfies_pzs = v.into();
+        pub fn set_satisfies_pzs<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<bool>,
+        {
+            self.0.request.satisfies_pzs = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [satisfies_pzs][crate::model::Instance::satisfies_pzs].
+        pub fn maybe_satisfies_pzs<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<bool>,
+        {
+            self.0.request.satisfies_pzs = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [satisfies_pzi][crate::model::Instance::satisfies_pzi].
-        pub fn set_satisfies_pzi<T: Into<std::option::Option<bool>>>(mut self, v: T) -> Self {
-            self.0.request.satisfies_pzi = v.into();
+        pub fn set_satisfies_pzi<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<bool>,
+        {
+            self.0.request.satisfies_pzi = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [satisfies_pzi][crate::model::Instance::satisfies_pzi].
+        pub fn maybe_satisfies_pzi<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<bool>,
+        {
+            self.0.request.satisfies_pzi = v.map(|x| x.into());
             self
         }
     }
@@ -540,22 +584,44 @@ pub mod bigtable_instance_admin {
         /// Sets the value of [instance][crate::model::PartialUpdateInstanceRequest::instance].
         ///
         /// This is a **required** field for requests.
-        pub fn set_instance<T: Into<std::option::Option<crate::model::Instance>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.instance = v.into();
+        pub fn set_instance<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Instance>,
+        {
+            self.0.request.instance = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [instance][crate::model::PartialUpdateInstanceRequest::instance].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_instance<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Instance>,
+        {
+            self.0.request.instance = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::PartialUpdateInstanceRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [update_mask][crate::model::PartialUpdateInstanceRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -735,11 +801,22 @@ pub mod bigtable_instance_admin {
         /// Sets the value of [cluster][crate::model::CreateClusterRequest::cluster].
         ///
         /// This is a **required** field for requests.
-        pub fn set_cluster<T: Into<std::option::Option<crate::model::Cluster>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.cluster = v.into();
+        pub fn set_cluster<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Cluster>,
+        {
+            self.0.request.cluster = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [cluster][crate::model::CreateClusterRequest::cluster].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_cluster<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Cluster>,
+        {
+            self.0.request.cluster = v.map(|x| x.into());
             self
         }
     }
@@ -1011,13 +1088,20 @@ pub mod bigtable_instance_admin {
         }
 
         /// Sets the value of [encryption_config][crate::model::Cluster::encryption_config].
-        pub fn set_encryption_config<
-            T: Into<std::option::Option<crate::model::cluster::EncryptionConfig>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.encryption_config = v.into();
+        pub fn set_encryption_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::cluster::EncryptionConfig>,
+        {
+            self.0.request.encryption_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [encryption_config][crate::model::Cluster::encryption_config].
+        pub fn maybe_encryption_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::cluster::EncryptionConfig>,
+        {
+            self.0.request.encryption_config = v.map(|x| x.into());
             self
         }
 
@@ -1147,22 +1231,44 @@ pub mod bigtable_instance_admin {
         /// Sets the value of [cluster][crate::model::PartialUpdateClusterRequest::cluster].
         ///
         /// This is a **required** field for requests.
-        pub fn set_cluster<T: Into<std::option::Option<crate::model::Cluster>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.cluster = v.into();
+        pub fn set_cluster<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Cluster>,
+        {
+            self.0.request.cluster = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [cluster][crate::model::PartialUpdateClusterRequest::cluster].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_cluster<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Cluster>,
+        {
+            self.0.request.cluster = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::PartialUpdateClusterRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [update_mask][crate::model::PartialUpdateClusterRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -1304,11 +1410,22 @@ pub mod bigtable_instance_admin {
         /// Sets the value of [app_profile][crate::model::CreateAppProfileRequest::app_profile].
         ///
         /// This is a **required** field for requests.
-        pub fn set_app_profile<T: Into<std::option::Option<crate::model::AppProfile>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.app_profile = v.into();
+        pub fn set_app_profile<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::AppProfile>,
+        {
+            self.0.request.app_profile = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [app_profile][crate::model::CreateAppProfileRequest::app_profile].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_app_profile<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::AppProfile>,
+        {
+            self.0.request.app_profile = v.map(|x| x.into());
             self
         }
 
@@ -1584,22 +1701,44 @@ pub mod bigtable_instance_admin {
         /// Sets the value of [app_profile][crate::model::UpdateAppProfileRequest::app_profile].
         ///
         /// This is a **required** field for requests.
-        pub fn set_app_profile<T: Into<std::option::Option<crate::model::AppProfile>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.app_profile = v.into();
+        pub fn set_app_profile<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::AppProfile>,
+        {
+            self.0.request.app_profile = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [app_profile][crate::model::UpdateAppProfileRequest::app_profile].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_app_profile<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::AppProfile>,
+        {
+            self.0.request.app_profile = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateAppProfileRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [update_mask][crate::model::UpdateAppProfileRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
@@ -1745,11 +1884,20 @@ pub mod bigtable_instance_admin {
         }
 
         /// Sets the value of [options][iam_v1::model::GetIamPolicyRequest::options].
-        pub fn set_options<T: Into<std::option::Option<iam_v1::model::GetPolicyOptions>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.options = v.into();
+        pub fn set_options<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        pub fn maybe_options<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = v.map(|x| x.into());
             self
         }
     }
@@ -1818,20 +1966,40 @@ pub mod bigtable_instance_admin {
         /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
-        pub fn set_policy<T: Into<std::option::Option<iam_v1::model::Policy>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.policy = v.into();
+        pub fn set_policy<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -2004,17 +2172,38 @@ pub mod bigtable_instance_admin {
         }
 
         /// Sets the value of [start_time][crate::model::ListHotTabletsRequest::start_time].
-        pub fn set_start_time<T: Into<std::option::Option<wkt::Timestamp>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.start_time = v.into();
+        pub fn set_start_time<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Timestamp>,
+        {
+            self.0.request.start_time = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [start_time][crate::model::ListHotTabletsRequest::start_time].
+        pub fn maybe_start_time<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Timestamp>,
+        {
+            self.0.request.start_time = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [end_time][crate::model::ListHotTabletsRequest::end_time].
-        pub fn set_end_time<T: Into<std::option::Option<wkt::Timestamp>>>(mut self, v: T) -> Self {
-            self.0.request.end_time = v.into();
+        pub fn set_end_time<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Timestamp>,
+        {
+            self.0.request.end_time = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [end_time][crate::model::ListHotTabletsRequest::end_time].
+        pub fn maybe_end_time<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Timestamp>,
+        {
+            self.0.request.end_time = v.map(|x| x.into());
             self
         }
 
@@ -2148,11 +2337,22 @@ pub mod bigtable_instance_admin {
         /// Sets the value of [logical_view][crate::model::CreateLogicalViewRequest::logical_view].
         ///
         /// This is a **required** field for requests.
-        pub fn set_logical_view<T: Into<std::option::Option<crate::model::LogicalView>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.logical_view = v.into();
+        pub fn set_logical_view<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::LogicalView>,
+        {
+            self.0.request.logical_view = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [logical_view][crate::model::CreateLogicalViewRequest::logical_view].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_logical_view<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::LogicalView>,
+        {
+            self.0.request.logical_view = v.map(|x| x.into());
             self
         }
     }
@@ -2425,20 +2625,40 @@ pub mod bigtable_instance_admin {
         /// Sets the value of [logical_view][crate::model::UpdateLogicalViewRequest::logical_view].
         ///
         /// This is a **required** field for requests.
-        pub fn set_logical_view<T: Into<std::option::Option<crate::model::LogicalView>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.logical_view = v.into();
+        pub fn set_logical_view<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::LogicalView>,
+        {
+            self.0.request.logical_view = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [logical_view][crate::model::UpdateLogicalViewRequest::logical_view].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_logical_view<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::LogicalView>,
+        {
+            self.0.request.logical_view = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateLogicalViewRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [update_mask][crate::model::UpdateLogicalViewRequest::update_mask].
+        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -2631,13 +2851,22 @@ pub mod bigtable_instance_admin {
         /// Sets the value of [materialized_view][crate::model::CreateMaterializedViewRequest::materialized_view].
         ///
         /// This is a **required** field for requests.
-        pub fn set_materialized_view<
-            T: Into<std::option::Option<crate::model::MaterializedView>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.materialized_view = v.into();
+        pub fn set_materialized_view<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::MaterializedView>,
+        {
+            self.0.request.materialized_view = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [materialized_view][crate::model::CreateMaterializedViewRequest::materialized_view].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_materialized_view<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::MaterializedView>,
+        {
+            self.0.request.materialized_view = v.map(|x| x.into());
             self
         }
     }
@@ -2915,22 +3144,40 @@ pub mod bigtable_instance_admin {
         /// Sets the value of [materialized_view][crate::model::UpdateMaterializedViewRequest::materialized_view].
         ///
         /// This is a **required** field for requests.
-        pub fn set_materialized_view<
-            T: Into<std::option::Option<crate::model::MaterializedView>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.materialized_view = v.into();
+        pub fn set_materialized_view<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::MaterializedView>,
+        {
+            self.0.request.materialized_view = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [materialized_view][crate::model::UpdateMaterializedViewRequest::materialized_view].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_materialized_view<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::MaterializedView>,
+        {
+            self.0.request.materialized_view = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateMaterializedViewRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [update_mask][crate::model::UpdateMaterializedViewRequest::update_mask].
+        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -3433,11 +3680,22 @@ pub mod bigtable_table_admin {
         /// Sets the value of [table][crate::model::CreateTableRequest::table].
         ///
         /// This is a **required** field for requests.
-        pub fn set_table<T: Into<std::option::Option<crate::model::Table>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.table = v.into();
+        pub fn set_table<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Table>,
+        {
+            self.0.request.table = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [table][crate::model::CreateTableRequest::table].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_table<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Table>,
+        {
+            self.0.request.table = v.map(|x| x.into());
             self
         }
 
@@ -3849,22 +4107,44 @@ pub mod bigtable_table_admin {
         /// Sets the value of [table][crate::model::UpdateTableRequest::table].
         ///
         /// This is a **required** field for requests.
-        pub fn set_table<T: Into<std::option::Option<crate::model::Table>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.table = v.into();
+        pub fn set_table<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Table>,
+        {
+            self.0.request.table = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [table][crate::model::UpdateTableRequest::table].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_table<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Table>,
+        {
+            self.0.request.table = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateTableRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [update_mask][crate::model::UpdateTableRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
@@ -4155,11 +4435,22 @@ pub mod bigtable_table_admin {
         /// Sets the value of [authorized_view][crate::model::CreateAuthorizedViewRequest::authorized_view].
         ///
         /// This is a **required** field for requests.
-        pub fn set_authorized_view<T: Into<std::option::Option<crate::model::AuthorizedView>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.authorized_view = v.into();
+        pub fn set_authorized_view<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::AuthorizedView>,
+        {
+            self.0.request.authorized_view = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [authorized_view][crate::model::CreateAuthorizedViewRequest::authorized_view].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_authorized_view<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::AuthorizedView>,
+        {
+            self.0.request.authorized_view = v.map(|x| x.into());
             self
         }
     }
@@ -4455,20 +4746,40 @@ pub mod bigtable_table_admin {
         /// Sets the value of [authorized_view][crate::model::UpdateAuthorizedViewRequest::authorized_view].
         ///
         /// This is a **required** field for requests.
-        pub fn set_authorized_view<T: Into<std::option::Option<crate::model::AuthorizedView>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.authorized_view = v.into();
+        pub fn set_authorized_view<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::AuthorizedView>,
+        {
+            self.0.request.authorized_view = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [authorized_view][crate::model::UpdateAuthorizedViewRequest::authorized_view].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_authorized_view<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::AuthorizedView>,
+        {
+            self.0.request.authorized_view = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateAuthorizedViewRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [update_mask][crate::model::UpdateAuthorizedViewRequest::update_mask].
+        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
@@ -5029,8 +5340,20 @@ pub mod bigtable_table_admin {
         }
 
         /// Sets the value of [ttl][crate::model::SnapshotTableRequest::ttl].
-        pub fn set_ttl<T: Into<std::option::Option<wkt::Duration>>>(mut self, v: T) -> Self {
-            self.0.request.ttl = v.into();
+        pub fn set_ttl<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Duration>,
+        {
+            self.0.request.ttl = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [ttl][crate::model::SnapshotTableRequest::ttl].
+        pub fn maybe_ttl<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Duration>,
+        {
+            self.0.request.ttl = v.map(|x| x.into());
             self
         }
 
@@ -5378,11 +5701,22 @@ pub mod bigtable_table_admin {
         /// Sets the value of [backup][crate::model::CreateBackupRequest::backup].
         ///
         /// This is a **required** field for requests.
-        pub fn set_backup<T: Into<std::option::Option<crate::model::Backup>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.backup = v.into();
+        pub fn set_backup<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Backup>,
+        {
+            self.0.request.backup = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [backup][crate::model::CreateBackupRequest::backup].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_backup<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Backup>,
+        {
+            self.0.request.backup = v.map(|x| x.into());
             self
         }
     }
@@ -5505,22 +5839,44 @@ pub mod bigtable_table_admin {
         /// Sets the value of [backup][crate::model::UpdateBackupRequest::backup].
         ///
         /// This is a **required** field for requests.
-        pub fn set_backup<T: Into<std::option::Option<crate::model::Backup>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.backup = v.into();
+        pub fn set_backup<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Backup>,
+        {
+            self.0.request.backup = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [backup][crate::model::UpdateBackupRequest::backup].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_backup<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Backup>,
+        {
+            self.0.request.backup = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateBackupRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [update_mask][crate::model::UpdateBackupRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -5951,11 +6307,22 @@ pub mod bigtable_table_admin {
         /// Sets the value of [expire_time][crate::model::CopyBackupRequest::expire_time].
         ///
         /// This is a **required** field for requests.
-        pub fn set_expire_time<T: Into<std::option::Option<wkt::Timestamp>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.expire_time = v.into();
+        pub fn set_expire_time<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Timestamp>,
+        {
+            self.0.request.expire_time = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [expire_time][crate::model::CopyBackupRequest::expire_time].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_expire_time<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Timestamp>,
+        {
+            self.0.request.expire_time = v.map(|x| x.into());
             self
         }
     }
@@ -6022,11 +6389,20 @@ pub mod bigtable_table_admin {
         }
 
         /// Sets the value of [options][iam_v1::model::GetIamPolicyRequest::options].
-        pub fn set_options<T: Into<std::option::Option<iam_v1::model::GetPolicyOptions>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.options = v.into();
+        pub fn set_options<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        pub fn maybe_options<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = v.map(|x| x.into());
             self
         }
     }
@@ -6095,20 +6471,40 @@ pub mod bigtable_table_admin {
         /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
-        pub fn set_policy<T: Into<std::option::Option<iam_v1::model::Policy>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.policy = v.into();
+        pub fn set_policy<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }

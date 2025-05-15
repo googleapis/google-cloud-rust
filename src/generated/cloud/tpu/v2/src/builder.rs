@@ -326,8 +326,22 @@ pub mod tpu {
         /// Sets the value of [node][crate::model::CreateNodeRequest::node].
         ///
         /// This is a **required** field for requests.
-        pub fn set_node<T: Into<std::option::Option<crate::model::Node>>>(mut self, v: T) -> Self {
-            self.0.request.node = v.into();
+        pub fn set_node<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Node>,
+        {
+            self.0.request.node = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [node][crate::model::CreateNodeRequest::node].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_node<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Node>,
+        {
+            self.0.request.node = v.map(|x| x.into());
             self
         }
     }
@@ -724,19 +738,44 @@ pub mod tpu {
         /// Sets the value of [update_mask][crate::model::UpdateNodeRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [update_mask][crate::model::UpdateNodeRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [node][crate::model::UpdateNodeRequest::node].
         ///
         /// This is a **required** field for requests.
-        pub fn set_node<T: Into<std::option::Option<crate::model::Node>>>(mut self, v: T) -> Self {
-            self.0.request.node = v.into();
+        pub fn set_node<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Node>,
+        {
+            self.0.request.node = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [node][crate::model::UpdateNodeRequest::node].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_node<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Node>,
+        {
+            self.0.request.node = v.map(|x| x.into());
             self
         }
     }
@@ -1022,11 +1061,22 @@ pub mod tpu {
         /// Sets the value of [queued_resource][crate::model::CreateQueuedResourceRequest::queued_resource].
         ///
         /// This is a **required** field for requests.
-        pub fn set_queued_resource<T: Into<std::option::Option<crate::model::QueuedResource>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.queued_resource = v.into();
+        pub fn set_queued_resource<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::QueuedResource>,
+        {
+            self.0.request.queued_resource = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [queued_resource][crate::model::CreateQueuedResourceRequest::queued_resource].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_queued_resource<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::QueuedResource>,
+        {
+            self.0.request.queued_resource = v.map(|x| x.into());
             self
         }
 

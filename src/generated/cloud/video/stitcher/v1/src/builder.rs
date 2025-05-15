@@ -164,11 +164,22 @@ pub mod video_stitcher_service {
         /// Sets the value of [cdn_key][crate::model::CreateCdnKeyRequest::cdn_key].
         ///
         /// This is a **required** field for requests.
-        pub fn set_cdn_key<T: Into<std::option::Option<crate::model::CdnKey>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.cdn_key = v.into();
+        pub fn set_cdn_key<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::CdnKey>,
+        {
+            self.0.request.cdn_key = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [cdn_key][crate::model::CreateCdnKeyRequest::cdn_key].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_cdn_key<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::CdnKey>,
+        {
+            self.0.request.cdn_key = v.map(|x| x.into());
             self
         }
 
@@ -555,22 +566,44 @@ pub mod video_stitcher_service {
         /// Sets the value of [cdn_key][crate::model::UpdateCdnKeyRequest::cdn_key].
         ///
         /// This is a **required** field for requests.
-        pub fn set_cdn_key<T: Into<std::option::Option<crate::model::CdnKey>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.cdn_key = v.into();
+        pub fn set_cdn_key<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::CdnKey>,
+        {
+            self.0.request.cdn_key = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [cdn_key][crate::model::UpdateCdnKeyRequest::cdn_key].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_cdn_key<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::CdnKey>,
+        {
+            self.0.request.cdn_key = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateCdnKeyRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [update_mask][crate::model::UpdateCdnKeyRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -642,11 +675,22 @@ pub mod video_stitcher_service {
         /// Sets the value of [vod_session][crate::model::CreateVodSessionRequest::vod_session].
         ///
         /// This is a **required** field for requests.
-        pub fn set_vod_session<T: Into<std::option::Option<crate::model::VodSession>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.vod_session = v.into();
+        pub fn set_vod_session<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::VodSession>,
+        {
+            self.0.request.vod_session = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [vod_session][crate::model::CreateVodSessionRequest::vod_session].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_vod_session<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::VodSession>,
+        {
+            self.0.request.vod_session = v.map(|x| x.into());
             self
         }
     }
@@ -1340,11 +1384,22 @@ pub mod video_stitcher_service {
         /// Sets the value of [slate][crate::model::CreateSlateRequest::slate].
         ///
         /// This is a **required** field for requests.
-        pub fn set_slate<T: Into<std::option::Option<crate::model::Slate>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.slate = v.into();
+        pub fn set_slate<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Slate>,
+        {
+            self.0.request.slate = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [slate][crate::model::CreateSlateRequest::slate].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_slate<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Slate>,
+        {
+            self.0.request.slate = v.map(|x| x.into());
             self
         }
 
@@ -1626,22 +1681,44 @@ pub mod video_stitcher_service {
         /// Sets the value of [slate][crate::model::UpdateSlateRequest::slate].
         ///
         /// This is a **required** field for requests.
-        pub fn set_slate<T: Into<std::option::Option<crate::model::Slate>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.slate = v.into();
+        pub fn set_slate<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Slate>,
+        {
+            self.0.request.slate = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [slate][crate::model::UpdateSlateRequest::slate].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_slate<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Slate>,
+        {
+            self.0.request.slate = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateSlateRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [update_mask][crate::model::UpdateSlateRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -1816,11 +1893,22 @@ pub mod video_stitcher_service {
         /// Sets the value of [live_session][crate::model::CreateLiveSessionRequest::live_session].
         ///
         /// This is a **required** field for requests.
-        pub fn set_live_session<T: Into<std::option::Option<crate::model::LiveSession>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.live_session = v.into();
+        pub fn set_live_session<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::LiveSession>,
+        {
+            self.0.request.live_session = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [live_session][crate::model::CreateLiveSessionRequest::live_session].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_live_session<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::LiveSession>,
+        {
+            self.0.request.live_session = v.map(|x| x.into());
             self
         }
     }
@@ -2001,11 +2089,22 @@ pub mod video_stitcher_service {
         /// Sets the value of [live_config][crate::model::CreateLiveConfigRequest::live_config].
         ///
         /// This is a **required** field for requests.
-        pub fn set_live_config<T: Into<std::option::Option<crate::model::LiveConfig>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.live_config = v.into();
+        pub fn set_live_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::LiveConfig>,
+        {
+            self.0.request.live_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [live_config][crate::model::CreateLiveConfigRequest::live_config].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_live_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::LiveConfig>,
+        {
+            self.0.request.live_config = v.map(|x| x.into());
             self
         }
 
@@ -2396,22 +2495,44 @@ pub mod video_stitcher_service {
         /// Sets the value of [live_config][crate::model::UpdateLiveConfigRequest::live_config].
         ///
         /// This is a **required** field for requests.
-        pub fn set_live_config<T: Into<std::option::Option<crate::model::LiveConfig>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.live_config = v.into();
+        pub fn set_live_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::LiveConfig>,
+        {
+            self.0.request.live_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [live_config][crate::model::UpdateLiveConfigRequest::live_config].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_live_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::LiveConfig>,
+        {
+            self.0.request.live_config = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateLiveConfigRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [update_mask][crate::model::UpdateLiveConfigRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -2527,11 +2648,22 @@ pub mod video_stitcher_service {
         /// Sets the value of [vod_config][crate::model::CreateVodConfigRequest::vod_config].
         ///
         /// This is a **required** field for requests.
-        pub fn set_vod_config<T: Into<std::option::Option<crate::model::VodConfig>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.vod_config = v.into();
+        pub fn set_vod_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::VodConfig>,
+        {
+            self.0.request.vod_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [vod_config][crate::model::CreateVodConfigRequest::vod_config].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_vod_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::VodConfig>,
+        {
+            self.0.request.vod_config = v.map(|x| x.into());
             self
         }
 
@@ -2916,22 +3048,44 @@ pub mod video_stitcher_service {
         /// Sets the value of [vod_config][crate::model::UpdateVodConfigRequest::vod_config].
         ///
         /// This is a **required** field for requests.
-        pub fn set_vod_config<T: Into<std::option::Option<crate::model::VodConfig>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.vod_config = v.into();
+        pub fn set_vod_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::VodConfig>,
+        {
+            self.0.request.vod_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [vod_config][crate::model::UpdateVodConfigRequest::vod_config].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_vod_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::VodConfig>,
+        {
+            self.0.request.vod_config = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateVodConfigRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [update_mask][crate::model::UpdateVodConfigRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }

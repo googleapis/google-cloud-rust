@@ -325,20 +325,38 @@ impl Sentence {
     }
 
     /// Sets the value of [text][crate::model::Sentence::text].
-    pub fn set_text<T: std::convert::Into<std::option::Option<crate::model::TextSpan>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.text = v.into();
+    pub fn set_text<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::TextSpan>,
+    {
+        self.text = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [text][crate::model::Sentence::text].
+    pub fn maybe_text<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::TextSpan>,
+    {
+        self.text = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [sentiment][crate::model::Sentence::sentiment].
-    pub fn set_sentiment<T: std::convert::Into<std::option::Option<crate::model::Sentiment>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.sentiment = v.into();
+    pub fn set_sentiment<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::Sentiment>,
+    {
+        self.sentiment = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [sentiment][crate::model::Sentence::sentiment].
+    pub fn maybe_sentiment<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::Sentiment>,
+    {
+        self.sentiment = v.map(|x| x.into());
         self
     }
 }
@@ -429,11 +447,20 @@ impl Entity {
     }
 
     /// Sets the value of [sentiment][crate::model::Entity::sentiment].
-    pub fn set_sentiment<T: std::convert::Into<std::option::Option<crate::model::Sentiment>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.sentiment = v.into();
+    pub fn set_sentiment<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::Sentiment>,
+    {
+        self.sentiment = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [sentiment][crate::model::Entity::sentiment].
+    pub fn maybe_sentiment<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::Sentiment>,
+    {
+        self.sentiment = v.map(|x| x.into());
         self
     }
 }
@@ -776,11 +803,20 @@ impl EntityMention {
     }
 
     /// Sets the value of [text][crate::model::EntityMention::text].
-    pub fn set_text<T: std::convert::Into<std::option::Option<crate::model::TextSpan>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.text = v.into();
+    pub fn set_text<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::TextSpan>,
+    {
+        self.text = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [text][crate::model::EntityMention::text].
+    pub fn maybe_text<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::TextSpan>,
+    {
+        self.text = v.map(|x| x.into());
         self
     }
 
@@ -794,11 +830,20 @@ impl EntityMention {
     }
 
     /// Sets the value of [sentiment][crate::model::EntityMention::sentiment].
-    pub fn set_sentiment<T: std::convert::Into<std::option::Option<crate::model::Sentiment>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.sentiment = v.into();
+    pub fn set_sentiment<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::Sentiment>,
+    {
+        self.sentiment = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [sentiment][crate::model::EntityMention::sentiment].
+    pub fn maybe_sentiment<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::Sentiment>,
+    {
+        self.sentiment = v.map(|x| x.into());
         self
     }
 
@@ -1080,11 +1125,20 @@ impl AnalyzeSentimentRequest {
     }
 
     /// Sets the value of [document][crate::model::AnalyzeSentimentRequest::document].
-    pub fn set_document<T: std::convert::Into<std::option::Option<crate::model::Document>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.document = v.into();
+    pub fn set_document<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::Document>,
+    {
+        self.document = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [document][crate::model::AnalyzeSentimentRequest::document].
+    pub fn maybe_document<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::Document>,
+    {
+        self.document = v.map(|x| x.into());
         self
     }
 
@@ -1140,13 +1194,20 @@ impl AnalyzeSentimentResponse {
     }
 
     /// Sets the value of [document_sentiment][crate::model::AnalyzeSentimentResponse::document_sentiment].
-    pub fn set_document_sentiment<
-        T: std::convert::Into<std::option::Option<crate::model::Sentiment>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.document_sentiment = v.into();
+    pub fn set_document_sentiment<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::Sentiment>,
+    {
+        self.document_sentiment = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [document_sentiment][crate::model::AnalyzeSentimentResponse::document_sentiment].
+    pub fn maybe_document_sentiment<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::Sentiment>,
+    {
+        self.document_sentiment = v.map(|x| x.into());
         self
     }
 
@@ -1203,11 +1264,20 @@ impl AnalyzeEntitiesRequest {
     }
 
     /// Sets the value of [document][crate::model::AnalyzeEntitiesRequest::document].
-    pub fn set_document<T: std::convert::Into<std::option::Option<crate::model::Document>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.document = v.into();
+    pub fn set_document<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::Document>,
+    {
+        self.document = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [document][crate::model::AnalyzeEntitiesRequest::document].
+    pub fn maybe_document<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::Document>,
+    {
+        self.document = v.map(|x| x.into());
         self
     }
 
@@ -1308,11 +1378,20 @@ impl ClassifyTextRequest {
     }
 
     /// Sets the value of [document][crate::model::ClassifyTextRequest::document].
-    pub fn set_document<T: std::convert::Into<std::option::Option<crate::model::Document>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.document = v.into();
+    pub fn set_document<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::Document>,
+    {
+        self.document = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [document][crate::model::ClassifyTextRequest::document].
+    pub fn maybe_document<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::Document>,
+    {
+        self.document = v.map(|x| x.into());
         self
     }
 }
@@ -1407,11 +1486,20 @@ impl ModerateTextRequest {
     }
 
     /// Sets the value of [document][crate::model::ModerateTextRequest::document].
-    pub fn set_document<T: std::convert::Into<std::option::Option<crate::model::Document>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.document = v.into();
+    pub fn set_document<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::Document>,
+    {
+        self.document = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [document][crate::model::ModerateTextRequest::document].
+    pub fn maybe_document<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::Document>,
+    {
+        self.document = v.map(|x| x.into());
         self
     }
 
@@ -1664,22 +1752,38 @@ impl AnnotateTextRequest {
     }
 
     /// Sets the value of [document][crate::model::AnnotateTextRequest::document].
-    pub fn set_document<T: std::convert::Into<std::option::Option<crate::model::Document>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.document = v.into();
+    pub fn set_document<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::Document>,
+    {
+        self.document = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [document][crate::model::AnnotateTextRequest::document].
+    pub fn maybe_document<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::Document>,
+    {
+        self.document = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [features][crate::model::AnnotateTextRequest::features].
-    pub fn set_features<
-        T: std::convert::Into<std::option::Option<crate::model::annotate_text_request::Features>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.features = v.into();
+    pub fn set_features<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::annotate_text_request::Features>,
+    {
+        self.features = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [features][crate::model::AnnotateTextRequest::features].
+    pub fn maybe_features<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::annotate_text_request::Features>,
+    {
+        self.features = v.map(|x| x.into());
         self
     }
 
@@ -1850,13 +1954,20 @@ impl AnnotateTextResponse {
     }
 
     /// Sets the value of [document_sentiment][crate::model::AnnotateTextResponse::document_sentiment].
-    pub fn set_document_sentiment<
-        T: std::convert::Into<std::option::Option<crate::model::Sentiment>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.document_sentiment = v.into();
+    pub fn set_document_sentiment<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::Sentiment>,
+    {
+        self.document_sentiment = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [document_sentiment][crate::model::AnnotateTextResponse::document_sentiment].
+    pub fn maybe_document_sentiment<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::Sentiment>,
+    {
+        self.document_sentiment = v.map(|x| x.into());
         self
     }
 

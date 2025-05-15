@@ -180,44 +180,84 @@ pub mod text_to_speech {
         /// Sets the value of [input][crate::model::SynthesizeSpeechRequest::input].
         ///
         /// This is a **required** field for requests.
-        pub fn set_input<T: Into<std::option::Option<crate::model::SynthesisInput>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.input = v.into();
+        pub fn set_input<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::SynthesisInput>,
+        {
+            self.0.request.input = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [input][crate::model::SynthesizeSpeechRequest::input].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_input<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::SynthesisInput>,
+        {
+            self.0.request.input = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [voice][crate::model::SynthesizeSpeechRequest::voice].
         ///
         /// This is a **required** field for requests.
-        pub fn set_voice<T: Into<std::option::Option<crate::model::VoiceSelectionParams>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.voice = v.into();
+        pub fn set_voice<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::VoiceSelectionParams>,
+        {
+            self.0.request.voice = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [voice][crate::model::SynthesizeSpeechRequest::voice].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_voice<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::VoiceSelectionParams>,
+        {
+            self.0.request.voice = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [audio_config][crate::model::SynthesizeSpeechRequest::audio_config].
         ///
         /// This is a **required** field for requests.
-        pub fn set_audio_config<T: Into<std::option::Option<crate::model::AudioConfig>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.audio_config = v.into();
+        pub fn set_audio_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::AudioConfig>,
+        {
+            self.0.request.audio_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [audio_config][crate::model::SynthesizeSpeechRequest::audio_config].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_audio_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::AudioConfig>,
+        {
+            self.0.request.audio_config = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [advanced_voice_options][crate::model::SynthesizeSpeechRequest::advanced_voice_options].
-        pub fn set_advanced_voice_options<
-            T: Into<std::option::Option<crate::model::AdvancedVoiceOptions>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.advanced_voice_options = v.into();
+        pub fn set_advanced_voice_options<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::AdvancedVoiceOptions>,
+        {
+            self.0.request.advanced_voice_options = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [advanced_voice_options][crate::model::SynthesizeSpeechRequest::advanced_voice_options].
+        pub fn maybe_advanced_voice_options<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::AdvancedVoiceOptions>,
+        {
+            self.0.request.advanced_voice_options = v.map(|x| x.into());
             self
         }
     }
@@ -560,22 +600,44 @@ pub mod text_to_speech_long_audio_synthesize {
         /// Sets the value of [input][crate::model::SynthesizeLongAudioRequest::input].
         ///
         /// This is a **required** field for requests.
-        pub fn set_input<T: Into<std::option::Option<crate::model::SynthesisInput>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.input = v.into();
+        pub fn set_input<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::SynthesisInput>,
+        {
+            self.0.request.input = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [input][crate::model::SynthesizeLongAudioRequest::input].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_input<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::SynthesisInput>,
+        {
+            self.0.request.input = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [audio_config][crate::model::SynthesizeLongAudioRequest::audio_config].
         ///
         /// This is a **required** field for requests.
-        pub fn set_audio_config<T: Into<std::option::Option<crate::model::AudioConfig>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.audio_config = v.into();
+        pub fn set_audio_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::AudioConfig>,
+        {
+            self.0.request.audio_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [audio_config][crate::model::SynthesizeLongAudioRequest::audio_config].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_audio_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::AudioConfig>,
+        {
+            self.0.request.audio_config = v.map(|x| x.into());
             self
         }
 
@@ -590,11 +652,22 @@ pub mod text_to_speech_long_audio_synthesize {
         /// Sets the value of [voice][crate::model::SynthesizeLongAudioRequest::voice].
         ///
         /// This is a **required** field for requests.
-        pub fn set_voice<T: Into<std::option::Option<crate::model::VoiceSelectionParams>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.voice = v.into();
+        pub fn set_voice<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::VoiceSelectionParams>,
+        {
+            self.0.request.voice = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [voice][crate::model::SynthesizeLongAudioRequest::voice].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_voice<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::VoiceSelectionParams>,
+        {
+            self.0.request.voice = v.map(|x| x.into());
             self
         }
     }

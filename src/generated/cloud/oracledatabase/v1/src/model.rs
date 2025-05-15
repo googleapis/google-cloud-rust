@@ -128,13 +128,20 @@ impl AutonomousDatabase {
     }
 
     /// Sets the value of [properties][crate::model::AutonomousDatabase::properties].
-    pub fn set_properties<
-        T: std::convert::Into<std::option::Option<crate::model::AutonomousDatabaseProperties>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.properties = v.into();
+    pub fn set_properties<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::AutonomousDatabaseProperties>,
+    {
+        self.properties = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [properties][crate::model::AutonomousDatabase::properties].
+    pub fn maybe_properties<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::AutonomousDatabaseProperties>,
+    {
+        self.properties = v.map(|x| x.into());
         self
     }
 
@@ -163,11 +170,20 @@ impl AutonomousDatabase {
     }
 
     /// Sets the value of [create_time][crate::model::AutonomousDatabase::create_time].
-    pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.create_time = v.into();
+    pub fn set_create_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [create_time][crate::model::AutonomousDatabase::create_time].
+    pub fn maybe_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = v.map(|x| x.into());
         self
     }
 }
@@ -622,24 +638,38 @@ impl AutonomousDatabaseProperties {
     }
 
     /// Sets the value of [apex_details][crate::model::AutonomousDatabaseProperties::apex_details].
-    pub fn set_apex_details<
-        T: std::convert::Into<std::option::Option<crate::model::AutonomousDatabaseApex>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.apex_details = v.into();
+    pub fn set_apex_details<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::AutonomousDatabaseApex>,
+    {
+        self.apex_details = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [apex_details][crate::model::AutonomousDatabaseProperties::apex_details].
+    pub fn maybe_apex_details<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::AutonomousDatabaseApex>,
+    {
+        self.apex_details = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [are_primary_allowlisted_ips_used][crate::model::AutonomousDatabaseProperties::are_primary_allowlisted_ips_used].
-    pub fn set_are_primary_allowlisted_ips_used<
-        T: std::convert::Into<std::option::Option<bool>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.are_primary_allowlisted_ips_used = v.into();
+    pub fn set_are_primary_allowlisted_ips_used<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.are_primary_allowlisted_ips_used = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [are_primary_allowlisted_ips_used][crate::model::AutonomousDatabaseProperties::are_primary_allowlisted_ips_used].
+    pub fn maybe_are_primary_allowlisted_ips_used<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.are_primary_allowlisted_ips_used = v.map(|x| x.into());
         self
     }
 
@@ -679,35 +709,56 @@ impl AutonomousDatabaseProperties {
     }
 
     /// Sets the value of [connection_strings][crate::model::AutonomousDatabaseProperties::connection_strings].
-    pub fn set_connection_strings<
-        T: std::convert::Into<std::option::Option<crate::model::AutonomousDatabaseConnectionStrings>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.connection_strings = v.into();
+    pub fn set_connection_strings<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::AutonomousDatabaseConnectionStrings>,
+    {
+        self.connection_strings = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [connection_strings][crate::model::AutonomousDatabaseProperties::connection_strings].
+    pub fn maybe_connection_strings<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::AutonomousDatabaseConnectionStrings>,
+    {
+        self.connection_strings = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [connection_urls][crate::model::AutonomousDatabaseProperties::connection_urls].
-    pub fn set_connection_urls<
-        T: std::convert::Into<std::option::Option<crate::model::AutonomousDatabaseConnectionUrls>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.connection_urls = v.into();
+    pub fn set_connection_urls<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::AutonomousDatabaseConnectionUrls>,
+    {
+        self.connection_urls = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [connection_urls][crate::model::AutonomousDatabaseProperties::connection_urls].
+    pub fn maybe_connection_urls<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::AutonomousDatabaseConnectionUrls>,
+    {
+        self.connection_urls = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [failed_data_recovery_duration][crate::model::AutonomousDatabaseProperties::failed_data_recovery_duration].
-    pub fn set_failed_data_recovery_duration<
-        T: std::convert::Into<std::option::Option<wkt::Duration>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.failed_data_recovery_duration = v.into();
+    pub fn set_failed_data_recovery_duration<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Duration>,
+    {
+        self.failed_data_recovery_duration = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [failed_data_recovery_duration][crate::model::AutonomousDatabaseProperties::failed_data_recovery_duration].
+    pub fn maybe_failed_data_recovery_duration<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Duration>,
+    {
+        self.failed_data_recovery_duration = v.map(|x| x.into());
         self
     }
 
@@ -733,13 +784,20 @@ impl AutonomousDatabaseProperties {
     }
 
     /// Sets the value of [local_standby_db][crate::model::AutonomousDatabaseProperties::local_standby_db].
-    pub fn set_local_standby_db<
-        T: std::convert::Into<std::option::Option<crate::model::AutonomousDatabaseStandbySummary>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.local_standby_db = v.into();
+    pub fn set_local_standby_db<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::AutonomousDatabaseStandbySummary>,
+    {
+        self.local_standby_db = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [local_standby_db][crate::model::AutonomousDatabaseProperties::local_standby_db].
+    pub fn maybe_local_standby_db<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::AutonomousDatabaseStandbySummary>,
+    {
+        self.local_standby_db = v.map(|x| x.into());
         self
     }
 
@@ -922,33 +980,56 @@ impl AutonomousDatabaseProperties {
     }
 
     /// Sets the value of [next_long_term_backup_time][crate::model::AutonomousDatabaseProperties::next_long_term_backup_time].
-    pub fn set_next_long_term_backup_time<
-        T: std::convert::Into<std::option::Option<wkt::Timestamp>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.next_long_term_backup_time = v.into();
+    pub fn set_next_long_term_backup_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.next_long_term_backup_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [next_long_term_backup_time][crate::model::AutonomousDatabaseProperties::next_long_term_backup_time].
+    pub fn maybe_next_long_term_backup_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.next_long_term_backup_time = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [maintenance_begin_time][crate::model::AutonomousDatabaseProperties::maintenance_begin_time].
-    pub fn set_maintenance_begin_time<
-        T: std::convert::Into<std::option::Option<wkt::Timestamp>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.maintenance_begin_time = v.into();
+    pub fn set_maintenance_begin_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.maintenance_begin_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [maintenance_begin_time][crate::model::AutonomousDatabaseProperties::maintenance_begin_time].
+    pub fn maybe_maintenance_begin_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.maintenance_begin_time = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [maintenance_end_time][crate::model::AutonomousDatabaseProperties::maintenance_end_time].
-    pub fn set_maintenance_end_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.maintenance_end_time = v.into();
+    pub fn set_maintenance_end_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.maintenance_end_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [maintenance_end_time][crate::model::AutonomousDatabaseProperties::maintenance_end_time].
+    pub fn maybe_maintenance_end_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.maintenance_end_time = v.map(|x| x.into());
         self
     }
 }
@@ -2584,13 +2665,20 @@ impl AutonomousDatabaseConnectionStrings {
     }
 
     /// Sets the value of [all_connection_strings][crate::model::AutonomousDatabaseConnectionStrings::all_connection_strings].
-    pub fn set_all_connection_strings<
-        T: std::convert::Into<std::option::Option<crate::model::AllConnectionStrings>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.all_connection_strings = v.into();
+    pub fn set_all_connection_strings<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::AllConnectionStrings>,
+    {
+        self.all_connection_strings = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [all_connection_strings][crate::model::AutonomousDatabaseConnectionStrings::all_connection_strings].
+    pub fn maybe_all_connection_strings<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::AllConnectionStrings>,
+    {
+        self.all_connection_strings = v.map(|x| x.into());
         self
     }
 
@@ -3819,11 +3907,20 @@ impl AutonomousDatabaseStandbySummary {
     }
 
     /// Sets the value of [lag_time_duration][crate::model::AutonomousDatabaseStandbySummary::lag_time_duration].
-    pub fn set_lag_time_duration<T: std::convert::Into<std::option::Option<wkt::Duration>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.lag_time_duration = v.into();
+    pub fn set_lag_time_duration<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Duration>,
+    {
+        self.lag_time_duration = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [lag_time_duration][crate::model::AutonomousDatabaseStandbySummary::lag_time_duration].
+    pub fn maybe_lag_time_duration<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Duration>,
+    {
+        self.lag_time_duration = v.map(|x| x.into());
         self
     }
 
@@ -3843,24 +3940,38 @@ impl AutonomousDatabaseStandbySummary {
     }
 
     /// Sets the value of [data_guard_role_changed_time][crate::model::AutonomousDatabaseStandbySummary::data_guard_role_changed_time].
-    pub fn set_data_guard_role_changed_time<
-        T: std::convert::Into<std::option::Option<wkt::Timestamp>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.data_guard_role_changed_time = v.into();
+    pub fn set_data_guard_role_changed_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.data_guard_role_changed_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [data_guard_role_changed_time][crate::model::AutonomousDatabaseStandbySummary::data_guard_role_changed_time].
+    pub fn maybe_data_guard_role_changed_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.data_guard_role_changed_time = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [disaster_recovery_role_changed_time][crate::model::AutonomousDatabaseStandbySummary::disaster_recovery_role_changed_time].
-    pub fn set_disaster_recovery_role_changed_time<
-        T: std::convert::Into<std::option::Option<wkt::Timestamp>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.disaster_recovery_role_changed_time = v.into();
+    pub fn set_disaster_recovery_role_changed_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.disaster_recovery_role_changed_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [disaster_recovery_role_changed_time][crate::model::AutonomousDatabaseStandbySummary::disaster_recovery_role_changed_time].
+    pub fn maybe_disaster_recovery_role_changed_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.disaster_recovery_role_changed_time = v.map(|x| x.into());
         self
     }
 }
@@ -3905,20 +4016,38 @@ impl ScheduledOperationDetails {
     }
 
     /// Sets the value of [start_time][crate::model::ScheduledOperationDetails::start_time].
-    pub fn set_start_time<T: std::convert::Into<std::option::Option<gtype::model::TimeOfDay>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.start_time = v.into();
+    pub fn set_start_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<gtype::model::TimeOfDay>,
+    {
+        self.start_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [start_time][crate::model::ScheduledOperationDetails::start_time].
+    pub fn maybe_start_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<gtype::model::TimeOfDay>,
+    {
+        self.start_time = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [stop_time][crate::model::ScheduledOperationDetails::stop_time].
-    pub fn set_stop_time<T: std::convert::Into<std::option::Option<gtype::model::TimeOfDay>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.stop_time = v.into();
+    pub fn set_stop_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<gtype::model::TimeOfDay>,
+    {
+        self.stop_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [stop_time][crate::model::ScheduledOperationDetails::stop_time].
+    pub fn maybe_stop_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<gtype::model::TimeOfDay>,
+    {
+        self.stop_time = v.map(|x| x.into());
         self
     }
 }
@@ -4190,13 +4319,20 @@ impl AutonomousDatabaseBackup {
     }
 
     /// Sets the value of [properties][crate::model::AutonomousDatabaseBackup::properties].
-    pub fn set_properties<
-        T: std::convert::Into<std::option::Option<crate::model::AutonomousDatabaseBackupProperties>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.properties = v.into();
+    pub fn set_properties<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::AutonomousDatabaseBackupProperties>,
+    {
+        self.properties = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [properties][crate::model::AutonomousDatabaseBackup::properties].
+    pub fn maybe_properties<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::AutonomousDatabaseBackupProperties>,
+    {
+        self.properties = v.map(|x| x.into());
         self
     }
 
@@ -4428,29 +4564,56 @@ impl AutonomousDatabaseBackupProperties {
     }
 
     /// Sets the value of [available_till_time][crate::model::AutonomousDatabaseBackupProperties::available_till_time].
-    pub fn set_available_till_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.available_till_time = v.into();
+    pub fn set_available_till_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.available_till_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [available_till_time][crate::model::AutonomousDatabaseBackupProperties::available_till_time].
+    pub fn maybe_available_till_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.available_till_time = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [end_time][crate::model::AutonomousDatabaseBackupProperties::end_time].
-    pub fn set_end_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.end_time = v.into();
+    pub fn set_end_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.end_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [end_time][crate::model::AutonomousDatabaseBackupProperties::end_time].
+    pub fn maybe_end_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.end_time = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [start_time][crate::model::AutonomousDatabaseBackupProperties::start_time].
-    pub fn set_start_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.start_time = v.into();
+    pub fn set_start_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.start_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [start_time][crate::model::AutonomousDatabaseBackupProperties::start_time].
+    pub fn maybe_start_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.start_time = v.map(|x| x.into());
         self
     }
 
@@ -4917,13 +5080,20 @@ impl DbNode {
     }
 
     /// Sets the value of [properties][crate::model::DbNode::properties].
-    pub fn set_properties<
-        T: std::convert::Into<std::option::Option<crate::model::DbNodeProperties>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.properties = v.into();
+    pub fn set_properties<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::DbNodeProperties>,
+    {
+        self.properties = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [properties][crate::model::DbNode::properties].
+    pub fn maybe_properties<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::DbNodeProperties>,
+    {
+        self.properties = v.map(|x| x.into());
         self
     }
 }
@@ -5267,13 +5437,20 @@ impl DbServer {
     }
 
     /// Sets the value of [properties][crate::model::DbServer::properties].
-    pub fn set_properties<
-        T: std::convert::Into<std::option::Option<crate::model::DbServerProperties>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.properties = v.into();
+    pub fn set_properties<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::DbServerProperties>,
+    {
+        self.properties = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [properties][crate::model::DbServer::properties].
+    pub fn maybe_properties<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::DbServerProperties>,
+    {
+        self.properties = v.map(|x| x.into());
         self
     }
 }
@@ -5754,13 +5931,20 @@ impl Entitlement {
     }
 
     /// Sets the value of [cloud_account_details][crate::model::Entitlement::cloud_account_details].
-    pub fn set_cloud_account_details<
-        T: std::convert::Into<std::option::Option<crate::model::CloudAccountDetails>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.cloud_account_details = v.into();
+    pub fn set_cloud_account_details<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::CloudAccountDetails>,
+    {
+        self.cloud_account_details = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [cloud_account_details][crate::model::Entitlement::cloud_account_details].
+    pub fn maybe_cloud_account_details<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::CloudAccountDetails>,
+    {
+        self.cloud_account_details = v.map(|x| x.into());
         self
     }
 
@@ -5994,24 +6178,38 @@ impl CloudAccountDetails {
     }
 
     /// Sets the value of [link_existing_account_uri][crate::model::CloudAccountDetails::link_existing_account_uri].
-    pub fn set_link_existing_account_uri<
-        T: std::convert::Into<std::option::Option<std::string::String>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.link_existing_account_uri = v.into();
+    pub fn set_link_existing_account_uri<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.link_existing_account_uri = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [link_existing_account_uri][crate::model::CloudAccountDetails::link_existing_account_uri].
+    pub fn maybe_link_existing_account_uri<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.link_existing_account_uri = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [account_creation_uri][crate::model::CloudAccountDetails::account_creation_uri].
-    pub fn set_account_creation_uri<
-        T: std::convert::Into<std::option::Option<std::string::String>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.account_creation_uri = v.into();
+    pub fn set_account_creation_uri<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.account_creation_uri = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [account_creation_uri][crate::model::CloudAccountDetails::account_creation_uri].
+    pub fn maybe_account_creation_uri<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.account_creation_uri = v.map(|x| x.into());
         self
     }
 }
@@ -6094,13 +6292,20 @@ impl CloudExadataInfrastructure {
     }
 
     /// Sets the value of [properties][crate::model::CloudExadataInfrastructure::properties].
-    pub fn set_properties<
-        T: std::convert::Into<std::option::Option<crate::model::CloudExadataInfrastructureProperties>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.properties = v.into();
+    pub fn set_properties<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::CloudExadataInfrastructureProperties>,
+    {
+        self.properties = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [properties][crate::model::CloudExadataInfrastructure::properties].
+    pub fn maybe_properties<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::CloudExadataInfrastructureProperties>,
+    {
+        self.properties = v.map(|x| x.into());
         self
     }
 
@@ -6117,11 +6322,20 @@ impl CloudExadataInfrastructure {
     }
 
     /// Sets the value of [create_time][crate::model::CloudExadataInfrastructure::create_time].
-    pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.create_time = v.into();
+    pub fn set_create_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [create_time][crate::model::CloudExadataInfrastructure::create_time].
+    pub fn maybe_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = v.map(|x| x.into());
         self
     }
 }
@@ -6298,13 +6512,20 @@ impl CloudExadataInfrastructureProperties {
     }
 
     /// Sets the value of [maintenance_window][crate::model::CloudExadataInfrastructureProperties::maintenance_window].
-    pub fn set_maintenance_window<
-        T: std::convert::Into<std::option::Option<crate::model::MaintenanceWindow>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.maintenance_window = v.into();
+    pub fn set_maintenance_window<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::MaintenanceWindow>,
+    {
+        self.maintenance_window = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [maintenance_window][crate::model::CloudExadataInfrastructureProperties::maintenance_window].
+    pub fn maybe_maintenance_window<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::MaintenanceWindow>,
+    {
+        self.maintenance_window = v.map(|x| x.into());
         self
     }
 
@@ -6419,24 +6640,38 @@ impl CloudExadataInfrastructureProperties {
     }
 
     /// Sets the value of [next_maintenance_run_time][crate::model::CloudExadataInfrastructureProperties::next_maintenance_run_time].
-    pub fn set_next_maintenance_run_time<
-        T: std::convert::Into<std::option::Option<wkt::Timestamp>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.next_maintenance_run_time = v.into();
+    pub fn set_next_maintenance_run_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.next_maintenance_run_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [next_maintenance_run_time][crate::model::CloudExadataInfrastructureProperties::next_maintenance_run_time].
+    pub fn maybe_next_maintenance_run_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.next_maintenance_run_time = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [next_security_maintenance_run_time][crate::model::CloudExadataInfrastructureProperties::next_security_maintenance_run_time].
-    pub fn set_next_security_maintenance_run_time<
-        T: std::convert::Into<std::option::Option<wkt::Timestamp>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.next_security_maintenance_run_time = v.into();
+    pub fn set_next_security_maintenance_run_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.next_security_maintenance_run_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [next_security_maintenance_run_time][crate::model::CloudExadataInfrastructureProperties::next_security_maintenance_run_time].
+    pub fn maybe_next_security_maintenance_run_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.next_security_maintenance_run_time = v.map(|x| x.into());
         self
     }
 
@@ -7375,13 +7610,20 @@ impl CreateCloudExadataInfrastructureRequest {
     }
 
     /// Sets the value of [cloud_exadata_infrastructure][crate::model::CreateCloudExadataInfrastructureRequest::cloud_exadata_infrastructure].
-    pub fn set_cloud_exadata_infrastructure<
-        T: std::convert::Into<std::option::Option<crate::model::CloudExadataInfrastructure>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.cloud_exadata_infrastructure = v.into();
+    pub fn set_cloud_exadata_infrastructure<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::CloudExadataInfrastructure>,
+    {
+        self.cloud_exadata_infrastructure = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [cloud_exadata_infrastructure][crate::model::CreateCloudExadataInfrastructureRequest::cloud_exadata_infrastructure].
+    pub fn maybe_cloud_exadata_infrastructure<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::CloudExadataInfrastructure>,
+    {
+        self.cloud_exadata_infrastructure = v.map(|x| x.into());
         self
     }
 
@@ -7678,13 +7920,20 @@ impl CreateCloudVmClusterRequest {
     }
 
     /// Sets the value of [cloud_vm_cluster][crate::model::CreateCloudVmClusterRequest::cloud_vm_cluster].
-    pub fn set_cloud_vm_cluster<
-        T: std::convert::Into<std::option::Option<crate::model::CloudVmCluster>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.cloud_vm_cluster = v.into();
+    pub fn set_cloud_vm_cluster<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::CloudVmCluster>,
+    {
+        self.cloud_vm_cluster = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [cloud_vm_cluster][crate::model::CreateCloudVmClusterRequest::cloud_vm_cluster].
+    pub fn maybe_cloud_vm_cluster<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::CloudVmCluster>,
+    {
+        self.cloud_vm_cluster = v.map(|x| x.into());
         self
     }
 
@@ -8400,20 +8649,38 @@ impl OperationMetadata {
     }
 
     /// Sets the value of [create_time][crate::model::OperationMetadata::create_time].
-    pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.create_time = v.into();
+    pub fn set_create_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [create_time][crate::model::OperationMetadata::create_time].
+    pub fn maybe_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [end_time][crate::model::OperationMetadata::end_time].
-    pub fn set_end_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.end_time = v.into();
+    pub fn set_end_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.end_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [end_time][crate::model::OperationMetadata::end_time].
+    pub fn maybe_end_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.end_time = v.map(|x| x.into());
         self
     }
 
@@ -8687,13 +8954,20 @@ impl CreateAutonomousDatabaseRequest {
     }
 
     /// Sets the value of [autonomous_database][crate::model::CreateAutonomousDatabaseRequest::autonomous_database].
-    pub fn set_autonomous_database<
-        T: std::convert::Into<std::option::Option<crate::model::AutonomousDatabase>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.autonomous_database = v.into();
+    pub fn set_autonomous_database<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::AutonomousDatabase>,
+    {
+        self.autonomous_database = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [autonomous_database][crate::model::CreateAutonomousDatabaseRequest::autonomous_database].
+    pub fn maybe_autonomous_database<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::AutonomousDatabase>,
+    {
+        self.autonomous_database = v.map(|x| x.into());
         self
     }
 
@@ -8791,11 +9065,20 @@ impl RestoreAutonomousDatabaseRequest {
     }
 
     /// Sets the value of [restore_time][crate::model::RestoreAutonomousDatabaseRequest::restore_time].
-    pub fn set_restore_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.restore_time = v.into();
+    pub fn set_restore_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.restore_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [restore_time][crate::model::RestoreAutonomousDatabaseRequest::restore_time].
+    pub fn maybe_restore_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.restore_time = v.map(|x| x.into());
         self
     }
 }
@@ -9471,13 +9754,20 @@ impl CloudVmCluster {
     }
 
     /// Sets the value of [properties][crate::model::CloudVmCluster::properties].
-    pub fn set_properties<
-        T: std::convert::Into<std::option::Option<crate::model::CloudVmClusterProperties>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.properties = v.into();
+    pub fn set_properties<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::CloudVmClusterProperties>,
+    {
+        self.properties = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [properties][crate::model::CloudVmCluster::properties].
+    pub fn maybe_properties<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::CloudVmClusterProperties>,
+    {
+        self.properties = v.map(|x| x.into());
         self
     }
 
@@ -9494,11 +9784,20 @@ impl CloudVmCluster {
     }
 
     /// Sets the value of [create_time][crate::model::CloudVmCluster::create_time].
-    pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.create_time = v.into();
+    pub fn set_create_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [create_time][crate::model::CloudVmCluster::create_time].
+    pub fn maybe_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = v.map(|x| x.into());
         self
     }
 
@@ -9701,11 +10000,20 @@ impl CloudVmClusterProperties {
     }
 
     /// Sets the value of [time_zone][crate::model::CloudVmClusterProperties::time_zone].
-    pub fn set_time_zone<T: std::convert::Into<std::option::Option<gtype::model::TimeZone>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.time_zone = v.into();
+    pub fn set_time_zone<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<gtype::model::TimeZone>,
+    {
+        self.time_zone = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [time_zone][crate::model::CloudVmClusterProperties::time_zone].
+    pub fn maybe_time_zone<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<gtype::model::TimeZone>,
+    {
+        self.time_zone = v.map(|x| x.into());
         self
     }
 
@@ -9792,13 +10100,20 @@ impl CloudVmClusterProperties {
     }
 
     /// Sets the value of [diagnostics_data_collection_options][crate::model::CloudVmClusterProperties::diagnostics_data_collection_options].
-    pub fn set_diagnostics_data_collection_options<
-        T: std::convert::Into<std::option::Option<crate::model::DataCollectionOptions>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.diagnostics_data_collection_options = v.into();
+    pub fn set_diagnostics_data_collection_options<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::DataCollectionOptions>,
+    {
+        self.diagnostics_data_collection_options = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [diagnostics_data_collection_options][crate::model::CloudVmClusterProperties::diagnostics_data_collection_options].
+    pub fn maybe_diagnostics_data_collection_options<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::DataCollectionOptions>,
+    {
+        self.diagnostics_data_collection_options = v.map(|x| x.into());
         self
     }
 

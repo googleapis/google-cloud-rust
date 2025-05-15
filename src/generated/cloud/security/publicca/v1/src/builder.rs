@@ -134,13 +134,22 @@ pub mod public_certificate_authority_service {
         /// Sets the value of [external_account_key][crate::model::CreateExternalAccountKeyRequest::external_account_key].
         ///
         /// This is a **required** field for requests.
-        pub fn set_external_account_key<
-            T: Into<std::option::Option<crate::model::ExternalAccountKey>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.external_account_key = v.into();
+        pub fn set_external_account_key<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::ExternalAccountKey>,
+        {
+            self.0.request.external_account_key = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [external_account_key][crate::model::CreateExternalAccountKeyRequest::external_account_key].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_external_account_key<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::ExternalAccountKey>,
+        {
+            self.0.request.external_account_key = v.map(|x| x.into());
             self
         }
     }

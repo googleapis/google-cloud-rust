@@ -456,11 +456,22 @@ pub mod org_policy {
         /// Sets the value of [policy][crate::model::CreatePolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
-        pub fn set_policy<T: Into<std::option::Option<crate::model::Policy>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.policy = v.into();
+        pub fn set_policy<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Policy>,
+        {
+            self.0.request.policy = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [policy][crate::model::CreatePolicyRequest::policy].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Policy>,
+        {
+            self.0.request.policy = v.map(|x| x.into());
             self
         }
     }
@@ -521,20 +532,40 @@ pub mod org_policy {
         /// Sets the value of [policy][crate::model::UpdatePolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
-        pub fn set_policy<T: Into<std::option::Option<crate::model::Policy>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.policy = v.into();
+        pub fn set_policy<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Policy>,
+        {
+            self.0.request.policy = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [policy][crate::model::UpdatePolicyRequest::policy].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Policy>,
+        {
+            self.0.request.policy = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdatePolicyRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [update_mask][crate::model::UpdatePolicyRequest::update_mask].
+        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -674,13 +705,22 @@ pub mod org_policy {
         /// Sets the value of [custom_constraint][crate::model::CreateCustomConstraintRequest::custom_constraint].
         ///
         /// This is a **required** field for requests.
-        pub fn set_custom_constraint<
-            T: Into<std::option::Option<crate::model::CustomConstraint>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.custom_constraint = v.into();
+        pub fn set_custom_constraint<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::CustomConstraint>,
+        {
+            self.0.request.custom_constraint = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [custom_constraint][crate::model::CreateCustomConstraintRequest::custom_constraint].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_custom_constraint<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::CustomConstraint>,
+        {
+            self.0.request.custom_constraint = v.map(|x| x.into());
             self
         }
     }
@@ -744,13 +784,22 @@ pub mod org_policy {
         /// Sets the value of [custom_constraint][crate::model::UpdateCustomConstraintRequest::custom_constraint].
         ///
         /// This is a **required** field for requests.
-        pub fn set_custom_constraint<
-            T: Into<std::option::Option<crate::model::CustomConstraint>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.custom_constraint = v.into();
+        pub fn set_custom_constraint<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::CustomConstraint>,
+        {
+            self.0.request.custom_constraint = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [custom_constraint][crate::model::UpdateCustomConstraintRequest::custom_constraint].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_custom_constraint<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::CustomConstraint>,
+        {
+            self.0.request.custom_constraint = v.map(|x| x.into());
             self
         }
     }

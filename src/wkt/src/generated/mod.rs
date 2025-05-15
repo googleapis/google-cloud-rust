@@ -125,11 +125,20 @@ impl Api {
     }
 
     /// Sets the value of [source_context][crate::Api::source_context].
-    pub fn set_source_context<T: std::convert::Into<std::option::Option<crate::SourceContext>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.source_context = v.into();
+    pub fn set_source_context<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::SourceContext>,
+    {
+        self.source_context = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [source_context][crate::Api::source_context].
+    pub fn maybe_source_context<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::SourceContext>,
+    {
+        self.source_context = v.map(|x| x.into());
         self
     }
 
@@ -586,22 +595,38 @@ impl FileDescriptorProto {
     }
 
     /// Sets the value of [options][crate::FileDescriptorProto::options].
-    pub fn set_options<T: std::convert::Into<std::option::Option<crate::FileOptions>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.options = v.into();
+    pub fn set_options<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::FileOptions>,
+    {
+        self.options = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [options][crate::FileDescriptorProto::options].
+    pub fn maybe_options<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::FileOptions>,
+    {
+        self.options = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [source_code_info][crate::FileDescriptorProto::source_code_info].
-    pub fn set_source_code_info<
-        T: std::convert::Into<std::option::Option<crate::SourceCodeInfo>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.source_code_info = v.into();
+    pub fn set_source_code_info<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::SourceCodeInfo>,
+    {
+        self.source_code_info = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [source_code_info][crate::FileDescriptorProto::source_code_info].
+    pub fn maybe_source_code_info<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::SourceCodeInfo>,
+    {
+        self.source_code_info = v.map(|x| x.into());
         self
     }
 
@@ -744,11 +769,20 @@ impl DescriptorProto {
     }
 
     /// Sets the value of [options][crate::DescriptorProto::options].
-    pub fn set_options<T: std::convert::Into<std::option::Option<crate::MessageOptions>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.options = v.into();
+    pub fn set_options<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::MessageOptions>,
+    {
+        self.options = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [options][crate::DescriptorProto::options].
+    pub fn maybe_options<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::MessageOptions>,
+    {
+        self.options = v.map(|x| x.into());
         self
     }
 
@@ -822,13 +856,20 @@ pub mod descriptor_proto {
         }
 
         /// Sets the value of [options][crate::descriptor_proto::ExtensionRange::options].
-        pub fn set_options<
-            T: std::convert::Into<std::option::Option<crate::ExtensionRangeOptions>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.options = v.into();
+        pub fn set_options<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::ExtensionRangeOptions>,
+        {
+            self.options = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [options][crate::descriptor_proto::ExtensionRange::options].
+        pub fn maybe_options<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::ExtensionRangeOptions>,
+        {
+            self.options = v.map(|x| x.into());
             self
         }
     }
@@ -938,11 +979,20 @@ impl ExtensionRangeOptions {
     }
 
     /// Sets the value of [features][crate::ExtensionRangeOptions::features].
-    pub fn set_features<T: std::convert::Into<std::option::Option<crate::FeatureSet>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.features = v.into();
+    pub fn set_features<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::FeatureSet>,
+    {
+        self.features = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [features][crate::ExtensionRangeOptions::features].
+    pub fn maybe_features<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::FeatureSet>,
+    {
+        self.features = v.map(|x| x.into());
         self
     }
 
@@ -1320,11 +1370,20 @@ impl FieldDescriptorProto {
     }
 
     /// Sets the value of [options][crate::FieldDescriptorProto::options].
-    pub fn set_options<T: std::convert::Into<std::option::Option<crate::FieldOptions>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.options = v.into();
+    pub fn set_options<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::FieldOptions>,
+    {
+        self.options = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [options][crate::FieldDescriptorProto::options].
+    pub fn maybe_options<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::FieldOptions>,
+    {
+        self.options = v.map(|x| x.into());
         self
     }
 
@@ -1737,11 +1796,20 @@ impl OneofDescriptorProto {
     }
 
     /// Sets the value of [options][crate::OneofDescriptorProto::options].
-    pub fn set_options<T: std::convert::Into<std::option::Option<crate::OneofOptions>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.options = v.into();
+    pub fn set_options<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::OneofOptions>,
+    {
+        self.options = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [options][crate::OneofDescriptorProto::options].
+    pub fn maybe_options<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::OneofOptions>,
+    {
+        self.options = v.map(|x| x.into());
         self
     }
 }
@@ -1805,11 +1873,20 @@ impl EnumDescriptorProto {
     }
 
     /// Sets the value of [options][crate::EnumDescriptorProto::options].
-    pub fn set_options<T: std::convert::Into<std::option::Option<crate::EnumOptions>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.options = v.into();
+    pub fn set_options<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::EnumOptions>,
+    {
+        self.options = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [options][crate::EnumDescriptorProto::options].
+    pub fn maybe_options<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::EnumOptions>,
+    {
+        self.options = v.map(|x| x.into());
         self
     }
 
@@ -1930,11 +2007,20 @@ impl EnumValueDescriptorProto {
     }
 
     /// Sets the value of [options][crate::EnumValueDescriptorProto::options].
-    pub fn set_options<T: std::convert::Into<std::option::Option<crate::EnumValueOptions>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.options = v.into();
+    pub fn set_options<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::EnumValueOptions>,
+    {
+        self.options = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [options][crate::EnumValueDescriptorProto::options].
+    pub fn maybe_options<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::EnumValueOptions>,
+    {
+        self.options = v.map(|x| x.into());
         self
     }
 }
@@ -1987,11 +2073,20 @@ impl ServiceDescriptorProto {
     }
 
     /// Sets the value of [options][crate::ServiceDescriptorProto::options].
-    pub fn set_options<T: std::convert::Into<std::option::Option<crate::ServiceOptions>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.options = v.into();
+    pub fn set_options<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::ServiceOptions>,
+    {
+        self.options = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [options][crate::ServiceDescriptorProto::options].
+    pub fn maybe_options<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::ServiceOptions>,
+    {
+        self.options = v.map(|x| x.into());
         self
     }
 }
@@ -2058,11 +2153,20 @@ impl MethodDescriptorProto {
     }
 
     /// Sets the value of [options][crate::MethodDescriptorProto::options].
-    pub fn set_options<T: std::convert::Into<std::option::Option<crate::MethodOptions>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.options = v.into();
+    pub fn set_options<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::MethodOptions>,
+    {
+        self.options = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [options][crate::MethodDescriptorProto::options].
+    pub fn maybe_options<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::MethodOptions>,
+    {
+        self.options = v.map(|x| x.into());
         self
     }
 
@@ -2365,11 +2469,20 @@ impl FileOptions {
     }
 
     /// Sets the value of [features][crate::FileOptions::features].
-    pub fn set_features<T: std::convert::Into<std::option::Option<crate::FeatureSet>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.features = v.into();
+    pub fn set_features<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::FeatureSet>,
+    {
+        self.features = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [features][crate::FileOptions::features].
+    pub fn maybe_features<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::FeatureSet>,
+    {
+        self.features = v.map(|x| x.into());
         self
     }
 
@@ -2659,11 +2772,20 @@ impl MessageOptions {
     }
 
     /// Sets the value of [features][crate::MessageOptions::features].
-    pub fn set_features<T: std::convert::Into<std::option::Option<crate::FeatureSet>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.features = v.into();
+    pub fn set_features<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::FeatureSet>,
+    {
+        self.features = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [features][crate::MessageOptions::features].
+    pub fn maybe_features<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::FeatureSet>,
+    {
+        self.features = v.map(|x| x.into());
         self
     }
 
@@ -2877,22 +2999,38 @@ impl FieldOptions {
     }
 
     /// Sets the value of [features][crate::FieldOptions::features].
-    pub fn set_features<T: std::convert::Into<std::option::Option<crate::FeatureSet>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.features = v.into();
+    pub fn set_features<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::FeatureSet>,
+    {
+        self.features = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [features][crate::FieldOptions::features].
+    pub fn maybe_features<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::FeatureSet>,
+    {
+        self.features = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [feature_support][crate::FieldOptions::feature_support].
-    pub fn set_feature_support<
-        T: std::convert::Into<std::option::Option<crate::field_options::FeatureSupport>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.feature_support = v.into();
+    pub fn set_feature_support<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::field_options::FeatureSupport>,
+    {
+        self.feature_support = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [feature_support][crate::FieldOptions::feature_support].
+    pub fn maybe_feature_support<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::field_options::FeatureSupport>,
+    {
+        self.feature_support = v.map(|x| x.into());
         self
     }
 
@@ -3625,11 +3763,20 @@ impl OneofOptions {
     }
 
     /// Sets the value of [features][crate::OneofOptions::features].
-    pub fn set_features<T: std::convert::Into<std::option::Option<crate::FeatureSet>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.features = v.into();
+    pub fn set_features<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::FeatureSet>,
+    {
+        self.features = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [features][crate::OneofOptions::features].
+    pub fn maybe_features<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::FeatureSet>,
+    {
+        self.features = v.map(|x| x.into());
         self
     }
 
@@ -3718,11 +3865,20 @@ impl EnumOptions {
     }
 
     /// Sets the value of [features][crate::EnumOptions::features].
-    pub fn set_features<T: std::convert::Into<std::option::Option<crate::FeatureSet>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.features = v.into();
+    pub fn set_features<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::FeatureSet>,
+    {
+        self.features = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [features][crate::EnumOptions::features].
+    pub fn maybe_features<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::FeatureSet>,
+    {
+        self.features = v.map(|x| x.into());
         self
     }
 
@@ -3790,11 +3946,20 @@ impl EnumValueOptions {
     }
 
     /// Sets the value of [features][crate::EnumValueOptions::features].
-    pub fn set_features<T: std::convert::Into<std::option::Option<crate::FeatureSet>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.features = v.into();
+    pub fn set_features<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::FeatureSet>,
+    {
+        self.features = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [features][crate::EnumValueOptions::features].
+    pub fn maybe_features<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::FeatureSet>,
+    {
+        self.features = v.map(|x| x.into());
         self
     }
 
@@ -3805,13 +3970,20 @@ impl EnumValueOptions {
     }
 
     /// Sets the value of [feature_support][crate::EnumValueOptions::feature_support].
-    pub fn set_feature_support<
-        T: std::convert::Into<std::option::Option<crate::field_options::FeatureSupport>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.feature_support = v.into();
+    pub fn set_feature_support<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::field_options::FeatureSupport>,
+    {
+        self.feature_support = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [feature_support][crate::EnumValueOptions::feature_support].
+    pub fn maybe_feature_support<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::field_options::FeatureSupport>,
+    {
+        self.feature_support = v.map(|x| x.into());
         self
     }
 
@@ -3863,11 +4035,20 @@ impl ServiceOptions {
     }
 
     /// Sets the value of [features][crate::ServiceOptions::features].
-    pub fn set_features<T: std::convert::Into<std::option::Option<crate::FeatureSet>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.features = v.into();
+    pub fn set_features<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::FeatureSet>,
+    {
+        self.features = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [features][crate::ServiceOptions::features].
+    pub fn maybe_features<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::FeatureSet>,
+    {
+        self.features = v.map(|x| x.into());
         self
     }
 
@@ -3942,11 +4123,20 @@ impl MethodOptions {
     }
 
     /// Sets the value of [features][crate::MethodOptions::features].
-    pub fn set_features<T: std::convert::Into<std::option::Option<crate::FeatureSet>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.features = v.into();
+    pub fn set_features<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::FeatureSet>,
+    {
+        self.features = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [features][crate::MethodOptions::features].
+    pub fn maybe_features<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::FeatureSet>,
+    {
+        self.features = v.map(|x| x.into());
         self
     }
 
@@ -5233,22 +5423,38 @@ pub mod feature_set_defaults {
         }
 
         /// Sets the value of [overridable_features][crate::feature_set_defaults::FeatureSetEditionDefault::overridable_features].
-        pub fn set_overridable_features<
-            T: std::convert::Into<std::option::Option<crate::FeatureSet>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.overridable_features = v.into();
+        pub fn set_overridable_features<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::FeatureSet>,
+        {
+            self.overridable_features = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [overridable_features][crate::feature_set_defaults::FeatureSetEditionDefault::overridable_features].
+        pub fn maybe_overridable_features<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::FeatureSet>,
+        {
+            self.overridable_features = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [fixed_features][crate::feature_set_defaults::FeatureSetEditionDefault::fixed_features].
-        pub fn set_fixed_features<T: std::convert::Into<std::option::Option<crate::FeatureSet>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.fixed_features = v.into();
+        pub fn set_fixed_features<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::FeatureSet>,
+        {
+            self.fixed_features = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [fixed_features][crate::feature_set_defaults::FeatureSetEditionDefault::fixed_features].
+        pub fn maybe_fixed_features<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::FeatureSet>,
+        {
+            self.fixed_features = v.map(|x| x.into());
             self
         }
     }
@@ -5897,11 +6103,20 @@ impl Type {
     }
 
     /// Sets the value of [source_context][crate::Type::source_context].
-    pub fn set_source_context<T: std::convert::Into<std::option::Option<crate::SourceContext>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.source_context = v.into();
+    pub fn set_source_context<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::SourceContext>,
+    {
+        self.source_context = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [source_context][crate::Type::source_context].
+    pub fn maybe_source_context<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::SourceContext>,
+    {
+        self.source_context = v.map(|x| x.into());
         self
     }
 
@@ -6510,11 +6725,20 @@ impl Enum {
     }
 
     /// Sets the value of [source_context][crate::Enum::source_context].
-    pub fn set_source_context<T: std::convert::Into<std::option::Option<crate::SourceContext>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.source_context = v.into();
+    pub fn set_source_context<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::SourceContext>,
+    {
+        self.source_context = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [source_context][crate::Enum::source_context].
+    pub fn maybe_source_context<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::SourceContext>,
+    {
+        self.source_context = v.map(|x| x.into());
         self
     }
 
@@ -6631,11 +6855,20 @@ impl Option {
     }
 
     /// Sets the value of [value][crate::Option::value].
-    pub fn set_value<T: std::convert::Into<std::option::Option<crate::Any>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.value = v.into();
+    pub fn set_value<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::Any>,
+    {
+        self.value = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [value][crate::Option::value].
+    pub fn maybe_value<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::Any>,
+    {
+        self.value = v.map(|x| x.into());
         self
     }
 }

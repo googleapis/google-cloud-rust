@@ -210,11 +210,22 @@ pub mod dataset_service {
         /// Sets the value of [dataset][crate::model::InsertDatasetRequest::dataset].
         ///
         /// This is a **required** field for requests.
-        pub fn set_dataset<T: Into<std::option::Option<crate::model::Dataset>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.dataset = v.into();
+        pub fn set_dataset<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Dataset>,
+        {
+            self.0.request.dataset = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [dataset][crate::model::InsertDatasetRequest::dataset].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_dataset<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Dataset>,
+        {
+            self.0.request.dataset = v.map(|x| x.into());
             self
         }
 
@@ -300,11 +311,22 @@ pub mod dataset_service {
         /// Sets the value of [dataset][crate::model::UpdateOrPatchDatasetRequest::dataset].
         ///
         /// This is a **required** field for requests.
-        pub fn set_dataset<T: Into<std::option::Option<crate::model::Dataset>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.dataset = v.into();
+        pub fn set_dataset<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Dataset>,
+        {
+            self.0.request.dataset = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [dataset][crate::model::UpdateOrPatchDatasetRequest::dataset].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_dataset<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Dataset>,
+        {
+            self.0.request.dataset = v.map(|x| x.into());
             self
         }
 
@@ -401,11 +423,22 @@ pub mod dataset_service {
         /// Sets the value of [dataset][crate::model::UpdateOrPatchDatasetRequest::dataset].
         ///
         /// This is a **required** field for requests.
-        pub fn set_dataset<T: Into<std::option::Option<crate::model::Dataset>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.dataset = v.into();
+        pub fn set_dataset<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Dataset>,
+        {
+            self.0.request.dataset = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [dataset][crate::model::UpdateOrPatchDatasetRequest::dataset].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_dataset<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Dataset>,
+        {
+            self.0.request.dataset = v.map(|x| x.into());
             self
         }
 
@@ -565,11 +598,20 @@ pub mod dataset_service {
         }
 
         /// Sets the value of [max_results][crate::model::ListDatasetsRequest::max_results].
-        pub fn set_max_results<T: Into<std::option::Option<wkt::UInt32Value>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.max_results = v.into();
+        pub fn set_max_results<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::UInt32Value>,
+        {
+            self.0.request.max_results = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [max_results][crate::model::ListDatasetsRequest::max_results].
+        pub fn maybe_max_results<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::UInt32Value>,
+        {
+            self.0.request.max_results = v.map(|x| x.into());
             self
         }
 
@@ -662,11 +704,20 @@ pub mod dataset_service {
         }
 
         /// Sets the value of [deletion_time][crate::model::UndeleteDatasetRequest::deletion_time].
-        pub fn set_deletion_time<T: Into<std::option::Option<wkt::Timestamp>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.deletion_time = v.into();
+        pub fn set_deletion_time<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Timestamp>,
+        {
+            self.0.request.deletion_time = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [deletion_time][crate::model::UndeleteDatasetRequest::deletion_time].
+        pub fn maybe_deletion_time<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Timestamp>,
+        {
+            self.0.request.deletion_time = v.map(|x| x.into());
             self
         }
     }
@@ -874,11 +925,20 @@ pub mod model_service {
         }
 
         /// Sets the value of [max_results][crate::model::ListModelsRequest::max_results].
-        pub fn set_max_results<T: Into<std::option::Option<wkt::UInt32Value>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.max_results = v.into();
+        pub fn set_max_results<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::UInt32Value>,
+        {
+            self.0.request.max_results = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [max_results][crate::model::ListModelsRequest::max_results].
+        pub fn maybe_max_results<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::UInt32Value>,
+        {
+            self.0.request.max_results = v.map(|x| x.into());
             self
         }
 
@@ -969,11 +1029,22 @@ pub mod model_service {
         /// Sets the value of [model][crate::model::PatchModelRequest::model].
         ///
         /// This is a **required** field for requests.
-        pub fn set_model<T: Into<std::option::Option<crate::model::Model>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.model = v.into();
+        pub fn set_model<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Model>,
+        {
+            self.0.request.model = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [model][crate::model::PatchModelRequest::model].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_model<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Model>,
+        {
+            self.0.request.model = v.map(|x| x.into());
             self
         }
     }
@@ -1381,11 +1452,22 @@ pub mod routine_service {
         /// Sets the value of [routine][crate::model::InsertRoutineRequest::routine].
         ///
         /// This is a **required** field for requests.
-        pub fn set_routine<T: Into<std::option::Option<crate::model::Routine>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.routine = v.into();
+        pub fn set_routine<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Routine>,
+        {
+            self.0.request.routine = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [routine][crate::model::InsertRoutineRequest::routine].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_routine<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Routine>,
+        {
+            self.0.request.routine = v.map(|x| x.into());
             self
         }
     }
@@ -1470,11 +1552,22 @@ pub mod routine_service {
         /// Sets the value of [routine][crate::model::UpdateRoutineRequest::routine].
         ///
         /// This is a **required** field for requests.
-        pub fn set_routine<T: Into<std::option::Option<crate::model::Routine>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.routine = v.into();
+        pub fn set_routine<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Routine>,
+        {
+            self.0.request.routine = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [routine][crate::model::UpdateRoutineRequest::routine].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_routine<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Routine>,
+        {
+            self.0.request.routine = v.map(|x| x.into());
             self
         }
     }
@@ -1627,11 +1720,20 @@ pub mod routine_service {
         }
 
         /// Sets the value of [max_results][crate::model::ListRoutinesRequest::max_results].
-        pub fn set_max_results<T: Into<std::option::Option<wkt::UInt32Value>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.max_results = v.into();
+        pub fn set_max_results<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::UInt32Value>,
+        {
+            self.0.request.max_results = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [max_results][crate::model::ListRoutinesRequest::max_results].
+        pub fn maybe_max_results<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::UInt32Value>,
+        {
+            self.0.request.max_results = v.map(|x| x.into());
             self
         }
 
@@ -1998,13 +2100,22 @@ pub mod row_access_policy_service {
         /// Sets the value of [row_access_policy][crate::model::CreateRowAccessPolicyRequest::row_access_policy].
         ///
         /// This is a **required** field for requests.
-        pub fn set_row_access_policy<
-            T: Into<std::option::Option<crate::model::RowAccessPolicy>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.row_access_policy = v.into();
+        pub fn set_row_access_policy<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::RowAccessPolicy>,
+        {
+            self.0.request.row_access_policy = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [row_access_policy][crate::model::CreateRowAccessPolicyRequest::row_access_policy].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_row_access_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::RowAccessPolicy>,
+        {
+            self.0.request.row_access_policy = v.map(|x| x.into());
             self
         }
     }
@@ -2100,13 +2211,22 @@ pub mod row_access_policy_service {
         /// Sets the value of [row_access_policy][crate::model::UpdateRowAccessPolicyRequest::row_access_policy].
         ///
         /// This is a **required** field for requests.
-        pub fn set_row_access_policy<
-            T: Into<std::option::Option<crate::model::RowAccessPolicy>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.row_access_policy = v.into();
+        pub fn set_row_access_policy<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::RowAccessPolicy>,
+        {
+            self.0.request.row_access_policy = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [row_access_policy][crate::model::UpdateRowAccessPolicyRequest::row_access_policy].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_row_access_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::RowAccessPolicy>,
+        {
+            self.0.request.row_access_policy = v.map(|x| x.into());
             self
         }
     }
@@ -2200,8 +2320,20 @@ pub mod row_access_policy_service {
         }
 
         /// Sets the value of [force][crate::model::DeleteRowAccessPolicyRequest::force].
-        pub fn set_force<T: Into<std::option::Option<bool>>>(mut self, v: T) -> Self {
-            self.0.request.force = v.into();
+        pub fn set_force<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<bool>,
+        {
+            self.0.request.force = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [force][crate::model::DeleteRowAccessPolicyRequest::force].
+        pub fn maybe_force<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<bool>,
+        {
+            self.0.request.force = v.map(|x| x.into());
             self
         }
     }
@@ -2302,8 +2434,20 @@ pub mod row_access_policy_service {
         }
 
         /// Sets the value of [force][crate::model::BatchDeleteRowAccessPoliciesRequest::force].
-        pub fn set_force<T: Into<std::option::Option<bool>>>(mut self, v: T) -> Self {
-            self.0.request.force = v.into();
+        pub fn set_force<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<bool>,
+        {
+            self.0.request.force = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [force][crate::model::BatchDeleteRowAccessPoliciesRequest::force].
+        pub fn maybe_force<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<bool>,
+        {
+            self.0.request.force = v.map(|x| x.into());
             self
         }
     }
@@ -2528,11 +2672,22 @@ pub mod table_service {
         /// Sets the value of [table][crate::model::InsertTableRequest::table].
         ///
         /// This is a **required** field for requests.
-        pub fn set_table<T: Into<std::option::Option<crate::model::Table>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.table = v.into();
+        pub fn set_table<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Table>,
+        {
+            self.0.request.table = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [table][crate::model::InsertTableRequest::table].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_table<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Table>,
+        {
+            self.0.request.table = v.map(|x| x.into());
             self
         }
     }
@@ -2620,11 +2775,22 @@ pub mod table_service {
         /// Sets the value of [table][crate::model::UpdateOrPatchTableRequest::table].
         ///
         /// This is a **required** field for requests.
-        pub fn set_table<T: Into<std::option::Option<crate::model::Table>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.table = v.into();
+        pub fn set_table<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Table>,
+        {
+            self.0.request.table = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [table][crate::model::UpdateOrPatchTableRequest::table].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_table<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Table>,
+        {
+            self.0.request.table = v.map(|x| x.into());
             self
         }
 
@@ -2718,11 +2884,22 @@ pub mod table_service {
         /// Sets the value of [table][crate::model::UpdateOrPatchTableRequest::table].
         ///
         /// This is a **required** field for requests.
-        pub fn set_table<T: Into<std::option::Option<crate::model::Table>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.table = v.into();
+        pub fn set_table<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Table>,
+        {
+            self.0.request.table = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [table][crate::model::UpdateOrPatchTableRequest::table].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_table<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Table>,
+        {
+            self.0.request.table = v.map(|x| x.into());
             self
         }
 
@@ -2881,11 +3058,20 @@ pub mod table_service {
         }
 
         /// Sets the value of [max_results][crate::model::ListTablesRequest::max_results].
-        pub fn set_max_results<T: Into<std::option::Option<wkt::UInt32Value>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.max_results = v.into();
+        pub fn set_max_results<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::UInt32Value>,
+        {
+            self.0.request.max_results = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [max_results][crate::model::ListTablesRequest::max_results].
+        pub fn maybe_max_results<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::UInt32Value>,
+        {
+            self.0.request.max_results = v.map(|x| x.into());
             self
         }
 

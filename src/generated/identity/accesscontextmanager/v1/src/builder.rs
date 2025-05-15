@@ -357,20 +357,38 @@ pub mod access_context_manager {
         }
 
         /// Sets the value of [create_time][crate::model::AccessPolicy::create_time].
-        pub fn set_create_time<T: Into<std::option::Option<wkt::Timestamp>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.create_time = v.into();
+        pub fn set_create_time<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Timestamp>,
+        {
+            self.0.request.create_time = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [create_time][crate::model::AccessPolicy::create_time].
+        pub fn maybe_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Timestamp>,
+        {
+            self.0.request.create_time = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_time][crate::model::AccessPolicy::update_time].
-        pub fn set_update_time<T: Into<std::option::Option<wkt::Timestamp>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_time = v.into();
+        pub fn set_update_time<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Timestamp>,
+        {
+            self.0.request.update_time = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [update_time][crate::model::AccessPolicy::update_time].
+        pub fn maybe_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Timestamp>,
+        {
+            self.0.request.update_time = v.map(|x| x.into());
             self
         }
 
@@ -484,22 +502,44 @@ pub mod access_context_manager {
         /// Sets the value of [policy][crate::model::UpdateAccessPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
-        pub fn set_policy<T: Into<std::option::Option<crate::model::AccessPolicy>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.policy = v.into();
+        pub fn set_policy<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::AccessPolicy>,
+        {
+            self.0.request.policy = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [policy][crate::model::UpdateAccessPolicyRequest::policy].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::AccessPolicy>,
+        {
+            self.0.request.policy = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateAccessPolicyRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [update_mask][crate::model::UpdateAccessPolicyRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -905,11 +945,22 @@ pub mod access_context_manager {
         /// Sets the value of [access_level][crate::model::CreateAccessLevelRequest::access_level].
         ///
         /// This is a **required** field for requests.
-        pub fn set_access_level<T: Into<std::option::Option<crate::model::AccessLevel>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.access_level = v.into();
+        pub fn set_access_level<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::AccessLevel>,
+        {
+            self.0.request.access_level = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [access_level][crate::model::CreateAccessLevelRequest::access_level].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_access_level<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::AccessLevel>,
+        {
+            self.0.request.access_level = v.map(|x| x.into());
             self
         }
     }
@@ -1017,22 +1068,44 @@ pub mod access_context_manager {
         /// Sets the value of [access_level][crate::model::UpdateAccessLevelRequest::access_level].
         ///
         /// This is a **required** field for requests.
-        pub fn set_access_level<T: Into<std::option::Option<crate::model::AccessLevel>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.access_level = v.into();
+        pub fn set_access_level<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::AccessLevel>,
+        {
+            self.0.request.access_level = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [access_level][crate::model::UpdateAccessLevelRequest::access_level].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_access_level<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::AccessLevel>,
+        {
+            self.0.request.access_level = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateAccessLevelRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [update_mask][crate::model::UpdateAccessLevelRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -1559,13 +1632,22 @@ pub mod access_context_manager {
         /// Sets the value of [service_perimeter][crate::model::CreateServicePerimeterRequest::service_perimeter].
         ///
         /// This is a **required** field for requests.
-        pub fn set_service_perimeter<
-            T: Into<std::option::Option<crate::model::ServicePerimeter>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.service_perimeter = v.into();
+        pub fn set_service_perimeter<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::ServicePerimeter>,
+        {
+            self.0.request.service_perimeter = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [service_perimeter][crate::model::CreateServicePerimeterRequest::service_perimeter].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_service_perimeter<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::ServicePerimeter>,
+        {
+            self.0.request.service_perimeter = v.map(|x| x.into());
             self
         }
     }
@@ -1673,24 +1755,44 @@ pub mod access_context_manager {
         /// Sets the value of [service_perimeter][crate::model::UpdateServicePerimeterRequest::service_perimeter].
         ///
         /// This is a **required** field for requests.
-        pub fn set_service_perimeter<
-            T: Into<std::option::Option<crate::model::ServicePerimeter>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.service_perimeter = v.into();
+        pub fn set_service_perimeter<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::ServicePerimeter>,
+        {
+            self.0.request.service_perimeter = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [service_perimeter][crate::model::UpdateServicePerimeterRequest::service_perimeter].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_service_perimeter<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::ServicePerimeter>,
+        {
+            self.0.request.service_perimeter = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateServicePerimeterRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [update_mask][crate::model::UpdateServicePerimeterRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -2344,13 +2446,22 @@ pub mod access_context_manager {
         /// Sets the value of [gcp_user_access_binding][crate::model::CreateGcpUserAccessBindingRequest::gcp_user_access_binding].
         ///
         /// This is a **required** field for requests.
-        pub fn set_gcp_user_access_binding<
-            T: Into<std::option::Option<crate::model::GcpUserAccessBinding>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.gcp_user_access_binding = v.into();
+        pub fn set_gcp_user_access_binding<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::GcpUserAccessBinding>,
+        {
+            self.0.request.gcp_user_access_binding = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [gcp_user_access_binding][crate::model::CreateGcpUserAccessBindingRequest::gcp_user_access_binding].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_gcp_user_access_binding<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::GcpUserAccessBinding>,
+        {
+            self.0.request.gcp_user_access_binding = v.map(|x| x.into());
             self
         }
     }
@@ -2460,24 +2571,44 @@ pub mod access_context_manager {
         /// Sets the value of [gcp_user_access_binding][crate::model::UpdateGcpUserAccessBindingRequest::gcp_user_access_binding].
         ///
         /// This is a **required** field for requests.
-        pub fn set_gcp_user_access_binding<
-            T: Into<std::option::Option<crate::model::GcpUserAccessBinding>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.gcp_user_access_binding = v.into();
+        pub fn set_gcp_user_access_binding<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::GcpUserAccessBinding>,
+        {
+            self.0.request.gcp_user_access_binding = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [gcp_user_access_binding][crate::model::UpdateGcpUserAccessBindingRequest::gcp_user_access_binding].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_gcp_user_access_binding<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::GcpUserAccessBinding>,
+        {
+            self.0.request.gcp_user_access_binding = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateGcpUserAccessBindingRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [update_mask][crate::model::UpdateGcpUserAccessBindingRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -2659,20 +2790,40 @@ pub mod access_context_manager {
         /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
-        pub fn set_policy<T: Into<std::option::Option<iam_v1::model::Policy>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.policy = v.into();
+        pub fn set_policy<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -2739,11 +2890,20 @@ pub mod access_context_manager {
         }
 
         /// Sets the value of [options][iam_v1::model::GetIamPolicyRequest::options].
-        pub fn set_options<T: Into<std::option::Option<iam_v1::model::GetPolicyOptions>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.options = v.into();
+        pub fn set_options<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        pub fn maybe_options<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = v.map(|x| x.into());
             self
         }
     }

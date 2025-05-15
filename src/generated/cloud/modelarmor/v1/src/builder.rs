@@ -309,11 +309,22 @@ pub mod model_armor {
         /// Sets the value of [template][crate::model::CreateTemplateRequest::template].
         ///
         /// This is a **required** field for requests.
-        pub fn set_template<T: Into<std::option::Option<crate::model::Template>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.template = v.into();
+        pub fn set_template<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Template>,
+        {
+            self.0.request.template = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [template][crate::model::CreateTemplateRequest::template].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_template<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Template>,
+        {
+            self.0.request.template = v.map(|x| x.into());
             self
         }
 
@@ -380,22 +391,44 @@ pub mod model_armor {
         /// Sets the value of [update_mask][crate::model::UpdateTemplateRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [update_mask][crate::model::UpdateTemplateRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [template][crate::model::UpdateTemplateRequest::template].
         ///
         /// This is a **required** field for requests.
-        pub fn set_template<T: Into<std::option::Option<crate::model::Template>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.template = v.into();
+        pub fn set_template<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Template>,
+        {
+            self.0.request.template = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [template][crate::model::UpdateTemplateRequest::template].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_template<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Template>,
+        {
+            self.0.request.template = v.map(|x| x.into());
             self
         }
 
@@ -595,20 +628,40 @@ pub mod model_armor {
         /// Sets the value of [floor_setting][crate::model::UpdateFloorSettingRequest::floor_setting].
         ///
         /// This is a **required** field for requests.
-        pub fn set_floor_setting<T: Into<std::option::Option<crate::model::FloorSetting>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.floor_setting = v.into();
+        pub fn set_floor_setting<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::FloorSetting>,
+        {
+            self.0.request.floor_setting = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [floor_setting][crate::model::UpdateFloorSettingRequest::floor_setting].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_floor_setting<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::FloorSetting>,
+        {
+            self.0.request.floor_setting = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateFloorSettingRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [update_mask][crate::model::UpdateFloorSettingRequest::update_mask].
+        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -680,11 +733,22 @@ pub mod model_armor {
         /// Sets the value of [user_prompt_data][crate::model::SanitizeUserPromptRequest::user_prompt_data].
         ///
         /// This is a **required** field for requests.
-        pub fn set_user_prompt_data<T: Into<std::option::Option<crate::model::DataItem>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.user_prompt_data = v.into();
+        pub fn set_user_prompt_data<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::DataItem>,
+        {
+            self.0.request.user_prompt_data = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [user_prompt_data][crate::model::SanitizeUserPromptRequest::user_prompt_data].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_user_prompt_data<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::DataItem>,
+        {
+            self.0.request.user_prompt_data = v.map(|x| x.into());
             self
         }
     }
@@ -756,11 +820,22 @@ pub mod model_armor {
         /// Sets the value of [model_response_data][crate::model::SanitizeModelResponseRequest::model_response_data].
         ///
         /// This is a **required** field for requests.
-        pub fn set_model_response_data<T: Into<std::option::Option<crate::model::DataItem>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.model_response_data = v.into();
+        pub fn set_model_response_data<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::DataItem>,
+        {
+            self.0.request.model_response_data = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [model_response_data][crate::model::SanitizeModelResponseRequest::model_response_data].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_model_response_data<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::DataItem>,
+        {
+            self.0.request.model_response_data = v.map(|x| x.into());
             self
         }
 

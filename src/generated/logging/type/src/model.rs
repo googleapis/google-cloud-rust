@@ -177,11 +177,20 @@ impl HttpRequest {
     }
 
     /// Sets the value of [latency][crate::model::HttpRequest::latency].
-    pub fn set_latency<T: std::convert::Into<std::option::Option<wkt::Duration>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.latency = v.into();
+    pub fn set_latency<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Duration>,
+    {
+        self.latency = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [latency][crate::model::HttpRequest::latency].
+    pub fn maybe_latency<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Duration>,
+    {
+        self.latency = v.map(|x| x.into());
         self
     }
 

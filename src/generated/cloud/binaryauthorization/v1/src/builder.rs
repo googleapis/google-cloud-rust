@@ -179,11 +179,22 @@ pub mod binauthz_management_service_v_1 {
         /// Sets the value of [policy][crate::model::UpdatePolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
-        pub fn set_policy<T: Into<std::option::Option<crate::model::Policy>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.policy = v.into();
+        pub fn set_policy<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Policy>,
+        {
+            self.0.request.policy = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [policy][crate::model::UpdatePolicyRequest::policy].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Policy>,
+        {
+            self.0.request.policy = v.map(|x| x.into());
             self
         }
     }
@@ -260,11 +271,22 @@ pub mod binauthz_management_service_v_1 {
         /// Sets the value of [attestor][crate::model::CreateAttestorRequest::attestor].
         ///
         /// This is a **required** field for requests.
-        pub fn set_attestor<T: Into<std::option::Option<crate::model::Attestor>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.attestor = v.into();
+        pub fn set_attestor<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Attestor>,
+        {
+            self.0.request.attestor = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [attestor][crate::model::CreateAttestorRequest::attestor].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_attestor<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Attestor>,
+        {
+            self.0.request.attestor = v.map(|x| x.into());
             self
         }
     }
@@ -387,11 +409,22 @@ pub mod binauthz_management_service_v_1 {
         /// Sets the value of [attestor][crate::model::UpdateAttestorRequest::attestor].
         ///
         /// This is a **required** field for requests.
-        pub fn set_attestor<T: Into<std::option::Option<crate::model::Attestor>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.attestor = v.into();
+        pub fn set_attestor<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Attestor>,
+        {
+            self.0.request.attestor = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [attestor][crate::model::UpdateAttestorRequest::attestor].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_attestor<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Attestor>,
+        {
+            self.0.request.attestor = v.map(|x| x.into());
             self
         }
     }
@@ -801,13 +834,22 @@ pub mod validation_helper_v_1 {
         /// Sets the value of [attestation][crate::model::ValidateAttestationOccurrenceRequest::attestation].
         ///
         /// This is a **required** field for requests.
-        pub fn set_attestation<
-            T: Into<std::option::Option<grafeas::model::AttestationOccurrence>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.attestation = v.into();
+        pub fn set_attestation<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<grafeas::model::AttestationOccurrence>,
+        {
+            self.0.request.attestation = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [attestation][crate::model::ValidateAttestationOccurrenceRequest::attestation].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_attestation<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<grafeas::model::AttestationOccurrence>,
+        {
+            self.0.request.attestation = v.map(|x| x.into());
             self
         }
 

@@ -197,38 +197,74 @@ impl Event {
     }
 
     /// Sets the value of [update_time][crate::model::Event::update_time].
-    pub fn set_update_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.update_time = v.into();
+    pub fn set_update_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [update_time][crate::model::Event::update_time].
+    pub fn maybe_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [start_time][crate::model::Event::start_time].
-    pub fn set_start_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.start_time = v.into();
+    pub fn set_start_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.start_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [start_time][crate::model::Event::start_time].
+    pub fn maybe_start_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.start_time = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [end_time][crate::model::Event::end_time].
-    pub fn set_end_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.end_time = v.into();
+    pub fn set_end_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.end_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [end_time][crate::model::Event::end_time].
+    pub fn maybe_end_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.end_time = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [next_update_time][crate::model::Event::next_update_time].
-    pub fn set_next_update_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.next_update_time = v.into();
+    pub fn set_next_update_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.next_update_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [next_update_time][crate::model::Event::next_update_time].
+    pub fn maybe_next_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.next_update_time = v.map(|x| x.into());
         self
     }
 }
@@ -1140,38 +1176,74 @@ impl OrganizationEvent {
     }
 
     /// Sets the value of [update_time][crate::model::OrganizationEvent::update_time].
-    pub fn set_update_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.update_time = v.into();
+    pub fn set_update_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [update_time][crate::model::OrganizationEvent::update_time].
+    pub fn maybe_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [start_time][crate::model::OrganizationEvent::start_time].
-    pub fn set_start_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.start_time = v.into();
+    pub fn set_start_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.start_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [start_time][crate::model::OrganizationEvent::start_time].
+    pub fn maybe_start_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.start_time = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [end_time][crate::model::OrganizationEvent::end_time].
-    pub fn set_end_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.end_time = v.into();
+    pub fn set_end_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.end_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [end_time][crate::model::OrganizationEvent::end_time].
+    pub fn maybe_end_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.end_time = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [next_update_time][crate::model::OrganizationEvent::next_update_time].
-    pub fn set_next_update_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.next_update_time = v.into();
+    pub fn set_next_update_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.next_update_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [next_update_time][crate::model::OrganizationEvent::next_update_time].
+    pub fn maybe_next_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.next_update_time = v.map(|x| x.into());
         self
     }
 }
@@ -1794,11 +1866,20 @@ impl EventUpdate {
     }
 
     /// Sets the value of [update_time][crate::model::EventUpdate::update_time].
-    pub fn set_update_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.update_time = v.into();
+    pub fn set_update_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [update_time][crate::model::EventUpdate::update_time].
+    pub fn maybe_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = v.map(|x| x.into());
         self
     }
 
@@ -1931,20 +2012,38 @@ impl EventImpact {
     }
 
     /// Sets the value of [product][crate::model::EventImpact::product].
-    pub fn set_product<T: std::convert::Into<std::option::Option<crate::model::Product>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.product = v.into();
+    pub fn set_product<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::Product>,
+    {
+        self.product = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [product][crate::model::EventImpact::product].
+    pub fn maybe_product<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::Product>,
+    {
+        self.product = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [location][crate::model::EventImpact::location].
-    pub fn set_location<T: std::convert::Into<std::option::Option<crate::model::Location>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.location = v.into();
+    pub fn set_location<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::Location>,
+    {
+        self.location = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [location][crate::model::EventImpact::location].
+    pub fn maybe_location<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::Location>,
+    {
+        self.location = v.map(|x| x.into());
         self
     }
 }
@@ -2014,20 +2113,38 @@ impl OrganizationImpact {
     }
 
     /// Sets the value of [asset][crate::model::OrganizationImpact::asset].
-    pub fn set_asset<T: std::convert::Into<std::option::Option<crate::model::Asset>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.asset = v.into();
+    pub fn set_asset<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::Asset>,
+    {
+        self.asset = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [asset][crate::model::OrganizationImpact::asset].
+    pub fn maybe_asset<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::Asset>,
+    {
+        self.asset = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [update_time][crate::model::OrganizationImpact::update_time].
-    pub fn set_update_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.update_time = v.into();
+    pub fn set_update_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [update_time][crate::model::OrganizationImpact::update_time].
+    pub fn maybe_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = v.map(|x| x.into());
         self
     }
 }

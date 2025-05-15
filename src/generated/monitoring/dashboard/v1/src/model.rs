@@ -208,11 +208,20 @@ impl Aggregation {
     }
 
     /// Sets the value of [alignment_period][crate::model::Aggregation::alignment_period].
-    pub fn set_alignment_period<T: std::convert::Into<std::option::Option<wkt::Duration>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.alignment_period = v.into();
+    pub fn set_alignment_period<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Duration>,
+    {
+        self.alignment_period = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [alignment_period][crate::model::Aggregation::alignment_period].
+    pub fn maybe_alignment_period<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Duration>,
+    {
+        self.alignment_period = v.map(|x| x.into());
         self
     }
 
@@ -926,11 +935,20 @@ impl PickTimeSeriesFilter {
     }
 
     /// Sets the value of [interval][crate::model::PickTimeSeriesFilter::interval].
-    pub fn set_interval<T: std::convert::Into<std::option::Option<gtype::model::Interval>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.interval = v.into();
+    pub fn set_interval<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<gtype::model::Interval>,
+    {
+        self.interval = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [interval][crate::model::PickTimeSeriesFilter::interval].
+    pub fn maybe_interval<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<gtype::model::Interval>,
+    {
+        self.interval = v.map(|x| x.into());
         self
     }
 }
@@ -1967,11 +1985,20 @@ impl CreateDashboardRequest {
     }
 
     /// Sets the value of [dashboard][crate::model::CreateDashboardRequest::dashboard].
-    pub fn set_dashboard<T: std::convert::Into<std::option::Option<crate::model::Dashboard>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.dashboard = v.into();
+    pub fn set_dashboard<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::Dashboard>,
+    {
+        self.dashboard = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [dashboard][crate::model::CreateDashboardRequest::dashboard].
+    pub fn maybe_dashboard<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::Dashboard>,
+    {
+        self.dashboard = v.map(|x| x.into());
         self
     }
 
@@ -2208,11 +2235,20 @@ impl UpdateDashboardRequest {
     }
 
     /// Sets the value of [dashboard][crate::model::UpdateDashboardRequest::dashboard].
-    pub fn set_dashboard<T: std::convert::Into<std::option::Option<crate::model::Dashboard>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.dashboard = v.into();
+    pub fn set_dashboard<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::Dashboard>,
+    {
+        self.dashboard = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [dashboard][crate::model::UpdateDashboardRequest::dashboard].
+    pub fn maybe_dashboard<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::Dashboard>,
+    {
+        self.dashboard = v.map(|x| x.into());
         self
     }
 
@@ -2538,11 +2574,20 @@ pub mod mosaic_layout {
         }
 
         /// Sets the value of [widget][crate::model::mosaic_layout::Tile::widget].
-        pub fn set_widget<T: std::convert::Into<std::option::Option<crate::model::Widget>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.widget = v.into();
+        pub fn set_widget<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Widget>,
+        {
+            self.widget = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [widget][crate::model::mosaic_layout::Tile::widget].
+        pub fn maybe_widget<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Widget>,
+        {
+            self.widget = v.map(|x| x.into());
             self
         }
     }
@@ -3054,24 +3099,38 @@ impl TimeSeriesFilter {
     }
 
     /// Sets the value of [aggregation][crate::model::TimeSeriesFilter::aggregation].
-    pub fn set_aggregation<
-        T: std::convert::Into<std::option::Option<crate::model::Aggregation>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.aggregation = v.into();
+    pub fn set_aggregation<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::Aggregation>,
+    {
+        self.aggregation = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [aggregation][crate::model::TimeSeriesFilter::aggregation].
+    pub fn maybe_aggregation<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::Aggregation>,
+    {
+        self.aggregation = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [secondary_aggregation][crate::model::TimeSeriesFilter::secondary_aggregation].
-    pub fn set_secondary_aggregation<
-        T: std::convert::Into<std::option::Option<crate::model::Aggregation>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.secondary_aggregation = v.into();
+    pub fn set_secondary_aggregation<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::Aggregation>,
+    {
+        self.secondary_aggregation = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [secondary_aggregation][crate::model::TimeSeriesFilter::secondary_aggregation].
+    pub fn maybe_secondary_aggregation<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::Aggregation>,
+    {
+        self.secondary_aggregation = v.map(|x| x.into());
         self
     }
 
@@ -3217,35 +3276,56 @@ impl TimeSeriesFilterRatio {
     }
 
     /// Sets the value of [numerator][crate::model::TimeSeriesFilterRatio::numerator].
-    pub fn set_numerator<
-        T: std::convert::Into<std::option::Option<crate::model::time_series_filter_ratio::RatioPart>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.numerator = v.into();
+    pub fn set_numerator<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::time_series_filter_ratio::RatioPart>,
+    {
+        self.numerator = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [numerator][crate::model::TimeSeriesFilterRatio::numerator].
+    pub fn maybe_numerator<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::time_series_filter_ratio::RatioPart>,
+    {
+        self.numerator = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [denominator][crate::model::TimeSeriesFilterRatio::denominator].
-    pub fn set_denominator<
-        T: std::convert::Into<std::option::Option<crate::model::time_series_filter_ratio::RatioPart>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.denominator = v.into();
+    pub fn set_denominator<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::time_series_filter_ratio::RatioPart>,
+    {
+        self.denominator = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [denominator][crate::model::TimeSeriesFilterRatio::denominator].
+    pub fn maybe_denominator<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::time_series_filter_ratio::RatioPart>,
+    {
+        self.denominator = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [secondary_aggregation][crate::model::TimeSeriesFilterRatio::secondary_aggregation].
-    pub fn set_secondary_aggregation<
-        T: std::convert::Into<std::option::Option<crate::model::Aggregation>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.secondary_aggregation = v.into();
+    pub fn set_secondary_aggregation<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::Aggregation>,
+    {
+        self.secondary_aggregation = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [secondary_aggregation][crate::model::TimeSeriesFilterRatio::secondary_aggregation].
+    pub fn maybe_secondary_aggregation<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::Aggregation>,
+    {
+        self.secondary_aggregation = v.map(|x| x.into());
         self
     }
 
@@ -3380,13 +3460,20 @@ pub mod time_series_filter_ratio {
         }
 
         /// Sets the value of [aggregation][crate::model::time_series_filter_ratio::RatioPart::aggregation].
-        pub fn set_aggregation<
-            T: std::convert::Into<std::option::Option<crate::model::Aggregation>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.aggregation = v.into();
+        pub fn set_aggregation<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Aggregation>,
+        {
+            self.aggregation = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [aggregation][crate::model::time_series_filter_ratio::RatioPart::aggregation].
+        pub fn maybe_aggregation<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Aggregation>,
+        {
+            self.aggregation = v.map(|x| x.into());
             self
         }
     }
@@ -4004,13 +4091,20 @@ pub mod pie_chart {
         }
 
         /// Sets the value of [time_series_query][crate::model::pie_chart::PieChartDataSet::time_series_query].
-        pub fn set_time_series_query<
-            T: std::convert::Into<std::option::Option<crate::model::TimeSeriesQuery>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.time_series_query = v.into();
+        pub fn set_time_series_query<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::TimeSeriesQuery>,
+        {
+            self.time_series_query = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [time_series_query][crate::model::pie_chart::PieChartDataSet::time_series_query].
+        pub fn maybe_time_series_query<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::TimeSeriesQuery>,
+        {
+            self.time_series_query = v.map(|x| x.into());
             self
         }
 
@@ -4024,13 +4118,20 @@ pub mod pie_chart {
         }
 
         /// Sets the value of [min_alignment_period][crate::model::pie_chart::PieChartDataSet::min_alignment_period].
-        pub fn set_min_alignment_period<
-            T: std::convert::Into<std::option::Option<wkt::Duration>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.min_alignment_period = v.into();
+        pub fn set_min_alignment_period<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Duration>,
+        {
+            self.min_alignment_period = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [min_alignment_period][crate::model::pie_chart::PieChartDataSet::min_alignment_period].
+        pub fn maybe_min_alignment_period<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Duration>,
+        {
+            self.min_alignment_period = v.map(|x| x.into());
             self
         }
     }
@@ -4242,13 +4343,20 @@ impl Scorecard {
     }
 
     /// Sets the value of [time_series_query][crate::model::Scorecard::time_series_query].
-    pub fn set_time_series_query<
-        T: std::convert::Into<std::option::Option<crate::model::TimeSeriesQuery>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.time_series_query = v.into();
+    pub fn set_time_series_query<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::TimeSeriesQuery>,
+    {
+        self.time_series_query = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [time_series_query][crate::model::Scorecard::time_series_query].
+    pub fn maybe_time_series_query<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::TimeSeriesQuery>,
+    {
+        self.time_series_query = v.map(|x| x.into());
         self
     }
 
@@ -4459,13 +4567,20 @@ pub mod scorecard {
         }
 
         /// Sets the value of [min_alignment_period][crate::model::scorecard::SparkChartView::min_alignment_period].
-        pub fn set_min_alignment_period<
-            T: std::convert::Into<std::option::Option<wkt::Duration>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.min_alignment_period = v.into();
+        pub fn set_min_alignment_period<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Duration>,
+        {
+            self.min_alignment_period = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [min_alignment_period][crate::model::scorecard::SparkChartView::min_alignment_period].
+        pub fn maybe_min_alignment_period<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Duration>,
+        {
+            self.min_alignment_period = v.map(|x| x.into());
             self
         }
     }
@@ -4672,13 +4787,20 @@ pub mod time_series_table {
         }
 
         /// Sets the value of [time_series_query][crate::model::time_series_table::TableDataSet::time_series_query].
-        pub fn set_time_series_query<
-            T: std::convert::Into<std::option::Option<crate::model::TimeSeriesQuery>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.time_series_query = v.into();
+        pub fn set_time_series_query<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::TimeSeriesQuery>,
+        {
+            self.time_series_query = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [time_series_query][crate::model::time_series_table::TableDataSet::time_series_query].
+        pub fn maybe_time_series_query<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::TimeSeriesQuery>,
+        {
+            self.time_series_query = v.map(|x| x.into());
             self
         }
 
@@ -4692,24 +4814,38 @@ pub mod time_series_table {
         }
 
         /// Sets the value of [min_alignment_period][crate::model::time_series_table::TableDataSet::min_alignment_period].
-        pub fn set_min_alignment_period<
-            T: std::convert::Into<std::option::Option<wkt::Duration>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.min_alignment_period = v.into();
+        pub fn set_min_alignment_period<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Duration>,
+        {
+            self.min_alignment_period = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [min_alignment_period][crate::model::time_series_table::TableDataSet::min_alignment_period].
+        pub fn maybe_min_alignment_period<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Duration>,
+        {
+            self.min_alignment_period = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [table_display_options][crate::model::time_series_table::TableDataSet::table_display_options].
-        pub fn set_table_display_options<
-            T: std::convert::Into<std::option::Option<crate::model::TableDisplayOptions>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.table_display_options = v.into();
+        pub fn set_table_display_options<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::TableDisplayOptions>,
+        {
+            self.table_display_options = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [table_display_options][crate::model::time_series_table::TableDataSet::table_display_options].
+        pub fn maybe_table_display_options<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::TableDisplayOptions>,
+        {
+            self.table_display_options = v.map(|x| x.into());
             self
         }
     }
@@ -4974,11 +5110,20 @@ impl Text {
     }
 
     /// Sets the value of [style][crate::model::Text::style].
-    pub fn set_style<T: std::convert::Into<std::option::Option<crate::model::text::TextStyle>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.style = v.into();
+    pub fn set_style<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::text::TextStyle>,
+    {
+        self.style = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [style][crate::model::Text::style].
+    pub fn maybe_style<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::text::TextStyle>,
+    {
+        self.style = v.map(|x| x.into());
         self
     }
 }
@@ -6556,11 +6701,20 @@ impl XyChart {
     }
 
     /// Sets the value of [timeshift_duration][crate::model::XyChart::timeshift_duration].
-    pub fn set_timeshift_duration<T: std::convert::Into<std::option::Option<wkt::Duration>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.timeshift_duration = v.into();
+    pub fn set_timeshift_duration<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Duration>,
+    {
+        self.timeshift_duration = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [timeshift_duration][crate::model::XyChart::timeshift_duration].
+    pub fn maybe_timeshift_duration<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Duration>,
+    {
+        self.timeshift_duration = v.map(|x| x.into());
         self
     }
 
@@ -6576,40 +6730,74 @@ impl XyChart {
     }
 
     /// Sets the value of [x_axis][crate::model::XyChart::x_axis].
-    pub fn set_x_axis<T: std::convert::Into<std::option::Option<crate::model::xy_chart::Axis>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.x_axis = v.into();
+    pub fn set_x_axis<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::xy_chart::Axis>,
+    {
+        self.x_axis = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [x_axis][crate::model::XyChart::x_axis].
+    pub fn maybe_x_axis<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::xy_chart::Axis>,
+    {
+        self.x_axis = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [y_axis][crate::model::XyChart::y_axis].
-    pub fn set_y_axis<T: std::convert::Into<std::option::Option<crate::model::xy_chart::Axis>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.y_axis = v.into();
+    pub fn set_y_axis<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::xy_chart::Axis>,
+    {
+        self.y_axis = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [y_axis][crate::model::XyChart::y_axis].
+    pub fn maybe_y_axis<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::xy_chart::Axis>,
+    {
+        self.y_axis = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [y2_axis][crate::model::XyChart::y2_axis].
-    pub fn set_y2_axis<T: std::convert::Into<std::option::Option<crate::model::xy_chart::Axis>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.y2_axis = v.into();
+    pub fn set_y2_axis<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::xy_chart::Axis>,
+    {
+        self.y2_axis = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [y2_axis][crate::model::XyChart::y2_axis].
+    pub fn maybe_y2_axis<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::xy_chart::Axis>,
+    {
+        self.y2_axis = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [chart_options][crate::model::XyChart::chart_options].
-    pub fn set_chart_options<
-        T: std::convert::Into<std::option::Option<crate::model::ChartOptions>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.chart_options = v.into();
+    pub fn set_chart_options<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::ChartOptions>,
+    {
+        self.chart_options = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [chart_options][crate::model::XyChart::chart_options].
+    pub fn maybe_chart_options<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::ChartOptions>,
+    {
+        self.chart_options = v.map(|x| x.into());
         self
     }
 }
@@ -6666,13 +6854,20 @@ pub mod xy_chart {
         }
 
         /// Sets the value of [time_series_query][crate::model::xy_chart::DataSet::time_series_query].
-        pub fn set_time_series_query<
-            T: std::convert::Into<std::option::Option<crate::model::TimeSeriesQuery>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.time_series_query = v.into();
+        pub fn set_time_series_query<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::TimeSeriesQuery>,
+        {
+            self.time_series_query = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [time_series_query][crate::model::xy_chart::DataSet::time_series_query].
+        pub fn maybe_time_series_query<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::TimeSeriesQuery>,
+        {
+            self.time_series_query = v.map(|x| x.into());
             self
         }
 
@@ -6695,13 +6890,20 @@ pub mod xy_chart {
         }
 
         /// Sets the value of [min_alignment_period][crate::model::xy_chart::DataSet::min_alignment_period].
-        pub fn set_min_alignment_period<
-            T: std::convert::Into<std::option::Option<wkt::Duration>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.min_alignment_period = v.into();
+        pub fn set_min_alignment_period<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Duration>,
+        {
+            self.min_alignment_period = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [min_alignment_period][crate::model::xy_chart::DataSet::min_alignment_period].
+        pub fn maybe_min_alignment_period<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Duration>,
+        {
+            self.min_alignment_period = v.map(|x| x.into());
             self
         }
 

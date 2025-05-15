@@ -210,29 +210,56 @@ impl Workflow {
     }
 
     /// Sets the value of [create_time][crate::model::Workflow::create_time].
-    pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.create_time = v.into();
+    pub fn set_create_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [create_time][crate::model::Workflow::create_time].
+    pub fn maybe_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [update_time][crate::model::Workflow::update_time].
-    pub fn set_update_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.update_time = v.into();
+    pub fn set_update_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [update_time][crate::model::Workflow::update_time].
+    pub fn maybe_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [revision_create_time][crate::model::Workflow::revision_create_time].
-    pub fn set_revision_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.revision_create_time = v.into();
+    pub fn set_revision_create_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.revision_create_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [revision_create_time][crate::model::Workflow::revision_create_time].
+    pub fn maybe_revision_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.revision_create_time = v.map(|x| x.into());
         self
     }
 
@@ -261,13 +288,20 @@ impl Workflow {
     }
 
     /// Sets the value of [state_error][crate::model::Workflow::state_error].
-    pub fn set_state_error<
-        T: std::convert::Into<std::option::Option<crate::model::workflow::StateError>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.state_error = v.into();
+    pub fn set_state_error<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::workflow::StateError>,
+    {
+        self.state_error = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [state_error][crate::model::Workflow::state_error].
+    pub fn maybe_state_error<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::workflow::StateError>,
+    {
+        self.state_error = v.map(|x| x.into());
         self
     }
 
@@ -1133,11 +1167,20 @@ impl CreateWorkflowRequest {
     }
 
     /// Sets the value of [workflow][crate::model::CreateWorkflowRequest::workflow].
-    pub fn set_workflow<T: std::convert::Into<std::option::Option<crate::model::Workflow>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.workflow = v.into();
+    pub fn set_workflow<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::Workflow>,
+    {
+        self.workflow = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [workflow][crate::model::CreateWorkflowRequest::workflow].
+    pub fn maybe_workflow<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::Workflow>,
+    {
+        self.workflow = v.map(|x| x.into());
         self
     }
 
@@ -1220,20 +1263,38 @@ impl UpdateWorkflowRequest {
     }
 
     /// Sets the value of [workflow][crate::model::UpdateWorkflowRequest::workflow].
-    pub fn set_workflow<T: std::convert::Into<std::option::Option<crate::model::Workflow>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.workflow = v.into();
+    pub fn set_workflow<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::Workflow>,
+    {
+        self.workflow = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [workflow][crate::model::UpdateWorkflowRequest::workflow].
+    pub fn maybe_workflow<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::Workflow>,
+    {
+        self.workflow = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateWorkflowRequest::update_mask].
-    pub fn set_update_mask<T: std::convert::Into<std::option::Option<wkt::FieldMask>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.update_mask = v.into();
+    pub fn set_update_mask<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [update_mask][crate::model::UpdateWorkflowRequest::update_mask].
+    pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = v.map(|x| x.into());
         self
     }
 }
@@ -1280,20 +1341,38 @@ impl OperationMetadata {
     }
 
     /// Sets the value of [create_time][crate::model::OperationMetadata::create_time].
-    pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.create_time = v.into();
+    pub fn set_create_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [create_time][crate::model::OperationMetadata::create_time].
+    pub fn maybe_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [end_time][crate::model::OperationMetadata::end_time].
-    pub fn set_end_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.end_time = v.into();
+    pub fn set_end_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.end_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [end_time][crate::model::OperationMetadata::end_time].
+    pub fn maybe_end_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.end_time = v.map(|x| x.into());
         self
     }
 

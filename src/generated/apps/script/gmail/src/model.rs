@@ -78,13 +78,20 @@ impl GmailAddOnManifest {
     }
 
     /// Sets the value of [homepage_trigger][crate::model::GmailAddOnManifest::homepage_trigger].
-    pub fn set_homepage_trigger<
-        T: std::convert::Into<std::option::Option<apps_script_type::model::HomepageExtensionPoint>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.homepage_trigger = v.into();
+    pub fn set_homepage_trigger<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<apps_script_type::model::HomepageExtensionPoint>,
+    {
+        self.homepage_trigger = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [homepage_trigger][crate::model::GmailAddOnManifest::homepage_trigger].
+    pub fn maybe_homepage_trigger<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<apps_script_type::model::HomepageExtensionPoint>,
+    {
+        self.homepage_trigger = v.map(|x| x.into());
         self
     }
 
@@ -111,13 +118,20 @@ impl GmailAddOnManifest {
     }
 
     /// Sets the value of [compose_trigger][crate::model::GmailAddOnManifest::compose_trigger].
-    pub fn set_compose_trigger<
-        T: std::convert::Into<std::option::Option<crate::model::ComposeTrigger>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.compose_trigger = v.into();
+    pub fn set_compose_trigger<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::ComposeTrigger>,
+    {
+        self.compose_trigger = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [compose_trigger][crate::model::GmailAddOnManifest::compose_trigger].
+    pub fn maybe_compose_trigger<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::ComposeTrigger>,
+    {
+        self.compose_trigger = v.map(|x| x.into());
         self
     }
 

@@ -87,11 +87,20 @@ impl CreateClusterRequest {
     }
 
     /// Sets the value of [cluster][crate::model::CreateClusterRequest::cluster].
-    pub fn set_cluster<T: std::convert::Into<std::option::Option<crate::model::Cluster>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.cluster = v.into();
+    pub fn set_cluster<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::Cluster>,
+    {
+        self.cluster = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [cluster][crate::model::CreateClusterRequest::cluster].
+    pub fn maybe_cluster<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::Cluster>,
+    {
+        self.cluster = v.map(|x| x.into());
         self
     }
 
@@ -294,20 +303,38 @@ impl UpdateClusterRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateClusterRequest::update_mask].
-    pub fn set_update_mask<T: std::convert::Into<std::option::Option<wkt::FieldMask>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.update_mask = v.into();
+    pub fn set_update_mask<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [update_mask][crate::model::UpdateClusterRequest::update_mask].
+    pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [cluster][crate::model::UpdateClusterRequest::cluster].
-    pub fn set_cluster<T: std::convert::Into<std::option::Option<crate::model::Cluster>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.cluster = v.into();
+    pub fn set_cluster<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::Cluster>,
+    {
+        self.cluster = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [cluster][crate::model::UpdateClusterRequest::cluster].
+    pub fn maybe_cluster<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::Cluster>,
+    {
+        self.cluster = v.map(|x| x.into());
         self
     }
 
@@ -966,20 +993,38 @@ impl BackupClusterRequest {
     }
 
     /// Sets the value of [ttl][crate::model::BackupClusterRequest::ttl].
-    pub fn set_ttl<T: std::convert::Into<std::option::Option<wkt::Duration>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.ttl = v.into();
+    pub fn set_ttl<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Duration>,
+    {
+        self.ttl = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [ttl][crate::model::BackupClusterRequest::ttl].
+    pub fn maybe_ttl<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Duration>,
+    {
+        self.ttl = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [backup_id][crate::model::BackupClusterRequest::backup_id].
-    pub fn set_backup_id<T: std::convert::Into<std::option::Option<std::string::String>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.backup_id = v.into();
+    pub fn set_backup_id<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.backup_id = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [backup_id][crate::model::BackupClusterRequest::backup_id].
+    pub fn maybe_backup_id<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.backup_id = v.map(|x| x.into());
         self
     }
 }
@@ -1142,11 +1187,20 @@ impl Cluster {
     }
 
     /// Sets the value of [create_time][crate::model::Cluster::create_time].
-    pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.create_time = v.into();
+    pub fn set_create_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [create_time][crate::model::Cluster::create_time].
+    pub fn maybe_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = v.map(|x| x.into());
         self
     }
 
@@ -1163,11 +1217,20 @@ impl Cluster {
     }
 
     /// Sets the value of [replica_count][crate::model::Cluster::replica_count].
-    pub fn set_replica_count<T: std::convert::Into<std::option::Option<i32>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.replica_count = v.into();
+    pub fn set_replica_count<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<i32>,
+    {
+        self.replica_count = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [replica_count][crate::model::Cluster::replica_count].
+    pub fn maybe_replica_count<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<i32>,
+    {
+        self.replica_count = v.map(|x| x.into());
         self
     }
 
@@ -1192,17 +1255,38 @@ impl Cluster {
     }
 
     /// Sets the value of [size_gb][crate::model::Cluster::size_gb].
-    pub fn set_size_gb<T: std::convert::Into<std::option::Option<i32>>>(mut self, v: T) -> Self {
-        self.size_gb = v.into();
+    pub fn set_size_gb<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<i32>,
+    {
+        self.size_gb = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [size_gb][crate::model::Cluster::size_gb].
+    pub fn maybe_size_gb<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<i32>,
+    {
+        self.size_gb = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [shard_count][crate::model::Cluster::shard_count].
-    pub fn set_shard_count<T: std::convert::Into<std::option::Option<i32>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.shard_count = v.into();
+    pub fn set_shard_count<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<i32>,
+    {
+        self.shard_count = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [shard_count][crate::model::Cluster::shard_count].
+    pub fn maybe_shard_count<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<i32>,
+    {
+        self.shard_count = v.map(|x| x.into());
         self
     }
 
@@ -1240,13 +1324,20 @@ impl Cluster {
     }
 
     /// Sets the value of [state_info][crate::model::Cluster::state_info].
-    pub fn set_state_info<
-        T: std::convert::Into<std::option::Option<crate::model::cluster::StateInfo>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.state_info = v.into();
+    pub fn set_state_info<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::cluster::StateInfo>,
+    {
+        self.state_info = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [state_info][crate::model::Cluster::state_info].
+    pub fn maybe_state_info<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::cluster::StateInfo>,
+    {
+        self.state_info = v.map(|x| x.into());
         self
     }
 
@@ -1257,13 +1348,20 @@ impl Cluster {
     }
 
     /// Sets the value of [persistence_config][crate::model::Cluster::persistence_config].
-    pub fn set_persistence_config<
-        T: std::convert::Into<std::option::Option<crate::model::ClusterPersistenceConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.persistence_config = v.into();
+    pub fn set_persistence_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::ClusterPersistenceConfig>,
+    {
+        self.persistence_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [persistence_config][crate::model::Cluster::persistence_config].
+    pub fn maybe_persistence_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::ClusterPersistenceConfig>,
+    {
+        self.persistence_config = v.map(|x| x.into());
         self
     }
 
@@ -1280,64 +1378,110 @@ impl Cluster {
     }
 
     /// Sets the value of [precise_size_gb][crate::model::Cluster::precise_size_gb].
-    pub fn set_precise_size_gb<T: std::convert::Into<std::option::Option<f64>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.precise_size_gb = v.into();
+    pub fn set_precise_size_gb<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<f64>,
+    {
+        self.precise_size_gb = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [precise_size_gb][crate::model::Cluster::precise_size_gb].
+    pub fn maybe_precise_size_gb<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<f64>,
+    {
+        self.precise_size_gb = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [zone_distribution_config][crate::model::Cluster::zone_distribution_config].
-    pub fn set_zone_distribution_config<
-        T: std::convert::Into<std::option::Option<crate::model::ZoneDistributionConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.zone_distribution_config = v.into();
+    pub fn set_zone_distribution_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::ZoneDistributionConfig>,
+    {
+        self.zone_distribution_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [zone_distribution_config][crate::model::Cluster::zone_distribution_config].
+    pub fn maybe_zone_distribution_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::ZoneDistributionConfig>,
+    {
+        self.zone_distribution_config = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [cross_cluster_replication_config][crate::model::Cluster::cross_cluster_replication_config].
-    pub fn set_cross_cluster_replication_config<
-        T: std::convert::Into<std::option::Option<crate::model::CrossClusterReplicationConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.cross_cluster_replication_config = v.into();
+    pub fn set_cross_cluster_replication_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::CrossClusterReplicationConfig>,
+    {
+        self.cross_cluster_replication_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [cross_cluster_replication_config][crate::model::Cluster::cross_cluster_replication_config].
+    pub fn maybe_cross_cluster_replication_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::CrossClusterReplicationConfig>,
+    {
+        self.cross_cluster_replication_config = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [deletion_protection_enabled][crate::model::Cluster::deletion_protection_enabled].
-    pub fn set_deletion_protection_enabled<T: std::convert::Into<std::option::Option<bool>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.deletion_protection_enabled = v.into();
+    pub fn set_deletion_protection_enabled<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.deletion_protection_enabled = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [deletion_protection_enabled][crate::model::Cluster::deletion_protection_enabled].
+    pub fn maybe_deletion_protection_enabled<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.deletion_protection_enabled = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [maintenance_policy][crate::model::Cluster::maintenance_policy].
-    pub fn set_maintenance_policy<
-        T: std::convert::Into<std::option::Option<crate::model::ClusterMaintenancePolicy>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.maintenance_policy = v.into();
+    pub fn set_maintenance_policy<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::ClusterMaintenancePolicy>,
+    {
+        self.maintenance_policy = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [maintenance_policy][crate::model::Cluster::maintenance_policy].
+    pub fn maybe_maintenance_policy<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::ClusterMaintenancePolicy>,
+    {
+        self.maintenance_policy = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [maintenance_schedule][crate::model::Cluster::maintenance_schedule].
-    pub fn set_maintenance_schedule<
-        T: std::convert::Into<std::option::Option<crate::model::ClusterMaintenanceSchedule>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.maintenance_schedule = v.into();
+    pub fn set_maintenance_schedule<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::ClusterMaintenanceSchedule>,
+    {
+        self.maintenance_schedule = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [maintenance_schedule][crate::model::Cluster::maintenance_schedule].
+    pub fn maybe_maintenance_schedule<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::ClusterMaintenanceSchedule>,
+    {
+        self.maintenance_schedule = v.map(|x| x.into());
         self
     }
 
@@ -1364,44 +1508,74 @@ impl Cluster {
     }
 
     /// Sets the value of [backup_collection][crate::model::Cluster::backup_collection].
-    pub fn set_backup_collection<
-        T: std::convert::Into<std::option::Option<std::string::String>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.backup_collection = v.into();
+    pub fn set_backup_collection<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.backup_collection = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [backup_collection][crate::model::Cluster::backup_collection].
+    pub fn maybe_backup_collection<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.backup_collection = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [kms_key][crate::model::Cluster::kms_key].
-    pub fn set_kms_key<T: std::convert::Into<std::option::Option<std::string::String>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.kms_key = v.into();
+    pub fn set_kms_key<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.kms_key = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [kms_key][crate::model::Cluster::kms_key].
+    pub fn maybe_kms_key<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.kms_key = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [automated_backup_config][crate::model::Cluster::automated_backup_config].
-    pub fn set_automated_backup_config<
-        T: std::convert::Into<std::option::Option<crate::model::AutomatedBackupConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.automated_backup_config = v.into();
+    pub fn set_automated_backup_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::AutomatedBackupConfig>,
+    {
+        self.automated_backup_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [automated_backup_config][crate::model::Cluster::automated_backup_config].
+    pub fn maybe_automated_backup_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::AutomatedBackupConfig>,
+    {
+        self.automated_backup_config = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [encryption_info][crate::model::Cluster::encryption_info].
-    pub fn set_encryption_info<
-        T: std::convert::Into<std::option::Option<crate::model::EncryptionInfo>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.encryption_info = v.into();
+    pub fn set_encryption_info<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::EncryptionInfo>,
+    {
+        self.encryption_info = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [encryption_info][crate::model::Cluster::encryption_info].
+    pub fn maybe_encryption_info<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::EncryptionInfo>,
+    {
+        self.encryption_info = v.map(|x| x.into());
         self
     }
 
@@ -1593,20 +1767,38 @@ pub mod cluster {
             }
 
             /// Sets the value of [target_shard_count][crate::model::cluster::state_info::UpdateInfo::target_shard_count].
-            pub fn set_target_shard_count<T: std::convert::Into<std::option::Option<i32>>>(
-                mut self,
-                v: T,
-            ) -> Self {
-                self.target_shard_count = v.into();
+            pub fn set_target_shard_count<T>(mut self, v: T) -> Self
+            where
+                T: std::convert::Into<i32>,
+            {
+                self.target_shard_count = std::option::Option::Some(v.into());
+                self
+            }
+
+            /// Sets or clear the value of [target_shard_count][crate::model::cluster::state_info::UpdateInfo::target_shard_count].
+            pub fn maybe_target_shard_count<T>(mut self, v: std::option::Option<T>) -> Self
+            where
+                T: std::convert::Into<i32>,
+            {
+                self.target_shard_count = v.map(|x| x.into());
                 self
             }
 
             /// Sets the value of [target_replica_count][crate::model::cluster::state_info::UpdateInfo::target_replica_count].
-            pub fn set_target_replica_count<T: std::convert::Into<std::option::Option<i32>>>(
-                mut self,
-                v: T,
-            ) -> Self {
-                self.target_replica_count = v.into();
+            pub fn set_target_replica_count<T>(mut self, v: T) -> Self
+            where
+                T: std::convert::Into<i32>,
+            {
+                self.target_replica_count = std::option::Option::Some(v.into());
+                self
+            }
+
+            /// Sets or clear the value of [target_replica_count][crate::model::cluster::state_info::UpdateInfo::target_replica_count].
+            pub fn maybe_target_replica_count<T>(mut self, v: std::option::Option<T>) -> Self
+            where
+                T: std::convert::Into<i32>,
+            {
+                self.target_replica_count = v.map(|x| x.into());
                 self
             }
         }
@@ -1906,11 +2098,20 @@ impl AutomatedBackupConfig {
     }
 
     /// Sets the value of [retention][crate::model::AutomatedBackupConfig::retention].
-    pub fn set_retention<T: std::convert::Into<std::option::Option<wkt::Duration>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.retention = v.into();
+    pub fn set_retention<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Duration>,
+    {
+        self.retention = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [retention][crate::model::AutomatedBackupConfig::retention].
+    pub fn maybe_retention<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Duration>,
+    {
+        self.retention = v.map(|x| x.into());
         self
     }
 
@@ -1998,13 +2199,20 @@ pub mod automated_backup_config {
         }
 
         /// Sets the value of [start_time][crate::model::automated_backup_config::FixedFrequencySchedule::start_time].
-        pub fn set_start_time<
-            T: std::convert::Into<std::option::Option<gtype::model::TimeOfDay>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.start_time = v.into();
+        pub fn set_start_time<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<gtype::model::TimeOfDay>,
+        {
+            self.start_time = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [start_time][crate::model::automated_backup_config::FixedFrequencySchedule::start_time].
+        pub fn maybe_start_time<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<gtype::model::TimeOfDay>,
+        {
+            self.start_time = v.map(|x| x.into());
             self
         }
     }
@@ -2318,11 +2526,20 @@ impl Backup {
     }
 
     /// Sets the value of [create_time][crate::model::Backup::create_time].
-    pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.create_time = v.into();
+    pub fn set_create_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [create_time][crate::model::Backup::create_time].
+    pub fn maybe_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = v.map(|x| x.into());
         self
     }
 
@@ -2345,11 +2562,20 @@ impl Backup {
     }
 
     /// Sets the value of [expire_time][crate::model::Backup::expire_time].
-    pub fn set_expire_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.expire_time = v.into();
+    pub fn set_expire_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.expire_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [expire_time][crate::model::Backup::expire_time].
+    pub fn maybe_expire_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.expire_time = v.map(|x| x.into());
         self
     }
 
@@ -2404,13 +2630,20 @@ impl Backup {
     }
 
     /// Sets the value of [encryption_info][crate::model::Backup::encryption_info].
-    pub fn set_encryption_info<
-        T: std::convert::Into<std::option::Option<crate::model::EncryptionInfo>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.encryption_info = v.into();
+    pub fn set_encryption_info<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::EncryptionInfo>,
+    {
+        self.encryption_info = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [encryption_info][crate::model::Backup::encryption_info].
+    pub fn maybe_encryption_info<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::EncryptionInfo>,
+    {
+        self.encryption_info = v.map(|x| x.into());
         self
     }
 
@@ -2753,11 +2986,20 @@ impl BackupFile {
     }
 
     /// Sets the value of [create_time][crate::model::BackupFile::create_time].
-    pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.create_time = v.into();
+    pub fn set_create_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [create_time][crate::model::BackupFile::create_time].
+    pub fn maybe_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = v.map(|x| x.into());
         self
     }
 }
@@ -2879,15 +3121,20 @@ impl CrossClusterReplicationConfig {
     }
 
     /// Sets the value of [primary_cluster][crate::model::CrossClusterReplicationConfig::primary_cluster].
-    pub fn set_primary_cluster<
-        T: std::convert::Into<
-                std::option::Option<crate::model::cross_cluster_replication_config::RemoteCluster>,
-            >,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.primary_cluster = v.into();
+    pub fn set_primary_cluster<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::cross_cluster_replication_config::RemoteCluster>,
+    {
+        self.primary_cluster = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [primary_cluster][crate::model::CrossClusterReplicationConfig::primary_cluster].
+    pub fn maybe_primary_cluster<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::cross_cluster_replication_config::RemoteCluster>,
+    {
+        self.primary_cluster = v.map(|x| x.into());
         self
     }
 
@@ -2903,24 +3150,38 @@ impl CrossClusterReplicationConfig {
     }
 
     /// Sets the value of [update_time][crate::model::CrossClusterReplicationConfig::update_time].
-    pub fn set_update_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.update_time = v.into();
+    pub fn set_update_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [update_time][crate::model::CrossClusterReplicationConfig::update_time].
+    pub fn maybe_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [membership][crate::model::CrossClusterReplicationConfig::membership].
-    pub fn set_membership<
-        T: std::convert::Into<
-                std::option::Option<crate::model::cross_cluster_replication_config::Membership>,
-            >,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.membership = v.into();
+    pub fn set_membership<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::cross_cluster_replication_config::Membership>,
+    {
+        self.membership = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [membership][crate::model::CrossClusterReplicationConfig::membership].
+    pub fn maybe_membership<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::cross_cluster_replication_config::Membership>,
+    {
+        self.membership = v.map(|x| x.into());
         self
     }
 }
@@ -3009,17 +3270,20 @@ pub mod cross_cluster_replication_config {
         }
 
         /// Sets the value of [primary_cluster][crate::model::cross_cluster_replication_config::Membership::primary_cluster].
-        pub fn set_primary_cluster<
-            T: std::convert::Into<
-                    std::option::Option<
-                        crate::model::cross_cluster_replication_config::RemoteCluster,
-                    >,
-                >,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.primary_cluster = v.into();
+        pub fn set_primary_cluster<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::cross_cluster_replication_config::RemoteCluster>,
+        {
+            self.primary_cluster = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [primary_cluster][crate::model::cross_cluster_replication_config::Membership::primary_cluster].
+        pub fn maybe_primary_cluster<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::cross_cluster_replication_config::RemoteCluster>,
+        {
+            self.primary_cluster = v.map(|x| x.into());
             self
         }
 
@@ -3217,20 +3481,38 @@ impl ClusterMaintenancePolicy {
     }
 
     /// Sets the value of [create_time][crate::model::ClusterMaintenancePolicy::create_time].
-    pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.create_time = v.into();
+    pub fn set_create_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [create_time][crate::model::ClusterMaintenancePolicy::create_time].
+    pub fn maybe_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [update_time][crate::model::ClusterMaintenancePolicy::update_time].
-    pub fn set_update_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.update_time = v.into();
+    pub fn set_update_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [update_time][crate::model::ClusterMaintenancePolicy::update_time].
+    pub fn maybe_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = v.map(|x| x.into());
         self
     }
 
@@ -3281,11 +3563,20 @@ impl ClusterWeeklyMaintenanceWindow {
     }
 
     /// Sets the value of [start_time][crate::model::ClusterWeeklyMaintenanceWindow::start_time].
-    pub fn set_start_time<T: std::convert::Into<std::option::Option<gtype::model::TimeOfDay>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.start_time = v.into();
+    pub fn set_start_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<gtype::model::TimeOfDay>,
+    {
+        self.start_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [start_time][crate::model::ClusterWeeklyMaintenanceWindow::start_time].
+    pub fn maybe_start_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<gtype::model::TimeOfDay>,
+    {
+        self.start_time = v.map(|x| x.into());
         self
     }
 }
@@ -3322,20 +3613,38 @@ impl ClusterMaintenanceSchedule {
     }
 
     /// Sets the value of [start_time][crate::model::ClusterMaintenanceSchedule::start_time].
-    pub fn set_start_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.start_time = v.into();
+    pub fn set_start_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.start_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [start_time][crate::model::ClusterMaintenanceSchedule::start_time].
+    pub fn maybe_start_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.start_time = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [end_time][crate::model::ClusterMaintenanceSchedule::end_time].
-    pub fn set_end_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.end_time = v.into();
+    pub fn set_end_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.end_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [end_time][crate::model::ClusterMaintenanceSchedule::end_time].
+    pub fn maybe_end_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.end_time = v.map(|x| x.into());
         self
     }
 }
@@ -3421,11 +3730,20 @@ impl DiscoveryEndpoint {
     }
 
     /// Sets the value of [psc_config][crate::model::DiscoveryEndpoint::psc_config].
-    pub fn set_psc_config<T: std::convert::Into<std::option::Option<crate::model::PscConfig>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.psc_config = v.into();
+    pub fn set_psc_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::PscConfig>,
+    {
+        self.psc_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [psc_config][crate::model::DiscoveryEndpoint::psc_config].
+    pub fn maybe_psc_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::PscConfig>,
+    {
+        self.psc_config = v.map(|x| x.into());
         self
     }
 }
@@ -3902,20 +4220,38 @@ impl OperationMetadata {
     }
 
     /// Sets the value of [create_time][crate::model::OperationMetadata::create_time].
-    pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.create_time = v.into();
+    pub fn set_create_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [create_time][crate::model::OperationMetadata::create_time].
+    pub fn maybe_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [end_time][crate::model::OperationMetadata::end_time].
-    pub fn set_end_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.end_time = v.into();
+    pub fn set_end_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.end_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [end_time][crate::model::OperationMetadata::end_time].
+    pub fn maybe_end_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.end_time = v.map(|x| x.into());
         self
     }
 
@@ -4182,28 +4518,38 @@ impl ClusterPersistenceConfig {
     }
 
     /// Sets the value of [rdb_config][crate::model::ClusterPersistenceConfig::rdb_config].
-    pub fn set_rdb_config<
-        T: std::convert::Into<
-                std::option::Option<crate::model::cluster_persistence_config::RDBConfig>,
-            >,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.rdb_config = v.into();
+    pub fn set_rdb_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::cluster_persistence_config::RDBConfig>,
+    {
+        self.rdb_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [rdb_config][crate::model::ClusterPersistenceConfig::rdb_config].
+    pub fn maybe_rdb_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::cluster_persistence_config::RDBConfig>,
+    {
+        self.rdb_config = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [aof_config][crate::model::ClusterPersistenceConfig::aof_config].
-    pub fn set_aof_config<
-        T: std::convert::Into<
-                std::option::Option<crate::model::cluster_persistence_config::AOFConfig>,
-            >,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.aof_config = v.into();
+    pub fn set_aof_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::cluster_persistence_config::AOFConfig>,
+    {
+        self.aof_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [aof_config][crate::model::ClusterPersistenceConfig::aof_config].
+    pub fn maybe_aof_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::cluster_persistence_config::AOFConfig>,
+    {
+        self.aof_config = v.map(|x| x.into());
         self
     }
 }
@@ -4258,13 +4604,20 @@ pub mod cluster_persistence_config {
         }
 
         /// Sets the value of [rdb_snapshot_start_time][crate::model::cluster_persistence_config::RDBConfig::rdb_snapshot_start_time].
-        pub fn set_rdb_snapshot_start_time<
-            T: std::convert::Into<std::option::Option<wkt::Timestamp>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.rdb_snapshot_start_time = v.into();
+        pub fn set_rdb_snapshot_start_time<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Timestamp>,
+        {
+            self.rdb_snapshot_start_time = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [rdb_snapshot_start_time][crate::model::cluster_persistence_config::RDBConfig::rdb_snapshot_start_time].
+        pub fn maybe_rdb_snapshot_start_time<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Timestamp>,
+        {
+            self.rdb_snapshot_start_time = v.map(|x| x.into());
             self
         }
     }
@@ -4996,11 +5349,20 @@ impl RescheduleClusterMaintenanceRequest {
     }
 
     /// Sets the value of [schedule_time][crate::model::RescheduleClusterMaintenanceRequest::schedule_time].
-    pub fn set_schedule_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.schedule_time = v.into();
+    pub fn set_schedule_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.schedule_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [schedule_time][crate::model::RescheduleClusterMaintenanceRequest::schedule_time].
+    pub fn maybe_schedule_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.schedule_time = v.map(|x| x.into());
         self
     }
 }
@@ -5212,11 +5574,20 @@ impl EncryptionInfo {
     }
 
     /// Sets the value of [last_update_time][crate::model::EncryptionInfo::last_update_time].
-    pub fn set_last_update_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.last_update_time = v.into();
+    pub fn set_last_update_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.last_update_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [last_update_time][crate::model::EncryptionInfo::last_update_time].
+    pub fn maybe_last_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.last_update_time = v.map(|x| x.into());
         self
     }
 }

@@ -228,11 +228,22 @@ pub mod simulator {
         /// Sets the value of [replay][crate::model::CreateReplayRequest::replay].
         ///
         /// This is a **required** field for requests.
-        pub fn set_replay<T: Into<std::option::Option<crate::model::Replay>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.replay = v.into();
+        pub fn set_replay<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Replay>,
+        {
+            self.0.request.replay = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [replay][crate::model::CreateReplayRequest::replay].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_replay<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Replay>,
+        {
+            self.0.request.replay = v.map(|x| x.into());
             self
         }
     }

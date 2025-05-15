@@ -138,20 +138,38 @@ impl Attachment {
     }
 
     /// Sets the value of [create_time][crate::model::Attachment::create_time].
-    pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.create_time = v.into();
+    pub fn set_create_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [create_time][crate::model::Attachment::create_time].
+    pub fn maybe_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [creator][crate::model::Attachment::creator].
-    pub fn set_creator<T: std::convert::Into<std::option::Option<crate::model::Actor>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.creator = v.into();
+    pub fn set_creator<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::Actor>,
+    {
+        self.creator = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [creator][crate::model::Attachment::creator].
+    pub fn maybe_creator<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::Actor>,
+    {
+        self.creator = v.map(|x| x.into());
         self
     }
 
@@ -406,13 +424,20 @@ impl Case {
     }
 
     /// Sets the value of [classification][crate::model::Case::classification].
-    pub fn set_classification<
-        T: std::convert::Into<std::option::Option<crate::model::CaseClassification>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.classification = v.into();
+    pub fn set_classification<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::CaseClassification>,
+    {
+        self.classification = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [classification][crate::model::Case::classification].
+    pub fn maybe_classification<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::CaseClassification>,
+    {
+        self.classification = v.map(|x| x.into());
         self
     }
 
@@ -440,29 +465,56 @@ impl Case {
     }
 
     /// Sets the value of [create_time][crate::model::Case::create_time].
-    pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.create_time = v.into();
+    pub fn set_create_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [create_time][crate::model::Case::create_time].
+    pub fn maybe_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [update_time][crate::model::Case::update_time].
-    pub fn set_update_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.update_time = v.into();
+    pub fn set_update_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [update_time][crate::model::Case::update_time].
+    pub fn maybe_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [creator][crate::model::Case::creator].
-    pub fn set_creator<T: std::convert::Into<std::option::Option<crate::model::Actor>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.creator = v.into();
+    pub fn set_creator<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::Actor>,
+    {
+        self.creator = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [creator][crate::model::Case::creator].
+    pub fn maybe_creator<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::Actor>,
+    {
+        self.creator = v.map(|x| x.into());
         self
     }
 
@@ -931,11 +983,20 @@ impl CreateCaseRequest {
     }
 
     /// Sets the value of [case][crate::model::CreateCaseRequest::case].
-    pub fn set_case<T: std::convert::Into<std::option::Option<crate::model::Case>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.case = v.into();
+    pub fn set_case<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::Case>,
+    {
+        self.case = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [case][crate::model::CreateCaseRequest::case].
+    pub fn maybe_case<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::Case>,
+    {
+        self.case = v.map(|x| x.into());
         self
     }
 }
@@ -1281,11 +1342,20 @@ impl EscalateCaseRequest {
     }
 
     /// Sets the value of [escalation][crate::model::EscalateCaseRequest::escalation].
-    pub fn set_escalation<T: std::convert::Into<std::option::Option<crate::model::Escalation>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.escalation = v.into();
+    pub fn set_escalation<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::Escalation>,
+    {
+        self.escalation = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [escalation][crate::model::EscalateCaseRequest::escalation].
+    pub fn maybe_escalation<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::Escalation>,
+    {
+        self.escalation = v.map(|x| x.into());
         self
     }
 }
@@ -1328,20 +1398,38 @@ impl UpdateCaseRequest {
     }
 
     /// Sets the value of [case][crate::model::UpdateCaseRequest::case].
-    pub fn set_case<T: std::convert::Into<std::option::Option<crate::model::Case>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.case = v.into();
+    pub fn set_case<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::Case>,
+    {
+        self.case = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [case][crate::model::UpdateCaseRequest::case].
+    pub fn maybe_case<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::Case>,
+    {
+        self.case = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateCaseRequest::update_mask].
-    pub fn set_update_mask<T: std::convert::Into<std::option::Option<wkt::FieldMask>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.update_mask = v.into();
+    pub fn set_update_mask<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [update_mask][crate::model::UpdateCaseRequest::update_mask].
+    pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = v.map(|x| x.into());
         self
     }
 }
@@ -1546,20 +1634,38 @@ impl Comment {
     }
 
     /// Sets the value of [create_time][crate::model::Comment::create_time].
-    pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.create_time = v.into();
+    pub fn set_create_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [create_time][crate::model::Comment::create_time].
+    pub fn maybe_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [creator][crate::model::Comment::creator].
-    pub fn set_creator<T: std::convert::Into<std::option::Option<crate::model::Actor>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.creator = v.into();
+    pub fn set_creator<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::Actor>,
+    {
+        self.creator = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [creator][crate::model::Comment::creator].
+    pub fn maybe_creator<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::Actor>,
+    {
+        self.creator = v.map(|x| x.into());
         self
     }
 
@@ -1729,11 +1835,20 @@ impl CreateCommentRequest {
     }
 
     /// Sets the value of [comment][crate::model::CreateCommentRequest::comment].
-    pub fn set_comment<T: std::convert::Into<std::option::Option<crate::model::Comment>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.comment = v.into();
+    pub fn set_comment<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::Comment>,
+    {
+        self.comment = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [comment][crate::model::CreateCommentRequest::comment].
+    pub fn maybe_comment<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::Comment>,
+    {
+        self.comment = v.map(|x| x.into());
         self
     }
 }

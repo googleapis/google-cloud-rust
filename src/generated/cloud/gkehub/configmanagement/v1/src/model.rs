@@ -73,57 +73,92 @@ impl MembershipState {
     }
 
     /// Sets the value of [membership_spec][crate::model::MembershipState::membership_spec].
-    pub fn set_membership_spec<
-        T: std::convert::Into<std::option::Option<crate::model::MembershipSpec>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.membership_spec = v.into();
+    pub fn set_membership_spec<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::MembershipSpec>,
+    {
+        self.membership_spec = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [membership_spec][crate::model::MembershipState::membership_spec].
+    pub fn maybe_membership_spec<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::MembershipSpec>,
+    {
+        self.membership_spec = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [operator_state][crate::model::MembershipState::operator_state].
-    pub fn set_operator_state<
-        T: std::convert::Into<std::option::Option<crate::model::OperatorState>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.operator_state = v.into();
+    pub fn set_operator_state<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::OperatorState>,
+    {
+        self.operator_state = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [operator_state][crate::model::MembershipState::operator_state].
+    pub fn maybe_operator_state<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::OperatorState>,
+    {
+        self.operator_state = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [config_sync_state][crate::model::MembershipState::config_sync_state].
-    pub fn set_config_sync_state<
-        T: std::convert::Into<std::option::Option<crate::model::ConfigSyncState>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.config_sync_state = v.into();
+    pub fn set_config_sync_state<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::ConfigSyncState>,
+    {
+        self.config_sync_state = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [config_sync_state][crate::model::MembershipState::config_sync_state].
+    pub fn maybe_config_sync_state<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::ConfigSyncState>,
+    {
+        self.config_sync_state = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [policy_controller_state][crate::model::MembershipState::policy_controller_state].
-    pub fn set_policy_controller_state<
-        T: std::convert::Into<std::option::Option<crate::model::PolicyControllerState>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.policy_controller_state = v.into();
+    pub fn set_policy_controller_state<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::PolicyControllerState>,
+    {
+        self.policy_controller_state = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [policy_controller_state][crate::model::MembershipState::policy_controller_state].
+    pub fn maybe_policy_controller_state<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::PolicyControllerState>,
+    {
+        self.policy_controller_state = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [hierarchy_controller_state][crate::model::MembershipState::hierarchy_controller_state].
-    pub fn set_hierarchy_controller_state<
-        T: std::convert::Into<std::option::Option<crate::model::HierarchyControllerState>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.hierarchy_controller_state = v.into();
+    pub fn set_hierarchy_controller_state<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::HierarchyControllerState>,
+    {
+        self.hierarchy_controller_state = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [hierarchy_controller_state][crate::model::MembershipState::hierarchy_controller_state].
+    pub fn maybe_hierarchy_controller_state<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::HierarchyControllerState>,
+    {
+        self.hierarchy_controller_state = v.map(|x| x.into());
         self
     }
 }
@@ -180,33 +215,56 @@ impl MembershipSpec {
     }
 
     /// Sets the value of [config_sync][crate::model::MembershipSpec::config_sync].
-    pub fn set_config_sync<T: std::convert::Into<std::option::Option<crate::model::ConfigSync>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.config_sync = v.into();
+    pub fn set_config_sync<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::ConfigSync>,
+    {
+        self.config_sync = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [config_sync][crate::model::MembershipSpec::config_sync].
+    pub fn maybe_config_sync<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::ConfigSync>,
+    {
+        self.config_sync = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [policy_controller][crate::model::MembershipSpec::policy_controller].
-    pub fn set_policy_controller<
-        T: std::convert::Into<std::option::Option<crate::model::PolicyController>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.policy_controller = v.into();
+    pub fn set_policy_controller<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::PolicyController>,
+    {
+        self.policy_controller = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [policy_controller][crate::model::MembershipSpec::policy_controller].
+    pub fn maybe_policy_controller<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::PolicyController>,
+    {
+        self.policy_controller = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [hierarchy_controller][crate::model::MembershipSpec::hierarchy_controller].
-    pub fn set_hierarchy_controller<
-        T: std::convert::Into<std::option::Option<crate::model::HierarchyControllerConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.hierarchy_controller = v.into();
+    pub fn set_hierarchy_controller<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::HierarchyControllerConfig>,
+    {
+        self.hierarchy_controller = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [hierarchy_controller][crate::model::MembershipSpec::hierarchy_controller].
+    pub fn maybe_hierarchy_controller<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::HierarchyControllerConfig>,
+    {
+        self.hierarchy_controller = v.map(|x| x.into());
         self
     }
 
@@ -430,11 +488,20 @@ impl ConfigSync {
     }
 
     /// Sets the value of [git][crate::model::ConfigSync::git].
-    pub fn set_git<T: std::convert::Into<std::option::Option<crate::model::GitConfig>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.git = v.into();
+    pub fn set_git<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::GitConfig>,
+    {
+        self.git = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [git][crate::model::ConfigSync::git].
+    pub fn maybe_git<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::GitConfig>,
+    {
+        self.git = v.map(|x| x.into());
         self
     }
 
@@ -445,8 +512,20 @@ impl ConfigSync {
     }
 
     /// Sets the value of [enabled][crate::model::ConfigSync::enabled].
-    pub fn set_enabled<T: std::convert::Into<std::option::Option<bool>>>(mut self, v: T) -> Self {
-        self.enabled = v.into();
+    pub fn set_enabled<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.enabled = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [enabled][crate::model::ConfigSync::enabled].
+    pub fn maybe_enabled<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.enabled = v.map(|x| x.into());
         self
     }
 
@@ -457,11 +536,20 @@ impl ConfigSync {
     }
 
     /// Sets the value of [oci][crate::model::ConfigSync::oci].
-    pub fn set_oci<T: std::convert::Into<std::option::Option<crate::model::OciConfig>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.oci = v.into();
+    pub fn set_oci<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::OciConfig>,
+    {
+        self.oci = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [oci][crate::model::ConfigSync::oci].
+    pub fn maybe_oci<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::OciConfig>,
+    {
+        self.oci = v.map(|x| x.into());
         self
     }
 
@@ -722,20 +810,38 @@ impl PolicyController {
     }
 
     /// Sets the value of [template_library_installed][crate::model::PolicyController::template_library_installed].
-    pub fn set_template_library_installed<T: std::convert::Into<std::option::Option<bool>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.template_library_installed = v.into();
+    pub fn set_template_library_installed<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.template_library_installed = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [template_library_installed][crate::model::PolicyController::template_library_installed].
+    pub fn maybe_template_library_installed<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.template_library_installed = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [audit_interval_seconds][crate::model::PolicyController::audit_interval_seconds].
-    pub fn set_audit_interval_seconds<T: std::convert::Into<std::option::Option<i64>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.audit_interval_seconds = v.into();
+    pub fn set_audit_interval_seconds<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<i64>,
+    {
+        self.audit_interval_seconds = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [audit_interval_seconds][crate::model::PolicyController::audit_interval_seconds].
+    pub fn maybe_audit_interval_seconds<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<i64>,
+    {
+        self.audit_interval_seconds = v.map(|x| x.into());
         self
     }
 
@@ -933,24 +1039,38 @@ impl HierarchyControllerState {
     }
 
     /// Sets the value of [version][crate::model::HierarchyControllerState::version].
-    pub fn set_version<
-        T: std::convert::Into<std::option::Option<crate::model::HierarchyControllerVersion>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.version = v.into();
+    pub fn set_version<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::HierarchyControllerVersion>,
+    {
+        self.version = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [version][crate::model::HierarchyControllerState::version].
+    pub fn maybe_version<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::HierarchyControllerVersion>,
+    {
+        self.version = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [state][crate::model::HierarchyControllerState::state].
-    pub fn set_state<
-        T: std::convert::Into<std::option::Option<crate::model::HierarchyControllerDeploymentState>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.state = v.into();
+    pub fn set_state<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::HierarchyControllerDeploymentState>,
+    {
+        self.state = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [state][crate::model::HierarchyControllerState::state].
+    pub fn maybe_state<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::HierarchyControllerDeploymentState>,
+    {
+        self.state = v.map(|x| x.into());
         self
     }
 }
@@ -1095,33 +1215,56 @@ impl ConfigSyncState {
     }
 
     /// Sets the value of [version][crate::model::ConfigSyncState::version].
-    pub fn set_version<
-        T: std::convert::Into<std::option::Option<crate::model::ConfigSyncVersion>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.version = v.into();
+    pub fn set_version<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::ConfigSyncVersion>,
+    {
+        self.version = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [version][crate::model::ConfigSyncState::version].
+    pub fn maybe_version<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::ConfigSyncVersion>,
+    {
+        self.version = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [deployment_state][crate::model::ConfigSyncState::deployment_state].
-    pub fn set_deployment_state<
-        T: std::convert::Into<std::option::Option<crate::model::ConfigSyncDeploymentState>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.deployment_state = v.into();
+    pub fn set_deployment_state<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::ConfigSyncDeploymentState>,
+    {
+        self.deployment_state = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [deployment_state][crate::model::ConfigSyncState::deployment_state].
+    pub fn maybe_deployment_state<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::ConfigSyncDeploymentState>,
+    {
+        self.deployment_state = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [sync_state][crate::model::ConfigSyncState::sync_state].
-    pub fn set_sync_state<T: std::convert::Into<std::option::Option<crate::model::SyncState>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.sync_state = v.into();
+    pub fn set_sync_state<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::SyncState>,
+    {
+        self.sync_state = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [sync_state][crate::model::ConfigSyncState::sync_state].
+    pub fn maybe_sync_state<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::SyncState>,
+    {
+        self.sync_state = v.map(|x| x.into());
         self
     }
 
@@ -1778,11 +1921,20 @@ impl SyncState {
     }
 
     /// Sets the value of [last_sync_time][crate::model::SyncState::last_sync_time].
-    pub fn set_last_sync_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.last_sync_time = v.into();
+    pub fn set_last_sync_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.last_sync_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [last_sync_time][crate::model::SyncState::last_sync_time].
+    pub fn maybe_last_sync_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.last_sync_time = v.map(|x| x.into());
         self
     }
 
@@ -2096,13 +2248,20 @@ impl ErrorResource {
     }
 
     /// Sets the value of [resource_gvk][crate::model::ErrorResource::resource_gvk].
-    pub fn set_resource_gvk<
-        T: std::convert::Into<std::option::Option<crate::model::GroupVersionKind>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.resource_gvk = v.into();
+    pub fn set_resource_gvk<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::GroupVersionKind>,
+    {
+        self.resource_gvk = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [resource_gvk][crate::model::ErrorResource::resource_gvk].
+    pub fn maybe_resource_gvk<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::GroupVersionKind>,
+    {
+        self.resource_gvk = v.map(|x| x.into());
         self
     }
 }
@@ -2189,24 +2348,38 @@ impl PolicyControllerState {
     }
 
     /// Sets the value of [version][crate::model::PolicyControllerState::version].
-    pub fn set_version<
-        T: std::convert::Into<std::option::Option<crate::model::PolicyControllerVersion>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.version = v.into();
+    pub fn set_version<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::PolicyControllerVersion>,
+    {
+        self.version = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [version][crate::model::PolicyControllerState::version].
+    pub fn maybe_version<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::PolicyControllerVersion>,
+    {
+        self.version = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [deployment_state][crate::model::PolicyControllerState::deployment_state].
-    pub fn set_deployment_state<
-        T: std::convert::Into<std::option::Option<crate::model::GatekeeperDeploymentState>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.deployment_state = v.into();
+    pub fn set_deployment_state<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::GatekeeperDeploymentState>,
+    {
+        self.deployment_state = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [deployment_state][crate::model::PolicyControllerState::deployment_state].
+    pub fn maybe_deployment_state<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::GatekeeperDeploymentState>,
+    {
+        self.deployment_state = v.map(|x| x.into());
         self
     }
 }

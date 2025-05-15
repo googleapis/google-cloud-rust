@@ -348,11 +348,22 @@ pub mod dataproc_metastore {
         /// Sets the value of [service][crate::model::CreateServiceRequest::service].
         ///
         /// This is a **required** field for requests.
-        pub fn set_service<T: Into<std::option::Option<crate::model::Service>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.service = v.into();
+        pub fn set_service<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Service>,
+        {
+            self.0.request.service = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [service][crate::model::CreateServiceRequest::service].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_service<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Service>,
+        {
+            self.0.request.service = v.map(|x| x.into());
             self
         }
 
@@ -458,22 +469,44 @@ pub mod dataproc_metastore {
         /// Sets the value of [update_mask][crate::model::UpdateServiceRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [update_mask][crate::model::UpdateServiceRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [service][crate::model::UpdateServiceRequest::service].
         ///
         /// This is a **required** field for requests.
-        pub fn set_service<T: Into<std::option::Option<crate::model::Service>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.service = v.into();
+        pub fn set_service<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Service>,
+        {
+            self.0.request.service = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [service][crate::model::UpdateServiceRequest::service].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_service<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Service>,
+        {
+            self.0.request.service = v.map(|x| x.into());
             self
         }
 
@@ -894,11 +927,22 @@ pub mod dataproc_metastore {
         /// Sets the value of [metadata_import][crate::model::CreateMetadataImportRequest::metadata_import].
         ///
         /// This is a **required** field for requests.
-        pub fn set_metadata_import<T: Into<std::option::Option<crate::model::MetadataImport>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.metadata_import = v.into();
+        pub fn set_metadata_import<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::MetadataImport>,
+        {
+            self.0.request.metadata_import = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [metadata_import][crate::model::CreateMetadataImportRequest::metadata_import].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_metadata_import<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::MetadataImport>,
+        {
+            self.0.request.metadata_import = v.map(|x| x.into());
             self
         }
 
@@ -1010,22 +1054,44 @@ pub mod dataproc_metastore {
         /// Sets the value of [update_mask][crate::model::UpdateMetadataImportRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [update_mask][crate::model::UpdateMetadataImportRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [metadata_import][crate::model::UpdateMetadataImportRequest::metadata_import].
         ///
         /// This is a **required** field for requests.
-        pub fn set_metadata_import<T: Into<std::option::Option<crate::model::MetadataImport>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.metadata_import = v.into();
+        pub fn set_metadata_import<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::MetadataImport>,
+        {
+            self.0.request.metadata_import = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [metadata_import][crate::model::UpdateMetadataImportRequest::metadata_import].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_metadata_import<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::MetadataImport>,
+        {
+            self.0.request.metadata_import = v.map(|x| x.into());
             self
         }
 
@@ -1593,11 +1659,22 @@ pub mod dataproc_metastore {
         /// Sets the value of [backup][crate::model::CreateBackupRequest::backup].
         ///
         /// This is a **required** field for requests.
-        pub fn set_backup<T: Into<std::option::Option<crate::model::Backup>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.backup = v.into();
+        pub fn set_backup<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Backup>,
+        {
+            self.0.request.backup = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [backup][crate::model::CreateBackupRequest::backup].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_backup<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Backup>,
+        {
+            self.0.request.backup = v.map(|x| x.into());
             self
         }
 
@@ -2320,20 +2397,40 @@ pub mod dataproc_metastore {
         /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
-        pub fn set_policy<T: Into<std::option::Option<iam_v1::model::Policy>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.policy = v.into();
+        pub fn set_policy<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -2400,11 +2497,20 @@ pub mod dataproc_metastore {
         }
 
         /// Sets the value of [options][iam_v1::model::GetIamPolicyRequest::options].
-        pub fn set_options<T: Into<std::option::Option<iam_v1::model::GetPolicyOptions>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.options = v.into();
+        pub fn set_options<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        pub fn maybe_options<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = v.map(|x| x.into());
             self
         }
     }
@@ -3132,11 +3238,22 @@ pub mod dataproc_metastore_federation {
         /// Sets the value of [federation][crate::model::CreateFederationRequest::federation].
         ///
         /// This is a **required** field for requests.
-        pub fn set_federation<T: Into<std::option::Option<crate::model::Federation>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.federation = v.into();
+        pub fn set_federation<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Federation>,
+        {
+            self.0.request.federation = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [federation][crate::model::CreateFederationRequest::federation].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_federation<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Federation>,
+        {
+            self.0.request.federation = v.map(|x| x.into());
             self
         }
 
@@ -3245,22 +3362,44 @@ pub mod dataproc_metastore_federation {
         /// Sets the value of [update_mask][crate::model::UpdateFederationRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [update_mask][crate::model::UpdateFederationRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [federation][crate::model::UpdateFederationRequest::federation].
         ///
         /// This is a **required** field for requests.
-        pub fn set_federation<T: Into<std::option::Option<crate::model::Federation>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.federation = v.into();
+        pub fn set_federation<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Federation>,
+        {
+            self.0.request.federation = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [federation][crate::model::UpdateFederationRequest::federation].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_federation<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Federation>,
+        {
+            self.0.request.federation = v.map(|x| x.into());
             self
         }
 
@@ -3616,20 +3755,40 @@ pub mod dataproc_metastore_federation {
         /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
-        pub fn set_policy<T: Into<std::option::Option<iam_v1::model::Policy>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.policy = v.into();
+        pub fn set_policy<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -3696,11 +3855,20 @@ pub mod dataproc_metastore_federation {
         }
 
         /// Sets the value of [options][iam_v1::model::GetIamPolicyRequest::options].
-        pub fn set_options<T: Into<std::option::Option<iam_v1::model::GetPolicyOptions>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.options = v.into();
+        pub fn set_options<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        pub fn maybe_options<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = v.map(|x| x.into());
             self
         }
     }

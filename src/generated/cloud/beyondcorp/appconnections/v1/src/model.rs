@@ -295,13 +295,20 @@ impl CreateAppConnectionRequest {
     }
 
     /// Sets the value of [app_connection][crate::model::CreateAppConnectionRequest::app_connection].
-    pub fn set_app_connection<
-        T: std::convert::Into<std::option::Option<crate::model::AppConnection>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.app_connection = v.into();
+    pub fn set_app_connection<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::AppConnection>,
+    {
+        self.app_connection = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [app_connection][crate::model::CreateAppConnectionRequest::app_connection].
+    pub fn maybe_app_connection<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::AppConnection>,
+    {
+        self.app_connection = v.map(|x| x.into());
         self
     }
 
@@ -381,22 +388,38 @@ impl UpdateAppConnectionRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateAppConnectionRequest::update_mask].
-    pub fn set_update_mask<T: std::convert::Into<std::option::Option<wkt::FieldMask>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.update_mask = v.into();
+    pub fn set_update_mask<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [update_mask][crate::model::UpdateAppConnectionRequest::update_mask].
+    pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [app_connection][crate::model::UpdateAppConnectionRequest::app_connection].
-    pub fn set_app_connection<
-        T: std::convert::Into<std::option::Option<crate::model::AppConnection>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.app_connection = v.into();
+    pub fn set_app_connection<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::AppConnection>,
+    {
+        self.app_connection = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [app_connection][crate::model::UpdateAppConnectionRequest::app_connection].
+    pub fn maybe_app_connection<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::AppConnection>,
+    {
+        self.app_connection = v.map(|x| x.into());
         self
     }
 
@@ -673,13 +696,20 @@ pub mod resolve_app_connections_response {
         }
 
         /// Sets the value of [app_connection][crate::model::resolve_app_connections_response::AppConnectionDetails::app_connection].
-        pub fn set_app_connection<
-            T: std::convert::Into<std::option::Option<crate::model::AppConnection>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.app_connection = v.into();
+        pub fn set_app_connection<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::AppConnection>,
+        {
+            self.app_connection = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [app_connection][crate::model::resolve_app_connections_response::AppConnectionDetails::app_connection].
+        pub fn maybe_app_connection<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::AppConnection>,
+        {
+            self.app_connection = v.map(|x| x.into());
             self
         }
 
@@ -776,20 +806,38 @@ impl AppConnection {
     }
 
     /// Sets the value of [create_time][crate::model::AppConnection::create_time].
-    pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.create_time = v.into();
+    pub fn set_create_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [create_time][crate::model::AppConnection::create_time].
+    pub fn maybe_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [update_time][crate::model::AppConnection::update_time].
-    pub fn set_update_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.update_time = v.into();
+    pub fn set_update_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [update_time][crate::model::AppConnection::update_time].
+    pub fn maybe_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = v.map(|x| x.into());
         self
     }
 
@@ -827,13 +875,20 @@ impl AppConnection {
     }
 
     /// Sets the value of [application_endpoint][crate::model::AppConnection::application_endpoint].
-    pub fn set_application_endpoint<
-        T: std::convert::Into<std::option::Option<crate::model::app_connection::ApplicationEndpoint>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.application_endpoint = v.into();
+    pub fn set_application_endpoint<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::app_connection::ApplicationEndpoint>,
+    {
+        self.application_endpoint = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [application_endpoint][crate::model::AppConnection::application_endpoint].
+    pub fn maybe_application_endpoint<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::app_connection::ApplicationEndpoint>,
+    {
+        self.application_endpoint = v.map(|x| x.into());
         self
     }
 
@@ -858,13 +913,20 @@ impl AppConnection {
     }
 
     /// Sets the value of [gateway][crate::model::AppConnection::gateway].
-    pub fn set_gateway<
-        T: std::convert::Into<std::option::Option<crate::model::app_connection::Gateway>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.gateway = v.into();
+    pub fn set_gateway<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::app_connection::Gateway>,
+    {
+        self.gateway = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [gateway][crate::model::AppConnection::gateway].
+    pub fn maybe_gateway<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::app_connection::Gateway>,
+    {
+        self.gateway = v.map(|x| x.into());
         self
     }
 }
@@ -1456,20 +1518,38 @@ impl AppConnectionOperationMetadata {
     }
 
     /// Sets the value of [create_time][crate::model::AppConnectionOperationMetadata::create_time].
-    pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.create_time = v.into();
+    pub fn set_create_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [create_time][crate::model::AppConnectionOperationMetadata::create_time].
+    pub fn maybe_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [end_time][crate::model::AppConnectionOperationMetadata::end_time].
-    pub fn set_end_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.end_time = v.into();
+    pub fn set_end_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.end_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [end_time][crate::model::AppConnectionOperationMetadata::end_time].
+    pub fn maybe_end_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.end_time = v.map(|x| x.into());
         self
     }
 

@@ -165,20 +165,38 @@ impl Cluster {
     }
 
     /// Sets the value of [create_time][crate::model::Cluster::create_time].
-    pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.create_time = v.into();
+    pub fn set_create_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [create_time][crate::model::Cluster::create_time].
+    pub fn maybe_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [update_time][crate::model::Cluster::update_time].
-    pub fn set_update_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.update_time = v.into();
+    pub fn set_update_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [update_time][crate::model::Cluster::update_time].
+    pub fn maybe_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = v.map(|x| x.into());
         self
     }
 
@@ -195,33 +213,56 @@ impl Cluster {
     }
 
     /// Sets the value of [fleet][crate::model::Cluster::fleet].
-    pub fn set_fleet<T: std::convert::Into<std::option::Option<crate::model::Fleet>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.fleet = v.into();
+    pub fn set_fleet<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::Fleet>,
+    {
+        self.fleet = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [fleet][crate::model::Cluster::fleet].
+    pub fn maybe_fleet<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::Fleet>,
+    {
+        self.fleet = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [networking][crate::model::Cluster::networking].
-    pub fn set_networking<
-        T: std::convert::Into<std::option::Option<crate::model::ClusterNetworking>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.networking = v.into();
+    pub fn set_networking<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::ClusterNetworking>,
+    {
+        self.networking = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [networking][crate::model::Cluster::networking].
+    pub fn maybe_networking<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::ClusterNetworking>,
+    {
+        self.networking = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [authorization][crate::model::Cluster::authorization].
-    pub fn set_authorization<
-        T: std::convert::Into<std::option::Option<crate::model::Authorization>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.authorization = v.into();
+    pub fn set_authorization<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::Authorization>,
+    {
+        self.authorization = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [authorization][crate::model::Cluster::authorization].
+    pub fn maybe_authorization<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::Authorization>,
+    {
+        self.authorization = v.map(|x| x.into());
         self
     }
 
@@ -253,13 +294,20 @@ impl Cluster {
     }
 
     /// Sets the value of [maintenance_policy][crate::model::Cluster::maintenance_policy].
-    pub fn set_maintenance_policy<
-        T: std::convert::Into<std::option::Option<crate::model::MaintenancePolicy>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.maintenance_policy = v.into();
+    pub fn set_maintenance_policy<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::MaintenancePolicy>,
+    {
+        self.maintenance_policy = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [maintenance_policy][crate::model::Cluster::maintenance_policy].
+    pub fn maybe_maintenance_policy<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::MaintenancePolicy>,
+    {
+        self.maintenance_policy = v.map(|x| x.into());
         self
     }
 
@@ -279,24 +327,38 @@ impl Cluster {
     }
 
     /// Sets the value of [control_plane][crate::model::Cluster::control_plane].
-    pub fn set_control_plane<
-        T: std::convert::Into<std::option::Option<crate::model::cluster::ControlPlane>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.control_plane = v.into();
+    pub fn set_control_plane<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::cluster::ControlPlane>,
+    {
+        self.control_plane = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [control_plane][crate::model::Cluster::control_plane].
+    pub fn maybe_control_plane<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::cluster::ControlPlane>,
+    {
+        self.control_plane = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [system_addons_config][crate::model::Cluster::system_addons_config].
-    pub fn set_system_addons_config<
-        T: std::convert::Into<std::option::Option<crate::model::cluster::SystemAddonsConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.system_addons_config = v.into();
+    pub fn set_system_addons_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::cluster::SystemAddonsConfig>,
+    {
+        self.system_addons_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [system_addons_config][crate::model::Cluster::system_addons_config].
+    pub fn maybe_system_addons_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::cluster::SystemAddonsConfig>,
+    {
+        self.system_addons_config = v.map(|x| x.into());
         self
     }
 
@@ -312,13 +374,20 @@ impl Cluster {
     }
 
     /// Sets the value of [control_plane_encryption][crate::model::Cluster::control_plane_encryption].
-    pub fn set_control_plane_encryption<
-        T: std::convert::Into<std::option::Option<crate::model::cluster::ControlPlaneEncryption>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.control_plane_encryption = v.into();
+    pub fn set_control_plane_encryption<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::cluster::ControlPlaneEncryption>,
+    {
+        self.control_plane_encryption = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [control_plane_encryption][crate::model::Cluster::control_plane_encryption].
+    pub fn maybe_control_plane_encryption<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::cluster::ControlPlaneEncryption>,
+    {
+        self.control_plane_encryption = v.map(|x| x.into());
         self
     }
 
@@ -358,13 +427,20 @@ impl Cluster {
     }
 
     /// Sets the value of [survivability_config][crate::model::Cluster::survivability_config].
-    pub fn set_survivability_config<
-        T: std::convert::Into<std::option::Option<crate::model::cluster::SurvivabilityConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.survivability_config = v.into();
+    pub fn set_survivability_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::cluster::SurvivabilityConfig>,
+    {
+        self.survivability_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [survivability_config][crate::model::Cluster::survivability_config].
+    pub fn maybe_survivability_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::cluster::SurvivabilityConfig>,
+    {
+        self.survivability_config = v.map(|x| x.into());
         self
     }
 
@@ -380,13 +456,20 @@ impl Cluster {
     }
 
     /// Sets the value of [connection_state][crate::model::Cluster::connection_state].
-    pub fn set_connection_state<
-        T: std::convert::Into<std::option::Option<crate::model::cluster::ConnectionState>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.connection_state = v.into();
+    pub fn set_connection_state<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::cluster::ConnectionState>,
+    {
+        self.connection_state = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [connection_state][crate::model::Cluster::connection_state].
+    pub fn maybe_connection_state<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::cluster::ConnectionState>,
+    {
+        self.connection_state = v.map(|x| x.into());
         self
     }
 }
@@ -817,30 +900,38 @@ pub mod cluster {
         }
 
         /// Sets the value of [ingress][crate::model::cluster::SystemAddonsConfig::ingress].
-        pub fn set_ingress<
-            T: std::convert::Into<
-                    std::option::Option<crate::model::cluster::system_addons_config::Ingress>,
-                >,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.ingress = v.into();
+        pub fn set_ingress<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::cluster::system_addons_config::Ingress>,
+        {
+            self.ingress = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [ingress][crate::model::cluster::SystemAddonsConfig::ingress].
+        pub fn maybe_ingress<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::cluster::system_addons_config::Ingress>,
+        {
+            self.ingress = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [vm_service_config][crate::model::cluster::SystemAddonsConfig::vm_service_config].
-        pub fn set_vm_service_config<
-            T: std::convert::Into<
-                    std::option::Option<
-                        crate::model::cluster::system_addons_config::VMServiceConfig,
-                    >,
-                >,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.vm_service_config = v.into();
+        pub fn set_vm_service_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::cluster::system_addons_config::VMServiceConfig>,
+        {
+            self.vm_service_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [vm_service_config][crate::model::cluster::SystemAddonsConfig::vm_service_config].
+        pub fn maybe_vm_service_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::cluster::system_addons_config::VMServiceConfig>,
+        {
+            self.vm_service_config = v.map(|x| x.into());
             self
         }
     }
@@ -1004,11 +1095,20 @@ pub mod cluster {
         }
 
         /// Sets the value of [kms_status][crate::model::cluster::ControlPlaneEncryption::kms_status].
-        pub fn set_kms_status<T: std::convert::Into<std::option::Option<rpc::model::Status>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.kms_status = v.into();
+        pub fn set_kms_status<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<rpc::model::Status>,
+        {
+            self.kms_status = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [kms_status][crate::model::cluster::ControlPlaneEncryption::kms_status].
+        pub fn maybe_kms_status<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<rpc::model::Status>,
+        {
+            self.kms_status = v.map(|x| x.into());
             self
         }
 
@@ -1140,38 +1240,74 @@ pub mod cluster {
         }
 
         /// Sets the value of [create_time][crate::model::cluster::MaintenanceEvent::create_time].
-        pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.create_time = v.into();
+        pub fn set_create_time<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Timestamp>,
+        {
+            self.create_time = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [create_time][crate::model::cluster::MaintenanceEvent::create_time].
+        pub fn maybe_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Timestamp>,
+        {
+            self.create_time = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [start_time][crate::model::cluster::MaintenanceEvent::start_time].
-        pub fn set_start_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.start_time = v.into();
+        pub fn set_start_time<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Timestamp>,
+        {
+            self.start_time = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [start_time][crate::model::cluster::MaintenanceEvent::start_time].
+        pub fn maybe_start_time<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Timestamp>,
+        {
+            self.start_time = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [end_time][crate::model::cluster::MaintenanceEvent::end_time].
-        pub fn set_end_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.end_time = v.into();
+        pub fn set_end_time<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Timestamp>,
+        {
+            self.end_time = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [end_time][crate::model::cluster::MaintenanceEvent::end_time].
+        pub fn maybe_end_time<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Timestamp>,
+        {
+            self.end_time = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_time][crate::model::cluster::MaintenanceEvent::update_time].
-        pub fn set_update_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.update_time = v.into();
+        pub fn set_update_time<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Timestamp>,
+        {
+            self.update_time = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [update_time][crate::model::cluster::MaintenanceEvent::update_time].
+        pub fn maybe_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Timestamp>,
+        {
+            self.update_time = v.map(|x| x.into());
             self
         }
     }
@@ -1618,11 +1754,20 @@ pub mod cluster {
         }
 
         /// Sets the value of [offline_reboot_ttl][crate::model::cluster::SurvivabilityConfig::offline_reboot_ttl].
-        pub fn set_offline_reboot_ttl<T: std::convert::Into<std::option::Option<wkt::Duration>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.offline_reboot_ttl = v.into();
+        pub fn set_offline_reboot_ttl<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Duration>,
+        {
+            self.offline_reboot_ttl = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [offline_reboot_ttl][crate::model::cluster::SurvivabilityConfig::offline_reboot_ttl].
+        pub fn maybe_offline_reboot_ttl<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Duration>,
+        {
+            self.offline_reboot_ttl = v.map(|x| x.into());
             self
         }
     }
@@ -1666,11 +1811,20 @@ pub mod cluster {
         }
 
         /// Sets the value of [update_time][crate::model::cluster::ConnectionState::update_time].
-        pub fn set_update_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.update_time = v.into();
+        pub fn set_update_time<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Timestamp>,
+        {
+            self.update_time = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [update_time][crate::model::cluster::ConnectionState::update_time].
+        pub fn maybe_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Timestamp>,
+        {
+            self.update_time = v.map(|x| x.into());
             self
         }
     }
@@ -2281,13 +2435,20 @@ impl Authorization {
     }
 
     /// Sets the value of [admin_users][crate::model::Authorization::admin_users].
-    pub fn set_admin_users<
-        T: std::convert::Into<std::option::Option<crate::model::ClusterUser>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.admin_users = v.into();
+    pub fn set_admin_users<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::ClusterUser>,
+    {
+        self.admin_users = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [admin_users][crate::model::Authorization::admin_users].
+    pub fn maybe_admin_users<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::ClusterUser>,
+    {
+        self.admin_users = v.map(|x| x.into());
         self
     }
 }
@@ -2365,20 +2526,38 @@ impl NodePool {
     }
 
     /// Sets the value of [create_time][crate::model::NodePool::create_time].
-    pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.create_time = v.into();
+    pub fn set_create_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [create_time][crate::model::NodePool::create_time].
+    pub fn maybe_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [update_time][crate::model::NodePool::update_time].
-    pub fn set_update_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.update_time = v.into();
+    pub fn set_update_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [update_time][crate::model::NodePool::update_time].
+    pub fn maybe_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = v.map(|x| x.into());
         self
     }
 
@@ -2413,13 +2592,20 @@ impl NodePool {
     }
 
     /// Sets the value of [local_disk_encryption][crate::model::NodePool::local_disk_encryption].
-    pub fn set_local_disk_encryption<
-        T: std::convert::Into<std::option::Option<crate::model::node_pool::LocalDiskEncryption>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.local_disk_encryption = v.into();
+    pub fn set_local_disk_encryption<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::node_pool::LocalDiskEncryption>,
+    {
+        self.local_disk_encryption = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [local_disk_encryption][crate::model::NodePool::local_disk_encryption].
+    pub fn maybe_local_disk_encryption<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::node_pool::LocalDiskEncryption>,
+    {
+        self.local_disk_encryption = v.map(|x| x.into());
         self
     }
 
@@ -2430,13 +2616,20 @@ impl NodePool {
     }
 
     /// Sets the value of [node_config][crate::model::NodePool::node_config].
-    pub fn set_node_config<
-        T: std::convert::Into<std::option::Option<crate::model::node_pool::NodeConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.node_config = v.into();
+    pub fn set_node_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::node_pool::NodeConfig>,
+    {
+        self.node_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [node_config][crate::model::NodePool::node_config].
+    pub fn maybe_node_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::node_pool::NodeConfig>,
+    {
+        self.node_config = v.map(|x| x.into());
         self
     }
 }
@@ -2520,11 +2713,20 @@ pub mod node_pool {
         }
 
         /// Sets the value of [kms_status][crate::model::node_pool::LocalDiskEncryption::kms_status].
-        pub fn set_kms_status<T: std::convert::Into<std::option::Option<rpc::model::Status>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.kms_status = v.into();
+        pub fn set_kms_status<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<rpc::model::Status>,
+        {
+            self.kms_status = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [kms_status][crate::model::node_pool::LocalDiskEncryption::kms_status].
+        pub fn maybe_kms_status<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<rpc::model::Status>,
+        {
+            self.kms_status = v.map(|x| x.into());
             self
         }
 
@@ -2663,20 +2865,38 @@ impl Machine {
     }
 
     /// Sets the value of [create_time][crate::model::Machine::create_time].
-    pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.create_time = v.into();
+    pub fn set_create_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [create_time][crate::model::Machine::create_time].
+    pub fn maybe_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [update_time][crate::model::Machine::update_time].
-    pub fn set_update_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.update_time = v.into();
+    pub fn set_update_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [update_time][crate::model::Machine::update_time].
+    pub fn maybe_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = v.map(|x| x.into());
         self
     }
 
@@ -2798,20 +3018,38 @@ impl VpnConnection {
     }
 
     /// Sets the value of [create_time][crate::model::VpnConnection::create_time].
-    pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.create_time = v.into();
+    pub fn set_create_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [create_time][crate::model::VpnConnection::create_time].
+    pub fn maybe_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [update_time][crate::model::VpnConnection::update_time].
-    pub fn set_update_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.update_time = v.into();
+    pub fn set_update_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [update_time][crate::model::VpnConnection::update_time].
+    pub fn maybe_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = v.map(|x| x.into());
         self
     }
 
@@ -2858,13 +3096,20 @@ impl VpnConnection {
     }
 
     /// Sets the value of [vpc_project][crate::model::VpnConnection::vpc_project].
-    pub fn set_vpc_project<
-        T: std::convert::Into<std::option::Option<crate::model::vpn_connection::VpcProject>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.vpc_project = v.into();
+    pub fn set_vpc_project<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::vpn_connection::VpcProject>,
+    {
+        self.vpc_project = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [vpc_project][crate::model::VpnConnection::vpc_project].
+    pub fn maybe_vpc_project<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::vpn_connection::VpcProject>,
+    {
+        self.vpc_project = v.map(|x| x.into());
         self
     }
 
@@ -2881,13 +3126,20 @@ impl VpnConnection {
     }
 
     /// Sets the value of [details][crate::model::VpnConnection::details].
-    pub fn set_details<
-        T: std::convert::Into<std::option::Option<crate::model::vpn_connection::Details>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.details = v.into();
+    pub fn set_details<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::vpn_connection::Details>,
+    {
+        self.details = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [details][crate::model::VpnConnection::details].
+    pub fn maybe_details<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::vpn_connection::Details>,
+    {
+        self.details = v.map(|x| x.into());
         self
     }
 }
@@ -2997,15 +3249,20 @@ pub mod vpn_connection {
         }
 
         /// Sets the value of [cloud_router][crate::model::vpn_connection::Details::cloud_router].
-        pub fn set_cloud_router<
-            T: std::convert::Into<
-                    std::option::Option<crate::model::vpn_connection::details::CloudRouter>,
-                >,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.cloud_router = v.into();
+        pub fn set_cloud_router<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::vpn_connection::details::CloudRouter>,
+        {
+            self.cloud_router = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [cloud_router][crate::model::vpn_connection::Details::cloud_router].
+        pub fn maybe_cloud_router<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::vpn_connection::details::CloudRouter>,
+        {
+            self.cloud_router = v.map(|x| x.into());
             self
         }
 
@@ -3466,11 +3723,20 @@ impl ZoneMetadata {
     }
 
     /// Sets the value of [config_data][crate::model::ZoneMetadata::config_data].
-    pub fn set_config_data<T: std::convert::Into<std::option::Option<crate::model::ConfigData>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.config_data = v.into();
+    pub fn set_config_data<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::ConfigData>,
+    {
+        self.config_data = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [config_data][crate::model::ZoneMetadata::config_data].
+    pub fn maybe_config_data<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::ConfigData>,
+    {
+        self.config_data = v.map(|x| x.into());
         self
     }
 }
@@ -3754,13 +4020,20 @@ impl MaintenancePolicy {
     }
 
     /// Sets the value of [window][crate::model::MaintenancePolicy::window].
-    pub fn set_window<
-        T: std::convert::Into<std::option::Option<crate::model::MaintenanceWindow>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.window = v.into();
+    pub fn set_window<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::MaintenanceWindow>,
+    {
+        self.window = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [window][crate::model::MaintenancePolicy::window].
+    pub fn maybe_window<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::MaintenanceWindow>,
+    {
+        self.window = v.map(|x| x.into());
         self
     }
 
@@ -3802,13 +4075,20 @@ impl MaintenanceWindow {
     }
 
     /// Sets the value of [recurring_window][crate::model::MaintenanceWindow::recurring_window].
-    pub fn set_recurring_window<
-        T: std::convert::Into<std::option::Option<crate::model::RecurringTimeWindow>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.recurring_window = v.into();
+    pub fn set_recurring_window<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::RecurringTimeWindow>,
+    {
+        self.recurring_window = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [recurring_window][crate::model::MaintenanceWindow::recurring_window].
+    pub fn maybe_recurring_window<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::RecurringTimeWindow>,
+    {
+        self.recurring_window = v.map(|x| x.into());
         self
     }
 }
@@ -3845,11 +4125,20 @@ impl RecurringTimeWindow {
     }
 
     /// Sets the value of [window][crate::model::RecurringTimeWindow::window].
-    pub fn set_window<T: std::convert::Into<std::option::Option<crate::model::TimeWindow>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.window = v.into();
+    pub fn set_window<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::TimeWindow>,
+    {
+        self.window = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [window][crate::model::RecurringTimeWindow::window].
+    pub fn maybe_window<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::TimeWindow>,
+    {
+        self.window = v.map(|x| x.into());
         self
     }
 
@@ -3890,11 +4179,20 @@ impl MaintenanceExclusionWindow {
     }
 
     /// Sets the value of [window][crate::model::MaintenanceExclusionWindow::window].
-    pub fn set_window<T: std::convert::Into<std::option::Option<crate::model::TimeWindow>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.window = v.into();
+    pub fn set_window<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::TimeWindow>,
+    {
+        self.window = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [window][crate::model::MaintenanceExclusionWindow::window].
+    pub fn maybe_window<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::TimeWindow>,
+    {
+        self.window = v.map(|x| x.into());
         self
     }
 
@@ -3936,20 +4234,38 @@ impl TimeWindow {
     }
 
     /// Sets the value of [start_time][crate::model::TimeWindow::start_time].
-    pub fn set_start_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.start_time = v.into();
+    pub fn set_start_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.start_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [start_time][crate::model::TimeWindow::start_time].
+    pub fn maybe_start_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.start_time = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [end_time][crate::model::TimeWindow::end_time].
-    pub fn set_end_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.end_time = v.into();
+    pub fn set_end_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.end_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [end_time][crate::model::TimeWindow::end_time].
+    pub fn maybe_end_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.end_time = v.map(|x| x.into());
         self
     }
 }
@@ -4144,20 +4460,38 @@ impl OperationMetadata {
     }
 
     /// Sets the value of [create_time][crate::model::OperationMetadata::create_time].
-    pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.create_time = v.into();
+    pub fn set_create_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [create_time][crate::model::OperationMetadata::create_time].
+    pub fn maybe_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [end_time][crate::model::OperationMetadata::end_time].
-    pub fn set_end_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.end_time = v.into();
+    pub fn set_end_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.end_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [end_time][crate::model::OperationMetadata::end_time].
+    pub fn maybe_end_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.end_time = v.map(|x| x.into());
         self
     }
 
@@ -4578,11 +4912,20 @@ impl CreateClusterRequest {
     }
 
     /// Sets the value of [cluster][crate::model::CreateClusterRequest::cluster].
-    pub fn set_cluster<T: std::convert::Into<std::option::Option<crate::model::Cluster>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.cluster = v.into();
+    pub fn set_cluster<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::Cluster>,
+    {
+        self.cluster = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [cluster][crate::model::CreateClusterRequest::cluster].
+    pub fn maybe_cluster<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::Cluster>,
+    {
+        self.cluster = v.map(|x| x.into());
         self
     }
 
@@ -4633,20 +4976,38 @@ impl UpdateClusterRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateClusterRequest::update_mask].
-    pub fn set_update_mask<T: std::convert::Into<std::option::Option<wkt::FieldMask>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.update_mask = v.into();
+    pub fn set_update_mask<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [update_mask][crate::model::UpdateClusterRequest::update_mask].
+    pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [cluster][crate::model::UpdateClusterRequest::cluster].
-    pub fn set_cluster<T: std::convert::Into<std::option::Option<crate::model::Cluster>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.cluster = v.into();
+    pub fn set_cluster<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::Cluster>,
+    {
+        self.cluster = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [cluster][crate::model::UpdateClusterRequest::cluster].
+    pub fn maybe_cluster<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::Cluster>,
+    {
+        self.cluster = v.map(|x| x.into());
         self
     }
 
@@ -4968,11 +5329,20 @@ impl GenerateAccessTokenResponse {
     }
 
     /// Sets the value of [expire_time][crate::model::GenerateAccessTokenResponse::expire_time].
-    pub fn set_expire_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.expire_time = v.into();
+    pub fn set_expire_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.expire_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [expire_time][crate::model::GenerateAccessTokenResponse::expire_time].
+    pub fn maybe_expire_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.expire_time = v.map(|x| x.into());
         self
     }
 }
@@ -5068,11 +5438,20 @@ impl GenerateOfflineCredentialResponse {
     }
 
     /// Sets the value of [expire_time][crate::model::GenerateOfflineCredentialResponse::expire_time].
-    pub fn set_expire_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.expire_time = v.into();
+    pub fn set_expire_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.expire_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [expire_time][crate::model::GenerateOfflineCredentialResponse::expire_time].
+    pub fn maybe_expire_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.expire_time = v.map(|x| x.into());
         self
     }
 }
@@ -5309,11 +5688,20 @@ impl CreateNodePoolRequest {
     }
 
     /// Sets the value of [node_pool][crate::model::CreateNodePoolRequest::node_pool].
-    pub fn set_node_pool<T: std::convert::Into<std::option::Option<crate::model::NodePool>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.node_pool = v.into();
+    pub fn set_node_pool<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::NodePool>,
+    {
+        self.node_pool = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [node_pool][crate::model::CreateNodePoolRequest::node_pool].
+    pub fn maybe_node_pool<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::NodePool>,
+    {
+        self.node_pool = v.map(|x| x.into());
         self
     }
 
@@ -5364,20 +5752,38 @@ impl UpdateNodePoolRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateNodePoolRequest::update_mask].
-    pub fn set_update_mask<T: std::convert::Into<std::option::Option<wkt::FieldMask>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.update_mask = v.into();
+    pub fn set_update_mask<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [update_mask][crate::model::UpdateNodePoolRequest::update_mask].
+    pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [node_pool][crate::model::UpdateNodePoolRequest::node_pool].
-    pub fn set_node_pool<T: std::convert::Into<std::option::Option<crate::model::NodePool>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.node_pool = v.into();
+    pub fn set_node_pool<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::NodePool>,
+    {
+        self.node_pool = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [node_pool][crate::model::UpdateNodePoolRequest::node_pool].
+    pub fn maybe_node_pool<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::NodePool>,
+    {
+        self.node_pool = v.map(|x| x.into());
         self
     }
 
@@ -5848,13 +6254,20 @@ impl CreateVpnConnectionRequest {
     }
 
     /// Sets the value of [vpn_connection][crate::model::CreateVpnConnectionRequest::vpn_connection].
-    pub fn set_vpn_connection<
-        T: std::convert::Into<std::option::Option<crate::model::VpnConnection>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.vpn_connection = v.into();
+    pub fn set_vpn_connection<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::VpnConnection>,
+    {
+        self.vpn_connection = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [vpn_connection][crate::model::CreateVpnConnectionRequest::vpn_connection].
+    pub fn maybe_vpn_connection<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::VpnConnection>,
+    {
+        self.vpn_connection = v.map(|x| x.into());
         self
     }
 

@@ -191,22 +191,38 @@ impl Secret {
     }
 
     /// Sets the value of [replication][crate::model::Secret::replication].
-    pub fn set_replication<
-        T: std::convert::Into<std::option::Option<crate::model::Replication>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.replication = v.into();
+    pub fn set_replication<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::Replication>,
+    {
+        self.replication = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [replication][crate::model::Secret::replication].
+    pub fn maybe_replication<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::Replication>,
+    {
+        self.replication = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [create_time][crate::model::Secret::create_time].
-    pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.create_time = v.into();
+    pub fn set_create_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [create_time][crate::model::Secret::create_time].
+    pub fn maybe_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = v.map(|x| x.into());
         self
     }
 
@@ -240,11 +256,20 @@ impl Secret {
     }
 
     /// Sets the value of [rotation][crate::model::Secret::rotation].
-    pub fn set_rotation<T: std::convert::Into<std::option::Option<crate::model::Rotation>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.rotation = v.into();
+    pub fn set_rotation<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::Rotation>,
+    {
+        self.rotation = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [rotation][crate::model::Secret::rotation].
+    pub fn maybe_rotation<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::Rotation>,
+    {
+        self.rotation = v.map(|x| x.into());
         self
     }
 
@@ -273,22 +298,38 @@ impl Secret {
     }
 
     /// Sets the value of [version_destroy_ttl][crate::model::Secret::version_destroy_ttl].
-    pub fn set_version_destroy_ttl<T: std::convert::Into<std::option::Option<wkt::Duration>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.version_destroy_ttl = v.into();
+    pub fn set_version_destroy_ttl<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Duration>,
+    {
+        self.version_destroy_ttl = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [version_destroy_ttl][crate::model::Secret::version_destroy_ttl].
+    pub fn maybe_version_destroy_ttl<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Duration>,
+    {
+        self.version_destroy_ttl = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [customer_managed_encryption][crate::model::Secret::customer_managed_encryption].
-    pub fn set_customer_managed_encryption<
-        T: std::convert::Into<std::option::Option<crate::model::CustomerManagedEncryption>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.customer_managed_encryption = v.into();
+    pub fn set_customer_managed_encryption<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::CustomerManagedEncryption>,
+    {
+        self.customer_managed_encryption = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [customer_managed_encryption][crate::model::Secret::customer_managed_encryption].
+    pub fn maybe_customer_managed_encryption<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::CustomerManagedEncryption>,
+    {
+        self.customer_managed_encryption = v.map(|x| x.into());
         self
     }
 
@@ -504,20 +545,38 @@ impl SecretVersion {
     }
 
     /// Sets the value of [create_time][crate::model::SecretVersion::create_time].
-    pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.create_time = v.into();
+    pub fn set_create_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [create_time][crate::model::SecretVersion::create_time].
+    pub fn maybe_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [destroy_time][crate::model::SecretVersion::destroy_time].
-    pub fn set_destroy_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.destroy_time = v.into();
+    pub fn set_destroy_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.destroy_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [destroy_time][crate::model::SecretVersion::destroy_time].
+    pub fn maybe_destroy_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.destroy_time = v.map(|x| x.into());
         self
     }
 
@@ -531,13 +590,20 @@ impl SecretVersion {
     }
 
     /// Sets the value of [replication_status][crate::model::SecretVersion::replication_status].
-    pub fn set_replication_status<
-        T: std::convert::Into<std::option::Option<crate::model::ReplicationStatus>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.replication_status = v.into();
+    pub fn set_replication_status<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::ReplicationStatus>,
+    {
+        self.replication_status = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [replication_status][crate::model::SecretVersion::replication_status].
+    pub fn maybe_replication_status<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::ReplicationStatus>,
+    {
+        self.replication_status = v.map(|x| x.into());
         self
     }
 
@@ -557,24 +623,38 @@ impl SecretVersion {
     }
 
     /// Sets the value of [scheduled_destroy_time][crate::model::SecretVersion::scheduled_destroy_time].
-    pub fn set_scheduled_destroy_time<
-        T: std::convert::Into<std::option::Option<wkt::Timestamp>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.scheduled_destroy_time = v.into();
+    pub fn set_scheduled_destroy_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.scheduled_destroy_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [scheduled_destroy_time][crate::model::SecretVersion::scheduled_destroy_time].
+    pub fn maybe_scheduled_destroy_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.scheduled_destroy_time = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [customer_managed_encryption][crate::model::SecretVersion::customer_managed_encryption].
-    pub fn set_customer_managed_encryption<
-        T: std::convert::Into<std::option::Option<crate::model::CustomerManagedEncryptionStatus>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.customer_managed_encryption = v.into();
+    pub fn set_customer_managed_encryption<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::CustomerManagedEncryptionStatus>,
+    {
+        self.customer_managed_encryption = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [customer_managed_encryption][crate::model::SecretVersion::customer_managed_encryption].
+    pub fn maybe_customer_managed_encryption<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::CustomerManagedEncryptionStatus>,
+    {
+        self.customer_managed_encryption = v.map(|x| x.into());
         self
     }
 }
@@ -888,13 +968,20 @@ pub mod replication {
         }
 
         /// Sets the value of [customer_managed_encryption][crate::model::replication::Automatic::customer_managed_encryption].
-        pub fn set_customer_managed_encryption<
-            T: std::convert::Into<std::option::Option<crate::model::CustomerManagedEncryption>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.customer_managed_encryption = v.into();
+        pub fn set_customer_managed_encryption<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::CustomerManagedEncryption>,
+        {
+            self.customer_managed_encryption = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [customer_managed_encryption][crate::model::replication::Automatic::customer_managed_encryption].
+        pub fn maybe_customer_managed_encryption<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::CustomerManagedEncryption>,
+        {
+            self.customer_managed_encryption = v.map(|x| x.into());
             self
         }
     }
@@ -1008,13 +1095,20 @@ pub mod replication {
             }
 
             /// Sets the value of [customer_managed_encryption][crate::model::replication::user_managed::Replica::customer_managed_encryption].
-            pub fn set_customer_managed_encryption<
-                T: std::convert::Into<std::option::Option<crate::model::CustomerManagedEncryption>>,
-            >(
-                mut self,
-                v: T,
-            ) -> Self {
-                self.customer_managed_encryption = v.into();
+            pub fn set_customer_managed_encryption<T>(mut self, v: T) -> Self
+            where
+                T: std::convert::Into<crate::model::CustomerManagedEncryption>,
+            {
+                self.customer_managed_encryption = std::option::Option::Some(v.into());
+                self
+            }
+
+            /// Sets or clear the value of [customer_managed_encryption][crate::model::replication::user_managed::Replica::customer_managed_encryption].
+            pub fn maybe_customer_managed_encryption<T>(mut self, v: std::option::Option<T>) -> Self
+            where
+                T: std::convert::Into<crate::model::CustomerManagedEncryption>,
+            {
+                self.customer_managed_encryption = v.map(|x| x.into());
                 self
             }
         }
@@ -1246,13 +1340,20 @@ pub mod replication_status {
         }
 
         /// Sets the value of [customer_managed_encryption][crate::model::replication_status::AutomaticStatus::customer_managed_encryption].
-        pub fn set_customer_managed_encryption<
-            T: std::convert::Into<std::option::Option<crate::model::CustomerManagedEncryptionStatus>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.customer_managed_encryption = v.into();
+        pub fn set_customer_managed_encryption<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::CustomerManagedEncryptionStatus>,
+        {
+            self.customer_managed_encryption = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [customer_managed_encryption][crate::model::replication_status::AutomaticStatus::customer_managed_encryption].
+        pub fn maybe_customer_managed_encryption<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::CustomerManagedEncryptionStatus>,
+        {
+            self.customer_managed_encryption = v.map(|x| x.into());
             self
         }
     }
@@ -1361,15 +1462,20 @@ pub mod replication_status {
             }
 
             /// Sets the value of [customer_managed_encryption][crate::model::replication_status::user_managed_status::ReplicaStatus::customer_managed_encryption].
-            pub fn set_customer_managed_encryption<
-                T: std::convert::Into<
-                        std::option::Option<crate::model::CustomerManagedEncryptionStatus>,
-                    >,
-            >(
-                mut self,
-                v: T,
-            ) -> Self {
-                self.customer_managed_encryption = v.into();
+            pub fn set_customer_managed_encryption<T>(mut self, v: T) -> Self
+            where
+                T: std::convert::Into<crate::model::CustomerManagedEncryptionStatus>,
+            {
+                self.customer_managed_encryption = std::option::Option::Some(v.into());
+                self
+            }
+
+            /// Sets or clear the value of [customer_managed_encryption][crate::model::replication_status::user_managed_status::ReplicaStatus::customer_managed_encryption].
+            pub fn maybe_customer_managed_encryption<T>(mut self, v: std::option::Option<T>) -> Self
+            where
+                T: std::convert::Into<crate::model::CustomerManagedEncryptionStatus>,
+            {
+                self.customer_managed_encryption = v.map(|x| x.into());
                 self
             }
         }
@@ -1545,20 +1651,38 @@ impl Rotation {
     }
 
     /// Sets the value of [next_rotation_time][crate::model::Rotation::next_rotation_time].
-    pub fn set_next_rotation_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.next_rotation_time = v.into();
+    pub fn set_next_rotation_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.next_rotation_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [next_rotation_time][crate::model::Rotation::next_rotation_time].
+    pub fn maybe_next_rotation_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.next_rotation_time = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [rotation_period][crate::model::Rotation::rotation_period].
-    pub fn set_rotation_period<T: std::convert::Into<std::option::Option<wkt::Duration>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.rotation_period = v.into();
+    pub fn set_rotation_period<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Duration>,
+    {
+        self.rotation_period = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [rotation_period][crate::model::Rotation::rotation_period].
+    pub fn maybe_rotation_period<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Duration>,
+    {
+        self.rotation_period = v.map(|x| x.into());
         self
     }
 }
@@ -1626,11 +1750,20 @@ impl SecretPayload {
     }
 
     /// Sets the value of [data_crc32c][crate::model::SecretPayload::data_crc32c].
-    pub fn set_data_crc32c<T: std::convert::Into<std::option::Option<i64>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.data_crc32c = v.into();
+    pub fn set_data_crc32c<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<i64>,
+    {
+        self.data_crc32c = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [data_crc32c][crate::model::SecretPayload::data_crc32c].
+    pub fn maybe_data_crc32c<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<i64>,
+    {
+        self.data_crc32c = v.map(|x| x.into());
         self
     }
 }
@@ -1860,11 +1993,20 @@ impl CreateSecretRequest {
     }
 
     /// Sets the value of [secret][crate::model::CreateSecretRequest::secret].
-    pub fn set_secret<T: std::convert::Into<std::option::Option<crate::model::Secret>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.secret = v.into();
+    pub fn set_secret<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::Secret>,
+    {
+        self.secret = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [secret][crate::model::CreateSecretRequest::secret].
+    pub fn maybe_secret<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::Secret>,
+    {
+        self.secret = v.map(|x| x.into());
         self
     }
 }
@@ -1917,11 +2059,20 @@ impl AddSecretVersionRequest {
     }
 
     /// Sets the value of [payload][crate::model::AddSecretVersionRequest::payload].
-    pub fn set_payload<T: std::convert::Into<std::option::Option<crate::model::SecretPayload>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.payload = v.into();
+    pub fn set_payload<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::SecretPayload>,
+    {
+        self.payload = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [payload][crate::model::AddSecretVersionRequest::payload].
+    pub fn maybe_payload<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::SecretPayload>,
+    {
+        self.payload = v.map(|x| x.into());
         self
     }
 }
@@ -2212,20 +2363,38 @@ impl UpdateSecretRequest {
     }
 
     /// Sets the value of [secret][crate::model::UpdateSecretRequest::secret].
-    pub fn set_secret<T: std::convert::Into<std::option::Option<crate::model::Secret>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.secret = v.into();
+    pub fn set_secret<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::Secret>,
+    {
+        self.secret = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [secret][crate::model::UpdateSecretRequest::secret].
+    pub fn maybe_secret<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::Secret>,
+    {
+        self.secret = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateSecretRequest::update_mask].
-    pub fn set_update_mask<T: std::convert::Into<std::option::Option<wkt::FieldMask>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.update_mask = v.into();
+    pub fn set_update_mask<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [update_mask][crate::model::UpdateSecretRequest::update_mask].
+    pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = v.map(|x| x.into());
         self
     }
 }
@@ -2319,11 +2488,20 @@ impl AccessSecretVersionResponse {
     }
 
     /// Sets the value of [payload][crate::model::AccessSecretVersionResponse::payload].
-    pub fn set_payload<T: std::convert::Into<std::option::Option<crate::model::SecretPayload>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.payload = v.into();
+    pub fn set_payload<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::SecretPayload>,
+    {
+        self.payload = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [payload][crate::model::AccessSecretVersionResponse::payload].
+    pub fn maybe_payload<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::SecretPayload>,
+    {
+        self.payload = v.map(|x| x.into());
         self
     }
 }

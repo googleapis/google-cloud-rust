@@ -175,11 +175,22 @@ pub mod alloy_dbcsql_admin {
         /// Sets the value of [cluster][crate::model::RestoreFromCloudSQLRequest::cluster].
         ///
         /// This is a **required** field for requests.
-        pub fn set_cluster<T: Into<std::option::Option<crate::model::Cluster>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.cluster = v.into();
+        pub fn set_cluster<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Cluster>,
+        {
+            self.0.request.cluster = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [cluster][crate::model::RestoreFromCloudSQLRequest::cluster].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_cluster<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Cluster>,
+        {
+            self.0.request.cluster = v.map(|x| x.into());
             self
         }
 
@@ -1028,11 +1039,22 @@ pub mod alloy_db_admin {
         /// Sets the value of [cluster][crate::model::CreateClusterRequest::cluster].
         ///
         /// This is a **required** field for requests.
-        pub fn set_cluster<T: Into<std::option::Option<crate::model::Cluster>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.cluster = v.into();
+        pub fn set_cluster<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Cluster>,
+        {
+            self.0.request.cluster = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [cluster][crate::model::CreateClusterRequest::cluster].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_cluster<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Cluster>,
+        {
+            self.0.request.cluster = v.map(|x| x.into());
             self
         }
 
@@ -1142,22 +1164,42 @@ pub mod alloy_db_admin {
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateClusterRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [update_mask][crate::model::UpdateClusterRequest::update_mask].
+        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [cluster][crate::model::UpdateClusterRequest::cluster].
         ///
         /// This is a **required** field for requests.
-        pub fn set_cluster<T: Into<std::option::Option<crate::model::Cluster>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.cluster = v.into();
+        pub fn set_cluster<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Cluster>,
+        {
+            self.0.request.cluster = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [cluster][crate::model::UpdateClusterRequest::cluster].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_cluster<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Cluster>,
+        {
+            self.0.request.cluster = v.map(|x| x.into());
             self
         }
 
@@ -2144,11 +2186,22 @@ pub mod alloy_db_admin {
         /// Sets the value of [cluster][crate::model::RestoreClusterRequest::cluster].
         ///
         /// This is a **required** field for requests.
-        pub fn set_cluster<T: Into<std::option::Option<crate::model::Cluster>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.cluster = v.into();
+        pub fn set_cluster<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Cluster>,
+        {
+            self.0.request.cluster = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [cluster][crate::model::RestoreClusterRequest::cluster].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_cluster<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Cluster>,
+        {
+            self.0.request.cluster = v.map(|x| x.into());
             self
         }
 
@@ -2321,11 +2374,22 @@ pub mod alloy_db_admin {
         /// Sets the value of [cluster][crate::model::CreateSecondaryClusterRequest::cluster].
         ///
         /// This is a **required** field for requests.
-        pub fn set_cluster<T: Into<std::option::Option<crate::model::Cluster>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.cluster = v.into();
+        pub fn set_cluster<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Cluster>,
+        {
+            self.0.request.cluster = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [cluster][crate::model::CreateSecondaryClusterRequest::cluster].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_cluster<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Cluster>,
+        {
+            self.0.request.cluster = v.map(|x| x.into());
             self
         }
 
@@ -2635,11 +2699,22 @@ pub mod alloy_db_admin {
         /// Sets the value of [instance][crate::model::CreateInstanceRequest::instance].
         ///
         /// This is a **required** field for requests.
-        pub fn set_instance<T: Into<std::option::Option<crate::model::Instance>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.instance = v.into();
+        pub fn set_instance<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Instance>,
+        {
+            self.0.request.instance = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [instance][crate::model::CreateInstanceRequest::instance].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_instance<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Instance>,
+        {
+            self.0.request.instance = v.map(|x| x.into());
             self
         }
 
@@ -2772,11 +2847,22 @@ pub mod alloy_db_admin {
         /// Sets the value of [instance][crate::model::CreateSecondaryInstanceRequest::instance].
         ///
         /// This is a **required** field for requests.
-        pub fn set_instance<T: Into<std::option::Option<crate::model::Instance>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.instance = v.into();
+        pub fn set_instance<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Instance>,
+        {
+            self.0.request.instance = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [instance][crate::model::CreateSecondaryInstanceRequest::instance].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_instance<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Instance>,
+        {
+            self.0.request.instance = v.map(|x| x.into());
             self
         }
 
@@ -2902,11 +2988,22 @@ pub mod alloy_db_admin {
         /// Sets the value of [requests][crate::model::BatchCreateInstancesRequest::requests].
         ///
         /// This is a **required** field for requests.
-        pub fn set_requests<T: Into<std::option::Option<crate::model::CreateInstanceRequests>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.requests = v.into();
+        pub fn set_requests<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::CreateInstanceRequests>,
+        {
+            self.0.request.requests = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [requests][crate::model::BatchCreateInstancesRequest::requests].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_requests<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::CreateInstanceRequests>,
+        {
+            self.0.request.requests = v.map(|x| x.into());
             self
         }
 
@@ -3010,22 +3107,42 @@ pub mod alloy_db_admin {
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateInstanceRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [update_mask][crate::model::UpdateInstanceRequest::update_mask].
+        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [instance][crate::model::UpdateInstanceRequest::instance].
         ///
         /// This is a **required** field for requests.
-        pub fn set_instance<T: Into<std::option::Option<crate::model::Instance>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.instance = v.into();
+        pub fn set_instance<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Instance>,
+        {
+            self.0.request.instance = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [instance][crate::model::UpdateInstanceRequest::instance].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_instance<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Instance>,
+        {
+            self.0.request.instance = v.map(|x| x.into());
             self
         }
 
@@ -3928,11 +4045,22 @@ pub mod alloy_db_admin {
         /// Sets the value of [backup][crate::model::CreateBackupRequest::backup].
         ///
         /// This is a **required** field for requests.
-        pub fn set_backup<T: Into<std::option::Option<crate::model::Backup>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.backup = v.into();
+        pub fn set_backup<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Backup>,
+        {
+            self.0.request.backup = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [backup][crate::model::CreateBackupRequest::backup].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_backup<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Backup>,
+        {
+            self.0.request.backup = v.map(|x| x.into());
             self
         }
 
@@ -4042,22 +4170,42 @@ pub mod alloy_db_admin {
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateBackupRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [update_mask][crate::model::UpdateBackupRequest::update_mask].
+        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [backup][crate::model::UpdateBackupRequest::backup].
         ///
         /// This is a **required** field for requests.
-        pub fn set_backup<T: Into<std::option::Option<crate::model::Backup>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.backup = v.into();
+        pub fn set_backup<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Backup>,
+        {
+            self.0.request.backup = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [backup][crate::model::UpdateBackupRequest::backup].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_backup<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Backup>,
+        {
+            self.0.request.backup = v.map(|x| x.into());
             self
         }
 
@@ -4394,11 +4542,20 @@ pub mod alloy_db_admin {
         }
 
         /// Sets the value of [cert_duration][crate::model::GenerateClientCertificateRequest::cert_duration].
-        pub fn set_cert_duration<T: Into<std::option::Option<wkt::Duration>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.cert_duration = v.into();
+        pub fn set_cert_duration<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Duration>,
+        {
+            self.0.request.cert_duration = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [cert_duration][crate::model::GenerateClientCertificateRequest::cert_duration].
+        pub fn maybe_cert_duration<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Duration>,
+        {
+            self.0.request.cert_duration = v.map(|x| x.into());
             self
         }
 
@@ -4734,8 +4891,22 @@ pub mod alloy_db_admin {
         /// Sets the value of [user][crate::model::CreateUserRequest::user].
         ///
         /// This is a **required** field for requests.
-        pub fn set_user<T: Into<std::option::Option<crate::model::User>>>(mut self, v: T) -> Self {
-            self.0.request.user = v.into();
+        pub fn set_user<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::User>,
+        {
+            self.0.request.user = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [user][crate::model::CreateUserRequest::user].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_user<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::User>,
+        {
+            self.0.request.user = v.map(|x| x.into());
             self
         }
 
@@ -4806,19 +4977,42 @@ pub mod alloy_db_admin {
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateUserRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [update_mask][crate::model::UpdateUserRequest::update_mask].
+        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [user][crate::model::UpdateUserRequest::user].
         ///
         /// This is a **required** field for requests.
-        pub fn set_user<T: Into<std::option::Option<crate::model::User>>>(mut self, v: T) -> Self {
-            self.0.request.user = v.into();
+        pub fn set_user<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::User>,
+        {
+            self.0.request.user = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [user][crate::model::UpdateUserRequest::user].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_user<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::User>,
+        {
+            self.0.request.user = v.map(|x| x.into());
             self
         }
 

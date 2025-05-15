@@ -169,11 +169,22 @@ pub mod autokey {
         /// Sets the value of [key_handle][crate::model::CreateKeyHandleRequest::key_handle].
         ///
         /// This is a **required** field for requests.
-        pub fn set_key_handle<T: Into<std::option::Option<crate::model::KeyHandle>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.key_handle = v.into();
+        pub fn set_key_handle<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::KeyHandle>,
+        {
+            self.0.request.key_handle = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [key_handle][crate::model::CreateKeyHandleRequest::key_handle].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_key_handle<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::KeyHandle>,
+        {
+            self.0.request.key_handle = v.map(|x| x.into());
             self
         }
     }
@@ -571,20 +582,40 @@ pub mod autokey {
         /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
-        pub fn set_policy<T: Into<std::option::Option<iam_v1::model::Policy>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.policy = v.into();
+        pub fn set_policy<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -649,11 +680,20 @@ pub mod autokey {
         }
 
         /// Sets the value of [options][iam_v1::model::GetIamPolicyRequest::options].
-        pub fn set_options<T: Into<std::option::Option<iam_v1::model::GetPolicyOptions>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.options = v.into();
+        pub fn set_options<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        pub fn maybe_options<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = v.map(|x| x.into());
             self
         }
     }
@@ -909,22 +949,44 @@ pub mod autokey_admin {
         /// Sets the value of [autokey_config][crate::model::UpdateAutokeyConfigRequest::autokey_config].
         ///
         /// This is a **required** field for requests.
-        pub fn set_autokey_config<T: Into<std::option::Option<crate::model::AutokeyConfig>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.autokey_config = v.into();
+        pub fn set_autokey_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::AutokeyConfig>,
+        {
+            self.0.request.autokey_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [autokey_config][crate::model::UpdateAutokeyConfigRequest::autokey_config].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_autokey_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::AutokeyConfig>,
+        {
+            self.0.request.autokey_config = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateAutokeyConfigRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [update_mask][crate::model::UpdateAutokeyConfigRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -1294,20 +1356,40 @@ pub mod autokey_admin {
         /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
-        pub fn set_policy<T: Into<std::option::Option<iam_v1::model::Policy>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.policy = v.into();
+        pub fn set_policy<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -1374,11 +1456,20 @@ pub mod autokey_admin {
         }
 
         /// Sets the value of [options][iam_v1::model::GetIamPolicyRequest::options].
-        pub fn set_options<T: Into<std::option::Option<iam_v1::model::GetPolicyOptions>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.options = v.into();
+        pub fn set_options<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        pub fn maybe_options<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = v.map(|x| x.into());
             self
         }
     }
@@ -1838,11 +1929,22 @@ pub mod ekm_service {
         /// Sets the value of [ekm_connection][crate::model::CreateEkmConnectionRequest::ekm_connection].
         ///
         /// This is a **required** field for requests.
-        pub fn set_ekm_connection<T: Into<std::option::Option<crate::model::EkmConnection>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.ekm_connection = v.into();
+        pub fn set_ekm_connection<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::EkmConnection>,
+        {
+            self.0.request.ekm_connection = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [ekm_connection][crate::model::CreateEkmConnectionRequest::ekm_connection].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_ekm_connection<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::EkmConnection>,
+        {
+            self.0.request.ekm_connection = v.map(|x| x.into());
             self
         }
     }
@@ -1906,22 +2008,44 @@ pub mod ekm_service {
         /// Sets the value of [ekm_connection][crate::model::UpdateEkmConnectionRequest::ekm_connection].
         ///
         /// This is a **required** field for requests.
-        pub fn set_ekm_connection<T: Into<std::option::Option<crate::model::EkmConnection>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.ekm_connection = v.into();
+        pub fn set_ekm_connection<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::EkmConnection>,
+        {
+            self.0.request.ekm_connection = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [ekm_connection][crate::model::UpdateEkmConnectionRequest::ekm_connection].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_ekm_connection<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::EkmConnection>,
+        {
+            self.0.request.ekm_connection = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateEkmConnectionRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [update_mask][crate::model::UpdateEkmConnectionRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -2044,22 +2168,44 @@ pub mod ekm_service {
         /// Sets the value of [ekm_config][crate::model::UpdateEkmConfigRequest::ekm_config].
         ///
         /// This is a **required** field for requests.
-        pub fn set_ekm_config<T: Into<std::option::Option<crate::model::EkmConfig>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.ekm_config = v.into();
+        pub fn set_ekm_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::EkmConfig>,
+        {
+            self.0.request.ekm_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [ekm_config][crate::model::UpdateEkmConfigRequest::ekm_config].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_ekm_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::EkmConfig>,
+        {
+            self.0.request.ekm_config = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateEkmConfigRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [update_mask][crate::model::UpdateEkmConfigRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -2362,20 +2508,40 @@ pub mod ekm_service {
         /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
-        pub fn set_policy<T: Into<std::option::Option<iam_v1::model::Policy>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.policy = v.into();
+        pub fn set_policy<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -2442,11 +2608,20 @@ pub mod ekm_service {
         }
 
         /// Sets the value of [options][iam_v1::model::GetIamPolicyRequest::options].
-        pub fn set_options<T: Into<std::option::Option<iam_v1::model::GetPolicyOptions>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.options = v.into();
+        pub fn set_options<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        pub fn maybe_options<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = v.map(|x| x.into());
             self
         }
     }
@@ -3520,11 +3695,22 @@ pub mod key_management_service {
         /// Sets the value of [key_ring][crate::model::CreateKeyRingRequest::key_ring].
         ///
         /// This is a **required** field for requests.
-        pub fn set_key_ring<T: Into<std::option::Option<crate::model::KeyRing>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.key_ring = v.into();
+        pub fn set_key_ring<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::KeyRing>,
+        {
+            self.0.request.key_ring = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [key_ring][crate::model::CreateKeyRingRequest::key_ring].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_key_ring<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::KeyRing>,
+        {
+            self.0.request.key_ring = v.map(|x| x.into());
             self
         }
     }
@@ -3601,11 +3787,22 @@ pub mod key_management_service {
         /// Sets the value of [crypto_key][crate::model::CreateCryptoKeyRequest::crypto_key].
         ///
         /// This is a **required** field for requests.
-        pub fn set_crypto_key<T: Into<std::option::Option<crate::model::CryptoKey>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.crypto_key = v.into();
+        pub fn set_crypto_key<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::CryptoKey>,
+        {
+            self.0.request.crypto_key = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [crypto_key][crate::model::CreateCryptoKeyRequest::crypto_key].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_crypto_key<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::CryptoKey>,
+        {
+            self.0.request.crypto_key = v.map(|x| x.into());
             self
         }
 
@@ -3683,13 +3880,22 @@ pub mod key_management_service {
         /// Sets the value of [crypto_key_version][crate::model::CreateCryptoKeyVersionRequest::crypto_key_version].
         ///
         /// This is a **required** field for requests.
-        pub fn set_crypto_key_version<
-            T: Into<std::option::Option<crate::model::CryptoKeyVersion>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.crypto_key_version = v.into();
+        pub fn set_crypto_key_version<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::CryptoKeyVersion>,
+        {
+            self.0.request.crypto_key_version = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [crypto_key_version][crate::model::CreateCryptoKeyVersionRequest::crypto_key_version].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_crypto_key_version<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::CryptoKeyVersion>,
+        {
+            self.0.request.crypto_key_version = v.map(|x| x.into());
             self
         }
     }
@@ -3891,11 +4097,22 @@ pub mod key_management_service {
         /// Sets the value of [import_job][crate::model::CreateImportJobRequest::import_job].
         ///
         /// This is a **required** field for requests.
-        pub fn set_import_job<T: Into<std::option::Option<crate::model::ImportJob>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.import_job = v.into();
+        pub fn set_import_job<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::ImportJob>,
+        {
+            self.0.request.import_job = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [import_job][crate::model::CreateImportJobRequest::import_job].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_import_job<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::ImportJob>,
+        {
+            self.0.request.import_job = v.map(|x| x.into());
             self
         }
     }
@@ -3956,22 +4173,44 @@ pub mod key_management_service {
         /// Sets the value of [crypto_key][crate::model::UpdateCryptoKeyRequest::crypto_key].
         ///
         /// This is a **required** field for requests.
-        pub fn set_crypto_key<T: Into<std::option::Option<crate::model::CryptoKey>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.crypto_key = v.into();
+        pub fn set_crypto_key<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::CryptoKey>,
+        {
+            self.0.request.crypto_key = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [crypto_key][crate::model::UpdateCryptoKeyRequest::crypto_key].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_crypto_key<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::CryptoKey>,
+        {
+            self.0.request.crypto_key = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateCryptoKeyRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [update_mask][crate::model::UpdateCryptoKeyRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -4035,24 +4274,44 @@ pub mod key_management_service {
         /// Sets the value of [crypto_key_version][crate::model::UpdateCryptoKeyVersionRequest::crypto_key_version].
         ///
         /// This is a **required** field for requests.
-        pub fn set_crypto_key_version<
-            T: Into<std::option::Option<crate::model::CryptoKeyVersion>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.crypto_key_version = v.into();
+        pub fn set_crypto_key_version<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::CryptoKeyVersion>,
+        {
+            self.0.request.crypto_key_version = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [crypto_key_version][crate::model::UpdateCryptoKeyVersionRequest::crypto_key_version].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_crypto_key_version<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::CryptoKeyVersion>,
+        {
+            self.0.request.crypto_key_version = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateCryptoKeyVersionRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [update_mask][crate::model::UpdateCryptoKeyVersionRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -4342,22 +4601,42 @@ pub mod key_management_service {
         }
 
         /// Sets the value of [plaintext_crc32c][crate::model::EncryptRequest::plaintext_crc32c].
-        pub fn set_plaintext_crc32c<T: Into<std::option::Option<wkt::Int64Value>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.plaintext_crc32c = v.into();
+        pub fn set_plaintext_crc32c<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Int64Value>,
+        {
+            self.0.request.plaintext_crc32c = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [plaintext_crc32c][crate::model::EncryptRequest::plaintext_crc32c].
+        pub fn maybe_plaintext_crc32c<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Int64Value>,
+        {
+            self.0.request.plaintext_crc32c = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [additional_authenticated_data_crc32c][crate::model::EncryptRequest::additional_authenticated_data_crc32c].
-        pub fn set_additional_authenticated_data_crc32c<
-            T: Into<std::option::Option<wkt::Int64Value>>,
-        >(
+        pub fn set_additional_authenticated_data_crc32c<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Int64Value>,
+        {
+            self.0.request.additional_authenticated_data_crc32c =
+                std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [additional_authenticated_data_crc32c][crate::model::EncryptRequest::additional_authenticated_data_crc32c].
+        pub fn maybe_additional_authenticated_data_crc32c<T>(
             mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.additional_authenticated_data_crc32c = v.into();
+            v: std::option::Option<T>,
+        ) -> Self
+        where
+            T: std::convert::Into<wkt::Int64Value>,
+        {
+            self.0.request.additional_authenticated_data_crc32c = v.map(|x| x.into());
             self
         }
     }
@@ -4438,22 +4717,42 @@ pub mod key_management_service {
         }
 
         /// Sets the value of [ciphertext_crc32c][crate::model::DecryptRequest::ciphertext_crc32c].
-        pub fn set_ciphertext_crc32c<T: Into<std::option::Option<wkt::Int64Value>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.ciphertext_crc32c = v.into();
+        pub fn set_ciphertext_crc32c<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Int64Value>,
+        {
+            self.0.request.ciphertext_crc32c = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [ciphertext_crc32c][crate::model::DecryptRequest::ciphertext_crc32c].
+        pub fn maybe_ciphertext_crc32c<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Int64Value>,
+        {
+            self.0.request.ciphertext_crc32c = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [additional_authenticated_data_crc32c][crate::model::DecryptRequest::additional_authenticated_data_crc32c].
-        pub fn set_additional_authenticated_data_crc32c<
-            T: Into<std::option::Option<wkt::Int64Value>>,
-        >(
+        pub fn set_additional_authenticated_data_crc32c<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Int64Value>,
+        {
+            self.0.request.additional_authenticated_data_crc32c =
+                std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [additional_authenticated_data_crc32c][crate::model::DecryptRequest::additional_authenticated_data_crc32c].
+        pub fn maybe_additional_authenticated_data_crc32c<T>(
             mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.additional_authenticated_data_crc32c = v.into();
+            v: std::option::Option<T>,
+        ) -> Self
+        where
+            T: std::convert::Into<wkt::Int64Value>,
+        {
+            self.0.request.additional_authenticated_data_crc32c = v.map(|x| x.into());
             self
         }
     }
@@ -4534,22 +4833,42 @@ pub mod key_management_service {
         }
 
         /// Sets the value of [plaintext_crc32c][crate::model::RawEncryptRequest::plaintext_crc32c].
-        pub fn set_plaintext_crc32c<T: Into<std::option::Option<wkt::Int64Value>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.plaintext_crc32c = v.into();
+        pub fn set_plaintext_crc32c<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Int64Value>,
+        {
+            self.0.request.plaintext_crc32c = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [plaintext_crc32c][crate::model::RawEncryptRequest::plaintext_crc32c].
+        pub fn maybe_plaintext_crc32c<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Int64Value>,
+        {
+            self.0.request.plaintext_crc32c = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [additional_authenticated_data_crc32c][crate::model::RawEncryptRequest::additional_authenticated_data_crc32c].
-        pub fn set_additional_authenticated_data_crc32c<
-            T: Into<std::option::Option<wkt::Int64Value>>,
-        >(
+        pub fn set_additional_authenticated_data_crc32c<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Int64Value>,
+        {
+            self.0.request.additional_authenticated_data_crc32c =
+                std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [additional_authenticated_data_crc32c][crate::model::RawEncryptRequest::additional_authenticated_data_crc32c].
+        pub fn maybe_additional_authenticated_data_crc32c<T>(
             mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.additional_authenticated_data_crc32c = v.into();
+            v: std::option::Option<T>,
+        ) -> Self
+        where
+            T: std::convert::Into<wkt::Int64Value>,
+        {
+            self.0.request.additional_authenticated_data_crc32c = v.map(|x| x.into());
             self
         }
 
@@ -4560,11 +4879,20 @@ pub mod key_management_service {
         }
 
         /// Sets the value of [initialization_vector_crc32c][crate::model::RawEncryptRequest::initialization_vector_crc32c].
-        pub fn set_initialization_vector_crc32c<T: Into<std::option::Option<wkt::Int64Value>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.initialization_vector_crc32c = v.into();
+        pub fn set_initialization_vector_crc32c<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Int64Value>,
+        {
+            self.0.request.initialization_vector_crc32c = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [initialization_vector_crc32c][crate::model::RawEncryptRequest::initialization_vector_crc32c].
+        pub fn maybe_initialization_vector_crc32c<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Int64Value>,
+        {
+            self.0.request.initialization_vector_crc32c = v.map(|x| x.into());
             self
         }
     }
@@ -4659,31 +4987,60 @@ pub mod key_management_service {
         }
 
         /// Sets the value of [ciphertext_crc32c][crate::model::RawDecryptRequest::ciphertext_crc32c].
-        pub fn set_ciphertext_crc32c<T: Into<std::option::Option<wkt::Int64Value>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.ciphertext_crc32c = v.into();
+        pub fn set_ciphertext_crc32c<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Int64Value>,
+        {
+            self.0.request.ciphertext_crc32c = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [ciphertext_crc32c][crate::model::RawDecryptRequest::ciphertext_crc32c].
+        pub fn maybe_ciphertext_crc32c<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Int64Value>,
+        {
+            self.0.request.ciphertext_crc32c = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [additional_authenticated_data_crc32c][crate::model::RawDecryptRequest::additional_authenticated_data_crc32c].
-        pub fn set_additional_authenticated_data_crc32c<
-            T: Into<std::option::Option<wkt::Int64Value>>,
-        >(
+        pub fn set_additional_authenticated_data_crc32c<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Int64Value>,
+        {
+            self.0.request.additional_authenticated_data_crc32c =
+                std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [additional_authenticated_data_crc32c][crate::model::RawDecryptRequest::additional_authenticated_data_crc32c].
+        pub fn maybe_additional_authenticated_data_crc32c<T>(
             mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.additional_authenticated_data_crc32c = v.into();
+            v: std::option::Option<T>,
+        ) -> Self
+        where
+            T: std::convert::Into<wkt::Int64Value>,
+        {
+            self.0.request.additional_authenticated_data_crc32c = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [initialization_vector_crc32c][crate::model::RawDecryptRequest::initialization_vector_crc32c].
-        pub fn set_initialization_vector_crc32c<T: Into<std::option::Option<wkt::Int64Value>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.initialization_vector_crc32c = v.into();
+        pub fn set_initialization_vector_crc32c<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Int64Value>,
+        {
+            self.0.request.initialization_vector_crc32c = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [initialization_vector_crc32c][crate::model::RawDecryptRequest::initialization_vector_crc32c].
+        pub fn maybe_initialization_vector_crc32c<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Int64Value>,
+        {
+            self.0.request.initialization_vector_crc32c = v.map(|x| x.into());
             self
         }
     }
@@ -4750,20 +5107,38 @@ pub mod key_management_service {
         }
 
         /// Sets the value of [digest][crate::model::AsymmetricSignRequest::digest].
-        pub fn set_digest<T: Into<std::option::Option<crate::model::Digest>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.digest = v.into();
+        pub fn set_digest<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Digest>,
+        {
+            self.0.request.digest = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [digest][crate::model::AsymmetricSignRequest::digest].
+        pub fn maybe_digest<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Digest>,
+        {
+            self.0.request.digest = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [digest_crc32c][crate::model::AsymmetricSignRequest::digest_crc32c].
-        pub fn set_digest_crc32c<T: Into<std::option::Option<wkt::Int64Value>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.digest_crc32c = v.into();
+        pub fn set_digest_crc32c<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Int64Value>,
+        {
+            self.0.request.digest_crc32c = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [digest_crc32c][crate::model::AsymmetricSignRequest::digest_crc32c].
+        pub fn maybe_digest_crc32c<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Int64Value>,
+        {
+            self.0.request.digest_crc32c = v.map(|x| x.into());
             self
         }
 
@@ -4774,11 +5149,20 @@ pub mod key_management_service {
         }
 
         /// Sets the value of [data_crc32c][crate::model::AsymmetricSignRequest::data_crc32c].
-        pub fn set_data_crc32c<T: Into<std::option::Option<wkt::Int64Value>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.data_crc32c = v.into();
+        pub fn set_data_crc32c<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Int64Value>,
+        {
+            self.0.request.data_crc32c = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [data_crc32c][crate::model::AsymmetricSignRequest::data_crc32c].
+        pub fn maybe_data_crc32c<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Int64Value>,
+        {
+            self.0.request.data_crc32c = v.map(|x| x.into());
             self
         }
     }
@@ -4856,11 +5240,20 @@ pub mod key_management_service {
         }
 
         /// Sets the value of [ciphertext_crc32c][crate::model::AsymmetricDecryptRequest::ciphertext_crc32c].
-        pub fn set_ciphertext_crc32c<T: Into<std::option::Option<wkt::Int64Value>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.ciphertext_crc32c = v.into();
+        pub fn set_ciphertext_crc32c<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Int64Value>,
+        {
+            self.0.request.ciphertext_crc32c = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [ciphertext_crc32c][crate::model::AsymmetricDecryptRequest::ciphertext_crc32c].
+        pub fn maybe_ciphertext_crc32c<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Int64Value>,
+        {
+            self.0.request.ciphertext_crc32c = v.map(|x| x.into());
             self
         }
     }
@@ -4935,11 +5328,20 @@ pub mod key_management_service {
         }
 
         /// Sets the value of [data_crc32c][crate::model::MacSignRequest::data_crc32c].
-        pub fn set_data_crc32c<T: Into<std::option::Option<wkt::Int64Value>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.data_crc32c = v.into();
+        pub fn set_data_crc32c<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Int64Value>,
+        {
+            self.0.request.data_crc32c = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [data_crc32c][crate::model::MacSignRequest::data_crc32c].
+        pub fn maybe_data_crc32c<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Int64Value>,
+        {
+            self.0.request.data_crc32c = v.map(|x| x.into());
             self
         }
     }
@@ -5014,11 +5416,20 @@ pub mod key_management_service {
         }
 
         /// Sets the value of [data_crc32c][crate::model::MacVerifyRequest::data_crc32c].
-        pub fn set_data_crc32c<T: Into<std::option::Option<wkt::Int64Value>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.data_crc32c = v.into();
+        pub fn set_data_crc32c<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Int64Value>,
+        {
+            self.0.request.data_crc32c = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [data_crc32c][crate::model::MacVerifyRequest::data_crc32c].
+        pub fn maybe_data_crc32c<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Int64Value>,
+        {
+            self.0.request.data_crc32c = v.map(|x| x.into());
             self
         }
 
@@ -5031,11 +5442,20 @@ pub mod key_management_service {
         }
 
         /// Sets the value of [mac_crc32c][crate::model::MacVerifyRequest::mac_crc32c].
-        pub fn set_mac_crc32c<T: Into<std::option::Option<wkt::Int64Value>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.mac_crc32c = v.into();
+        pub fn set_mac_crc32c<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Int64Value>,
+        {
+            self.0.request.mac_crc32c = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [mac_crc32c][crate::model::MacVerifyRequest::mac_crc32c].
+        pub fn maybe_mac_crc32c<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Int64Value>,
+        {
+            self.0.request.mac_crc32c = v.map(|x| x.into());
             self
         }
     }
@@ -5351,20 +5771,40 @@ pub mod key_management_service {
         /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
-        pub fn set_policy<T: Into<std::option::Option<iam_v1::model::Policy>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.policy = v.into();
+        pub fn set_policy<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -5431,11 +5871,20 @@ pub mod key_management_service {
         }
 
         /// Sets the value of [options][iam_v1::model::GetIamPolicyRequest::options].
-        pub fn set_options<T: Into<std::option::Option<iam_v1::model::GetPolicyOptions>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.options = v.into();
+        pub fn set_options<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        pub fn maybe_options<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = v.map(|x| x.into());
             self
         }
     }

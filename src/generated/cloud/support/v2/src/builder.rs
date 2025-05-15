@@ -558,8 +558,22 @@ pub mod case_service {
         /// Sets the value of [case][crate::model::CreateCaseRequest::case].
         ///
         /// This is a **required** field for requests.
-        pub fn set_case<T: Into<std::option::Option<crate::model::Case>>>(mut self, v: T) -> Self {
-            self.0.request.case = v.into();
+        pub fn set_case<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Case>,
+        {
+            self.0.request.case = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [case][crate::model::CreateCaseRequest::case].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_case<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Case>,
+        {
+            self.0.request.case = v.map(|x| x.into());
             self
         }
     }
@@ -620,17 +634,40 @@ pub mod case_service {
         /// Sets the value of [case][crate::model::UpdateCaseRequest::case].
         ///
         /// This is a **required** field for requests.
-        pub fn set_case<T: Into<std::option::Option<crate::model::Case>>>(mut self, v: T) -> Self {
-            self.0.request.case = v.into();
+        pub fn set_case<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Case>,
+        {
+            self.0.request.case = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [case][crate::model::UpdateCaseRequest::case].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_case<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Case>,
+        {
+            self.0.request.case = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateCaseRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [update_mask][crate::model::UpdateCaseRequest::update_mask].
+        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -697,11 +734,20 @@ pub mod case_service {
         }
 
         /// Sets the value of [escalation][crate::model::EscalateCaseRequest::escalation].
-        pub fn set_escalation<T: Into<std::option::Option<crate::model::Escalation>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.escalation = v.into();
+        pub fn set_escalation<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Escalation>,
+        {
+            self.0.request.escalation = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [escalation][crate::model::EscalateCaseRequest::escalation].
+        pub fn maybe_escalation<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Escalation>,
+        {
+            self.0.request.escalation = v.map(|x| x.into());
             self
         }
     }
@@ -1098,11 +1144,22 @@ pub mod comment_service {
         /// Sets the value of [comment][crate::model::CreateCommentRequest::comment].
         ///
         /// This is a **required** field for requests.
-        pub fn set_comment<T: Into<std::option::Option<crate::model::Comment>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.comment = v.into();
+        pub fn set_comment<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Comment>,
+        {
+            self.0.request.comment = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [comment][crate::model::CreateCommentRequest::comment].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_comment<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Comment>,
+        {
+            self.0.request.comment = v.map(|x| x.into());
             self
         }
     }

@@ -68,20 +68,38 @@ impl CommonMetadata {
     }
 
     /// Sets the value of [start_time][crate::model::CommonMetadata::start_time].
-    pub fn set_start_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.start_time = v.into();
+    pub fn set_start_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.start_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [start_time][crate::model::CommonMetadata::start_time].
+    pub fn maybe_start_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.start_time = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [end_time][crate::model::CommonMetadata::end_time].
-    pub fn set_end_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.end_time = v.into();
+    pub fn set_end_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.end_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [end_time][crate::model::CommonMetadata::end_time].
+    pub fn maybe_end_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.end_time = v.map(|x| x.into());
         self
     }
 
@@ -415,13 +433,20 @@ impl ExportEntitiesRequest {
     }
 
     /// Sets the value of [entity_filter][crate::model::ExportEntitiesRequest::entity_filter].
-    pub fn set_entity_filter<
-        T: std::convert::Into<std::option::Option<crate::model::EntityFilter>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.entity_filter = v.into();
+    pub fn set_entity_filter<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::EntityFilter>,
+    {
+        self.entity_filter = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [entity_filter][crate::model::ExportEntitiesRequest::entity_filter].
+    pub fn maybe_entity_filter<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::EntityFilter>,
+    {
+        self.entity_filter = v.map(|x| x.into());
         self
     }
 
@@ -518,13 +543,20 @@ impl ImportEntitiesRequest {
     }
 
     /// Sets the value of [entity_filter][crate::model::ImportEntitiesRequest::entity_filter].
-    pub fn set_entity_filter<
-        T: std::convert::Into<std::option::Option<crate::model::EntityFilter>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.entity_filter = v.into();
+    pub fn set_entity_filter<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::EntityFilter>,
+    {
+        self.entity_filter = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [entity_filter][crate::model::ImportEntitiesRequest::entity_filter].
+    pub fn maybe_entity_filter<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::EntityFilter>,
+    {
+        self.entity_filter = v.map(|x| x.into());
         self
     }
 }
@@ -618,44 +650,74 @@ impl ExportEntitiesMetadata {
     }
 
     /// Sets the value of [common][crate::model::ExportEntitiesMetadata::common].
-    pub fn set_common<T: std::convert::Into<std::option::Option<crate::model::CommonMetadata>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.common = v.into();
+    pub fn set_common<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::CommonMetadata>,
+    {
+        self.common = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [common][crate::model::ExportEntitiesMetadata::common].
+    pub fn maybe_common<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::CommonMetadata>,
+    {
+        self.common = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [progress_entities][crate::model::ExportEntitiesMetadata::progress_entities].
-    pub fn set_progress_entities<
-        T: std::convert::Into<std::option::Option<crate::model::Progress>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.progress_entities = v.into();
+    pub fn set_progress_entities<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::Progress>,
+    {
+        self.progress_entities = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [progress_entities][crate::model::ExportEntitiesMetadata::progress_entities].
+    pub fn maybe_progress_entities<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::Progress>,
+    {
+        self.progress_entities = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [progress_bytes][crate::model::ExportEntitiesMetadata::progress_bytes].
-    pub fn set_progress_bytes<
-        T: std::convert::Into<std::option::Option<crate::model::Progress>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.progress_bytes = v.into();
+    pub fn set_progress_bytes<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::Progress>,
+    {
+        self.progress_bytes = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [progress_bytes][crate::model::ExportEntitiesMetadata::progress_bytes].
+    pub fn maybe_progress_bytes<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::Progress>,
+    {
+        self.progress_bytes = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [entity_filter][crate::model::ExportEntitiesMetadata::entity_filter].
-    pub fn set_entity_filter<
-        T: std::convert::Into<std::option::Option<crate::model::EntityFilter>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.entity_filter = v.into();
+    pub fn set_entity_filter<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::EntityFilter>,
+    {
+        self.entity_filter = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [entity_filter][crate::model::ExportEntitiesMetadata::entity_filter].
+    pub fn maybe_entity_filter<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::EntityFilter>,
+    {
+        self.entity_filter = v.map(|x| x.into());
         self
     }
 
@@ -716,44 +778,74 @@ impl ImportEntitiesMetadata {
     }
 
     /// Sets the value of [common][crate::model::ImportEntitiesMetadata::common].
-    pub fn set_common<T: std::convert::Into<std::option::Option<crate::model::CommonMetadata>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.common = v.into();
+    pub fn set_common<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::CommonMetadata>,
+    {
+        self.common = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [common][crate::model::ImportEntitiesMetadata::common].
+    pub fn maybe_common<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::CommonMetadata>,
+    {
+        self.common = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [progress_entities][crate::model::ImportEntitiesMetadata::progress_entities].
-    pub fn set_progress_entities<
-        T: std::convert::Into<std::option::Option<crate::model::Progress>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.progress_entities = v.into();
+    pub fn set_progress_entities<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::Progress>,
+    {
+        self.progress_entities = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [progress_entities][crate::model::ImportEntitiesMetadata::progress_entities].
+    pub fn maybe_progress_entities<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::Progress>,
+    {
+        self.progress_entities = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [progress_bytes][crate::model::ImportEntitiesMetadata::progress_bytes].
-    pub fn set_progress_bytes<
-        T: std::convert::Into<std::option::Option<crate::model::Progress>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.progress_bytes = v.into();
+    pub fn set_progress_bytes<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::Progress>,
+    {
+        self.progress_bytes = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [progress_bytes][crate::model::ImportEntitiesMetadata::progress_bytes].
+    pub fn maybe_progress_bytes<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::Progress>,
+    {
+        self.progress_bytes = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [entity_filter][crate::model::ImportEntitiesMetadata::entity_filter].
-    pub fn set_entity_filter<
-        T: std::convert::Into<std::option::Option<crate::model::EntityFilter>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.entity_filter = v.into();
+    pub fn set_entity_filter<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::EntityFilter>,
+    {
+        self.entity_filter = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [entity_filter][crate::model::ImportEntitiesMetadata::entity_filter].
+    pub fn maybe_entity_filter<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::EntityFilter>,
+    {
+        self.entity_filter = v.map(|x| x.into());
         self
     }
 
@@ -880,11 +972,20 @@ impl CreateIndexRequest {
     }
 
     /// Sets the value of [index][crate::model::CreateIndexRequest::index].
-    pub fn set_index<T: std::convert::Into<std::option::Option<crate::model::Index>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.index = v.into();
+    pub fn set_index<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::Index>,
+    {
+        self.index = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [index][crate::model::CreateIndexRequest::index].
+    pub fn maybe_index<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::Index>,
+    {
+        self.index = v.map(|x| x.into());
         self
     }
 }
@@ -1142,22 +1243,38 @@ impl IndexOperationMetadata {
     }
 
     /// Sets the value of [common][crate::model::IndexOperationMetadata::common].
-    pub fn set_common<T: std::convert::Into<std::option::Option<crate::model::CommonMetadata>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.common = v.into();
+    pub fn set_common<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::CommonMetadata>,
+    {
+        self.common = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [common][crate::model::IndexOperationMetadata::common].
+    pub fn maybe_common<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::CommonMetadata>,
+    {
+        self.common = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [progress_entities][crate::model::IndexOperationMetadata::progress_entities].
-    pub fn set_progress_entities<
-        T: std::convert::Into<std::option::Option<crate::model::Progress>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.progress_entities = v.into();
+    pub fn set_progress_entities<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::Progress>,
+    {
+        self.progress_entities = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [progress_entities][crate::model::IndexOperationMetadata::progress_entities].
+    pub fn maybe_progress_entities<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::Progress>,
+    {
+        self.progress_entities = v.map(|x| x.into());
         self
     }
 

@@ -328,11 +328,22 @@ pub mod service_manager {
         /// Sets the value of [service][crate::model::CreateServiceRequest::service].
         ///
         /// This is a **required** field for requests.
-        pub fn set_service<T: Into<std::option::Option<crate::model::ManagedService>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.service = v.into();
+        pub fn set_service<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::ManagedService>,
+        {
+            self.0.request.service = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [service][crate::model::CreateServiceRequest::service].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_service<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::ManagedService>,
+        {
+            self.0.request.service = v.map(|x| x.into());
             self
         }
     }
@@ -800,11 +811,22 @@ pub mod service_manager {
         /// Sets the value of [service_config][crate::model::CreateServiceConfigRequest::service_config].
         ///
         /// This is a **required** field for requests.
-        pub fn set_service_config<T: Into<std::option::Option<api::model::Service>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.service_config = v.into();
+        pub fn set_service_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<api::model::Service>,
+        {
+            self.0.request.service_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [service_config][crate::model::CreateServiceConfigRequest::service_config].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_service_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<api::model::Service>,
+        {
+            self.0.request.service_config = v.map(|x| x.into());
             self
         }
     }
@@ -918,11 +940,22 @@ pub mod service_manager {
         /// Sets the value of [config_source][crate::model::SubmitConfigSourceRequest::config_source].
         ///
         /// This is a **required** field for requests.
-        pub fn set_config_source<T: Into<std::option::Option<crate::model::ConfigSource>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.config_source = v.into();
+        pub fn set_config_source<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::ConfigSource>,
+        {
+            self.0.request.config_source = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [config_source][crate::model::SubmitConfigSourceRequest::config_source].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_config_source<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::ConfigSource>,
+        {
+            self.0.request.config_source = v.map(|x| x.into());
             self
         }
 
@@ -1227,11 +1260,22 @@ pub mod service_manager {
         /// Sets the value of [rollout][crate::model::CreateServiceRolloutRequest::rollout].
         ///
         /// This is a **required** field for requests.
-        pub fn set_rollout<T: Into<std::option::Option<crate::model::Rollout>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.rollout = v.into();
+        pub fn set_rollout<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Rollout>,
+        {
+            self.0.request.rollout = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [rollout][crate::model::CreateServiceRolloutRequest::rollout].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_rollout<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Rollout>,
+        {
+            self.0.request.rollout = v.map(|x| x.into());
             self
         }
     }
@@ -1295,14 +1339,40 @@ pub mod service_manager {
         /// Sets the value of [new_config][crate::model::GenerateConfigReportRequest::new_config].
         ///
         /// This is a **required** field for requests.
-        pub fn set_new_config<T: Into<std::option::Option<wkt::Any>>>(mut self, v: T) -> Self {
-            self.0.request.new_config = v.into();
+        pub fn set_new_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Any>,
+        {
+            self.0.request.new_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [new_config][crate::model::GenerateConfigReportRequest::new_config].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_new_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Any>,
+        {
+            self.0.request.new_config = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [old_config][crate::model::GenerateConfigReportRequest::old_config].
-        pub fn set_old_config<T: Into<std::option::Option<wkt::Any>>>(mut self, v: T) -> Self {
-            self.0.request.old_config = v.into();
+        pub fn set_old_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Any>,
+        {
+            self.0.request.old_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [old_config][crate::model::GenerateConfigReportRequest::old_config].
+        pub fn maybe_old_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Any>,
+        {
+            self.0.request.old_config = v.map(|x| x.into());
             self
         }
     }
@@ -1371,20 +1441,40 @@ pub mod service_manager {
         /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
-        pub fn set_policy<T: Into<std::option::Option<iam_v1::model::Policy>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.policy = v.into();
+        pub fn set_policy<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -1451,11 +1541,20 @@ pub mod service_manager {
         }
 
         /// Sets the value of [options][iam_v1::model::GetIamPolicyRequest::options].
-        pub fn set_options<T: Into<std::option::Option<iam_v1::model::GetPolicyOptions>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.options = v.into();
+        pub fn set_options<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        pub fn maybe_options<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = v.map(|x| x.into());
             self
         }
     }

@@ -87,11 +87,20 @@ impl CreateKeyHandleRequest {
     }
 
     /// Sets the value of [key_handle][crate::model::CreateKeyHandleRequest::key_handle].
-    pub fn set_key_handle<T: std::convert::Into<std::option::Option<crate::model::KeyHandle>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.key_handle = v.into();
+    pub fn set_key_handle<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::KeyHandle>,
+    {
+        self.key_handle = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [key_handle][crate::model::CreateKeyHandleRequest::key_handle].
+    pub fn maybe_key_handle<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::KeyHandle>,
+    {
+        self.key_handle = v.map(|x| x.into());
         self
     }
 }
@@ -437,22 +446,38 @@ impl UpdateAutokeyConfigRequest {
     }
 
     /// Sets the value of [autokey_config][crate::model::UpdateAutokeyConfigRequest::autokey_config].
-    pub fn set_autokey_config<
-        T: std::convert::Into<std::option::Option<crate::model::AutokeyConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.autokey_config = v.into();
+    pub fn set_autokey_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::AutokeyConfig>,
+    {
+        self.autokey_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [autokey_config][crate::model::UpdateAutokeyConfigRequest::autokey_config].
+    pub fn maybe_autokey_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::AutokeyConfig>,
+    {
+        self.autokey_config = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateAutokeyConfigRequest::update_mask].
-    pub fn set_update_mask<T: std::convert::Into<std::option::Option<wkt::FieldMask>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.update_mask = v.into();
+    pub fn set_update_mask<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [update_mask][crate::model::UpdateAutokeyConfigRequest::update_mask].
+    pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = v.map(|x| x.into());
         self
     }
 }
@@ -1065,13 +1090,20 @@ impl CreateEkmConnectionRequest {
     }
 
     /// Sets the value of [ekm_connection][crate::model::CreateEkmConnectionRequest::ekm_connection].
-    pub fn set_ekm_connection<
-        T: std::convert::Into<std::option::Option<crate::model::EkmConnection>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.ekm_connection = v.into();
+    pub fn set_ekm_connection<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::EkmConnection>,
+    {
+        self.ekm_connection = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [ekm_connection][crate::model::CreateEkmConnectionRequest::ekm_connection].
+    pub fn maybe_ekm_connection<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::EkmConnection>,
+    {
+        self.ekm_connection = v.map(|x| x.into());
         self
     }
 }
@@ -1112,22 +1144,38 @@ impl UpdateEkmConnectionRequest {
     }
 
     /// Sets the value of [ekm_connection][crate::model::UpdateEkmConnectionRequest::ekm_connection].
-    pub fn set_ekm_connection<
-        T: std::convert::Into<std::option::Option<crate::model::EkmConnection>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.ekm_connection = v.into();
+    pub fn set_ekm_connection<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::EkmConnection>,
+    {
+        self.ekm_connection = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [ekm_connection][crate::model::UpdateEkmConnectionRequest::ekm_connection].
+    pub fn maybe_ekm_connection<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::EkmConnection>,
+    {
+        self.ekm_connection = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateEkmConnectionRequest::update_mask].
-    pub fn set_update_mask<T: std::convert::Into<std::option::Option<wkt::FieldMask>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.update_mask = v.into();
+    pub fn set_update_mask<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [update_mask][crate::model::UpdateEkmConnectionRequest::update_mask].
+    pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = v.map(|x| x.into());
         self
     }
 }
@@ -1206,20 +1254,38 @@ impl UpdateEkmConfigRequest {
     }
 
     /// Sets the value of [ekm_config][crate::model::UpdateEkmConfigRequest::ekm_config].
-    pub fn set_ekm_config<T: std::convert::Into<std::option::Option<crate::model::EkmConfig>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.ekm_config = v.into();
+    pub fn set_ekm_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::EkmConfig>,
+    {
+        self.ekm_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [ekm_config][crate::model::UpdateEkmConfigRequest::ekm_config].
+    pub fn maybe_ekm_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::EkmConfig>,
+    {
+        self.ekm_config = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateEkmConfigRequest::update_mask].
-    pub fn set_update_mask<T: std::convert::Into<std::option::Option<wkt::FieldMask>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.update_mask = v.into();
+    pub fn set_update_mask<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [update_mask][crate::model::UpdateEkmConfigRequest::update_mask].
+    pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = v.map(|x| x.into());
         self
     }
 }
@@ -1342,20 +1408,38 @@ impl Certificate {
     }
 
     /// Sets the value of [not_before_time][crate::model::Certificate::not_before_time].
-    pub fn set_not_before_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.not_before_time = v.into();
+    pub fn set_not_before_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.not_before_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [not_before_time][crate::model::Certificate::not_before_time].
+    pub fn maybe_not_before_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.not_before_time = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [not_after_time][crate::model::Certificate::not_after_time].
-    pub fn set_not_after_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.not_after_time = v.into();
+    pub fn set_not_after_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.not_after_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [not_after_time][crate::model::Certificate::not_after_time].
+    pub fn maybe_not_after_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.not_after_time = v.map(|x| x.into());
         self
     }
 
@@ -1468,11 +1552,20 @@ impl EkmConnection {
     }
 
     /// Sets the value of [create_time][crate::model::EkmConnection::create_time].
-    pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.create_time = v.into();
+    pub fn set_create_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [create_time][crate::model::EkmConnection::create_time].
+    pub fn maybe_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = v.map(|x| x.into());
         self
     }
 
@@ -1958,11 +2051,20 @@ impl KeyRing {
     }
 
     /// Sets the value of [create_time][crate::model::KeyRing::create_time].
-    pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.create_time = v.into();
+    pub fn set_create_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [create_time][crate::model::KeyRing::create_time].
+    pub fn maybe_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = v.map(|x| x.into());
         self
     }
 }
@@ -2140,13 +2242,20 @@ impl CryptoKey {
     }
 
     /// Sets the value of [primary][crate::model::CryptoKey::primary].
-    pub fn set_primary<
-        T: std::convert::Into<std::option::Option<crate::model::CryptoKeyVersion>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.primary = v.into();
+    pub fn set_primary<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::CryptoKeyVersion>,
+    {
+        self.primary = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [primary][crate::model::CryptoKey::primary].
+    pub fn maybe_primary<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::CryptoKeyVersion>,
+    {
+        self.primary = v.map(|x| x.into());
         self
     }
 
@@ -2160,31 +2269,56 @@ impl CryptoKey {
     }
 
     /// Sets the value of [create_time][crate::model::CryptoKey::create_time].
-    pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.create_time = v.into();
+    pub fn set_create_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [create_time][crate::model::CryptoKey::create_time].
+    pub fn maybe_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [next_rotation_time][crate::model::CryptoKey::next_rotation_time].
-    pub fn set_next_rotation_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.next_rotation_time = v.into();
+    pub fn set_next_rotation_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.next_rotation_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [next_rotation_time][crate::model::CryptoKey::next_rotation_time].
+    pub fn maybe_next_rotation_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.next_rotation_time = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [version_template][crate::model::CryptoKey::version_template].
-    pub fn set_version_template<
-        T: std::convert::Into<std::option::Option<crate::model::CryptoKeyVersionTemplate>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.version_template = v.into();
+    pub fn set_version_template<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::CryptoKeyVersionTemplate>,
+    {
+        self.version_template = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [version_template][crate::model::CryptoKey::version_template].
+    pub fn maybe_version_template<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::CryptoKeyVersionTemplate>,
+    {
+        self.version_template = v.map(|x| x.into());
         self
     }
 
@@ -2207,13 +2341,20 @@ impl CryptoKey {
     }
 
     /// Sets the value of [destroy_scheduled_duration][crate::model::CryptoKey::destroy_scheduled_duration].
-    pub fn set_destroy_scheduled_duration<
-        T: std::convert::Into<std::option::Option<wkt::Duration>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.destroy_scheduled_duration = v.into();
+    pub fn set_destroy_scheduled_duration<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Duration>,
+    {
+        self.destroy_scheduled_duration = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [destroy_scheduled_duration][crate::model::CryptoKey::destroy_scheduled_duration].
+    pub fn maybe_destroy_scheduled_duration<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Duration>,
+    {
+        self.destroy_scheduled_duration = v.map(|x| x.into());
         self
     }
 
@@ -2227,13 +2368,20 @@ impl CryptoKey {
     }
 
     /// Sets the value of [key_access_justifications_policy][crate::model::CryptoKey::key_access_justifications_policy].
-    pub fn set_key_access_justifications_policy<
-        T: std::convert::Into<std::option::Option<crate::model::KeyAccessJustificationsPolicy>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.key_access_justifications_policy = v.into();
+    pub fn set_key_access_justifications_policy<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::KeyAccessJustificationsPolicy>,
+    {
+        self.key_access_justifications_policy = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [key_access_justifications_policy][crate::model::CryptoKey::key_access_justifications_policy].
+    pub fn maybe_key_access_justifications_policy<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::KeyAccessJustificationsPolicy>,
+    {
+        self.key_access_justifications_policy = v.map(|x| x.into());
         self
     }
 
@@ -2639,15 +2787,20 @@ impl KeyOperationAttestation {
     }
 
     /// Sets the value of [cert_chains][crate::model::KeyOperationAttestation::cert_chains].
-    pub fn set_cert_chains<
-        T: std::convert::Into<
-                std::option::Option<crate::model::key_operation_attestation::CertificateChains>,
-            >,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.cert_chains = v.into();
+    pub fn set_cert_chains<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::key_operation_attestation::CertificateChains>,
+    {
+        self.cert_chains = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [cert_chains][crate::model::KeyOperationAttestation::cert_chains].
+    pub fn maybe_cert_chains<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::key_operation_attestation::CertificateChains>,
+    {
+        self.cert_chains = v.map(|x| x.into());
         self
     }
 }
@@ -3083,49 +3236,92 @@ impl CryptoKeyVersion {
     }
 
     /// Sets the value of [attestation][crate::model::CryptoKeyVersion::attestation].
-    pub fn set_attestation<
-        T: std::convert::Into<std::option::Option<crate::model::KeyOperationAttestation>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.attestation = v.into();
+    pub fn set_attestation<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::KeyOperationAttestation>,
+    {
+        self.attestation = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [attestation][crate::model::CryptoKeyVersion::attestation].
+    pub fn maybe_attestation<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::KeyOperationAttestation>,
+    {
+        self.attestation = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [create_time][crate::model::CryptoKeyVersion::create_time].
-    pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.create_time = v.into();
+    pub fn set_create_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [create_time][crate::model::CryptoKeyVersion::create_time].
+    pub fn maybe_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [generate_time][crate::model::CryptoKeyVersion::generate_time].
-    pub fn set_generate_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.generate_time = v.into();
+    pub fn set_generate_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.generate_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [generate_time][crate::model::CryptoKeyVersion::generate_time].
+    pub fn maybe_generate_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.generate_time = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [destroy_time][crate::model::CryptoKeyVersion::destroy_time].
-    pub fn set_destroy_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.destroy_time = v.into();
+    pub fn set_destroy_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.destroy_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [destroy_time][crate::model::CryptoKeyVersion::destroy_time].
+    pub fn maybe_destroy_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.destroy_time = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [destroy_event_time][crate::model::CryptoKeyVersion::destroy_event_time].
-    pub fn set_destroy_event_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.destroy_event_time = v.into();
+    pub fn set_destroy_event_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.destroy_event_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [destroy_event_time][crate::model::CryptoKeyVersion::destroy_event_time].
+    pub fn maybe_destroy_event_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.destroy_event_time = v.map(|x| x.into());
         self
     }
 
@@ -3136,11 +3332,20 @@ impl CryptoKeyVersion {
     }
 
     /// Sets the value of [import_time][crate::model::CryptoKeyVersion::import_time].
-    pub fn set_import_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.import_time = v.into();
+    pub fn set_import_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.import_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [import_time][crate::model::CryptoKeyVersion::import_time].
+    pub fn maybe_import_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.import_time = v.map(|x| x.into());
         self
     }
 
@@ -3172,13 +3377,20 @@ impl CryptoKeyVersion {
     }
 
     /// Sets the value of [external_protection_level_options][crate::model::CryptoKeyVersion::external_protection_level_options].
-    pub fn set_external_protection_level_options<
-        T: std::convert::Into<std::option::Option<crate::model::ExternalProtectionLevelOptions>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.external_protection_level_options = v.into();
+    pub fn set_external_protection_level_options<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::ExternalProtectionLevelOptions>,
+    {
+        self.external_protection_level_options = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [external_protection_level_options][crate::model::CryptoKeyVersion::external_protection_level_options].
+    pub fn maybe_external_protection_level_options<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::ExternalProtectionLevelOptions>,
+    {
+        self.external_protection_level_options = v.map(|x| x.into());
         self
     }
 
@@ -4118,11 +4330,20 @@ impl ChecksummedData {
     }
 
     /// Sets the value of [crc32c_checksum][crate::model::ChecksummedData::crc32c_checksum].
-    pub fn set_crc32c_checksum<T: std::convert::Into<std::option::Option<wkt::Int64Value>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.crc32c_checksum = v.into();
+    pub fn set_crc32c_checksum<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Int64Value>,
+    {
+        self.crc32c_checksum = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [crc32c_checksum][crate::model::ChecksummedData::crc32c_checksum].
+    pub fn maybe_crc32c_checksum<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Int64Value>,
+    {
+        self.crc32c_checksum = v.map(|x| x.into());
         self
     }
 }
@@ -4242,11 +4463,20 @@ impl PublicKey {
     }
 
     /// Sets the value of [pem_crc32c][crate::model::PublicKey::pem_crc32c].
-    pub fn set_pem_crc32c<T: std::convert::Into<std::option::Option<wkt::Int64Value>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.pem_crc32c = v.into();
+    pub fn set_pem_crc32c<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Int64Value>,
+    {
+        self.pem_crc32c = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [pem_crc32c][crate::model::PublicKey::pem_crc32c].
+    pub fn maybe_pem_crc32c<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Int64Value>,
+    {
+        self.pem_crc32c = v.map(|x| x.into());
         self
     }
 
@@ -4277,13 +4507,20 @@ impl PublicKey {
     }
 
     /// Sets the value of [public_key][crate::model::PublicKey::public_key].
-    pub fn set_public_key<
-        T: std::convert::Into<std::option::Option<crate::model::ChecksummedData>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.public_key = v.into();
+    pub fn set_public_key<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::ChecksummedData>,
+    {
+        self.public_key = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [public_key][crate::model::PublicKey::public_key].
+    pub fn maybe_public_key<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::ChecksummedData>,
+    {
+        self.public_key = v.map(|x| x.into());
         self
     }
 }
@@ -4619,38 +4856,74 @@ impl ImportJob {
     }
 
     /// Sets the value of [create_time][crate::model::ImportJob::create_time].
-    pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.create_time = v.into();
+    pub fn set_create_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [create_time][crate::model::ImportJob::create_time].
+    pub fn maybe_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [generate_time][crate::model::ImportJob::generate_time].
-    pub fn set_generate_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.generate_time = v.into();
+    pub fn set_generate_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.generate_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [generate_time][crate::model::ImportJob::generate_time].
+    pub fn maybe_generate_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.generate_time = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [expire_time][crate::model::ImportJob::expire_time].
-    pub fn set_expire_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.expire_time = v.into();
+    pub fn set_expire_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.expire_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [expire_time][crate::model::ImportJob::expire_time].
+    pub fn maybe_expire_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.expire_time = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [expire_event_time][crate::model::ImportJob::expire_event_time].
-    pub fn set_expire_event_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.expire_event_time = v.into();
+    pub fn set_expire_event_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.expire_event_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [expire_event_time][crate::model::ImportJob::expire_event_time].
+    pub fn maybe_expire_event_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.expire_event_time = v.map(|x| x.into());
         self
     }
 
@@ -4664,24 +4937,38 @@ impl ImportJob {
     }
 
     /// Sets the value of [public_key][crate::model::ImportJob::public_key].
-    pub fn set_public_key<
-        T: std::convert::Into<std::option::Option<crate::model::import_job::WrappingPublicKey>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.public_key = v.into();
+    pub fn set_public_key<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::import_job::WrappingPublicKey>,
+    {
+        self.public_key = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [public_key][crate::model::ImportJob::public_key].
+    pub fn maybe_public_key<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::import_job::WrappingPublicKey>,
+    {
+        self.public_key = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [attestation][crate::model::ImportJob::attestation].
-    pub fn set_attestation<
-        T: std::convert::Into<std::option::Option<crate::model::KeyOperationAttestation>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.attestation = v.into();
+    pub fn set_attestation<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::KeyOperationAttestation>,
+    {
+        self.attestation = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [attestation][crate::model::ImportJob::attestation].
+    pub fn maybe_attestation<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::KeyOperationAttestation>,
+    {
+        self.attestation = v.map(|x| x.into());
         self
     }
 }
@@ -6224,11 +6511,20 @@ impl CreateKeyRingRequest {
     }
 
     /// Sets the value of [key_ring][crate::model::CreateKeyRingRequest::key_ring].
-    pub fn set_key_ring<T: std::convert::Into<std::option::Option<crate::model::KeyRing>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.key_ring = v.into();
+    pub fn set_key_ring<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::KeyRing>,
+    {
+        self.key_ring = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [key_ring][crate::model::CreateKeyRingRequest::key_ring].
+    pub fn maybe_key_ring<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::KeyRing>,
+    {
+        self.key_ring = v.map(|x| x.into());
         self
     }
 }
@@ -6306,11 +6602,20 @@ impl CreateCryptoKeyRequest {
     }
 
     /// Sets the value of [crypto_key][crate::model::CreateCryptoKeyRequest::crypto_key].
-    pub fn set_crypto_key<T: std::convert::Into<std::option::Option<crate::model::CryptoKey>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.crypto_key = v.into();
+    pub fn set_crypto_key<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::CryptoKey>,
+    {
+        self.crypto_key = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [crypto_key][crate::model::CreateCryptoKeyRequest::crypto_key].
+    pub fn maybe_crypto_key<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::CryptoKey>,
+    {
+        self.crypto_key = v.map(|x| x.into());
         self
     }
 
@@ -6369,13 +6674,20 @@ impl CreateCryptoKeyVersionRequest {
     }
 
     /// Sets the value of [crypto_key_version][crate::model::CreateCryptoKeyVersionRequest::crypto_key_version].
-    pub fn set_crypto_key_version<
-        T: std::convert::Into<std::option::Option<crate::model::CryptoKeyVersion>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.crypto_key_version = v.into();
+    pub fn set_crypto_key_version<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::CryptoKeyVersion>,
+    {
+        self.crypto_key_version = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [crypto_key_version][crate::model::CreateCryptoKeyVersionRequest::crypto_key_version].
+    pub fn maybe_crypto_key_version<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::CryptoKeyVersion>,
+    {
+        self.crypto_key_version = v.map(|x| x.into());
         self
     }
 }
@@ -6684,11 +6996,20 @@ impl CreateImportJobRequest {
     }
 
     /// Sets the value of [import_job][crate::model::CreateImportJobRequest::import_job].
-    pub fn set_import_job<T: std::convert::Into<std::option::Option<crate::model::ImportJob>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.import_job = v.into();
+    pub fn set_import_job<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::ImportJob>,
+    {
+        self.import_job = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [import_job][crate::model::CreateImportJobRequest::import_job].
+    pub fn maybe_import_job<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::ImportJob>,
+    {
+        self.import_job = v.map(|x| x.into());
         self
     }
 }
@@ -6728,20 +7049,38 @@ impl UpdateCryptoKeyRequest {
     }
 
     /// Sets the value of [crypto_key][crate::model::UpdateCryptoKeyRequest::crypto_key].
-    pub fn set_crypto_key<T: std::convert::Into<std::option::Option<crate::model::CryptoKey>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.crypto_key = v.into();
+    pub fn set_crypto_key<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::CryptoKey>,
+    {
+        self.crypto_key = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [crypto_key][crate::model::UpdateCryptoKeyRequest::crypto_key].
+    pub fn maybe_crypto_key<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::CryptoKey>,
+    {
+        self.crypto_key = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateCryptoKeyRequest::update_mask].
-    pub fn set_update_mask<T: std::convert::Into<std::option::Option<wkt::FieldMask>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.update_mask = v.into();
+    pub fn set_update_mask<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [update_mask][crate::model::UpdateCryptoKeyRequest::update_mask].
+    pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = v.map(|x| x.into());
         self
     }
 }
@@ -6782,22 +7121,38 @@ impl UpdateCryptoKeyVersionRequest {
     }
 
     /// Sets the value of [crypto_key_version][crate::model::UpdateCryptoKeyVersionRequest::crypto_key_version].
-    pub fn set_crypto_key_version<
-        T: std::convert::Into<std::option::Option<crate::model::CryptoKeyVersion>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.crypto_key_version = v.into();
+    pub fn set_crypto_key_version<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::CryptoKeyVersion>,
+    {
+        self.crypto_key_version = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [crypto_key_version][crate::model::UpdateCryptoKeyVersionRequest::crypto_key_version].
+    pub fn maybe_crypto_key_version<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::CryptoKeyVersion>,
+    {
+        self.crypto_key_version = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateCryptoKeyVersionRequest::update_mask].
-    pub fn set_update_mask<T: std::convert::Into<std::option::Option<wkt::FieldMask>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.update_mask = v.into();
+    pub fn set_update_mask<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [update_mask][crate::model::UpdateCryptoKeyVersionRequest::update_mask].
+    pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = v.map(|x| x.into());
         self
     }
 }
@@ -7093,22 +7448,41 @@ impl EncryptRequest {
     }
 
     /// Sets the value of [plaintext_crc32c][crate::model::EncryptRequest::plaintext_crc32c].
-    pub fn set_plaintext_crc32c<T: std::convert::Into<std::option::Option<wkt::Int64Value>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.plaintext_crc32c = v.into();
+    pub fn set_plaintext_crc32c<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Int64Value>,
+    {
+        self.plaintext_crc32c = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [plaintext_crc32c][crate::model::EncryptRequest::plaintext_crc32c].
+    pub fn maybe_plaintext_crc32c<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Int64Value>,
+    {
+        self.plaintext_crc32c = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [additional_authenticated_data_crc32c][crate::model::EncryptRequest::additional_authenticated_data_crc32c].
-    pub fn set_additional_authenticated_data_crc32c<
-        T: std::convert::Into<std::option::Option<wkt::Int64Value>>,
-    >(
+    pub fn set_additional_authenticated_data_crc32c<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Int64Value>,
+    {
+        self.additional_authenticated_data_crc32c = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [additional_authenticated_data_crc32c][crate::model::EncryptRequest::additional_authenticated_data_crc32c].
+    pub fn maybe_additional_authenticated_data_crc32c<T>(
         mut self,
-        v: T,
-    ) -> Self {
-        self.additional_authenticated_data_crc32c = v.into();
+        v: std::option::Option<T>,
+    ) -> Self
+    where
+        T: std::convert::Into<wkt::Int64Value>,
+    {
+        self.additional_authenticated_data_crc32c = v.map(|x| x.into());
         self
     }
 }
@@ -7239,22 +7613,41 @@ impl DecryptRequest {
     }
 
     /// Sets the value of [ciphertext_crc32c][crate::model::DecryptRequest::ciphertext_crc32c].
-    pub fn set_ciphertext_crc32c<T: std::convert::Into<std::option::Option<wkt::Int64Value>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.ciphertext_crc32c = v.into();
+    pub fn set_ciphertext_crc32c<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Int64Value>,
+    {
+        self.ciphertext_crc32c = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [ciphertext_crc32c][crate::model::DecryptRequest::ciphertext_crc32c].
+    pub fn maybe_ciphertext_crc32c<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Int64Value>,
+    {
+        self.ciphertext_crc32c = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [additional_authenticated_data_crc32c][crate::model::DecryptRequest::additional_authenticated_data_crc32c].
-    pub fn set_additional_authenticated_data_crc32c<
-        T: std::convert::Into<std::option::Option<wkt::Int64Value>>,
-    >(
+    pub fn set_additional_authenticated_data_crc32c<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Int64Value>,
+    {
+        self.additional_authenticated_data_crc32c = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [additional_authenticated_data_crc32c][crate::model::DecryptRequest::additional_authenticated_data_crc32c].
+    pub fn maybe_additional_authenticated_data_crc32c<T>(
         mut self,
-        v: T,
-    ) -> Self {
-        self.additional_authenticated_data_crc32c = v.into();
+        v: std::option::Option<T>,
+    ) -> Self
+    where
+        T: std::convert::Into<wkt::Int64Value>,
+    {
+        self.additional_authenticated_data_crc32c = v.map(|x| x.into());
         self
     }
 }
@@ -7436,22 +7829,41 @@ impl RawEncryptRequest {
     }
 
     /// Sets the value of [plaintext_crc32c][crate::model::RawEncryptRequest::plaintext_crc32c].
-    pub fn set_plaintext_crc32c<T: std::convert::Into<std::option::Option<wkt::Int64Value>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.plaintext_crc32c = v.into();
+    pub fn set_plaintext_crc32c<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Int64Value>,
+    {
+        self.plaintext_crc32c = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [plaintext_crc32c][crate::model::RawEncryptRequest::plaintext_crc32c].
+    pub fn maybe_plaintext_crc32c<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Int64Value>,
+    {
+        self.plaintext_crc32c = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [additional_authenticated_data_crc32c][crate::model::RawEncryptRequest::additional_authenticated_data_crc32c].
-    pub fn set_additional_authenticated_data_crc32c<
-        T: std::convert::Into<std::option::Option<wkt::Int64Value>>,
-    >(
+    pub fn set_additional_authenticated_data_crc32c<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Int64Value>,
+    {
+        self.additional_authenticated_data_crc32c = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [additional_authenticated_data_crc32c][crate::model::RawEncryptRequest::additional_authenticated_data_crc32c].
+    pub fn maybe_additional_authenticated_data_crc32c<T>(
         mut self,
-        v: T,
-    ) -> Self {
-        self.additional_authenticated_data_crc32c = v.into();
+        v: std::option::Option<T>,
+    ) -> Self
+    where
+        T: std::convert::Into<wkt::Int64Value>,
+    {
+        self.additional_authenticated_data_crc32c = v.map(|x| x.into());
         self
     }
 
@@ -7465,13 +7877,20 @@ impl RawEncryptRequest {
     }
 
     /// Sets the value of [initialization_vector_crc32c][crate::model::RawEncryptRequest::initialization_vector_crc32c].
-    pub fn set_initialization_vector_crc32c<
-        T: std::convert::Into<std::option::Option<wkt::Int64Value>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.initialization_vector_crc32c = v.into();
+    pub fn set_initialization_vector_crc32c<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Int64Value>,
+    {
+        self.initialization_vector_crc32c = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [initialization_vector_crc32c][crate::model::RawEncryptRequest::initialization_vector_crc32c].
+    pub fn maybe_initialization_vector_crc32c<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Int64Value>,
+    {
+        self.initialization_vector_crc32c = v.map(|x| x.into());
         self
     }
 }
@@ -7646,33 +8065,59 @@ impl RawDecryptRequest {
     }
 
     /// Sets the value of [ciphertext_crc32c][crate::model::RawDecryptRequest::ciphertext_crc32c].
-    pub fn set_ciphertext_crc32c<T: std::convert::Into<std::option::Option<wkt::Int64Value>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.ciphertext_crc32c = v.into();
+    pub fn set_ciphertext_crc32c<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Int64Value>,
+    {
+        self.ciphertext_crc32c = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [ciphertext_crc32c][crate::model::RawDecryptRequest::ciphertext_crc32c].
+    pub fn maybe_ciphertext_crc32c<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Int64Value>,
+    {
+        self.ciphertext_crc32c = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [additional_authenticated_data_crc32c][crate::model::RawDecryptRequest::additional_authenticated_data_crc32c].
-    pub fn set_additional_authenticated_data_crc32c<
-        T: std::convert::Into<std::option::Option<wkt::Int64Value>>,
-    >(
+    pub fn set_additional_authenticated_data_crc32c<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Int64Value>,
+    {
+        self.additional_authenticated_data_crc32c = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [additional_authenticated_data_crc32c][crate::model::RawDecryptRequest::additional_authenticated_data_crc32c].
+    pub fn maybe_additional_authenticated_data_crc32c<T>(
         mut self,
-        v: T,
-    ) -> Self {
-        self.additional_authenticated_data_crc32c = v.into();
+        v: std::option::Option<T>,
+    ) -> Self
+    where
+        T: std::convert::Into<wkt::Int64Value>,
+    {
+        self.additional_authenticated_data_crc32c = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [initialization_vector_crc32c][crate::model::RawDecryptRequest::initialization_vector_crc32c].
-    pub fn set_initialization_vector_crc32c<
-        T: std::convert::Into<std::option::Option<wkt::Int64Value>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.initialization_vector_crc32c = v.into();
+    pub fn set_initialization_vector_crc32c<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Int64Value>,
+    {
+        self.initialization_vector_crc32c = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [initialization_vector_crc32c][crate::model::RawDecryptRequest::initialization_vector_crc32c].
+    pub fn maybe_initialization_vector_crc32c<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Int64Value>,
+    {
+        self.initialization_vector_crc32c = v.map(|x| x.into());
         self
     }
 }
@@ -7795,20 +8240,38 @@ impl AsymmetricSignRequest {
     }
 
     /// Sets the value of [digest][crate::model::AsymmetricSignRequest::digest].
-    pub fn set_digest<T: std::convert::Into<std::option::Option<crate::model::Digest>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.digest = v.into();
+    pub fn set_digest<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::Digest>,
+    {
+        self.digest = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [digest][crate::model::AsymmetricSignRequest::digest].
+    pub fn maybe_digest<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::Digest>,
+    {
+        self.digest = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [digest_crc32c][crate::model::AsymmetricSignRequest::digest_crc32c].
-    pub fn set_digest_crc32c<T: std::convert::Into<std::option::Option<wkt::Int64Value>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.digest_crc32c = v.into();
+    pub fn set_digest_crc32c<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Int64Value>,
+    {
+        self.digest_crc32c = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [digest_crc32c][crate::model::AsymmetricSignRequest::digest_crc32c].
+    pub fn maybe_digest_crc32c<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Int64Value>,
+    {
+        self.digest_crc32c = v.map(|x| x.into());
         self
     }
 
@@ -7819,11 +8282,20 @@ impl AsymmetricSignRequest {
     }
 
     /// Sets the value of [data_crc32c][crate::model::AsymmetricSignRequest::data_crc32c].
-    pub fn set_data_crc32c<T: std::convert::Into<std::option::Option<wkt::Int64Value>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.data_crc32c = v.into();
+    pub fn set_data_crc32c<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Int64Value>,
+    {
+        self.data_crc32c = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [data_crc32c][crate::model::AsymmetricSignRequest::data_crc32c].
+    pub fn maybe_data_crc32c<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Int64Value>,
+    {
+        self.data_crc32c = v.map(|x| x.into());
         self
     }
 }
@@ -7910,11 +8382,20 @@ impl AsymmetricDecryptRequest {
     }
 
     /// Sets the value of [ciphertext_crc32c][crate::model::AsymmetricDecryptRequest::ciphertext_crc32c].
-    pub fn set_ciphertext_crc32c<T: std::convert::Into<std::option::Option<wkt::Int64Value>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.ciphertext_crc32c = v.into();
+    pub fn set_ciphertext_crc32c<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Int64Value>,
+    {
+        self.ciphertext_crc32c = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [ciphertext_crc32c][crate::model::AsymmetricDecryptRequest::ciphertext_crc32c].
+    pub fn maybe_ciphertext_crc32c<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Int64Value>,
+    {
+        self.ciphertext_crc32c = v.map(|x| x.into());
         self
     }
 }
@@ -7996,11 +8477,20 @@ impl MacSignRequest {
     }
 
     /// Sets the value of [data_crc32c][crate::model::MacSignRequest::data_crc32c].
-    pub fn set_data_crc32c<T: std::convert::Into<std::option::Option<wkt::Int64Value>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.data_crc32c = v.into();
+    pub fn set_data_crc32c<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Int64Value>,
+    {
+        self.data_crc32c = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [data_crc32c][crate::model::MacSignRequest::data_crc32c].
+    pub fn maybe_data_crc32c<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Int64Value>,
+    {
+        self.data_crc32c = v.map(|x| x.into());
         self
     }
 }
@@ -8117,11 +8607,20 @@ impl MacVerifyRequest {
     }
 
     /// Sets the value of [data_crc32c][crate::model::MacVerifyRequest::data_crc32c].
-    pub fn set_data_crc32c<T: std::convert::Into<std::option::Option<wkt::Int64Value>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.data_crc32c = v.into();
+    pub fn set_data_crc32c<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Int64Value>,
+    {
+        self.data_crc32c = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [data_crc32c][crate::model::MacVerifyRequest::data_crc32c].
+    pub fn maybe_data_crc32c<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Int64Value>,
+    {
+        self.data_crc32c = v.map(|x| x.into());
         self
     }
 
@@ -8132,11 +8631,20 @@ impl MacVerifyRequest {
     }
 
     /// Sets the value of [mac_crc32c][crate::model::MacVerifyRequest::mac_crc32c].
-    pub fn set_mac_crc32c<T: std::convert::Into<std::option::Option<wkt::Int64Value>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.mac_crc32c = v.into();
+    pub fn set_mac_crc32c<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Int64Value>,
+    {
+        self.mac_crc32c = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [mac_crc32c][crate::model::MacVerifyRequest::mac_crc32c].
+    pub fn maybe_mac_crc32c<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Int64Value>,
+    {
+        self.mac_crc32c = v.map(|x| x.into());
         self
     }
 }
@@ -8329,11 +8837,20 @@ impl EncryptResponse {
     }
 
     /// Sets the value of [ciphertext_crc32c][crate::model::EncryptResponse::ciphertext_crc32c].
-    pub fn set_ciphertext_crc32c<T: std::convert::Into<std::option::Option<wkt::Int64Value>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.ciphertext_crc32c = v.into();
+    pub fn set_ciphertext_crc32c<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Int64Value>,
+    {
+        self.ciphertext_crc32c = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [ciphertext_crc32c][crate::model::EncryptResponse::ciphertext_crc32c].
+    pub fn maybe_ciphertext_crc32c<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Int64Value>,
+    {
+        self.ciphertext_crc32c = v.map(|x| x.into());
         self
     }
 
@@ -8439,11 +8956,20 @@ impl DecryptResponse {
     }
 
     /// Sets the value of [plaintext_crc32c][crate::model::DecryptResponse::plaintext_crc32c].
-    pub fn set_plaintext_crc32c<T: std::convert::Into<std::option::Option<wkt::Int64Value>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.plaintext_crc32c = v.into();
+    pub fn set_plaintext_crc32c<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Int64Value>,
+    {
+        self.plaintext_crc32c = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [plaintext_crc32c][crate::model::DecryptResponse::plaintext_crc32c].
+    pub fn maybe_plaintext_crc32c<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Int64Value>,
+    {
+        self.plaintext_crc32c = v.map(|x| x.into());
         self
     }
 
@@ -8644,22 +9170,38 @@ impl RawEncryptResponse {
     }
 
     /// Sets the value of [ciphertext_crc32c][crate::model::RawEncryptResponse::ciphertext_crc32c].
-    pub fn set_ciphertext_crc32c<T: std::convert::Into<std::option::Option<wkt::Int64Value>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.ciphertext_crc32c = v.into();
+    pub fn set_ciphertext_crc32c<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Int64Value>,
+    {
+        self.ciphertext_crc32c = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [ciphertext_crc32c][crate::model::RawEncryptResponse::ciphertext_crc32c].
+    pub fn maybe_ciphertext_crc32c<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Int64Value>,
+    {
+        self.ciphertext_crc32c = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [initialization_vector_crc32c][crate::model::RawEncryptResponse::initialization_vector_crc32c].
-    pub fn set_initialization_vector_crc32c<
-        T: std::convert::Into<std::option::Option<wkt::Int64Value>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.initialization_vector_crc32c = v.into();
+    pub fn set_initialization_vector_crc32c<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Int64Value>,
+    {
+        self.initialization_vector_crc32c = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [initialization_vector_crc32c][crate::model::RawEncryptResponse::initialization_vector_crc32c].
+    pub fn maybe_initialization_vector_crc32c<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Int64Value>,
+    {
+        self.initialization_vector_crc32c = v.map(|x| x.into());
         self
     }
 
@@ -8831,11 +9373,20 @@ impl RawDecryptResponse {
     }
 
     /// Sets the value of [plaintext_crc32c][crate::model::RawDecryptResponse::plaintext_crc32c].
-    pub fn set_plaintext_crc32c<T: std::convert::Into<std::option::Option<wkt::Int64Value>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.plaintext_crc32c = v.into();
+    pub fn set_plaintext_crc32c<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Int64Value>,
+    {
+        self.plaintext_crc32c = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [plaintext_crc32c][crate::model::RawDecryptResponse::plaintext_crc32c].
+    pub fn maybe_plaintext_crc32c<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Int64Value>,
+    {
+        self.plaintext_crc32c = v.map(|x| x.into());
         self
     }
 
@@ -8988,11 +9539,20 @@ impl AsymmetricSignResponse {
     }
 
     /// Sets the value of [signature_crc32c][crate::model::AsymmetricSignResponse::signature_crc32c].
-    pub fn set_signature_crc32c<T: std::convert::Into<std::option::Option<wkt::Int64Value>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.signature_crc32c = v.into();
+    pub fn set_signature_crc32c<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Int64Value>,
+    {
+        self.signature_crc32c = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [signature_crc32c][crate::model::AsymmetricSignResponse::signature_crc32c].
+    pub fn maybe_signature_crc32c<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Int64Value>,
+    {
+        self.signature_crc32c = v.map(|x| x.into());
         self
     }
 
@@ -9110,11 +9670,20 @@ impl AsymmetricDecryptResponse {
     }
 
     /// Sets the value of [plaintext_crc32c][crate::model::AsymmetricDecryptResponse::plaintext_crc32c].
-    pub fn set_plaintext_crc32c<T: std::convert::Into<std::option::Option<wkt::Int64Value>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.plaintext_crc32c = v.into();
+    pub fn set_plaintext_crc32c<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Int64Value>,
+    {
+        self.plaintext_crc32c = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [plaintext_crc32c][crate::model::AsymmetricDecryptResponse::plaintext_crc32c].
+    pub fn maybe_plaintext_crc32c<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Int64Value>,
+    {
+        self.plaintext_crc32c = v.map(|x| x.into());
         self
     }
 
@@ -9233,11 +9802,20 @@ impl MacSignResponse {
     }
 
     /// Sets the value of [mac_crc32c][crate::model::MacSignResponse::mac_crc32c].
-    pub fn set_mac_crc32c<T: std::convert::Into<std::option::Option<wkt::Int64Value>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.mac_crc32c = v.into();
+    pub fn set_mac_crc32c<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Int64Value>,
+    {
+        self.mac_crc32c = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [mac_crc32c][crate::model::MacSignResponse::mac_crc32c].
+    pub fn maybe_mac_crc32c<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Int64Value>,
+    {
+        self.mac_crc32c = v.map(|x| x.into());
         self
     }
 
@@ -9455,11 +10033,20 @@ impl GenerateRandomBytesResponse {
     }
 
     /// Sets the value of [data_crc32c][crate::model::GenerateRandomBytesResponse::data_crc32c].
-    pub fn set_data_crc32c<T: std::convert::Into<std::option::Option<wkt::Int64Value>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.data_crc32c = v.into();
+    pub fn set_data_crc32c<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Int64Value>,
+    {
+        self.data_crc32c = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [data_crc32c][crate::model::GenerateRandomBytesResponse::data_crc32c].
+    pub fn maybe_data_crc32c<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Int64Value>,
+    {
+        self.data_crc32c = v.map(|x| x.into());
         self
     }
 }

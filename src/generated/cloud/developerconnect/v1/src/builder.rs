@@ -351,11 +351,22 @@ pub mod developer_connect {
         /// Sets the value of [connection][crate::model::CreateConnectionRequest::connection].
         ///
         /// This is a **required** field for requests.
-        pub fn set_connection<T: Into<std::option::Option<crate::model::Connection>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.connection = v.into();
+        pub fn set_connection<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Connection>,
+        {
+            self.0.request.connection = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [connection][crate::model::CreateConnectionRequest::connection].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_connection<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Connection>,
+        {
+            self.0.request.connection = v.map(|x| x.into());
             self
         }
 
@@ -470,22 +481,44 @@ pub mod developer_connect {
         /// Sets the value of [update_mask][crate::model::UpdateConnectionRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [update_mask][crate::model::UpdateConnectionRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [connection][crate::model::UpdateConnectionRequest::connection].
         ///
         /// This is a **required** field for requests.
-        pub fn set_connection<T: Into<std::option::Option<crate::model::Connection>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.connection = v.into();
+        pub fn set_connection<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Connection>,
+        {
+            self.0.request.connection = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [connection][crate::model::UpdateConnectionRequest::connection].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_connection<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Connection>,
+        {
+            self.0.request.connection = v.map(|x| x.into());
             self
         }
 
@@ -743,13 +776,22 @@ pub mod developer_connect {
         /// Sets the value of [git_repository_link][crate::model::CreateGitRepositoryLinkRequest::git_repository_link].
         ///
         /// This is a **required** field for requests.
-        pub fn set_git_repository_link<
-            T: Into<std::option::Option<crate::model::GitRepositoryLink>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.git_repository_link = v.into();
+        pub fn set_git_repository_link<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::GitRepositoryLink>,
+        {
+            self.0.request.git_repository_link = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [git_repository_link][crate::model::CreateGitRepositoryLinkRequest::git_repository_link].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_git_repository_link<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::GitRepositoryLink>,
+        {
+            self.0.request.git_repository_link = v.map(|x| x.into());
             self
         }
 

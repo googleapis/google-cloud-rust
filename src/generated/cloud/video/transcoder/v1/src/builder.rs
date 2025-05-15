@@ -125,8 +125,22 @@ pub mod transcoder_service {
         /// Sets the value of [job][crate::model::CreateJobRequest::job].
         ///
         /// This is a **required** field for requests.
-        pub fn set_job<T: Into<std::option::Option<crate::model::Job>>>(mut self, v: T) -> Self {
-            self.0.request.job = v.into();
+        pub fn set_job<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Job>,
+        {
+            self.0.request.job = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [job][crate::model::CreateJobRequest::job].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_job<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Job>,
+        {
+            self.0.request.job = v.map(|x| x.into());
             self
         }
     }
@@ -442,11 +456,22 @@ pub mod transcoder_service {
         /// Sets the value of [job_template][crate::model::CreateJobTemplateRequest::job_template].
         ///
         /// This is a **required** field for requests.
-        pub fn set_job_template<T: Into<std::option::Option<crate::model::JobTemplate>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.job_template = v.into();
+        pub fn set_job_template<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::JobTemplate>,
+        {
+            self.0.request.job_template = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [job_template][crate::model::CreateJobTemplateRequest::job_template].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_job_template<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::JobTemplate>,
+        {
+            self.0.request.job_template = v.map(|x| x.into());
             self
         }
 

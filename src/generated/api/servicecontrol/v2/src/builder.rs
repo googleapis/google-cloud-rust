@@ -127,13 +127,20 @@ pub mod service_controller {
         }
 
         /// Sets the value of [attributes][crate::model::CheckRequest::attributes].
-        pub fn set_attributes<
-            T: Into<std::option::Option<rpc_context::model::AttributeContext>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.attributes = v.into();
+        pub fn set_attributes<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<rpc_context::model::AttributeContext>,
+        {
+            self.0.request.attributes = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [attributes][crate::model::CheckRequest::attributes].
+        pub fn maybe_attributes<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<rpc_context::model::AttributeContext>,
+        {
+            self.0.request.attributes = v.map(|x| x.into());
             self
         }
 

@@ -196,13 +196,20 @@ impl CreateTunnelDestGroupRequest {
     }
 
     /// Sets the value of [tunnel_dest_group][crate::model::CreateTunnelDestGroupRequest::tunnel_dest_group].
-    pub fn set_tunnel_dest_group<
-        T: std::convert::Into<std::option::Option<crate::model::TunnelDestGroup>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.tunnel_dest_group = v.into();
+    pub fn set_tunnel_dest_group<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::TunnelDestGroup>,
+    {
+        self.tunnel_dest_group = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [tunnel_dest_group][crate::model::CreateTunnelDestGroupRequest::tunnel_dest_group].
+    pub fn maybe_tunnel_dest_group<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::TunnelDestGroup>,
+    {
+        self.tunnel_dest_group = v.map(|x| x.into());
         self
     }
 
@@ -316,22 +323,38 @@ impl UpdateTunnelDestGroupRequest {
     }
 
     /// Sets the value of [tunnel_dest_group][crate::model::UpdateTunnelDestGroupRequest::tunnel_dest_group].
-    pub fn set_tunnel_dest_group<
-        T: std::convert::Into<std::option::Option<crate::model::TunnelDestGroup>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.tunnel_dest_group = v.into();
+    pub fn set_tunnel_dest_group<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::TunnelDestGroup>,
+    {
+        self.tunnel_dest_group = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [tunnel_dest_group][crate::model::UpdateTunnelDestGroupRequest::tunnel_dest_group].
+    pub fn maybe_tunnel_dest_group<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::TunnelDestGroup>,
+    {
+        self.tunnel_dest_group = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateTunnelDestGroupRequest::update_mask].
-    pub fn set_update_mask<T: std::convert::Into<std::option::Option<wkt::FieldMask>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.update_mask = v.into();
+    pub fn set_update_mask<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [update_mask][crate::model::UpdateTunnelDestGroupRequest::update_mask].
+    pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = v.map(|x| x.into());
         self
     }
 }
@@ -470,22 +493,38 @@ impl UpdateIapSettingsRequest {
     }
 
     /// Sets the value of [iap_settings][crate::model::UpdateIapSettingsRequest::iap_settings].
-    pub fn set_iap_settings<
-        T: std::convert::Into<std::option::Option<crate::model::IapSettings>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.iap_settings = v.into();
+    pub fn set_iap_settings<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::IapSettings>,
+    {
+        self.iap_settings = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [iap_settings][crate::model::UpdateIapSettingsRequest::iap_settings].
+    pub fn maybe_iap_settings<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::IapSettings>,
+    {
+        self.iap_settings = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateIapSettingsRequest::update_mask].
-    pub fn set_update_mask<T: std::convert::Into<std::option::Option<wkt::FieldMask>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.update_mask = v.into();
+    pub fn set_update_mask<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [update_mask][crate::model::UpdateIapSettingsRequest::update_mask].
+    pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = v.map(|x| x.into());
         self
     }
 }
@@ -530,24 +569,38 @@ impl IapSettings {
     }
 
     /// Sets the value of [access_settings][crate::model::IapSettings::access_settings].
-    pub fn set_access_settings<
-        T: std::convert::Into<std::option::Option<crate::model::AccessSettings>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.access_settings = v.into();
+    pub fn set_access_settings<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::AccessSettings>,
+    {
+        self.access_settings = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [access_settings][crate::model::IapSettings::access_settings].
+    pub fn maybe_access_settings<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::AccessSettings>,
+    {
+        self.access_settings = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [application_settings][crate::model::IapSettings::application_settings].
-    pub fn set_application_settings<
-        T: std::convert::Into<std::option::Option<crate::model::ApplicationSettings>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.application_settings = v.into();
+    pub fn set_application_settings<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::ApplicationSettings>,
+    {
+        self.application_settings = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [application_settings][crate::model::IapSettings::application_settings].
+    pub fn maybe_application_settings<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::ApplicationSettings>,
+    {
+        self.application_settings = v.map(|x| x.into());
         self
     }
 }
@@ -605,68 +658,110 @@ impl AccessSettings {
     }
 
     /// Sets the value of [gcip_settings][crate::model::AccessSettings::gcip_settings].
-    pub fn set_gcip_settings<
-        T: std::convert::Into<std::option::Option<crate::model::GcipSettings>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.gcip_settings = v.into();
+    pub fn set_gcip_settings<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::GcipSettings>,
+    {
+        self.gcip_settings = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [gcip_settings][crate::model::AccessSettings::gcip_settings].
+    pub fn maybe_gcip_settings<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::GcipSettings>,
+    {
+        self.gcip_settings = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [cors_settings][crate::model::AccessSettings::cors_settings].
-    pub fn set_cors_settings<
-        T: std::convert::Into<std::option::Option<crate::model::CorsSettings>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.cors_settings = v.into();
+    pub fn set_cors_settings<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::CorsSettings>,
+    {
+        self.cors_settings = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [cors_settings][crate::model::AccessSettings::cors_settings].
+    pub fn maybe_cors_settings<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::CorsSettings>,
+    {
+        self.cors_settings = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [oauth_settings][crate::model::AccessSettings::oauth_settings].
-    pub fn set_oauth_settings<
-        T: std::convert::Into<std::option::Option<crate::model::OAuthSettings>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.oauth_settings = v.into();
+    pub fn set_oauth_settings<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::OAuthSettings>,
+    {
+        self.oauth_settings = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [oauth_settings][crate::model::AccessSettings::oauth_settings].
+    pub fn maybe_oauth_settings<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::OAuthSettings>,
+    {
+        self.oauth_settings = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [reauth_settings][crate::model::AccessSettings::reauth_settings].
-    pub fn set_reauth_settings<
-        T: std::convert::Into<std::option::Option<crate::model::ReauthSettings>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.reauth_settings = v.into();
+    pub fn set_reauth_settings<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::ReauthSettings>,
+    {
+        self.reauth_settings = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [reauth_settings][crate::model::AccessSettings::reauth_settings].
+    pub fn maybe_reauth_settings<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::ReauthSettings>,
+    {
+        self.reauth_settings = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [allowed_domains_settings][crate::model::AccessSettings::allowed_domains_settings].
-    pub fn set_allowed_domains_settings<
-        T: std::convert::Into<std::option::Option<crate::model::AllowedDomainsSettings>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.allowed_domains_settings = v.into();
+    pub fn set_allowed_domains_settings<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::AllowedDomainsSettings>,
+    {
+        self.allowed_domains_settings = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [allowed_domains_settings][crate::model::AccessSettings::allowed_domains_settings].
+    pub fn maybe_allowed_domains_settings<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::AllowedDomainsSettings>,
+    {
+        self.allowed_domains_settings = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [workforce_identity_settings][crate::model::AccessSettings::workforce_identity_settings].
-    pub fn set_workforce_identity_settings<
-        T: std::convert::Into<std::option::Option<crate::model::WorkforceIdentitySettings>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.workforce_identity_settings = v.into();
+    pub fn set_workforce_identity_settings<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::WorkforceIdentitySettings>,
+    {
+        self.workforce_identity_settings = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [workforce_identity_settings][crate::model::AccessSettings::workforce_identity_settings].
+    pub fn maybe_workforce_identity_settings<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::WorkforceIdentitySettings>,
+    {
+        self.workforce_identity_settings = v.map(|x| x.into());
         self
     }
 
@@ -868,11 +963,20 @@ impl GcipSettings {
     }
 
     /// Sets the value of [login_page_uri][crate::model::GcipSettings::login_page_uri].
-    pub fn set_login_page_uri<T: std::convert::Into<std::option::Option<wkt::StringValue>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.login_page_uri = v.into();
+    pub fn set_login_page_uri<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::StringValue>,
+    {
+        self.login_page_uri = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [login_page_uri][crate::model::GcipSettings::login_page_uri].
+    pub fn maybe_login_page_uri<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::StringValue>,
+    {
+        self.login_page_uri = v.map(|x| x.into());
         self
     }
 }
@@ -905,11 +1009,20 @@ impl CorsSettings {
     }
 
     /// Sets the value of [allow_http_options][crate::model::CorsSettings::allow_http_options].
-    pub fn set_allow_http_options<T: std::convert::Into<std::option::Option<wkt::BoolValue>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.allow_http_options = v.into();
+    pub fn set_allow_http_options<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::BoolValue>,
+    {
+        self.allow_http_options = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [allow_http_options][crate::model::CorsSettings::allow_http_options].
+    pub fn maybe_allow_http_options<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::BoolValue>,
+    {
+        self.allow_http_options = v.map(|x| x.into());
         self
     }
 }
@@ -949,11 +1062,20 @@ impl OAuthSettings {
     }
 
     /// Sets the value of [login_hint][crate::model::OAuthSettings::login_hint].
-    pub fn set_login_hint<T: std::convert::Into<std::option::Option<wkt::StringValue>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.login_hint = v.into();
+    pub fn set_login_hint<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::StringValue>,
+    {
+        self.login_hint = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [login_hint][crate::model::OAuthSettings::login_hint].
+    pub fn maybe_login_hint<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::StringValue>,
+    {
+        self.login_hint = v.map(|x| x.into());
         self
     }
 
@@ -1013,11 +1135,20 @@ impl WorkforceIdentitySettings {
     }
 
     /// Sets the value of [oauth2][crate::model::WorkforceIdentitySettings::oauth2].
-    pub fn set_oauth2<T: std::convert::Into<std::option::Option<crate::model::OAuth2>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.oauth2 = v.into();
+    pub fn set_oauth2<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::OAuth2>,
+    {
+        self.oauth2 = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [oauth2][crate::model::WorkforceIdentitySettings::oauth2].
+    pub fn maybe_oauth2<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::OAuth2>,
+    {
+        self.oauth2 = v.map(|x| x.into());
         self
     }
 }
@@ -1124,11 +1255,20 @@ impl ReauthSettings {
     }
 
     /// Sets the value of [max_age][crate::model::ReauthSettings::max_age].
-    pub fn set_max_age<T: std::convert::Into<std::option::Option<wkt::Duration>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.max_age = v.into();
+    pub fn set_max_age<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Duration>,
+    {
+        self.max_age = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [max_age][crate::model::ReauthSettings::max_age].
+    pub fn maybe_max_age<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Duration>,
+    {
+        self.max_age = v.map(|x| x.into());
         self
     }
 
@@ -1458,8 +1598,20 @@ impl AllowedDomainsSettings {
     }
 
     /// Sets the value of [enable][crate::model::AllowedDomainsSettings::enable].
-    pub fn set_enable<T: std::convert::Into<std::option::Option<bool>>>(mut self, v: T) -> Self {
-        self.enable = v.into();
+    pub fn set_enable<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.enable = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [enable][crate::model::AllowedDomainsSettings::enable].
+    pub fn maybe_enable<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.enable = v.map(|x| x.into());
         self
     }
 
@@ -1515,44 +1667,74 @@ impl ApplicationSettings {
     }
 
     /// Sets the value of [csm_settings][crate::model::ApplicationSettings::csm_settings].
-    pub fn set_csm_settings<
-        T: std::convert::Into<std::option::Option<crate::model::CsmSettings>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.csm_settings = v.into();
+    pub fn set_csm_settings<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::CsmSettings>,
+    {
+        self.csm_settings = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [csm_settings][crate::model::ApplicationSettings::csm_settings].
+    pub fn maybe_csm_settings<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::CsmSettings>,
+    {
+        self.csm_settings = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [access_denied_page_settings][crate::model::ApplicationSettings::access_denied_page_settings].
-    pub fn set_access_denied_page_settings<
-        T: std::convert::Into<std::option::Option<crate::model::AccessDeniedPageSettings>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.access_denied_page_settings = v.into();
+    pub fn set_access_denied_page_settings<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::AccessDeniedPageSettings>,
+    {
+        self.access_denied_page_settings = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [access_denied_page_settings][crate::model::ApplicationSettings::access_denied_page_settings].
+    pub fn maybe_access_denied_page_settings<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::AccessDeniedPageSettings>,
+    {
+        self.access_denied_page_settings = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [cookie_domain][crate::model::ApplicationSettings::cookie_domain].
-    pub fn set_cookie_domain<T: std::convert::Into<std::option::Option<wkt::StringValue>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.cookie_domain = v.into();
+    pub fn set_cookie_domain<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::StringValue>,
+    {
+        self.cookie_domain = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [cookie_domain][crate::model::ApplicationSettings::cookie_domain].
+    pub fn maybe_cookie_domain<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::StringValue>,
+    {
+        self.cookie_domain = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [attribute_propagation_settings][crate::model::ApplicationSettings::attribute_propagation_settings].
-    pub fn set_attribute_propagation_settings<
-        T: std::convert::Into<std::option::Option<crate::model::AttributePropagationSettings>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.attribute_propagation_settings = v.into();
+    pub fn set_attribute_propagation_settings<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::AttributePropagationSettings>,
+    {
+        self.attribute_propagation_settings = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [attribute_propagation_settings][crate::model::ApplicationSettings::attribute_propagation_settings].
+    pub fn maybe_attribute_propagation_settings<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::AttributePropagationSettings>,
+    {
+        self.attribute_propagation_settings = v.map(|x| x.into());
         self
     }
 }
@@ -1587,11 +1769,20 @@ impl CsmSettings {
     }
 
     /// Sets the value of [rctoken_aud][crate::model::CsmSettings::rctoken_aud].
-    pub fn set_rctoken_aud<T: std::convert::Into<std::option::Option<wkt::StringValue>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.rctoken_aud = v.into();
+    pub fn set_rctoken_aud<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::StringValue>,
+    {
+        self.rctoken_aud = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [rctoken_aud][crate::model::CsmSettings::rctoken_aud].
+    pub fn maybe_rctoken_aud<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::StringValue>,
+    {
+        self.rctoken_aud = v.map(|x| x.into());
         self
     }
 }
@@ -1635,35 +1826,59 @@ impl AccessDeniedPageSettings {
     }
 
     /// Sets the value of [access_denied_page_uri][crate::model::AccessDeniedPageSettings::access_denied_page_uri].
-    pub fn set_access_denied_page_uri<
-        T: std::convert::Into<std::option::Option<wkt::StringValue>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.access_denied_page_uri = v.into();
+    pub fn set_access_denied_page_uri<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::StringValue>,
+    {
+        self.access_denied_page_uri = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [access_denied_page_uri][crate::model::AccessDeniedPageSettings::access_denied_page_uri].
+    pub fn maybe_access_denied_page_uri<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::StringValue>,
+    {
+        self.access_denied_page_uri = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [generate_troubleshooting_uri][crate::model::AccessDeniedPageSettings::generate_troubleshooting_uri].
-    pub fn set_generate_troubleshooting_uri<
-        T: std::convert::Into<std::option::Option<wkt::BoolValue>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.generate_troubleshooting_uri = v.into();
+    pub fn set_generate_troubleshooting_uri<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::BoolValue>,
+    {
+        self.generate_troubleshooting_uri = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [generate_troubleshooting_uri][crate::model::AccessDeniedPageSettings::generate_troubleshooting_uri].
+    pub fn maybe_generate_troubleshooting_uri<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::BoolValue>,
+    {
+        self.generate_troubleshooting_uri = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [remediation_token_generation_enabled][crate::model::AccessDeniedPageSettings::remediation_token_generation_enabled].
-    pub fn set_remediation_token_generation_enabled<
-        T: std::convert::Into<std::option::Option<wkt::BoolValue>>,
-    >(
+    pub fn set_remediation_token_generation_enabled<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::BoolValue>,
+    {
+        self.remediation_token_generation_enabled = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [remediation_token_generation_enabled][crate::model::AccessDeniedPageSettings::remediation_token_generation_enabled].
+    pub fn maybe_remediation_token_generation_enabled<T>(
         mut self,
-        v: T,
-    ) -> Self {
-        self.remediation_token_generation_enabled = v.into();
+        v: std::option::Option<T>,
+    ) -> Self
+    where
+        T: std::convert::Into<wkt::BoolValue>,
+    {
+        self.remediation_token_generation_enabled = v.map(|x| x.into());
         self
     }
 }
@@ -1736,11 +1951,20 @@ impl AttributePropagationSettings {
     }
 
     /// Sets the value of [expression][crate::model::AttributePropagationSettings::expression].
-    pub fn set_expression<T: std::convert::Into<std::option::Option<std::string::String>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.expression = v.into();
+    pub fn set_expression<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.expression = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [expression][crate::model::AttributePropagationSettings::expression].
+    pub fn maybe_expression<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.expression = v.map(|x| x.into());
         self
     }
 
@@ -1756,8 +1980,20 @@ impl AttributePropagationSettings {
     }
 
     /// Sets the value of [enable][crate::model::AttributePropagationSettings::enable].
-    pub fn set_enable<T: std::convert::Into<std::option::Option<bool>>>(mut self, v: T) -> Self {
-        self.enable = v.into();
+    pub fn set_enable<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.enable = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [enable][crate::model::AttributePropagationSettings::enable].
+    pub fn maybe_enable<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.enable = v.map(|x| x.into());
         self
     }
 }
@@ -2084,11 +2320,20 @@ impl CreateBrandRequest {
     }
 
     /// Sets the value of [brand][crate::model::CreateBrandRequest::brand].
-    pub fn set_brand<T: std::convert::Into<std::option::Option<crate::model::Brand>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.brand = v.into();
+    pub fn set_brand<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::Brand>,
+    {
+        self.brand = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [brand][crate::model::CreateBrandRequest::brand].
+    pub fn maybe_brand<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::Brand>,
+    {
+        self.brand = v.map(|x| x.into());
         self
     }
 }
@@ -2288,13 +2533,20 @@ impl CreateIdentityAwareProxyClientRequest {
     }
 
     /// Sets the value of [identity_aware_proxy_client][crate::model::CreateIdentityAwareProxyClientRequest::identity_aware_proxy_client].
-    pub fn set_identity_aware_proxy_client<
-        T: std::convert::Into<std::option::Option<crate::model::IdentityAwareProxyClient>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.identity_aware_proxy_client = v.into();
+    pub fn set_identity_aware_proxy_client<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::IdentityAwareProxyClient>,
+    {
+        self.identity_aware_proxy_client = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [identity_aware_proxy_client][crate::model::CreateIdentityAwareProxyClientRequest::identity_aware_proxy_client].
+    pub fn maybe_identity_aware_proxy_client<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::IdentityAwareProxyClient>,
+    {
+        self.identity_aware_proxy_client = v.map(|x| x.into());
         self
     }
 }

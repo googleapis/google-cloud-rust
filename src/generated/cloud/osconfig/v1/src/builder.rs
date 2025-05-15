@@ -131,28 +131,58 @@ pub mod os_config_service {
         /// Sets the value of [instance_filter][crate::model::ExecutePatchJobRequest::instance_filter].
         ///
         /// This is a **required** field for requests.
-        pub fn set_instance_filter<
-            T: Into<std::option::Option<crate::model::PatchInstanceFilter>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.instance_filter = v.into();
+        pub fn set_instance_filter<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::PatchInstanceFilter>,
+        {
+            self.0.request.instance_filter = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [instance_filter][crate::model::ExecutePatchJobRequest::instance_filter].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_instance_filter<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::PatchInstanceFilter>,
+        {
+            self.0.request.instance_filter = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [patch_config][crate::model::ExecutePatchJobRequest::patch_config].
-        pub fn set_patch_config<T: Into<std::option::Option<crate::model::PatchConfig>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.patch_config = v.into();
+        pub fn set_patch_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::PatchConfig>,
+        {
+            self.0.request.patch_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [patch_config][crate::model::ExecutePatchJobRequest::patch_config].
+        pub fn maybe_patch_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::PatchConfig>,
+        {
+            self.0.request.patch_config = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [duration][crate::model::ExecutePatchJobRequest::duration].
-        pub fn set_duration<T: Into<std::option::Option<wkt::Duration>>>(mut self, v: T) -> Self {
-            self.0.request.duration = v.into();
+        pub fn set_duration<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Duration>,
+        {
+            self.0.request.duration = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [duration][crate::model::ExecutePatchJobRequest::duration].
+        pub fn maybe_duration<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Duration>,
+        {
+            self.0.request.duration = v.map(|x| x.into());
             self
         }
 
@@ -169,11 +199,20 @@ pub mod os_config_service {
         }
 
         /// Sets the value of [rollout][crate::model::ExecutePatchJobRequest::rollout].
-        pub fn set_rollout<T: Into<std::option::Option<crate::model::PatchRollout>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.rollout = v.into();
+        pub fn set_rollout<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::PatchRollout>,
+        {
+            self.0.request.rollout = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [rollout][crate::model::ExecutePatchJobRequest::rollout].
+        pub fn maybe_rollout<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::PatchRollout>,
+        {
+            self.0.request.rollout = v.map(|x| x.into());
             self
         }
     }
@@ -602,11 +641,22 @@ pub mod os_config_service {
         /// Sets the value of [patch_deployment][crate::model::CreatePatchDeploymentRequest::patch_deployment].
         ///
         /// This is a **required** field for requests.
-        pub fn set_patch_deployment<T: Into<std::option::Option<crate::model::PatchDeployment>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.patch_deployment = v.into();
+        pub fn set_patch_deployment<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::PatchDeployment>,
+        {
+            self.0.request.patch_deployment = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [patch_deployment][crate::model::CreatePatchDeploymentRequest::patch_deployment].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_patch_deployment<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::PatchDeployment>,
+        {
+            self.0.request.patch_deployment = v.map(|x| x.into());
             self
         }
     }
@@ -907,20 +957,40 @@ pub mod os_config_service {
         /// Sets the value of [patch_deployment][crate::model::UpdatePatchDeploymentRequest::patch_deployment].
         ///
         /// This is a **required** field for requests.
-        pub fn set_patch_deployment<T: Into<std::option::Option<crate::model::PatchDeployment>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.patch_deployment = v.into();
+        pub fn set_patch_deployment<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::PatchDeployment>,
+        {
+            self.0.request.patch_deployment = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [patch_deployment][crate::model::UpdatePatchDeploymentRequest::patch_deployment].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_patch_deployment<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::PatchDeployment>,
+        {
+            self.0.request.patch_deployment = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdatePatchDeploymentRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [update_mask][crate::model::UpdatePatchDeploymentRequest::update_mask].
+        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -1349,13 +1419,22 @@ pub mod os_config_zonal_service {
         /// Sets the value of [os_policy_assignment][crate::model::CreateOSPolicyAssignmentRequest::os_policy_assignment].
         ///
         /// This is a **required** field for requests.
-        pub fn set_os_policy_assignment<
-            T: Into<std::option::Option<crate::model::OSPolicyAssignment>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.os_policy_assignment = v.into();
+        pub fn set_os_policy_assignment<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::OSPolicyAssignment>,
+        {
+            self.0.request.os_policy_assignment = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [os_policy_assignment][crate::model::CreateOSPolicyAssignmentRequest::os_policy_assignment].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_os_policy_assignment<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::OSPolicyAssignment>,
+        {
+            self.0.request.os_policy_assignment = v.map(|x| x.into());
             self
         }
 
@@ -1473,22 +1552,40 @@ pub mod os_config_zonal_service {
         /// Sets the value of [os_policy_assignment][crate::model::UpdateOSPolicyAssignmentRequest::os_policy_assignment].
         ///
         /// This is a **required** field for requests.
-        pub fn set_os_policy_assignment<
-            T: Into<std::option::Option<crate::model::OSPolicyAssignment>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.os_policy_assignment = v.into();
+        pub fn set_os_policy_assignment<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::OSPolicyAssignment>,
+        {
+            self.0.request.os_policy_assignment = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [os_policy_assignment][crate::model::UpdateOSPolicyAssignmentRequest::os_policy_assignment].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_os_policy_assignment<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::OSPolicyAssignment>,
+        {
+            self.0.request.os_policy_assignment = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateOSPolicyAssignmentRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [update_mask][crate::model::UpdateOSPolicyAssignmentRequest::update_mask].
+        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }

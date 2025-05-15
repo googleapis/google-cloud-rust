@@ -96,79 +96,128 @@ impl AttributeContext {
     }
 
     /// Sets the value of [origin][crate::model::AttributeContext::origin].
-    pub fn set_origin<
-        T: std::convert::Into<std::option::Option<crate::model::attribute_context::Peer>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.origin = v.into();
+    pub fn set_origin<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::attribute_context::Peer>,
+    {
+        self.origin = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [origin][crate::model::AttributeContext::origin].
+    pub fn maybe_origin<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::attribute_context::Peer>,
+    {
+        self.origin = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [source][crate::model::AttributeContext::source].
-    pub fn set_source<
-        T: std::convert::Into<std::option::Option<crate::model::attribute_context::Peer>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.source = v.into();
+    pub fn set_source<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::attribute_context::Peer>,
+    {
+        self.source = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [source][crate::model::AttributeContext::source].
+    pub fn maybe_source<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::attribute_context::Peer>,
+    {
+        self.source = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [destination][crate::model::AttributeContext::destination].
-    pub fn set_destination<
-        T: std::convert::Into<std::option::Option<crate::model::attribute_context::Peer>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.destination = v.into();
+    pub fn set_destination<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::attribute_context::Peer>,
+    {
+        self.destination = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [destination][crate::model::AttributeContext::destination].
+    pub fn maybe_destination<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::attribute_context::Peer>,
+    {
+        self.destination = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [request][crate::model::AttributeContext::request].
-    pub fn set_request<
-        T: std::convert::Into<std::option::Option<crate::model::attribute_context::Request>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.request = v.into();
+    pub fn set_request<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::attribute_context::Request>,
+    {
+        self.request = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [request][crate::model::AttributeContext::request].
+    pub fn maybe_request<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::attribute_context::Request>,
+    {
+        self.request = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [response][crate::model::AttributeContext::response].
-    pub fn set_response<
-        T: std::convert::Into<std::option::Option<crate::model::attribute_context::Response>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.response = v.into();
+    pub fn set_response<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::attribute_context::Response>,
+    {
+        self.response = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [response][crate::model::AttributeContext::response].
+    pub fn maybe_response<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::attribute_context::Response>,
+    {
+        self.response = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [resource][crate::model::AttributeContext::resource].
-    pub fn set_resource<
-        T: std::convert::Into<std::option::Option<crate::model::attribute_context::Resource>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.resource = v.into();
+    pub fn set_resource<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::attribute_context::Resource>,
+    {
+        self.resource = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [resource][crate::model::AttributeContext::resource].
+    pub fn maybe_resource<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::attribute_context::Resource>,
+    {
+        self.resource = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [api][crate::model::AttributeContext::api].
-    pub fn set_api<
-        T: std::convert::Into<std::option::Option<crate::model::attribute_context::Api>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.api = v.into();
+    pub fn set_api<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::attribute_context::Api>,
+    {
+        self.api = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [api][crate::model::AttributeContext::api].
+    pub fn maybe_api<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::attribute_context::Api>,
+    {
+        self.api = v.map(|x| x.into());
         self
     }
 
@@ -452,11 +501,20 @@ pub mod attribute_context {
         }
 
         /// Sets the value of [claims][crate::model::attribute_context::Auth::claims].
-        pub fn set_claims<T: std::convert::Into<std::option::Option<wkt::Struct>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.claims = v.into();
+        pub fn set_claims<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Struct>,
+        {
+            self.claims = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [claims][crate::model::attribute_context::Auth::claims].
+        pub fn maybe_claims<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Struct>,
+        {
+            self.claims = v.map(|x| x.into());
             self
         }
 
@@ -604,11 +662,20 @@ pub mod attribute_context {
         }
 
         /// Sets the value of [time][crate::model::attribute_context::Request::time].
-        pub fn set_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.time = v.into();
+        pub fn set_time<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Timestamp>,
+        {
+            self.time = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [time][crate::model::attribute_context::Request::time].
+        pub fn maybe_time<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Timestamp>,
+        {
+            self.time = v.map(|x| x.into());
             self
         }
 
@@ -631,13 +698,20 @@ pub mod attribute_context {
         }
 
         /// Sets the value of [auth][crate::model::attribute_context::Request::auth].
-        pub fn set_auth<
-            T: std::convert::Into<std::option::Option<crate::model::attribute_context::Auth>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.auth = v.into();
+        pub fn set_auth<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::attribute_context::Auth>,
+        {
+            self.auth = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [auth][crate::model::attribute_context::Request::auth].
+        pub fn maybe_auth<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::attribute_context::Auth>,
+        {
+            self.auth = v.map(|x| x.into());
             self
         }
     }
@@ -717,20 +791,38 @@ pub mod attribute_context {
         }
 
         /// Sets the value of [time][crate::model::attribute_context::Response::time].
-        pub fn set_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.time = v.into();
+        pub fn set_time<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Timestamp>,
+        {
+            self.time = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [time][crate::model::attribute_context::Response::time].
+        pub fn maybe_time<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Timestamp>,
+        {
+            self.time = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [backend_latency][crate::model::attribute_context::Response::backend_latency].
-        pub fn set_backend_latency<T: std::convert::Into<std::option::Option<wkt::Duration>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.backend_latency = v.into();
+        pub fn set_backend_latency<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Duration>,
+        {
+            self.backend_latency = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [backend_latency][crate::model::attribute_context::Response::backend_latency].
+        pub fn maybe_backend_latency<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Duration>,
+        {
+            self.backend_latency = v.map(|x| x.into());
             self
         }
     }
@@ -905,29 +997,56 @@ pub mod attribute_context {
         }
 
         /// Sets the value of [create_time][crate::model::attribute_context::Resource::create_time].
-        pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.create_time = v.into();
+        pub fn set_create_time<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Timestamp>,
+        {
+            self.create_time = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [create_time][crate::model::attribute_context::Resource::create_time].
+        pub fn maybe_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Timestamp>,
+        {
+            self.create_time = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_time][crate::model::attribute_context::Resource::update_time].
-        pub fn set_update_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.update_time = v.into();
+        pub fn set_update_time<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Timestamp>,
+        {
+            self.update_time = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [update_time][crate::model::attribute_context::Resource::update_time].
+        pub fn maybe_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Timestamp>,
+        {
+            self.update_time = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [delete_time][crate::model::attribute_context::Resource::delete_time].
-        pub fn set_delete_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.delete_time = v.into();
+        pub fn set_delete_time<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Timestamp>,
+        {
+            self.delete_time = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [delete_time][crate::model::attribute_context::Resource::delete_time].
+        pub fn maybe_delete_time<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Timestamp>,
+        {
+            self.delete_time = v.map(|x| x.into());
             self
         }
 
@@ -1000,20 +1119,38 @@ impl AuditContext {
     }
 
     /// Sets the value of [scrubbed_request][crate::model::AuditContext::scrubbed_request].
-    pub fn set_scrubbed_request<T: std::convert::Into<std::option::Option<wkt::Struct>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.scrubbed_request = v.into();
+    pub fn set_scrubbed_request<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Struct>,
+    {
+        self.scrubbed_request = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [scrubbed_request][crate::model::AuditContext::scrubbed_request].
+    pub fn maybe_scrubbed_request<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Struct>,
+    {
+        self.scrubbed_request = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [scrubbed_response][crate::model::AuditContext::scrubbed_response].
-    pub fn set_scrubbed_response<T: std::convert::Into<std::option::Option<wkt::Struct>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.scrubbed_response = v.into();
+    pub fn set_scrubbed_response<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Struct>,
+    {
+        self.scrubbed_response = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [scrubbed_response][crate::model::AuditContext::scrubbed_response].
+    pub fn maybe_scrubbed_response<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Struct>,
+    {
+        self.scrubbed_response = v.map(|x| x.into());
         self
     }
 

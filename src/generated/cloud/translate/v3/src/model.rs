@@ -117,20 +117,38 @@ impl AdaptiveMtDataset {
     }
 
     /// Sets the value of [create_time][crate::model::AdaptiveMtDataset::create_time].
-    pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.create_time = v.into();
+    pub fn set_create_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [create_time][crate::model::AdaptiveMtDataset::create_time].
+    pub fn maybe_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [update_time][crate::model::AdaptiveMtDataset::update_time].
-    pub fn set_update_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.update_time = v.into();
+    pub fn set_update_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [update_time][crate::model::AdaptiveMtDataset::update_time].
+    pub fn maybe_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = v.map(|x| x.into());
         self
     }
 }
@@ -172,13 +190,20 @@ impl CreateAdaptiveMtDatasetRequest {
     }
 
     /// Sets the value of [adaptive_mt_dataset][crate::model::CreateAdaptiveMtDatasetRequest::adaptive_mt_dataset].
-    pub fn set_adaptive_mt_dataset<
-        T: std::convert::Into<std::option::Option<crate::model::AdaptiveMtDataset>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.adaptive_mt_dataset = v.into();
+    pub fn set_adaptive_mt_dataset<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::AdaptiveMtDataset>,
+    {
+        self.adaptive_mt_dataset = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [adaptive_mt_dataset][crate::model::CreateAdaptiveMtDatasetRequest::adaptive_mt_dataset].
+    pub fn maybe_adaptive_mt_dataset<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::AdaptiveMtDataset>,
+    {
+        self.adaptive_mt_dataset = v.map(|x| x.into());
         self
     }
 }
@@ -454,30 +479,38 @@ impl AdaptiveMtTranslateRequest {
     }
 
     /// Sets the value of [reference_sentence_config][crate::model::AdaptiveMtTranslateRequest::reference_sentence_config].
-    pub fn set_reference_sentence_config<
-        T: std::convert::Into<
-                std::option::Option<
-                    crate::model::adaptive_mt_translate_request::ReferenceSentenceConfig,
-                >,
-            >,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.reference_sentence_config = v.into();
+    pub fn set_reference_sentence_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::adaptive_mt_translate_request::ReferenceSentenceConfig>,
+    {
+        self.reference_sentence_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [reference_sentence_config][crate::model::AdaptiveMtTranslateRequest::reference_sentence_config].
+    pub fn maybe_reference_sentence_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::adaptive_mt_translate_request::ReferenceSentenceConfig>,
+    {
+        self.reference_sentence_config = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [glossary_config][crate::model::AdaptiveMtTranslateRequest::glossary_config].
-    pub fn set_glossary_config<
-        T: std::convert::Into<
-                std::option::Option<crate::model::adaptive_mt_translate_request::GlossaryConfig>,
-            >,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.glossary_config = v.into();
+    pub fn set_glossary_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::adaptive_mt_translate_request::GlossaryConfig>,
+    {
+        self.glossary_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [glossary_config][crate::model::AdaptiveMtTranslateRequest::glossary_config].
+    pub fn maybe_glossary_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::adaptive_mt_translate_request::GlossaryConfig>,
+    {
+        self.glossary_config = v.map(|x| x.into());
         self
     }
 }
@@ -865,20 +898,38 @@ impl AdaptiveMtFile {
     }
 
     /// Sets the value of [create_time][crate::model::AdaptiveMtFile::create_time].
-    pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.create_time = v.into();
+    pub fn set_create_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [create_time][crate::model::AdaptiveMtFile::create_time].
+    pub fn maybe_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [update_time][crate::model::AdaptiveMtFile::update_time].
-    pub fn set_update_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.update_time = v.into();
+    pub fn set_update_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [update_time][crate::model::AdaptiveMtFile::update_time].
+    pub fn maybe_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = v.map(|x| x.into());
         self
     }
 }
@@ -1110,13 +1161,20 @@ impl ImportAdaptiveMtFileResponse {
     }
 
     /// Sets the value of [adaptive_mt_file][crate::model::ImportAdaptiveMtFileResponse::adaptive_mt_file].
-    pub fn set_adaptive_mt_file<
-        T: std::convert::Into<std::option::Option<crate::model::AdaptiveMtFile>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.adaptive_mt_file = v.into();
+    pub fn set_adaptive_mt_file<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::AdaptiveMtFile>,
+    {
+        self.adaptive_mt_file = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [adaptive_mt_file][crate::model::ImportAdaptiveMtFileResponse::adaptive_mt_file].
+    pub fn maybe_adaptive_mt_file<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::AdaptiveMtFile>,
+    {
+        self.adaptive_mt_file = v.map(|x| x.into());
         self
     }
 }
@@ -1303,20 +1361,38 @@ impl AdaptiveMtSentence {
     }
 
     /// Sets the value of [create_time][crate::model::AdaptiveMtSentence::create_time].
-    pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.create_time = v.into();
+    pub fn set_create_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [create_time][crate::model::AdaptiveMtSentence::create_time].
+    pub fn maybe_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [update_time][crate::model::AdaptiveMtSentence::update_time].
-    pub fn set_update_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.update_time = v.into();
+    pub fn set_update_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [update_time][crate::model::AdaptiveMtSentence::update_time].
+    pub fn maybe_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = v.map(|x| x.into());
         self
     }
 }
@@ -1478,13 +1554,20 @@ impl ImportDataRequest {
     }
 
     /// Sets the value of [input_config][crate::model::ImportDataRequest::input_config].
-    pub fn set_input_config<
-        T: std::convert::Into<std::option::Option<crate::model::DatasetInputConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.input_config = v.into();
+    pub fn set_input_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::DatasetInputConfig>,
+    {
+        self.input_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [input_config][crate::model::ImportDataRequest::input_config].
+    pub fn maybe_input_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::DatasetInputConfig>,
+    {
+        self.input_config = v.map(|x| x.into());
         self
     }
 }
@@ -1680,29 +1763,56 @@ impl ImportDataMetadata {
     }
 
     /// Sets the value of [create_time][crate::model::ImportDataMetadata::create_time].
-    pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.create_time = v.into();
+    pub fn set_create_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [create_time][crate::model::ImportDataMetadata::create_time].
+    pub fn maybe_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [update_time][crate::model::ImportDataMetadata::update_time].
-    pub fn set_update_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.update_time = v.into();
+    pub fn set_update_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [update_time][crate::model::ImportDataMetadata::update_time].
+    pub fn maybe_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [error][crate::model::ImportDataMetadata::error].
-    pub fn set_error<T: std::convert::Into<std::option::Option<rpc::model::Status>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.error = v.into();
+    pub fn set_error<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<rpc::model::Status>,
+    {
+        self.error = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [error][crate::model::ImportDataMetadata::error].
+    pub fn maybe_error<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<rpc::model::Status>,
+    {
+        self.error = v.map(|x| x.into());
         self
     }
 }
@@ -1744,13 +1854,20 @@ impl ExportDataRequest {
     }
 
     /// Sets the value of [output_config][crate::model::ExportDataRequest::output_config].
-    pub fn set_output_config<
-        T: std::convert::Into<std::option::Option<crate::model::DatasetOutputConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.output_config = v.into();
+    pub fn set_output_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::DatasetOutputConfig>,
+    {
+        self.output_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [output_config][crate::model::ExportDataRequest::output_config].
+    pub fn maybe_output_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::DatasetOutputConfig>,
+    {
+        self.output_config = v.map(|x| x.into());
         self
     }
 }
@@ -1886,29 +2003,56 @@ impl ExportDataMetadata {
     }
 
     /// Sets the value of [create_time][crate::model::ExportDataMetadata::create_time].
-    pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.create_time = v.into();
+    pub fn set_create_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [create_time][crate::model::ExportDataMetadata::create_time].
+    pub fn maybe_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [update_time][crate::model::ExportDataMetadata::update_time].
-    pub fn set_update_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.update_time = v.into();
+    pub fn set_update_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [update_time][crate::model::ExportDataMetadata::update_time].
+    pub fn maybe_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [error][crate::model::ExportDataMetadata::error].
-    pub fn set_error<T: std::convert::Into<std::option::Option<rpc::model::Status>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.error = v.into();
+    pub fn set_error<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<rpc::model::Status>,
+    {
+        self.error = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [error][crate::model::ExportDataMetadata::error].
+    pub fn maybe_error<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<rpc::model::Status>,
+    {
+        self.error = v.map(|x| x.into());
         self
     }
 }
@@ -1988,29 +2132,56 @@ impl DeleteDatasetMetadata {
     }
 
     /// Sets the value of [create_time][crate::model::DeleteDatasetMetadata::create_time].
-    pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.create_time = v.into();
+    pub fn set_create_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [create_time][crate::model::DeleteDatasetMetadata::create_time].
+    pub fn maybe_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [update_time][crate::model::DeleteDatasetMetadata::update_time].
-    pub fn set_update_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.update_time = v.into();
+    pub fn set_update_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [update_time][crate::model::DeleteDatasetMetadata::update_time].
+    pub fn maybe_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [error][crate::model::DeleteDatasetMetadata::error].
-    pub fn set_error<T: std::convert::Into<std::option::Option<rpc::model::Status>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.error = v.into();
+    pub fn set_error<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<rpc::model::Status>,
+    {
+        self.error = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [error][crate::model::DeleteDatasetMetadata::error].
+    pub fn maybe_error<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<rpc::model::Status>,
+    {
+        self.error = v.map(|x| x.into());
         self
     }
 }
@@ -2202,11 +2373,20 @@ impl CreateDatasetRequest {
     }
 
     /// Sets the value of [dataset][crate::model::CreateDatasetRequest::dataset].
-    pub fn set_dataset<T: std::convert::Into<std::option::Option<crate::model::Dataset>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.dataset = v.into();
+    pub fn set_dataset<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::Dataset>,
+    {
+        self.dataset = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [dataset][crate::model::CreateDatasetRequest::dataset].
+    pub fn maybe_dataset<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::Dataset>,
+    {
+        self.dataset = v.map(|x| x.into());
         self
     }
 }
@@ -2254,29 +2434,56 @@ impl CreateDatasetMetadata {
     }
 
     /// Sets the value of [create_time][crate::model::CreateDatasetMetadata::create_time].
-    pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.create_time = v.into();
+    pub fn set_create_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [create_time][crate::model::CreateDatasetMetadata::create_time].
+    pub fn maybe_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [update_time][crate::model::CreateDatasetMetadata::update_time].
-    pub fn set_update_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.update_time = v.into();
+    pub fn set_update_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [update_time][crate::model::CreateDatasetMetadata::update_time].
+    pub fn maybe_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [error][crate::model::CreateDatasetMetadata::error].
-    pub fn set_error<T: std::convert::Into<std::option::Option<rpc::model::Status>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.error = v.into();
+    pub fn set_error<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<rpc::model::Status>,
+    {
+        self.error = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [error][crate::model::CreateDatasetMetadata::error].
+    pub fn maybe_error<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<rpc::model::Status>,
+    {
+        self.error = v.map(|x| x.into());
         self
     }
 }
@@ -2568,11 +2775,20 @@ pub mod batch_transfer_resources_response {
         }
 
         /// Sets the value of [error][crate::model::batch_transfer_resources_response::TransferResourceResponse::error].
-        pub fn set_error<T: std::convert::Into<std::option::Option<rpc::model::Status>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.error = v.into();
+        pub fn set_error<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<rpc::model::Status>,
+        {
+            self.error = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [error][crate::model::batch_transfer_resources_response::TransferResourceResponse::error].
+        pub fn maybe_error<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<rpc::model::Status>,
+        {
+            self.error = v.map(|x| x.into());
             self
         }
     }
@@ -2698,20 +2914,38 @@ impl Dataset {
     }
 
     /// Sets the value of [create_time][crate::model::Dataset::create_time].
-    pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.create_time = v.into();
+    pub fn set_create_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [create_time][crate::model::Dataset::create_time].
+    pub fn maybe_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [update_time][crate::model::Dataset::update_time].
-    pub fn set_update_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.update_time = v.into();
+    pub fn set_update_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [update_time][crate::model::Dataset::update_time].
+    pub fn maybe_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = v.map(|x| x.into());
         self
     }
 }
@@ -2753,11 +2987,20 @@ impl CreateModelRequest {
     }
 
     /// Sets the value of [model][crate::model::CreateModelRequest::model].
-    pub fn set_model<T: std::convert::Into<std::option::Option<crate::model::Model>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.model = v.into();
+    pub fn set_model<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::Model>,
+    {
+        self.model = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [model][crate::model::CreateModelRequest::model].
+    pub fn maybe_model<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::Model>,
+    {
+        self.model = v.map(|x| x.into());
         self
     }
 }
@@ -2805,29 +3048,56 @@ impl CreateModelMetadata {
     }
 
     /// Sets the value of [create_time][crate::model::CreateModelMetadata::create_time].
-    pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.create_time = v.into();
+    pub fn set_create_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [create_time][crate::model::CreateModelMetadata::create_time].
+    pub fn maybe_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [update_time][crate::model::CreateModelMetadata::update_time].
-    pub fn set_update_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.update_time = v.into();
+    pub fn set_update_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [update_time][crate::model::CreateModelMetadata::update_time].
+    pub fn maybe_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [error][crate::model::CreateModelMetadata::error].
-    pub fn set_error<T: std::convert::Into<std::option::Option<rpc::model::Status>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.error = v.into();
+    pub fn set_error<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<rpc::model::Status>,
+    {
+        self.error = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [error][crate::model::CreateModelMetadata::error].
+    pub fn maybe_error<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<rpc::model::Status>,
+    {
+        self.error = v.map(|x| x.into());
         self
     }
 }
@@ -3070,29 +3340,56 @@ impl DeleteModelMetadata {
     }
 
     /// Sets the value of [create_time][crate::model::DeleteModelMetadata::create_time].
-    pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.create_time = v.into();
+    pub fn set_create_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [create_time][crate::model::DeleteModelMetadata::create_time].
+    pub fn maybe_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [update_time][crate::model::DeleteModelMetadata::update_time].
-    pub fn set_update_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.update_time = v.into();
+    pub fn set_update_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [update_time][crate::model::DeleteModelMetadata::update_time].
+    pub fn maybe_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [error][crate::model::DeleteModelMetadata::error].
-    pub fn set_error<T: std::convert::Into<std::option::Option<rpc::model::Status>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.error = v.into();
+    pub fn set_error<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<rpc::model::Status>,
+    {
+        self.error = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [error][crate::model::DeleteModelMetadata::error].
+    pub fn maybe_error<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<rpc::model::Status>,
+    {
+        self.error = v.map(|x| x.into());
         self
     }
 }
@@ -3219,20 +3516,38 @@ impl Model {
     }
 
     /// Sets the value of [create_time][crate::model::Model::create_time].
-    pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.create_time = v.into();
+    pub fn set_create_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [create_time][crate::model::Model::create_time].
+    pub fn maybe_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [update_time][crate::model::Model::update_time].
-    pub fn set_update_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.update_time = v.into();
+    pub fn set_update_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [update_time][crate::model::Model::update_time].
+    pub fn maybe_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = v.map(|x| x.into());
         self
     }
 }
@@ -3516,24 +3831,38 @@ pub mod glossary_entry {
         }
 
         /// Sets the value of [source_term][crate::model::glossary_entry::GlossaryTermsPair::source_term].
-        pub fn set_source_term<
-            T: std::convert::Into<std::option::Option<crate::model::GlossaryTerm>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.source_term = v.into();
+        pub fn set_source_term<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::GlossaryTerm>,
+        {
+            self.source_term = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [source_term][crate::model::glossary_entry::GlossaryTermsPair::source_term].
+        pub fn maybe_source_term<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::GlossaryTerm>,
+        {
+            self.source_term = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [target_term][crate::model::glossary_entry::GlossaryTermsPair::target_term].
-        pub fn set_target_term<
-            T: std::convert::Into<std::option::Option<crate::model::GlossaryTerm>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.target_term = v.into();
+        pub fn set_target_term<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::GlossaryTerm>,
+        {
+            self.target_term = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [target_term][crate::model::glossary_entry::GlossaryTermsPair::target_term].
+        pub fn maybe_target_term<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::GlossaryTerm>,
+        {
+            self.target_term = v.map(|x| x.into());
             self
         }
     }
@@ -3821,24 +4150,38 @@ impl TranslateTextRequest {
     }
 
     /// Sets the value of [glossary_config][crate::model::TranslateTextRequest::glossary_config].
-    pub fn set_glossary_config<
-        T: std::convert::Into<std::option::Option<crate::model::TranslateTextGlossaryConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.glossary_config = v.into();
+    pub fn set_glossary_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::TranslateTextGlossaryConfig>,
+    {
+        self.glossary_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [glossary_config][crate::model::TranslateTextRequest::glossary_config].
+    pub fn maybe_glossary_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::TranslateTextGlossaryConfig>,
+    {
+        self.glossary_config = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [transliteration_config][crate::model::TranslateTextRequest::transliteration_config].
-    pub fn set_transliteration_config<
-        T: std::convert::Into<std::option::Option<crate::model::TransliterationConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.transliteration_config = v.into();
+    pub fn set_transliteration_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::TransliterationConfig>,
+    {
+        self.transliteration_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [transliteration_config][crate::model::TranslateTextRequest::transliteration_config].
+    pub fn maybe_transliteration_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::TransliterationConfig>,
+    {
+        self.transliteration_config = v.map(|x| x.into());
         self
     }
 
@@ -3988,13 +4331,20 @@ impl Translation {
     }
 
     /// Sets the value of [glossary_config][crate::model::Translation::glossary_config].
-    pub fn set_glossary_config<
-        T: std::convert::Into<std::option::Option<crate::model::TranslateTextGlossaryConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.glossary_config = v.into();
+    pub fn set_glossary_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::TranslateTextGlossaryConfig>,
+    {
+        self.glossary_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [glossary_config][crate::model::Translation::glossary_config].
+    pub fn maybe_glossary_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::TranslateTextGlossaryConfig>,
+    {
+        self.glossary_config = v.map(|x| x.into());
         self
     }
 }
@@ -5371,24 +5721,38 @@ impl TranslateDocumentRequest {
     }
 
     /// Sets the value of [document_input_config][crate::model::TranslateDocumentRequest::document_input_config].
-    pub fn set_document_input_config<
-        T: std::convert::Into<std::option::Option<crate::model::DocumentInputConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.document_input_config = v.into();
+    pub fn set_document_input_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::DocumentInputConfig>,
+    {
+        self.document_input_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [document_input_config][crate::model::TranslateDocumentRequest::document_input_config].
+    pub fn maybe_document_input_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::DocumentInputConfig>,
+    {
+        self.document_input_config = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [document_output_config][crate::model::TranslateDocumentRequest::document_output_config].
-    pub fn set_document_output_config<
-        T: std::convert::Into<std::option::Option<crate::model::DocumentOutputConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.document_output_config = v.into();
+    pub fn set_document_output_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::DocumentOutputConfig>,
+    {
+        self.document_output_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [document_output_config][crate::model::TranslateDocumentRequest::document_output_config].
+    pub fn maybe_document_output_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::DocumentOutputConfig>,
+    {
+        self.document_output_config = v.map(|x| x.into());
         self
     }
 
@@ -5399,13 +5763,20 @@ impl TranslateDocumentRequest {
     }
 
     /// Sets the value of [glossary_config][crate::model::TranslateDocumentRequest::glossary_config].
-    pub fn set_glossary_config<
-        T: std::convert::Into<std::option::Option<crate::model::TranslateTextGlossaryConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.glossary_config = v.into();
+    pub fn set_glossary_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::TranslateTextGlossaryConfig>,
+    {
+        self.glossary_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [glossary_config][crate::model::TranslateDocumentRequest::glossary_config].
+    pub fn maybe_glossary_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::TranslateTextGlossaryConfig>,
+    {
+        self.glossary_config = v.map(|x| x.into());
         self
     }
 
@@ -5566,24 +5937,38 @@ impl TranslateDocumentResponse {
     }
 
     /// Sets the value of [document_translation][crate::model::TranslateDocumentResponse::document_translation].
-    pub fn set_document_translation<
-        T: std::convert::Into<std::option::Option<crate::model::DocumentTranslation>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.document_translation = v.into();
+    pub fn set_document_translation<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::DocumentTranslation>,
+    {
+        self.document_translation = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [document_translation][crate::model::TranslateDocumentResponse::document_translation].
+    pub fn maybe_document_translation<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::DocumentTranslation>,
+    {
+        self.document_translation = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [glossary_document_translation][crate::model::TranslateDocumentResponse::glossary_document_translation].
-    pub fn set_glossary_document_translation<
-        T: std::convert::Into<std::option::Option<crate::model::DocumentTranslation>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.glossary_document_translation = v.into();
+    pub fn set_glossary_document_translation<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::DocumentTranslation>,
+    {
+        self.glossary_document_translation = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [glossary_document_translation][crate::model::TranslateDocumentResponse::glossary_document_translation].
+    pub fn maybe_glossary_document_translation<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::DocumentTranslation>,
+    {
+        self.glossary_document_translation = v.map(|x| x.into());
         self
     }
 
@@ -5594,13 +5979,20 @@ impl TranslateDocumentResponse {
     }
 
     /// Sets the value of [glossary_config][crate::model::TranslateDocumentResponse::glossary_config].
-    pub fn set_glossary_config<
-        T: std::convert::Into<std::option::Option<crate::model::TranslateTextGlossaryConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.glossary_config = v.into();
+    pub fn set_glossary_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::TranslateTextGlossaryConfig>,
+    {
+        self.glossary_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [glossary_config][crate::model::TranslateDocumentResponse::glossary_config].
+    pub fn maybe_glossary_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::TranslateTextGlossaryConfig>,
+    {
+        self.glossary_config = v.map(|x| x.into());
         self
     }
 }
@@ -5745,13 +6137,20 @@ impl BatchTranslateTextRequest {
     }
 
     /// Sets the value of [output_config][crate::model::BatchTranslateTextRequest::output_config].
-    pub fn set_output_config<
-        T: std::convert::Into<std::option::Option<crate::model::OutputConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.output_config = v.into();
+    pub fn set_output_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::OutputConfig>,
+    {
+        self.output_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [output_config][crate::model::BatchTranslateTextRequest::output_config].
+    pub fn maybe_output_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::OutputConfig>,
+    {
+        self.output_config = v.map(|x| x.into());
         self
     }
 
@@ -5854,11 +6253,20 @@ impl BatchTranslateMetadata {
     }
 
     /// Sets the value of [submit_time][crate::model::BatchTranslateMetadata::submit_time].
-    pub fn set_submit_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.submit_time = v.into();
+    pub fn set_submit_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.submit_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [submit_time][crate::model::BatchTranslateMetadata::submit_time].
+    pub fn maybe_submit_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.submit_time = v.map(|x| x.into());
         self
     }
 }
@@ -6098,20 +6506,38 @@ impl BatchTranslateResponse {
     }
 
     /// Sets the value of [submit_time][crate::model::BatchTranslateResponse::submit_time].
-    pub fn set_submit_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.submit_time = v.into();
+    pub fn set_submit_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.submit_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [submit_time][crate::model::BatchTranslateResponse::submit_time].
+    pub fn maybe_submit_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.submit_time = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [end_time][crate::model::BatchTranslateResponse::end_time].
-    pub fn set_end_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.end_time = v.into();
+    pub fn set_end_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.end_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [end_time][crate::model::BatchTranslateResponse::end_time].
+    pub fn maybe_end_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.end_time = v.map(|x| x.into());
         self
     }
 }
@@ -6279,13 +6705,20 @@ impl Glossary {
     }
 
     /// Sets the value of [input_config][crate::model::Glossary::input_config].
-    pub fn set_input_config<
-        T: std::convert::Into<std::option::Option<crate::model::GlossaryInputConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.input_config = v.into();
+    pub fn set_input_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::GlossaryInputConfig>,
+    {
+        self.input_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [input_config][crate::model::Glossary::input_config].
+    pub fn maybe_input_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::GlossaryInputConfig>,
+    {
+        self.input_config = v.map(|x| x.into());
         self
     }
 
@@ -6296,20 +6729,38 @@ impl Glossary {
     }
 
     /// Sets the value of [submit_time][crate::model::Glossary::submit_time].
-    pub fn set_submit_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.submit_time = v.into();
+    pub fn set_submit_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.submit_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [submit_time][crate::model::Glossary::submit_time].
+    pub fn maybe_submit_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.submit_time = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [end_time][crate::model::Glossary::end_time].
-    pub fn set_end_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.end_time = v.into();
+    pub fn set_end_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.end_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [end_time][crate::model::Glossary::end_time].
+    pub fn maybe_end_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.end_time = v.map(|x| x.into());
         self
     }
 
@@ -6536,11 +6987,20 @@ impl CreateGlossaryRequest {
     }
 
     /// Sets the value of [glossary][crate::model::CreateGlossaryRequest::glossary].
-    pub fn set_glossary<T: std::convert::Into<std::option::Option<crate::model::Glossary>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.glossary = v.into();
+    pub fn set_glossary<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::Glossary>,
+    {
+        self.glossary = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [glossary][crate::model::CreateGlossaryRequest::glossary].
+    pub fn maybe_glossary<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::Glossary>,
+    {
+        self.glossary = v.map(|x| x.into());
         self
     }
 }
@@ -6576,20 +7036,38 @@ impl UpdateGlossaryRequest {
     }
 
     /// Sets the value of [glossary][crate::model::UpdateGlossaryRequest::glossary].
-    pub fn set_glossary<T: std::convert::Into<std::option::Option<crate::model::Glossary>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.glossary = v.into();
+    pub fn set_glossary<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::Glossary>,
+    {
+        self.glossary = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [glossary][crate::model::UpdateGlossaryRequest::glossary].
+    pub fn maybe_glossary<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::Glossary>,
+    {
+        self.glossary = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateGlossaryRequest::update_mask].
-    pub fn set_update_mask<T: std::convert::Into<std::option::Option<wkt::FieldMask>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.update_mask = v.into();
+    pub fn set_update_mask<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [update_mask][crate::model::UpdateGlossaryRequest::update_mask].
+    pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = v.map(|x| x.into());
         self
     }
 }
@@ -7021,13 +7499,20 @@ impl CreateGlossaryEntryRequest {
     }
 
     /// Sets the value of [glossary_entry][crate::model::CreateGlossaryEntryRequest::glossary_entry].
-    pub fn set_glossary_entry<
-        T: std::convert::Into<std::option::Option<crate::model::GlossaryEntry>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.glossary_entry = v.into();
+    pub fn set_glossary_entry<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::GlossaryEntry>,
+    {
+        self.glossary_entry = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [glossary_entry][crate::model::CreateGlossaryEntryRequest::glossary_entry].
+    pub fn maybe_glossary_entry<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::GlossaryEntry>,
+    {
+        self.glossary_entry = v.map(|x| x.into());
         self
     }
 }
@@ -7058,13 +7543,20 @@ impl UpdateGlossaryEntryRequest {
     }
 
     /// Sets the value of [glossary_entry][crate::model::UpdateGlossaryEntryRequest::glossary_entry].
-    pub fn set_glossary_entry<
-        T: std::convert::Into<std::option::Option<crate::model::GlossaryEntry>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.glossary_entry = v.into();
+    pub fn set_glossary_entry<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::GlossaryEntry>,
+    {
+        self.glossary_entry = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [glossary_entry][crate::model::UpdateGlossaryEntryRequest::glossary_entry].
+    pub fn maybe_glossary_entry<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::GlossaryEntry>,
+    {
+        self.glossary_entry = v.map(|x| x.into());
         self
     }
 }
@@ -7121,11 +7613,20 @@ impl CreateGlossaryMetadata {
     }
 
     /// Sets the value of [submit_time][crate::model::CreateGlossaryMetadata::submit_time].
-    pub fn set_submit_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.submit_time = v.into();
+    pub fn set_submit_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.submit_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [submit_time][crate::model::CreateGlossaryMetadata::submit_time].
+    pub fn maybe_submit_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.submit_time = v.map(|x| x.into());
         self
     }
 }
@@ -7328,11 +7829,20 @@ impl UpdateGlossaryMetadata {
     }
 
     /// Sets the value of [glossary][crate::model::UpdateGlossaryMetadata::glossary].
-    pub fn set_glossary<T: std::convert::Into<std::option::Option<crate::model::Glossary>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.glossary = v.into();
+    pub fn set_glossary<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::Glossary>,
+    {
+        self.glossary = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [glossary][crate::model::UpdateGlossaryMetadata::glossary].
+    pub fn maybe_glossary<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::Glossary>,
+    {
+        self.glossary = v.map(|x| x.into());
         self
     }
 
@@ -7346,11 +7856,20 @@ impl UpdateGlossaryMetadata {
     }
 
     /// Sets the value of [submit_time][crate::model::UpdateGlossaryMetadata::submit_time].
-    pub fn set_submit_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.submit_time = v.into();
+    pub fn set_submit_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.submit_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [submit_time][crate::model::UpdateGlossaryMetadata::submit_time].
+    pub fn maybe_submit_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.submit_time = v.map(|x| x.into());
         self
     }
 }
@@ -7567,11 +8086,20 @@ impl DeleteGlossaryMetadata {
     }
 
     /// Sets the value of [submit_time][crate::model::DeleteGlossaryMetadata::submit_time].
-    pub fn set_submit_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.submit_time = v.into();
+    pub fn set_submit_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.submit_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [submit_time][crate::model::DeleteGlossaryMetadata::submit_time].
+    pub fn maybe_submit_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.submit_time = v.map(|x| x.into());
         self
     }
 }
@@ -7784,20 +8312,38 @@ impl DeleteGlossaryResponse {
     }
 
     /// Sets the value of [submit_time][crate::model::DeleteGlossaryResponse::submit_time].
-    pub fn set_submit_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.submit_time = v.into();
+    pub fn set_submit_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.submit_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [submit_time][crate::model::DeleteGlossaryResponse::submit_time].
+    pub fn maybe_submit_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.submit_time = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [end_time][crate::model::DeleteGlossaryResponse::end_time].
-    pub fn set_end_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.end_time = v.into();
+    pub fn set_end_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.end_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [end_time][crate::model::DeleteGlossaryResponse::end_time].
+    pub fn maybe_end_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.end_time = v.map(|x| x.into());
         self
     }
 }
@@ -7952,13 +8498,20 @@ impl BatchTranslateDocumentRequest {
     }
 
     /// Sets the value of [output_config][crate::model::BatchTranslateDocumentRequest::output_config].
-    pub fn set_output_config<
-        T: std::convert::Into<std::option::Option<crate::model::BatchDocumentOutputConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.output_config = v.into();
+    pub fn set_output_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::BatchDocumentOutputConfig>,
+    {
+        self.output_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [output_config][crate::model::BatchTranslateDocumentRequest::output_config].
+    pub fn maybe_output_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::BatchDocumentOutputConfig>,
+    {
+        self.output_config = v.map(|x| x.into());
         self
     }
 
@@ -8396,20 +8949,38 @@ impl BatchTranslateDocumentResponse {
     }
 
     /// Sets the value of [submit_time][crate::model::BatchTranslateDocumentResponse::submit_time].
-    pub fn set_submit_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.submit_time = v.into();
+    pub fn set_submit_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.submit_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [submit_time][crate::model::BatchTranslateDocumentResponse::submit_time].
+    pub fn maybe_submit_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.submit_time = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [end_time][crate::model::BatchTranslateDocumentResponse::end_time].
-    pub fn set_end_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.end_time = v.into();
+    pub fn set_end_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.end_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [end_time][crate::model::BatchTranslateDocumentResponse::end_time].
+    pub fn maybe_end_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.end_time = v.map(|x| x.into());
         self
     }
 }
@@ -8549,11 +9120,20 @@ impl BatchTranslateDocumentMetadata {
     }
 
     /// Sets the value of [submit_time][crate::model::BatchTranslateDocumentMetadata::submit_time].
-    pub fn set_submit_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.submit_time = v.into();
+    pub fn set_submit_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.submit_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [submit_time][crate::model::BatchTranslateDocumentMetadata::submit_time].
+    pub fn maybe_submit_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.submit_time = v.map(|x| x.into());
         self
     }
 }

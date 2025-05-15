@@ -511,11 +511,22 @@ pub mod gke_hub {
         /// Sets the value of [resource][crate::model::CreateMembershipRequest::resource].
         ///
         /// This is a **required** field for requests.
-        pub fn set_resource<T: Into<std::option::Option<crate::model::Membership>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.resource = v.into();
+        pub fn set_resource<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Membership>,
+        {
+            self.0.request.resource = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [resource][crate::model::CreateMembershipRequest::resource].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_resource<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Membership>,
+        {
+            self.0.request.resource = v.map(|x| x.into());
             self
         }
 
@@ -629,11 +640,20 @@ pub mod gke_hub {
         }
 
         /// Sets the value of [resource][crate::model::CreateFeatureRequest::resource].
-        pub fn set_resource<T: Into<std::option::Option<crate::model::Feature>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.resource = v.into();
+        pub fn set_resource<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Feature>,
+        {
+            self.0.request.resource = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [resource][crate::model::CreateFeatureRequest::resource].
+        pub fn maybe_resource<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Feature>,
+        {
+            self.0.request.resource = v.map(|x| x.into());
             self
         }
 
@@ -975,22 +995,44 @@ pub mod gke_hub {
         /// Sets the value of [update_mask][crate::model::UpdateMembershipRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [update_mask][crate::model::UpdateMembershipRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [resource][crate::model::UpdateMembershipRequest::resource].
         ///
         /// This is a **required** field for requests.
-        pub fn set_resource<T: Into<std::option::Option<crate::model::Membership>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.resource = v.into();
+        pub fn set_resource<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Membership>,
+        {
+            self.0.request.resource = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [resource][crate::model::UpdateMembershipRequest::resource].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_resource<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Membership>,
+        {
+            self.0.request.resource = v.map(|x| x.into());
             self
         }
 
@@ -1098,20 +1140,38 @@ pub mod gke_hub {
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateFeatureRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [update_mask][crate::model::UpdateFeatureRequest::update_mask].
+        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [resource][crate::model::UpdateFeatureRequest::resource].
-        pub fn set_resource<T: Into<std::option::Option<crate::model::Feature>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.resource = v.into();
+        pub fn set_resource<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Feature>,
+        {
+            self.0.request.resource = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [resource][crate::model::UpdateFeatureRequest::resource].
+        pub fn maybe_resource<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Feature>,
+        {
+            self.0.request.resource = v.map(|x| x.into());
             self
         }
 

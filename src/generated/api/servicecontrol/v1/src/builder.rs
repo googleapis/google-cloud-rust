@@ -121,13 +121,20 @@ pub mod quota_controller {
         }
 
         /// Sets the value of [allocate_operation][crate::model::AllocateQuotaRequest::allocate_operation].
-        pub fn set_allocate_operation<
-            T: Into<std::option::Option<crate::model::QuotaOperation>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.allocate_operation = v.into();
+        pub fn set_allocate_operation<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::QuotaOperation>,
+        {
+            self.0.request.allocate_operation = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [allocate_operation][crate::model::AllocateQuotaRequest::allocate_operation].
+        pub fn maybe_allocate_operation<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::QuotaOperation>,
+        {
+            self.0.request.allocate_operation = v.map(|x| x.into());
             self
         }
 
@@ -253,11 +260,20 @@ pub mod service_controller {
         }
 
         /// Sets the value of [operation][crate::model::CheckRequest::operation].
-        pub fn set_operation<T: Into<std::option::Option<crate::model::Operation>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.operation = v.into();
+        pub fn set_operation<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Operation>,
+        {
+            self.0.request.operation = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [operation][crate::model::CheckRequest::operation].
+        pub fn maybe_operation<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Operation>,
+        {
+            self.0.request.operation = v.map(|x| x.into());
             self
         }
 

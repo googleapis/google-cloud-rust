@@ -75,11 +75,20 @@ impl CreateRecognizerRequest {
     }
 
     /// Sets the value of [recognizer][crate::model::CreateRecognizerRequest::recognizer].
-    pub fn set_recognizer<T: std::convert::Into<std::option::Option<crate::model::Recognizer>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.recognizer = v.into();
+    pub fn set_recognizer<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::Recognizer>,
+    {
+        self.recognizer = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [recognizer][crate::model::CreateRecognizerRequest::recognizer].
+    pub fn maybe_recognizer<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::Recognizer>,
+    {
+        self.recognizer = v.map(|x| x.into());
         self
     }
 
@@ -167,20 +176,38 @@ impl OperationMetadata {
     }
 
     /// Sets the value of [create_time][crate::model::OperationMetadata::create_time].
-    pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.create_time = v.into();
+    pub fn set_create_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [create_time][crate::model::OperationMetadata::create_time].
+    pub fn maybe_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [update_time][crate::model::OperationMetadata::update_time].
-    pub fn set_update_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.update_time = v.into();
+    pub fn set_update_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [update_time][crate::model::OperationMetadata::update_time].
+    pub fn maybe_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = v.map(|x| x.into());
         self
     }
 
@@ -1004,20 +1031,38 @@ impl UpdateRecognizerRequest {
     }
 
     /// Sets the value of [recognizer][crate::model::UpdateRecognizerRequest::recognizer].
-    pub fn set_recognizer<T: std::convert::Into<std::option::Option<crate::model::Recognizer>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.recognizer = v.into();
+    pub fn set_recognizer<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::Recognizer>,
+    {
+        self.recognizer = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [recognizer][crate::model::UpdateRecognizerRequest::recognizer].
+    pub fn maybe_recognizer<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::Recognizer>,
+    {
+        self.recognizer = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateRecognizerRequest::update_mask].
-    pub fn set_update_mask<T: std::convert::Into<std::option::Option<wkt::FieldMask>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.update_mask = v.into();
+    pub fn set_update_mask<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [update_mask][crate::model::UpdateRecognizerRequest::update_mask].
+    pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = v.map(|x| x.into());
         self
     }
 
@@ -1334,13 +1379,20 @@ impl Recognizer {
     }
 
     /// Sets the value of [default_recognition_config][crate::model::Recognizer::default_recognition_config].
-    pub fn set_default_recognition_config<
-        T: std::convert::Into<std::option::Option<crate::model::RecognitionConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.default_recognition_config = v.into();
+    pub fn set_default_recognition_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::RecognitionConfig>,
+    {
+        self.default_recognition_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [default_recognition_config][crate::model::Recognizer::default_recognition_config].
+    pub fn maybe_default_recognition_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::RecognitionConfig>,
+    {
+        self.default_recognition_config = v.map(|x| x.into());
         self
     }
 
@@ -1366,38 +1418,74 @@ impl Recognizer {
     }
 
     /// Sets the value of [create_time][crate::model::Recognizer::create_time].
-    pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.create_time = v.into();
+    pub fn set_create_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [create_time][crate::model::Recognizer::create_time].
+    pub fn maybe_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [update_time][crate::model::Recognizer::update_time].
-    pub fn set_update_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.update_time = v.into();
+    pub fn set_update_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [update_time][crate::model::Recognizer::update_time].
+    pub fn maybe_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [delete_time][crate::model::Recognizer::delete_time].
-    pub fn set_delete_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.delete_time = v.into();
+    pub fn set_delete_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.delete_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [delete_time][crate::model::Recognizer::delete_time].
+    pub fn maybe_delete_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.delete_time = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [expire_time][crate::model::Recognizer::expire_time].
-    pub fn set_expire_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.expire_time = v.into();
+    pub fn set_expire_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.expire_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [expire_time][crate::model::Recognizer::expire_time].
+    pub fn maybe_expire_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.expire_time = v.map(|x| x.into());
         self
     }
 
@@ -2068,13 +2156,20 @@ impl RecognitionFeatures {
     }
 
     /// Sets the value of [diarization_config][crate::model::RecognitionFeatures::diarization_config].
-    pub fn set_diarization_config<
-        T: std::convert::Into<std::option::Option<crate::model::SpeakerDiarizationConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.diarization_config = v.into();
+    pub fn set_diarization_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::SpeakerDiarizationConfig>,
+    {
+        self.diarization_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [diarization_config][crate::model::RecognitionFeatures::diarization_config].
+    pub fn maybe_diarization_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::SpeakerDiarizationConfig>,
+    {
+        self.diarization_config = v.map(|x| x.into());
         self
     }
 
@@ -2632,46 +2727,74 @@ impl RecognitionConfig {
     }
 
     /// Sets the value of [features][crate::model::RecognitionConfig::features].
-    pub fn set_features<
-        T: std::convert::Into<std::option::Option<crate::model::RecognitionFeatures>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.features = v.into();
+    pub fn set_features<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::RecognitionFeatures>,
+    {
+        self.features = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [features][crate::model::RecognitionConfig::features].
+    pub fn maybe_features<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::RecognitionFeatures>,
+    {
+        self.features = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [adaptation][crate::model::RecognitionConfig::adaptation].
-    pub fn set_adaptation<
-        T: std::convert::Into<std::option::Option<crate::model::SpeechAdaptation>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.adaptation = v.into();
+    pub fn set_adaptation<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::SpeechAdaptation>,
+    {
+        self.adaptation = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [adaptation][crate::model::RecognitionConfig::adaptation].
+    pub fn maybe_adaptation<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::SpeechAdaptation>,
+    {
+        self.adaptation = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [transcript_normalization][crate::model::RecognitionConfig::transcript_normalization].
-    pub fn set_transcript_normalization<
-        T: std::convert::Into<std::option::Option<crate::model::TranscriptNormalization>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.transcript_normalization = v.into();
+    pub fn set_transcript_normalization<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::TranscriptNormalization>,
+    {
+        self.transcript_normalization = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [transcript_normalization][crate::model::RecognitionConfig::transcript_normalization].
+    pub fn maybe_transcript_normalization<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::TranscriptNormalization>,
+    {
+        self.transcript_normalization = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [translation_config][crate::model::RecognitionConfig::translation_config].
-    pub fn set_translation_config<
-        T: std::convert::Into<std::option::Option<crate::model::TranslationConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.translation_config = v.into();
+    pub fn set_translation_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::TranslationConfig>,
+    {
+        self.translation_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [translation_config][crate::model::RecognitionConfig::translation_config].
+    pub fn maybe_translation_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::TranslationConfig>,
+    {
+        self.translation_config = v.map(|x| x.into());
         self
     }
 
@@ -2851,22 +2974,38 @@ impl RecognizeRequest {
     }
 
     /// Sets the value of [config][crate::model::RecognizeRequest::config].
-    pub fn set_config<
-        T: std::convert::Into<std::option::Option<crate::model::RecognitionConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.config = v.into();
+    pub fn set_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::RecognitionConfig>,
+    {
+        self.config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [config][crate::model::RecognizeRequest::config].
+    pub fn maybe_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::RecognitionConfig>,
+    {
+        self.config = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [config_mask][crate::model::RecognizeRequest::config_mask].
-    pub fn set_config_mask<T: std::convert::Into<std::option::Option<wkt::FieldMask>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.config_mask = v.into();
+    pub fn set_config_mask<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.config_mask = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [config_mask][crate::model::RecognizeRequest::config_mask].
+    pub fn maybe_config_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.config_mask = v.map(|x| x.into());
         self
     }
 
@@ -3001,11 +3140,20 @@ impl RecognitionResponseMetadata {
     }
 
     /// Sets the value of [total_billed_duration][crate::model::RecognitionResponseMetadata::total_billed_duration].
-    pub fn set_total_billed_duration<T: std::convert::Into<std::option::Option<wkt::Duration>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.total_billed_duration = v.into();
+    pub fn set_total_billed_duration<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Duration>,
+    {
+        self.total_billed_duration = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [total_billed_duration][crate::model::RecognitionResponseMetadata::total_billed_duration].
+    pub fn maybe_total_billed_duration<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Duration>,
+    {
+        self.total_billed_duration = v.map(|x| x.into());
         self
     }
 }
@@ -3154,20 +3302,38 @@ impl WordInfo {
     }
 
     /// Sets the value of [start_offset][crate::model::WordInfo::start_offset].
-    pub fn set_start_offset<T: std::convert::Into<std::option::Option<wkt::Duration>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.start_offset = v.into();
+    pub fn set_start_offset<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Duration>,
+    {
+        self.start_offset = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [start_offset][crate::model::WordInfo::start_offset].
+    pub fn maybe_start_offset<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Duration>,
+    {
+        self.start_offset = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [end_offset][crate::model::WordInfo::end_offset].
-    pub fn set_end_offset<T: std::convert::Into<std::option::Option<wkt::Duration>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.end_offset = v.into();
+    pub fn set_end_offset<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Duration>,
+    {
+        self.end_offset = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [end_offset][crate::model::WordInfo::end_offset].
+    pub fn maybe_end_offset<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Duration>,
+    {
+        self.end_offset = v.map(|x| x.into());
         self
     }
 
@@ -3253,11 +3419,20 @@ impl SpeechRecognitionResult {
     }
 
     /// Sets the value of [result_end_offset][crate::model::SpeechRecognitionResult::result_end_offset].
-    pub fn set_result_end_offset<T: std::convert::Into<std::option::Option<wkt::Duration>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.result_end_offset = v.into();
+    pub fn set_result_end_offset<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Duration>,
+    {
+        self.result_end_offset = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [result_end_offset][crate::model::SpeechRecognitionResult::result_end_offset].
+    pub fn maybe_result_end_offset<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Duration>,
+    {
+        self.result_end_offset = v.map(|x| x.into());
         self
     }
 
@@ -3313,13 +3488,20 @@ impl RecognizeResponse {
     }
 
     /// Sets the value of [metadata][crate::model::RecognizeResponse::metadata].
-    pub fn set_metadata<
-        T: std::convert::Into<std::option::Option<crate::model::RecognitionResponseMetadata>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.metadata = v.into();
+    pub fn set_metadata<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::RecognitionResponseMetadata>,
+    {
+        self.metadata = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [metadata][crate::model::RecognizeResponse::metadata].
+    pub fn maybe_metadata<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::RecognitionResponseMetadata>,
+    {
+        self.metadata = v.map(|x| x.into());
         self
     }
 }
@@ -3376,17 +3558,20 @@ impl StreamingRecognitionFeatures {
     }
 
     /// Sets the value of [voice_activity_timeout][crate::model::StreamingRecognitionFeatures::voice_activity_timeout].
-    pub fn set_voice_activity_timeout<
-        T: std::convert::Into<
-                std::option::Option<
-                    crate::model::streaming_recognition_features::VoiceActivityTimeout,
-                >,
-            >,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.voice_activity_timeout = v.into();
+    pub fn set_voice_activity_timeout<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::streaming_recognition_features::VoiceActivityTimeout>,
+    {
+        self.voice_activity_timeout = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [voice_activity_timeout][crate::model::StreamingRecognitionFeatures::voice_activity_timeout].
+    pub fn maybe_voice_activity_timeout<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::streaming_recognition_features::VoiceActivityTimeout>,
+    {
+        self.voice_activity_timeout = v.map(|x| x.into());
         self
     }
 }
@@ -3430,22 +3615,38 @@ pub mod streaming_recognition_features {
         }
 
         /// Sets the value of [speech_start_timeout][crate::model::streaming_recognition_features::VoiceActivityTimeout::speech_start_timeout].
-        pub fn set_speech_start_timeout<
-            T: std::convert::Into<std::option::Option<wkt::Duration>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.speech_start_timeout = v.into();
+        pub fn set_speech_start_timeout<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Duration>,
+        {
+            self.speech_start_timeout = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [speech_start_timeout][crate::model::streaming_recognition_features::VoiceActivityTimeout::speech_start_timeout].
+        pub fn maybe_speech_start_timeout<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Duration>,
+        {
+            self.speech_start_timeout = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [speech_end_timeout][crate::model::streaming_recognition_features::VoiceActivityTimeout::speech_end_timeout].
-        pub fn set_speech_end_timeout<T: std::convert::Into<std::option::Option<wkt::Duration>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.speech_end_timeout = v.into();
+        pub fn set_speech_end_timeout<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Duration>,
+        {
+            self.speech_end_timeout = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [speech_end_timeout][crate::model::streaming_recognition_features::VoiceActivityTimeout::speech_end_timeout].
+        pub fn maybe_speech_end_timeout<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Duration>,
+        {
+            self.speech_end_timeout = v.map(|x| x.into());
             self
         }
     }
@@ -3509,33 +3710,56 @@ impl StreamingRecognitionConfig {
     }
 
     /// Sets the value of [config][crate::model::StreamingRecognitionConfig::config].
-    pub fn set_config<
-        T: std::convert::Into<std::option::Option<crate::model::RecognitionConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.config = v.into();
+    pub fn set_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::RecognitionConfig>,
+    {
+        self.config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [config][crate::model::StreamingRecognitionConfig::config].
+    pub fn maybe_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::RecognitionConfig>,
+    {
+        self.config = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [config_mask][crate::model::StreamingRecognitionConfig::config_mask].
-    pub fn set_config_mask<T: std::convert::Into<std::option::Option<wkt::FieldMask>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.config_mask = v.into();
+    pub fn set_config_mask<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.config_mask = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [config_mask][crate::model::StreamingRecognitionConfig::config_mask].
+    pub fn maybe_config_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.config_mask = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [streaming_features][crate::model::StreamingRecognitionConfig::streaming_features].
-    pub fn set_streaming_features<
-        T: std::convert::Into<std::option::Option<crate::model::StreamingRecognitionFeatures>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.streaming_features = v.into();
+    pub fn set_streaming_features<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::StreamingRecognitionFeatures>,
+    {
+        self.streaming_features = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [streaming_features][crate::model::StreamingRecognitionConfig::streaming_features].
+    pub fn maybe_streaming_features<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::StreamingRecognitionFeatures>,
+    {
+        self.streaming_features = v.map(|x| x.into());
         self
     }
 }
@@ -3779,22 +4003,38 @@ impl BatchRecognizeRequest {
     }
 
     /// Sets the value of [config][crate::model::BatchRecognizeRequest::config].
-    pub fn set_config<
-        T: std::convert::Into<std::option::Option<crate::model::RecognitionConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.config = v.into();
+    pub fn set_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::RecognitionConfig>,
+    {
+        self.config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [config][crate::model::BatchRecognizeRequest::config].
+    pub fn maybe_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::RecognitionConfig>,
+    {
+        self.config = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [config_mask][crate::model::BatchRecognizeRequest::config_mask].
-    pub fn set_config_mask<T: std::convert::Into<std::option::Option<wkt::FieldMask>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.config_mask = v.into();
+    pub fn set_config_mask<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.config_mask = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [config_mask][crate::model::BatchRecognizeRequest::config_mask].
+    pub fn maybe_config_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.config_mask = v.map(|x| x.into());
         self
     }
 
@@ -3810,13 +4050,20 @@ impl BatchRecognizeRequest {
     }
 
     /// Sets the value of [recognition_output_config][crate::model::BatchRecognizeRequest::recognition_output_config].
-    pub fn set_recognition_output_config<
-        T: std::convert::Into<std::option::Option<crate::model::RecognitionOutputConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.recognition_output_config = v.into();
+    pub fn set_recognition_output_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::RecognitionOutputConfig>,
+    {
+        self.recognition_output_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [recognition_output_config][crate::model::BatchRecognizeRequest::recognition_output_config].
+    pub fn maybe_recognition_output_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::RecognitionOutputConfig>,
+    {
+        self.recognition_output_config = v.map(|x| x.into());
         self
     }
 
@@ -4127,35 +4374,56 @@ impl OutputFormatConfig {
     }
 
     /// Sets the value of [native][crate::model::OutputFormatConfig::native].
-    pub fn set_native<
-        T: std::convert::Into<std::option::Option<crate::model::NativeOutputFileFormatConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.native = v.into();
+    pub fn set_native<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::NativeOutputFileFormatConfig>,
+    {
+        self.native = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [native][crate::model::OutputFormatConfig::native].
+    pub fn maybe_native<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::NativeOutputFileFormatConfig>,
+    {
+        self.native = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [vtt][crate::model::OutputFormatConfig::vtt].
-    pub fn set_vtt<
-        T: std::convert::Into<std::option::Option<crate::model::VttOutputFileFormatConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.vtt = v.into();
+    pub fn set_vtt<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::VttOutputFileFormatConfig>,
+    {
+        self.vtt = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [vtt][crate::model::OutputFormatConfig::vtt].
+    pub fn maybe_vtt<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::VttOutputFileFormatConfig>,
+    {
+        self.vtt = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [srt][crate::model::OutputFormatConfig::srt].
-    pub fn set_srt<
-        T: std::convert::Into<std::option::Option<crate::model::SrtOutputFileFormatConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.srt = v.into();
+    pub fn set_srt<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::SrtOutputFileFormatConfig>,
+    {
+        self.srt = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [srt][crate::model::OutputFormatConfig::srt].
+    pub fn maybe_srt<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::SrtOutputFileFormatConfig>,
+    {
+        self.srt = v.map(|x| x.into());
         self
     }
 }
@@ -4190,13 +4458,20 @@ impl RecognitionOutputConfig {
     }
 
     /// Sets the value of [output_format_config][crate::model::RecognitionOutputConfig::output_format_config].
-    pub fn set_output_format_config<
-        T: std::convert::Into<std::option::Option<crate::model::OutputFormatConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.output_format_config = v.into();
+    pub fn set_output_format_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::OutputFormatConfig>,
+    {
+        self.output_format_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [output_format_config][crate::model::RecognitionOutputConfig::output_format_config].
+    pub fn maybe_output_format_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::OutputFormatConfig>,
+    {
+        self.output_format_config = v.map(|x| x.into());
         self
     }
 
@@ -4352,11 +4627,20 @@ impl BatchRecognizeResponse {
     }
 
     /// Sets the value of [total_billed_duration][crate::model::BatchRecognizeResponse::total_billed_duration].
-    pub fn set_total_billed_duration<T: std::convert::Into<std::option::Option<wkt::Duration>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.total_billed_duration = v.into();
+    pub fn set_total_billed_duration<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Duration>,
+    {
+        self.total_billed_duration = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [total_billed_duration][crate::model::BatchRecognizeResponse::total_billed_duration].
+    pub fn maybe_total_billed_duration<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Duration>,
+    {
+        self.total_billed_duration = v.map(|x| x.into());
         self
     }
 }
@@ -4405,13 +4689,20 @@ impl BatchRecognizeResults {
     }
 
     /// Sets the value of [metadata][crate::model::BatchRecognizeResults::metadata].
-    pub fn set_metadata<
-        T: std::convert::Into<std::option::Option<crate::model::RecognitionResponseMetadata>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.metadata = v.into();
+    pub fn set_metadata<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::RecognitionResponseMetadata>,
+    {
+        self.metadata = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [metadata][crate::model::BatchRecognizeResults::metadata].
+    pub fn maybe_metadata<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::RecognitionResponseMetadata>,
+    {
+        self.metadata = v.map(|x| x.into());
         self
     }
 }
@@ -4506,13 +4797,20 @@ impl InlineResult {
     }
 
     /// Sets the value of [transcript][crate::model::InlineResult::transcript].
-    pub fn set_transcript<
-        T: std::convert::Into<std::option::Option<crate::model::BatchRecognizeResults>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.transcript = v.into();
+    pub fn set_transcript<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::BatchRecognizeResults>,
+    {
+        self.transcript = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [transcript][crate::model::InlineResult::transcript].
+    pub fn maybe_transcript<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::BatchRecognizeResults>,
+    {
+        self.transcript = v.map(|x| x.into());
         self
     }
 
@@ -4571,22 +4869,38 @@ impl BatchRecognizeFileResult {
     }
 
     /// Sets the value of [error][crate::model::BatchRecognizeFileResult::error].
-    pub fn set_error<T: std::convert::Into<std::option::Option<rpc::model::Status>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.error = v.into();
+    pub fn set_error<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<rpc::model::Status>,
+    {
+        self.error = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [error][crate::model::BatchRecognizeFileResult::error].
+    pub fn maybe_error<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<rpc::model::Status>,
+    {
+        self.error = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [metadata][crate::model::BatchRecognizeFileResult::metadata].
-    pub fn set_metadata<
-        T: std::convert::Into<std::option::Option<crate::model::RecognitionResponseMetadata>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.metadata = v.into();
+    pub fn set_metadata<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::RecognitionResponseMetadata>,
+    {
+        self.metadata = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [metadata][crate::model::BatchRecognizeFileResult::metadata].
+    pub fn maybe_metadata<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::RecognitionResponseMetadata>,
+    {
+        self.metadata = v.map(|x| x.into());
         self
     }
 
@@ -4599,13 +4913,21 @@ impl BatchRecognizeFileResult {
 
     /// Sets the value of [transcript][crate::model::BatchRecognizeFileResult::transcript].
     #[deprecated]
-    pub fn set_transcript<
-        T: std::convert::Into<std::option::Option<crate::model::BatchRecognizeResults>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.transcript = v.into();
+    pub fn set_transcript<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::BatchRecognizeResults>,
+    {
+        self.transcript = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [transcript][crate::model::BatchRecognizeFileResult::transcript].
+    #[deprecated]
+    pub fn maybe_transcript<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::BatchRecognizeResults>,
+    {
+        self.transcript = v.map(|x| x.into());
         self
     }
 
@@ -4755,11 +5077,20 @@ impl BatchRecognizeTranscriptionMetadata {
     }
 
     /// Sets the value of [error][crate::model::BatchRecognizeTranscriptionMetadata::error].
-    pub fn set_error<T: std::convert::Into<std::option::Option<rpc::model::Status>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.error = v.into();
+    pub fn set_error<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<rpc::model::Status>,
+    {
+        self.error = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [error][crate::model::BatchRecognizeTranscriptionMetadata::error].
+    pub fn maybe_error<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<rpc::model::Status>,
+    {
+        self.error = v.map(|x| x.into());
         self
     }
 
@@ -4874,22 +5205,38 @@ impl BatchRecognizeFileMetadata {
     }
 
     /// Sets the value of [config][crate::model::BatchRecognizeFileMetadata::config].
-    pub fn set_config<
-        T: std::convert::Into<std::option::Option<crate::model::RecognitionConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.config = v.into();
+    pub fn set_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::RecognitionConfig>,
+    {
+        self.config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [config][crate::model::BatchRecognizeFileMetadata::config].
+    pub fn maybe_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::RecognitionConfig>,
+    {
+        self.config = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [config_mask][crate::model::BatchRecognizeFileMetadata::config_mask].
-    pub fn set_config_mask<T: std::convert::Into<std::option::Option<wkt::FieldMask>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.config_mask = v.into();
+    pub fn set_config_mask<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.config_mask = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [config_mask][crate::model::BatchRecognizeFileMetadata::config_mask].
+    pub fn maybe_config_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.config_mask = v.map(|x| x.into());
         self
     }
 
@@ -5044,11 +5391,20 @@ impl StreamingRecognitionResult {
     }
 
     /// Sets the value of [result_end_offset][crate::model::StreamingRecognitionResult::result_end_offset].
-    pub fn set_result_end_offset<T: std::convert::Into<std::option::Option<wkt::Duration>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.result_end_offset = v.into();
+    pub fn set_result_end_offset<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Duration>,
+    {
+        self.result_end_offset = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [result_end_offset][crate::model::StreamingRecognitionResult::result_end_offset].
+    pub fn maybe_result_end_offset<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Duration>,
+    {
+        self.result_end_offset = v.map(|x| x.into());
         self
     }
 
@@ -5181,22 +5537,38 @@ impl StreamingRecognizeResponse {
     }
 
     /// Sets the value of [speech_event_offset][crate::model::StreamingRecognizeResponse::speech_event_offset].
-    pub fn set_speech_event_offset<T: std::convert::Into<std::option::Option<wkt::Duration>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.speech_event_offset = v.into();
+    pub fn set_speech_event_offset<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Duration>,
+    {
+        self.speech_event_offset = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [speech_event_offset][crate::model::StreamingRecognizeResponse::speech_event_offset].
+    pub fn maybe_speech_event_offset<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Duration>,
+    {
+        self.speech_event_offset = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [metadata][crate::model::StreamingRecognizeResponse::metadata].
-    pub fn set_metadata<
-        T: std::convert::Into<std::option::Option<crate::model::RecognitionResponseMetadata>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.metadata = v.into();
+    pub fn set_metadata<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::RecognitionResponseMetadata>,
+    {
+        self.metadata = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [metadata][crate::model::StreamingRecognizeResponse::metadata].
+    pub fn maybe_metadata<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::RecognitionResponseMetadata>,
+    {
+        self.metadata = v.map(|x| x.into());
         self
     }
 }
@@ -5414,11 +5786,20 @@ impl Config {
     }
 
     /// Sets the value of [update_time][crate::model::Config::update_time].
-    pub fn set_update_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.update_time = v.into();
+    pub fn set_update_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [update_time][crate::model::Config::update_time].
+    pub fn maybe_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = v.map(|x| x.into());
         self
     }
 }
@@ -5496,20 +5877,38 @@ impl UpdateConfigRequest {
     }
 
     /// Sets the value of [config][crate::model::UpdateConfigRequest::config].
-    pub fn set_config<T: std::convert::Into<std::option::Option<crate::model::Config>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.config = v.into();
+    pub fn set_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::Config>,
+    {
+        self.config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [config][crate::model::UpdateConfigRequest::config].
+    pub fn maybe_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::Config>,
+    {
+        self.config = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateConfigRequest::update_mask].
-    pub fn set_update_mask<T: std::convert::Into<std::option::Option<wkt::FieldMask>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.update_mask = v.into();
+    pub fn set_update_mask<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [update_mask][crate::model::UpdateConfigRequest::update_mask].
+    pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = v.map(|x| x.into());
         self
     }
 }
@@ -5645,38 +6044,74 @@ impl CustomClass {
     }
 
     /// Sets the value of [create_time][crate::model::CustomClass::create_time].
-    pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.create_time = v.into();
+    pub fn set_create_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [create_time][crate::model::CustomClass::create_time].
+    pub fn maybe_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [update_time][crate::model::CustomClass::update_time].
-    pub fn set_update_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.update_time = v.into();
+    pub fn set_update_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [update_time][crate::model::CustomClass::update_time].
+    pub fn maybe_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [delete_time][crate::model::CustomClass::delete_time].
-    pub fn set_delete_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.delete_time = v.into();
+    pub fn set_delete_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.delete_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [delete_time][crate::model::CustomClass::delete_time].
+    pub fn maybe_delete_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.delete_time = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [expire_time][crate::model::CustomClass::expire_time].
-    pub fn set_expire_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.expire_time = v.into();
+    pub fn set_expire_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.expire_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [expire_time][crate::model::CustomClass::expire_time].
+    pub fn maybe_expire_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.expire_time = v.map(|x| x.into());
         self
     }
 
@@ -6037,38 +6472,74 @@ impl PhraseSet {
     }
 
     /// Sets the value of [create_time][crate::model::PhraseSet::create_time].
-    pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.create_time = v.into();
+    pub fn set_create_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [create_time][crate::model::PhraseSet::create_time].
+    pub fn maybe_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [update_time][crate::model::PhraseSet::update_time].
-    pub fn set_update_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.update_time = v.into();
+    pub fn set_update_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [update_time][crate::model::PhraseSet::update_time].
+    pub fn maybe_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [delete_time][crate::model::PhraseSet::delete_time].
-    pub fn set_delete_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.delete_time = v.into();
+    pub fn set_delete_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.delete_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [delete_time][crate::model::PhraseSet::delete_time].
+    pub fn maybe_delete_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.delete_time = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [expire_time][crate::model::PhraseSet::expire_time].
-    pub fn set_expire_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.expire_time = v.into();
+    pub fn set_expire_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.expire_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [expire_time][crate::model::PhraseSet::expire_time].
+    pub fn maybe_expire_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.expire_time = v.map(|x| x.into());
         self
     }
 
@@ -6357,13 +6828,20 @@ impl CreateCustomClassRequest {
     }
 
     /// Sets the value of [custom_class][crate::model::CreateCustomClassRequest::custom_class].
-    pub fn set_custom_class<
-        T: std::convert::Into<std::option::Option<crate::model::CustomClass>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.custom_class = v.into();
+    pub fn set_custom_class<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::CustomClass>,
+    {
+        self.custom_class = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [custom_class][crate::model::CreateCustomClassRequest::custom_class].
+    pub fn maybe_custom_class<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::CustomClass>,
+    {
+        self.custom_class = v.map(|x| x.into());
         self
     }
 
@@ -6611,22 +7089,38 @@ impl UpdateCustomClassRequest {
     }
 
     /// Sets the value of [custom_class][crate::model::UpdateCustomClassRequest::custom_class].
-    pub fn set_custom_class<
-        T: std::convert::Into<std::option::Option<crate::model::CustomClass>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.custom_class = v.into();
+    pub fn set_custom_class<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::CustomClass>,
+    {
+        self.custom_class = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [custom_class][crate::model::UpdateCustomClassRequest::custom_class].
+    pub fn maybe_custom_class<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::CustomClass>,
+    {
+        self.custom_class = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateCustomClassRequest::update_mask].
-    pub fn set_update_mask<T: std::convert::Into<std::option::Option<wkt::FieldMask>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.update_mask = v.into();
+    pub fn set_update_mask<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [update_mask][crate::model::UpdateCustomClassRequest::update_mask].
+    pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = v.map(|x| x.into());
         self
     }
 
@@ -6816,11 +7310,20 @@ impl CreatePhraseSetRequest {
     }
 
     /// Sets the value of [phrase_set][crate::model::CreatePhraseSetRequest::phrase_set].
-    pub fn set_phrase_set<T: std::convert::Into<std::option::Option<crate::model::PhraseSet>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.phrase_set = v.into();
+    pub fn set_phrase_set<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::PhraseSet>,
+    {
+        self.phrase_set = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [phrase_set][crate::model::CreatePhraseSetRequest::phrase_set].
+    pub fn maybe_phrase_set<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::PhraseSet>,
+    {
+        self.phrase_set = v.map(|x| x.into());
         self
     }
 
@@ -7066,20 +7569,38 @@ impl UpdatePhraseSetRequest {
     }
 
     /// Sets the value of [phrase_set][crate::model::UpdatePhraseSetRequest::phrase_set].
-    pub fn set_phrase_set<T: std::convert::Into<std::option::Option<crate::model::PhraseSet>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.phrase_set = v.into();
+    pub fn set_phrase_set<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::PhraseSet>,
+    {
+        self.phrase_set = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [phrase_set][crate::model::UpdatePhraseSetRequest::phrase_set].
+    pub fn maybe_phrase_set<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::PhraseSet>,
+    {
+        self.phrase_set = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [update_mask][crate::model::UpdatePhraseSetRequest::update_mask].
-    pub fn set_update_mask<T: std::convert::Into<std::option::Option<wkt::FieldMask>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.update_mask = v.into();
+    pub fn set_update_mask<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [update_mask][crate::model::UpdatePhraseSetRequest::update_mask].
+    pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = v.map(|x| x.into());
         self
     }
 
@@ -7583,24 +8104,38 @@ impl LocationsMetadata {
     }
 
     /// Sets the value of [languages][crate::model::LocationsMetadata::languages].
-    pub fn set_languages<
-        T: std::convert::Into<std::option::Option<crate::model::LanguageMetadata>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.languages = v.into();
+    pub fn set_languages<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::LanguageMetadata>,
+    {
+        self.languages = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [languages][crate::model::LocationsMetadata::languages].
+    pub fn maybe_languages<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::LanguageMetadata>,
+    {
+        self.languages = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [access_metadata][crate::model::LocationsMetadata::access_metadata].
-    pub fn set_access_metadata<
-        T: std::convert::Into<std::option::Option<crate::model::AccessMetadata>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.access_metadata = v.into();
+    pub fn set_access_metadata<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::AccessMetadata>,
+    {
+        self.access_metadata = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [access_metadata][crate::model::LocationsMetadata::access_metadata].
+    pub fn maybe_access_metadata<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::AccessMetadata>,
+    {
+        self.access_metadata = v.map(|x| x.into());
         self
     }
 }

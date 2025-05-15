@@ -276,11 +276,20 @@ impl ResolveServiceResponse {
     }
 
     /// Sets the value of [service][crate::model::ResolveServiceResponse::service].
-    pub fn set_service<T: std::convert::Into<std::option::Option<crate::model::Service>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.service = v.into();
+    pub fn set_service<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::Service>,
+    {
+        self.service = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [service][crate::model::ResolveServiceResponse::service].
+    pub fn maybe_service<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::Service>,
+    {
+        self.service = v.map(|x| x.into());
         self
     }
 }
@@ -407,11 +416,20 @@ impl CreateNamespaceRequest {
     }
 
     /// Sets the value of [namespace][crate::model::CreateNamespaceRequest::namespace].
-    pub fn set_namespace<T: std::convert::Into<std::option::Option<crate::model::Namespace>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.namespace = v.into();
+    pub fn set_namespace<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::Namespace>,
+    {
+        self.namespace = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [namespace][crate::model::CreateNamespaceRequest::namespace].
+    pub fn maybe_namespace<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::Namespace>,
+    {
+        self.namespace = v.map(|x| x.into());
         self
     }
 }
@@ -662,20 +680,38 @@ impl UpdateNamespaceRequest {
     }
 
     /// Sets the value of [namespace][crate::model::UpdateNamespaceRequest::namespace].
-    pub fn set_namespace<T: std::convert::Into<std::option::Option<crate::model::Namespace>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.namespace = v.into();
+    pub fn set_namespace<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::Namespace>,
+    {
+        self.namespace = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [namespace][crate::model::UpdateNamespaceRequest::namespace].
+    pub fn maybe_namespace<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::Namespace>,
+    {
+        self.namespace = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateNamespaceRequest::update_mask].
-    pub fn set_update_mask<T: std::convert::Into<std::option::Option<wkt::FieldMask>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.update_mask = v.into();
+    pub fn set_update_mask<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [update_mask][crate::model::UpdateNamespaceRequest::update_mask].
+    pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = v.map(|x| x.into());
         self
     }
 }
@@ -770,11 +806,20 @@ impl CreateServiceRequest {
     }
 
     /// Sets the value of [service][crate::model::CreateServiceRequest::service].
-    pub fn set_service<T: std::convert::Into<std::option::Option<crate::model::Service>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.service = v.into();
+    pub fn set_service<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::Service>,
+    {
+        self.service = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [service][crate::model::CreateServiceRequest::service].
+    pub fn maybe_service<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::Service>,
+    {
+        self.service = v.map(|x| x.into());
         self
     }
 }
@@ -1030,20 +1075,38 @@ impl UpdateServiceRequest {
     }
 
     /// Sets the value of [service][crate::model::UpdateServiceRequest::service].
-    pub fn set_service<T: std::convert::Into<std::option::Option<crate::model::Service>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.service = v.into();
+    pub fn set_service<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::Service>,
+    {
+        self.service = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [service][crate::model::UpdateServiceRequest::service].
+    pub fn maybe_service<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::Service>,
+    {
+        self.service = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateServiceRequest::update_mask].
-    pub fn set_update_mask<T: std::convert::Into<std::option::Option<wkt::FieldMask>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.update_mask = v.into();
+    pub fn set_update_mask<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [update_mask][crate::model::UpdateServiceRequest::update_mask].
+    pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = v.map(|x| x.into());
         self
     }
 }
@@ -1138,11 +1201,20 @@ impl CreateEndpointRequest {
     }
 
     /// Sets the value of [endpoint][crate::model::CreateEndpointRequest::endpoint].
-    pub fn set_endpoint<T: std::convert::Into<std::option::Option<crate::model::Endpoint>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.endpoint = v.into();
+    pub fn set_endpoint<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::Endpoint>,
+    {
+        self.endpoint = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [endpoint][crate::model::CreateEndpointRequest::endpoint].
+    pub fn maybe_endpoint<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::Endpoint>,
+    {
+        self.endpoint = v.map(|x| x.into());
         self
     }
 }
@@ -1401,20 +1473,38 @@ impl UpdateEndpointRequest {
     }
 
     /// Sets the value of [endpoint][crate::model::UpdateEndpointRequest::endpoint].
-    pub fn set_endpoint<T: std::convert::Into<std::option::Option<crate::model::Endpoint>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.endpoint = v.into();
+    pub fn set_endpoint<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::Endpoint>,
+    {
+        self.endpoint = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [endpoint][crate::model::UpdateEndpointRequest::endpoint].
+    pub fn maybe_endpoint<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::Endpoint>,
+    {
+        self.endpoint = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateEndpointRequest::update_mask].
-    pub fn set_update_mask<T: std::convert::Into<std::option::Option<wkt::FieldMask>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.update_mask = v.into();
+    pub fn set_update_mask<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [update_mask][crate::model::UpdateEndpointRequest::update_mask].
+    pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = v.map(|x| x.into());
         self
     }
 }

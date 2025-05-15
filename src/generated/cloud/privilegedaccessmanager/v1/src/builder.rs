@@ -547,11 +547,22 @@ pub mod privileged_access_manager {
         /// Sets the value of [entitlement][crate::model::CreateEntitlementRequest::entitlement].
         ///
         /// This is a **required** field for requests.
-        pub fn set_entitlement<T: Into<std::option::Option<crate::model::Entitlement>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.entitlement = v.into();
+        pub fn set_entitlement<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Entitlement>,
+        {
+            self.0.request.entitlement = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [entitlement][crate::model::CreateEntitlementRequest::entitlement].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_entitlement<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Entitlement>,
+        {
+            self.0.request.entitlement = v.map(|x| x.into());
             self
         }
 
@@ -780,22 +791,44 @@ pub mod privileged_access_manager {
         /// Sets the value of [entitlement][crate::model::UpdateEntitlementRequest::entitlement].
         ///
         /// This is a **required** field for requests.
-        pub fn set_entitlement<T: Into<std::option::Option<crate::model::Entitlement>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.entitlement = v.into();
+        pub fn set_entitlement<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Entitlement>,
+        {
+            self.0.request.entitlement = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [entitlement][crate::model::UpdateEntitlementRequest::entitlement].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_entitlement<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Entitlement>,
+        {
+            self.0.request.entitlement = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateEntitlementRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [update_mask][crate::model::UpdateEntitlementRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -1161,11 +1194,22 @@ pub mod privileged_access_manager {
         /// Sets the value of [grant][crate::model::CreateGrantRequest::grant].
         ///
         /// This is a **required** field for requests.
-        pub fn set_grant<T: Into<std::option::Option<crate::model::Grant>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.grant = v.into();
+        pub fn set_grant<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Grant>,
+        {
+            self.0.request.grant = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [grant][crate::model::CreateGrantRequest::grant].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_grant<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Grant>,
+        {
+            self.0.request.grant = v.map(|x| x.into());
             self
         }
 

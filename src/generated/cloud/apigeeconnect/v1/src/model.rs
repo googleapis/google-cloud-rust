@@ -187,11 +187,20 @@ impl Connection {
     }
 
     /// Sets the value of [cluster][crate::model::Connection::cluster].
-    pub fn set_cluster<T: std::convert::Into<std::option::Option<crate::model::Cluster>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.cluster = v.into();
+    pub fn set_cluster<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::Cluster>,
+    {
+        self.cluster = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [cluster][crate::model::Connection::cluster].
+    pub fn maybe_cluster<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::Cluster>,
+    {
+        self.cluster = v.map(|x| x.into());
         self
     }
 
@@ -295,11 +304,20 @@ impl EgressRequest {
     }
 
     /// Sets the value of [payload][crate::model::EgressRequest::payload].
-    pub fn set_payload<T: std::convert::Into<std::option::Option<crate::model::Payload>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.payload = v.into();
+    pub fn set_payload<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::Payload>,
+    {
+        self.payload = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [payload][crate::model::EgressRequest::payload].
+    pub fn maybe_payload<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::Payload>,
+    {
+        self.payload = v.map(|x| x.into());
         self
     }
 
@@ -325,11 +343,20 @@ impl EgressRequest {
     }
 
     /// Sets the value of [timeout][crate::model::EgressRequest::timeout].
-    pub fn set_timeout<T: std::convert::Into<std::option::Option<wkt::Duration>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.timeout = v.into();
+    pub fn set_timeout<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Duration>,
+    {
+        self.timeout = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [timeout][crate::model::EgressRequest::timeout].
+    pub fn maybe_timeout<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Duration>,
+    {
+        self.timeout = v.map(|x| x.into());
         self
     }
 }
@@ -551,22 +578,38 @@ impl EgressResponse {
     }
 
     /// Sets the value of [http_response][crate::model::EgressResponse::http_response].
-    pub fn set_http_response<
-        T: std::convert::Into<std::option::Option<crate::model::HttpResponse>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.http_response = v.into();
+    pub fn set_http_response<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::HttpResponse>,
+    {
+        self.http_response = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [http_response][crate::model::EgressResponse::http_response].
+    pub fn maybe_http_response<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::HttpResponse>,
+    {
+        self.http_response = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [status][crate::model::EgressResponse::status].
-    pub fn set_status<T: std::convert::Into<std::option::Option<rpc::model::Status>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.status = v.into();
+    pub fn set_status<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<rpc::model::Status>,
+    {
+        self.status = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [status][crate::model::EgressResponse::status].
+    pub fn maybe_status<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<rpc::model::Status>,
+    {
+        self.status = v.map(|x| x.into());
         self
     }
 
@@ -654,11 +697,20 @@ impl HttpRequest {
     }
 
     /// Sets the value of [url][crate::model::HttpRequest::url].
-    pub fn set_url<T: std::convert::Into<std::option::Option<crate::model::Url>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.url = v.into();
+    pub fn set_url<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::Url>,
+    {
+        self.url = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [url][crate::model::HttpRequest::url].
+    pub fn maybe_url<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::Url>,
+    {
+        self.url = v.map(|x| x.into());
         self
     }
 

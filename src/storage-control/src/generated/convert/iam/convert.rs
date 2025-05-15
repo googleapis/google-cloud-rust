@@ -30,8 +30,8 @@ impl gaxi::prost::FromProto<iam_v1::model::SetIamPolicyRequest> for SetIamPolicy
         Ok(
             iam_v1::model::SetIamPolicyRequest::new()
                 .set_resource(self.resource)
-                .set_policy(self.policy.map(|v| v.cnv()).transpose()?)
-                .set_update_mask(self.update_mask.map(|v| v.cnv()).transpose()?)
+                .maybe_policy(self.policy.map(|v| v.cnv()).transpose()?)
+                .maybe_update_mask(self.update_mask.map(|v| v.cnv()).transpose()?)
         )
     }
 }
@@ -51,7 +51,7 @@ impl gaxi::prost::FromProto<iam_v1::model::GetIamPolicyRequest> for GetIamPolicy
         Ok(
             iam_v1::model::GetIamPolicyRequest::new()
                 .set_resource(self.resource)
-                .set_options(self.options.map(|v| v.cnv()).transpose()?)
+                .maybe_options(self.options.map(|v| v.cnv()).transpose()?)
         )
     }
 }
@@ -173,7 +173,7 @@ impl gaxi::prost::FromProto<iam_v1::model::Binding> for Binding {
                 .set_role(self.role)
                 .set_members(self.members.into_iter().map(|v| v.cnv())
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
-                .set_condition(self.condition.map(|v| v.cnv()).transpose()?)
+                .maybe_condition(self.condition.map(|v| v.cnv()).transpose()?)
         )
     }
 }
@@ -287,7 +287,7 @@ impl gaxi::prost::FromProto<iam_v1::model::BindingDelta> for BindingDelta {
                 .set_action(self.action)
                 .set_role(self.role)
                 .set_member(self.member)
-                .set_condition(self.condition.map(|v| v.cnv()).transpose()?)
+                .maybe_condition(self.condition.map(|v| v.cnv()).transpose()?)
         )
     }
 }

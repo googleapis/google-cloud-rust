@@ -368,13 +368,22 @@ pub mod dep_service {
         /// Sets the value of [lb_traffic_extension][crate::model::CreateLbTrafficExtensionRequest::lb_traffic_extension].
         ///
         /// This is a **required** field for requests.
-        pub fn set_lb_traffic_extension<
-            T: Into<std::option::Option<crate::model::LbTrafficExtension>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.lb_traffic_extension = v.into();
+        pub fn set_lb_traffic_extension<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::LbTrafficExtension>,
+        {
+            self.0.request.lb_traffic_extension = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [lb_traffic_extension][crate::model::CreateLbTrafficExtensionRequest::lb_traffic_extension].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_lb_traffic_extension<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::LbTrafficExtension>,
+        {
+            self.0.request.lb_traffic_extension = v.map(|x| x.into());
             self
         }
 
@@ -486,24 +495,42 @@ pub mod dep_service {
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateLbTrafficExtensionRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [update_mask][crate::model::UpdateLbTrafficExtensionRequest::update_mask].
+        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [lb_traffic_extension][crate::model::UpdateLbTrafficExtensionRequest::lb_traffic_extension].
         ///
         /// This is a **required** field for requests.
-        pub fn set_lb_traffic_extension<
-            T: Into<std::option::Option<crate::model::LbTrafficExtension>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.lb_traffic_extension = v.into();
+        pub fn set_lb_traffic_extension<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::LbTrafficExtension>,
+        {
+            self.0.request.lb_traffic_extension = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [lb_traffic_extension][crate::model::UpdateLbTrafficExtensionRequest::lb_traffic_extension].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_lb_traffic_extension<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::LbTrafficExtension>,
+        {
+            self.0.request.lb_traffic_extension = v.map(|x| x.into());
             self
         }
 
@@ -929,13 +956,22 @@ pub mod dep_service {
         /// Sets the value of [lb_route_extension][crate::model::CreateLbRouteExtensionRequest::lb_route_extension].
         ///
         /// This is a **required** field for requests.
-        pub fn set_lb_route_extension<
-            T: Into<std::option::Option<crate::model::LbRouteExtension>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.lb_route_extension = v.into();
+        pub fn set_lb_route_extension<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::LbRouteExtension>,
+        {
+            self.0.request.lb_route_extension = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [lb_route_extension][crate::model::CreateLbRouteExtensionRequest::lb_route_extension].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_lb_route_extension<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::LbRouteExtension>,
+        {
+            self.0.request.lb_route_extension = v.map(|x| x.into());
             self
         }
 
@@ -1045,24 +1081,42 @@ pub mod dep_service {
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateLbRouteExtensionRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [update_mask][crate::model::UpdateLbRouteExtensionRequest::update_mask].
+        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [lb_route_extension][crate::model::UpdateLbRouteExtensionRequest::lb_route_extension].
         ///
         /// This is a **required** field for requests.
-        pub fn set_lb_route_extension<
-            T: Into<std::option::Option<crate::model::LbRouteExtension>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.lb_route_extension = v.into();
+        pub fn set_lb_route_extension<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::LbRouteExtension>,
+        {
+            self.0.request.lb_route_extension = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [lb_route_extension][crate::model::UpdateLbRouteExtensionRequest::lb_route_extension].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_lb_route_extension<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::LbRouteExtension>,
+        {
+            self.0.request.lb_route_extension = v.map(|x| x.into());
             self
         }
 
@@ -1418,20 +1472,40 @@ pub mod dep_service {
         /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
-        pub fn set_policy<T: Into<std::option::Option<iam_v1::model::Policy>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.policy = v.into();
+        pub fn set_policy<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -1498,11 +1572,20 @@ pub mod dep_service {
         }
 
         /// Sets the value of [options][iam_v1::model::GetIamPolicyRequest::options].
-        pub fn set_options<T: Into<std::option::Option<iam_v1::model::GetPolicyOptions>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.options = v.into();
+        pub fn set_options<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        pub fn maybe_options<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = v.map(|x| x.into());
             self
         }
     }
@@ -2229,11 +2312,22 @@ pub mod network_services {
         /// Sets the value of [endpoint_policy][crate::model::CreateEndpointPolicyRequest::endpoint_policy].
         ///
         /// This is a **required** field for requests.
-        pub fn set_endpoint_policy<T: Into<std::option::Option<crate::model::EndpointPolicy>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.endpoint_policy = v.into();
+        pub fn set_endpoint_policy<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::EndpointPolicy>,
+        {
+            self.0.request.endpoint_policy = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [endpoint_policy][crate::model::CreateEndpointPolicyRequest::endpoint_policy].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_endpoint_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::EndpointPolicy>,
+        {
+            self.0.request.endpoint_policy = v.map(|x| x.into());
             self
         }
     }
@@ -2337,22 +2431,42 @@ pub mod network_services {
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateEndpointPolicyRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [update_mask][crate::model::UpdateEndpointPolicyRequest::update_mask].
+        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [endpoint_policy][crate::model::UpdateEndpointPolicyRequest::endpoint_policy].
         ///
         /// This is a **required** field for requests.
-        pub fn set_endpoint_policy<T: Into<std::option::Option<crate::model::EndpointPolicy>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.endpoint_policy = v.into();
+        pub fn set_endpoint_policy<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::EndpointPolicy>,
+        {
+            self.0.request.endpoint_policy = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [endpoint_policy][crate::model::UpdateEndpointPolicyRequest::endpoint_policy].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_endpoint_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::EndpointPolicy>,
+        {
+            self.0.request.endpoint_policy = v.map(|x| x.into());
             self
         }
     }
@@ -2738,11 +2852,22 @@ pub mod network_services {
         /// Sets the value of [gateway][crate::model::CreateGatewayRequest::gateway].
         ///
         /// This is a **required** field for requests.
-        pub fn set_gateway<T: Into<std::option::Option<crate::model::Gateway>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.gateway = v.into();
+        pub fn set_gateway<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Gateway>,
+        {
+            self.0.request.gateway = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [gateway][crate::model::CreateGatewayRequest::gateway].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_gateway<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Gateway>,
+        {
+            self.0.request.gateway = v.map(|x| x.into());
             self
         }
     }
@@ -2840,22 +2965,42 @@ pub mod network_services {
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateGatewayRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [update_mask][crate::model::UpdateGatewayRequest::update_mask].
+        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [gateway][crate::model::UpdateGatewayRequest::gateway].
         ///
         /// This is a **required** field for requests.
-        pub fn set_gateway<T: Into<std::option::Option<crate::model::Gateway>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.gateway = v.into();
+        pub fn set_gateway<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Gateway>,
+        {
+            self.0.request.gateway = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [gateway][crate::model::UpdateGatewayRequest::gateway].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_gateway<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Gateway>,
+        {
+            self.0.request.gateway = v.map(|x| x.into());
             self
         }
     }
@@ -3238,11 +3383,22 @@ pub mod network_services {
         /// Sets the value of [grpc_route][crate::model::CreateGrpcRouteRequest::grpc_route].
         ///
         /// This is a **required** field for requests.
-        pub fn set_grpc_route<T: Into<std::option::Option<crate::model::GrpcRoute>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.grpc_route = v.into();
+        pub fn set_grpc_route<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::GrpcRoute>,
+        {
+            self.0.request.grpc_route = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [grpc_route][crate::model::CreateGrpcRouteRequest::grpc_route].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_grpc_route<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::GrpcRoute>,
+        {
+            self.0.request.grpc_route = v.map(|x| x.into());
             self
         }
     }
@@ -3340,22 +3496,42 @@ pub mod network_services {
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateGrpcRouteRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [update_mask][crate::model::UpdateGrpcRouteRequest::update_mask].
+        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [grpc_route][crate::model::UpdateGrpcRouteRequest::grpc_route].
         ///
         /// This is a **required** field for requests.
-        pub fn set_grpc_route<T: Into<std::option::Option<crate::model::GrpcRoute>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.grpc_route = v.into();
+        pub fn set_grpc_route<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::GrpcRoute>,
+        {
+            self.0.request.grpc_route = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [grpc_route][crate::model::UpdateGrpcRouteRequest::grpc_route].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_grpc_route<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::GrpcRoute>,
+        {
+            self.0.request.grpc_route = v.map(|x| x.into());
             self
         }
     }
@@ -3738,11 +3914,22 @@ pub mod network_services {
         /// Sets the value of [http_route][crate::model::CreateHttpRouteRequest::http_route].
         ///
         /// This is a **required** field for requests.
-        pub fn set_http_route<T: Into<std::option::Option<crate::model::HttpRoute>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.http_route = v.into();
+        pub fn set_http_route<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::HttpRoute>,
+        {
+            self.0.request.http_route = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [http_route][crate::model::CreateHttpRouteRequest::http_route].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_http_route<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::HttpRoute>,
+        {
+            self.0.request.http_route = v.map(|x| x.into());
             self
         }
     }
@@ -3840,22 +4027,42 @@ pub mod network_services {
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateHttpRouteRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [update_mask][crate::model::UpdateHttpRouteRequest::update_mask].
+        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [http_route][crate::model::UpdateHttpRouteRequest::http_route].
         ///
         /// This is a **required** field for requests.
-        pub fn set_http_route<T: Into<std::option::Option<crate::model::HttpRoute>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.http_route = v.into();
+        pub fn set_http_route<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::HttpRoute>,
+        {
+            self.0.request.http_route = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [http_route][crate::model::UpdateHttpRouteRequest::http_route].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_http_route<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::HttpRoute>,
+        {
+            self.0.request.http_route = v.map(|x| x.into());
             self
         }
     }
@@ -4238,11 +4445,22 @@ pub mod network_services {
         /// Sets the value of [tcp_route][crate::model::CreateTcpRouteRequest::tcp_route].
         ///
         /// This is a **required** field for requests.
-        pub fn set_tcp_route<T: Into<std::option::Option<crate::model::TcpRoute>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.tcp_route = v.into();
+        pub fn set_tcp_route<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::TcpRoute>,
+        {
+            self.0.request.tcp_route = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [tcp_route][crate::model::CreateTcpRouteRequest::tcp_route].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_tcp_route<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::TcpRoute>,
+        {
+            self.0.request.tcp_route = v.map(|x| x.into());
             self
         }
     }
@@ -4340,22 +4558,42 @@ pub mod network_services {
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateTcpRouteRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [update_mask][crate::model::UpdateTcpRouteRequest::update_mask].
+        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [tcp_route][crate::model::UpdateTcpRouteRequest::tcp_route].
         ///
         /// This is a **required** field for requests.
-        pub fn set_tcp_route<T: Into<std::option::Option<crate::model::TcpRoute>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.tcp_route = v.into();
+        pub fn set_tcp_route<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::TcpRoute>,
+        {
+            self.0.request.tcp_route = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [tcp_route][crate::model::UpdateTcpRouteRequest::tcp_route].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_tcp_route<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::TcpRoute>,
+        {
+            self.0.request.tcp_route = v.map(|x| x.into());
             self
         }
     }
@@ -4738,11 +4976,22 @@ pub mod network_services {
         /// Sets the value of [tls_route][crate::model::CreateTlsRouteRequest::tls_route].
         ///
         /// This is a **required** field for requests.
-        pub fn set_tls_route<T: Into<std::option::Option<crate::model::TlsRoute>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.tls_route = v.into();
+        pub fn set_tls_route<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::TlsRoute>,
+        {
+            self.0.request.tls_route = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [tls_route][crate::model::CreateTlsRouteRequest::tls_route].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_tls_route<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::TlsRoute>,
+        {
+            self.0.request.tls_route = v.map(|x| x.into());
             self
         }
     }
@@ -4840,22 +5089,42 @@ pub mod network_services {
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateTlsRouteRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [update_mask][crate::model::UpdateTlsRouteRequest::update_mask].
+        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [tls_route][crate::model::UpdateTlsRouteRequest::tls_route].
         ///
         /// This is a **required** field for requests.
-        pub fn set_tls_route<T: Into<std::option::Option<crate::model::TlsRoute>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.tls_route = v.into();
+        pub fn set_tls_route<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::TlsRoute>,
+        {
+            self.0.request.tls_route = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [tls_route][crate::model::UpdateTlsRouteRequest::tls_route].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_tls_route<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::TlsRoute>,
+        {
+            self.0.request.tls_route = v.map(|x| x.into());
             self
         }
     }
@@ -5252,11 +5521,22 @@ pub mod network_services {
         /// Sets the value of [service_binding][crate::model::CreateServiceBindingRequest::service_binding].
         ///
         /// This is a **required** field for requests.
-        pub fn set_service_binding<T: Into<std::option::Option<crate::model::ServiceBinding>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.service_binding = v.into();
+        pub fn set_service_binding<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::ServiceBinding>,
+        {
+            self.0.request.service_binding = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [service_binding][crate::model::CreateServiceBindingRequest::service_binding].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_service_binding<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::ServiceBinding>,
+        {
+            self.0.request.service_binding = v.map(|x| x.into());
             self
         }
     }
@@ -5642,8 +5922,22 @@ pub mod network_services {
         /// Sets the value of [mesh][crate::model::CreateMeshRequest::mesh].
         ///
         /// This is a **required** field for requests.
-        pub fn set_mesh<T: Into<std::option::Option<crate::model::Mesh>>>(mut self, v: T) -> Self {
-            self.0.request.mesh = v.into();
+        pub fn set_mesh<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Mesh>,
+        {
+            self.0.request.mesh = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [mesh][crate::model::CreateMeshRequest::mesh].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_mesh<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Mesh>,
+        {
+            self.0.request.mesh = v.map(|x| x.into());
             self
         }
     }
@@ -5741,19 +6035,42 @@ pub mod network_services {
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateMeshRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [update_mask][crate::model::UpdateMeshRequest::update_mask].
+        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [mesh][crate::model::UpdateMeshRequest::mesh].
         ///
         /// This is a **required** field for requests.
-        pub fn set_mesh<T: Into<std::option::Option<crate::model::Mesh>>>(mut self, v: T) -> Self {
-            self.0.request.mesh = v.into();
+        pub fn set_mesh<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Mesh>,
+        {
+            self.0.request.mesh = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [mesh][crate::model::UpdateMeshRequest::mesh].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_mesh<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Mesh>,
+        {
+            self.0.request.mesh = v.map(|x| x.into());
             self
         }
     }
@@ -6094,20 +6411,40 @@ pub mod network_services {
         /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
-        pub fn set_policy<T: Into<std::option::Option<iam_v1::model::Policy>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.policy = v.into();
+        pub fn set_policy<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -6174,11 +6511,20 @@ pub mod network_services {
         }
 
         /// Sets the value of [options][iam_v1::model::GetIamPolicyRequest::options].
-        pub fn set_options<T: Into<std::option::Option<iam_v1::model::GetPolicyOptions>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.options = v.into();
+        pub fn set_options<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        pub fn maybe_options<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = v.map(|x| x.into());
             self
         }
     }

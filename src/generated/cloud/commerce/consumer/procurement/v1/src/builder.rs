@@ -182,22 +182,44 @@ pub mod license_management_service {
         /// Sets the value of [license_pool][crate::model::UpdateLicensePoolRequest::license_pool].
         ///
         /// This is a **required** field for requests.
-        pub fn set_license_pool<T: Into<std::option::Option<crate::model::LicensePool>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.license_pool = v.into();
+        pub fn set_license_pool<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::LicensePool>,
+        {
+            self.0.request.license_pool = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [license_pool][crate::model::UpdateLicensePoolRequest::license_pool].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_license_pool<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::LicensePool>,
+        {
+            self.0.request.license_pool = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateLicensePoolRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [update_mask][crate::model::UpdateLicensePoolRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }

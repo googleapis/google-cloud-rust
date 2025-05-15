@@ -97,20 +97,38 @@ impl AuthorizationPolicy {
     }
 
     /// Sets the value of [create_time][crate::model::AuthorizationPolicy::create_time].
-    pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.create_time = v.into();
+    pub fn set_create_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [create_time][crate::model::AuthorizationPolicy::create_time].
+    pub fn maybe_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [update_time][crate::model::AuthorizationPolicy::update_time].
-    pub fn set_update_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.update_time = v.into();
+    pub fn set_update_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [update_time][crate::model::AuthorizationPolicy::update_time].
+    pub fn maybe_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = v.map(|x| x.into());
         self
     }
 
@@ -358,17 +376,24 @@ pub mod authorization_policy {
             }
 
             /// Sets the value of [http_header_match][crate::model::authorization_policy::rule::Destination::http_header_match].
-            pub fn set_http_header_match<
+            pub fn set_http_header_match<T>(mut self, v: T) -> Self
+            where
                 T: std::convert::Into<
-                        std::option::Option<
-                            crate::model::authorization_policy::rule::destination::HttpHeaderMatch,
-                        >,
+                        crate::model::authorization_policy::rule::destination::HttpHeaderMatch,
                     >,
-            >(
-                mut self,
-                v: T,
-            ) -> Self {
-                self.http_header_match = v.into();
+            {
+                self.http_header_match = std::option::Option::Some(v.into());
+                self
+            }
+
+            /// Sets or clear the value of [http_header_match][crate::model::authorization_policy::rule::Destination::http_header_match].
+            pub fn maybe_http_header_match<T>(mut self, v: std::option::Option<T>) -> Self
+            where
+                T: std::convert::Into<
+                        crate::model::authorization_policy::rule::destination::HttpHeaderMatch,
+                    >,
+            {
+                self.http_header_match = v.map(|x| x.into());
                 self
             }
         }
@@ -823,13 +848,20 @@ impl CreateAuthorizationPolicyRequest {
     }
 
     /// Sets the value of [authorization_policy][crate::model::CreateAuthorizationPolicyRequest::authorization_policy].
-    pub fn set_authorization_policy<
-        T: std::convert::Into<std::option::Option<crate::model::AuthorizationPolicy>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.authorization_policy = v.into();
+    pub fn set_authorization_policy<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::AuthorizationPolicy>,
+    {
+        self.authorization_policy = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [authorization_policy][crate::model::CreateAuthorizationPolicyRequest::authorization_policy].
+    pub fn maybe_authorization_policy<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::AuthorizationPolicy>,
+    {
+        self.authorization_policy = v.map(|x| x.into());
         self
     }
 }
@@ -868,22 +900,38 @@ impl UpdateAuthorizationPolicyRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateAuthorizationPolicyRequest::update_mask].
-    pub fn set_update_mask<T: std::convert::Into<std::option::Option<wkt::FieldMask>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.update_mask = v.into();
+    pub fn set_update_mask<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [update_mask][crate::model::UpdateAuthorizationPolicyRequest::update_mask].
+    pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [authorization_policy][crate::model::UpdateAuthorizationPolicyRequest::authorization_policy].
-    pub fn set_authorization_policy<
-        T: std::convert::Into<std::option::Option<crate::model::AuthorizationPolicy>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.authorization_policy = v.into();
+    pub fn set_authorization_policy<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::AuthorizationPolicy>,
+    {
+        self.authorization_policy = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [authorization_policy][crate::model::UpdateAuthorizationPolicyRequest::authorization_policy].
+    pub fn maybe_authorization_policy<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::AuthorizationPolicy>,
+    {
+        self.authorization_policy = v.map(|x| x.into());
         self
     }
 }
@@ -994,20 +1042,38 @@ impl ClientTlsPolicy {
     }
 
     /// Sets the value of [create_time][crate::model::ClientTlsPolicy::create_time].
-    pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.create_time = v.into();
+    pub fn set_create_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [create_time][crate::model::ClientTlsPolicy::create_time].
+    pub fn maybe_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [update_time][crate::model::ClientTlsPolicy::update_time].
-    pub fn set_update_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.update_time = v.into();
+    pub fn set_update_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [update_time][crate::model::ClientTlsPolicy::update_time].
+    pub fn maybe_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = v.map(|x| x.into());
         self
     }
 
@@ -1030,13 +1096,20 @@ impl ClientTlsPolicy {
     }
 
     /// Sets the value of [client_certificate][crate::model::ClientTlsPolicy::client_certificate].
-    pub fn set_client_certificate<
-        T: std::convert::Into<std::option::Option<crate::model::CertificateProvider>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.client_certificate = v.into();
+    pub fn set_client_certificate<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::CertificateProvider>,
+    {
+        self.client_certificate = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [client_certificate][crate::model::ClientTlsPolicy::client_certificate].
+    pub fn maybe_client_certificate<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::CertificateProvider>,
+    {
+        self.client_certificate = v.map(|x| x.into());
         self
     }
 
@@ -1256,13 +1329,20 @@ impl CreateClientTlsPolicyRequest {
     }
 
     /// Sets the value of [client_tls_policy][crate::model::CreateClientTlsPolicyRequest::client_tls_policy].
-    pub fn set_client_tls_policy<
-        T: std::convert::Into<std::option::Option<crate::model::ClientTlsPolicy>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.client_tls_policy = v.into();
+    pub fn set_client_tls_policy<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::ClientTlsPolicy>,
+    {
+        self.client_tls_policy = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [client_tls_policy][crate::model::CreateClientTlsPolicyRequest::client_tls_policy].
+    pub fn maybe_client_tls_policy<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::ClientTlsPolicy>,
+    {
+        self.client_tls_policy = v.map(|x| x.into());
         self
     }
 }
@@ -1302,22 +1382,38 @@ impl UpdateClientTlsPolicyRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateClientTlsPolicyRequest::update_mask].
-    pub fn set_update_mask<T: std::convert::Into<std::option::Option<wkt::FieldMask>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.update_mask = v.into();
+    pub fn set_update_mask<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [update_mask][crate::model::UpdateClientTlsPolicyRequest::update_mask].
+    pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [client_tls_policy][crate::model::UpdateClientTlsPolicyRequest::client_tls_policy].
-    pub fn set_client_tls_policy<
-        T: std::convert::Into<std::option::Option<crate::model::ClientTlsPolicy>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.client_tls_policy = v.into();
+    pub fn set_client_tls_policy<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::ClientTlsPolicy>,
+    {
+        self.client_tls_policy = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [client_tls_policy][crate::model::UpdateClientTlsPolicyRequest::client_tls_policy].
+    pub fn maybe_client_tls_policy<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::ClientTlsPolicy>,
+    {
+        self.client_tls_policy = v.map(|x| x.into());
         self
     }
 }
@@ -1410,20 +1506,38 @@ impl OperationMetadata {
     }
 
     /// Sets the value of [create_time][crate::model::OperationMetadata::create_time].
-    pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.create_time = v.into();
+    pub fn set_create_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [create_time][crate::model::OperationMetadata::create_time].
+    pub fn maybe_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [end_time][crate::model::OperationMetadata::end_time].
-    pub fn set_end_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.end_time = v.into();
+    pub fn set_end_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.end_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [end_time][crate::model::OperationMetadata::end_time].
+    pub fn maybe_end_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.end_time = v.map(|x| x.into());
         self
     }
 
@@ -1541,20 +1655,38 @@ impl ServerTlsPolicy {
     }
 
     /// Sets the value of [create_time][crate::model::ServerTlsPolicy::create_time].
-    pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.create_time = v.into();
+    pub fn set_create_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [create_time][crate::model::ServerTlsPolicy::create_time].
+    pub fn maybe_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [update_time][crate::model::ServerTlsPolicy::update_time].
-    pub fn set_update_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.update_time = v.into();
+    pub fn set_update_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [update_time][crate::model::ServerTlsPolicy::update_time].
+    pub fn maybe_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = v.map(|x| x.into());
         self
     }
 
@@ -1577,24 +1709,38 @@ impl ServerTlsPolicy {
     }
 
     /// Sets the value of [server_certificate][crate::model::ServerTlsPolicy::server_certificate].
-    pub fn set_server_certificate<
-        T: std::convert::Into<std::option::Option<crate::model::CertificateProvider>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.server_certificate = v.into();
+    pub fn set_server_certificate<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::CertificateProvider>,
+    {
+        self.server_certificate = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [server_certificate][crate::model::ServerTlsPolicy::server_certificate].
+    pub fn maybe_server_certificate<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::CertificateProvider>,
+    {
+        self.server_certificate = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [mtls_policy][crate::model::ServerTlsPolicy::mtls_policy].
-    pub fn set_mtls_policy<
-        T: std::convert::Into<std::option::Option<crate::model::server_tls_policy::MTLSPolicy>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.mtls_policy = v.into();
+    pub fn set_mtls_policy<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::server_tls_policy::MTLSPolicy>,
+    {
+        self.mtls_policy = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [mtls_policy][crate::model::ServerTlsPolicy::mtls_policy].
+    pub fn maybe_mtls_policy<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::server_tls_policy::MTLSPolicy>,
+    {
+        self.mtls_policy = v.map(|x| x.into());
         self
     }
 }
@@ -1847,13 +1993,20 @@ impl CreateServerTlsPolicyRequest {
     }
 
     /// Sets the value of [server_tls_policy][crate::model::CreateServerTlsPolicyRequest::server_tls_policy].
-    pub fn set_server_tls_policy<
-        T: std::convert::Into<std::option::Option<crate::model::ServerTlsPolicy>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.server_tls_policy = v.into();
+    pub fn set_server_tls_policy<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::ServerTlsPolicy>,
+    {
+        self.server_tls_policy = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [server_tls_policy][crate::model::CreateServerTlsPolicyRequest::server_tls_policy].
+    pub fn maybe_server_tls_policy<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::ServerTlsPolicy>,
+    {
+        self.server_tls_policy = v.map(|x| x.into());
         self
     }
 }
@@ -1893,22 +2046,38 @@ impl UpdateServerTlsPolicyRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateServerTlsPolicyRequest::update_mask].
-    pub fn set_update_mask<T: std::convert::Into<std::option::Option<wkt::FieldMask>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.update_mask = v.into();
+    pub fn set_update_mask<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [update_mask][crate::model::UpdateServerTlsPolicyRequest::update_mask].
+    pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [server_tls_policy][crate::model::UpdateServerTlsPolicyRequest::server_tls_policy].
-    pub fn set_server_tls_policy<
-        T: std::convert::Into<std::option::Option<crate::model::ServerTlsPolicy>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.server_tls_policy = v.into();
+    pub fn set_server_tls_policy<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::ServerTlsPolicy>,
+    {
+        self.server_tls_policy = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [server_tls_policy][crate::model::UpdateServerTlsPolicyRequest::server_tls_policy].
+    pub fn maybe_server_tls_policy<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::ServerTlsPolicy>,
+    {
+        self.server_tls_policy = v.map(|x| x.into());
         self
     }
 }

@@ -346,11 +346,22 @@ pub mod workflows {
         /// Sets the value of [workflow][crate::model::CreateWorkflowRequest::workflow].
         ///
         /// This is a **required** field for requests.
-        pub fn set_workflow<T: Into<std::option::Option<crate::model::Workflow>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.workflow = v.into();
+        pub fn set_workflow<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Workflow>,
+        {
+            self.0.request.workflow = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [workflow][crate::model::CreateWorkflowRequest::workflow].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_workflow<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Workflow>,
+        {
+            self.0.request.workflow = v.map(|x| x.into());
             self
         }
 
@@ -561,20 +572,40 @@ pub mod workflows {
         /// Sets the value of [workflow][crate::model::UpdateWorkflowRequest::workflow].
         ///
         /// This is a **required** field for requests.
-        pub fn set_workflow<T: Into<std::option::Option<crate::model::Workflow>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.workflow = v.into();
+        pub fn set_workflow<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Workflow>,
+        {
+            self.0.request.workflow = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [workflow][crate::model::UpdateWorkflowRequest::workflow].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_workflow<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Workflow>,
+        {
+            self.0.request.workflow = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateWorkflowRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [update_mask][crate::model::UpdateWorkflowRequest::update_mask].
+        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }

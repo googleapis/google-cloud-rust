@@ -126,13 +126,20 @@ impl CreateSshPublicKeyRequest {
     }
 
     /// Sets the value of [ssh_public_key][crate::model::CreateSshPublicKeyRequest::ssh_public_key].
-    pub fn set_ssh_public_key<
-        T: std::convert::Into<std::option::Option<oslogin_common::model::SshPublicKey>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.ssh_public_key = v.into();
+    pub fn set_ssh_public_key<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<oslogin_common::model::SshPublicKey>,
+    {
+        self.ssh_public_key = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [ssh_public_key][crate::model::CreateSshPublicKeyRequest::ssh_public_key].
+    pub fn maybe_ssh_public_key<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<oslogin_common::model::SshPublicKey>,
+    {
+        self.ssh_public_key = v.map(|x| x.into());
         self
     }
 }
@@ -337,13 +344,20 @@ impl ImportSshPublicKeyRequest {
     }
 
     /// Sets the value of [ssh_public_key][crate::model::ImportSshPublicKeyRequest::ssh_public_key].
-    pub fn set_ssh_public_key<
-        T: std::convert::Into<std::option::Option<oslogin_common::model::SshPublicKey>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.ssh_public_key = v.into();
+    pub fn set_ssh_public_key<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<oslogin_common::model::SshPublicKey>,
+    {
+        self.ssh_public_key = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [ssh_public_key][crate::model::ImportSshPublicKeyRequest::ssh_public_key].
+    pub fn maybe_ssh_public_key<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<oslogin_common::model::SshPublicKey>,
+    {
+        self.ssh_public_key = v.map(|x| x.into());
         self
     }
 
@@ -395,13 +409,20 @@ impl ImportSshPublicKeyResponse {
     }
 
     /// Sets the value of [login_profile][crate::model::ImportSshPublicKeyResponse::login_profile].
-    pub fn set_login_profile<
-        T: std::convert::Into<std::option::Option<crate::model::LoginProfile>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.login_profile = v.into();
+    pub fn set_login_profile<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::LoginProfile>,
+    {
+        self.login_profile = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [login_profile][crate::model::ImportSshPublicKeyResponse::login_profile].
+    pub fn maybe_login_profile<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::LoginProfile>,
+    {
+        self.login_profile = v.map(|x| x.into());
         self
     }
 
@@ -454,22 +475,38 @@ impl UpdateSshPublicKeyRequest {
     }
 
     /// Sets the value of [ssh_public_key][crate::model::UpdateSshPublicKeyRequest::ssh_public_key].
-    pub fn set_ssh_public_key<
-        T: std::convert::Into<std::option::Option<oslogin_common::model::SshPublicKey>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.ssh_public_key = v.into();
+    pub fn set_ssh_public_key<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<oslogin_common::model::SshPublicKey>,
+    {
+        self.ssh_public_key = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [ssh_public_key][crate::model::UpdateSshPublicKeyRequest::ssh_public_key].
+    pub fn maybe_ssh_public_key<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<oslogin_common::model::SshPublicKey>,
+    {
+        self.ssh_public_key = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateSshPublicKeyRequest::update_mask].
-    pub fn set_update_mask<T: std::convert::Into<std::option::Option<wkt::FieldMask>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.update_mask = v.into();
+    pub fn set_update_mask<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [update_mask][crate::model::UpdateSshPublicKeyRequest::update_mask].
+    pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = v.map(|x| x.into());
         self
     }
 }

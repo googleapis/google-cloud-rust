@@ -356,11 +356,22 @@ pub mod vmware_engine {
         /// Sets the value of [private_cloud][crate::model::CreatePrivateCloudRequest::private_cloud].
         ///
         /// This is a **required** field for requests.
-        pub fn set_private_cloud<T: Into<std::option::Option<crate::model::PrivateCloud>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.private_cloud = v.into();
+        pub fn set_private_cloud<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::PrivateCloud>,
+        {
+            self.0.request.private_cloud = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [private_cloud][crate::model::CreatePrivateCloudRequest::private_cloud].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_private_cloud<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::PrivateCloud>,
+        {
+            self.0.request.private_cloud = v.map(|x| x.into());
             self
         }
 
@@ -477,22 +488,44 @@ pub mod vmware_engine {
         /// Sets the value of [private_cloud][crate::model::UpdatePrivateCloudRequest::private_cloud].
         ///
         /// This is a **required** field for requests.
-        pub fn set_private_cloud<T: Into<std::option::Option<crate::model::PrivateCloud>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.private_cloud = v.into();
+        pub fn set_private_cloud<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::PrivateCloud>,
+        {
+            self.0.request.private_cloud = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [private_cloud][crate::model::UpdatePrivateCloudRequest::private_cloud].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_private_cloud<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::PrivateCloud>,
+        {
+            self.0.request.private_cloud = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdatePrivateCloudRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [update_mask][crate::model::UpdatePrivateCloudRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
@@ -621,8 +654,20 @@ pub mod vmware_engine {
         }
 
         /// Sets the value of [delay_hours][crate::model::DeletePrivateCloudRequest::delay_hours].
-        pub fn set_delay_hours<T: Into<std::option::Option<i32>>>(mut self, v: T) -> Self {
-            self.0.request.delay_hours = v.into();
+        pub fn set_delay_hours<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<i32>,
+        {
+            self.0.request.delay_hours = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [delay_hours][crate::model::DeletePrivateCloudRequest::delay_hours].
+        pub fn maybe_delay_hours<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<i32>,
+        {
+            self.0.request.delay_hours = v.map(|x| x.into());
             self
         }
     }
@@ -1026,11 +1071,22 @@ pub mod vmware_engine {
         /// Sets the value of [cluster][crate::model::CreateClusterRequest::cluster].
         ///
         /// This is a **required** field for requests.
-        pub fn set_cluster<T: Into<std::option::Option<crate::model::Cluster>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.cluster = v.into();
+        pub fn set_cluster<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Cluster>,
+        {
+            self.0.request.cluster = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [cluster][crate::model::CreateClusterRequest::cluster].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_cluster<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Cluster>,
+        {
+            self.0.request.cluster = v.map(|x| x.into());
             self
         }
 
@@ -1142,22 +1198,44 @@ pub mod vmware_engine {
         /// Sets the value of [update_mask][crate::model::UpdateClusterRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [update_mask][crate::model::UpdateClusterRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [cluster][crate::model::UpdateClusterRequest::cluster].
         ///
         /// This is a **required** field for requests.
-        pub fn set_cluster<T: Into<std::option::Option<crate::model::Cluster>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.cluster = v.into();
+        pub fn set_cluster<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Cluster>,
+        {
+            self.0.request.cluster = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [cluster][crate::model::UpdateClusterRequest::cluster].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_cluster<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Cluster>,
+        {
+            self.0.request.cluster = v.map(|x| x.into());
             self
         }
 
@@ -1853,11 +1931,22 @@ pub mod vmware_engine {
         /// Sets the value of [external_address][crate::model::CreateExternalAddressRequest::external_address].
         ///
         /// This is a **required** field for requests.
-        pub fn set_external_address<T: Into<std::option::Option<crate::model::ExternalAddress>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.external_address = v.into();
+        pub fn set_external_address<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::ExternalAddress>,
+        {
+            self.0.request.external_address = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [external_address][crate::model::CreateExternalAddressRequest::external_address].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_external_address<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::ExternalAddress>,
+        {
+            self.0.request.external_address = v.map(|x| x.into());
             self
         }
 
@@ -1977,22 +2066,44 @@ pub mod vmware_engine {
         /// Sets the value of [update_mask][crate::model::UpdateExternalAddressRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [update_mask][crate::model::UpdateExternalAddressRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [external_address][crate::model::UpdateExternalAddressRequest::external_address].
         ///
         /// This is a **required** field for requests.
-        pub fn set_external_address<T: Into<std::option::Option<crate::model::ExternalAddress>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.external_address = v.into();
+        pub fn set_external_address<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::ExternalAddress>,
+        {
+            self.0.request.external_address = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [external_address][crate::model::UpdateExternalAddressRequest::external_address].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_external_address<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::ExternalAddress>,
+        {
+            self.0.request.external_address = v.map(|x| x.into());
             self
         }
 
@@ -2374,22 +2485,44 @@ pub mod vmware_engine {
         /// Sets the value of [update_mask][crate::model::UpdateSubnetRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [update_mask][crate::model::UpdateSubnetRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [subnet][crate::model::UpdateSubnetRequest::subnet].
         ///
         /// This is a **required** field for requests.
-        pub fn set_subnet<T: Into<std::option::Option<crate::model::Subnet>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.subnet = v.into();
+        pub fn set_subnet<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Subnet>,
+        {
+            self.0.request.subnet = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [subnet][crate::model::UpdateSubnetRequest::subnet].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_subnet<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Subnet>,
+        {
+            self.0.request.subnet = v.map(|x| x.into());
             self
         }
     }
@@ -2693,13 +2826,22 @@ pub mod vmware_engine {
         /// Sets the value of [external_access_rule][crate::model::CreateExternalAccessRuleRequest::external_access_rule].
         ///
         /// This is a **required** field for requests.
-        pub fn set_external_access_rule<
-            T: Into<std::option::Option<crate::model::ExternalAccessRule>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.external_access_rule = v.into();
+        pub fn set_external_access_rule<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::ExternalAccessRule>,
+        {
+            self.0.request.external_access_rule = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [external_access_rule][crate::model::CreateExternalAccessRuleRequest::external_access_rule].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_external_access_rule<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::ExternalAccessRule>,
+        {
+            self.0.request.external_access_rule = v.map(|x| x.into());
             self
         }
 
@@ -2821,24 +2963,44 @@ pub mod vmware_engine {
         /// Sets the value of [update_mask][crate::model::UpdateExternalAccessRuleRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [update_mask][crate::model::UpdateExternalAccessRuleRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [external_access_rule][crate::model::UpdateExternalAccessRuleRequest::external_access_rule].
         ///
         /// This is a **required** field for requests.
-        pub fn set_external_access_rule<
-            T: Into<std::option::Option<crate::model::ExternalAccessRule>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.external_access_rule = v.into();
+        pub fn set_external_access_rule<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::ExternalAccessRule>,
+        {
+            self.0.request.external_access_rule = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [external_access_rule][crate::model::UpdateExternalAccessRuleRequest::external_access_rule].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_external_access_rule<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::ExternalAccessRule>,
+        {
+            self.0.request.external_access_rule = v.map(|x| x.into());
             self
         }
 
@@ -3256,11 +3418,22 @@ pub mod vmware_engine {
         /// Sets the value of [logging_server][crate::model::CreateLoggingServerRequest::logging_server].
         ///
         /// This is a **required** field for requests.
-        pub fn set_logging_server<T: Into<std::option::Option<crate::model::LoggingServer>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.logging_server = v.into();
+        pub fn set_logging_server<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::LoggingServer>,
+        {
+            self.0.request.logging_server = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [logging_server][crate::model::CreateLoggingServerRequest::logging_server].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_logging_server<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::LoggingServer>,
+        {
+            self.0.request.logging_server = v.map(|x| x.into());
             self
         }
 
@@ -3380,22 +3553,44 @@ pub mod vmware_engine {
         /// Sets the value of [update_mask][crate::model::UpdateLoggingServerRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [update_mask][crate::model::UpdateLoggingServerRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [logging_server][crate::model::UpdateLoggingServerRequest::logging_server].
         ///
         /// This is a **required** field for requests.
-        pub fn set_logging_server<T: Into<std::option::Option<crate::model::LoggingServer>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.logging_server = v.into();
+        pub fn set_logging_server<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::LoggingServer>,
+        {
+            self.0.request.logging_server = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [logging_server][crate::model::UpdateLoggingServerRequest::logging_server].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_logging_server<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::LoggingServer>,
+        {
+            self.0.request.logging_server = v.map(|x| x.into());
             self
         }
 
@@ -4222,22 +4417,44 @@ pub mod vmware_engine {
         /// Sets the value of [dns_forwarding][crate::model::UpdateDnsForwardingRequest::dns_forwarding].
         ///
         /// This is a **required** field for requests.
-        pub fn set_dns_forwarding<T: Into<std::option::Option<crate::model::DnsForwarding>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.dns_forwarding = v.into();
+        pub fn set_dns_forwarding<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::DnsForwarding>,
+        {
+            self.0.request.dns_forwarding = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [dns_forwarding][crate::model::UpdateDnsForwardingRequest::dns_forwarding].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_dns_forwarding<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::DnsForwarding>,
+        {
+            self.0.request.dns_forwarding = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateDnsForwardingRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [update_mask][crate::model::UpdateDnsForwardingRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
@@ -4549,11 +4766,22 @@ pub mod vmware_engine {
         /// Sets the value of [network_peering][crate::model::CreateNetworkPeeringRequest::network_peering].
         ///
         /// This is a **required** field for requests.
-        pub fn set_network_peering<T: Into<std::option::Option<crate::model::NetworkPeering>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.network_peering = v.into();
+        pub fn set_network_peering<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::NetworkPeering>,
+        {
+            self.0.request.network_peering = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [network_peering][crate::model::CreateNetworkPeeringRequest::network_peering].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_network_peering<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::NetworkPeering>,
+        {
+            self.0.request.network_peering = v.map(|x| x.into());
             self
         }
 
@@ -4777,22 +5005,44 @@ pub mod vmware_engine {
         /// Sets the value of [network_peering][crate::model::UpdateNetworkPeeringRequest::network_peering].
         ///
         /// This is a **required** field for requests.
-        pub fn set_network_peering<T: Into<std::option::Option<crate::model::NetworkPeering>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.network_peering = v.into();
+        pub fn set_network_peering<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::NetworkPeering>,
+        {
+            self.0.request.network_peering = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [network_peering][crate::model::UpdateNetworkPeeringRequest::network_peering].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_network_peering<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::NetworkPeering>,
+        {
+            self.0.request.network_peering = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateNetworkPeeringRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [update_mask][crate::model::UpdateNetworkPeeringRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
@@ -5023,13 +5273,22 @@ pub mod vmware_engine {
         /// Sets the value of [hcx_activation_key][crate::model::CreateHcxActivationKeyRequest::hcx_activation_key].
         ///
         /// This is a **required** field for requests.
-        pub fn set_hcx_activation_key<
-            T: Into<std::option::Option<crate::model::HcxActivationKey>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.hcx_activation_key = v.into();
+        pub fn set_hcx_activation_key<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::HcxActivationKey>,
+        {
+            self.0.request.hcx_activation_key = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [hcx_activation_key][crate::model::CreateHcxActivationKeyRequest::hcx_activation_key].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_hcx_activation_key<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::HcxActivationKey>,
+        {
+            self.0.request.hcx_activation_key = v.map(|x| x.into());
             self
         }
 
@@ -5521,11 +5780,22 @@ pub mod vmware_engine {
         /// Sets the value of [network_policy][crate::model::CreateNetworkPolicyRequest::network_policy].
         ///
         /// This is a **required** field for requests.
-        pub fn set_network_policy<T: Into<std::option::Option<crate::model::NetworkPolicy>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.network_policy = v.into();
+        pub fn set_network_policy<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::NetworkPolicy>,
+        {
+            self.0.request.network_policy = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [network_policy][crate::model::CreateNetworkPolicyRequest::network_policy].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_network_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::NetworkPolicy>,
+        {
+            self.0.request.network_policy = v.map(|x| x.into());
             self
         }
 
@@ -5637,22 +5907,44 @@ pub mod vmware_engine {
         /// Sets the value of [network_policy][crate::model::UpdateNetworkPolicyRequest::network_policy].
         ///
         /// This is a **required** field for requests.
-        pub fn set_network_policy<T: Into<std::option::Option<crate::model::NetworkPolicy>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.network_policy = v.into();
+        pub fn set_network_policy<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::NetworkPolicy>,
+        {
+            self.0.request.network_policy = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [network_policy][crate::model::UpdateNetworkPolicyRequest::network_policy].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_network_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::NetworkPolicy>,
+        {
+            self.0.request.network_policy = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateNetworkPolicyRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [update_mask][crate::model::UpdateNetworkPolicyRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
@@ -6076,13 +6368,22 @@ pub mod vmware_engine {
         /// Sets the value of [management_dns_zone_binding][crate::model::CreateManagementDnsZoneBindingRequest::management_dns_zone_binding].
         ///
         /// This is a **required** field for requests.
-        pub fn set_management_dns_zone_binding<
-            T: Into<std::option::Option<crate::model::ManagementDnsZoneBinding>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.management_dns_zone_binding = v.into();
+        pub fn set_management_dns_zone_binding<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::ManagementDnsZoneBinding>,
+        {
+            self.0.request.management_dns_zone_binding = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [management_dns_zone_binding][crate::model::CreateManagementDnsZoneBindingRequest::management_dns_zone_binding].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_management_dns_zone_binding<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::ManagementDnsZoneBinding>,
+        {
+            self.0.request.management_dns_zone_binding = v.map(|x| x.into());
             self
         }
 
@@ -6207,24 +6508,44 @@ pub mod vmware_engine {
         /// Sets the value of [update_mask][crate::model::UpdateManagementDnsZoneBindingRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [update_mask][crate::model::UpdateManagementDnsZoneBindingRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [management_dns_zone_binding][crate::model::UpdateManagementDnsZoneBindingRequest::management_dns_zone_binding].
         ///
         /// This is a **required** field for requests.
-        pub fn set_management_dns_zone_binding<
-            T: Into<std::option::Option<crate::model::ManagementDnsZoneBinding>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.management_dns_zone_binding = v.into();
+        pub fn set_management_dns_zone_binding<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::ManagementDnsZoneBinding>,
+        {
+            self.0.request.management_dns_zone_binding = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [management_dns_zone_binding][crate::model::UpdateManagementDnsZoneBindingRequest::management_dns_zone_binding].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_management_dns_zone_binding<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::ManagementDnsZoneBinding>,
+        {
+            self.0.request.management_dns_zone_binding = v.map(|x| x.into());
             self
         }
 
@@ -6583,13 +6904,22 @@ pub mod vmware_engine {
         /// Sets the value of [vmware_engine_network][crate::model::CreateVmwareEngineNetworkRequest::vmware_engine_network].
         ///
         /// This is a **required** field for requests.
-        pub fn set_vmware_engine_network<
-            T: Into<std::option::Option<crate::model::VmwareEngineNetwork>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.vmware_engine_network = v.into();
+        pub fn set_vmware_engine_network<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::VmwareEngineNetwork>,
+        {
+            self.0.request.vmware_engine_network = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [vmware_engine_network][crate::model::CreateVmwareEngineNetworkRequest::vmware_engine_network].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_vmware_engine_network<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::VmwareEngineNetwork>,
+        {
+            self.0.request.vmware_engine_network = v.map(|x| x.into());
             self
         }
 
@@ -6703,24 +7033,44 @@ pub mod vmware_engine {
         /// Sets the value of [vmware_engine_network][crate::model::UpdateVmwareEngineNetworkRequest::vmware_engine_network].
         ///
         /// This is a **required** field for requests.
-        pub fn set_vmware_engine_network<
-            T: Into<std::option::Option<crate::model::VmwareEngineNetwork>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.vmware_engine_network = v.into();
+        pub fn set_vmware_engine_network<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::VmwareEngineNetwork>,
+        {
+            self.0.request.vmware_engine_network = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [vmware_engine_network][crate::model::UpdateVmwareEngineNetworkRequest::vmware_engine_network].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_vmware_engine_network<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::VmwareEngineNetwork>,
+        {
+            self.0.request.vmware_engine_network = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateVmwareEngineNetworkRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [update_mask][crate::model::UpdateVmwareEngineNetworkRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
@@ -7158,13 +7508,22 @@ pub mod vmware_engine {
         /// Sets the value of [private_connection][crate::model::CreatePrivateConnectionRequest::private_connection].
         ///
         /// This is a **required** field for requests.
-        pub fn set_private_connection<
-            T: Into<std::option::Option<crate::model::PrivateConnection>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.private_connection = v.into();
+        pub fn set_private_connection<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::PrivateConnection>,
+        {
+            self.0.request.private_connection = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [private_connection][crate::model::CreatePrivateConnectionRequest::private_connection].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_private_connection<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::PrivateConnection>,
+        {
+            self.0.request.private_connection = v.map(|x| x.into());
             self
         }
 
@@ -7464,24 +7823,44 @@ pub mod vmware_engine {
         /// Sets the value of [private_connection][crate::model::UpdatePrivateConnectionRequest::private_connection].
         ///
         /// This is a **required** field for requests.
-        pub fn set_private_connection<
-            T: Into<std::option::Option<crate::model::PrivateConnection>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.private_connection = v.into();
+        pub fn set_private_connection<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::PrivateConnection>,
+        {
+            self.0.request.private_connection = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [private_connection][crate::model::UpdatePrivateConnectionRequest::private_connection].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_private_connection<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::PrivateConnection>,
+        {
+            self.0.request.private_connection = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdatePrivateConnectionRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [update_mask][crate::model::UpdatePrivateConnectionRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
@@ -7828,11 +8207,22 @@ pub mod vmware_engine {
         /// Sets the value of [principal][crate::model::GrantDnsBindPermissionRequest::principal].
         ///
         /// This is a **required** field for requests.
-        pub fn set_principal<T: Into<std::option::Option<crate::model::Principal>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.principal = v.into();
+        pub fn set_principal<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Principal>,
+        {
+            self.0.request.principal = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [principal][crate::model::GrantDnsBindPermissionRequest::principal].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_principal<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Principal>,
+        {
+            self.0.request.principal = v.map(|x| x.into());
             self
         }
 
@@ -8019,11 +8409,22 @@ pub mod vmware_engine {
         /// Sets the value of [principal][crate::model::RevokeDnsBindPermissionRequest::principal].
         ///
         /// This is a **required** field for requests.
-        pub fn set_principal<T: Into<std::option::Option<crate::model::Principal>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.principal = v.into();
+        pub fn set_principal<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Principal>,
+        {
+            self.0.request.principal = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [principal][crate::model::RevokeDnsBindPermissionRequest::principal].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_principal<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Principal>,
+        {
+            self.0.request.principal = v.map(|x| x.into());
             self
         }
 
@@ -8267,20 +8668,40 @@ pub mod vmware_engine {
         /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
-        pub fn set_policy<T: Into<std::option::Option<iam_v1::model::Policy>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.policy = v.into();
+        pub fn set_policy<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -8347,11 +8768,20 @@ pub mod vmware_engine {
         }
 
         /// Sets the value of [options][iam_v1::model::GetIamPolicyRequest::options].
-        pub fn set_options<T: Into<std::option::Option<iam_v1::model::GetPolicyOptions>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.options = v.into();
+        pub fn set_options<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        pub fn maybe_options<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = v.map(|x| x.into());
             self
         }
     }

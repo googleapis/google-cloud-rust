@@ -175,11 +175,22 @@ pub mod managed_identities_service {
         /// Sets the value of [domain][crate::model::CreateMicrosoftAdDomainRequest::domain].
         ///
         /// This is a **required** field for requests.
-        pub fn set_domain<T: Into<std::option::Option<crate::model::Domain>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.domain = v.into();
+        pub fn set_domain<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Domain>,
+        {
+            self.0.request.domain = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [domain][crate::model::CreateMicrosoftAdDomainRequest::domain].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_domain<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Domain>,
+        {
+            self.0.request.domain = v.map(|x| x.into());
             self
         }
     }
@@ -518,22 +529,44 @@ pub mod managed_identities_service {
         /// Sets the value of [update_mask][crate::model::UpdateDomainRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [update_mask][crate::model::UpdateDomainRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [domain][crate::model::UpdateDomainRequest::domain].
         ///
         /// This is a **required** field for requests.
-        pub fn set_domain<T: Into<std::option::Option<crate::model::Domain>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.domain = v.into();
+        pub fn set_domain<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Domain>,
+        {
+            self.0.request.domain = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [domain][crate::model::UpdateDomainRequest::domain].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_domain<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Domain>,
+        {
+            self.0.request.domain = v.map(|x| x.into());
             self
         }
     }
@@ -742,11 +775,22 @@ pub mod managed_identities_service {
         /// Sets the value of [trust][crate::model::AttachTrustRequest::trust].
         ///
         /// This is a **required** field for requests.
-        pub fn set_trust<T: Into<std::option::Option<crate::model::Trust>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.trust = v.into();
+        pub fn set_trust<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Trust>,
+        {
+            self.0.request.trust = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [trust][crate::model::AttachTrustRequest::trust].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_trust<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Trust>,
+        {
+            self.0.request.trust = v.map(|x| x.into());
             self
         }
     }
@@ -975,11 +1019,22 @@ pub mod managed_identities_service {
         /// Sets the value of [trust][crate::model::DetachTrustRequest::trust].
         ///
         /// This is a **required** field for requests.
-        pub fn set_trust<T: Into<std::option::Option<crate::model::Trust>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.trust = v.into();
+        pub fn set_trust<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Trust>,
+        {
+            self.0.request.trust = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [trust][crate::model::DetachTrustRequest::trust].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_trust<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Trust>,
+        {
+            self.0.request.trust = v.map(|x| x.into());
             self
         }
     }
@@ -1085,11 +1140,22 @@ pub mod managed_identities_service {
         /// Sets the value of [trust][crate::model::ValidateTrustRequest::trust].
         ///
         /// This is a **required** field for requests.
-        pub fn set_trust<T: Into<std::option::Option<crate::model::Trust>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.trust = v.into();
+        pub fn set_trust<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Trust>,
+        {
+            self.0.request.trust = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [trust][crate::model::ValidateTrustRequest::trust].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_trust<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Trust>,
+        {
+            self.0.request.trust = v.map(|x| x.into());
             self
         }
     }

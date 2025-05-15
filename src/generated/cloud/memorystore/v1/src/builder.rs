@@ -348,11 +348,22 @@ pub mod memorystore {
         /// Sets the value of [instance][crate::model::CreateInstanceRequest::instance].
         ///
         /// This is a **required** field for requests.
-        pub fn set_instance<T: Into<std::option::Option<crate::model::Instance>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.instance = v.into();
+        pub fn set_instance<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Instance>,
+        {
+            self.0.request.instance = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [instance][crate::model::CreateInstanceRequest::instance].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_instance<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Instance>,
+        {
+            self.0.request.instance = v.map(|x| x.into());
             self
         }
 
@@ -456,22 +467,42 @@ pub mod memorystore {
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateInstanceRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [update_mask][crate::model::UpdateInstanceRequest::update_mask].
+        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [instance][crate::model::UpdateInstanceRequest::instance].
         ///
         /// This is a **required** field for requests.
-        pub fn set_instance<T: Into<std::option::Option<crate::model::Instance>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.instance = v.into();
+        pub fn set_instance<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Instance>,
+        {
+            self.0.request.instance = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [instance][crate::model::UpdateInstanceRequest::instance].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_instance<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Instance>,
+        {
+            self.0.request.instance = v.map(|x| x.into());
             self
         }
 
@@ -775,11 +806,20 @@ pub mod memorystore {
         }
 
         /// Sets the value of [schedule_time][crate::model::RescheduleMaintenanceRequest::schedule_time].
-        pub fn set_schedule_time<T: Into<std::option::Option<wkt::Timestamp>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.schedule_time = v.into();
+        pub fn set_schedule_time<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Timestamp>,
+        {
+            self.0.request.schedule_time = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [schedule_time][crate::model::RescheduleMaintenanceRequest::schedule_time].
+        pub fn maybe_schedule_time<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Timestamp>,
+        {
+            self.0.request.schedule_time = v.map(|x| x.into());
             self
         }
     }
@@ -1455,17 +1495,38 @@ pub mod memorystore {
         }
 
         /// Sets the value of [ttl][crate::model::BackupInstanceRequest::ttl].
-        pub fn set_ttl<T: Into<std::option::Option<wkt::Duration>>>(mut self, v: T) -> Self {
-            self.0.request.ttl = v.into();
+        pub fn set_ttl<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Duration>,
+        {
+            self.0.request.ttl = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [ttl][crate::model::BackupInstanceRequest::ttl].
+        pub fn maybe_ttl<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Duration>,
+        {
+            self.0.request.ttl = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [backup_id][crate::model::BackupInstanceRequest::backup_id].
-        pub fn set_backup_id<T: Into<std::option::Option<std::string::String>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.backup_id = v.into();
+        pub fn set_backup_id<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.backup_id = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [backup_id][crate::model::BackupInstanceRequest::backup_id].
+        pub fn maybe_backup_id<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.backup_id = v.map(|x| x.into());
             self
         }
     }

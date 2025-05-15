@@ -362,11 +362,22 @@ pub mod license_manager {
         /// Sets the value of [configuration][crate::model::CreateConfigurationRequest::configuration].
         ///
         /// This is a **required** field for requests.
-        pub fn set_configuration<T: Into<std::option::Option<crate::model::Configuration>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.configuration = v.into();
+        pub fn set_configuration<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Configuration>,
+        {
+            self.0.request.configuration = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [configuration][crate::model::CreateConfigurationRequest::configuration].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_configuration<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Configuration>,
+        {
+            self.0.request.configuration = v.map(|x| x.into());
             self
         }
 
@@ -476,22 +487,42 @@ pub mod license_manager {
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateConfigurationRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [update_mask][crate::model::UpdateConfigurationRequest::update_mask].
+        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [configuration][crate::model::UpdateConfigurationRequest::configuration].
         ///
         /// This is a **required** field for requests.
-        pub fn set_configuration<T: Into<std::option::Option<crate::model::Configuration>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.configuration = v.into();
+        pub fn set_configuration<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Configuration>,
+        {
+            self.0.request.configuration = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [configuration][crate::model::UpdateConfigurationRequest::configuration].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_configuration<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Configuration>,
+        {
+            self.0.request.configuration = v.map(|x| x.into());
             self
         }
 
@@ -1089,19 +1120,44 @@ pub mod license_manager {
         /// Sets the value of [start_time][crate::model::QueryConfigurationLicenseUsageRequest::start_time].
         ///
         /// This is a **required** field for requests.
-        pub fn set_start_time<T: Into<std::option::Option<wkt::Timestamp>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.start_time = v.into();
+        pub fn set_start_time<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Timestamp>,
+        {
+            self.0.request.start_time = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [start_time][crate::model::QueryConfigurationLicenseUsageRequest::start_time].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_start_time<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Timestamp>,
+        {
+            self.0.request.start_time = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [end_time][crate::model::QueryConfigurationLicenseUsageRequest::end_time].
         ///
         /// This is a **required** field for requests.
-        pub fn set_end_time<T: Into<std::option::Option<wkt::Timestamp>>>(mut self, v: T) -> Self {
-            self.0.request.end_time = v.into();
+        pub fn set_end_time<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Timestamp>,
+        {
+            self.0.request.end_time = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [end_time][crate::model::QueryConfigurationLicenseUsageRequest::end_time].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_end_time<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Timestamp>,
+        {
+            self.0.request.end_time = v.map(|x| x.into());
             self
         }
     }
@@ -1222,19 +1278,44 @@ pub mod license_manager {
         /// Sets the value of [start_time][crate::model::AggregateUsageRequest::start_time].
         ///
         /// This is a **required** field for requests.
-        pub fn set_start_time<T: Into<std::option::Option<wkt::Timestamp>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.start_time = v.into();
+        pub fn set_start_time<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Timestamp>,
+        {
+            self.0.request.start_time = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [start_time][crate::model::AggregateUsageRequest::start_time].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_start_time<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Timestamp>,
+        {
+            self.0.request.start_time = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [end_time][crate::model::AggregateUsageRequest::end_time].
         ///
         /// This is a **required** field for requests.
-        pub fn set_end_time<T: Into<std::option::Option<wkt::Timestamp>>>(mut self, v: T) -> Self {
-            self.0.request.end_time = v.into();
+        pub fn set_end_time<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Timestamp>,
+        {
+            self.0.request.end_time = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [end_time][crate::model::AggregateUsageRequest::end_time].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_end_time<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Timestamp>,
+        {
+            self.0.request.end_time = v.map(|x| x.into());
             self
         }
     }

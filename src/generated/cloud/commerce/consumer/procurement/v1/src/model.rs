@@ -190,13 +190,20 @@ pub mod assignment_protocol {
         }
 
         /// Sets the value of [inactive_license_ttl][crate::model::assignment_protocol::AutoAssignmentType::inactive_license_ttl].
-        pub fn set_inactive_license_ttl<
-            T: std::convert::Into<std::option::Option<wkt::Duration>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.inactive_license_ttl = v.into();
+        pub fn set_inactive_license_ttl<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Duration>,
+        {
+            self.inactive_license_ttl = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [inactive_license_ttl][crate::model::assignment_protocol::AutoAssignmentType::inactive_license_ttl].
+        pub fn maybe_inactive_license_ttl<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Duration>,
+        {
+            self.inactive_license_ttl = v.map(|x| x.into());
             self
         }
     }
@@ -261,13 +268,20 @@ impl LicensePool {
     }
 
     /// Sets the value of [license_assignment_protocol][crate::model::LicensePool::license_assignment_protocol].
-    pub fn set_license_assignment_protocol<
-        T: std::convert::Into<std::option::Option<crate::model::AssignmentProtocol>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.license_assignment_protocol = v.into();
+    pub fn set_license_assignment_protocol<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::AssignmentProtocol>,
+    {
+        self.license_assignment_protocol = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [license_assignment_protocol][crate::model::LicensePool::license_assignment_protocol].
+    pub fn maybe_license_assignment_protocol<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::AssignmentProtocol>,
+    {
+        self.license_assignment_protocol = v.map(|x| x.into());
         self
     }
 
@@ -351,22 +365,38 @@ impl UpdateLicensePoolRequest {
     }
 
     /// Sets the value of [license_pool][crate::model::UpdateLicensePoolRequest::license_pool].
-    pub fn set_license_pool<
-        T: std::convert::Into<std::option::Option<crate::model::LicensePool>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.license_pool = v.into();
+    pub fn set_license_pool<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::LicensePool>,
+    {
+        self.license_pool = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [license_pool][crate::model::UpdateLicensePoolRequest::license_pool].
+    pub fn maybe_license_pool<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::LicensePool>,
+    {
+        self.license_pool = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateLicensePoolRequest::update_mask].
-    pub fn set_update_mask<T: std::convert::Into<std::option::Option<wkt::FieldMask>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.update_mask = v.into();
+    pub fn set_update_mask<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [update_mask][crate::model::UpdateLicensePoolRequest::update_mask].
+    pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = v.map(|x| x.into());
         self
     }
 }
@@ -623,20 +653,38 @@ impl LicensedUser {
     }
 
     /// Sets the value of [assign_time][crate::model::LicensedUser::assign_time].
-    pub fn set_assign_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.assign_time = v.into();
+    pub fn set_assign_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.assign_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [assign_time][crate::model::LicensedUser::assign_time].
+    pub fn maybe_assign_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.assign_time = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [recent_usage_time][crate::model::LicensedUser::recent_usage_time].
-    pub fn set_recent_usage_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.recent_usage_time = v.into();
+    pub fn set_recent_usage_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.recent_usage_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [recent_usage_time][crate::model::LicensedUser::recent_usage_time].
+    pub fn maybe_recent_usage_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.recent_usage_time = v.map(|x| x.into());
         self
     }
 }
@@ -801,20 +849,38 @@ impl Order {
     }
 
     /// Sets the value of [create_time][crate::model::Order::create_time].
-    pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.create_time = v.into();
+    pub fn set_create_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [create_time][crate::model::Order::create_time].
+    pub fn maybe_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [update_time][crate::model::Order::update_time].
-    pub fn set_update_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.update_time = v.into();
+    pub fn set_update_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [update_time][crate::model::Order::update_time].
+    pub fn maybe_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = v.map(|x| x.into());
         self
     }
 
@@ -875,24 +941,38 @@ impl LineItem {
     }
 
     /// Sets the value of [line_item_info][crate::model::LineItem::line_item_info].
-    pub fn set_line_item_info<
-        T: std::convert::Into<std::option::Option<crate::model::LineItemInfo>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.line_item_info = v.into();
+    pub fn set_line_item_info<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::LineItemInfo>,
+    {
+        self.line_item_info = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [line_item_info][crate::model::LineItem::line_item_info].
+    pub fn maybe_line_item_info<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::LineItemInfo>,
+    {
+        self.line_item_info = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [pending_change][crate::model::LineItem::pending_change].
-    pub fn set_pending_change<
-        T: std::convert::Into<std::option::Option<crate::model::LineItemChange>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.pending_change = v.into();
+    pub fn set_pending_change<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::LineItemChange>,
+    {
+        self.pending_change = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [pending_change][crate::model::LineItem::pending_change].
+    pub fn maybe_pending_change<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::LineItemChange>,
+    {
+        self.pending_change = v.map(|x| x.into());
         self
     }
 
@@ -992,24 +1072,38 @@ impl LineItemChange {
     }
 
     /// Sets the value of [old_line_item_info][crate::model::LineItemChange::old_line_item_info].
-    pub fn set_old_line_item_info<
-        T: std::convert::Into<std::option::Option<crate::model::LineItemInfo>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.old_line_item_info = v.into();
+    pub fn set_old_line_item_info<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::LineItemInfo>,
+    {
+        self.old_line_item_info = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [old_line_item_info][crate::model::LineItemChange::old_line_item_info].
+    pub fn maybe_old_line_item_info<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::LineItemInfo>,
+    {
+        self.old_line_item_info = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [new_line_item_info][crate::model::LineItemChange::new_line_item_info].
-    pub fn set_new_line_item_info<
-        T: std::convert::Into<std::option::Option<crate::model::LineItemInfo>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.new_line_item_info = v.into();
+    pub fn set_new_line_item_info<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::LineItemInfo>,
+    {
+        self.new_line_item_info = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [new_line_item_info][crate::model::LineItemChange::new_line_item_info].
+    pub fn maybe_new_line_item_info<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::LineItemInfo>,
+    {
+        self.new_line_item_info = v.map(|x| x.into());
         self
     }
 
@@ -1040,29 +1134,56 @@ impl LineItemChange {
     }
 
     /// Sets the value of [change_effective_time][crate::model::LineItemChange::change_effective_time].
-    pub fn set_change_effective_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.change_effective_time = v.into();
+    pub fn set_change_effective_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.change_effective_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [change_effective_time][crate::model::LineItemChange::change_effective_time].
+    pub fn maybe_change_effective_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.change_effective_time = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [create_time][crate::model::LineItemChange::create_time].
-    pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.create_time = v.into();
+    pub fn set_create_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [create_time][crate::model::LineItemChange::create_time].
+    pub fn maybe_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [update_time][crate::model::LineItemChange::update_time].
-    pub fn set_update_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.update_time = v.into();
+    pub fn set_update_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [update_time][crate::model::LineItemChange::update_time].
+    pub fn maybe_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = v.map(|x| x.into());
         self
     }
 }
@@ -1120,13 +1241,20 @@ impl LineItemInfo {
     }
 
     /// Sets the value of [subscription][crate::model::LineItemInfo::subscription].
-    pub fn set_subscription<
-        T: std::convert::Into<std::option::Option<crate::model::Subscription>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.subscription = v.into();
+    pub fn set_subscription<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::Subscription>,
+    {
+        self.subscription = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [subscription][crate::model::LineItemInfo::subscription].
+    pub fn maybe_subscription<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::Subscription>,
+    {
+        self.subscription = v.map(|x| x.into());
         self
     }
 }
@@ -1167,11 +1295,20 @@ impl Parameter {
     }
 
     /// Sets the value of [value][crate::model::Parameter::value].
-    pub fn set_value<T: std::convert::Into<std::option::Option<crate::model::parameter::Value>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.value = v.into();
+    pub fn set_value<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::parameter::Value>,
+    {
+        self.value = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [value][crate::model::Parameter::value].
+    pub fn maybe_value<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::parameter::Value>,
+    {
+        self.value = v.map(|x| x.into());
         self
     }
 }
@@ -1353,20 +1490,38 @@ impl Subscription {
     }
 
     /// Sets the value of [start_time][crate::model::Subscription::start_time].
-    pub fn set_start_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.start_time = v.into();
+    pub fn set_start_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.start_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [start_time][crate::model::Subscription::start_time].
+    pub fn maybe_start_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.start_time = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [end_time][crate::model::Subscription::end_time].
-    pub fn set_end_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.end_time = v.into();
+    pub fn set_end_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.end_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [end_time][crate::model::Subscription::end_time].
+    pub fn maybe_end_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.end_time = v.map(|x| x.into());
         self
     }
 
@@ -1803,13 +1958,20 @@ pub mod modify_order_request {
         }
 
         /// Sets the value of [new_line_item_info][crate::model::modify_order_request::Modification::new_line_item_info].
-        pub fn set_new_line_item_info<
-            T: std::convert::Into<std::option::Option<crate::model::LineItemInfo>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.new_line_item_info = v.into();
+        pub fn set_new_line_item_info<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::LineItemInfo>,
+        {
+            self.new_line_item_info = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [new_line_item_info][crate::model::modify_order_request::Modification::new_line_item_info].
+        pub fn maybe_new_line_item_info<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::LineItemInfo>,
+        {
+            self.new_line_item_info = v.map(|x| x.into());
             self
         }
 

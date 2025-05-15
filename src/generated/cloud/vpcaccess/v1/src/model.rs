@@ -143,13 +143,20 @@ impl Connector {
     }
 
     /// Sets the value of [subnet][crate::model::Connector::subnet].
-    pub fn set_subnet<
-        T: std::convert::Into<std::option::Option<crate::model::connector::Subnet>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.subnet = v.into();
+    pub fn set_subnet<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::connector::Subnet>,
+    {
+        self.subnet = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [subnet][crate::model::Connector::subnet].
+    pub fn maybe_subnet<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::connector::Subnet>,
+    {
+        self.subnet = v.map(|x| x.into());
         self
     }
 
@@ -425,11 +432,20 @@ impl CreateConnectorRequest {
     }
 
     /// Sets the value of [connector][crate::model::CreateConnectorRequest::connector].
-    pub fn set_connector<T: std::convert::Into<std::option::Option<crate::model::Connector>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.connector = v.into();
+    pub fn set_connector<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::Connector>,
+    {
+        self.connector = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [connector][crate::model::CreateConnectorRequest::connector].
+    pub fn maybe_connector<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::Connector>,
+    {
+        self.connector = v.map(|x| x.into());
         self
     }
 }
@@ -657,20 +673,38 @@ impl OperationMetadata {
     }
 
     /// Sets the value of [create_time][crate::model::OperationMetadata::create_time].
-    pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.create_time = v.into();
+    pub fn set_create_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [create_time][crate::model::OperationMetadata::create_time].
+    pub fn maybe_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [end_time][crate::model::OperationMetadata::end_time].
-    pub fn set_end_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.end_time = v.into();
+    pub fn set_end_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.end_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [end_time][crate::model::OperationMetadata::end_time].
+    pub fn maybe_end_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.end_time = v.map(|x| x.into());
         self
     }
 

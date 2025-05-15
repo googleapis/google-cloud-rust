@@ -470,11 +470,20 @@ pub mod constraint {
             }
 
             /// Sets the value of [default_value][crate::model::constraint::custom_constraint_definition::Parameter::default_value].
-            pub fn set_default_value<T: std::convert::Into<std::option::Option<wkt::Value>>>(
-                mut self,
-                v: T,
-            ) -> Self {
-                self.default_value = v.into();
+            pub fn set_default_value<T>(mut self, v: T) -> Self
+            where
+                T: std::convert::Into<wkt::Value>,
+            {
+                self.default_value = std::option::Option::Some(v.into());
+                self
+            }
+
+            /// Sets or clear the value of [default_value][crate::model::constraint::custom_constraint_definition::Parameter::default_value].
+            pub fn maybe_default_value<T>(mut self, v: std::option::Option<T>) -> Self
+            where
+                T: std::convert::Into<wkt::Value>,
+            {
+                self.default_value = v.map(|x| x.into());
                 self
             }
 
@@ -488,8 +497,24 @@ pub mod constraint {
             }
 
             /// Sets the value of [metadata][crate::model::constraint::custom_constraint_definition::Parameter::metadata].
-            pub fn set_metadata<T: std::convert::Into<std::option::Option<crate::model::constraint::custom_constraint_definition::parameter::Metadata>>>(mut self, v: T) -> Self{
-                self.metadata = v.into();
+            pub fn set_metadata<T>(mut self, v: T) -> Self
+            where
+                T: std::convert::Into<
+                        crate::model::constraint::custom_constraint_definition::parameter::Metadata,
+                    >,
+            {
+                self.metadata = std::option::Option::Some(v.into());
+                self
+            }
+
+            /// Sets or clear the value of [metadata][crate::model::constraint::custom_constraint_definition::Parameter::metadata].
+            pub fn maybe_metadata<T>(mut self, v: std::option::Option<T>) -> Self
+            where
+                T: std::convert::Into<
+                        crate::model::constraint::custom_constraint_definition::parameter::Metadata,
+                    >,
+            {
+                self.metadata = v.map(|x| x.into());
                 self
             }
 
@@ -1025,15 +1050,20 @@ pub mod constraint {
         }
 
         /// Sets the value of [custom_constraint_definition][crate::model::constraint::BooleanConstraint::custom_constraint_definition].
-        pub fn set_custom_constraint_definition<
-            T: std::convert::Into<
-                    std::option::Option<crate::model::constraint::CustomConstraintDefinition>,
-                >,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.custom_constraint_definition = v.into();
+        pub fn set_custom_constraint_definition<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::constraint::CustomConstraintDefinition>,
+        {
+            self.custom_constraint_definition = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [custom_constraint_definition][crate::model::constraint::BooleanConstraint::custom_constraint_definition].
+        pub fn maybe_custom_constraint_definition<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::constraint::CustomConstraintDefinition>,
+        {
+            self.custom_constraint_definition = v.map(|x| x.into());
             self
         }
     }
@@ -1324,11 +1354,20 @@ impl CustomConstraint {
     }
 
     /// Sets the value of [update_time][crate::model::CustomConstraint::update_time].
-    pub fn set_update_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.update_time = v.into();
+    pub fn set_update_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [update_time][crate::model::CustomConstraint::update_time].
+    pub fn maybe_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = v.map(|x| x.into());
         self
     }
 }
@@ -1700,34 +1739,58 @@ impl Policy {
     }
 
     /// Sets the value of [spec][crate::model::Policy::spec].
-    pub fn set_spec<T: std::convert::Into<std::option::Option<crate::model::PolicySpec>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.spec = v.into();
+    pub fn set_spec<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::PolicySpec>,
+    {
+        self.spec = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [spec][crate::model::Policy::spec].
+    pub fn maybe_spec<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::PolicySpec>,
+    {
+        self.spec = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [alternate][crate::model::Policy::alternate].
     #[deprecated]
-    pub fn set_alternate<
-        T: std::convert::Into<std::option::Option<crate::model::AlternatePolicySpec>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.alternate = v.into();
+    pub fn set_alternate<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::AlternatePolicySpec>,
+    {
+        self.alternate = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [alternate][crate::model::Policy::alternate].
+    #[deprecated]
+    pub fn maybe_alternate<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::AlternatePolicySpec>,
+    {
+        self.alternate = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [dry_run_spec][crate::model::Policy::dry_run_spec].
-    pub fn set_dry_run_spec<
-        T: std::convert::Into<std::option::Option<crate::model::PolicySpec>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.dry_run_spec = v.into();
+    pub fn set_dry_run_spec<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::PolicySpec>,
+    {
+        self.dry_run_spec = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [dry_run_spec][crate::model::Policy::dry_run_spec].
+    pub fn maybe_dry_run_spec<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::PolicySpec>,
+    {
+        self.dry_run_spec = v.map(|x| x.into());
         self
     }
 
@@ -1777,11 +1840,20 @@ impl AlternatePolicySpec {
     }
 
     /// Sets the value of [spec][crate::model::AlternatePolicySpec::spec].
-    pub fn set_spec<T: std::convert::Into<std::option::Option<crate::model::PolicySpec>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.spec = v.into();
+    pub fn set_spec<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::PolicySpec>,
+    {
+        self.spec = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [spec][crate::model::AlternatePolicySpec::spec].
+    pub fn maybe_spec<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::PolicySpec>,
+    {
+        self.spec = v.map(|x| x.into());
         self
     }
 }
@@ -1864,11 +1936,20 @@ impl PolicySpec {
     }
 
     /// Sets the value of [update_time][crate::model::PolicySpec::update_time].
-    pub fn set_update_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.update_time = v.into();
+    pub fn set_update_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [update_time][crate::model::PolicySpec::update_time].
+    pub fn maybe_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = v.map(|x| x.into());
         self
     }
 
@@ -1952,20 +2033,38 @@ pub mod policy_spec {
         }
 
         /// Sets the value of [condition][crate::model::policy_spec::PolicyRule::condition].
-        pub fn set_condition<T: std::convert::Into<std::option::Option<gtype::model::Expr>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.condition = v.into();
+        pub fn set_condition<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<gtype::model::Expr>,
+        {
+            self.condition = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [condition][crate::model::policy_spec::PolicyRule::condition].
+        pub fn maybe_condition<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<gtype::model::Expr>,
+        {
+            self.condition = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [parameters][crate::model::policy_spec::PolicyRule::parameters].
-        pub fn set_parameters<T: std::convert::Into<std::option::Option<wkt::Struct>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.parameters = v.into();
+        pub fn set_parameters<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Struct>,
+        {
+            self.parameters = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [parameters][crate::model::policy_spec::PolicyRule::parameters].
+        pub fn maybe_parameters<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Struct>,
+        {
+            self.parameters = v.map(|x| x.into());
             self
         }
 
@@ -2557,11 +2656,20 @@ impl CreatePolicyRequest {
     }
 
     /// Sets the value of [policy][crate::model::CreatePolicyRequest::policy].
-    pub fn set_policy<T: std::convert::Into<std::option::Option<crate::model::Policy>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.policy = v.into();
+    pub fn set_policy<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::Policy>,
+    {
+        self.policy = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [policy][crate::model::CreatePolicyRequest::policy].
+    pub fn maybe_policy<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::Policy>,
+    {
+        self.policy = v.map(|x| x.into());
         self
     }
 }
@@ -2599,20 +2707,38 @@ impl UpdatePolicyRequest {
     }
 
     /// Sets the value of [policy][crate::model::UpdatePolicyRequest::policy].
-    pub fn set_policy<T: std::convert::Into<std::option::Option<crate::model::Policy>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.policy = v.into();
+    pub fn set_policy<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::Policy>,
+    {
+        self.policy = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [policy][crate::model::UpdatePolicyRequest::policy].
+    pub fn maybe_policy<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::Policy>,
+    {
+        self.policy = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [update_mask][crate::model::UpdatePolicyRequest::update_mask].
-    pub fn set_update_mask<T: std::convert::Into<std::option::Option<wkt::FieldMask>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.update_mask = v.into();
+    pub fn set_update_mask<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [update_mask][crate::model::UpdatePolicyRequest::update_mask].
+    pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = v.map(|x| x.into());
         self
     }
 }
@@ -2702,13 +2828,20 @@ impl CreateCustomConstraintRequest {
     }
 
     /// Sets the value of [custom_constraint][crate::model::CreateCustomConstraintRequest::custom_constraint].
-    pub fn set_custom_constraint<
-        T: std::convert::Into<std::option::Option<crate::model::CustomConstraint>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.custom_constraint = v.into();
+    pub fn set_custom_constraint<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::CustomConstraint>,
+    {
+        self.custom_constraint = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [custom_constraint][crate::model::CreateCustomConstraintRequest::custom_constraint].
+    pub fn maybe_custom_constraint<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::CustomConstraint>,
+    {
+        self.custom_constraint = v.map(|x| x.into());
         self
     }
 }
@@ -2900,13 +3033,20 @@ impl UpdateCustomConstraintRequest {
     }
 
     /// Sets the value of [custom_constraint][crate::model::UpdateCustomConstraintRequest::custom_constraint].
-    pub fn set_custom_constraint<
-        T: std::convert::Into<std::option::Option<crate::model::CustomConstraint>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.custom_constraint = v.into();
+    pub fn set_custom_constraint<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::CustomConstraint>,
+    {
+        self.custom_constraint = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [custom_constraint][crate::model::UpdateCustomConstraintRequest::custom_constraint].
+    pub fn maybe_custom_constraint<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::CustomConstraint>,
+    {
+        self.custom_constraint = v.map(|x| x.into());
         self
     }
 }

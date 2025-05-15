@@ -80,11 +80,20 @@ impl Operation {
     }
 
     /// Sets the value of [metadata][crate::model::Operation::metadata].
-    pub fn set_metadata<T: std::convert::Into<std::option::Option<wkt::Any>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.metadata = v.into();
+    pub fn set_metadata<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Any>,
+    {
+        self.metadata = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [metadata][crate::model::Operation::metadata].
+    pub fn maybe_metadata<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Any>,
+    {
+        self.metadata = v.map(|x| x.into());
         self
     }
 
@@ -456,11 +465,20 @@ impl WaitOperationRequest {
     }
 
     /// Sets the value of [timeout][crate::model::WaitOperationRequest::timeout].
-    pub fn set_timeout<T: std::convert::Into<std::option::Option<wkt::Duration>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.timeout = v.into();
+    pub fn set_timeout<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Duration>,
+    {
+        self.timeout = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [timeout][crate::model::WaitOperationRequest::timeout].
+    pub fn maybe_timeout<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Duration>,
+    {
+        self.timeout = v.map(|x| x.into());
         self
     }
 }

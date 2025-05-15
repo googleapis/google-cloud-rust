@@ -257,73 +257,128 @@ impl Finding {
     }
 
     /// Sets the value of [form][crate::model::Finding::form].
-    pub fn set_form<T: std::convert::Into<std::option::Option<crate::model::Form>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.form = v.into();
+    pub fn set_form<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::Form>,
+    {
+        self.form = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [form][crate::model::Finding::form].
+    pub fn maybe_form<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::Form>,
+    {
+        self.form = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [outdated_library][crate::model::Finding::outdated_library].
-    pub fn set_outdated_library<
-        T: std::convert::Into<std::option::Option<crate::model::OutdatedLibrary>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.outdated_library = v.into();
+    pub fn set_outdated_library<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::OutdatedLibrary>,
+    {
+        self.outdated_library = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [outdated_library][crate::model::Finding::outdated_library].
+    pub fn maybe_outdated_library<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::OutdatedLibrary>,
+    {
+        self.outdated_library = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [violating_resource][crate::model::Finding::violating_resource].
-    pub fn set_violating_resource<
-        T: std::convert::Into<std::option::Option<crate::model::ViolatingResource>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.violating_resource = v.into();
+    pub fn set_violating_resource<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::ViolatingResource>,
+    {
+        self.violating_resource = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [violating_resource][crate::model::Finding::violating_resource].
+    pub fn maybe_violating_resource<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::ViolatingResource>,
+    {
+        self.violating_resource = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [vulnerable_headers][crate::model::Finding::vulnerable_headers].
-    pub fn set_vulnerable_headers<
-        T: std::convert::Into<std::option::Option<crate::model::VulnerableHeaders>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.vulnerable_headers = v.into();
+    pub fn set_vulnerable_headers<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::VulnerableHeaders>,
+    {
+        self.vulnerable_headers = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [vulnerable_headers][crate::model::Finding::vulnerable_headers].
+    pub fn maybe_vulnerable_headers<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::VulnerableHeaders>,
+    {
+        self.vulnerable_headers = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [vulnerable_parameters][crate::model::Finding::vulnerable_parameters].
-    pub fn set_vulnerable_parameters<
-        T: std::convert::Into<std::option::Option<crate::model::VulnerableParameters>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.vulnerable_parameters = v.into();
+    pub fn set_vulnerable_parameters<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::VulnerableParameters>,
+    {
+        self.vulnerable_parameters = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [vulnerable_parameters][crate::model::Finding::vulnerable_parameters].
+    pub fn maybe_vulnerable_parameters<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::VulnerableParameters>,
+    {
+        self.vulnerable_parameters = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [xss][crate::model::Finding::xss].
-    pub fn set_xss<T: std::convert::Into<std::option::Option<crate::model::Xss>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.xss = v.into();
+    pub fn set_xss<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::Xss>,
+    {
+        self.xss = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [xss][crate::model::Finding::xss].
+    pub fn maybe_xss<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::Xss>,
+    {
+        self.xss = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [xxe][crate::model::Finding::xxe].
-    pub fn set_xxe<T: std::convert::Into<std::option::Option<crate::model::Xxe>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.xxe = v.into();
+    pub fn set_xxe<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::Xxe>,
+    {
+        self.xxe = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [xxe][crate::model::Finding::xxe].
+    pub fn maybe_xxe<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::Xxe>,
+    {
+        self.xxe = v.map(|x| x.into());
         self
     }
 }
@@ -1395,13 +1450,20 @@ impl ScanConfig {
     }
 
     /// Sets the value of [authentication][crate::model::ScanConfig::authentication].
-    pub fn set_authentication<
-        T: std::convert::Into<std::option::Option<crate::model::scan_config::Authentication>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.authentication = v.into();
+    pub fn set_authentication<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::scan_config::Authentication>,
+    {
+        self.authentication = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [authentication][crate::model::ScanConfig::authentication].
+    pub fn maybe_authentication<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::scan_config::Authentication>,
+    {
+        self.authentication = v.map(|x| x.into());
         self
     }
 
@@ -1426,13 +1488,20 @@ impl ScanConfig {
     }
 
     /// Sets the value of [schedule][crate::model::ScanConfig::schedule].
-    pub fn set_schedule<
-        T: std::convert::Into<std::option::Option<crate::model::scan_config::Schedule>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.schedule = v.into();
+    pub fn set_schedule<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::scan_config::Schedule>,
+    {
+        self.schedule = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [schedule][crate::model::ScanConfig::schedule].
+    pub fn maybe_schedule<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::scan_config::Schedule>,
+    {
+        self.schedule = v.map(|x| x.into());
         self
     }
 
@@ -1924,11 +1993,20 @@ pub mod scan_config {
         }
 
         /// Sets the value of [schedule_time][crate::model::scan_config::Schedule::schedule_time].
-        pub fn set_schedule_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.schedule_time = v.into();
+        pub fn set_schedule_time<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Timestamp>,
+        {
+            self.schedule_time = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [schedule_time][crate::model::scan_config::Schedule::schedule_time].
+        pub fn maybe_schedule_time<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Timestamp>,
+        {
+            self.schedule_time = v.map(|x| x.into());
             self
         }
 
@@ -2999,20 +3077,38 @@ impl ScanRun {
     }
 
     /// Sets the value of [start_time][crate::model::ScanRun::start_time].
-    pub fn set_start_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.start_time = v.into();
+    pub fn set_start_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.start_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [start_time][crate::model::ScanRun::start_time].
+    pub fn maybe_start_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.start_time = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [end_time][crate::model::ScanRun::end_time].
-    pub fn set_end_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.end_time = v.into();
+    pub fn set_end_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.end_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [end_time][crate::model::ScanRun::end_time].
+    pub fn maybe_end_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.end_time = v.map(|x| x.into());
         self
     }
 
@@ -3041,13 +3137,20 @@ impl ScanRun {
     }
 
     /// Sets the value of [error_trace][crate::model::ScanRun::error_trace].
-    pub fn set_error_trace<
-        T: std::convert::Into<std::option::Option<crate::model::ScanRunErrorTrace>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.error_trace = v.into();
+    pub fn set_error_trace<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::ScanRunErrorTrace>,
+    {
+        self.error_trace = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [error_trace][crate::model::ScanRun::error_trace].
+    pub fn maybe_error_trace<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::ScanRunErrorTrace>,
+    {
+        self.error_trace = v.map(|x| x.into());
         self
     }
 
@@ -3396,13 +3499,20 @@ impl ScanRunErrorTrace {
     }
 
     /// Sets the value of [scan_config_error][crate::model::ScanRunErrorTrace::scan_config_error].
-    pub fn set_scan_config_error<
-        T: std::convert::Into<std::option::Option<crate::model::ScanConfigError>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.scan_config_error = v.into();
+    pub fn set_scan_config_error<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::ScanConfigError>,
+    {
+        self.scan_config_error = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [scan_config_error][crate::model::ScanRunErrorTrace::scan_config_error].
+    pub fn maybe_scan_config_error<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::ScanConfigError>,
+    {
+        self.scan_config_error = v.map(|x| x.into());
         self
     }
 
@@ -3692,13 +3802,20 @@ impl ScanRunLog {
     }
 
     /// Sets the value of [error_trace][crate::model::ScanRunLog::error_trace].
-    pub fn set_error_trace<
-        T: std::convert::Into<std::option::Option<crate::model::ScanRunErrorTrace>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.error_trace = v.into();
+    pub fn set_error_trace<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::ScanRunErrorTrace>,
+    {
+        self.error_trace = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [error_trace][crate::model::ScanRunLog::error_trace].
+    pub fn maybe_error_trace<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::ScanRunErrorTrace>,
+    {
+        self.error_trace = v.map(|x| x.into());
         self
     }
 }
@@ -3946,11 +4063,20 @@ impl CreateScanConfigRequest {
     }
 
     /// Sets the value of [scan_config][crate::model::CreateScanConfigRequest::scan_config].
-    pub fn set_scan_config<T: std::convert::Into<std::option::Option<crate::model::ScanConfig>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.scan_config = v.into();
+    pub fn set_scan_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::ScanConfig>,
+    {
+        self.scan_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [scan_config][crate::model::CreateScanConfigRequest::scan_config].
+    pub fn maybe_scan_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::ScanConfig>,
+    {
+        self.scan_config = v.map(|x| x.into());
         self
     }
 }
@@ -4112,20 +4238,38 @@ impl UpdateScanConfigRequest {
     }
 
     /// Sets the value of [scan_config][crate::model::UpdateScanConfigRequest::scan_config].
-    pub fn set_scan_config<T: std::convert::Into<std::option::Option<crate::model::ScanConfig>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.scan_config = v.into();
+    pub fn set_scan_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::ScanConfig>,
+    {
+        self.scan_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [scan_config][crate::model::UpdateScanConfigRequest::scan_config].
+    pub fn maybe_scan_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::ScanConfig>,
+    {
+        self.scan_config = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateScanConfigRequest::update_mask].
-    pub fn set_update_mask<T: std::convert::Into<std::option::Option<wkt::FieldMask>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.update_mask = v.into();
+    pub fn set_update_mask<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [update_mask][crate::model::UpdateScanConfigRequest::update_mask].
+    pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = v.map(|x| x.into());
         self
     }
 }

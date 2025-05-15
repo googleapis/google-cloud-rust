@@ -356,11 +356,22 @@ pub mod certificate_manager {
         /// Sets the value of [certificate][crate::model::CreateCertificateRequest::certificate].
         ///
         /// This is a **required** field for requests.
-        pub fn set_certificate<T: Into<std::option::Option<crate::model::Certificate>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.certificate = v.into();
+        pub fn set_certificate<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Certificate>,
+        {
+            self.0.request.certificate = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [certificate][crate::model::CreateCertificateRequest::certificate].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_certificate<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Certificate>,
+        {
+            self.0.request.certificate = v.map(|x| x.into());
             self
         }
     }
@@ -465,22 +476,44 @@ pub mod certificate_manager {
         /// Sets the value of [certificate][crate::model::UpdateCertificateRequest::certificate].
         ///
         /// This is a **required** field for requests.
-        pub fn set_certificate<T: Into<std::option::Option<crate::model::Certificate>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.certificate = v.into();
+        pub fn set_certificate<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Certificate>,
+        {
+            self.0.request.certificate = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [certificate][crate::model::UpdateCertificateRequest::certificate].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_certificate<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Certificate>,
+        {
+            self.0.request.certificate = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateCertificateRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [update_mask][crate::model::UpdateCertificateRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -892,11 +925,22 @@ pub mod certificate_manager {
         /// Sets the value of [certificate_map][crate::model::CreateCertificateMapRequest::certificate_map].
         ///
         /// This is a **required** field for requests.
-        pub fn set_certificate_map<T: Into<std::option::Option<crate::model::CertificateMap>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.certificate_map = v.into();
+        pub fn set_certificate_map<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::CertificateMap>,
+        {
+            self.0.request.certificate_map = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [certificate_map][crate::model::CreateCertificateMapRequest::certificate_map].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_certificate_map<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::CertificateMap>,
+        {
+            self.0.request.certificate_map = v.map(|x| x.into());
             self
         }
     }
@@ -1002,22 +1046,44 @@ pub mod certificate_manager {
         /// Sets the value of [certificate_map][crate::model::UpdateCertificateMapRequest::certificate_map].
         ///
         /// This is a **required** field for requests.
-        pub fn set_certificate_map<T: Into<std::option::Option<crate::model::CertificateMap>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.certificate_map = v.into();
+        pub fn set_certificate_map<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::CertificateMap>,
+        {
+            self.0.request.certificate_map = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [certificate_map][crate::model::UpdateCertificateMapRequest::certificate_map].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_certificate_map<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::CertificateMap>,
+        {
+            self.0.request.certificate_map = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateCertificateMapRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [update_mask][crate::model::UpdateCertificateMapRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -1435,13 +1501,22 @@ pub mod certificate_manager {
         /// Sets the value of [certificate_map_entry][crate::model::CreateCertificateMapEntryRequest::certificate_map_entry].
         ///
         /// This is a **required** field for requests.
-        pub fn set_certificate_map_entry<
-            T: Into<std::option::Option<crate::model::CertificateMapEntry>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.certificate_map_entry = v.into();
+        pub fn set_certificate_map_entry<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::CertificateMapEntry>,
+        {
+            self.0.request.certificate_map_entry = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [certificate_map_entry][crate::model::CreateCertificateMapEntryRequest::certificate_map_entry].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_certificate_map_entry<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::CertificateMapEntry>,
+        {
+            self.0.request.certificate_map_entry = v.map(|x| x.into());
             self
         }
     }
@@ -1549,24 +1624,44 @@ pub mod certificate_manager {
         /// Sets the value of [certificate_map_entry][crate::model::UpdateCertificateMapEntryRequest::certificate_map_entry].
         ///
         /// This is a **required** field for requests.
-        pub fn set_certificate_map_entry<
-            T: Into<std::option::Option<crate::model::CertificateMapEntry>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.certificate_map_entry = v.into();
+        pub fn set_certificate_map_entry<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::CertificateMapEntry>,
+        {
+            self.0.request.certificate_map_entry = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [certificate_map_entry][crate::model::UpdateCertificateMapEntryRequest::certificate_map_entry].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_certificate_map_entry<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::CertificateMapEntry>,
+        {
+            self.0.request.certificate_map_entry = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateCertificateMapEntryRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [update_mask][crate::model::UpdateCertificateMapEntryRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -1980,13 +2075,22 @@ pub mod certificate_manager {
         /// Sets the value of [dns_authorization][crate::model::CreateDnsAuthorizationRequest::dns_authorization].
         ///
         /// This is a **required** field for requests.
-        pub fn set_dns_authorization<
-            T: Into<std::option::Option<crate::model::DnsAuthorization>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.dns_authorization = v.into();
+        pub fn set_dns_authorization<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::DnsAuthorization>,
+        {
+            self.0.request.dns_authorization = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [dns_authorization][crate::model::CreateDnsAuthorizationRequest::dns_authorization].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_dns_authorization<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::DnsAuthorization>,
+        {
+            self.0.request.dns_authorization = v.map(|x| x.into());
             self
         }
     }
@@ -2092,24 +2196,44 @@ pub mod certificate_manager {
         /// Sets the value of [dns_authorization][crate::model::UpdateDnsAuthorizationRequest::dns_authorization].
         ///
         /// This is a **required** field for requests.
-        pub fn set_dns_authorization<
-            T: Into<std::option::Option<crate::model::DnsAuthorization>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.dns_authorization = v.into();
+        pub fn set_dns_authorization<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::DnsAuthorization>,
+        {
+            self.0.request.dns_authorization = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [dns_authorization][crate::model::UpdateDnsAuthorizationRequest::dns_authorization].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_dns_authorization<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::DnsAuthorization>,
+        {
+            self.0.request.dns_authorization = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateDnsAuthorizationRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [update_mask][crate::model::UpdateDnsAuthorizationRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -2532,13 +2656,22 @@ pub mod certificate_manager {
         /// Sets the value of [certificate_issuance_config][crate::model::CreateCertificateIssuanceConfigRequest::certificate_issuance_config].
         ///
         /// This is a **required** field for requests.
-        pub fn set_certificate_issuance_config<
-            T: Into<std::option::Option<crate::model::CertificateIssuanceConfig>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.certificate_issuance_config = v.into();
+        pub fn set_certificate_issuance_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::CertificateIssuanceConfig>,
+        {
+            self.0.request.certificate_issuance_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [certificate_issuance_config][crate::model::CreateCertificateIssuanceConfigRequest::certificate_issuance_config].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_certificate_issuance_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::CertificateIssuanceConfig>,
+        {
+            self.0.request.certificate_issuance_config = v.map(|x| x.into());
             self
         }
     }
@@ -2946,11 +3079,22 @@ pub mod certificate_manager {
         /// Sets the value of [trust_config][crate::model::CreateTrustConfigRequest::trust_config].
         ///
         /// This is a **required** field for requests.
-        pub fn set_trust_config<T: Into<std::option::Option<crate::model::TrustConfig>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.trust_config = v.into();
+        pub fn set_trust_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::TrustConfig>,
+        {
+            self.0.request.trust_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [trust_config][crate::model::CreateTrustConfigRequest::trust_config].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_trust_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::TrustConfig>,
+        {
+            self.0.request.trust_config = v.map(|x| x.into());
             self
         }
     }
@@ -3055,22 +3199,44 @@ pub mod certificate_manager {
         /// Sets the value of [trust_config][crate::model::UpdateTrustConfigRequest::trust_config].
         ///
         /// This is a **required** field for requests.
-        pub fn set_trust_config<T: Into<std::option::Option<crate::model::TrustConfig>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.trust_config = v.into();
+        pub fn set_trust_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::TrustConfig>,
+        {
+            self.0.request.trust_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [trust_config][crate::model::UpdateTrustConfigRequest::trust_config].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_trust_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::TrustConfig>,
+        {
+            self.0.request.trust_config = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateTrustConfigRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [update_mask][crate::model::UpdateTrustConfigRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }

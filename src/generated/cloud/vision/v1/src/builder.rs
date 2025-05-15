@@ -353,11 +353,22 @@ pub mod image_annotator {
         /// Sets the value of [output_config][crate::model::AsyncBatchAnnotateImagesRequest::output_config].
         ///
         /// This is a **required** field for requests.
-        pub fn set_output_config<T: Into<std::option::Option<crate::model::OutputConfig>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.output_config = v.into();
+        pub fn set_output_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::OutputConfig>,
+        {
+            self.0.request.output_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [output_config][crate::model::AsyncBatchAnnotateImagesRequest::output_config].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_output_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::OutputConfig>,
+        {
+            self.0.request.output_config = v.map(|x| x.into());
             self
         }
 
@@ -697,11 +708,22 @@ pub mod product_search {
         /// Sets the value of [product_set][crate::model::CreateProductSetRequest::product_set].
         ///
         /// This is a **required** field for requests.
-        pub fn set_product_set<T: Into<std::option::Option<crate::model::ProductSet>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.product_set = v.into();
+        pub fn set_product_set<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::ProductSet>,
+        {
+            self.0.request.product_set = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [product_set][crate::model::CreateProductSetRequest::product_set].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_product_set<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::ProductSet>,
+        {
+            self.0.request.product_set = v.map(|x| x.into());
             self
         }
 
@@ -935,20 +957,40 @@ pub mod product_search {
         /// Sets the value of [product_set][crate::model::UpdateProductSetRequest::product_set].
         ///
         /// This is a **required** field for requests.
-        pub fn set_product_set<T: Into<std::option::Option<crate::model::ProductSet>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.product_set = v.into();
+        pub fn set_product_set<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::ProductSet>,
+        {
+            self.0.request.product_set = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [product_set][crate::model::UpdateProductSetRequest::product_set].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_product_set<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::ProductSet>,
+        {
+            self.0.request.product_set = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateProductSetRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [update_mask][crate::model::UpdateProductSetRequest::update_mask].
+        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -1082,11 +1124,22 @@ pub mod product_search {
         /// Sets the value of [product][crate::model::CreateProductRequest::product].
         ///
         /// This is a **required** field for requests.
-        pub fn set_product<T: Into<std::option::Option<crate::model::Product>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.product = v.into();
+        pub fn set_product<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Product>,
+        {
+            self.0.request.product = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [product][crate::model::CreateProductRequest::product].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_product<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Product>,
+        {
+            self.0.request.product = v.map(|x| x.into());
             self
         }
 
@@ -1317,20 +1370,40 @@ pub mod product_search {
         /// Sets the value of [product][crate::model::UpdateProductRequest::product].
         ///
         /// This is a **required** field for requests.
-        pub fn set_product<T: Into<std::option::Option<crate::model::Product>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.product = v.into();
+        pub fn set_product<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Product>,
+        {
+            self.0.request.product = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [product][crate::model::UpdateProductRequest::product].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_product<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Product>,
+        {
+            self.0.request.product = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateProductRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [update_mask][crate::model::UpdateProductRequest::update_mask].
+        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -1464,11 +1537,22 @@ pub mod product_search {
         /// Sets the value of [reference_image][crate::model::CreateReferenceImageRequest::reference_image].
         ///
         /// This is a **required** field for requests.
-        pub fn set_reference_image<T: Into<std::option::Option<crate::model::ReferenceImage>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.reference_image = v.into();
+        pub fn set_reference_image<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::ReferenceImage>,
+        {
+            self.0.request.reference_image = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [reference_image][crate::model::CreateReferenceImageRequest::reference_image].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_reference_image<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::ReferenceImage>,
+        {
+            self.0.request.reference_image = v.map(|x| x.into());
             self
         }
 
@@ -2086,13 +2170,22 @@ pub mod product_search {
         /// Sets the value of [input_config][crate::model::ImportProductSetsRequest::input_config].
         ///
         /// This is a **required** field for requests.
-        pub fn set_input_config<
-            T: Into<std::option::Option<crate::model::ImportProductSetsInputConfig>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.input_config = v.into();
+        pub fn set_input_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::ImportProductSetsInputConfig>,
+        {
+            self.0.request.input_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [input_config][crate::model::ImportProductSetsRequest::input_config].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_input_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::ImportProductSetsInputConfig>,
+        {
+            self.0.request.input_config = v.map(|x| x.into());
             self
         }
     }

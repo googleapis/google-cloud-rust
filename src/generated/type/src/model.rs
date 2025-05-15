@@ -217,11 +217,20 @@ impl Color {
     }
 
     /// Sets the value of [alpha][crate::model::Color::alpha].
-    pub fn set_alpha<T: std::convert::Into<std::option::Option<wkt::FloatValue>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.alpha = v.into();
+    pub fn set_alpha<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::FloatValue>,
+    {
+        self.alpha = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [alpha][crate::model::Color::alpha].
+    pub fn maybe_alpha<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::FloatValue>,
+    {
+        self.alpha = v.map(|x| x.into());
         self
     }
 }
@@ -847,20 +856,38 @@ impl Interval {
     }
 
     /// Sets the value of [start_time][crate::model::Interval::start_time].
-    pub fn set_start_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.start_time = v.into();
+    pub fn set_start_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.start_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [start_time][crate::model::Interval::start_time].
+    pub fn maybe_start_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.start_time = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [end_time][crate::model::Interval::end_time].
-    pub fn set_end_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.end_time = v.into();
+    pub fn set_end_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.end_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [end_time][crate::model::Interval::end_time].
+    pub fn maybe_end_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.end_time = v.map(|x| x.into());
         self
     }
 }

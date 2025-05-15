@@ -88,20 +88,38 @@ impl ClientConnectorService {
     }
 
     /// Sets the value of [create_time][crate::model::ClientConnectorService::create_time].
-    pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.create_time = v.into();
+    pub fn set_create_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [create_time][crate::model::ClientConnectorService::create_time].
+    pub fn maybe_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [update_time][crate::model::ClientConnectorService::update_time].
-    pub fn set_update_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.update_time = v.into();
+    pub fn set_update_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [update_time][crate::model::ClientConnectorService::update_time].
+    pub fn maybe_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = v.map(|x| x.into());
         self
     }
 
@@ -112,24 +130,38 @@ impl ClientConnectorService {
     }
 
     /// Sets the value of [ingress][crate::model::ClientConnectorService::ingress].
-    pub fn set_ingress<
-        T: std::convert::Into<std::option::Option<crate::model::client_connector_service::Ingress>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.ingress = v.into();
+    pub fn set_ingress<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::client_connector_service::Ingress>,
+    {
+        self.ingress = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [ingress][crate::model::ClientConnectorService::ingress].
+    pub fn maybe_ingress<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::client_connector_service::Ingress>,
+    {
+        self.ingress = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [egress][crate::model::ClientConnectorService::egress].
-    pub fn set_egress<
-        T: std::convert::Into<std::option::Option<crate::model::client_connector_service::Egress>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.egress = v.into();
+    pub fn set_egress<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::client_connector_service::Egress>,
+    {
+        self.egress = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [egress][crate::model::ClientConnectorService::egress].
+    pub fn maybe_egress<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::client_connector_service::Egress>,
+    {
+        self.egress = v.map(|x| x.into());
         self
     }
 
@@ -1043,13 +1075,20 @@ impl CreateClientConnectorServiceRequest {
     }
 
     /// Sets the value of [client_connector_service][crate::model::CreateClientConnectorServiceRequest::client_connector_service].
-    pub fn set_client_connector_service<
-        T: std::convert::Into<std::option::Option<crate::model::ClientConnectorService>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.client_connector_service = v.into();
+    pub fn set_client_connector_service<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::ClientConnectorService>,
+    {
+        self.client_connector_service = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [client_connector_service][crate::model::CreateClientConnectorServiceRequest::client_connector_service].
+    pub fn maybe_client_connector_service<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::ClientConnectorService>,
+    {
+        self.client_connector_service = v.map(|x| x.into());
         self
     }
 
@@ -1127,22 +1166,38 @@ impl UpdateClientConnectorServiceRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateClientConnectorServiceRequest::update_mask].
-    pub fn set_update_mask<T: std::convert::Into<std::option::Option<wkt::FieldMask>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.update_mask = v.into();
+    pub fn set_update_mask<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [update_mask][crate::model::UpdateClientConnectorServiceRequest::update_mask].
+    pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [client_connector_service][crate::model::UpdateClientConnectorServiceRequest::client_connector_service].
-    pub fn set_client_connector_service<
-        T: std::convert::Into<std::option::Option<crate::model::ClientConnectorService>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.client_connector_service = v.into();
+    pub fn set_client_connector_service<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::ClientConnectorService>,
+    {
+        self.client_connector_service = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [client_connector_service][crate::model::UpdateClientConnectorServiceRequest::client_connector_service].
+    pub fn maybe_client_connector_service<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::ClientConnectorService>,
+    {
+        self.client_connector_service = v.map(|x| x.into());
         self
     }
 
@@ -1286,20 +1341,38 @@ impl ClientConnectorServiceOperationMetadata {
     }
 
     /// Sets the value of [create_time][crate::model::ClientConnectorServiceOperationMetadata::create_time].
-    pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.create_time = v.into();
+    pub fn set_create_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [create_time][crate::model::ClientConnectorServiceOperationMetadata::create_time].
+    pub fn maybe_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [end_time][crate::model::ClientConnectorServiceOperationMetadata::end_time].
-    pub fn set_end_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.end_time = v.into();
+    pub fn set_end_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.end_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [end_time][crate::model::ClientConnectorServiceOperationMetadata::end_time].
+    pub fn maybe_end_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.end_time = v.map(|x| x.into());
         self
     }
 

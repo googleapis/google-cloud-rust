@@ -51,24 +51,38 @@ impl DriveAddOnManifest {
     }
 
     /// Sets the value of [homepage_trigger][crate::model::DriveAddOnManifest::homepage_trigger].
-    pub fn set_homepage_trigger<
-        T: std::convert::Into<std::option::Option<apps_script_type::model::HomepageExtensionPoint>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.homepage_trigger = v.into();
+    pub fn set_homepage_trigger<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<apps_script_type::model::HomepageExtensionPoint>,
+    {
+        self.homepage_trigger = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [homepage_trigger][crate::model::DriveAddOnManifest::homepage_trigger].
+    pub fn maybe_homepage_trigger<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<apps_script_type::model::HomepageExtensionPoint>,
+    {
+        self.homepage_trigger = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [on_items_selected_trigger][crate::model::DriveAddOnManifest::on_items_selected_trigger].
-    pub fn set_on_items_selected_trigger<
-        T: std::convert::Into<std::option::Option<crate::model::DriveExtensionPoint>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.on_items_selected_trigger = v.into();
+    pub fn set_on_items_selected_trigger<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::DriveExtensionPoint>,
+    {
+        self.on_items_selected_trigger = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [on_items_selected_trigger][crate::model::DriveAddOnManifest::on_items_selected_trigger].
+    pub fn maybe_on_items_selected_trigger<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::DriveExtensionPoint>,
+    {
+        self.on_items_selected_trigger = v.map(|x| x.into());
         self
     }
 }

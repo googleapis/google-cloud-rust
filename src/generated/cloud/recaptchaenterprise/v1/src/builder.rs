@@ -128,11 +128,22 @@ pub mod recaptcha_enterprise_service {
         /// Sets the value of [assessment][crate::model::CreateAssessmentRequest::assessment].
         ///
         /// This is a **required** field for requests.
-        pub fn set_assessment<T: Into<std::option::Option<crate::model::Assessment>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.assessment = v.into();
+        pub fn set_assessment<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Assessment>,
+        {
+            self.0.request.assessment = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [assessment][crate::model::CreateAssessmentRequest::assessment].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_assessment<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Assessment>,
+        {
+            self.0.request.assessment = v.map(|x| x.into());
             self
         }
     }
@@ -234,13 +245,20 @@ pub mod recaptcha_enterprise_service {
         }
 
         /// Sets the value of [transaction_event][crate::model::AnnotateAssessmentRequest::transaction_event].
-        pub fn set_transaction_event<
-            T: Into<std::option::Option<crate::model::TransactionEvent>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.transaction_event = v.into();
+        pub fn set_transaction_event<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::TransactionEvent>,
+        {
+            self.0.request.transaction_event = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [transaction_event][crate::model::AnnotateAssessmentRequest::transaction_event].
+        pub fn maybe_transaction_event<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::TransactionEvent>,
+        {
+            self.0.request.transaction_event = v.map(|x| x.into());
             self
         }
     }
@@ -309,8 +327,22 @@ pub mod recaptcha_enterprise_service {
         /// Sets the value of [key][crate::model::CreateKeyRequest::key].
         ///
         /// This is a **required** field for requests.
-        pub fn set_key<T: Into<std::option::Option<crate::model::Key>>>(mut self, v: T) -> Self {
-            self.0.request.key = v.into();
+        pub fn set_key<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Key>,
+        {
+            self.0.request.key = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [key][crate::model::CreateKeyRequest::key].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_key<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Key>,
+        {
+            self.0.request.key = v.map(|x| x.into());
             self
         }
     }
@@ -602,17 +634,40 @@ pub mod recaptcha_enterprise_service {
         /// Sets the value of [key][crate::model::UpdateKeyRequest::key].
         ///
         /// This is a **required** field for requests.
-        pub fn set_key<T: Into<std::option::Option<crate::model::Key>>>(mut self, v: T) -> Self {
-            self.0.request.key = v.into();
+        pub fn set_key<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Key>,
+        {
+            self.0.request.key = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [key][crate::model::UpdateKeyRequest::key].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_key<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Key>,
+        {
+            self.0.request.key = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateKeyRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [update_mask][crate::model::UpdateKeyRequest::update_mask].
+        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -811,11 +866,22 @@ pub mod recaptcha_enterprise_service {
         /// Sets the value of [ip_override_data][crate::model::AddIpOverrideRequest::ip_override_data].
         ///
         /// This is a **required** field for requests.
-        pub fn set_ip_override_data<T: Into<std::option::Option<crate::model::IpOverrideData>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.ip_override_data = v.into();
+        pub fn set_ip_override_data<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::IpOverrideData>,
+        {
+            self.0.request.ip_override_data = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [ip_override_data][crate::model::AddIpOverrideRequest::ip_override_data].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_ip_override_data<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::IpOverrideData>,
+        {
+            self.0.request.ip_override_data = v.map(|x| x.into());
             self
         }
     }
@@ -887,11 +953,22 @@ pub mod recaptcha_enterprise_service {
         /// Sets the value of [ip_override_data][crate::model::RemoveIpOverrideRequest::ip_override_data].
         ///
         /// This is a **required** field for requests.
-        pub fn set_ip_override_data<T: Into<std::option::Option<crate::model::IpOverrideData>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.ip_override_data = v.into();
+        pub fn set_ip_override_data<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::IpOverrideData>,
+        {
+            self.0.request.ip_override_data = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [ip_override_data][crate::model::RemoveIpOverrideRequest::ip_override_data].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_ip_override_data<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::IpOverrideData>,
+        {
+            self.0.request.ip_override_data = v.map(|x| x.into());
             self
         }
     }
@@ -1127,11 +1204,22 @@ pub mod recaptcha_enterprise_service {
         /// Sets the value of [firewall_policy][crate::model::CreateFirewallPolicyRequest::firewall_policy].
         ///
         /// This is a **required** field for requests.
-        pub fn set_firewall_policy<T: Into<std::option::Option<crate::model::FirewallPolicy>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.firewall_policy = v.into();
+        pub fn set_firewall_policy<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::FirewallPolicy>,
+        {
+            self.0.request.firewall_policy = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [firewall_policy][crate::model::CreateFirewallPolicyRequest::firewall_policy].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_firewall_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::FirewallPolicy>,
+        {
+            self.0.request.firewall_policy = v.map(|x| x.into());
             self
         }
     }
@@ -1367,20 +1455,40 @@ pub mod recaptcha_enterprise_service {
         /// Sets the value of [firewall_policy][crate::model::UpdateFirewallPolicyRequest::firewall_policy].
         ///
         /// This is a **required** field for requests.
-        pub fn set_firewall_policy<T: Into<std::option::Option<crate::model::FirewallPolicy>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.firewall_policy = v.into();
+        pub fn set_firewall_policy<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::FirewallPolicy>,
+        {
+            self.0.request.firewall_policy = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [firewall_policy][crate::model::UpdateFirewallPolicyRequest::firewall_policy].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_firewall_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::FirewallPolicy>,
+        {
+            self.0.request.firewall_policy = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateFirewallPolicyRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [update_mask][crate::model::UpdateFirewallPolicyRequest::update_mask].
+        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }

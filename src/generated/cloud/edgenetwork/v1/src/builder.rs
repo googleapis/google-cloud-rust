@@ -648,11 +648,22 @@ pub mod edge_network {
         /// Sets the value of [network][crate::model::CreateNetworkRequest::network].
         ///
         /// This is a **required** field for requests.
-        pub fn set_network<T: Into<std::option::Option<crate::model::Network>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.network = v.into();
+        pub fn set_network<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Network>,
+        {
+            self.0.request.network = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [network][crate::model::CreateNetworkRequest::network].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_network<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Network>,
+        {
+            self.0.request.network = v.map(|x| x.into());
             self
         }
 
@@ -1059,11 +1070,22 @@ pub mod edge_network {
         /// Sets the value of [subnet][crate::model::CreateSubnetRequest::subnet].
         ///
         /// This is a **required** field for requests.
-        pub fn set_subnet<T: Into<std::option::Option<crate::model::Subnet>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.subnet = v.into();
+        pub fn set_subnet<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Subnet>,
+        {
+            self.0.request.subnet = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [subnet][crate::model::CreateSubnetRequest::subnet].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_subnet<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Subnet>,
+        {
+            self.0.request.subnet = v.map(|x| x.into());
             self
         }
 
@@ -1169,22 +1191,44 @@ pub mod edge_network {
         /// Sets the value of [update_mask][crate::model::UpdateSubnetRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [update_mask][crate::model::UpdateSubnetRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [subnet][crate::model::UpdateSubnetRequest::subnet].
         ///
         /// This is a **required** field for requests.
-        pub fn set_subnet<T: Into<std::option::Option<crate::model::Subnet>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.subnet = v.into();
+        pub fn set_subnet<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Subnet>,
+        {
+            self.0.request.subnet = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [subnet][crate::model::UpdateSubnetRequest::subnet].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_subnet<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Subnet>,
+        {
+            self.0.request.subnet = v.map(|x| x.into());
             self
         }
 
@@ -1860,13 +1904,22 @@ pub mod edge_network {
         /// Sets the value of [interconnect_attachment][crate::model::CreateInterconnectAttachmentRequest::interconnect_attachment].
         ///
         /// This is a **required** field for requests.
-        pub fn set_interconnect_attachment<
-            T: Into<std::option::Option<crate::model::InterconnectAttachment>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.interconnect_attachment = v.into();
+        pub fn set_interconnect_attachment<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::InterconnectAttachment>,
+        {
+            self.0.request.interconnect_attachment = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [interconnect_attachment][crate::model::CreateInterconnectAttachmentRequest::interconnect_attachment].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_interconnect_attachment<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::InterconnectAttachment>,
+        {
+            self.0.request.interconnect_attachment = v.map(|x| x.into());
             self
         }
 
@@ -2340,11 +2393,22 @@ pub mod edge_network {
         /// Sets the value of [router][crate::model::CreateRouterRequest::router].
         ///
         /// This is a **required** field for requests.
-        pub fn set_router<T: Into<std::option::Option<crate::model::Router>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.router = v.into();
+        pub fn set_router<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Router>,
+        {
+            self.0.request.router = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [router][crate::model::CreateRouterRequest::router].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_router<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Router>,
+        {
+            self.0.request.router = v.map(|x| x.into());
             self
         }
 
@@ -2450,22 +2514,44 @@ pub mod edge_network {
         /// Sets the value of [update_mask][crate::model::UpdateRouterRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [update_mask][crate::model::UpdateRouterRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [router][crate::model::UpdateRouterRequest::router].
         ///
         /// This is a **required** field for requests.
-        pub fn set_router<T: Into<std::option::Option<crate::model::Router>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.router = v.into();
+        pub fn set_router<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Router>,
+        {
+            self.0.request.router = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [router][crate::model::UpdateRouterRequest::router].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_router<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Router>,
+        {
+            self.0.request.router = v.map(|x| x.into());
             self
         }
 

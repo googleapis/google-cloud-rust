@@ -75,20 +75,38 @@ pub mod storage {
         }
 
         /// Sets the value of [if_metageneration_match][crate::model::DeleteBucketRequest::if_metageneration_match].
-        pub fn set_if_metageneration_match<T: Into<std::option::Option<i64>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.if_metageneration_match = v.into();
+        pub fn set_if_metageneration_match<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<i64>,
+        {
+            self.0.request.if_metageneration_match = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [if_metageneration_match][crate::model::DeleteBucketRequest::if_metageneration_match].
+        pub fn maybe_if_metageneration_match<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<i64>,
+        {
+            self.0.request.if_metageneration_match = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [if_metageneration_not_match][crate::model::DeleteBucketRequest::if_metageneration_not_match].
-        pub fn set_if_metageneration_not_match<T: Into<std::option::Option<i64>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.if_metageneration_not_match = v.into();
+        pub fn set_if_metageneration_not_match<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<i64>,
+        {
+            self.0.request.if_metageneration_not_match = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [if_metageneration_not_match][crate::model::DeleteBucketRequest::if_metageneration_not_match].
+        pub fn maybe_if_metageneration_not_match<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<i64>,
+        {
+            self.0.request.if_metageneration_not_match = v.map(|x| x.into());
             self
         }
     }
@@ -137,26 +155,56 @@ pub mod storage {
         }
 
         /// Sets the value of [if_metageneration_match][crate::model::GetBucketRequest::if_metageneration_match].
-        pub fn set_if_metageneration_match<T: Into<std::option::Option<i64>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.if_metageneration_match = v.into();
+        pub fn set_if_metageneration_match<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<i64>,
+        {
+            self.0.request.if_metageneration_match = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [if_metageneration_match][crate::model::GetBucketRequest::if_metageneration_match].
+        pub fn maybe_if_metageneration_match<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<i64>,
+        {
+            self.0.request.if_metageneration_match = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [if_metageneration_not_match][crate::model::GetBucketRequest::if_metageneration_not_match].
-        pub fn set_if_metageneration_not_match<T: Into<std::option::Option<i64>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.if_metageneration_not_match = v.into();
+        pub fn set_if_metageneration_not_match<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<i64>,
+        {
+            self.0.request.if_metageneration_not_match = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [if_metageneration_not_match][crate::model::GetBucketRequest::if_metageneration_not_match].
+        pub fn maybe_if_metageneration_not_match<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<i64>,
+        {
+            self.0.request.if_metageneration_not_match = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [read_mask][crate::model::GetBucketRequest::read_mask].
-        pub fn set_read_mask<T: Into<std::option::Option<wkt::FieldMask>>>(mut self, v: T) -> Self {
-            self.0.request.read_mask = v.into();
+        pub fn set_read_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.read_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [read_mask][crate::model::GetBucketRequest::read_mask].
+        pub fn maybe_read_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.read_mask = v.map(|x| x.into());
             self
         }
     }
@@ -205,11 +253,20 @@ pub mod storage {
         }
 
         /// Sets the value of [bucket][crate::model::CreateBucketRequest::bucket].
-        pub fn set_bucket<T: Into<std::option::Option<crate::model::Bucket>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.bucket = v.into();
+        pub fn set_bucket<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Bucket>,
+        {
+            self.0.request.bucket = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [bucket][crate::model::CreateBucketRequest::bucket].
+        pub fn maybe_bucket<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Bucket>,
+        {
+            self.0.request.bucket = v.map(|x| x.into());
             self
         }
 
@@ -323,8 +380,20 @@ pub mod storage {
         }
 
         /// Sets the value of [read_mask][crate::model::ListBucketsRequest::read_mask].
-        pub fn set_read_mask<T: Into<std::option::Option<wkt::FieldMask>>>(mut self, v: T) -> Self {
-            self.0.request.read_mask = v.into();
+        pub fn set_read_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.read_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [read_mask][crate::model::ListBucketsRequest::read_mask].
+        pub fn maybe_read_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.read_mask = v.map(|x| x.into());
             self
         }
     }
@@ -430,11 +499,20 @@ pub mod storage {
         }
 
         /// Sets the value of [options][iam_v1::model::GetIamPolicyRequest::options].
-        pub fn set_options<T: Into<std::option::Option<iam_v1::model::GetPolicyOptions>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.options = v.into();
+        pub fn set_options<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        pub fn maybe_options<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = v.map(|x| x.into());
             self
         }
     }
@@ -485,20 +563,40 @@ pub mod storage {
         /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
-        pub fn set_policy<T: Into<std::option::Option<iam_v1::model::Policy>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.policy = v.into();
+        pub fn set_policy<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -601,29 +699,58 @@ pub mod storage {
         /// Sets the value of [bucket][crate::model::UpdateBucketRequest::bucket].
         ///
         /// This is a **required** field for requests.
-        pub fn set_bucket<T: Into<std::option::Option<crate::model::Bucket>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.bucket = v.into();
+        pub fn set_bucket<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Bucket>,
+        {
+            self.0.request.bucket = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [bucket][crate::model::UpdateBucketRequest::bucket].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_bucket<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Bucket>,
+        {
+            self.0.request.bucket = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [if_metageneration_match][crate::model::UpdateBucketRequest::if_metageneration_match].
-        pub fn set_if_metageneration_match<T: Into<std::option::Option<i64>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.if_metageneration_match = v.into();
+        pub fn set_if_metageneration_match<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<i64>,
+        {
+            self.0.request.if_metageneration_match = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [if_metageneration_match][crate::model::UpdateBucketRequest::if_metageneration_match].
+        pub fn maybe_if_metageneration_match<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<i64>,
+        {
+            self.0.request.if_metageneration_match = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [if_metageneration_not_match][crate::model::UpdateBucketRequest::if_metageneration_not_match].
-        pub fn set_if_metageneration_not_match<T: Into<std::option::Option<i64>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.if_metageneration_not_match = v.into();
+        pub fn set_if_metageneration_not_match<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<i64>,
+        {
+            self.0.request.if_metageneration_not_match = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [if_metageneration_not_match][crate::model::UpdateBucketRequest::if_metageneration_not_match].
+        pub fn maybe_if_metageneration_not_match<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<i64>,
+        {
+            self.0.request.if_metageneration_not_match = v.map(|x| x.into());
             self
         }
 
@@ -645,11 +772,22 @@ pub mod storage {
         /// Sets the value of [update_mask][crate::model::UpdateBucketRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [update_mask][crate::model::UpdateBucketRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -692,11 +830,22 @@ pub mod storage {
         /// Sets the value of [destination][crate::model::ComposeObjectRequest::destination].
         ///
         /// This is a **required** field for requests.
-        pub fn set_destination<T: Into<std::option::Option<crate::model::Object>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.destination = v.into();
+        pub fn set_destination<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Object>,
+        {
+            self.0.request.destination = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [destination][crate::model::ComposeObjectRequest::destination].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_destination<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Object>,
+        {
+            self.0.request.destination = v.map(|x| x.into());
             self
         }
 
@@ -721,17 +870,38 @@ pub mod storage {
         }
 
         /// Sets the value of [if_generation_match][crate::model::ComposeObjectRequest::if_generation_match].
-        pub fn set_if_generation_match<T: Into<std::option::Option<i64>>>(mut self, v: T) -> Self {
-            self.0.request.if_generation_match = v.into();
+        pub fn set_if_generation_match<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<i64>,
+        {
+            self.0.request.if_generation_match = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [if_generation_match][crate::model::ComposeObjectRequest::if_generation_match].
+        pub fn maybe_if_generation_match<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<i64>,
+        {
+            self.0.request.if_generation_match = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [if_metageneration_match][crate::model::ComposeObjectRequest::if_metageneration_match].
-        pub fn set_if_metageneration_match<T: Into<std::option::Option<i64>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.if_metageneration_match = v.into();
+        pub fn set_if_metageneration_match<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<i64>,
+        {
+            self.0.request.if_metageneration_match = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [if_metageneration_match][crate::model::ComposeObjectRequest::if_metageneration_match].
+        pub fn maybe_if_metageneration_match<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<i64>,
+        {
+            self.0.request.if_metageneration_match = v.map(|x| x.into());
             self
         }
 
@@ -742,22 +912,38 @@ pub mod storage {
         }
 
         /// Sets the value of [common_object_request_params][crate::model::ComposeObjectRequest::common_object_request_params].
-        pub fn set_common_object_request_params<
-            T: Into<std::option::Option<crate::model::CommonObjectRequestParams>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.common_object_request_params = v.into();
+        pub fn set_common_object_request_params<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::CommonObjectRequestParams>,
+        {
+            self.0.request.common_object_request_params = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [common_object_request_params][crate::model::ComposeObjectRequest::common_object_request_params].
+        pub fn maybe_common_object_request_params<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::CommonObjectRequestParams>,
+        {
+            self.0.request.common_object_request_params = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [object_checksums][crate::model::ComposeObjectRequest::object_checksums].
-        pub fn set_object_checksums<T: Into<std::option::Option<crate::model::ObjectChecksums>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.object_checksums = v.into();
+        pub fn set_object_checksums<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::ObjectChecksums>,
+        {
+            self.0.request.object_checksums = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [object_checksums][crate::model::ComposeObjectRequest::object_checksums].
+        pub fn maybe_object_checksums<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::ObjectChecksums>,
+        {
+            self.0.request.object_checksums = v.map(|x| x.into());
             self
         }
     }
@@ -820,46 +1006,92 @@ pub mod storage {
         }
 
         /// Sets the value of [if_generation_match][crate::model::DeleteObjectRequest::if_generation_match].
-        pub fn set_if_generation_match<T: Into<std::option::Option<i64>>>(mut self, v: T) -> Self {
-            self.0.request.if_generation_match = v.into();
+        pub fn set_if_generation_match<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<i64>,
+        {
+            self.0.request.if_generation_match = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [if_generation_match][crate::model::DeleteObjectRequest::if_generation_match].
+        pub fn maybe_if_generation_match<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<i64>,
+        {
+            self.0.request.if_generation_match = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [if_generation_not_match][crate::model::DeleteObjectRequest::if_generation_not_match].
-        pub fn set_if_generation_not_match<T: Into<std::option::Option<i64>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.if_generation_not_match = v.into();
+        pub fn set_if_generation_not_match<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<i64>,
+        {
+            self.0.request.if_generation_not_match = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [if_generation_not_match][crate::model::DeleteObjectRequest::if_generation_not_match].
+        pub fn maybe_if_generation_not_match<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<i64>,
+        {
+            self.0.request.if_generation_not_match = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [if_metageneration_match][crate::model::DeleteObjectRequest::if_metageneration_match].
-        pub fn set_if_metageneration_match<T: Into<std::option::Option<i64>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.if_metageneration_match = v.into();
+        pub fn set_if_metageneration_match<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<i64>,
+        {
+            self.0.request.if_metageneration_match = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [if_metageneration_match][crate::model::DeleteObjectRequest::if_metageneration_match].
+        pub fn maybe_if_metageneration_match<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<i64>,
+        {
+            self.0.request.if_metageneration_match = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [if_metageneration_not_match][crate::model::DeleteObjectRequest::if_metageneration_not_match].
-        pub fn set_if_metageneration_not_match<T: Into<std::option::Option<i64>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.if_metageneration_not_match = v.into();
+        pub fn set_if_metageneration_not_match<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<i64>,
+        {
+            self.0.request.if_metageneration_not_match = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [if_metageneration_not_match][crate::model::DeleteObjectRequest::if_metageneration_not_match].
+        pub fn maybe_if_metageneration_not_match<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<i64>,
+        {
+            self.0.request.if_metageneration_not_match = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [common_object_request_params][crate::model::DeleteObjectRequest::common_object_request_params].
-        pub fn set_common_object_request_params<
-            T: Into<std::option::Option<crate::model::CommonObjectRequestParams>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.common_object_request_params = v.into();
+        pub fn set_common_object_request_params<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::CommonObjectRequestParams>,
+        {
+            self.0.request.common_object_request_params = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [common_object_request_params][crate::model::DeleteObjectRequest::common_object_request_params].
+        pub fn maybe_common_object_request_params<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::CommonObjectRequestParams>,
+        {
+            self.0.request.common_object_request_params = v.map(|x| x.into());
             self
         }
     }
@@ -930,52 +1162,110 @@ pub mod storage {
         }
 
         /// Sets the value of [if_generation_match][crate::model::RestoreObjectRequest::if_generation_match].
-        pub fn set_if_generation_match<T: Into<std::option::Option<i64>>>(mut self, v: T) -> Self {
-            self.0.request.if_generation_match = v.into();
+        pub fn set_if_generation_match<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<i64>,
+        {
+            self.0.request.if_generation_match = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [if_generation_match][crate::model::RestoreObjectRequest::if_generation_match].
+        pub fn maybe_if_generation_match<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<i64>,
+        {
+            self.0.request.if_generation_match = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [if_generation_not_match][crate::model::RestoreObjectRequest::if_generation_not_match].
-        pub fn set_if_generation_not_match<T: Into<std::option::Option<i64>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.if_generation_not_match = v.into();
+        pub fn set_if_generation_not_match<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<i64>,
+        {
+            self.0.request.if_generation_not_match = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [if_generation_not_match][crate::model::RestoreObjectRequest::if_generation_not_match].
+        pub fn maybe_if_generation_not_match<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<i64>,
+        {
+            self.0.request.if_generation_not_match = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [if_metageneration_match][crate::model::RestoreObjectRequest::if_metageneration_match].
-        pub fn set_if_metageneration_match<T: Into<std::option::Option<i64>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.if_metageneration_match = v.into();
+        pub fn set_if_metageneration_match<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<i64>,
+        {
+            self.0.request.if_metageneration_match = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [if_metageneration_match][crate::model::RestoreObjectRequest::if_metageneration_match].
+        pub fn maybe_if_metageneration_match<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<i64>,
+        {
+            self.0.request.if_metageneration_match = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [if_metageneration_not_match][crate::model::RestoreObjectRequest::if_metageneration_not_match].
-        pub fn set_if_metageneration_not_match<T: Into<std::option::Option<i64>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.if_metageneration_not_match = v.into();
+        pub fn set_if_metageneration_not_match<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<i64>,
+        {
+            self.0.request.if_metageneration_not_match = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [if_metageneration_not_match][crate::model::RestoreObjectRequest::if_metageneration_not_match].
+        pub fn maybe_if_metageneration_not_match<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<i64>,
+        {
+            self.0.request.if_metageneration_not_match = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [copy_source_acl][crate::model::RestoreObjectRequest::copy_source_acl].
-        pub fn set_copy_source_acl<T: Into<std::option::Option<bool>>>(mut self, v: T) -> Self {
-            self.0.request.copy_source_acl = v.into();
+        pub fn set_copy_source_acl<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<bool>,
+        {
+            self.0.request.copy_source_acl = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [copy_source_acl][crate::model::RestoreObjectRequest::copy_source_acl].
+        pub fn maybe_copy_source_acl<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<bool>,
+        {
+            self.0.request.copy_source_acl = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [common_object_request_params][crate::model::RestoreObjectRequest::common_object_request_params].
-        pub fn set_common_object_request_params<
-            T: Into<std::option::Option<crate::model::CommonObjectRequestParams>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.common_object_request_params = v.into();
+        pub fn set_common_object_request_params<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::CommonObjectRequestParams>,
+        {
+            self.0.request.common_object_request_params = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [common_object_request_params][crate::model::RestoreObjectRequest::common_object_request_params].
+        pub fn maybe_common_object_request_params<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::CommonObjectRequestParams>,
+        {
+            self.0.request.common_object_request_params = v.map(|x| x.into());
             self
         }
     }
@@ -1038,58 +1328,128 @@ pub mod storage {
         }
 
         /// Sets the value of [soft_deleted][crate::model::GetObjectRequest::soft_deleted].
-        pub fn set_soft_deleted<T: Into<std::option::Option<bool>>>(mut self, v: T) -> Self {
-            self.0.request.soft_deleted = v.into();
+        pub fn set_soft_deleted<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<bool>,
+        {
+            self.0.request.soft_deleted = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [soft_deleted][crate::model::GetObjectRequest::soft_deleted].
+        pub fn maybe_soft_deleted<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<bool>,
+        {
+            self.0.request.soft_deleted = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [if_generation_match][crate::model::GetObjectRequest::if_generation_match].
-        pub fn set_if_generation_match<T: Into<std::option::Option<i64>>>(mut self, v: T) -> Self {
-            self.0.request.if_generation_match = v.into();
+        pub fn set_if_generation_match<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<i64>,
+        {
+            self.0.request.if_generation_match = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [if_generation_match][crate::model::GetObjectRequest::if_generation_match].
+        pub fn maybe_if_generation_match<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<i64>,
+        {
+            self.0.request.if_generation_match = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [if_generation_not_match][crate::model::GetObjectRequest::if_generation_not_match].
-        pub fn set_if_generation_not_match<T: Into<std::option::Option<i64>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.if_generation_not_match = v.into();
+        pub fn set_if_generation_not_match<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<i64>,
+        {
+            self.0.request.if_generation_not_match = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [if_generation_not_match][crate::model::GetObjectRequest::if_generation_not_match].
+        pub fn maybe_if_generation_not_match<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<i64>,
+        {
+            self.0.request.if_generation_not_match = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [if_metageneration_match][crate::model::GetObjectRequest::if_metageneration_match].
-        pub fn set_if_metageneration_match<T: Into<std::option::Option<i64>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.if_metageneration_match = v.into();
+        pub fn set_if_metageneration_match<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<i64>,
+        {
+            self.0.request.if_metageneration_match = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [if_metageneration_match][crate::model::GetObjectRequest::if_metageneration_match].
+        pub fn maybe_if_metageneration_match<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<i64>,
+        {
+            self.0.request.if_metageneration_match = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [if_metageneration_not_match][crate::model::GetObjectRequest::if_metageneration_not_match].
-        pub fn set_if_metageneration_not_match<T: Into<std::option::Option<i64>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.if_metageneration_not_match = v.into();
+        pub fn set_if_metageneration_not_match<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<i64>,
+        {
+            self.0.request.if_metageneration_not_match = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [if_metageneration_not_match][crate::model::GetObjectRequest::if_metageneration_not_match].
+        pub fn maybe_if_metageneration_not_match<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<i64>,
+        {
+            self.0.request.if_metageneration_not_match = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [common_object_request_params][crate::model::GetObjectRequest::common_object_request_params].
-        pub fn set_common_object_request_params<
-            T: Into<std::option::Option<crate::model::CommonObjectRequestParams>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.common_object_request_params = v.into();
+        pub fn set_common_object_request_params<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::CommonObjectRequestParams>,
+        {
+            self.0.request.common_object_request_params = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [common_object_request_params][crate::model::GetObjectRequest::common_object_request_params].
+        pub fn maybe_common_object_request_params<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::CommonObjectRequestParams>,
+        {
+            self.0.request.common_object_request_params = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [read_mask][crate::model::GetObjectRequest::read_mask].
-        pub fn set_read_mask<T: Into<std::option::Option<wkt::FieldMask>>>(mut self, v: T) -> Self {
-            self.0.request.read_mask = v.into();
+        pub fn set_read_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.read_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [read_mask][crate::model::GetObjectRequest::read_mask].
+        pub fn maybe_read_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.read_mask = v.map(|x| x.into());
             self
         }
 
@@ -1138,44 +1498,94 @@ pub mod storage {
         /// Sets the value of [object][crate::model::UpdateObjectRequest::object].
         ///
         /// This is a **required** field for requests.
-        pub fn set_object<T: Into<std::option::Option<crate::model::Object>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.object = v.into();
+        pub fn set_object<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Object>,
+        {
+            self.0.request.object = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [object][crate::model::UpdateObjectRequest::object].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_object<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Object>,
+        {
+            self.0.request.object = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [if_generation_match][crate::model::UpdateObjectRequest::if_generation_match].
-        pub fn set_if_generation_match<T: Into<std::option::Option<i64>>>(mut self, v: T) -> Self {
-            self.0.request.if_generation_match = v.into();
+        pub fn set_if_generation_match<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<i64>,
+        {
+            self.0.request.if_generation_match = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [if_generation_match][crate::model::UpdateObjectRequest::if_generation_match].
+        pub fn maybe_if_generation_match<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<i64>,
+        {
+            self.0.request.if_generation_match = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [if_generation_not_match][crate::model::UpdateObjectRequest::if_generation_not_match].
-        pub fn set_if_generation_not_match<T: Into<std::option::Option<i64>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.if_generation_not_match = v.into();
+        pub fn set_if_generation_not_match<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<i64>,
+        {
+            self.0.request.if_generation_not_match = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [if_generation_not_match][crate::model::UpdateObjectRequest::if_generation_not_match].
+        pub fn maybe_if_generation_not_match<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<i64>,
+        {
+            self.0.request.if_generation_not_match = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [if_metageneration_match][crate::model::UpdateObjectRequest::if_metageneration_match].
-        pub fn set_if_metageneration_match<T: Into<std::option::Option<i64>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.if_metageneration_match = v.into();
+        pub fn set_if_metageneration_match<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<i64>,
+        {
+            self.0.request.if_metageneration_match = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [if_metageneration_match][crate::model::UpdateObjectRequest::if_metageneration_match].
+        pub fn maybe_if_metageneration_match<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<i64>,
+        {
+            self.0.request.if_metageneration_match = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [if_metageneration_not_match][crate::model::UpdateObjectRequest::if_metageneration_not_match].
-        pub fn set_if_metageneration_not_match<T: Into<std::option::Option<i64>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.if_metageneration_not_match = v.into();
+        pub fn set_if_metageneration_not_match<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<i64>,
+        {
+            self.0.request.if_metageneration_not_match = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [if_metageneration_not_match][crate::model::UpdateObjectRequest::if_metageneration_not_match].
+        pub fn maybe_if_metageneration_not_match<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<i64>,
+        {
+            self.0.request.if_metageneration_not_match = v.map(|x| x.into());
             self
         }
 
@@ -1188,22 +1598,40 @@ pub mod storage {
         /// Sets the value of [update_mask][crate::model::UpdateObjectRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [update_mask][crate::model::UpdateObjectRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [common_object_request_params][crate::model::UpdateObjectRequest::common_object_request_params].
-        pub fn set_common_object_request_params<
-            T: Into<std::option::Option<crate::model::CommonObjectRequestParams>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.common_object_request_params = v.into();
+        pub fn set_common_object_request_params<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::CommonObjectRequestParams>,
+        {
+            self.0.request.common_object_request_params = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [common_object_request_params][crate::model::UpdateObjectRequest::common_object_request_params].
+        pub fn maybe_common_object_request_params<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::CommonObjectRequestParams>,
+        {
+            self.0.request.common_object_request_params = v.map(|x| x.into());
             self
         }
     }
@@ -1312,8 +1740,20 @@ pub mod storage {
         }
 
         /// Sets the value of [read_mask][crate::model::ListObjectsRequest::read_mask].
-        pub fn set_read_mask<T: Into<std::option::Option<wkt::FieldMask>>>(mut self, v: T) -> Self {
-            self.0.request.read_mask = v.into();
+        pub fn set_read_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.read_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [read_mask][crate::model::ListObjectsRequest::read_mask].
+        pub fn maybe_read_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.read_mask = v.map(|x| x.into());
             self
         }
 
@@ -1406,11 +1846,20 @@ pub mod storage {
         }
 
         /// Sets the value of [destination][crate::model::RewriteObjectRequest::destination].
-        pub fn set_destination<T: Into<std::option::Option<crate::model::Object>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.destination = v.into();
+        pub fn set_destination<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Object>,
+        {
+            self.0.request.destination = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [destination][crate::model::RewriteObjectRequest::destination].
+        pub fn maybe_destination<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Object>,
+        {
+            self.0.request.destination = v.map(|x| x.into());
             self
         }
 
@@ -1452,71 +1901,149 @@ pub mod storage {
         }
 
         /// Sets the value of [if_generation_match][crate::model::RewriteObjectRequest::if_generation_match].
-        pub fn set_if_generation_match<T: Into<std::option::Option<i64>>>(mut self, v: T) -> Self {
-            self.0.request.if_generation_match = v.into();
+        pub fn set_if_generation_match<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<i64>,
+        {
+            self.0.request.if_generation_match = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [if_generation_match][crate::model::RewriteObjectRequest::if_generation_match].
+        pub fn maybe_if_generation_match<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<i64>,
+        {
+            self.0.request.if_generation_match = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [if_generation_not_match][crate::model::RewriteObjectRequest::if_generation_not_match].
-        pub fn set_if_generation_not_match<T: Into<std::option::Option<i64>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.if_generation_not_match = v.into();
+        pub fn set_if_generation_not_match<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<i64>,
+        {
+            self.0.request.if_generation_not_match = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [if_generation_not_match][crate::model::RewriteObjectRequest::if_generation_not_match].
+        pub fn maybe_if_generation_not_match<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<i64>,
+        {
+            self.0.request.if_generation_not_match = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [if_metageneration_match][crate::model::RewriteObjectRequest::if_metageneration_match].
-        pub fn set_if_metageneration_match<T: Into<std::option::Option<i64>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.if_metageneration_match = v.into();
+        pub fn set_if_metageneration_match<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<i64>,
+        {
+            self.0.request.if_metageneration_match = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [if_metageneration_match][crate::model::RewriteObjectRequest::if_metageneration_match].
+        pub fn maybe_if_metageneration_match<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<i64>,
+        {
+            self.0.request.if_metageneration_match = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [if_metageneration_not_match][crate::model::RewriteObjectRequest::if_metageneration_not_match].
-        pub fn set_if_metageneration_not_match<T: Into<std::option::Option<i64>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.if_metageneration_not_match = v.into();
+        pub fn set_if_metageneration_not_match<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<i64>,
+        {
+            self.0.request.if_metageneration_not_match = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [if_metageneration_not_match][crate::model::RewriteObjectRequest::if_metageneration_not_match].
+        pub fn maybe_if_metageneration_not_match<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<i64>,
+        {
+            self.0.request.if_metageneration_not_match = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [if_source_generation_match][crate::model::RewriteObjectRequest::if_source_generation_match].
-        pub fn set_if_source_generation_match<T: Into<std::option::Option<i64>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.if_source_generation_match = v.into();
+        pub fn set_if_source_generation_match<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<i64>,
+        {
+            self.0.request.if_source_generation_match = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [if_source_generation_match][crate::model::RewriteObjectRequest::if_source_generation_match].
+        pub fn maybe_if_source_generation_match<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<i64>,
+        {
+            self.0.request.if_source_generation_match = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [if_source_generation_not_match][crate::model::RewriteObjectRequest::if_source_generation_not_match].
-        pub fn set_if_source_generation_not_match<T: Into<std::option::Option<i64>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.if_source_generation_not_match = v.into();
+        pub fn set_if_source_generation_not_match<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<i64>,
+        {
+            self.0.request.if_source_generation_not_match = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [if_source_generation_not_match][crate::model::RewriteObjectRequest::if_source_generation_not_match].
+        pub fn maybe_if_source_generation_not_match<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<i64>,
+        {
+            self.0.request.if_source_generation_not_match = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [if_source_metageneration_match][crate::model::RewriteObjectRequest::if_source_metageneration_match].
-        pub fn set_if_source_metageneration_match<T: Into<std::option::Option<i64>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.if_source_metageneration_match = v.into();
+        pub fn set_if_source_metageneration_match<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<i64>,
+        {
+            self.0.request.if_source_metageneration_match = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [if_source_metageneration_match][crate::model::RewriteObjectRequest::if_source_metageneration_match].
+        pub fn maybe_if_source_metageneration_match<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<i64>,
+        {
+            self.0.request.if_source_metageneration_match = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [if_source_metageneration_not_match][crate::model::RewriteObjectRequest::if_source_metageneration_not_match].
-        pub fn set_if_source_metageneration_not_match<T: Into<std::option::Option<i64>>>(
+        pub fn set_if_source_metageneration_not_match<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<i64>,
+        {
+            self.0.request.if_source_metageneration_not_match = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [if_source_metageneration_not_match][crate::model::RewriteObjectRequest::if_source_metageneration_not_match].
+        pub fn maybe_if_source_metageneration_not_match<T>(
             mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.if_source_metageneration_not_match = v.into();
+            v: std::option::Option<T>,
+        ) -> Self
+        where
+            T: std::convert::Into<i64>,
+        {
+            self.0.request.if_source_metageneration_not_match = v.map(|x| x.into());
             self
         }
 
@@ -1554,22 +2081,38 @@ pub mod storage {
         }
 
         /// Sets the value of [common_object_request_params][crate::model::RewriteObjectRequest::common_object_request_params].
-        pub fn set_common_object_request_params<
-            T: Into<std::option::Option<crate::model::CommonObjectRequestParams>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.common_object_request_params = v.into();
+        pub fn set_common_object_request_params<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::CommonObjectRequestParams>,
+        {
+            self.0.request.common_object_request_params = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [common_object_request_params][crate::model::RewriteObjectRequest::common_object_request_params].
+        pub fn maybe_common_object_request_params<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::CommonObjectRequestParams>,
+        {
+            self.0.request.common_object_request_params = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [object_checksums][crate::model::RewriteObjectRequest::object_checksums].
-        pub fn set_object_checksums<T: Into<std::option::Option<crate::model::ObjectChecksums>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.object_checksums = v.into();
+        pub fn set_object_checksums<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::ObjectChecksums>,
+        {
+            self.0.request.object_checksums = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [object_checksums][crate::model::RewriteObjectRequest::object_checksums].
+        pub fn maybe_object_checksums<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::ObjectChecksums>,
+        {
+            self.0.request.object_checksums = v.map(|x| x.into());
             self
         }
     }
@@ -1634,71 +2177,149 @@ pub mod storage {
         }
 
         /// Sets the value of [if_source_generation_match][crate::model::MoveObjectRequest::if_source_generation_match].
-        pub fn set_if_source_generation_match<T: Into<std::option::Option<i64>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.if_source_generation_match = v.into();
+        pub fn set_if_source_generation_match<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<i64>,
+        {
+            self.0.request.if_source_generation_match = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [if_source_generation_match][crate::model::MoveObjectRequest::if_source_generation_match].
+        pub fn maybe_if_source_generation_match<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<i64>,
+        {
+            self.0.request.if_source_generation_match = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [if_source_generation_not_match][crate::model::MoveObjectRequest::if_source_generation_not_match].
-        pub fn set_if_source_generation_not_match<T: Into<std::option::Option<i64>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.if_source_generation_not_match = v.into();
+        pub fn set_if_source_generation_not_match<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<i64>,
+        {
+            self.0.request.if_source_generation_not_match = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [if_source_generation_not_match][crate::model::MoveObjectRequest::if_source_generation_not_match].
+        pub fn maybe_if_source_generation_not_match<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<i64>,
+        {
+            self.0.request.if_source_generation_not_match = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [if_source_metageneration_match][crate::model::MoveObjectRequest::if_source_metageneration_match].
-        pub fn set_if_source_metageneration_match<T: Into<std::option::Option<i64>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.if_source_metageneration_match = v.into();
+        pub fn set_if_source_metageneration_match<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<i64>,
+        {
+            self.0.request.if_source_metageneration_match = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [if_source_metageneration_match][crate::model::MoveObjectRequest::if_source_metageneration_match].
+        pub fn maybe_if_source_metageneration_match<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<i64>,
+        {
+            self.0.request.if_source_metageneration_match = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [if_source_metageneration_not_match][crate::model::MoveObjectRequest::if_source_metageneration_not_match].
-        pub fn set_if_source_metageneration_not_match<T: Into<std::option::Option<i64>>>(
+        pub fn set_if_source_metageneration_not_match<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<i64>,
+        {
+            self.0.request.if_source_metageneration_not_match = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [if_source_metageneration_not_match][crate::model::MoveObjectRequest::if_source_metageneration_not_match].
+        pub fn maybe_if_source_metageneration_not_match<T>(
             mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.if_source_metageneration_not_match = v.into();
+            v: std::option::Option<T>,
+        ) -> Self
+        where
+            T: std::convert::Into<i64>,
+        {
+            self.0.request.if_source_metageneration_not_match = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [if_generation_match][crate::model::MoveObjectRequest::if_generation_match].
-        pub fn set_if_generation_match<T: Into<std::option::Option<i64>>>(mut self, v: T) -> Self {
-            self.0.request.if_generation_match = v.into();
+        pub fn set_if_generation_match<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<i64>,
+        {
+            self.0.request.if_generation_match = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [if_generation_match][crate::model::MoveObjectRequest::if_generation_match].
+        pub fn maybe_if_generation_match<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<i64>,
+        {
+            self.0.request.if_generation_match = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [if_generation_not_match][crate::model::MoveObjectRequest::if_generation_not_match].
-        pub fn set_if_generation_not_match<T: Into<std::option::Option<i64>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.if_generation_not_match = v.into();
+        pub fn set_if_generation_not_match<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<i64>,
+        {
+            self.0.request.if_generation_not_match = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [if_generation_not_match][crate::model::MoveObjectRequest::if_generation_not_match].
+        pub fn maybe_if_generation_not_match<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<i64>,
+        {
+            self.0.request.if_generation_not_match = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [if_metageneration_match][crate::model::MoveObjectRequest::if_metageneration_match].
-        pub fn set_if_metageneration_match<T: Into<std::option::Option<i64>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.if_metageneration_match = v.into();
+        pub fn set_if_metageneration_match<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<i64>,
+        {
+            self.0.request.if_metageneration_match = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [if_metageneration_match][crate::model::MoveObjectRequest::if_metageneration_match].
+        pub fn maybe_if_metageneration_match<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<i64>,
+        {
+            self.0.request.if_metageneration_match = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [if_metageneration_not_match][crate::model::MoveObjectRequest::if_metageneration_not_match].
-        pub fn set_if_metageneration_not_match<T: Into<std::option::Option<i64>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.if_metageneration_not_match = v.into();
+        pub fn set_if_metageneration_not_match<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<i64>,
+        {
+            self.0.request.if_metageneration_not_match = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [if_metageneration_not_match][crate::model::MoveObjectRequest::if_metageneration_not_match].
+        pub fn maybe_if_metageneration_not_match<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<i64>,
+        {
+            self.0.request.if_metageneration_not_match = v.map(|x| x.into());
             self
         }
     }

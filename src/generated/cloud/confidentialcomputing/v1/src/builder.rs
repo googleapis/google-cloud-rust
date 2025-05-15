@@ -125,11 +125,22 @@ pub mod confidential_computing {
         /// Sets the value of [challenge][crate::model::CreateChallengeRequest::challenge].
         ///
         /// This is a **required** field for requests.
-        pub fn set_challenge<T: Into<std::option::Option<crate::model::Challenge>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.challenge = v.into();
+        pub fn set_challenge<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Challenge>,
+        {
+            self.0.request.challenge = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [challenge][crate::model::CreateChallengeRequest::challenge].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_challenge<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Challenge>,
+        {
+            self.0.request.challenge = v.map(|x| x.into());
             self
         }
     }
@@ -199,42 +210,78 @@ pub mod confidential_computing {
         }
 
         /// Sets the value of [gcp_credentials][crate::model::VerifyAttestationRequest::gcp_credentials].
-        pub fn set_gcp_credentials<T: Into<std::option::Option<crate::model::GcpCredentials>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.gcp_credentials = v.into();
+        pub fn set_gcp_credentials<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::GcpCredentials>,
+        {
+            self.0.request.gcp_credentials = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [gcp_credentials][crate::model::VerifyAttestationRequest::gcp_credentials].
+        pub fn maybe_gcp_credentials<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::GcpCredentials>,
+        {
+            self.0.request.gcp_credentials = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [tpm_attestation][crate::model::VerifyAttestationRequest::tpm_attestation].
         ///
         /// This is a **required** field for requests.
-        pub fn set_tpm_attestation<T: Into<std::option::Option<crate::model::TpmAttestation>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.tpm_attestation = v.into();
+        pub fn set_tpm_attestation<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::TpmAttestation>,
+        {
+            self.0.request.tpm_attestation = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [tpm_attestation][crate::model::VerifyAttestationRequest::tpm_attestation].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_tpm_attestation<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::TpmAttestation>,
+        {
+            self.0.request.tpm_attestation = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [confidential_space_info][crate::model::VerifyAttestationRequest::confidential_space_info].
-        pub fn set_confidential_space_info<
-            T: Into<std::option::Option<crate::model::ConfidentialSpaceInfo>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.confidential_space_info = v.into();
+        pub fn set_confidential_space_info<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::ConfidentialSpaceInfo>,
+        {
+            self.0.request.confidential_space_info = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [confidential_space_info][crate::model::VerifyAttestationRequest::confidential_space_info].
+        pub fn maybe_confidential_space_info<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::ConfidentialSpaceInfo>,
+        {
+            self.0.request.confidential_space_info = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [token_options][crate::model::VerifyAttestationRequest::token_options].
-        pub fn set_token_options<T: Into<std::option::Option<crate::model::TokenOptions>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.token_options = v.into();
+        pub fn set_token_options<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::TokenOptions>,
+        {
+            self.0.request.token_options = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [token_options][crate::model::VerifyAttestationRequest::token_options].
+        pub fn maybe_token_options<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::TokenOptions>,
+        {
+            self.0.request.token_options = v.map(|x| x.into());
             self
         }
 

@@ -348,11 +348,22 @@ pub mod api_gateway_service {
         /// Sets the value of [gateway][crate::model::CreateGatewayRequest::gateway].
         ///
         /// This is a **required** field for requests.
-        pub fn set_gateway<T: Into<std::option::Option<crate::model::Gateway>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.gateway = v.into();
+        pub fn set_gateway<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Gateway>,
+        {
+            self.0.request.gateway = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [gateway][crate::model::CreateGatewayRequest::gateway].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_gateway<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Gateway>,
+        {
+            self.0.request.gateway = v.map(|x| x.into());
             self
         }
     }
@@ -450,22 +461,42 @@ pub mod api_gateway_service {
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateGatewayRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [update_mask][crate::model::UpdateGatewayRequest::update_mask].
+        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [gateway][crate::model::UpdateGatewayRequest::gateway].
         ///
         /// This is a **required** field for requests.
-        pub fn set_gateway<T: Into<std::option::Option<crate::model::Gateway>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.gateway = v.into();
+        pub fn set_gateway<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Gateway>,
+        {
+            self.0.request.gateway = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [gateway][crate::model::UpdateGatewayRequest::gateway].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_gateway<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Gateway>,
+        {
+            self.0.request.gateway = v.map(|x| x.into());
             self
         }
     }
@@ -860,8 +891,22 @@ pub mod api_gateway_service {
         /// Sets the value of [api][crate::model::CreateApiRequest::api].
         ///
         /// This is a **required** field for requests.
-        pub fn set_api<T: Into<std::option::Option<crate::model::Api>>>(mut self, v: T) -> Self {
-            self.0.request.api = v.into();
+        pub fn set_api<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Api>,
+        {
+            self.0.request.api = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [api][crate::model::CreateApiRequest::api].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_api<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Api>,
+        {
+            self.0.request.api = v.map(|x| x.into());
             self
         }
     }
@@ -959,19 +1004,42 @@ pub mod api_gateway_service {
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateApiRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [update_mask][crate::model::UpdateApiRequest::update_mask].
+        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [api][crate::model::UpdateApiRequest::api].
         ///
         /// This is a **required** field for requests.
-        pub fn set_api<T: Into<std::option::Option<crate::model::Api>>>(mut self, v: T) -> Self {
-            self.0.request.api = v.into();
+        pub fn set_api<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Api>,
+        {
+            self.0.request.api = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [api][crate::model::UpdateApiRequest::api].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_api<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Api>,
+        {
+            self.0.request.api = v.map(|x| x.into());
             self
         }
     }
@@ -1375,11 +1443,22 @@ pub mod api_gateway_service {
         /// Sets the value of [api_config][crate::model::CreateApiConfigRequest::api_config].
         ///
         /// This is a **required** field for requests.
-        pub fn set_api_config<T: Into<std::option::Option<crate::model::ApiConfig>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.api_config = v.into();
+        pub fn set_api_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::ApiConfig>,
+        {
+            self.0.request.api_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [api_config][crate::model::CreateApiConfigRequest::api_config].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_api_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::ApiConfig>,
+        {
+            self.0.request.api_config = v.map(|x| x.into());
             self
         }
     }
@@ -1477,22 +1556,42 @@ pub mod api_gateway_service {
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateApiConfigRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [update_mask][crate::model::UpdateApiConfigRequest::update_mask].
+        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [api_config][crate::model::UpdateApiConfigRequest::api_config].
         ///
         /// This is a **required** field for requests.
-        pub fn set_api_config<T: Into<std::option::Option<crate::model::ApiConfig>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.api_config = v.into();
+        pub fn set_api_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::ApiConfig>,
+        {
+            self.0.request.api_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [api_config][crate::model::UpdateApiConfigRequest::api_config].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_api_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::ApiConfig>,
+        {
+            self.0.request.api_config = v.map(|x| x.into());
             self
         }
     }

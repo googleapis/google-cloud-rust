@@ -169,11 +169,22 @@ pub mod dataset_service {
         /// Sets the value of [dataset][crate::model::CreateDatasetRequest::dataset].
         ///
         /// This is a **required** field for requests.
-        pub fn set_dataset<T: Into<std::option::Option<crate::model::Dataset>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.dataset = v.into();
+        pub fn set_dataset<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Dataset>,
+        {
+            self.0.request.dataset = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [dataset][crate::model::CreateDatasetRequest::dataset].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_dataset<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Dataset>,
+        {
+            self.0.request.dataset = v.map(|x| x.into());
             self
         }
     }
@@ -240,8 +251,20 @@ pub mod dataset_service {
         }
 
         /// Sets the value of [read_mask][crate::model::GetDatasetRequest::read_mask].
-        pub fn set_read_mask<T: Into<std::option::Option<wkt::FieldMask>>>(mut self, v: T) -> Self {
-            self.0.request.read_mask = v.into();
+        pub fn set_read_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.read_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [read_mask][crate::model::GetDatasetRequest::read_mask].
+        pub fn maybe_read_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.read_mask = v.map(|x| x.into());
             self
         }
     }
@@ -302,22 +325,44 @@ pub mod dataset_service {
         /// Sets the value of [dataset][crate::model::UpdateDatasetRequest::dataset].
         ///
         /// This is a **required** field for requests.
-        pub fn set_dataset<T: Into<std::option::Option<crate::model::Dataset>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.dataset = v.into();
+        pub fn set_dataset<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Dataset>,
+        {
+            self.0.request.dataset = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [dataset][crate::model::UpdateDatasetRequest::dataset].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_dataset<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Dataset>,
+        {
+            self.0.request.dataset = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateDatasetRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [update_mask][crate::model::UpdateDatasetRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -430,8 +475,20 @@ pub mod dataset_service {
         }
 
         /// Sets the value of [read_mask][crate::model::ListDatasetsRequest::read_mask].
-        pub fn set_read_mask<T: Into<std::option::Option<wkt::FieldMask>>>(mut self, v: T) -> Self {
-            self.0.request.read_mask = v.into();
+        pub fn set_read_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.read_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [read_mask][crate::model::ListDatasetsRequest::read_mask].
+        pub fn maybe_read_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.read_mask = v.map(|x| x.into());
             self
         }
 
@@ -769,11 +826,22 @@ pub mod dataset_service {
         /// Sets the value of [export_config][crate::model::ExportDataRequest::export_config].
         ///
         /// This is a **required** field for requests.
-        pub fn set_export_config<T: Into<std::option::Option<crate::model::ExportDataConfig>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.export_config = v.into();
+        pub fn set_export_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::ExportDataConfig>,
+        {
+            self.0.request.export_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [export_config][crate::model::ExportDataRequest::export_config].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_export_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::ExportDataConfig>,
+        {
+            self.0.request.export_config = v.map(|x| x.into());
             self
         }
     }
@@ -889,11 +957,22 @@ pub mod dataset_service {
         /// Sets the value of [dataset_version][crate::model::CreateDatasetVersionRequest::dataset_version].
         ///
         /// This is a **required** field for requests.
-        pub fn set_dataset_version<T: Into<std::option::Option<crate::model::DatasetVersion>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.dataset_version = v.into();
+        pub fn set_dataset_version<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::DatasetVersion>,
+        {
+            self.0.request.dataset_version = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [dataset_version][crate::model::CreateDatasetVersionRequest::dataset_version].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_dataset_version<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::DatasetVersion>,
+        {
+            self.0.request.dataset_version = v.map(|x| x.into());
             self
         }
     }
@@ -957,22 +1036,44 @@ pub mod dataset_service {
         /// Sets the value of [dataset_version][crate::model::UpdateDatasetVersionRequest::dataset_version].
         ///
         /// This is a **required** field for requests.
-        pub fn set_dataset_version<T: Into<std::option::Option<crate::model::DatasetVersion>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.dataset_version = v.into();
+        pub fn set_dataset_version<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::DatasetVersion>,
+        {
+            self.0.request.dataset_version = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [dataset_version][crate::model::UpdateDatasetVersionRequest::dataset_version].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_dataset_version<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::DatasetVersion>,
+        {
+            self.0.request.dataset_version = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateDatasetVersionRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [update_mask][crate::model::UpdateDatasetVersionRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -1149,8 +1250,20 @@ pub mod dataset_service {
         }
 
         /// Sets the value of [read_mask][crate::model::GetDatasetVersionRequest::read_mask].
-        pub fn set_read_mask<T: Into<std::option::Option<wkt::FieldMask>>>(mut self, v: T) -> Self {
-            self.0.request.read_mask = v.into();
+        pub fn set_read_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.read_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [read_mask][crate::model::GetDatasetVersionRequest::read_mask].
+        pub fn maybe_read_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.read_mask = v.map(|x| x.into());
             self
         }
     }
@@ -1268,8 +1381,20 @@ pub mod dataset_service {
         }
 
         /// Sets the value of [read_mask][crate::model::ListDatasetVersionsRequest::read_mask].
-        pub fn set_read_mask<T: Into<std::option::Option<wkt::FieldMask>>>(mut self, v: T) -> Self {
-            self.0.request.read_mask = v.into();
+        pub fn set_read_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.read_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [read_mask][crate::model::ListDatasetVersionsRequest::read_mask].
+        pub fn maybe_read_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.read_mask = v.map(|x| x.into());
             self
         }
 
@@ -1497,8 +1622,20 @@ pub mod dataset_service {
         }
 
         /// Sets the value of [read_mask][crate::model::ListDataItemsRequest::read_mask].
-        pub fn set_read_mask<T: Into<std::option::Option<wkt::FieldMask>>>(mut self, v: T) -> Self {
-            self.0.request.read_mask = v.into();
+        pub fn set_read_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.read_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [read_mask][crate::model::ListDataItemsRequest::read_mask].
+        pub fn maybe_read_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.read_mask = v.map(|x| x.into());
             self
         }
 
@@ -1636,11 +1773,20 @@ pub mod dataset_service {
         }
 
         /// Sets the value of [field_mask][crate::model::SearchDataItemsRequest::field_mask].
-        pub fn set_field_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.field_mask = v.into();
+        pub fn set_field_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.field_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [field_mask][crate::model::SearchDataItemsRequest::field_mask].
+        pub fn maybe_field_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.field_mask = v.map(|x| x.into());
             self
         }
 
@@ -1823,8 +1969,20 @@ pub mod dataset_service {
         }
 
         /// Sets the value of [read_mask][crate::model::ListSavedQueriesRequest::read_mask].
-        pub fn set_read_mask<T: Into<std::option::Option<wkt::FieldMask>>>(mut self, v: T) -> Self {
-            self.0.request.read_mask = v.into();
+        pub fn set_read_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.read_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [read_mask][crate::model::ListSavedQueriesRequest::read_mask].
+        pub fn maybe_read_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.read_mask = v.map(|x| x.into());
             self
         }
 
@@ -2007,8 +2165,20 @@ pub mod dataset_service {
         }
 
         /// Sets the value of [read_mask][crate::model::GetAnnotationSpecRequest::read_mask].
-        pub fn set_read_mask<T: Into<std::option::Option<wkt::FieldMask>>>(mut self, v: T) -> Self {
-            self.0.request.read_mask = v.into();
+        pub fn set_read_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.read_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [read_mask][crate::model::GetAnnotationSpecRequest::read_mask].
+        pub fn maybe_read_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.read_mask = v.map(|x| x.into());
             self
         }
     }
@@ -2121,8 +2291,20 @@ pub mod dataset_service {
         }
 
         /// Sets the value of [read_mask][crate::model::ListAnnotationsRequest::read_mask].
-        pub fn set_read_mask<T: Into<std::option::Option<wkt::FieldMask>>>(mut self, v: T) -> Self {
-            self.0.request.read_mask = v.into();
+        pub fn set_read_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.read_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [read_mask][crate::model::ListAnnotationsRequest::read_mask].
+        pub fn maybe_read_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.read_mask = v.map(|x| x.into());
             self
         }
 
@@ -2366,20 +2548,40 @@ pub mod dataset_service {
         /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
-        pub fn set_policy<T: Into<std::option::Option<iam_v1::model::Policy>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.policy = v.into();
+        pub fn set_policy<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -2446,11 +2648,20 @@ pub mod dataset_service {
         }
 
         /// Sets the value of [options][iam_v1::model::GetIamPolicyRequest::options].
-        pub fn set_options<T: Into<std::option::Option<iam_v1::model::GetPolicyOptions>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.options = v.into();
+        pub fn set_options<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        pub fn maybe_options<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = v.map(|x| x.into());
             self
         }
     }
@@ -2896,8 +3107,20 @@ pub mod dataset_service {
         }
 
         /// Sets the value of [timeout][longrunning::model::WaitOperationRequest::timeout].
-        pub fn set_timeout<T: Into<std::option::Option<wkt::Duration>>>(mut self, v: T) -> Self {
-            self.0.request.timeout = v.into();
+        pub fn set_timeout<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Duration>,
+        {
+            self.0.request.timeout = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [timeout][longrunning::model::WaitOperationRequest::timeout].
+        pub fn maybe_timeout<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Duration>,
+        {
+            self.0.request.timeout = v.map(|x| x.into());
             self
         }
     }
@@ -3072,13 +3295,22 @@ pub mod deployment_resource_pool_service {
         /// Sets the value of [deployment_resource_pool][crate::model::CreateDeploymentResourcePoolRequest::deployment_resource_pool].
         ///
         /// This is a **required** field for requests.
-        pub fn set_deployment_resource_pool<
-            T: Into<std::option::Option<crate::model::DeploymentResourcePool>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.deployment_resource_pool = v.into();
+        pub fn set_deployment_resource_pool<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::DeploymentResourcePool>,
+        {
+            self.0.request.deployment_resource_pool = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [deployment_resource_pool][crate::model::CreateDeploymentResourcePoolRequest::deployment_resource_pool].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_deployment_resource_pool<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::DeploymentResourcePool>,
+        {
+            self.0.request.deployment_resource_pool = v.map(|x| x.into());
             self
         }
 
@@ -3377,24 +3609,44 @@ pub mod deployment_resource_pool_service {
         /// Sets the value of [deployment_resource_pool][crate::model::UpdateDeploymentResourcePoolRequest::deployment_resource_pool].
         ///
         /// This is a **required** field for requests.
-        pub fn set_deployment_resource_pool<
-            T: Into<std::option::Option<crate::model::DeploymentResourcePool>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.deployment_resource_pool = v.into();
+        pub fn set_deployment_resource_pool<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::DeploymentResourcePool>,
+        {
+            self.0.request.deployment_resource_pool = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [deployment_resource_pool][crate::model::UpdateDeploymentResourcePoolRequest::deployment_resource_pool].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_deployment_resource_pool<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::DeploymentResourcePool>,
+        {
+            self.0.request.deployment_resource_pool = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateDeploymentResourcePoolRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [update_mask][crate::model::UpdateDeploymentResourcePoolRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -3848,20 +4100,40 @@ pub mod deployment_resource_pool_service {
         /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
-        pub fn set_policy<T: Into<std::option::Option<iam_v1::model::Policy>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.policy = v.into();
+        pub fn set_policy<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -3928,11 +4200,20 @@ pub mod deployment_resource_pool_service {
         }
 
         /// Sets the value of [options][iam_v1::model::GetIamPolicyRequest::options].
-        pub fn set_options<T: Into<std::option::Option<iam_v1::model::GetPolicyOptions>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.options = v.into();
+        pub fn set_options<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        pub fn maybe_options<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = v.map(|x| x.into());
             self
         }
     }
@@ -4378,8 +4659,20 @@ pub mod deployment_resource_pool_service {
         }
 
         /// Sets the value of [timeout][longrunning::model::WaitOperationRequest::timeout].
-        pub fn set_timeout<T: Into<std::option::Option<wkt::Duration>>>(mut self, v: T) -> Self {
-            self.0.request.timeout = v.into();
+        pub fn set_timeout<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Duration>,
+        {
+            self.0.request.timeout = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [timeout][longrunning::model::WaitOperationRequest::timeout].
+        pub fn maybe_timeout<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Duration>,
+        {
+            self.0.request.timeout = v.map(|x| x.into());
             self
         }
     }
@@ -4547,11 +4840,22 @@ pub mod endpoint_service {
         /// Sets the value of [endpoint][crate::model::CreateEndpointRequest::endpoint].
         ///
         /// This is a **required** field for requests.
-        pub fn set_endpoint<T: Into<std::option::Option<crate::model::Endpoint>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.endpoint = v.into();
+        pub fn set_endpoint<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Endpoint>,
+        {
+            self.0.request.endpoint = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [endpoint][crate::model::CreateEndpointRequest::endpoint].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_endpoint<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Endpoint>,
+        {
+            self.0.request.endpoint = v.map(|x| x.into());
             self
         }
 
@@ -4732,8 +5036,20 @@ pub mod endpoint_service {
         }
 
         /// Sets the value of [read_mask][crate::model::ListEndpointsRequest::read_mask].
-        pub fn set_read_mask<T: Into<std::option::Option<wkt::FieldMask>>>(mut self, v: T) -> Self {
-            self.0.request.read_mask = v.into();
+        pub fn set_read_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.read_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [read_mask][crate::model::ListEndpointsRequest::read_mask].
+        pub fn maybe_read_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.read_mask = v.map(|x| x.into());
             self
         }
 
@@ -4800,22 +5116,44 @@ pub mod endpoint_service {
         /// Sets the value of [endpoint][crate::model::UpdateEndpointRequest::endpoint].
         ///
         /// This is a **required** field for requests.
-        pub fn set_endpoint<T: Into<std::option::Option<crate::model::Endpoint>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.endpoint = v.into();
+        pub fn set_endpoint<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Endpoint>,
+        {
+            self.0.request.endpoint = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [endpoint][crate::model::UpdateEndpointRequest::endpoint].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_endpoint<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Endpoint>,
+        {
+            self.0.request.endpoint = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateEndpointRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [update_mask][crate::model::UpdateEndpointRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -4923,11 +5261,22 @@ pub mod endpoint_service {
         /// Sets the value of [endpoint][crate::model::UpdateEndpointLongRunningRequest::endpoint].
         ///
         /// This is a **required** field for requests.
-        pub fn set_endpoint<T: Into<std::option::Option<crate::model::Endpoint>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.endpoint = v.into();
+        pub fn set_endpoint<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Endpoint>,
+        {
+            self.0.request.endpoint = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [endpoint][crate::model::UpdateEndpointLongRunningRequest::endpoint].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_endpoint<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Endpoint>,
+        {
+            self.0.request.endpoint = v.map(|x| x.into());
             self
         }
     }
@@ -5144,11 +5493,22 @@ pub mod endpoint_service {
         /// Sets the value of [deployed_model][crate::model::DeployModelRequest::deployed_model].
         ///
         /// This is a **required** field for requests.
-        pub fn set_deployed_model<T: Into<std::option::Option<crate::model::DeployedModel>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.deployed_model = v.into();
+        pub fn set_deployed_model<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::DeployedModel>,
+        {
+            self.0.request.deployed_model = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [deployed_model][crate::model::DeployModelRequest::deployed_model].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_deployed_model<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::DeployedModel>,
+        {
+            self.0.request.deployed_model = v.map(|x| x.into());
             self
         }
 
@@ -5402,22 +5762,44 @@ pub mod endpoint_service {
         /// Sets the value of [deployed_model][crate::model::MutateDeployedModelRequest::deployed_model].
         ///
         /// This is a **required** field for requests.
-        pub fn set_deployed_model<T: Into<std::option::Option<crate::model::DeployedModel>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.deployed_model = v.into();
+        pub fn set_deployed_model<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::DeployedModel>,
+        {
+            self.0.request.deployed_model = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [deployed_model][crate::model::MutateDeployedModelRequest::deployed_model].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_deployed_model<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::DeployedModel>,
+        {
+            self.0.request.deployed_model = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::MutateDeployedModelRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [update_mask][crate::model::MutateDeployedModelRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -5655,20 +6037,40 @@ pub mod endpoint_service {
         /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
-        pub fn set_policy<T: Into<std::option::Option<iam_v1::model::Policy>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.policy = v.into();
+        pub fn set_policy<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -5735,11 +6137,20 @@ pub mod endpoint_service {
         }
 
         /// Sets the value of [options][iam_v1::model::GetIamPolicyRequest::options].
-        pub fn set_options<T: Into<std::option::Option<iam_v1::model::GetPolicyOptions>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.options = v.into();
+        pub fn set_options<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        pub fn maybe_options<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = v.map(|x| x.into());
             self
         }
     }
@@ -6185,8 +6596,20 @@ pub mod endpoint_service {
         }
 
         /// Sets the value of [timeout][longrunning::model::WaitOperationRequest::timeout].
-        pub fn set_timeout<T: Into<std::option::Option<wkt::Duration>>>(mut self, v: T) -> Self {
-            self.0.request.timeout = v.into();
+        pub fn set_timeout<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Duration>,
+        {
+            self.0.request.timeout = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [timeout][longrunning::model::WaitOperationRequest::timeout].
+        pub fn maybe_timeout<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Duration>,
+        {
+            self.0.request.timeout = v.map(|x| x.into());
             self
         }
     }
@@ -6934,20 +7357,40 @@ pub mod evaluation_service {
         /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
-        pub fn set_policy<T: Into<std::option::Option<iam_v1::model::Policy>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.policy = v.into();
+        pub fn set_policy<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -7014,11 +7457,20 @@ pub mod evaluation_service {
         }
 
         /// Sets the value of [options][iam_v1::model::GetIamPolicyRequest::options].
-        pub fn set_options<T: Into<std::option::Option<iam_v1::model::GetPolicyOptions>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.options = v.into();
+        pub fn set_options<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        pub fn maybe_options<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = v.map(|x| x.into());
             self
         }
     }
@@ -7464,8 +7916,20 @@ pub mod evaluation_service {
         }
 
         /// Sets the value of [timeout][longrunning::model::WaitOperationRequest::timeout].
-        pub fn set_timeout<T: Into<std::option::Option<wkt::Duration>>>(mut self, v: T) -> Self {
-            self.0.request.timeout = v.into();
+        pub fn set_timeout<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Duration>,
+        {
+            self.0.request.timeout = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [timeout][longrunning::model::WaitOperationRequest::timeout].
+        pub fn maybe_timeout<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Duration>,
+        {
+            self.0.request.timeout = v.map(|x| x.into());
             self
         }
     }
@@ -7640,13 +8104,22 @@ pub mod feature_online_store_admin_service {
         /// Sets the value of [feature_online_store][crate::model::CreateFeatureOnlineStoreRequest::feature_online_store].
         ///
         /// This is a **required** field for requests.
-        pub fn set_feature_online_store<
-            T: Into<std::option::Option<crate::model::FeatureOnlineStore>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.feature_online_store = v.into();
+        pub fn set_feature_online_store<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::FeatureOnlineStore>,
+        {
+            self.0.request.feature_online_store = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [feature_online_store][crate::model::CreateFeatureOnlineStoreRequest::feature_online_store].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_feature_online_store<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::FeatureOnlineStore>,
+        {
+            self.0.request.feature_online_store = v.map(|x| x.into());
             self
         }
 
@@ -7952,22 +8425,40 @@ pub mod feature_online_store_admin_service {
         /// Sets the value of [feature_online_store][crate::model::UpdateFeatureOnlineStoreRequest::feature_online_store].
         ///
         /// This is a **required** field for requests.
-        pub fn set_feature_online_store<
-            T: Into<std::option::Option<crate::model::FeatureOnlineStore>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.feature_online_store = v.into();
+        pub fn set_feature_online_store<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::FeatureOnlineStore>,
+        {
+            self.0.request.feature_online_store = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [feature_online_store][crate::model::UpdateFeatureOnlineStoreRequest::feature_online_store].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_feature_online_store<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::FeatureOnlineStore>,
+        {
+            self.0.request.feature_online_store = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateFeatureOnlineStoreRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [update_mask][crate::model::UpdateFeatureOnlineStoreRequest::update_mask].
+        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -8196,11 +8687,22 @@ pub mod feature_online_store_admin_service {
         /// Sets the value of [feature_view][crate::model::CreateFeatureViewRequest::feature_view].
         ///
         /// This is a **required** field for requests.
-        pub fn set_feature_view<T: Into<std::option::Option<crate::model::FeatureView>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.feature_view = v.into();
+        pub fn set_feature_view<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::FeatureView>,
+        {
+            self.0.request.feature_view = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [feature_view][crate::model::CreateFeatureViewRequest::feature_view].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_feature_view<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::FeatureView>,
+        {
+            self.0.request.feature_view = v.map(|x| x.into());
             self
         }
 
@@ -8499,20 +9001,40 @@ pub mod feature_online_store_admin_service {
         /// Sets the value of [feature_view][crate::model::UpdateFeatureViewRequest::feature_view].
         ///
         /// This is a **required** field for requests.
-        pub fn set_feature_view<T: Into<std::option::Option<crate::model::FeatureView>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.feature_view = v.into();
+        pub fn set_feature_view<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::FeatureView>,
+        {
+            self.0.request.feature_view = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [feature_view][crate::model::UpdateFeatureViewRequest::feature_view].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_feature_view<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::FeatureView>,
+        {
+            self.0.request.feature_view = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateFeatureViewRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [update_mask][crate::model::UpdateFeatureViewRequest::update_mask].
+        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -9103,20 +9625,40 @@ pub mod feature_online_store_admin_service {
         /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
-        pub fn set_policy<T: Into<std::option::Option<iam_v1::model::Policy>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.policy = v.into();
+        pub fn set_policy<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -9183,11 +9725,20 @@ pub mod feature_online_store_admin_service {
         }
 
         /// Sets the value of [options][iam_v1::model::GetIamPolicyRequest::options].
-        pub fn set_options<T: Into<std::option::Option<iam_v1::model::GetPolicyOptions>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.options = v.into();
+        pub fn set_options<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        pub fn maybe_options<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = v.map(|x| x.into());
             self
         }
     }
@@ -9633,8 +10184,20 @@ pub mod feature_online_store_admin_service {
         }
 
         /// Sets the value of [timeout][longrunning::model::WaitOperationRequest::timeout].
-        pub fn set_timeout<T: Into<std::option::Option<wkt::Duration>>>(mut self, v: T) -> Self {
-            self.0.request.timeout = v.into();
+        pub fn set_timeout<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Duration>,
+        {
+            self.0.request.timeout = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [timeout][longrunning::model::WaitOperationRequest::timeout].
+        pub fn maybe_timeout<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Duration>,
+        {
+            self.0.request.timeout = v.map(|x| x.into());
             self
         }
     }
@@ -9761,11 +10324,20 @@ pub mod feature_online_store_service {
         }
 
         /// Sets the value of [data_key][crate::model::FetchFeatureValuesRequest::data_key].
-        pub fn set_data_key<T: Into<std::option::Option<crate::model::FeatureViewDataKey>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.data_key = v.into();
+        pub fn set_data_key<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::FeatureViewDataKey>,
+        {
+            self.0.request.data_key = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [data_key][crate::model::FetchFeatureValuesRequest::data_key].
+        pub fn maybe_data_key<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::FeatureViewDataKey>,
+        {
+            self.0.request.data_key = v.map(|x| x.into());
             self
         }
 
@@ -9846,11 +10418,22 @@ pub mod feature_online_store_service {
         /// Sets the value of [query][crate::model::SearchNearestEntitiesRequest::query].
         ///
         /// This is a **required** field for requests.
-        pub fn set_query<T: Into<std::option::Option<crate::model::NearestNeighborQuery>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.query = v.into();
+        pub fn set_query<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::NearestNeighborQuery>,
+        {
+            self.0.request.query = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [query][crate::model::SearchNearestEntitiesRequest::query].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_query<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::NearestNeighborQuery>,
+        {
+            self.0.request.query = v.map(|x| x.into());
             self
         }
 
@@ -10094,20 +10677,40 @@ pub mod feature_online_store_service {
         /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
-        pub fn set_policy<T: Into<std::option::Option<iam_v1::model::Policy>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.policy = v.into();
+        pub fn set_policy<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -10174,11 +10777,20 @@ pub mod feature_online_store_service {
         }
 
         /// Sets the value of [options][iam_v1::model::GetIamPolicyRequest::options].
-        pub fn set_options<T: Into<std::option::Option<iam_v1::model::GetPolicyOptions>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.options = v.into();
+        pub fn set_options<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        pub fn maybe_options<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = v.map(|x| x.into());
             self
         }
     }
@@ -10624,8 +11236,20 @@ pub mod feature_online_store_service {
         }
 
         /// Sets the value of [timeout][longrunning::model::WaitOperationRequest::timeout].
-        pub fn set_timeout<T: Into<std::option::Option<wkt::Duration>>>(mut self, v: T) -> Self {
-            self.0.request.timeout = v.into();
+        pub fn set_timeout<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Duration>,
+        {
+            self.0.request.timeout = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [timeout][longrunning::model::WaitOperationRequest::timeout].
+        pub fn maybe_timeout<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Duration>,
+        {
+            self.0.request.timeout = v.map(|x| x.into());
             self
         }
     }
@@ -10798,11 +11422,22 @@ pub mod feature_registry_service {
         /// Sets the value of [feature_group][crate::model::CreateFeatureGroupRequest::feature_group].
         ///
         /// This is a **required** field for requests.
-        pub fn set_feature_group<T: Into<std::option::Option<crate::model::FeatureGroup>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.feature_group = v.into();
+        pub fn set_feature_group<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::FeatureGroup>,
+        {
+            self.0.request.feature_group = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [feature_group][crate::model::CreateFeatureGroupRequest::feature_group].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_feature_group<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::FeatureGroup>,
+        {
+            self.0.request.feature_group = v.map(|x| x.into());
             self
         }
 
@@ -11097,20 +11732,40 @@ pub mod feature_registry_service {
         /// Sets the value of [feature_group][crate::model::UpdateFeatureGroupRequest::feature_group].
         ///
         /// This is a **required** field for requests.
-        pub fn set_feature_group<T: Into<std::option::Option<crate::model::FeatureGroup>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.feature_group = v.into();
+        pub fn set_feature_group<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::FeatureGroup>,
+        {
+            self.0.request.feature_group = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [feature_group][crate::model::UpdateFeatureGroupRequest::feature_group].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_feature_group<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::FeatureGroup>,
+        {
+            self.0.request.feature_group = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateFeatureGroupRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [update_mask][crate::model::UpdateFeatureGroupRequest::update_mask].
+        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -11334,11 +11989,22 @@ pub mod feature_registry_service {
         /// Sets the value of [feature][crate::model::CreateFeatureRequest::feature].
         ///
         /// This is a **required** field for requests.
-        pub fn set_feature<T: Into<std::option::Option<crate::model::Feature>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.feature = v.into();
+        pub fn set_feature<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Feature>,
+        {
+            self.0.request.feature = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [feature][crate::model::CreateFeatureRequest::feature].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_feature<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Feature>,
+        {
+            self.0.request.feature = v.map(|x| x.into());
             self
         }
 
@@ -11649,8 +12315,20 @@ pub mod feature_registry_service {
         }
 
         /// Sets the value of [read_mask][crate::model::ListFeaturesRequest::read_mask].
-        pub fn set_read_mask<T: Into<std::option::Option<wkt::FieldMask>>>(mut self, v: T) -> Self {
-            self.0.request.read_mask = v.into();
+        pub fn set_read_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.read_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [read_mask][crate::model::ListFeaturesRequest::read_mask].
+        pub fn maybe_read_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.read_mask = v.map(|x| x.into());
             self
         }
 
@@ -11759,20 +12437,40 @@ pub mod feature_registry_service {
         /// Sets the value of [feature][crate::model::UpdateFeatureRequest::feature].
         ///
         /// This is a **required** field for requests.
-        pub fn set_feature<T: Into<std::option::Option<crate::model::Feature>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.feature = v.into();
+        pub fn set_feature<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Feature>,
+        {
+            self.0.request.feature = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [feature][crate::model::UpdateFeatureRequest::feature].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_feature<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Feature>,
+        {
+            self.0.request.feature = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateFeatureRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [update_mask][crate::model::UpdateFeatureRequest::update_mask].
+        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -12114,20 +12812,40 @@ pub mod feature_registry_service {
         /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
-        pub fn set_policy<T: Into<std::option::Option<iam_v1::model::Policy>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.policy = v.into();
+        pub fn set_policy<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -12194,11 +12912,20 @@ pub mod feature_registry_service {
         }
 
         /// Sets the value of [options][iam_v1::model::GetIamPolicyRequest::options].
-        pub fn set_options<T: Into<std::option::Option<iam_v1::model::GetPolicyOptions>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.options = v.into();
+        pub fn set_options<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        pub fn maybe_options<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = v.map(|x| x.into());
             self
         }
     }
@@ -12644,8 +13371,20 @@ pub mod feature_registry_service {
         }
 
         /// Sets the value of [timeout][longrunning::model::WaitOperationRequest::timeout].
-        pub fn set_timeout<T: Into<std::option::Option<wkt::Duration>>>(mut self, v: T) -> Self {
-            self.0.request.timeout = v.into();
+        pub fn set_timeout<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Duration>,
+        {
+            self.0.request.timeout = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [timeout][longrunning::model::WaitOperationRequest::timeout].
+        pub fn maybe_timeout<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Duration>,
+        {
+            self.0.request.timeout = v.map(|x| x.into());
             self
         }
     }
@@ -12782,11 +13521,22 @@ pub mod featurestore_online_serving_service {
         /// Sets the value of [feature_selector][crate::model::ReadFeatureValuesRequest::feature_selector].
         ///
         /// This is a **required** field for requests.
-        pub fn set_feature_selector<T: Into<std::option::Option<crate::model::FeatureSelector>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.feature_selector = v.into();
+        pub fn set_feature_selector<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::FeatureSelector>,
+        {
+            self.0.request.feature_selector = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [feature_selector][crate::model::ReadFeatureValuesRequest::feature_selector].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_feature_selector<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::FeatureSelector>,
+        {
+            self.0.request.feature_selector = v.map(|x| x.into());
             self
         }
     }
@@ -13102,20 +13852,40 @@ pub mod featurestore_online_serving_service {
         /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
-        pub fn set_policy<T: Into<std::option::Option<iam_v1::model::Policy>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.policy = v.into();
+        pub fn set_policy<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -13182,11 +13952,20 @@ pub mod featurestore_online_serving_service {
         }
 
         /// Sets the value of [options][iam_v1::model::GetIamPolicyRequest::options].
-        pub fn set_options<T: Into<std::option::Option<iam_v1::model::GetPolicyOptions>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.options = v.into();
+        pub fn set_options<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        pub fn maybe_options<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = v.map(|x| x.into());
             self
         }
     }
@@ -13632,8 +14411,20 @@ pub mod featurestore_online_serving_service {
         }
 
         /// Sets the value of [timeout][longrunning::model::WaitOperationRequest::timeout].
-        pub fn set_timeout<T: Into<std::option::Option<wkt::Duration>>>(mut self, v: T) -> Self {
-            self.0.request.timeout = v.into();
+        pub fn set_timeout<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Duration>,
+        {
+            self.0.request.timeout = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [timeout][longrunning::model::WaitOperationRequest::timeout].
+        pub fn maybe_timeout<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Duration>,
+        {
+            self.0.request.timeout = v.map(|x| x.into());
             self
         }
     }
@@ -13806,11 +14597,22 @@ pub mod featurestore_service {
         /// Sets the value of [featurestore][crate::model::CreateFeaturestoreRequest::featurestore].
         ///
         /// This is a **required** field for requests.
-        pub fn set_featurestore<T: Into<std::option::Option<crate::model::Featurestore>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.featurestore = v.into();
+        pub fn set_featurestore<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Featurestore>,
+        {
+            self.0.request.featurestore = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [featurestore][crate::model::CreateFeaturestoreRequest::featurestore].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_featurestore<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Featurestore>,
+        {
+            self.0.request.featurestore = v.map(|x| x.into());
             self
         }
 
@@ -14002,8 +14804,20 @@ pub mod featurestore_service {
         }
 
         /// Sets the value of [read_mask][crate::model::ListFeaturestoresRequest::read_mask].
-        pub fn set_read_mask<T: Into<std::option::Option<wkt::FieldMask>>>(mut self, v: T) -> Self {
-            self.0.request.read_mask = v.into();
+        pub fn set_read_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.read_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [read_mask][crate::model::ListFeaturestoresRequest::read_mask].
+        pub fn maybe_read_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.read_mask = v.map(|x| x.into());
             self
         }
     }
@@ -14111,20 +14925,40 @@ pub mod featurestore_service {
         /// Sets the value of [featurestore][crate::model::UpdateFeaturestoreRequest::featurestore].
         ///
         /// This is a **required** field for requests.
-        pub fn set_featurestore<T: Into<std::option::Option<crate::model::Featurestore>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.featurestore = v.into();
+        pub fn set_featurestore<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Featurestore>,
+        {
+            self.0.request.featurestore = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [featurestore][crate::model::UpdateFeaturestoreRequest::featurestore].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_featurestore<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Featurestore>,
+        {
+            self.0.request.featurestore = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateFeaturestoreRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [update_mask][crate::model::UpdateFeaturestoreRequest::update_mask].
+        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -14349,11 +15183,20 @@ pub mod featurestore_service {
         }
 
         /// Sets the value of [entity_type][crate::model::CreateEntityTypeRequest::entity_type].
-        pub fn set_entity_type<T: Into<std::option::Option<crate::model::EntityType>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.entity_type = v.into();
+        pub fn set_entity_type<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::EntityType>,
+        {
+            self.0.request.entity_type = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [entity_type][crate::model::CreateEntityTypeRequest::entity_type].
+        pub fn maybe_entity_type<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::EntityType>,
+        {
+            self.0.request.entity_type = v.map(|x| x.into());
             self
         }
 
@@ -14542,8 +15385,20 @@ pub mod featurestore_service {
         }
 
         /// Sets the value of [read_mask][crate::model::ListEntityTypesRequest::read_mask].
-        pub fn set_read_mask<T: Into<std::option::Option<wkt::FieldMask>>>(mut self, v: T) -> Self {
-            self.0.request.read_mask = v.into();
+        pub fn set_read_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.read_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [read_mask][crate::model::ListEntityTypesRequest::read_mask].
+        pub fn maybe_read_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.read_mask = v.map(|x| x.into());
             self
         }
     }
@@ -14607,20 +15462,40 @@ pub mod featurestore_service {
         /// Sets the value of [entity_type][crate::model::UpdateEntityTypeRequest::entity_type].
         ///
         /// This is a **required** field for requests.
-        pub fn set_entity_type<T: Into<std::option::Option<crate::model::EntityType>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.entity_type = v.into();
+        pub fn set_entity_type<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::EntityType>,
+        {
+            self.0.request.entity_type = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [entity_type][crate::model::UpdateEntityTypeRequest::entity_type].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_entity_type<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::EntityType>,
+        {
+            self.0.request.entity_type = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateEntityTypeRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [update_mask][crate::model::UpdateEntityTypeRequest::update_mask].
+        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -14844,11 +15719,22 @@ pub mod featurestore_service {
         /// Sets the value of [feature][crate::model::CreateFeatureRequest::feature].
         ///
         /// This is a **required** field for requests.
-        pub fn set_feature<T: Into<std::option::Option<crate::model::Feature>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.feature = v.into();
+        pub fn set_feature<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Feature>,
+        {
+            self.0.request.feature = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [feature][crate::model::CreateFeatureRequest::feature].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_feature<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Feature>,
+        {
+            self.0.request.feature = v.map(|x| x.into());
             self
         }
 
@@ -15159,8 +16045,20 @@ pub mod featurestore_service {
         }
 
         /// Sets the value of [read_mask][crate::model::ListFeaturesRequest::read_mask].
-        pub fn set_read_mask<T: Into<std::option::Option<wkt::FieldMask>>>(mut self, v: T) -> Self {
-            self.0.request.read_mask = v.into();
+        pub fn set_read_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.read_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [read_mask][crate::model::ListFeaturesRequest::read_mask].
+        pub fn maybe_read_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.read_mask = v.map(|x| x.into());
             self
         }
 
@@ -15227,20 +16125,40 @@ pub mod featurestore_service {
         /// Sets the value of [feature][crate::model::UpdateFeatureRequest::feature].
         ///
         /// This is a **required** field for requests.
-        pub fn set_feature<T: Into<std::option::Option<crate::model::Feature>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.feature = v.into();
+        pub fn set_feature<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Feature>,
+        {
+            self.0.request.feature = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [feature][crate::model::UpdateFeatureRequest::feature].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_feature<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Feature>,
+        {
+            self.0.request.feature = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateFeatureRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [update_mask][crate::model::UpdateFeatureRequest::update_mask].
+        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -15699,13 +16617,22 @@ pub mod featurestore_service {
         /// Sets the value of [destination][crate::model::BatchReadFeatureValuesRequest::destination].
         ///
         /// This is a **required** field for requests.
-        pub fn set_destination<
-            T: Into<std::option::Option<crate::model::FeatureValueDestination>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.destination = v.into();
+        pub fn set_destination<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::FeatureValueDestination>,
+        {
+            self.0.request.destination = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [destination][crate::model::BatchReadFeatureValuesRequest::destination].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_destination<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::FeatureValueDestination>,
+        {
+            self.0.request.destination = v.map(|x| x.into());
             self
         }
 
@@ -15736,11 +16663,20 @@ pub mod featurestore_service {
         }
 
         /// Sets the value of [start_time][crate::model::BatchReadFeatureValuesRequest::start_time].
-        pub fn set_start_time<T: Into<std::option::Option<wkt::Timestamp>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.start_time = v.into();
+        pub fn set_start_time<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Timestamp>,
+        {
+            self.0.request.start_time = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [start_time][crate::model::BatchReadFeatureValuesRequest::start_time].
+        pub fn maybe_start_time<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Timestamp>,
+        {
+            self.0.request.start_time = v.map(|x| x.into());
             self
         }
 
@@ -15900,24 +16836,44 @@ pub mod featurestore_service {
         /// Sets the value of [destination][crate::model::ExportFeatureValuesRequest::destination].
         ///
         /// This is a **required** field for requests.
-        pub fn set_destination<
-            T: Into<std::option::Option<crate::model::FeatureValueDestination>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.destination = v.into();
+        pub fn set_destination<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::FeatureValueDestination>,
+        {
+            self.0.request.destination = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [destination][crate::model::ExportFeatureValuesRequest::destination].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_destination<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::FeatureValueDestination>,
+        {
+            self.0.request.destination = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [feature_selector][crate::model::ExportFeatureValuesRequest::feature_selector].
         ///
         /// This is a **required** field for requests.
-        pub fn set_feature_selector<T: Into<std::option::Option<crate::model::FeatureSelector>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.feature_selector = v.into();
+        pub fn set_feature_selector<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::FeatureSelector>,
+        {
+            self.0.request.feature_selector = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [feature_selector][crate::model::ExportFeatureValuesRequest::feature_selector].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_feature_selector<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::FeatureSelector>,
+        {
+            self.0.request.feature_selector = v.map(|x| x.into());
             self
         }
 
@@ -16479,20 +17435,40 @@ pub mod featurestore_service {
         /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
-        pub fn set_policy<T: Into<std::option::Option<iam_v1::model::Policy>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.policy = v.into();
+        pub fn set_policy<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -16559,11 +17535,20 @@ pub mod featurestore_service {
         }
 
         /// Sets the value of [options][iam_v1::model::GetIamPolicyRequest::options].
-        pub fn set_options<T: Into<std::option::Option<iam_v1::model::GetPolicyOptions>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.options = v.into();
+        pub fn set_options<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        pub fn maybe_options<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = v.map(|x| x.into());
             self
         }
     }
@@ -17009,8 +17994,20 @@ pub mod featurestore_service {
         }
 
         /// Sets the value of [timeout][longrunning::model::WaitOperationRequest::timeout].
-        pub fn set_timeout<T: Into<std::option::Option<wkt::Duration>>>(mut self, v: T) -> Self {
-            self.0.request.timeout = v.into();
+        pub fn set_timeout<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Duration>,
+        {
+            self.0.request.timeout = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [timeout][longrunning::model::WaitOperationRequest::timeout].
+        pub fn maybe_timeout<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Duration>,
+        {
+            self.0.request.timeout = v.map(|x| x.into());
             self
         }
     }
@@ -17139,11 +18136,22 @@ pub mod gen_ai_cache_service {
         /// Sets the value of [cached_content][crate::model::CreateCachedContentRequest::cached_content].
         ///
         /// This is a **required** field for requests.
-        pub fn set_cached_content<T: Into<std::option::Option<crate::model::CachedContent>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.cached_content = v.into();
+        pub fn set_cached_content<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::CachedContent>,
+        {
+            self.0.request.cached_content = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [cached_content][crate::model::CreateCachedContentRequest::cached_content].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_cached_content<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::CachedContent>,
+        {
+            self.0.request.cached_content = v.map(|x| x.into());
             self
         }
     }
@@ -17272,22 +18280,44 @@ pub mod gen_ai_cache_service {
         /// Sets the value of [cached_content][crate::model::UpdateCachedContentRequest::cached_content].
         ///
         /// This is a **required** field for requests.
-        pub fn set_cached_content<T: Into<std::option::Option<crate::model::CachedContent>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.cached_content = v.into();
+        pub fn set_cached_content<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::CachedContent>,
+        {
+            self.0.request.cached_content = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [cached_content][crate::model::UpdateCachedContentRequest::cached_content].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_cached_content<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::CachedContent>,
+        {
+            self.0.request.cached_content = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateCachedContentRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [update_mask][crate::model::UpdateCachedContentRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -17697,20 +18727,40 @@ pub mod gen_ai_cache_service {
         /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
-        pub fn set_policy<T: Into<std::option::Option<iam_v1::model::Policy>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.policy = v.into();
+        pub fn set_policy<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -17777,11 +18827,20 @@ pub mod gen_ai_cache_service {
         }
 
         /// Sets the value of [options][iam_v1::model::GetIamPolicyRequest::options].
-        pub fn set_options<T: Into<std::option::Option<iam_v1::model::GetPolicyOptions>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.options = v.into();
+        pub fn set_options<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        pub fn maybe_options<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = v.map(|x| x.into());
             self
         }
     }
@@ -18227,8 +19286,20 @@ pub mod gen_ai_cache_service {
         }
 
         /// Sets the value of [timeout][longrunning::model::WaitOperationRequest::timeout].
-        pub fn set_timeout<T: Into<std::option::Option<wkt::Duration>>>(mut self, v: T) -> Self {
-            self.0.request.timeout = v.into();
+        pub fn set_timeout<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Duration>,
+        {
+            self.0.request.timeout = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [timeout][longrunning::model::WaitOperationRequest::timeout].
+        pub fn maybe_timeout<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Duration>,
+        {
+            self.0.request.timeout = v.map(|x| x.into());
             self
         }
     }
@@ -18354,11 +19425,22 @@ pub mod gen_ai_tuning_service {
         /// Sets the value of [tuning_job][crate::model::CreateTuningJobRequest::tuning_job].
         ///
         /// This is a **required** field for requests.
-        pub fn set_tuning_job<T: Into<std::option::Option<crate::model::TuningJob>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.tuning_job = v.into();
+        pub fn set_tuning_job<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::TuningJob>,
+        {
+            self.0.request.tuning_job = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [tuning_job][crate::model::CreateTuningJobRequest::tuning_job].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_tuning_job<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::TuningJob>,
+        {
+            self.0.request.tuning_job = v.map(|x| x.into());
             self
         }
     }
@@ -18704,31 +19786,58 @@ pub mod gen_ai_tuning_service {
         /// Sets the value of [tuned_model_ref][crate::model::RebaseTunedModelRequest::tuned_model_ref].
         ///
         /// This is a **required** field for requests.
-        pub fn set_tuned_model_ref<T: Into<std::option::Option<crate::model::TunedModelRef>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.tuned_model_ref = v.into();
+        pub fn set_tuned_model_ref<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::TunedModelRef>,
+        {
+            self.0.request.tuned_model_ref = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [tuned_model_ref][crate::model::RebaseTunedModelRequest::tuned_model_ref].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_tuned_model_ref<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::TunedModelRef>,
+        {
+            self.0.request.tuned_model_ref = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [tuning_job][crate::model::RebaseTunedModelRequest::tuning_job].
-        pub fn set_tuning_job<T: Into<std::option::Option<crate::model::TuningJob>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.tuning_job = v.into();
+        pub fn set_tuning_job<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::TuningJob>,
+        {
+            self.0.request.tuning_job = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [tuning_job][crate::model::RebaseTunedModelRequest::tuning_job].
+        pub fn maybe_tuning_job<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::TuningJob>,
+        {
+            self.0.request.tuning_job = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [artifact_destination][crate::model::RebaseTunedModelRequest::artifact_destination].
-        pub fn set_artifact_destination<
-            T: Into<std::option::Option<crate::model::GcsDestination>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.artifact_destination = v.into();
+        pub fn set_artifact_destination<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::GcsDestination>,
+        {
+            self.0.request.artifact_destination = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [artifact_destination][crate::model::RebaseTunedModelRequest::artifact_destination].
+        pub fn maybe_artifact_destination<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::GcsDestination>,
+        {
+            self.0.request.artifact_destination = v.map(|x| x.into());
             self
         }
 
@@ -18972,20 +20081,40 @@ pub mod gen_ai_tuning_service {
         /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
-        pub fn set_policy<T: Into<std::option::Option<iam_v1::model::Policy>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.policy = v.into();
+        pub fn set_policy<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -19052,11 +20181,20 @@ pub mod gen_ai_tuning_service {
         }
 
         /// Sets the value of [options][iam_v1::model::GetIamPolicyRequest::options].
-        pub fn set_options<T: Into<std::option::Option<iam_v1::model::GetPolicyOptions>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.options = v.into();
+        pub fn set_options<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        pub fn maybe_options<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = v.map(|x| x.into());
             self
         }
     }
@@ -19502,8 +20640,20 @@ pub mod gen_ai_tuning_service {
         }
 
         /// Sets the value of [timeout][longrunning::model::WaitOperationRequest::timeout].
-        pub fn set_timeout<T: Into<std::option::Option<wkt::Duration>>>(mut self, v: T) -> Self {
-            self.0.request.timeout = v.into();
+        pub fn set_timeout<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Duration>,
+        {
+            self.0.request.timeout = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [timeout][longrunning::model::WaitOperationRequest::timeout].
+        pub fn maybe_timeout<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Duration>,
+        {
+            self.0.request.timeout = v.map(|x| x.into());
             self
         }
     }
@@ -19676,11 +20826,22 @@ pub mod index_endpoint_service {
         /// Sets the value of [index_endpoint][crate::model::CreateIndexEndpointRequest::index_endpoint].
         ///
         /// This is a **required** field for requests.
-        pub fn set_index_endpoint<T: Into<std::option::Option<crate::model::IndexEndpoint>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.index_endpoint = v.into();
+        pub fn set_index_endpoint<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::IndexEndpoint>,
+        {
+            self.0.request.index_endpoint = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [index_endpoint][crate::model::CreateIndexEndpointRequest::index_endpoint].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_index_endpoint<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::IndexEndpoint>,
+        {
+            self.0.request.index_endpoint = v.map(|x| x.into());
             self
         }
     }
@@ -19863,8 +21024,20 @@ pub mod index_endpoint_service {
         }
 
         /// Sets the value of [read_mask][crate::model::ListIndexEndpointsRequest::read_mask].
-        pub fn set_read_mask<T: Into<std::option::Option<wkt::FieldMask>>>(mut self, v: T) -> Self {
-            self.0.request.read_mask = v.into();
+        pub fn set_read_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.read_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [read_mask][crate::model::ListIndexEndpointsRequest::read_mask].
+        pub fn maybe_read_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.read_mask = v.map(|x| x.into());
             self
         }
     }
@@ -19928,22 +21101,44 @@ pub mod index_endpoint_service {
         /// Sets the value of [index_endpoint][crate::model::UpdateIndexEndpointRequest::index_endpoint].
         ///
         /// This is a **required** field for requests.
-        pub fn set_index_endpoint<T: Into<std::option::Option<crate::model::IndexEndpoint>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.index_endpoint = v.into();
+        pub fn set_index_endpoint<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::IndexEndpoint>,
+        {
+            self.0.request.index_endpoint = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [index_endpoint][crate::model::UpdateIndexEndpointRequest::index_endpoint].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_index_endpoint<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::IndexEndpoint>,
+        {
+            self.0.request.index_endpoint = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateIndexEndpointRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [update_mask][crate::model::UpdateIndexEndpointRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -20163,11 +21358,22 @@ pub mod index_endpoint_service {
         /// Sets the value of [deployed_index][crate::model::DeployIndexRequest::deployed_index].
         ///
         /// This is a **required** field for requests.
-        pub fn set_deployed_index<T: Into<std::option::Option<crate::model::DeployedIndex>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.deployed_index = v.into();
+        pub fn set_deployed_index<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::DeployedIndex>,
+        {
+            self.0.request.deployed_index = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [deployed_index][crate::model::DeployIndexRequest::deployed_index].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_deployed_index<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::DeployedIndex>,
+        {
+            self.0.request.deployed_index = v.map(|x| x.into());
             self
         }
     }
@@ -20397,11 +21603,22 @@ pub mod index_endpoint_service {
         /// Sets the value of [deployed_index][crate::model::MutateDeployedIndexRequest::deployed_index].
         ///
         /// This is a **required** field for requests.
-        pub fn set_deployed_index<T: Into<std::option::Option<crate::model::DeployedIndex>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.deployed_index = v.into();
+        pub fn set_deployed_index<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::DeployedIndex>,
+        {
+            self.0.request.deployed_index = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [deployed_index][crate::model::MutateDeployedIndexRequest::deployed_index].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_deployed_index<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::DeployedIndex>,
+        {
+            self.0.request.deployed_index = v.map(|x| x.into());
             self
         }
     }
@@ -20639,20 +21856,40 @@ pub mod index_endpoint_service {
         /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
-        pub fn set_policy<T: Into<std::option::Option<iam_v1::model::Policy>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.policy = v.into();
+        pub fn set_policy<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -20719,11 +21956,20 @@ pub mod index_endpoint_service {
         }
 
         /// Sets the value of [options][iam_v1::model::GetIamPolicyRequest::options].
-        pub fn set_options<T: Into<std::option::Option<iam_v1::model::GetPolicyOptions>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.options = v.into();
+        pub fn set_options<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        pub fn maybe_options<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = v.map(|x| x.into());
             self
         }
     }
@@ -21169,8 +22415,20 @@ pub mod index_endpoint_service {
         }
 
         /// Sets the value of [timeout][longrunning::model::WaitOperationRequest::timeout].
-        pub fn set_timeout<T: Into<std::option::Option<wkt::Duration>>>(mut self, v: T) -> Self {
-            self.0.request.timeout = v.into();
+        pub fn set_timeout<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Duration>,
+        {
+            self.0.request.timeout = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [timeout][longrunning::model::WaitOperationRequest::timeout].
+        pub fn maybe_timeout<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Duration>,
+        {
+            self.0.request.timeout = v.map(|x| x.into());
             self
         }
     }
@@ -21338,11 +22596,22 @@ pub mod index_service {
         /// Sets the value of [index][crate::model::CreateIndexRequest::index].
         ///
         /// This is a **required** field for requests.
-        pub fn set_index<T: Into<std::option::Option<crate::model::Index>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.index = v.into();
+        pub fn set_index<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Index>,
+        {
+            self.0.request.index = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [index][crate::model::CreateIndexRequest::index].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_index<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Index>,
+        {
+            self.0.request.index = v.map(|x| x.into());
             self
         }
     }
@@ -21517,8 +22786,20 @@ pub mod index_service {
         }
 
         /// Sets the value of [read_mask][crate::model::ListIndexesRequest::read_mask].
-        pub fn set_read_mask<T: Into<std::option::Option<wkt::FieldMask>>>(mut self, v: T) -> Self {
-            self.0.request.read_mask = v.into();
+        pub fn set_read_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.read_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [read_mask][crate::model::ListIndexesRequest::read_mask].
+        pub fn maybe_read_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.read_mask = v.map(|x| x.into());
             self
         }
     }
@@ -21621,20 +22902,40 @@ pub mod index_service {
         /// Sets the value of [index][crate::model::UpdateIndexRequest::index].
         ///
         /// This is a **required** field for requests.
-        pub fn set_index<T: Into<std::option::Option<crate::model::Index>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.index = v.into();
+        pub fn set_index<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Index>,
+        {
+            self.0.request.index = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [index][crate::model::UpdateIndexRequest::index].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_index<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Index>,
+        {
+            self.0.request.index = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateIndexRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [update_mask][crate::model::UpdateIndexRequest::update_mask].
+        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -21819,11 +23120,20 @@ pub mod index_service {
         }
 
         /// Sets the value of [update_mask][crate::model::UpsertDatapointsRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [update_mask][crate::model::UpsertDatapointsRequest::update_mask].
+        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -22137,20 +23447,40 @@ pub mod index_service {
         /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
-        pub fn set_policy<T: Into<std::option::Option<iam_v1::model::Policy>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.policy = v.into();
+        pub fn set_policy<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -22217,11 +23547,20 @@ pub mod index_service {
         }
 
         /// Sets the value of [options][iam_v1::model::GetIamPolicyRequest::options].
-        pub fn set_options<T: Into<std::option::Option<iam_v1::model::GetPolicyOptions>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.options = v.into();
+        pub fn set_options<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        pub fn maybe_options<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = v.map(|x| x.into());
             self
         }
     }
@@ -22667,8 +24006,20 @@ pub mod index_service {
         }
 
         /// Sets the value of [timeout][longrunning::model::WaitOperationRequest::timeout].
-        pub fn set_timeout<T: Into<std::option::Option<wkt::Duration>>>(mut self, v: T) -> Self {
-            self.0.request.timeout = v.into();
+        pub fn set_timeout<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Duration>,
+        {
+            self.0.request.timeout = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [timeout][longrunning::model::WaitOperationRequest::timeout].
+        pub fn maybe_timeout<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Duration>,
+        {
+            self.0.request.timeout = v.map(|x| x.into());
             self
         }
     }
@@ -22794,11 +24145,22 @@ pub mod job_service {
         /// Sets the value of [custom_job][crate::model::CreateCustomJobRequest::custom_job].
         ///
         /// This is a **required** field for requests.
-        pub fn set_custom_job<T: Into<std::option::Option<crate::model::CustomJob>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.custom_job = v.into();
+        pub fn set_custom_job<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::CustomJob>,
+        {
+            self.0.request.custom_job = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [custom_job][crate::model::CreateCustomJobRequest::custom_job].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_custom_job<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::CustomJob>,
+        {
+            self.0.request.custom_job = v.map(|x| x.into());
             self
         }
     }
@@ -22973,8 +24335,20 @@ pub mod job_service {
         }
 
         /// Sets the value of [read_mask][crate::model::ListCustomJobsRequest::read_mask].
-        pub fn set_read_mask<T: Into<std::option::Option<wkt::FieldMask>>>(mut self, v: T) -> Self {
-            self.0.request.read_mask = v.into();
+        pub fn set_read_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.read_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [read_mask][crate::model::ListCustomJobsRequest::read_mask].
+        pub fn maybe_read_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.read_mask = v.map(|x| x.into());
             self
         }
     }
@@ -23212,13 +24586,22 @@ pub mod job_service {
         /// Sets the value of [data_labeling_job][crate::model::CreateDataLabelingJobRequest::data_labeling_job].
         ///
         /// This is a **required** field for requests.
-        pub fn set_data_labeling_job<
-            T: Into<std::option::Option<crate::model::DataLabelingJob>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.data_labeling_job = v.into();
+        pub fn set_data_labeling_job<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::DataLabelingJob>,
+        {
+            self.0.request.data_labeling_job = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [data_labeling_job][crate::model::CreateDataLabelingJobRequest::data_labeling_job].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_data_labeling_job<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::DataLabelingJob>,
+        {
+            self.0.request.data_labeling_job = v.map(|x| x.into());
             self
         }
     }
@@ -23401,8 +24784,20 @@ pub mod job_service {
         }
 
         /// Sets the value of [read_mask][crate::model::ListDataLabelingJobsRequest::read_mask].
-        pub fn set_read_mask<T: Into<std::option::Option<wkt::FieldMask>>>(mut self, v: T) -> Self {
-            self.0.request.read_mask = v.into();
+        pub fn set_read_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.read_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [read_mask][crate::model::ListDataLabelingJobsRequest::read_mask].
+        pub fn maybe_read_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.read_mask = v.map(|x| x.into());
             self
         }
 
@@ -23654,13 +25049,22 @@ pub mod job_service {
         /// Sets the value of [hyperparameter_tuning_job][crate::model::CreateHyperparameterTuningJobRequest::hyperparameter_tuning_job].
         ///
         /// This is a **required** field for requests.
-        pub fn set_hyperparameter_tuning_job<
-            T: Into<std::option::Option<crate::model::HyperparameterTuningJob>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.hyperparameter_tuning_job = v.into();
+        pub fn set_hyperparameter_tuning_job<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::HyperparameterTuningJob>,
+        {
+            self.0.request.hyperparameter_tuning_job = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [hyperparameter_tuning_job][crate::model::CreateHyperparameterTuningJobRequest::hyperparameter_tuning_job].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_hyperparameter_tuning_job<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::HyperparameterTuningJob>,
+        {
+            self.0.request.hyperparameter_tuning_job = v.map(|x| x.into());
             self
         }
     }
@@ -23849,8 +25253,20 @@ pub mod job_service {
         }
 
         /// Sets the value of [read_mask][crate::model::ListHyperparameterTuningJobsRequest::read_mask].
-        pub fn set_read_mask<T: Into<std::option::Option<wkt::FieldMask>>>(mut self, v: T) -> Self {
-            self.0.request.read_mask = v.into();
+        pub fn set_read_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.read_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [read_mask][crate::model::ListHyperparameterTuningJobsRequest::read_mask].
+        pub fn maybe_read_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.read_mask = v.map(|x| x.into());
             self
         }
     }
@@ -24095,11 +25511,22 @@ pub mod job_service {
         /// Sets the value of [nas_job][crate::model::CreateNasJobRequest::nas_job].
         ///
         /// This is a **required** field for requests.
-        pub fn set_nas_job<T: Into<std::option::Option<crate::model::NasJob>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.nas_job = v.into();
+        pub fn set_nas_job<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::NasJob>,
+        {
+            self.0.request.nas_job = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [nas_job][crate::model::CreateNasJobRequest::nas_job].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_nas_job<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::NasJob>,
+        {
+            self.0.request.nas_job = v.map(|x| x.into());
             self
         }
     }
@@ -24274,8 +25701,20 @@ pub mod job_service {
         }
 
         /// Sets the value of [read_mask][crate::model::ListNasJobsRequest::read_mask].
-        pub fn set_read_mask<T: Into<std::option::Option<wkt::FieldMask>>>(mut self, v: T) -> Self {
-            self.0.request.read_mask = v.into();
+        pub fn set_read_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.read_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [read_mask][crate::model::ListNasJobsRequest::read_mask].
+        pub fn maybe_read_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.read_mask = v.map(|x| x.into());
             self
         }
     }
@@ -24687,13 +26126,22 @@ pub mod job_service {
         /// Sets the value of [batch_prediction_job][crate::model::CreateBatchPredictionJobRequest::batch_prediction_job].
         ///
         /// This is a **required** field for requests.
-        pub fn set_batch_prediction_job<
-            T: Into<std::option::Option<crate::model::BatchPredictionJob>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.batch_prediction_job = v.into();
+        pub fn set_batch_prediction_job<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::BatchPredictionJob>,
+        {
+            self.0.request.batch_prediction_job = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [batch_prediction_job][crate::model::CreateBatchPredictionJobRequest::batch_prediction_job].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_batch_prediction_job<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::BatchPredictionJob>,
+        {
+            self.0.request.batch_prediction_job = v.map(|x| x.into());
             self
         }
     }
@@ -24880,8 +26328,20 @@ pub mod job_service {
         }
 
         /// Sets the value of [read_mask][crate::model::ListBatchPredictionJobsRequest::read_mask].
-        pub fn set_read_mask<T: Into<std::option::Option<wkt::FieldMask>>>(mut self, v: T) -> Self {
-            self.0.request.read_mask = v.into();
+        pub fn set_read_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.read_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [read_mask][crate::model::ListBatchPredictionJobsRequest::read_mask].
+        pub fn maybe_read_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.read_mask = v.map(|x| x.into());
             self
         }
     }
@@ -25131,13 +26591,22 @@ pub mod job_service {
         /// Sets the value of [model_deployment_monitoring_job][crate::model::CreateModelDeploymentMonitoringJobRequest::model_deployment_monitoring_job].
         ///
         /// This is a **required** field for requests.
-        pub fn set_model_deployment_monitoring_job<
-            T: Into<std::option::Option<crate::model::ModelDeploymentMonitoringJob>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.model_deployment_monitoring_job = v.into();
+        pub fn set_model_deployment_monitoring_job<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::ModelDeploymentMonitoringJob>,
+        {
+            self.0.request.model_deployment_monitoring_job = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [model_deployment_monitoring_job][crate::model::CreateModelDeploymentMonitoringJobRequest::model_deployment_monitoring_job].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_model_deployment_monitoring_job<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::ModelDeploymentMonitoringJob>,
+        {
+            self.0.request.model_deployment_monitoring_job = v.map(|x| x.into());
             self
         }
     }
@@ -25287,17 +26756,38 @@ pub mod job_service {
         }
 
         /// Sets the value of [start_time][crate::model::SearchModelDeploymentMonitoringStatsAnomaliesRequest::start_time].
-        pub fn set_start_time<T: Into<std::option::Option<wkt::Timestamp>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.start_time = v.into();
+        pub fn set_start_time<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Timestamp>,
+        {
+            self.0.request.start_time = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [start_time][crate::model::SearchModelDeploymentMonitoringStatsAnomaliesRequest::start_time].
+        pub fn maybe_start_time<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Timestamp>,
+        {
+            self.0.request.start_time = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [end_time][crate::model::SearchModelDeploymentMonitoringStatsAnomaliesRequest::end_time].
-        pub fn set_end_time<T: Into<std::option::Option<wkt::Timestamp>>>(mut self, v: T) -> Self {
-            self.0.request.end_time = v.into();
+        pub fn set_end_time<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Timestamp>,
+        {
+            self.0.request.end_time = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [end_time][crate::model::SearchModelDeploymentMonitoringStatsAnomaliesRequest::end_time].
+        pub fn maybe_end_time<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Timestamp>,
+        {
+            self.0.request.end_time = v.map(|x| x.into());
             self
         }
     }
@@ -25486,8 +26976,20 @@ pub mod job_service {
         }
 
         /// Sets the value of [read_mask][crate::model::ListModelDeploymentMonitoringJobsRequest::read_mask].
-        pub fn set_read_mask<T: Into<std::option::Option<wkt::FieldMask>>>(mut self, v: T) -> Self {
-            self.0.request.read_mask = v.into();
+        pub fn set_read_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.read_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [read_mask][crate::model::ListModelDeploymentMonitoringJobsRequest::read_mask].
+        pub fn maybe_read_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.read_mask = v.map(|x| x.into());
             self
         }
     }
@@ -25597,24 +27099,44 @@ pub mod job_service {
         /// Sets the value of [model_deployment_monitoring_job][crate::model::UpdateModelDeploymentMonitoringJobRequest::model_deployment_monitoring_job].
         ///
         /// This is a **required** field for requests.
-        pub fn set_model_deployment_monitoring_job<
-            T: Into<std::option::Option<crate::model::ModelDeploymentMonitoringJob>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.model_deployment_monitoring_job = v.into();
+        pub fn set_model_deployment_monitoring_job<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::ModelDeploymentMonitoringJob>,
+        {
+            self.0.request.model_deployment_monitoring_job = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [model_deployment_monitoring_job][crate::model::UpdateModelDeploymentMonitoringJobRequest::model_deployment_monitoring_job].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_model_deployment_monitoring_job<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::ModelDeploymentMonitoringJob>,
+        {
+            self.0.request.model_deployment_monitoring_job = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateModelDeploymentMonitoringJobRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [update_mask][crate::model::UpdateModelDeploymentMonitoringJobRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -26095,20 +27617,40 @@ pub mod job_service {
         /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
-        pub fn set_policy<T: Into<std::option::Option<iam_v1::model::Policy>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.policy = v.into();
+        pub fn set_policy<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -26175,11 +27717,20 @@ pub mod job_service {
         }
 
         /// Sets the value of [options][iam_v1::model::GetIamPolicyRequest::options].
-        pub fn set_options<T: Into<std::option::Option<iam_v1::model::GetPolicyOptions>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.options = v.into();
+        pub fn set_options<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        pub fn maybe_options<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = v.map(|x| x.into());
             self
         }
     }
@@ -26625,8 +28176,20 @@ pub mod job_service {
         }
 
         /// Sets the value of [timeout][longrunning::model::WaitOperationRequest::timeout].
-        pub fn set_timeout<T: Into<std::option::Option<wkt::Duration>>>(mut self, v: T) -> Self {
-            self.0.request.timeout = v.into();
+        pub fn set_timeout<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Duration>,
+        {
+            self.0.request.timeout = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [timeout][longrunning::model::WaitOperationRequest::timeout].
+        pub fn maybe_timeout<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Duration>,
+        {
+            self.0.request.timeout = v.map(|x| x.into());
             self
         }
     }
@@ -26778,11 +28341,20 @@ pub mod llm_utility_service {
         }
 
         /// Sets the value of [system_instruction][crate::model::CountTokensRequest::system_instruction].
-        pub fn set_system_instruction<T: Into<std::option::Option<crate::model::Content>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.system_instruction = v.into();
+        pub fn set_system_instruction<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Content>,
+        {
+            self.0.request.system_instruction = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [system_instruction][crate::model::CountTokensRequest::system_instruction].
+        pub fn maybe_system_instruction<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Content>,
+        {
+            self.0.request.system_instruction = v.map(|x| x.into());
             self
         }
 
@@ -26798,13 +28370,20 @@ pub mod llm_utility_service {
         }
 
         /// Sets the value of [generation_config][crate::model::CountTokensRequest::generation_config].
-        pub fn set_generation_config<
-            T: Into<std::option::Option<crate::model::GenerationConfig>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.generation_config = v.into();
+        pub fn set_generation_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::GenerationConfig>,
+        {
+            self.0.request.generation_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [generation_config][crate::model::CountTokensRequest::generation_config].
+        pub fn maybe_generation_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::GenerationConfig>,
+        {
+            self.0.request.generation_config = v.map(|x| x.into());
             self
         }
     }
@@ -27132,20 +28711,40 @@ pub mod llm_utility_service {
         /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
-        pub fn set_policy<T: Into<std::option::Option<iam_v1::model::Policy>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.policy = v.into();
+        pub fn set_policy<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -27212,11 +28811,20 @@ pub mod llm_utility_service {
         }
 
         /// Sets the value of [options][iam_v1::model::GetIamPolicyRequest::options].
-        pub fn set_options<T: Into<std::option::Option<iam_v1::model::GetPolicyOptions>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.options = v.into();
+        pub fn set_options<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        pub fn maybe_options<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = v.map(|x| x.into());
             self
         }
     }
@@ -27662,8 +29270,20 @@ pub mod llm_utility_service {
         }
 
         /// Sets the value of [timeout][longrunning::model::WaitOperationRequest::timeout].
-        pub fn set_timeout<T: Into<std::option::Option<wkt::Duration>>>(mut self, v: T) -> Self {
-            self.0.request.timeout = v.into();
+        pub fn set_timeout<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Duration>,
+        {
+            self.0.request.timeout = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [timeout][longrunning::model::WaitOperationRequest::timeout].
+        pub fn maybe_timeout<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Duration>,
+        {
+            self.0.request.timeout = v.map(|x| x.into());
             self
         }
     }
@@ -28125,20 +29745,40 @@ pub mod match_service {
         /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
-        pub fn set_policy<T: Into<std::option::Option<iam_v1::model::Policy>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.policy = v.into();
+        pub fn set_policy<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -28205,11 +29845,20 @@ pub mod match_service {
         }
 
         /// Sets the value of [options][iam_v1::model::GetIamPolicyRequest::options].
-        pub fn set_options<T: Into<std::option::Option<iam_v1::model::GetPolicyOptions>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.options = v.into();
+        pub fn set_options<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        pub fn maybe_options<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = v.map(|x| x.into());
             self
         }
     }
@@ -28655,8 +30304,20 @@ pub mod match_service {
         }
 
         /// Sets the value of [timeout][longrunning::model::WaitOperationRequest::timeout].
-        pub fn set_timeout<T: Into<std::option::Option<wkt::Duration>>>(mut self, v: T) -> Self {
-            self.0.request.timeout = v.into();
+        pub fn set_timeout<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Duration>,
+        {
+            self.0.request.timeout = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [timeout][longrunning::model::WaitOperationRequest::timeout].
+        pub fn maybe_timeout<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Duration>,
+        {
+            self.0.request.timeout = v.map(|x| x.into());
             self
         }
     }
@@ -28829,11 +30490,22 @@ pub mod metadata_service {
         /// Sets the value of [metadata_store][crate::model::CreateMetadataStoreRequest::metadata_store].
         ///
         /// This is a **required** field for requests.
-        pub fn set_metadata_store<T: Into<std::option::Option<crate::model::MetadataStore>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.metadata_store = v.into();
+        pub fn set_metadata_store<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::MetadataStore>,
+        {
+            self.0.request.metadata_store = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [metadata_store][crate::model::CreateMetadataStoreRequest::metadata_store].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_metadata_store<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::MetadataStore>,
+        {
+            self.0.request.metadata_store = v.map(|x| x.into());
             self
         }
 
@@ -29198,11 +30870,22 @@ pub mod metadata_service {
         /// Sets the value of [artifact][crate::model::CreateArtifactRequest::artifact].
         ///
         /// This is a **required** field for requests.
-        pub fn set_artifact<T: Into<std::option::Option<crate::model::Artifact>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.artifact = v.into();
+        pub fn set_artifact<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Artifact>,
+        {
+            self.0.request.artifact = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [artifact][crate::model::CreateArtifactRequest::artifact].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_artifact<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Artifact>,
+        {
+            self.0.request.artifact = v.map(|x| x.into());
             self
         }
 
@@ -29445,20 +31128,40 @@ pub mod metadata_service {
         /// Sets the value of [artifact][crate::model::UpdateArtifactRequest::artifact].
         ///
         /// This is a **required** field for requests.
-        pub fn set_artifact<T: Into<std::option::Option<crate::model::Artifact>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.artifact = v.into();
+        pub fn set_artifact<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Artifact>,
+        {
+            self.0.request.artifact = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [artifact][crate::model::UpdateArtifactRequest::artifact].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_artifact<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Artifact>,
+        {
+            self.0.request.artifact = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateArtifactRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [update_mask][crate::model::UpdateArtifactRequest::update_mask].
+        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
@@ -29761,11 +31464,22 @@ pub mod metadata_service {
         /// Sets the value of [context][crate::model::CreateContextRequest::context].
         ///
         /// This is a **required** field for requests.
-        pub fn set_context<T: Into<std::option::Option<crate::model::Context>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.context = v.into();
+        pub fn set_context<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Context>,
+        {
+            self.0.request.context = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [context][crate::model::CreateContextRequest::context].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_context<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Context>,
+        {
+            self.0.request.context = v.map(|x| x.into());
             self
         }
 
@@ -30008,20 +31722,40 @@ pub mod metadata_service {
         /// Sets the value of [context][crate::model::UpdateContextRequest::context].
         ///
         /// This is a **required** field for requests.
-        pub fn set_context<T: Into<std::option::Option<crate::model::Context>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.context = v.into();
+        pub fn set_context<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Context>,
+        {
+            self.0.request.context = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [context][crate::model::UpdateContextRequest::context].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_context<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Context>,
+        {
+            self.0.request.context = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateContextRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [update_mask][crate::model::UpdateContextRequest::update_mask].
+        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
@@ -30638,11 +32372,22 @@ pub mod metadata_service {
         /// Sets the value of [execution][crate::model::CreateExecutionRequest::execution].
         ///
         /// This is a **required** field for requests.
-        pub fn set_execution<T: Into<std::option::Option<crate::model::Execution>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.execution = v.into();
+        pub fn set_execution<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Execution>,
+        {
+            self.0.request.execution = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [execution][crate::model::CreateExecutionRequest::execution].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_execution<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Execution>,
+        {
+            self.0.request.execution = v.map(|x| x.into());
             self
         }
 
@@ -30885,20 +32630,40 @@ pub mod metadata_service {
         /// Sets the value of [execution][crate::model::UpdateExecutionRequest::execution].
         ///
         /// This is a **required** field for requests.
-        pub fn set_execution<T: Into<std::option::Option<crate::model::Execution>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.execution = v.into();
+        pub fn set_execution<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Execution>,
+        {
+            self.0.request.execution = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [execution][crate::model::UpdateExecutionRequest::execution].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_execution<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Execution>,
+        {
+            self.0.request.execution = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateExecutionRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [update_mask][crate::model::UpdateExecutionRequest::update_mask].
+        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
@@ -31347,11 +33112,22 @@ pub mod metadata_service {
         /// Sets the value of [metadata_schema][crate::model::CreateMetadataSchemaRequest::metadata_schema].
         ///
         /// This is a **required** field for requests.
-        pub fn set_metadata_schema<T: Into<std::option::Option<crate::model::MetadataSchema>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.metadata_schema = v.into();
+        pub fn set_metadata_schema<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::MetadataSchema>,
+        {
+            self.0.request.metadata_schema = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [metadata_schema][crate::model::CreateMetadataSchemaRequest::metadata_schema].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_metadata_schema<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::MetadataSchema>,
+        {
+            self.0.request.metadata_schema = v.map(|x| x.into());
             self
         }
 
@@ -31852,20 +33628,40 @@ pub mod metadata_service {
         /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
-        pub fn set_policy<T: Into<std::option::Option<iam_v1::model::Policy>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.policy = v.into();
+        pub fn set_policy<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -31932,11 +33728,20 @@ pub mod metadata_service {
         }
 
         /// Sets the value of [options][iam_v1::model::GetIamPolicyRequest::options].
-        pub fn set_options<T: Into<std::option::Option<iam_v1::model::GetPolicyOptions>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.options = v.into();
+        pub fn set_options<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        pub fn maybe_options<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = v.map(|x| x.into());
             self
         }
     }
@@ -32382,8 +34187,20 @@ pub mod metadata_service {
         }
 
         /// Sets the value of [timeout][longrunning::model::WaitOperationRequest::timeout].
-        pub fn set_timeout<T: Into<std::option::Option<wkt::Duration>>>(mut self, v: T) -> Self {
-            self.0.request.timeout = v.into();
+        pub fn set_timeout<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Duration>,
+        {
+            self.0.request.timeout = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [timeout][longrunning::model::WaitOperationRequest::timeout].
+        pub fn maybe_timeout<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Duration>,
+        {
+            self.0.request.timeout = v.map(|x| x.into());
             self
         }
     }
@@ -32917,20 +34734,40 @@ pub mod migration_service {
         /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
-        pub fn set_policy<T: Into<std::option::Option<iam_v1::model::Policy>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.policy = v.into();
+        pub fn set_policy<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -32997,11 +34834,20 @@ pub mod migration_service {
         }
 
         /// Sets the value of [options][iam_v1::model::GetIamPolicyRequest::options].
-        pub fn set_options<T: Into<std::option::Option<iam_v1::model::GetPolicyOptions>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.options = v.into();
+        pub fn set_options<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        pub fn maybe_options<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = v.map(|x| x.into());
             self
         }
     }
@@ -33447,8 +35293,20 @@ pub mod migration_service {
         }
 
         /// Sets the value of [timeout][longrunning::model::WaitOperationRequest::timeout].
-        pub fn set_timeout<T: Into<std::option::Option<wkt::Duration>>>(mut self, v: T) -> Self {
-            self.0.request.timeout = v.into();
+        pub fn set_timeout<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Duration>,
+        {
+            self.0.request.timeout = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [timeout][longrunning::model::WaitOperationRequest::timeout].
+        pub fn maybe_timeout<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Duration>,
+        {
+            self.0.request.timeout = v.map(|x| x.into());
             self
         }
     }
@@ -33832,20 +35690,40 @@ pub mod model_garden_service {
         /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
-        pub fn set_policy<T: Into<std::option::Option<iam_v1::model::Policy>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.policy = v.into();
+        pub fn set_policy<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -33912,11 +35790,20 @@ pub mod model_garden_service {
         }
 
         /// Sets the value of [options][iam_v1::model::GetIamPolicyRequest::options].
-        pub fn set_options<T: Into<std::option::Option<iam_v1::model::GetPolicyOptions>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.options = v.into();
+        pub fn set_options<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        pub fn maybe_options<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = v.map(|x| x.into());
             self
         }
     }
@@ -34362,8 +36249,20 @@ pub mod model_garden_service {
         }
 
         /// Sets the value of [timeout][longrunning::model::WaitOperationRequest::timeout].
-        pub fn set_timeout<T: Into<std::option::Option<wkt::Duration>>>(mut self, v: T) -> Self {
-            self.0.request.timeout = v.into();
+        pub fn set_timeout<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Duration>,
+        {
+            self.0.request.timeout = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [timeout][longrunning::model::WaitOperationRequest::timeout].
+        pub fn maybe_timeout<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Duration>,
+        {
+            self.0.request.timeout = v.map(|x| x.into());
             self
         }
     }
@@ -34545,11 +36444,22 @@ pub mod model_service {
         /// Sets the value of [model][crate::model::UploadModelRequest::model].
         ///
         /// This is a **required** field for requests.
-        pub fn set_model<T: Into<std::option::Option<crate::model::Model>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.model = v.into();
+        pub fn set_model<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Model>,
+        {
+            self.0.request.model = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [model][crate::model::UploadModelRequest::model].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_model<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Model>,
+        {
+            self.0.request.model = v.map(|x| x.into());
             self
         }
 
@@ -34730,8 +36640,20 @@ pub mod model_service {
         }
 
         /// Sets the value of [read_mask][crate::model::ListModelsRequest::read_mask].
-        pub fn set_read_mask<T: Into<std::option::Option<wkt::FieldMask>>>(mut self, v: T) -> Self {
-            self.0.request.read_mask = v.into();
+        pub fn set_read_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.read_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [read_mask][crate::model::ListModelsRequest::read_mask].
+        pub fn maybe_read_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.read_mask = v.map(|x| x.into());
             self
         }
 
@@ -34853,8 +36775,20 @@ pub mod model_service {
         }
 
         /// Sets the value of [read_mask][crate::model::ListModelVersionsRequest::read_mask].
-        pub fn set_read_mask<T: Into<std::option::Option<wkt::FieldMask>>>(mut self, v: T) -> Self {
-            self.0.request.read_mask = v.into();
+        pub fn set_read_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.read_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [read_mask][crate::model::ListModelVersionsRequest::read_mask].
+        pub fn maybe_read_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.read_mask = v.map(|x| x.into());
             self
         }
 
@@ -35032,22 +36966,44 @@ pub mod model_service {
         /// Sets the value of [model][crate::model::UpdateModelRequest::model].
         ///
         /// This is a **required** field for requests.
-        pub fn set_model<T: Into<std::option::Option<crate::model::Model>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.model = v.into();
+        pub fn set_model<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Model>,
+        {
+            self.0.request.model = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [model][crate::model::UpdateModelRequest::model].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_model<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Model>,
+        {
+            self.0.request.model = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateModelRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [update_mask][crate::model::UpdateModelRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -35163,11 +37119,20 @@ pub mod model_service {
         }
 
         /// Sets the value of [examples][crate::model::UpdateExplanationDatasetRequest::examples].
-        pub fn set_examples<T: Into<std::option::Option<crate::model::Examples>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.examples = v.into();
+        pub fn set_examples<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Examples>,
+        {
+            self.0.request.examples = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [examples][crate::model::UpdateExplanationDatasetRequest::examples].
+        pub fn maybe_examples<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Examples>,
+        {
+            self.0.request.examples = v.map(|x| x.into());
             self
         }
     }
@@ -35569,13 +37534,22 @@ pub mod model_service {
         /// Sets the value of [output_config][crate::model::ExportModelRequest::output_config].
         ///
         /// This is a **required** field for requests.
-        pub fn set_output_config<
-            T: Into<std::option::Option<crate::model::export_model_request::OutputConfig>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.output_config = v.into();
+        pub fn set_output_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::export_model_request::OutputConfig>,
+        {
+            self.0.request.output_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [output_config][crate::model::ExportModelRequest::output_config].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_output_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::export_model_request::OutputConfig>,
+        {
+            self.0.request.output_config = v.map(|x| x.into());
             self
         }
     }
@@ -35692,11 +37666,20 @@ pub mod model_service {
         }
 
         /// Sets the value of [encryption_spec][crate::model::CopyModelRequest::encryption_spec].
-        pub fn set_encryption_spec<T: Into<std::option::Option<crate::model::EncryptionSpec>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.encryption_spec = v.into();
+        pub fn set_encryption_spec<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::EncryptionSpec>,
+        {
+            self.0.request.encryption_spec = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [encryption_spec][crate::model::CopyModelRequest::encryption_spec].
+        pub fn maybe_encryption_spec<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::EncryptionSpec>,
+        {
+            self.0.request.encryption_spec = v.map(|x| x.into());
             self
         }
 
@@ -35805,11 +37788,22 @@ pub mod model_service {
         /// Sets the value of [model_evaluation][crate::model::ImportModelEvaluationRequest::model_evaluation].
         ///
         /// This is a **required** field for requests.
-        pub fn set_model_evaluation<T: Into<std::option::Option<crate::model::ModelEvaluation>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.model_evaluation = v.into();
+        pub fn set_model_evaluation<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::ModelEvaluation>,
+        {
+            self.0.request.model_evaluation = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [model_evaluation][crate::model::ImportModelEvaluationRequest::model_evaluation].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_model_evaluation<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::ModelEvaluation>,
+        {
+            self.0.request.model_evaluation = v.map(|x| x.into());
             self
         }
     }
@@ -36152,8 +38146,20 @@ pub mod model_service {
         }
 
         /// Sets the value of [read_mask][crate::model::ListModelEvaluationsRequest::read_mask].
-        pub fn set_read_mask<T: Into<std::option::Option<wkt::FieldMask>>>(mut self, v: T) -> Self {
-            self.0.request.read_mask = v.into();
+        pub fn set_read_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.read_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [read_mask][crate::model::ListModelEvaluationsRequest::read_mask].
+        pub fn maybe_read_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.read_mask = v.map(|x| x.into());
             self
         }
     }
@@ -36342,8 +38348,20 @@ pub mod model_service {
         }
 
         /// Sets the value of [read_mask][crate::model::ListModelEvaluationSlicesRequest::read_mask].
-        pub fn set_read_mask<T: Into<std::option::Option<wkt::FieldMask>>>(mut self, v: T) -> Self {
-            self.0.request.read_mask = v.into();
+        pub fn set_read_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.read_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [read_mask][crate::model::ListModelEvaluationSlicesRequest::read_mask].
+        pub fn maybe_read_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.read_mask = v.map(|x| x.into());
             self
         }
     }
@@ -36581,20 +38599,40 @@ pub mod model_service {
         /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
-        pub fn set_policy<T: Into<std::option::Option<iam_v1::model::Policy>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.policy = v.into();
+        pub fn set_policy<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -36661,11 +38699,20 @@ pub mod model_service {
         }
 
         /// Sets the value of [options][iam_v1::model::GetIamPolicyRequest::options].
-        pub fn set_options<T: Into<std::option::Option<iam_v1::model::GetPolicyOptions>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.options = v.into();
+        pub fn set_options<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        pub fn maybe_options<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = v.map(|x| x.into());
             self
         }
     }
@@ -37111,8 +39158,20 @@ pub mod model_service {
         }
 
         /// Sets the value of [timeout][longrunning::model::WaitOperationRequest::timeout].
-        pub fn set_timeout<T: Into<std::option::Option<wkt::Duration>>>(mut self, v: T) -> Self {
-            self.0.request.timeout = v.into();
+        pub fn set_timeout<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Duration>,
+        {
+            self.0.request.timeout = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [timeout][longrunning::model::WaitOperationRequest::timeout].
+        pub fn maybe_timeout<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Duration>,
+        {
+            self.0.request.timeout = v.map(|x| x.into());
             self
         }
     }
@@ -37287,13 +39346,22 @@ pub mod notebook_service {
         /// Sets the value of [notebook_runtime_template][crate::model::CreateNotebookRuntimeTemplateRequest::notebook_runtime_template].
         ///
         /// This is a **required** field for requests.
-        pub fn set_notebook_runtime_template<
-            T: Into<std::option::Option<crate::model::NotebookRuntimeTemplate>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.notebook_runtime_template = v.into();
+        pub fn set_notebook_runtime_template<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::NotebookRuntimeTemplate>,
+        {
+            self.0.request.notebook_runtime_template = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [notebook_runtime_template][crate::model::CreateNotebookRuntimeTemplateRequest::notebook_runtime_template].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_notebook_runtime_template<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::NotebookRuntimeTemplate>,
+        {
+            self.0.request.notebook_runtime_template = v.map(|x| x.into());
             self
         }
 
@@ -37491,8 +39559,20 @@ pub mod notebook_service {
         }
 
         /// Sets the value of [read_mask][crate::model::ListNotebookRuntimeTemplatesRequest::read_mask].
-        pub fn set_read_mask<T: Into<std::option::Option<wkt::FieldMask>>>(mut self, v: T) -> Self {
-            self.0.request.read_mask = v.into();
+        pub fn set_read_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.read_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [read_mask][crate::model::ListNotebookRuntimeTemplatesRequest::read_mask].
+        pub fn maybe_read_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.read_mask = v.map(|x| x.into());
             self
         }
 
@@ -37673,24 +39753,44 @@ pub mod notebook_service {
         /// Sets the value of [notebook_runtime_template][crate::model::UpdateNotebookRuntimeTemplateRequest::notebook_runtime_template].
         ///
         /// This is a **required** field for requests.
-        pub fn set_notebook_runtime_template<
-            T: Into<std::option::Option<crate::model::NotebookRuntimeTemplate>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.notebook_runtime_template = v.into();
+        pub fn set_notebook_runtime_template<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::NotebookRuntimeTemplate>,
+        {
+            self.0.request.notebook_runtime_template = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [notebook_runtime_template][crate::model::UpdateNotebookRuntimeTemplateRequest::notebook_runtime_template].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_notebook_runtime_template<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::NotebookRuntimeTemplate>,
+        {
+            self.0.request.notebook_runtime_template = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateNotebookRuntimeTemplateRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [update_mask][crate::model::UpdateNotebookRuntimeTemplateRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -37814,11 +39914,22 @@ pub mod notebook_service {
         /// Sets the value of [notebook_runtime][crate::model::AssignNotebookRuntimeRequest::notebook_runtime].
         ///
         /// This is a **required** field for requests.
-        pub fn set_notebook_runtime<T: Into<std::option::Option<crate::model::NotebookRuntime>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.notebook_runtime = v.into();
+        pub fn set_notebook_runtime<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::NotebookRuntime>,
+        {
+            self.0.request.notebook_runtime = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [notebook_runtime][crate::model::AssignNotebookRuntimeRequest::notebook_runtime].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_notebook_runtime<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::NotebookRuntime>,
+        {
+            self.0.request.notebook_runtime = v.map(|x| x.into());
             self
         }
 
@@ -38007,8 +40118,20 @@ pub mod notebook_service {
         }
 
         /// Sets the value of [read_mask][crate::model::ListNotebookRuntimesRequest::read_mask].
-        pub fn set_read_mask<T: Into<std::option::Option<wkt::FieldMask>>>(mut self, v: T) -> Self {
-            self.0.request.read_mask = v.into();
+        pub fn set_read_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.read_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [read_mask][crate::model::ListNotebookRuntimesRequest::read_mask].
+        pub fn maybe_read_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.read_mask = v.map(|x| x.into());
             self
         }
 
@@ -38566,13 +40689,22 @@ pub mod notebook_service {
         /// Sets the value of [notebook_execution_job][crate::model::CreateNotebookExecutionJobRequest::notebook_execution_job].
         ///
         /// This is a **required** field for requests.
-        pub fn set_notebook_execution_job<
-            T: Into<std::option::Option<crate::model::NotebookExecutionJob>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.notebook_execution_job = v.into();
+        pub fn set_notebook_execution_job<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::NotebookExecutionJob>,
+        {
+            self.0.request.notebook_execution_job = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [notebook_execution_job][crate::model::CreateNotebookExecutionJobRequest::notebook_execution_job].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_notebook_execution_job<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::NotebookExecutionJob>,
+        {
+            self.0.request.notebook_execution_job = v.map(|x| x.into());
             self
         }
 
@@ -39127,20 +41259,40 @@ pub mod notebook_service {
         /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
-        pub fn set_policy<T: Into<std::option::Option<iam_v1::model::Policy>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.policy = v.into();
+        pub fn set_policy<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -39207,11 +41359,20 @@ pub mod notebook_service {
         }
 
         /// Sets the value of [options][iam_v1::model::GetIamPolicyRequest::options].
-        pub fn set_options<T: Into<std::option::Option<iam_v1::model::GetPolicyOptions>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.options = v.into();
+        pub fn set_options<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        pub fn maybe_options<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = v.map(|x| x.into());
             self
         }
     }
@@ -39657,8 +41818,20 @@ pub mod notebook_service {
         }
 
         /// Sets the value of [timeout][longrunning::model::WaitOperationRequest::timeout].
-        pub fn set_timeout<T: Into<std::option::Option<wkt::Duration>>>(mut self, v: T) -> Self {
-            self.0.request.timeout = v.into();
+        pub fn set_timeout<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Duration>,
+        {
+            self.0.request.timeout = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [timeout][longrunning::model::WaitOperationRequest::timeout].
+        pub fn maybe_timeout<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Duration>,
+        {
+            self.0.request.timeout = v.map(|x| x.into());
             self
         }
     }
@@ -39833,13 +42006,22 @@ pub mod persistent_resource_service {
         /// Sets the value of [persistent_resource][crate::model::CreatePersistentResourceRequest::persistent_resource].
         ///
         /// This is a **required** field for requests.
-        pub fn set_persistent_resource<
-            T: Into<std::option::Option<crate::model::PersistentResource>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.persistent_resource = v.into();
+        pub fn set_persistent_resource<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::PersistentResource>,
+        {
+            self.0.request.persistent_resource = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [persistent_resource][crate::model::CreatePersistentResourceRequest::persistent_resource].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_persistent_resource<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::PersistentResource>,
+        {
+            self.0.request.persistent_resource = v.map(|x| x.into());
             self
         }
 
@@ -40242,24 +42424,44 @@ pub mod persistent_resource_service {
         /// Sets the value of [persistent_resource][crate::model::UpdatePersistentResourceRequest::persistent_resource].
         ///
         /// This is a **required** field for requests.
-        pub fn set_persistent_resource<
-            T: Into<std::option::Option<crate::model::PersistentResource>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.persistent_resource = v.into();
+        pub fn set_persistent_resource<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::PersistentResource>,
+        {
+            self.0.request.persistent_resource = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [persistent_resource][crate::model::UpdatePersistentResourceRequest::persistent_resource].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_persistent_resource<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::PersistentResource>,
+        {
+            self.0.request.persistent_resource = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdatePersistentResourceRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [update_mask][crate::model::UpdatePersistentResourceRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -40608,20 +42810,40 @@ pub mod persistent_resource_service {
         /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
-        pub fn set_policy<T: Into<std::option::Option<iam_v1::model::Policy>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.policy = v.into();
+        pub fn set_policy<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -40688,11 +42910,20 @@ pub mod persistent_resource_service {
         }
 
         /// Sets the value of [options][iam_v1::model::GetIamPolicyRequest::options].
-        pub fn set_options<T: Into<std::option::Option<iam_v1::model::GetPolicyOptions>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.options = v.into();
+        pub fn set_options<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        pub fn maybe_options<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = v.map(|x| x.into());
             self
         }
     }
@@ -41138,8 +43369,20 @@ pub mod persistent_resource_service {
         }
 
         /// Sets the value of [timeout][longrunning::model::WaitOperationRequest::timeout].
-        pub fn set_timeout<T: Into<std::option::Option<wkt::Duration>>>(mut self, v: T) -> Self {
-            self.0.request.timeout = v.into();
+        pub fn set_timeout<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Duration>,
+        {
+            self.0.request.timeout = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [timeout][longrunning::model::WaitOperationRequest::timeout].
+        pub fn maybe_timeout<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Duration>,
+        {
+            self.0.request.timeout = v.map(|x| x.into());
             self
         }
     }
@@ -41268,13 +43511,22 @@ pub mod pipeline_service {
         /// Sets the value of [training_pipeline][crate::model::CreateTrainingPipelineRequest::training_pipeline].
         ///
         /// This is a **required** field for requests.
-        pub fn set_training_pipeline<
-            T: Into<std::option::Option<crate::model::TrainingPipeline>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.training_pipeline = v.into();
+        pub fn set_training_pipeline<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::TrainingPipeline>,
+        {
+            self.0.request.training_pipeline = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [training_pipeline][crate::model::CreateTrainingPipelineRequest::training_pipeline].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_training_pipeline<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::TrainingPipeline>,
+        {
+            self.0.request.training_pipeline = v.map(|x| x.into());
             self
         }
     }
@@ -41457,8 +43709,20 @@ pub mod pipeline_service {
         }
 
         /// Sets the value of [read_mask][crate::model::ListTrainingPipelinesRequest::read_mask].
-        pub fn set_read_mask<T: Into<std::option::Option<wkt::FieldMask>>>(mut self, v: T) -> Self {
-            self.0.request.read_mask = v.into();
+        pub fn set_read_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.read_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [read_mask][crate::model::ListTrainingPipelinesRequest::read_mask].
+        pub fn maybe_read_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.read_mask = v.map(|x| x.into());
             self
         }
     }
@@ -41702,11 +43966,22 @@ pub mod pipeline_service {
         /// Sets the value of [pipeline_job][crate::model::CreatePipelineJobRequest::pipeline_job].
         ///
         /// This is a **required** field for requests.
-        pub fn set_pipeline_job<T: Into<std::option::Option<crate::model::PipelineJob>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.pipeline_job = v.into();
+        pub fn set_pipeline_job<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::PipelineJob>,
+        {
+            self.0.request.pipeline_job = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [pipeline_job][crate::model::CreatePipelineJobRequest::pipeline_job].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_pipeline_job<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::PipelineJob>,
+        {
+            self.0.request.pipeline_job = v.map(|x| x.into());
             self
         }
 
@@ -41896,8 +44171,20 @@ pub mod pipeline_service {
         }
 
         /// Sets the value of [read_mask][crate::model::ListPipelineJobsRequest::read_mask].
-        pub fn set_read_mask<T: Into<std::option::Option<wkt::FieldMask>>>(mut self, v: T) -> Self {
-            self.0.request.read_mask = v.into();
+        pub fn set_read_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.read_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [read_mask][crate::model::ListPipelineJobsRequest::read_mask].
+        pub fn maybe_read_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.read_mask = v.map(|x| x.into());
             self
         }
     }
@@ -42555,20 +44842,40 @@ pub mod pipeline_service {
         /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
-        pub fn set_policy<T: Into<std::option::Option<iam_v1::model::Policy>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.policy = v.into();
+        pub fn set_policy<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -42635,11 +44942,20 @@ pub mod pipeline_service {
         }
 
         /// Sets the value of [options][iam_v1::model::GetIamPolicyRequest::options].
-        pub fn set_options<T: Into<std::option::Option<iam_v1::model::GetPolicyOptions>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.options = v.into();
+        pub fn set_options<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        pub fn maybe_options<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = v.map(|x| x.into());
             self
         }
     }
@@ -43085,8 +45401,20 @@ pub mod pipeline_service {
         }
 
         /// Sets the value of [timeout][longrunning::model::WaitOperationRequest::timeout].
-        pub fn set_timeout<T: Into<std::option::Option<wkt::Duration>>>(mut self, v: T) -> Self {
-            self.0.request.timeout = v.into();
+        pub fn set_timeout<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Duration>,
+        {
+            self.0.request.timeout = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [timeout][longrunning::model::WaitOperationRequest::timeout].
+        pub fn maybe_timeout<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Duration>,
+        {
+            self.0.request.timeout = v.map(|x| x.into());
             self
         }
     }
@@ -43223,8 +45551,20 @@ pub mod prediction_service {
         }
 
         /// Sets the value of [parameters][crate::model::PredictRequest::parameters].
-        pub fn set_parameters<T: Into<std::option::Option<wkt::Value>>>(mut self, v: T) -> Self {
-            self.0.request.parameters = v.into();
+        pub fn set_parameters<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Value>,
+        {
+            self.0.request.parameters = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [parameters][crate::model::PredictRequest::parameters].
+        pub fn maybe_parameters<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Value>,
+        {
+            self.0.request.parameters = v.map(|x| x.into());
             self
         }
     }
@@ -43291,11 +45631,20 @@ pub mod prediction_service {
         }
 
         /// Sets the value of [http_body][crate::model::RawPredictRequest::http_body].
-        pub fn set_http_body<T: Into<std::option::Option<api::model::HttpBody>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.http_body = v.into();
+        pub fn set_http_body<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<api::model::HttpBody>,
+        {
+            self.0.request.http_body = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [http_body][crate::model::RawPredictRequest::http_body].
+        pub fn maybe_http_body<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<api::model::HttpBody>,
+        {
+            self.0.request.http_body = v.map(|x| x.into());
             self
         }
     }
@@ -43373,11 +45722,20 @@ pub mod prediction_service {
         }
 
         /// Sets the value of [parameters][crate::model::DirectPredictRequest::parameters].
-        pub fn set_parameters<T: Into<std::option::Option<crate::model::Tensor>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.parameters = v.into();
+        pub fn set_parameters<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Tensor>,
+        {
+            self.0.request.parameters = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [parameters][crate::model::DirectPredictRequest::parameters].
+        pub fn maybe_parameters<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Tensor>,
+        {
+            self.0.request.parameters = v.map(|x| x.into());
             self
         }
     }
@@ -43534,19 +45892,38 @@ pub mod prediction_service {
         }
 
         /// Sets the value of [parameters][crate::model::ExplainRequest::parameters].
-        pub fn set_parameters<T: Into<std::option::Option<wkt::Value>>>(mut self, v: T) -> Self {
-            self.0.request.parameters = v.into();
+        pub fn set_parameters<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Value>,
+        {
+            self.0.request.parameters = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [parameters][crate::model::ExplainRequest::parameters].
+        pub fn maybe_parameters<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Value>,
+        {
+            self.0.request.parameters = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [explanation_spec_override][crate::model::ExplainRequest::explanation_spec_override].
-        pub fn set_explanation_spec_override<
-            T: Into<std::option::Option<crate::model::ExplanationSpecOverride>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.explanation_spec_override = v.into();
+        pub fn set_explanation_spec_override<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::ExplanationSpecOverride>,
+        {
+            self.0.request.explanation_spec_override = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [explanation_spec_override][crate::model::ExplainRequest::explanation_spec_override].
+        pub fn maybe_explanation_spec_override<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::ExplanationSpecOverride>,
+        {
+            self.0.request.explanation_spec_override = v.map(|x| x.into());
             self
         }
 
@@ -43632,11 +46009,20 @@ pub mod prediction_service {
         }
 
         /// Sets the value of [system_instruction][crate::model::GenerateContentRequest::system_instruction].
-        pub fn set_system_instruction<T: Into<std::option::Option<crate::model::Content>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.system_instruction = v.into();
+        pub fn set_system_instruction<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Content>,
+        {
+            self.0.request.system_instruction = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [system_instruction][crate::model::GenerateContentRequest::system_instruction].
+        pub fn maybe_system_instruction<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Content>,
+        {
+            self.0.request.system_instruction = v.map(|x| x.into());
             self
         }
 
@@ -43658,11 +46044,20 @@ pub mod prediction_service {
         }
 
         /// Sets the value of [tool_config][crate::model::GenerateContentRequest::tool_config].
-        pub fn set_tool_config<T: Into<std::option::Option<crate::model::ToolConfig>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.tool_config = v.into();
+        pub fn set_tool_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::ToolConfig>,
+        {
+            self.0.request.tool_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [tool_config][crate::model::GenerateContentRequest::tool_config].
+        pub fn maybe_tool_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::ToolConfig>,
+        {
+            self.0.request.tool_config = v.map(|x| x.into());
             self
         }
 
@@ -43689,13 +46084,20 @@ pub mod prediction_service {
         }
 
         /// Sets the value of [generation_config][crate::model::GenerateContentRequest::generation_config].
-        pub fn set_generation_config<
-            T: Into<std::option::Option<crate::model::GenerationConfig>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.generation_config = v.into();
+        pub fn set_generation_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::GenerationConfig>,
+        {
+            self.0.request.generation_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [generation_config][crate::model::GenerateContentRequest::generation_config].
+        pub fn maybe_generation_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::GenerationConfig>,
+        {
+            self.0.request.generation_config = v.map(|x| x.into());
             self
         }
     }
@@ -43933,20 +46335,40 @@ pub mod prediction_service {
         /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
-        pub fn set_policy<T: Into<std::option::Option<iam_v1::model::Policy>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.policy = v.into();
+        pub fn set_policy<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -44013,11 +46435,20 @@ pub mod prediction_service {
         }
 
         /// Sets the value of [options][iam_v1::model::GetIamPolicyRequest::options].
-        pub fn set_options<T: Into<std::option::Option<iam_v1::model::GetPolicyOptions>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.options = v.into();
+        pub fn set_options<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        pub fn maybe_options<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = v.map(|x| x.into());
             self
         }
     }
@@ -44463,8 +46894,20 @@ pub mod prediction_service {
         }
 
         /// Sets the value of [timeout][longrunning::model::WaitOperationRequest::timeout].
-        pub fn set_timeout<T: Into<std::option::Option<wkt::Duration>>>(mut self, v: T) -> Self {
-            self.0.request.timeout = v.into();
+        pub fn set_timeout<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Duration>,
+        {
+            self.0.request.timeout = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [timeout][longrunning::model::WaitOperationRequest::timeout].
+        pub fn maybe_timeout<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Duration>,
+        {
+            self.0.request.timeout = v.map(|x| x.into());
             self
         }
     }
@@ -44591,8 +47034,20 @@ pub mod reasoning_engine_execution_service {
         }
 
         /// Sets the value of [input][crate::model::QueryReasoningEngineRequest::input].
-        pub fn set_input<T: Into<std::option::Option<wkt::Struct>>>(mut self, v: T) -> Self {
-            self.0.request.input = v.into();
+        pub fn set_input<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Struct>,
+        {
+            self.0.request.input = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [input][crate::model::QueryReasoningEngineRequest::input].
+        pub fn maybe_input<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Struct>,
+        {
+            self.0.request.input = v.map(|x| x.into());
             self
         }
 
@@ -44836,20 +47291,40 @@ pub mod reasoning_engine_execution_service {
         /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
-        pub fn set_policy<T: Into<std::option::Option<iam_v1::model::Policy>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.policy = v.into();
+        pub fn set_policy<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -44916,11 +47391,20 @@ pub mod reasoning_engine_execution_service {
         }
 
         /// Sets the value of [options][iam_v1::model::GetIamPolicyRequest::options].
-        pub fn set_options<T: Into<std::option::Option<iam_v1::model::GetPolicyOptions>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.options = v.into();
+        pub fn set_options<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        pub fn maybe_options<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = v.map(|x| x.into());
             self
         }
     }
@@ -45366,8 +47850,20 @@ pub mod reasoning_engine_execution_service {
         }
 
         /// Sets the value of [timeout][longrunning::model::WaitOperationRequest::timeout].
-        pub fn set_timeout<T: Into<std::option::Option<wkt::Duration>>>(mut self, v: T) -> Self {
-            self.0.request.timeout = v.into();
+        pub fn set_timeout<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Duration>,
+        {
+            self.0.request.timeout = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [timeout][longrunning::model::WaitOperationRequest::timeout].
+        pub fn maybe_timeout<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Duration>,
+        {
+            self.0.request.timeout = v.map(|x| x.into());
             self
         }
     }
@@ -45540,11 +48036,22 @@ pub mod reasoning_engine_service {
         /// Sets the value of [reasoning_engine][crate::model::CreateReasoningEngineRequest::reasoning_engine].
         ///
         /// This is a **required** field for requests.
-        pub fn set_reasoning_engine<T: Into<std::option::Option<crate::model::ReasoningEngine>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.reasoning_engine = v.into();
+        pub fn set_reasoning_engine<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::ReasoningEngine>,
+        {
+            self.0.request.reasoning_engine = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [reasoning_engine][crate::model::CreateReasoningEngineRequest::reasoning_engine].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_reasoning_engine<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::ReasoningEngine>,
+        {
+            self.0.request.reasoning_engine = v.map(|x| x.into());
             self
         }
     }
@@ -45830,20 +48337,40 @@ pub mod reasoning_engine_service {
         /// Sets the value of [reasoning_engine][crate::model::UpdateReasoningEngineRequest::reasoning_engine].
         ///
         /// This is a **required** field for requests.
-        pub fn set_reasoning_engine<T: Into<std::option::Option<crate::model::ReasoningEngine>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.reasoning_engine = v.into();
+        pub fn set_reasoning_engine<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::ReasoningEngine>,
+        {
+            self.0.request.reasoning_engine = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [reasoning_engine][crate::model::UpdateReasoningEngineRequest::reasoning_engine].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_reasoning_engine<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::ReasoningEngine>,
+        {
+            self.0.request.reasoning_engine = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateReasoningEngineRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [update_mask][crate::model::UpdateReasoningEngineRequest::update_mask].
+        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -46194,20 +48721,40 @@ pub mod reasoning_engine_service {
         /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
-        pub fn set_policy<T: Into<std::option::Option<iam_v1::model::Policy>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.policy = v.into();
+        pub fn set_policy<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -46274,11 +48821,20 @@ pub mod reasoning_engine_service {
         }
 
         /// Sets the value of [options][iam_v1::model::GetIamPolicyRequest::options].
-        pub fn set_options<T: Into<std::option::Option<iam_v1::model::GetPolicyOptions>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.options = v.into();
+        pub fn set_options<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        pub fn maybe_options<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = v.map(|x| x.into());
             self
         }
     }
@@ -46724,8 +49280,20 @@ pub mod reasoning_engine_service {
         }
 
         /// Sets the value of [timeout][longrunning::model::WaitOperationRequest::timeout].
-        pub fn set_timeout<T: Into<std::option::Option<wkt::Duration>>>(mut self, v: T) -> Self {
-            self.0.request.timeout = v.into();
+        pub fn set_timeout<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Duration>,
+        {
+            self.0.request.timeout = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [timeout][longrunning::model::WaitOperationRequest::timeout].
+        pub fn maybe_timeout<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Duration>,
+        {
+            self.0.request.timeout = v.map(|x| x.into());
             self
         }
     }
@@ -46851,11 +49419,22 @@ pub mod schedule_service {
         /// Sets the value of [schedule][crate::model::CreateScheduleRequest::schedule].
         ///
         /// This is a **required** field for requests.
-        pub fn set_schedule<T: Into<std::option::Option<crate::model::Schedule>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.schedule = v.into();
+        pub fn set_schedule<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Schedule>,
+        {
+            self.0.request.schedule = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [schedule][crate::model::CreateScheduleRequest::schedule].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_schedule<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Schedule>,
+        {
+            self.0.request.schedule = v.map(|x| x.into());
             self
         }
     }
@@ -47326,22 +49905,44 @@ pub mod schedule_service {
         /// Sets the value of [schedule][crate::model::UpdateScheduleRequest::schedule].
         ///
         /// This is a **required** field for requests.
-        pub fn set_schedule<T: Into<std::option::Option<crate::model::Schedule>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.schedule = v.into();
+        pub fn set_schedule<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Schedule>,
+        {
+            self.0.request.schedule = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [schedule][crate::model::UpdateScheduleRequest::schedule].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_schedule<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Schedule>,
+        {
+            self.0.request.schedule = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateScheduleRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [update_mask][crate::model::UpdateScheduleRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -47579,20 +50180,40 @@ pub mod schedule_service {
         /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
-        pub fn set_policy<T: Into<std::option::Option<iam_v1::model::Policy>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.policy = v.into();
+        pub fn set_policy<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -47659,11 +50280,20 @@ pub mod schedule_service {
         }
 
         /// Sets the value of [options][iam_v1::model::GetIamPolicyRequest::options].
-        pub fn set_options<T: Into<std::option::Option<iam_v1::model::GetPolicyOptions>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.options = v.into();
+        pub fn set_options<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        pub fn maybe_options<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = v.map(|x| x.into());
             self
         }
     }
@@ -48109,8 +50739,20 @@ pub mod schedule_service {
         }
 
         /// Sets the value of [timeout][longrunning::model::WaitOperationRequest::timeout].
-        pub fn set_timeout<T: Into<std::option::Option<wkt::Duration>>>(mut self, v: T) -> Self {
-            self.0.request.timeout = v.into();
+        pub fn set_timeout<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Duration>,
+        {
+            self.0.request.timeout = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [timeout][longrunning::model::WaitOperationRequest::timeout].
+        pub fn maybe_timeout<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Duration>,
+        {
+            self.0.request.timeout = v.map(|x| x.into());
             self
         }
     }
@@ -48283,11 +50925,22 @@ pub mod specialist_pool_service {
         /// Sets the value of [specialist_pool][crate::model::CreateSpecialistPoolRequest::specialist_pool].
         ///
         /// This is a **required** field for requests.
-        pub fn set_specialist_pool<T: Into<std::option::Option<crate::model::SpecialistPool>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.specialist_pool = v.into();
+        pub fn set_specialist_pool<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::SpecialistPool>,
+        {
+            self.0.request.specialist_pool = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [specialist_pool][crate::model::CreateSpecialistPoolRequest::specialist_pool].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_specialist_pool<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::SpecialistPool>,
+        {
+            self.0.request.specialist_pool = v.map(|x| x.into());
             self
         }
     }
@@ -48464,8 +51117,20 @@ pub mod specialist_pool_service {
         }
 
         /// Sets the value of [read_mask][crate::model::ListSpecialistPoolsRequest::read_mask].
-        pub fn set_read_mask<T: Into<std::option::Option<wkt::FieldMask>>>(mut self, v: T) -> Self {
-            self.0.request.read_mask = v.into();
+        pub fn set_read_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.read_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [read_mask][crate::model::ListSpecialistPoolsRequest::read_mask].
+        pub fn maybe_read_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.read_mask = v.map(|x| x.into());
             self
         }
     }
@@ -48686,22 +51351,44 @@ pub mod specialist_pool_service {
         /// Sets the value of [specialist_pool][crate::model::UpdateSpecialistPoolRequest::specialist_pool].
         ///
         /// This is a **required** field for requests.
-        pub fn set_specialist_pool<T: Into<std::option::Option<crate::model::SpecialistPool>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.specialist_pool = v.into();
+        pub fn set_specialist_pool<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::SpecialistPool>,
+        {
+            self.0.request.specialist_pool = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [specialist_pool][crate::model::UpdateSpecialistPoolRequest::specialist_pool].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_specialist_pool<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::SpecialistPool>,
+        {
+            self.0.request.specialist_pool = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateSpecialistPoolRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [update_mask][crate::model::UpdateSpecialistPoolRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -48939,20 +51626,40 @@ pub mod specialist_pool_service {
         /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
-        pub fn set_policy<T: Into<std::option::Option<iam_v1::model::Policy>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.policy = v.into();
+        pub fn set_policy<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -49019,11 +51726,20 @@ pub mod specialist_pool_service {
         }
 
         /// Sets the value of [options][iam_v1::model::GetIamPolicyRequest::options].
-        pub fn set_options<T: Into<std::option::Option<iam_v1::model::GetPolicyOptions>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.options = v.into();
+        pub fn set_options<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        pub fn maybe_options<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = v.map(|x| x.into());
             self
         }
     }
@@ -49469,8 +52185,20 @@ pub mod specialist_pool_service {
         }
 
         /// Sets the value of [timeout][longrunning::model::WaitOperationRequest::timeout].
-        pub fn set_timeout<T: Into<std::option::Option<wkt::Duration>>>(mut self, v: T) -> Self {
-            self.0.request.timeout = v.into();
+        pub fn set_timeout<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Duration>,
+        {
+            self.0.request.timeout = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [timeout][longrunning::model::WaitOperationRequest::timeout].
+        pub fn maybe_timeout<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Duration>,
+        {
+            self.0.request.timeout = v.map(|x| x.into());
             self
         }
     }
@@ -49641,11 +52369,22 @@ pub mod tensorboard_service {
         /// Sets the value of [tensorboard][crate::model::CreateTensorboardRequest::tensorboard].
         ///
         /// This is a **required** field for requests.
-        pub fn set_tensorboard<T: Into<std::option::Option<crate::model::Tensorboard>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.tensorboard = v.into();
+        pub fn set_tensorboard<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Tensorboard>,
+        {
+            self.0.request.tensorboard = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [tensorboard][crate::model::CreateTensorboardRequest::tensorboard].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_tensorboard<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Tensorboard>,
+        {
+            self.0.request.tensorboard = v.map(|x| x.into());
             self
         }
     }
@@ -49813,22 +52552,44 @@ pub mod tensorboard_service {
         /// Sets the value of [update_mask][crate::model::UpdateTensorboardRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [update_mask][crate::model::UpdateTensorboardRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [tensorboard][crate::model::UpdateTensorboardRequest::tensorboard].
         ///
         /// This is a **required** field for requests.
-        pub fn set_tensorboard<T: Into<std::option::Option<crate::model::Tensorboard>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.tensorboard = v.into();
+        pub fn set_tensorboard<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Tensorboard>,
+        {
+            self.0.request.tensorboard = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [tensorboard][crate::model::UpdateTensorboardRequest::tensorboard].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_tensorboard<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Tensorboard>,
+        {
+            self.0.request.tensorboard = v.map(|x| x.into());
             self
         }
     }
@@ -49950,8 +52711,20 @@ pub mod tensorboard_service {
         }
 
         /// Sets the value of [read_mask][crate::model::ListTensorboardsRequest::read_mask].
-        pub fn set_read_mask<T: Into<std::option::Option<wkt::FieldMask>>>(mut self, v: T) -> Self {
-            self.0.request.read_mask = v.into();
+        pub fn set_read_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.read_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [read_mask][crate::model::ListTensorboardsRequest::read_mask].
+        pub fn maybe_read_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.read_mask = v.map(|x| x.into());
             self
         }
     }
@@ -50260,13 +53033,20 @@ pub mod tensorboard_service {
         }
 
         /// Sets the value of [tensorboard_experiment][crate::model::CreateTensorboardExperimentRequest::tensorboard_experiment].
-        pub fn set_tensorboard_experiment<
-            T: Into<std::option::Option<crate::model::TensorboardExperiment>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.tensorboard_experiment = v.into();
+        pub fn set_tensorboard_experiment<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::TensorboardExperiment>,
+        {
+            self.0.request.tensorboard_experiment = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [tensorboard_experiment][crate::model::CreateTensorboardExperimentRequest::tensorboard_experiment].
+        pub fn maybe_tensorboard_experiment<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::TensorboardExperiment>,
+        {
+            self.0.request.tensorboard_experiment = v.map(|x| x.into());
             self
         }
 
@@ -50407,24 +53187,44 @@ pub mod tensorboard_service {
         /// Sets the value of [update_mask][crate::model::UpdateTensorboardExperimentRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [update_mask][crate::model::UpdateTensorboardExperimentRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [tensorboard_experiment][crate::model::UpdateTensorboardExperimentRequest::tensorboard_experiment].
         ///
         /// This is a **required** field for requests.
-        pub fn set_tensorboard_experiment<
-            T: Into<std::option::Option<crate::model::TensorboardExperiment>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.tensorboard_experiment = v.into();
+        pub fn set_tensorboard_experiment<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::TensorboardExperiment>,
+        {
+            self.0.request.tensorboard_experiment = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [tensorboard_experiment][crate::model::UpdateTensorboardExperimentRequest::tensorboard_experiment].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_tensorboard_experiment<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::TensorboardExperiment>,
+        {
+            self.0.request.tensorboard_experiment = v.map(|x| x.into());
             self
         }
     }
@@ -50552,8 +53352,20 @@ pub mod tensorboard_service {
         }
 
         /// Sets the value of [read_mask][crate::model::ListTensorboardExperimentsRequest::read_mask].
-        pub fn set_read_mask<T: Into<std::option::Option<wkt::FieldMask>>>(mut self, v: T) -> Self {
-            self.0.request.read_mask = v.into();
+        pub fn set_read_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.read_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [read_mask][crate::model::ListTensorboardExperimentsRequest::read_mask].
+        pub fn maybe_read_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.read_mask = v.map(|x| x.into());
             self
         }
     }
@@ -50734,11 +53546,22 @@ pub mod tensorboard_service {
         /// Sets the value of [tensorboard_run][crate::model::CreateTensorboardRunRequest::tensorboard_run].
         ///
         /// This is a **required** field for requests.
-        pub fn set_tensorboard_run<T: Into<std::option::Option<crate::model::TensorboardRun>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.tensorboard_run = v.into();
+        pub fn set_tensorboard_run<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::TensorboardRun>,
+        {
+            self.0.request.tensorboard_run = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [tensorboard_run][crate::model::CreateTensorboardRunRequest::tensorboard_run].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_tensorboard_run<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::TensorboardRun>,
+        {
+            self.0.request.tensorboard_run = v.map(|x| x.into());
             self
         }
 
@@ -50955,22 +53778,44 @@ pub mod tensorboard_service {
         /// Sets the value of [update_mask][crate::model::UpdateTensorboardRunRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [update_mask][crate::model::UpdateTensorboardRunRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [tensorboard_run][crate::model::UpdateTensorboardRunRequest::tensorboard_run].
         ///
         /// This is a **required** field for requests.
-        pub fn set_tensorboard_run<T: Into<std::option::Option<crate::model::TensorboardRun>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.tensorboard_run = v.into();
+        pub fn set_tensorboard_run<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::TensorboardRun>,
+        {
+            self.0.request.tensorboard_run = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [tensorboard_run][crate::model::UpdateTensorboardRunRequest::tensorboard_run].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_tensorboard_run<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::TensorboardRun>,
+        {
+            self.0.request.tensorboard_run = v.map(|x| x.into());
             self
         }
     }
@@ -51094,8 +53939,20 @@ pub mod tensorboard_service {
         }
 
         /// Sets the value of [read_mask][crate::model::ListTensorboardRunsRequest::read_mask].
-        pub fn set_read_mask<T: Into<std::option::Option<wkt::FieldMask>>>(mut self, v: T) -> Self {
-            self.0.request.read_mask = v.into();
+        pub fn set_read_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.read_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [read_mask][crate::model::ListTensorboardRunsRequest::read_mask].
+        pub fn maybe_read_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.read_mask = v.map(|x| x.into());
             self
         }
     }
@@ -51365,13 +54222,22 @@ pub mod tensorboard_service {
         /// Sets the value of [tensorboard_time_series][crate::model::CreateTensorboardTimeSeriesRequest::tensorboard_time_series].
         ///
         /// This is a **required** field for requests.
-        pub fn set_tensorboard_time_series<
-            T: Into<std::option::Option<crate::model::TensorboardTimeSeries>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.tensorboard_time_series = v.into();
+        pub fn set_tensorboard_time_series<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::TensorboardTimeSeries>,
+        {
+            self.0.request.tensorboard_time_series = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [tensorboard_time_series][crate::model::CreateTensorboardTimeSeriesRequest::tensorboard_time_series].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_tensorboard_time_series<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::TensorboardTimeSeries>,
+        {
+            self.0.request.tensorboard_time_series = v.map(|x| x.into());
             self
         }
     }
@@ -51504,24 +54370,44 @@ pub mod tensorboard_service {
         /// Sets the value of [update_mask][crate::model::UpdateTensorboardTimeSeriesRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [update_mask][crate::model::UpdateTensorboardTimeSeriesRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [tensorboard_time_series][crate::model::UpdateTensorboardTimeSeriesRequest::tensorboard_time_series].
         ///
         /// This is a **required** field for requests.
-        pub fn set_tensorboard_time_series<
-            T: Into<std::option::Option<crate::model::TensorboardTimeSeries>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.tensorboard_time_series = v.into();
+        pub fn set_tensorboard_time_series<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::TensorboardTimeSeries>,
+        {
+            self.0.request.tensorboard_time_series = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [tensorboard_time_series][crate::model::UpdateTensorboardTimeSeriesRequest::tensorboard_time_series].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_tensorboard_time_series<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::TensorboardTimeSeries>,
+        {
+            self.0.request.tensorboard_time_series = v.map(|x| x.into());
             self
         }
     }
@@ -51649,8 +54535,20 @@ pub mod tensorboard_service {
         }
 
         /// Sets the value of [read_mask][crate::model::ListTensorboardTimeSeriesRequest::read_mask].
-        pub fn set_read_mask<T: Into<std::option::Option<wkt::FieldMask>>>(mut self, v: T) -> Self {
-            self.0.request.read_mask = v.into();
+        pub fn set_read_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.read_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [read_mask][crate::model::ListTensorboardTimeSeriesRequest::read_mask].
+        pub fn maybe_read_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.read_mask = v.map(|x| x.into());
             self
         }
     }
@@ -52441,20 +55339,40 @@ pub mod tensorboard_service {
         /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
-        pub fn set_policy<T: Into<std::option::Option<iam_v1::model::Policy>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.policy = v.into();
+        pub fn set_policy<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -52521,11 +55439,20 @@ pub mod tensorboard_service {
         }
 
         /// Sets the value of [options][iam_v1::model::GetIamPolicyRequest::options].
-        pub fn set_options<T: Into<std::option::Option<iam_v1::model::GetPolicyOptions>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.options = v.into();
+        pub fn set_options<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        pub fn maybe_options<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = v.map(|x| x.into());
             self
         }
     }
@@ -52971,8 +55898,20 @@ pub mod tensorboard_service {
         }
 
         /// Sets the value of [timeout][longrunning::model::WaitOperationRequest::timeout].
-        pub fn set_timeout<T: Into<std::option::Option<wkt::Duration>>>(mut self, v: T) -> Self {
-            self.0.request.timeout = v.into();
+        pub fn set_timeout<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Duration>,
+        {
+            self.0.request.timeout = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [timeout][longrunning::model::WaitOperationRequest::timeout].
+        pub fn maybe_timeout<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Duration>,
+        {
+            self.0.request.timeout = v.map(|x| x.into());
             self
         }
     }
@@ -53140,11 +56079,22 @@ pub mod vertex_rag_data_service {
         /// Sets the value of [rag_corpus][crate::model::CreateRagCorpusRequest::rag_corpus].
         ///
         /// This is a **required** field for requests.
-        pub fn set_rag_corpus<T: Into<std::option::Option<crate::model::RagCorpus>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.rag_corpus = v.into();
+        pub fn set_rag_corpus<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::RagCorpus>,
+        {
+            self.0.request.rag_corpus = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [rag_corpus][crate::model::CreateRagCorpusRequest::rag_corpus].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_rag_corpus<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::RagCorpus>,
+        {
+            self.0.request.rag_corpus = v.map(|x| x.into());
             self
         }
     }
@@ -53247,11 +56197,22 @@ pub mod vertex_rag_data_service {
         /// Sets the value of [rag_corpus][crate::model::UpdateRagCorpusRequest::rag_corpus].
         ///
         /// This is a **required** field for requests.
-        pub fn set_rag_corpus<T: Into<std::option::Option<crate::model::RagCorpus>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.rag_corpus = v.into();
+        pub fn set_rag_corpus<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::RagCorpus>,
+        {
+            self.0.request.rag_corpus = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [rag_corpus][crate::model::UpdateRagCorpusRequest::rag_corpus].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_rag_corpus<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::RagCorpus>,
+        {
+            self.0.request.rag_corpus = v.map(|x| x.into());
             self
         }
     }
@@ -53594,24 +56555,44 @@ pub mod vertex_rag_data_service {
         /// Sets the value of [rag_file][crate::model::UploadRagFileRequest::rag_file].
         ///
         /// This is a **required** field for requests.
-        pub fn set_rag_file<T: Into<std::option::Option<crate::model::RagFile>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.rag_file = v.into();
+        pub fn set_rag_file<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::RagFile>,
+        {
+            self.0.request.rag_file = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [rag_file][crate::model::UploadRagFileRequest::rag_file].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_rag_file<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::RagFile>,
+        {
+            self.0.request.rag_file = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [upload_rag_file_config][crate::model::UploadRagFileRequest::upload_rag_file_config].
         ///
         /// This is a **required** field for requests.
-        pub fn set_upload_rag_file_config<
-            T: Into<std::option::Option<crate::model::UploadRagFileConfig>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.upload_rag_file_config = v.into();
+        pub fn set_upload_rag_file_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::UploadRagFileConfig>,
+        {
+            self.0.request.upload_rag_file_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [upload_rag_file_config][crate::model::UploadRagFileRequest::upload_rag_file_config].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_upload_rag_file_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::UploadRagFileConfig>,
+        {
+            self.0.request.upload_rag_file_config = v.map(|x| x.into());
             self
         }
     }
@@ -53724,13 +56705,22 @@ pub mod vertex_rag_data_service {
         /// Sets the value of [import_rag_files_config][crate::model::ImportRagFilesRequest::import_rag_files_config].
         ///
         /// This is a **required** field for requests.
-        pub fn set_import_rag_files_config<
-            T: Into<std::option::Option<crate::model::ImportRagFilesConfig>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.import_rag_files_config = v.into();
+        pub fn set_import_rag_files_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::ImportRagFilesConfig>,
+        {
+            self.0.request.import_rag_files_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [import_rag_files_config][crate::model::ImportRagFilesRequest::import_rag_files_config].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_import_rag_files_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::ImportRagFilesConfig>,
+        {
+            self.0.request.import_rag_files_config = v.map(|x| x.into());
             self
         }
     }
@@ -54236,20 +57226,40 @@ pub mod vertex_rag_data_service {
         /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
-        pub fn set_policy<T: Into<std::option::Option<iam_v1::model::Policy>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.policy = v.into();
+        pub fn set_policy<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -54316,11 +57326,20 @@ pub mod vertex_rag_data_service {
         }
 
         /// Sets the value of [options][iam_v1::model::GetIamPolicyRequest::options].
-        pub fn set_options<T: Into<std::option::Option<iam_v1::model::GetPolicyOptions>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.options = v.into();
+        pub fn set_options<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        pub fn maybe_options<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = v.map(|x| x.into());
             self
         }
     }
@@ -54766,8 +57785,20 @@ pub mod vertex_rag_data_service {
         }
 
         /// Sets the value of [timeout][longrunning::model::WaitOperationRequest::timeout].
-        pub fn set_timeout<T: Into<std::option::Option<wkt::Duration>>>(mut self, v: T) -> Self {
-            self.0.request.timeout = v.into();
+        pub fn set_timeout<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Duration>,
+        {
+            self.0.request.timeout = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [timeout][longrunning::model::WaitOperationRequest::timeout].
+        pub fn maybe_timeout<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Duration>,
+        {
+            self.0.request.timeout = v.map(|x| x.into());
             self
         }
     }
@@ -54896,11 +57927,22 @@ pub mod vertex_rag_service {
         /// Sets the value of [query][crate::model::RetrieveContextsRequest::query].
         ///
         /// This is a **required** field for requests.
-        pub fn set_query<T: Into<std::option::Option<crate::model::RagQuery>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.query = v.into();
+        pub fn set_query<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::RagQuery>,
+        {
+            self.0.request.query = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [query][crate::model::RetrieveContextsRequest::query].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_query<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::RagQuery>,
+        {
+            self.0.request.query = v.map(|x| x.into());
             self
         }
 
@@ -55009,13 +58051,20 @@ pub mod vertex_rag_service {
         }
 
         /// Sets the value of [model][crate::model::AugmentPromptRequest::model].
-        pub fn set_model<
-            T: Into<std::option::Option<crate::model::augment_prompt_request::Model>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.model = v.into();
+        pub fn set_model<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::augment_prompt_request::Model>,
+        {
+            self.0.request.model = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [model][crate::model::AugmentPromptRequest::model].
+        pub fn maybe_model<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::augment_prompt_request::Model>,
+        {
+            self.0.request.model = v.map(|x| x.into());
             self
         }
 
@@ -55114,11 +58163,20 @@ pub mod vertex_rag_service {
         }
 
         /// Sets the value of [content][crate::model::CorroborateContentRequest::content].
-        pub fn set_content<T: Into<std::option::Option<crate::model::Content>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.content = v.into();
+        pub fn set_content<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Content>,
+        {
+            self.0.request.content = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [content][crate::model::CorroborateContentRequest::content].
+        pub fn maybe_content<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Content>,
+        {
+            self.0.request.content = v.map(|x| x.into());
             self
         }
 
@@ -55134,13 +58192,20 @@ pub mod vertex_rag_service {
         }
 
         /// Sets the value of [parameters][crate::model::CorroborateContentRequest::parameters].
-        pub fn set_parameters<
-            T: Into<std::option::Option<crate::model::corroborate_content_request::Parameters>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.parameters = v.into();
+        pub fn set_parameters<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::corroborate_content_request::Parameters>,
+        {
+            self.0.request.parameters = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [parameters][crate::model::CorroborateContentRequest::parameters].
+        pub fn maybe_parameters<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::corroborate_content_request::Parameters>,
+        {
+            self.0.request.parameters = v.map(|x| x.into());
             self
         }
     }
@@ -55378,20 +58443,40 @@ pub mod vertex_rag_service {
         /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
-        pub fn set_policy<T: Into<std::option::Option<iam_v1::model::Policy>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.policy = v.into();
+        pub fn set_policy<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -55458,11 +58543,20 @@ pub mod vertex_rag_service {
         }
 
         /// Sets the value of [options][iam_v1::model::GetIamPolicyRequest::options].
-        pub fn set_options<T: Into<std::option::Option<iam_v1::model::GetPolicyOptions>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.options = v.into();
+        pub fn set_options<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        pub fn maybe_options<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = v.map(|x| x.into());
             self
         }
     }
@@ -55908,8 +59002,20 @@ pub mod vertex_rag_service {
         }
 
         /// Sets the value of [timeout][longrunning::model::WaitOperationRequest::timeout].
-        pub fn set_timeout<T: Into<std::option::Option<wkt::Duration>>>(mut self, v: T) -> Self {
-            self.0.request.timeout = v.into();
+        pub fn set_timeout<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Duration>,
+        {
+            self.0.request.timeout = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [timeout][longrunning::model::WaitOperationRequest::timeout].
+        pub fn maybe_timeout<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Duration>,
+        {
+            self.0.request.timeout = v.map(|x| x.into());
             self
         }
     }
@@ -56035,11 +59141,22 @@ pub mod vizier_service {
         /// Sets the value of [study][crate::model::CreateStudyRequest::study].
         ///
         /// This is a **required** field for requests.
-        pub fn set_study<T: Into<std::option::Option<crate::model::Study>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.study = v.into();
+        pub fn set_study<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Study>,
+        {
+            self.0.request.study = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [study][crate::model::CreateStudyRequest::study].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_study<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Study>,
+        {
+            self.0.request.study = v.map(|x| x.into());
             self
         }
     }
@@ -56535,11 +59652,22 @@ pub mod vizier_service {
         /// Sets the value of [trial][crate::model::CreateTrialRequest::trial].
         ///
         /// This is a **required** field for requests.
-        pub fn set_trial<T: Into<std::option::Option<crate::model::Trial>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.trial = v.into();
+        pub fn set_trial<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Trial>,
+        {
+            self.0.request.trial = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [trial][crate::model::CreateTrialRequest::trial].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_trial<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Trial>,
+        {
+            self.0.request.trial = v.map(|x| x.into());
             self
         }
     }
@@ -56775,11 +59903,22 @@ pub mod vizier_service {
         /// Sets the value of [measurement][crate::model::AddTrialMeasurementRequest::measurement].
         ///
         /// This is a **required** field for requests.
-        pub fn set_measurement<T: Into<std::option::Option<crate::model::Measurement>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.measurement = v.into();
+        pub fn set_measurement<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Measurement>,
+        {
+            self.0.request.measurement = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [measurement][crate::model::AddTrialMeasurementRequest::measurement].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_measurement<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Measurement>,
+        {
+            self.0.request.measurement = v.map(|x| x.into());
             self
         }
     }
@@ -56846,11 +59985,20 @@ pub mod vizier_service {
         }
 
         /// Sets the value of [final_measurement][crate::model::CompleteTrialRequest::final_measurement].
-        pub fn set_final_measurement<T: Into<std::option::Option<crate::model::Measurement>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.final_measurement = v.into();
+        pub fn set_final_measurement<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Measurement>,
+        {
+            self.0.request.final_measurement = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [final_measurement][crate::model::CompleteTrialRequest::final_measurement].
+        pub fn maybe_final_measurement<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Measurement>,
+        {
+            self.0.request.final_measurement = v.map(|x| x.into());
             self
         }
 
@@ -57400,20 +60548,40 @@ pub mod vizier_service {
         /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
-        pub fn set_policy<T: Into<std::option::Option<iam_v1::model::Policy>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.policy = v.into();
+        pub fn set_policy<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -57480,11 +60648,20 @@ pub mod vizier_service {
         }
 
         /// Sets the value of [options][iam_v1::model::GetIamPolicyRequest::options].
-        pub fn set_options<T: Into<std::option::Option<iam_v1::model::GetPolicyOptions>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.options = v.into();
+        pub fn set_options<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        pub fn maybe_options<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = v.map(|x| x.into());
             self
         }
     }
@@ -57930,8 +61107,20 @@ pub mod vizier_service {
         }
 
         /// Sets the value of [timeout][longrunning::model::WaitOperationRequest::timeout].
-        pub fn set_timeout<T: Into<std::option::Option<wkt::Duration>>>(mut self, v: T) -> Self {
-            self.0.request.timeout = v.into();
+        pub fn set_timeout<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Duration>,
+        {
+            self.0.request.timeout = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [timeout][longrunning::model::WaitOperationRequest::timeout].
+        pub fn maybe_timeout<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Duration>,
+        {
+            self.0.request.timeout = v.map(|x| x.into());
             self
         }
     }

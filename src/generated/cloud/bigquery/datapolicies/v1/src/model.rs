@@ -63,11 +63,20 @@ impl CreateDataPolicyRequest {
     }
 
     /// Sets the value of [data_policy][crate::model::CreateDataPolicyRequest::data_policy].
-    pub fn set_data_policy<T: std::convert::Into<std::option::Option<crate::model::DataPolicy>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.data_policy = v.into();
+    pub fn set_data_policy<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::DataPolicy>,
+    {
+        self.data_policy = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [data_policy][crate::model::CreateDataPolicyRequest::data_policy].
+    pub fn maybe_data_policy<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::DataPolicy>,
+    {
+        self.data_policy = v.map(|x| x.into());
         self
     }
 }
@@ -110,20 +119,38 @@ impl UpdateDataPolicyRequest {
     }
 
     /// Sets the value of [data_policy][crate::model::UpdateDataPolicyRequest::data_policy].
-    pub fn set_data_policy<T: std::convert::Into<std::option::Option<crate::model::DataPolicy>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.data_policy = v.into();
+    pub fn set_data_policy<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::DataPolicy>,
+    {
+        self.data_policy = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [data_policy][crate::model::UpdateDataPolicyRequest::data_policy].
+    pub fn maybe_data_policy<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::DataPolicy>,
+    {
+        self.data_policy = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateDataPolicyRequest::update_mask].
-    pub fn set_update_mask<T: std::convert::Into<std::option::Option<wkt::FieldMask>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.update_mask = v.into();
+    pub fn set_update_mask<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [update_mask][crate::model::UpdateDataPolicyRequest::update_mask].
+    pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = v.map(|x| x.into());
         self
     }
 }

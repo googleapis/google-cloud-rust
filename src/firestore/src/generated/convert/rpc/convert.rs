@@ -63,7 +63,7 @@ impl gaxi::prost::FromProto<rpc::model::RetryInfo> for RetryInfo {
     fn cnv(self) -> std::result::Result<rpc::model::RetryInfo, gaxi::prost::ConvertError> {
         Ok(
             rpc::model::RetryInfo::new()
-                .set_retry_delay(self.retry_delay.map(|v| v.cnv()).transpose()?)
+                .maybe_retry_delay(self.retry_delay.map(|v| v.cnv()).transpose()?)
         )
     }
 }
@@ -126,7 +126,7 @@ impl gaxi::prost::FromProto<rpc::model::quota_failure::Violation> for quota_fail
                         gaxi::prost::pair_transpose(k.cnv(), v.cnv())
                     }).collect::<std::result::Result<std::collections::HashMap<_, _>, _>>()?)
                 .set_quota_value(self.quota_value)
-                .set_future_quota_value(self.future_quota_value.map(|v| v.cnv()).transpose()?)
+                .maybe_future_quota_value(self.future_quota_value.map(|v| v.cnv()).transpose()?)
         )
     }
 }
@@ -216,7 +216,7 @@ impl gaxi::prost::FromProto<rpc::model::bad_request::FieldViolation> for bad_req
                 .set_field(self.field)
                 .set_description(self.description)
                 .set_reason(self.reason)
-                .set_localized_message(self.localized_message.map(|v| v.cnv()).transpose()?)
+                .maybe_localized_message(self.localized_message.map(|v| v.cnv()).transpose()?)
         )
     }
 }

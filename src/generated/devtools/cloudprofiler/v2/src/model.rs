@@ -67,11 +67,20 @@ impl CreateProfileRequest {
     }
 
     /// Sets the value of [deployment][crate::model::CreateProfileRequest::deployment].
-    pub fn set_deployment<T: std::convert::Into<std::option::Option<crate::model::Deployment>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.deployment = v.into();
+    pub fn set_deployment<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::Deployment>,
+    {
+        self.deployment = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [deployment][crate::model::CreateProfileRequest::deployment].
+    pub fn maybe_deployment<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::Deployment>,
+    {
+        self.deployment = v.map(|x| x.into());
         self
     }
 
@@ -124,11 +133,20 @@ impl CreateOfflineProfileRequest {
     }
 
     /// Sets the value of [profile][crate::model::CreateOfflineProfileRequest::profile].
-    pub fn set_profile<T: std::convert::Into<std::option::Option<crate::model::Profile>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.profile = v.into();
+    pub fn set_profile<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::Profile>,
+    {
+        self.profile = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [profile][crate::model::CreateOfflineProfileRequest::profile].
+    pub fn maybe_profile<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::Profile>,
+    {
+        self.profile = v.map(|x| x.into());
         self
     }
 }
@@ -166,20 +184,38 @@ impl UpdateProfileRequest {
     }
 
     /// Sets the value of [profile][crate::model::UpdateProfileRequest::profile].
-    pub fn set_profile<T: std::convert::Into<std::option::Option<crate::model::Profile>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.profile = v.into();
+    pub fn set_profile<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::Profile>,
+    {
+        self.profile = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [profile][crate::model::UpdateProfileRequest::profile].
+    pub fn maybe_profile<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::Profile>,
+    {
+        self.profile = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateProfileRequest::update_mask].
-    pub fn set_update_mask<T: std::convert::Into<std::option::Option<wkt::FieldMask>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.update_mask = v.into();
+    pub fn set_update_mask<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [update_mask][crate::model::UpdateProfileRequest::update_mask].
+    pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = v.map(|x| x.into());
         self
     }
 }
@@ -260,20 +296,38 @@ impl Profile {
     }
 
     /// Sets the value of [deployment][crate::model::Profile::deployment].
-    pub fn set_deployment<T: std::convert::Into<std::option::Option<crate::model::Deployment>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.deployment = v.into();
+    pub fn set_deployment<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::Deployment>,
+    {
+        self.deployment = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [deployment][crate::model::Profile::deployment].
+    pub fn maybe_deployment<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::Deployment>,
+    {
+        self.deployment = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [duration][crate::model::Profile::duration].
-    pub fn set_duration<T: std::convert::Into<std::option::Option<wkt::Duration>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.duration = v.into();
+    pub fn set_duration<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Duration>,
+    {
+        self.duration = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [duration][crate::model::Profile::duration].
+    pub fn maybe_duration<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Duration>,
+    {
+        self.duration = v.map(|x| x.into());
         self
     }
 
@@ -296,11 +350,20 @@ impl Profile {
     }
 
     /// Sets the value of [start_time][crate::model::Profile::start_time].
-    pub fn set_start_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.start_time = v.into();
+    pub fn set_start_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.start_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [start_time][crate::model::Profile::start_time].
+    pub fn maybe_start_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.start_time = v.map(|x| x.into());
         self
     }
 }

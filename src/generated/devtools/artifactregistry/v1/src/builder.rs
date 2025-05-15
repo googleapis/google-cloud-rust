@@ -1303,11 +1303,22 @@ pub mod artifact_registry {
         /// Sets the value of [repository][crate::model::CreateRepositoryRequest::repository].
         ///
         /// This is a **required** field for requests.
-        pub fn set_repository<T: Into<std::option::Option<crate::model::Repository>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.repository = v.into();
+        pub fn set_repository<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Repository>,
+        {
+            self.0.request.repository = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [repository][crate::model::CreateRepositoryRequest::repository].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_repository<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Repository>,
+        {
+            self.0.request.repository = v.map(|x| x.into());
             self
         }
     }
@@ -1369,20 +1380,38 @@ pub mod artifact_registry {
         }
 
         /// Sets the value of [repository][crate::model::UpdateRepositoryRequest::repository].
-        pub fn set_repository<T: Into<std::option::Option<crate::model::Repository>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.repository = v.into();
+        pub fn set_repository<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Repository>,
+        {
+            self.0.request.repository = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [repository][crate::model::UpdateRepositoryRequest::repository].
+        pub fn maybe_repository<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Repository>,
+        {
+            self.0.request.repository = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateRepositoryRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [update_mask][crate::model::UpdateRepositoryRequest::update_mask].
+        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -2243,20 +2272,40 @@ pub mod artifact_registry {
         /// Sets the value of [version][crate::model::UpdateVersionRequest::version].
         ///
         /// This is a **required** field for requests.
-        pub fn set_version<T: Into<std::option::Option<crate::model::Version>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.version = v.into();
+        pub fn set_version<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Version>,
+        {
+            self.0.request.version = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [version][crate::model::UpdateVersionRequest::version].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_version<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Version>,
+        {
+            self.0.request.version = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateVersionRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [update_mask][crate::model::UpdateVersionRequest::update_mask].
+        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -2596,19 +2645,44 @@ pub mod artifact_registry {
         /// Sets the value of [file][crate::model::UpdateFileRequest::file].
         ///
         /// This is a **required** field for requests.
-        pub fn set_file<T: Into<std::option::Option<crate::model::File>>>(mut self, v: T) -> Self {
-            self.0.request.file = v.into();
+        pub fn set_file<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::File>,
+        {
+            self.0.request.file = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [file][crate::model::UpdateFileRequest::file].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_file<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::File>,
+        {
+            self.0.request.file = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateFileRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [update_mask][crate::model::UpdateFileRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -2845,8 +2919,20 @@ pub mod artifact_registry {
         }
 
         /// Sets the value of [tag][crate::model::CreateTagRequest::tag].
-        pub fn set_tag<T: Into<std::option::Option<crate::model::Tag>>>(mut self, v: T) -> Self {
-            self.0.request.tag = v.into();
+        pub fn set_tag<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Tag>,
+        {
+            self.0.request.tag = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [tag][crate::model::CreateTagRequest::tag].
+        pub fn maybe_tag<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Tag>,
+        {
+            self.0.request.tag = v.map(|x| x.into());
             self
         }
     }
@@ -2905,17 +2991,38 @@ pub mod artifact_registry {
         }
 
         /// Sets the value of [tag][crate::model::UpdateTagRequest::tag].
-        pub fn set_tag<T: Into<std::option::Option<crate::model::Tag>>>(mut self, v: T) -> Self {
-            self.0.request.tag = v.into();
+        pub fn set_tag<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Tag>,
+        {
+            self.0.request.tag = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [tag][crate::model::UpdateTagRequest::tag].
+        pub fn maybe_tag<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Tag>,
+        {
+            self.0.request.tag = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateTagRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [update_mask][crate::model::UpdateTagRequest::update_mask].
+        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -3048,8 +3155,20 @@ pub mod artifact_registry {
         }
 
         /// Sets the value of [rule][crate::model::CreateRuleRequest::rule].
-        pub fn set_rule<T: Into<std::option::Option<crate::model::Rule>>>(mut self, v: T) -> Self {
-            self.0.request.rule = v.into();
+        pub fn set_rule<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Rule>,
+        {
+            self.0.request.rule = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [rule][crate::model::CreateRuleRequest::rule].
+        pub fn maybe_rule<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Rule>,
+        {
+            self.0.request.rule = v.map(|x| x.into());
             self
         }
     }
@@ -3272,17 +3391,38 @@ pub mod artifact_registry {
         }
 
         /// Sets the value of [rule][crate::model::UpdateRuleRequest::rule].
-        pub fn set_rule<T: Into<std::option::Option<crate::model::Rule>>>(mut self, v: T) -> Self {
-            self.0.request.rule = v.into();
+        pub fn set_rule<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Rule>,
+        {
+            self.0.request.rule = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [rule][crate::model::UpdateRuleRequest::rule].
+        pub fn maybe_rule<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Rule>,
+        {
+            self.0.request.rule = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateRuleRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [update_mask][crate::model::UpdateRuleRequest::update_mask].
+        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -3413,20 +3553,40 @@ pub mod artifact_registry {
         /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
-        pub fn set_policy<T: Into<std::option::Option<iam_v1::model::Policy>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.policy = v.into();
+        pub fn set_policy<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -3493,11 +3653,20 @@ pub mod artifact_registry {
         }
 
         /// Sets the value of [options][iam_v1::model::GetIamPolicyRequest::options].
-        pub fn set_options<T: Into<std::option::Option<iam_v1::model::GetPolicyOptions>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.options = v.into();
+        pub fn set_options<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        pub fn maybe_options<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = v.map(|x| x.into());
             self
         }
     }
@@ -3702,20 +3871,38 @@ pub mod artifact_registry {
         }
 
         /// Sets the value of [project_settings][crate::model::UpdateProjectSettingsRequest::project_settings].
-        pub fn set_project_settings<T: Into<std::option::Option<crate::model::ProjectSettings>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.project_settings = v.into();
+        pub fn set_project_settings<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::ProjectSettings>,
+        {
+            self.0.request.project_settings = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [project_settings][crate::model::UpdateProjectSettingsRequest::project_settings].
+        pub fn maybe_project_settings<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::ProjectSettings>,
+        {
+            self.0.request.project_settings = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateProjectSettingsRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [update_mask][crate::model::UpdateProjectSettingsRequest::update_mask].
+        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -3839,20 +4026,38 @@ pub mod artifact_registry {
         }
 
         /// Sets the value of [vpcsc_config][crate::model::UpdateVPCSCConfigRequest::vpcsc_config].
-        pub fn set_vpcsc_config<T: Into<std::option::Option<crate::model::VPCSCConfig>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.vpcsc_config = v.into();
+        pub fn set_vpcsc_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::VPCSCConfig>,
+        {
+            self.0.request.vpcsc_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [vpcsc_config][crate::model::UpdateVPCSCConfigRequest::vpcsc_config].
+        pub fn maybe_vpcsc_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::VPCSCConfig>,
+        {
+            self.0.request.vpcsc_config = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateVPCSCConfigRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [update_mask][crate::model::UpdateVPCSCConfigRequest::update_mask].
+        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -3911,20 +4116,38 @@ pub mod artifact_registry {
         }
 
         /// Sets the value of [package][crate::model::UpdatePackageRequest::package].
-        pub fn set_package<T: Into<std::option::Option<crate::model::Package>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.package = v.into();
+        pub fn set_package<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Package>,
+        {
+            self.0.request.package = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [package][crate::model::UpdatePackageRequest::package].
+        pub fn maybe_package<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Package>,
+        {
+            self.0.request.package = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdatePackageRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [update_mask][crate::model::UpdatePackageRequest::update_mask].
+        pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -4213,11 +4436,22 @@ pub mod artifact_registry {
         /// Sets the value of [attachment][crate::model::CreateAttachmentRequest::attachment].
         ///
         /// This is a **required** field for requests.
-        pub fn set_attachment<T: Into<std::option::Option<crate::model::Attachment>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.attachment = v.into();
+        pub fn set_attachment<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Attachment>,
+        {
+            self.0.request.attachment = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [attachment][crate::model::CreateAttachmentRequest::attachment].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_attachment<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Attachment>,
+        {
+            self.0.request.attachment = v.map(|x| x.into());
             self
         }
     }

@@ -304,13 +304,22 @@ pub mod metrics_scopes {
         /// Sets the value of [monitored_project][crate::model::CreateMonitoredProjectRequest::monitored_project].
         ///
         /// This is a **required** field for requests.
-        pub fn set_monitored_project<
-            T: Into<std::option::Option<crate::model::MonitoredProject>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.monitored_project = v.into();
+        pub fn set_monitored_project<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::MonitoredProject>,
+        {
+            self.0.request.monitored_project = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [monitored_project][crate::model::CreateMonitoredProjectRequest::monitored_project].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_monitored_project<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::MonitoredProject>,
+        {
+            self.0.request.monitored_project = v.map(|x| x.into());
             self
         }
     }

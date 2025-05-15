@@ -129,20 +129,38 @@ pub mod document_processor_service {
         }
 
         /// Sets the value of [field_mask][crate::model::ProcessRequest::field_mask].
-        pub fn set_field_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.field_mask = v.into();
+        pub fn set_field_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.field_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [field_mask][crate::model::ProcessRequest::field_mask].
+        pub fn maybe_field_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.field_mask = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [process_options][crate::model::ProcessRequest::process_options].
-        pub fn set_process_options<T: Into<std::option::Option<crate::model::ProcessOptions>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.process_options = v.into();
+        pub fn set_process_options<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::ProcessOptions>,
+        {
+            self.0.request.process_options = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [process_options][crate::model::ProcessRequest::process_options].
+        pub fn maybe_process_options<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::ProcessOptions>,
+        {
+            self.0.request.process_options = v.map(|x| x.into());
             self
         }
 
@@ -325,24 +343,38 @@ pub mod document_processor_service {
         }
 
         /// Sets the value of [input_documents][crate::model::BatchProcessRequest::input_documents].
-        pub fn set_input_documents<
-            T: Into<std::option::Option<crate::model::BatchDocumentsInputConfig>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.input_documents = v.into();
+        pub fn set_input_documents<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::BatchDocumentsInputConfig>,
+        {
+            self.0.request.input_documents = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [input_documents][crate::model::BatchProcessRequest::input_documents].
+        pub fn maybe_input_documents<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::BatchDocumentsInputConfig>,
+        {
+            self.0.request.input_documents = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [document_output_config][crate::model::BatchProcessRequest::document_output_config].
-        pub fn set_document_output_config<
-            T: Into<std::option::Option<crate::model::DocumentOutputConfig>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.document_output_config = v.into();
+        pub fn set_document_output_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::DocumentOutputConfig>,
+        {
+            self.0.request.document_output_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [document_output_config][crate::model::BatchProcessRequest::document_output_config].
+        pub fn maybe_document_output_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::DocumentOutputConfig>,
+        {
+            self.0.request.document_output_config = v.map(|x| x.into());
             self
         }
 
@@ -353,11 +385,20 @@ pub mod document_processor_service {
         }
 
         /// Sets the value of [process_options][crate::model::BatchProcessRequest::process_options].
-        pub fn set_process_options<T: Into<std::option::Option<crate::model::ProcessOptions>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.process_options = v.into();
+        pub fn set_process_options<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::ProcessOptions>,
+        {
+            self.0.request.process_options = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [process_options][crate::model::BatchProcessRequest::process_options].
+        pub fn maybe_process_options<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::ProcessOptions>,
+        {
+            self.0.request.process_options = v.map(|x| x.into());
             self
         }
 
@@ -885,33 +926,58 @@ pub mod document_processor_service {
         /// Sets the value of [processor_version][crate::model::TrainProcessorVersionRequest::processor_version].
         ///
         /// This is a **required** field for requests.
-        pub fn set_processor_version<
-            T: Into<std::option::Option<crate::model::ProcessorVersion>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.processor_version = v.into();
+        pub fn set_processor_version<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::ProcessorVersion>,
+        {
+            self.0.request.processor_version = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [processor_version][crate::model::TrainProcessorVersionRequest::processor_version].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_processor_version<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::ProcessorVersion>,
+        {
+            self.0.request.processor_version = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [document_schema][crate::model::TrainProcessorVersionRequest::document_schema].
-        pub fn set_document_schema<T: Into<std::option::Option<crate::model::DocumentSchema>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.document_schema = v.into();
+        pub fn set_document_schema<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::DocumentSchema>,
+        {
+            self.0.request.document_schema = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [document_schema][crate::model::TrainProcessorVersionRequest::document_schema].
+        pub fn maybe_document_schema<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::DocumentSchema>,
+        {
+            self.0.request.document_schema = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [input_data][crate::model::TrainProcessorVersionRequest::input_data].
-        pub fn set_input_data<
-            T: Into<std::option::Option<crate::model::train_processor_version_request::InputData>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.input_data = v.into();
+        pub fn set_input_data<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::train_processor_version_request::InputData>,
+        {
+            self.0.request.input_data = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [input_data][crate::model::TrainProcessorVersionRequest::input_data].
+        pub fn maybe_input_data<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::train_processor_version_request::InputData>,
+        {
+            self.0.request.input_data = v.map(|x| x.into());
             self
         }
 
@@ -1528,11 +1594,22 @@ pub mod document_processor_service {
         /// Sets the value of [processor][crate::model::CreateProcessorRequest::processor].
         ///
         /// This is a **required** field for requests.
-        pub fn set_processor<T: Into<std::option::Option<crate::model::Processor>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.processor = v.into();
+        pub fn set_processor<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Processor>,
+        {
+            self.0.request.processor = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [processor][crate::model::CreateProcessorRequest::processor].
+        ///
+        /// This is a **required** field for requests.
+        pub fn maybe_processor<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Processor>,
+        {
+            self.0.request.processor = v.map(|x| x.into());
             self
         }
     }
@@ -2094,11 +2171,20 @@ pub mod document_processor_service {
         }
 
         /// Sets the value of [document_schema][crate::model::ReviewDocumentRequest::document_schema].
-        pub fn set_document_schema<T: Into<std::option::Option<crate::model::DocumentSchema>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.document_schema = v.into();
+        pub fn set_document_schema<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::DocumentSchema>,
+        {
+            self.0.request.document_schema = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [document_schema][crate::model::ReviewDocumentRequest::document_schema].
+        pub fn maybe_document_schema<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::DocumentSchema>,
+        {
+            self.0.request.document_schema = v.map(|x| x.into());
             self
         }
 
@@ -2241,13 +2327,20 @@ pub mod document_processor_service {
         }
 
         /// Sets the value of [evaluation_documents][crate::model::EvaluateProcessorVersionRequest::evaluation_documents].
-        pub fn set_evaluation_documents<
-            T: Into<std::option::Option<crate::model::BatchDocumentsInputConfig>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.evaluation_documents = v.into();
+        pub fn set_evaluation_documents<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::BatchDocumentsInputConfig>,
+        {
+            self.0.request.evaluation_documents = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [evaluation_documents][crate::model::EvaluateProcessorVersionRequest::evaluation_documents].
+        pub fn maybe_evaluation_documents<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::BatchDocumentsInputConfig>,
+        {
+            self.0.request.evaluation_documents = v.map(|x| x.into());
             self
         }
     }

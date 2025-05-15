@@ -354,20 +354,38 @@ impl Entitlement {
     }
 
     /// Sets the value of [create_time][crate::model::Entitlement::create_time].
-    pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.create_time = v.into();
+    pub fn set_create_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [create_time][crate::model::Entitlement::create_time].
+    pub fn maybe_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [update_time][crate::model::Entitlement::update_time].
-    pub fn set_update_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.update_time = v.into();
+    pub fn set_update_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [update_time][crate::model::Entitlement::update_time].
+    pub fn maybe_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = v.map(|x| x.into());
         self
     }
 
@@ -383,33 +401,56 @@ impl Entitlement {
     }
 
     /// Sets the value of [approval_workflow][crate::model::Entitlement::approval_workflow].
-    pub fn set_approval_workflow<
-        T: std::convert::Into<std::option::Option<crate::model::ApprovalWorkflow>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.approval_workflow = v.into();
+    pub fn set_approval_workflow<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::ApprovalWorkflow>,
+    {
+        self.approval_workflow = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [approval_workflow][crate::model::Entitlement::approval_workflow].
+    pub fn maybe_approval_workflow<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::ApprovalWorkflow>,
+    {
+        self.approval_workflow = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [privileged_access][crate::model::Entitlement::privileged_access].
-    pub fn set_privileged_access<
-        T: std::convert::Into<std::option::Option<crate::model::PrivilegedAccess>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.privileged_access = v.into();
+    pub fn set_privileged_access<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::PrivilegedAccess>,
+    {
+        self.privileged_access = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [privileged_access][crate::model::Entitlement::privileged_access].
+    pub fn maybe_privileged_access<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::PrivilegedAccess>,
+    {
+        self.privileged_access = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [max_request_duration][crate::model::Entitlement::max_request_duration].
-    pub fn set_max_request_duration<T: std::convert::Into<std::option::Option<wkt::Duration>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.max_request_duration = v.into();
+    pub fn set_max_request_duration<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Duration>,
+    {
+        self.max_request_duration = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [max_request_duration][crate::model::Entitlement::max_request_duration].
+    pub fn maybe_max_request_duration<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Duration>,
+    {
+        self.max_request_duration = v.map(|x| x.into());
         self
     }
 
@@ -423,28 +464,38 @@ impl Entitlement {
     }
 
     /// Sets the value of [requester_justification_config][crate::model::Entitlement::requester_justification_config].
-    pub fn set_requester_justification_config<
-        T: std::convert::Into<
-                std::option::Option<crate::model::entitlement::RequesterJustificationConfig>,
-            >,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.requester_justification_config = v.into();
+    pub fn set_requester_justification_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::entitlement::RequesterJustificationConfig>,
+    {
+        self.requester_justification_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [requester_justification_config][crate::model::Entitlement::requester_justification_config].
+    pub fn maybe_requester_justification_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::entitlement::RequesterJustificationConfig>,
+    {
+        self.requester_justification_config = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [additional_notification_targets][crate::model::Entitlement::additional_notification_targets].
-    pub fn set_additional_notification_targets<
-        T: std::convert::Into<
-                std::option::Option<crate::model::entitlement::AdditionalNotificationTargets>,
-            >,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.additional_notification_targets = v.into();
+    pub fn set_additional_notification_targets<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::entitlement::AdditionalNotificationTargets>,
+    {
+        self.additional_notification_targets = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [additional_notification_targets][crate::model::Entitlement::additional_notification_targets].
+    pub fn maybe_additional_notification_targets<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::entitlement::AdditionalNotificationTargets>,
+    {
+        self.additional_notification_targets = v.map(|x| x.into());
         self
     }
 
@@ -1867,13 +1918,20 @@ impl CreateEntitlementRequest {
     }
 
     /// Sets the value of [entitlement][crate::model::CreateEntitlementRequest::entitlement].
-    pub fn set_entitlement<
-        T: std::convert::Into<std::option::Option<crate::model::Entitlement>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.entitlement = v.into();
+    pub fn set_entitlement<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::Entitlement>,
+    {
+        self.entitlement = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [entitlement][crate::model::CreateEntitlementRequest::entitlement].
+    pub fn maybe_entitlement<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::Entitlement>,
+    {
+        self.entitlement = v.map(|x| x.into());
         self
     }
 
@@ -1987,22 +2045,38 @@ impl UpdateEntitlementRequest {
     }
 
     /// Sets the value of [entitlement][crate::model::UpdateEntitlementRequest::entitlement].
-    pub fn set_entitlement<
-        T: std::convert::Into<std::option::Option<crate::model::Entitlement>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.entitlement = v.into();
+    pub fn set_entitlement<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::Entitlement>,
+    {
+        self.entitlement = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [entitlement][crate::model::UpdateEntitlementRequest::entitlement].
+    pub fn maybe_entitlement<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::Entitlement>,
+    {
+        self.entitlement = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateEntitlementRequest::update_mask].
-    pub fn set_update_mask<T: std::convert::Into<std::option::Option<wkt::FieldMask>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.update_mask = v.into();
+    pub fn set_update_mask<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [update_mask][crate::model::UpdateEntitlementRequest::update_mask].
+    pub fn maybe_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = v.map(|x| x.into());
         self
     }
 }
@@ -2098,20 +2172,38 @@ impl Grant {
     }
 
     /// Sets the value of [create_time][crate::model::Grant::create_time].
-    pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.create_time = v.into();
+    pub fn set_create_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [create_time][crate::model::Grant::create_time].
+    pub fn maybe_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [update_time][crate::model::Grant::update_time].
-    pub fn set_update_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.update_time = v.into();
+    pub fn set_update_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [update_time][crate::model::Grant::update_time].
+    pub fn maybe_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = v.map(|x| x.into());
         self
     }
 
@@ -2122,22 +2214,38 @@ impl Grant {
     }
 
     /// Sets the value of [requested_duration][crate::model::Grant::requested_duration].
-    pub fn set_requested_duration<T: std::convert::Into<std::option::Option<wkt::Duration>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.requested_duration = v.into();
+    pub fn set_requested_duration<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Duration>,
+    {
+        self.requested_duration = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [requested_duration][crate::model::Grant::requested_duration].
+    pub fn maybe_requested_duration<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Duration>,
+    {
+        self.requested_duration = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [justification][crate::model::Grant::justification].
-    pub fn set_justification<
-        T: std::convert::Into<std::option::Option<crate::model::Justification>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.justification = v.into();
+    pub fn set_justification<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::Justification>,
+    {
+        self.justification = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [justification][crate::model::Grant::justification].
+    pub fn maybe_justification<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::Justification>,
+    {
+        self.justification = v.map(|x| x.into());
         self
     }
 
@@ -2148,35 +2256,56 @@ impl Grant {
     }
 
     /// Sets the value of [timeline][crate::model::Grant::timeline].
-    pub fn set_timeline<
-        T: std::convert::Into<std::option::Option<crate::model::grant::Timeline>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.timeline = v.into();
+    pub fn set_timeline<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::grant::Timeline>,
+    {
+        self.timeline = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [timeline][crate::model::Grant::timeline].
+    pub fn maybe_timeline<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::grant::Timeline>,
+    {
+        self.timeline = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [privileged_access][crate::model::Grant::privileged_access].
-    pub fn set_privileged_access<
-        T: std::convert::Into<std::option::Option<crate::model::PrivilegedAccess>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.privileged_access = v.into();
+    pub fn set_privileged_access<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::PrivilegedAccess>,
+    {
+        self.privileged_access = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [privileged_access][crate::model::Grant::privileged_access].
+    pub fn maybe_privileged_access<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::PrivilegedAccess>,
+    {
+        self.privileged_access = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [audit_trail][crate::model::Grant::audit_trail].
-    pub fn set_audit_trail<
-        T: std::convert::Into<std::option::Option<crate::model::grant::AuditTrail>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.audit_trail = v.into();
+    pub fn set_audit_trail<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::grant::AuditTrail>,
+    {
+        self.audit_trail = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [audit_trail][crate::model::Grant::audit_trail].
+    pub fn maybe_audit_trail<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::grant::AuditTrail>,
+    {
+        self.audit_trail = v.map(|x| x.into());
         self
     }
 
@@ -2277,11 +2406,20 @@ pub mod grant {
             }
 
             /// Sets the value of [event_time][crate::model::grant::timeline::Event::event_time].
-            pub fn set_event_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-                mut self,
-                v: T,
-            ) -> Self {
-                self.event_time = v.into();
+            pub fn set_event_time<T>(mut self, v: T) -> Self
+            where
+                T: std::convert::Into<wkt::Timestamp>,
+            {
+                self.event_time = std::option::Option::Some(v.into());
+                self
+            }
+
+            /// Sets or clear the value of [event_time][crate::model::grant::timeline::Event::event_time].
+            pub fn maybe_event_time<T>(mut self, v: std::option::Option<T>) -> Self
+            where
+                T: std::convert::Into<wkt::Timestamp>,
+            {
+                self.event_time = v.map(|x| x.into());
                 self
             }
 
@@ -2679,13 +2817,20 @@ pub mod grant {
                 }
 
                 /// Sets the value of [expire_time][crate::model::grant::timeline::event::Requested::expire_time].
-                pub fn set_expire_time<
-                    T: std::convert::Into<std::option::Option<wkt::Timestamp>>,
-                >(
-                    mut self,
-                    v: T,
-                ) -> Self {
-                    self.expire_time = v.into();
+                pub fn set_expire_time<T>(mut self, v: T) -> Self
+                where
+                    T: std::convert::Into<wkt::Timestamp>,
+                {
+                    self.expire_time = std::option::Option::Some(v.into());
+                    self
+                }
+
+                /// Sets or clear the value of [expire_time][crate::model::grant::timeline::event::Requested::expire_time].
+                pub fn maybe_expire_time<T>(mut self, v: std::option::Option<T>) -> Self
+                where
+                    T: std::convert::Into<wkt::Timestamp>,
+                {
+                    self.expire_time = v.map(|x| x.into());
                     self
                 }
             }
@@ -2863,13 +3008,23 @@ pub mod grant {
                 }
 
                 /// Sets the value of [scheduled_activation_time][crate::model::grant::timeline::event::Scheduled::scheduled_activation_time].
-                pub fn set_scheduled_activation_time<
-                    T: std::convert::Into<std::option::Option<wkt::Timestamp>>,
-                >(
+                pub fn set_scheduled_activation_time<T>(mut self, v: T) -> Self
+                where
+                    T: std::convert::Into<wkt::Timestamp>,
+                {
+                    self.scheduled_activation_time = std::option::Option::Some(v.into());
+                    self
+                }
+
+                /// Sets or clear the value of [scheduled_activation_time][crate::model::grant::timeline::event::Scheduled::scheduled_activation_time].
+                pub fn maybe_scheduled_activation_time<T>(
                     mut self,
-                    v: T,
-                ) -> Self {
-                    self.scheduled_activation_time = v.into();
+                    v: std::option::Option<T>,
+                ) -> Self
+                where
+                    T: std::convert::Into<wkt::Timestamp>,
+                {
+                    self.scheduled_activation_time = v.map(|x| x.into());
                     self
                 }
             }
@@ -2923,11 +3078,20 @@ pub mod grant {
                 }
 
                 /// Sets the value of [error][crate::model::grant::timeline::event::ActivationFailed::error].
-                pub fn set_error<T: std::convert::Into<std::option::Option<rpc::model::Status>>>(
-                    mut self,
-                    v: T,
-                ) -> Self {
-                    self.error = v.into();
+                pub fn set_error<T>(mut self, v: T) -> Self
+                where
+                    T: std::convert::Into<rpc::model::Status>,
+                {
+                    self.error = std::option::Option::Some(v.into());
+                    self
+                }
+
+                /// Sets or clear the value of [error][crate::model::grant::timeline::event::ActivationFailed::error].
+                pub fn maybe_error<T>(mut self, v: std::option::Option<T>) -> Self
+                where
+                    T: std::convert::Into<rpc::model::Status>,
+                {
+                    self.error = v.map(|x| x.into());
                     self
                 }
             }
@@ -3067,22 +3231,38 @@ pub mod grant {
         }
 
         /// Sets the value of [access_grant_time][crate::model::grant::AuditTrail::access_grant_time].
-        pub fn set_access_grant_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.access_grant_time = v.into();
+        pub fn set_access_grant_time<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Timestamp>,
+        {
+            self.access_grant_time = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [access_grant_time][crate::model::grant::AuditTrail::access_grant_time].
+        pub fn maybe_access_grant_time<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Timestamp>,
+        {
+            self.access_grant_time = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [access_remove_time][crate::model::grant::AuditTrail::access_remove_time].
-        pub fn set_access_remove_time<
-            T: std::convert::Into<std::option::Option<wkt::Timestamp>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.access_remove_time = v.into();
+        pub fn set_access_remove_time<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Timestamp>,
+        {
+            self.access_remove_time = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clear the value of [access_remove_time][crate::model::grant::AuditTrail::access_remove_time].
+        pub fn maybe_access_remove_time<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Timestamp>,
+        {
+            self.access_remove_time = v.map(|x| x.into());
             self
         }
     }
@@ -4015,11 +4195,20 @@ impl CreateGrantRequest {
     }
 
     /// Sets the value of [grant][crate::model::CreateGrantRequest::grant].
-    pub fn set_grant<T: std::convert::Into<std::option::Option<crate::model::Grant>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.grant = v.into();
+    pub fn set_grant<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::Grant>,
+    {
+        self.grant = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [grant][crate::model::CreateGrantRequest::grant].
+    pub fn maybe_grant<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::Grant>,
+    {
+        self.grant = v.map(|x| x.into());
         self
     }
 
@@ -4086,20 +4275,38 @@ impl OperationMetadata {
     }
 
     /// Sets the value of [create_time][crate::model::OperationMetadata::create_time].
-    pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.create_time = v.into();
+    pub fn set_create_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [create_time][crate::model::OperationMetadata::create_time].
+    pub fn maybe_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [end_time][crate::model::OperationMetadata::end_time].
-    pub fn set_end_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.end_time = v.into();
+    pub fn set_end_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.end_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clear the value of [end_time][crate::model::OperationMetadata::end_time].
+    pub fn maybe_end_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.end_time = v.map(|x| x.into());
         self
     }
 
