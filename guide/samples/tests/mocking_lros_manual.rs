@@ -113,7 +113,7 @@ mod test {
     }
 
     fn expected_response() -> BatchRecognizeResponse {
-        BatchRecognizeResponse::new().set_total_billed_duration(expected_duration())
+        BatchRecognizeResponse::new().maybe_total_billed_duration(expected_duration())
     }
 
     fn make_finished_operation(
@@ -130,7 +130,7 @@ mod test {
     fn make_partial_operation(progress: i32) -> Result<Response<Operation>> {
         let metadata = OperationMetadata::new().set_progress_percent(progress);
         let any = wkt::Any::try_from(&metadata).map_err(Error::serde)?;
-        let operation = Operation::new().set_metadata(Some(any));
+        let operation = Operation::new().set_metadata(any);
         Ok(Response::from(operation))
     }
     // ANCHOR_END: partial-op
