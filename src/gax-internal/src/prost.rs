@@ -17,6 +17,8 @@
 
 use std::collections::BTreeMap;
 
+type BoxError = Box<dyn std::error::Error + Send + Sync>;
+
 #[derive(Debug, thiserror::Error)]
 #[non_exhaustive]
 pub enum ConvertError {
@@ -24,6 +26,19 @@ pub enum ConvertError {
     EnumNoIntegerValue(&'static str),
     #[error("Conversion unimplemented")]
     Unimplemented,
+    #[error("Unexpected type URL: {0}")]
+    UnexpectedTypeUrl(String),
+    #[error("gax/prost conversion error: {0}")]
+    Other(#[source] BoxError),
+}
+
+impl ConvertError {
+    pub fn other<T>(e: T) -> Self
+    where
+        T: Into<BoxError>,
+    {
+        ConvertError::Other(e.into())
+    }
 }
 
 type Result<T> = std::result::Result<T, ConvertError>;
@@ -226,7 +241,27 @@ mod test {
     fn fmt_convert_error() {
         let e = ConvertError::EnumNoIntegerValue("name123");
         let fmt = format!("{e}");
-        assert!(fmt.contains("name123"), "{fmt}");
+        assert!(
+            fmt.contains("name123") && fmt.contains("does not contain an integer"),
+            "{fmt}"
+        );
+
+        let e =
+            ConvertError::UnexpectedTypeUrl("type.googleapis.com/my.custom.Message".to_string());
+        let fmt = format!("{e}");
+        assert!(
+            fmt.contains("type.googleapis.com/my.custom.Message")
+                && fmt.contains("Unexpected type"),
+            "{fmt}"
+        );
+
+        let source = wkt::AnyError::TypeMismatch("blah blah blah".to_string());
+        let e = ConvertError::other(source);
+        let fmt = format!("{e}");
+        assert!(
+            fmt.contains("gax/prost conversion error") && fmt.contains("blah blah blah"),
+            "{fmt}"
+        );
     }
 
     fn err() -> ConvertError {
