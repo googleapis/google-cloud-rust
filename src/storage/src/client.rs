@@ -298,7 +298,7 @@ pub(crate) mod info {
 
 mod v1 {
     #[serde_with::serde_as]
-    #[derive(Debug, Default, serde::Deserialize, PartialEq)]
+    #[derive(Debug, Default, serde::Deserialize, PartialEq, Clone)]
     #[serde(default, rename_all = "camelCase")]
     // See http://cloud.google.com/storage/docs/json_api/v1/objects#resource for API reference.
     pub struct Object {
@@ -316,22 +316,22 @@ mod v1 {
         component_count: i32,
         kms_key_name: String,
         etag: String,
-        restore_token: String,
+        restore_token: Option<String>,
         content_encoding: String,
         content_disposition: String,
         content_language: String,
         cache_control: String,
         temporary_hold: bool,
-        event_based_hold: bool,
-        soft_delete_time: wkt::Timestamp,
-        hard_delete_time: wkt::Timestamp,
-        retention_expiration_time: wkt::Timestamp,
+        event_based_hold: Option<bool>,
+        soft_delete_time: Option<wkt::Timestamp>,
+        hard_delete_time: Option<wkt::Timestamp>,
+        retention_expiration_time: Option<wkt::Timestamp>,
         time_created: wkt::Timestamp,
         time_finalized: wkt::Timestamp,
-        time_deleted: wkt::Timestamp,
+        time_deleted: Option<wkt::Timestamp>,
         time_storage_class_updated: wkt::Timestamp,
         updated: wkt::Timestamp,
-        custom_time: wkt::Timestamp,
+        custom_time: Option<wkt::Timestamp>,
         acl: Vec<ObjectAccessControl>,
         // The following are excluded from the protos, so we don't really need to parse them.
         media_link: String,
@@ -357,7 +357,7 @@ mod v1 {
     }
 
     #[serde_with::serde_as]
-    #[derive(Debug, Default, serde::Deserialize, PartialEq)]
+    #[derive(Debug, Default, serde::Deserialize, PartialEq, Clone)]
     #[serde(default, rename_all = "camelCase")]
     struct ObjectAccessControl {
         id: String,
@@ -371,7 +371,7 @@ mod v1 {
     }
 
     #[serde_with::serde_as]
-    #[derive(Debug, Default, serde::Deserialize, PartialEq)]
+    #[derive(Debug, Default, serde::Deserialize, PartialEq, Clone)]
     #[serde(default, rename_all = "camelCase")]
     struct ProjectTeam {
         project_number: String,
@@ -388,18 +388,15 @@ mod v1 {
                 .set_domain(value.domain)
                 .set_entity_id(value.entity_id)
                 .set_etag(value.etag)
-                .set_project_team(to_control_project_team(value.project_team))
+                .set_project_team(value.project_team.map(|x| x.into()))
         }
     }
 
-    fn to_control_project_team(p: Option<ProjectTeam>) -> Option<control::model::ProjectTeam> {
-        match p {
-            Some(p) => Some(
-                control::model::ProjectTeam::new()
-                    .set_project_number(p.project_number)
-                    .set_team(p.team),
-            ),
-            None => None,
+    impl std::convert::From<ProjectTeam> for control::model::ProjectTeam {
+        fn from(p: ProjectTeam) -> Self {
+            control::model::ProjectTeam::new()
+                .set_project_number(p.project_number)
+                .set_team(p.team)
         }
     }
 
@@ -439,6 +436,7 @@ mod v1 {
     #[cfg(test)]
     mod tests {
         use super::*;
+        use test_case::test_case;
 
         #[test]
         fn test_deserialize_object() {
@@ -484,10 +482,10 @@ mod v1 {
                 time_created: wkt::Timestamp::clamp(1747132200, 0),
                 acl: vec![ObjectAccessControl {
                     id: "acl-id".to_string(),
-                    project_team: ProjectTeam {
+                    project_team: Some(ProjectTeam {
                         project_number: "123456".to_string(),
                         team: "myteam".to_string(),
-                    },
+                    }),
                     ..Default::default()
                 }],
                 ..Default::default()
@@ -496,46 +494,181 @@ mod v1 {
             assert_eq!(object, want);
         }
 
-        #[test]
-        fn test_convert_object_to_control_model() {
-            let object = Object {
-                // string fields:
-                id: "obj1".to_string(),
-                name: "test-object.txt".to_string(),
-                bucket: "my-bucket".to_string(),
-                content_type: "text/plain".to_string(),
-                storage_class: "STANDARD".to_string(),
-                // i64 and u64 fields:
-                generation: 123,
-                metageneration: 456,
-                size: 789,
-                // boolean fields:
-                temporary_hold: true,
-                // number fields:
-                component_count: 5,
-                // datetime fields:
-                time_created: wkt::Timestamp::clamp(1747132200, 0),
-                // list fields:
-                acl: vec![
-                    ObjectAccessControl {
-                        id: "acl1".to_string(),
-                        ..Default::default()
-                    },
-                    ObjectAccessControl {
-                        id: "acl2".to_string(),
-                        ..Default::default()
-                    },
-                ],
-                // unused in control::model
-                media_link: "my-media-link".to_string(),
+        #[test_case(Object::default(); "default fields")]
+        #[test_case(Object {
+            // string fields:
+            id: "obj1".to_string(),
+            name: "test-object.txt".to_string(),
+            bucket: "my-bucket".to_string(),
+            content_type: "text/plain".to_string(),
+            storage_class: "STANDARD".to_string(),
+            // i64 and u64 fields:
+            generation: 123,
+            metageneration: 456,
+            size: 789,
+            // boolean fields:
+            temporary_hold: true,
+            // number fields:
+            component_count: 5,
+            // datetime fields:
+            time_created: wkt::Timestamp::clamp(1747132200, 0),
+            // list fields:
+            acl: vec![
+                ObjectAccessControl {
+                    id: "acl1".to_string(),
+                    ..Default::default()
+                },
+                ObjectAccessControl {
+                    id: "acl2".to_string(),
+                    ..Default::default()
+                },
+            ],
+            // unused in control::model
+            media_link: "my-media-link".to_string(),
+            ..Default::default()
+        }; "some fields set")]
+        #[test_case(Object {
+            id: "obj1".to_string(),
+            name: "test-object.txt".to_string(),
+            bucket: "my-bucket".to_string(),
+            generation: 123,
+            metageneration: 456,
+            content_type: "text/plain".to_string(),
+            storage_class: "STANDARD".to_string(),
+            size: 789,
+            component_count: 101112,
+            kms_key_name: "my-kms-key".to_string(),
+            etag: "etag1".to_string(),
+            restore_token: Some("restore-token1".to_string()),
+            content_encoding: "content-encoding".to_string(),
+            content_disposition: "content-disposition1".to_string(),
+            content_language: "content-language1".to_string(),
+            cache_control: "cache-control1".to_string(),
+            temporary_hold: true,
+            event_based_hold: Some(false),
+            soft_delete_time: Some(wkt::Timestamp::clamp(1747132200, 1)),
+            hard_delete_time: Some(wkt::Timestamp::clamp(1747132200, 2)),
+            retention_expiration_time: Some(wkt::Timestamp::clamp(1747132200, 3)),
+            time_created: wkt::Timestamp::clamp(1747132200, 4),
+            time_finalized: wkt::Timestamp::clamp(1747132200, 5),
+            time_deleted: Some(wkt::Timestamp::clamp(1747132200, 6)),
+            time_storage_class_updated: wkt::Timestamp::clamp(1747132200, 7),
+            updated: wkt::Timestamp::clamp(1747132200, 8),
+            custom_time: Some(wkt::Timestamp::clamp(1747132200, 9)),
+            acl: vec![
+                ObjectAccessControl {
+                    id: "acl1".to_string(),
+                    ..Default::default()
+                },
+                ObjectAccessControl {
+                    id: "acl2".to_string(),
+                    ..Default::default()
+                },
+            ],
+            // unused in control::model
+            media_link: "my-media-link".to_string(),
+            self_link: "my-self-link".to_string(),
+           
+        }; "all fields set")]
+        // Tests for acl values.
+        #[test_case(Object { acl: Vec::new(), ..Default::default()}; "empty acl")]
+        #[test_case(Object {acl: vec![ObjectAccessControl::default(), object_acl_with_some_fields(), object_acl_with_all_fields()], ..Default::default()}; "acls with different fields")]
+        fn test_convert_object_to_control_model(object: Object) {
+            let got = control::model::Object::from(object.clone());
+            assert_eq_object(object, got);
+        }
+
+        fn assert_eq_object(object: Object, got: control::model::Object) {
+            assert_eq!(got.name, object.name);
+            assert_eq!(got.bucket, format!("projects/_/buckets/{}", object.bucket));
+            assert_eq!(got.etag, object.etag);
+            assert_eq!(got.generation, object.generation);
+            assert_eq!(got.restore_token, object.restore_token);
+            assert_eq!(got.metageneration, object.metageneration);
+            assert_eq!(got.storage_class, object.storage_class);
+            assert_eq!(got.size, object.size as i64);
+            assert_eq!(got.content_encoding, object.content_encoding);
+            assert_eq!(got.content_disposition, object.content_disposition);
+            assert_eq!(got.cache_control, object.cache_control);
+            got.acl.iter().zip(object.acl).for_each(|a| assert_eq_object_access_control(a.0, &a.1));
+            assert_eq!(got.content_language, object.content_language);
+            assert_eq!(got.delete_time, object.time_deleted);
+            assert_eq!(got.finalize_time.expect("finalize time is set"), object.time_finalized);
+            assert_eq!(got.content_type, object.content_type);
+            assert_eq!(got.create_time.expect("create time is set"), object.time_created);
+            assert_eq!(got.component_count, object.component_count);
+            assert_eq!(got.update_time.expect("update time is set"), object.updated);
+            assert_eq!(got.kms_key, object.kms_key_name);
+            assert_eq!(got.update_storage_class_time.expect("update storage class time is set"), object.time_storage_class_updated);
+            assert_eq!(got.temporary_hold, object.temporary_hold);
+            assert_eq!(got.retention_expire_time, object.retention_expiration_time);
+            assert_eq!(got.event_based_hold, object.event_based_hold);
+            assert_eq!(got.custom_time, object.custom_time);
+            assert_eq!(got.soft_delete_time, object.soft_delete_time);
+            assert_eq!(got.hard_delete_time, object.hard_delete_time);
+            // TODO(#2039): assert_eq!(got.checksums, object.checksums);
+            // TODO(#2039): assert_eq!(got.metadata, object.metadata);
+            // TODO(#2039): assert_eq!(got.owner, object.owner);
+            // TODO(#2039): assert_eq!(got.customer_encryption, object.customer_encryption);
+        }
+
+        fn object_acl_with_all_fields() -> ObjectAccessControl{
+            ObjectAccessControl{
+                id:"acl1".to_string(), 
+                entity: "entity1".to_string(),
+                role:  "role1".to_string(),
+                email: "email1".to_string(), 
+                domain: "domain1".to_string(), 
+                entity_id: "entity1".to_string(),
+                etag: "etag1".to_string(),
+                project_team: Some(ProjectTeam{
+                    project_number: "123456".to_string(),
+                    team: "team1".to_string(),
+                }),
+            }
+        } 
+
+        fn object_acl_with_some_fields() -> ObjectAccessControl{
+                ObjectAccessControl {
+                id:"acl1".to_string(), 
+                entity: "entity1".to_string(),
+                role:  "role1".to_string(),
+                project_team: Some(ProjectTeam{
+                    project_number: "123456".to_string(),
+                    ..Default::default()
+                }),
                 ..Default::default()
-            };
+            }
+        }
+        
+        #[test_case(ObjectAccessControl::default(); "default fields")]
+        #[test_case(object_acl_with_all_fields(); "all fields have values")]
+        #[test_case(object_acl_with_some_fields(); "some fields have values" )]
+        fn test_object_access_control(
+            from: ObjectAccessControl
+        ) {
+            let got = control::model::ObjectAccessControl::from(from.clone());
+            assert_eq_object_access_control(&got, &from);
+        }
 
-            let got = control::model::Object::from(object);
-
-            assert_eq!(got.generation, 123);
-            assert_eq!(got.bucket, "projects/_/buckets/my-bucket");
-            assert_eq!(got.acl.len(), 2)
+        fn assert_eq_object_access_control(got: &control::model::ObjectAccessControl, from: &ObjectAccessControl) {
+            assert_eq!(got.id, from.id);
+            assert_eq!(got.entity, from.entity);
+            assert_eq!(got.role, from.role);
+            assert_eq!(got.email, from.email);
+            assert_eq!(got.domain, from.domain);
+            assert_eq!(got.entity_id, from.entity_id);
+            assert_eq!(got.etag, from.etag);
+            if let Some(got) = &got.project_team {
+                if let Some(from) = &from.project_team {
+                    assert_eq!(got.project_number, from.project_number);
+                    assert_eq!(got.team, from.team);
+                } else {
+                    panic!("expected None, got {:?}", got); // false, lets get the error.
+                }
+            } else {
+                assert_eq!(from.project_team, None);
+            }
         }
     }
 }
