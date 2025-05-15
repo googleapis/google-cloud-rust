@@ -246,7 +246,8 @@ mod test {
             "{fmt}"
         );
 
-        let e = ConvertError::UnexpectedTypeUrl("type.googleapis.com/my.custom.Message".to_string());
+        let e =
+            ConvertError::UnexpectedTypeUrl("type.googleapis.com/my.custom.Message".to_string());
         let fmt = format!("{e}");
         assert!(
             fmt.contains("type.googleapis.com/my.custom.Message")
