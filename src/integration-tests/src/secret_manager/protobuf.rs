@@ -51,10 +51,11 @@ pub async fn run(builder: sm::builder::secret_manager_service::ClientBuilder) ->
         .set_secret_id(&secret_id)
         .set_secret(
             sm::model::Secret::new()
-                .set_replication(
-                    sm::model::Replication::new()
-                        .set_automatic(sm::model::replication::Automatic::new()),
-                )
+                .set_replication(sm::model::Replication::new().set_replication(
+                    sm::model::replication::Replication::Automatic(
+                        sm::model::replication::Automatic::new().into(),
+                    ),
+                ))
                 .set_labels([("integration-test", "true")]),
         )
         .send()

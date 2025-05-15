@@ -32,7 +32,8 @@ pub async fn text_prompt(project_id: &str) -> crate::Result<()> {
     let response = client
         .generate_content().set_model(&model)
         .set_contents([vertexai::model::Content::new().set_role("user").set_parts([
-            vertexai::model::Part::new().set_text("What's a good name for a flower shop that specializes in selling bouquets of dried flowers?"),
+            vertexai::model::Part::new().set_data(
+                vertexai::model::part::Data::Text("What's a good name for a flower shop that specializes in selling bouquets of dried flowers?".into())),
         ])])
         .send()
         .await;
@@ -66,14 +67,17 @@ pub async fn prompt_and_image(project_id: &str) -> crate::Result<()> {
         .set_contents(
             [vertexai::model::Content::new().set_role("user").set_parts([
                 // ANCHOR: prompt-and-image-image-part
-                vertexai::model::Part::new().set_file_data(
+                vertexai::model::Part::new().set_data(vertexai::model::part::Data::FileData(
                     vertexai::model::FileData::new()
                         .set_mime_type("image/jpeg")
-                        .set_file_uri("gs://generativeai-downloads/images/scones.jpg"),
-                ),
+                        .set_file_uri("gs://generativeai-downloads/images/scones.jpg")
+                        .into(),
+                )),
                 // ANCHOR_END: prompt-and-image-image-part
                 // ANCHOR: prompt-and-image-prompt-part
-                vertexai::model::Part::new().set_text("Describe this picture."),
+                vertexai::model::Part::new().set_data(vertexai::model::part::Data::Text(
+                    "Describe this picture.".into(),
+                )),
                 // ANCHOR_END: prompt-and-image-prompt-part
             ])],
         )

@@ -18,7 +18,7 @@ use auth::credentials::{
 };
 use gax::error::Error;
 use language::client::LanguageService;
-use language::model::Document;
+use language::model::{Document, document::Source, document::Type};
 use scoped_env::ScopedEnv;
 use secretmanager::client::SecretManagerService;
 
@@ -114,8 +114,8 @@ pub async fn api_key() -> Result<()> {
 
     // Make a request using the API key.
     let d = Document::new()
-        .set_content("Hello, world!")
-        .set_type(language::model::document::Type::PlainText);
+        .set_source(Source::Content("Hello, world!".into()))
+        .set_type(Type::PlainText);
     client.analyze_sentiment().set_document(d).send().await?;
 
     Ok(())

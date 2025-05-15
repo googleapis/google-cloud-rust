@@ -20,6 +20,8 @@ use google_cloud_speech_v2 as speech;
 // ANCHOR: start
 pub async fn start(project_id: &str) -> crate::Result<()> {
     // ANCHOR: client
+    use speech::model::*;
+
     let client = speech::client::Speech::builder().build().await?;
     // ANCHOR_END: client
 
@@ -31,24 +33,30 @@ pub async fn start(project_id: &str) -> crate::Result<()> {
         ))
         // ANCHOR_END: request-builder
         // ANCHOR: audio-file
-        .set_files([speech::model::BatchRecognizeFileMetadata::new()
-            .set_uri("gs://cloud-samples-data/speech/hello.wav")])
+        .set_files([BatchRecognizeFileMetadata::new().set_audio_source(
+            batch_recognize_file_metadata::AudioSource::Uri(
+                "gs://cloud-samples-data/speech/hello.wav".into(),
+            ),
+        )])
         // ANCHOR_END: audio-file
         // ANCHOR: transcript-output
-        .set_recognition_output_config(
-            speech::model::RecognitionOutputConfig::new()
-                .set_inline_response_config(speech::model::InlineOutputConfig::new()),
-        )
+        .set_recognition_output_config(RecognitionOutputConfig::new().set_output(
+            recognition_output_config::Output::InlineResponseConfig(
+                InlineOutputConfig::new().into(),
+            ),
+        ))
         // ANCHOR_END: transcript-output
         // ANCHOR: configuration
         .set_processing_strategy(
             speech::model::batch_recognize_request::ProcessingStrategy::DynamicBatching,
         )
         .set_config(
-            speech::model::RecognitionConfig::new()
+            RecognitionConfig::new()
                 .set_language_codes(["en-US"])
                 .set_model("short")
-                .set_auto_decoding_config(speech::model::AutoDetectDecodingConfig::new()),
+                .set_decoding_config(recognition_config::DecodingConfig::AutoDecodingConfig(
+                    AutoDetectDecodingConfig::new().into(),
+                )),
         )
         // ANCHOR_END: configuration
         // ANCHOR: send
@@ -70,6 +78,7 @@ pub async fn start(project_id: &str) -> crate::Result<()> {
 pub async fn automatic(project_id: &str) -> crate::Result<()> {
     // ANCHOR: automatic-use
     use speech::Poller;
+    use speech::model::*;
     // ANCHOR_END: automatic-use
     // ANCHOR: automatic-prepare
     let client = speech::client::Speech::builder().build().await?;
@@ -79,20 +88,24 @@ pub async fn automatic(project_id: &str) -> crate::Result<()> {
         .set_recognizer(format!(
             "projects/{project_id}/locations/global/recognizers/_"
         ))
-        .set_files([speech::model::BatchRecognizeFileMetadata::new()
-            .set_uri("gs://cloud-samples-data/speech/hello.wav")])
-        .set_recognition_output_config(
-            speech::model::RecognitionOutputConfig::new()
-                .set_inline_response_config(speech::model::InlineOutputConfig::new()),
-        )
-        .set_processing_strategy(
-            speech::model::batch_recognize_request::ProcessingStrategy::DynamicBatching,
-        )
+        .set_files([BatchRecognizeFileMetadata::new().set_audio_source(
+            batch_recognize_file_metadata::AudioSource::Uri(
+                "gs://cloud-samples-data/speech/hello.wav".into(),
+            ),
+        )])
+        .set_recognition_output_config(RecognitionOutputConfig::new().set_output(
+            recognition_output_config::Output::InlineResponseConfig(
+                InlineOutputConfig::new().into(),
+            ),
+        ))
+        .set_processing_strategy(batch_recognize_request::ProcessingStrategy::DynamicBatching)
         .set_config(
-            speech::model::RecognitionConfig::new()
+            RecognitionConfig::new()
                 .set_language_codes(["en-US"])
                 .set_model("short")
-                .set_auto_decoding_config(speech::model::AutoDetectDecodingConfig::new()),
+                .set_decoding_config(recognition_config::DecodingConfig::AutoDecodingConfig(
+                    AutoDetectDecodingConfig::new().into(),
+                )),
         )
         // ANCHOR_END: automatic-prepare
         // ANCHOR: automatic-print
@@ -113,6 +126,7 @@ pub async fn automatic(project_id: &str) -> crate::Result<()> {
 pub async fn polling(project_id: &str) -> crate::Result<()> {
     // ANCHOR: polling-use
     use speech::Poller;
+    use speech::model::*;
     // ANCHOR_END: polling-use
     // ANCHOR: polling-prepare
     let client = speech::client::Speech::builder().build().await?;
@@ -122,20 +136,24 @@ pub async fn polling(project_id: &str) -> crate::Result<()> {
         .set_recognizer(format!(
             "projects/{project_id}/locations/global/recognizers/_"
         ))
-        .set_files([speech::model::BatchRecognizeFileMetadata::new()
-            .set_uri("gs://cloud-samples-data/speech/hello.wav")])
-        .set_recognition_output_config(
-            speech::model::RecognitionOutputConfig::new()
-                .set_inline_response_config(speech::model::InlineOutputConfig::new()),
-        )
-        .set_processing_strategy(
-            speech::model::batch_recognize_request::ProcessingStrategy::DynamicBatching,
-        )
+        .set_files([BatchRecognizeFileMetadata::new().set_audio_source(
+            batch_recognize_file_metadata::AudioSource::Uri(
+                "gs://cloud-samples-data/speech/hello.wav".into(),
+            ),
+        )])
+        .set_recognition_output_config(RecognitionOutputConfig::new().set_output(
+            recognition_output_config::Output::InlineResponseConfig(
+                InlineOutputConfig::new().into(),
+            ),
+        ))
+        .set_processing_strategy(batch_recognize_request::ProcessingStrategy::DynamicBatching)
         .set_config(
-            speech::model::RecognitionConfig::new()
+            RecognitionConfig::new()
                 .set_language_codes(["en-US"])
                 .set_model("short")
-                .set_auto_decoding_config(speech::model::AutoDetectDecodingConfig::new()),
+                .set_decoding_config(recognition_config::DecodingConfig::AutoDecodingConfig(
+                    AutoDetectDecodingConfig::new().into(),
+                )),
         )
         // ANCHOR_END: polling-prepare
         // ANCHOR: polling-poller

@@ -120,56 +120,6 @@ impl {{Codec.Name}} {
             _ => std::option::Option::None,
         })
     }
-
-    /// Sets the value of [{{Group.Codec.FieldName}}][{{Codec.FQMessageName}}::{{Group.Codec.FieldName}}]
-    /// to hold a `{{Codec.BranchName}}`.
-    ///
-    /// Note that all the setters affecting `{{Group.Codec.FieldName}}` are
-    /// mutually exclusive.
-    {{#Deprecated}}
-    #[deprecated]
-    {{/Deprecated}}
-    {{#Singular}}
-    pub fn set_{{Codec.SetterName}}<T: std::convert::Into<{{{Codec.FieldType}}}>>(mut self, v: T) -> Self {
-        self.{{Group.Codec.FieldName}} = std::option::Option::Some(
-            {{Group.Codec.QualifiedName}}::{{Codec.BranchName}}(
-                v.into()
-            )
-        );
-        self
-    }
-    {{/Singular}}
-    {{#Repeated}}
-    pub fn set_{{Codec.SetterName}}<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<{{{Codec.PrimitiveFieldType}}}>
-    {
-        use std::iter::Iterator;
-        self.{{Group.Codec.FieldName}} = std::option::Option::Some(
-            {{Group.Codec.QualifiedName}}::{{Codec.BranchName}}(
-                v.into_iter().map(|i| i.into()).collect()
-            )
-        );
-        self
-    }
-    {{/Repeated}}
-    {{#Map}}
-    pub fn set_{{Codec.SetterName}}<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<{{{Codec.KeyType}}}>,
-        V: std::convert::Into<{{{Codec.ValueType}}}>,
-    {
-        use std::iter::Iterator;
-        self.{{Group.Codec.FieldName}} = std::option::Option::Some(
-            {{Group.Codec.QualifiedName}}::{{Codec.BranchName}}(
-                v.into_iter().map(|(k, v)| (k.into(), v.into())).collect()
-            )
-        );
-        self
-    }
-    {{/Map}}
     {{/Fields}}
     {{/OneOfs}}
 }

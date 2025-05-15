@@ -150,12 +150,14 @@ mod test {
 
     #[test]
     fn test_message_repeated() -> anyhow::Result<()> {
-        let sidekick =
-            model::value::ValueType::ArrayValue(Box::new(model::ArrayValue::new().set_values([
-                model::Value::new().set_string_value("abc"),
-                model::Value::new().set_integer_value(123),
-                model::Value::new().set_double_value(1234.5),
-            ])));
+        let sidekick = model::value::ValueType::ArrayValue(Box::new(
+            model::ArrayValue::new().set_values([
+                model::Value::new()
+                    .set_value_type(model::value::ValueType::StringValue("abc".into())),
+                model::Value::new().set_value_type(model::value::ValueType::IntegerValue(123)),
+                model::Value::new().set_value_type(model::value::ValueType::DoubleValue(1234.5)),
+            ]),
+        ));
         let proto = google::firestore::v1::value::ValueType::ArrayValue(
             google::firestore::v1::ArrayValue {
                 values: vec![
@@ -188,12 +190,24 @@ mod test {
     #[test]
     fn test_message_map() -> anyhow::Result<()> {
         use std::collections::HashMap;
-        let sidekick =
-            model::value::ValueType::MapValue(Box::new(model::MapValue::new().set_fields([
-                ("string", model::Value::new().set_string_value("abc")),
-                ("integer", model::Value::new().set_integer_value(123)),
-                ("double", model::Value::new().set_double_value(1234.5)),
-            ])));
+        let sidekick = model::value::ValueType::MapValue(Box::new(
+            model::MapValue::new().set_fields([
+                (
+                    "string",
+                    model::Value::new()
+                        .set_value_type(model::value::ValueType::StringValue("abc".into())),
+                ),
+                (
+                    "integer",
+                    model::Value::new().set_value_type(model::value::ValueType::IntegerValue(123)),
+                ),
+                (
+                    "double",
+                    model::Value::new()
+                        .set_value_type(model::value::ValueType::DoubleValue(1234.5)),
+                ),
+            ]),
+        ));
         let proto =
             google::firestore::v1::value::ValueType::MapValue(google::firestore::v1::MapValue {
                 fields: HashMap::from_iter([

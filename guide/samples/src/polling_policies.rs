@@ -24,6 +24,7 @@ pub async fn client_backoff(project_id: &str) -> crate::Result<()> {
     use google_cloud_gax::exponential_backoff::ExponentialBackoffBuilder;
     // ANCHOR_END: client-backoff-use
     use speech::Poller;
+    use speech::model::*;
     use std::time::Duration;
 
     // ANCHOR: client-backoff-client
@@ -46,20 +47,24 @@ pub async fn client_backoff(project_id: &str) -> crate::Result<()> {
         ))
         // ANCHOR_END: client-backoff-builder
         // ANCHOR: client-backoff-prepare
-        .set_files([speech::model::BatchRecognizeFileMetadata::new()
-            .set_uri("gs://cloud-samples-data/speech/hello.wav")])
-        .set_recognition_output_config(
-            speech::model::RecognitionOutputConfig::new()
-                .set_inline_response_config(speech::model::InlineOutputConfig::new()),
-        )
-        .set_processing_strategy(
-            speech::model::batch_recognize_request::ProcessingStrategy::DynamicBatching,
-        )
+        .set_files([BatchRecognizeFileMetadata::new().set_audio_source(
+            batch_recognize_file_metadata::AudioSource::Uri(
+                "gs://cloud-samples-data/speech/hello.wav".into(),
+            ),
+        )])
+        .set_recognition_output_config(RecognitionOutputConfig::new().set_output(
+            recognition_output_config::Output::InlineResponseConfig(
+                InlineOutputConfig::new().into(),
+            ),
+        ))
+        .set_processing_strategy(batch_recognize_request::ProcessingStrategy::DynamicBatching)
         .set_config(
-            speech::model::RecognitionConfig::new()
+            RecognitionConfig::new()
                 .set_language_codes(["en-US"])
                 .set_model("short")
-                .set_auto_decoding_config(speech::model::AutoDetectDecodingConfig::new()),
+                .set_decoding_config(recognition_config::DecodingConfig::AutoDecodingConfig(
+                    AutoDetectDecodingConfig::new().into(),
+                )),
         )
         // ANCHOR_END: client-backoff-prepare
         // ANCHOR: client-backoff-print
@@ -84,6 +89,7 @@ pub async fn rpc_backoff(project_id: &str) -> crate::Result<()> {
     use google_cloud_gax::options::RequestOptionsBuilder;
     // ANCHOR_END: rpc-backoff-builder-trait
     use speech::Poller;
+    use speech::model::*;
 
     // ANCHOR: rpc-backoff-client
     let client = speech::client::Speech::builder().build().await?;
@@ -105,20 +111,24 @@ pub async fn rpc_backoff(project_id: &str) -> crate::Result<()> {
         )
         // ANCHOR_END: rpc-backoff-rpc-polling-backoff
         // ANCHOR: rpc-backoff-prepare
-        .set_files([speech::model::BatchRecognizeFileMetadata::new()
-            .set_uri("gs://cloud-samples-data/speech/hello.wav")])
-        .set_recognition_output_config(
-            speech::model::RecognitionOutputConfig::new()
-                .set_inline_response_config(speech::model::InlineOutputConfig::new()),
-        )
-        .set_processing_strategy(
-            speech::model::batch_recognize_request::ProcessingStrategy::DynamicBatching,
-        )
+        .set_files([BatchRecognizeFileMetadata::new().set_audio_source(
+            batch_recognize_file_metadata::AudioSource::Uri(
+                "gs://cloud-samples-data/speech/hello.wav".into(),
+            ),
+        )])
+        .set_recognition_output_config(RecognitionOutputConfig::new().set_output(
+            recognition_output_config::Output::InlineResponseConfig(
+                InlineOutputConfig::new().into(),
+            ),
+        ))
+        .set_processing_strategy(batch_recognize_request::ProcessingStrategy::DynamicBatching)
         .set_config(
-            speech::model::RecognitionConfig::new()
+            RecognitionConfig::new()
                 .set_language_codes(["en-US"])
                 .set_model("short")
-                .set_auto_decoding_config(speech::model::AutoDetectDecodingConfig::new()),
+                .set_decoding_config(recognition_config::DecodingConfig::AutoDecodingConfig(
+                    AutoDetectDecodingConfig::new().into(),
+                )),
         )
         // ANCHOR_END: rpc-backoff-prepare
         // ANCHOR: rpc-backoff-print
@@ -141,6 +151,7 @@ pub async fn client_errors(project_id: &str) -> crate::Result<()> {
     use std::time::Duration;
     // ANCHOR_END: client-errors-use
     use speech::Poller;
+    use speech::model::*;
 
     // ANCHOR: client-errors-client
     let client = speech::client::Speech::builder()
@@ -161,20 +172,24 @@ pub async fn client_errors(project_id: &str) -> crate::Result<()> {
         ))
         // ANCHOR_END: client-errors-builder
         // ANCHOR: client-errors-prepare
-        .set_files([speech::model::BatchRecognizeFileMetadata::new()
-            .set_uri("gs://cloud-samples-data/speech/hello.wav")])
-        .set_recognition_output_config(
-            speech::model::RecognitionOutputConfig::new()
-                .set_inline_response_config(speech::model::InlineOutputConfig::new()),
-        )
-        .set_processing_strategy(
-            speech::model::batch_recognize_request::ProcessingStrategy::DynamicBatching,
-        )
+        .set_files([BatchRecognizeFileMetadata::new().set_audio_source(
+            batch_recognize_file_metadata::AudioSource::Uri(
+                "gs://cloud-samples-data/speech/hello.wav".into(),
+            ),
+        )])
+        .set_recognition_output_config(RecognitionOutputConfig::new().set_output(
+            recognition_output_config::Output::InlineResponseConfig(
+                InlineOutputConfig::new().into(),
+            ),
+        ))
+        .set_processing_strategy(batch_recognize_request::ProcessingStrategy::DynamicBatching)
         .set_config(
-            speech::model::RecognitionConfig::new()
+            RecognitionConfig::new()
                 .set_language_codes(["en-US"])
                 .set_model("short")
-                .set_auto_decoding_config(speech::model::AutoDetectDecodingConfig::new()),
+                .set_decoding_config(recognition_config::DecodingConfig::AutoDecodingConfig(
+                    AutoDetectDecodingConfig::new().into(),
+                )),
         )
         // ANCHOR_END: client-errors-prepare
         // ANCHOR: client-errors-print
@@ -200,6 +215,7 @@ pub async fn rpc_errors(project_id: &str) -> crate::Result<()> {
     use google_cloud_gax::options::RequestOptionsBuilder;
     // ANCHOR_END: rpc-errors-builder-trait
     use speech::Poller;
+    use speech::model::*;
 
     // ANCHOR: rpc-errors-client
     let client = speech::client::Speech::builder().build().await?;
@@ -220,20 +236,24 @@ pub async fn rpc_errors(project_id: &str) -> crate::Result<()> {
         )
         // ANCHOR_END: rpc-errors-rpc-polling-backoff
         // ANCHOR: rpc-errors-prepare
-        .set_files([speech::model::BatchRecognizeFileMetadata::new()
-            .set_uri("gs://cloud-samples-data/speech/hello.wav")])
-        .set_recognition_output_config(
-            speech::model::RecognitionOutputConfig::new()
-                .set_inline_response_config(speech::model::InlineOutputConfig::new()),
-        )
-        .set_processing_strategy(
-            speech::model::batch_recognize_request::ProcessingStrategy::DynamicBatching,
-        )
+        .set_files([BatchRecognizeFileMetadata::new().set_audio_source(
+            batch_recognize_file_metadata::AudioSource::Uri(
+                "gs://cloud-samples-data/speech/hello.wav".into(),
+            ),
+        )])
+        .set_recognition_output_config(RecognitionOutputConfig::new().set_output(
+            recognition_output_config::Output::InlineResponseConfig(
+                InlineOutputConfig::new().into(),
+            ),
+        ))
+        .set_processing_strategy(batch_recognize_request::ProcessingStrategy::DynamicBatching)
         .set_config(
-            speech::model::RecognitionConfig::new()
+            RecognitionConfig::new()
                 .set_language_codes(["en-US"])
                 .set_model("short")
-                .set_auto_decoding_config(speech::model::AutoDetectDecodingConfig::new()),
+                .set_decoding_config(recognition_config::DecodingConfig::AutoDecodingConfig(
+                    AutoDetectDecodingConfig::new().into(),
+                )),
         )
         // ANCHOR_END: rpc-errors-prepare
         // ANCHOR: rpc-errors-print

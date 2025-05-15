@@ -51,24 +51,27 @@ pub async fn basic(builder: firestore::builder::firestore::ClientBuilder) -> Res
     let project_id = crate::project_id()?;
     let client = builder.build().await?;
     let collection_id = new_collection_id();
-    let response = client
-        .create_document()
-        .set_parent(format!(
-            "projects/{project_id}/databases/(default)/documents"
-        ))
-        .set_collection_id(&collection_id)
-        .set_document(model::Document::new().set_fields([
-            (
-                "greeting",
-                model::Value::new().set_string_value("Hello World!"),
-            ),
-            (
-                "integration-test",
-                model::Value::new().set_boolean_value(true),
-            ),
-        ]))
-        .send()
-        .await?;
+    let response =
+        client
+            .create_document()
+            .set_parent(format!(
+                "projects/{project_id}/databases/(default)/documents"
+            ))
+            .set_collection_id(&collection_id)
+            .set_document(model::Document::new().set_fields([
+                (
+                    "greeting",
+                    model::Value::new().set_value_type(model::value::ValueType::StringValue(
+                        "Hello World!".into(),
+                    )),
+                ),
+                (
+                    "integration-test",
+                    model::Value::new().set_value_type(model::value::ValueType::BooleanValue(true)),
+                ),
+            ]))
+            .send()
+            .await?;
     println!("SUCCESS on create_document: {response:?}");
 
     let document_name = response.name;
@@ -97,7 +100,11 @@ pub async fn basic(builder: firestore::builder::firestore::ClientBuilder) -> Res
         .set_document(
             model::Document::new()
                 .set_name(&document_name)
-                .set_fields([("greeting", model::Value::new().set_string_value("Goodbye."))]),
+                .set_fields([(
+                    "greeting",
+                    model::Value::new()
+                        .set_value_type(model::value::ValueType::StringValue("Goodbye.".into())),
+                )]),
         )
         .set_update_mask(model::DocumentMask::new().set_field_paths(["greeting"]))
         .send()
