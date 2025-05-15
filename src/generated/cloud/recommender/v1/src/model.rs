@@ -136,7 +136,7 @@ impl Insight {
         self
     }
 
-    /// Sets or clear the value of [content][crate::model::Insight::content].
+    /// Sets or clears the value of [content][crate::model::Insight::content].
     pub fn set_or_clear_content<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Struct>,
@@ -154,7 +154,7 @@ impl Insight {
         self
     }
 
-    /// Sets or clear the value of [last_refresh_time][crate::model::Insight::last_refresh_time].
+    /// Sets or clears the value of [last_refresh_time][crate::model::Insight::last_refresh_time].
     pub fn set_or_clear_last_refresh_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -172,7 +172,7 @@ impl Insight {
         self
     }
 
-    /// Sets or clear the value of [observation_period][crate::model::Insight::observation_period].
+    /// Sets or clears the value of [observation_period][crate::model::Insight::observation_period].
     pub fn set_or_clear_observation_period<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -190,7 +190,7 @@ impl Insight {
         self
     }
 
-    /// Sets or clear the value of [state_info][crate::model::Insight::state_info].
+    /// Sets or clears the value of [state_info][crate::model::Insight::state_info].
     pub fn set_or_clear_state_info<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::InsightStateInfo>,
@@ -863,7 +863,7 @@ impl InsightTypeConfig {
         self
     }
 
-    /// Sets or clear the value of [insight_type_generation_config][crate::model::InsightTypeConfig::insight_type_generation_config].
+    /// Sets or clears the value of [insight_type_generation_config][crate::model::InsightTypeConfig::insight_type_generation_config].
     pub fn set_or_clear_insight_type_generation_config<T>(
         mut self,
         v: std::option::Option<T>,
@@ -890,7 +890,7 @@ impl InsightTypeConfig {
         self
     }
 
-    /// Sets or clear the value of [update_time][crate::model::InsightTypeConfig::update_time].
+    /// Sets or clears the value of [update_time][crate::model::InsightTypeConfig::update_time].
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -961,7 +961,7 @@ impl InsightTypeGenerationConfig {
         self
     }
 
-    /// Sets or clear the value of [params][crate::model::InsightTypeGenerationConfig::params].
+    /// Sets or clears the value of [params][crate::model::InsightTypeGenerationConfig::params].
     pub fn set_or_clear_params<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Struct>,
@@ -1087,7 +1087,7 @@ impl Recommendation {
         self
     }
 
-    /// Sets or clear the value of [last_refresh_time][crate::model::Recommendation::last_refresh_time].
+    /// Sets or clears the value of [last_refresh_time][crate::model::Recommendation::last_refresh_time].
     pub fn set_or_clear_last_refresh_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1105,7 +1105,7 @@ impl Recommendation {
         self
     }
 
-    /// Sets or clear the value of [primary_impact][crate::model::Recommendation::primary_impact].
+    /// Sets or clears the value of [primary_impact][crate::model::Recommendation::primary_impact].
     pub fn set_or_clear_primary_impact<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Impact>,
@@ -1143,7 +1143,7 @@ impl Recommendation {
         self
     }
 
-    /// Sets or clear the value of [content][crate::model::Recommendation::content].
+    /// Sets or clears the value of [content][crate::model::Recommendation::content].
     pub fn set_or_clear_content<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::RecommendationContent>,
@@ -1161,7 +1161,7 @@ impl Recommendation {
         self
     }
 
-    /// Sets or clear the value of [state_info][crate::model::Recommendation::state_info].
+    /// Sets or clears the value of [state_info][crate::model::Recommendation::state_info].
     pub fn set_or_clear_state_info<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::RecommendationStateInfo>,
@@ -1430,7 +1430,7 @@ impl RecommendationContent {
         self
     }
 
-    /// Sets or clear the value of [overview][crate::model::RecommendationContent::overview].
+    /// Sets or clears the value of [overview][crate::model::RecommendationContent::overview].
     pub fn set_or_clear_overview<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Struct>,
@@ -1868,7 +1868,7 @@ impl CostProjection {
         self
     }
 
-    /// Sets or clear the value of [cost][crate::model::CostProjection::cost].
+    /// Sets or clears the value of [cost][crate::model::CostProjection::cost].
     pub fn set_or_clear_cost<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<gtype::model::Money>,
@@ -1886,7 +1886,7 @@ impl CostProjection {
         self
     }
 
-    /// Sets or clear the value of [duration][crate::model::CostProjection::duration].
+    /// Sets or clears the value of [duration][crate::model::CostProjection::duration].
     pub fn set_or_clear_duration<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -1904,7 +1904,7 @@ impl CostProjection {
         self
     }
 
-    /// Sets or clear the value of [cost_in_local_currency][crate::model::CostProjection::cost_in_local_currency].
+    /// Sets or clears the value of [cost_in_local_currency][crate::model::CostProjection::cost_in_local_currency].
     pub fn set_or_clear_cost_in_local_currency<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<gtype::model::Money>,
@@ -1948,7 +1948,7 @@ impl SecurityProjection {
         self
     }
 
-    /// Sets or clear the value of [details][crate::model::SecurityProjection::details].
+    /// Sets or clears the value of [details][crate::model::SecurityProjection::details].
     pub fn set_or_clear_details<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Struct>,
@@ -2006,7 +2006,7 @@ impl SustainabilityProjection {
         self
     }
 
-    /// Sets or clear the value of [duration][crate::model::SustainabilityProjection::duration].
+    /// Sets or clears the value of [duration][crate::model::SustainabilityProjection::duration].
     pub fn set_or_clear_duration<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -2065,7 +2065,7 @@ impl ReliabilityProjection {
         self
     }
 
-    /// Sets or clear the value of [details][crate::model::ReliabilityProjection::details].
+    /// Sets or clears the value of [details][crate::model::ReliabilityProjection::details].
     pub fn set_or_clear_details<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Struct>,
@@ -2881,7 +2881,7 @@ impl RecommenderConfig {
         self
     }
 
-    /// Sets or clear the value of [recommender_generation_config][crate::model::RecommenderConfig::recommender_generation_config].
+    /// Sets or clears the value of [recommender_generation_config][crate::model::RecommenderConfig::recommender_generation_config].
     pub fn set_or_clear_recommender_generation_config<T>(
         mut self,
         v: std::option::Option<T>,
@@ -2908,7 +2908,7 @@ impl RecommenderConfig {
         self
     }
 
-    /// Sets or clear the value of [update_time][crate::model::RecommenderConfig::update_time].
+    /// Sets or clears the value of [update_time][crate::model::RecommenderConfig::update_time].
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2979,7 +2979,7 @@ impl RecommenderGenerationConfig {
         self
     }
 
-    /// Sets or clear the value of [params][crate::model::RecommenderGenerationConfig::params].
+    /// Sets or clears the value of [params][crate::model::RecommenderGenerationConfig::params].
     pub fn set_or_clear_params<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Struct>,
@@ -3773,7 +3773,7 @@ impl UpdateRecommenderConfigRequest {
         self
     }
 
-    /// Sets or clear the value of [recommender_config][crate::model::UpdateRecommenderConfigRequest::recommender_config].
+    /// Sets or clears the value of [recommender_config][crate::model::UpdateRecommenderConfigRequest::recommender_config].
     pub fn set_or_clear_recommender_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::RecommenderConfig>,
@@ -3791,7 +3791,7 @@ impl UpdateRecommenderConfigRequest {
         self
     }
 
-    /// Sets or clear the value of [update_mask][crate::model::UpdateRecommenderConfigRequest::update_mask].
+    /// Sets or clears the value of [update_mask][crate::model::UpdateRecommenderConfigRequest::update_mask].
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -3893,7 +3893,7 @@ impl UpdateInsightTypeConfigRequest {
         self
     }
 
-    /// Sets or clear the value of [insight_type_config][crate::model::UpdateInsightTypeConfigRequest::insight_type_config].
+    /// Sets or clears the value of [insight_type_config][crate::model::UpdateInsightTypeConfigRequest::insight_type_config].
     pub fn set_or_clear_insight_type_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::InsightTypeConfig>,
@@ -3911,7 +3911,7 @@ impl UpdateInsightTypeConfigRequest {
         self
     }
 
-    /// Sets or clear the value of [update_mask][crate::model::UpdateInsightTypeConfigRequest::update_mask].
+    /// Sets or clears the value of [update_mask][crate::model::UpdateInsightTypeConfigRequest::update_mask].
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,

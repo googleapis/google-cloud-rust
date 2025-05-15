@@ -368,7 +368,7 @@ pub mod app_connections_service {
             self
         }
 
-        /// Sets or clear the value of [app_connection][crate::model::CreateAppConnectionRequest::app_connection].
+        /// Sets or clears the value of [app_connection][crate::model::CreateAppConnectionRequest::app_connection].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_app_connection<T>(mut self, v: std::option::Option<T>) -> Self
@@ -501,7 +501,7 @@ pub mod app_connections_service {
             self
         }
 
-        /// Sets or clear the value of [update_mask][crate::model::UpdateAppConnectionRequest::update_mask].
+        /// Sets or clears the value of [update_mask][crate::model::UpdateAppConnectionRequest::update_mask].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
@@ -523,7 +523,7 @@ pub mod app_connections_service {
             self
         }
 
-        /// Sets or clear the value of [app_connection][crate::model::UpdateAppConnectionRequest::app_connection].
+        /// Sets or clears the value of [app_connection][crate::model::UpdateAppConnectionRequest::app_connection].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_app_connection<T>(mut self, v: std::option::Option<T>) -> Self
@@ -1028,7 +1028,7 @@ pub mod app_connections_service {
             self
         }
 
-        /// Sets or clear the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        /// Sets or clears the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
@@ -1048,7 +1048,7 @@ pub mod app_connections_service {
             self
         }
 
-        /// Sets or clear the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        /// Sets or clears the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
@@ -1128,7 +1128,7 @@ pub mod app_connections_service {
             self
         }
 
-        /// Sets or clear the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        /// Sets or clears the value of [options][iam_v1::model::GetIamPolicyRequest::options].
         pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<iam_v1::model::GetPolicyOptions>,

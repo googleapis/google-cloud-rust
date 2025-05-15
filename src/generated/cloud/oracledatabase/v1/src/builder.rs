@@ -369,7 +369,7 @@ pub mod oracle_database {
             self
         }
 
-        /// Sets or clear the value of [cloud_exadata_infrastructure][crate::model::CreateCloudExadataInfrastructureRequest::cloud_exadata_infrastructure].
+        /// Sets or clears the value of [cloud_exadata_infrastructure][crate::model::CreateCloudExadataInfrastructureRequest::cloud_exadata_infrastructure].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_cloud_exadata_infrastructure<T>(
@@ -813,7 +813,7 @@ pub mod oracle_database {
             self
         }
 
-        /// Sets or clear the value of [cloud_vm_cluster][crate::model::CreateCloudVmClusterRequest::cloud_vm_cluster].
+        /// Sets or clears the value of [cloud_vm_cluster][crate::model::CreateCloudVmClusterRequest::cloud_vm_cluster].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_cloud_vm_cluster<T>(mut self, v: std::option::Option<T>) -> Self
@@ -1782,7 +1782,7 @@ pub mod oracle_database {
             self
         }
 
-        /// Sets or clear the value of [autonomous_database][crate::model::CreateAutonomousDatabaseRequest::autonomous_database].
+        /// Sets or clears the value of [autonomous_database][crate::model::CreateAutonomousDatabaseRequest::autonomous_database].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_autonomous_database<T>(mut self, v: std::option::Option<T>) -> Self
@@ -2033,7 +2033,7 @@ pub mod oracle_database {
             self
         }
 
-        /// Sets or clear the value of [restore_time][crate::model::RestoreAutonomousDatabaseRequest::restore_time].
+        /// Sets or clears the value of [restore_time][crate::model::RestoreAutonomousDatabaseRequest::restore_time].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_restore_time<T>(mut self, v: std::option::Option<T>) -> Self

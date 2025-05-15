@@ -166,7 +166,7 @@ impl RetryInfo {
         self
     }
 
-    /// Sets or clear the value of [retry_delay][crate::model::RetryInfo::retry_delay].
+    /// Sets or clears the value of [retry_delay][crate::model::RetryInfo::retry_delay].
     pub fn set_or_clear_retry_delay<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -446,7 +446,7 @@ pub mod quota_failure {
             self
         }
 
-        /// Sets or clear the value of [future_quota_value][crate::model::quota_failure::Violation::future_quota_value].
+        /// Sets or clears the value of [future_quota_value][crate::model::quota_failure::Violation::future_quota_value].
         pub fn set_or_clear_future_quota_value<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<i64>,
@@ -715,7 +715,7 @@ pub mod bad_request {
             self
         }
 
-        /// Sets or clear the value of [localized_message][crate::model::bad_request::FieldViolation::localized_message].
+        /// Sets or clears the value of [localized_message][crate::model::bad_request::FieldViolation::localized_message].
         pub fn set_or_clear_localized_message<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::LocalizedMessage>,

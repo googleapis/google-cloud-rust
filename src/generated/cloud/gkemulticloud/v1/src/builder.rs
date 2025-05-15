@@ -178,7 +178,7 @@ pub mod attached_clusters {
             self
         }
 
-        /// Sets or clear the value of [attached_cluster][crate::model::CreateAttachedClusterRequest::attached_cluster].
+        /// Sets or clears the value of [attached_cluster][crate::model::CreateAttachedClusterRequest::attached_cluster].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_attached_cluster<T>(mut self, v: std::option::Option<T>) -> Self
@@ -313,7 +313,7 @@ pub mod attached_clusters {
             self
         }
 
-        /// Sets or clear the value of [attached_cluster][crate::model::UpdateAttachedClusterRequest::attached_cluster].
+        /// Sets or clears the value of [attached_cluster][crate::model::UpdateAttachedClusterRequest::attached_cluster].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_attached_cluster<T>(mut self, v: std::option::Option<T>) -> Self
@@ -341,7 +341,7 @@ pub mod attached_clusters {
             self
         }
 
-        /// Sets or clear the value of [update_mask][crate::model::UpdateAttachedClusterRequest::update_mask].
+        /// Sets or clears the value of [update_mask][crate::model::UpdateAttachedClusterRequest::update_mask].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
@@ -498,7 +498,7 @@ pub mod attached_clusters {
             self
         }
 
-        /// Sets or clear the value of [proxy_config][crate::model::ImportAttachedClusterRequest::proxy_config].
+        /// Sets or clears the value of [proxy_config][crate::model::ImportAttachedClusterRequest::proxy_config].
         pub fn set_or_clear_proxy_config<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::AttachedProxyConfig>,
@@ -972,7 +972,7 @@ pub mod attached_clusters {
             self
         }
 
-        /// Sets or clear the value of [proxy_config][crate::model::GenerateAttachedClusterInstallManifestRequest::proxy_config].
+        /// Sets or clears the value of [proxy_config][crate::model::GenerateAttachedClusterInstallManifestRequest::proxy_config].
         pub fn set_or_clear_proxy_config<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::AttachedProxyConfig>,
@@ -1572,7 +1572,7 @@ pub mod aws_clusters {
             self
         }
 
-        /// Sets or clear the value of [aws_cluster][crate::model::CreateAwsClusterRequest::aws_cluster].
+        /// Sets or clears the value of [aws_cluster][crate::model::CreateAwsClusterRequest::aws_cluster].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_aws_cluster<T>(mut self, v: std::option::Option<T>) -> Self
@@ -1704,7 +1704,7 @@ pub mod aws_clusters {
             self
         }
 
-        /// Sets or clear the value of [aws_cluster][crate::model::UpdateAwsClusterRequest::aws_cluster].
+        /// Sets or clears the value of [aws_cluster][crate::model::UpdateAwsClusterRequest::aws_cluster].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_aws_cluster<T>(mut self, v: std::option::Option<T>) -> Self
@@ -1732,7 +1732,7 @@ pub mod aws_clusters {
             self
         }
 
-        /// Sets or clear the value of [update_mask][crate::model::UpdateAwsClusterRequest::update_mask].
+        /// Sets or clears the value of [update_mask][crate::model::UpdateAwsClusterRequest::update_mask].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
@@ -2346,7 +2346,7 @@ pub mod aws_clusters {
             self
         }
 
-        /// Sets or clear the value of [aws_node_pool][crate::model::CreateAwsNodePoolRequest::aws_node_pool].
+        /// Sets or clears the value of [aws_node_pool][crate::model::CreateAwsNodePoolRequest::aws_node_pool].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_aws_node_pool<T>(mut self, v: std::option::Option<T>) -> Self
@@ -2480,7 +2480,7 @@ pub mod aws_clusters {
             self
         }
 
-        /// Sets or clear the value of [aws_node_pool][crate::model::UpdateAwsNodePoolRequest::aws_node_pool].
+        /// Sets or clears the value of [aws_node_pool][crate::model::UpdateAwsNodePoolRequest::aws_node_pool].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_aws_node_pool<T>(mut self, v: std::option::Option<T>) -> Self
@@ -2508,7 +2508,7 @@ pub mod aws_clusters {
             self
         }
 
-        /// Sets or clear the value of [update_mask][crate::model::UpdateAwsNodePoolRequest::update_mask].
+        /// Sets or clears the value of [update_mask][crate::model::UpdateAwsNodePoolRequest::update_mask].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
@@ -3597,7 +3597,7 @@ pub mod azure_clusters {
             self
         }
 
-        /// Sets or clear the value of [azure_client][crate::model::CreateAzureClientRequest::azure_client].
+        /// Sets or clears the value of [azure_client][crate::model::CreateAzureClientRequest::azure_client].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_azure_client<T>(mut self, v: std::option::Option<T>) -> Self
@@ -4024,7 +4024,7 @@ pub mod azure_clusters {
             self
         }
 
-        /// Sets or clear the value of [azure_cluster][crate::model::CreateAzureClusterRequest::azure_cluster].
+        /// Sets or clears the value of [azure_cluster][crate::model::CreateAzureClusterRequest::azure_cluster].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_azure_cluster<T>(mut self, v: std::option::Option<T>) -> Self
@@ -4158,7 +4158,7 @@ pub mod azure_clusters {
             self
         }
 
-        /// Sets or clear the value of [azure_cluster][crate::model::UpdateAzureClusterRequest::azure_cluster].
+        /// Sets or clears the value of [azure_cluster][crate::model::UpdateAzureClusterRequest::azure_cluster].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_azure_cluster<T>(mut self, v: std::option::Option<T>) -> Self
@@ -4186,7 +4186,7 @@ pub mod azure_clusters {
             self
         }
 
-        /// Sets or clear the value of [update_mask][crate::model::UpdateAzureClusterRequest::update_mask].
+        /// Sets or clears the value of [update_mask][crate::model::UpdateAzureClusterRequest::update_mask].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
@@ -4806,7 +4806,7 @@ pub mod azure_clusters {
             self
         }
 
-        /// Sets or clear the value of [azure_node_pool][crate::model::CreateAzureNodePoolRequest::azure_node_pool].
+        /// Sets or clears the value of [azure_node_pool][crate::model::CreateAzureNodePoolRequest::azure_node_pool].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_azure_node_pool<T>(mut self, v: std::option::Option<T>) -> Self
@@ -4941,7 +4941,7 @@ pub mod azure_clusters {
             self
         }
 
-        /// Sets or clear the value of [azure_node_pool][crate::model::UpdateAzureNodePoolRequest::azure_node_pool].
+        /// Sets or clears the value of [azure_node_pool][crate::model::UpdateAzureNodePoolRequest::azure_node_pool].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_azure_node_pool<T>(mut self, v: std::option::Option<T>) -> Self
@@ -4969,7 +4969,7 @@ pub mod azure_clusters {
             self
         }
 
-        /// Sets or clear the value of [update_mask][crate::model::UpdateAzureNodePoolRequest::update_mask].
+        /// Sets or clears the value of [update_mask][crate::model::UpdateAzureNodePoolRequest::update_mask].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self

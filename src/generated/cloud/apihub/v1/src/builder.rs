@@ -135,7 +135,7 @@ pub mod api_hub {
             self
         }
 
-        /// Sets or clear the value of [api][crate::model::CreateApiRequest::api].
+        /// Sets or clears the value of [api][crate::model::CreateApiRequest::api].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_api<T>(mut self, v: std::option::Option<T>) -> Self
@@ -375,7 +375,7 @@ pub mod api_hub {
             self
         }
 
-        /// Sets or clear the value of [api][crate::model::UpdateApiRequest::api].
+        /// Sets or clears the value of [api][crate::model::UpdateApiRequest::api].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_api<T>(mut self, v: std::option::Option<T>) -> Self
@@ -397,7 +397,7 @@ pub mod api_hub {
             self
         }
 
-        /// Sets or clear the value of [update_mask][crate::model::UpdateApiRequest::update_mask].
+        /// Sets or clears the value of [update_mask][crate::model::UpdateApiRequest::update_mask].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
@@ -551,7 +551,7 @@ pub mod api_hub {
             self
         }
 
-        /// Sets or clear the value of [version][crate::model::CreateVersionRequest::version].
+        /// Sets or clears the value of [version][crate::model::CreateVersionRequest::version].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_version<T>(mut self, v: std::option::Option<T>) -> Self
@@ -791,7 +791,7 @@ pub mod api_hub {
             self
         }
 
-        /// Sets or clear the value of [version][crate::model::UpdateVersionRequest::version].
+        /// Sets or clears the value of [version][crate::model::UpdateVersionRequest::version].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_version<T>(mut self, v: std::option::Option<T>) -> Self
@@ -813,7 +813,7 @@ pub mod api_hub {
             self
         }
 
-        /// Sets or clear the value of [update_mask][crate::model::UpdateVersionRequest::update_mask].
+        /// Sets or clears the value of [update_mask][crate::model::UpdateVersionRequest::update_mask].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
@@ -967,7 +967,7 @@ pub mod api_hub {
             self
         }
 
-        /// Sets or clear the value of [spec][crate::model::CreateSpecRequest::spec].
+        /// Sets or clears the value of [spec][crate::model::CreateSpecRequest::spec].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_spec<T>(mut self, v: std::option::Option<T>) -> Self
@@ -1267,7 +1267,7 @@ pub mod api_hub {
             self
         }
 
-        /// Sets or clear the value of [spec][crate::model::UpdateSpecRequest::spec].
+        /// Sets or clears the value of [spec][crate::model::UpdateSpecRequest::spec].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_spec<T>(mut self, v: std::option::Option<T>) -> Self
@@ -1289,7 +1289,7 @@ pub mod api_hub {
             self
         }
 
-        /// Sets or clear the value of [update_mask][crate::model::UpdateSpecRequest::update_mask].
+        /// Sets or clears the value of [update_mask][crate::model::UpdateSpecRequest::update_mask].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
@@ -1669,7 +1669,7 @@ pub mod api_hub {
             self
         }
 
-        /// Sets or clear the value of [deployment][crate::model::CreateDeploymentRequest::deployment].
+        /// Sets or clears the value of [deployment][crate::model::CreateDeploymentRequest::deployment].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_deployment<T>(mut self, v: std::option::Option<T>) -> Self
@@ -1912,7 +1912,7 @@ pub mod api_hub {
             self
         }
 
-        /// Sets or clear the value of [deployment][crate::model::UpdateDeploymentRequest::deployment].
+        /// Sets or clears the value of [deployment][crate::model::UpdateDeploymentRequest::deployment].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_deployment<T>(mut self, v: std::option::Option<T>) -> Self
@@ -1934,7 +1934,7 @@ pub mod api_hub {
             self
         }
 
-        /// Sets or clear the value of [update_mask][crate::model::UpdateDeploymentRequest::update_mask].
+        /// Sets or clears the value of [update_mask][crate::model::UpdateDeploymentRequest::update_mask].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
@@ -2085,7 +2085,7 @@ pub mod api_hub {
             self
         }
 
-        /// Sets or clear the value of [attribute][crate::model::CreateAttributeRequest::attribute].
+        /// Sets or clears the value of [attribute][crate::model::CreateAttributeRequest::attribute].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_attribute<T>(mut self, v: std::option::Option<T>) -> Self
@@ -2219,7 +2219,7 @@ pub mod api_hub {
             self
         }
 
-        /// Sets or clear the value of [attribute][crate::model::UpdateAttributeRequest::attribute].
+        /// Sets or clears the value of [attribute][crate::model::UpdateAttributeRequest::attribute].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_attribute<T>(mut self, v: std::option::Option<T>) -> Self
@@ -2241,7 +2241,7 @@ pub mod api_hub {
             self
         }
 
-        /// Sets or clear the value of [update_mask][crate::model::UpdateAttributeRequest::update_mask].
+        /// Sets or clears the value of [update_mask][crate::model::UpdateAttributeRequest::update_mask].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
@@ -2612,7 +2612,7 @@ pub mod api_hub {
             self
         }
 
-        /// Sets or clear the value of [external_api][crate::model::CreateExternalApiRequest::external_api].
+        /// Sets or clears the value of [external_api][crate::model::CreateExternalApiRequest::external_api].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_external_api<T>(mut self, v: std::option::Option<T>) -> Self
@@ -2749,7 +2749,7 @@ pub mod api_hub {
             self
         }
 
-        /// Sets or clear the value of [external_api][crate::model::UpdateExternalApiRequest::external_api].
+        /// Sets or clears the value of [external_api][crate::model::UpdateExternalApiRequest::external_api].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_external_api<T>(mut self, v: std::option::Option<T>) -> Self
@@ -2771,7 +2771,7 @@ pub mod api_hub {
             self
         }
 
-        /// Sets or clear the value of [update_mask][crate::model::UpdateExternalApiRequest::update_mask].
+        /// Sets or clears the value of [update_mask][crate::model::UpdateExternalApiRequest::update_mask].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
@@ -3542,7 +3542,7 @@ pub mod api_hub_dependencies {
             self
         }
 
-        /// Sets or clear the value of [dependency][crate::model::CreateDependencyRequest::dependency].
+        /// Sets or clears the value of [dependency][crate::model::CreateDependencyRequest::dependency].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_dependency<T>(mut self, v: std::option::Option<T>) -> Self
@@ -3683,7 +3683,7 @@ pub mod api_hub_dependencies {
             self
         }
 
-        /// Sets or clear the value of [dependency][crate::model::UpdateDependencyRequest::dependency].
+        /// Sets or clears the value of [dependency][crate::model::UpdateDependencyRequest::dependency].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_dependency<T>(mut self, v: std::option::Option<T>) -> Self
@@ -3705,7 +3705,7 @@ pub mod api_hub_dependencies {
             self
         }
 
-        /// Sets or clear the value of [update_mask][crate::model::UpdateDependencyRequest::update_mask].
+        /// Sets or clears the value of [update_mask][crate::model::UpdateDependencyRequest::update_mask].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
@@ -4505,7 +4505,7 @@ pub mod host_project_registration_service {
             self
         }
 
-        /// Sets or clear the value of [host_project_registration][crate::model::CreateHostProjectRegistrationRequest::host_project_registration].
+        /// Sets or clears the value of [host_project_registration][crate::model::CreateHostProjectRegistrationRequest::host_project_registration].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_host_project_registration<T>(
@@ -5363,7 +5363,7 @@ pub mod linting_service {
             self
         }
 
-        /// Sets or clear the value of [style_guide][crate::model::UpdateStyleGuideRequest::style_guide].
+        /// Sets or clears the value of [style_guide][crate::model::UpdateStyleGuideRequest::style_guide].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_style_guide<T>(mut self, v: std::option::Option<T>) -> Self
@@ -5383,7 +5383,7 @@ pub mod linting_service {
             self
         }
 
-        /// Sets or clear the value of [update_mask][crate::model::UpdateStyleGuideRequest::update_mask].
+        /// Sets or clears the value of [update_mask][crate::model::UpdateStyleGuideRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
@@ -6877,7 +6877,7 @@ pub mod provisioning {
             self
         }
 
-        /// Sets or clear the value of [api_hub_instance][crate::model::CreateApiHubInstanceRequest::api_hub_instance].
+        /// Sets or clears the value of [api_hub_instance][crate::model::CreateApiHubInstanceRequest::api_hub_instance].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_api_hub_instance<T>(mut self, v: std::option::Option<T>) -> Self
@@ -7631,7 +7631,7 @@ pub mod runtime_project_attachment_service {
             self
         }
 
-        /// Sets or clear the value of [runtime_project_attachment][crate::model::CreateRuntimeProjectAttachmentRequest::runtime_project_attachment].
+        /// Sets or clears the value of [runtime_project_attachment][crate::model::CreateRuntimeProjectAttachmentRequest::runtime_project_attachment].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_runtime_project_attachment<T>(

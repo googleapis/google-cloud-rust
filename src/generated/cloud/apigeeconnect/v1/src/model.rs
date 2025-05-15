@@ -195,7 +195,7 @@ impl Connection {
         self
     }
 
-    /// Sets or clear the value of [cluster][crate::model::Connection::cluster].
+    /// Sets or clears the value of [cluster][crate::model::Connection::cluster].
     pub fn set_or_clear_cluster<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Cluster>,
@@ -312,7 +312,7 @@ impl EgressRequest {
         self
     }
 
-    /// Sets or clear the value of [payload][crate::model::EgressRequest::payload].
+    /// Sets or clears the value of [payload][crate::model::EgressRequest::payload].
     pub fn set_or_clear_payload<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Payload>,
@@ -351,7 +351,7 @@ impl EgressRequest {
         self
     }
 
-    /// Sets or clear the value of [timeout][crate::model::EgressRequest::timeout].
+    /// Sets or clears the value of [timeout][crate::model::EgressRequest::timeout].
     pub fn set_or_clear_timeout<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -586,7 +586,7 @@ impl EgressResponse {
         self
     }
 
-    /// Sets or clear the value of [http_response][crate::model::EgressResponse::http_response].
+    /// Sets or clears the value of [http_response][crate::model::EgressResponse::http_response].
     pub fn set_or_clear_http_response<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::HttpResponse>,
@@ -604,7 +604,7 @@ impl EgressResponse {
         self
     }
 
-    /// Sets or clear the value of [status][crate::model::EgressResponse::status].
+    /// Sets or clears the value of [status][crate::model::EgressResponse::status].
     pub fn set_or_clear_status<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<rpc::model::Status>,
@@ -705,7 +705,7 @@ impl HttpRequest {
         self
     }
 
-    /// Sets or clear the value of [url][crate::model::HttpRequest::url].
+    /// Sets or clears the value of [url][crate::model::HttpRequest::url].
     pub fn set_or_clear_url<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Url>,

@@ -136,7 +136,7 @@ pub mod recaptcha_enterprise_service {
             self
         }
 
-        /// Sets or clear the value of [assessment][crate::model::CreateAssessmentRequest::assessment].
+        /// Sets or clears the value of [assessment][crate::model::CreateAssessmentRequest::assessment].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_assessment<T>(mut self, v: std::option::Option<T>) -> Self
@@ -253,7 +253,7 @@ pub mod recaptcha_enterprise_service {
             self
         }
 
-        /// Sets or clear the value of [transaction_event][crate::model::AnnotateAssessmentRequest::transaction_event].
+        /// Sets or clears the value of [transaction_event][crate::model::AnnotateAssessmentRequest::transaction_event].
         pub fn set_or_clear_transaction_event<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::TransactionEvent>,
@@ -335,7 +335,7 @@ pub mod recaptcha_enterprise_service {
             self
         }
 
-        /// Sets or clear the value of [key][crate::model::CreateKeyRequest::key].
+        /// Sets or clears the value of [key][crate::model::CreateKeyRequest::key].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_key<T>(mut self, v: std::option::Option<T>) -> Self
@@ -642,7 +642,7 @@ pub mod recaptcha_enterprise_service {
             self
         }
 
-        /// Sets or clear the value of [key][crate::model::UpdateKeyRequest::key].
+        /// Sets or clears the value of [key][crate::model::UpdateKeyRequest::key].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_key<T>(mut self, v: std::option::Option<T>) -> Self
@@ -662,7 +662,7 @@ pub mod recaptcha_enterprise_service {
             self
         }
 
-        /// Sets or clear the value of [update_mask][crate::model::UpdateKeyRequest::update_mask].
+        /// Sets or clears the value of [update_mask][crate::model::UpdateKeyRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
@@ -874,7 +874,7 @@ pub mod recaptcha_enterprise_service {
             self
         }
 
-        /// Sets or clear the value of [ip_override_data][crate::model::AddIpOverrideRequest::ip_override_data].
+        /// Sets or clears the value of [ip_override_data][crate::model::AddIpOverrideRequest::ip_override_data].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_ip_override_data<T>(mut self, v: std::option::Option<T>) -> Self
@@ -961,7 +961,7 @@ pub mod recaptcha_enterprise_service {
             self
         }
 
-        /// Sets or clear the value of [ip_override_data][crate::model::RemoveIpOverrideRequest::ip_override_data].
+        /// Sets or clears the value of [ip_override_data][crate::model::RemoveIpOverrideRequest::ip_override_data].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_ip_override_data<T>(mut self, v: std::option::Option<T>) -> Self
@@ -1212,7 +1212,7 @@ pub mod recaptcha_enterprise_service {
             self
         }
 
-        /// Sets or clear the value of [firewall_policy][crate::model::CreateFirewallPolicyRequest::firewall_policy].
+        /// Sets or clears the value of [firewall_policy][crate::model::CreateFirewallPolicyRequest::firewall_policy].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_firewall_policy<T>(mut self, v: std::option::Option<T>) -> Self
@@ -1463,7 +1463,7 @@ pub mod recaptcha_enterprise_service {
             self
         }
 
-        /// Sets or clear the value of [firewall_policy][crate::model::UpdateFirewallPolicyRequest::firewall_policy].
+        /// Sets or clears the value of [firewall_policy][crate::model::UpdateFirewallPolicyRequest::firewall_policy].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_firewall_policy<T>(mut self, v: std::option::Option<T>) -> Self
@@ -1483,7 +1483,7 @@ pub mod recaptcha_enterprise_service {
             self
         }
 
-        /// Sets or clear the value of [update_mask][crate::model::UpdateFirewallPolicyRequest::update_mask].
+        /// Sets or clears the value of [update_mask][crate::model::UpdateFirewallPolicyRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,

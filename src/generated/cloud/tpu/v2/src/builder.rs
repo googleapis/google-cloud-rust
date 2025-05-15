@@ -334,7 +334,7 @@ pub mod tpu {
             self
         }
 
-        /// Sets or clear the value of [node][crate::model::CreateNodeRequest::node].
+        /// Sets or clears the value of [node][crate::model::CreateNodeRequest::node].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_node<T>(mut self, v: std::option::Option<T>) -> Self
@@ -746,7 +746,7 @@ pub mod tpu {
             self
         }
 
-        /// Sets or clear the value of [update_mask][crate::model::UpdateNodeRequest::update_mask].
+        /// Sets or clears the value of [update_mask][crate::model::UpdateNodeRequest::update_mask].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
@@ -768,7 +768,7 @@ pub mod tpu {
             self
         }
 
-        /// Sets or clear the value of [node][crate::model::UpdateNodeRequest::node].
+        /// Sets or clears the value of [node][crate::model::UpdateNodeRequest::node].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_node<T>(mut self, v: std::option::Option<T>) -> Self
@@ -1069,7 +1069,7 @@ pub mod tpu {
             self
         }
 
-        /// Sets or clear the value of [queued_resource][crate::model::CreateQueuedResourceRequest::queued_resource].
+        /// Sets or clears the value of [queued_resource][crate::model::CreateQueuedResourceRequest::queued_resource].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_queued_resource<T>(mut self, v: std::option::Option<T>) -> Self

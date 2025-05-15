@@ -312,7 +312,7 @@ pub mod cloud_billing {
             self
         }
 
-        /// Sets or clear the value of [account][crate::model::UpdateBillingAccountRequest::account].
+        /// Sets or clears the value of [account][crate::model::UpdateBillingAccountRequest::account].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_account<T>(mut self, v: std::option::Option<T>) -> Self
@@ -332,7 +332,7 @@ pub mod cloud_billing {
             self
         }
 
-        /// Sets or clear the value of [update_mask][crate::model::UpdateBillingAccountRequest::update_mask].
+        /// Sets or clears the value of [update_mask][crate::model::UpdateBillingAccountRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
@@ -409,7 +409,7 @@ pub mod cloud_billing {
             self
         }
 
-        /// Sets or clear the value of [billing_account][crate::model::CreateBillingAccountRequest::billing_account].
+        /// Sets or clears the value of [billing_account][crate::model::CreateBillingAccountRequest::billing_account].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_billing_account<T>(mut self, v: std::option::Option<T>) -> Self
@@ -676,7 +676,7 @@ pub mod cloud_billing {
             self
         }
 
-        /// Sets or clear the value of [project_billing_info][crate::model::UpdateProjectBillingInfoRequest::project_billing_info].
+        /// Sets or clears the value of [project_billing_info][crate::model::UpdateProjectBillingInfoRequest::project_billing_info].
         pub fn set_or_clear_project_billing_info<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::ProjectBillingInfo>,
@@ -756,7 +756,7 @@ pub mod cloud_billing {
             self
         }
 
-        /// Sets or clear the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        /// Sets or clears the value of [options][iam_v1::model::GetIamPolicyRequest::options].
         pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
@@ -838,7 +838,7 @@ pub mod cloud_billing {
             self
         }
 
-        /// Sets or clear the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        /// Sets or clears the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
@@ -858,7 +858,7 @@ pub mod cloud_billing {
             self
         }
 
-        /// Sets or clear the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        /// Sets or clears the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
@@ -1266,7 +1266,7 @@ pub mod cloud_catalog {
             self
         }
 
-        /// Sets or clear the value of [start_time][crate::model::ListSkusRequest::start_time].
+        /// Sets or clears the value of [start_time][crate::model::ListSkusRequest::start_time].
         pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -1284,7 +1284,7 @@ pub mod cloud_catalog {
             self
         }
 
-        /// Sets or clear the value of [end_time][crate::model::ListSkusRequest::end_time].
+        /// Sets or clears the value of [end_time][crate::model::ListSkusRequest::end_time].
         pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,

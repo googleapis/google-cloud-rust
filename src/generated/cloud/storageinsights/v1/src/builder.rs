@@ -315,7 +315,7 @@ pub mod storage_insights {
             self
         }
 
-        /// Sets or clear the value of [report_config][crate::model::CreateReportConfigRequest::report_config].
+        /// Sets or clears the value of [report_config][crate::model::CreateReportConfigRequest::report_config].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_report_config<T>(mut self, v: std::option::Option<T>) -> Self
@@ -400,7 +400,7 @@ pub mod storage_insights {
             self
         }
 
-        /// Sets or clear the value of [update_mask][crate::model::UpdateReportConfigRequest::update_mask].
+        /// Sets or clears the value of [update_mask][crate::model::UpdateReportConfigRequest::update_mask].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
@@ -422,7 +422,7 @@ pub mod storage_insights {
             self
         }
 
-        /// Sets or clear the value of [report_config][crate::model::UpdateReportConfigRequest::report_config].
+        /// Sets or clears the value of [report_config][crate::model::UpdateReportConfigRequest::report_config].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_report_config<T>(mut self, v: std::option::Option<T>) -> Self

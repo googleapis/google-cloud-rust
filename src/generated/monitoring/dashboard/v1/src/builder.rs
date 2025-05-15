@@ -133,7 +133,7 @@ pub mod dashboards_service {
             self
         }
 
-        /// Sets or clear the value of [dashboard][crate::model::CreateDashboardRequest::dashboard].
+        /// Sets or clears the value of [dashboard][crate::model::CreateDashboardRequest::dashboard].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_dashboard<T>(mut self, v: std::option::Option<T>) -> Self
@@ -441,7 +441,7 @@ pub mod dashboards_service {
             self
         }
 
-        /// Sets or clear the value of [dashboard][crate::model::UpdateDashboardRequest::dashboard].
+        /// Sets or clears the value of [dashboard][crate::model::UpdateDashboardRequest::dashboard].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_dashboard<T>(mut self, v: std::option::Option<T>) -> Self

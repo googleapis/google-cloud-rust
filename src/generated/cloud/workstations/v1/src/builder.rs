@@ -364,7 +364,7 @@ pub mod workstations {
             self
         }
 
-        /// Sets or clear the value of [workstation_cluster][crate::model::CreateWorkstationClusterRequest::workstation_cluster].
+        /// Sets or clears the value of [workstation_cluster][crate::model::CreateWorkstationClusterRequest::workstation_cluster].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_workstation_cluster<T>(mut self, v: std::option::Option<T>) -> Self
@@ -493,7 +493,7 @@ pub mod workstations {
             self
         }
 
-        /// Sets or clear the value of [workstation_cluster][crate::model::UpdateWorkstationClusterRequest::workstation_cluster].
+        /// Sets or clears the value of [workstation_cluster][crate::model::UpdateWorkstationClusterRequest::workstation_cluster].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_workstation_cluster<T>(mut self, v: std::option::Option<T>) -> Self
@@ -515,7 +515,7 @@ pub mod workstations {
             self
         }
 
-        /// Sets or clear the value of [update_mask][crate::model::UpdateWorkstationClusterRequest::update_mask].
+        /// Sets or clears the value of [update_mask][crate::model::UpdateWorkstationClusterRequest::update_mask].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
@@ -1078,7 +1078,7 @@ pub mod workstations {
             self
         }
 
-        /// Sets or clear the value of [workstation_config][crate::model::CreateWorkstationConfigRequest::workstation_config].
+        /// Sets or clears the value of [workstation_config][crate::model::CreateWorkstationConfigRequest::workstation_config].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_workstation_config<T>(mut self, v: std::option::Option<T>) -> Self
@@ -1207,7 +1207,7 @@ pub mod workstations {
             self
         }
 
-        /// Sets or clear the value of [workstation_config][crate::model::UpdateWorkstationConfigRequest::workstation_config].
+        /// Sets or clears the value of [workstation_config][crate::model::UpdateWorkstationConfigRequest::workstation_config].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_workstation_config<T>(mut self, v: std::option::Option<T>) -> Self
@@ -1229,7 +1229,7 @@ pub mod workstations {
             self
         }
 
-        /// Sets or clear the value of [update_mask][crate::model::UpdateWorkstationConfigRequest::update_mask].
+        /// Sets or clears the value of [update_mask][crate::model::UpdateWorkstationConfigRequest::update_mask].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
@@ -1780,7 +1780,7 @@ pub mod workstations {
             self
         }
 
-        /// Sets or clear the value of [workstation][crate::model::CreateWorkstationRequest::workstation].
+        /// Sets or clears the value of [workstation][crate::model::CreateWorkstationRequest::workstation].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_workstation<T>(mut self, v: std::option::Option<T>) -> Self
@@ -1906,7 +1906,7 @@ pub mod workstations {
             self
         }
 
-        /// Sets or clear the value of [workstation][crate::model::UpdateWorkstationRequest::workstation].
+        /// Sets or clears the value of [workstation][crate::model::UpdateWorkstationRequest::workstation].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_workstation<T>(mut self, v: std::option::Option<T>) -> Self
@@ -1928,7 +1928,7 @@ pub mod workstations {
             self
         }
 
-        /// Sets or clear the value of [update_mask][crate::model::UpdateWorkstationRequest::update_mask].
+        /// Sets or clears the value of [update_mask][crate::model::UpdateWorkstationRequest::update_mask].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
@@ -2480,7 +2480,7 @@ pub mod workstations {
             self
         }
 
-        /// Sets or clear the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        /// Sets or clears the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
@@ -2500,7 +2500,7 @@ pub mod workstations {
             self
         }
 
-        /// Sets or clear the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        /// Sets or clears the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
@@ -2580,7 +2580,7 @@ pub mod workstations {
             self
         }
 
-        /// Sets or clear the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        /// Sets or clears the value of [options][iam_v1::model::GetIamPolicyRequest::options].
         pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<iam_v1::model::GetPolicyOptions>,

@@ -96,7 +96,7 @@ impl ClientConnectorService {
         self
     }
 
-    /// Sets or clear the value of [create_time][crate::model::ClientConnectorService::create_time].
+    /// Sets or clears the value of [create_time][crate::model::ClientConnectorService::create_time].
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -114,7 +114,7 @@ impl ClientConnectorService {
         self
     }
 
-    /// Sets or clear the value of [update_time][crate::model::ClientConnectorService::update_time].
+    /// Sets or clears the value of [update_time][crate::model::ClientConnectorService::update_time].
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -138,7 +138,7 @@ impl ClientConnectorService {
         self
     }
 
-    /// Sets or clear the value of [ingress][crate::model::ClientConnectorService::ingress].
+    /// Sets or clears the value of [ingress][crate::model::ClientConnectorService::ingress].
     pub fn set_or_clear_ingress<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::client_connector_service::Ingress>,
@@ -156,7 +156,7 @@ impl ClientConnectorService {
         self
     }
 
-    /// Sets or clear the value of [egress][crate::model::ClientConnectorService::egress].
+    /// Sets or clears the value of [egress][crate::model::ClientConnectorService::egress].
     pub fn set_or_clear_egress<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::client_connector_service::Egress>,
@@ -1083,7 +1083,7 @@ impl CreateClientConnectorServiceRequest {
         self
     }
 
-    /// Sets or clear the value of [client_connector_service][crate::model::CreateClientConnectorServiceRequest::client_connector_service].
+    /// Sets or clears the value of [client_connector_service][crate::model::CreateClientConnectorServiceRequest::client_connector_service].
     pub fn set_or_clear_client_connector_service<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ClientConnectorService>,
@@ -1174,7 +1174,7 @@ impl UpdateClientConnectorServiceRequest {
         self
     }
 
-    /// Sets or clear the value of [update_mask][crate::model::UpdateClientConnectorServiceRequest::update_mask].
+    /// Sets or clears the value of [update_mask][crate::model::UpdateClientConnectorServiceRequest::update_mask].
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -1192,7 +1192,7 @@ impl UpdateClientConnectorServiceRequest {
         self
     }
 
-    /// Sets or clear the value of [client_connector_service][crate::model::UpdateClientConnectorServiceRequest::client_connector_service].
+    /// Sets or clears the value of [client_connector_service][crate::model::UpdateClientConnectorServiceRequest::client_connector_service].
     pub fn set_or_clear_client_connector_service<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ClientConnectorService>,
@@ -1349,7 +1349,7 @@ impl ClientConnectorServiceOperationMetadata {
         self
     }
 
-    /// Sets or clear the value of [create_time][crate::model::ClientConnectorServiceOperationMetadata::create_time].
+    /// Sets or clears the value of [create_time][crate::model::ClientConnectorServiceOperationMetadata::create_time].
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1367,7 +1367,7 @@ impl ClientConnectorServiceOperationMetadata {
         self
     }
 
-    /// Sets or clear the value of [end_time][crate::model::ClientConnectorServiceOperationMetadata::end_time].
+    /// Sets or clears the value of [end_time][crate::model::ClientConnectorServiceOperationMetadata::end_time].
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,

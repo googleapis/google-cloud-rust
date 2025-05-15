@@ -132,7 +132,7 @@ impl Folder {
         self
     }
 
-    /// Sets or clear the value of [create_time][crate::model::Folder::create_time].
+    /// Sets or clears the value of [create_time][crate::model::Folder::create_time].
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -150,7 +150,7 @@ impl Folder {
         self
     }
 
-    /// Sets or clear the value of [update_time][crate::model::Folder::update_time].
+    /// Sets or clears the value of [update_time][crate::model::Folder::update_time].
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -168,7 +168,7 @@ impl Folder {
         self
     }
 
-    /// Sets or clear the value of [delete_time][crate::model::Folder::delete_time].
+    /// Sets or clears the value of [delete_time][crate::model::Folder::delete_time].
     pub fn set_or_clear_delete_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -678,7 +678,7 @@ impl CreateFolderRequest {
         self
     }
 
-    /// Sets or clear the value of [folder][crate::model::CreateFolderRequest::folder].
+    /// Sets or clears the value of [folder][crate::model::CreateFolderRequest::folder].
     pub fn set_or_clear_folder<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Folder>,
@@ -780,7 +780,7 @@ impl UpdateFolderRequest {
         self
     }
 
-    /// Sets or clear the value of [folder][crate::model::UpdateFolderRequest::folder].
+    /// Sets or clears the value of [folder][crate::model::UpdateFolderRequest::folder].
     pub fn set_or_clear_folder<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Folder>,
@@ -798,7 +798,7 @@ impl UpdateFolderRequest {
         self
     }
 
-    /// Sets or clear the value of [update_mask][crate::model::UpdateFolderRequest::update_mask].
+    /// Sets or clears the value of [update_mask][crate::model::UpdateFolderRequest::update_mask].
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -1141,7 +1141,7 @@ impl Organization {
         self
     }
 
-    /// Sets or clear the value of [create_time][crate::model::Organization::create_time].
+    /// Sets or clears the value of [create_time][crate::model::Organization::create_time].
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1159,7 +1159,7 @@ impl Organization {
         self
     }
 
-    /// Sets or clear the value of [update_time][crate::model::Organization::update_time].
+    /// Sets or clears the value of [update_time][crate::model::Organization::update_time].
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1177,7 +1177,7 @@ impl Organization {
         self
     }
 
-    /// Sets or clear the value of [delete_time][crate::model::Organization::delete_time].
+    /// Sets or clears the value of [delete_time][crate::model::Organization::delete_time].
     pub fn set_or_clear_delete_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1737,7 +1737,7 @@ impl Project {
         self
     }
 
-    /// Sets or clear the value of [create_time][crate::model::Project::create_time].
+    /// Sets or clears the value of [create_time][crate::model::Project::create_time].
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1755,7 +1755,7 @@ impl Project {
         self
     }
 
-    /// Sets or clear the value of [update_time][crate::model::Project::update_time].
+    /// Sets or clears the value of [update_time][crate::model::Project::update_time].
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1773,7 +1773,7 @@ impl Project {
         self
     }
 
-    /// Sets or clear the value of [delete_time][crate::model::Project::delete_time].
+    /// Sets or clears the value of [delete_time][crate::model::Project::delete_time].
     pub fn set_or_clear_delete_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2358,7 +2358,7 @@ impl CreateProjectRequest {
         self
     }
 
-    /// Sets or clear the value of [project][crate::model::CreateProjectRequest::project].
+    /// Sets or clears the value of [project][crate::model::CreateProjectRequest::project].
     pub fn set_or_clear_project<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Project>,
@@ -2414,7 +2414,7 @@ impl CreateProjectMetadata {
         self
     }
 
-    /// Sets or clear the value of [create_time][crate::model::CreateProjectMetadata::create_time].
+    /// Sets or clears the value of [create_time][crate::model::CreateProjectMetadata::create_time].
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2483,7 +2483,7 @@ impl UpdateProjectRequest {
         self
     }
 
-    /// Sets or clear the value of [project][crate::model::UpdateProjectRequest::project].
+    /// Sets or clears the value of [project][crate::model::UpdateProjectRequest::project].
     pub fn set_or_clear_project<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Project>,
@@ -2501,7 +2501,7 @@ impl UpdateProjectRequest {
         self
     }
 
-    /// Sets or clear the value of [update_mask][crate::model::UpdateProjectRequest::update_mask].
+    /// Sets or clears the value of [update_mask][crate::model::UpdateProjectRequest::update_mask].
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -2861,7 +2861,7 @@ impl CreateTagBindingRequest {
         self
     }
 
-    /// Sets or clear the value of [tag_binding][crate::model::CreateTagBindingRequest::tag_binding].
+    /// Sets or clears the value of [tag_binding][crate::model::CreateTagBindingRequest::tag_binding].
     pub fn set_or_clear_tag_binding<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::TagBinding>,
@@ -3383,7 +3383,7 @@ impl TagHold {
         self
     }
 
-    /// Sets or clear the value of [create_time][crate::model::TagHold::create_time].
+    /// Sets or clears the value of [create_time][crate::model::TagHold::create_time].
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3443,7 +3443,7 @@ impl CreateTagHoldRequest {
         self
     }
 
-    /// Sets or clear the value of [tag_hold][crate::model::CreateTagHoldRequest::tag_hold].
+    /// Sets or clears the value of [tag_hold][crate::model::CreateTagHoldRequest::tag_hold].
     pub fn set_or_clear_tag_hold<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::TagHold>,
@@ -3822,7 +3822,7 @@ impl TagKey {
         self
     }
 
-    /// Sets or clear the value of [create_time][crate::model::TagKey::create_time].
+    /// Sets or clears the value of [create_time][crate::model::TagKey::create_time].
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3840,7 +3840,7 @@ impl TagKey {
         self
     }
 
-    /// Sets or clear the value of [update_time][crate::model::TagKey::update_time].
+    /// Sets or clears the value of [update_time][crate::model::TagKey::update_time].
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4101,7 +4101,7 @@ impl CreateTagKeyRequest {
         self
     }
 
-    /// Sets or clear the value of [tag_key][crate::model::CreateTagKeyRequest::tag_key].
+    /// Sets or clears the value of [tag_key][crate::model::CreateTagKeyRequest::tag_key].
     pub fn set_or_clear_tag_key<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::TagKey>,
@@ -4187,7 +4187,7 @@ impl UpdateTagKeyRequest {
         self
     }
 
-    /// Sets or clear the value of [tag_key][crate::model::UpdateTagKeyRequest::tag_key].
+    /// Sets or clears the value of [tag_key][crate::model::UpdateTagKeyRequest::tag_key].
     pub fn set_or_clear_tag_key<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::TagKey>,
@@ -4205,7 +4205,7 @@ impl UpdateTagKeyRequest {
         self
     }
 
-    /// Sets or clear the value of [update_mask][crate::model::UpdateTagKeyRequest::update_mask].
+    /// Sets or clears the value of [update_mask][crate::model::UpdateTagKeyRequest::update_mask].
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -4428,7 +4428,7 @@ impl TagValue {
         self
     }
 
-    /// Sets or clear the value of [create_time][crate::model::TagValue::create_time].
+    /// Sets or clears the value of [create_time][crate::model::TagValue::create_time].
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4446,7 +4446,7 @@ impl TagValue {
         self
     }
 
-    /// Sets or clear the value of [update_time][crate::model::TagValue::update_time].
+    /// Sets or clears the value of [update_time][crate::model::TagValue::update_time].
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4697,7 +4697,7 @@ impl CreateTagValueRequest {
         self
     }
 
-    /// Sets or clear the value of [tag_value][crate::model::CreateTagValueRequest::tag_value].
+    /// Sets or clears the value of [tag_value][crate::model::CreateTagValueRequest::tag_value].
     pub fn set_or_clear_tag_value<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::TagValue>,
@@ -4781,7 +4781,7 @@ impl UpdateTagValueRequest {
         self
     }
 
-    /// Sets or clear the value of [tag_value][crate::model::UpdateTagValueRequest::tag_value].
+    /// Sets or clears the value of [tag_value][crate::model::UpdateTagValueRequest::tag_value].
     pub fn set_or_clear_tag_value<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::TagValue>,
@@ -4799,7 +4799,7 @@ impl UpdateTagValueRequest {
         self
     }
 
-    /// Sets or clear the value of [update_mask][crate::model::UpdateTagValueRequest::update_mask].
+    /// Sets or clears the value of [update_mask][crate::model::UpdateTagValueRequest::update_mask].
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,

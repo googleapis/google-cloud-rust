@@ -59,7 +59,7 @@ impl DriveAddOnManifest {
         self
     }
 
-    /// Sets or clear the value of [homepage_trigger][crate::model::DriveAddOnManifest::homepage_trigger].
+    /// Sets or clears the value of [homepage_trigger][crate::model::DriveAddOnManifest::homepage_trigger].
     pub fn set_or_clear_homepage_trigger<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<apps_script_type::model::HomepageExtensionPoint>,
@@ -77,7 +77,7 @@ impl DriveAddOnManifest {
         self
     }
 
-    /// Sets or clear the value of [on_items_selected_trigger][crate::model::DriveAddOnManifest::on_items_selected_trigger].
+    /// Sets or clears the value of [on_items_selected_trigger][crate::model::DriveAddOnManifest::on_items_selected_trigger].
     pub fn set_or_clear_on_items_selected_trigger<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::DriveExtensionPoint>,

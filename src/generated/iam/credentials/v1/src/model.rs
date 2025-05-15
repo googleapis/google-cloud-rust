@@ -115,7 +115,7 @@ impl GenerateAccessTokenRequest {
         self
     }
 
-    /// Sets or clear the value of [lifetime][crate::model::GenerateAccessTokenRequest::lifetime].
+    /// Sets or clears the value of [lifetime][crate::model::GenerateAccessTokenRequest::lifetime].
     pub fn set_or_clear_lifetime<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -169,7 +169,7 @@ impl GenerateAccessTokenResponse {
         self
     }
 
-    /// Sets or clear the value of [expire_time][crate::model::GenerateAccessTokenResponse::expire_time].
+    /// Sets or clears the value of [expire_time][crate::model::GenerateAccessTokenResponse::expire_time].
     pub fn set_or_clear_expire_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,

@@ -181,7 +181,7 @@ impl CreateDeploymentRequest {
         self
     }
 
-    /// Sets or clear the value of [deployment][crate::model::CreateDeploymentRequest::deployment].
+    /// Sets or clears the value of [deployment][crate::model::CreateDeploymentRequest::deployment].
     pub fn set_or_clear_deployment<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Deployment>,
@@ -225,7 +225,7 @@ impl ReplaceDeploymentRequest {
         self
     }
 
-    /// Sets or clear the value of [deployment][crate::model::ReplaceDeploymentRequest::deployment].
+    /// Sets or clears the value of [deployment][crate::model::ReplaceDeploymentRequest::deployment].
     pub fn set_or_clear_deployment<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Deployment>,
@@ -585,7 +585,7 @@ impl InstallStatus {
         self
     }
 
-    /// Sets or clear the value of [installed][crate::model::InstallStatus::installed].
+    /// Sets or clears the value of [installed][crate::model::InstallStatus::installed].
     pub fn set_or_clear_installed<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::BoolValue>,
@@ -662,7 +662,7 @@ impl Deployment {
         self
     }
 
-    /// Sets or clear the value of [add_ons][crate::model::Deployment::add_ons].
+    /// Sets or clears the value of [add_ons][crate::model::Deployment::add_ons].
     pub fn set_or_clear_add_ons<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::AddOns>,
@@ -740,7 +740,7 @@ impl AddOns {
         self
     }
 
-    /// Sets or clear the value of [common][crate::model::AddOns::common].
+    /// Sets or clears the value of [common][crate::model::AddOns::common].
     pub fn set_or_clear_common<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<apps_script_type::model::CommonAddOnManifest>,
@@ -758,7 +758,7 @@ impl AddOns {
         self
     }
 
-    /// Sets or clear the value of [gmail][crate::model::AddOns::gmail].
+    /// Sets or clears the value of [gmail][crate::model::AddOns::gmail].
     pub fn set_or_clear_gmail<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<apps_script_gmail::model::GmailAddOnManifest>,
@@ -776,7 +776,7 @@ impl AddOns {
         self
     }
 
-    /// Sets or clear the value of [drive][crate::model::AddOns::drive].
+    /// Sets or clears the value of [drive][crate::model::AddOns::drive].
     pub fn set_or_clear_drive<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<apps_script_drive::model::DriveAddOnManifest>,
@@ -794,7 +794,7 @@ impl AddOns {
         self
     }
 
-    /// Sets or clear the value of [calendar][crate::model::AddOns::calendar].
+    /// Sets or clears the value of [calendar][crate::model::AddOns::calendar].
     pub fn set_or_clear_calendar<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<apps_script_calendar::model::CalendarAddOnManifest>,
@@ -812,7 +812,7 @@ impl AddOns {
         self
     }
 
-    /// Sets or clear the value of [docs][crate::model::AddOns::docs].
+    /// Sets or clears the value of [docs][crate::model::AddOns::docs].
     pub fn set_or_clear_docs<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<apps_script_docs::model::DocsAddOnManifest>,
@@ -830,7 +830,7 @@ impl AddOns {
         self
     }
 
-    /// Sets or clear the value of [sheets][crate::model::AddOns::sheets].
+    /// Sets or clears the value of [sheets][crate::model::AddOns::sheets].
     pub fn set_or_clear_sheets<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<apps_script_sheets::model::SheetsAddOnManifest>,
@@ -848,7 +848,7 @@ impl AddOns {
         self
     }
 
-    /// Sets or clear the value of [slides][crate::model::AddOns::slides].
+    /// Sets or clears the value of [slides][crate::model::AddOns::slides].
     pub fn set_or_clear_slides<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<apps_script_slides::model::SlidesAddOnManifest>,
@@ -866,7 +866,7 @@ impl AddOns {
         self
     }
 
-    /// Sets or clear the value of [http_options][crate::model::AddOns::http_options].
+    /// Sets or clears the value of [http_options][crate::model::AddOns::http_options].
     pub fn set_or_clear_http_options<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<apps_script_type::model::HttpOptions>,

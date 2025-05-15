@@ -140,7 +140,7 @@ pub mod reservation_service {
             self
         }
 
-        /// Sets or clear the value of [reservation][crate::model::CreateReservationRequest::reservation].
+        /// Sets or clears the value of [reservation][crate::model::CreateReservationRequest::reservation].
         pub fn set_or_clear_reservation<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Reservation>,
@@ -447,7 +447,7 @@ pub mod reservation_service {
             self
         }
 
-        /// Sets or clear the value of [reservation][crate::model::UpdateReservationRequest::reservation].
+        /// Sets or clears the value of [reservation][crate::model::UpdateReservationRequest::reservation].
         pub fn set_or_clear_reservation<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Reservation>,
@@ -465,7 +465,7 @@ pub mod reservation_service {
             self
         }
 
-        /// Sets or clear the value of [update_mask][crate::model::UpdateReservationRequest::update_mask].
+        /// Sets or clears the value of [update_mask][crate::model::UpdateReservationRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
@@ -615,7 +615,7 @@ pub mod reservation_service {
             self
         }
 
-        /// Sets or clear the value of [capacity_commitment][crate::model::CreateCapacityCommitmentRequest::capacity_commitment].
+        /// Sets or clears the value of [capacity_commitment][crate::model::CreateCapacityCommitmentRequest::capacity_commitment].
         pub fn set_or_clear_capacity_commitment<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::CapacityCommitment>,
@@ -953,7 +953,7 @@ pub mod reservation_service {
             self
         }
 
-        /// Sets or clear the value of [capacity_commitment][crate::model::UpdateCapacityCommitmentRequest::capacity_commitment].
+        /// Sets or clears the value of [capacity_commitment][crate::model::UpdateCapacityCommitmentRequest::capacity_commitment].
         pub fn set_or_clear_capacity_commitment<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::CapacityCommitment>,
@@ -971,7 +971,7 @@ pub mod reservation_service {
             self
         }
 
-        /// Sets or clear the value of [update_mask][crate::model::UpdateCapacityCommitmentRequest::update_mask].
+        /// Sets or clears the value of [update_mask][crate::model::UpdateCapacityCommitmentRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
@@ -1203,7 +1203,7 @@ pub mod reservation_service {
             self
         }
 
-        /// Sets or clear the value of [assignment][crate::model::CreateAssignmentRequest::assignment].
+        /// Sets or clears the value of [assignment][crate::model::CreateAssignmentRequest::assignment].
         pub fn set_or_clear_assignment<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Assignment>,
@@ -1749,7 +1749,7 @@ pub mod reservation_service {
             self
         }
 
-        /// Sets or clear the value of [assignment][crate::model::UpdateAssignmentRequest::assignment].
+        /// Sets or clears the value of [assignment][crate::model::UpdateAssignmentRequest::assignment].
         pub fn set_or_clear_assignment<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Assignment>,
@@ -1767,7 +1767,7 @@ pub mod reservation_service {
             self
         }
 
-        /// Sets or clear the value of [update_mask][crate::model::UpdateAssignmentRequest::update_mask].
+        /// Sets or clears the value of [update_mask][crate::model::UpdateAssignmentRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
@@ -1907,7 +1907,7 @@ pub mod reservation_service {
             self
         }
 
-        /// Sets or clear the value of [bi_reservation][crate::model::UpdateBiReservationRequest::bi_reservation].
+        /// Sets or clears the value of [bi_reservation][crate::model::UpdateBiReservationRequest::bi_reservation].
         pub fn set_or_clear_bi_reservation<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::BiReservation>,
@@ -1925,7 +1925,7 @@ pub mod reservation_service {
             self
         }
 
-        /// Sets or clear the value of [update_mask][crate::model::UpdateBiReservationRequest::update_mask].
+        /// Sets or clears the value of [update_mask][crate::model::UpdateBiReservationRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,

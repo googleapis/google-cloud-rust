@@ -86,7 +86,7 @@ impl MetricsScope {
         self
     }
 
-    /// Sets or clear the value of [create_time][crate::model::MetricsScope::create_time].
+    /// Sets or clears the value of [create_time][crate::model::MetricsScope::create_time].
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -104,7 +104,7 @@ impl MetricsScope {
         self
     }
 
-    /// Sets or clear the value of [update_time][crate::model::MetricsScope::update_time].
+    /// Sets or clears the value of [update_time][crate::model::MetricsScope::update_time].
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -175,7 +175,7 @@ impl MonitoredProject {
         self
     }
 
-    /// Sets or clear the value of [create_time][crate::model::MonitoredProject::create_time].
+    /// Sets or clears the value of [create_time][crate::model::MonitoredProject::create_time].
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -344,7 +344,7 @@ impl CreateMonitoredProjectRequest {
         self
     }
 
-    /// Sets or clear the value of [monitored_project][crate::model::CreateMonitoredProjectRequest::monitored_project].
+    /// Sets or clears the value of [monitored_project][crate::model::CreateMonitoredProjectRequest::monitored_project].
     pub fn set_or_clear_monitored_project<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::MonitoredProject>,
@@ -443,7 +443,7 @@ impl OperationMetadata {
         self
     }
 
-    /// Sets or clear the value of [create_time][crate::model::OperationMetadata::create_time].
+    /// Sets or clears the value of [create_time][crate::model::OperationMetadata::create_time].
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -461,7 +461,7 @@ impl OperationMetadata {
         self
     }
 
-    /// Sets or clear the value of [update_time][crate::model::OperationMetadata::update_time].
+    /// Sets or clears the value of [update_time][crate::model::OperationMetadata::update_time].
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,

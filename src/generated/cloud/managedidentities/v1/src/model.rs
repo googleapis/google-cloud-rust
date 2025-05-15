@@ -85,7 +85,7 @@ impl OpMetadata {
         self
     }
 
-    /// Sets or clear the value of [create_time][crate::model::OpMetadata::create_time].
+    /// Sets or clears the value of [create_time][crate::model::OpMetadata::create_time].
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -103,7 +103,7 @@ impl OpMetadata {
         self
     }
 
-    /// Sets or clear the value of [end_time][crate::model::OpMetadata::end_time].
+    /// Sets or clears the value of [end_time][crate::model::OpMetadata::end_time].
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -204,7 +204,7 @@ impl CreateMicrosoftAdDomainRequest {
         self
     }
 
-    /// Sets or clear the value of [domain][crate::model::CreateMicrosoftAdDomainRequest::domain].
+    /// Sets or clears the value of [domain][crate::model::CreateMicrosoftAdDomainRequest::domain].
     pub fn set_or_clear_domain<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Domain>,
@@ -528,7 +528,7 @@ impl UpdateDomainRequest {
         self
     }
 
-    /// Sets or clear the value of [update_mask][crate::model::UpdateDomainRequest::update_mask].
+    /// Sets or clears the value of [update_mask][crate::model::UpdateDomainRequest::update_mask].
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -546,7 +546,7 @@ impl UpdateDomainRequest {
         self
     }
 
-    /// Sets or clear the value of [domain][crate::model::UpdateDomainRequest::domain].
+    /// Sets or clears the value of [domain][crate::model::UpdateDomainRequest::domain].
     pub fn set_or_clear_domain<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Domain>,
@@ -636,7 +636,7 @@ impl AttachTrustRequest {
         self
     }
 
-    /// Sets or clear the value of [trust][crate::model::AttachTrustRequest::trust].
+    /// Sets or clears the value of [trust][crate::model::AttachTrustRequest::trust].
     pub fn set_or_clear_trust<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Trust>,
@@ -756,7 +756,7 @@ impl DetachTrustRequest {
         self
     }
 
-    /// Sets or clear the value of [trust][crate::model::DetachTrustRequest::trust].
+    /// Sets or clears the value of [trust][crate::model::DetachTrustRequest::trust].
     pub fn set_or_clear_trust<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Trust>,
@@ -812,7 +812,7 @@ impl ValidateTrustRequest {
         self
     }
 
-    /// Sets or clear the value of [trust][crate::model::ValidateTrustRequest::trust].
+    /// Sets or clears the value of [trust][crate::model::ValidateTrustRequest::trust].
     pub fn set_or_clear_trust<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Trust>,
@@ -976,7 +976,7 @@ impl Domain {
         self
     }
 
-    /// Sets or clear the value of [create_time][crate::model::Domain::create_time].
+    /// Sets or clears the value of [create_time][crate::model::Domain::create_time].
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -994,7 +994,7 @@ impl Domain {
         self
     }
 
-    /// Sets or clear the value of [update_time][crate::model::Domain::update_time].
+    /// Sets or clears the value of [update_time][crate::model::Domain::update_time].
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1332,7 +1332,7 @@ impl Trust {
         self
     }
 
-    /// Sets or clear the value of [create_time][crate::model::Trust::create_time].
+    /// Sets or clears the value of [create_time][crate::model::Trust::create_time].
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1350,7 +1350,7 @@ impl Trust {
         self
     }
 
-    /// Sets or clear the value of [update_time][crate::model::Trust::update_time].
+    /// Sets or clears the value of [update_time][crate::model::Trust::update_time].
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1383,7 +1383,7 @@ impl Trust {
         self
     }
 
-    /// Sets or clear the value of [last_trust_heartbeat_time][crate::model::Trust::last_trust_heartbeat_time].
+    /// Sets or clears the value of [last_trust_heartbeat_time][crate::model::Trust::last_trust_heartbeat_time].
     pub fn set_or_clear_last_trust_heartbeat_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,

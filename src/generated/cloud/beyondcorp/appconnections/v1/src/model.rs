@@ -303,7 +303,7 @@ impl CreateAppConnectionRequest {
         self
     }
 
-    /// Sets or clear the value of [app_connection][crate::model::CreateAppConnectionRequest::app_connection].
+    /// Sets or clears the value of [app_connection][crate::model::CreateAppConnectionRequest::app_connection].
     pub fn set_or_clear_app_connection<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::AppConnection>,
@@ -396,7 +396,7 @@ impl UpdateAppConnectionRequest {
         self
     }
 
-    /// Sets or clear the value of [update_mask][crate::model::UpdateAppConnectionRequest::update_mask].
+    /// Sets or clears the value of [update_mask][crate::model::UpdateAppConnectionRequest::update_mask].
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -414,7 +414,7 @@ impl UpdateAppConnectionRequest {
         self
     }
 
-    /// Sets or clear the value of [app_connection][crate::model::UpdateAppConnectionRequest::app_connection].
+    /// Sets or clears the value of [app_connection][crate::model::UpdateAppConnectionRequest::app_connection].
     pub fn set_or_clear_app_connection<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::AppConnection>,
@@ -704,7 +704,7 @@ pub mod resolve_app_connections_response {
             self
         }
 
-        /// Sets or clear the value of [app_connection][crate::model::resolve_app_connections_response::AppConnectionDetails::app_connection].
+        /// Sets or clears the value of [app_connection][crate::model::resolve_app_connections_response::AppConnectionDetails::app_connection].
         pub fn set_or_clear_app_connection<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::AppConnection>,
@@ -814,7 +814,7 @@ impl AppConnection {
         self
     }
 
-    /// Sets or clear the value of [create_time][crate::model::AppConnection::create_time].
+    /// Sets or clears the value of [create_time][crate::model::AppConnection::create_time].
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -832,7 +832,7 @@ impl AppConnection {
         self
     }
 
-    /// Sets or clear the value of [update_time][crate::model::AppConnection::update_time].
+    /// Sets or clears the value of [update_time][crate::model::AppConnection::update_time].
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -883,7 +883,7 @@ impl AppConnection {
         self
     }
 
-    /// Sets or clear the value of [application_endpoint][crate::model::AppConnection::application_endpoint].
+    /// Sets or clears the value of [application_endpoint][crate::model::AppConnection::application_endpoint].
     pub fn set_or_clear_application_endpoint<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::app_connection::ApplicationEndpoint>,
@@ -921,7 +921,7 @@ impl AppConnection {
         self
     }
 
-    /// Sets or clear the value of [gateway][crate::model::AppConnection::gateway].
+    /// Sets or clears the value of [gateway][crate::model::AppConnection::gateway].
     pub fn set_or_clear_gateway<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::app_connection::Gateway>,
@@ -1526,7 +1526,7 @@ impl AppConnectionOperationMetadata {
         self
     }
 
-    /// Sets or clear the value of [create_time][crate::model::AppConnectionOperationMetadata::create_time].
+    /// Sets or clears the value of [create_time][crate::model::AppConnectionOperationMetadata::create_time].
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1544,7 +1544,7 @@ impl AppConnectionOperationMetadata {
         self
     }
 
-    /// Sets or clear the value of [end_time][crate::model::AppConnectionOperationMetadata::end_time].
+    /// Sets or clears the value of [end_time][crate::model::AppConnectionOperationMetadata::end_time].
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,

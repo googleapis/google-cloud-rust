@@ -351,7 +351,7 @@ pub mod config {
             self
         }
 
-        /// Sets or clear the value of [deployment][crate::model::CreateDeploymentRequest::deployment].
+        /// Sets or clears the value of [deployment][crate::model::CreateDeploymentRequest::deployment].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_deployment<T>(mut self, v: std::option::Option<T>) -> Self
@@ -471,7 +471,7 @@ pub mod config {
             self
         }
 
-        /// Sets or clear the value of [update_mask][crate::model::UpdateDeploymentRequest::update_mask].
+        /// Sets or clears the value of [update_mask][crate::model::UpdateDeploymentRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
@@ -491,7 +491,7 @@ pub mod config {
             self
         }
 
-        /// Sets or clear the value of [deployment][crate::model::UpdateDeploymentRequest::deployment].
+        /// Sets or clears the value of [deployment][crate::model::UpdateDeploymentRequest::deployment].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_deployment<T>(mut self, v: std::option::Option<T>) -> Self
@@ -1638,7 +1638,7 @@ pub mod config {
             self
         }
 
-        /// Sets or clear the value of [preview][crate::model::CreatePreviewRequest::preview].
+        /// Sets or clears the value of [preview][crate::model::CreatePreviewRequest::preview].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_preview<T>(mut self, v: std::option::Option<T>) -> Self
@@ -2411,7 +2411,7 @@ pub mod config {
             self
         }
 
-        /// Sets or clear the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        /// Sets or clears the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
@@ -2431,7 +2431,7 @@ pub mod config {
             self
         }
 
-        /// Sets or clear the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        /// Sets or clears the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
@@ -2509,7 +2509,7 @@ pub mod config {
             self
         }
 
-        /// Sets or clear the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        /// Sets or clears the value of [options][iam_v1::model::GetIamPolicyRequest::options].
         pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<iam_v1::model::GetPolicyOptions>,

@@ -134,7 +134,7 @@ impl CreateSshPublicKeyRequest {
         self
     }
 
-    /// Sets or clear the value of [ssh_public_key][crate::model::CreateSshPublicKeyRequest::ssh_public_key].
+    /// Sets or clears the value of [ssh_public_key][crate::model::CreateSshPublicKeyRequest::ssh_public_key].
     pub fn set_or_clear_ssh_public_key<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<oslogin_common::model::SshPublicKey>,
@@ -352,7 +352,7 @@ impl ImportSshPublicKeyRequest {
         self
     }
 
-    /// Sets or clear the value of [ssh_public_key][crate::model::ImportSshPublicKeyRequest::ssh_public_key].
+    /// Sets or clears the value of [ssh_public_key][crate::model::ImportSshPublicKeyRequest::ssh_public_key].
     pub fn set_or_clear_ssh_public_key<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<oslogin_common::model::SshPublicKey>,
@@ -417,7 +417,7 @@ impl ImportSshPublicKeyResponse {
         self
     }
 
-    /// Sets or clear the value of [login_profile][crate::model::ImportSshPublicKeyResponse::login_profile].
+    /// Sets or clears the value of [login_profile][crate::model::ImportSshPublicKeyResponse::login_profile].
     pub fn set_or_clear_login_profile<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::LoginProfile>,
@@ -483,7 +483,7 @@ impl UpdateSshPublicKeyRequest {
         self
     }
 
-    /// Sets or clear the value of [ssh_public_key][crate::model::UpdateSshPublicKeyRequest::ssh_public_key].
+    /// Sets or clears the value of [ssh_public_key][crate::model::UpdateSshPublicKeyRequest::ssh_public_key].
     pub fn set_or_clear_ssh_public_key<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<oslogin_common::model::SshPublicKey>,
@@ -501,7 +501,7 @@ impl UpdateSshPublicKeyRequest {
         self
     }
 
-    /// Sets or clear the value of [update_mask][crate::model::UpdateSshPublicKeyRequest::update_mask].
+    /// Sets or clears the value of [update_mask][crate::model::UpdateSshPublicKeyRequest::update_mask].
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,

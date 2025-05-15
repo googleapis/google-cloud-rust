@@ -142,7 +142,7 @@ pub mod certificate_authority_service {
             self
         }
 
-        /// Sets or clear the value of [certificate][crate::model::CreateCertificateRequest::certificate].
+        /// Sets or clears the value of [certificate][crate::model::CreateCertificateRequest::certificate].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_certificate<T>(mut self, v: std::option::Option<T>) -> Self
@@ -500,7 +500,7 @@ pub mod certificate_authority_service {
             self
         }
 
-        /// Sets or clear the value of [certificate][crate::model::UpdateCertificateRequest::certificate].
+        /// Sets or clears the value of [certificate][crate::model::UpdateCertificateRequest::certificate].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_certificate<T>(mut self, v: std::option::Option<T>) -> Self
@@ -522,7 +522,7 @@ pub mod certificate_authority_service {
             self
         }
 
-        /// Sets or clear the value of [update_mask][crate::model::UpdateCertificateRequest::update_mask].
+        /// Sets or clears the value of [update_mask][crate::model::UpdateCertificateRequest::update_mask].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
@@ -667,7 +667,7 @@ pub mod certificate_authority_service {
             self
         }
 
-        /// Sets or clear the value of [subordinate_config][crate::model::ActivateCertificateAuthorityRequest::subordinate_config].
+        /// Sets or clears the value of [subordinate_config][crate::model::ActivateCertificateAuthorityRequest::subordinate_config].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_subordinate_config<T>(mut self, v: std::option::Option<T>) -> Self
@@ -812,7 +812,7 @@ pub mod certificate_authority_service {
             self
         }
 
-        /// Sets or clear the value of [certificate_authority][crate::model::CreateCertificateAuthorityRequest::certificate_authority].
+        /// Sets or clears the value of [certificate_authority][crate::model::CreateCertificateAuthorityRequest::certificate_authority].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_certificate_authority<T>(mut self, v: std::option::Option<T>) -> Self
@@ -1682,7 +1682,7 @@ pub mod certificate_authority_service {
             self
         }
 
-        /// Sets or clear the value of [certificate_authority][crate::model::UpdateCertificateAuthorityRequest::certificate_authority].
+        /// Sets or clears the value of [certificate_authority][crate::model::UpdateCertificateAuthorityRequest::certificate_authority].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_certificate_authority<T>(mut self, v: std::option::Option<T>) -> Self
@@ -1704,7 +1704,7 @@ pub mod certificate_authority_service {
             self
         }
 
-        /// Sets or clear the value of [update_mask][crate::model::UpdateCertificateAuthorityRequest::update_mask].
+        /// Sets or clears the value of [update_mask][crate::model::UpdateCertificateAuthorityRequest::update_mask].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
@@ -1841,7 +1841,7 @@ pub mod certificate_authority_service {
             self
         }
 
-        /// Sets or clear the value of [ca_pool][crate::model::CreateCaPoolRequest::ca_pool].
+        /// Sets or clears the value of [ca_pool][crate::model::CreateCaPoolRequest::ca_pool].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_ca_pool<T>(mut self, v: std::option::Option<T>) -> Self
@@ -1962,7 +1962,7 @@ pub mod certificate_authority_service {
             self
         }
 
-        /// Sets or clear the value of [ca_pool][crate::model::UpdateCaPoolRequest::ca_pool].
+        /// Sets or clears the value of [ca_pool][crate::model::UpdateCaPoolRequest::ca_pool].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_ca_pool<T>(mut self, v: std::option::Option<T>) -> Self
@@ -1984,7 +1984,7 @@ pub mod certificate_authority_service {
             self
         }
 
-        /// Sets or clear the value of [update_mask][crate::model::UpdateCaPoolRequest::update_mask].
+        /// Sets or clears the value of [update_mask][crate::model::UpdateCaPoolRequest::update_mask].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
@@ -2662,7 +2662,7 @@ pub mod certificate_authority_service {
             self
         }
 
-        /// Sets or clear the value of [certificate_revocation_list][crate::model::UpdateCertificateRevocationListRequest::certificate_revocation_list].
+        /// Sets or clears the value of [certificate_revocation_list][crate::model::UpdateCertificateRevocationListRequest::certificate_revocation_list].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_certificate_revocation_list<T>(
@@ -2687,7 +2687,7 @@ pub mod certificate_authority_service {
             self
         }
 
-        /// Sets or clear the value of [update_mask][crate::model::UpdateCertificateRevocationListRequest::update_mask].
+        /// Sets or clears the value of [update_mask][crate::model::UpdateCertificateRevocationListRequest::update_mask].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
@@ -2832,7 +2832,7 @@ pub mod certificate_authority_service {
             self
         }
 
-        /// Sets or clear the value of [certificate_template][crate::model::CreateCertificateTemplateRequest::certificate_template].
+        /// Sets or clears the value of [certificate_template][crate::model::CreateCertificateTemplateRequest::certificate_template].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_certificate_template<T>(mut self, v: std::option::Option<T>) -> Self
@@ -3263,7 +3263,7 @@ pub mod certificate_authority_service {
             self
         }
 
-        /// Sets or clear the value of [certificate_template][crate::model::UpdateCertificateTemplateRequest::certificate_template].
+        /// Sets or clears the value of [certificate_template][crate::model::UpdateCertificateTemplateRequest::certificate_template].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_certificate_template<T>(mut self, v: std::option::Option<T>) -> Self
@@ -3285,7 +3285,7 @@ pub mod certificate_authority_service {
             self
         }
 
-        /// Sets or clear the value of [update_mask][crate::model::UpdateCertificateTemplateRequest::update_mask].
+        /// Sets or clears the value of [update_mask][crate::model::UpdateCertificateTemplateRequest::update_mask].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
@@ -3544,7 +3544,7 @@ pub mod certificate_authority_service {
             self
         }
 
-        /// Sets or clear the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        /// Sets or clears the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
@@ -3564,7 +3564,7 @@ pub mod certificate_authority_service {
             self
         }
 
-        /// Sets or clear the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        /// Sets or clears the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
@@ -3644,7 +3644,7 @@ pub mod certificate_authority_service {
             self
         }
 
-        /// Sets or clear the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        /// Sets or clears the value of [options][iam_v1::model::GetIamPolicyRequest::options].
         pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<iam_v1::model::GetPolicyOptions>,

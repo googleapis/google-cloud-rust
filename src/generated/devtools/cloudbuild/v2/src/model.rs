@@ -92,7 +92,7 @@ impl OperationMetadata {
         self
     }
 
-    /// Sets or clear the value of [create_time][crate::model::OperationMetadata::create_time].
+    /// Sets or clears the value of [create_time][crate::model::OperationMetadata::create_time].
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -110,7 +110,7 @@ impl OperationMetadata {
         self
     }
 
-    /// Sets or clear the value of [end_time][crate::model::OperationMetadata::end_time].
+    /// Sets or clears the value of [end_time][crate::model::OperationMetadata::end_time].
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -214,7 +214,7 @@ impl RunWorkflowCustomOperationMetadata {
         self
     }
 
-    /// Sets or clear the value of [create_time][crate::model::RunWorkflowCustomOperationMetadata::create_time].
+    /// Sets or clears the value of [create_time][crate::model::RunWorkflowCustomOperationMetadata::create_time].
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -232,7 +232,7 @@ impl RunWorkflowCustomOperationMetadata {
         self
     }
 
-    /// Sets or clear the value of [end_time][crate::model::RunWorkflowCustomOperationMetadata::end_time].
+    /// Sets or clears the value of [end_time][crate::model::RunWorkflowCustomOperationMetadata::end_time].
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -351,7 +351,7 @@ impl Connection {
         self
     }
 
-    /// Sets or clear the value of [create_time][crate::model::Connection::create_time].
+    /// Sets or clears the value of [create_time][crate::model::Connection::create_time].
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -369,7 +369,7 @@ impl Connection {
         self
     }
 
-    /// Sets or clear the value of [update_time][crate::model::Connection::update_time].
+    /// Sets or clears the value of [update_time][crate::model::Connection::update_time].
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -387,7 +387,7 @@ impl Connection {
         self
     }
 
-    /// Sets or clear the value of [installation_state][crate::model::Connection::installation_state].
+    /// Sets or clears the value of [installation_state][crate::model::Connection::installation_state].
     pub fn set_or_clear_installation_state<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::InstallationState>,
@@ -988,7 +988,7 @@ impl GitHubConfig {
         self
     }
 
-    /// Sets or clear the value of [authorizer_credential][crate::model::GitHubConfig::authorizer_credential].
+    /// Sets or clears the value of [authorizer_credential][crate::model::GitHubConfig::authorizer_credential].
     pub fn set_or_clear_authorizer_credential<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::OAuthCredential>,
@@ -1130,7 +1130,7 @@ impl GitHubEnterpriseConfig {
         self
     }
 
-    /// Sets or clear the value of [service_directory_config][crate::model::GitHubEnterpriseConfig::service_directory_config].
+    /// Sets or clears the value of [service_directory_config][crate::model::GitHubEnterpriseConfig::service_directory_config].
     pub fn set_or_clear_service_directory_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ServiceDirectoryConfig>,
@@ -1235,7 +1235,7 @@ impl GitLabConfig {
         self
     }
 
-    /// Sets or clear the value of [read_authorizer_credential][crate::model::GitLabConfig::read_authorizer_credential].
+    /// Sets or clears the value of [read_authorizer_credential][crate::model::GitLabConfig::read_authorizer_credential].
     pub fn set_or_clear_read_authorizer_credential<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::UserCredential>,
@@ -1253,7 +1253,7 @@ impl GitLabConfig {
         self
     }
 
-    /// Sets or clear the value of [authorizer_credential][crate::model::GitLabConfig::authorizer_credential].
+    /// Sets or clears the value of [authorizer_credential][crate::model::GitLabConfig::authorizer_credential].
     pub fn set_or_clear_authorizer_credential<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::UserCredential>,
@@ -1271,7 +1271,7 @@ impl GitLabConfig {
         self
     }
 
-    /// Sets or clear the value of [service_directory_config][crate::model::GitLabConfig::service_directory_config].
+    /// Sets or clears the value of [service_directory_config][crate::model::GitLabConfig::service_directory_config].
     pub fn set_or_clear_service_directory_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ServiceDirectoryConfig>,
@@ -1374,7 +1374,7 @@ impl BitbucketDataCenterConfig {
         self
     }
 
-    /// Sets or clear the value of [read_authorizer_credential][crate::model::BitbucketDataCenterConfig::read_authorizer_credential].
+    /// Sets or clears the value of [read_authorizer_credential][crate::model::BitbucketDataCenterConfig::read_authorizer_credential].
     pub fn set_or_clear_read_authorizer_credential<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::UserCredential>,
@@ -1392,7 +1392,7 @@ impl BitbucketDataCenterConfig {
         self
     }
 
-    /// Sets or clear the value of [authorizer_credential][crate::model::BitbucketDataCenterConfig::authorizer_credential].
+    /// Sets or clears the value of [authorizer_credential][crate::model::BitbucketDataCenterConfig::authorizer_credential].
     pub fn set_or_clear_authorizer_credential<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::UserCredential>,
@@ -1410,7 +1410,7 @@ impl BitbucketDataCenterConfig {
         self
     }
 
-    /// Sets or clear the value of [service_directory_config][crate::model::BitbucketDataCenterConfig::service_directory_config].
+    /// Sets or clears the value of [service_directory_config][crate::model::BitbucketDataCenterConfig::service_directory_config].
     pub fn set_or_clear_service_directory_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ServiceDirectoryConfig>,
@@ -1500,7 +1500,7 @@ impl BitbucketCloudConfig {
         self
     }
 
-    /// Sets or clear the value of [read_authorizer_credential][crate::model::BitbucketCloudConfig::read_authorizer_credential].
+    /// Sets or clears the value of [read_authorizer_credential][crate::model::BitbucketCloudConfig::read_authorizer_credential].
     pub fn set_or_clear_read_authorizer_credential<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::UserCredential>,
@@ -1518,7 +1518,7 @@ impl BitbucketCloudConfig {
         self
     }
 
-    /// Sets or clear the value of [authorizer_credential][crate::model::BitbucketCloudConfig::authorizer_credential].
+    /// Sets or clears the value of [authorizer_credential][crate::model::BitbucketCloudConfig::authorizer_credential].
     pub fn set_or_clear_authorizer_credential<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::UserCredential>,
@@ -1636,7 +1636,7 @@ impl Repository {
         self
     }
 
-    /// Sets or clear the value of [create_time][crate::model::Repository::create_time].
+    /// Sets or clears the value of [create_time][crate::model::Repository::create_time].
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1654,7 +1654,7 @@ impl Repository {
         self
     }
 
-    /// Sets or clear the value of [update_time][crate::model::Repository::update_time].
+    /// Sets or clears the value of [update_time][crate::model::Repository::update_time].
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1835,7 +1835,7 @@ impl CreateConnectionRequest {
         self
     }
 
-    /// Sets or clear the value of [connection][crate::model::CreateConnectionRequest::connection].
+    /// Sets or clears the value of [connection][crate::model::CreateConnectionRequest::connection].
     pub fn set_or_clear_connection<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Connection>,
@@ -2050,7 +2050,7 @@ impl UpdateConnectionRequest {
         self
     }
 
-    /// Sets or clear the value of [connection][crate::model::UpdateConnectionRequest::connection].
+    /// Sets or clears the value of [connection][crate::model::UpdateConnectionRequest::connection].
     pub fn set_or_clear_connection<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Connection>,
@@ -2068,7 +2068,7 @@ impl UpdateConnectionRequest {
         self
     }
 
-    /// Sets or clear the value of [update_mask][crate::model::UpdateConnectionRequest::update_mask].
+    /// Sets or clears the value of [update_mask][crate::model::UpdateConnectionRequest::update_mask].
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -2198,7 +2198,7 @@ impl CreateRepositoryRequest {
         self
     }
 
-    /// Sets or clear the value of [repository][crate::model::CreateRepositoryRequest::repository].
+    /// Sets or clears the value of [repository][crate::model::CreateRepositoryRequest::repository].
     pub fn set_or_clear_repository<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Repository>,
@@ -2626,7 +2626,7 @@ impl FetchReadTokenResponse {
         self
     }
 
-    /// Sets or clear the value of [expiration_time][crate::model::FetchReadTokenResponse::expiration_time].
+    /// Sets or clears the value of [expiration_time][crate::model::FetchReadTokenResponse::expiration_time].
     pub fn set_or_clear_expiration_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2680,7 +2680,7 @@ impl FetchReadWriteTokenResponse {
         self
     }
 
-    /// Sets or clear the value of [expiration_time][crate::model::FetchReadWriteTokenResponse::expiration_time].
+    /// Sets or clears the value of [expiration_time][crate::model::FetchReadWriteTokenResponse::expiration_time].
     pub fn set_or_clear_expiration_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2740,7 +2740,7 @@ impl ProcessWebhookRequest {
         self
     }
 
-    /// Sets or clear the value of [body][crate::model::ProcessWebhookRequest::body].
+    /// Sets or clears the value of [body][crate::model::ProcessWebhookRequest::body].
     pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<api::model::HttpBody>,

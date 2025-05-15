@@ -356,7 +356,7 @@ pub mod api_gateway_service {
             self
         }
 
-        /// Sets or clear the value of [gateway][crate::model::CreateGatewayRequest::gateway].
+        /// Sets or clears the value of [gateway][crate::model::CreateGatewayRequest::gateway].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_gateway<T>(mut self, v: std::option::Option<T>) -> Self
@@ -469,7 +469,7 @@ pub mod api_gateway_service {
             self
         }
 
-        /// Sets or clear the value of [update_mask][crate::model::UpdateGatewayRequest::update_mask].
+        /// Sets or clears the value of [update_mask][crate::model::UpdateGatewayRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
@@ -489,7 +489,7 @@ pub mod api_gateway_service {
             self
         }
 
-        /// Sets or clear the value of [gateway][crate::model::UpdateGatewayRequest::gateway].
+        /// Sets or clears the value of [gateway][crate::model::UpdateGatewayRequest::gateway].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_gateway<T>(mut self, v: std::option::Option<T>) -> Self
@@ -899,7 +899,7 @@ pub mod api_gateway_service {
             self
         }
 
-        /// Sets or clear the value of [api][crate::model::CreateApiRequest::api].
+        /// Sets or clears the value of [api][crate::model::CreateApiRequest::api].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_api<T>(mut self, v: std::option::Option<T>) -> Self
@@ -1012,7 +1012,7 @@ pub mod api_gateway_service {
             self
         }
 
-        /// Sets or clear the value of [update_mask][crate::model::UpdateApiRequest::update_mask].
+        /// Sets or clears the value of [update_mask][crate::model::UpdateApiRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
@@ -1032,7 +1032,7 @@ pub mod api_gateway_service {
             self
         }
 
-        /// Sets or clear the value of [api][crate::model::UpdateApiRequest::api].
+        /// Sets or clears the value of [api][crate::model::UpdateApiRequest::api].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_api<T>(mut self, v: std::option::Option<T>) -> Self
@@ -1451,7 +1451,7 @@ pub mod api_gateway_service {
             self
         }
 
-        /// Sets or clear the value of [api_config][crate::model::CreateApiConfigRequest::api_config].
+        /// Sets or clears the value of [api_config][crate::model::CreateApiConfigRequest::api_config].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_api_config<T>(mut self, v: std::option::Option<T>) -> Self
@@ -1564,7 +1564,7 @@ pub mod api_gateway_service {
             self
         }
 
-        /// Sets or clear the value of [update_mask][crate::model::UpdateApiConfigRequest::update_mask].
+        /// Sets or clears the value of [update_mask][crate::model::UpdateApiConfigRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
@@ -1584,7 +1584,7 @@ pub mod api_gateway_service {
             self
         }
 
-        /// Sets or clear the value of [api_config][crate::model::UpdateApiConfigRequest::api_config].
+        /// Sets or clears the value of [api_config][crate::model::UpdateApiConfigRequest::api_config].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_api_config<T>(mut self, v: std::option::Option<T>) -> Self

@@ -133,7 +133,7 @@ impl Api {
         self
     }
 
-    /// Sets or clear the value of [source_context][crate::Api::source_context].
+    /// Sets or clears the value of [source_context][crate::Api::source_context].
     pub fn set_or_clear_source_context<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::SourceContext>,
@@ -603,7 +603,7 @@ impl FileDescriptorProto {
         self
     }
 
-    /// Sets or clear the value of [options][crate::FileDescriptorProto::options].
+    /// Sets or clears the value of [options][crate::FileDescriptorProto::options].
     pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::FileOptions>,
@@ -621,7 +621,7 @@ impl FileDescriptorProto {
         self
     }
 
-    /// Sets or clear the value of [source_code_info][crate::FileDescriptorProto::source_code_info].
+    /// Sets or clears the value of [source_code_info][crate::FileDescriptorProto::source_code_info].
     pub fn set_or_clear_source_code_info<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::SourceCodeInfo>,
@@ -777,7 +777,7 @@ impl DescriptorProto {
         self
     }
 
-    /// Sets or clear the value of [options][crate::DescriptorProto::options].
+    /// Sets or clears the value of [options][crate::DescriptorProto::options].
     pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::MessageOptions>,
@@ -864,7 +864,7 @@ pub mod descriptor_proto {
             self
         }
 
-        /// Sets or clear the value of [options][crate::descriptor_proto::ExtensionRange::options].
+        /// Sets or clears the value of [options][crate::descriptor_proto::ExtensionRange::options].
         pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::ExtensionRangeOptions>,
@@ -987,7 +987,7 @@ impl ExtensionRangeOptions {
         self
     }
 
-    /// Sets or clear the value of [features][crate::ExtensionRangeOptions::features].
+    /// Sets or clears the value of [features][crate::ExtensionRangeOptions::features].
     pub fn set_or_clear_features<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::FeatureSet>,
@@ -1378,7 +1378,7 @@ impl FieldDescriptorProto {
         self
     }
 
-    /// Sets or clear the value of [options][crate::FieldDescriptorProto::options].
+    /// Sets or clears the value of [options][crate::FieldDescriptorProto::options].
     pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::FieldOptions>,
@@ -1804,7 +1804,7 @@ impl OneofDescriptorProto {
         self
     }
 
-    /// Sets or clear the value of [options][crate::OneofDescriptorProto::options].
+    /// Sets or clears the value of [options][crate::OneofDescriptorProto::options].
     pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::OneofOptions>,
@@ -1881,7 +1881,7 @@ impl EnumDescriptorProto {
         self
     }
 
-    /// Sets or clear the value of [options][crate::EnumDescriptorProto::options].
+    /// Sets or clears the value of [options][crate::EnumDescriptorProto::options].
     pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::EnumOptions>,
@@ -2015,7 +2015,7 @@ impl EnumValueDescriptorProto {
         self
     }
 
-    /// Sets or clear the value of [options][crate::EnumValueDescriptorProto::options].
+    /// Sets or clears the value of [options][crate::EnumValueDescriptorProto::options].
     pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::EnumValueOptions>,
@@ -2081,7 +2081,7 @@ impl ServiceDescriptorProto {
         self
     }
 
-    /// Sets or clear the value of [options][crate::ServiceDescriptorProto::options].
+    /// Sets or clears the value of [options][crate::ServiceDescriptorProto::options].
     pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::ServiceOptions>,
@@ -2161,7 +2161,7 @@ impl MethodDescriptorProto {
         self
     }
 
-    /// Sets or clear the value of [options][crate::MethodDescriptorProto::options].
+    /// Sets or clears the value of [options][crate::MethodDescriptorProto::options].
     pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::MethodOptions>,
@@ -2477,7 +2477,7 @@ impl FileOptions {
         self
     }
 
-    /// Sets or clear the value of [features][crate::FileOptions::features].
+    /// Sets or clears the value of [features][crate::FileOptions::features].
     pub fn set_or_clear_features<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::FeatureSet>,
@@ -2780,7 +2780,7 @@ impl MessageOptions {
         self
     }
 
-    /// Sets or clear the value of [features][crate::MessageOptions::features].
+    /// Sets or clears the value of [features][crate::MessageOptions::features].
     pub fn set_or_clear_features<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::FeatureSet>,
@@ -3007,7 +3007,7 @@ impl FieldOptions {
         self
     }
 
-    /// Sets or clear the value of [features][crate::FieldOptions::features].
+    /// Sets or clears the value of [features][crate::FieldOptions::features].
     pub fn set_or_clear_features<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::FeatureSet>,
@@ -3025,7 +3025,7 @@ impl FieldOptions {
         self
     }
 
-    /// Sets or clear the value of [feature_support][crate::FieldOptions::feature_support].
+    /// Sets or clears the value of [feature_support][crate::FieldOptions::feature_support].
     pub fn set_or_clear_feature_support<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::field_options::FeatureSupport>,
@@ -3771,7 +3771,7 @@ impl OneofOptions {
         self
     }
 
-    /// Sets or clear the value of [features][crate::OneofOptions::features].
+    /// Sets or clears the value of [features][crate::OneofOptions::features].
     pub fn set_or_clear_features<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::FeatureSet>,
@@ -3873,7 +3873,7 @@ impl EnumOptions {
         self
     }
 
-    /// Sets or clear the value of [features][crate::EnumOptions::features].
+    /// Sets or clears the value of [features][crate::EnumOptions::features].
     pub fn set_or_clear_features<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::FeatureSet>,
@@ -3954,7 +3954,7 @@ impl EnumValueOptions {
         self
     }
 
-    /// Sets or clear the value of [features][crate::EnumValueOptions::features].
+    /// Sets or clears the value of [features][crate::EnumValueOptions::features].
     pub fn set_or_clear_features<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::FeatureSet>,
@@ -3978,7 +3978,7 @@ impl EnumValueOptions {
         self
     }
 
-    /// Sets or clear the value of [feature_support][crate::EnumValueOptions::feature_support].
+    /// Sets or clears the value of [feature_support][crate::EnumValueOptions::feature_support].
     pub fn set_or_clear_feature_support<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::field_options::FeatureSupport>,
@@ -4043,7 +4043,7 @@ impl ServiceOptions {
         self
     }
 
-    /// Sets or clear the value of [features][crate::ServiceOptions::features].
+    /// Sets or clears the value of [features][crate::ServiceOptions::features].
     pub fn set_or_clear_features<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::FeatureSet>,
@@ -4131,7 +4131,7 @@ impl MethodOptions {
         self
     }
 
-    /// Sets or clear the value of [features][crate::MethodOptions::features].
+    /// Sets or clears the value of [features][crate::MethodOptions::features].
     pub fn set_or_clear_features<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::FeatureSet>,
@@ -5431,7 +5431,7 @@ pub mod feature_set_defaults {
             self
         }
 
-        /// Sets or clear the value of [overridable_features][crate::feature_set_defaults::FeatureSetEditionDefault::overridable_features].
+        /// Sets or clears the value of [overridable_features][crate::feature_set_defaults::FeatureSetEditionDefault::overridable_features].
         pub fn set_or_clear_overridable_features<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::FeatureSet>,
@@ -5449,7 +5449,7 @@ pub mod feature_set_defaults {
             self
         }
 
-        /// Sets or clear the value of [fixed_features][crate::feature_set_defaults::FeatureSetEditionDefault::fixed_features].
+        /// Sets or clears the value of [fixed_features][crate::feature_set_defaults::FeatureSetEditionDefault::fixed_features].
         pub fn set_or_clear_fixed_features<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::FeatureSet>,
@@ -6111,7 +6111,7 @@ impl Type {
         self
     }
 
-    /// Sets or clear the value of [source_context][crate::Type::source_context].
+    /// Sets or clears the value of [source_context][crate::Type::source_context].
     pub fn set_or_clear_source_context<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::SourceContext>,
@@ -6733,7 +6733,7 @@ impl Enum {
         self
     }
 
-    /// Sets or clear the value of [source_context][crate::Enum::source_context].
+    /// Sets or clears the value of [source_context][crate::Enum::source_context].
     pub fn set_or_clear_source_context<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::SourceContext>,
@@ -6863,7 +6863,7 @@ impl Option {
         self
     }
 
-    /// Sets or clear the value of [value][crate::Option::value].
+    /// Sets or clears the value of [value][crate::Option::value].
     pub fn set_or_clear_value<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::Any>,

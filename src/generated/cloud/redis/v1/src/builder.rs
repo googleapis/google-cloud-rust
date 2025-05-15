@@ -409,7 +409,7 @@ pub mod cloud_redis {
             self
         }
 
-        /// Sets or clear the value of [instance][crate::model::CreateInstanceRequest::instance].
+        /// Sets or clears the value of [instance][crate::model::CreateInstanceRequest::instance].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_instance<T>(mut self, v: std::option::Option<T>) -> Self
@@ -524,7 +524,7 @@ pub mod cloud_redis {
             self
         }
 
-        /// Sets or clear the value of [update_mask][crate::model::UpdateInstanceRequest::update_mask].
+        /// Sets or clears the value of [update_mask][crate::model::UpdateInstanceRequest::update_mask].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
@@ -546,7 +546,7 @@ pub mod cloud_redis {
             self
         }
 
-        /// Sets or clear the value of [instance][crate::model::UpdateInstanceRequest::instance].
+        /// Sets or clears the value of [instance][crate::model::UpdateInstanceRequest::instance].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_instance<T>(mut self, v: std::option::Option<T>) -> Self
@@ -778,7 +778,7 @@ pub mod cloud_redis {
             self
         }
 
-        /// Sets or clear the value of [input_config][crate::model::ImportInstanceRequest::input_config].
+        /// Sets or clears the value of [input_config][crate::model::ImportInstanceRequest::input_config].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_input_config<T>(mut self, v: std::option::Option<T>) -> Self
@@ -901,7 +901,7 @@ pub mod cloud_redis {
             self
         }
 
-        /// Sets or clear the value of [output_config][crate::model::ExportInstanceRequest::output_config].
+        /// Sets or clears the value of [output_config][crate::model::ExportInstanceRequest::output_config].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_output_config<T>(mut self, v: std::option::Option<T>) -> Self
@@ -1256,7 +1256,7 @@ pub mod cloud_redis {
             self
         }
 
-        /// Sets or clear the value of [schedule_time][crate::model::RescheduleMaintenanceRequest::schedule_time].
+        /// Sets or clears the value of [schedule_time][crate::model::RescheduleMaintenanceRequest::schedule_time].
         pub fn set_or_clear_schedule_time<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,

@@ -151,7 +151,7 @@ impl Connector {
         self
     }
 
-    /// Sets or clear the value of [subnet][crate::model::Connector::subnet].
+    /// Sets or clears the value of [subnet][crate::model::Connector::subnet].
     pub fn set_or_clear_subnet<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::connector::Subnet>,
@@ -440,7 +440,7 @@ impl CreateConnectorRequest {
         self
     }
 
-    /// Sets or clear the value of [connector][crate::model::CreateConnectorRequest::connector].
+    /// Sets or clears the value of [connector][crate::model::CreateConnectorRequest::connector].
     pub fn set_or_clear_connector<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Connector>,
@@ -681,7 +681,7 @@ impl OperationMetadata {
         self
     }
 
-    /// Sets or clear the value of [create_time][crate::model::OperationMetadata::create_time].
+    /// Sets or clears the value of [create_time][crate::model::OperationMetadata::create_time].
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -699,7 +699,7 @@ impl OperationMetadata {
         self
     }
 
-    /// Sets or clear the value of [end_time][crate::model::OperationMetadata::end_time].
+    /// Sets or clears the value of [end_time][crate::model::OperationMetadata::end_time].
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,

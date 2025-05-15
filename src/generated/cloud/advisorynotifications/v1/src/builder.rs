@@ -372,7 +372,7 @@ pub mod advisory_notifications_service {
             self
         }
 
-        /// Sets or clear the value of [settings][crate::model::UpdateSettingsRequest::settings].
+        /// Sets or clears the value of [settings][crate::model::UpdateSettingsRequest::settings].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_settings<T>(mut self, v: std::option::Option<T>) -> Self

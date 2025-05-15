@@ -303,7 +303,7 @@ pub mod cloud_tasks {
             self
         }
 
-        /// Sets or clear the value of [queue][crate::model::CreateQueueRequest::queue].
+        /// Sets or clears the value of [queue][crate::model::CreateQueueRequest::queue].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_queue<T>(mut self, v: std::option::Option<T>) -> Self
@@ -379,7 +379,7 @@ pub mod cloud_tasks {
             self
         }
 
-        /// Sets or clear the value of [queue][crate::model::UpdateQueueRequest::queue].
+        /// Sets or clears the value of [queue][crate::model::UpdateQueueRequest::queue].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_queue<T>(mut self, v: std::option::Option<T>) -> Self
@@ -399,7 +399,7 @@ pub mod cloud_tasks {
             self
         }
 
-        /// Sets or clear the value of [update_mask][crate::model::UpdateQueueRequest::update_mask].
+        /// Sets or clears the value of [update_mask][crate::model::UpdateQueueRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
@@ -727,7 +727,7 @@ pub mod cloud_tasks {
             self
         }
 
-        /// Sets or clear the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        /// Sets or clears the value of [options][iam_v1::model::GetIamPolicyRequest::options].
         pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
@@ -809,7 +809,7 @@ pub mod cloud_tasks {
             self
         }
 
-        /// Sets or clear the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        /// Sets or clears the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
@@ -829,7 +829,7 @@ pub mod cloud_tasks {
             self
         }
 
-        /// Sets or clear the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        /// Sets or clears the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
@@ -1165,7 +1165,7 @@ pub mod cloud_tasks {
             self
         }
 
-        /// Sets or clear the value of [task][crate::model::CreateTaskRequest::task].
+        /// Sets or clears the value of [task][crate::model::CreateTaskRequest::task].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_task<T>(mut self, v: std::option::Option<T>) -> Self

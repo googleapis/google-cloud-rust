@@ -348,7 +348,7 @@ pub mod lustre {
             self
         }
 
-        /// Sets or clear the value of [instance][crate::model::CreateInstanceRequest::instance].
+        /// Sets or clears the value of [instance][crate::model::CreateInstanceRequest::instance].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_instance<T>(mut self, v: std::option::Option<T>) -> Self
@@ -465,7 +465,7 @@ pub mod lustre {
             self
         }
 
-        /// Sets or clear the value of [update_mask][crate::model::UpdateInstanceRequest::update_mask].
+        /// Sets or clears the value of [update_mask][crate::model::UpdateInstanceRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
@@ -485,7 +485,7 @@ pub mod lustre {
             self
         }
 
-        /// Sets or clear the value of [instance][crate::model::UpdateInstanceRequest::instance].
+        /// Sets or clears the value of [instance][crate::model::UpdateInstanceRequest::instance].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_instance<T>(mut self, v: std::option::Option<T>) -> Self

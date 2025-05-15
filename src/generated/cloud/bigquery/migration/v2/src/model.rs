@@ -119,7 +119,7 @@ impl MigrationWorkflow {
         self
     }
 
-    /// Sets or clear the value of [create_time][crate::model::MigrationWorkflow::create_time].
+    /// Sets or clears the value of [create_time][crate::model::MigrationWorkflow::create_time].
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -137,7 +137,7 @@ impl MigrationWorkflow {
         self
     }
 
-    /// Sets or clear the value of [last_update_time][crate::model::MigrationWorkflow::last_update_time].
+    /// Sets or clears the value of [last_update_time][crate::model::MigrationWorkflow::last_update_time].
     pub fn set_or_clear_last_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -420,7 +420,7 @@ impl MigrationTask {
         self
     }
 
-    /// Sets or clear the value of [processing_error][crate::model::MigrationTask::processing_error].
+    /// Sets or clears the value of [processing_error][crate::model::MigrationTask::processing_error].
     pub fn set_or_clear_processing_error<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<rpc::model::ErrorInfo>,
@@ -438,7 +438,7 @@ impl MigrationTask {
         self
     }
 
-    /// Sets or clear the value of [create_time][crate::model::MigrationTask::create_time].
+    /// Sets or clears the value of [create_time][crate::model::MigrationTask::create_time].
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -456,7 +456,7 @@ impl MigrationTask {
         self
     }
 
-    /// Sets or clear the value of [last_update_time][crate::model::MigrationTask::last_update_time].
+    /// Sets or clears the value of [last_update_time][crate::model::MigrationTask::last_update_time].
     pub fn set_or_clear_last_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -502,7 +502,7 @@ impl MigrationTask {
         self
     }
 
-    /// Sets or clear the value of [task_result][crate::model::MigrationTask::task_result].
+    /// Sets or clears the value of [task_result][crate::model::MigrationTask::task_result].
     pub fn set_or_clear_task_result<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::MigrationTaskResult>,
@@ -892,7 +892,7 @@ impl MigrationSubtask {
         self
     }
 
-    /// Sets or clear the value of [processing_error][crate::model::MigrationSubtask::processing_error].
+    /// Sets or clears the value of [processing_error][crate::model::MigrationSubtask::processing_error].
     pub fn set_or_clear_processing_error<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<rpc::model::ErrorInfo>,
@@ -927,7 +927,7 @@ impl MigrationSubtask {
         self
     }
 
-    /// Sets or clear the value of [create_time][crate::model::MigrationSubtask::create_time].
+    /// Sets or clears the value of [create_time][crate::model::MigrationSubtask::create_time].
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -945,7 +945,7 @@ impl MigrationSubtask {
         self
     }
 
-    /// Sets or clear the value of [last_update_time][crate::model::MigrationSubtask::last_update_time].
+    /// Sets or clears the value of [last_update_time][crate::model::MigrationSubtask::last_update_time].
     pub fn set_or_clear_last_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1318,7 +1318,7 @@ impl ResourceErrorDetail {
         self
     }
 
-    /// Sets or clear the value of [resource_info][crate::model::ResourceErrorDetail::resource_info].
+    /// Sets or clears the value of [resource_info][crate::model::ResourceErrorDetail::resource_info].
     pub fn set_or_clear_resource_info<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<rpc::model::ResourceInfo>,
@@ -1384,7 +1384,7 @@ impl ErrorDetail {
         self
     }
 
-    /// Sets or clear the value of [location][crate::model::ErrorDetail::location].
+    /// Sets or clears the value of [location][crate::model::ErrorDetail::location].
     pub fn set_or_clear_location<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ErrorLocation>,
@@ -1402,7 +1402,7 @@ impl ErrorDetail {
         self
     }
 
-    /// Sets or clear the value of [error_info][crate::model::ErrorDetail::error_info].
+    /// Sets or clears the value of [error_info][crate::model::ErrorDetail::error_info].
     pub fn set_or_clear_error_info<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<rpc::model::ErrorInfo>,
@@ -1587,7 +1587,7 @@ impl Point {
         self
     }
 
-    /// Sets or clear the value of [interval][crate::model::Point::interval].
+    /// Sets or clears the value of [interval][crate::model::Point::interval].
     pub fn set_or_clear_interval<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::TimeInterval>,
@@ -1605,7 +1605,7 @@ impl Point {
         self
     }
 
-    /// Sets or clear the value of [value][crate::model::Point::value].
+    /// Sets or clears the value of [value][crate::model::Point::value].
     pub fn set_or_clear_value<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::TypedValue>,
@@ -1657,7 +1657,7 @@ impl TimeInterval {
         self
     }
 
-    /// Sets or clear the value of [start_time][crate::model::TimeInterval::start_time].
+    /// Sets or clears the value of [start_time][crate::model::TimeInterval::start_time].
     pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1675,7 +1675,7 @@ impl TimeInterval {
         self
     }
 
-    /// Sets or clear the value of [end_time][crate::model::TimeInterval::end_time].
+    /// Sets or clears the value of [end_time][crate::model::TimeInterval::end_time].
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1914,7 +1914,7 @@ impl CreateMigrationWorkflowRequest {
         self
     }
 
-    /// Sets or clear the value of [migration_workflow][crate::model::CreateMigrationWorkflowRequest::migration_workflow].
+    /// Sets or clears the value of [migration_workflow][crate::model::CreateMigrationWorkflowRequest::migration_workflow].
     pub fn set_or_clear_migration_workflow<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::MigrationWorkflow>,
@@ -1969,7 +1969,7 @@ impl GetMigrationWorkflowRequest {
         self
     }
 
-    /// Sets or clear the value of [read_mask][crate::model::GetMigrationWorkflowRequest::read_mask].
+    /// Sets or clears the value of [read_mask][crate::model::GetMigrationWorkflowRequest::read_mask].
     pub fn set_or_clear_read_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -2037,7 +2037,7 @@ impl ListMigrationWorkflowsRequest {
         self
     }
 
-    /// Sets or clear the value of [read_mask][crate::model::ListMigrationWorkflowsRequest::read_mask].
+    /// Sets or clears the value of [read_mask][crate::model::ListMigrationWorkflowsRequest::read_mask].
     pub fn set_or_clear_read_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -2232,7 +2232,7 @@ impl GetMigrationSubtaskRequest {
         self
     }
 
-    /// Sets or clear the value of [read_mask][crate::model::GetMigrationSubtaskRequest::read_mask].
+    /// Sets or clears the value of [read_mask][crate::model::GetMigrationSubtaskRequest::read_mask].
     pub fn set_or_clear_read_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -2306,7 +2306,7 @@ impl ListMigrationSubtasksRequest {
         self
     }
 
-    /// Sets or clear the value of [read_mask][crate::model::ListMigrationSubtasksRequest::read_mask].
+    /// Sets or clears the value of [read_mask][crate::model::ListMigrationSubtasksRequest::read_mask].
     pub fn set_or_clear_read_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -2466,7 +2466,7 @@ impl TranslationConfigDetails {
         self
     }
 
-    /// Sets or clear the value of [source_dialect][crate::model::TranslationConfigDetails::source_dialect].
+    /// Sets or clears the value of [source_dialect][crate::model::TranslationConfigDetails::source_dialect].
     pub fn set_or_clear_source_dialect<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Dialect>,
@@ -2484,7 +2484,7 @@ impl TranslationConfigDetails {
         self
     }
 
-    /// Sets or clear the value of [target_dialect][crate::model::TranslationConfigDetails::target_dialect].
+    /// Sets or clears the value of [target_dialect][crate::model::TranslationConfigDetails::target_dialect].
     pub fn set_or_clear_target_dialect<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Dialect>,
@@ -2502,7 +2502,7 @@ impl TranslationConfigDetails {
         self
     }
 
-    /// Sets or clear the value of [source_env][crate::model::TranslationConfigDetails::source_env].
+    /// Sets or clears the value of [source_env][crate::model::TranslationConfigDetails::source_env].
     pub fn set_or_clear_source_env<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::SourceEnv>,
@@ -3893,7 +3893,7 @@ impl ObjectNameMapping {
         self
     }
 
-    /// Sets or clear the value of [source][crate::model::ObjectNameMapping::source].
+    /// Sets or clears the value of [source][crate::model::ObjectNameMapping::source].
     pub fn set_or_clear_source<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::NameMappingKey>,
@@ -3911,7 +3911,7 @@ impl ObjectNameMapping {
         self
     }
 
-    /// Sets or clear the value of [target][crate::model::ObjectNameMapping::target].
+    /// Sets or clears the value of [target][crate::model::ObjectNameMapping::target].
     pub fn set_or_clear_target<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::NameMappingValue>,
@@ -4382,7 +4382,7 @@ impl TranslationDetails {
         self
     }
 
-    /// Sets or clear the value of [source_environment][crate::model::TranslationDetails::source_environment].
+    /// Sets or clears the value of [source_environment][crate::model::TranslationDetails::source_environment].
     pub fn set_or_clear_source_environment<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::SourceEnvironment>,
@@ -4452,7 +4452,7 @@ impl SourceTargetMapping {
         self
     }
 
-    /// Sets or clear the value of [source_spec][crate::model::SourceTargetMapping::source_spec].
+    /// Sets or clears the value of [source_spec][crate::model::SourceTargetMapping::source_spec].
     pub fn set_or_clear_source_spec<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::SourceSpec>,
@@ -4470,7 +4470,7 @@ impl SourceTargetMapping {
         self
     }
 
-    /// Sets or clear the value of [target_spec][crate::model::SourceTargetMapping::target_spec].
+    /// Sets or clears the value of [target_spec][crate::model::SourceTargetMapping::target_spec].
     pub fn set_or_clear_target_spec<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::TargetSpec>,

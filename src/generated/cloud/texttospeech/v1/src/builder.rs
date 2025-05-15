@@ -188,7 +188,7 @@ pub mod text_to_speech {
             self
         }
 
-        /// Sets or clear the value of [input][crate::model::SynthesizeSpeechRequest::input].
+        /// Sets or clears the value of [input][crate::model::SynthesizeSpeechRequest::input].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_input<T>(mut self, v: std::option::Option<T>) -> Self
@@ -210,7 +210,7 @@ pub mod text_to_speech {
             self
         }
 
-        /// Sets or clear the value of [voice][crate::model::SynthesizeSpeechRequest::voice].
+        /// Sets or clears the value of [voice][crate::model::SynthesizeSpeechRequest::voice].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_voice<T>(mut self, v: std::option::Option<T>) -> Self
@@ -232,7 +232,7 @@ pub mod text_to_speech {
             self
         }
 
-        /// Sets or clear the value of [audio_config][crate::model::SynthesizeSpeechRequest::audio_config].
+        /// Sets or clears the value of [audio_config][crate::model::SynthesizeSpeechRequest::audio_config].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_audio_config<T>(mut self, v: std::option::Option<T>) -> Self
@@ -252,7 +252,7 @@ pub mod text_to_speech {
             self
         }
 
-        /// Sets or clear the value of [advanced_voice_options][crate::model::SynthesizeSpeechRequest::advanced_voice_options].
+        /// Sets or clears the value of [advanced_voice_options][crate::model::SynthesizeSpeechRequest::advanced_voice_options].
         pub fn set_or_clear_advanced_voice_options<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::AdvancedVoiceOptions>,
@@ -608,7 +608,7 @@ pub mod text_to_speech_long_audio_synthesize {
             self
         }
 
-        /// Sets or clear the value of [input][crate::model::SynthesizeLongAudioRequest::input].
+        /// Sets or clears the value of [input][crate::model::SynthesizeLongAudioRequest::input].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_input<T>(mut self, v: std::option::Option<T>) -> Self
@@ -630,7 +630,7 @@ pub mod text_to_speech_long_audio_synthesize {
             self
         }
 
-        /// Sets or clear the value of [audio_config][crate::model::SynthesizeLongAudioRequest::audio_config].
+        /// Sets or clears the value of [audio_config][crate::model::SynthesizeLongAudioRequest::audio_config].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_audio_config<T>(mut self, v: std::option::Option<T>) -> Self
@@ -660,7 +660,7 @@ pub mod text_to_speech_long_audio_synthesize {
             self
         }
 
-        /// Sets or clear the value of [voice][crate::model::SynthesizeLongAudioRequest::voice].
+        /// Sets or clears the value of [voice][crate::model::SynthesizeLongAudioRequest::voice].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_voice<T>(mut self, v: std::option::Option<T>) -> Self

@@ -190,7 +190,7 @@ pub mod video_intelligence_service {
             self
         }
 
-        /// Sets or clear the value of [video_context][crate::model::AnnotateVideoRequest::video_context].
+        /// Sets or clears the value of [video_context][crate::model::AnnotateVideoRequest::video_context].
         pub fn set_or_clear_video_context<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::VideoContext>,

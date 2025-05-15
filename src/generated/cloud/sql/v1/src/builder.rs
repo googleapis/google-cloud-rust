@@ -288,7 +288,7 @@ pub mod sql_backup_runs_service {
             self
         }
 
-        /// Sets or clear the value of [body][crate::model::SqlBackupRunsInsertRequest::body].
+        /// Sets or clears the value of [body][crate::model::SqlBackupRunsInsertRequest::body].
         pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::BackupRun>,
@@ -539,7 +539,7 @@ pub mod sql_connect_service {
             self
         }
 
-        /// Sets or clear the value of [read_time][crate::model::GetConnectSettingsRequest::read_time].
+        /// Sets or clears the value of [read_time][crate::model::GetConnectSettingsRequest::read_time].
         pub fn set_or_clear_read_time<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -638,7 +638,7 @@ pub mod sql_connect_service {
             self
         }
 
-        /// Sets or clear the value of [read_time][crate::model::GenerateEphemeralCertRequest::read_time].
+        /// Sets or clears the value of [read_time][crate::model::GenerateEphemeralCertRequest::read_time].
         pub fn set_or_clear_read_time<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -656,7 +656,7 @@ pub mod sql_connect_service {
             self
         }
 
-        /// Sets or clear the value of [valid_duration][crate::model::GenerateEphemeralCertRequest::valid_duration].
+        /// Sets or clears the value of [valid_duration][crate::model::GenerateEphemeralCertRequest::valid_duration].
         pub fn set_or_clear_valid_duration<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
@@ -945,7 +945,7 @@ pub mod sql_databases_service {
             self
         }
 
-        /// Sets or clear the value of [body][crate::model::SqlDatabasesInsertRequest::body].
+        /// Sets or clears the value of [body][crate::model::SqlDatabasesInsertRequest::body].
         pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Database>,
@@ -1107,7 +1107,7 @@ pub mod sql_databases_service {
             self
         }
 
-        /// Sets or clear the value of [body][crate::model::SqlDatabasesUpdateRequest::body].
+        /// Sets or clears the value of [body][crate::model::SqlDatabasesUpdateRequest::body].
         pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Database>,
@@ -1200,7 +1200,7 @@ pub mod sql_databases_service {
             self
         }
 
-        /// Sets or clear the value of [body][crate::model::SqlDatabasesUpdateRequest::body].
+        /// Sets or clears the value of [body][crate::model::SqlDatabasesUpdateRequest::body].
         pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Database>,
@@ -1526,7 +1526,7 @@ pub mod sql_instances_service {
             self
         }
 
-        /// Sets or clear the value of [body][crate::model::SqlInstancesCloneRequest::body].
+        /// Sets or clears the value of [body][crate::model::SqlInstancesCloneRequest::body].
         pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::InstancesCloneRequest>,
@@ -1682,7 +1682,7 @@ pub mod sql_instances_service {
             self
         }
 
-        /// Sets or clear the value of [body][crate::model::SqlInstancesDemoteMasterRequest::body].
+        /// Sets or clears the value of [body][crate::model::SqlInstancesDemoteMasterRequest::body].
         pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::InstancesDemoteMasterRequest>,
@@ -1775,7 +1775,7 @@ pub mod sql_instances_service {
             self
         }
 
-        /// Sets or clear the value of [body][crate::model::SqlInstancesDemoteRequest::body].
+        /// Sets or clears the value of [body][crate::model::SqlInstancesDemoteRequest::body].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
@@ -1864,7 +1864,7 @@ pub mod sql_instances_service {
             self
         }
 
-        /// Sets or clear the value of [body][crate::model::SqlInstancesExportRequest::body].
+        /// Sets or clears the value of [body][crate::model::SqlInstancesExportRequest::body].
         pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::InstancesExportRequest>,
@@ -1951,7 +1951,7 @@ pub mod sql_instances_service {
             self
         }
 
-        /// Sets or clear the value of [body][crate::model::SqlInstancesFailoverRequest::body].
+        /// Sets or clears the value of [body][crate::model::SqlInstancesFailoverRequest::body].
         pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::InstancesFailoverRequest>,
@@ -2038,7 +2038,7 @@ pub mod sql_instances_service {
             self
         }
 
-        /// Sets or clear the value of [body][crate::model::SqlInstancesReencryptRequest::body].
+        /// Sets or clears the value of [body][crate::model::SqlInstancesReencryptRequest::body].
         pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::InstancesReencryptRequest>,
@@ -2191,7 +2191,7 @@ pub mod sql_instances_service {
             self
         }
 
-        /// Sets or clear the value of [body][crate::model::SqlInstancesImportRequest::body].
+        /// Sets or clears the value of [body][crate::model::SqlInstancesImportRequest::body].
         pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::InstancesImportRequest>,
@@ -2272,7 +2272,7 @@ pub mod sql_instances_service {
             self
         }
 
-        /// Sets or clear the value of [body][crate::model::SqlInstancesInsertRequest::body].
+        /// Sets or clears the value of [body][crate::model::SqlInstancesInsertRequest::body].
         pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::DatabaseInstance>,
@@ -2537,7 +2537,7 @@ pub mod sql_instances_service {
             self
         }
 
-        /// Sets or clear the value of [body][crate::model::SqlInstancesPatchRequest::body].
+        /// Sets or clears the value of [body][crate::model::SqlInstancesPatchRequest::body].
         pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::DatabaseInstance>,
@@ -2699,7 +2699,7 @@ pub mod sql_instances_service {
             self
         }
 
-        /// Sets or clear the value of [db_timeout][crate::model::SqlInstancesSwitchoverRequest::db_timeout].
+        /// Sets or clears the value of [db_timeout][crate::model::SqlInstancesSwitchoverRequest::db_timeout].
         pub fn set_or_clear_db_timeout<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
@@ -2924,7 +2924,7 @@ pub mod sql_instances_service {
             self
         }
 
-        /// Sets or clear the value of [body][crate::model::SqlInstancesRestoreBackupRequest::body].
+        /// Sets or clears the value of [body][crate::model::SqlInstancesRestoreBackupRequest::body].
         pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::InstancesRestoreBackupRequest>,
@@ -3011,7 +3011,7 @@ pub mod sql_instances_service {
             self
         }
 
-        /// Sets or clear the value of [body][crate::model::SqlInstancesRotateServerCaRequest::body].
+        /// Sets or clears the value of [body][crate::model::SqlInstancesRotateServerCaRequest::body].
         pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::InstancesRotateServerCaRequest>,
@@ -3236,7 +3236,7 @@ pub mod sql_instances_service {
             self
         }
 
-        /// Sets or clear the value of [body][crate::model::SqlInstancesTruncateLogRequest::body].
+        /// Sets or clears the value of [body][crate::model::SqlInstancesTruncateLogRequest::body].
         pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::InstancesTruncateLogRequest>,
@@ -3323,7 +3323,7 @@ pub mod sql_instances_service {
             self
         }
 
-        /// Sets or clear the value of [body][crate::model::SqlInstancesUpdateRequest::body].
+        /// Sets or clears the value of [body][crate::model::SqlInstancesUpdateRequest::body].
         pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::DatabaseInstance>,
@@ -3412,7 +3412,7 @@ pub mod sql_instances_service {
             self
         }
 
-        /// Sets or clear the value of [body][crate::model::SqlInstancesCreateEphemeralCertRequest::body].
+        /// Sets or clears the value of [body][crate::model::SqlInstancesCreateEphemeralCertRequest::body].
         pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::SslCertsCreateEphemeralRequest>,
@@ -3501,7 +3501,7 @@ pub mod sql_instances_service {
             self
         }
 
-        /// Sets or clear the value of [body][crate::model::SqlInstancesRescheduleMaintenanceRequest::body].
+        /// Sets or clears the value of [body][crate::model::SqlInstancesRescheduleMaintenanceRequest::body].
         pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::SqlInstancesRescheduleMaintenanceRequestBody>,
@@ -3882,7 +3882,7 @@ pub mod sql_instances_service {
             self
         }
 
-        /// Sets or clear the value of [body][crate::model::SqlInstancesPerformDiskShrinkRequest::body].
+        /// Sets or clears the value of [body][crate::model::SqlInstancesPerformDiskShrinkRequest::body].
         pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::PerformDiskShrinkContext>,
@@ -4186,7 +4186,7 @@ pub mod sql_instances_service {
             self
         }
 
-        /// Sets or clear the value of [body][crate::model::SqlInstancesAcquireSsrsLeaseRequest::body].
+        /// Sets or clears the value of [body][crate::model::SqlInstancesAcquireSsrsLeaseRequest::body].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
@@ -4852,7 +4852,7 @@ pub mod sql_ssl_certs_service {
             self
         }
 
-        /// Sets or clear the value of [body][crate::model::SqlSslCertsInsertRequest::body].
+        /// Sets or clears the value of [body][crate::model::SqlSslCertsInsertRequest::body].
         pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::SslCertsInsertRequest>,
@@ -5328,7 +5328,7 @@ pub mod sql_users_service {
             self
         }
 
-        /// Sets or clear the value of [body][crate::model::SqlUsersInsertRequest::body].
+        /// Sets or clears the value of [body][crate::model::SqlUsersInsertRequest::body].
         pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::User>,
@@ -5490,7 +5490,7 @@ pub mod sql_users_service {
             self
         }
 
-        /// Sets or clear the value of [body][crate::model::SqlUsersUpdateRequest::body].
+        /// Sets or clears the value of [body][crate::model::SqlUsersUpdateRequest::body].
         pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::User>,

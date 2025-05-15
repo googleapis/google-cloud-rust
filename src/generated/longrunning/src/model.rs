@@ -88,7 +88,7 @@ impl Operation {
         self
     }
 
-    /// Sets or clear the value of [metadata][crate::model::Operation::metadata].
+    /// Sets or clears the value of [metadata][crate::model::Operation::metadata].
     pub fn set_or_clear_metadata<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Any>,
@@ -473,7 +473,7 @@ impl WaitOperationRequest {
         self
     }
 
-    /// Sets or clear the value of [timeout][crate::model::WaitOperationRequest::timeout].
+    /// Sets or clears the value of [timeout][crate::model::WaitOperationRequest::timeout].
     pub fn set_or_clear_timeout<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,

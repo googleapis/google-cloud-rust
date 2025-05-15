@@ -62,7 +62,7 @@ impl DeleteBucketRequest {
         self
     }
 
-    /// Sets or clear the value of [if_metageneration_match][crate::model::DeleteBucketRequest::if_metageneration_match].
+    /// Sets or clears the value of [if_metageneration_match][crate::model::DeleteBucketRequest::if_metageneration_match].
     pub fn set_or_clear_if_metageneration_match<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<i64>,
@@ -80,7 +80,7 @@ impl DeleteBucketRequest {
         self
     }
 
-    /// Sets or clear the value of [if_metageneration_not_match][crate::model::DeleteBucketRequest::if_metageneration_not_match].
+    /// Sets or clears the value of [if_metageneration_not_match][crate::model::DeleteBucketRequest::if_metageneration_not_match].
     pub fn set_or_clear_if_metageneration_not_match<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<i64>,
@@ -148,7 +148,7 @@ impl GetBucketRequest {
         self
     }
 
-    /// Sets or clear the value of [if_metageneration_match][crate::model::GetBucketRequest::if_metageneration_match].
+    /// Sets or clears the value of [if_metageneration_match][crate::model::GetBucketRequest::if_metageneration_match].
     pub fn set_or_clear_if_metageneration_match<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<i64>,
@@ -166,7 +166,7 @@ impl GetBucketRequest {
         self
     }
 
-    /// Sets or clear the value of [if_metageneration_not_match][crate::model::GetBucketRequest::if_metageneration_not_match].
+    /// Sets or clears the value of [if_metageneration_not_match][crate::model::GetBucketRequest::if_metageneration_not_match].
     pub fn set_or_clear_if_metageneration_not_match<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<i64>,
@@ -184,7 +184,7 @@ impl GetBucketRequest {
         self
     }
 
-    /// Sets or clear the value of [read_mask][crate::model::GetBucketRequest::read_mask].
+    /// Sets or clears the value of [read_mask][crate::model::GetBucketRequest::read_mask].
     pub fn set_or_clear_read_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -262,7 +262,7 @@ impl CreateBucketRequest {
         self
     }
 
-    /// Sets or clear the value of [bucket][crate::model::CreateBucketRequest::bucket].
+    /// Sets or clears the value of [bucket][crate::model::CreateBucketRequest::bucket].
     pub fn set_or_clear_bucket<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Bucket>,
@@ -375,7 +375,7 @@ impl ListBucketsRequest {
         self
     }
 
-    /// Sets or clear the value of [read_mask][crate::model::ListBucketsRequest::read_mask].
+    /// Sets or clears the value of [read_mask][crate::model::ListBucketsRequest::read_mask].
     pub fn set_or_clear_read_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -561,7 +561,7 @@ impl UpdateBucketRequest {
         self
     }
 
-    /// Sets or clear the value of [bucket][crate::model::UpdateBucketRequest::bucket].
+    /// Sets or clears the value of [bucket][crate::model::UpdateBucketRequest::bucket].
     pub fn set_or_clear_bucket<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Bucket>,
@@ -579,7 +579,7 @@ impl UpdateBucketRequest {
         self
     }
 
-    /// Sets or clear the value of [if_metageneration_match][crate::model::UpdateBucketRequest::if_metageneration_match].
+    /// Sets or clears the value of [if_metageneration_match][crate::model::UpdateBucketRequest::if_metageneration_match].
     pub fn set_or_clear_if_metageneration_match<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<i64>,
@@ -597,7 +597,7 @@ impl UpdateBucketRequest {
         self
     }
 
-    /// Sets or clear the value of [if_metageneration_not_match][crate::model::UpdateBucketRequest::if_metageneration_not_match].
+    /// Sets or clears the value of [if_metageneration_not_match][crate::model::UpdateBucketRequest::if_metageneration_not_match].
     pub fn set_or_clear_if_metageneration_not_match<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<i64>,
@@ -630,7 +630,7 @@ impl UpdateBucketRequest {
         self
     }
 
-    /// Sets or clear the value of [update_mask][crate::model::UpdateBucketRequest::update_mask].
+    /// Sets or clears the value of [update_mask][crate::model::UpdateBucketRequest::update_mask].
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -713,7 +713,7 @@ impl ComposeObjectRequest {
         self
     }
 
-    /// Sets or clear the value of [destination][crate::model::ComposeObjectRequest::destination].
+    /// Sets or clears the value of [destination][crate::model::ComposeObjectRequest::destination].
     pub fn set_or_clear_destination<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Object>,
@@ -751,7 +751,7 @@ impl ComposeObjectRequest {
         self
     }
 
-    /// Sets or clear the value of [if_generation_match][crate::model::ComposeObjectRequest::if_generation_match].
+    /// Sets or clears the value of [if_generation_match][crate::model::ComposeObjectRequest::if_generation_match].
     pub fn set_or_clear_if_generation_match<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<i64>,
@@ -769,7 +769,7 @@ impl ComposeObjectRequest {
         self
     }
 
-    /// Sets or clear the value of [if_metageneration_match][crate::model::ComposeObjectRequest::if_metageneration_match].
+    /// Sets or clears the value of [if_metageneration_match][crate::model::ComposeObjectRequest::if_metageneration_match].
     pub fn set_or_clear_if_metageneration_match<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<i64>,
@@ -793,7 +793,7 @@ impl ComposeObjectRequest {
         self
     }
 
-    /// Sets or clear the value of [common_object_request_params][crate::model::ComposeObjectRequest::common_object_request_params].
+    /// Sets or clears the value of [common_object_request_params][crate::model::ComposeObjectRequest::common_object_request_params].
     pub fn set_or_clear_common_object_request_params<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CommonObjectRequestParams>,
@@ -811,7 +811,7 @@ impl ComposeObjectRequest {
         self
     }
 
-    /// Sets or clear the value of [object_checksums][crate::model::ComposeObjectRequest::object_checksums].
+    /// Sets or clears the value of [object_checksums][crate::model::ComposeObjectRequest::object_checksums].
     pub fn set_or_clear_object_checksums<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ObjectChecksums>,
@@ -886,7 +886,7 @@ pub mod compose_object_request {
             self
         }
 
-        /// Sets or clear the value of [object_preconditions][crate::model::compose_object_request::SourceObject::object_preconditions].
+        /// Sets or clears the value of [object_preconditions][crate::model::compose_object_request::SourceObject::object_preconditions].
         pub fn set_or_clear_object_preconditions<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<
@@ -940,7 +940,7 @@ pub mod compose_object_request {
                 self
             }
 
-            /// Sets or clear the value of [if_generation_match][crate::model::compose_object_request::source_object::ObjectPreconditions::if_generation_match].
+            /// Sets or clears the value of [if_generation_match][crate::model::compose_object_request::source_object::ObjectPreconditions::if_generation_match].
             pub fn set_or_clear_if_generation_match<T>(mut self, v: std::option::Option<T>) -> Self
             where
                 T: std::convert::Into<i64>,
@@ -1048,7 +1048,7 @@ impl DeleteObjectRequest {
         self
     }
 
-    /// Sets or clear the value of [if_generation_match][crate::model::DeleteObjectRequest::if_generation_match].
+    /// Sets or clears the value of [if_generation_match][crate::model::DeleteObjectRequest::if_generation_match].
     pub fn set_or_clear_if_generation_match<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<i64>,
@@ -1066,7 +1066,7 @@ impl DeleteObjectRequest {
         self
     }
 
-    /// Sets or clear the value of [if_generation_not_match][crate::model::DeleteObjectRequest::if_generation_not_match].
+    /// Sets or clears the value of [if_generation_not_match][crate::model::DeleteObjectRequest::if_generation_not_match].
     pub fn set_or_clear_if_generation_not_match<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<i64>,
@@ -1084,7 +1084,7 @@ impl DeleteObjectRequest {
         self
     }
 
-    /// Sets or clear the value of [if_metageneration_match][crate::model::DeleteObjectRequest::if_metageneration_match].
+    /// Sets or clears the value of [if_metageneration_match][crate::model::DeleteObjectRequest::if_metageneration_match].
     pub fn set_or_clear_if_metageneration_match<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<i64>,
@@ -1102,7 +1102,7 @@ impl DeleteObjectRequest {
         self
     }
 
-    /// Sets or clear the value of [if_metageneration_not_match][crate::model::DeleteObjectRequest::if_metageneration_not_match].
+    /// Sets or clears the value of [if_metageneration_not_match][crate::model::DeleteObjectRequest::if_metageneration_not_match].
     pub fn set_or_clear_if_metageneration_not_match<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<i64>,
@@ -1120,7 +1120,7 @@ impl DeleteObjectRequest {
         self
     }
 
-    /// Sets or clear the value of [common_object_request_params][crate::model::DeleteObjectRequest::common_object_request_params].
+    /// Sets or clears the value of [common_object_request_params][crate::model::DeleteObjectRequest::common_object_request_params].
     pub fn set_or_clear_common_object_request_params<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CommonObjectRequestParams>,
@@ -1243,7 +1243,7 @@ impl RestoreObjectRequest {
         self
     }
 
-    /// Sets or clear the value of [if_generation_match][crate::model::RestoreObjectRequest::if_generation_match].
+    /// Sets or clears the value of [if_generation_match][crate::model::RestoreObjectRequest::if_generation_match].
     pub fn set_or_clear_if_generation_match<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<i64>,
@@ -1261,7 +1261,7 @@ impl RestoreObjectRequest {
         self
     }
 
-    /// Sets or clear the value of [if_generation_not_match][crate::model::RestoreObjectRequest::if_generation_not_match].
+    /// Sets or clears the value of [if_generation_not_match][crate::model::RestoreObjectRequest::if_generation_not_match].
     pub fn set_or_clear_if_generation_not_match<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<i64>,
@@ -1279,7 +1279,7 @@ impl RestoreObjectRequest {
         self
     }
 
-    /// Sets or clear the value of [if_metageneration_match][crate::model::RestoreObjectRequest::if_metageneration_match].
+    /// Sets or clears the value of [if_metageneration_match][crate::model::RestoreObjectRequest::if_metageneration_match].
     pub fn set_or_clear_if_metageneration_match<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<i64>,
@@ -1297,7 +1297,7 @@ impl RestoreObjectRequest {
         self
     }
 
-    /// Sets or clear the value of [if_metageneration_not_match][crate::model::RestoreObjectRequest::if_metageneration_not_match].
+    /// Sets or clears the value of [if_metageneration_not_match][crate::model::RestoreObjectRequest::if_metageneration_not_match].
     pub fn set_or_clear_if_metageneration_not_match<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<i64>,
@@ -1315,7 +1315,7 @@ impl RestoreObjectRequest {
         self
     }
 
-    /// Sets or clear the value of [copy_source_acl][crate::model::RestoreObjectRequest::copy_source_acl].
+    /// Sets or clears the value of [copy_source_acl][crate::model::RestoreObjectRequest::copy_source_acl].
     pub fn set_or_clear_copy_source_acl<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<bool>,
@@ -1333,7 +1333,7 @@ impl RestoreObjectRequest {
         self
     }
 
-    /// Sets or clear the value of [common_object_request_params][crate::model::RestoreObjectRequest::common_object_request_params].
+    /// Sets or clears the value of [common_object_request_params][crate::model::RestoreObjectRequest::common_object_request_params].
     pub fn set_or_clear_common_object_request_params<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CommonObjectRequestParams>,
@@ -1515,7 +1515,7 @@ impl ReadObjectRequest {
         self
     }
 
-    /// Sets or clear the value of [if_generation_match][crate::model::ReadObjectRequest::if_generation_match].
+    /// Sets or clears the value of [if_generation_match][crate::model::ReadObjectRequest::if_generation_match].
     pub fn set_or_clear_if_generation_match<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<i64>,
@@ -1533,7 +1533,7 @@ impl ReadObjectRequest {
         self
     }
 
-    /// Sets or clear the value of [if_generation_not_match][crate::model::ReadObjectRequest::if_generation_not_match].
+    /// Sets or clears the value of [if_generation_not_match][crate::model::ReadObjectRequest::if_generation_not_match].
     pub fn set_or_clear_if_generation_not_match<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<i64>,
@@ -1551,7 +1551,7 @@ impl ReadObjectRequest {
         self
     }
 
-    /// Sets or clear the value of [if_metageneration_match][crate::model::ReadObjectRequest::if_metageneration_match].
+    /// Sets or clears the value of [if_metageneration_match][crate::model::ReadObjectRequest::if_metageneration_match].
     pub fn set_or_clear_if_metageneration_match<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<i64>,
@@ -1569,7 +1569,7 @@ impl ReadObjectRequest {
         self
     }
 
-    /// Sets or clear the value of [if_metageneration_not_match][crate::model::ReadObjectRequest::if_metageneration_not_match].
+    /// Sets or clears the value of [if_metageneration_not_match][crate::model::ReadObjectRequest::if_metageneration_not_match].
     pub fn set_or_clear_if_metageneration_not_match<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<i64>,
@@ -1587,7 +1587,7 @@ impl ReadObjectRequest {
         self
     }
 
-    /// Sets or clear the value of [common_object_request_params][crate::model::ReadObjectRequest::common_object_request_params].
+    /// Sets or clears the value of [common_object_request_params][crate::model::ReadObjectRequest::common_object_request_params].
     pub fn set_or_clear_common_object_request_params<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CommonObjectRequestParams>,
@@ -1605,7 +1605,7 @@ impl ReadObjectRequest {
         self
     }
 
-    /// Sets or clear the value of [read_mask][crate::model::ReadObjectRequest::read_mask].
+    /// Sets or clears the value of [read_mask][crate::model::ReadObjectRequest::read_mask].
     pub fn set_or_clear_read_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -1728,7 +1728,7 @@ impl GetObjectRequest {
         self
     }
 
-    /// Sets or clear the value of [soft_deleted][crate::model::GetObjectRequest::soft_deleted].
+    /// Sets or clears the value of [soft_deleted][crate::model::GetObjectRequest::soft_deleted].
     pub fn set_or_clear_soft_deleted<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<bool>,
@@ -1746,7 +1746,7 @@ impl GetObjectRequest {
         self
     }
 
-    /// Sets or clear the value of [if_generation_match][crate::model::GetObjectRequest::if_generation_match].
+    /// Sets or clears the value of [if_generation_match][crate::model::GetObjectRequest::if_generation_match].
     pub fn set_or_clear_if_generation_match<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<i64>,
@@ -1764,7 +1764,7 @@ impl GetObjectRequest {
         self
     }
 
-    /// Sets or clear the value of [if_generation_not_match][crate::model::GetObjectRequest::if_generation_not_match].
+    /// Sets or clears the value of [if_generation_not_match][crate::model::GetObjectRequest::if_generation_not_match].
     pub fn set_or_clear_if_generation_not_match<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<i64>,
@@ -1782,7 +1782,7 @@ impl GetObjectRequest {
         self
     }
 
-    /// Sets or clear the value of [if_metageneration_match][crate::model::GetObjectRequest::if_metageneration_match].
+    /// Sets or clears the value of [if_metageneration_match][crate::model::GetObjectRequest::if_metageneration_match].
     pub fn set_or_clear_if_metageneration_match<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<i64>,
@@ -1800,7 +1800,7 @@ impl GetObjectRequest {
         self
     }
 
-    /// Sets or clear the value of [if_metageneration_not_match][crate::model::GetObjectRequest::if_metageneration_not_match].
+    /// Sets or clears the value of [if_metageneration_not_match][crate::model::GetObjectRequest::if_metageneration_not_match].
     pub fn set_or_clear_if_metageneration_not_match<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<i64>,
@@ -1818,7 +1818,7 @@ impl GetObjectRequest {
         self
     }
 
-    /// Sets or clear the value of [common_object_request_params][crate::model::GetObjectRequest::common_object_request_params].
+    /// Sets or clears the value of [common_object_request_params][crate::model::GetObjectRequest::common_object_request_params].
     pub fn set_or_clear_common_object_request_params<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CommonObjectRequestParams>,
@@ -1836,7 +1836,7 @@ impl GetObjectRequest {
         self
     }
 
-    /// Sets or clear the value of [read_mask][crate::model::GetObjectRequest::read_mask].
+    /// Sets or clears the value of [read_mask][crate::model::GetObjectRequest::read_mask].
     pub fn set_or_clear_read_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -1935,7 +1935,7 @@ impl WriteObjectSpec {
         self
     }
 
-    /// Sets or clear the value of [resource][crate::model::WriteObjectSpec::resource].
+    /// Sets or clears the value of [resource][crate::model::WriteObjectSpec::resource].
     pub fn set_or_clear_resource<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Object>,
@@ -1959,7 +1959,7 @@ impl WriteObjectSpec {
         self
     }
 
-    /// Sets or clear the value of [if_generation_match][crate::model::WriteObjectSpec::if_generation_match].
+    /// Sets or clears the value of [if_generation_match][crate::model::WriteObjectSpec::if_generation_match].
     pub fn set_or_clear_if_generation_match<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<i64>,
@@ -1977,7 +1977,7 @@ impl WriteObjectSpec {
         self
     }
 
-    /// Sets or clear the value of [if_generation_not_match][crate::model::WriteObjectSpec::if_generation_not_match].
+    /// Sets or clears the value of [if_generation_not_match][crate::model::WriteObjectSpec::if_generation_not_match].
     pub fn set_or_clear_if_generation_not_match<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<i64>,
@@ -1995,7 +1995,7 @@ impl WriteObjectSpec {
         self
     }
 
-    /// Sets or clear the value of [if_metageneration_match][crate::model::WriteObjectSpec::if_metageneration_match].
+    /// Sets or clears the value of [if_metageneration_match][crate::model::WriteObjectSpec::if_metageneration_match].
     pub fn set_or_clear_if_metageneration_match<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<i64>,
@@ -2013,7 +2013,7 @@ impl WriteObjectSpec {
         self
     }
 
-    /// Sets or clear the value of [if_metageneration_not_match][crate::model::WriteObjectSpec::if_metageneration_not_match].
+    /// Sets or clears the value of [if_metageneration_not_match][crate::model::WriteObjectSpec::if_metageneration_not_match].
     pub fn set_or_clear_if_metageneration_not_match<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<i64>,
@@ -2031,7 +2031,7 @@ impl WriteObjectSpec {
         self
     }
 
-    /// Sets or clear the value of [object_size][crate::model::WriteObjectSpec::object_size].
+    /// Sets or clears the value of [object_size][crate::model::WriteObjectSpec::object_size].
     pub fn set_or_clear_object_size<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<i64>,
@@ -2049,7 +2049,7 @@ impl WriteObjectSpec {
         self
     }
 
-    /// Sets or clear the value of [appendable][crate::model::WriteObjectSpec::appendable].
+    /// Sets or clears the value of [appendable][crate::model::WriteObjectSpec::appendable].
     pub fn set_or_clear_appendable<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<bool>,
@@ -2212,7 +2212,7 @@ impl ListObjectsRequest {
         self
     }
 
-    /// Sets or clear the value of [read_mask][crate::model::ListObjectsRequest::read_mask].
+    /// Sets or clears the value of [read_mask][crate::model::ListObjectsRequest::read_mask].
     pub fn set_or_clear_read_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -2303,7 +2303,7 @@ impl QueryWriteStatusRequest {
         self
     }
 
-    /// Sets or clear the value of [common_object_request_params][crate::model::QueryWriteStatusRequest::common_object_request_params].
+    /// Sets or clears the value of [common_object_request_params][crate::model::QueryWriteStatusRequest::common_object_request_params].
     pub fn set_or_clear_common_object_request_params<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CommonObjectRequestParams>,
@@ -2529,7 +2529,7 @@ impl RewriteObjectRequest {
         self
     }
 
-    /// Sets or clear the value of [destination][crate::model::RewriteObjectRequest::destination].
+    /// Sets or clears the value of [destination][crate::model::RewriteObjectRequest::destination].
     pub fn set_or_clear_destination<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Object>,
@@ -2580,7 +2580,7 @@ impl RewriteObjectRequest {
         self
     }
 
-    /// Sets or clear the value of [if_generation_match][crate::model::RewriteObjectRequest::if_generation_match].
+    /// Sets or clears the value of [if_generation_match][crate::model::RewriteObjectRequest::if_generation_match].
     pub fn set_or_clear_if_generation_match<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<i64>,
@@ -2598,7 +2598,7 @@ impl RewriteObjectRequest {
         self
     }
 
-    /// Sets or clear the value of [if_generation_not_match][crate::model::RewriteObjectRequest::if_generation_not_match].
+    /// Sets or clears the value of [if_generation_not_match][crate::model::RewriteObjectRequest::if_generation_not_match].
     pub fn set_or_clear_if_generation_not_match<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<i64>,
@@ -2616,7 +2616,7 @@ impl RewriteObjectRequest {
         self
     }
 
-    /// Sets or clear the value of [if_metageneration_match][crate::model::RewriteObjectRequest::if_metageneration_match].
+    /// Sets or clears the value of [if_metageneration_match][crate::model::RewriteObjectRequest::if_metageneration_match].
     pub fn set_or_clear_if_metageneration_match<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<i64>,
@@ -2634,7 +2634,7 @@ impl RewriteObjectRequest {
         self
     }
 
-    /// Sets or clear the value of [if_metageneration_not_match][crate::model::RewriteObjectRequest::if_metageneration_not_match].
+    /// Sets or clears the value of [if_metageneration_not_match][crate::model::RewriteObjectRequest::if_metageneration_not_match].
     pub fn set_or_clear_if_metageneration_not_match<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<i64>,
@@ -2652,7 +2652,7 @@ impl RewriteObjectRequest {
         self
     }
 
-    /// Sets or clear the value of [if_source_generation_match][crate::model::RewriteObjectRequest::if_source_generation_match].
+    /// Sets or clears the value of [if_source_generation_match][crate::model::RewriteObjectRequest::if_source_generation_match].
     pub fn set_or_clear_if_source_generation_match<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<i64>,
@@ -2670,7 +2670,7 @@ impl RewriteObjectRequest {
         self
     }
 
-    /// Sets or clear the value of [if_source_generation_not_match][crate::model::RewriteObjectRequest::if_source_generation_not_match].
+    /// Sets or clears the value of [if_source_generation_not_match][crate::model::RewriteObjectRequest::if_source_generation_not_match].
     pub fn set_or_clear_if_source_generation_not_match<T>(
         mut self,
         v: std::option::Option<T>,
@@ -2691,7 +2691,7 @@ impl RewriteObjectRequest {
         self
     }
 
-    /// Sets or clear the value of [if_source_metageneration_match][crate::model::RewriteObjectRequest::if_source_metageneration_match].
+    /// Sets or clears the value of [if_source_metageneration_match][crate::model::RewriteObjectRequest::if_source_metageneration_match].
     pub fn set_or_clear_if_source_metageneration_match<T>(
         mut self,
         v: std::option::Option<T>,
@@ -2712,7 +2712,7 @@ impl RewriteObjectRequest {
         self
     }
 
-    /// Sets or clear the value of [if_source_metageneration_not_match][crate::model::RewriteObjectRequest::if_source_metageneration_not_match].
+    /// Sets or clears the value of [if_source_metageneration_not_match][crate::model::RewriteObjectRequest::if_source_metageneration_not_match].
     pub fn set_or_clear_if_source_metageneration_not_match<T>(
         mut self,
         v: std::option::Option<T>,
@@ -2766,7 +2766,7 @@ impl RewriteObjectRequest {
         self
     }
 
-    /// Sets or clear the value of [common_object_request_params][crate::model::RewriteObjectRequest::common_object_request_params].
+    /// Sets or clears the value of [common_object_request_params][crate::model::RewriteObjectRequest::common_object_request_params].
     pub fn set_or_clear_common_object_request_params<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CommonObjectRequestParams>,
@@ -2784,7 +2784,7 @@ impl RewriteObjectRequest {
         self
     }
 
-    /// Sets or clear the value of [object_checksums][crate::model::RewriteObjectRequest::object_checksums].
+    /// Sets or clears the value of [object_checksums][crate::model::RewriteObjectRequest::object_checksums].
     pub fn set_or_clear_object_checksums<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ObjectChecksums>,
@@ -2875,7 +2875,7 @@ impl RewriteResponse {
         self
     }
 
-    /// Sets or clear the value of [resource][crate::model::RewriteResponse::resource].
+    /// Sets or clears the value of [resource][crate::model::RewriteResponse::resource].
     pub fn set_or_clear_resource<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Object>,
@@ -3020,7 +3020,7 @@ impl MoveObjectRequest {
         self
     }
 
-    /// Sets or clear the value of [if_source_generation_match][crate::model::MoveObjectRequest::if_source_generation_match].
+    /// Sets or clears the value of [if_source_generation_match][crate::model::MoveObjectRequest::if_source_generation_match].
     pub fn set_or_clear_if_source_generation_match<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<i64>,
@@ -3038,7 +3038,7 @@ impl MoveObjectRequest {
         self
     }
 
-    /// Sets or clear the value of [if_source_generation_not_match][crate::model::MoveObjectRequest::if_source_generation_not_match].
+    /// Sets or clears the value of [if_source_generation_not_match][crate::model::MoveObjectRequest::if_source_generation_not_match].
     pub fn set_or_clear_if_source_generation_not_match<T>(
         mut self,
         v: std::option::Option<T>,
@@ -3059,7 +3059,7 @@ impl MoveObjectRequest {
         self
     }
 
-    /// Sets or clear the value of [if_source_metageneration_match][crate::model::MoveObjectRequest::if_source_metageneration_match].
+    /// Sets or clears the value of [if_source_metageneration_match][crate::model::MoveObjectRequest::if_source_metageneration_match].
     pub fn set_or_clear_if_source_metageneration_match<T>(
         mut self,
         v: std::option::Option<T>,
@@ -3080,7 +3080,7 @@ impl MoveObjectRequest {
         self
     }
 
-    /// Sets or clear the value of [if_source_metageneration_not_match][crate::model::MoveObjectRequest::if_source_metageneration_not_match].
+    /// Sets or clears the value of [if_source_metageneration_not_match][crate::model::MoveObjectRequest::if_source_metageneration_not_match].
     pub fn set_or_clear_if_source_metageneration_not_match<T>(
         mut self,
         v: std::option::Option<T>,
@@ -3101,7 +3101,7 @@ impl MoveObjectRequest {
         self
     }
 
-    /// Sets or clear the value of [if_generation_match][crate::model::MoveObjectRequest::if_generation_match].
+    /// Sets or clears the value of [if_generation_match][crate::model::MoveObjectRequest::if_generation_match].
     pub fn set_or_clear_if_generation_match<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<i64>,
@@ -3119,7 +3119,7 @@ impl MoveObjectRequest {
         self
     }
 
-    /// Sets or clear the value of [if_generation_not_match][crate::model::MoveObjectRequest::if_generation_not_match].
+    /// Sets or clears the value of [if_generation_not_match][crate::model::MoveObjectRequest::if_generation_not_match].
     pub fn set_or_clear_if_generation_not_match<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<i64>,
@@ -3137,7 +3137,7 @@ impl MoveObjectRequest {
         self
     }
 
-    /// Sets or clear the value of [if_metageneration_match][crate::model::MoveObjectRequest::if_metageneration_match].
+    /// Sets or clears the value of [if_metageneration_match][crate::model::MoveObjectRequest::if_metageneration_match].
     pub fn set_or_clear_if_metageneration_match<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<i64>,
@@ -3155,7 +3155,7 @@ impl MoveObjectRequest {
         self
     }
 
-    /// Sets or clear the value of [if_metageneration_not_match][crate::model::MoveObjectRequest::if_metageneration_not_match].
+    /// Sets or clears the value of [if_metageneration_not_match][crate::model::MoveObjectRequest::if_metageneration_not_match].
     pub fn set_or_clear_if_metageneration_not_match<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<i64>,
@@ -3211,7 +3211,7 @@ impl StartResumableWriteRequest {
         self
     }
 
-    /// Sets or clear the value of [write_object_spec][crate::model::StartResumableWriteRequest::write_object_spec].
+    /// Sets or clears the value of [write_object_spec][crate::model::StartResumableWriteRequest::write_object_spec].
     pub fn set_or_clear_write_object_spec<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::WriteObjectSpec>,
@@ -3229,7 +3229,7 @@ impl StartResumableWriteRequest {
         self
     }
 
-    /// Sets or clear the value of [common_object_request_params][crate::model::StartResumableWriteRequest::common_object_request_params].
+    /// Sets or clears the value of [common_object_request_params][crate::model::StartResumableWriteRequest::common_object_request_params].
     pub fn set_or_clear_common_object_request_params<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CommonObjectRequestParams>,
@@ -3247,7 +3247,7 @@ impl StartResumableWriteRequest {
         self
     }
 
-    /// Sets or clear the value of [object_checksums][crate::model::StartResumableWriteRequest::object_checksums].
+    /// Sets or clears the value of [object_checksums][crate::model::StartResumableWriteRequest::object_checksums].
     pub fn set_or_clear_object_checksums<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ObjectChecksums>,
@@ -3343,7 +3343,7 @@ impl UpdateObjectRequest {
         self
     }
 
-    /// Sets or clear the value of [object][crate::model::UpdateObjectRequest::object].
+    /// Sets or clears the value of [object][crate::model::UpdateObjectRequest::object].
     pub fn set_or_clear_object<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Object>,
@@ -3361,7 +3361,7 @@ impl UpdateObjectRequest {
         self
     }
 
-    /// Sets or clear the value of [if_generation_match][crate::model::UpdateObjectRequest::if_generation_match].
+    /// Sets or clears the value of [if_generation_match][crate::model::UpdateObjectRequest::if_generation_match].
     pub fn set_or_clear_if_generation_match<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<i64>,
@@ -3379,7 +3379,7 @@ impl UpdateObjectRequest {
         self
     }
 
-    /// Sets or clear the value of [if_generation_not_match][crate::model::UpdateObjectRequest::if_generation_not_match].
+    /// Sets or clears the value of [if_generation_not_match][crate::model::UpdateObjectRequest::if_generation_not_match].
     pub fn set_or_clear_if_generation_not_match<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<i64>,
@@ -3397,7 +3397,7 @@ impl UpdateObjectRequest {
         self
     }
 
-    /// Sets or clear the value of [if_metageneration_match][crate::model::UpdateObjectRequest::if_metageneration_match].
+    /// Sets or clears the value of [if_metageneration_match][crate::model::UpdateObjectRequest::if_metageneration_match].
     pub fn set_or_clear_if_metageneration_match<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<i64>,
@@ -3415,7 +3415,7 @@ impl UpdateObjectRequest {
         self
     }
 
-    /// Sets or clear the value of [if_metageneration_not_match][crate::model::UpdateObjectRequest::if_metageneration_not_match].
+    /// Sets or clears the value of [if_metageneration_not_match][crate::model::UpdateObjectRequest::if_metageneration_not_match].
     pub fn set_or_clear_if_metageneration_not_match<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<i64>,
@@ -3439,7 +3439,7 @@ impl UpdateObjectRequest {
         self
     }
 
-    /// Sets or clear the value of [update_mask][crate::model::UpdateObjectRequest::update_mask].
+    /// Sets or clears the value of [update_mask][crate::model::UpdateObjectRequest::update_mask].
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -3457,7 +3457,7 @@ impl UpdateObjectRequest {
         self
     }
 
-    /// Sets or clear the value of [common_object_request_params][crate::model::UpdateObjectRequest::common_object_request_params].
+    /// Sets or clears the value of [common_object_request_params][crate::model::UpdateObjectRequest::common_object_request_params].
     pub fn set_or_clear_common_object_request_params<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CommonObjectRequestParams>,
@@ -4135,7 +4135,7 @@ impl Bucket {
         self
     }
 
-    /// Sets or clear the value of [lifecycle][crate::model::Bucket::lifecycle].
+    /// Sets or clears the value of [lifecycle][crate::model::Bucket::lifecycle].
     pub fn set_or_clear_lifecycle<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::bucket::Lifecycle>,
@@ -4153,7 +4153,7 @@ impl Bucket {
         self
     }
 
-    /// Sets or clear the value of [create_time][crate::model::Bucket::create_time].
+    /// Sets or clears the value of [create_time][crate::model::Bucket::create_time].
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4182,7 +4182,7 @@ impl Bucket {
         self
     }
 
-    /// Sets or clear the value of [update_time][crate::model::Bucket::update_time].
+    /// Sets or clears the value of [update_time][crate::model::Bucket::update_time].
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4218,7 +4218,7 @@ impl Bucket {
         self
     }
 
-    /// Sets or clear the value of [website][crate::model::Bucket::website].
+    /// Sets or clears the value of [website][crate::model::Bucket::website].
     pub fn set_or_clear_website<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::bucket::Website>,
@@ -4236,7 +4236,7 @@ impl Bucket {
         self
     }
 
-    /// Sets or clear the value of [versioning][crate::model::Bucket::versioning].
+    /// Sets or clears the value of [versioning][crate::model::Bucket::versioning].
     pub fn set_or_clear_versioning<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::bucket::Versioning>,
@@ -4254,7 +4254,7 @@ impl Bucket {
         self
     }
 
-    /// Sets or clear the value of [logging][crate::model::Bucket::logging].
+    /// Sets or clears the value of [logging][crate::model::Bucket::logging].
     pub fn set_or_clear_logging<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::bucket::Logging>,
@@ -4272,7 +4272,7 @@ impl Bucket {
         self
     }
 
-    /// Sets or clear the value of [owner][crate::model::Bucket::owner].
+    /// Sets or clears the value of [owner][crate::model::Bucket::owner].
     pub fn set_or_clear_owner<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Owner>,
@@ -4290,7 +4290,7 @@ impl Bucket {
         self
     }
 
-    /// Sets or clear the value of [encryption][crate::model::Bucket::encryption].
+    /// Sets or clears the value of [encryption][crate::model::Bucket::encryption].
     pub fn set_or_clear_encryption<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::bucket::Encryption>,
@@ -4308,7 +4308,7 @@ impl Bucket {
         self
     }
 
-    /// Sets or clear the value of [billing][crate::model::Bucket::billing].
+    /// Sets or clears the value of [billing][crate::model::Bucket::billing].
     pub fn set_or_clear_billing<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::bucket::Billing>,
@@ -4326,7 +4326,7 @@ impl Bucket {
         self
     }
 
-    /// Sets or clear the value of [retention_policy][crate::model::Bucket::retention_policy].
+    /// Sets or clears the value of [retention_policy][crate::model::Bucket::retention_policy].
     pub fn set_or_clear_retention_policy<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::bucket::RetentionPolicy>,
@@ -4344,7 +4344,7 @@ impl Bucket {
         self
     }
 
-    /// Sets or clear the value of [iam_config][crate::model::Bucket::iam_config].
+    /// Sets or clears the value of [iam_config][crate::model::Bucket::iam_config].
     pub fn set_or_clear_iam_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::bucket::IamConfig>,
@@ -4368,7 +4368,7 @@ impl Bucket {
         self
     }
 
-    /// Sets or clear the value of [custom_placement_config][crate::model::Bucket::custom_placement_config].
+    /// Sets or clears the value of [custom_placement_config][crate::model::Bucket::custom_placement_config].
     pub fn set_or_clear_custom_placement_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::bucket::CustomPlacementConfig>,
@@ -4386,7 +4386,7 @@ impl Bucket {
         self
     }
 
-    /// Sets or clear the value of [autoclass][crate::model::Bucket::autoclass].
+    /// Sets or clears the value of [autoclass][crate::model::Bucket::autoclass].
     pub fn set_or_clear_autoclass<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::bucket::Autoclass>,
@@ -4404,7 +4404,7 @@ impl Bucket {
         self
     }
 
-    /// Sets or clear the value of [hierarchical_namespace][crate::model::Bucket::hierarchical_namespace].
+    /// Sets or clears the value of [hierarchical_namespace][crate::model::Bucket::hierarchical_namespace].
     pub fn set_or_clear_hierarchical_namespace<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::bucket::HierarchicalNamespace>,
@@ -4422,7 +4422,7 @@ impl Bucket {
         self
     }
 
-    /// Sets or clear the value of [soft_delete_policy][crate::model::Bucket::soft_delete_policy].
+    /// Sets or clears the value of [soft_delete_policy][crate::model::Bucket::soft_delete_policy].
     pub fn set_or_clear_soft_delete_policy<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::bucket::SoftDeletePolicy>,
@@ -4633,7 +4633,7 @@ pub mod bucket {
             self
         }
 
-        /// Sets or clear the value of [uniform_bucket_level_access][crate::model::bucket::IamConfig::uniform_bucket_level_access].
+        /// Sets or clears the value of [uniform_bucket_level_access][crate::model::bucket::IamConfig::uniform_bucket_level_access].
         pub fn set_or_clear_uniform_bucket_level_access<T>(
             mut self,
             v: std::option::Option<T>,
@@ -4708,7 +4708,7 @@ pub mod bucket {
                 self
             }
 
-            /// Sets or clear the value of [lock_time][crate::model::bucket::iam_config::UniformBucketLevelAccess::lock_time].
+            /// Sets or clears the value of [lock_time][crate::model::bucket::iam_config::UniformBucketLevelAccess::lock_time].
             pub fn set_or_clear_lock_time<T>(mut self, v: std::option::Option<T>) -> Self
             where
                 T: std::convert::Into<wkt::Timestamp>,
@@ -4802,7 +4802,7 @@ pub mod bucket {
                 self
             }
 
-            /// Sets or clear the value of [action][crate::model::bucket::lifecycle::Rule::action].
+            /// Sets or clears the value of [action][crate::model::bucket::lifecycle::Rule::action].
             pub fn set_or_clear_action<T>(mut self, v: std::option::Option<T>) -> Self
             where
                 T: std::convert::Into<crate::model::bucket::lifecycle::rule::Action>,
@@ -4820,7 +4820,7 @@ pub mod bucket {
                 self
             }
 
-            /// Sets or clear the value of [condition][crate::model::bucket::lifecycle::Rule::condition].
+            /// Sets or clears the value of [condition][crate::model::bucket::lifecycle::Rule::condition].
             pub fn set_or_clear_condition<T>(mut self, v: std::option::Option<T>) -> Self
             where
                 T: std::convert::Into<crate::model::bucket::lifecycle::rule::Condition>,
@@ -4982,7 +4982,7 @@ pub mod bucket {
                     self
                 }
 
-                /// Sets or clear the value of [age_days][crate::model::bucket::lifecycle::rule::Condition::age_days].
+                /// Sets or clears the value of [age_days][crate::model::bucket::lifecycle::rule::Condition::age_days].
                 pub fn set_or_clear_age_days<T>(mut self, v: std::option::Option<T>) -> Self
                 where
                     T: std::convert::Into<i32>,
@@ -5000,7 +5000,7 @@ pub mod bucket {
                     self
                 }
 
-                /// Sets or clear the value of [created_before][crate::model::bucket::lifecycle::rule::Condition::created_before].
+                /// Sets or clears the value of [created_before][crate::model::bucket::lifecycle::rule::Condition::created_before].
                 pub fn set_or_clear_created_before<T>(mut self, v: std::option::Option<T>) -> Self
                 where
                     T: std::convert::Into<gtype::model::Date>,
@@ -5018,7 +5018,7 @@ pub mod bucket {
                     self
                 }
 
-                /// Sets or clear the value of [is_live][crate::model::bucket::lifecycle::rule::Condition::is_live].
+                /// Sets or clears the value of [is_live][crate::model::bucket::lifecycle::rule::Condition::is_live].
                 pub fn set_or_clear_is_live<T>(mut self, v: std::option::Option<T>) -> Self
                 where
                     T: std::convert::Into<bool>,
@@ -5036,7 +5036,7 @@ pub mod bucket {
                     self
                 }
 
-                /// Sets or clear the value of [num_newer_versions][crate::model::bucket::lifecycle::rule::Condition::num_newer_versions].
+                /// Sets or clears the value of [num_newer_versions][crate::model::bucket::lifecycle::rule::Condition::num_newer_versions].
                 pub fn set_or_clear_num_newer_versions<T>(
                     mut self,
                     v: std::option::Option<T>,
@@ -5068,7 +5068,7 @@ pub mod bucket {
                     self
                 }
 
-                /// Sets or clear the value of [days_since_custom_time][crate::model::bucket::lifecycle::rule::Condition::days_since_custom_time].
+                /// Sets or clears the value of [days_since_custom_time][crate::model::bucket::lifecycle::rule::Condition::days_since_custom_time].
                 pub fn set_or_clear_days_since_custom_time<T>(
                     mut self,
                     v: std::option::Option<T>,
@@ -5089,7 +5089,7 @@ pub mod bucket {
                     self
                 }
 
-                /// Sets or clear the value of [custom_time_before][crate::model::bucket::lifecycle::rule::Condition::custom_time_before].
+                /// Sets or clears the value of [custom_time_before][crate::model::bucket::lifecycle::rule::Condition::custom_time_before].
                 pub fn set_or_clear_custom_time_before<T>(
                     mut self,
                     v: std::option::Option<T>,
@@ -5110,7 +5110,7 @@ pub mod bucket {
                     self
                 }
 
-                /// Sets or clear the value of [days_since_noncurrent_time][crate::model::bucket::lifecycle::rule::Condition::days_since_noncurrent_time].
+                /// Sets or clears the value of [days_since_noncurrent_time][crate::model::bucket::lifecycle::rule::Condition::days_since_noncurrent_time].
                 pub fn set_or_clear_days_since_noncurrent_time<T>(
                     mut self,
                     v: std::option::Option<T>,
@@ -5131,7 +5131,7 @@ pub mod bucket {
                     self
                 }
 
-                /// Sets or clear the value of [noncurrent_time_before][crate::model::bucket::lifecycle::rule::Condition::noncurrent_time_before].
+                /// Sets or clears the value of [noncurrent_time_before][crate::model::bucket::lifecycle::rule::Condition::noncurrent_time_before].
                 pub fn set_or_clear_noncurrent_time_before<T>(
                     mut self,
                     v: std::option::Option<T>,
@@ -5261,7 +5261,7 @@ pub mod bucket {
             self
         }
 
-        /// Sets or clear the value of [effective_time][crate::model::bucket::RetentionPolicy::effective_time].
+        /// Sets or clears the value of [effective_time][crate::model::bucket::RetentionPolicy::effective_time].
         pub fn set_or_clear_effective_time<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -5285,7 +5285,7 @@ pub mod bucket {
             self
         }
 
-        /// Sets or clear the value of [retention_duration][crate::model::bucket::RetentionPolicy::retention_duration].
+        /// Sets or clears the value of [retention_duration][crate::model::bucket::RetentionPolicy::retention_duration].
         pub fn set_or_clear_retention_duration<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
@@ -5335,7 +5335,7 @@ pub mod bucket {
             self
         }
 
-        /// Sets or clear the value of [retention_duration][crate::model::bucket::SoftDeletePolicy::retention_duration].
+        /// Sets or clears the value of [retention_duration][crate::model::bucket::SoftDeletePolicy::retention_duration].
         pub fn set_or_clear_retention_duration<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
@@ -5353,7 +5353,7 @@ pub mod bucket {
             self
         }
 
-        /// Sets or clear the value of [effective_time][crate::model::bucket::SoftDeletePolicy::effective_time].
+        /// Sets or clears the value of [effective_time][crate::model::bucket::SoftDeletePolicy::effective_time].
         pub fn set_or_clear_effective_time<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -5551,7 +5551,7 @@ pub mod bucket {
             self
         }
 
-        /// Sets or clear the value of [toggle_time][crate::model::bucket::Autoclass::toggle_time].
+        /// Sets or clears the value of [toggle_time][crate::model::bucket::Autoclass::toggle_time].
         pub fn set_or_clear_toggle_time<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -5569,7 +5569,7 @@ pub mod bucket {
             self
         }
 
-        /// Sets or clear the value of [terminal_storage_class][crate::model::bucket::Autoclass::terminal_storage_class].
+        /// Sets or clears the value of [terminal_storage_class][crate::model::bucket::Autoclass::terminal_storage_class].
         pub fn set_or_clear_terminal_storage_class<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<std::string::String>,
@@ -5587,7 +5587,7 @@ pub mod bucket {
             self
         }
 
-        /// Sets or clear the value of [terminal_storage_class_update_time][crate::model::bucket::Autoclass::terminal_storage_class_update_time].
+        /// Sets or clears the value of [terminal_storage_class_update_time][crate::model::bucket::Autoclass::terminal_storage_class_update_time].
         pub fn set_or_clear_terminal_storage_class_update_time<T>(
             mut self,
             v: std::option::Option<T>,
@@ -5769,7 +5769,7 @@ impl BucketAccessControl {
         self
     }
 
-    /// Sets or clear the value of [project_team][crate::model::BucketAccessControl::project_team].
+    /// Sets or clears the value of [project_team][crate::model::BucketAccessControl::project_team].
     pub fn set_or_clear_project_team<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ProjectTeam>,
@@ -5828,7 +5828,7 @@ impl ObjectChecksums {
         self
     }
 
-    /// Sets or clear the value of [crc32c][crate::model::ObjectChecksums::crc32c].
+    /// Sets or clears the value of [crc32c][crate::model::ObjectChecksums::crc32c].
     pub fn set_or_clear_crc32c<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<u32>,
@@ -6141,7 +6141,7 @@ impl Object {
         self
     }
 
-    /// Sets or clear the value of [restore_token][crate::model::Object::restore_token].
+    /// Sets or clears the value of [restore_token][crate::model::Object::restore_token].
     pub fn set_or_clear_restore_token<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -6221,7 +6221,7 @@ impl Object {
         self
     }
 
-    /// Sets or clear the value of [delete_time][crate::model::Object::delete_time].
+    /// Sets or clears the value of [delete_time][crate::model::Object::delete_time].
     pub fn set_or_clear_delete_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -6239,7 +6239,7 @@ impl Object {
         self
     }
 
-    /// Sets or clear the value of [finalize_time][crate::model::Object::finalize_time].
+    /// Sets or clears the value of [finalize_time][crate::model::Object::finalize_time].
     pub fn set_or_clear_finalize_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -6263,7 +6263,7 @@ impl Object {
         self
     }
 
-    /// Sets or clear the value of [create_time][crate::model::Object::create_time].
+    /// Sets or clears the value of [create_time][crate::model::Object::create_time].
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -6287,7 +6287,7 @@ impl Object {
         self
     }
 
-    /// Sets or clear the value of [checksums][crate::model::Object::checksums].
+    /// Sets or clears the value of [checksums][crate::model::Object::checksums].
     pub fn set_or_clear_checksums<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ObjectChecksums>,
@@ -6305,7 +6305,7 @@ impl Object {
         self
     }
 
-    /// Sets or clear the value of [update_time][crate::model::Object::update_time].
+    /// Sets or clears the value of [update_time][crate::model::Object::update_time].
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -6329,7 +6329,7 @@ impl Object {
         self
     }
 
-    /// Sets or clear the value of [update_storage_class_time][crate::model::Object::update_storage_class_time].
+    /// Sets or clears the value of [update_storage_class_time][crate::model::Object::update_storage_class_time].
     pub fn set_or_clear_update_storage_class_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -6353,7 +6353,7 @@ impl Object {
         self
     }
 
-    /// Sets or clear the value of [retention_expire_time][crate::model::Object::retention_expire_time].
+    /// Sets or clears the value of [retention_expire_time][crate::model::Object::retention_expire_time].
     pub fn set_or_clear_retention_expire_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -6383,7 +6383,7 @@ impl Object {
         self
     }
 
-    /// Sets or clear the value of [event_based_hold][crate::model::Object::event_based_hold].
+    /// Sets or clears the value of [event_based_hold][crate::model::Object::event_based_hold].
     pub fn set_or_clear_event_based_hold<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<bool>,
@@ -6401,7 +6401,7 @@ impl Object {
         self
     }
 
-    /// Sets or clear the value of [owner][crate::model::Object::owner].
+    /// Sets or clears the value of [owner][crate::model::Object::owner].
     pub fn set_or_clear_owner<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Owner>,
@@ -6419,7 +6419,7 @@ impl Object {
         self
     }
 
-    /// Sets or clear the value of [customer_encryption][crate::model::Object::customer_encryption].
+    /// Sets or clears the value of [customer_encryption][crate::model::Object::customer_encryption].
     pub fn set_or_clear_customer_encryption<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CustomerEncryption>,
@@ -6437,7 +6437,7 @@ impl Object {
         self
     }
 
-    /// Sets or clear the value of [custom_time][crate::model::Object::custom_time].
+    /// Sets or clears the value of [custom_time][crate::model::Object::custom_time].
     pub fn set_or_clear_custom_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -6455,7 +6455,7 @@ impl Object {
         self
     }
 
-    /// Sets or clear the value of [soft_delete_time][crate::model::Object::soft_delete_time].
+    /// Sets or clears the value of [soft_delete_time][crate::model::Object::soft_delete_time].
     pub fn set_or_clear_soft_delete_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -6473,7 +6473,7 @@ impl Object {
         self
     }
 
-    /// Sets or clear the value of [hard_delete_time][crate::model::Object::hard_delete_time].
+    /// Sets or clears the value of [hard_delete_time][crate::model::Object::hard_delete_time].
     pub fn set_or_clear_hard_delete_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -6623,7 +6623,7 @@ impl ObjectAccessControl {
         self
     }
 
-    /// Sets or clear the value of [project_team][crate::model::ObjectAccessControl::project_team].
+    /// Sets or clears the value of [project_team][crate::model::ObjectAccessControl::project_team].
     pub fn set_or_clear_project_team<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ProjectTeam>,

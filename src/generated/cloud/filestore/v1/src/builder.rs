@@ -359,7 +359,7 @@ pub mod cloud_filestore_manager {
             self
         }
 
-        /// Sets or clear the value of [instance][crate::model::CreateInstanceRequest::instance].
+        /// Sets or clears the value of [instance][crate::model::CreateInstanceRequest::instance].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_instance<T>(mut self, v: std::option::Option<T>) -> Self
@@ -475,7 +475,7 @@ pub mod cloud_filestore_manager {
             self
         }
 
-        /// Sets or clear the value of [update_mask][crate::model::UpdateInstanceRequest::update_mask].
+        /// Sets or clears the value of [update_mask][crate::model::UpdateInstanceRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
@@ -493,7 +493,7 @@ pub mod cloud_filestore_manager {
             self
         }
 
-        /// Sets or clear the value of [instance][crate::model::UpdateInstanceRequest::instance].
+        /// Sets or clears the value of [instance][crate::model::UpdateInstanceRequest::instance].
         pub fn set_or_clear_instance<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Instance>,
@@ -1166,7 +1166,7 @@ pub mod cloud_filestore_manager {
             self
         }
 
-        /// Sets or clear the value of [snapshot][crate::model::CreateSnapshotRequest::snapshot].
+        /// Sets or clears the value of [snapshot][crate::model::CreateSnapshotRequest::snapshot].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_snapshot<T>(mut self, v: std::option::Option<T>) -> Self
@@ -1388,7 +1388,7 @@ pub mod cloud_filestore_manager {
             self
         }
 
-        /// Sets or clear the value of [update_mask][crate::model::UpdateSnapshotRequest::update_mask].
+        /// Sets or clears the value of [update_mask][crate::model::UpdateSnapshotRequest::update_mask].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
@@ -1410,7 +1410,7 @@ pub mod cloud_filestore_manager {
             self
         }
 
-        /// Sets or clear the value of [snapshot][crate::model::UpdateSnapshotRequest::snapshot].
+        /// Sets or clears the value of [snapshot][crate::model::UpdateSnapshotRequest::snapshot].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_snapshot<T>(mut self, v: std::option::Option<T>) -> Self
@@ -1712,7 +1712,7 @@ pub mod cloud_filestore_manager {
             self
         }
 
-        /// Sets or clear the value of [backup][crate::model::CreateBackupRequest::backup].
+        /// Sets or clears the value of [backup][crate::model::CreateBackupRequest::backup].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_backup<T>(mut self, v: std::option::Option<T>) -> Self
@@ -1942,7 +1942,7 @@ pub mod cloud_filestore_manager {
             self
         }
 
-        /// Sets or clear the value of [backup][crate::model::UpdateBackupRequest::backup].
+        /// Sets or clears the value of [backup][crate::model::UpdateBackupRequest::backup].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_backup<T>(mut self, v: std::option::Option<T>) -> Self
@@ -1964,7 +1964,7 @@ pub mod cloud_filestore_manager {
             self
         }
 
-        /// Sets or clear the value of [update_mask][crate::model::UpdateBackupRequest::update_mask].
+        /// Sets or clears the value of [update_mask][crate::model::UpdateBackupRequest::update_mask].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self

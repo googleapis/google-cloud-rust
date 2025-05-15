@@ -133,7 +133,7 @@ pub mod identity_aware_proxy_admin_service {
             self
         }
 
-        /// Sets or clear the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        /// Sets or clears the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
@@ -153,7 +153,7 @@ pub mod identity_aware_proxy_admin_service {
             self
         }
 
-        /// Sets or clear the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        /// Sets or clears the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
@@ -233,7 +233,7 @@ pub mod identity_aware_proxy_admin_service {
             self
         }
 
-        /// Sets or clear the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        /// Sets or clears the value of [options][iam_v1::model::GetIamPolicyRequest::options].
         pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
@@ -450,7 +450,7 @@ pub mod identity_aware_proxy_admin_service {
             self
         }
 
-        /// Sets or clear the value of [iap_settings][crate::model::UpdateIapSettingsRequest::iap_settings].
+        /// Sets or clears the value of [iap_settings][crate::model::UpdateIapSettingsRequest::iap_settings].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_iap_settings<T>(mut self, v: std::option::Option<T>) -> Self
@@ -470,7 +470,7 @@ pub mod identity_aware_proxy_admin_service {
             self
         }
 
-        /// Sets or clear the value of [update_mask][crate::model::UpdateIapSettingsRequest::update_mask].
+        /// Sets or clears the value of [update_mask][crate::model::UpdateIapSettingsRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
@@ -737,7 +737,7 @@ pub mod identity_aware_proxy_admin_service {
             self
         }
 
-        /// Sets or clear the value of [tunnel_dest_group][crate::model::CreateTunnelDestGroupRequest::tunnel_dest_group].
+        /// Sets or clears the value of [tunnel_dest_group][crate::model::CreateTunnelDestGroupRequest::tunnel_dest_group].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_tunnel_dest_group<T>(mut self, v: std::option::Option<T>) -> Self
@@ -954,7 +954,7 @@ pub mod identity_aware_proxy_admin_service {
             self
         }
 
-        /// Sets or clear the value of [tunnel_dest_group][crate::model::UpdateTunnelDestGroupRequest::tunnel_dest_group].
+        /// Sets or clears the value of [tunnel_dest_group][crate::model::UpdateTunnelDestGroupRequest::tunnel_dest_group].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_tunnel_dest_group<T>(mut self, v: std::option::Option<T>) -> Self
@@ -974,7 +974,7 @@ pub mod identity_aware_proxy_admin_service {
             self
         }
 
-        /// Sets or clear the value of [update_mask][crate::model::UpdateTunnelDestGroupRequest::update_mask].
+        /// Sets or clears the value of [update_mask][crate::model::UpdateTunnelDestGroupRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
@@ -1173,7 +1173,7 @@ pub mod identity_aware_proxy_o_auth_service {
             self
         }
 
-        /// Sets or clear the value of [brand][crate::model::CreateBrandRequest::brand].
+        /// Sets or clears the value of [brand][crate::model::CreateBrandRequest::brand].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_brand<T>(mut self, v: std::option::Option<T>) -> Self
@@ -1324,7 +1324,7 @@ pub mod identity_aware_proxy_o_auth_service {
             self
         }
 
-        /// Sets or clear the value of [identity_aware_proxy_client][crate::model::CreateIdentityAwareProxyClientRequest::identity_aware_proxy_client].
+        /// Sets or clears the value of [identity_aware_proxy_client][crate::model::CreateIdentityAwareProxyClientRequest::identity_aware_proxy_client].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_identity_aware_proxy_client<T>(

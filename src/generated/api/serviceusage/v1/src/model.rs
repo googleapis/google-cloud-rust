@@ -95,7 +95,7 @@ impl Service {
         self
     }
 
-    /// Sets or clear the value of [config][crate::model::Service::config].
+    /// Sets or clears the value of [config][crate::model::Service::config].
     pub fn set_or_clear_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ServiceConfig>,
@@ -213,7 +213,7 @@ impl ServiceConfig {
         self
     }
 
-    /// Sets or clear the value of [documentation][crate::model::ServiceConfig::documentation].
+    /// Sets or clears the value of [documentation][crate::model::ServiceConfig::documentation].
     pub fn set_or_clear_documentation<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<api::model::Documentation>,
@@ -231,7 +231,7 @@ impl ServiceConfig {
         self
     }
 
-    /// Sets or clear the value of [quota][crate::model::ServiceConfig::quota].
+    /// Sets or clears the value of [quota][crate::model::ServiceConfig::quota].
     pub fn set_or_clear_quota<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<api::model::Quota>,
@@ -249,7 +249,7 @@ impl ServiceConfig {
         self
     }
 
-    /// Sets or clear the value of [authentication][crate::model::ServiceConfig::authentication].
+    /// Sets or clears the value of [authentication][crate::model::ServiceConfig::authentication].
     pub fn set_or_clear_authentication<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<api::model::Authentication>,
@@ -267,7 +267,7 @@ impl ServiceConfig {
         self
     }
 
-    /// Sets or clear the value of [usage][crate::model::ServiceConfig::usage].
+    /// Sets or clears the value of [usage][crate::model::ServiceConfig::usage].
     pub fn set_or_clear_usage<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<api::model::Usage>,
@@ -307,7 +307,7 @@ impl ServiceConfig {
         self
     }
 
-    /// Sets or clear the value of [monitoring][crate::model::ServiceConfig::monitoring].
+    /// Sets or clears the value of [monitoring][crate::model::ServiceConfig::monitoring].
     pub fn set_or_clear_monitoring<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<api::model::Monitoring>,
@@ -433,7 +433,7 @@ impl EnableServiceResponse {
         self
     }
 
-    /// Sets or clear the value of [service][crate::model::EnableServiceResponse::service].
+    /// Sets or clears the value of [service][crate::model::EnableServiceResponse::service].
     pub fn set_or_clear_service<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Service>,
@@ -688,7 +688,7 @@ impl DisableServiceResponse {
         self
     }
 
-    /// Sets or clear the value of [service][crate::model::DisableServiceResponse::service].
+    /// Sets or clears the value of [service][crate::model::DisableServiceResponse::service].
     pub fn set_or_clear_service<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Service>,

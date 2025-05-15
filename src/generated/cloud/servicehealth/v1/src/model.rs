@@ -205,7 +205,7 @@ impl Event {
         self
     }
 
-    /// Sets or clear the value of [update_time][crate::model::Event::update_time].
+    /// Sets or clears the value of [update_time][crate::model::Event::update_time].
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -223,7 +223,7 @@ impl Event {
         self
     }
 
-    /// Sets or clear the value of [start_time][crate::model::Event::start_time].
+    /// Sets or clears the value of [start_time][crate::model::Event::start_time].
     pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -241,7 +241,7 @@ impl Event {
         self
     }
 
-    /// Sets or clear the value of [end_time][crate::model::Event::end_time].
+    /// Sets or clears the value of [end_time][crate::model::Event::end_time].
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -259,7 +259,7 @@ impl Event {
         self
     }
 
-    /// Sets or clear the value of [next_update_time][crate::model::Event::next_update_time].
+    /// Sets or clears the value of [next_update_time][crate::model::Event::next_update_time].
     pub fn set_or_clear_next_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1184,7 +1184,7 @@ impl OrganizationEvent {
         self
     }
 
-    /// Sets or clear the value of [update_time][crate::model::OrganizationEvent::update_time].
+    /// Sets or clears the value of [update_time][crate::model::OrganizationEvent::update_time].
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1202,7 +1202,7 @@ impl OrganizationEvent {
         self
     }
 
-    /// Sets or clear the value of [start_time][crate::model::OrganizationEvent::start_time].
+    /// Sets or clears the value of [start_time][crate::model::OrganizationEvent::start_time].
     pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1220,7 +1220,7 @@ impl OrganizationEvent {
         self
     }
 
-    /// Sets or clear the value of [end_time][crate::model::OrganizationEvent::end_time].
+    /// Sets or clears the value of [end_time][crate::model::OrganizationEvent::end_time].
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1238,7 +1238,7 @@ impl OrganizationEvent {
         self
     }
 
-    /// Sets or clear the value of [next_update_time][crate::model::OrganizationEvent::next_update_time].
+    /// Sets or clears the value of [next_update_time][crate::model::OrganizationEvent::next_update_time].
     pub fn set_or_clear_next_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1874,7 +1874,7 @@ impl EventUpdate {
         self
     }
 
-    /// Sets or clear the value of [update_time][crate::model::EventUpdate::update_time].
+    /// Sets or clears the value of [update_time][crate::model::EventUpdate::update_time].
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2020,7 +2020,7 @@ impl EventImpact {
         self
     }
 
-    /// Sets or clear the value of [product][crate::model::EventImpact::product].
+    /// Sets or clears the value of [product][crate::model::EventImpact::product].
     pub fn set_or_clear_product<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Product>,
@@ -2038,7 +2038,7 @@ impl EventImpact {
         self
     }
 
-    /// Sets or clear the value of [location][crate::model::EventImpact::location].
+    /// Sets or clears the value of [location][crate::model::EventImpact::location].
     pub fn set_or_clear_location<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Location>,
@@ -2121,7 +2121,7 @@ impl OrganizationImpact {
         self
     }
 
-    /// Sets or clear the value of [asset][crate::model::OrganizationImpact::asset].
+    /// Sets or clears the value of [asset][crate::model::OrganizationImpact::asset].
     pub fn set_or_clear_asset<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Asset>,
@@ -2139,7 +2139,7 @@ impl OrganizationImpact {
         self
     }
 
-    /// Sets or clear the value of [update_time][crate::model::OrganizationImpact::update_time].
+    /// Sets or clears the value of [update_time][crate::model::OrganizationImpact::update_time].
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,

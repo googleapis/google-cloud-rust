@@ -153,7 +153,7 @@ pub mod data_catalog {
             self
         }
 
-        /// Sets or clear the value of [scope][crate::model::SearchCatalogRequest::scope].
+        /// Sets or clears the value of [scope][crate::model::SearchCatalogRequest::scope].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_scope<T>(mut self, v: std::option::Option<T>) -> Self
@@ -276,7 +276,7 @@ pub mod data_catalog {
             self
         }
 
-        /// Sets or clear the value of [entry_group][crate::model::CreateEntryGroupRequest::entry_group].
+        /// Sets or clears the value of [entry_group][crate::model::CreateEntryGroupRequest::entry_group].
         pub fn set_or_clear_entry_group<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::EntryGroup>,
@@ -356,7 +356,7 @@ pub mod data_catalog {
             self
         }
 
-        /// Sets or clear the value of [read_mask][crate::model::GetEntryGroupRequest::read_mask].
+        /// Sets or clears the value of [read_mask][crate::model::GetEntryGroupRequest::read_mask].
         pub fn set_or_clear_read_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
@@ -433,7 +433,7 @@ pub mod data_catalog {
             self
         }
 
-        /// Sets or clear the value of [entry_group][crate::model::UpdateEntryGroupRequest::entry_group].
+        /// Sets or clears the value of [entry_group][crate::model::UpdateEntryGroupRequest::entry_group].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_entry_group<T>(mut self, v: std::option::Option<T>) -> Self
@@ -453,7 +453,7 @@ pub mod data_catalog {
             self
         }
 
-        /// Sets or clear the value of [update_mask][crate::model::UpdateEntryGroupRequest::update_mask].
+        /// Sets or clears the value of [update_mask][crate::model::UpdateEntryGroupRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
@@ -716,7 +716,7 @@ pub mod data_catalog {
             self
         }
 
-        /// Sets or clear the value of [entry][crate::model::CreateEntryRequest::entry].
+        /// Sets or clears the value of [entry][crate::model::CreateEntryRequest::entry].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_entry<T>(mut self, v: std::option::Option<T>) -> Self
@@ -792,7 +792,7 @@ pub mod data_catalog {
             self
         }
 
-        /// Sets or clear the value of [entry][crate::model::UpdateEntryRequest::entry].
+        /// Sets or clears the value of [entry][crate::model::UpdateEntryRequest::entry].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_entry<T>(mut self, v: std::option::Option<T>) -> Self
@@ -812,7 +812,7 @@ pub mod data_catalog {
             self
         }
 
-        /// Sets or clear the value of [update_mask][crate::model::UpdateEntryRequest::update_mask].
+        /// Sets or clears the value of [update_mask][crate::model::UpdateEntryRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
@@ -1173,7 +1173,7 @@ pub mod data_catalog {
             self
         }
 
-        /// Sets or clear the value of [read_mask][crate::model::ListEntriesRequest::read_mask].
+        /// Sets or clears the value of [read_mask][crate::model::ListEntriesRequest::read_mask].
         pub fn set_or_clear_read_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
@@ -1258,7 +1258,7 @@ pub mod data_catalog {
             self
         }
 
-        /// Sets or clear the value of [entry_overview][crate::model::ModifyEntryOverviewRequest::entry_overview].
+        /// Sets or clears the value of [entry_overview][crate::model::ModifyEntryOverviewRequest::entry_overview].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_entry_overview<T>(mut self, v: std::option::Option<T>) -> Self
@@ -1345,7 +1345,7 @@ pub mod data_catalog {
             self
         }
 
-        /// Sets or clear the value of [contacts][crate::model::ModifyEntryContactsRequest::contacts].
+        /// Sets or clears the value of [contacts][crate::model::ModifyEntryContactsRequest::contacts].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_contacts<T>(mut self, v: std::option::Option<T>) -> Self
@@ -1440,7 +1440,7 @@ pub mod data_catalog {
             self
         }
 
-        /// Sets or clear the value of [tag_template][crate::model::CreateTagTemplateRequest::tag_template].
+        /// Sets or clears the value of [tag_template][crate::model::CreateTagTemplateRequest::tag_template].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_tag_template<T>(mut self, v: std::option::Option<T>) -> Self
@@ -1581,7 +1581,7 @@ pub mod data_catalog {
             self
         }
 
-        /// Sets or clear the value of [tag_template][crate::model::UpdateTagTemplateRequest::tag_template].
+        /// Sets or clears the value of [tag_template][crate::model::UpdateTagTemplateRequest::tag_template].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_tag_template<T>(mut self, v: std::option::Option<T>) -> Self
@@ -1601,7 +1601,7 @@ pub mod data_catalog {
             self
         }
 
-        /// Sets or clear the value of [update_mask][crate::model::UpdateTagTemplateRequest::update_mask].
+        /// Sets or clears the value of [update_mask][crate::model::UpdateTagTemplateRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
@@ -1767,7 +1767,7 @@ pub mod data_catalog {
             self
         }
 
-        /// Sets or clear the value of [tag_template_field][crate::model::CreateTagTemplateFieldRequest::tag_template_field].
+        /// Sets or clears the value of [tag_template_field][crate::model::CreateTagTemplateFieldRequest::tag_template_field].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_tag_template_field<T>(mut self, v: std::option::Option<T>) -> Self
@@ -1854,7 +1854,7 @@ pub mod data_catalog {
             self
         }
 
-        /// Sets or clear the value of [tag_template_field][crate::model::UpdateTagTemplateFieldRequest::tag_template_field].
+        /// Sets or clears the value of [tag_template_field][crate::model::UpdateTagTemplateFieldRequest::tag_template_field].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_tag_template_field<T>(mut self, v: std::option::Option<T>) -> Self
@@ -1874,7 +1874,7 @@ pub mod data_catalog {
             self
         }
 
-        /// Sets or clear the value of [update_mask][crate::model::UpdateTagTemplateFieldRequest::update_mask].
+        /// Sets or clears the value of [update_mask][crate::model::UpdateTagTemplateFieldRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
@@ -2180,7 +2180,7 @@ pub mod data_catalog {
             self
         }
 
-        /// Sets or clear the value of [tag][crate::model::CreateTagRequest::tag].
+        /// Sets or clears the value of [tag][crate::model::CreateTagRequest::tag].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_tag<T>(mut self, v: std::option::Option<T>) -> Self
@@ -2256,7 +2256,7 @@ pub mod data_catalog {
             self
         }
 
-        /// Sets or clear the value of [tag][crate::model::UpdateTagRequest::tag].
+        /// Sets or clears the value of [tag][crate::model::UpdateTagRequest::tag].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_tag<T>(mut self, v: std::option::Option<T>) -> Self
@@ -2276,7 +2276,7 @@ pub mod data_catalog {
             self
         }
 
-        /// Sets or clear the value of [update_mask][crate::model::UpdateTagRequest::update_mask].
+        /// Sets or clears the value of [update_mask][crate::model::UpdateTagRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
@@ -2775,7 +2775,7 @@ pub mod data_catalog {
             self
         }
 
-        /// Sets or clear the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        /// Sets or clears the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
@@ -2795,7 +2795,7 @@ pub mod data_catalog {
             self
         }
 
-        /// Sets or clear the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        /// Sets or clears the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
@@ -2875,7 +2875,7 @@ pub mod data_catalog {
             self
         }
 
-        /// Sets or clear the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        /// Sets or clears the value of [options][iam_v1::model::GetIamPolicyRequest::options].
         pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
@@ -3758,7 +3758,7 @@ pub mod policy_tag_manager {
             self
         }
 
-        /// Sets or clear the value of [taxonomy][crate::model::CreateTaxonomyRequest::taxonomy].
+        /// Sets or clears the value of [taxonomy][crate::model::CreateTaxonomyRequest::taxonomy].
         pub fn set_or_clear_taxonomy<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Taxonomy>,
@@ -3892,7 +3892,7 @@ pub mod policy_tag_manager {
             self
         }
 
-        /// Sets or clear the value of [taxonomy][crate::model::UpdateTaxonomyRequest::taxonomy].
+        /// Sets or clears the value of [taxonomy][crate::model::UpdateTaxonomyRequest::taxonomy].
         pub fn set_or_clear_taxonomy<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Taxonomy>,
@@ -3910,7 +3910,7 @@ pub mod policy_tag_manager {
             self
         }
 
-        /// Sets or clear the value of [update_mask][crate::model::UpdateTaxonomyRequest::update_mask].
+        /// Sets or clears the value of [update_mask][crate::model::UpdateTaxonomyRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
@@ -4160,7 +4160,7 @@ pub mod policy_tag_manager {
             self
         }
 
-        /// Sets or clear the value of [policy_tag][crate::model::CreatePolicyTagRequest::policy_tag].
+        /// Sets or clears the value of [policy_tag][crate::model::CreatePolicyTagRequest::policy_tag].
         pub fn set_or_clear_policy_tag<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::PolicyTag>,
@@ -4294,7 +4294,7 @@ pub mod policy_tag_manager {
             self
         }
 
-        /// Sets or clear the value of [policy_tag][crate::model::UpdatePolicyTagRequest::policy_tag].
+        /// Sets or clears the value of [policy_tag][crate::model::UpdatePolicyTagRequest::policy_tag].
         pub fn set_or_clear_policy_tag<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::PolicyTag>,
@@ -4312,7 +4312,7 @@ pub mod policy_tag_manager {
             self
         }
 
-        /// Sets or clear the value of [update_mask][crate::model::UpdatePolicyTagRequest::update_mask].
+        /// Sets or clears the value of [update_mask][crate::model::UpdatePolicyTagRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
@@ -4556,7 +4556,7 @@ pub mod policy_tag_manager {
             self
         }
 
-        /// Sets or clear the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        /// Sets or clears the value of [options][iam_v1::model::GetIamPolicyRequest::options].
         pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
@@ -4638,7 +4638,7 @@ pub mod policy_tag_manager {
             self
         }
 
-        /// Sets or clear the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        /// Sets or clears the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
@@ -4658,7 +4658,7 @@ pub mod policy_tag_manager {
             self
         }
 
-        /// Sets or clear the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        /// Sets or clears the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
@@ -5173,7 +5173,7 @@ pub mod policy_tag_manager_serialization {
             self
         }
 
-        /// Sets or clear the value of [serialized_taxonomy][crate::model::ReplaceTaxonomyRequest::serialized_taxonomy].
+        /// Sets or clears the value of [serialized_taxonomy][crate::model::ReplaceTaxonomyRequest::serialized_taxonomy].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_serialized_taxonomy<T>(mut self, v: std::option::Option<T>) -> Self

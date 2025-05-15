@@ -65,7 +65,7 @@ impl TroubleshootIamPolicyRequest {
         self
     }
 
-    /// Sets or clear the value of [access_tuple][crate::model::TroubleshootIamPolicyRequest::access_tuple].
+    /// Sets or clears the value of [access_tuple][crate::model::TroubleshootIamPolicyRequest::access_tuple].
     pub fn set_or_clear_access_tuple<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::AccessTuple>,
@@ -312,7 +312,7 @@ impl ExplainedPolicy {
         self
     }
 
-    /// Sets or clear the value of [policy][crate::model::ExplainedPolicy::policy].
+    /// Sets or clears the value of [policy][crate::model::ExplainedPolicy::policy].
     pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<iam_v1::model::Policy>,
@@ -492,7 +492,7 @@ impl BindingExplanation {
         self
     }
 
-    /// Sets or clear the value of [condition][crate::model::BindingExplanation::condition].
+    /// Sets or clears the value of [condition][crate::model::BindingExplanation::condition].
     pub fn set_or_clear_condition<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<gtype::model::Expr>,

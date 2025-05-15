@@ -236,7 +236,7 @@ pub mod simulator {
             self
         }
 
-        /// Sets or clear the value of [replay][crate::model::CreateReplayRequest::replay].
+        /// Sets or clears the value of [replay][crate::model::CreateReplayRequest::replay].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_replay<T>(mut self, v: std::option::Option<T>) -> Self

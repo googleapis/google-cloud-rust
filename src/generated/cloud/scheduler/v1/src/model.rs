@@ -260,7 +260,7 @@ impl CreateJobRequest {
         self
     }
 
-    /// Sets or clear the value of [job][crate::model::CreateJobRequest::job].
+    /// Sets or clears the value of [job][crate::model::CreateJobRequest::job].
     pub fn set_or_clear_job<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Job>,
@@ -317,7 +317,7 @@ impl UpdateJobRequest {
         self
     }
 
-    /// Sets or clear the value of [job][crate::model::UpdateJobRequest::job].
+    /// Sets or clears the value of [job][crate::model::UpdateJobRequest::job].
     pub fn set_or_clear_job<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Job>,
@@ -335,7 +335,7 @@ impl UpdateJobRequest {
         self
     }
 
-    /// Sets or clear the value of [update_mask][crate::model::UpdateJobRequest::update_mask].
+    /// Sets or clears the value of [update_mask][crate::model::UpdateJobRequest::update_mask].
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -690,7 +690,7 @@ impl Job {
         self
     }
 
-    /// Sets or clear the value of [user_update_time][crate::model::Job::user_update_time].
+    /// Sets or clears the value of [user_update_time][crate::model::Job::user_update_time].
     pub fn set_or_clear_user_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -714,7 +714,7 @@ impl Job {
         self
     }
 
-    /// Sets or clear the value of [status][crate::model::Job::status].
+    /// Sets or clears the value of [status][crate::model::Job::status].
     pub fn set_or_clear_status<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<rpc::model::Status>,
@@ -732,7 +732,7 @@ impl Job {
         self
     }
 
-    /// Sets or clear the value of [schedule_time][crate::model::Job::schedule_time].
+    /// Sets or clears the value of [schedule_time][crate::model::Job::schedule_time].
     pub fn set_or_clear_schedule_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -750,7 +750,7 @@ impl Job {
         self
     }
 
-    /// Sets or clear the value of [last_attempt_time][crate::model::Job::last_attempt_time].
+    /// Sets or clears the value of [last_attempt_time][crate::model::Job::last_attempt_time].
     pub fn set_or_clear_last_attempt_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -768,7 +768,7 @@ impl Job {
         self
     }
 
-    /// Sets or clear the value of [retry_config][crate::model::Job::retry_config].
+    /// Sets or clears the value of [retry_config][crate::model::Job::retry_config].
     pub fn set_or_clear_retry_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::RetryConfig>,
@@ -786,7 +786,7 @@ impl Job {
         self
     }
 
-    /// Sets or clear the value of [attempt_deadline][crate::model::Job::attempt_deadline].
+    /// Sets or clears the value of [attempt_deadline][crate::model::Job::attempt_deadline].
     pub fn set_or_clear_attempt_deadline<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -1188,7 +1188,7 @@ impl RetryConfig {
         self
     }
 
-    /// Sets or clear the value of [max_retry_duration][crate::model::RetryConfig::max_retry_duration].
+    /// Sets or clears the value of [max_retry_duration][crate::model::RetryConfig::max_retry_duration].
     pub fn set_or_clear_max_retry_duration<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -1206,7 +1206,7 @@ impl RetryConfig {
         self
     }
 
-    /// Sets or clear the value of [min_backoff_duration][crate::model::RetryConfig::min_backoff_duration].
+    /// Sets or clears the value of [min_backoff_duration][crate::model::RetryConfig::min_backoff_duration].
     pub fn set_or_clear_min_backoff_duration<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -1224,7 +1224,7 @@ impl RetryConfig {
         self
     }
 
-    /// Sets or clear the value of [max_backoff_duration][crate::model::RetryConfig::max_backoff_duration].
+    /// Sets or clears the value of [max_backoff_duration][crate::model::RetryConfig::max_backoff_duration].
     pub fn set_or_clear_max_backoff_duration<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -1603,7 +1603,7 @@ impl AppEngineHttpTarget {
         self
     }
 
-    /// Sets or clear the value of [app_engine_routing][crate::model::AppEngineHttpTarget::app_engine_routing].
+    /// Sets or clears the value of [app_engine_routing][crate::model::AppEngineHttpTarget::app_engine_routing].
     pub fn set_or_clear_app_engine_routing<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::AppEngineRouting>,

@@ -356,7 +356,7 @@ pub mod memorystore {
             self
         }
 
-        /// Sets or clear the value of [instance][crate::model::CreateInstanceRequest::instance].
+        /// Sets or clears the value of [instance][crate::model::CreateInstanceRequest::instance].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_instance<T>(mut self, v: std::option::Option<T>) -> Self
@@ -475,7 +475,7 @@ pub mod memorystore {
             self
         }
 
-        /// Sets or clear the value of [update_mask][crate::model::UpdateInstanceRequest::update_mask].
+        /// Sets or clears the value of [update_mask][crate::model::UpdateInstanceRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
@@ -495,7 +495,7 @@ pub mod memorystore {
             self
         }
 
-        /// Sets or clear the value of [instance][crate::model::UpdateInstanceRequest::instance].
+        /// Sets or clears the value of [instance][crate::model::UpdateInstanceRequest::instance].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_instance<T>(mut self, v: std::option::Option<T>) -> Self
@@ -814,7 +814,7 @@ pub mod memorystore {
             self
         }
 
-        /// Sets or clear the value of [schedule_time][crate::model::RescheduleMaintenanceRequest::schedule_time].
+        /// Sets or clears the value of [schedule_time][crate::model::RescheduleMaintenanceRequest::schedule_time].
         pub fn set_or_clear_schedule_time<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -1503,7 +1503,7 @@ pub mod memorystore {
             self
         }
 
-        /// Sets or clear the value of [ttl][crate::model::BackupInstanceRequest::ttl].
+        /// Sets or clears the value of [ttl][crate::model::BackupInstanceRequest::ttl].
         pub fn set_or_clear_ttl<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
@@ -1521,7 +1521,7 @@ pub mod memorystore {
             self
         }
 
-        /// Sets or clear the value of [backup_id][crate::model::BackupInstanceRequest::backup_id].
+        /// Sets or clears the value of [backup_id][crate::model::BackupInstanceRequest::backup_id].
         pub fn set_or_clear_backup_id<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<std::string::String>,

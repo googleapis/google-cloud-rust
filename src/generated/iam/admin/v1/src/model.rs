@@ -62,7 +62,7 @@ impl AuditData {
         self
     }
 
-    /// Sets or clear the value of [permission_delta][crate::model::AuditData::permission_delta].
+    /// Sets or clears the value of [permission_delta][crate::model::AuditData::permission_delta].
     pub fn set_or_clear_permission_delta<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::audit_data::PermissionDelta>,
@@ -346,7 +346,7 @@ impl CreateServiceAccountRequest {
         self
     }
 
-    /// Sets or clear the value of [service_account][crate::model::CreateServiceAccountRequest::service_account].
+    /// Sets or clears the value of [service_account][crate::model::CreateServiceAccountRequest::service_account].
     pub fn set_or_clear_service_account<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ServiceAccount>,
@@ -598,7 +598,7 @@ impl PatchServiceAccountRequest {
         self
     }
 
-    /// Sets or clear the value of [service_account][crate::model::PatchServiceAccountRequest::service_account].
+    /// Sets or clears the value of [service_account][crate::model::PatchServiceAccountRequest::service_account].
     pub fn set_or_clear_service_account<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ServiceAccount>,
@@ -616,7 +616,7 @@ impl PatchServiceAccountRequest {
         self
     }
 
-    /// Sets or clear the value of [update_mask][crate::model::PatchServiceAccountRequest::update_mask].
+    /// Sets or clears the value of [update_mask][crate::model::PatchServiceAccountRequest::update_mask].
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -694,7 +694,7 @@ impl UndeleteServiceAccountResponse {
         self
     }
 
-    /// Sets or clear the value of [restored_account][crate::model::UndeleteServiceAccountResponse::restored_account].
+    /// Sets or clears the value of [restored_account][crate::model::UndeleteServiceAccountResponse::restored_account].
     pub fn set_or_clear_restored_account<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ServiceAccount>,
@@ -1201,7 +1201,7 @@ impl ServiceAccountKey {
         self
     }
 
-    /// Sets or clear the value of [valid_after_time][crate::model::ServiceAccountKey::valid_after_time].
+    /// Sets or clears the value of [valid_after_time][crate::model::ServiceAccountKey::valid_after_time].
     pub fn set_or_clear_valid_after_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1219,7 +1219,7 @@ impl ServiceAccountKey {
         self
     }
 
-    /// Sets or clear the value of [valid_before_time][crate::model::ServiceAccountKey::valid_before_time].
+    /// Sets or clears the value of [valid_before_time][crate::model::ServiceAccountKey::valid_before_time].
     pub fn set_or_clear_valid_before_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2436,7 +2436,7 @@ impl CreateRoleRequest {
         self
     }
 
-    /// Sets or clear the value of [role][crate::model::CreateRoleRequest::role].
+    /// Sets or clears the value of [role][crate::model::CreateRoleRequest::role].
     pub fn set_or_clear_role<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Role>,
@@ -2517,7 +2517,7 @@ impl UpdateRoleRequest {
         self
     }
 
-    /// Sets or clear the value of [role][crate::model::UpdateRoleRequest::role].
+    /// Sets or clears the value of [role][crate::model::UpdateRoleRequest::role].
     pub fn set_or_clear_role<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Role>,
@@ -2535,7 +2535,7 @@ impl UpdateRoleRequest {
         self
     }
 
-    /// Sets or clear the value of [update_mask][crate::model::UpdateRoleRequest::update_mask].
+    /// Sets or clears the value of [update_mask][crate::model::UpdateRoleRequest::update_mask].
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,

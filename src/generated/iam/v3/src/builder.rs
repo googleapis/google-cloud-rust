@@ -186,7 +186,7 @@ pub mod policy_bindings {
             self
         }
 
-        /// Sets or clear the value of [policy_binding][crate::model::CreatePolicyBindingRequest::policy_binding].
+        /// Sets or clears the value of [policy_binding][crate::model::CreatePolicyBindingRequest::policy_binding].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_policy_binding<T>(mut self, v: std::option::Option<T>) -> Self
@@ -378,7 +378,7 @@ pub mod policy_bindings {
             self
         }
 
-        /// Sets or clear the value of [policy_binding][crate::model::UpdatePolicyBindingRequest::policy_binding].
+        /// Sets or clears the value of [policy_binding][crate::model::UpdatePolicyBindingRequest::policy_binding].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_policy_binding<T>(mut self, v: std::option::Option<T>) -> Self
@@ -404,7 +404,7 @@ pub mod policy_bindings {
             self
         }
 
-        /// Sets or clear the value of [update_mask][crate::model::UpdatePolicyBindingRequest::update_mask].
+        /// Sets or clears the value of [update_mask][crate::model::UpdatePolicyBindingRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
@@ -1012,7 +1012,7 @@ pub mod principal_access_boundary_policies {
             self
         }
 
-        /// Sets or clear the value of [principal_access_boundary_policy][crate::model::CreatePrincipalAccessBoundaryPolicyRequest::principal_access_boundary_policy].
+        /// Sets or clears the value of [principal_access_boundary_policy][crate::model::CreatePrincipalAccessBoundaryPolicyRequest::principal_access_boundary_policy].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_principal_access_boundary_policy<T>(
@@ -1211,7 +1211,7 @@ pub mod principal_access_boundary_policies {
             self
         }
 
-        /// Sets or clear the value of [principal_access_boundary_policy][crate::model::UpdatePrincipalAccessBoundaryPolicyRequest::principal_access_boundary_policy].
+        /// Sets or clears the value of [principal_access_boundary_policy][crate::model::UpdatePrincipalAccessBoundaryPolicyRequest::principal_access_boundary_policy].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_principal_access_boundary_policy<T>(
@@ -1240,7 +1240,7 @@ pub mod principal_access_boundary_policies {
             self
         }
 
-        /// Sets or clear the value of [update_mask][crate::model::UpdatePrincipalAccessBoundaryPolicyRequest::update_mask].
+        /// Sets or clears the value of [update_mask][crate::model::UpdatePrincipalAccessBoundaryPolicyRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,

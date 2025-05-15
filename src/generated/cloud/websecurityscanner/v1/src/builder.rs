@@ -132,7 +132,7 @@ pub mod web_security_scanner {
             self
         }
 
-        /// Sets or clear the value of [scan_config][crate::model::CreateScanConfigRequest::scan_config].
+        /// Sets or clears the value of [scan_config][crate::model::CreateScanConfigRequest::scan_config].
         pub fn set_or_clear_scan_config<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::ScanConfig>,
@@ -430,7 +430,7 @@ pub mod web_security_scanner {
             self
         }
 
-        /// Sets or clear the value of [scan_config][crate::model::UpdateScanConfigRequest::scan_config].
+        /// Sets or clears the value of [scan_config][crate::model::UpdateScanConfigRequest::scan_config].
         pub fn set_or_clear_scan_config<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::ScanConfig>,
@@ -448,7 +448,7 @@ pub mod web_security_scanner {
             self
         }
 
-        /// Sets or clear the value of [update_mask][crate::model::UpdateScanConfigRequest::update_mask].
+        /// Sets or clears the value of [update_mask][crate::model::UpdateScanConfigRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,

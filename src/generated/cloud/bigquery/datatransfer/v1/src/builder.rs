@@ -300,7 +300,7 @@ pub mod data_transfer_service {
             self
         }
 
-        /// Sets or clear the value of [transfer_config][crate::model::CreateTransferConfigRequest::transfer_config].
+        /// Sets or clears the value of [transfer_config][crate::model::CreateTransferConfigRequest::transfer_config].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_transfer_config<T>(mut self, v: std::option::Option<T>) -> Self
@@ -398,7 +398,7 @@ pub mod data_transfer_service {
             self
         }
 
-        /// Sets or clear the value of [transfer_config][crate::model::UpdateTransferConfigRequest::transfer_config].
+        /// Sets or clears the value of [transfer_config][crate::model::UpdateTransferConfigRequest::transfer_config].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_transfer_config<T>(mut self, v: std::option::Option<T>) -> Self
@@ -427,7 +427,7 @@ pub mod data_transfer_service {
             self
         }
 
-        /// Sets or clear the value of [update_mask][crate::model::UpdateTransferConfigRequest::update_mask].
+        /// Sets or clears the value of [update_mask][crate::model::UpdateTransferConfigRequest::update_mask].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
@@ -774,7 +774,7 @@ pub mod data_transfer_service {
             self
         }
 
-        /// Sets or clear the value of [start_time][crate::model::ScheduleTransferRunsRequest::start_time].
+        /// Sets or clears the value of [start_time][crate::model::ScheduleTransferRunsRequest::start_time].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
@@ -796,7 +796,7 @@ pub mod data_transfer_service {
             self
         }
 
-        /// Sets or clear the value of [end_time][crate::model::ScheduleTransferRunsRequest::end_time].
+        /// Sets or clears the value of [end_time][crate::model::ScheduleTransferRunsRequest::end_time].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self

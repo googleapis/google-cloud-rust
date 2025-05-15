@@ -191,7 +191,7 @@ pub mod logging_service_v_2 {
             self
         }
 
-        /// Sets or clear the value of [resource][crate::model::WriteLogEntriesRequest::resource].
+        /// Sets or clears the value of [resource][crate::model::WriteLogEntriesRequest::resource].
         pub fn set_or_clear_resource<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<api::model::MonitoredResource>,
@@ -1119,7 +1119,7 @@ pub mod config_service_v_2 {
             self
         }
 
-        /// Sets or clear the value of [bucket][crate::model::CreateBucketRequest::bucket].
+        /// Sets or clears the value of [bucket][crate::model::CreateBucketRequest::bucket].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_bucket<T>(mut self, v: std::option::Option<T>) -> Self
@@ -1242,7 +1242,7 @@ pub mod config_service_v_2 {
             self
         }
 
-        /// Sets or clear the value of [bucket][crate::model::UpdateBucketRequest::bucket].
+        /// Sets or clears the value of [bucket][crate::model::UpdateBucketRequest::bucket].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_bucket<T>(mut self, v: std::option::Option<T>) -> Self
@@ -1264,7 +1264,7 @@ pub mod config_service_v_2 {
             self
         }
 
-        /// Sets or clear the value of [update_mask][crate::model::UpdateBucketRequest::update_mask].
+        /// Sets or clears the value of [update_mask][crate::model::UpdateBucketRequest::update_mask].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
@@ -1356,7 +1356,7 @@ pub mod config_service_v_2 {
             self
         }
 
-        /// Sets or clear the value of [bucket][crate::model::CreateBucketRequest::bucket].
+        /// Sets or clears the value of [bucket][crate::model::CreateBucketRequest::bucket].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_bucket<T>(mut self, v: std::option::Option<T>) -> Self
@@ -1440,7 +1440,7 @@ pub mod config_service_v_2 {
             self
         }
 
-        /// Sets or clear the value of [bucket][crate::model::UpdateBucketRequest::bucket].
+        /// Sets or clears the value of [bucket][crate::model::UpdateBucketRequest::bucket].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_bucket<T>(mut self, v: std::option::Option<T>) -> Self
@@ -1462,7 +1462,7 @@ pub mod config_service_v_2 {
             self
         }
 
-        /// Sets or clear the value of [update_mask][crate::model::UpdateBucketRequest::update_mask].
+        /// Sets or clears the value of [update_mask][crate::model::UpdateBucketRequest::update_mask].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
@@ -1842,7 +1842,7 @@ pub mod config_service_v_2 {
             self
         }
 
-        /// Sets or clear the value of [view][crate::model::CreateViewRequest::view].
+        /// Sets or clears the value of [view][crate::model::CreateViewRequest::view].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_view<T>(mut self, v: std::option::Option<T>) -> Self
@@ -1926,7 +1926,7 @@ pub mod config_service_v_2 {
             self
         }
 
-        /// Sets or clear the value of [view][crate::model::UpdateViewRequest::view].
+        /// Sets or clears the value of [view][crate::model::UpdateViewRequest::view].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_view<T>(mut self, v: std::option::Option<T>) -> Self
@@ -1946,7 +1946,7 @@ pub mod config_service_v_2 {
             self
         }
 
-        /// Sets or clear the value of [update_mask][crate::model::UpdateViewRequest::update_mask].
+        /// Sets or clears the value of [update_mask][crate::model::UpdateViewRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
@@ -2254,7 +2254,7 @@ pub mod config_service_v_2 {
             self
         }
 
-        /// Sets or clear the value of [sink][crate::model::CreateSinkRequest::sink].
+        /// Sets or clears the value of [sink][crate::model::CreateSinkRequest::sink].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_sink<T>(mut self, v: std::option::Option<T>) -> Self
@@ -2344,7 +2344,7 @@ pub mod config_service_v_2 {
             self
         }
 
-        /// Sets or clear the value of [sink][crate::model::UpdateSinkRequest::sink].
+        /// Sets or clears the value of [sink][crate::model::UpdateSinkRequest::sink].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_sink<T>(mut self, v: std::option::Option<T>) -> Self
@@ -2370,7 +2370,7 @@ pub mod config_service_v_2 {
             self
         }
 
-        /// Sets or clear the value of [update_mask][crate::model::UpdateSinkRequest::update_mask].
+        /// Sets or clears the value of [update_mask][crate::model::UpdateSinkRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
@@ -2551,7 +2551,7 @@ pub mod config_service_v_2 {
             self
         }
 
-        /// Sets or clear the value of [link][crate::model::CreateLinkRequest::link].
+        /// Sets or clears the value of [link][crate::model::CreateLinkRequest::link].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_link<T>(mut self, v: std::option::Option<T>) -> Self
@@ -3074,7 +3074,7 @@ pub mod config_service_v_2 {
             self
         }
 
-        /// Sets or clear the value of [exclusion][crate::model::CreateExclusionRequest::exclusion].
+        /// Sets or clears the value of [exclusion][crate::model::CreateExclusionRequest::exclusion].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_exclusion<T>(mut self, v: std::option::Option<T>) -> Self
@@ -3158,7 +3158,7 @@ pub mod config_service_v_2 {
             self
         }
 
-        /// Sets or clear the value of [exclusion][crate::model::UpdateExclusionRequest::exclusion].
+        /// Sets or clears the value of [exclusion][crate::model::UpdateExclusionRequest::exclusion].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_exclusion<T>(mut self, v: std::option::Option<T>) -> Self
@@ -3180,7 +3180,7 @@ pub mod config_service_v_2 {
             self
         }
 
-        /// Sets or clear the value of [update_mask][crate::model::UpdateExclusionRequest::update_mask].
+        /// Sets or clears the value of [update_mask][crate::model::UpdateExclusionRequest::update_mask].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
@@ -3391,7 +3391,7 @@ pub mod config_service_v_2 {
             self
         }
 
-        /// Sets or clear the value of [cmek_settings][crate::model::UpdateCmekSettingsRequest::cmek_settings].
+        /// Sets or clears the value of [cmek_settings][crate::model::UpdateCmekSettingsRequest::cmek_settings].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_cmek_settings<T>(mut self, v: std::option::Option<T>) -> Self
@@ -3411,7 +3411,7 @@ pub mod config_service_v_2 {
             self
         }
 
-        /// Sets or clear the value of [update_mask][crate::model::UpdateCmekSettingsRequest::update_mask].
+        /// Sets or clears the value of [update_mask][crate::model::UpdateCmekSettingsRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
@@ -3555,7 +3555,7 @@ pub mod config_service_v_2 {
             self
         }
 
-        /// Sets or clear the value of [settings][crate::model::UpdateSettingsRequest::settings].
+        /// Sets or clears the value of [settings][crate::model::UpdateSettingsRequest::settings].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_settings<T>(mut self, v: std::option::Option<T>) -> Self
@@ -3575,7 +3575,7 @@ pub mod config_service_v_2 {
             self
         }
 
-        /// Sets or clear the value of [update_mask][crate::model::UpdateSettingsRequest::update_mask].
+        /// Sets or clears the value of [update_mask][crate::model::UpdateSettingsRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
@@ -4231,7 +4231,7 @@ pub mod metrics_service_v_2 {
             self
         }
 
-        /// Sets or clear the value of [metric][crate::model::CreateLogMetricRequest::metric].
+        /// Sets or clears the value of [metric][crate::model::CreateLogMetricRequest::metric].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_metric<T>(mut self, v: std::option::Option<T>) -> Self
@@ -4315,7 +4315,7 @@ pub mod metrics_service_v_2 {
             self
         }
 
-        /// Sets or clear the value of [metric][crate::model::UpdateLogMetricRequest::metric].
+        /// Sets or clears the value of [metric][crate::model::UpdateLogMetricRequest::metric].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_metric<T>(mut self, v: std::option::Option<T>) -> Self

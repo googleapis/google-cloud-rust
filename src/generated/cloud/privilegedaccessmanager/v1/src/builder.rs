@@ -555,7 +555,7 @@ pub mod privileged_access_manager {
             self
         }
 
-        /// Sets or clear the value of [entitlement][crate::model::CreateEntitlementRequest::entitlement].
+        /// Sets or clears the value of [entitlement][crate::model::CreateEntitlementRequest::entitlement].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_entitlement<T>(mut self, v: std::option::Option<T>) -> Self
@@ -799,7 +799,7 @@ pub mod privileged_access_manager {
             self
         }
 
-        /// Sets or clear the value of [entitlement][crate::model::UpdateEntitlementRequest::entitlement].
+        /// Sets or clears the value of [entitlement][crate::model::UpdateEntitlementRequest::entitlement].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_entitlement<T>(mut self, v: std::option::Option<T>) -> Self
@@ -821,7 +821,7 @@ pub mod privileged_access_manager {
             self
         }
 
-        /// Sets or clear the value of [update_mask][crate::model::UpdateEntitlementRequest::update_mask].
+        /// Sets or clears the value of [update_mask][crate::model::UpdateEntitlementRequest::update_mask].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
@@ -1202,7 +1202,7 @@ pub mod privileged_access_manager {
             self
         }
 
-        /// Sets or clear the value of [grant][crate::model::CreateGrantRequest::grant].
+        /// Sets or clears the value of [grant][crate::model::CreateGrantRequest::grant].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_grant<T>(mut self, v: std::option::Option<T>) -> Self

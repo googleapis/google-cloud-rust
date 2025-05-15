@@ -183,7 +183,7 @@ pub mod managed_identities_service {
             self
         }
 
-        /// Sets or clear the value of [domain][crate::model::CreateMicrosoftAdDomainRequest::domain].
+        /// Sets or clears the value of [domain][crate::model::CreateMicrosoftAdDomainRequest::domain].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_domain<T>(mut self, v: std::option::Option<T>) -> Self
@@ -537,7 +537,7 @@ pub mod managed_identities_service {
             self
         }
 
-        /// Sets or clear the value of [update_mask][crate::model::UpdateDomainRequest::update_mask].
+        /// Sets or clears the value of [update_mask][crate::model::UpdateDomainRequest::update_mask].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
@@ -559,7 +559,7 @@ pub mod managed_identities_service {
             self
         }
 
-        /// Sets or clear the value of [domain][crate::model::UpdateDomainRequest::domain].
+        /// Sets or clears the value of [domain][crate::model::UpdateDomainRequest::domain].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_domain<T>(mut self, v: std::option::Option<T>) -> Self
@@ -783,7 +783,7 @@ pub mod managed_identities_service {
             self
         }
 
-        /// Sets or clear the value of [trust][crate::model::AttachTrustRequest::trust].
+        /// Sets or clears the value of [trust][crate::model::AttachTrustRequest::trust].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_trust<T>(mut self, v: std::option::Option<T>) -> Self
@@ -1027,7 +1027,7 @@ pub mod managed_identities_service {
             self
         }
 
-        /// Sets or clear the value of [trust][crate::model::DetachTrustRequest::trust].
+        /// Sets or clears the value of [trust][crate::model::DetachTrustRequest::trust].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_trust<T>(mut self, v: std::option::Option<T>) -> Self
@@ -1148,7 +1148,7 @@ pub mod managed_identities_service {
             self
         }
 
-        /// Sets or clear the value of [trust][crate::model::ValidateTrustRequest::trust].
+        /// Sets or clears the value of [trust][crate::model::ValidateTrustRequest::trust].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_trust<T>(mut self, v: std::option::Option<T>) -> Self

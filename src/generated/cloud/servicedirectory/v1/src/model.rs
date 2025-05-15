@@ -284,7 +284,7 @@ impl ResolveServiceResponse {
         self
     }
 
-    /// Sets or clear the value of [service][crate::model::ResolveServiceResponse::service].
+    /// Sets or clears the value of [service][crate::model::ResolveServiceResponse::service].
     pub fn set_or_clear_service<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Service>,
@@ -424,7 +424,7 @@ impl CreateNamespaceRequest {
         self
     }
 
-    /// Sets or clear the value of [namespace][crate::model::CreateNamespaceRequest::namespace].
+    /// Sets or clears the value of [namespace][crate::model::CreateNamespaceRequest::namespace].
     pub fn set_or_clear_namespace<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Namespace>,
@@ -688,7 +688,7 @@ impl UpdateNamespaceRequest {
         self
     }
 
-    /// Sets or clear the value of [namespace][crate::model::UpdateNamespaceRequest::namespace].
+    /// Sets or clears the value of [namespace][crate::model::UpdateNamespaceRequest::namespace].
     pub fn set_or_clear_namespace<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Namespace>,
@@ -706,7 +706,7 @@ impl UpdateNamespaceRequest {
         self
     }
 
-    /// Sets or clear the value of [update_mask][crate::model::UpdateNamespaceRequest::update_mask].
+    /// Sets or clears the value of [update_mask][crate::model::UpdateNamespaceRequest::update_mask].
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -814,7 +814,7 @@ impl CreateServiceRequest {
         self
     }
 
-    /// Sets or clear the value of [service][crate::model::CreateServiceRequest::service].
+    /// Sets or clears the value of [service][crate::model::CreateServiceRequest::service].
     pub fn set_or_clear_service<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Service>,
@@ -1083,7 +1083,7 @@ impl UpdateServiceRequest {
         self
     }
 
-    /// Sets or clear the value of [service][crate::model::UpdateServiceRequest::service].
+    /// Sets or clears the value of [service][crate::model::UpdateServiceRequest::service].
     pub fn set_or_clear_service<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Service>,
@@ -1101,7 +1101,7 @@ impl UpdateServiceRequest {
         self
     }
 
-    /// Sets or clear the value of [update_mask][crate::model::UpdateServiceRequest::update_mask].
+    /// Sets or clears the value of [update_mask][crate::model::UpdateServiceRequest::update_mask].
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -1209,7 +1209,7 @@ impl CreateEndpointRequest {
         self
     }
 
-    /// Sets or clear the value of [endpoint][crate::model::CreateEndpointRequest::endpoint].
+    /// Sets or clears the value of [endpoint][crate::model::CreateEndpointRequest::endpoint].
     pub fn set_or_clear_endpoint<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Endpoint>,
@@ -1481,7 +1481,7 @@ impl UpdateEndpointRequest {
         self
     }
 
-    /// Sets or clear the value of [endpoint][crate::model::UpdateEndpointRequest::endpoint].
+    /// Sets or clears the value of [endpoint][crate::model::UpdateEndpointRequest::endpoint].
     pub fn set_or_clear_endpoint<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Endpoint>,
@@ -1499,7 +1499,7 @@ impl UpdateEndpointRequest {
         self
     }
 
-    /// Sets or clear the value of [update_mask][crate::model::UpdateEndpointRequest::update_mask].
+    /// Sets or clears the value of [update_mask][crate::model::UpdateEndpointRequest::update_mask].
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,

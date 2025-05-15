@@ -170,7 +170,7 @@ pub mod translation_service {
             self
         }
 
-        /// Sets or clear the value of [glossary_config][crate::model::TranslateTextRequest::glossary_config].
+        /// Sets or clears the value of [glossary_config][crate::model::TranslateTextRequest::glossary_config].
         pub fn set_or_clear_glossary_config<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::TranslateTextGlossaryConfig>,
@@ -188,7 +188,7 @@ pub mod translation_service {
             self
         }
 
-        /// Sets or clear the value of [transliteration_config][crate::model::TranslateTextRequest::transliteration_config].
+        /// Sets or clears the value of [transliteration_config][crate::model::TranslateTextRequest::transliteration_config].
         pub fn set_or_clear_transliteration_config<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::TransliterationConfig>,
@@ -563,7 +563,7 @@ pub mod translation_service {
             self
         }
 
-        /// Sets or clear the value of [document_input_config][crate::model::TranslateDocumentRequest::document_input_config].
+        /// Sets or clears the value of [document_input_config][crate::model::TranslateDocumentRequest::document_input_config].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_document_input_config<T>(mut self, v: std::option::Option<T>) -> Self
@@ -583,7 +583,7 @@ pub mod translation_service {
             self
         }
 
-        /// Sets or clear the value of [document_output_config][crate::model::TranslateDocumentRequest::document_output_config].
+        /// Sets or clears the value of [document_output_config][crate::model::TranslateDocumentRequest::document_output_config].
         pub fn set_or_clear_document_output_config<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::DocumentOutputConfig>,
@@ -607,7 +607,7 @@ pub mod translation_service {
             self
         }
 
-        /// Sets or clear the value of [glossary_config][crate::model::TranslateDocumentRequest::glossary_config].
+        /// Sets or clears the value of [glossary_config][crate::model::TranslateDocumentRequest::glossary_config].
         pub fn set_or_clear_glossary_config<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::TranslateTextGlossaryConfig>,
@@ -814,7 +814,7 @@ pub mod translation_service {
             self
         }
 
-        /// Sets or clear the value of [output_config][crate::model::BatchTranslateTextRequest::output_config].
+        /// Sets or clears the value of [output_config][crate::model::BatchTranslateTextRequest::output_config].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_output_config<T>(mut self, v: std::option::Option<T>) -> Self
@@ -1001,7 +1001,7 @@ pub mod translation_service {
             self
         }
 
-        /// Sets or clear the value of [output_config][crate::model::BatchTranslateDocumentRequest::output_config].
+        /// Sets or clears the value of [output_config][crate::model::BatchTranslateDocumentRequest::output_config].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_output_config<T>(mut self, v: std::option::Option<T>) -> Self
@@ -1179,7 +1179,7 @@ pub mod translation_service {
             self
         }
 
-        /// Sets or clear the value of [glossary][crate::model::CreateGlossaryRequest::glossary].
+        /// Sets or clears the value of [glossary][crate::model::CreateGlossaryRequest::glossary].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_glossary<T>(mut self, v: std::option::Option<T>) -> Self
@@ -1297,7 +1297,7 @@ pub mod translation_service {
             self
         }
 
-        /// Sets or clear the value of [glossary][crate::model::UpdateGlossaryRequest::glossary].
+        /// Sets or clears the value of [glossary][crate::model::UpdateGlossaryRequest::glossary].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_glossary<T>(mut self, v: std::option::Option<T>) -> Self
@@ -1317,7 +1317,7 @@ pub mod translation_service {
             self
         }
 
-        /// Sets or clear the value of [update_mask][crate::model::UpdateGlossaryRequest::update_mask].
+        /// Sets or clears the value of [update_mask][crate::model::UpdateGlossaryRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
@@ -1848,7 +1848,7 @@ pub mod translation_service {
             self
         }
 
-        /// Sets or clear the value of [glossary_entry][crate::model::CreateGlossaryEntryRequest::glossary_entry].
+        /// Sets or clears the value of [glossary_entry][crate::model::CreateGlossaryEntryRequest::glossary_entry].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_glossary_entry<T>(mut self, v: std::option::Option<T>) -> Self
@@ -1927,7 +1927,7 @@ pub mod translation_service {
             self
         }
 
-        /// Sets or clear the value of [glossary_entry][crate::model::UpdateGlossaryEntryRequest::glossary_entry].
+        /// Sets or clears the value of [glossary_entry][crate::model::UpdateGlossaryEntryRequest::glossary_entry].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_glossary_entry<T>(mut self, v: std::option::Option<T>) -> Self
@@ -2117,7 +2117,7 @@ pub mod translation_service {
             self
         }
 
-        /// Sets or clear the value of [dataset][crate::model::CreateDatasetRequest::dataset].
+        /// Sets or clears the value of [dataset][crate::model::CreateDatasetRequest::dataset].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_dataset<T>(mut self, v: std::option::Option<T>) -> Self
@@ -2474,7 +2474,7 @@ pub mod translation_service {
             self
         }
 
-        /// Sets or clear the value of [adaptive_mt_dataset][crate::model::CreateAdaptiveMtDatasetRequest::adaptive_mt_dataset].
+        /// Sets or clears the value of [adaptive_mt_dataset][crate::model::CreateAdaptiveMtDatasetRequest::adaptive_mt_dataset].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_adaptive_mt_dataset<T>(mut self, v: std::option::Option<T>) -> Self
@@ -2829,7 +2829,7 @@ pub mod translation_service {
             self
         }
 
-        /// Sets or clear the value of [reference_sentence_config][crate::model::AdaptiveMtTranslateRequest::reference_sentence_config].
+        /// Sets or clears the value of [reference_sentence_config][crate::model::AdaptiveMtTranslateRequest::reference_sentence_config].
         pub fn set_or_clear_reference_sentence_config<T>(
             mut self,
             v: std::option::Option<T>,
@@ -2852,7 +2852,7 @@ pub mod translation_service {
             self
         }
 
-        /// Sets or clear the value of [glossary_config][crate::model::AdaptiveMtTranslateRequest::glossary_config].
+        /// Sets or clears the value of [glossary_config][crate::model::AdaptiveMtTranslateRequest::glossary_config].
         pub fn set_or_clear_glossary_config<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::adaptive_mt_translate_request::GlossaryConfig>,
@@ -3432,7 +3432,7 @@ pub mod translation_service {
             self
         }
 
-        /// Sets or clear the value of [input_config][crate::model::ImportDataRequest::input_config].
+        /// Sets or clears the value of [input_config][crate::model::ImportDataRequest::input_config].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_input_config<T>(mut self, v: std::option::Option<T>) -> Self
@@ -3557,7 +3557,7 @@ pub mod translation_service {
             self
         }
 
-        /// Sets or clear the value of [output_config][crate::model::ExportDataRequest::output_config].
+        /// Sets or clears the value of [output_config][crate::model::ExportDataRequest::output_config].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_output_config<T>(mut self, v: std::option::Option<T>) -> Self
@@ -3788,7 +3788,7 @@ pub mod translation_service {
             self
         }
 
-        /// Sets or clear the value of [model][crate::model::CreateModelRequest::model].
+        /// Sets or clears the value of [model][crate::model::CreateModelRequest::model].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_model<T>(mut self, v: std::option::Option<T>) -> Self
@@ -4614,7 +4614,7 @@ pub mod translation_service {
             self
         }
 
-        /// Sets or clear the value of [timeout][longrunning::model::WaitOperationRequest::timeout].
+        /// Sets or clears the value of [timeout][longrunning::model::WaitOperationRequest::timeout].
         pub fn set_or_clear_timeout<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Duration>,

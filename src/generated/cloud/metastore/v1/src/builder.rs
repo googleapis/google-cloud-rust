@@ -356,7 +356,7 @@ pub mod dataproc_metastore {
             self
         }
 
-        /// Sets or clear the value of [service][crate::model::CreateServiceRequest::service].
+        /// Sets or clears the value of [service][crate::model::CreateServiceRequest::service].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_service<T>(mut self, v: std::option::Option<T>) -> Self
@@ -477,7 +477,7 @@ pub mod dataproc_metastore {
             self
         }
 
-        /// Sets or clear the value of [update_mask][crate::model::UpdateServiceRequest::update_mask].
+        /// Sets or clears the value of [update_mask][crate::model::UpdateServiceRequest::update_mask].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
@@ -499,7 +499,7 @@ pub mod dataproc_metastore {
             self
         }
 
-        /// Sets or clear the value of [service][crate::model::UpdateServiceRequest::service].
+        /// Sets or clears the value of [service][crate::model::UpdateServiceRequest::service].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_service<T>(mut self, v: std::option::Option<T>) -> Self
@@ -935,7 +935,7 @@ pub mod dataproc_metastore {
             self
         }
 
-        /// Sets or clear the value of [metadata_import][crate::model::CreateMetadataImportRequest::metadata_import].
+        /// Sets or clears the value of [metadata_import][crate::model::CreateMetadataImportRequest::metadata_import].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_metadata_import<T>(mut self, v: std::option::Option<T>) -> Self
@@ -1062,7 +1062,7 @@ pub mod dataproc_metastore {
             self
         }
 
-        /// Sets or clear the value of [update_mask][crate::model::UpdateMetadataImportRequest::update_mask].
+        /// Sets or clears the value of [update_mask][crate::model::UpdateMetadataImportRequest::update_mask].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
@@ -1084,7 +1084,7 @@ pub mod dataproc_metastore {
             self
         }
 
-        /// Sets or clear the value of [metadata_import][crate::model::UpdateMetadataImportRequest::metadata_import].
+        /// Sets or clears the value of [metadata_import][crate::model::UpdateMetadataImportRequest::metadata_import].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_metadata_import<T>(mut self, v: std::option::Option<T>) -> Self
@@ -1667,7 +1667,7 @@ pub mod dataproc_metastore {
             self
         }
 
-        /// Sets or clear the value of [backup][crate::model::CreateBackupRequest::backup].
+        /// Sets or clears the value of [backup][crate::model::CreateBackupRequest::backup].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_backup<T>(mut self, v: std::option::Option<T>) -> Self
@@ -2405,7 +2405,7 @@ pub mod dataproc_metastore {
             self
         }
 
-        /// Sets or clear the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        /// Sets or clears the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
@@ -2425,7 +2425,7 @@ pub mod dataproc_metastore {
             self
         }
 
-        /// Sets or clear the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        /// Sets or clears the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
@@ -2505,7 +2505,7 @@ pub mod dataproc_metastore {
             self
         }
 
-        /// Sets or clear the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        /// Sets or clears the value of [options][iam_v1::model::GetIamPolicyRequest::options].
         pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
@@ -3246,7 +3246,7 @@ pub mod dataproc_metastore_federation {
             self
         }
 
-        /// Sets or clear the value of [federation][crate::model::CreateFederationRequest::federation].
+        /// Sets or clears the value of [federation][crate::model::CreateFederationRequest::federation].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_federation<T>(mut self, v: std::option::Option<T>) -> Self
@@ -3370,7 +3370,7 @@ pub mod dataproc_metastore_federation {
             self
         }
 
-        /// Sets or clear the value of [update_mask][crate::model::UpdateFederationRequest::update_mask].
+        /// Sets or clears the value of [update_mask][crate::model::UpdateFederationRequest::update_mask].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
@@ -3392,7 +3392,7 @@ pub mod dataproc_metastore_federation {
             self
         }
 
-        /// Sets or clear the value of [federation][crate::model::UpdateFederationRequest::federation].
+        /// Sets or clears the value of [federation][crate::model::UpdateFederationRequest::federation].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_federation<T>(mut self, v: std::option::Option<T>) -> Self
@@ -3763,7 +3763,7 @@ pub mod dataproc_metastore_federation {
             self
         }
 
-        /// Sets or clear the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        /// Sets or clears the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
@@ -3783,7 +3783,7 @@ pub mod dataproc_metastore_federation {
             self
         }
 
-        /// Sets or clear the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        /// Sets or clears the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
@@ -3863,7 +3863,7 @@ pub mod dataproc_metastore_federation {
             self
         }
 
-        /// Sets or clear the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        /// Sets or clears the value of [options][iam_v1::model::GetIamPolicyRequest::options].
         pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<iam_v1::model::GetPolicyOptions>,

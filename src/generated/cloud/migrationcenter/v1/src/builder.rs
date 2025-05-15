@@ -313,7 +313,7 @@ pub mod migration_center {
             self
         }
 
-        /// Sets or clear the value of [update_mask][crate::model::UpdateAssetRequest::update_mask].
+        /// Sets or clears the value of [update_mask][crate::model::UpdateAssetRequest::update_mask].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
@@ -335,7 +335,7 @@ pub mod migration_center {
             self
         }
 
-        /// Sets or clear the value of [asset][crate::model::UpdateAssetRequest::asset].
+        /// Sets or clears the value of [asset][crate::model::UpdateAssetRequest::asset].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_asset<T>(mut self, v: std::option::Option<T>) -> Self
@@ -656,7 +656,7 @@ pub mod migration_center {
             self
         }
 
-        /// Sets or clear the value of [frames][crate::model::ReportAssetFramesRequest::frames].
+        /// Sets or clears the value of [frames][crate::model::ReportAssetFramesRequest::frames].
         pub fn set_or_clear_frames<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Frames>,
@@ -875,7 +875,7 @@ pub mod migration_center {
             self
         }
 
-        /// Sets or clear the value of [import_job][crate::model::CreateImportJobRequest::import_job].
+        /// Sets or clears the value of [import_job][crate::model::CreateImportJobRequest::import_job].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_import_job<T>(mut self, v: std::option::Option<T>) -> Self
@@ -1299,7 +1299,7 @@ pub mod migration_center {
             self
         }
 
-        /// Sets or clear the value of [update_mask][crate::model::UpdateImportJobRequest::update_mask].
+        /// Sets or clears the value of [update_mask][crate::model::UpdateImportJobRequest::update_mask].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
@@ -1321,7 +1321,7 @@ pub mod migration_center {
             self
         }
 
-        /// Sets or clear the value of [import_job][crate::model::UpdateImportJobRequest::import_job].
+        /// Sets or clears the value of [import_job][crate::model::UpdateImportJobRequest::import_job].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_import_job<T>(mut self, v: std::option::Option<T>) -> Self
@@ -1869,7 +1869,7 @@ pub mod migration_center {
             self
         }
 
-        /// Sets or clear the value of [import_data_file][crate::model::CreateImportDataFileRequest::import_data_file].
+        /// Sets or clears the value of [import_data_file][crate::model::CreateImportDataFileRequest::import_data_file].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_import_data_file<T>(mut self, v: std::option::Option<T>) -> Self
@@ -2294,7 +2294,7 @@ pub mod migration_center {
             self
         }
 
-        /// Sets or clear the value of [group][crate::model::CreateGroupRequest::group].
+        /// Sets or clears the value of [group][crate::model::CreateGroupRequest::group].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_group<T>(mut self, v: std::option::Option<T>) -> Self
@@ -2415,7 +2415,7 @@ pub mod migration_center {
             self
         }
 
-        /// Sets or clear the value of [update_mask][crate::model::UpdateGroupRequest::update_mask].
+        /// Sets or clears the value of [update_mask][crate::model::UpdateGroupRequest::update_mask].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
@@ -2437,7 +2437,7 @@ pub mod migration_center {
             self
         }
 
-        /// Sets or clear the value of [group][crate::model::UpdateGroupRequest::group].
+        /// Sets or clears the value of [group][crate::model::UpdateGroupRequest::group].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_group<T>(mut self, v: std::option::Option<T>) -> Self
@@ -2684,7 +2684,7 @@ pub mod migration_center {
             self
         }
 
-        /// Sets or clear the value of [assets][crate::model::AddAssetsToGroupRequest::assets].
+        /// Sets or clears the value of [assets][crate::model::AddAssetsToGroupRequest::assets].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_assets<T>(mut self, v: std::option::Option<T>) -> Self
@@ -2822,7 +2822,7 @@ pub mod migration_center {
             self
         }
 
-        /// Sets or clear the value of [assets][crate::model::RemoveAssetsFromGroupRequest::assets].
+        /// Sets or clears the value of [assets][crate::model::RemoveAssetsFromGroupRequest::assets].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_assets<T>(mut self, v: std::option::Option<T>) -> Self
@@ -3311,7 +3311,7 @@ pub mod migration_center {
             self
         }
 
-        /// Sets or clear the value of [source][crate::model::CreateSourceRequest::source].
+        /// Sets or clears the value of [source][crate::model::CreateSourceRequest::source].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_source<T>(mut self, v: std::option::Option<T>) -> Self
@@ -3432,7 +3432,7 @@ pub mod migration_center {
             self
         }
 
-        /// Sets or clear the value of [update_mask][crate::model::UpdateSourceRequest::update_mask].
+        /// Sets or clears the value of [update_mask][crate::model::UpdateSourceRequest::update_mask].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
@@ -3454,7 +3454,7 @@ pub mod migration_center {
             self
         }
 
-        /// Sets or clear the value of [source][crate::model::UpdateSourceRequest::source].
+        /// Sets or clears the value of [source][crate::model::UpdateSourceRequest::source].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_source<T>(mut self, v: std::option::Option<T>) -> Self
@@ -3884,7 +3884,7 @@ pub mod migration_center {
             self
         }
 
-        /// Sets or clear the value of [preference_set][crate::model::CreatePreferenceSetRequest::preference_set].
+        /// Sets or clears the value of [preference_set][crate::model::CreatePreferenceSetRequest::preference_set].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_preference_set<T>(mut self, v: std::option::Option<T>) -> Self
@@ -4011,7 +4011,7 @@ pub mod migration_center {
             self
         }
 
-        /// Sets or clear the value of [update_mask][crate::model::UpdatePreferenceSetRequest::update_mask].
+        /// Sets or clears the value of [update_mask][crate::model::UpdatePreferenceSetRequest::update_mask].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
@@ -4033,7 +4033,7 @@ pub mod migration_center {
             self
         }
 
-        /// Sets or clear the value of [preference_set][crate::model::UpdatePreferenceSetRequest::preference_set].
+        /// Sets or clears the value of [preference_set][crate::model::UpdatePreferenceSetRequest::preference_set].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_preference_set<T>(mut self, v: std::option::Option<T>) -> Self
@@ -4328,7 +4328,7 @@ pub mod migration_center {
             self
         }
 
-        /// Sets or clear the value of [update_mask][crate::model::UpdateSettingsRequest::update_mask].
+        /// Sets or clears the value of [update_mask][crate::model::UpdateSettingsRequest::update_mask].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
@@ -4350,7 +4350,7 @@ pub mod migration_center {
             self
         }
 
-        /// Sets or clear the value of [settings][crate::model::UpdateSettingsRequest::settings].
+        /// Sets or clears the value of [settings][crate::model::UpdateSettingsRequest::settings].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_settings<T>(mut self, v: std::option::Option<T>) -> Self
@@ -4492,7 +4492,7 @@ pub mod migration_center {
             self
         }
 
-        /// Sets or clear the value of [report_config][crate::model::CreateReportConfigRequest::report_config].
+        /// Sets or clears the value of [report_config][crate::model::CreateReportConfigRequest::report_config].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_report_config<T>(mut self, v: std::option::Option<T>) -> Self
@@ -4926,7 +4926,7 @@ pub mod migration_center {
             self
         }
 
-        /// Sets or clear the value of [report][crate::model::CreateReportRequest::report].
+        /// Sets or clears the value of [report][crate::model::CreateReportRequest::report].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_report<T>(mut self, v: std::option::Option<T>) -> Self

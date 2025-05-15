@@ -521,7 +521,7 @@ pub mod builds {
             self
         }
 
-        /// Sets or clear the value of [timeout][longrunning::model::WaitOperationRequest::timeout].
+        /// Sets or clears the value of [timeout][longrunning::model::WaitOperationRequest::timeout].
         pub fn set_or_clear_timeout<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
@@ -1286,7 +1286,7 @@ pub mod executions {
             self
         }
 
-        /// Sets or clear the value of [timeout][longrunning::model::WaitOperationRequest::timeout].
+        /// Sets or clears the value of [timeout][longrunning::model::WaitOperationRequest::timeout].
         pub fn set_or_clear_timeout<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
@@ -1455,7 +1455,7 @@ pub mod jobs {
             self
         }
 
-        /// Sets or clear the value of [job][crate::model::CreateJobRequest::job].
+        /// Sets or clears the value of [job][crate::model::CreateJobRequest::job].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_job<T>(mut self, v: std::option::Option<T>) -> Self
@@ -1745,7 +1745,7 @@ pub mod jobs {
             self
         }
 
-        /// Sets or clear the value of [job][crate::model::UpdateJobRequest::job].
+        /// Sets or clears the value of [job][crate::model::UpdateJobRequest::job].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_job<T>(mut self, v: std::option::Option<T>) -> Self
@@ -1994,7 +1994,7 @@ pub mod jobs {
             self
         }
 
-        /// Sets or clear the value of [overrides][crate::model::RunJobRequest::overrides].
+        /// Sets or clears the value of [overrides][crate::model::RunJobRequest::overrides].
         pub fn set_or_clear_overrides<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::run_job_request::Overrides>,
@@ -2072,7 +2072,7 @@ pub mod jobs {
             self
         }
 
-        /// Sets or clear the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        /// Sets or clears the value of [options][iam_v1::model::GetIamPolicyRequest::options].
         pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
@@ -2152,7 +2152,7 @@ pub mod jobs {
             self
         }
 
-        /// Sets or clear the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        /// Sets or clears the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
@@ -2172,7 +2172,7 @@ pub mod jobs {
             self
         }
 
-        /// Sets or clear the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        /// Sets or clears the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
@@ -2558,7 +2558,7 @@ pub mod jobs {
             self
         }
 
-        /// Sets or clear the value of [timeout][longrunning::model::WaitOperationRequest::timeout].
+        /// Sets or clears the value of [timeout][longrunning::model::WaitOperationRequest::timeout].
         pub fn set_or_clear_timeout<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
@@ -3212,7 +3212,7 @@ pub mod revisions {
             self
         }
 
-        /// Sets or clear the value of [timeout][longrunning::model::WaitOperationRequest::timeout].
+        /// Sets or clears the value of [timeout][longrunning::model::WaitOperationRequest::timeout].
         pub fn set_or_clear_timeout<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
@@ -3381,7 +3381,7 @@ pub mod services {
             self
         }
 
-        /// Sets or clear the value of [service][crate::model::CreateServiceRequest::service].
+        /// Sets or clears the value of [service][crate::model::CreateServiceRequest::service].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_service<T>(mut self, v: std::option::Option<T>) -> Self
@@ -3669,7 +3669,7 @@ pub mod services {
             self
         }
 
-        /// Sets or clear the value of [update_mask][crate::model::UpdateServiceRequest::update_mask].
+        /// Sets or clears the value of [update_mask][crate::model::UpdateServiceRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
@@ -3689,7 +3689,7 @@ pub mod services {
             self
         }
 
-        /// Sets or clear the value of [service][crate::model::UpdateServiceRequest::service].
+        /// Sets or clears the value of [service][crate::model::UpdateServiceRequest::service].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_service<T>(mut self, v: std::option::Option<T>) -> Self
@@ -3889,7 +3889,7 @@ pub mod services {
             self
         }
 
-        /// Sets or clear the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        /// Sets or clears the value of [options][iam_v1::model::GetIamPolicyRequest::options].
         pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
@@ -3969,7 +3969,7 @@ pub mod services {
             self
         }
 
-        /// Sets or clear the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        /// Sets or clears the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
@@ -3989,7 +3989,7 @@ pub mod services {
             self
         }
 
-        /// Sets or clear the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        /// Sets or clears the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
@@ -4375,7 +4375,7 @@ pub mod services {
             self
         }
 
-        /// Sets or clear the value of [timeout][longrunning::model::WaitOperationRequest::timeout].
+        /// Sets or clears the value of [timeout][longrunning::model::WaitOperationRequest::timeout].
         pub fn set_or_clear_timeout<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
@@ -4904,7 +4904,7 @@ pub mod tasks {
             self
         }
 
-        /// Sets or clear the value of [timeout][longrunning::model::WaitOperationRequest::timeout].
+        /// Sets or clears the value of [timeout][longrunning::model::WaitOperationRequest::timeout].
         pub fn set_or_clear_timeout<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Duration>,

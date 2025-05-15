@@ -134,7 +134,7 @@ pub mod lineage {
             self
         }
 
-        /// Sets or clear the value of [open_lineage][crate::model::ProcessOpenLineageRunEventRequest::open_lineage].
+        /// Sets or clears the value of [open_lineage][crate::model::ProcessOpenLineageRunEventRequest::open_lineage].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_open_lineage<T>(mut self, v: std::option::Option<T>) -> Self
@@ -222,7 +222,7 @@ pub mod lineage {
             self
         }
 
-        /// Sets or clear the value of [process][crate::model::CreateProcessRequest::process].
+        /// Sets or clears the value of [process][crate::model::CreateProcessRequest::process].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_process<T>(mut self, v: std::option::Option<T>) -> Self
@@ -302,7 +302,7 @@ pub mod lineage {
             self
         }
 
-        /// Sets or clear the value of [process][crate::model::UpdateProcessRequest::process].
+        /// Sets or clears the value of [process][crate::model::UpdateProcessRequest::process].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_process<T>(mut self, v: std::option::Option<T>) -> Self
@@ -322,7 +322,7 @@ pub mod lineage {
             self
         }
 
-        /// Sets or clear the value of [update_mask][crate::model::UpdateProcessRequest::update_mask].
+        /// Sets or clears the value of [update_mask][crate::model::UpdateProcessRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
@@ -675,7 +675,7 @@ pub mod lineage {
             self
         }
 
-        /// Sets or clear the value of [run][crate::model::CreateRunRequest::run].
+        /// Sets or clears the value of [run][crate::model::CreateRunRequest::run].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_run<T>(mut self, v: std::option::Option<T>) -> Self
@@ -755,7 +755,7 @@ pub mod lineage {
             self
         }
 
-        /// Sets or clear the value of [run][crate::model::UpdateRunRequest::run].
+        /// Sets or clears the value of [run][crate::model::UpdateRunRequest::run].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_run<T>(mut self, v: std::option::Option<T>) -> Self
@@ -775,7 +775,7 @@ pub mod lineage {
             self
         }
 
-        /// Sets or clear the value of [update_mask][crate::model::UpdateRunRequest::update_mask].
+        /// Sets or clears the value of [update_mask][crate::model::UpdateRunRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
@@ -1131,7 +1131,7 @@ pub mod lineage {
             self
         }
 
-        /// Sets or clear the value of [lineage_event][crate::model::CreateLineageEventRequest::lineage_event].
+        /// Sets or clears the value of [lineage_event][crate::model::CreateLineageEventRequest::lineage_event].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_lineage_event<T>(mut self, v: std::option::Option<T>) -> Self

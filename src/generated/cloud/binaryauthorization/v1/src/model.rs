@@ -204,7 +204,7 @@ impl Policy {
         self
     }
 
-    /// Sets or clear the value of [default_admission_rule][crate::model::Policy::default_admission_rule].
+    /// Sets or clears the value of [default_admission_rule][crate::model::Policy::default_admission_rule].
     pub fn set_or_clear_default_admission_rule<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::AdmissionRule>,
@@ -222,7 +222,7 @@ impl Policy {
         self
     }
 
-    /// Sets or clear the value of [update_time][crate::model::Policy::update_time].
+    /// Sets or clears the value of [update_time][crate::model::Policy::update_time].
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -839,7 +839,7 @@ impl Attestor {
         self
     }
 
-    /// Sets or clear the value of [update_time][crate::model::Attestor::update_time].
+    /// Sets or clears the value of [update_time][crate::model::Attestor::update_time].
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1513,7 +1513,7 @@ impl UpdatePolicyRequest {
         self
     }
 
-    /// Sets or clear the value of [policy][crate::model::UpdatePolicyRequest::policy].
+    /// Sets or clears the value of [policy][crate::model::UpdatePolicyRequest::policy].
     pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Policy>,
@@ -1586,7 +1586,7 @@ impl CreateAttestorRequest {
         self
     }
 
-    /// Sets or clear the value of [attestor][crate::model::CreateAttestorRequest::attestor].
+    /// Sets or clears the value of [attestor][crate::model::CreateAttestorRequest::attestor].
     pub fn set_or_clear_attestor<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Attestor>,
@@ -1670,7 +1670,7 @@ impl UpdateAttestorRequest {
         self
     }
 
-    /// Sets or clear the value of [attestor][crate::model::UpdateAttestorRequest::attestor].
+    /// Sets or clears the value of [attestor][crate::model::UpdateAttestorRequest::attestor].
     pub fn set_or_clear_attestor<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Attestor>,
@@ -1941,7 +1941,7 @@ impl ValidateAttestationOccurrenceRequest {
         self
     }
 
-    /// Sets or clear the value of [attestation][crate::model::ValidateAttestationOccurrenceRequest::attestation].
+    /// Sets or clears the value of [attestation][crate::model::ValidateAttestationOccurrenceRequest::attestation].
     pub fn set_or_clear_attestation<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<grafeas::model::AttestationOccurrence>,

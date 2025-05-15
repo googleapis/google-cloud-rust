@@ -146,7 +146,7 @@ impl Attachment {
         self
     }
 
-    /// Sets or clear the value of [create_time][crate::model::Attachment::create_time].
+    /// Sets or clears the value of [create_time][crate::model::Attachment::create_time].
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -164,7 +164,7 @@ impl Attachment {
         self
     }
 
-    /// Sets or clear the value of [creator][crate::model::Attachment::creator].
+    /// Sets or clears the value of [creator][crate::model::Attachment::creator].
     pub fn set_or_clear_creator<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Actor>,
@@ -432,7 +432,7 @@ impl Case {
         self
     }
 
-    /// Sets or clear the value of [classification][crate::model::Case::classification].
+    /// Sets or clears the value of [classification][crate::model::Case::classification].
     pub fn set_or_clear_classification<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CaseClassification>,
@@ -473,7 +473,7 @@ impl Case {
         self
     }
 
-    /// Sets or clear the value of [create_time][crate::model::Case::create_time].
+    /// Sets or clears the value of [create_time][crate::model::Case::create_time].
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -491,7 +491,7 @@ impl Case {
         self
     }
 
-    /// Sets or clear the value of [update_time][crate::model::Case::update_time].
+    /// Sets or clears the value of [update_time][crate::model::Case::update_time].
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -509,7 +509,7 @@ impl Case {
         self
     }
 
-    /// Sets or clear the value of [creator][crate::model::Case::creator].
+    /// Sets or clears the value of [creator][crate::model::Case::creator].
     pub fn set_or_clear_creator<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Actor>,
@@ -991,7 +991,7 @@ impl CreateCaseRequest {
         self
     }
 
-    /// Sets or clear the value of [case][crate::model::CreateCaseRequest::case].
+    /// Sets or clears the value of [case][crate::model::CreateCaseRequest::case].
     pub fn set_or_clear_case<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Case>,
@@ -1350,7 +1350,7 @@ impl EscalateCaseRequest {
         self
     }
 
-    /// Sets or clear the value of [escalation][crate::model::EscalateCaseRequest::escalation].
+    /// Sets or clears the value of [escalation][crate::model::EscalateCaseRequest::escalation].
     pub fn set_or_clear_escalation<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Escalation>,
@@ -1406,7 +1406,7 @@ impl UpdateCaseRequest {
         self
     }
 
-    /// Sets or clear the value of [case][crate::model::UpdateCaseRequest::case].
+    /// Sets or clears the value of [case][crate::model::UpdateCaseRequest::case].
     pub fn set_or_clear_case<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Case>,
@@ -1424,7 +1424,7 @@ impl UpdateCaseRequest {
         self
     }
 
-    /// Sets or clear the value of [update_mask][crate::model::UpdateCaseRequest::update_mask].
+    /// Sets or clears the value of [update_mask][crate::model::UpdateCaseRequest::update_mask].
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -1642,7 +1642,7 @@ impl Comment {
         self
     }
 
-    /// Sets or clear the value of [create_time][crate::model::Comment::create_time].
+    /// Sets or clears the value of [create_time][crate::model::Comment::create_time].
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1660,7 +1660,7 @@ impl Comment {
         self
     }
 
-    /// Sets or clear the value of [creator][crate::model::Comment::creator].
+    /// Sets or clears the value of [creator][crate::model::Comment::creator].
     pub fn set_or_clear_creator<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Actor>,
@@ -1843,7 +1843,7 @@ impl CreateCommentRequest {
         self
     }
 
-    /// Sets or clear the value of [comment][crate::model::CreateCommentRequest::comment].
+    /// Sets or clears the value of [comment][crate::model::CreateCommentRequest::comment].
     pub fn set_or_clear_comment<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Comment>,

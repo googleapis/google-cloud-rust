@@ -138,7 +138,7 @@ pub mod autoscaling_policy_service {
             self
         }
 
-        /// Sets or clear the value of [policy][crate::model::CreateAutoscalingPolicyRequest::policy].
+        /// Sets or clears the value of [policy][crate::model::CreateAutoscalingPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
@@ -219,7 +219,7 @@ pub mod autoscaling_policy_service {
             self
         }
 
-        /// Sets or clear the value of [policy][crate::model::UpdateAutoscalingPolicyRequest::policy].
+        /// Sets or clears the value of [policy][crate::model::UpdateAutoscalingPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
@@ -546,7 +546,7 @@ pub mod autoscaling_policy_service {
             self
         }
 
-        /// Sets or clear the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        /// Sets or clears the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
@@ -566,7 +566,7 @@ pub mod autoscaling_policy_service {
             self
         }
 
-        /// Sets or clear the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        /// Sets or clears the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
@@ -646,7 +646,7 @@ pub mod autoscaling_policy_service {
             self
         }
 
-        /// Sets or clear the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        /// Sets or clears the value of [options][iam_v1::model::GetIamPolicyRequest::options].
         pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
@@ -1200,7 +1200,7 @@ pub mod batch_controller {
             self
         }
 
-        /// Sets or clear the value of [batch][crate::model::CreateBatchRequest::batch].
+        /// Sets or clears the value of [batch][crate::model::CreateBatchRequest::batch].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_batch<T>(mut self, v: std::option::Option<T>) -> Self
@@ -1534,7 +1534,7 @@ pub mod batch_controller {
             self
         }
 
-        /// Sets or clear the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        /// Sets or clears the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
@@ -1554,7 +1554,7 @@ pub mod batch_controller {
             self
         }
 
-        /// Sets or clear the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        /// Sets or clears the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
@@ -1634,7 +1634,7 @@ pub mod batch_controller {
             self
         }
 
-        /// Sets or clear the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        /// Sets or clears the value of [options][iam_v1::model::GetIamPolicyRequest::options].
         pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
@@ -2199,7 +2199,7 @@ pub mod cluster_controller {
             self
         }
 
-        /// Sets or clear the value of [cluster][crate::model::CreateClusterRequest::cluster].
+        /// Sets or clears the value of [cluster][crate::model::CreateClusterRequest::cluster].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_cluster<T>(mut self, v: std::option::Option<T>) -> Self
@@ -2356,7 +2356,7 @@ pub mod cluster_controller {
             self
         }
 
-        /// Sets or clear the value of [cluster][crate::model::UpdateClusterRequest::cluster].
+        /// Sets or clears the value of [cluster][crate::model::UpdateClusterRequest::cluster].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_cluster<T>(mut self, v: std::option::Option<T>) -> Self
@@ -2376,7 +2376,7 @@ pub mod cluster_controller {
             self
         }
 
-        /// Sets or clear the value of [graceful_decommission_timeout][crate::model::UpdateClusterRequest::graceful_decommission_timeout].
+        /// Sets or clears the value of [graceful_decommission_timeout][crate::model::UpdateClusterRequest::graceful_decommission_timeout].
         pub fn set_or_clear_graceful_decommission_timeout<T>(
             mut self,
             v: std::option::Option<T>,
@@ -2399,7 +2399,7 @@ pub mod cluster_controller {
             self
         }
 
-        /// Sets or clear the value of [update_mask][crate::model::UpdateClusterRequest::update_mask].
+        /// Sets or clears the value of [update_mask][crate::model::UpdateClusterRequest::update_mask].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
@@ -3152,7 +3152,7 @@ pub mod cluster_controller {
             self
         }
 
-        /// Sets or clear the value of [diagnosis_interval][crate::model::DiagnoseClusterRequest::diagnosis_interval].
+        /// Sets or clears the value of [diagnosis_interval][crate::model::DiagnoseClusterRequest::diagnosis_interval].
         pub fn set_or_clear_diagnosis_interval<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<gtype::model::Interval>,
@@ -3256,7 +3256,7 @@ pub mod cluster_controller {
             self
         }
 
-        /// Sets or clear the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        /// Sets or clears the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
@@ -3276,7 +3276,7 @@ pub mod cluster_controller {
             self
         }
 
-        /// Sets or clear the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        /// Sets or clears the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
@@ -3356,7 +3356,7 @@ pub mod cluster_controller {
             self
         }
 
-        /// Sets or clear the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        /// Sets or clears the value of [options][iam_v1::model::GetIamPolicyRequest::options].
         pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
@@ -3879,7 +3879,7 @@ pub mod job_controller {
             self
         }
 
-        /// Sets or clear the value of [job][crate::model::SubmitJobRequest::job].
+        /// Sets or clears the value of [job][crate::model::SubmitJobRequest::job].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_job<T>(mut self, v: std::option::Option<T>) -> Self
@@ -4013,7 +4013,7 @@ pub mod job_controller {
             self
         }
 
-        /// Sets or clear the value of [job][crate::model::SubmitJobRequest::job].
+        /// Sets or clears the value of [job][crate::model::SubmitJobRequest::job].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_job<T>(mut self, v: std::option::Option<T>) -> Self
@@ -4328,7 +4328,7 @@ pub mod job_controller {
             self
         }
 
-        /// Sets or clear the value of [job][crate::model::UpdateJobRequest::job].
+        /// Sets or clears the value of [job][crate::model::UpdateJobRequest::job].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_job<T>(mut self, v: std::option::Option<T>) -> Self
@@ -4350,7 +4350,7 @@ pub mod job_controller {
             self
         }
 
-        /// Sets or clear the value of [update_mask][crate::model::UpdateJobRequest::update_mask].
+        /// Sets or clears the value of [update_mask][crate::model::UpdateJobRequest::update_mask].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
@@ -4590,7 +4590,7 @@ pub mod job_controller {
             self
         }
 
-        /// Sets or clear the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        /// Sets or clears the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
@@ -4610,7 +4610,7 @@ pub mod job_controller {
             self
         }
 
-        /// Sets or clear the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        /// Sets or clears the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
@@ -4690,7 +4690,7 @@ pub mod job_controller {
             self
         }
 
-        /// Sets or clear the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        /// Sets or clears the value of [options][iam_v1::model::GetIamPolicyRequest::options].
         pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
@@ -5247,7 +5247,7 @@ pub mod node_group_controller {
             self
         }
 
-        /// Sets or clear the value of [node_group][crate::model::CreateNodeGroupRequest::node_group].
+        /// Sets or clears the value of [node_group][crate::model::CreateNodeGroupRequest::node_group].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_node_group<T>(mut self, v: std::option::Option<T>) -> Self
@@ -5397,7 +5397,7 @@ pub mod node_group_controller {
             self
         }
 
-        /// Sets or clear the value of [graceful_decommission_timeout][crate::model::ResizeNodeGroupRequest::graceful_decommission_timeout].
+        /// Sets or clears the value of [graceful_decommission_timeout][crate::model::ResizeNodeGroupRequest::graceful_decommission_timeout].
         pub fn set_or_clear_graceful_decommission_timeout<T>(
             mut self,
             v: std::option::Option<T>,
@@ -5544,7 +5544,7 @@ pub mod node_group_controller {
             self
         }
 
-        /// Sets or clear the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        /// Sets or clears the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
@@ -5564,7 +5564,7 @@ pub mod node_group_controller {
             self
         }
 
-        /// Sets or clear the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        /// Sets or clears the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
@@ -5644,7 +5644,7 @@ pub mod node_group_controller {
             self
         }
 
-        /// Sets or clear the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        /// Sets or clears the value of [options][iam_v1::model::GetIamPolicyRequest::options].
         pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
@@ -6162,7 +6162,7 @@ pub mod session_template_controller {
             self
         }
 
-        /// Sets or clear the value of [session_template][crate::model::CreateSessionTemplateRequest::session_template].
+        /// Sets or clears the value of [session_template][crate::model::CreateSessionTemplateRequest::session_template].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_session_template<T>(mut self, v: std::option::Option<T>) -> Self
@@ -6241,7 +6241,7 @@ pub mod session_template_controller {
             self
         }
 
-        /// Sets or clear the value of [session_template][crate::model::UpdateSessionTemplateRequest::session_template].
+        /// Sets or clears the value of [session_template][crate::model::UpdateSessionTemplateRequest::session_template].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_session_template<T>(mut self, v: std::option::Option<T>) -> Self
@@ -6568,7 +6568,7 @@ pub mod session_template_controller {
             self
         }
 
-        /// Sets or clear the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        /// Sets or clears the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
@@ -6588,7 +6588,7 @@ pub mod session_template_controller {
             self
         }
 
-        /// Sets or clear the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        /// Sets or clears the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
@@ -6668,7 +6668,7 @@ pub mod session_template_controller {
             self
         }
 
-        /// Sets or clear the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        /// Sets or clears the value of [options][iam_v1::model::GetIamPolicyRequest::options].
         pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
@@ -7225,7 +7225,7 @@ pub mod session_controller {
             self
         }
 
-        /// Sets or clear the value of [session][crate::model::CreateSessionRequest::session].
+        /// Sets or clears the value of [session][crate::model::CreateSessionRequest::session].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_session<T>(mut self, v: std::option::Option<T>) -> Self
@@ -7716,7 +7716,7 @@ pub mod session_controller {
             self
         }
 
-        /// Sets or clear the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        /// Sets or clears the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
@@ -7736,7 +7736,7 @@ pub mod session_controller {
             self
         }
 
-        /// Sets or clear the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        /// Sets or clears the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
@@ -7816,7 +7816,7 @@ pub mod session_controller {
             self
         }
 
-        /// Sets or clear the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        /// Sets or clears the value of [options][iam_v1::model::GetIamPolicyRequest::options].
         pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
@@ -8334,7 +8334,7 @@ pub mod workflow_template_service {
             self
         }
 
-        /// Sets or clear the value of [template][crate::model::CreateWorkflowTemplateRequest::template].
+        /// Sets or clears the value of [template][crate::model::CreateWorkflowTemplateRequest::template].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_template<T>(mut self, v: std::option::Option<T>) -> Self
@@ -8666,7 +8666,7 @@ pub mod workflow_template_service {
             self
         }
 
-        /// Sets or clear the value of [template][crate::model::InstantiateInlineWorkflowTemplateRequest::template].
+        /// Sets or clears the value of [template][crate::model::InstantiateInlineWorkflowTemplateRequest::template].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_template<T>(mut self, v: std::option::Option<T>) -> Self
@@ -8751,7 +8751,7 @@ pub mod workflow_template_service {
             self
         }
 
-        /// Sets or clear the value of [template][crate::model::UpdateWorkflowTemplateRequest::template].
+        /// Sets or clears the value of [template][crate::model::UpdateWorkflowTemplateRequest::template].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_template<T>(mut self, v: std::option::Option<T>) -> Self
@@ -9013,7 +9013,7 @@ pub mod workflow_template_service {
             self
         }
 
-        /// Sets or clear the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        /// Sets or clears the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
@@ -9033,7 +9033,7 @@ pub mod workflow_template_service {
             self
         }
 
-        /// Sets or clear the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        /// Sets or clears the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
@@ -9113,7 +9113,7 @@ pub mod workflow_template_service {
             self
         }
 
-        /// Sets or clear the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        /// Sets or clears the value of [options][iam_v1::model::GetIamPolicyRequest::options].
         pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<iam_v1::model::GetPolicyOptions>,

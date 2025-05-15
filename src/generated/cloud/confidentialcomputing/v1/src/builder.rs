@@ -133,7 +133,7 @@ pub mod confidential_computing {
             self
         }
 
-        /// Sets or clear the value of [challenge][crate::model::CreateChallengeRequest::challenge].
+        /// Sets or clears the value of [challenge][crate::model::CreateChallengeRequest::challenge].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_challenge<T>(mut self, v: std::option::Option<T>) -> Self
@@ -218,7 +218,7 @@ pub mod confidential_computing {
             self
         }
 
-        /// Sets or clear the value of [gcp_credentials][crate::model::VerifyAttestationRequest::gcp_credentials].
+        /// Sets or clears the value of [gcp_credentials][crate::model::VerifyAttestationRequest::gcp_credentials].
         pub fn set_or_clear_gcp_credentials<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::GcpCredentials>,
@@ -238,7 +238,7 @@ pub mod confidential_computing {
             self
         }
 
-        /// Sets or clear the value of [tpm_attestation][crate::model::VerifyAttestationRequest::tpm_attestation].
+        /// Sets or clears the value of [tpm_attestation][crate::model::VerifyAttestationRequest::tpm_attestation].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_tpm_attestation<T>(mut self, v: std::option::Option<T>) -> Self
@@ -258,7 +258,7 @@ pub mod confidential_computing {
             self
         }
 
-        /// Sets or clear the value of [confidential_space_info][crate::model::VerifyAttestationRequest::confidential_space_info].
+        /// Sets or clears the value of [confidential_space_info][crate::model::VerifyAttestationRequest::confidential_space_info].
         pub fn set_or_clear_confidential_space_info<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::ConfidentialSpaceInfo>,
@@ -276,7 +276,7 @@ pub mod confidential_computing {
             self
         }
 
-        /// Sets or clear the value of [token_options][crate::model::VerifyAttestationRequest::token_options].
+        /// Sets or clears the value of [token_options][crate::model::VerifyAttestationRequest::token_options].
         pub fn set_or_clear_token_options<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::TokenOptions>,

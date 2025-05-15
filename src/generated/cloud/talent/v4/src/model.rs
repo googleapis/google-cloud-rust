@@ -66,7 +66,7 @@ impl TimestampRange {
         self
     }
 
-    /// Sets or clear the value of [start_time][crate::model::TimestampRange::start_time].
+    /// Sets or clears the value of [start_time][crate::model::TimestampRange::start_time].
     pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -84,7 +84,7 @@ impl TimestampRange {
         self
     }
 
-    /// Sets or clear the value of [end_time][crate::model::TimestampRange::end_time].
+    /// Sets or clears the value of [end_time][crate::model::TimestampRange::end_time].
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -167,7 +167,7 @@ impl Location {
         self
     }
 
-    /// Sets or clear the value of [postal_address][crate::model::Location::postal_address].
+    /// Sets or clears the value of [postal_address][crate::model::Location::postal_address].
     pub fn set_or_clear_postal_address<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<gtype::model::PostalAddress>,
@@ -185,7 +185,7 @@ impl Location {
         self
     }
 
-    /// Sets or clear the value of [lat_lng][crate::model::Location::lat_lng].
+    /// Sets or clears the value of [lat_lng][crate::model::Location::lat_lng].
     pub fn set_or_clear_lat_lng<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<gtype::model::LatLng>,
@@ -536,7 +536,7 @@ impl RequestMetadata {
         self
     }
 
-    /// Sets or clear the value of [device_info][crate::model::RequestMetadata::device_info].
+    /// Sets or clears the value of [device_info][crate::model::RequestMetadata::device_info].
     pub fn set_or_clear_device_info<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::DeviceInfo>,
@@ -1050,7 +1050,7 @@ impl CompensationInfo {
         self
     }
 
-    /// Sets or clear the value of [annualized_base_compensation_range][crate::model::CompensationInfo::annualized_base_compensation_range].
+    /// Sets or clears the value of [annualized_base_compensation_range][crate::model::CompensationInfo::annualized_base_compensation_range].
     pub fn set_or_clear_annualized_base_compensation_range<T>(
         mut self,
         v: std::option::Option<T>,
@@ -1071,7 +1071,7 @@ impl CompensationInfo {
         self
     }
 
-    /// Sets or clear the value of [annualized_total_compensation_range][crate::model::CompensationInfo::annualized_total_compensation_range].
+    /// Sets or clears the value of [annualized_total_compensation_range][crate::model::CompensationInfo::annualized_total_compensation_range].
     pub fn set_or_clear_annualized_total_compensation_range<T>(
         mut self,
         v: std::option::Option<T>,
@@ -1214,7 +1214,7 @@ pub mod compensation_info {
             self
         }
 
-        /// Sets or clear the value of [expected_units_per_year][crate::model::compensation_info::CompensationEntry::expected_units_per_year].
+        /// Sets or clears the value of [expected_units_per_year][crate::model::compensation_info::CompensationEntry::expected_units_per_year].
         pub fn set_or_clear_expected_units_per_year<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::DoubleValue>,
@@ -1372,7 +1372,7 @@ pub mod compensation_info {
             self
         }
 
-        /// Sets or clear the value of [max_compensation][crate::model::compensation_info::CompensationRange::max_compensation].
+        /// Sets or clears the value of [max_compensation][crate::model::compensation_info::CompensationRange::max_compensation].
         pub fn set_or_clear_max_compensation<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<gtype::model::Money>,
@@ -1390,7 +1390,7 @@ pub mod compensation_info {
             self
         }
 
-        /// Sets or clear the value of [min_compensation][crate::model::compensation_info::CompensationRange::min_compensation].
+        /// Sets or clears the value of [min_compensation][crate::model::compensation_info::CompensationRange::min_compensation].
         pub fn set_or_clear_min_compensation<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<gtype::model::Money>,
@@ -1885,7 +1885,7 @@ impl BatchOperationMetadata {
         self
     }
 
-    /// Sets or clear the value of [create_time][crate::model::BatchOperationMetadata::create_time].
+    /// Sets or clears the value of [create_time][crate::model::BatchOperationMetadata::create_time].
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1903,7 +1903,7 @@ impl BatchOperationMetadata {
         self
     }
 
-    /// Sets or clear the value of [update_time][crate::model::BatchOperationMetadata::update_time].
+    /// Sets or clears the value of [update_time][crate::model::BatchOperationMetadata::update_time].
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1921,7 +1921,7 @@ impl BatchOperationMetadata {
         self
     }
 
-    /// Sets or clear the value of [end_time][crate::model::BatchOperationMetadata::end_time].
+    /// Sets or clears the value of [end_time][crate::model::BatchOperationMetadata::end_time].
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2303,7 +2303,7 @@ impl Company {
         self
     }
 
-    /// Sets or clear the value of [derived_info][crate::model::Company::derived_info].
+    /// Sets or clears the value of [derived_info][crate::model::Company::derived_info].
     pub fn set_or_clear_derived_info<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::company::DerivedInfo>,
@@ -2362,7 +2362,7 @@ pub mod company {
             self
         }
 
-        /// Sets or clear the value of [headquarters_location][crate::model::company::DerivedInfo::headquarters_location].
+        /// Sets or clears the value of [headquarters_location][crate::model::company::DerivedInfo::headquarters_location].
         pub fn set_or_clear_headquarters_location<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Location>,
@@ -2420,7 +2420,7 @@ impl CreateCompanyRequest {
         self
     }
 
-    /// Sets or clear the value of [company][crate::model::CreateCompanyRequest::company].
+    /// Sets or clears the value of [company][crate::model::CreateCompanyRequest::company].
     pub fn set_or_clear_company<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Company>,
@@ -2518,7 +2518,7 @@ impl UpdateCompanyRequest {
         self
     }
 
-    /// Sets or clear the value of [company][crate::model::UpdateCompanyRequest::company].
+    /// Sets or clears the value of [company][crate::model::UpdateCompanyRequest::company].
     pub fn set_or_clear_company<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Company>,
@@ -2536,7 +2536,7 @@ impl UpdateCompanyRequest {
         self
     }
 
-    /// Sets or clear the value of [update_mask][crate::model::UpdateCompanyRequest::update_mask].
+    /// Sets or clears the value of [update_mask][crate::model::UpdateCompanyRequest::update_mask].
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -2716,7 +2716,7 @@ impl ListCompaniesResponse {
         self
     }
 
-    /// Sets or clear the value of [metadata][crate::model::ListCompaniesResponse::metadata].
+    /// Sets or clears the value of [metadata][crate::model::ListCompaniesResponse::metadata].
     pub fn set_or_clear_metadata<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ResponseMetadata>,
@@ -3223,7 +3223,7 @@ impl CompleteQueryResponse {
         self
     }
 
-    /// Sets or clear the value of [metadata][crate::model::CompleteQueryResponse::metadata].
+    /// Sets or clears the value of [metadata][crate::model::CompleteQueryResponse::metadata].
     pub fn set_or_clear_metadata<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ResponseMetadata>,
@@ -3373,7 +3373,7 @@ impl ClientEvent {
         self
     }
 
-    /// Sets or clear the value of [create_time][crate::model::ClientEvent::create_time].
+    /// Sets or clears the value of [create_time][crate::model::ClientEvent::create_time].
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3857,7 +3857,7 @@ impl CreateClientEventRequest {
         self
     }
 
-    /// Sets or clear the value of [client_event][crate::model::CreateClientEventRequest::client_event].
+    /// Sets or clears the value of [client_event][crate::model::CreateClientEventRequest::client_event].
     pub fn set_or_clear_client_event<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ClientEvent>,
@@ -4144,7 +4144,7 @@ impl JobQuery {
         self
     }
 
-    /// Sets or clear the value of [commute_filter][crate::model::JobQuery::commute_filter].
+    /// Sets or clears the value of [commute_filter][crate::model::JobQuery::commute_filter].
     pub fn set_or_clear_commute_filter<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CommuteFilter>,
@@ -4173,7 +4173,7 @@ impl JobQuery {
         self
     }
 
-    /// Sets or clear the value of [compensation_filter][crate::model::JobQuery::compensation_filter].
+    /// Sets or clears the value of [compensation_filter][crate::model::JobQuery::compensation_filter].
     pub fn set_or_clear_compensation_filter<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CompensationFilter>,
@@ -4228,7 +4228,7 @@ impl JobQuery {
         self
     }
 
-    /// Sets or clear the value of [publish_time_range][crate::model::JobQuery::publish_time_range].
+    /// Sets or clears the value of [publish_time_range][crate::model::JobQuery::publish_time_range].
     pub fn set_or_clear_publish_time_range<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::TimestampRange>,
@@ -4362,7 +4362,7 @@ impl LocationFilter {
         self
     }
 
-    /// Sets or clear the value of [lat_lng][crate::model::LocationFilter::lat_lng].
+    /// Sets or clears the value of [lat_lng][crate::model::LocationFilter::lat_lng].
     pub fn set_or_clear_lat_lng<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<gtype::model::LatLng>,
@@ -4610,7 +4610,7 @@ impl CompensationFilter {
         self
     }
 
-    /// Sets or clear the value of [range][crate::model::CompensationFilter::range].
+    /// Sets or clears the value of [range][crate::model::CompensationFilter::range].
     pub fn set_or_clear_range<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::compensation_info::CompensationRange>,
@@ -4886,7 +4886,7 @@ impl CommuteFilter {
         self
     }
 
-    /// Sets or clear the value of [start_coordinates][crate::model::CommuteFilter::start_coordinates].
+    /// Sets or clears the value of [start_coordinates][crate::model::CommuteFilter::start_coordinates].
     pub fn set_or_clear_start_coordinates<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<gtype::model::LatLng>,
@@ -4904,7 +4904,7 @@ impl CommuteFilter {
         self
     }
 
-    /// Sets or clear the value of [travel_duration][crate::model::CommuteFilter::travel_duration].
+    /// Sets or clears the value of [travel_duration][crate::model::CommuteFilter::travel_duration].
     pub fn set_or_clear_travel_duration<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -5674,7 +5674,7 @@ impl Job {
         self
     }
 
-    /// Sets or clear the value of [application_info][crate::model::Job::application_info].
+    /// Sets or clears the value of [application_info][crate::model::Job::application_info].
     pub fn set_or_clear_application_info<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::job::ApplicationInfo>,
@@ -5703,7 +5703,7 @@ impl Job {
         self
     }
 
-    /// Sets or clear the value of [compensation_info][crate::model::Job::compensation_info].
+    /// Sets or clears the value of [compensation_info][crate::model::Job::compensation_info].
     pub fn set_or_clear_compensation_info<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CompensationInfo>,
@@ -5816,7 +5816,7 @@ impl Job {
         self
     }
 
-    /// Sets or clear the value of [job_start_time][crate::model::Job::job_start_time].
+    /// Sets or clears the value of [job_start_time][crate::model::Job::job_start_time].
     pub fn set_or_clear_job_start_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -5834,7 +5834,7 @@ impl Job {
         self
     }
 
-    /// Sets or clear the value of [job_end_time][crate::model::Job::job_end_time].
+    /// Sets or clears the value of [job_end_time][crate::model::Job::job_end_time].
     pub fn set_or_clear_job_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -5852,7 +5852,7 @@ impl Job {
         self
     }
 
-    /// Sets or clear the value of [posting_publish_time][crate::model::Job::posting_publish_time].
+    /// Sets or clears the value of [posting_publish_time][crate::model::Job::posting_publish_time].
     pub fn set_or_clear_posting_publish_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -5870,7 +5870,7 @@ impl Job {
         self
     }
 
-    /// Sets or clear the value of [posting_expire_time][crate::model::Job::posting_expire_time].
+    /// Sets or clears the value of [posting_expire_time][crate::model::Job::posting_expire_time].
     pub fn set_or_clear_posting_expire_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -5888,7 +5888,7 @@ impl Job {
         self
     }
 
-    /// Sets or clear the value of [posting_create_time][crate::model::Job::posting_create_time].
+    /// Sets or clears the value of [posting_create_time][crate::model::Job::posting_create_time].
     pub fn set_or_clear_posting_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -5906,7 +5906,7 @@ impl Job {
         self
     }
 
-    /// Sets or clear the value of [posting_update_time][crate::model::Job::posting_update_time].
+    /// Sets or clears the value of [posting_update_time][crate::model::Job::posting_update_time].
     pub fn set_or_clear_posting_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -5933,7 +5933,7 @@ impl Job {
         self
     }
 
-    /// Sets or clear the value of [derived_info][crate::model::Job::derived_info].
+    /// Sets or clears the value of [derived_info][crate::model::Job::derived_info].
     pub fn set_or_clear_derived_info<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::job::DerivedInfo>,
@@ -5951,7 +5951,7 @@ impl Job {
         self
     }
 
-    /// Sets or clear the value of [processing_options][crate::model::Job::processing_options].
+    /// Sets or clears the value of [processing_options][crate::model::Job::processing_options].
     pub fn set_or_clear_processing_options<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::job::ProcessingOptions>,
@@ -6214,7 +6214,7 @@ impl CreateJobRequest {
         self
     }
 
-    /// Sets or clear the value of [job][crate::model::CreateJobRequest::job].
+    /// Sets or clears the value of [job][crate::model::CreateJobRequest::job].
     pub fn set_or_clear_job<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Job>,
@@ -6310,7 +6310,7 @@ impl UpdateJobRequest {
         self
     }
 
-    /// Sets or clear the value of [job][crate::model::UpdateJobRequest::job].
+    /// Sets or clears the value of [job][crate::model::UpdateJobRequest::job].
     pub fn set_or_clear_job<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Job>,
@@ -6328,7 +6328,7 @@ impl UpdateJobRequest {
         self
     }
 
-    /// Sets or clear the value of [update_mask][crate::model::UpdateJobRequest::update_mask].
+    /// Sets or clears the value of [update_mask][crate::model::UpdateJobRequest::update_mask].
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -6548,7 +6548,7 @@ impl ListJobsResponse {
         self
     }
 
-    /// Sets or clear the value of [metadata][crate::model::ListJobsResponse::metadata].
+    /// Sets or clears the value of [metadata][crate::model::ListJobsResponse::metadata].
     pub fn set_or_clear_metadata<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ResponseMetadata>,
@@ -6967,7 +6967,7 @@ impl SearchJobsRequest {
         self
     }
 
-    /// Sets or clear the value of [request_metadata][crate::model::SearchJobsRequest::request_metadata].
+    /// Sets or clears the value of [request_metadata][crate::model::SearchJobsRequest::request_metadata].
     pub fn set_or_clear_request_metadata<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::RequestMetadata>,
@@ -6985,7 +6985,7 @@ impl SearchJobsRequest {
         self
     }
 
-    /// Sets or clear the value of [job_query][crate::model::SearchJobsRequest::job_query].
+    /// Sets or clears the value of [job_query][crate::model::SearchJobsRequest::job_query].
     pub fn set_or_clear_job_query<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::JobQuery>,
@@ -7061,7 +7061,7 @@ impl SearchJobsRequest {
         self
     }
 
-    /// Sets or clear the value of [custom_ranking_info][crate::model::SearchJobsRequest::custom_ranking_info].
+    /// Sets or clears the value of [custom_ranking_info][crate::model::SearchJobsRequest::custom_ranking_info].
     pub fn set_or_clear_custom_ranking_info<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::search_jobs_request::CustomRankingInfo>,
@@ -8157,7 +8157,7 @@ impl SearchJobsResponse {
         self
     }
 
-    /// Sets or clear the value of [metadata][crate::model::SearchJobsResponse::metadata].
+    /// Sets or clears the value of [metadata][crate::model::SearchJobsResponse::metadata].
     pub fn set_or_clear_metadata<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ResponseMetadata>,
@@ -8181,7 +8181,7 @@ impl SearchJobsResponse {
         self
     }
 
-    /// Sets or clear the value of [spell_correction][crate::model::SearchJobsResponse::spell_correction].
+    /// Sets or clears the value of [spell_correction][crate::model::SearchJobsResponse::spell_correction].
     pub fn set_or_clear_spell_correction<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::SpellingCorrection>,
@@ -8267,7 +8267,7 @@ pub mod search_jobs_response {
             self
         }
 
-        /// Sets or clear the value of [job][crate::model::search_jobs_response::MatchingJob::job].
+        /// Sets or clears the value of [job][crate::model::search_jobs_response::MatchingJob::job].
         pub fn set_or_clear_job<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Job>,
@@ -8309,7 +8309,7 @@ pub mod search_jobs_response {
             self
         }
 
-        /// Sets or clear the value of [commute_info][crate::model::search_jobs_response::MatchingJob::commute_info].
+        /// Sets or clears the value of [commute_info][crate::model::search_jobs_response::MatchingJob::commute_info].
         pub fn set_or_clear_commute_info<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::search_jobs_response::CommuteInfo>,
@@ -8360,7 +8360,7 @@ pub mod search_jobs_response {
             self
         }
 
-        /// Sets or clear the value of [job_location][crate::model::search_jobs_response::CommuteInfo::job_location].
+        /// Sets or clears the value of [job_location][crate::model::search_jobs_response::CommuteInfo::job_location].
         pub fn set_or_clear_job_location<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Location>,
@@ -8378,7 +8378,7 @@ pub mod search_jobs_response {
             self
         }
 
-        /// Sets or clear the value of [travel_duration][crate::model::search_jobs_response::CommuteInfo::travel_duration].
+        /// Sets or clears the value of [travel_duration][crate::model::search_jobs_response::CommuteInfo::travel_duration].
         pub fn set_or_clear_travel_duration<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
@@ -8522,7 +8522,7 @@ impl BatchUpdateJobsRequest {
         self
     }
 
-    /// Sets or clear the value of [update_mask][crate::model::BatchUpdateJobsRequest::update_mask].
+    /// Sets or clears the value of [update_mask][crate::model::BatchUpdateJobsRequest::update_mask].
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -8641,7 +8641,7 @@ impl JobResult {
         self
     }
 
-    /// Sets or clear the value of [job][crate::model::JobResult::job].
+    /// Sets or clears the value of [job][crate::model::JobResult::job].
     pub fn set_or_clear_job<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Job>,
@@ -8659,7 +8659,7 @@ impl JobResult {
         self
     }
 
-    /// Sets or clear the value of [status][crate::model::JobResult::status].
+    /// Sets or clears the value of [status][crate::model::JobResult::status].
     pub fn set_or_clear_status<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<rpc::model::Status>,
@@ -8905,7 +8905,7 @@ impl CreateTenantRequest {
         self
     }
 
-    /// Sets or clear the value of [tenant][crate::model::CreateTenantRequest::tenant].
+    /// Sets or clears the value of [tenant][crate::model::CreateTenantRequest::tenant].
     pub fn set_or_clear_tenant<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Tenant>,
@@ -9001,7 +9001,7 @@ impl UpdateTenantRequest {
         self
     }
 
-    /// Sets or clear the value of [tenant][crate::model::UpdateTenantRequest::tenant].
+    /// Sets or clears the value of [tenant][crate::model::UpdateTenantRequest::tenant].
     pub fn set_or_clear_tenant<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Tenant>,
@@ -9019,7 +9019,7 @@ impl UpdateTenantRequest {
         self
     }
 
-    /// Sets or clear the value of [update_mask][crate::model::UpdateTenantRequest::update_mask].
+    /// Sets or clears the value of [update_mask][crate::model::UpdateTenantRequest::update_mask].
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -9180,7 +9180,7 @@ impl ListTenantsResponse {
         self
     }
 
-    /// Sets or clear the value of [metadata][crate::model::ListTenantsResponse::metadata].
+    /// Sets or clears the value of [metadata][crate::model::ListTenantsResponse::metadata].
     pub fn set_or_clear_metadata<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ResponseMetadata>,

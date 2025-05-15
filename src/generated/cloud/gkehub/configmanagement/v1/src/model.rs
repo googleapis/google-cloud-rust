@@ -81,7 +81,7 @@ impl MembershipState {
         self
     }
 
-    /// Sets or clear the value of [membership_spec][crate::model::MembershipState::membership_spec].
+    /// Sets or clears the value of [membership_spec][crate::model::MembershipState::membership_spec].
     pub fn set_or_clear_membership_spec<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::MembershipSpec>,
@@ -99,7 +99,7 @@ impl MembershipState {
         self
     }
 
-    /// Sets or clear the value of [operator_state][crate::model::MembershipState::operator_state].
+    /// Sets or clears the value of [operator_state][crate::model::MembershipState::operator_state].
     pub fn set_or_clear_operator_state<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::OperatorState>,
@@ -117,7 +117,7 @@ impl MembershipState {
         self
     }
 
-    /// Sets or clear the value of [config_sync_state][crate::model::MembershipState::config_sync_state].
+    /// Sets or clears the value of [config_sync_state][crate::model::MembershipState::config_sync_state].
     pub fn set_or_clear_config_sync_state<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ConfigSyncState>,
@@ -135,7 +135,7 @@ impl MembershipState {
         self
     }
 
-    /// Sets or clear the value of [policy_controller_state][crate::model::MembershipState::policy_controller_state].
+    /// Sets or clears the value of [policy_controller_state][crate::model::MembershipState::policy_controller_state].
     pub fn set_or_clear_policy_controller_state<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::PolicyControllerState>,
@@ -153,7 +153,7 @@ impl MembershipState {
         self
     }
 
-    /// Sets or clear the value of [hierarchy_controller_state][crate::model::MembershipState::hierarchy_controller_state].
+    /// Sets or clears the value of [hierarchy_controller_state][crate::model::MembershipState::hierarchy_controller_state].
     pub fn set_or_clear_hierarchy_controller_state<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::HierarchyControllerState>,
@@ -223,7 +223,7 @@ impl MembershipSpec {
         self
     }
 
-    /// Sets or clear the value of [config_sync][crate::model::MembershipSpec::config_sync].
+    /// Sets or clears the value of [config_sync][crate::model::MembershipSpec::config_sync].
     pub fn set_or_clear_config_sync<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ConfigSync>,
@@ -241,7 +241,7 @@ impl MembershipSpec {
         self
     }
 
-    /// Sets or clear the value of [policy_controller][crate::model::MembershipSpec::policy_controller].
+    /// Sets or clears the value of [policy_controller][crate::model::MembershipSpec::policy_controller].
     pub fn set_or_clear_policy_controller<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::PolicyController>,
@@ -259,7 +259,7 @@ impl MembershipSpec {
         self
     }
 
-    /// Sets or clear the value of [hierarchy_controller][crate::model::MembershipSpec::hierarchy_controller].
+    /// Sets or clears the value of [hierarchy_controller][crate::model::MembershipSpec::hierarchy_controller].
     pub fn set_or_clear_hierarchy_controller<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::HierarchyControllerConfig>,
@@ -496,7 +496,7 @@ impl ConfigSync {
         self
     }
 
-    /// Sets or clear the value of [git][crate::model::ConfigSync::git].
+    /// Sets or clears the value of [git][crate::model::ConfigSync::git].
     pub fn set_or_clear_git<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::GitConfig>,
@@ -520,7 +520,7 @@ impl ConfigSync {
         self
     }
 
-    /// Sets or clear the value of [enabled][crate::model::ConfigSync::enabled].
+    /// Sets or clears the value of [enabled][crate::model::ConfigSync::enabled].
     pub fn set_or_clear_enabled<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<bool>,
@@ -544,7 +544,7 @@ impl ConfigSync {
         self
     }
 
-    /// Sets or clear the value of [oci][crate::model::ConfigSync::oci].
+    /// Sets or clears the value of [oci][crate::model::ConfigSync::oci].
     pub fn set_or_clear_oci<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::OciConfig>,
@@ -818,7 +818,7 @@ impl PolicyController {
         self
     }
 
-    /// Sets or clear the value of [template_library_installed][crate::model::PolicyController::template_library_installed].
+    /// Sets or clears the value of [template_library_installed][crate::model::PolicyController::template_library_installed].
     pub fn set_or_clear_template_library_installed<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<bool>,
@@ -836,7 +836,7 @@ impl PolicyController {
         self
     }
 
-    /// Sets or clear the value of [audit_interval_seconds][crate::model::PolicyController::audit_interval_seconds].
+    /// Sets or clears the value of [audit_interval_seconds][crate::model::PolicyController::audit_interval_seconds].
     pub fn set_or_clear_audit_interval_seconds<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<i64>,
@@ -1047,7 +1047,7 @@ impl HierarchyControllerState {
         self
     }
 
-    /// Sets or clear the value of [version][crate::model::HierarchyControllerState::version].
+    /// Sets or clears the value of [version][crate::model::HierarchyControllerState::version].
     pub fn set_or_clear_version<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::HierarchyControllerVersion>,
@@ -1065,7 +1065,7 @@ impl HierarchyControllerState {
         self
     }
 
-    /// Sets or clear the value of [state][crate::model::HierarchyControllerState::state].
+    /// Sets or clears the value of [state][crate::model::HierarchyControllerState::state].
     pub fn set_or_clear_state<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::HierarchyControllerDeploymentState>,
@@ -1223,7 +1223,7 @@ impl ConfigSyncState {
         self
     }
 
-    /// Sets or clear the value of [version][crate::model::ConfigSyncState::version].
+    /// Sets or clears the value of [version][crate::model::ConfigSyncState::version].
     pub fn set_or_clear_version<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ConfigSyncVersion>,
@@ -1241,7 +1241,7 @@ impl ConfigSyncState {
         self
     }
 
-    /// Sets or clear the value of [deployment_state][crate::model::ConfigSyncState::deployment_state].
+    /// Sets or clears the value of [deployment_state][crate::model::ConfigSyncState::deployment_state].
     pub fn set_or_clear_deployment_state<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ConfigSyncDeploymentState>,
@@ -1259,7 +1259,7 @@ impl ConfigSyncState {
         self
     }
 
-    /// Sets or clear the value of [sync_state][crate::model::ConfigSyncState::sync_state].
+    /// Sets or clears the value of [sync_state][crate::model::ConfigSyncState::sync_state].
     pub fn set_or_clear_sync_state<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::SyncState>,
@@ -1929,7 +1929,7 @@ impl SyncState {
         self
     }
 
-    /// Sets or clear the value of [last_sync_time][crate::model::SyncState::last_sync_time].
+    /// Sets or clears the value of [last_sync_time][crate::model::SyncState::last_sync_time].
     pub fn set_or_clear_last_sync_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2256,7 +2256,7 @@ impl ErrorResource {
         self
     }
 
-    /// Sets or clear the value of [resource_gvk][crate::model::ErrorResource::resource_gvk].
+    /// Sets or clears the value of [resource_gvk][crate::model::ErrorResource::resource_gvk].
     pub fn set_or_clear_resource_gvk<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::GroupVersionKind>,
@@ -2356,7 +2356,7 @@ impl PolicyControllerState {
         self
     }
 
-    /// Sets or clear the value of [version][crate::model::PolicyControllerState::version].
+    /// Sets or clears the value of [version][crate::model::PolicyControllerState::version].
     pub fn set_or_clear_version<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::PolicyControllerVersion>,
@@ -2374,7 +2374,7 @@ impl PolicyControllerState {
         self
     }
 
-    /// Sets or clear the value of [deployment_state][crate::model::PolicyControllerState::deployment_state].
+    /// Sets or clears the value of [deployment_state][crate::model::PolicyControllerState::deployment_state].
     pub fn set_or_clear_deployment_state<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::GatekeeperDeploymentState>,

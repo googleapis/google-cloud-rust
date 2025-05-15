@@ -180,7 +180,7 @@ pub mod rapid_migration_assessment {
             self
         }
 
-        /// Sets or clear the value of [collector][crate::model::CreateCollectorRequest::collector].
+        /// Sets or clears the value of [collector][crate::model::CreateCollectorRequest::collector].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_collector<T>(mut self, v: std::option::Option<T>) -> Self
@@ -312,7 +312,7 @@ pub mod rapid_migration_assessment {
             self
         }
 
-        /// Sets or clear the value of [annotation][crate::model::CreateAnnotationRequest::annotation].
+        /// Sets or clears the value of [annotation][crate::model::CreateAnnotationRequest::annotation].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_annotation<T>(mut self, v: std::option::Option<T>) -> Self
@@ -671,7 +671,7 @@ pub mod rapid_migration_assessment {
             self
         }
 
-        /// Sets or clear the value of [update_mask][crate::model::UpdateCollectorRequest::update_mask].
+        /// Sets or clears the value of [update_mask][crate::model::UpdateCollectorRequest::update_mask].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
@@ -693,7 +693,7 @@ pub mod rapid_migration_assessment {
             self
         }
 
-        /// Sets or clear the value of [collector][crate::model::UpdateCollectorRequest::collector].
+        /// Sets or clears the value of [collector][crate::model::UpdateCollectorRequest::collector].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_collector<T>(mut self, v: std::option::Option<T>) -> Self

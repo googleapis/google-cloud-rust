@@ -122,7 +122,7 @@ impl Configuration {
         self
     }
 
-    /// Sets or clear the value of [current_billing_info][crate::model::Configuration::current_billing_info].
+    /// Sets or clears the value of [current_billing_info][crate::model::Configuration::current_billing_info].
     pub fn set_or_clear_current_billing_info<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::BillingInfo>,
@@ -140,7 +140,7 @@ impl Configuration {
         self
     }
 
-    /// Sets or clear the value of [next_billing_info][crate::model::Configuration::next_billing_info].
+    /// Sets or clears the value of [next_billing_info][crate::model::Configuration::next_billing_info].
     pub fn set_or_clear_next_billing_info<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::BillingInfo>,
@@ -158,7 +158,7 @@ impl Configuration {
         self
     }
 
-    /// Sets or clear the value of [create_time][crate::model::Configuration::create_time].
+    /// Sets or clears the value of [create_time][crate::model::Configuration::create_time].
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -176,7 +176,7 @@ impl Configuration {
         self
     }
 
-    /// Sets or clear the value of [update_time][crate::model::Configuration::update_time].
+    /// Sets or clears the value of [update_time][crate::model::Configuration::update_time].
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -393,7 +393,7 @@ impl BillingInfo {
         self
     }
 
-    /// Sets or clear the value of [start_time][crate::model::BillingInfo::start_time].
+    /// Sets or clears the value of [start_time][crate::model::BillingInfo::start_time].
     pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -411,7 +411,7 @@ impl BillingInfo {
         self
     }
 
-    /// Sets or clear the value of [end_time][crate::model::BillingInfo::end_time].
+    /// Sets or clears the value of [end_time][crate::model::BillingInfo::end_time].
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -865,7 +865,7 @@ impl Instance {
         self
     }
 
-    /// Sets or clear the value of [create_time][crate::model::Instance::create_time].
+    /// Sets or clears the value of [create_time][crate::model::Instance::create_time].
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -883,7 +883,7 @@ impl Instance {
         self
     }
 
-    /// Sets or clear the value of [update_time][crate::model::Instance::update_time].
+    /// Sets or clears the value of [update_time][crate::model::Instance::update_time].
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1419,7 +1419,7 @@ impl CreateConfigurationRequest {
         self
     }
 
-    /// Sets or clear the value of [configuration][crate::model::CreateConfigurationRequest::configuration].
+    /// Sets or clears the value of [configuration][crate::model::CreateConfigurationRequest::configuration].
     pub fn set_or_clear_configuration<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Configuration>,
@@ -1493,7 +1493,7 @@ impl UpdateConfigurationRequest {
         self
     }
 
-    /// Sets or clear the value of [update_mask][crate::model::UpdateConfigurationRequest::update_mask].
+    /// Sets or clears the value of [update_mask][crate::model::UpdateConfigurationRequest::update_mask].
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -1511,7 +1511,7 @@ impl UpdateConfigurationRequest {
         self
     }
 
-    /// Sets or clear the value of [configuration][crate::model::UpdateConfigurationRequest::configuration].
+    /// Sets or clears the value of [configuration][crate::model::UpdateConfigurationRequest::configuration].
     pub fn set_or_clear_configuration<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Configuration>,
@@ -1812,7 +1812,7 @@ impl QueryConfigurationLicenseUsageRequest {
         self
     }
 
-    /// Sets or clear the value of [start_time][crate::model::QueryConfigurationLicenseUsageRequest::start_time].
+    /// Sets or clears the value of [start_time][crate::model::QueryConfigurationLicenseUsageRequest::start_time].
     pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1830,7 +1830,7 @@ impl QueryConfigurationLicenseUsageRequest {
         self
     }
 
-    /// Sets or clear the value of [end_time][crate::model::QueryConfigurationLicenseUsageRequest::end_time].
+    /// Sets or clears the value of [end_time][crate::model::QueryConfigurationLicenseUsageRequest::end_time].
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2136,7 +2136,7 @@ impl AggregateUsageRequest {
         self
     }
 
-    /// Sets or clear the value of [start_time][crate::model::AggregateUsageRequest::start_time].
+    /// Sets or clears the value of [start_time][crate::model::AggregateUsageRequest::start_time].
     pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2154,7 +2154,7 @@ impl AggregateUsageRequest {
         self
     }
 
-    /// Sets or clear the value of [end_time][crate::model::AggregateUsageRequest::end_time].
+    /// Sets or clears the value of [end_time][crate::model::AggregateUsageRequest::end_time].
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2487,7 +2487,7 @@ impl OperationMetadata {
         self
     }
 
-    /// Sets or clear the value of [create_time][crate::model::OperationMetadata::create_time].
+    /// Sets or clears the value of [create_time][crate::model::OperationMetadata::create_time].
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2505,7 +2505,7 @@ impl OperationMetadata {
         self
     }
 
-    /// Sets or clear the value of [end_time][crate::model::OperationMetadata::end_time].
+    /// Sets or clears the value of [end_time][crate::model::OperationMetadata::end_time].
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,

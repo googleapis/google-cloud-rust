@@ -106,7 +106,7 @@ impl Process {
         self
     }
 
-    /// Sets or clear the value of [origin][crate::model::Process::origin].
+    /// Sets or clears the value of [origin][crate::model::Process::origin].
     pub fn set_or_clear_origin<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Origin>,
@@ -203,7 +203,7 @@ impl Run {
         self
     }
 
-    /// Sets or clear the value of [start_time][crate::model::Run::start_time].
+    /// Sets or clears the value of [start_time][crate::model::Run::start_time].
     pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -221,7 +221,7 @@ impl Run {
         self
     }
 
-    /// Sets or clear the value of [end_time][crate::model::Run::end_time].
+    /// Sets or clears the value of [end_time][crate::model::Run::end_time].
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -463,7 +463,7 @@ impl LineageEvent {
         self
     }
 
-    /// Sets or clear the value of [start_time][crate::model::LineageEvent::start_time].
+    /// Sets or clears the value of [start_time][crate::model::LineageEvent::start_time].
     pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -481,7 +481,7 @@ impl LineageEvent {
         self
     }
 
-    /// Sets or clear the value of [end_time][crate::model::LineageEvent::end_time].
+    /// Sets or clears the value of [end_time][crate::model::LineageEvent::end_time].
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -529,7 +529,7 @@ impl EventLink {
         self
     }
 
-    /// Sets or clear the value of [source][crate::model::EventLink::source].
+    /// Sets or clears the value of [source][crate::model::EventLink::source].
     pub fn set_or_clear_source<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::EntityReference>,
@@ -547,7 +547,7 @@ impl EventLink {
         self
     }
 
-    /// Sets or clear the value of [target][crate::model::EventLink::target].
+    /// Sets or clears the value of [target][crate::model::EventLink::target].
     pub fn set_or_clear_target<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::EntityReference>,
@@ -679,7 +679,7 @@ impl OperationMetadata {
         self
     }
 
-    /// Sets or clear the value of [create_time][crate::model::OperationMetadata::create_time].
+    /// Sets or clears the value of [create_time][crate::model::OperationMetadata::create_time].
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -697,7 +697,7 @@ impl OperationMetadata {
         self
     }
 
-    /// Sets or clear the value of [end_time][crate::model::OperationMetadata::end_time].
+    /// Sets or clears the value of [end_time][crate::model::OperationMetadata::end_time].
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1044,7 +1044,7 @@ impl ProcessOpenLineageRunEventRequest {
         self
     }
 
-    /// Sets or clear the value of [open_lineage][crate::model::ProcessOpenLineageRunEventRequest::open_lineage].
+    /// Sets or clears the value of [open_lineage][crate::model::ProcessOpenLineageRunEventRequest::open_lineage].
     pub fn set_or_clear_open_lineage<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Struct>,
@@ -1175,7 +1175,7 @@ impl CreateProcessRequest {
         self
     }
 
-    /// Sets or clear the value of [process][crate::model::CreateProcessRequest::process].
+    /// Sets or clears the value of [process][crate::model::CreateProcessRequest::process].
     pub fn set_or_clear_process<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Process>,
@@ -1237,7 +1237,7 @@ impl UpdateProcessRequest {
         self
     }
 
-    /// Sets or clear the value of [process][crate::model::UpdateProcessRequest::process].
+    /// Sets or clears the value of [process][crate::model::UpdateProcessRequest::process].
     pub fn set_or_clear_process<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Process>,
@@ -1255,7 +1255,7 @@ impl UpdateProcessRequest {
         self
     }
 
-    /// Sets or clear the value of [update_mask][crate::model::UpdateProcessRequest::update_mask].
+    /// Sets or clears the value of [update_mask][crate::model::UpdateProcessRequest::update_mask].
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -1523,7 +1523,7 @@ impl CreateRunRequest {
         self
     }
 
-    /// Sets or clear the value of [run][crate::model::CreateRunRequest::run].
+    /// Sets or clears the value of [run][crate::model::CreateRunRequest::run].
     pub fn set_or_clear_run<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Run>,
@@ -1588,7 +1588,7 @@ impl UpdateRunRequest {
         self
     }
 
-    /// Sets or clear the value of [run][crate::model::UpdateRunRequest::run].
+    /// Sets or clears the value of [run][crate::model::UpdateRunRequest::run].
     pub fn set_or_clear_run<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Run>,
@@ -1606,7 +1606,7 @@ impl UpdateRunRequest {
         self
     }
 
-    /// Sets or clear the value of [update_mask][crate::model::UpdateRunRequest::update_mask].
+    /// Sets or clears the value of [update_mask][crate::model::UpdateRunRequest::update_mask].
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -1873,7 +1873,7 @@ impl CreateLineageEventRequest {
         self
     }
 
-    /// Sets or clear the value of [lineage_event][crate::model::CreateLineageEventRequest::lineage_event].
+    /// Sets or clears the value of [lineage_event][crate::model::CreateLineageEventRequest::lineage_event].
     pub fn set_or_clear_lineage_event<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::LineageEvent>,
@@ -2372,7 +2372,7 @@ impl Link {
         self
     }
 
-    /// Sets or clear the value of [source][crate::model::Link::source].
+    /// Sets or clears the value of [source][crate::model::Link::source].
     pub fn set_or_clear_source<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::EntityReference>,
@@ -2390,7 +2390,7 @@ impl Link {
         self
     }
 
-    /// Sets or clear the value of [target][crate::model::Link::target].
+    /// Sets or clears the value of [target][crate::model::Link::target].
     pub fn set_or_clear_target<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::EntityReference>,
@@ -2408,7 +2408,7 @@ impl Link {
         self
     }
 
-    /// Sets or clear the value of [start_time][crate::model::Link::start_time].
+    /// Sets or clears the value of [start_time][crate::model::Link::start_time].
     pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2426,7 +2426,7 @@ impl Link {
         self
     }
 
-    /// Sets or clear the value of [end_time][crate::model::Link::end_time].
+    /// Sets or clears the value of [end_time][crate::model::Link::end_time].
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2685,7 +2685,7 @@ impl ProcessLinkInfo {
         self
     }
 
-    /// Sets or clear the value of [start_time][crate::model::ProcessLinkInfo::start_time].
+    /// Sets or clears the value of [start_time][crate::model::ProcessLinkInfo::start_time].
     pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2703,7 +2703,7 @@ impl ProcessLinkInfo {
         self
     }
 
-    /// Sets or clear the value of [end_time][crate::model::ProcessLinkInfo::end_time].
+    /// Sets or clears the value of [end_time][crate::model::ProcessLinkInfo::end_time].
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,

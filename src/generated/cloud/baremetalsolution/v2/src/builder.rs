@@ -334,7 +334,7 @@ pub mod bare_metal_solution {
             self
         }
 
-        /// Sets or clear the value of [instance][crate::model::UpdateInstanceRequest::instance].
+        /// Sets or clears the value of [instance][crate::model::UpdateInstanceRequest::instance].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_instance<T>(mut self, v: std::option::Option<T>) -> Self
@@ -354,7 +354,7 @@ pub mod bare_metal_solution {
             self
         }
 
-        /// Sets or clear the value of [update_mask][crate::model::UpdateInstanceRequest::update_mask].
+        /// Sets or clears the value of [update_mask][crate::model::UpdateInstanceRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
@@ -1257,7 +1257,7 @@ pub mod bare_metal_solution {
             self
         }
 
-        /// Sets or clear the value of [ssh_key][crate::model::CreateSSHKeyRequest::ssh_key].
+        /// Sets or clears the value of [ssh_key][crate::model::CreateSSHKeyRequest::ssh_key].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_ssh_key<T>(mut self, v: std::option::Option<T>) -> Self
@@ -1612,7 +1612,7 @@ pub mod bare_metal_solution {
             self
         }
 
-        /// Sets or clear the value of [volume][crate::model::UpdateVolumeRequest::volume].
+        /// Sets or clears the value of [volume][crate::model::UpdateVolumeRequest::volume].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_volume<T>(mut self, v: std::option::Option<T>) -> Self
@@ -1632,7 +1632,7 @@ pub mod bare_metal_solution {
             self
         }
 
-        /// Sets or clear the value of [update_mask][crate::model::UpdateVolumeRequest::update_mask].
+        /// Sets or clears the value of [update_mask][crate::model::UpdateVolumeRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
@@ -2260,7 +2260,7 @@ pub mod bare_metal_solution {
             self
         }
 
-        /// Sets or clear the value of [network][crate::model::UpdateNetworkRequest::network].
+        /// Sets or clears the value of [network][crate::model::UpdateNetworkRequest::network].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_network<T>(mut self, v: std::option::Option<T>) -> Self
@@ -2280,7 +2280,7 @@ pub mod bare_metal_solution {
             self
         }
 
-        /// Sets or clear the value of [update_mask][crate::model::UpdateNetworkRequest::update_mask].
+        /// Sets or clears the value of [update_mask][crate::model::UpdateNetworkRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
@@ -2365,7 +2365,7 @@ pub mod bare_metal_solution {
             self
         }
 
-        /// Sets or clear the value of [volume_snapshot][crate::model::CreateVolumeSnapshotRequest::volume_snapshot].
+        /// Sets or clears the value of [volume_snapshot][crate::model::CreateVolumeSnapshotRequest::volume_snapshot].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_volume_snapshot<T>(mut self, v: std::option::Option<T>) -> Self
@@ -3261,7 +3261,7 @@ pub mod bare_metal_solution {
             self
         }
 
-        /// Sets or clear the value of [nfs_share][crate::model::UpdateNfsShareRequest::nfs_share].
+        /// Sets or clears the value of [nfs_share][crate::model::UpdateNfsShareRequest::nfs_share].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_nfs_share<T>(mut self, v: std::option::Option<T>) -> Self
@@ -3281,7 +3281,7 @@ pub mod bare_metal_solution {
             self
         }
 
-        /// Sets or clear the value of [update_mask][crate::model::UpdateNfsShareRequest::update_mask].
+        /// Sets or clears the value of [update_mask][crate::model::UpdateNfsShareRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
@@ -3402,7 +3402,7 @@ pub mod bare_metal_solution {
             self
         }
 
-        /// Sets or clear the value of [nfs_share][crate::model::CreateNfsShareRequest::nfs_share].
+        /// Sets or clears the value of [nfs_share][crate::model::CreateNfsShareRequest::nfs_share].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_nfs_share<T>(mut self, v: std::option::Option<T>) -> Self
@@ -3773,7 +3773,7 @@ pub mod bare_metal_solution {
             self
         }
 
-        /// Sets or clear the value of [provisioning_config][crate::model::SubmitProvisioningConfigRequest::provisioning_config].
+        /// Sets or clears the value of [provisioning_config][crate::model::SubmitProvisioningConfigRequest::provisioning_config].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_provisioning_config<T>(mut self, v: std::option::Option<T>) -> Self
@@ -3933,7 +3933,7 @@ pub mod bare_metal_solution {
             self
         }
 
-        /// Sets or clear the value of [provisioning_config][crate::model::CreateProvisioningConfigRequest::provisioning_config].
+        /// Sets or clears the value of [provisioning_config][crate::model::CreateProvisioningConfigRequest::provisioning_config].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_provisioning_config<T>(mut self, v: std::option::Option<T>) -> Self
@@ -4020,7 +4020,7 @@ pub mod bare_metal_solution {
             self
         }
 
-        /// Sets or clear the value of [provisioning_config][crate::model::UpdateProvisioningConfigRequest::provisioning_config].
+        /// Sets or clears the value of [provisioning_config][crate::model::UpdateProvisioningConfigRequest::provisioning_config].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_provisioning_config<T>(mut self, v: std::option::Option<T>) -> Self
@@ -4042,7 +4042,7 @@ pub mod bare_metal_solution {
             self
         }
 
-        /// Sets or clear the value of [update_mask][crate::model::UpdateProvisioningConfigRequest::update_mask].
+        /// Sets or clears the value of [update_mask][crate::model::UpdateProvisioningConfigRequest::update_mask].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self

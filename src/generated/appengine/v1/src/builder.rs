@@ -228,7 +228,7 @@ pub mod applications {
             self
         }
 
-        /// Sets or clear the value of [application][crate::model::CreateApplicationRequest::application].
+        /// Sets or clears the value of [application][crate::model::CreateApplicationRequest::application].
         pub fn set_or_clear_application<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Application>,
@@ -351,7 +351,7 @@ pub mod applications {
             self
         }
 
-        /// Sets or clear the value of [application][crate::model::UpdateApplicationRequest::application].
+        /// Sets or clears the value of [application][crate::model::UpdateApplicationRequest::application].
         pub fn set_or_clear_application<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Application>,
@@ -369,7 +369,7 @@ pub mod applications {
             self
         }
 
-        /// Sets or clear the value of [update_mask][crate::model::UpdateApplicationRequest::update_mask].
+        /// Sets or clears the value of [update_mask][crate::model::UpdateApplicationRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
@@ -972,7 +972,7 @@ pub mod services {
             self
         }
 
-        /// Sets or clear the value of [service][crate::model::UpdateServiceRequest::service].
+        /// Sets or clears the value of [service][crate::model::UpdateServiceRequest::service].
         pub fn set_or_clear_service<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Service>,
@@ -990,7 +990,7 @@ pub mod services {
             self
         }
 
-        /// Sets or clear the value of [update_mask][crate::model::UpdateServiceRequest::update_mask].
+        /// Sets or clears the value of [update_mask][crate::model::UpdateServiceRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
@@ -1605,7 +1605,7 @@ pub mod versions {
             self
         }
 
-        /// Sets or clear the value of [version][crate::model::CreateVersionRequest::version].
+        /// Sets or clears the value of [version][crate::model::CreateVersionRequest::version].
         pub fn set_or_clear_version<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Version>,
@@ -1720,7 +1720,7 @@ pub mod versions {
             self
         }
 
-        /// Sets or clear the value of [version][crate::model::UpdateVersionRequest::version].
+        /// Sets or clears the value of [version][crate::model::UpdateVersionRequest::version].
         pub fn set_or_clear_version<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Version>,
@@ -1738,7 +1738,7 @@ pub mod versions {
             self
         }
 
-        /// Sets or clear the value of [update_mask][crate::model::UpdateVersionRequest::update_mask].
+        /// Sets or clears the value of [update_mask][crate::model::UpdateVersionRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
@@ -2917,7 +2917,7 @@ pub mod firewall {
             self
         }
 
-        /// Sets or clear the value of [rule][crate::model::CreateIngressRuleRequest::rule].
+        /// Sets or clears the value of [rule][crate::model::CreateIngressRuleRequest::rule].
         pub fn set_or_clear_rule<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::FirewallRule>,
@@ -3054,7 +3054,7 @@ pub mod firewall {
             self
         }
 
-        /// Sets or clear the value of [rule][crate::model::UpdateIngressRuleRequest::rule].
+        /// Sets or clears the value of [rule][crate::model::UpdateIngressRuleRequest::rule].
         pub fn set_or_clear_rule<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::FirewallRule>,
@@ -3072,7 +3072,7 @@ pub mod firewall {
             self
         }
 
-        /// Sets or clear the value of [update_mask][crate::model::UpdateIngressRuleRequest::update_mask].
+        /// Sets or clears the value of [update_mask][crate::model::UpdateIngressRuleRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
@@ -3961,7 +3961,7 @@ pub mod authorized_certificates {
             self
         }
 
-        /// Sets or clear the value of [certificate][crate::model::CreateAuthorizedCertificateRequest::certificate].
+        /// Sets or clears the value of [certificate][crate::model::CreateAuthorizedCertificateRequest::certificate].
         pub fn set_or_clear_certificate<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::AuthorizedCertificate>,
@@ -4044,7 +4044,7 @@ pub mod authorized_certificates {
             self
         }
 
-        /// Sets or clear the value of [certificate][crate::model::UpdateAuthorizedCertificateRequest::certificate].
+        /// Sets or clears the value of [certificate][crate::model::UpdateAuthorizedCertificateRequest::certificate].
         pub fn set_or_clear_certificate<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::AuthorizedCertificate>,
@@ -4062,7 +4062,7 @@ pub mod authorized_certificates {
             self
         }
 
-        /// Sets or clear the value of [update_mask][crate::model::UpdateAuthorizedCertificateRequest::update_mask].
+        /// Sets or clears the value of [update_mask][crate::model::UpdateAuthorizedCertificateRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
@@ -4647,7 +4647,7 @@ pub mod domain_mappings {
             self
         }
 
-        /// Sets or clear the value of [domain_mapping][crate::model::CreateDomainMappingRequest::domain_mapping].
+        /// Sets or clears the value of [domain_mapping][crate::model::CreateDomainMappingRequest::domain_mapping].
         pub fn set_or_clear_domain_mapping<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::DomainMapping>,
@@ -4779,7 +4779,7 @@ pub mod domain_mappings {
             self
         }
 
-        /// Sets or clear the value of [domain_mapping][crate::model::UpdateDomainMappingRequest::domain_mapping].
+        /// Sets or clears the value of [domain_mapping][crate::model::UpdateDomainMappingRequest::domain_mapping].
         pub fn set_or_clear_domain_mapping<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::DomainMapping>,
@@ -4797,7 +4797,7 @@ pub mod domain_mappings {
             self
         }
 
-        /// Sets or clear the value of [update_mask][crate::model::UpdateDomainMappingRequest::update_mask].
+        /// Sets or clears the value of [update_mask][crate::model::UpdateDomainMappingRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,

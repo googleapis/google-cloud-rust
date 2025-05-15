@@ -354,7 +354,7 @@ pub mod workflows {
             self
         }
 
-        /// Sets or clear the value of [workflow][crate::model::CreateWorkflowRequest::workflow].
+        /// Sets or clears the value of [workflow][crate::model::CreateWorkflowRequest::workflow].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_workflow<T>(mut self, v: std::option::Option<T>) -> Self
@@ -580,7 +580,7 @@ pub mod workflows {
             self
         }
 
-        /// Sets or clear the value of [workflow][crate::model::UpdateWorkflowRequest::workflow].
+        /// Sets or clears the value of [workflow][crate::model::UpdateWorkflowRequest::workflow].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_workflow<T>(mut self, v: std::option::Option<T>) -> Self
@@ -600,7 +600,7 @@ pub mod workflows {
             self
         }
 
-        /// Sets or clear the value of [update_mask][crate::model::UpdateWorkflowRequest::update_mask].
+        /// Sets or clears the value of [update_mask][crate::model::UpdateWorkflowRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,

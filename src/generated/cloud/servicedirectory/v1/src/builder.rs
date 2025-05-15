@@ -439,7 +439,7 @@ pub mod registration_service {
             self
         }
 
-        /// Sets or clear the value of [namespace][crate::model::CreateNamespaceRequest::namespace].
+        /// Sets or clears the value of [namespace][crate::model::CreateNamespaceRequest::namespace].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_namespace<T>(mut self, v: std::option::Option<T>) -> Self
@@ -691,7 +691,7 @@ pub mod registration_service {
             self
         }
 
-        /// Sets or clear the value of [namespace][crate::model::UpdateNamespaceRequest::namespace].
+        /// Sets or clears the value of [namespace][crate::model::UpdateNamespaceRequest::namespace].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_namespace<T>(mut self, v: std::option::Option<T>) -> Self
@@ -713,7 +713,7 @@ pub mod registration_service {
             self
         }
 
-        /// Sets or clear the value of [update_mask][crate::model::UpdateNamespaceRequest::update_mask].
+        /// Sets or clears the value of [update_mask][crate::model::UpdateNamespaceRequest::update_mask].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
@@ -867,7 +867,7 @@ pub mod registration_service {
             self
         }
 
-        /// Sets or clear the value of [service][crate::model::CreateServiceRequest::service].
+        /// Sets or clears the value of [service][crate::model::CreateServiceRequest::service].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_service<T>(mut self, v: std::option::Option<T>) -> Self
@@ -1119,7 +1119,7 @@ pub mod registration_service {
             self
         }
 
-        /// Sets or clear the value of [service][crate::model::UpdateServiceRequest::service].
+        /// Sets or clears the value of [service][crate::model::UpdateServiceRequest::service].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_service<T>(mut self, v: std::option::Option<T>) -> Self
@@ -1141,7 +1141,7 @@ pub mod registration_service {
             self
         }
 
-        /// Sets or clear the value of [update_mask][crate::model::UpdateServiceRequest::update_mask].
+        /// Sets or clears the value of [update_mask][crate::model::UpdateServiceRequest::update_mask].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
@@ -1295,7 +1295,7 @@ pub mod registration_service {
             self
         }
 
-        /// Sets or clear the value of [endpoint][crate::model::CreateEndpointRequest::endpoint].
+        /// Sets or clears the value of [endpoint][crate::model::CreateEndpointRequest::endpoint].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_endpoint<T>(mut self, v: std::option::Option<T>) -> Self
@@ -1547,7 +1547,7 @@ pub mod registration_service {
             self
         }
 
-        /// Sets or clear the value of [endpoint][crate::model::UpdateEndpointRequest::endpoint].
+        /// Sets or clears the value of [endpoint][crate::model::UpdateEndpointRequest::endpoint].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_endpoint<T>(mut self, v: std::option::Option<T>) -> Self
@@ -1569,7 +1569,7 @@ pub mod registration_service {
             self
         }
 
-        /// Sets or clear the value of [update_mask][crate::model::UpdateEndpointRequest::update_mask].
+        /// Sets or clears the value of [update_mask][crate::model::UpdateEndpointRequest::update_mask].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
@@ -1713,7 +1713,7 @@ pub mod registration_service {
             self
         }
 
-        /// Sets or clear the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        /// Sets or clears the value of [options][iam_v1::model::GetIamPolicyRequest::options].
         pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
@@ -1795,7 +1795,7 @@ pub mod registration_service {
             self
         }
 
-        /// Sets or clear the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        /// Sets or clears the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
@@ -1815,7 +1815,7 @@ pub mod registration_service {
             self
         }
 
-        /// Sets or clear the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        /// Sets or clears the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,

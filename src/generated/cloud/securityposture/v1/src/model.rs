@@ -76,7 +76,7 @@ impl PolicyRule {
         self
     }
 
-    /// Sets or clear the value of [condition][crate::model::PolicyRule::condition].
+    /// Sets or clears the value of [condition][crate::model::PolicyRule::condition].
     pub fn set_or_clear_condition<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<gtype::model::Expr>,
@@ -424,7 +424,7 @@ impl CustomConstraint {
         self
     }
 
-    /// Sets or clear the value of [update_time][crate::model::CustomConstraint::update_time].
+    /// Sets or clears the value of [update_time][crate::model::CustomConstraint::update_time].
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -806,7 +806,7 @@ impl OrgPolicyConstraintCustom {
         self
     }
 
-    /// Sets or clear the value of [custom_constraint][crate::model::OrgPolicyConstraintCustom::custom_constraint].
+    /// Sets or clears the value of [custom_constraint][crate::model::OrgPolicyConstraintCustom::custom_constraint].
     pub fn set_or_clear_custom_constraint<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CustomConstraint>,
@@ -897,7 +897,7 @@ impl OperationMetadata {
         self
     }
 
-    /// Sets or clear the value of [create_time][crate::model::OperationMetadata::create_time].
+    /// Sets or clears the value of [create_time][crate::model::OperationMetadata::create_time].
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -915,7 +915,7 @@ impl OperationMetadata {
         self
     }
 
-    /// Sets or clear the value of [end_time][crate::model::OperationMetadata::end_time].
+    /// Sets or clears the value of [end_time][crate::model::OperationMetadata::end_time].
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1064,7 +1064,7 @@ impl Posture {
         self
     }
 
-    /// Sets or clear the value of [create_time][crate::model::Posture::create_time].
+    /// Sets or clears the value of [create_time][crate::model::Posture::create_time].
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1082,7 +1082,7 @@ impl Posture {
         self
     }
 
-    /// Sets or clear the value of [update_time][crate::model::Posture::update_time].
+    /// Sets or clears the value of [update_time][crate::model::Posture::update_time].
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1399,7 +1399,7 @@ impl Policy {
         self
     }
 
-    /// Sets or clear the value of [constraint][crate::model::Policy::constraint].
+    /// Sets or clears the value of [constraint][crate::model::Policy::constraint].
     pub fn set_or_clear_constraint<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Constraint>,
@@ -1994,7 +1994,7 @@ impl CreatePostureRequest {
         self
     }
 
-    /// Sets or clear the value of [posture][crate::model::CreatePostureRequest::posture].
+    /// Sets or clears the value of [posture][crate::model::CreatePostureRequest::posture].
     pub fn set_or_clear_posture<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Posture>,
@@ -2050,7 +2050,7 @@ impl UpdatePostureRequest {
         self
     }
 
-    /// Sets or clear the value of [update_mask][crate::model::UpdatePostureRequest::update_mask].
+    /// Sets or clears the value of [update_mask][crate::model::UpdatePostureRequest::update_mask].
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -2068,7 +2068,7 @@ impl UpdatePostureRequest {
         self
     }
 
-    /// Sets or clear the value of [posture][crate::model::UpdatePostureRequest::posture].
+    /// Sets or clears the value of [posture][crate::model::UpdatePostureRequest::posture].
     pub fn set_or_clear_posture<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Posture>,
@@ -2333,7 +2333,7 @@ impl PostureDeployment {
         self
     }
 
-    /// Sets or clear the value of [create_time][crate::model::PostureDeployment::create_time].
+    /// Sets or clears the value of [create_time][crate::model::PostureDeployment::create_time].
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2351,7 +2351,7 @@ impl PostureDeployment {
         self
     }
 
-    /// Sets or clear the value of [update_time][crate::model::PostureDeployment::update_time].
+    /// Sets or clears the value of [update_time][crate::model::PostureDeployment::update_time].
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2819,7 +2819,7 @@ impl CreatePostureDeploymentRequest {
         self
     }
 
-    /// Sets or clear the value of [posture_deployment][crate::model::CreatePostureDeploymentRequest::posture_deployment].
+    /// Sets or clears the value of [posture_deployment][crate::model::CreatePostureDeploymentRequest::posture_deployment].
     pub fn set_or_clear_posture_deployment<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::PostureDeployment>,
@@ -2871,7 +2871,7 @@ impl UpdatePostureDeploymentRequest {
         self
     }
 
-    /// Sets or clear the value of [update_mask][crate::model::UpdatePostureDeploymentRequest::update_mask].
+    /// Sets or clears the value of [update_mask][crate::model::UpdatePostureDeploymentRequest::update_mask].
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -2889,7 +2889,7 @@ impl UpdatePostureDeploymentRequest {
         self
     }
 
-    /// Sets or clear the value of [posture_deployment][crate::model::UpdatePostureDeploymentRequest::posture_deployment].
+    /// Sets or clears the value of [posture_deployment][crate::model::UpdatePostureDeploymentRequest::posture_deployment].
     pub fn set_or_clear_posture_deployment<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::PostureDeployment>,
@@ -3439,7 +3439,7 @@ impl SecurityHealthAnalyticsCustomModule {
         self
     }
 
-    /// Sets or clear the value of [config][crate::model::SecurityHealthAnalyticsCustomModule::config].
+    /// Sets or clears the value of [config][crate::model::SecurityHealthAnalyticsCustomModule::config].
     pub fn set_or_clear_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CustomConfig>,
@@ -3521,7 +3521,7 @@ impl CustomConfig {
         self
     }
 
-    /// Sets or clear the value of [predicate][crate::model::CustomConfig::predicate].
+    /// Sets or clears the value of [predicate][crate::model::CustomConfig::predicate].
     pub fn set_or_clear_predicate<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<gtype::model::Expr>,
@@ -3539,7 +3539,7 @@ impl CustomConfig {
         self
     }
 
-    /// Sets or clear the value of [custom_output][crate::model::CustomConfig::custom_output].
+    /// Sets or clears the value of [custom_output][crate::model::CustomConfig::custom_output].
     pub fn set_or_clear_custom_output<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::custom_config::CustomOutputSpec>,
@@ -3557,7 +3557,7 @@ impl CustomConfig {
         self
     }
 
-    /// Sets or clear the value of [resource_selector][crate::model::CustomConfig::resource_selector].
+    /// Sets or clears the value of [resource_selector][crate::model::CustomConfig::resource_selector].
     pub fn set_or_clear_resource_selector<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::custom_config::ResourceSelector>,
@@ -3684,7 +3684,7 @@ pub mod custom_config {
                 self
             }
 
-            /// Sets or clear the value of [value_expression][crate::model::custom_config::custom_output_spec::Property::value_expression].
+            /// Sets or clears the value of [value_expression][crate::model::custom_config::custom_output_spec::Property::value_expression].
             pub fn set_or_clear_value_expression<T>(mut self, v: std::option::Option<T>) -> Self
             where
                 T: std::convert::Into<gtype::model::Expr>,

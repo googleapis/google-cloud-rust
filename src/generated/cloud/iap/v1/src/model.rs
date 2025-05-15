@@ -204,7 +204,7 @@ impl CreateTunnelDestGroupRequest {
         self
     }
 
-    /// Sets or clear the value of [tunnel_dest_group][crate::model::CreateTunnelDestGroupRequest::tunnel_dest_group].
+    /// Sets or clears the value of [tunnel_dest_group][crate::model::CreateTunnelDestGroupRequest::tunnel_dest_group].
     pub fn set_or_clear_tunnel_dest_group<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::TunnelDestGroup>,
@@ -331,7 +331,7 @@ impl UpdateTunnelDestGroupRequest {
         self
     }
 
-    /// Sets or clear the value of [tunnel_dest_group][crate::model::UpdateTunnelDestGroupRequest::tunnel_dest_group].
+    /// Sets or clears the value of [tunnel_dest_group][crate::model::UpdateTunnelDestGroupRequest::tunnel_dest_group].
     pub fn set_or_clear_tunnel_dest_group<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::TunnelDestGroup>,
@@ -349,7 +349,7 @@ impl UpdateTunnelDestGroupRequest {
         self
     }
 
-    /// Sets or clear the value of [update_mask][crate::model::UpdateTunnelDestGroupRequest::update_mask].
+    /// Sets or clears the value of [update_mask][crate::model::UpdateTunnelDestGroupRequest::update_mask].
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -501,7 +501,7 @@ impl UpdateIapSettingsRequest {
         self
     }
 
-    /// Sets or clear the value of [iap_settings][crate::model::UpdateIapSettingsRequest::iap_settings].
+    /// Sets or clears the value of [iap_settings][crate::model::UpdateIapSettingsRequest::iap_settings].
     pub fn set_or_clear_iap_settings<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::IapSettings>,
@@ -519,7 +519,7 @@ impl UpdateIapSettingsRequest {
         self
     }
 
-    /// Sets or clear the value of [update_mask][crate::model::UpdateIapSettingsRequest::update_mask].
+    /// Sets or clears the value of [update_mask][crate::model::UpdateIapSettingsRequest::update_mask].
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -577,7 +577,7 @@ impl IapSettings {
         self
     }
 
-    /// Sets or clear the value of [access_settings][crate::model::IapSettings::access_settings].
+    /// Sets or clears the value of [access_settings][crate::model::IapSettings::access_settings].
     pub fn set_or_clear_access_settings<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::AccessSettings>,
@@ -595,7 +595,7 @@ impl IapSettings {
         self
     }
 
-    /// Sets or clear the value of [application_settings][crate::model::IapSettings::application_settings].
+    /// Sets or clears the value of [application_settings][crate::model::IapSettings::application_settings].
     pub fn set_or_clear_application_settings<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ApplicationSettings>,
@@ -666,7 +666,7 @@ impl AccessSettings {
         self
     }
 
-    /// Sets or clear the value of [gcip_settings][crate::model::AccessSettings::gcip_settings].
+    /// Sets or clears the value of [gcip_settings][crate::model::AccessSettings::gcip_settings].
     pub fn set_or_clear_gcip_settings<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::GcipSettings>,
@@ -684,7 +684,7 @@ impl AccessSettings {
         self
     }
 
-    /// Sets or clear the value of [cors_settings][crate::model::AccessSettings::cors_settings].
+    /// Sets or clears the value of [cors_settings][crate::model::AccessSettings::cors_settings].
     pub fn set_or_clear_cors_settings<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CorsSettings>,
@@ -702,7 +702,7 @@ impl AccessSettings {
         self
     }
 
-    /// Sets or clear the value of [oauth_settings][crate::model::AccessSettings::oauth_settings].
+    /// Sets or clears the value of [oauth_settings][crate::model::AccessSettings::oauth_settings].
     pub fn set_or_clear_oauth_settings<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::OAuthSettings>,
@@ -720,7 +720,7 @@ impl AccessSettings {
         self
     }
 
-    /// Sets or clear the value of [reauth_settings][crate::model::AccessSettings::reauth_settings].
+    /// Sets or clears the value of [reauth_settings][crate::model::AccessSettings::reauth_settings].
     pub fn set_or_clear_reauth_settings<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ReauthSettings>,
@@ -738,7 +738,7 @@ impl AccessSettings {
         self
     }
 
-    /// Sets or clear the value of [allowed_domains_settings][crate::model::AccessSettings::allowed_domains_settings].
+    /// Sets or clears the value of [allowed_domains_settings][crate::model::AccessSettings::allowed_domains_settings].
     pub fn set_or_clear_allowed_domains_settings<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::AllowedDomainsSettings>,
@@ -756,7 +756,7 @@ impl AccessSettings {
         self
     }
 
-    /// Sets or clear the value of [workforce_identity_settings][crate::model::AccessSettings::workforce_identity_settings].
+    /// Sets or clears the value of [workforce_identity_settings][crate::model::AccessSettings::workforce_identity_settings].
     pub fn set_or_clear_workforce_identity_settings<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::WorkforceIdentitySettings>,
@@ -971,7 +971,7 @@ impl GcipSettings {
         self
     }
 
-    /// Sets or clear the value of [login_page_uri][crate::model::GcipSettings::login_page_uri].
+    /// Sets or clears the value of [login_page_uri][crate::model::GcipSettings::login_page_uri].
     pub fn set_or_clear_login_page_uri<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::StringValue>,
@@ -1017,7 +1017,7 @@ impl CorsSettings {
         self
     }
 
-    /// Sets or clear the value of [allow_http_options][crate::model::CorsSettings::allow_http_options].
+    /// Sets or clears the value of [allow_http_options][crate::model::CorsSettings::allow_http_options].
     pub fn set_or_clear_allow_http_options<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::BoolValue>,
@@ -1070,7 +1070,7 @@ impl OAuthSettings {
         self
     }
 
-    /// Sets or clear the value of [login_hint][crate::model::OAuthSettings::login_hint].
+    /// Sets or clears the value of [login_hint][crate::model::OAuthSettings::login_hint].
     pub fn set_or_clear_login_hint<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::StringValue>,
@@ -1143,7 +1143,7 @@ impl WorkforceIdentitySettings {
         self
     }
 
-    /// Sets or clear the value of [oauth2][crate::model::WorkforceIdentitySettings::oauth2].
+    /// Sets or clears the value of [oauth2][crate::model::WorkforceIdentitySettings::oauth2].
     pub fn set_or_clear_oauth2<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::OAuth2>,
@@ -1263,7 +1263,7 @@ impl ReauthSettings {
         self
     }
 
-    /// Sets or clear the value of [max_age][crate::model::ReauthSettings::max_age].
+    /// Sets or clears the value of [max_age][crate::model::ReauthSettings::max_age].
     pub fn set_or_clear_max_age<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -1606,7 +1606,7 @@ impl AllowedDomainsSettings {
         self
     }
 
-    /// Sets or clear the value of [enable][crate::model::AllowedDomainsSettings::enable].
+    /// Sets or clears the value of [enable][crate::model::AllowedDomainsSettings::enable].
     pub fn set_or_clear_enable<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<bool>,
@@ -1675,7 +1675,7 @@ impl ApplicationSettings {
         self
     }
 
-    /// Sets or clear the value of [csm_settings][crate::model::ApplicationSettings::csm_settings].
+    /// Sets or clears the value of [csm_settings][crate::model::ApplicationSettings::csm_settings].
     pub fn set_or_clear_csm_settings<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CsmSettings>,
@@ -1693,7 +1693,7 @@ impl ApplicationSettings {
         self
     }
 
-    /// Sets or clear the value of [access_denied_page_settings][crate::model::ApplicationSettings::access_denied_page_settings].
+    /// Sets or clears the value of [access_denied_page_settings][crate::model::ApplicationSettings::access_denied_page_settings].
     pub fn set_or_clear_access_denied_page_settings<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::AccessDeniedPageSettings>,
@@ -1711,7 +1711,7 @@ impl ApplicationSettings {
         self
     }
 
-    /// Sets or clear the value of [cookie_domain][crate::model::ApplicationSettings::cookie_domain].
+    /// Sets or clears the value of [cookie_domain][crate::model::ApplicationSettings::cookie_domain].
     pub fn set_or_clear_cookie_domain<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::StringValue>,
@@ -1729,7 +1729,7 @@ impl ApplicationSettings {
         self
     }
 
-    /// Sets or clear the value of [attribute_propagation_settings][crate::model::ApplicationSettings::attribute_propagation_settings].
+    /// Sets or clears the value of [attribute_propagation_settings][crate::model::ApplicationSettings::attribute_propagation_settings].
     pub fn set_or_clear_attribute_propagation_settings<T>(
         mut self,
         v: std::option::Option<T>,
@@ -1780,7 +1780,7 @@ impl CsmSettings {
         self
     }
 
-    /// Sets or clear the value of [rctoken_aud][crate::model::CsmSettings::rctoken_aud].
+    /// Sets or clears the value of [rctoken_aud][crate::model::CsmSettings::rctoken_aud].
     pub fn set_or_clear_rctoken_aud<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::StringValue>,
@@ -1837,7 +1837,7 @@ impl AccessDeniedPageSettings {
         self
     }
 
-    /// Sets or clear the value of [access_denied_page_uri][crate::model::AccessDeniedPageSettings::access_denied_page_uri].
+    /// Sets or clears the value of [access_denied_page_uri][crate::model::AccessDeniedPageSettings::access_denied_page_uri].
     pub fn set_or_clear_access_denied_page_uri<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::StringValue>,
@@ -1855,7 +1855,7 @@ impl AccessDeniedPageSettings {
         self
     }
 
-    /// Sets or clear the value of [generate_troubleshooting_uri][crate::model::AccessDeniedPageSettings::generate_troubleshooting_uri].
+    /// Sets or clears the value of [generate_troubleshooting_uri][crate::model::AccessDeniedPageSettings::generate_troubleshooting_uri].
     pub fn set_or_clear_generate_troubleshooting_uri<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::BoolValue>,
@@ -1873,7 +1873,7 @@ impl AccessDeniedPageSettings {
         self
     }
 
-    /// Sets or clear the value of [remediation_token_generation_enabled][crate::model::AccessDeniedPageSettings::remediation_token_generation_enabled].
+    /// Sets or clears the value of [remediation_token_generation_enabled][crate::model::AccessDeniedPageSettings::remediation_token_generation_enabled].
     pub fn set_or_clear_remediation_token_generation_enabled<T>(
         mut self,
         v: std::option::Option<T>,
@@ -1962,7 +1962,7 @@ impl AttributePropagationSettings {
         self
     }
 
-    /// Sets or clear the value of [expression][crate::model::AttributePropagationSettings::expression].
+    /// Sets or clears the value of [expression][crate::model::AttributePropagationSettings::expression].
     pub fn set_or_clear_expression<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -1991,7 +1991,7 @@ impl AttributePropagationSettings {
         self
     }
 
-    /// Sets or clear the value of [enable][crate::model::AttributePropagationSettings::enable].
+    /// Sets or clears the value of [enable][crate::model::AttributePropagationSettings::enable].
     pub fn set_or_clear_enable<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<bool>,
@@ -2331,7 +2331,7 @@ impl CreateBrandRequest {
         self
     }
 
-    /// Sets or clear the value of [brand][crate::model::CreateBrandRequest::brand].
+    /// Sets or clears the value of [brand][crate::model::CreateBrandRequest::brand].
     pub fn set_or_clear_brand<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Brand>,
@@ -2544,7 +2544,7 @@ impl CreateIdentityAwareProxyClientRequest {
         self
     }
 
-    /// Sets or clear the value of [identity_aware_proxy_client][crate::model::CreateIdentityAwareProxyClientRequest::identity_aware_proxy_client].
+    /// Sets or clears the value of [identity_aware_proxy_client][crate::model::CreateIdentityAwareProxyClientRequest::identity_aware_proxy_client].
     pub fn set_or_clear_identity_aware_proxy_client<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::IdentityAwareProxyClient>,

@@ -90,7 +90,7 @@ impl ComputeThreatListDiffRequest {
         self
     }
 
-    /// Sets or clear the value of [constraints][crate::model::ComputeThreatListDiffRequest::constraints].
+    /// Sets or clears the value of [constraints][crate::model::ComputeThreatListDiffRequest::constraints].
     pub fn set_or_clear_constraints<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::compute_threat_list_diff_request::Constraints>,
@@ -241,7 +241,7 @@ impl ComputeThreatListDiffResponse {
         self
     }
 
-    /// Sets or clear the value of [additions][crate::model::ComputeThreatListDiffResponse::additions].
+    /// Sets or clears the value of [additions][crate::model::ComputeThreatListDiffResponse::additions].
     pub fn set_or_clear_additions<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ThreatEntryAdditions>,
@@ -259,7 +259,7 @@ impl ComputeThreatListDiffResponse {
         self
     }
 
-    /// Sets or clear the value of [removals][crate::model::ComputeThreatListDiffResponse::removals].
+    /// Sets or clears the value of [removals][crate::model::ComputeThreatListDiffResponse::removals].
     pub fn set_or_clear_removals<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ThreatEntryRemovals>,
@@ -283,7 +283,7 @@ impl ComputeThreatListDiffResponse {
         self
     }
 
-    /// Sets or clear the value of [checksum][crate::model::ComputeThreatListDiffResponse::checksum].
+    /// Sets or clears the value of [checksum][crate::model::ComputeThreatListDiffResponse::checksum].
     pub fn set_or_clear_checksum<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::compute_threat_list_diff_response::Checksum>,
@@ -301,7 +301,7 @@ impl ComputeThreatListDiffResponse {
         self
     }
 
-    /// Sets or clear the value of [recommended_next_diff][crate::model::ComputeThreatListDiffResponse::recommended_next_diff].
+    /// Sets or clears the value of [recommended_next_diff][crate::model::ComputeThreatListDiffResponse::recommended_next_diff].
     pub fn set_or_clear_recommended_next_diff<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -566,7 +566,7 @@ impl SearchUrisResponse {
         self
     }
 
-    /// Sets or clear the value of [threat][crate::model::SearchUrisResponse::threat].
+    /// Sets or clears the value of [threat][crate::model::SearchUrisResponse::threat].
     pub fn set_or_clear_threat<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::search_uris_response::ThreatUri>,
@@ -631,7 +631,7 @@ pub mod search_uris_response {
             self
         }
 
-        /// Sets or clear the value of [expire_time][crate::model::search_uris_response::ThreatUri::expire_time].
+        /// Sets or clears the value of [expire_time][crate::model::search_uris_response::ThreatUri::expire_time].
         pub fn set_or_clear_expire_time<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -744,7 +744,7 @@ impl SearchHashesResponse {
         self
     }
 
-    /// Sets or clear the value of [negative_expire_time][crate::model::SearchHashesResponse::negative_expire_time].
+    /// Sets or clears the value of [negative_expire_time][crate::model::SearchHashesResponse::negative_expire_time].
     pub fn set_or_clear_negative_expire_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -822,7 +822,7 @@ pub mod search_hashes_response {
             self
         }
 
-        /// Sets or clear the value of [expire_time][crate::model::search_hashes_response::ThreatHash::expire_time].
+        /// Sets or clears the value of [expire_time][crate::model::search_hashes_response::ThreatHash::expire_time].
         pub fn set_or_clear_expire_time<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -886,7 +886,7 @@ impl ThreatEntryAdditions {
         self
     }
 
-    /// Sets or clear the value of [rice_hashes][crate::model::ThreatEntryAdditions::rice_hashes].
+    /// Sets or clears the value of [rice_hashes][crate::model::ThreatEntryAdditions::rice_hashes].
     pub fn set_or_clear_rice_hashes<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::RiceDeltaEncoding>,
@@ -937,7 +937,7 @@ impl ThreatEntryRemovals {
         self
     }
 
-    /// Sets or clear the value of [raw_indices][crate::model::ThreatEntryRemovals::raw_indices].
+    /// Sets or clears the value of [raw_indices][crate::model::ThreatEntryRemovals::raw_indices].
     pub fn set_or_clear_raw_indices<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::RawIndices>,
@@ -955,7 +955,7 @@ impl ThreatEntryRemovals {
         self
     }
 
-    /// Sets or clear the value of [rice_indices][crate::model::ThreatEntryRemovals::rice_indices].
+    /// Sets or clears the value of [rice_indices][crate::model::ThreatEntryRemovals::rice_indices].
     pub fn set_or_clear_rice_indices<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::RiceDeltaEncoding>,
@@ -1227,7 +1227,7 @@ impl ThreatInfo {
         self
     }
 
-    /// Sets or clear the value of [threat_confidence][crate::model::ThreatInfo::threat_confidence].
+    /// Sets or clears the value of [threat_confidence][crate::model::ThreatInfo::threat_confidence].
     pub fn set_or_clear_threat_confidence<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::threat_info::Confidence>,
@@ -1245,7 +1245,7 @@ impl ThreatInfo {
         self
     }
 
-    /// Sets or clear the value of [threat_justification][crate::model::ThreatInfo::threat_justification].
+    /// Sets or clears the value of [threat_justification][crate::model::ThreatInfo::threat_justification].
     pub fn set_or_clear_threat_justification<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::threat_info::ThreatJustification>,
@@ -2109,7 +2109,7 @@ impl CreateSubmissionRequest {
         self
     }
 
-    /// Sets or clear the value of [submission][crate::model::CreateSubmissionRequest::submission].
+    /// Sets or clears the value of [submission][crate::model::CreateSubmissionRequest::submission].
     pub fn set_or_clear_submission<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Submission>,
@@ -2172,7 +2172,7 @@ impl SubmitUriRequest {
         self
     }
 
-    /// Sets or clear the value of [submission][crate::model::SubmitUriRequest::submission].
+    /// Sets or clears the value of [submission][crate::model::SubmitUriRequest::submission].
     pub fn set_or_clear_submission<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Submission>,
@@ -2190,7 +2190,7 @@ impl SubmitUriRequest {
         self
     }
 
-    /// Sets or clear the value of [threat_info][crate::model::SubmitUriRequest::threat_info].
+    /// Sets or clears the value of [threat_info][crate::model::SubmitUriRequest::threat_info].
     pub fn set_or_clear_threat_info<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ThreatInfo>,
@@ -2208,7 +2208,7 @@ impl SubmitUriRequest {
         self
     }
 
-    /// Sets or clear the value of [threat_discovery][crate::model::SubmitUriRequest::threat_discovery].
+    /// Sets or clears the value of [threat_discovery][crate::model::SubmitUriRequest::threat_discovery].
     pub fn set_or_clear_threat_discovery<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ThreatDiscovery>,
@@ -2268,7 +2268,7 @@ impl SubmitUriMetadata {
         self
     }
 
-    /// Sets or clear the value of [create_time][crate::model::SubmitUriMetadata::create_time].
+    /// Sets or clears the value of [create_time][crate::model::SubmitUriMetadata::create_time].
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2286,7 +2286,7 @@ impl SubmitUriMetadata {
         self
     }
 
-    /// Sets or clear the value of [update_time][crate::model::SubmitUriMetadata::update_time].
+    /// Sets or clears the value of [update_time][crate::model::SubmitUriMetadata::update_time].
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,

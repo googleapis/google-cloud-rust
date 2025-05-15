@@ -137,7 +137,7 @@ pub mod document_processor_service {
             self
         }
 
-        /// Sets or clear the value of [field_mask][crate::model::ProcessRequest::field_mask].
+        /// Sets or clears the value of [field_mask][crate::model::ProcessRequest::field_mask].
         pub fn set_or_clear_field_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
@@ -155,7 +155,7 @@ pub mod document_processor_service {
             self
         }
 
-        /// Sets or clear the value of [process_options][crate::model::ProcessRequest::process_options].
+        /// Sets or clears the value of [process_options][crate::model::ProcessRequest::process_options].
         pub fn set_or_clear_process_options<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::ProcessOptions>,
@@ -351,7 +351,7 @@ pub mod document_processor_service {
             self
         }
 
-        /// Sets or clear the value of [input_documents][crate::model::BatchProcessRequest::input_documents].
+        /// Sets or clears the value of [input_documents][crate::model::BatchProcessRequest::input_documents].
         pub fn set_or_clear_input_documents<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::BatchDocumentsInputConfig>,
@@ -369,7 +369,7 @@ pub mod document_processor_service {
             self
         }
 
-        /// Sets or clear the value of [document_output_config][crate::model::BatchProcessRequest::document_output_config].
+        /// Sets or clears the value of [document_output_config][crate::model::BatchProcessRequest::document_output_config].
         pub fn set_or_clear_document_output_config<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::DocumentOutputConfig>,
@@ -393,7 +393,7 @@ pub mod document_processor_service {
             self
         }
 
-        /// Sets or clear the value of [process_options][crate::model::BatchProcessRequest::process_options].
+        /// Sets or clears the value of [process_options][crate::model::BatchProcessRequest::process_options].
         pub fn set_or_clear_process_options<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::ProcessOptions>,
@@ -934,7 +934,7 @@ pub mod document_processor_service {
             self
         }
 
-        /// Sets or clear the value of [processor_version][crate::model::TrainProcessorVersionRequest::processor_version].
+        /// Sets or clears the value of [processor_version][crate::model::TrainProcessorVersionRequest::processor_version].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_processor_version<T>(mut self, v: std::option::Option<T>) -> Self
@@ -954,7 +954,7 @@ pub mod document_processor_service {
             self
         }
 
-        /// Sets or clear the value of [document_schema][crate::model::TrainProcessorVersionRequest::document_schema].
+        /// Sets or clears the value of [document_schema][crate::model::TrainProcessorVersionRequest::document_schema].
         pub fn set_or_clear_document_schema<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::DocumentSchema>,
@@ -972,7 +972,7 @@ pub mod document_processor_service {
             self
         }
 
-        /// Sets or clear the value of [input_data][crate::model::TrainProcessorVersionRequest::input_data].
+        /// Sets or clears the value of [input_data][crate::model::TrainProcessorVersionRequest::input_data].
         pub fn set_or_clear_input_data<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::train_processor_version_request::InputData>,
@@ -1602,7 +1602,7 @@ pub mod document_processor_service {
             self
         }
 
-        /// Sets or clear the value of [processor][crate::model::CreateProcessorRequest::processor].
+        /// Sets or clears the value of [processor][crate::model::CreateProcessorRequest::processor].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_processor<T>(mut self, v: std::option::Option<T>) -> Self
@@ -2179,7 +2179,7 @@ pub mod document_processor_service {
             self
         }
 
-        /// Sets or clear the value of [document_schema][crate::model::ReviewDocumentRequest::document_schema].
+        /// Sets or clears the value of [document_schema][crate::model::ReviewDocumentRequest::document_schema].
         pub fn set_or_clear_document_schema<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::DocumentSchema>,
@@ -2335,7 +2335,7 @@ pub mod document_processor_service {
             self
         }
 
-        /// Sets or clear the value of [evaluation_documents][crate::model::EvaluateProcessorVersionRequest::evaluation_documents].
+        /// Sets or clears the value of [evaluation_documents][crate::model::EvaluateProcessorVersionRequest::evaluation_documents].
         pub fn set_or_clear_evaluation_documents<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::BatchDocumentsInputConfig>,

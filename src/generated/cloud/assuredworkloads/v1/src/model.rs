@@ -78,7 +78,7 @@ impl CreateWorkloadRequest {
         self
     }
 
-    /// Sets or clear the value of [workload][crate::model::CreateWorkloadRequest::workload].
+    /// Sets or clears the value of [workload][crate::model::CreateWorkloadRequest::workload].
     pub fn set_or_clear_workload<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Workload>,
@@ -135,7 +135,7 @@ impl UpdateWorkloadRequest {
         self
     }
 
-    /// Sets or clear the value of [workload][crate::model::UpdateWorkloadRequest::workload].
+    /// Sets or clears the value of [workload][crate::model::UpdateWorkloadRequest::workload].
     pub fn set_or_clear_workload<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Workload>,
@@ -153,7 +153,7 @@ impl UpdateWorkloadRequest {
         self
     }
 
-    /// Sets or clear the value of [update_mask][crate::model::UpdateWorkloadRequest::update_mask].
+    /// Sets or clears the value of [update_mask][crate::model::UpdateWorkloadRequest::update_mask].
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -535,7 +535,7 @@ impl Workload {
         self
     }
 
-    /// Sets or clear the value of [create_time][crate::model::Workload::create_time].
+    /// Sets or clears the value of [create_time][crate::model::Workload::create_time].
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -587,7 +587,7 @@ impl Workload {
         self
     }
 
-    /// Sets or clear the value of [kms_settings][crate::model::Workload::kms_settings].
+    /// Sets or clears the value of [kms_settings][crate::model::Workload::kms_settings].
     #[deprecated]
     pub fn set_or_clear_kms_settings<T>(mut self, v: std::option::Option<T>) -> Self
     where
@@ -634,7 +634,7 @@ impl Workload {
         self
     }
 
-    /// Sets or clear the value of [saa_enrollment_response][crate::model::Workload::saa_enrollment_response].
+    /// Sets or clears the value of [saa_enrollment_response][crate::model::Workload::saa_enrollment_response].
     pub fn set_or_clear_saa_enrollment_response<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::workload::SaaEnrollmentResponse>,
@@ -924,7 +924,7 @@ pub mod workload {
             self
         }
 
-        /// Sets or clear the value of [next_rotation_time][crate::model::workload::KMSSettings::next_rotation_time].
+        /// Sets or clears the value of [next_rotation_time][crate::model::workload::KMSSettings::next_rotation_time].
         pub fn set_or_clear_next_rotation_time<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -942,7 +942,7 @@ pub mod workload {
             self
         }
 
-        /// Sets or clear the value of [rotation_period][crate::model::workload::KMSSettings::rotation_period].
+        /// Sets or clears the value of [rotation_period][crate::model::workload::KMSSettings::rotation_period].
         pub fn set_or_clear_rotation_period<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
@@ -1059,7 +1059,7 @@ pub mod workload {
             self
         }
 
-        /// Sets or clear the value of [setup_status][crate::model::workload::SaaEnrollmentResponse::setup_status].
+        /// Sets or clears the value of [setup_status][crate::model::workload::SaaEnrollmentResponse::setup_status].
         pub fn set_or_clear_setup_status<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::workload::saa_enrollment_response::SetupState>,
@@ -1893,7 +1893,7 @@ impl CreateWorkloadOperationMetadata {
         self
     }
 
-    /// Sets or clear the value of [create_time][crate::model::CreateWorkloadOperationMetadata::create_time].
+    /// Sets or clears the value of [create_time][crate::model::CreateWorkloadOperationMetadata::create_time].
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2268,7 +2268,7 @@ impl TimeWindow {
         self
     }
 
-    /// Sets or clear the value of [start_time][crate::model::TimeWindow::start_time].
+    /// Sets or clears the value of [start_time][crate::model::TimeWindow::start_time].
     pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2286,7 +2286,7 @@ impl TimeWindow {
         self
     }
 
-    /// Sets or clear the value of [end_time][crate::model::TimeWindow::end_time].
+    /// Sets or clears the value of [end_time][crate::model::TimeWindow::end_time].
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2355,7 +2355,7 @@ impl ListViolationsRequest {
         self
     }
 
-    /// Sets or clear the value of [interval][crate::model::ListViolationsRequest::interval].
+    /// Sets or clears the value of [interval][crate::model::ListViolationsRequest::interval].
     pub fn set_or_clear_interval<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::TimeWindow>,
@@ -2591,7 +2591,7 @@ impl Violation {
         self
     }
 
-    /// Sets or clear the value of [begin_time][crate::model::Violation::begin_time].
+    /// Sets or clears the value of [begin_time][crate::model::Violation::begin_time].
     pub fn set_or_clear_begin_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2609,7 +2609,7 @@ impl Violation {
         self
     }
 
-    /// Sets or clear the value of [update_time][crate::model::Violation::update_time].
+    /// Sets or clears the value of [update_time][crate::model::Violation::update_time].
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2627,7 +2627,7 @@ impl Violation {
         self
     }
 
-    /// Sets or clear the value of [resolve_time][crate::model::Violation::resolve_time].
+    /// Sets or clears the value of [resolve_time][crate::model::Violation::resolve_time].
     pub fn set_or_clear_resolve_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2684,7 +2684,7 @@ impl Violation {
         self
     }
 
-    /// Sets or clear the value of [remediation][crate::model::Violation::remediation].
+    /// Sets or clears the value of [remediation][crate::model::Violation::remediation].
     pub fn set_or_clear_remediation<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::violation::Remediation>,
@@ -2708,7 +2708,7 @@ impl Violation {
         self
     }
 
-    /// Sets or clear the value of [acknowledgement_time][crate::model::Violation::acknowledgement_time].
+    /// Sets or clears the value of [acknowledgement_time][crate::model::Violation::acknowledgement_time].
     pub fn set_or_clear_acknowledgement_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2776,7 +2776,7 @@ pub mod violation {
             self
         }
 
-        /// Sets or clear the value of [instructions][crate::model::violation::Remediation::instructions].
+        /// Sets or clears the value of [instructions][crate::model::violation::Remediation::instructions].
         pub fn set_or_clear_instructions<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::violation::remediation::Instructions>,
@@ -2853,7 +2853,7 @@ pub mod violation {
                 self
             }
 
-            /// Sets or clear the value of [gcloud_instructions][crate::model::violation::remediation::Instructions::gcloud_instructions].
+            /// Sets or clears the value of [gcloud_instructions][crate::model::violation::remediation::Instructions::gcloud_instructions].
             pub fn set_or_clear_gcloud_instructions<T>(mut self, v: std::option::Option<T>) -> Self
             where
                 T: std::convert::Into<crate::model::violation::remediation::instructions::Gcloud>,
@@ -2871,7 +2871,7 @@ pub mod violation {
                 self
             }
 
-            /// Sets or clear the value of [console_instructions][crate::model::violation::remediation::Instructions::console_instructions].
+            /// Sets or clears the value of [console_instructions][crate::model::violation::remediation::Instructions::console_instructions].
             pub fn set_or_clear_console_instructions<T>(mut self, v: std::option::Option<T>) -> Self
             where
                 T: std::convert::Into<crate::model::violation::remediation::instructions::Console>,

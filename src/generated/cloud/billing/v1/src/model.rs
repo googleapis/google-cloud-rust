@@ -434,7 +434,7 @@ impl CreateBillingAccountRequest {
         self
     }
 
-    /// Sets or clear the value of [billing_account][crate::model::CreateBillingAccountRequest::billing_account].
+    /// Sets or clears the value of [billing_account][crate::model::CreateBillingAccountRequest::billing_account].
     pub fn set_or_clear_billing_account<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::BillingAccount>,
@@ -500,7 +500,7 @@ impl UpdateBillingAccountRequest {
         self
     }
 
-    /// Sets or clear the value of [account][crate::model::UpdateBillingAccountRequest::account].
+    /// Sets or clears the value of [account][crate::model::UpdateBillingAccountRequest::account].
     pub fn set_or_clear_account<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::BillingAccount>,
@@ -518,7 +518,7 @@ impl UpdateBillingAccountRequest {
         self
     }
 
-    /// Sets or clear the value of [update_mask][crate::model::UpdateBillingAccountRequest::update_mask].
+    /// Sets or clears the value of [update_mask][crate::model::UpdateBillingAccountRequest::update_mask].
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -730,7 +730,7 @@ impl UpdateProjectBillingInfoRequest {
         self
     }
 
-    /// Sets or clear the value of [project_billing_info][crate::model::UpdateProjectBillingInfoRequest::project_billing_info].
+    /// Sets or clears the value of [project_billing_info][crate::model::UpdateProjectBillingInfoRequest::project_billing_info].
     pub fn set_or_clear_project_billing_info<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ProjectBillingInfo>,
@@ -944,7 +944,7 @@ impl Sku {
         self
     }
 
-    /// Sets or clear the value of [category][crate::model::Sku::category].
+    /// Sets or clears the value of [category][crate::model::Sku::category].
     pub fn set_or_clear_category<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Category>,
@@ -993,7 +993,7 @@ impl Sku {
         self
     }
 
-    /// Sets or clear the value of [geo_taxonomy][crate::model::Sku::geo_taxonomy].
+    /// Sets or clears the value of [geo_taxonomy][crate::model::Sku::geo_taxonomy].
     pub fn set_or_clear_geo_taxonomy<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::GeoTaxonomy>,
@@ -1133,7 +1133,7 @@ impl PricingInfo {
         self
     }
 
-    /// Sets or clear the value of [effective_time][crate::model::PricingInfo::effective_time].
+    /// Sets or clears the value of [effective_time][crate::model::PricingInfo::effective_time].
     pub fn set_or_clear_effective_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1157,7 +1157,7 @@ impl PricingInfo {
         self
     }
 
-    /// Sets or clear the value of [pricing_expression][crate::model::PricingInfo::pricing_expression].
+    /// Sets or clears the value of [pricing_expression][crate::model::PricingInfo::pricing_expression].
     pub fn set_or_clear_pricing_expression<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::PricingExpression>,
@@ -1175,7 +1175,7 @@ impl PricingInfo {
         self
     }
 
-    /// Sets or clear the value of [aggregation_info][crate::model::PricingInfo::aggregation_info].
+    /// Sets or clears the value of [aggregation_info][crate::model::PricingInfo::aggregation_info].
     pub fn set_or_clear_aggregation_info<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::AggregationInfo>,
@@ -1375,7 +1375,7 @@ pub mod pricing_expression {
             self
         }
 
-        /// Sets or clear the value of [unit_price][crate::model::pricing_expression::TierRate::unit_price].
+        /// Sets or clears the value of [unit_price][crate::model::pricing_expression::TierRate::unit_price].
         pub fn set_or_clear_unit_price<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<gtype::model::Money>,
@@ -2094,7 +2094,7 @@ impl ListSkusRequest {
         self
     }
 
-    /// Sets or clear the value of [start_time][crate::model::ListSkusRequest::start_time].
+    /// Sets or clears the value of [start_time][crate::model::ListSkusRequest::start_time].
     pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2112,7 +2112,7 @@ impl ListSkusRequest {
         self
     }
 
-    /// Sets or clear the value of [end_time][crate::model::ListSkusRequest::end_time].
+    /// Sets or clears the value of [end_time][crate::model::ListSkusRequest::end_time].
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,

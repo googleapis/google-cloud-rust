@@ -361,7 +361,7 @@ pub mod grafeas {
             self
         }
 
-        /// Sets or clear the value of [occurrence][crate::model::CreateOccurrenceRequest::occurrence].
+        /// Sets or clears the value of [occurrence][crate::model::CreateOccurrenceRequest::occurrence].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_occurrence<T>(mut self, v: std::option::Option<T>) -> Self
@@ -522,7 +522,7 @@ pub mod grafeas {
             self
         }
 
-        /// Sets or clear the value of [occurrence][crate::model::UpdateOccurrenceRequest::occurrence].
+        /// Sets or clears the value of [occurrence][crate::model::UpdateOccurrenceRequest::occurrence].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_occurrence<T>(mut self, v: std::option::Option<T>) -> Self
@@ -542,7 +542,7 @@ pub mod grafeas {
             self
         }
 
-        /// Sets or clear the value of [update_mask][crate::model::UpdateOccurrenceRequest::update_mask].
+        /// Sets or clears the value of [update_mask][crate::model::UpdateOccurrenceRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
@@ -919,7 +919,7 @@ pub mod grafeas {
             self
         }
 
-        /// Sets or clear the value of [note][crate::model::CreateNoteRequest::note].
+        /// Sets or clears the value of [note][crate::model::CreateNoteRequest::note].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_note<T>(mut self, v: std::option::Option<T>) -> Self
@@ -1077,7 +1077,7 @@ pub mod grafeas {
             self
         }
 
-        /// Sets or clear the value of [note][crate::model::UpdateNoteRequest::note].
+        /// Sets or clears the value of [note][crate::model::UpdateNoteRequest::note].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_note<T>(mut self, v: std::option::Option<T>) -> Self
@@ -1097,7 +1097,7 @@ pub mod grafeas {
             self
         }
 
-        /// Sets or clear the value of [update_mask][crate::model::UpdateNoteRequest::update_mask].
+        /// Sets or clears the value of [update_mask][crate::model::UpdateNoteRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,

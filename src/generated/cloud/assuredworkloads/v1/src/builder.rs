@@ -175,7 +175,7 @@ pub mod assured_workloads_service {
             self
         }
 
-        /// Sets or clear the value of [workload][crate::model::CreateWorkloadRequest::workload].
+        /// Sets or clears the value of [workload][crate::model::CreateWorkloadRequest::workload].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_workload<T>(mut self, v: std::option::Option<T>) -> Self
@@ -257,7 +257,7 @@ pub mod assured_workloads_service {
             self
         }
 
-        /// Sets or clear the value of [workload][crate::model::UpdateWorkloadRequest::workload].
+        /// Sets or clears the value of [workload][crate::model::UpdateWorkloadRequest::workload].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_workload<T>(mut self, v: std::option::Option<T>) -> Self
@@ -279,7 +279,7 @@ pub mod assured_workloads_service {
             self
         }
 
-        /// Sets or clear the value of [update_mask][crate::model::UpdateWorkloadRequest::update_mask].
+        /// Sets or clears the value of [update_mask][crate::model::UpdateWorkloadRequest::update_mask].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self

@@ -350,7 +350,7 @@ impl AsyncModelMetadata {
         self
     }
 
-    /// Sets or clear the value of [create_time][crate::model::AsyncModelMetadata::create_time].
+    /// Sets or clears the value of [create_time][crate::model::AsyncModelMetadata::create_time].
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -368,7 +368,7 @@ impl AsyncModelMetadata {
         self
     }
 
-    /// Sets or clear the value of [update_time][crate::model::AsyncModelMetadata::update_time].
+    /// Sets or clears the value of [update_time][crate::model::AsyncModelMetadata::update_time].
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -817,7 +817,7 @@ impl OptimizeToursRequest {
         self
     }
 
-    /// Sets or clear the value of [timeout][crate::model::OptimizeToursRequest::timeout].
+    /// Sets or clears the value of [timeout][crate::model::OptimizeToursRequest::timeout].
     pub fn set_or_clear_timeout<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -835,7 +835,7 @@ impl OptimizeToursRequest {
         self
     }
 
-    /// Sets or clear the value of [model][crate::model::OptimizeToursRequest::model].
+    /// Sets or clears the value of [model][crate::model::OptimizeToursRequest::model].
     pub fn set_or_clear_model<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ShipmentModel>,
@@ -886,7 +886,7 @@ impl OptimizeToursRequest {
         self
     }
 
-    /// Sets or clear the value of [injected_solution_constraint][crate::model::OptimizeToursRequest::injected_solution_constraint].
+    /// Sets or clears the value of [injected_solution_constraint][crate::model::OptimizeToursRequest::injected_solution_constraint].
     pub fn set_or_clear_injected_solution_constraint<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::InjectedSolutionConstraint>,
@@ -957,7 +957,7 @@ impl OptimizeToursRequest {
         self
     }
 
-    /// Sets or clear the value of [geodesic_meters_per_second][crate::model::OptimizeToursRequest::geodesic_meters_per_second].
+    /// Sets or clears the value of [geodesic_meters_per_second][crate::model::OptimizeToursRequest::geodesic_meters_per_second].
     pub fn set_or_clear_geodesic_meters_per_second<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<f64>,
@@ -975,7 +975,7 @@ impl OptimizeToursRequest {
         self
     }
 
-    /// Sets or clear the value of [max_validation_errors][crate::model::OptimizeToursRequest::max_validation_errors].
+    /// Sets or clears the value of [max_validation_errors][crate::model::OptimizeToursRequest::max_validation_errors].
     pub fn set_or_clear_max_validation_errors<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<i32>,
@@ -1413,7 +1413,7 @@ impl OptimizeToursResponse {
         self
     }
 
-    /// Sets or clear the value of [metrics][crate::model::OptimizeToursResponse::metrics].
+    /// Sets or clears the value of [metrics][crate::model::OptimizeToursResponse::metrics].
     pub fn set_or_clear_metrics<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::optimize_tours_response::Metrics>,
@@ -1520,7 +1520,7 @@ pub mod optimize_tours_response {
             self
         }
 
-        /// Sets or clear the value of [aggregated_route_metrics][crate::model::optimize_tours_response::Metrics::aggregated_route_metrics].
+        /// Sets or clears the value of [aggregated_route_metrics][crate::model::optimize_tours_response::Metrics::aggregated_route_metrics].
         pub fn set_or_clear_aggregated_route_metrics<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::AggregatedMetrics>,
@@ -1553,7 +1553,7 @@ pub mod optimize_tours_response {
             self
         }
 
-        /// Sets or clear the value of [earliest_vehicle_start_time][crate::model::optimize_tours_response::Metrics::earliest_vehicle_start_time].
+        /// Sets or clears the value of [earliest_vehicle_start_time][crate::model::optimize_tours_response::Metrics::earliest_vehicle_start_time].
         pub fn set_or_clear_earliest_vehicle_start_time<T>(
             mut self,
             v: std::option::Option<T>,
@@ -1574,7 +1574,7 @@ pub mod optimize_tours_response {
             self
         }
 
-        /// Sets or clear the value of [latest_vehicle_end_time][crate::model::optimize_tours_response::Metrics::latest_vehicle_end_time].
+        /// Sets or clears the value of [latest_vehicle_end_time][crate::model::optimize_tours_response::Metrics::latest_vehicle_end_time].
         pub fn set_or_clear_latest_vehicle_end_time<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -1727,7 +1727,7 @@ pub mod batch_optimize_tours_request {
             self
         }
 
-        /// Sets or clear the value of [input_config][crate::model::batch_optimize_tours_request::AsyncModelConfig::input_config].
+        /// Sets or clears the value of [input_config][crate::model::batch_optimize_tours_request::AsyncModelConfig::input_config].
         pub fn set_or_clear_input_config<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::InputConfig>,
@@ -1745,7 +1745,7 @@ pub mod batch_optimize_tours_request {
             self
         }
 
-        /// Sets or clear the value of [output_config][crate::model::batch_optimize_tours_request::AsyncModelConfig::output_config].
+        /// Sets or clears the value of [output_config][crate::model::batch_optimize_tours_request::AsyncModelConfig::output_config].
         pub fn set_or_clear_output_config<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::OutputConfig>,
@@ -2048,7 +2048,7 @@ impl ShipmentModel {
         self
     }
 
-    /// Sets or clear the value of [max_active_vehicles][crate::model::ShipmentModel::max_active_vehicles].
+    /// Sets or clears the value of [max_active_vehicles][crate::model::ShipmentModel::max_active_vehicles].
     pub fn set_or_clear_max_active_vehicles<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<i32>,
@@ -2066,7 +2066,7 @@ impl ShipmentModel {
         self
     }
 
-    /// Sets or clear the value of [global_start_time][crate::model::ShipmentModel::global_start_time].
+    /// Sets or clears the value of [global_start_time][crate::model::ShipmentModel::global_start_time].
     pub fn set_or_clear_global_start_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2084,7 +2084,7 @@ impl ShipmentModel {
         self
     }
 
-    /// Sets or clear the value of [global_end_time][crate::model::ShipmentModel::global_end_time].
+    /// Sets or clears the value of [global_end_time][crate::model::ShipmentModel::global_end_time].
     pub fn set_or_clear_global_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2380,7 +2380,7 @@ pub mod shipment_model {
             self
         }
 
-        /// Sets or clear the value of [first_index][crate::model::shipment_model::PrecedenceRule::first_index].
+        /// Sets or clears the value of [first_index][crate::model::shipment_model::PrecedenceRule::first_index].
         pub fn set_or_clear_first_index<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<i32>,
@@ -2404,7 +2404,7 @@ pub mod shipment_model {
             self
         }
 
-        /// Sets or clear the value of [second_index][crate::model::shipment_model::PrecedenceRule::second_index].
+        /// Sets or clears the value of [second_index][crate::model::shipment_model::PrecedenceRule::second_index].
         pub fn set_or_clear_second_index<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<i32>,
@@ -2428,7 +2428,7 @@ pub mod shipment_model {
             self
         }
 
-        /// Sets or clear the value of [offset_duration][crate::model::shipment_model::PrecedenceRule::offset_duration].
+        /// Sets or clears the value of [offset_duration][crate::model::shipment_model::PrecedenceRule::offset_duration].
         pub fn set_or_clear_offset_duration<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
@@ -2558,7 +2558,7 @@ pub mod shipment_model {
                 self
             }
 
-            /// Sets or clear the value of [earliest_start_time][crate::model::shipment_model::break_rule::BreakRequest::earliest_start_time].
+            /// Sets or clears the value of [earliest_start_time][crate::model::shipment_model::break_rule::BreakRequest::earliest_start_time].
             pub fn set_or_clear_earliest_start_time<T>(mut self, v: std::option::Option<T>) -> Self
             where
                 T: std::convert::Into<wkt::Timestamp>,
@@ -2576,7 +2576,7 @@ pub mod shipment_model {
                 self
             }
 
-            /// Sets or clear the value of [latest_start_time][crate::model::shipment_model::break_rule::BreakRequest::latest_start_time].
+            /// Sets or clears the value of [latest_start_time][crate::model::shipment_model::break_rule::BreakRequest::latest_start_time].
             pub fn set_or_clear_latest_start_time<T>(mut self, v: std::option::Option<T>) -> Self
             where
                 T: std::convert::Into<wkt::Timestamp>,
@@ -2594,7 +2594,7 @@ pub mod shipment_model {
                 self
             }
 
-            /// Sets or clear the value of [min_duration][crate::model::shipment_model::break_rule::BreakRequest::min_duration].
+            /// Sets or clears the value of [min_duration][crate::model::shipment_model::break_rule::BreakRequest::min_duration].
             pub fn set_or_clear_min_duration<T>(mut self, v: std::option::Option<T>) -> Self
             where
                 T: std::convert::Into<wkt::Duration>,
@@ -2679,7 +2679,7 @@ pub mod shipment_model {
                 self
             }
 
-            /// Sets or clear the value of [min_break_duration][crate::model::shipment_model::break_rule::FrequencyConstraint::min_break_duration].
+            /// Sets or clears the value of [min_break_duration][crate::model::shipment_model::break_rule::FrequencyConstraint::min_break_duration].
             pub fn set_or_clear_min_break_duration<T>(mut self, v: std::option::Option<T>) -> Self
             where
                 T: std::convert::Into<wkt::Duration>,
@@ -2697,7 +2697,7 @@ pub mod shipment_model {
                 self
             }
 
-            /// Sets or clear the value of [max_inter_break_duration][crate::model::shipment_model::break_rule::FrequencyConstraint::max_inter_break_duration].
+            /// Sets or clears the value of [max_inter_break_duration][crate::model::shipment_model::break_rule::FrequencyConstraint::max_inter_break_duration].
             pub fn set_or_clear_max_inter_break_duration<T>(
                 mut self,
                 v: std::option::Option<T>,
@@ -2929,7 +2929,7 @@ impl Shipment {
         self
     }
 
-    /// Sets or clear the value of [penalty_cost][crate::model::Shipment::penalty_cost].
+    /// Sets or clears the value of [penalty_cost][crate::model::Shipment::penalty_cost].
     pub fn set_or_clear_penalty_cost<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<f64>,
@@ -2980,7 +2980,7 @@ impl Shipment {
         self
     }
 
-    /// Sets or clear the value of [pickup_to_delivery_relative_detour_limit][crate::model::Shipment::pickup_to_delivery_relative_detour_limit].
+    /// Sets or clears the value of [pickup_to_delivery_relative_detour_limit][crate::model::Shipment::pickup_to_delivery_relative_detour_limit].
     pub fn set_or_clear_pickup_to_delivery_relative_detour_limit<T>(
         mut self,
         v: std::option::Option<T>,
@@ -3001,7 +3001,7 @@ impl Shipment {
         self
     }
 
-    /// Sets or clear the value of [pickup_to_delivery_absolute_detour_limit][crate::model::Shipment::pickup_to_delivery_absolute_detour_limit].
+    /// Sets or clears the value of [pickup_to_delivery_absolute_detour_limit][crate::model::Shipment::pickup_to_delivery_absolute_detour_limit].
     pub fn set_or_clear_pickup_to_delivery_absolute_detour_limit<T>(
         mut self,
         v: std::option::Option<T>,
@@ -3022,7 +3022,7 @@ impl Shipment {
         self
     }
 
-    /// Sets or clear the value of [pickup_to_delivery_time_limit][crate::model::Shipment::pickup_to_delivery_time_limit].
+    /// Sets or clears the value of [pickup_to_delivery_time_limit][crate::model::Shipment::pickup_to_delivery_time_limit].
     pub fn set_or_clear_pickup_to_delivery_time_limit<T>(
         mut self,
         v: std::option::Option<T>,
@@ -3209,7 +3209,7 @@ pub mod shipment {
             self
         }
 
-        /// Sets or clear the value of [arrival_location][crate::model::shipment::VisitRequest::arrival_location].
+        /// Sets or clears the value of [arrival_location][crate::model::shipment::VisitRequest::arrival_location].
         pub fn set_or_clear_arrival_location<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<gtype::model::LatLng>,
@@ -3227,7 +3227,7 @@ pub mod shipment {
             self
         }
 
-        /// Sets or clear the value of [arrival_waypoint][crate::model::shipment::VisitRequest::arrival_waypoint].
+        /// Sets or clears the value of [arrival_waypoint][crate::model::shipment::VisitRequest::arrival_waypoint].
         pub fn set_or_clear_arrival_waypoint<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Waypoint>,
@@ -3245,7 +3245,7 @@ pub mod shipment {
             self
         }
 
-        /// Sets or clear the value of [departure_location][crate::model::shipment::VisitRequest::departure_location].
+        /// Sets or clears the value of [departure_location][crate::model::shipment::VisitRequest::departure_location].
         pub fn set_or_clear_departure_location<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<gtype::model::LatLng>,
@@ -3263,7 +3263,7 @@ pub mod shipment {
             self
         }
 
-        /// Sets or clear the value of [departure_waypoint][crate::model::shipment::VisitRequest::departure_waypoint].
+        /// Sets or clears the value of [departure_waypoint][crate::model::shipment::VisitRequest::departure_waypoint].
         pub fn set_or_clear_departure_waypoint<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Waypoint>,
@@ -3303,7 +3303,7 @@ pub mod shipment {
             self
         }
 
-        /// Sets or clear the value of [duration][crate::model::shipment::VisitRequest::duration].
+        /// Sets or clears the value of [duration][crate::model::shipment::VisitRequest::duration].
         pub fn set_or_clear_duration<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
@@ -4233,7 +4233,7 @@ impl Vehicle {
         self
     }
 
-    /// Sets or clear the value of [route_modifiers][crate::model::Vehicle::route_modifiers].
+    /// Sets or clears the value of [route_modifiers][crate::model::Vehicle::route_modifiers].
     pub fn set_or_clear_route_modifiers<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::RouteModifiers>,
@@ -4251,7 +4251,7 @@ impl Vehicle {
         self
     }
 
-    /// Sets or clear the value of [start_location][crate::model::Vehicle::start_location].
+    /// Sets or clears the value of [start_location][crate::model::Vehicle::start_location].
     pub fn set_or_clear_start_location<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<gtype::model::LatLng>,
@@ -4269,7 +4269,7 @@ impl Vehicle {
         self
     }
 
-    /// Sets or clear the value of [start_waypoint][crate::model::Vehicle::start_waypoint].
+    /// Sets or clears the value of [start_waypoint][crate::model::Vehicle::start_waypoint].
     pub fn set_or_clear_start_waypoint<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Waypoint>,
@@ -4287,7 +4287,7 @@ impl Vehicle {
         self
     }
 
-    /// Sets or clear the value of [end_location][crate::model::Vehicle::end_location].
+    /// Sets or clears the value of [end_location][crate::model::Vehicle::end_location].
     pub fn set_or_clear_end_location<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<gtype::model::LatLng>,
@@ -4305,7 +4305,7 @@ impl Vehicle {
         self
     }
 
-    /// Sets or clear the value of [end_waypoint][crate::model::Vehicle::end_waypoint].
+    /// Sets or clears the value of [end_waypoint][crate::model::Vehicle::end_waypoint].
     pub fn set_or_clear_end_waypoint<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Waypoint>,
@@ -4367,7 +4367,7 @@ impl Vehicle {
         self
     }
 
-    /// Sets or clear the value of [travel_duration_multiple][crate::model::Vehicle::travel_duration_multiple].
+    /// Sets or clears the value of [travel_duration_multiple][crate::model::Vehicle::travel_duration_multiple].
     pub fn set_or_clear_travel_duration_multiple<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<f64>,
@@ -4436,7 +4436,7 @@ impl Vehicle {
         self
     }
 
-    /// Sets or clear the value of [route_duration_limit][crate::model::Vehicle::route_duration_limit].
+    /// Sets or clears the value of [route_duration_limit][crate::model::Vehicle::route_duration_limit].
     pub fn set_or_clear_route_duration_limit<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::vehicle::DurationLimit>,
@@ -4454,7 +4454,7 @@ impl Vehicle {
         self
     }
 
-    /// Sets or clear the value of [travel_duration_limit][crate::model::Vehicle::travel_duration_limit].
+    /// Sets or clears the value of [travel_duration_limit][crate::model::Vehicle::travel_duration_limit].
     pub fn set_or_clear_travel_duration_limit<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::vehicle::DurationLimit>,
@@ -4472,7 +4472,7 @@ impl Vehicle {
         self
     }
 
-    /// Sets or clear the value of [route_distance_limit][crate::model::Vehicle::route_distance_limit].
+    /// Sets or clears the value of [route_distance_limit][crate::model::Vehicle::route_distance_limit].
     pub fn set_or_clear_route_distance_limit<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::DistanceLimit>,
@@ -4503,7 +4503,7 @@ impl Vehicle {
         self
     }
 
-    /// Sets or clear the value of [break_rule][crate::model::Vehicle::break_rule].
+    /// Sets or clears the value of [break_rule][crate::model::Vehicle::break_rule].
     pub fn set_or_clear_break_rule<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::BreakRule>,
@@ -4650,7 +4650,7 @@ pub mod vehicle {
             self
         }
 
-        /// Sets or clear the value of [max_load][crate::model::vehicle::LoadLimit::max_load].
+        /// Sets or clears the value of [max_load][crate::model::vehicle::LoadLimit::max_load].
         pub fn set_or_clear_max_load<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<i64>,
@@ -4683,7 +4683,7 @@ pub mod vehicle {
             self
         }
 
-        /// Sets or clear the value of [start_load_interval][crate::model::vehicle::LoadLimit::start_load_interval].
+        /// Sets or clears the value of [start_load_interval][crate::model::vehicle::LoadLimit::start_load_interval].
         pub fn set_or_clear_start_load_interval<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::vehicle::load_limit::Interval>,
@@ -4701,7 +4701,7 @@ pub mod vehicle {
             self
         }
 
-        /// Sets or clear the value of [end_load_interval][crate::model::vehicle::LoadLimit::end_load_interval].
+        /// Sets or clears the value of [end_load_interval][crate::model::vehicle::LoadLimit::end_load_interval].
         pub fn set_or_clear_end_load_interval<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::vehicle::load_limit::Interval>,
@@ -4777,7 +4777,7 @@ pub mod vehicle {
                 self
             }
 
-            /// Sets or clear the value of [max][crate::model::vehicle::load_limit::Interval::max].
+            /// Sets or clears the value of [max][crate::model::vehicle::load_limit::Interval::max].
             pub fn set_or_clear_max<T>(mut self, v: std::option::Option<T>) -> Self
             where
                 T: std::convert::Into<i64>,
@@ -4877,7 +4877,7 @@ pub mod vehicle {
             self
         }
 
-        /// Sets or clear the value of [max_duration][crate::model::vehicle::DurationLimit::max_duration].
+        /// Sets or clears the value of [max_duration][crate::model::vehicle::DurationLimit::max_duration].
         pub fn set_or_clear_max_duration<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
@@ -4895,7 +4895,7 @@ pub mod vehicle {
             self
         }
 
-        /// Sets or clear the value of [soft_max_duration][crate::model::vehicle::DurationLimit::soft_max_duration].
+        /// Sets or clears the value of [soft_max_duration][crate::model::vehicle::DurationLimit::soft_max_duration].
         pub fn set_or_clear_soft_max_duration<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
@@ -4913,7 +4913,7 @@ pub mod vehicle {
             self
         }
 
-        /// Sets or clear the value of [cost_per_hour_after_soft_max][crate::model::vehicle::DurationLimit::cost_per_hour_after_soft_max].
+        /// Sets or clears the value of [cost_per_hour_after_soft_max][crate::model::vehicle::DurationLimit::cost_per_hour_after_soft_max].
         pub fn set_or_clear_cost_per_hour_after_soft_max<T>(
             mut self,
             v: std::option::Option<T>,
@@ -4934,7 +4934,7 @@ pub mod vehicle {
             self
         }
 
-        /// Sets or clear the value of [quadratic_soft_max_duration][crate::model::vehicle::DurationLimit::quadratic_soft_max_duration].
+        /// Sets or clears the value of [quadratic_soft_max_duration][crate::model::vehicle::DurationLimit::quadratic_soft_max_duration].
         pub fn set_or_clear_quadratic_soft_max_duration<T>(
             mut self,
             v: std::option::Option<T>,
@@ -4956,7 +4956,7 @@ pub mod vehicle {
             self
         }
 
-        /// Sets or clear the value of [cost_per_square_hour_after_quadratic_soft_max][crate::model::vehicle::DurationLimit::cost_per_square_hour_after_quadratic_soft_max].
+        /// Sets or clears the value of [cost_per_square_hour_after_quadratic_soft_max][crate::model::vehicle::DurationLimit::cost_per_square_hour_after_quadratic_soft_max].
         pub fn set_or_clear_cost_per_square_hour_after_quadratic_soft_max<T>(
             mut self,
             v: std::option::Option<T>,
@@ -5345,7 +5345,7 @@ impl TimeWindow {
         self
     }
 
-    /// Sets or clear the value of [start_time][crate::model::TimeWindow::start_time].
+    /// Sets or clears the value of [start_time][crate::model::TimeWindow::start_time].
     pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -5363,7 +5363,7 @@ impl TimeWindow {
         self
     }
 
-    /// Sets or clear the value of [end_time][crate::model::TimeWindow::end_time].
+    /// Sets or clears the value of [end_time][crate::model::TimeWindow::end_time].
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -5381,7 +5381,7 @@ impl TimeWindow {
         self
     }
 
-    /// Sets or clear the value of [soft_start_time][crate::model::TimeWindow::soft_start_time].
+    /// Sets or clears the value of [soft_start_time][crate::model::TimeWindow::soft_start_time].
     pub fn set_or_clear_soft_start_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -5399,7 +5399,7 @@ impl TimeWindow {
         self
     }
 
-    /// Sets or clear the value of [soft_end_time][crate::model::TimeWindow::soft_end_time].
+    /// Sets or clears the value of [soft_end_time][crate::model::TimeWindow::soft_end_time].
     pub fn set_or_clear_soft_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -5417,7 +5417,7 @@ impl TimeWindow {
         self
     }
 
-    /// Sets or clear the value of [cost_per_hour_before_soft_start_time][crate::model::TimeWindow::cost_per_hour_before_soft_start_time].
+    /// Sets or clears the value of [cost_per_hour_before_soft_start_time][crate::model::TimeWindow::cost_per_hour_before_soft_start_time].
     pub fn set_or_clear_cost_per_hour_before_soft_start_time<T>(
         mut self,
         v: std::option::Option<T>,
@@ -5438,7 +5438,7 @@ impl TimeWindow {
         self
     }
 
-    /// Sets or clear the value of [cost_per_hour_after_soft_end_time][crate::model::TimeWindow::cost_per_hour_after_soft_end_time].
+    /// Sets or clears the value of [cost_per_hour_after_soft_end_time][crate::model::TimeWindow::cost_per_hour_after_soft_end_time].
     pub fn set_or_clear_cost_per_hour_after_soft_end_time<T>(
         mut self,
         v: std::option::Option<T>,
@@ -5551,7 +5551,7 @@ impl CapacityQuantityInterval {
         self
     }
 
-    /// Sets or clear the value of [min_value][crate::model::CapacityQuantityInterval::min_value].
+    /// Sets or clears the value of [min_value][crate::model::CapacityQuantityInterval::min_value].
     pub fn set_or_clear_min_value<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<i64>,
@@ -5569,7 +5569,7 @@ impl CapacityQuantityInterval {
         self
     }
 
-    /// Sets or clear the value of [max_value][crate::model::CapacityQuantityInterval::max_value].
+    /// Sets or clears the value of [max_value][crate::model::CapacityQuantityInterval::max_value].
     pub fn set_or_clear_max_value<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<i64>,
@@ -5656,7 +5656,7 @@ impl DistanceLimit {
         self
     }
 
-    /// Sets or clear the value of [max_meters][crate::model::DistanceLimit::max_meters].
+    /// Sets or clears the value of [max_meters][crate::model::DistanceLimit::max_meters].
     pub fn set_or_clear_max_meters<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<i64>,
@@ -5674,7 +5674,7 @@ impl DistanceLimit {
         self
     }
 
-    /// Sets or clear the value of [soft_max_meters][crate::model::DistanceLimit::soft_max_meters].
+    /// Sets or clears the value of [soft_max_meters][crate::model::DistanceLimit::soft_max_meters].
     pub fn set_or_clear_soft_max_meters<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<i64>,
@@ -5692,7 +5692,7 @@ impl DistanceLimit {
         self
     }
 
-    /// Sets or clear the value of [cost_per_kilometer_below_soft_max][crate::model::DistanceLimit::cost_per_kilometer_below_soft_max].
+    /// Sets or clears the value of [cost_per_kilometer_below_soft_max][crate::model::DistanceLimit::cost_per_kilometer_below_soft_max].
     pub fn set_or_clear_cost_per_kilometer_below_soft_max<T>(
         mut self,
         v: std::option::Option<T>,
@@ -5713,7 +5713,7 @@ impl DistanceLimit {
         self
     }
 
-    /// Sets or clear the value of [cost_per_kilometer_above_soft_max][crate::model::DistanceLimit::cost_per_kilometer_above_soft_max].
+    /// Sets or clears the value of [cost_per_kilometer_above_soft_max][crate::model::DistanceLimit::cost_per_kilometer_above_soft_max].
     pub fn set_or_clear_cost_per_kilometer_above_soft_max<T>(
         mut self,
         v: std::option::Option<T>,
@@ -5866,7 +5866,7 @@ impl TransitionAttributes {
         self
     }
 
-    /// Sets or clear the value of [distance_limit][crate::model::TransitionAttributes::distance_limit].
+    /// Sets or clears the value of [distance_limit][crate::model::TransitionAttributes::distance_limit].
     pub fn set_or_clear_distance_limit<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::DistanceLimit>,
@@ -5884,7 +5884,7 @@ impl TransitionAttributes {
         self
     }
 
-    /// Sets or clear the value of [delay][crate::model::TransitionAttributes::delay].
+    /// Sets or clears the value of [delay][crate::model::TransitionAttributes::delay].
     pub fn set_or_clear_delay<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -6057,7 +6057,7 @@ impl Location {
         self
     }
 
-    /// Sets or clear the value of [lat_lng][crate::model::Location::lat_lng].
+    /// Sets or clears the value of [lat_lng][crate::model::Location::lat_lng].
     pub fn set_or_clear_lat_lng<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<gtype::model::LatLng>,
@@ -6075,7 +6075,7 @@ impl Location {
         self
     }
 
-    /// Sets or clear the value of [heading][crate::model::Location::heading].
+    /// Sets or clears the value of [heading][crate::model::Location::heading].
     pub fn set_or_clear_heading<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<i32>,
@@ -6198,7 +6198,7 @@ pub mod break_rule {
             self
         }
 
-        /// Sets or clear the value of [earliest_start_time][crate::model::break_rule::BreakRequest::earliest_start_time].
+        /// Sets or clears the value of [earliest_start_time][crate::model::break_rule::BreakRequest::earliest_start_time].
         pub fn set_or_clear_earliest_start_time<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -6216,7 +6216,7 @@ pub mod break_rule {
             self
         }
 
-        /// Sets or clear the value of [latest_start_time][crate::model::break_rule::BreakRequest::latest_start_time].
+        /// Sets or clears the value of [latest_start_time][crate::model::break_rule::BreakRequest::latest_start_time].
         pub fn set_or_clear_latest_start_time<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -6234,7 +6234,7 @@ pub mod break_rule {
             self
         }
 
-        /// Sets or clear the value of [min_duration][crate::model::break_rule::BreakRequest::min_duration].
+        /// Sets or clears the value of [min_duration][crate::model::break_rule::BreakRequest::min_duration].
         pub fn set_or_clear_min_duration<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
@@ -6319,7 +6319,7 @@ pub mod break_rule {
             self
         }
 
-        /// Sets or clear the value of [min_break_duration][crate::model::break_rule::FrequencyConstraint::min_break_duration].
+        /// Sets or clears the value of [min_break_duration][crate::model::break_rule::FrequencyConstraint::min_break_duration].
         pub fn set_or_clear_min_break_duration<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
@@ -6337,7 +6337,7 @@ pub mod break_rule {
             self
         }
 
-        /// Sets or clear the value of [max_inter_break_duration][crate::model::break_rule::FrequencyConstraint::max_inter_break_duration].
+        /// Sets or clears the value of [max_inter_break_duration][crate::model::break_rule::FrequencyConstraint::max_inter_break_duration].
         pub fn set_or_clear_max_inter_break_duration<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
@@ -6623,7 +6623,7 @@ impl ShipmentRoute {
         self
     }
 
-    /// Sets or clear the value of [vehicle_start_time][crate::model::ShipmentRoute::vehicle_start_time].
+    /// Sets or clears the value of [vehicle_start_time][crate::model::ShipmentRoute::vehicle_start_time].
     pub fn set_or_clear_vehicle_start_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -6641,7 +6641,7 @@ impl ShipmentRoute {
         self
     }
 
-    /// Sets or clear the value of [vehicle_end_time][crate::model::ShipmentRoute::vehicle_end_time].
+    /// Sets or clears the value of [vehicle_end_time][crate::model::ShipmentRoute::vehicle_end_time].
     pub fn set_or_clear_vehicle_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -6687,7 +6687,7 @@ impl ShipmentRoute {
         self
     }
 
-    /// Sets or clear the value of [route_polyline][crate::model::ShipmentRoute::route_polyline].
+    /// Sets or clears the value of [route_polyline][crate::model::ShipmentRoute::route_polyline].
     pub fn set_or_clear_route_polyline<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::shipment_route::EncodedPolyline>,
@@ -6716,7 +6716,7 @@ impl ShipmentRoute {
         self
     }
 
-    /// Sets or clear the value of [metrics][crate::model::ShipmentRoute::metrics].
+    /// Sets or clears the value of [metrics][crate::model::ShipmentRoute::metrics].
     pub fn set_or_clear_metrics<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::AggregatedMetrics>,
@@ -6777,7 +6777,7 @@ impl ShipmentRoute {
         self
     }
 
-    /// Sets or clear the value of [vehicle_detour][crate::model::ShipmentRoute::vehicle_detour].
+    /// Sets or clears the value of [vehicle_detour][crate::model::ShipmentRoute::vehicle_detour].
     #[deprecated]
     pub fn set_or_clear_vehicle_detour<T>(mut self, v: std::option::Option<T>) -> Self
     where
@@ -6797,7 +6797,7 @@ impl ShipmentRoute {
         self
     }
 
-    /// Sets or clear the value of [delay_before_vehicle_end][crate::model::ShipmentRoute::delay_before_vehicle_end].
+    /// Sets or clears the value of [delay_before_vehicle_end][crate::model::ShipmentRoute::delay_before_vehicle_end].
     #[deprecated]
     pub fn set_or_clear_delay_before_vehicle_end<T>(mut self, v: std::option::Option<T>) -> Self
     where
@@ -6858,7 +6858,7 @@ pub mod shipment_route {
             self
         }
 
-        /// Sets or clear the value of [start_time][crate::model::shipment_route::Delay::start_time].
+        /// Sets or clears the value of [start_time][crate::model::shipment_route::Delay::start_time].
         pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -6876,7 +6876,7 @@ pub mod shipment_route {
             self
         }
 
-        /// Sets or clear the value of [duration][crate::model::shipment_route::Delay::duration].
+        /// Sets or clears the value of [duration][crate::model::shipment_route::Delay::duration].
         pub fn set_or_clear_duration<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
@@ -7037,7 +7037,7 @@ pub mod shipment_route {
             self
         }
 
-        /// Sets or clear the value of [start_time][crate::model::shipment_route::Visit::start_time].
+        /// Sets or clears the value of [start_time][crate::model::shipment_route::Visit::start_time].
         pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -7067,7 +7067,7 @@ pub mod shipment_route {
             self
         }
 
-        /// Sets or clear the value of [detour][crate::model::shipment_route::Visit::detour].
+        /// Sets or clears the value of [detour][crate::model::shipment_route::Visit::detour].
         pub fn set_or_clear_detour<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
@@ -7113,7 +7113,7 @@ pub mod shipment_route {
             self
         }
 
-        /// Sets or clear the value of [delay_before_start][crate::model::shipment_route::Visit::delay_before_start].
+        /// Sets or clears the value of [delay_before_start][crate::model::shipment_route::Visit::delay_before_start].
         #[deprecated]
         pub fn set_or_clear_delay_before_start<T>(mut self, v: std::option::Option<T>) -> Self
         where
@@ -7266,7 +7266,7 @@ pub mod shipment_route {
             self
         }
 
-        /// Sets or clear the value of [travel_duration][crate::model::shipment_route::Transition::travel_duration].
+        /// Sets or clears the value of [travel_duration][crate::model::shipment_route::Transition::travel_duration].
         pub fn set_or_clear_travel_duration<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
@@ -7296,7 +7296,7 @@ pub mod shipment_route {
             self
         }
 
-        /// Sets or clear the value of [delay_duration][crate::model::shipment_route::Transition::delay_duration].
+        /// Sets or clears the value of [delay_duration][crate::model::shipment_route::Transition::delay_duration].
         pub fn set_or_clear_delay_duration<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
@@ -7314,7 +7314,7 @@ pub mod shipment_route {
             self
         }
 
-        /// Sets or clear the value of [break_duration][crate::model::shipment_route::Transition::break_duration].
+        /// Sets or clears the value of [break_duration][crate::model::shipment_route::Transition::break_duration].
         pub fn set_or_clear_break_duration<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
@@ -7332,7 +7332,7 @@ pub mod shipment_route {
             self
         }
 
-        /// Sets or clear the value of [wait_duration][crate::model::shipment_route::Transition::wait_duration].
+        /// Sets or clears the value of [wait_duration][crate::model::shipment_route::Transition::wait_duration].
         pub fn set_or_clear_wait_duration<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
@@ -7350,7 +7350,7 @@ pub mod shipment_route {
             self
         }
 
-        /// Sets or clear the value of [total_duration][crate::model::shipment_route::Transition::total_duration].
+        /// Sets or clears the value of [total_duration][crate::model::shipment_route::Transition::total_duration].
         pub fn set_or_clear_total_duration<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
@@ -7368,7 +7368,7 @@ pub mod shipment_route {
             self
         }
 
-        /// Sets or clear the value of [start_time][crate::model::shipment_route::Transition::start_time].
+        /// Sets or clears the value of [start_time][crate::model::shipment_route::Transition::start_time].
         pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -7386,7 +7386,7 @@ pub mod shipment_route {
             self
         }
 
-        /// Sets or clear the value of [route_polyline][crate::model::shipment_route::Transition::route_polyline].
+        /// Sets or clears the value of [route_polyline][crate::model::shipment_route::Transition::route_polyline].
         pub fn set_or_clear_route_polyline<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::shipment_route::EncodedPolyline>,
@@ -7534,7 +7534,7 @@ pub mod shipment_route {
             self
         }
 
-        /// Sets or clear the value of [start_time][crate::model::shipment_route::Break::start_time].
+        /// Sets or clears the value of [start_time][crate::model::shipment_route::Break::start_time].
         pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -7552,7 +7552,7 @@ pub mod shipment_route {
             self
         }
 
-        /// Sets or clear the value of [duration][crate::model::shipment_route::Break::duration].
+        /// Sets or clears the value of [duration][crate::model::shipment_route::Break::duration].
         pub fn set_or_clear_duration<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
@@ -7638,7 +7638,7 @@ pub mod shipment_route {
             self
         }
 
-        /// Sets or clear the value of [duration][crate::model::shipment_route::TravelStep::duration].
+        /// Sets or clears the value of [duration][crate::model::shipment_route::TravelStep::duration].
         pub fn set_or_clear_duration<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
@@ -7668,7 +7668,7 @@ pub mod shipment_route {
             self
         }
 
-        /// Sets or clear the value of [route_polyline][crate::model::shipment_route::TravelStep::route_polyline].
+        /// Sets or clears the value of [route_polyline][crate::model::shipment_route::TravelStep::route_polyline].
         pub fn set_or_clear_route_polyline<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::shipment_route::EncodedPolyline>,
@@ -7828,7 +7828,7 @@ pub mod skipped_shipment {
             self
         }
 
-        /// Sets or clear the value of [example_vehicle_index][crate::model::skipped_shipment::Reason::example_vehicle_index].
+        /// Sets or clears the value of [example_vehicle_index][crate::model::skipped_shipment::Reason::example_vehicle_index].
         pub fn set_or_clear_example_vehicle_index<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<i32>,
@@ -8201,7 +8201,7 @@ impl AggregatedMetrics {
         self
     }
 
-    /// Sets or clear the value of [travel_duration][crate::model::AggregatedMetrics::travel_duration].
+    /// Sets or clears the value of [travel_duration][crate::model::AggregatedMetrics::travel_duration].
     pub fn set_or_clear_travel_duration<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -8219,7 +8219,7 @@ impl AggregatedMetrics {
         self
     }
 
-    /// Sets or clear the value of [wait_duration][crate::model::AggregatedMetrics::wait_duration].
+    /// Sets or clears the value of [wait_duration][crate::model::AggregatedMetrics::wait_duration].
     pub fn set_or_clear_wait_duration<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -8237,7 +8237,7 @@ impl AggregatedMetrics {
         self
     }
 
-    /// Sets or clear the value of [delay_duration][crate::model::AggregatedMetrics::delay_duration].
+    /// Sets or clears the value of [delay_duration][crate::model::AggregatedMetrics::delay_duration].
     pub fn set_or_clear_delay_duration<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -8255,7 +8255,7 @@ impl AggregatedMetrics {
         self
     }
 
-    /// Sets or clear the value of [break_duration][crate::model::AggregatedMetrics::break_duration].
+    /// Sets or clears the value of [break_duration][crate::model::AggregatedMetrics::break_duration].
     pub fn set_or_clear_break_duration<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -8273,7 +8273,7 @@ impl AggregatedMetrics {
         self
     }
 
-    /// Sets or clear the value of [visit_duration][crate::model::AggregatedMetrics::visit_duration].
+    /// Sets or clears the value of [visit_duration][crate::model::AggregatedMetrics::visit_duration].
     pub fn set_or_clear_visit_duration<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -8291,7 +8291,7 @@ impl AggregatedMetrics {
         self
     }
 
-    /// Sets or clear the value of [total_duration][crate::model::AggregatedMetrics::total_duration].
+    /// Sets or clears the value of [total_duration][crate::model::AggregatedMetrics::total_duration].
     pub fn set_or_clear_total_duration<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -8586,7 +8586,7 @@ pub mod injected_solution_constraint {
                 self
             }
 
-            /// Sets or clear the value of [threshold_time][crate::model::injected_solution_constraint::constraint_relaxation::Relaxation::threshold_time].
+            /// Sets or clears the value of [threshold_time][crate::model::injected_solution_constraint::constraint_relaxation::Relaxation::threshold_time].
             pub fn set_or_clear_threshold_time<T>(mut self, v: std::option::Option<T>) -> Self
             where
                 T: std::convert::Into<wkt::Timestamp>,
@@ -9206,7 +9206,7 @@ pub mod optimize_tours_validation_error {
             self
         }
 
-        /// Sets or clear the value of [sub_field][crate::model::optimize_tours_validation_error::FieldReference::sub_field].
+        /// Sets or clears the value of [sub_field][crate::model::optimize_tours_validation_error::FieldReference::sub_field].
         pub fn set_or_clear_sub_field<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::optimize_tours_validation_error::FieldReference>,

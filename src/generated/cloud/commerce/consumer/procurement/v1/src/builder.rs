@@ -190,7 +190,7 @@ pub mod license_management_service {
             self
         }
 
-        /// Sets or clear the value of [license_pool][crate::model::UpdateLicensePoolRequest::license_pool].
+        /// Sets or clears the value of [license_pool][crate::model::UpdateLicensePoolRequest::license_pool].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_license_pool<T>(mut self, v: std::option::Option<T>) -> Self
@@ -212,7 +212,7 @@ pub mod license_management_service {
             self
         }
 
-        /// Sets or clear the value of [update_mask][crate::model::UpdateLicensePoolRequest::update_mask].
+        /// Sets or clears the value of [update_mask][crate::model::UpdateLicensePoolRequest::update_mask].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self

@@ -139,7 +139,7 @@ pub mod os_config_service {
             self
         }
 
-        /// Sets or clear the value of [instance_filter][crate::model::ExecutePatchJobRequest::instance_filter].
+        /// Sets or clears the value of [instance_filter][crate::model::ExecutePatchJobRequest::instance_filter].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_instance_filter<T>(mut self, v: std::option::Option<T>) -> Self
@@ -159,7 +159,7 @@ pub mod os_config_service {
             self
         }
 
-        /// Sets or clear the value of [patch_config][crate::model::ExecutePatchJobRequest::patch_config].
+        /// Sets or clears the value of [patch_config][crate::model::ExecutePatchJobRequest::patch_config].
         pub fn set_or_clear_patch_config<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::PatchConfig>,
@@ -177,7 +177,7 @@ pub mod os_config_service {
             self
         }
 
-        /// Sets or clear the value of [duration][crate::model::ExecutePatchJobRequest::duration].
+        /// Sets or clears the value of [duration][crate::model::ExecutePatchJobRequest::duration].
         pub fn set_or_clear_duration<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
@@ -207,7 +207,7 @@ pub mod os_config_service {
             self
         }
 
-        /// Sets or clear the value of [rollout][crate::model::ExecutePatchJobRequest::rollout].
+        /// Sets or clears the value of [rollout][crate::model::ExecutePatchJobRequest::rollout].
         pub fn set_or_clear_rollout<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::PatchRollout>,
@@ -649,7 +649,7 @@ pub mod os_config_service {
             self
         }
 
-        /// Sets or clear the value of [patch_deployment][crate::model::CreatePatchDeploymentRequest::patch_deployment].
+        /// Sets or clears the value of [patch_deployment][crate::model::CreatePatchDeploymentRequest::patch_deployment].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_patch_deployment<T>(mut self, v: std::option::Option<T>) -> Self
@@ -965,7 +965,7 @@ pub mod os_config_service {
             self
         }
 
-        /// Sets or clear the value of [patch_deployment][crate::model::UpdatePatchDeploymentRequest::patch_deployment].
+        /// Sets or clears the value of [patch_deployment][crate::model::UpdatePatchDeploymentRequest::patch_deployment].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_patch_deployment<T>(mut self, v: std::option::Option<T>) -> Self
@@ -985,7 +985,7 @@ pub mod os_config_service {
             self
         }
 
-        /// Sets or clear the value of [update_mask][crate::model::UpdatePatchDeploymentRequest::update_mask].
+        /// Sets or clears the value of [update_mask][crate::model::UpdatePatchDeploymentRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
@@ -1427,7 +1427,7 @@ pub mod os_config_zonal_service {
             self
         }
 
-        /// Sets or clear the value of [os_policy_assignment][crate::model::CreateOSPolicyAssignmentRequest::os_policy_assignment].
+        /// Sets or clears the value of [os_policy_assignment][crate::model::CreateOSPolicyAssignmentRequest::os_policy_assignment].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_os_policy_assignment<T>(mut self, v: std::option::Option<T>) -> Self
@@ -1560,7 +1560,7 @@ pub mod os_config_zonal_service {
             self
         }
 
-        /// Sets or clear the value of [os_policy_assignment][crate::model::UpdateOSPolicyAssignmentRequest::os_policy_assignment].
+        /// Sets or clears the value of [os_policy_assignment][crate::model::UpdateOSPolicyAssignmentRequest::os_policy_assignment].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_os_policy_assignment<T>(mut self, v: std::option::Option<T>) -> Self
@@ -1580,7 +1580,7 @@ pub mod os_config_zonal_service {
             self
         }
 
-        /// Sets or clear the value of [update_mask][crate::model::UpdateOSPolicyAssignmentRequest::update_mask].
+        /// Sets or clears the value of [update_mask][crate::model::UpdateOSPolicyAssignmentRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,

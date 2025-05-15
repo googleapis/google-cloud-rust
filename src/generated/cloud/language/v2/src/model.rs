@@ -333,7 +333,7 @@ impl Sentence {
         self
     }
 
-    /// Sets or clear the value of [text][crate::model::Sentence::text].
+    /// Sets or clears the value of [text][crate::model::Sentence::text].
     pub fn set_or_clear_text<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::TextSpan>,
@@ -351,7 +351,7 @@ impl Sentence {
         self
     }
 
-    /// Sets or clear the value of [sentiment][crate::model::Sentence::sentiment].
+    /// Sets or clears the value of [sentiment][crate::model::Sentence::sentiment].
     pub fn set_or_clear_sentiment<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Sentiment>,
@@ -455,7 +455,7 @@ impl Entity {
         self
     }
 
-    /// Sets or clear the value of [sentiment][crate::model::Entity::sentiment].
+    /// Sets or clears the value of [sentiment][crate::model::Entity::sentiment].
     pub fn set_or_clear_sentiment<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Sentiment>,
@@ -811,7 +811,7 @@ impl EntityMention {
         self
     }
 
-    /// Sets or clear the value of [text][crate::model::EntityMention::text].
+    /// Sets or clears the value of [text][crate::model::EntityMention::text].
     pub fn set_or_clear_text<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::TextSpan>,
@@ -838,7 +838,7 @@ impl EntityMention {
         self
     }
 
-    /// Sets or clear the value of [sentiment][crate::model::EntityMention::sentiment].
+    /// Sets or clears the value of [sentiment][crate::model::EntityMention::sentiment].
     pub fn set_or_clear_sentiment<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Sentiment>,
@@ -1133,7 +1133,7 @@ impl AnalyzeSentimentRequest {
         self
     }
 
-    /// Sets or clear the value of [document][crate::model::AnalyzeSentimentRequest::document].
+    /// Sets or clears the value of [document][crate::model::AnalyzeSentimentRequest::document].
     pub fn set_or_clear_document<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Document>,
@@ -1202,7 +1202,7 @@ impl AnalyzeSentimentResponse {
         self
     }
 
-    /// Sets or clear the value of [document_sentiment][crate::model::AnalyzeSentimentResponse::document_sentiment].
+    /// Sets or clears the value of [document_sentiment][crate::model::AnalyzeSentimentResponse::document_sentiment].
     pub fn set_or_clear_document_sentiment<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Sentiment>,
@@ -1272,7 +1272,7 @@ impl AnalyzeEntitiesRequest {
         self
     }
 
-    /// Sets or clear the value of [document][crate::model::AnalyzeEntitiesRequest::document].
+    /// Sets or clears the value of [document][crate::model::AnalyzeEntitiesRequest::document].
     pub fn set_or_clear_document<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Document>,
@@ -1386,7 +1386,7 @@ impl ClassifyTextRequest {
         self
     }
 
-    /// Sets or clear the value of [document][crate::model::ClassifyTextRequest::document].
+    /// Sets or clears the value of [document][crate::model::ClassifyTextRequest::document].
     pub fn set_or_clear_document<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Document>,
@@ -1494,7 +1494,7 @@ impl ModerateTextRequest {
         self
     }
 
-    /// Sets or clear the value of [document][crate::model::ModerateTextRequest::document].
+    /// Sets or clears the value of [document][crate::model::ModerateTextRequest::document].
     pub fn set_or_clear_document<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Document>,
@@ -1760,7 +1760,7 @@ impl AnnotateTextRequest {
         self
     }
 
-    /// Sets or clear the value of [document][crate::model::AnnotateTextRequest::document].
+    /// Sets or clears the value of [document][crate::model::AnnotateTextRequest::document].
     pub fn set_or_clear_document<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Document>,
@@ -1778,7 +1778,7 @@ impl AnnotateTextRequest {
         self
     }
 
-    /// Sets or clear the value of [features][crate::model::AnnotateTextRequest::features].
+    /// Sets or clears the value of [features][crate::model::AnnotateTextRequest::features].
     pub fn set_or_clear_features<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::annotate_text_request::Features>,
@@ -1962,7 +1962,7 @@ impl AnnotateTextResponse {
         self
     }
 
-    /// Sets or clear the value of [document_sentiment][crate::model::AnnotateTextResponse::document_sentiment].
+    /// Sets or clears the value of [document_sentiment][crate::model::AnnotateTextResponse::document_sentiment].
     pub fn set_or_clear_document_sentiment<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Sentiment>,

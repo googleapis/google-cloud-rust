@@ -126,7 +126,7 @@ impl AnnotateVideoRequest {
         self
     }
 
-    /// Sets or clear the value of [video_context][crate::model::AnnotateVideoRequest::video_context].
+    /// Sets or clears the value of [video_context][crate::model::AnnotateVideoRequest::video_context].
     pub fn set_or_clear_video_context<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::VideoContext>,
@@ -228,7 +228,7 @@ impl VideoContext {
         self
     }
 
-    /// Sets or clear the value of [label_detection_config][crate::model::VideoContext::label_detection_config].
+    /// Sets or clears the value of [label_detection_config][crate::model::VideoContext::label_detection_config].
     pub fn set_or_clear_label_detection_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::LabelDetectionConfig>,
@@ -246,7 +246,7 @@ impl VideoContext {
         self
     }
 
-    /// Sets or clear the value of [shot_change_detection_config][crate::model::VideoContext::shot_change_detection_config].
+    /// Sets or clears the value of [shot_change_detection_config][crate::model::VideoContext::shot_change_detection_config].
     pub fn set_or_clear_shot_change_detection_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ShotChangeDetectionConfig>,
@@ -264,7 +264,7 @@ impl VideoContext {
         self
     }
 
-    /// Sets or clear the value of [explicit_content_detection_config][crate::model::VideoContext::explicit_content_detection_config].
+    /// Sets or clears the value of [explicit_content_detection_config][crate::model::VideoContext::explicit_content_detection_config].
     pub fn set_or_clear_explicit_content_detection_config<T>(
         mut self,
         v: std::option::Option<T>,
@@ -285,7 +285,7 @@ impl VideoContext {
         self
     }
 
-    /// Sets or clear the value of [face_detection_config][crate::model::VideoContext::face_detection_config].
+    /// Sets or clears the value of [face_detection_config][crate::model::VideoContext::face_detection_config].
     pub fn set_or_clear_face_detection_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::FaceDetectionConfig>,
@@ -303,7 +303,7 @@ impl VideoContext {
         self
     }
 
-    /// Sets or clear the value of [speech_transcription_config][crate::model::VideoContext::speech_transcription_config].
+    /// Sets or clears the value of [speech_transcription_config][crate::model::VideoContext::speech_transcription_config].
     pub fn set_or_clear_speech_transcription_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::SpeechTranscriptionConfig>,
@@ -321,7 +321,7 @@ impl VideoContext {
         self
     }
 
-    /// Sets or clear the value of [text_detection_config][crate::model::VideoContext::text_detection_config].
+    /// Sets or clears the value of [text_detection_config][crate::model::VideoContext::text_detection_config].
     pub fn set_or_clear_text_detection_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::TextDetectionConfig>,
@@ -339,7 +339,7 @@ impl VideoContext {
         self
     }
 
-    /// Sets or clear the value of [person_detection_config][crate::model::VideoContext::person_detection_config].
+    /// Sets or clears the value of [person_detection_config][crate::model::VideoContext::person_detection_config].
     pub fn set_or_clear_person_detection_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::PersonDetectionConfig>,
@@ -357,7 +357,7 @@ impl VideoContext {
         self
     }
 
-    /// Sets or clear the value of [object_tracking_config][crate::model::VideoContext::object_tracking_config].
+    /// Sets or clears the value of [object_tracking_config][crate::model::VideoContext::object_tracking_config].
     pub fn set_or_clear_object_tracking_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ObjectTrackingConfig>,
@@ -766,7 +766,7 @@ impl VideoSegment {
         self
     }
 
-    /// Sets or clear the value of [start_time_offset][crate::model::VideoSegment::start_time_offset].
+    /// Sets or clears the value of [start_time_offset][crate::model::VideoSegment::start_time_offset].
     pub fn set_or_clear_start_time_offset<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -784,7 +784,7 @@ impl VideoSegment {
         self
     }
 
-    /// Sets or clear the value of [end_time_offset][crate::model::VideoSegment::end_time_offset].
+    /// Sets or clears the value of [end_time_offset][crate::model::VideoSegment::end_time_offset].
     pub fn set_or_clear_end_time_offset<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -833,7 +833,7 @@ impl LabelSegment {
         self
     }
 
-    /// Sets or clear the value of [segment][crate::model::LabelSegment::segment].
+    /// Sets or clears the value of [segment][crate::model::LabelSegment::segment].
     pub fn set_or_clear_segment<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::VideoSegment>,
@@ -889,7 +889,7 @@ impl LabelFrame {
         self
     }
 
-    /// Sets or clear the value of [time_offset][crate::model::LabelFrame::time_offset].
+    /// Sets or clears the value of [time_offset][crate::model::LabelFrame::time_offset].
     pub fn set_or_clear_time_offset<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -1012,7 +1012,7 @@ impl LabelAnnotation {
         self
     }
 
-    /// Sets or clear the value of [entity][crate::model::LabelAnnotation::entity].
+    /// Sets or clears the value of [entity][crate::model::LabelAnnotation::entity].
     pub fn set_or_clear_entity<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Entity>,
@@ -1099,7 +1099,7 @@ impl ExplicitContentFrame {
         self
     }
 
-    /// Sets or clear the value of [time_offset][crate::model::ExplicitContentFrame::time_offset].
+    /// Sets or clears the value of [time_offset][crate::model::ExplicitContentFrame::time_offset].
     pub fn set_or_clear_time_offset<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -1374,7 +1374,7 @@ impl FaceSegment {
         self
     }
 
-    /// Sets or clear the value of [segment][crate::model::FaceSegment::segment].
+    /// Sets or clears the value of [segment][crate::model::FaceSegment::segment].
     pub fn set_or_clear_segment<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::VideoSegment>,
@@ -1437,7 +1437,7 @@ impl FaceFrame {
         self
     }
 
-    /// Sets or clear the value of [time_offset][crate::model::FaceFrame::time_offset].
+    /// Sets or clears the value of [time_offset][crate::model::FaceFrame::time_offset].
     pub fn set_or_clear_time_offset<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -1560,7 +1560,7 @@ impl TimestampedObject {
         self
     }
 
-    /// Sets or clear the value of [normalized_bounding_box][crate::model::TimestampedObject::normalized_bounding_box].
+    /// Sets or clears the value of [normalized_bounding_box][crate::model::TimestampedObject::normalized_bounding_box].
     pub fn set_or_clear_normalized_bounding_box<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::NormalizedBoundingBox>,
@@ -1578,7 +1578,7 @@ impl TimestampedObject {
         self
     }
 
-    /// Sets or clear the value of [time_offset][crate::model::TimestampedObject::time_offset].
+    /// Sets or clears the value of [time_offset][crate::model::TimestampedObject::time_offset].
     pub fn set_or_clear_time_offset<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -1657,7 +1657,7 @@ impl Track {
         self
     }
 
-    /// Sets or clear the value of [segment][crate::model::Track::segment].
+    /// Sets or clears the value of [segment][crate::model::Track::segment].
     pub fn set_or_clear_segment<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::VideoSegment>,
@@ -1801,7 +1801,7 @@ impl DetectedLandmark {
         self
     }
 
-    /// Sets or clear the value of [point][crate::model::DetectedLandmark::point].
+    /// Sets or clears the value of [point][crate::model::DetectedLandmark::point].
     pub fn set_or_clear_point<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::NormalizedVertex>,
@@ -1938,7 +1938,7 @@ impl VideoAnnotationResults {
         self
     }
 
-    /// Sets or clear the value of [segment][crate::model::VideoAnnotationResults::segment].
+    /// Sets or clears the value of [segment][crate::model::VideoAnnotationResults::segment].
     pub fn set_or_clear_segment<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::VideoSegment>,
@@ -2045,7 +2045,7 @@ impl VideoAnnotationResults {
         self
     }
 
-    /// Sets or clear the value of [explicit_annotation][crate::model::VideoAnnotationResults::explicit_annotation].
+    /// Sets or clears the value of [explicit_annotation][crate::model::VideoAnnotationResults::explicit_annotation].
     pub fn set_or_clear_explicit_annotation<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ExplicitContentAnnotation>,
@@ -2118,7 +2118,7 @@ impl VideoAnnotationResults {
         self
     }
 
-    /// Sets or clear the value of [error][crate::model::VideoAnnotationResults::error].
+    /// Sets or clears the value of [error][crate::model::VideoAnnotationResults::error].
     pub fn set_or_clear_error<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<rpc::model::Status>,
@@ -2236,7 +2236,7 @@ impl VideoAnnotationProgress {
         self
     }
 
-    /// Sets or clear the value of [start_time][crate::model::VideoAnnotationProgress::start_time].
+    /// Sets or clears the value of [start_time][crate::model::VideoAnnotationProgress::start_time].
     pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2254,7 +2254,7 @@ impl VideoAnnotationProgress {
         self
     }
 
-    /// Sets or clear the value of [update_time][crate::model::VideoAnnotationProgress::update_time].
+    /// Sets or clears the value of [update_time][crate::model::VideoAnnotationProgress::update_time].
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2278,7 +2278,7 @@ impl VideoAnnotationProgress {
         self
     }
 
-    /// Sets or clear the value of [segment][crate::model::VideoAnnotationProgress::segment].
+    /// Sets or clears the value of [segment][crate::model::VideoAnnotationProgress::segment].
     pub fn set_or_clear_segment<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::VideoSegment>,
@@ -2703,7 +2703,7 @@ impl WordInfo {
         self
     }
 
-    /// Sets or clear the value of [start_time][crate::model::WordInfo::start_time].
+    /// Sets or clears the value of [start_time][crate::model::WordInfo::start_time].
     pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -2721,7 +2721,7 @@ impl WordInfo {
         self
     }
 
-    /// Sets or clear the value of [end_time][crate::model::WordInfo::end_time].
+    /// Sets or clears the value of [end_time][crate::model::WordInfo::end_time].
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -2892,7 +2892,7 @@ impl TextSegment {
         self
     }
 
-    /// Sets or clear the value of [segment][crate::model::TextSegment::segment].
+    /// Sets or clears the value of [segment][crate::model::TextSegment::segment].
     pub fn set_or_clear_segment<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::VideoSegment>,
@@ -2959,7 +2959,7 @@ impl TextFrame {
         self
     }
 
-    /// Sets or clear the value of [rotated_bounding_box][crate::model::TextFrame::rotated_bounding_box].
+    /// Sets or clears the value of [rotated_bounding_box][crate::model::TextFrame::rotated_bounding_box].
     pub fn set_or_clear_rotated_bounding_box<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::NormalizedBoundingPoly>,
@@ -2977,7 +2977,7 @@ impl TextFrame {
         self
     }
 
-    /// Sets or clear the value of [time_offset][crate::model::TextFrame::time_offset].
+    /// Sets or clears the value of [time_offset][crate::model::TextFrame::time_offset].
     pub fn set_or_clear_time_offset<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -3085,7 +3085,7 @@ impl ObjectTrackingFrame {
         self
     }
 
-    /// Sets or clear the value of [normalized_bounding_box][crate::model::ObjectTrackingFrame::normalized_bounding_box].
+    /// Sets or clears the value of [normalized_bounding_box][crate::model::ObjectTrackingFrame::normalized_bounding_box].
     pub fn set_or_clear_normalized_bounding_box<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::NormalizedBoundingBox>,
@@ -3103,7 +3103,7 @@ impl ObjectTrackingFrame {
         self
     }
 
-    /// Sets or clear the value of [time_offset][crate::model::ObjectTrackingFrame::time_offset].
+    /// Sets or clears the value of [time_offset][crate::model::ObjectTrackingFrame::time_offset].
     pub fn set_or_clear_time_offset<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -3168,7 +3168,7 @@ impl ObjectTrackingAnnotation {
         self
     }
 
-    /// Sets or clear the value of [entity][crate::model::ObjectTrackingAnnotation::entity].
+    /// Sets or clears the value of [entity][crate::model::ObjectTrackingAnnotation::entity].
     pub fn set_or_clear_entity<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Entity>,
@@ -3340,7 +3340,7 @@ impl LogoRecognitionAnnotation {
         self
     }
 
-    /// Sets or clear the value of [entity][crate::model::LogoRecognitionAnnotation::entity].
+    /// Sets or clears the value of [entity][crate::model::LogoRecognitionAnnotation::entity].
     pub fn set_or_clear_entity<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Entity>,

@@ -253,7 +253,7 @@ pub mod executions {
             self
         }
 
-        /// Sets or clear the value of [execution][crate::model::CreateExecutionRequest::execution].
+        /// Sets or clears the value of [execution][crate::model::CreateExecutionRequest::execution].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_execution<T>(mut self, v: std::option::Option<T>) -> Self

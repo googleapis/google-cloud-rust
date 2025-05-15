@@ -78,7 +78,7 @@ impl OperationProgress {
         self
     }
 
-    /// Sets or clear the value of [start_time][crate::model::OperationProgress::start_time].
+    /// Sets or clears the value of [start_time][crate::model::OperationProgress::start_time].
     pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -96,7 +96,7 @@ impl OperationProgress {
         self
     }
 
-    /// Sets or clear the value of [end_time][crate::model::OperationProgress::end_time].
+    /// Sets or clears the value of [end_time][crate::model::OperationProgress::end_time].
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1226,7 +1226,7 @@ impl ReplicaComputeCapacity {
         self
     }
 
-    /// Sets or clear the value of [replica_selection][crate::model::ReplicaComputeCapacity::replica_selection].
+    /// Sets or clears the value of [replica_selection][crate::model::ReplicaComputeCapacity::replica_selection].
     pub fn set_or_clear_replica_selection<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ReplicaSelection>,
@@ -1383,7 +1383,7 @@ impl AutoscalingConfig {
         self
     }
 
-    /// Sets or clear the value of [autoscaling_limits][crate::model::AutoscalingConfig::autoscaling_limits].
+    /// Sets or clears the value of [autoscaling_limits][crate::model::AutoscalingConfig::autoscaling_limits].
     pub fn set_or_clear_autoscaling_limits<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::autoscaling_config::AutoscalingLimits>,
@@ -1401,7 +1401,7 @@ impl AutoscalingConfig {
         self
     }
 
-    /// Sets or clear the value of [autoscaling_targets][crate::model::AutoscalingConfig::autoscaling_targets].
+    /// Sets or clears the value of [autoscaling_targets][crate::model::AutoscalingConfig::autoscaling_targets].
     pub fn set_or_clear_autoscaling_targets<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::autoscaling_config::AutoscalingTargets>,
@@ -1731,7 +1731,7 @@ pub mod autoscaling_config {
             self
         }
 
-        /// Sets or clear the value of [replica_selection][crate::model::autoscaling_config::AsymmetricAutoscalingOption::replica_selection].
+        /// Sets or clears the value of [replica_selection][crate::model::autoscaling_config::AsymmetricAutoscalingOption::replica_selection].
         pub fn set_or_clear_replica_selection<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::ReplicaSelection>,
@@ -1748,7 +1748,7 @@ pub mod autoscaling_config {
             self
         }
 
-        /// Sets or clear the value of [overrides][crate::model::autoscaling_config::AsymmetricAutoscalingOption::overrides].
+        /// Sets or clears the value of [overrides][crate::model::autoscaling_config::AsymmetricAutoscalingOption::overrides].
         pub fn set_or_clear_overrides<T>(mut self, v: std::option::Option<T>) -> Self
         where T: std::convert::Into<crate::model::autoscaling_config::asymmetric_autoscaling_option::AutoscalingConfigOverrides>
         {
@@ -1807,7 +1807,7 @@ pub mod autoscaling_config {
                 self
             }
 
-            /// Sets or clear the value of [autoscaling_limits][crate::model::autoscaling_config::asymmetric_autoscaling_option::AutoscalingConfigOverrides::autoscaling_limits].
+            /// Sets or clears the value of [autoscaling_limits][crate::model::autoscaling_config::asymmetric_autoscaling_option::AutoscalingConfigOverrides::autoscaling_limits].
             pub fn set_or_clear_autoscaling_limits<T>(mut self, v: std::option::Option<T>) -> Self
             where
                 T: std::convert::Into<crate::model::autoscaling_config::AutoscalingLimits>,
@@ -2041,7 +2041,7 @@ impl Instance {
         self
     }
 
-    /// Sets or clear the value of [autoscaling_config][crate::model::Instance::autoscaling_config].
+    /// Sets or clears the value of [autoscaling_config][crate::model::Instance::autoscaling_config].
     pub fn set_or_clear_autoscaling_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::AutoscalingConfig>,
@@ -2097,7 +2097,7 @@ impl Instance {
         self
     }
 
-    /// Sets or clear the value of [create_time][crate::model::Instance::create_time].
+    /// Sets or clears the value of [create_time][crate::model::Instance::create_time].
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2115,7 +2115,7 @@ impl Instance {
         self
     }
 
-    /// Sets or clear the value of [update_time][crate::model::Instance::update_time].
+    /// Sets or clears the value of [update_time][crate::model::Instance::update_time].
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2133,7 +2133,7 @@ impl Instance {
         self
     }
 
-    /// Sets or clear the value of [free_instance_metadata][crate::model::Instance::free_instance_metadata].
+    /// Sets or clears the value of [free_instance_metadata][crate::model::Instance::free_instance_metadata].
     pub fn set_or_clear_free_instance_metadata<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::FreeInstanceMetadata>,
@@ -2966,7 +2966,7 @@ impl CreateInstanceConfigRequest {
         self
     }
 
-    /// Sets or clear the value of [instance_config][crate::model::CreateInstanceConfigRequest::instance_config].
+    /// Sets or clears the value of [instance_config][crate::model::CreateInstanceConfigRequest::instance_config].
     pub fn set_or_clear_instance_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::InstanceConfig>,
@@ -3044,7 +3044,7 @@ impl UpdateInstanceConfigRequest {
         self
     }
 
-    /// Sets or clear the value of [instance_config][crate::model::UpdateInstanceConfigRequest::instance_config].
+    /// Sets or clears the value of [instance_config][crate::model::UpdateInstanceConfigRequest::instance_config].
     pub fn set_or_clear_instance_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::InstanceConfig>,
@@ -3062,7 +3062,7 @@ impl UpdateInstanceConfigRequest {
         self
     }
 
-    /// Sets or clear the value of [update_mask][crate::model::UpdateInstanceConfigRequest::update_mask].
+    /// Sets or clears the value of [update_mask][crate::model::UpdateInstanceConfigRequest::update_mask].
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -3384,7 +3384,7 @@ impl GetInstanceRequest {
         self
     }
 
-    /// Sets or clear the value of [field_mask][crate::model::GetInstanceRequest::field_mask].
+    /// Sets or clears the value of [field_mask][crate::model::GetInstanceRequest::field_mask].
     pub fn set_or_clear_field_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -3455,7 +3455,7 @@ impl CreateInstanceRequest {
         self
     }
 
-    /// Sets or clear the value of [instance][crate::model::CreateInstanceRequest::instance].
+    /// Sets or clears the value of [instance][crate::model::CreateInstanceRequest::instance].
     pub fn set_or_clear_instance<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Instance>,
@@ -3576,7 +3576,7 @@ impl ListInstancesRequest {
         self
     }
 
-    /// Sets or clear the value of [instance_deadline][crate::model::ListInstancesRequest::instance_deadline].
+    /// Sets or clears the value of [instance_deadline][crate::model::ListInstancesRequest::instance_deadline].
     pub fn set_or_clear_instance_deadline<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3726,7 +3726,7 @@ impl UpdateInstanceRequest {
         self
     }
 
-    /// Sets or clear the value of [instance][crate::model::UpdateInstanceRequest::instance].
+    /// Sets or clears the value of [instance][crate::model::UpdateInstanceRequest::instance].
     pub fn set_or_clear_instance<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Instance>,
@@ -3744,7 +3744,7 @@ impl UpdateInstanceRequest {
         self
     }
 
-    /// Sets or clear the value of [field_mask][crate::model::UpdateInstanceRequest::field_mask].
+    /// Sets or clears the value of [field_mask][crate::model::UpdateInstanceRequest::field_mask].
     pub fn set_or_clear_field_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -3848,7 +3848,7 @@ impl CreateInstanceMetadata {
         self
     }
 
-    /// Sets or clear the value of [instance][crate::model::CreateInstanceMetadata::instance].
+    /// Sets or clears the value of [instance][crate::model::CreateInstanceMetadata::instance].
     pub fn set_or_clear_instance<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Instance>,
@@ -3866,7 +3866,7 @@ impl CreateInstanceMetadata {
         self
     }
 
-    /// Sets or clear the value of [start_time][crate::model::CreateInstanceMetadata::start_time].
+    /// Sets or clears the value of [start_time][crate::model::CreateInstanceMetadata::start_time].
     pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3884,7 +3884,7 @@ impl CreateInstanceMetadata {
         self
     }
 
-    /// Sets or clear the value of [cancel_time][crate::model::CreateInstanceMetadata::cancel_time].
+    /// Sets or clears the value of [cancel_time][crate::model::CreateInstanceMetadata::cancel_time].
     pub fn set_or_clear_cancel_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3902,7 +3902,7 @@ impl CreateInstanceMetadata {
         self
     }
 
-    /// Sets or clear the value of [end_time][crate::model::CreateInstanceMetadata::end_time].
+    /// Sets or clears the value of [end_time][crate::model::CreateInstanceMetadata::end_time].
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3981,7 +3981,7 @@ impl UpdateInstanceMetadata {
         self
     }
 
-    /// Sets or clear the value of [instance][crate::model::UpdateInstanceMetadata::instance].
+    /// Sets or clears the value of [instance][crate::model::UpdateInstanceMetadata::instance].
     pub fn set_or_clear_instance<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Instance>,
@@ -3999,7 +3999,7 @@ impl UpdateInstanceMetadata {
         self
     }
 
-    /// Sets or clear the value of [start_time][crate::model::UpdateInstanceMetadata::start_time].
+    /// Sets or clears the value of [start_time][crate::model::UpdateInstanceMetadata::start_time].
     pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4017,7 +4017,7 @@ impl UpdateInstanceMetadata {
         self
     }
 
-    /// Sets or clear the value of [cancel_time][crate::model::UpdateInstanceMetadata::cancel_time].
+    /// Sets or clears the value of [cancel_time][crate::model::UpdateInstanceMetadata::cancel_time].
     pub fn set_or_clear_cancel_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4035,7 +4035,7 @@ impl UpdateInstanceMetadata {
         self
     }
 
-    /// Sets or clear the value of [end_time][crate::model::UpdateInstanceMetadata::end_time].
+    /// Sets or clears the value of [end_time][crate::model::UpdateInstanceMetadata::end_time].
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4104,7 +4104,7 @@ impl FreeInstanceMetadata {
         self
     }
 
-    /// Sets or clear the value of [expire_time][crate::model::FreeInstanceMetadata::expire_time].
+    /// Sets or clears the value of [expire_time][crate::model::FreeInstanceMetadata::expire_time].
     pub fn set_or_clear_expire_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4122,7 +4122,7 @@ impl FreeInstanceMetadata {
         self
     }
 
-    /// Sets or clear the value of [upgrade_time][crate::model::FreeInstanceMetadata::upgrade_time].
+    /// Sets or clears the value of [upgrade_time][crate::model::FreeInstanceMetadata::upgrade_time].
     pub fn set_or_clear_upgrade_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4334,7 +4334,7 @@ impl CreateInstanceConfigMetadata {
         self
     }
 
-    /// Sets or clear the value of [instance_config][crate::model::CreateInstanceConfigMetadata::instance_config].
+    /// Sets or clears the value of [instance_config][crate::model::CreateInstanceConfigMetadata::instance_config].
     pub fn set_or_clear_instance_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::InstanceConfig>,
@@ -4352,7 +4352,7 @@ impl CreateInstanceConfigMetadata {
         self
     }
 
-    /// Sets or clear the value of [progress][crate::model::CreateInstanceConfigMetadata::progress].
+    /// Sets or clears the value of [progress][crate::model::CreateInstanceConfigMetadata::progress].
     pub fn set_or_clear_progress<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::OperationProgress>,
@@ -4370,7 +4370,7 @@ impl CreateInstanceConfigMetadata {
         self
     }
 
-    /// Sets or clear the value of [cancel_time][crate::model::CreateInstanceConfigMetadata::cancel_time].
+    /// Sets or clears the value of [cancel_time][crate::model::CreateInstanceConfigMetadata::cancel_time].
     pub fn set_or_clear_cancel_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4429,7 +4429,7 @@ impl UpdateInstanceConfigMetadata {
         self
     }
 
-    /// Sets or clear the value of [instance_config][crate::model::UpdateInstanceConfigMetadata::instance_config].
+    /// Sets or clears the value of [instance_config][crate::model::UpdateInstanceConfigMetadata::instance_config].
     pub fn set_or_clear_instance_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::InstanceConfig>,
@@ -4447,7 +4447,7 @@ impl UpdateInstanceConfigMetadata {
         self
     }
 
-    /// Sets or clear the value of [progress][crate::model::UpdateInstanceConfigMetadata::progress].
+    /// Sets or clears the value of [progress][crate::model::UpdateInstanceConfigMetadata::progress].
     pub fn set_or_clear_progress<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::OperationProgress>,
@@ -4465,7 +4465,7 @@ impl UpdateInstanceConfigMetadata {
         self
     }
 
-    /// Sets or clear the value of [cancel_time][crate::model::UpdateInstanceConfigMetadata::cancel_time].
+    /// Sets or clears the value of [cancel_time][crate::model::UpdateInstanceConfigMetadata::cancel_time].
     pub fn set_or_clear_cancel_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4607,7 +4607,7 @@ impl InstancePartition {
         self
     }
 
-    /// Sets or clear the value of [create_time][crate::model::InstancePartition::create_time].
+    /// Sets or clears the value of [create_time][crate::model::InstancePartition::create_time].
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4625,7 +4625,7 @@ impl InstancePartition {
         self
     }
 
-    /// Sets or clear the value of [update_time][crate::model::InstancePartition::update_time].
+    /// Sets or clears the value of [update_time][crate::model::InstancePartition::update_time].
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4953,7 +4953,7 @@ impl CreateInstancePartitionMetadata {
         self
     }
 
-    /// Sets or clear the value of [instance_partition][crate::model::CreateInstancePartitionMetadata::instance_partition].
+    /// Sets or clears the value of [instance_partition][crate::model::CreateInstancePartitionMetadata::instance_partition].
     pub fn set_or_clear_instance_partition<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::InstancePartition>,
@@ -4971,7 +4971,7 @@ impl CreateInstancePartitionMetadata {
         self
     }
 
-    /// Sets or clear the value of [start_time][crate::model::CreateInstancePartitionMetadata::start_time].
+    /// Sets or clears the value of [start_time][crate::model::CreateInstancePartitionMetadata::start_time].
     pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4989,7 +4989,7 @@ impl CreateInstancePartitionMetadata {
         self
     }
 
-    /// Sets or clear the value of [cancel_time][crate::model::CreateInstancePartitionMetadata::cancel_time].
+    /// Sets or clears the value of [cancel_time][crate::model::CreateInstancePartitionMetadata::cancel_time].
     pub fn set_or_clear_cancel_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -5007,7 +5007,7 @@ impl CreateInstancePartitionMetadata {
         self
     }
 
-    /// Sets or clear the value of [end_time][crate::model::CreateInstancePartitionMetadata::end_time].
+    /// Sets or clears the value of [end_time][crate::model::CreateInstancePartitionMetadata::end_time].
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -5083,7 +5083,7 @@ impl CreateInstancePartitionRequest {
         self
     }
 
-    /// Sets or clear the value of [instance_partition][crate::model::CreateInstancePartitionRequest::instance_partition].
+    /// Sets or clears the value of [instance_partition][crate::model::CreateInstancePartitionRequest::instance_partition].
     pub fn set_or_clear_instance_partition<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::InstancePartition>,
@@ -5233,7 +5233,7 @@ impl UpdateInstancePartitionRequest {
         self
     }
 
-    /// Sets or clear the value of [instance_partition][crate::model::UpdateInstancePartitionRequest::instance_partition].
+    /// Sets or clears the value of [instance_partition][crate::model::UpdateInstancePartitionRequest::instance_partition].
     pub fn set_or_clear_instance_partition<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::InstancePartition>,
@@ -5251,7 +5251,7 @@ impl UpdateInstancePartitionRequest {
         self
     }
 
-    /// Sets or clear the value of [field_mask][crate::model::UpdateInstancePartitionRequest::field_mask].
+    /// Sets or clears the value of [field_mask][crate::model::UpdateInstancePartitionRequest::field_mask].
     pub fn set_or_clear_field_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -5316,7 +5316,7 @@ impl UpdateInstancePartitionMetadata {
         self
     }
 
-    /// Sets or clear the value of [instance_partition][crate::model::UpdateInstancePartitionMetadata::instance_partition].
+    /// Sets or clears the value of [instance_partition][crate::model::UpdateInstancePartitionMetadata::instance_partition].
     pub fn set_or_clear_instance_partition<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::InstancePartition>,
@@ -5334,7 +5334,7 @@ impl UpdateInstancePartitionMetadata {
         self
     }
 
-    /// Sets or clear the value of [start_time][crate::model::UpdateInstancePartitionMetadata::start_time].
+    /// Sets or clears the value of [start_time][crate::model::UpdateInstancePartitionMetadata::start_time].
     pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -5352,7 +5352,7 @@ impl UpdateInstancePartitionMetadata {
         self
     }
 
-    /// Sets or clear the value of [cancel_time][crate::model::UpdateInstancePartitionMetadata::cancel_time].
+    /// Sets or clears the value of [cancel_time][crate::model::UpdateInstancePartitionMetadata::cancel_time].
     pub fn set_or_clear_cancel_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -5370,7 +5370,7 @@ impl UpdateInstancePartitionMetadata {
         self
     }
 
-    /// Sets or clear the value of [end_time][crate::model::UpdateInstancePartitionMetadata::end_time].
+    /// Sets or clears the value of [end_time][crate::model::UpdateInstancePartitionMetadata::end_time].
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -5465,7 +5465,7 @@ impl ListInstancePartitionsRequest {
         self
     }
 
-    /// Sets or clear the value of [instance_partition_deadline][crate::model::ListInstancePartitionsRequest::instance_partition_deadline].
+    /// Sets or clears the value of [instance_partition_deadline][crate::model::ListInstancePartitionsRequest::instance_partition_deadline].
     pub fn set_or_clear_instance_partition_deadline<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -5700,7 +5700,7 @@ impl ListInstancePartitionOperationsRequest {
         self
     }
 
-    /// Sets or clear the value of [instance_partition_deadline][crate::model::ListInstancePartitionOperationsRequest::instance_partition_deadline].
+    /// Sets or clears the value of [instance_partition_deadline][crate::model::ListInstancePartitionOperationsRequest::instance_partition_deadline].
     pub fn set_or_clear_instance_partition_deadline<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -5933,7 +5933,7 @@ impl MoveInstanceMetadata {
         self
     }
 
-    /// Sets or clear the value of [progress][crate::model::MoveInstanceMetadata::progress].
+    /// Sets or clears the value of [progress][crate::model::MoveInstanceMetadata::progress].
     pub fn set_or_clear_progress<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::OperationProgress>,
@@ -5951,7 +5951,7 @@ impl MoveInstanceMetadata {
         self
     }
 
-    /// Sets or clear the value of [cancel_time][crate::model::MoveInstanceMetadata::cancel_time].
+    /// Sets or clears the value of [cancel_time][crate::model::MoveInstanceMetadata::cancel_time].
     pub fn set_or_clear_cancel_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,

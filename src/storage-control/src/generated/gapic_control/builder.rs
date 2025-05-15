@@ -89,7 +89,7 @@ pub mod storage_control {
             self
         }
 
-        /// Sets or clear the value of [folder][crate::model::CreateFolderRequest::folder].
+        /// Sets or clears the value of [folder][crate::model::CreateFolderRequest::folder].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_folder<T>(mut self, v: std::option::Option<T>) -> Self
@@ -175,7 +175,7 @@ pub mod storage_control {
             self
         }
 
-        /// Sets or clear the value of [if_metageneration_match][crate::model::DeleteFolderRequest::if_metageneration_match].
+        /// Sets or clears the value of [if_metageneration_match][crate::model::DeleteFolderRequest::if_metageneration_match].
         pub fn set_or_clear_if_metageneration_match<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<i64>,
@@ -193,7 +193,7 @@ pub mod storage_control {
             self
         }
 
-        /// Sets or clear the value of [if_metageneration_not_match][crate::model::DeleteFolderRequest::if_metageneration_not_match].
+        /// Sets or clears the value of [if_metageneration_not_match][crate::model::DeleteFolderRequest::if_metageneration_not_match].
         pub fn set_or_clear_if_metageneration_not_match<T>(
             mut self,
             v: std::option::Option<T>,
@@ -266,7 +266,7 @@ pub mod storage_control {
             self
         }
 
-        /// Sets or clear the value of [if_metageneration_match][crate::model::GetFolderRequest::if_metageneration_match].
+        /// Sets or clears the value of [if_metageneration_match][crate::model::GetFolderRequest::if_metageneration_match].
         pub fn set_or_clear_if_metageneration_match<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<i64>,
@@ -284,7 +284,7 @@ pub mod storage_control {
             self
         }
 
-        /// Sets or clear the value of [if_metageneration_not_match][crate::model::GetFolderRequest::if_metageneration_not_match].
+        /// Sets or clears the value of [if_metageneration_not_match][crate::model::GetFolderRequest::if_metageneration_not_match].
         pub fn set_or_clear_if_metageneration_not_match<T>(
             mut self,
             v: std::option::Option<T>,
@@ -510,7 +510,7 @@ pub mod storage_control {
             self
         }
 
-        /// Sets or clear the value of [if_metageneration_match][crate::model::RenameFolderRequest::if_metageneration_match].
+        /// Sets or clears the value of [if_metageneration_match][crate::model::RenameFolderRequest::if_metageneration_match].
         pub fn set_or_clear_if_metageneration_match<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<i64>,
@@ -528,7 +528,7 @@ pub mod storage_control {
             self
         }
 
-        /// Sets or clear the value of [if_metageneration_not_match][crate::model::RenameFolderRequest::if_metageneration_not_match].
+        /// Sets or clears the value of [if_metageneration_not_match][crate::model::RenameFolderRequest::if_metageneration_not_match].
         pub fn set_or_clear_if_metageneration_not_match<T>(
             mut self,
             v: std::option::Option<T>,
@@ -667,7 +667,7 @@ pub mod storage_control {
             self
         }
 
-        /// Sets or clear the value of [managed_folder][crate::model::CreateManagedFolderRequest::managed_folder].
+        /// Sets or clears the value of [managed_folder][crate::model::CreateManagedFolderRequest::managed_folder].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_managed_folder<T>(mut self, v: std::option::Option<T>) -> Self
@@ -750,7 +750,7 @@ pub mod storage_control {
             self
         }
 
-        /// Sets or clear the value of [if_metageneration_match][crate::model::DeleteManagedFolderRequest::if_metageneration_match].
+        /// Sets or clears the value of [if_metageneration_match][crate::model::DeleteManagedFolderRequest::if_metageneration_match].
         pub fn set_or_clear_if_metageneration_match<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<i64>,
@@ -768,7 +768,7 @@ pub mod storage_control {
             self
         }
 
-        /// Sets or clear the value of [if_metageneration_not_match][crate::model::DeleteManagedFolderRequest::if_metageneration_not_match].
+        /// Sets or clears the value of [if_metageneration_not_match][crate::model::DeleteManagedFolderRequest::if_metageneration_not_match].
         pub fn set_or_clear_if_metageneration_not_match<T>(
             mut self,
             v: std::option::Option<T>,
@@ -850,7 +850,7 @@ pub mod storage_control {
             self
         }
 
-        /// Sets or clear the value of [if_metageneration_match][crate::model::GetManagedFolderRequest::if_metageneration_match].
+        /// Sets or clears the value of [if_metageneration_match][crate::model::GetManagedFolderRequest::if_metageneration_match].
         pub fn set_or_clear_if_metageneration_match<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<i64>,
@@ -868,7 +868,7 @@ pub mod storage_control {
             self
         }
 
-        /// Sets or clear the value of [if_metageneration_not_match][crate::model::GetManagedFolderRequest::if_metageneration_not_match].
+        /// Sets or clears the value of [if_metageneration_not_match][crate::model::GetManagedFolderRequest::if_metageneration_not_match].
         pub fn set_or_clear_if_metageneration_not_match<T>(
             mut self,
             v: std::option::Option<T>,
@@ -1081,7 +1081,7 @@ pub mod storage_control {
             self
         }
 
-        /// Sets or clear the value of [anywhere_cache][crate::model::CreateAnywhereCacheRequest::anywhere_cache].
+        /// Sets or clears the value of [anywhere_cache][crate::model::CreateAnywhereCacheRequest::anywhere_cache].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_anywhere_cache<T>(mut self, v: std::option::Option<T>) -> Self
@@ -1186,7 +1186,7 @@ pub mod storage_control {
             self
         }
 
-        /// Sets or clear the value of [anywhere_cache][crate::model::UpdateAnywhereCacheRequest::anywhere_cache].
+        /// Sets or clears the value of [anywhere_cache][crate::model::UpdateAnywhereCacheRequest::anywhere_cache].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_anywhere_cache<T>(mut self, v: std::option::Option<T>) -> Self
@@ -1208,7 +1208,7 @@ pub mod storage_control {
             self
         }
 
-        /// Sets or clear the value of [update_mask][crate::model::UpdateAnywhereCacheRequest::update_mask].
+        /// Sets or clears the value of [update_mask][crate::model::UpdateAnywhereCacheRequest::update_mask].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self

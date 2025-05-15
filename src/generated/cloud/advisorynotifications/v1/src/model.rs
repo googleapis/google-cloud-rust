@@ -83,7 +83,7 @@ impl Notification {
         self
     }
 
-    /// Sets or clear the value of [subject][crate::model::Notification::subject].
+    /// Sets or clears the value of [subject][crate::model::Notification::subject].
     pub fn set_or_clear_subject<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Subject>,
@@ -112,7 +112,7 @@ impl Notification {
         self
     }
 
-    /// Sets or clear the value of [create_time][crate::model::Notification::create_time].
+    /// Sets or clears the value of [create_time][crate::model::Notification::create_time].
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -219,7 +219,7 @@ impl Subject {
         self
     }
 
-    /// Sets or clear the value of [text][crate::model::Subject::text].
+    /// Sets or clears the value of [text][crate::model::Subject::text].
     pub fn set_or_clear_text<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Text>,
@@ -275,7 +275,7 @@ impl Message {
         self
     }
 
-    /// Sets or clear the value of [body][crate::model::Message::body].
+    /// Sets or clears the value of [body][crate::model::Message::body].
     pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::message::Body>,
@@ -304,7 +304,7 @@ impl Message {
         self
     }
 
-    /// Sets or clear the value of [create_time][crate::model::Message::create_time].
+    /// Sets or clears the value of [create_time][crate::model::Message::create_time].
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -322,7 +322,7 @@ impl Message {
         self
     }
 
-    /// Sets or clear the value of [localization_time][crate::model::Message::localization_time].
+    /// Sets or clears the value of [localization_time][crate::model::Message::localization_time].
     pub fn set_or_clear_localization_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -371,7 +371,7 @@ pub mod message {
             self
         }
 
-        /// Sets or clear the value of [text][crate::model::message::Body::text].
+        /// Sets or clears the value of [text][crate::model::message::Body::text].
         pub fn set_or_clear_text<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Text>,
@@ -940,7 +940,7 @@ impl UpdateSettingsRequest {
         self
     }
 
-    /// Sets or clear the value of [settings][crate::model::UpdateSettingsRequest::settings].
+    /// Sets or clears the value of [settings][crate::model::UpdateSettingsRequest::settings].
     pub fn set_or_clear_settings<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Settings>,

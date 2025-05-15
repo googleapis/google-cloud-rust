@@ -172,7 +172,7 @@ pub mod video_stitcher_service {
             self
         }
 
-        /// Sets or clear the value of [cdn_key][crate::model::CreateCdnKeyRequest::cdn_key].
+        /// Sets or clears the value of [cdn_key][crate::model::CreateCdnKeyRequest::cdn_key].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_cdn_key<T>(mut self, v: std::option::Option<T>) -> Self
@@ -574,7 +574,7 @@ pub mod video_stitcher_service {
             self
         }
 
-        /// Sets or clear the value of [cdn_key][crate::model::UpdateCdnKeyRequest::cdn_key].
+        /// Sets or clears the value of [cdn_key][crate::model::UpdateCdnKeyRequest::cdn_key].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_cdn_key<T>(mut self, v: std::option::Option<T>) -> Self
@@ -596,7 +596,7 @@ pub mod video_stitcher_service {
             self
         }
 
-        /// Sets or clear the value of [update_mask][crate::model::UpdateCdnKeyRequest::update_mask].
+        /// Sets or clears the value of [update_mask][crate::model::UpdateCdnKeyRequest::update_mask].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
@@ -683,7 +683,7 @@ pub mod video_stitcher_service {
             self
         }
 
-        /// Sets or clear the value of [vod_session][crate::model::CreateVodSessionRequest::vod_session].
+        /// Sets or clears the value of [vod_session][crate::model::CreateVodSessionRequest::vod_session].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_vod_session<T>(mut self, v: std::option::Option<T>) -> Self
@@ -1392,7 +1392,7 @@ pub mod video_stitcher_service {
             self
         }
 
-        /// Sets or clear the value of [slate][crate::model::CreateSlateRequest::slate].
+        /// Sets or clears the value of [slate][crate::model::CreateSlateRequest::slate].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_slate<T>(mut self, v: std::option::Option<T>) -> Self
@@ -1689,7 +1689,7 @@ pub mod video_stitcher_service {
             self
         }
 
-        /// Sets or clear the value of [slate][crate::model::UpdateSlateRequest::slate].
+        /// Sets or clears the value of [slate][crate::model::UpdateSlateRequest::slate].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_slate<T>(mut self, v: std::option::Option<T>) -> Self
@@ -1711,7 +1711,7 @@ pub mod video_stitcher_service {
             self
         }
 
-        /// Sets or clear the value of [update_mask][crate::model::UpdateSlateRequest::update_mask].
+        /// Sets or clears the value of [update_mask][crate::model::UpdateSlateRequest::update_mask].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
@@ -1901,7 +1901,7 @@ pub mod video_stitcher_service {
             self
         }
 
-        /// Sets or clear the value of [live_session][crate::model::CreateLiveSessionRequest::live_session].
+        /// Sets or clears the value of [live_session][crate::model::CreateLiveSessionRequest::live_session].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_live_session<T>(mut self, v: std::option::Option<T>) -> Self
@@ -2097,7 +2097,7 @@ pub mod video_stitcher_service {
             self
         }
 
-        /// Sets or clear the value of [live_config][crate::model::CreateLiveConfigRequest::live_config].
+        /// Sets or clears the value of [live_config][crate::model::CreateLiveConfigRequest::live_config].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_live_config<T>(mut self, v: std::option::Option<T>) -> Self
@@ -2503,7 +2503,7 @@ pub mod video_stitcher_service {
             self
         }
 
-        /// Sets or clear the value of [live_config][crate::model::UpdateLiveConfigRequest::live_config].
+        /// Sets or clears the value of [live_config][crate::model::UpdateLiveConfigRequest::live_config].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_live_config<T>(mut self, v: std::option::Option<T>) -> Self
@@ -2525,7 +2525,7 @@ pub mod video_stitcher_service {
             self
         }
 
-        /// Sets or clear the value of [update_mask][crate::model::UpdateLiveConfigRequest::update_mask].
+        /// Sets or clears the value of [update_mask][crate::model::UpdateLiveConfigRequest::update_mask].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
@@ -2656,7 +2656,7 @@ pub mod video_stitcher_service {
             self
         }
 
-        /// Sets or clear the value of [vod_config][crate::model::CreateVodConfigRequest::vod_config].
+        /// Sets or clears the value of [vod_config][crate::model::CreateVodConfigRequest::vod_config].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_vod_config<T>(mut self, v: std::option::Option<T>) -> Self
@@ -3056,7 +3056,7 @@ pub mod video_stitcher_service {
             self
         }
 
-        /// Sets or clear the value of [vod_config][crate::model::UpdateVodConfigRequest::vod_config].
+        /// Sets or clears the value of [vod_config][crate::model::UpdateVodConfigRequest::vod_config].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_vod_config<T>(mut self, v: std::option::Option<T>) -> Self
@@ -3078,7 +3078,7 @@ pub mod video_stitcher_service {
             self
         }
 
-        /// Sets or clear the value of [update_mask][crate::model::UpdateVodConfigRequest::update_mask].
+        /// Sets or clears the value of [update_mask][crate::model::UpdateVodConfigRequest::update_mask].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self

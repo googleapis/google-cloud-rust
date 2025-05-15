@@ -111,7 +111,7 @@ impl Instance {
         self
     }
 
-    /// Sets or clear the value of [create_time][crate::model::Instance::create_time].
+    /// Sets or clears the value of [create_time][crate::model::Instance::create_time].
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -129,7 +129,7 @@ impl Instance {
         self
     }
 
-    /// Sets or clear the value of [update_time][crate::model::Instance::update_time].
+    /// Sets or clears the value of [update_time][crate::model::Instance::update_time].
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -159,7 +159,7 @@ impl Instance {
         self
     }
 
-    /// Sets or clear the value of [private_config][crate::model::Instance::private_config].
+    /// Sets or clears the value of [private_config][crate::model::Instance::private_config].
     pub fn set_or_clear_private_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::instance::PrivateConfig>,
@@ -198,7 +198,7 @@ impl Instance {
         self
     }
 
-    /// Sets or clear the value of [host_config][crate::model::Instance::host_config].
+    /// Sets or clears the value of [host_config][crate::model::Instance::host_config].
     pub fn set_or_clear_host_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::instance::HostConfig>,
@@ -753,7 +753,7 @@ impl Repository {
         self
     }
 
-    /// Sets or clear the value of [create_time][crate::model::Repository::create_time].
+    /// Sets or clears the value of [create_time][crate::model::Repository::create_time].
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -771,7 +771,7 @@ impl Repository {
         self
     }
 
-    /// Sets or clear the value of [update_time][crate::model::Repository::update_time].
+    /// Sets or clears the value of [update_time][crate::model::Repository::update_time].
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -795,7 +795,7 @@ impl Repository {
         self
     }
 
-    /// Sets or clear the value of [uris][crate::model::Repository::uris].
+    /// Sets or clears the value of [uris][crate::model::Repository::uris].
     pub fn set_or_clear_uris<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::repository::URIs>,
@@ -813,7 +813,7 @@ impl Repository {
         self
     }
 
-    /// Sets or clear the value of [initial_config][crate::model::Repository::initial_config].
+    /// Sets or clears the value of [initial_config][crate::model::Repository::initial_config].
     pub fn set_or_clear_initial_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::repository::InitialConfig>,
@@ -1193,7 +1193,7 @@ impl BranchRule {
         self
     }
 
-    /// Sets or clear the value of [create_time][crate::model::BranchRule::create_time].
+    /// Sets or clears the value of [create_time][crate::model::BranchRule::create_time].
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1211,7 +1211,7 @@ impl BranchRule {
         self
     }
 
-    /// Sets or clear the value of [update_time][crate::model::BranchRule::update_time].
+    /// Sets or clears the value of [update_time][crate::model::BranchRule::update_time].
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1586,7 +1586,7 @@ impl CreateInstanceRequest {
         self
     }
 
-    /// Sets or clear the value of [instance][crate::model::CreateInstanceRequest::instance].
+    /// Sets or clears the value of [instance][crate::model::CreateInstanceRequest::instance].
     pub fn set_or_clear_instance<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Instance>,
@@ -1720,7 +1720,7 @@ impl OperationMetadata {
         self
     }
 
-    /// Sets or clear the value of [create_time][crate::model::OperationMetadata::create_time].
+    /// Sets or clears the value of [create_time][crate::model::OperationMetadata::create_time].
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1738,7 +1738,7 @@ impl OperationMetadata {
         self
     }
 
-    /// Sets or clear the value of [end_time][crate::model::OperationMetadata::end_time].
+    /// Sets or clears the value of [end_time][crate::model::OperationMetadata::end_time].
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2002,7 +2002,7 @@ impl CreateRepositoryRequest {
         self
     }
 
-    /// Sets or clear the value of [repository][crate::model::CreateRepositoryRequest::repository].
+    /// Sets or clears the value of [repository][crate::model::CreateRepositoryRequest::repository].
     pub fn set_or_clear_repository<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Repository>,
@@ -2142,7 +2142,7 @@ impl CreateBranchRuleRequest {
         self
     }
 
-    /// Sets or clear the value of [branch_rule][crate::model::CreateBranchRuleRequest::branch_rule].
+    /// Sets or clears the value of [branch_rule][crate::model::CreateBranchRuleRequest::branch_rule].
     pub fn set_or_clear_branch_rule<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::BranchRule>,
@@ -2295,7 +2295,7 @@ impl UpdateBranchRuleRequest {
         self
     }
 
-    /// Sets or clear the value of [branch_rule][crate::model::UpdateBranchRuleRequest::branch_rule].
+    /// Sets or clears the value of [branch_rule][crate::model::UpdateBranchRuleRequest::branch_rule].
     pub fn set_or_clear_branch_rule<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::BranchRule>,
@@ -2319,7 +2319,7 @@ impl UpdateBranchRuleRequest {
         self
     }
 
-    /// Sets or clear the value of [update_mask][crate::model::UpdateBranchRuleRequest::update_mask].
+    /// Sets or clears the value of [update_mask][crate::model::UpdateBranchRuleRequest::update_mask].
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,

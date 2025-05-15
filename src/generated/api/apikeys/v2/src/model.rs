@@ -84,7 +84,7 @@ impl CreateKeyRequest {
         self
     }
 
-    /// Sets or clear the value of [key][crate::model::CreateKeyRequest::key].
+    /// Sets or clears the value of [key][crate::model::CreateKeyRequest::key].
     pub fn set_or_clear_key<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Key>,
@@ -366,7 +366,7 @@ impl UpdateKeyRequest {
         self
     }
 
-    /// Sets or clear the value of [key][crate::model::UpdateKeyRequest::key].
+    /// Sets or clears the value of [key][crate::model::UpdateKeyRequest::key].
     pub fn set_or_clear_key<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Key>,
@@ -384,7 +384,7 @@ impl UpdateKeyRequest {
         self
     }
 
-    /// Sets or clear the value of [update_mask][crate::model::UpdateKeyRequest::update_mask].
+    /// Sets or clears the value of [update_mask][crate::model::UpdateKeyRequest::update_mask].
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -655,7 +655,7 @@ impl Key {
         self
     }
 
-    /// Sets or clear the value of [create_time][crate::model::Key::create_time].
+    /// Sets or clears the value of [create_time][crate::model::Key::create_time].
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -673,7 +673,7 @@ impl Key {
         self
     }
 
-    /// Sets or clear the value of [update_time][crate::model::Key::update_time].
+    /// Sets or clears the value of [update_time][crate::model::Key::update_time].
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -691,7 +691,7 @@ impl Key {
         self
     }
 
-    /// Sets or clear the value of [delete_time][crate::model::Key::delete_time].
+    /// Sets or clears the value of [delete_time][crate::model::Key::delete_time].
     pub fn set_or_clear_delete_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -721,7 +721,7 @@ impl Key {
         self
     }
 
-    /// Sets or clear the value of [restrictions][crate::model::Key::restrictions].
+    /// Sets or clears the value of [restrictions][crate::model::Key::restrictions].
     pub fn set_or_clear_restrictions<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Restrictions>,

@@ -130,7 +130,7 @@ impl Execution {
         self
     }
 
-    /// Sets or clear the value of [start_time][crate::model::Execution::start_time].
+    /// Sets or clears the value of [start_time][crate::model::Execution::start_time].
     pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -148,7 +148,7 @@ impl Execution {
         self
     }
 
-    /// Sets or clear the value of [end_time][crate::model::Execution::end_time].
+    /// Sets or clears the value of [end_time][crate::model::Execution::end_time].
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -166,7 +166,7 @@ impl Execution {
         self
     }
 
-    /// Sets or clear the value of [duration][crate::model::Execution::duration].
+    /// Sets or clears the value of [duration][crate::model::Execution::duration].
     pub fn set_or_clear_duration<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -205,7 +205,7 @@ impl Execution {
         self
     }
 
-    /// Sets or clear the value of [error][crate::model::Execution::error].
+    /// Sets or clears the value of [error][crate::model::Execution::error].
     pub fn set_or_clear_error<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::execution::Error>,
@@ -241,7 +241,7 @@ impl Execution {
         self
     }
 
-    /// Sets or clear the value of [status][crate::model::Execution::status].
+    /// Sets or clears the value of [status][crate::model::Execution::status].
     pub fn set_or_clear_status<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::execution::Status>,
@@ -271,7 +271,7 @@ impl Execution {
         self
     }
 
-    /// Sets or clear the value of [state_error][crate::model::Execution::state_error].
+    /// Sets or clears the value of [state_error][crate::model::Execution::state_error].
     pub fn set_or_clear_state_error<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::execution::StateError>,
@@ -340,7 +340,7 @@ pub mod execution {
             self
         }
 
-        /// Sets or clear the value of [position][crate::model::execution::StackTraceElement::position].
+        /// Sets or clears the value of [position][crate::model::execution::StackTraceElement::position].
         pub fn set_or_clear_position<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::execution::stack_trace_element::Position>,
@@ -505,7 +505,7 @@ pub mod execution {
             self
         }
 
-        /// Sets or clear the value of [stack_trace][crate::model::execution::Error::stack_trace].
+        /// Sets or clears the value of [stack_trace][crate::model::execution::Error::stack_trace].
         pub fn set_or_clear_stack_trace<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::execution::StackTrace>,
@@ -1306,7 +1306,7 @@ impl CreateExecutionRequest {
         self
     }
 
-    /// Sets or clear the value of [execution][crate::model::CreateExecutionRequest::execution].
+    /// Sets or clears the value of [execution][crate::model::CreateExecutionRequest::execution].
     pub fn set_or_clear_execution<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Execution>,

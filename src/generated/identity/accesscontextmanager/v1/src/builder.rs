@@ -365,7 +365,7 @@ pub mod access_context_manager {
             self
         }
 
-        /// Sets or clear the value of [create_time][crate::model::AccessPolicy::create_time].
+        /// Sets or clears the value of [create_time][crate::model::AccessPolicy::create_time].
         pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -383,7 +383,7 @@ pub mod access_context_manager {
             self
         }
 
-        /// Sets or clear the value of [update_time][crate::model::AccessPolicy::update_time].
+        /// Sets or clears the value of [update_time][crate::model::AccessPolicy::update_time].
         pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -510,7 +510,7 @@ pub mod access_context_manager {
             self
         }
 
-        /// Sets or clear the value of [policy][crate::model::UpdateAccessPolicyRequest::policy].
+        /// Sets or clears the value of [policy][crate::model::UpdateAccessPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
@@ -532,7 +532,7 @@ pub mod access_context_manager {
             self
         }
 
-        /// Sets or clear the value of [update_mask][crate::model::UpdateAccessPolicyRequest::update_mask].
+        /// Sets or clears the value of [update_mask][crate::model::UpdateAccessPolicyRequest::update_mask].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
@@ -953,7 +953,7 @@ pub mod access_context_manager {
             self
         }
 
-        /// Sets or clear the value of [access_level][crate::model::CreateAccessLevelRequest::access_level].
+        /// Sets or clears the value of [access_level][crate::model::CreateAccessLevelRequest::access_level].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_access_level<T>(mut self, v: std::option::Option<T>) -> Self
@@ -1076,7 +1076,7 @@ pub mod access_context_manager {
             self
         }
 
-        /// Sets or clear the value of [access_level][crate::model::UpdateAccessLevelRequest::access_level].
+        /// Sets or clears the value of [access_level][crate::model::UpdateAccessLevelRequest::access_level].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_access_level<T>(mut self, v: std::option::Option<T>) -> Self
@@ -1098,7 +1098,7 @@ pub mod access_context_manager {
             self
         }
 
-        /// Sets or clear the value of [update_mask][crate::model::UpdateAccessLevelRequest::update_mask].
+        /// Sets or clears the value of [update_mask][crate::model::UpdateAccessLevelRequest::update_mask].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
@@ -1640,7 +1640,7 @@ pub mod access_context_manager {
             self
         }
 
-        /// Sets or clear the value of [service_perimeter][crate::model::CreateServicePerimeterRequest::service_perimeter].
+        /// Sets or clears the value of [service_perimeter][crate::model::CreateServicePerimeterRequest::service_perimeter].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_service_perimeter<T>(mut self, v: std::option::Option<T>) -> Self
@@ -1763,7 +1763,7 @@ pub mod access_context_manager {
             self
         }
 
-        /// Sets or clear the value of [service_perimeter][crate::model::UpdateServicePerimeterRequest::service_perimeter].
+        /// Sets or clears the value of [service_perimeter][crate::model::UpdateServicePerimeterRequest::service_perimeter].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_service_perimeter<T>(mut self, v: std::option::Option<T>) -> Self
@@ -1785,7 +1785,7 @@ pub mod access_context_manager {
             self
         }
 
-        /// Sets or clear the value of [update_mask][crate::model::UpdateServicePerimeterRequest::update_mask].
+        /// Sets or clears the value of [update_mask][crate::model::UpdateServicePerimeterRequest::update_mask].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
@@ -2454,7 +2454,7 @@ pub mod access_context_manager {
             self
         }
 
-        /// Sets or clear the value of [gcp_user_access_binding][crate::model::CreateGcpUserAccessBindingRequest::gcp_user_access_binding].
+        /// Sets or clears the value of [gcp_user_access_binding][crate::model::CreateGcpUserAccessBindingRequest::gcp_user_access_binding].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_gcp_user_access_binding<T>(mut self, v: std::option::Option<T>) -> Self
@@ -2579,7 +2579,7 @@ pub mod access_context_manager {
             self
         }
 
-        /// Sets or clear the value of [gcp_user_access_binding][crate::model::UpdateGcpUserAccessBindingRequest::gcp_user_access_binding].
+        /// Sets or clears the value of [gcp_user_access_binding][crate::model::UpdateGcpUserAccessBindingRequest::gcp_user_access_binding].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_gcp_user_access_binding<T>(mut self, v: std::option::Option<T>) -> Self
@@ -2601,7 +2601,7 @@ pub mod access_context_manager {
             self
         }
 
-        /// Sets or clear the value of [update_mask][crate::model::UpdateGcpUserAccessBindingRequest::update_mask].
+        /// Sets or clears the value of [update_mask][crate::model::UpdateGcpUserAccessBindingRequest::update_mask].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
@@ -2798,7 +2798,7 @@ pub mod access_context_manager {
             self
         }
 
-        /// Sets or clear the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        /// Sets or clears the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
@@ -2818,7 +2818,7 @@ pub mod access_context_manager {
             self
         }
 
-        /// Sets or clear the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        /// Sets or clears the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
@@ -2898,7 +2898,7 @@ pub mod access_context_manager {
             self
         }
 
-        /// Sets or clear the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        /// Sets or clears the value of [options][iam_v1::model::GetIamPolicyRequest::options].
         pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<iam_v1::model::GetPolicyOptions>,

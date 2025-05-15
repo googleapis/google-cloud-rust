@@ -364,7 +364,7 @@ pub mod data_migration_service {
             self
         }
 
-        /// Sets or clear the value of [migration_job][crate::model::CreateMigrationJobRequest::migration_job].
+        /// Sets or clears the value of [migration_job][crate::model::CreateMigrationJobRequest::migration_job].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_migration_job<T>(mut self, v: std::option::Option<T>) -> Self
@@ -490,7 +490,7 @@ pub mod data_migration_service {
             self
         }
 
-        /// Sets or clear the value of [update_mask][crate::model::UpdateMigrationJobRequest::update_mask].
+        /// Sets or clears the value of [update_mask][crate::model::UpdateMigrationJobRequest::update_mask].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
@@ -512,7 +512,7 @@ pub mod data_migration_service {
             self
         }
 
-        /// Sets or clear the value of [migration_job][crate::model::UpdateMigrationJobRequest::migration_job].
+        /// Sets or clears the value of [migration_job][crate::model::UpdateMigrationJobRequest::migration_job].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_migration_job<T>(mut self, v: std::option::Option<T>) -> Self
@@ -1182,7 +1182,7 @@ pub mod data_migration_service {
             self
         }
 
-        /// Sets or clear the value of [update_mask][crate::model::VerifyMigrationJobRequest::update_mask].
+        /// Sets or clears the value of [update_mask][crate::model::VerifyMigrationJobRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
@@ -1200,7 +1200,7 @@ pub mod data_migration_service {
             self
         }
 
-        /// Sets or clear the value of [migration_job][crate::model::VerifyMigrationJobRequest::migration_job].
+        /// Sets or clears the value of [migration_job][crate::model::VerifyMigrationJobRequest::migration_job].
         pub fn set_or_clear_migration_job<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::MigrationJob>,
@@ -1847,7 +1847,7 @@ pub mod data_migration_service {
             self
         }
 
-        /// Sets or clear the value of [connection_profile][crate::model::CreateConnectionProfileRequest::connection_profile].
+        /// Sets or clears the value of [connection_profile][crate::model::CreateConnectionProfileRequest::connection_profile].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_connection_profile<T>(mut self, v: std::option::Option<T>) -> Self
@@ -1988,7 +1988,7 @@ pub mod data_migration_service {
             self
         }
 
-        /// Sets or clear the value of [update_mask][crate::model::UpdateConnectionProfileRequest::update_mask].
+        /// Sets or clears the value of [update_mask][crate::model::UpdateConnectionProfileRequest::update_mask].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
@@ -2010,7 +2010,7 @@ pub mod data_migration_service {
             self
         }
 
-        /// Sets or clear the value of [connection_profile][crate::model::UpdateConnectionProfileRequest::connection_profile].
+        /// Sets or clears the value of [connection_profile][crate::model::UpdateConnectionProfileRequest::connection_profile].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_connection_profile<T>(mut self, v: std::option::Option<T>) -> Self
@@ -2287,7 +2287,7 @@ pub mod data_migration_service {
             self
         }
 
-        /// Sets or clear the value of [private_connection][crate::model::CreatePrivateConnectionRequest::private_connection].
+        /// Sets or clears the value of [private_connection][crate::model::CreatePrivateConnectionRequest::private_connection].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_private_connection<T>(mut self, v: std::option::Option<T>) -> Self
@@ -2920,7 +2920,7 @@ pub mod data_migration_service {
             self
         }
 
-        /// Sets or clear the value of [conversion_workspace][crate::model::CreateConversionWorkspaceRequest::conversion_workspace].
+        /// Sets or clears the value of [conversion_workspace][crate::model::CreateConversionWorkspaceRequest::conversion_workspace].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_conversion_workspace<T>(mut self, v: std::option::Option<T>) -> Self
@@ -3049,7 +3049,7 @@ pub mod data_migration_service {
             self
         }
 
-        /// Sets or clear the value of [update_mask][crate::model::UpdateConversionWorkspaceRequest::update_mask].
+        /// Sets or clears the value of [update_mask][crate::model::UpdateConversionWorkspaceRequest::update_mask].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
@@ -3071,7 +3071,7 @@ pub mod data_migration_service {
             self
         }
 
-        /// Sets or clear the value of [conversion_workspace][crate::model::UpdateConversionWorkspaceRequest::conversion_workspace].
+        /// Sets or clears the value of [conversion_workspace][crate::model::UpdateConversionWorkspaceRequest::conversion_workspace].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_conversion_workspace<T>(mut self, v: std::option::Option<T>) -> Self
@@ -3292,7 +3292,7 @@ pub mod data_migration_service {
             self
         }
 
-        /// Sets or clear the value of [mapping_rule][crate::model::CreateMappingRuleRequest::mapping_rule].
+        /// Sets or clears the value of [mapping_rule][crate::model::CreateMappingRuleRequest::mapping_rule].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_mapping_rule<T>(mut self, v: std::option::Option<T>) -> Self
@@ -4574,7 +4574,7 @@ pub mod data_migration_service {
             self
         }
 
-        /// Sets or clear the value of [completed_until_time][crate::model::SearchBackgroundJobsRequest::completed_until_time].
+        /// Sets or clears the value of [completed_until_time][crate::model::SearchBackgroundJobsRequest::completed_until_time].
         pub fn set_or_clear_completed_until_time<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -4974,7 +4974,7 @@ pub mod data_migration_service {
             self
         }
 
-        /// Sets or clear the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        /// Sets or clears the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
@@ -4994,7 +4994,7 @@ pub mod data_migration_service {
             self
         }
 
-        /// Sets or clear the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        /// Sets or clears the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
@@ -5074,7 +5074,7 @@ pub mod data_migration_service {
             self
         }
 
-        /// Sets or clear the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        /// Sets or clears the value of [options][iam_v1::model::GetIamPolicyRequest::options].
         pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<iam_v1::model::GetPolicyOptions>,

@@ -358,7 +358,7 @@ pub mod vm_migration {
             self
         }
 
-        /// Sets or clear the value of [source][crate::model::CreateSourceRequest::source].
+        /// Sets or clears the value of [source][crate::model::CreateSourceRequest::source].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_source<T>(mut self, v: std::option::Option<T>) -> Self
@@ -477,7 +477,7 @@ pub mod vm_migration {
             self
         }
 
-        /// Sets or clear the value of [update_mask][crate::model::UpdateSourceRequest::update_mask].
+        /// Sets or clears the value of [update_mask][crate::model::UpdateSourceRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
@@ -497,7 +497,7 @@ pub mod vm_migration {
             self
         }
 
-        /// Sets or clear the value of [source][crate::model::UpdateSourceRequest::source].
+        /// Sets or clears the value of [source][crate::model::UpdateSourceRequest::source].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_source<T>(mut self, v: std::option::Option<T>) -> Self
@@ -1011,7 +1011,7 @@ pub mod vm_migration {
             self
         }
 
-        /// Sets or clear the value of [utilization_report][crate::model::CreateUtilizationReportRequest::utilization_report].
+        /// Sets or clears the value of [utilization_report][crate::model::CreateUtilizationReportRequest::utilization_report].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_utilization_report<T>(mut self, v: std::option::Option<T>) -> Self
@@ -1468,7 +1468,7 @@ pub mod vm_migration {
             self
         }
 
-        /// Sets or clear the value of [datacenter_connector][crate::model::CreateDatacenterConnectorRequest::datacenter_connector].
+        /// Sets or clears the value of [datacenter_connector][crate::model::CreateDatacenterConnectorRequest::datacenter_connector].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_datacenter_connector<T>(mut self, v: std::option::Option<T>) -> Self
@@ -1837,7 +1837,7 @@ pub mod vm_migration {
             self
         }
 
-        /// Sets or clear the value of [migrating_vm][crate::model::CreateMigratingVmRequest::migrating_vm].
+        /// Sets or clears the value of [migrating_vm][crate::model::CreateMigratingVmRequest::migrating_vm].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_migrating_vm<T>(mut self, v: std::option::Option<T>) -> Self
@@ -2154,7 +2154,7 @@ pub mod vm_migration {
             self
         }
 
-        /// Sets or clear the value of [update_mask][crate::model::UpdateMigratingVmRequest::update_mask].
+        /// Sets or clears the value of [update_mask][crate::model::UpdateMigratingVmRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
@@ -2174,7 +2174,7 @@ pub mod vm_migration {
             self
         }
 
-        /// Sets or clear the value of [migrating_vm][crate::model::UpdateMigratingVmRequest::migrating_vm].
+        /// Sets or clears the value of [migrating_vm][crate::model::UpdateMigratingVmRequest::migrating_vm].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_migrating_vm<T>(mut self, v: std::option::Option<T>) -> Self
@@ -2836,7 +2836,7 @@ pub mod vm_migration {
             self
         }
 
-        /// Sets or clear the value of [clone_job][crate::model::CreateCloneJobRequest::clone_job].
+        /// Sets or clears the value of [clone_job][crate::model::CreateCloneJobRequest::clone_job].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_clone_job<T>(mut self, v: std::option::Option<T>) -> Self
@@ -3258,7 +3258,7 @@ pub mod vm_migration {
             self
         }
 
-        /// Sets or clear the value of [cutover_job][crate::model::CreateCutoverJobRequest::cutover_job].
+        /// Sets or clears the value of [cutover_job][crate::model::CreateCutoverJobRequest::cutover_job].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_cutover_job<T>(mut self, v: std::option::Option<T>) -> Self
@@ -3858,7 +3858,7 @@ pub mod vm_migration {
             self
         }
 
-        /// Sets or clear the value of [group][crate::model::CreateGroupRequest::group].
+        /// Sets or clears the value of [group][crate::model::CreateGroupRequest::group].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_group<T>(mut self, v: std::option::Option<T>) -> Self
@@ -3977,7 +3977,7 @@ pub mod vm_migration {
             self
         }
 
-        /// Sets or clear the value of [update_mask][crate::model::UpdateGroupRequest::update_mask].
+        /// Sets or clears the value of [update_mask][crate::model::UpdateGroupRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
@@ -3997,7 +3997,7 @@ pub mod vm_migration {
             self
         }
 
-        /// Sets or clear the value of [group][crate::model::UpdateGroupRequest::group].
+        /// Sets or clears the value of [group][crate::model::UpdateGroupRequest::group].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_group<T>(mut self, v: std::option::Option<T>) -> Self
@@ -4661,7 +4661,7 @@ pub mod vm_migration {
             self
         }
 
-        /// Sets or clear the value of [target_project][crate::model::CreateTargetProjectRequest::target_project].
+        /// Sets or clears the value of [target_project][crate::model::CreateTargetProjectRequest::target_project].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_target_project<T>(mut self, v: std::option::Option<T>) -> Self
@@ -4786,7 +4786,7 @@ pub mod vm_migration {
             self
         }
 
-        /// Sets or clear the value of [update_mask][crate::model::UpdateTargetProjectRequest::update_mask].
+        /// Sets or clears the value of [update_mask][crate::model::UpdateTargetProjectRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
@@ -4806,7 +4806,7 @@ pub mod vm_migration {
             self
         }
 
-        /// Sets or clear the value of [target_project][crate::model::UpdateTargetProjectRequest::target_project].
+        /// Sets or clears the value of [target_project][crate::model::UpdateTargetProjectRequest::target_project].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_target_project<T>(mut self, v: std::option::Option<T>) -> Self

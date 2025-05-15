@@ -296,7 +296,7 @@ impl Document {
         self
     }
 
-    /// Sets or clear the value of [shard_info][crate::model::Document::shard_info].
+    /// Sets or clears the value of [shard_info][crate::model::Document::shard_info].
     pub fn set_or_clear_shard_info<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::document::ShardInfo>,
@@ -314,7 +314,7 @@ impl Document {
         self
     }
 
-    /// Sets or clear the value of [error][crate::model::Document::error].
+    /// Sets or clears the value of [error][crate::model::Document::error].
     pub fn set_or_clear_error<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<rpc::model::Status>,
@@ -343,7 +343,7 @@ impl Document {
         self
     }
 
-    /// Sets or clear the value of [document_layout][crate::model::Document::document_layout].
+    /// Sets or clears the value of [document_layout][crate::model::Document::document_layout].
     pub fn set_or_clear_document_layout<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::document::DocumentLayout>,
@@ -361,7 +361,7 @@ impl Document {
         self
     }
 
-    /// Sets or clear the value of [chunked_document][crate::model::Document::chunked_document].
+    /// Sets or clears the value of [chunked_document][crate::model::Document::chunked_document].
     pub fn set_or_clear_chunked_document<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::document::ChunkedDocument>,
@@ -565,7 +565,7 @@ pub mod document {
             self
         }
 
-        /// Sets or clear the value of [text_anchor][crate::model::document::Style::text_anchor].
+        /// Sets or clears the value of [text_anchor][crate::model::document::Style::text_anchor].
         pub fn set_or_clear_text_anchor<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::document::TextAnchor>,
@@ -583,7 +583,7 @@ pub mod document {
             self
         }
 
-        /// Sets or clear the value of [color][crate::model::document::Style::color].
+        /// Sets or clears the value of [color][crate::model::document::Style::color].
         pub fn set_or_clear_color<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<gtype::model::Color>,
@@ -601,7 +601,7 @@ pub mod document {
             self
         }
 
-        /// Sets or clear the value of [background_color][crate::model::document::Style::background_color].
+        /// Sets or clears the value of [background_color][crate::model::document::Style::background_color].
         pub fn set_or_clear_background_color<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<gtype::model::Color>,
@@ -640,7 +640,7 @@ pub mod document {
             self
         }
 
-        /// Sets or clear the value of [font_size][crate::model::document::Style::font_size].
+        /// Sets or clears the value of [font_size][crate::model::document::Style::font_size].
         pub fn set_or_clear_font_size<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::document::style::FontSize>,
@@ -833,7 +833,7 @@ pub mod document {
             self
         }
 
-        /// Sets or clear the value of [image][crate::model::document::Page::image].
+        /// Sets or clears the value of [image][crate::model::document::Page::image].
         pub fn set_or_clear_image<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::document::page::Image>,
@@ -862,7 +862,7 @@ pub mod document {
             self
         }
 
-        /// Sets or clear the value of [dimension][crate::model::document::Page::dimension].
+        /// Sets or clears the value of [dimension][crate::model::document::Page::dimension].
         pub fn set_or_clear_dimension<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::document::page::Dimension>,
@@ -880,7 +880,7 @@ pub mod document {
             self
         }
 
-        /// Sets or clear the value of [layout][crate::model::document::Page::layout].
+        /// Sets or clears the value of [layout][crate::model::document::Page::layout].
         pub fn set_or_clear_layout<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::document::page::Layout>,
@@ -1008,7 +1008,7 @@ pub mod document {
             self
         }
 
-        /// Sets or clear the value of [image_quality_scores][crate::model::document::Page::image_quality_scores].
+        /// Sets or clears the value of [image_quality_scores][crate::model::document::Page::image_quality_scores].
         pub fn set_or_clear_image_quality_scores<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::document::page::ImageQualityScores>,
@@ -1027,7 +1027,7 @@ pub mod document {
             self
         }
 
-        /// Sets or clear the value of [provenance][crate::model::document::Page::provenance].
+        /// Sets or clears the value of [provenance][crate::model::document::Page::provenance].
         #[deprecated]
         pub fn set_or_clear_provenance<T>(mut self, v: std::option::Option<T>) -> Self
         where
@@ -1294,7 +1294,7 @@ pub mod document {
                 self
             }
 
-            /// Sets or clear the value of [text_anchor][crate::model::document::page::Layout::text_anchor].
+            /// Sets or clears the value of [text_anchor][crate::model::document::page::Layout::text_anchor].
             pub fn set_or_clear_text_anchor<T>(mut self, v: std::option::Option<T>) -> Self
             where
                 T: std::convert::Into<crate::model::document::TextAnchor>,
@@ -1318,7 +1318,7 @@ pub mod document {
                 self
             }
 
-            /// Sets or clear the value of [bounding_poly][crate::model::document::page::Layout::bounding_poly].
+            /// Sets or clears the value of [bounding_poly][crate::model::document::page::Layout::bounding_poly].
             pub fn set_or_clear_bounding_poly<T>(mut self, v: std::option::Option<T>) -> Self
             where
                 T: std::convert::Into<crate::model::BoundingPoly>,
@@ -1545,7 +1545,7 @@ pub mod document {
                 self
             }
 
-            /// Sets or clear the value of [layout][crate::model::document::page::Block::layout].
+            /// Sets or clears the value of [layout][crate::model::document::page::Block::layout].
             pub fn set_or_clear_layout<T>(mut self, v: std::option::Option<T>) -> Self
             where
                 T: std::convert::Into<crate::model::document::page::Layout>,
@@ -1575,7 +1575,7 @@ pub mod document {
                 self
             }
 
-            /// Sets or clear the value of [provenance][crate::model::document::page::Block::provenance].
+            /// Sets or clears the value of [provenance][crate::model::document::page::Block::provenance].
             #[deprecated]
             pub fn set_or_clear_provenance<T>(mut self, v: std::option::Option<T>) -> Self
             where
@@ -1633,7 +1633,7 @@ pub mod document {
                 self
             }
 
-            /// Sets or clear the value of [layout][crate::model::document::page::Paragraph::layout].
+            /// Sets or clears the value of [layout][crate::model::document::page::Paragraph::layout].
             pub fn set_or_clear_layout<T>(mut self, v: std::option::Option<T>) -> Self
             where
                 T: std::convert::Into<crate::model::document::page::Layout>,
@@ -1663,7 +1663,7 @@ pub mod document {
                 self
             }
 
-            /// Sets or clear the value of [provenance][crate::model::document::page::Paragraph::provenance].
+            /// Sets or clears the value of [provenance][crate::model::document::page::Paragraph::provenance].
             #[deprecated]
             pub fn set_or_clear_provenance<T>(mut self, v: std::option::Option<T>) -> Self
             where
@@ -1722,7 +1722,7 @@ pub mod document {
                 self
             }
 
-            /// Sets or clear the value of [layout][crate::model::document::page::Line::layout].
+            /// Sets or clears the value of [layout][crate::model::document::page::Line::layout].
             pub fn set_or_clear_layout<T>(mut self, v: std::option::Option<T>) -> Self
             where
                 T: std::convert::Into<crate::model::document::page::Layout>,
@@ -1752,7 +1752,7 @@ pub mod document {
                 self
             }
 
-            /// Sets or clear the value of [provenance][crate::model::document::page::Line::provenance].
+            /// Sets or clears the value of [provenance][crate::model::document::page::Line::provenance].
             #[deprecated]
             pub fn set_or_clear_provenance<T>(mut self, v: std::option::Option<T>) -> Self
             where
@@ -1822,7 +1822,7 @@ pub mod document {
                 self
             }
 
-            /// Sets or clear the value of [layout][crate::model::document::page::Token::layout].
+            /// Sets or clears the value of [layout][crate::model::document::page::Token::layout].
             pub fn set_or_clear_layout<T>(mut self, v: std::option::Option<T>) -> Self
             where
                 T: std::convert::Into<crate::model::document::page::Layout>,
@@ -1840,7 +1840,7 @@ pub mod document {
                 self
             }
 
-            /// Sets or clear the value of [detected_break][crate::model::document::page::Token::detected_break].
+            /// Sets or clears the value of [detected_break][crate::model::document::page::Token::detected_break].
             pub fn set_or_clear_detected_break<T>(mut self, v: std::option::Option<T>) -> Self
             where
                 T: std::convert::Into<crate::model::document::page::token::DetectedBreak>,
@@ -1870,7 +1870,7 @@ pub mod document {
                 self
             }
 
-            /// Sets or clear the value of [provenance][crate::model::document::page::Token::provenance].
+            /// Sets or clears the value of [provenance][crate::model::document::page::Token::provenance].
             #[deprecated]
             pub fn set_or_clear_provenance<T>(mut self, v: std::option::Option<T>) -> Self
             where
@@ -1889,7 +1889,7 @@ pub mod document {
                 self
             }
 
-            /// Sets or clear the value of [style_info][crate::model::document::page::Token::style_info].
+            /// Sets or clears the value of [style_info][crate::model::document::page::Token::style_info].
             pub fn set_or_clear_style_info<T>(mut self, v: std::option::Option<T>) -> Self
             where
                 T: std::convert::Into<crate::model::document::page::token::StyleInfo>,
@@ -2275,7 +2275,7 @@ pub mod document {
                     self
                 }
 
-                /// Sets or clear the value of [text_color][crate::model::document::page::token::StyleInfo::text_color].
+                /// Sets or clears the value of [text_color][crate::model::document::page::token::StyleInfo::text_color].
                 pub fn set_or_clear_text_color<T>(mut self, v: std::option::Option<T>) -> Self
                 where
                     T: std::convert::Into<gtype::model::Color>,
@@ -2293,7 +2293,7 @@ pub mod document {
                     self
                 }
 
-                /// Sets or clear the value of [background_color][crate::model::document::page::token::StyleInfo::background_color].
+                /// Sets or clears the value of [background_color][crate::model::document::page::token::StyleInfo::background_color].
                 pub fn set_or_clear_background_color<T>(mut self, v: std::option::Option<T>) -> Self
                 where
                     T: std::convert::Into<gtype::model::Color>,
@@ -2346,7 +2346,7 @@ pub mod document {
                 self
             }
 
-            /// Sets or clear the value of [layout][crate::model::document::page::Symbol::layout].
+            /// Sets or clears the value of [layout][crate::model::document::page::Symbol::layout].
             pub fn set_or_clear_layout<T>(mut self, v: std::option::Option<T>) -> Self
             where
                 T: std::convert::Into<crate::model::document::page::Layout>,
@@ -2418,7 +2418,7 @@ pub mod document {
                 self
             }
 
-            /// Sets or clear the value of [layout][crate::model::document::page::VisualElement::layout].
+            /// Sets or clears the value of [layout][crate::model::document::page::VisualElement::layout].
             pub fn set_or_clear_layout<T>(mut self, v: std::option::Option<T>) -> Self
             where
                 T: std::convert::Into<crate::model::document::page::Layout>,
@@ -2500,7 +2500,7 @@ pub mod document {
                 self
             }
 
-            /// Sets or clear the value of [layout][crate::model::document::page::Table::layout].
+            /// Sets or clears the value of [layout][crate::model::document::page::Table::layout].
             pub fn set_or_clear_layout<T>(mut self, v: std::option::Option<T>) -> Self
             where
                 T: std::convert::Into<crate::model::document::page::Layout>,
@@ -2552,7 +2552,7 @@ pub mod document {
                 self
             }
 
-            /// Sets or clear the value of [provenance][crate::model::document::page::Table::provenance].
+            /// Sets or clears the value of [provenance][crate::model::document::page::Table::provenance].
             #[deprecated]
             pub fn set_or_clear_provenance<T>(mut self, v: std::option::Option<T>) -> Self
             where
@@ -2656,7 +2656,7 @@ pub mod document {
                     self
                 }
 
-                /// Sets or clear the value of [layout][crate::model::document::page::table::TableCell::layout].
+                /// Sets or clears the value of [layout][crate::model::document::page::table::TableCell::layout].
                 pub fn set_or_clear_layout<T>(mut self, v: std::option::Option<T>) -> Self
                 where
                     T: std::convert::Into<crate::model::document::page::Layout>,
@@ -2772,7 +2772,7 @@ pub mod document {
                 self
             }
 
-            /// Sets or clear the value of [field_name][crate::model::document::page::FormField::field_name].
+            /// Sets or clears the value of [field_name][crate::model::document::page::FormField::field_name].
             pub fn set_or_clear_field_name<T>(mut self, v: std::option::Option<T>) -> Self
             where
                 T: std::convert::Into<crate::model::document::page::Layout>,
@@ -2790,7 +2790,7 @@ pub mod document {
                 self
             }
 
-            /// Sets or clear the value of [field_value][crate::model::document::page::FormField::field_value].
+            /// Sets or clears the value of [field_value][crate::model::document::page::FormField::field_value].
             pub fn set_or_clear_field_value<T>(mut self, v: std::option::Option<T>) -> Self
             where
                 T: std::convert::Into<crate::model::document::page::Layout>,
@@ -2857,7 +2857,7 @@ pub mod document {
                 self
             }
 
-            /// Sets or clear the value of [provenance][crate::model::document::page::FormField::provenance].
+            /// Sets or clears the value of [provenance][crate::model::document::page::FormField::provenance].
             pub fn set_or_clear_provenance<T>(mut self, v: std::option::Option<T>) -> Self
             where
                 T: std::convert::Into<crate::model::document::Provenance>,
@@ -2912,7 +2912,7 @@ pub mod document {
                 self
             }
 
-            /// Sets or clear the value of [layout][crate::model::document::page::DetectedBarcode::layout].
+            /// Sets or clears the value of [layout][crate::model::document::page::DetectedBarcode::layout].
             pub fn set_or_clear_layout<T>(mut self, v: std::option::Option<T>) -> Self
             where
                 T: std::convert::Into<crate::model::document::page::Layout>,
@@ -2930,7 +2930,7 @@ pub mod document {
                 self
             }
 
-            /// Sets or clear the value of [barcode][crate::model::document::page::DetectedBarcode::barcode].
+            /// Sets or clears the value of [barcode][crate::model::document::page::DetectedBarcode::barcode].
             pub fn set_or_clear_barcode<T>(mut self, v: std::option::Option<T>) -> Self
             where
                 T: std::convert::Into<crate::model::Barcode>,
@@ -3192,7 +3192,7 @@ pub mod document {
             self
         }
 
-        /// Sets or clear the value of [text_anchor][crate::model::document::Entity::text_anchor].
+        /// Sets or clears the value of [text_anchor][crate::model::document::Entity::text_anchor].
         pub fn set_or_clear_text_anchor<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::document::TextAnchor>,
@@ -3237,7 +3237,7 @@ pub mod document {
             self
         }
 
-        /// Sets or clear the value of [page_anchor][crate::model::document::Entity::page_anchor].
+        /// Sets or clears the value of [page_anchor][crate::model::document::Entity::page_anchor].
         pub fn set_or_clear_page_anchor<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::document::PageAnchor>,
@@ -3261,7 +3261,7 @@ pub mod document {
             self
         }
 
-        /// Sets or clear the value of [normalized_value][crate::model::document::Entity::normalized_value].
+        /// Sets or clears the value of [normalized_value][crate::model::document::Entity::normalized_value].
         pub fn set_or_clear_normalized_value<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::document::entity::NormalizedValue>,
@@ -3290,7 +3290,7 @@ pub mod document {
             self
         }
 
-        /// Sets or clear the value of [provenance][crate::model::document::Entity::provenance].
+        /// Sets or clears the value of [provenance][crate::model::document::Entity::provenance].
         pub fn set_or_clear_provenance<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::document::Provenance>,
@@ -3932,7 +3932,7 @@ pub mod document {
                 self
             }
 
-            /// Sets or clear the value of [bounding_poly][crate::model::document::page_anchor::PageRef::bounding_poly].
+            /// Sets or clears the value of [bounding_poly][crate::model::document::page_anchor::PageRef::bounding_poly].
             pub fn set_or_clear_bounding_poly<T>(mut self, v: std::option::Option<T>) -> Self
             where
                 T: std::convert::Into<crate::model::BoundingPoly>,
@@ -4561,7 +4561,7 @@ pub mod document {
             self
         }
 
-        /// Sets or clear the value of [create_time][crate::model::document::Revision::create_time].
+        /// Sets or clears the value of [create_time][crate::model::document::Revision::create_time].
         pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -4579,7 +4579,7 @@ pub mod document {
             self
         }
 
-        /// Sets or clear the value of [human_review][crate::model::document::Revision::human_review].
+        /// Sets or clears the value of [human_review][crate::model::document::Revision::human_review].
         pub fn set_or_clear_human_review<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::document::revision::HumanReview>,
@@ -4767,7 +4767,7 @@ pub mod document {
             self
         }
 
-        /// Sets or clear the value of [text_anchor][crate::model::document::TextChange::text_anchor].
+        /// Sets or clears the value of [text_anchor][crate::model::document::TextChange::text_anchor].
         pub fn set_or_clear_text_anchor<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::document::TextAnchor>,
@@ -4899,7 +4899,7 @@ pub mod document {
                 self
             }
 
-            /// Sets or clear the value of [page_span][crate::model::document::document_layout::DocumentLayoutBlock::page_span].
+            /// Sets or clears the value of [page_span][crate::model::document::document_layout::DocumentLayoutBlock::page_span].
             pub fn set_or_clear_page_span<T>(mut self, v: std::option::Option<T>) -> Self
             where T: std::convert::Into<crate::model::document::document_layout::document_layout_block::LayoutPageSpan>
             {
@@ -4916,7 +4916,7 @@ pub mod document {
                 self
             }
 
-            /// Sets or clear the value of [bounding_box][crate::model::document::document_layout::DocumentLayoutBlock::bounding_box].
+            /// Sets or clears the value of [bounding_box][crate::model::document::document_layout::DocumentLayoutBlock::bounding_box].
             pub fn set_or_clear_bounding_box<T>(mut self, v: std::option::Option<T>) -> Self
             where
                 T: std::convert::Into<crate::model::BoundingPoly>,
@@ -5554,7 +5554,7 @@ pub mod document {
                 self
             }
 
-            /// Sets or clear the value of [page_span][crate::model::document::chunked_document::Chunk::page_span].
+            /// Sets or clears the value of [page_span][crate::model::document::chunked_document::Chunk::page_span].
             pub fn set_or_clear_page_span<T>(mut self, v: std::option::Option<T>) -> Self
             where
                 T: std::convert::Into<
@@ -5690,7 +5690,7 @@ pub mod document {
                     self
                 }
 
-                /// Sets or clear the value of [page_span][crate::model::document::chunked_document::chunk::ChunkPageHeader::page_span].
+                /// Sets or clears the value of [page_span][crate::model::document::chunked_document::chunk::ChunkPageHeader::page_span].
                 pub fn set_or_clear_page_span<T>(mut self, v: std::option::Option<T>) -> Self
                 where
                     T: std::convert::Into<
@@ -5753,7 +5753,7 @@ pub mod document {
                     self
                 }
 
-                /// Sets or clear the value of [page_span][crate::model::document::chunked_document::chunk::ChunkPageFooter::page_span].
+                /// Sets or clears the value of [page_span][crate::model::document::chunked_document::chunk::ChunkPageFooter::page_span].
                 pub fn set_or_clear_page_span<T>(mut self, v: std::option::Option<T>) -> Self
                 where
                     T: std::convert::Into<
@@ -6205,7 +6205,7 @@ pub mod document_output_config {
             self
         }
 
-        /// Sets or clear the value of [field_mask][crate::model::document_output_config::GcsOutputConfig::field_mask].
+        /// Sets or clears the value of [field_mask][crate::model::document_output_config::GcsOutputConfig::field_mask].
         pub fn set_or_clear_field_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
@@ -6225,7 +6225,7 @@ pub mod document_output_config {
             self
         }
 
-        /// Sets or clear the value of [sharding_config][crate::model::document_output_config::GcsOutputConfig::sharding_config].
+        /// Sets or clears the value of [sharding_config][crate::model::document_output_config::GcsOutputConfig::sharding_config].
         pub fn set_or_clear_sharding_config<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<
@@ -6374,7 +6374,7 @@ impl OcrConfig {
         self
     }
 
-    /// Sets or clear the value of [hints][crate::model::OcrConfig::hints].
+    /// Sets or clears the value of [hints][crate::model::OcrConfig::hints].
     pub fn set_or_clear_hints<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ocr_config::Hints>,
@@ -6437,7 +6437,7 @@ impl OcrConfig {
         self
     }
 
-    /// Sets or clear the value of [premium_features][crate::model::OcrConfig::premium_features].
+    /// Sets or clears the value of [premium_features][crate::model::OcrConfig::premium_features].
     pub fn set_or_clear_premium_features<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ocr_config::PremiumFeatures>,
@@ -6614,7 +6614,7 @@ impl ProcessOptions {
         self
     }
 
-    /// Sets or clear the value of [ocr_config][crate::model::ProcessOptions::ocr_config].
+    /// Sets or clears the value of [ocr_config][crate::model::ProcessOptions::ocr_config].
     pub fn set_or_clear_ocr_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::OcrConfig>,
@@ -6632,7 +6632,7 @@ impl ProcessOptions {
         self
     }
 
-    /// Sets or clear the value of [layout_config][crate::model::ProcessOptions::layout_config].
+    /// Sets or clears the value of [layout_config][crate::model::ProcessOptions::layout_config].
     pub fn set_or_clear_layout_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::process_options::LayoutConfig>,
@@ -6650,7 +6650,7 @@ impl ProcessOptions {
         self
     }
 
-    /// Sets or clear the value of [schema_override][crate::model::ProcessOptions::schema_override].
+    /// Sets or clears the value of [schema_override][crate::model::ProcessOptions::schema_override].
     pub fn set_or_clear_schema_override<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::DocumentSchema>,
@@ -6801,7 +6801,7 @@ pub mod process_options {
             self
         }
 
-        /// Sets or clear the value of [chunking_config][crate::model::process_options::LayoutConfig::chunking_config].
+        /// Sets or clears the value of [chunking_config][crate::model::process_options::LayoutConfig::chunking_config].
         pub fn set_or_clear_chunking_config<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::process_options::layout_config::ChunkingConfig>,
@@ -7037,7 +7037,7 @@ impl ProcessRequest {
         self
     }
 
-    /// Sets or clear the value of [field_mask][crate::model::ProcessRequest::field_mask].
+    /// Sets or clears the value of [field_mask][crate::model::ProcessRequest::field_mask].
     pub fn set_or_clear_field_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -7055,7 +7055,7 @@ impl ProcessRequest {
         self
     }
 
-    /// Sets or clear the value of [process_options][crate::model::ProcessRequest::process_options].
+    /// Sets or clears the value of [process_options][crate::model::ProcessRequest::process_options].
     pub fn set_or_clear_process_options<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ProcessOptions>,
@@ -7461,7 +7461,7 @@ impl ProcessResponse {
         self
     }
 
-    /// Sets or clear the value of [document][crate::model::ProcessResponse::document].
+    /// Sets or clears the value of [document][crate::model::ProcessResponse::document].
     pub fn set_or_clear_document<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Document>,
@@ -7479,7 +7479,7 @@ impl ProcessResponse {
         self
     }
 
-    /// Sets or clear the value of [human_review_status][crate::model::ProcessResponse::human_review_status].
+    /// Sets or clears the value of [human_review_status][crate::model::ProcessResponse::human_review_status].
     pub fn set_or_clear_human_review_status<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::HumanReviewStatus>,
@@ -7574,7 +7574,7 @@ impl BatchProcessRequest {
         self
     }
 
-    /// Sets or clear the value of [input_documents][crate::model::BatchProcessRequest::input_documents].
+    /// Sets or clears the value of [input_documents][crate::model::BatchProcessRequest::input_documents].
     pub fn set_or_clear_input_documents<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::BatchDocumentsInputConfig>,
@@ -7592,7 +7592,7 @@ impl BatchProcessRequest {
         self
     }
 
-    /// Sets or clear the value of [document_output_config][crate::model::BatchProcessRequest::document_output_config].
+    /// Sets or clears the value of [document_output_config][crate::model::BatchProcessRequest::document_output_config].
     pub fn set_or_clear_document_output_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::DocumentOutputConfig>,
@@ -7616,7 +7616,7 @@ impl BatchProcessRequest {
         self
     }
 
-    /// Sets or clear the value of [process_options][crate::model::BatchProcessRequest::process_options].
+    /// Sets or clears the value of [process_options][crate::model::BatchProcessRequest::process_options].
     pub fn set_or_clear_process_options<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ProcessOptions>,
@@ -7732,7 +7732,7 @@ impl BatchProcessMetadata {
         self
     }
 
-    /// Sets or clear the value of [create_time][crate::model::BatchProcessMetadata::create_time].
+    /// Sets or clears the value of [create_time][crate::model::BatchProcessMetadata::create_time].
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -7750,7 +7750,7 @@ impl BatchProcessMetadata {
         self
     }
 
-    /// Sets or clear the value of [update_time][crate::model::BatchProcessMetadata::update_time].
+    /// Sets or clears the value of [update_time][crate::model::BatchProcessMetadata::update_time].
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -7839,7 +7839,7 @@ pub mod batch_process_metadata {
             self
         }
 
-        /// Sets or clear the value of [status][crate::model::batch_process_metadata::IndividualProcessStatus::status].
+        /// Sets or clears the value of [status][crate::model::batch_process_metadata::IndividualProcessStatus::status].
         pub fn set_or_clear_status<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<rpc::model::Status>,
@@ -7866,7 +7866,7 @@ pub mod batch_process_metadata {
             self
         }
 
-        /// Sets or clear the value of [human_review_status][crate::model::batch_process_metadata::IndividualProcessStatus::human_review_status].
+        /// Sets or clears the value of [human_review_status][crate::model::batch_process_metadata::IndividualProcessStatus::human_review_status].
         pub fn set_or_clear_human_review_status<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::HumanReviewStatus>,
@@ -8666,7 +8666,7 @@ impl DeleteProcessorVersionMetadata {
         self
     }
 
-    /// Sets or clear the value of [common_metadata][crate::model::DeleteProcessorVersionMetadata::common_metadata].
+    /// Sets or clears the value of [common_metadata][crate::model::DeleteProcessorVersionMetadata::common_metadata].
     pub fn set_or_clear_common_metadata<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CommonOperationMetadata>,
@@ -8776,7 +8776,7 @@ impl DeployProcessorVersionMetadata {
         self
     }
 
-    /// Sets or clear the value of [common_metadata][crate::model::DeployProcessorVersionMetadata::common_metadata].
+    /// Sets or clears the value of [common_metadata][crate::model::DeployProcessorVersionMetadata::common_metadata].
     pub fn set_or_clear_common_metadata<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CommonOperationMetadata>,
@@ -8886,7 +8886,7 @@ impl UndeployProcessorVersionMetadata {
         self
     }
 
-    /// Sets or clear the value of [common_metadata][crate::model::UndeployProcessorVersionMetadata::common_metadata].
+    /// Sets or clears the value of [common_metadata][crate::model::UndeployProcessorVersionMetadata::common_metadata].
     pub fn set_or_clear_common_metadata<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CommonOperationMetadata>,
@@ -8957,7 +8957,7 @@ impl CreateProcessorRequest {
         self
     }
 
-    /// Sets or clear the value of [processor][crate::model::CreateProcessorRequest::processor].
+    /// Sets or clears the value of [processor][crate::model::CreateProcessorRequest::processor].
     pub fn set_or_clear_processor<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Processor>,
@@ -9041,7 +9041,7 @@ impl DeleteProcessorMetadata {
         self
     }
 
-    /// Sets or clear the value of [common_metadata][crate::model::DeleteProcessorMetadata::common_metadata].
+    /// Sets or clears the value of [common_metadata][crate::model::DeleteProcessorMetadata::common_metadata].
     pub fn set_or_clear_common_metadata<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CommonOperationMetadata>,
@@ -9151,7 +9151,7 @@ impl EnableProcessorMetadata {
         self
     }
 
-    /// Sets or clear the value of [common_metadata][crate::model::EnableProcessorMetadata::common_metadata].
+    /// Sets or clears the value of [common_metadata][crate::model::EnableProcessorMetadata::common_metadata].
     pub fn set_or_clear_common_metadata<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CommonOperationMetadata>,
@@ -9261,7 +9261,7 @@ impl DisableProcessorMetadata {
         self
     }
 
-    /// Sets or clear the value of [common_metadata][crate::model::DisableProcessorMetadata::common_metadata].
+    /// Sets or clears the value of [common_metadata][crate::model::DisableProcessorMetadata::common_metadata].
     pub fn set_or_clear_common_metadata<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CommonOperationMetadata>,
@@ -9393,7 +9393,7 @@ impl SetDefaultProcessorVersionMetadata {
         self
     }
 
-    /// Sets or clear the value of [common_metadata][crate::model::SetDefaultProcessorVersionMetadata::common_metadata].
+    /// Sets or clears the value of [common_metadata][crate::model::SetDefaultProcessorVersionMetadata::common_metadata].
     pub fn set_or_clear_common_metadata<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CommonOperationMetadata>,
@@ -9474,7 +9474,7 @@ impl TrainProcessorVersionRequest {
         self
     }
 
-    /// Sets or clear the value of [processor_version][crate::model::TrainProcessorVersionRequest::processor_version].
+    /// Sets or clears the value of [processor_version][crate::model::TrainProcessorVersionRequest::processor_version].
     pub fn set_or_clear_processor_version<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ProcessorVersion>,
@@ -9492,7 +9492,7 @@ impl TrainProcessorVersionRequest {
         self
     }
 
-    /// Sets or clear the value of [document_schema][crate::model::TrainProcessorVersionRequest::document_schema].
+    /// Sets or clears the value of [document_schema][crate::model::TrainProcessorVersionRequest::document_schema].
     pub fn set_or_clear_document_schema<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::DocumentSchema>,
@@ -9510,7 +9510,7 @@ impl TrainProcessorVersionRequest {
         self
     }
 
-    /// Sets or clear the value of [input_data][crate::model::TrainProcessorVersionRequest::input_data].
+    /// Sets or clears the value of [input_data][crate::model::TrainProcessorVersionRequest::input_data].
     pub fn set_or_clear_input_data<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::train_processor_version_request::InputData>,
@@ -9671,7 +9671,7 @@ pub mod train_processor_version_request {
             self
         }
 
-        /// Sets or clear the value of [training_documents][crate::model::train_processor_version_request::InputData::training_documents].
+        /// Sets or clears the value of [training_documents][crate::model::train_processor_version_request::InputData::training_documents].
         pub fn set_or_clear_training_documents<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::BatchDocumentsInputConfig>,
@@ -9689,7 +9689,7 @@ pub mod train_processor_version_request {
             self
         }
 
-        /// Sets or clear the value of [test_documents][crate::model::train_processor_version_request::InputData::test_documents].
+        /// Sets or clears the value of [test_documents][crate::model::train_processor_version_request::InputData::test_documents].
         pub fn set_or_clear_test_documents<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::BatchDocumentsInputConfig>,
@@ -10018,7 +10018,7 @@ impl TrainProcessorVersionMetadata {
         self
     }
 
-    /// Sets or clear the value of [common_metadata][crate::model::TrainProcessorVersionMetadata::common_metadata].
+    /// Sets or clears the value of [common_metadata][crate::model::TrainProcessorVersionMetadata::common_metadata].
     pub fn set_or_clear_common_metadata<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CommonOperationMetadata>,
@@ -10036,7 +10036,7 @@ impl TrainProcessorVersionMetadata {
         self
     }
 
-    /// Sets or clear the value of [training_dataset_validation][crate::model::TrainProcessorVersionMetadata::training_dataset_validation].
+    /// Sets or clears the value of [training_dataset_validation][crate::model::TrainProcessorVersionMetadata::training_dataset_validation].
     pub fn set_or_clear_training_dataset_validation<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::train_processor_version_metadata::DatasetValidation>,
@@ -10054,7 +10054,7 @@ impl TrainProcessorVersionMetadata {
         self
     }
 
-    /// Sets or clear the value of [test_dataset_validation][crate::model::TrainProcessorVersionMetadata::test_dataset_validation].
+    /// Sets or clears the value of [test_dataset_validation][crate::model::TrainProcessorVersionMetadata::test_dataset_validation].
     pub fn set_or_clear_test_dataset_validation<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::train_processor_version_metadata::DatasetValidation>,
@@ -10226,7 +10226,7 @@ impl ReviewDocumentRequest {
         self
     }
 
-    /// Sets or clear the value of [document_schema][crate::model::ReviewDocumentRequest::document_schema].
+    /// Sets or clears the value of [document_schema][crate::model::ReviewDocumentRequest::document_schema].
     pub fn set_or_clear_document_schema<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::DocumentSchema>,
@@ -10662,7 +10662,7 @@ impl ReviewDocumentOperationMetadata {
         self
     }
 
-    /// Sets or clear the value of [common_metadata][crate::model::ReviewDocumentOperationMetadata::common_metadata].
+    /// Sets or clears the value of [common_metadata][crate::model::ReviewDocumentOperationMetadata::common_metadata].
     pub fn set_or_clear_common_metadata<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CommonOperationMetadata>,
@@ -10735,7 +10735,7 @@ impl EvaluateProcessorVersionRequest {
         self
     }
 
-    /// Sets or clear the value of [evaluation_documents][crate::model::EvaluateProcessorVersionRequest::evaluation_documents].
+    /// Sets or clears the value of [evaluation_documents][crate::model::EvaluateProcessorVersionRequest::evaluation_documents].
     pub fn set_or_clear_evaluation_documents<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::BatchDocumentsInputConfig>,
@@ -10783,7 +10783,7 @@ impl EvaluateProcessorVersionMetadata {
         self
     }
 
-    /// Sets or clear the value of [common_metadata][crate::model::EvaluateProcessorVersionMetadata::common_metadata].
+    /// Sets or clears the value of [common_metadata][crate::model::EvaluateProcessorVersionMetadata::common_metadata].
     pub fn set_or_clear_common_metadata<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CommonOperationMetadata>,
@@ -11059,7 +11059,7 @@ impl DocumentSchema {
         self
     }
 
-    /// Sets or clear the value of [metadata][crate::model::DocumentSchema::metadata].
+    /// Sets or clears the value of [metadata][crate::model::DocumentSchema::metadata].
     pub fn set_or_clear_metadata<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::document_schema::Metadata>,
@@ -11652,7 +11652,7 @@ impl EvaluationReference {
         self
     }
 
-    /// Sets or clear the value of [aggregate_metrics][crate::model::EvaluationReference::aggregate_metrics].
+    /// Sets or clears the value of [aggregate_metrics][crate::model::EvaluationReference::aggregate_metrics].
     pub fn set_or_clear_aggregate_metrics<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::evaluation::Metrics>,
@@ -11670,7 +11670,7 @@ impl EvaluationReference {
         self
     }
 
-    /// Sets or clear the value of [aggregate_metrics_exact][crate::model::EvaluationReference::aggregate_metrics_exact].
+    /// Sets or clears the value of [aggregate_metrics_exact][crate::model::EvaluationReference::aggregate_metrics_exact].
     pub fn set_or_clear_aggregate_metrics_exact<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::evaluation::Metrics>,
@@ -11749,7 +11749,7 @@ impl Evaluation {
         self
     }
 
-    /// Sets or clear the value of [create_time][crate::model::Evaluation::create_time].
+    /// Sets or clears the value of [create_time][crate::model::Evaluation::create_time].
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -11767,7 +11767,7 @@ impl Evaluation {
         self
     }
 
-    /// Sets or clear the value of [document_counters][crate::model::Evaluation::document_counters].
+    /// Sets or clears the value of [document_counters][crate::model::Evaluation::document_counters].
     pub fn set_or_clear_document_counters<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::evaluation::Counters>,
@@ -11785,7 +11785,7 @@ impl Evaluation {
         self
     }
 
-    /// Sets or clear the value of [all_entities_metrics][crate::model::Evaluation::all_entities_metrics].
+    /// Sets or clears the value of [all_entities_metrics][crate::model::Evaluation::all_entities_metrics].
     pub fn set_or_clear_all_entities_metrics<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::evaluation::MultiConfidenceMetrics>,
@@ -12074,7 +12074,7 @@ pub mod evaluation {
             self
         }
 
-        /// Sets or clear the value of [metrics][crate::model::evaluation::ConfidenceLevelMetrics::metrics].
+        /// Sets or clears the value of [metrics][crate::model::evaluation::ConfidenceLevelMetrics::metrics].
         pub fn set_or_clear_metrics<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::evaluation::Metrics>,
@@ -12555,7 +12555,7 @@ impl CommonOperationMetadata {
         self
     }
 
-    /// Sets or clear the value of [create_time][crate::model::CommonOperationMetadata::create_time].
+    /// Sets or clears the value of [create_time][crate::model::CommonOperationMetadata::create_time].
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -12573,7 +12573,7 @@ impl CommonOperationMetadata {
         self
     }
 
-    /// Sets or clear the value of [update_time][crate::model::CommonOperationMetadata::update_time].
+    /// Sets or clears the value of [update_time][crate::model::CommonOperationMetadata::update_time].
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -12844,7 +12844,7 @@ impl ProcessorVersion {
         self
     }
 
-    /// Sets or clear the value of [document_schema][crate::model::ProcessorVersion::document_schema].
+    /// Sets or clears the value of [document_schema][crate::model::ProcessorVersion::document_schema].
     pub fn set_or_clear_document_schema<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::DocumentSchema>,
@@ -12871,7 +12871,7 @@ impl ProcessorVersion {
         self
     }
 
-    /// Sets or clear the value of [create_time][crate::model::ProcessorVersion::create_time].
+    /// Sets or clears the value of [create_time][crate::model::ProcessorVersion::create_time].
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -12889,7 +12889,7 @@ impl ProcessorVersion {
         self
     }
 
-    /// Sets or clear the value of [latest_evaluation][crate::model::ProcessorVersion::latest_evaluation].
+    /// Sets or clears the value of [latest_evaluation][crate::model::ProcessorVersion::latest_evaluation].
     pub fn set_or_clear_latest_evaluation<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::EvaluationReference>,
@@ -12928,7 +12928,7 @@ impl ProcessorVersion {
         self
     }
 
-    /// Sets or clear the value of [deprecation_info][crate::model::ProcessorVersion::deprecation_info].
+    /// Sets or clears the value of [deprecation_info][crate::model::ProcessorVersion::deprecation_info].
     pub fn set_or_clear_deprecation_info<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::processor_version::DeprecationInfo>,
@@ -12967,7 +12967,7 @@ impl ProcessorVersion {
         self
     }
 
-    /// Sets or clear the value of [gen_ai_model_info][crate::model::ProcessorVersion::gen_ai_model_info].
+    /// Sets or clears the value of [gen_ai_model_info][crate::model::ProcessorVersion::gen_ai_model_info].
     pub fn set_or_clear_gen_ai_model_info<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::processor_version::GenAiModelInfo>,
@@ -13020,7 +13020,7 @@ pub mod processor_version {
             self
         }
 
-        /// Sets or clear the value of [deprecation_time][crate::model::processor_version::DeprecationInfo::deprecation_time].
+        /// Sets or clears the value of [deprecation_time][crate::model::processor_version::DeprecationInfo::deprecation_time].
         pub fn set_or_clear_deprecation_time<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -13910,7 +13910,7 @@ impl Processor {
         self
     }
 
-    /// Sets or clear the value of [create_time][crate::model::Processor::create_time].
+    /// Sets or clears the value of [create_time][crate::model::Processor::create_time].
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,

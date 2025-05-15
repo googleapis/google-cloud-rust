@@ -193,7 +193,7 @@ impl WorkstationCluster {
         self
     }
 
-    /// Sets or clear the value of [create_time][crate::model::WorkstationCluster::create_time].
+    /// Sets or clears the value of [create_time][crate::model::WorkstationCluster::create_time].
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -211,7 +211,7 @@ impl WorkstationCluster {
         self
     }
 
-    /// Sets or clear the value of [update_time][crate::model::WorkstationCluster::update_time].
+    /// Sets or clears the value of [update_time][crate::model::WorkstationCluster::update_time].
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -229,7 +229,7 @@ impl WorkstationCluster {
         self
     }
 
-    /// Sets or clear the value of [delete_time][crate::model::WorkstationCluster::delete_time].
+    /// Sets or clears the value of [delete_time][crate::model::WorkstationCluster::delete_time].
     pub fn set_or_clear_delete_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -274,7 +274,7 @@ impl WorkstationCluster {
         self
     }
 
-    /// Sets or clear the value of [private_cluster_config][crate::model::WorkstationCluster::private_cluster_config].
+    /// Sets or clears the value of [private_cluster_config][crate::model::WorkstationCluster::private_cluster_config].
     pub fn set_or_clear_private_cluster_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::workstation_cluster::PrivateClusterConfig>,
@@ -630,7 +630,7 @@ impl WorkstationConfig {
         self
     }
 
-    /// Sets or clear the value of [create_time][crate::model::WorkstationConfig::create_time].
+    /// Sets or clears the value of [create_time][crate::model::WorkstationConfig::create_time].
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -648,7 +648,7 @@ impl WorkstationConfig {
         self
     }
 
-    /// Sets or clear the value of [update_time][crate::model::WorkstationConfig::update_time].
+    /// Sets or clears the value of [update_time][crate::model::WorkstationConfig::update_time].
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -666,7 +666,7 @@ impl WorkstationConfig {
         self
     }
 
-    /// Sets or clear the value of [delete_time][crate::model::WorkstationConfig::delete_time].
+    /// Sets or clears the value of [delete_time][crate::model::WorkstationConfig::delete_time].
     pub fn set_or_clear_delete_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -690,7 +690,7 @@ impl WorkstationConfig {
         self
     }
 
-    /// Sets or clear the value of [idle_timeout][crate::model::WorkstationConfig::idle_timeout].
+    /// Sets or clears the value of [idle_timeout][crate::model::WorkstationConfig::idle_timeout].
     pub fn set_or_clear_idle_timeout<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -708,7 +708,7 @@ impl WorkstationConfig {
         self
     }
 
-    /// Sets or clear the value of [running_timeout][crate::model::WorkstationConfig::running_timeout].
+    /// Sets or clears the value of [running_timeout][crate::model::WorkstationConfig::running_timeout].
     pub fn set_or_clear_running_timeout<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -726,7 +726,7 @@ impl WorkstationConfig {
         self
     }
 
-    /// Sets or clear the value of [host][crate::model::WorkstationConfig::host].
+    /// Sets or clears the value of [host][crate::model::WorkstationConfig::host].
     pub fn set_or_clear_host<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::workstation_config::Host>,
@@ -755,7 +755,7 @@ impl WorkstationConfig {
         self
     }
 
-    /// Sets or clear the value of [container][crate::model::WorkstationConfig::container].
+    /// Sets or clears the value of [container][crate::model::WorkstationConfig::container].
     pub fn set_or_clear_container<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::workstation_config::Container>,
@@ -773,7 +773,7 @@ impl WorkstationConfig {
         self
     }
 
-    /// Sets or clear the value of [encryption_key][crate::model::WorkstationConfig::encryption_key].
+    /// Sets or clears the value of [encryption_key][crate::model::WorkstationConfig::encryption_key].
     pub fn set_or_clear_encryption_key<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::workstation_config::CustomerEncryptionKey>,
@@ -1132,7 +1132,7 @@ pub mod workstation_config {
                 self
             }
 
-            /// Sets or clear the value of [shielded_instance_config][crate::model::workstation_config::host::GceInstance::shielded_instance_config].
+            /// Sets or clears the value of [shielded_instance_config][crate::model::workstation_config::host::GceInstance::shielded_instance_config].
             pub fn set_or_clear_shielded_instance_config<T>(mut self, v: std::option::Option<T>) -> Self
             where T: std::convert::Into<crate::model::workstation_config::host::gce_instance::GceShieldedInstanceConfig>
             {
@@ -1148,7 +1148,7 @@ pub mod workstation_config {
                 self
             }
 
-            /// Sets or clear the value of [confidential_instance_config][crate::model::workstation_config::host::GceInstance::confidential_instance_config].
+            /// Sets or clears the value of [confidential_instance_config][crate::model::workstation_config::host::GceInstance::confidential_instance_config].
             pub fn set_or_clear_confidential_instance_config<T>(mut self, v: std::option::Option<T>) -> Self
             where T: std::convert::Into<crate::model::workstation_config::host::gce_instance::GceConfidentialInstanceConfig>
             {
@@ -1990,7 +1990,7 @@ impl Workstation {
         self
     }
 
-    /// Sets or clear the value of [create_time][crate::model::Workstation::create_time].
+    /// Sets or clears the value of [create_time][crate::model::Workstation::create_time].
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2008,7 +2008,7 @@ impl Workstation {
         self
     }
 
-    /// Sets or clear the value of [update_time][crate::model::Workstation::update_time].
+    /// Sets or clears the value of [update_time][crate::model::Workstation::update_time].
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2026,7 +2026,7 @@ impl Workstation {
         self
     }
 
-    /// Sets or clear the value of [start_time][crate::model::Workstation::start_time].
+    /// Sets or clears the value of [start_time][crate::model::Workstation::start_time].
     pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2044,7 +2044,7 @@ impl Workstation {
         self
     }
 
-    /// Sets or clear the value of [delete_time][crate::model::Workstation::delete_time].
+    /// Sets or clears the value of [delete_time][crate::model::Workstation::delete_time].
     pub fn set_or_clear_delete_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2453,7 +2453,7 @@ impl CreateWorkstationClusterRequest {
         self
     }
 
-    /// Sets or clear the value of [workstation_cluster][crate::model::CreateWorkstationClusterRequest::workstation_cluster].
+    /// Sets or clears the value of [workstation_cluster][crate::model::CreateWorkstationClusterRequest::workstation_cluster].
     pub fn set_or_clear_workstation_cluster<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::WorkstationCluster>,
@@ -2519,7 +2519,7 @@ impl UpdateWorkstationClusterRequest {
         self
     }
 
-    /// Sets or clear the value of [workstation_cluster][crate::model::UpdateWorkstationClusterRequest::workstation_cluster].
+    /// Sets or clears the value of [workstation_cluster][crate::model::UpdateWorkstationClusterRequest::workstation_cluster].
     pub fn set_or_clear_workstation_cluster<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::WorkstationCluster>,
@@ -2537,7 +2537,7 @@ impl UpdateWorkstationClusterRequest {
         self
     }
 
-    /// Sets or clear the value of [update_mask][crate::model::UpdateWorkstationClusterRequest::update_mask].
+    /// Sets or clears the value of [update_mask][crate::model::UpdateWorkstationClusterRequest::update_mask].
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -2979,7 +2979,7 @@ impl CreateWorkstationConfigRequest {
         self
     }
 
-    /// Sets or clear the value of [workstation_config][crate::model::CreateWorkstationConfigRequest::workstation_config].
+    /// Sets or clears the value of [workstation_config][crate::model::CreateWorkstationConfigRequest::workstation_config].
     pub fn set_or_clear_workstation_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::WorkstationConfig>,
@@ -3045,7 +3045,7 @@ impl UpdateWorkstationConfigRequest {
         self
     }
 
-    /// Sets or clear the value of [workstation_config][crate::model::UpdateWorkstationConfigRequest::workstation_config].
+    /// Sets or clears the value of [workstation_config][crate::model::UpdateWorkstationConfigRequest::workstation_config].
     pub fn set_or_clear_workstation_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::WorkstationConfig>,
@@ -3063,7 +3063,7 @@ impl UpdateWorkstationConfigRequest {
         self
     }
 
-    /// Sets or clear the value of [update_mask][crate::model::UpdateWorkstationConfigRequest::update_mask].
+    /// Sets or clears the value of [update_mask][crate::model::UpdateWorkstationConfigRequest::update_mask].
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -3502,7 +3502,7 @@ impl CreateWorkstationRequest {
         self
     }
 
-    /// Sets or clear the value of [workstation][crate::model::CreateWorkstationRequest::workstation].
+    /// Sets or clears the value of [workstation][crate::model::CreateWorkstationRequest::workstation].
     pub fn set_or_clear_workstation<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Workstation>,
@@ -3568,7 +3568,7 @@ impl UpdateWorkstationRequest {
         self
     }
 
-    /// Sets or clear the value of [workstation][crate::model::UpdateWorkstationRequest::workstation].
+    /// Sets or clears the value of [workstation][crate::model::UpdateWorkstationRequest::workstation].
     pub fn set_or_clear_workstation<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Workstation>,
@@ -3586,7 +3586,7 @@ impl UpdateWorkstationRequest {
         self
     }
 
-    /// Sets or clear the value of [update_mask][crate::model::UpdateWorkstationRequest::update_mask].
+    /// Sets or clears the value of [update_mask][crate::model::UpdateWorkstationRequest::update_mask].
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -3946,7 +3946,7 @@ impl GenerateAccessTokenResponse {
         self
     }
 
-    /// Sets or clear the value of [expire_time][crate::model::GenerateAccessTokenResponse::expire_time].
+    /// Sets or clears the value of [expire_time][crate::model::GenerateAccessTokenResponse::expire_time].
     pub fn set_or_clear_expire_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4015,7 +4015,7 @@ impl OperationMetadata {
         self
     }
 
-    /// Sets or clear the value of [create_time][crate::model::OperationMetadata::create_time].
+    /// Sets or clears the value of [create_time][crate::model::OperationMetadata::create_time].
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4033,7 +4033,7 @@ impl OperationMetadata {
         self
     }
 
-    /// Sets or clear the value of [end_time][crate::model::OperationMetadata::end_time].
+    /// Sets or clears the value of [end_time][crate::model::OperationMetadata::end_time].
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,

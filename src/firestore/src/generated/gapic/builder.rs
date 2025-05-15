@@ -131,7 +131,7 @@ pub mod firestore {
             self
         }
 
-        /// Sets or clear the value of [mask][crate::model::GetDocumentRequest::mask].
+        /// Sets or clears the value of [mask][crate::model::GetDocumentRequest::mask].
         pub fn set_or_clear_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::DocumentMask>,
@@ -300,7 +300,7 @@ pub mod firestore {
             self
         }
 
-        /// Sets or clear the value of [mask][crate::model::ListDocumentsRequest::mask].
+        /// Sets or clears the value of [mask][crate::model::ListDocumentsRequest::mask].
         pub fn set_or_clear_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::DocumentMask>,
@@ -417,7 +417,7 @@ pub mod firestore {
             self
         }
 
-        /// Sets or clear the value of [document][crate::model::UpdateDocumentRequest::document].
+        /// Sets or clears the value of [document][crate::model::UpdateDocumentRequest::document].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_document<T>(mut self, v: std::option::Option<T>) -> Self
@@ -437,7 +437,7 @@ pub mod firestore {
             self
         }
 
-        /// Sets or clear the value of [update_mask][crate::model::UpdateDocumentRequest::update_mask].
+        /// Sets or clears the value of [update_mask][crate::model::UpdateDocumentRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::DocumentMask>,
@@ -455,7 +455,7 @@ pub mod firestore {
             self
         }
 
-        /// Sets or clear the value of [mask][crate::model::UpdateDocumentRequest::mask].
+        /// Sets or clears the value of [mask][crate::model::UpdateDocumentRequest::mask].
         pub fn set_or_clear_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::DocumentMask>,
@@ -473,7 +473,7 @@ pub mod firestore {
             self
         }
 
-        /// Sets or clear the value of [current_document][crate::model::UpdateDocumentRequest::current_document].
+        /// Sets or clears the value of [current_document][crate::model::UpdateDocumentRequest::current_document].
         pub fn set_or_clear_current_document<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Precondition>,
@@ -553,7 +553,7 @@ pub mod firestore {
             self
         }
 
-        /// Sets or clear the value of [current_document][crate::model::DeleteDocumentRequest::current_document].
+        /// Sets or clears the value of [current_document][crate::model::DeleteDocumentRequest::current_document].
         pub fn set_or_clear_current_document<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Precondition>,
@@ -636,7 +636,7 @@ pub mod firestore {
             self
         }
 
-        /// Sets or clear the value of [options][crate::model::BeginTransactionRequest::options].
+        /// Sets or clears the value of [options][crate::model::BeginTransactionRequest::options].
         pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::TransactionOptions>,
@@ -1231,7 +1231,7 @@ pub mod firestore {
             self
         }
 
-        /// Sets or clear the value of [document][crate::model::CreateDocumentRequest::document].
+        /// Sets or clears the value of [document][crate::model::CreateDocumentRequest::document].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_document<T>(mut self, v: std::option::Option<T>) -> Self
@@ -1251,7 +1251,7 @@ pub mod firestore {
             self
         }
 
-        /// Sets or clear the value of [mask][crate::model::CreateDocumentRequest::mask].
+        /// Sets or clears the value of [mask][crate::model::CreateDocumentRequest::mask].
         pub fn set_or_clear_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::DocumentMask>,

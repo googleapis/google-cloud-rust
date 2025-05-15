@@ -216,7 +216,7 @@ impl Aggregation {
         self
     }
 
-    /// Sets or clear the value of [alignment_period][crate::model::Aggregation::alignment_period].
+    /// Sets or clears the value of [alignment_period][crate::model::Aggregation::alignment_period].
     pub fn set_or_clear_alignment_period<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -943,7 +943,7 @@ impl PickTimeSeriesFilter {
         self
     }
 
-    /// Sets or clear the value of [interval][crate::model::PickTimeSeriesFilter::interval].
+    /// Sets or clears the value of [interval][crate::model::PickTimeSeriesFilter::interval].
     pub fn set_or_clear_interval<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<gtype::model::Interval>,
@@ -1993,7 +1993,7 @@ impl CreateDashboardRequest {
         self
     }
 
-    /// Sets or clear the value of [dashboard][crate::model::CreateDashboardRequest::dashboard].
+    /// Sets or clears the value of [dashboard][crate::model::CreateDashboardRequest::dashboard].
     pub fn set_or_clear_dashboard<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Dashboard>,
@@ -2243,7 +2243,7 @@ impl UpdateDashboardRequest {
         self
     }
 
-    /// Sets or clear the value of [dashboard][crate::model::UpdateDashboardRequest::dashboard].
+    /// Sets or clears the value of [dashboard][crate::model::UpdateDashboardRequest::dashboard].
     pub fn set_or_clear_dashboard<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Dashboard>,
@@ -2582,7 +2582,7 @@ pub mod mosaic_layout {
             self
         }
 
-        /// Sets or clear the value of [widget][crate::model::mosaic_layout::Tile::widget].
+        /// Sets or clears the value of [widget][crate::model::mosaic_layout::Tile::widget].
         pub fn set_or_clear_widget<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Widget>,
@@ -3107,7 +3107,7 @@ impl TimeSeriesFilter {
         self
     }
 
-    /// Sets or clear the value of [aggregation][crate::model::TimeSeriesFilter::aggregation].
+    /// Sets or clears the value of [aggregation][crate::model::TimeSeriesFilter::aggregation].
     pub fn set_or_clear_aggregation<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Aggregation>,
@@ -3125,7 +3125,7 @@ impl TimeSeriesFilter {
         self
     }
 
-    /// Sets or clear the value of [secondary_aggregation][crate::model::TimeSeriesFilter::secondary_aggregation].
+    /// Sets or clears the value of [secondary_aggregation][crate::model::TimeSeriesFilter::secondary_aggregation].
     pub fn set_or_clear_secondary_aggregation<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Aggregation>,
@@ -3284,7 +3284,7 @@ impl TimeSeriesFilterRatio {
         self
     }
 
-    /// Sets or clear the value of [numerator][crate::model::TimeSeriesFilterRatio::numerator].
+    /// Sets or clears the value of [numerator][crate::model::TimeSeriesFilterRatio::numerator].
     pub fn set_or_clear_numerator<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::time_series_filter_ratio::RatioPart>,
@@ -3302,7 +3302,7 @@ impl TimeSeriesFilterRatio {
         self
     }
 
-    /// Sets or clear the value of [denominator][crate::model::TimeSeriesFilterRatio::denominator].
+    /// Sets or clears the value of [denominator][crate::model::TimeSeriesFilterRatio::denominator].
     pub fn set_or_clear_denominator<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::time_series_filter_ratio::RatioPart>,
@@ -3320,7 +3320,7 @@ impl TimeSeriesFilterRatio {
         self
     }
 
-    /// Sets or clear the value of [secondary_aggregation][crate::model::TimeSeriesFilterRatio::secondary_aggregation].
+    /// Sets or clears the value of [secondary_aggregation][crate::model::TimeSeriesFilterRatio::secondary_aggregation].
     pub fn set_or_clear_secondary_aggregation<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Aggregation>,
@@ -3468,7 +3468,7 @@ pub mod time_series_filter_ratio {
             self
         }
 
-        /// Sets or clear the value of [aggregation][crate::model::time_series_filter_ratio::RatioPart::aggregation].
+        /// Sets or clears the value of [aggregation][crate::model::time_series_filter_ratio::RatioPart::aggregation].
         pub fn set_or_clear_aggregation<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Aggregation>,
@@ -4099,7 +4099,7 @@ pub mod pie_chart {
             self
         }
 
-        /// Sets or clear the value of [time_series_query][crate::model::pie_chart::PieChartDataSet::time_series_query].
+        /// Sets or clears the value of [time_series_query][crate::model::pie_chart::PieChartDataSet::time_series_query].
         pub fn set_or_clear_time_series_query<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::TimeSeriesQuery>,
@@ -4126,7 +4126,7 @@ pub mod pie_chart {
             self
         }
 
-        /// Sets or clear the value of [min_alignment_period][crate::model::pie_chart::PieChartDataSet::min_alignment_period].
+        /// Sets or clears the value of [min_alignment_period][crate::model::pie_chart::PieChartDataSet::min_alignment_period].
         pub fn set_or_clear_min_alignment_period<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
@@ -4351,7 +4351,7 @@ impl Scorecard {
         self
     }
 
-    /// Sets or clear the value of [time_series_query][crate::model::Scorecard::time_series_query].
+    /// Sets or clears the value of [time_series_query][crate::model::Scorecard::time_series_query].
     pub fn set_or_clear_time_series_query<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::TimeSeriesQuery>,
@@ -4575,7 +4575,7 @@ pub mod scorecard {
             self
         }
 
-        /// Sets or clear the value of [min_alignment_period][crate::model::scorecard::SparkChartView::min_alignment_period].
+        /// Sets or clears the value of [min_alignment_period][crate::model::scorecard::SparkChartView::min_alignment_period].
         pub fn set_or_clear_min_alignment_period<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
@@ -4795,7 +4795,7 @@ pub mod time_series_table {
             self
         }
 
-        /// Sets or clear the value of [time_series_query][crate::model::time_series_table::TableDataSet::time_series_query].
+        /// Sets or clears the value of [time_series_query][crate::model::time_series_table::TableDataSet::time_series_query].
         pub fn set_or_clear_time_series_query<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::TimeSeriesQuery>,
@@ -4822,7 +4822,7 @@ pub mod time_series_table {
             self
         }
 
-        /// Sets or clear the value of [min_alignment_period][crate::model::time_series_table::TableDataSet::min_alignment_period].
+        /// Sets or clears the value of [min_alignment_period][crate::model::time_series_table::TableDataSet::min_alignment_period].
         pub fn set_or_clear_min_alignment_period<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
@@ -4840,7 +4840,7 @@ pub mod time_series_table {
             self
         }
 
-        /// Sets or clear the value of [table_display_options][crate::model::time_series_table::TableDataSet::table_display_options].
+        /// Sets or clears the value of [table_display_options][crate::model::time_series_table::TableDataSet::table_display_options].
         pub fn set_or_clear_table_display_options<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::TableDisplayOptions>,
@@ -5118,7 +5118,7 @@ impl Text {
         self
     }
 
-    /// Sets or clear the value of [style][crate::model::Text::style].
+    /// Sets or clears the value of [style][crate::model::Text::style].
     pub fn set_or_clear_style<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::text::TextStyle>,
@@ -6709,7 +6709,7 @@ impl XyChart {
         self
     }
 
-    /// Sets or clear the value of [timeshift_duration][crate::model::XyChart::timeshift_duration].
+    /// Sets or clears the value of [timeshift_duration][crate::model::XyChart::timeshift_duration].
     pub fn set_or_clear_timeshift_duration<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -6738,7 +6738,7 @@ impl XyChart {
         self
     }
 
-    /// Sets or clear the value of [x_axis][crate::model::XyChart::x_axis].
+    /// Sets or clears the value of [x_axis][crate::model::XyChart::x_axis].
     pub fn set_or_clear_x_axis<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::xy_chart::Axis>,
@@ -6756,7 +6756,7 @@ impl XyChart {
         self
     }
 
-    /// Sets or clear the value of [y_axis][crate::model::XyChart::y_axis].
+    /// Sets or clears the value of [y_axis][crate::model::XyChart::y_axis].
     pub fn set_or_clear_y_axis<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::xy_chart::Axis>,
@@ -6774,7 +6774,7 @@ impl XyChart {
         self
     }
 
-    /// Sets or clear the value of [y2_axis][crate::model::XyChart::y2_axis].
+    /// Sets or clears the value of [y2_axis][crate::model::XyChart::y2_axis].
     pub fn set_or_clear_y2_axis<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::xy_chart::Axis>,
@@ -6792,7 +6792,7 @@ impl XyChart {
         self
     }
 
-    /// Sets or clear the value of [chart_options][crate::model::XyChart::chart_options].
+    /// Sets or clears the value of [chart_options][crate::model::XyChart::chart_options].
     pub fn set_or_clear_chart_options<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ChartOptions>,
@@ -6862,7 +6862,7 @@ pub mod xy_chart {
             self
         }
 
-        /// Sets or clear the value of [time_series_query][crate::model::xy_chart::DataSet::time_series_query].
+        /// Sets or clears the value of [time_series_query][crate::model::xy_chart::DataSet::time_series_query].
         pub fn set_or_clear_time_series_query<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::TimeSeriesQuery>,
@@ -6898,7 +6898,7 @@ pub mod xy_chart {
             self
         }
 
-        /// Sets or clear the value of [min_alignment_period][crate::model::xy_chart::DataSet::min_alignment_period].
+        /// Sets or clears the value of [min_alignment_period][crate::model::xy_chart::DataSet::min_alignment_period].
         pub fn set_or_clear_min_alignment_period<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Duration>,

@@ -294,7 +294,7 @@ pub mod cluster_manager {
             self
         }
 
-        /// Sets or clear the value of [cluster][crate::model::CreateClusterRequest::cluster].
+        /// Sets or clears the value of [cluster][crate::model::CreateClusterRequest::cluster].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_cluster<T>(mut self, v: std::option::Option<T>) -> Self
@@ -397,7 +397,7 @@ pub mod cluster_manager {
             self
         }
 
-        /// Sets or clear the value of [update][crate::model::UpdateClusterRequest::update].
+        /// Sets or clears the value of [update][crate::model::UpdateClusterRequest::update].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_update<T>(mut self, v: std::option::Option<T>) -> Self
@@ -538,7 +538,7 @@ pub mod cluster_manager {
             self
         }
 
-        /// Sets or clear the value of [workload_metadata_config][crate::model::UpdateNodePoolRequest::workload_metadata_config].
+        /// Sets or clears the value of [workload_metadata_config][crate::model::UpdateNodePoolRequest::workload_metadata_config].
         pub fn set_or_clear_workload_metadata_config<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::WorkloadMetadataConfig>,
@@ -556,7 +556,7 @@ pub mod cluster_manager {
             self
         }
 
-        /// Sets or clear the value of [upgrade_settings][crate::model::UpdateNodePoolRequest::upgrade_settings].
+        /// Sets or clears the value of [upgrade_settings][crate::model::UpdateNodePoolRequest::upgrade_settings].
         pub fn set_or_clear_upgrade_settings<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::node_pool::UpgradeSettings>,
@@ -574,7 +574,7 @@ pub mod cluster_manager {
             self
         }
 
-        /// Sets or clear the value of [tags][crate::model::UpdateNodePoolRequest::tags].
+        /// Sets or clears the value of [tags][crate::model::UpdateNodePoolRequest::tags].
         pub fn set_or_clear_tags<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::NetworkTags>,
@@ -592,7 +592,7 @@ pub mod cluster_manager {
             self
         }
 
-        /// Sets or clear the value of [taints][crate::model::UpdateNodePoolRequest::taints].
+        /// Sets or clears the value of [taints][crate::model::UpdateNodePoolRequest::taints].
         pub fn set_or_clear_taints<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::NodeTaints>,
@@ -610,7 +610,7 @@ pub mod cluster_manager {
             self
         }
 
-        /// Sets or clear the value of [labels][crate::model::UpdateNodePoolRequest::labels].
+        /// Sets or clears the value of [labels][crate::model::UpdateNodePoolRequest::labels].
         pub fn set_or_clear_labels<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::NodeLabels>,
@@ -628,7 +628,7 @@ pub mod cluster_manager {
             self
         }
 
-        /// Sets or clear the value of [linux_node_config][crate::model::UpdateNodePoolRequest::linux_node_config].
+        /// Sets or clears the value of [linux_node_config][crate::model::UpdateNodePoolRequest::linux_node_config].
         pub fn set_or_clear_linux_node_config<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::LinuxNodeConfig>,
@@ -646,7 +646,7 @@ pub mod cluster_manager {
             self
         }
 
-        /// Sets or clear the value of [kubelet_config][crate::model::UpdateNodePoolRequest::kubelet_config].
+        /// Sets or clears the value of [kubelet_config][crate::model::UpdateNodePoolRequest::kubelet_config].
         pub fn set_or_clear_kubelet_config<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::NodeKubeletConfig>,
@@ -664,7 +664,7 @@ pub mod cluster_manager {
             self
         }
 
-        /// Sets or clear the value of [node_network_config][crate::model::UpdateNodePoolRequest::node_network_config].
+        /// Sets or clears the value of [node_network_config][crate::model::UpdateNodePoolRequest::node_network_config].
         pub fn set_or_clear_node_network_config<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::NodeNetworkConfig>,
@@ -682,7 +682,7 @@ pub mod cluster_manager {
             self
         }
 
-        /// Sets or clear the value of [gcfs_config][crate::model::UpdateNodePoolRequest::gcfs_config].
+        /// Sets or clears the value of [gcfs_config][crate::model::UpdateNodePoolRequest::gcfs_config].
         pub fn set_or_clear_gcfs_config<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::GcfsConfig>,
@@ -700,7 +700,7 @@ pub mod cluster_manager {
             self
         }
 
-        /// Sets or clear the value of [confidential_nodes][crate::model::UpdateNodePoolRequest::confidential_nodes].
+        /// Sets or clears the value of [confidential_nodes][crate::model::UpdateNodePoolRequest::confidential_nodes].
         pub fn set_or_clear_confidential_nodes<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::ConfidentialNodes>,
@@ -718,7 +718,7 @@ pub mod cluster_manager {
             self
         }
 
-        /// Sets or clear the value of [gvnic][crate::model::UpdateNodePoolRequest::gvnic].
+        /// Sets or clears the value of [gvnic][crate::model::UpdateNodePoolRequest::gvnic].
         pub fn set_or_clear_gvnic<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::VirtualNIC>,
@@ -742,7 +742,7 @@ pub mod cluster_manager {
             self
         }
 
-        /// Sets or clear the value of [fast_socket][crate::model::UpdateNodePoolRequest::fast_socket].
+        /// Sets or clears the value of [fast_socket][crate::model::UpdateNodePoolRequest::fast_socket].
         pub fn set_or_clear_fast_socket<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::FastSocket>,
@@ -760,7 +760,7 @@ pub mod cluster_manager {
             self
         }
 
-        /// Sets or clear the value of [logging_config][crate::model::UpdateNodePoolRequest::logging_config].
+        /// Sets or clears the value of [logging_config][crate::model::UpdateNodePoolRequest::logging_config].
         pub fn set_or_clear_logging_config<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::NodePoolLoggingConfig>,
@@ -778,7 +778,7 @@ pub mod cluster_manager {
             self
         }
 
-        /// Sets or clear the value of [resource_labels][crate::model::UpdateNodePoolRequest::resource_labels].
+        /// Sets or clears the value of [resource_labels][crate::model::UpdateNodePoolRequest::resource_labels].
         pub fn set_or_clear_resource_labels<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::ResourceLabels>,
@@ -796,7 +796,7 @@ pub mod cluster_manager {
             self
         }
 
-        /// Sets or clear the value of [windows_node_config][crate::model::UpdateNodePoolRequest::windows_node_config].
+        /// Sets or clears the value of [windows_node_config][crate::model::UpdateNodePoolRequest::windows_node_config].
         pub fn set_or_clear_windows_node_config<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::WindowsNodeConfig>,
@@ -843,7 +843,7 @@ pub mod cluster_manager {
             self
         }
 
-        /// Sets or clear the value of [resource_manager_tags][crate::model::UpdateNodePoolRequest::resource_manager_tags].
+        /// Sets or clears the value of [resource_manager_tags][crate::model::UpdateNodePoolRequest::resource_manager_tags].
         pub fn set_or_clear_resource_manager_tags<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::ResourceManagerTags>,
@@ -861,7 +861,7 @@ pub mod cluster_manager {
             self
         }
 
-        /// Sets or clear the value of [containerd_config][crate::model::UpdateNodePoolRequest::containerd_config].
+        /// Sets or clears the value of [containerd_config][crate::model::UpdateNodePoolRequest::containerd_config].
         pub fn set_or_clear_containerd_config<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::ContainerdConfig>,
@@ -879,7 +879,7 @@ pub mod cluster_manager {
             self
         }
 
-        /// Sets or clear the value of [queued_provisioning][crate::model::UpdateNodePoolRequest::queued_provisioning].
+        /// Sets or clears the value of [queued_provisioning][crate::model::UpdateNodePoolRequest::queued_provisioning].
         pub fn set_or_clear_queued_provisioning<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::node_pool::QueuedProvisioning>,
@@ -995,7 +995,7 @@ pub mod cluster_manager {
             self
         }
 
-        /// Sets or clear the value of [autoscaling][crate::model::SetNodePoolAutoscalingRequest::autoscaling].
+        /// Sets or clears the value of [autoscaling][crate::model::SetNodePoolAutoscalingRequest::autoscaling].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_autoscaling<T>(mut self, v: std::option::Option<T>) -> Self
@@ -1282,7 +1282,7 @@ pub mod cluster_manager {
             self
         }
 
-        /// Sets or clear the value of [addons_config][crate::model::SetAddonsConfigRequest::addons_config].
+        /// Sets or clears the value of [addons_config][crate::model::SetAddonsConfigRequest::addons_config].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_addons_config<T>(mut self, v: std::option::Option<T>) -> Self
@@ -1579,7 +1579,7 @@ pub mod cluster_manager {
             self
         }
 
-        /// Sets or clear the value of [update][crate::model::SetMasterAuthRequest::update].
+        /// Sets or clears the value of [update][crate::model::SetMasterAuthRequest::update].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_update<T>(mut self, v: std::option::Option<T>) -> Self
@@ -2302,7 +2302,7 @@ pub mod cluster_manager {
             self
         }
 
-        /// Sets or clear the value of [node_pool][crate::model::CreateNodePoolRequest::node_pool].
+        /// Sets or clears the value of [node_pool][crate::model::CreateNodePoolRequest::node_pool].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_node_pool<T>(mut self, v: std::option::Option<T>) -> Self
@@ -2667,7 +2667,7 @@ pub mod cluster_manager {
             self
         }
 
-        /// Sets or clear the value of [management][crate::model::SetNodePoolManagementRequest::management].
+        /// Sets or clears the value of [management][crate::model::SetNodePoolManagementRequest::management].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_management<T>(mut self, v: std::option::Option<T>) -> Self
@@ -3232,7 +3232,7 @@ pub mod cluster_manager {
             self
         }
 
-        /// Sets or clear the value of [network_policy][crate::model::SetNetworkPolicyRequest::network_policy].
+        /// Sets or clears the value of [network_policy][crate::model::SetNetworkPolicyRequest::network_policy].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_network_policy<T>(mut self, v: std::option::Option<T>) -> Self
@@ -3341,7 +3341,7 @@ pub mod cluster_manager {
             self
         }
 
-        /// Sets or clear the value of [maintenance_policy][crate::model::SetMaintenancePolicyRequest::maintenance_policy].
+        /// Sets or clears the value of [maintenance_policy][crate::model::SetMaintenancePolicyRequest::maintenance_policy].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_maintenance_policy<T>(mut self, v: std::option::Option<T>) -> Self

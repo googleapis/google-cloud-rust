@@ -376,7 +376,7 @@ pub mod cross_network_automation_service {
             self
         }
 
-        /// Sets or clear the value of [service_connection_map][crate::model::CreateServiceConnectionMapRequest::service_connection_map].
+        /// Sets or clears the value of [service_connection_map][crate::model::CreateServiceConnectionMapRequest::service_connection_map].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_service_connection_map<T>(mut self, v: std::option::Option<T>) -> Self
@@ -503,7 +503,7 @@ pub mod cross_network_automation_service {
             self
         }
 
-        /// Sets or clear the value of [update_mask][crate::model::UpdateServiceConnectionMapRequest::update_mask].
+        /// Sets or clears the value of [update_mask][crate::model::UpdateServiceConnectionMapRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
@@ -523,7 +523,7 @@ pub mod cross_network_automation_service {
             self
         }
 
-        /// Sets or clear the value of [service_connection_map][crate::model::UpdateServiceConnectionMapRequest::service_connection_map].
+        /// Sets or clears the value of [service_connection_map][crate::model::UpdateServiceConnectionMapRequest::service_connection_map].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_service_connection_map<T>(mut self, v: std::option::Option<T>) -> Self
@@ -663,7 +663,7 @@ pub mod cross_network_automation_service {
             self
         }
 
-        /// Sets or clear the value of [etag][crate::model::DeleteServiceConnectionMapRequest::etag].
+        /// Sets or clears the value of [etag][crate::model::DeleteServiceConnectionMapRequest::etag].
         pub fn set_or_clear_etag<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<std::string::String>,
@@ -991,7 +991,7 @@ pub mod cross_network_automation_service {
             self
         }
 
-        /// Sets or clear the value of [service_connection_policy][crate::model::CreateServiceConnectionPolicyRequest::service_connection_policy].
+        /// Sets or clears the value of [service_connection_policy][crate::model::CreateServiceConnectionPolicyRequest::service_connection_policy].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_service_connection_policy<T>(
@@ -1121,7 +1121,7 @@ pub mod cross_network_automation_service {
             self
         }
 
-        /// Sets or clear the value of [update_mask][crate::model::UpdateServiceConnectionPolicyRequest::update_mask].
+        /// Sets or clears the value of [update_mask][crate::model::UpdateServiceConnectionPolicyRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
@@ -1141,7 +1141,7 @@ pub mod cross_network_automation_service {
             self
         }
 
-        /// Sets or clear the value of [service_connection_policy][crate::model::UpdateServiceConnectionPolicyRequest::service_connection_policy].
+        /// Sets or clears the value of [service_connection_policy][crate::model::UpdateServiceConnectionPolicyRequest::service_connection_policy].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_service_connection_policy<T>(
@@ -1284,7 +1284,7 @@ pub mod cross_network_automation_service {
             self
         }
 
-        /// Sets or clear the value of [etag][crate::model::DeleteServiceConnectionPolicyRequest::etag].
+        /// Sets or clears the value of [etag][crate::model::DeleteServiceConnectionPolicyRequest::etag].
         pub fn set_or_clear_etag<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<std::string::String>,
@@ -1581,7 +1581,7 @@ pub mod cross_network_automation_service {
             self
         }
 
-        /// Sets or clear the value of [update_mask][crate::model::UpdateServiceClassRequest::update_mask].
+        /// Sets or clears the value of [update_mask][crate::model::UpdateServiceClassRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
@@ -1601,7 +1601,7 @@ pub mod cross_network_automation_service {
             self
         }
 
-        /// Sets or clear the value of [service_class][crate::model::UpdateServiceClassRequest::service_class].
+        /// Sets or clears the value of [service_class][crate::model::UpdateServiceClassRequest::service_class].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_service_class<T>(mut self, v: std::option::Option<T>) -> Self
@@ -1739,7 +1739,7 @@ pub mod cross_network_automation_service {
             self
         }
 
-        /// Sets or clear the value of [etag][crate::model::DeleteServiceClassRequest::etag].
+        /// Sets or clears the value of [etag][crate::model::DeleteServiceClassRequest::etag].
         pub fn set_or_clear_etag<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<std::string::String>,
@@ -2067,7 +2067,7 @@ pub mod cross_network_automation_service {
             self
         }
 
-        /// Sets or clear the value of [service_connection_token][crate::model::CreateServiceConnectionTokenRequest::service_connection_token].
+        /// Sets or clears the value of [service_connection_token][crate::model::CreateServiceConnectionTokenRequest::service_connection_token].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_service_connection_token<T>(mut self, v: std::option::Option<T>) -> Self
@@ -2207,7 +2207,7 @@ pub mod cross_network_automation_service {
             self
         }
 
-        /// Sets or clear the value of [etag][crate::model::DeleteServiceConnectionTokenRequest::etag].
+        /// Sets or clears the value of [etag][crate::model::DeleteServiceConnectionTokenRequest::etag].
         pub fn set_or_clear_etag<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<std::string::String>,
@@ -2458,7 +2458,7 @@ pub mod cross_network_automation_service {
             self
         }
 
-        /// Sets or clear the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        /// Sets or clears the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
@@ -2478,7 +2478,7 @@ pub mod cross_network_automation_service {
             self
         }
 
-        /// Sets or clear the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        /// Sets or clears the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
@@ -2558,7 +2558,7 @@ pub mod cross_network_automation_service {
             self
         }
 
-        /// Sets or clear the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        /// Sets or clears the value of [options][iam_v1::model::GetIamPolicyRequest::options].
         pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
@@ -3296,7 +3296,7 @@ pub mod hub_service {
             self
         }
 
-        /// Sets or clear the value of [hub][crate::model::CreateHubRequest::hub].
+        /// Sets or clears the value of [hub][crate::model::CreateHubRequest::hub].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_hub<T>(mut self, v: std::option::Option<T>) -> Self
@@ -3415,7 +3415,7 @@ pub mod hub_service {
             self
         }
 
-        /// Sets or clear the value of [update_mask][crate::model::UpdateHubRequest::update_mask].
+        /// Sets or clears the value of [update_mask][crate::model::UpdateHubRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
@@ -3435,7 +3435,7 @@ pub mod hub_service {
             self
         }
 
-        /// Sets or clear the value of [hub][crate::model::UpdateHubRequest::hub].
+        /// Sets or clears the value of [hub][crate::model::UpdateHubRequest::hub].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_hub<T>(mut self, v: std::option::Option<T>) -> Self
@@ -4111,7 +4111,7 @@ pub mod hub_service {
             self
         }
 
-        /// Sets or clear the value of [spoke][crate::model::CreateSpokeRequest::spoke].
+        /// Sets or clears the value of [spoke][crate::model::CreateSpokeRequest::spoke].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_spoke<T>(mut self, v: std::option::Option<T>) -> Self
@@ -4230,7 +4230,7 @@ pub mod hub_service {
             self
         }
 
-        /// Sets or clear the value of [update_mask][crate::model::UpdateSpokeRequest::update_mask].
+        /// Sets or clears the value of [update_mask][crate::model::UpdateSpokeRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
@@ -4250,7 +4250,7 @@ pub mod hub_service {
             self
         }
 
-        /// Sets or clear the value of [spoke][crate::model::UpdateSpokeRequest::spoke].
+        /// Sets or clears the value of [spoke][crate::model::UpdateSpokeRequest::spoke].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_spoke<T>(mut self, v: std::option::Option<T>) -> Self
@@ -5512,7 +5512,7 @@ pub mod hub_service {
             self
         }
 
-        /// Sets or clear the value of [update_mask][crate::model::UpdateGroupRequest::update_mask].
+        /// Sets or clears the value of [update_mask][crate::model::UpdateGroupRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
@@ -5532,7 +5532,7 @@ pub mod hub_service {
             self
         }
 
-        /// Sets or clear the value of [group][crate::model::UpdateGroupRequest::group].
+        /// Sets or clears the value of [group][crate::model::UpdateGroupRequest::group].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_group<T>(mut self, v: std::option::Option<T>) -> Self
@@ -5791,7 +5791,7 @@ pub mod hub_service {
             self
         }
 
-        /// Sets or clear the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        /// Sets or clears the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
@@ -5811,7 +5811,7 @@ pub mod hub_service {
             self
         }
 
-        /// Sets or clear the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        /// Sets or clears the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
@@ -5891,7 +5891,7 @@ pub mod hub_service {
             self
         }
 
-        /// Sets or clear the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        /// Sets or clears the value of [options][iam_v1::model::GetIamPolicyRequest::options].
         pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
@@ -6643,7 +6643,7 @@ pub mod policy_based_routing_service {
             self
         }
 
-        /// Sets or clear the value of [policy_based_route][crate::model::CreatePolicyBasedRouteRequest::policy_based_route].
+        /// Sets or clears the value of [policy_based_route][crate::model::CreatePolicyBasedRouteRequest::policy_based_route].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_policy_based_route<T>(mut self, v: std::option::Option<T>) -> Self
@@ -7014,7 +7014,7 @@ pub mod policy_based_routing_service {
             self
         }
 
-        /// Sets or clear the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        /// Sets or clears the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
@@ -7034,7 +7034,7 @@ pub mod policy_based_routing_service {
             self
         }
 
-        /// Sets or clear the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        /// Sets or clears the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
@@ -7114,7 +7114,7 @@ pub mod policy_based_routing_service {
             self
         }
 
-        /// Sets or clear the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        /// Sets or clears the value of [options][iam_v1::model::GetIamPolicyRequest::options].
         pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<iam_v1::model::GetPolicyOptions>,

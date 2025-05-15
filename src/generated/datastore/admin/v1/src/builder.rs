@@ -184,7 +184,7 @@ pub mod datastore_admin {
             self
         }
 
-        /// Sets or clear the value of [entity_filter][crate::model::ExportEntitiesRequest::entity_filter].
+        /// Sets or clears the value of [entity_filter][crate::model::ExportEntitiesRequest::entity_filter].
         pub fn set_or_clear_entity_filter<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::EntityFilter>,
@@ -333,7 +333,7 @@ pub mod datastore_admin {
             self
         }
 
-        /// Sets or clear the value of [entity_filter][crate::model::ImportEntitiesRequest::entity_filter].
+        /// Sets or clears the value of [entity_filter][crate::model::ImportEntitiesRequest::entity_filter].
         pub fn set_or_clear_entity_filter<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::EntityFilter>,
@@ -450,7 +450,7 @@ pub mod datastore_admin {
             self
         }
 
-        /// Sets or clear the value of [index][crate::model::CreateIndexRequest::index].
+        /// Sets or clears the value of [index][crate::model::CreateIndexRequest::index].
         pub fn set_or_clear_index<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Index>,

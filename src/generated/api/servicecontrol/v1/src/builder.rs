@@ -129,7 +129,7 @@ pub mod quota_controller {
             self
         }
 
-        /// Sets or clear the value of [allocate_operation][crate::model::AllocateQuotaRequest::allocate_operation].
+        /// Sets or clears the value of [allocate_operation][crate::model::AllocateQuotaRequest::allocate_operation].
         pub fn set_or_clear_allocate_operation<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::QuotaOperation>,
@@ -268,7 +268,7 @@ pub mod service_controller {
             self
         }
 
-        /// Sets or clear the value of [operation][crate::model::CheckRequest::operation].
+        /// Sets or clears the value of [operation][crate::model::CheckRequest::operation].
         pub fn set_or_clear_operation<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Operation>,

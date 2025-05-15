@@ -93,7 +93,7 @@ impl Inventory {
         self
     }
 
-    /// Sets or clear the value of [os_info][crate::model::Inventory::os_info].
+    /// Sets or clears the value of [os_info][crate::model::Inventory::os_info].
     pub fn set_or_clear_os_info<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::inventory::OsInfo>,
@@ -123,7 +123,7 @@ impl Inventory {
         self
     }
 
-    /// Sets or clear the value of [update_time][crate::model::Inventory::update_time].
+    /// Sets or clears the value of [update_time][crate::model::Inventory::update_time].
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -323,7 +323,7 @@ pub mod inventory {
             self
         }
 
-        /// Sets or clear the value of [create_time][crate::model::inventory::Item::create_time].
+        /// Sets or clears the value of [create_time][crate::model::inventory::Item::create_time].
         pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -341,7 +341,7 @@ pub mod inventory {
             self
         }
 
-        /// Sets or clear the value of [update_time][crate::model::inventory::Item::update_time].
+        /// Sets or clears the value of [update_time][crate::model::inventory::Item::update_time].
         pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -1370,7 +1370,7 @@ pub mod inventory {
             self
         }
 
-        /// Sets or clear the value of [last_deployment_change_time][crate::model::inventory::WindowsUpdatePackage::last_deployment_change_time].
+        /// Sets or clears the value of [last_deployment_change_time][crate::model::inventory::WindowsUpdatePackage::last_deployment_change_time].
         pub fn set_or_clear_last_deployment_change_time<T>(
             mut self,
             v: std::option::Option<T>,
@@ -1498,7 +1498,7 @@ pub mod inventory {
             self
         }
 
-        /// Sets or clear the value of [install_time][crate::model::inventory::WindowsQuickFixEngineeringPackage::install_time].
+        /// Sets or clears the value of [install_time][crate::model::inventory::WindowsQuickFixEngineeringPackage::install_time].
         pub fn set_or_clear_install_time<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -1586,7 +1586,7 @@ pub mod inventory {
             self
         }
 
-        /// Sets or clear the value of [install_date][crate::model::inventory::WindowsApplication::install_date].
+        /// Sets or clears the value of [install_date][crate::model::inventory::WindowsApplication::install_date].
         pub fn set_or_clear_install_date<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<gtype::model::Date>,
@@ -2803,7 +2803,7 @@ pub mod os_policy {
                     self
                 }
 
-                /// Sets or clear the value of [source][crate::model::os_policy::resource::package_resource::Deb::source].
+                /// Sets or clears the value of [source][crate::model::os_policy::resource::package_resource::Deb::source].
                 pub fn set_or_clear_source<T>(mut self, v: std::option::Option<T>) -> Self
                 where
                     T: std::convert::Into<crate::model::os_policy::resource::File>,
@@ -2899,7 +2899,7 @@ pub mod os_policy {
                     self
                 }
 
-                /// Sets or clear the value of [source][crate::model::os_policy::resource::package_resource::Rpm::source].
+                /// Sets or clears the value of [source][crate::model::os_policy::resource::package_resource::Rpm::source].
                 pub fn set_or_clear_source<T>(mut self, v: std::option::Option<T>) -> Self
                 where
                     T: std::convert::Into<crate::model::os_policy::resource::File>,
@@ -3070,7 +3070,7 @@ pub mod os_policy {
                     self
                 }
 
-                /// Sets or clear the value of [source][crate::model::os_policy::resource::package_resource::Msi::source].
+                /// Sets or clears the value of [source][crate::model::os_policy::resource::package_resource::Msi::source].
                 pub fn set_or_clear_source<T>(mut self, v: std::option::Option<T>) -> Self
                 where
                     T: std::convert::Into<crate::model::os_policy::resource::File>,
@@ -3999,7 +3999,7 @@ pub mod os_policy {
                 self
             }
 
-            /// Sets or clear the value of [validate][crate::model::os_policy::resource::ExecResource::validate].
+            /// Sets or clears the value of [validate][crate::model::os_policy::resource::ExecResource::validate].
             pub fn set_or_clear_validate<T>(mut self, v: std::option::Option<T>) -> Self
             where
                 T: std::convert::Into<crate::model::os_policy::resource::exec_resource::Exec>,
@@ -4017,7 +4017,7 @@ pub mod os_policy {
                 self
             }
 
-            /// Sets or clear the value of [enforce][crate::model::os_policy::resource::ExecResource::enforce].
+            /// Sets or clears the value of [enforce][crate::model::os_policy::resource::ExecResource::enforce].
             pub fn set_or_clear_enforce<T>(mut self, v: std::option::Option<T>) -> Self
             where
                 T: std::convert::Into<crate::model::os_policy::resource::exec_resource::Exec>,
@@ -5188,7 +5188,7 @@ impl OSPolicyAssignmentReport {
         self
     }
 
-    /// Sets or clear the value of [update_time][crate::model::OSPolicyAssignmentReport::update_time].
+    /// Sets or clears the value of [update_time][crate::model::OSPolicyAssignmentReport::update_time].
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -6125,7 +6125,7 @@ impl OSPolicyAssignment {
         self
     }
 
-    /// Sets or clear the value of [instance_filter][crate::model::OSPolicyAssignment::instance_filter].
+    /// Sets or clears the value of [instance_filter][crate::model::OSPolicyAssignment::instance_filter].
     pub fn set_or_clear_instance_filter<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::os_policy_assignment::InstanceFilter>,
@@ -6143,7 +6143,7 @@ impl OSPolicyAssignment {
         self
     }
 
-    /// Sets or clear the value of [rollout][crate::model::OSPolicyAssignment::rollout].
+    /// Sets or clears the value of [rollout][crate::model::OSPolicyAssignment::rollout].
     pub fn set_or_clear_rollout<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::os_policy_assignment::Rollout>,
@@ -6167,7 +6167,7 @@ impl OSPolicyAssignment {
         self
     }
 
-    /// Sets or clear the value of [revision_create_time][crate::model::OSPolicyAssignment::revision_create_time].
+    /// Sets or clears the value of [revision_create_time][crate::model::OSPolicyAssignment::revision_create_time].
     pub fn set_or_clear_revision_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -6467,7 +6467,7 @@ pub mod os_policy_assignment {
             self
         }
 
-        /// Sets or clear the value of [disruption_budget][crate::model::os_policy_assignment::Rollout::disruption_budget].
+        /// Sets or clears the value of [disruption_budget][crate::model::os_policy_assignment::Rollout::disruption_budget].
         pub fn set_or_clear_disruption_budget<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::FixedOrPercent>,
@@ -6485,7 +6485,7 @@ pub mod os_policy_assignment {
             self
         }
 
-        /// Sets or clear the value of [min_wait_duration][crate::model::os_policy_assignment::Rollout::min_wait_duration].
+        /// Sets or clears the value of [min_wait_duration][crate::model::os_policy_assignment::Rollout::min_wait_duration].
         pub fn set_or_clear_min_wait_duration<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
@@ -6725,7 +6725,7 @@ impl OSPolicyAssignmentOperationMetadata {
         self
     }
 
-    /// Sets or clear the value of [rollout_start_time][crate::model::OSPolicyAssignmentOperationMetadata::rollout_start_time].
+    /// Sets or clears the value of [rollout_start_time][crate::model::OSPolicyAssignmentOperationMetadata::rollout_start_time].
     pub fn set_or_clear_rollout_start_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -6743,7 +6743,7 @@ impl OSPolicyAssignmentOperationMetadata {
         self
     }
 
-    /// Sets or clear the value of [rollout_update_time][crate::model::OSPolicyAssignmentOperationMetadata::rollout_update_time].
+    /// Sets or clears the value of [rollout_update_time][crate::model::OSPolicyAssignmentOperationMetadata::rollout_update_time].
     pub fn set_or_clear_rollout_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -7100,7 +7100,7 @@ impl CreateOSPolicyAssignmentRequest {
         self
     }
 
-    /// Sets or clear the value of [os_policy_assignment][crate::model::CreateOSPolicyAssignmentRequest::os_policy_assignment].
+    /// Sets or clears the value of [os_policy_assignment][crate::model::CreateOSPolicyAssignmentRequest::os_policy_assignment].
     pub fn set_or_clear_os_policy_assignment<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::OSPolicyAssignment>,
@@ -7158,7 +7158,7 @@ impl UpdateOSPolicyAssignmentRequest {
         self
     }
 
-    /// Sets or clear the value of [os_policy_assignment][crate::model::UpdateOSPolicyAssignmentRequest::os_policy_assignment].
+    /// Sets or clears the value of [os_policy_assignment][crate::model::UpdateOSPolicyAssignmentRequest::os_policy_assignment].
     pub fn set_or_clear_os_policy_assignment<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::OSPolicyAssignment>,
@@ -7176,7 +7176,7 @@ impl UpdateOSPolicyAssignmentRequest {
         self
     }
 
-    /// Sets or clear the value of [update_mask][crate::model::UpdateOSPolicyAssignmentRequest::update_mask].
+    /// Sets or clears the value of [update_mask][crate::model::UpdateOSPolicyAssignmentRequest::update_mask].
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -7686,7 +7686,7 @@ impl PatchDeployment {
         self
     }
 
-    /// Sets or clear the value of [instance_filter][crate::model::PatchDeployment::instance_filter].
+    /// Sets or clears the value of [instance_filter][crate::model::PatchDeployment::instance_filter].
     pub fn set_or_clear_instance_filter<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::PatchInstanceFilter>,
@@ -7704,7 +7704,7 @@ impl PatchDeployment {
         self
     }
 
-    /// Sets or clear the value of [patch_config][crate::model::PatchDeployment::patch_config].
+    /// Sets or clears the value of [patch_config][crate::model::PatchDeployment::patch_config].
     pub fn set_or_clear_patch_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::PatchConfig>,
@@ -7722,7 +7722,7 @@ impl PatchDeployment {
         self
     }
 
-    /// Sets or clear the value of [duration][crate::model::PatchDeployment::duration].
+    /// Sets or clears the value of [duration][crate::model::PatchDeployment::duration].
     pub fn set_or_clear_duration<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -7740,7 +7740,7 @@ impl PatchDeployment {
         self
     }
 
-    /// Sets or clear the value of [create_time][crate::model::PatchDeployment::create_time].
+    /// Sets or clears the value of [create_time][crate::model::PatchDeployment::create_time].
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -7758,7 +7758,7 @@ impl PatchDeployment {
         self
     }
 
-    /// Sets or clear the value of [update_time][crate::model::PatchDeployment::update_time].
+    /// Sets or clears the value of [update_time][crate::model::PatchDeployment::update_time].
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -7776,7 +7776,7 @@ impl PatchDeployment {
         self
     }
 
-    /// Sets or clear the value of [last_execute_time][crate::model::PatchDeployment::last_execute_time].
+    /// Sets or clears the value of [last_execute_time][crate::model::PatchDeployment::last_execute_time].
     pub fn set_or_clear_last_execute_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -7794,7 +7794,7 @@ impl PatchDeployment {
         self
     }
 
-    /// Sets or clear the value of [rollout][crate::model::PatchDeployment::rollout].
+    /// Sets or clears the value of [rollout][crate::model::PatchDeployment::rollout].
     pub fn set_or_clear_rollout<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::PatchRollout>,
@@ -8077,7 +8077,7 @@ impl OneTimeSchedule {
         self
     }
 
-    /// Sets or clear the value of [execute_time][crate::model::OneTimeSchedule::execute_time].
+    /// Sets or clears the value of [execute_time][crate::model::OneTimeSchedule::execute_time].
     pub fn set_or_clear_execute_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -8152,7 +8152,7 @@ impl RecurringSchedule {
         self
     }
 
-    /// Sets or clear the value of [time_zone][crate::model::RecurringSchedule::time_zone].
+    /// Sets or clears the value of [time_zone][crate::model::RecurringSchedule::time_zone].
     pub fn set_or_clear_time_zone<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<gtype::model::TimeZone>,
@@ -8170,7 +8170,7 @@ impl RecurringSchedule {
         self
     }
 
-    /// Sets or clear the value of [start_time][crate::model::RecurringSchedule::start_time].
+    /// Sets or clears the value of [start_time][crate::model::RecurringSchedule::start_time].
     pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -8188,7 +8188,7 @@ impl RecurringSchedule {
         self
     }
 
-    /// Sets or clear the value of [end_time][crate::model::RecurringSchedule::end_time].
+    /// Sets or clears the value of [end_time][crate::model::RecurringSchedule::end_time].
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -8206,7 +8206,7 @@ impl RecurringSchedule {
         self
     }
 
-    /// Sets or clear the value of [time_of_day][crate::model::RecurringSchedule::time_of_day].
+    /// Sets or clears the value of [time_of_day][crate::model::RecurringSchedule::time_of_day].
     pub fn set_or_clear_time_of_day<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<gtype::model::TimeOfDay>,
@@ -8233,7 +8233,7 @@ impl RecurringSchedule {
         self
     }
 
-    /// Sets or clear the value of [last_execute_time][crate::model::RecurringSchedule::last_execute_time].
+    /// Sets or clears the value of [last_execute_time][crate::model::RecurringSchedule::last_execute_time].
     pub fn set_or_clear_last_execute_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -8251,7 +8251,7 @@ impl RecurringSchedule {
         self
     }
 
-    /// Sets or clear the value of [next_execute_time][crate::model::RecurringSchedule::next_execute_time].
+    /// Sets or clears the value of [next_execute_time][crate::model::RecurringSchedule::next_execute_time].
     pub fn set_or_clear_next_execute_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -8763,7 +8763,7 @@ impl CreatePatchDeploymentRequest {
         self
     }
 
-    /// Sets or clear the value of [patch_deployment][crate::model::CreatePatchDeploymentRequest::patch_deployment].
+    /// Sets or clears the value of [patch_deployment][crate::model::CreatePatchDeploymentRequest::patch_deployment].
     pub fn set_or_clear_patch_deployment<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::PatchDeployment>,
@@ -8995,7 +8995,7 @@ impl UpdatePatchDeploymentRequest {
         self
     }
 
-    /// Sets or clear the value of [patch_deployment][crate::model::UpdatePatchDeploymentRequest::patch_deployment].
+    /// Sets or clears the value of [patch_deployment][crate::model::UpdatePatchDeploymentRequest::patch_deployment].
     pub fn set_or_clear_patch_deployment<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::PatchDeployment>,
@@ -9013,7 +9013,7 @@ impl UpdatePatchDeploymentRequest {
         self
     }
 
-    /// Sets or clear the value of [update_mask][crate::model::UpdatePatchDeploymentRequest::update_mask].
+    /// Sets or clears the value of [update_mask][crate::model::UpdatePatchDeploymentRequest::update_mask].
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -9169,7 +9169,7 @@ impl ExecutePatchJobRequest {
         self
     }
 
-    /// Sets or clear the value of [instance_filter][crate::model::ExecutePatchJobRequest::instance_filter].
+    /// Sets or clears the value of [instance_filter][crate::model::ExecutePatchJobRequest::instance_filter].
     pub fn set_or_clear_instance_filter<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::PatchInstanceFilter>,
@@ -9187,7 +9187,7 @@ impl ExecutePatchJobRequest {
         self
     }
 
-    /// Sets or clear the value of [patch_config][crate::model::ExecutePatchJobRequest::patch_config].
+    /// Sets or clears the value of [patch_config][crate::model::ExecutePatchJobRequest::patch_config].
     pub fn set_or_clear_patch_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::PatchConfig>,
@@ -9205,7 +9205,7 @@ impl ExecutePatchJobRequest {
         self
     }
 
-    /// Sets or clear the value of [duration][crate::model::ExecutePatchJobRequest::duration].
+    /// Sets or clears the value of [duration][crate::model::ExecutePatchJobRequest::duration].
     pub fn set_or_clear_duration<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -9235,7 +9235,7 @@ impl ExecutePatchJobRequest {
         self
     }
 
-    /// Sets or clear the value of [rollout][crate::model::ExecutePatchJobRequest::rollout].
+    /// Sets or clears the value of [rollout][crate::model::ExecutePatchJobRequest::rollout].
     pub fn set_or_clear_rollout<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::PatchRollout>,
@@ -9735,7 +9735,7 @@ impl PatchJob {
         self
     }
 
-    /// Sets or clear the value of [create_time][crate::model::PatchJob::create_time].
+    /// Sets or clears the value of [create_time][crate::model::PatchJob::create_time].
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -9753,7 +9753,7 @@ impl PatchJob {
         self
     }
 
-    /// Sets or clear the value of [update_time][crate::model::PatchJob::update_time].
+    /// Sets or clears the value of [update_time][crate::model::PatchJob::update_time].
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -9780,7 +9780,7 @@ impl PatchJob {
         self
     }
 
-    /// Sets or clear the value of [instance_filter][crate::model::PatchJob::instance_filter].
+    /// Sets or clears the value of [instance_filter][crate::model::PatchJob::instance_filter].
     pub fn set_or_clear_instance_filter<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::PatchInstanceFilter>,
@@ -9798,7 +9798,7 @@ impl PatchJob {
         self
     }
 
-    /// Sets or clear the value of [patch_config][crate::model::PatchJob::patch_config].
+    /// Sets or clears the value of [patch_config][crate::model::PatchJob::patch_config].
     pub fn set_or_clear_patch_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::PatchConfig>,
@@ -9816,7 +9816,7 @@ impl PatchJob {
         self
     }
 
-    /// Sets or clear the value of [duration][crate::model::PatchJob::duration].
+    /// Sets or clears the value of [duration][crate::model::PatchJob::duration].
     pub fn set_or_clear_duration<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -9834,7 +9834,7 @@ impl PatchJob {
         self
     }
 
-    /// Sets or clear the value of [instance_details_summary][crate::model::PatchJob::instance_details_summary].
+    /// Sets or clears the value of [instance_details_summary][crate::model::PatchJob::instance_details_summary].
     pub fn set_or_clear_instance_details_summary<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::patch_job::InstanceDetailsSummary>,
@@ -9879,7 +9879,7 @@ impl PatchJob {
         self
     }
 
-    /// Sets or clear the value of [rollout][crate::model::PatchJob::rollout].
+    /// Sets or clears the value of [rollout][crate::model::PatchJob::rollout].
     pub fn set_or_clear_rollout<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::PatchRollout>,
@@ -10352,7 +10352,7 @@ impl PatchConfig {
         self
     }
 
-    /// Sets or clear the value of [apt][crate::model::PatchConfig::apt].
+    /// Sets or clears the value of [apt][crate::model::PatchConfig::apt].
     pub fn set_or_clear_apt<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::AptSettings>,
@@ -10370,7 +10370,7 @@ impl PatchConfig {
         self
     }
 
-    /// Sets or clear the value of [yum][crate::model::PatchConfig::yum].
+    /// Sets or clears the value of [yum][crate::model::PatchConfig::yum].
     pub fn set_or_clear_yum<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::YumSettings>,
@@ -10388,7 +10388,7 @@ impl PatchConfig {
         self
     }
 
-    /// Sets or clear the value of [goo][crate::model::PatchConfig::goo].
+    /// Sets or clears the value of [goo][crate::model::PatchConfig::goo].
     pub fn set_or_clear_goo<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::GooSettings>,
@@ -10406,7 +10406,7 @@ impl PatchConfig {
         self
     }
 
-    /// Sets or clear the value of [zypper][crate::model::PatchConfig::zypper].
+    /// Sets or clears the value of [zypper][crate::model::PatchConfig::zypper].
     pub fn set_or_clear_zypper<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ZypperSettings>,
@@ -10424,7 +10424,7 @@ impl PatchConfig {
         self
     }
 
-    /// Sets or clear the value of [windows_update][crate::model::PatchConfig::windows_update].
+    /// Sets or clears the value of [windows_update][crate::model::PatchConfig::windows_update].
     pub fn set_or_clear_windows_update<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::WindowsUpdateSettings>,
@@ -10442,7 +10442,7 @@ impl PatchConfig {
         self
     }
 
-    /// Sets or clear the value of [pre_step][crate::model::PatchConfig::pre_step].
+    /// Sets or clears the value of [pre_step][crate::model::PatchConfig::pre_step].
     pub fn set_or_clear_pre_step<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ExecStep>,
@@ -10460,7 +10460,7 @@ impl PatchConfig {
         self
     }
 
-    /// Sets or clear the value of [post_step][crate::model::PatchConfig::post_step].
+    /// Sets or clears the value of [post_step][crate::model::PatchConfig::post_step].
     pub fn set_or_clear_post_step<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ExecStep>,
@@ -11642,7 +11642,7 @@ impl ExecStep {
         self
     }
 
-    /// Sets or clear the value of [linux_exec_step_config][crate::model::ExecStep::linux_exec_step_config].
+    /// Sets or clears the value of [linux_exec_step_config][crate::model::ExecStep::linux_exec_step_config].
     pub fn set_or_clear_linux_exec_step_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ExecStepConfig>,
@@ -11660,7 +11660,7 @@ impl ExecStep {
         self
     }
 
-    /// Sets or clear the value of [windows_exec_step_config][crate::model::ExecStep::windows_exec_step_config].
+    /// Sets or clears the value of [windows_exec_step_config][crate::model::ExecStep::windows_exec_step_config].
     pub fn set_or_clear_windows_exec_step_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ExecStepConfig>,
@@ -12226,7 +12226,7 @@ impl PatchRollout {
         self
     }
 
-    /// Sets or clear the value of [disruption_budget][crate::model::PatchRollout::disruption_budget].
+    /// Sets or clears the value of [disruption_budget][crate::model::PatchRollout::disruption_budget].
     pub fn set_or_clear_disruption_budget<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::FixedOrPercent>,
@@ -12446,7 +12446,7 @@ impl VulnerabilityReport {
         self
     }
 
-    /// Sets or clear the value of [update_time][crate::model::VulnerabilityReport::update_time].
+    /// Sets or clears the value of [update_time][crate::model::VulnerabilityReport::update_time].
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -12528,7 +12528,7 @@ pub mod vulnerability_report {
             self
         }
 
-        /// Sets or clear the value of [details][crate::model::vulnerability_report::Vulnerability::details].
+        /// Sets or clears the value of [details][crate::model::vulnerability_report::Vulnerability::details].
         pub fn set_or_clear_details<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::vulnerability_report::vulnerability::Details>,
@@ -12570,7 +12570,7 @@ pub mod vulnerability_report {
             self
         }
 
-        /// Sets or clear the value of [create_time][crate::model::vulnerability_report::Vulnerability::create_time].
+        /// Sets or clears the value of [create_time][crate::model::vulnerability_report::Vulnerability::create_time].
         pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -12588,7 +12588,7 @@ pub mod vulnerability_report {
             self
         }
 
-        /// Sets or clear the value of [update_time][crate::model::vulnerability_report::Vulnerability::update_time].
+        /// Sets or clears the value of [update_time][crate::model::vulnerability_report::Vulnerability::update_time].
         pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -12687,7 +12687,7 @@ pub mod vulnerability_report {
                 self
             }
 
-            /// Sets or clear the value of [cvss_v3][crate::model::vulnerability_report::vulnerability::Details::cvss_v3].
+            /// Sets or clears the value of [cvss_v3][crate::model::vulnerability_report::vulnerability::Details::cvss_v3].
             pub fn set_or_clear_cvss_v3<T>(mut self, v: std::option::Option<T>) -> Self
             where
                 T: std::convert::Into<crate::model::CVSSv3>,

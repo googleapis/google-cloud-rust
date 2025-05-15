@@ -180,7 +180,7 @@ pub mod vpc_access_service {
             self
         }
 
-        /// Sets or clear the value of [connector][crate::model::CreateConnectorRequest::connector].
+        /// Sets or clears the value of [connector][crate::model::CreateConnectorRequest::connector].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_connector<T>(mut self, v: std::option::Option<T>) -> Self

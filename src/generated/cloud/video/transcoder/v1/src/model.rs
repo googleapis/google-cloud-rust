@@ -157,7 +157,7 @@ impl Job {
         self
     }
 
-    /// Sets or clear the value of [create_time][crate::model::Job::create_time].
+    /// Sets or clears the value of [create_time][crate::model::Job::create_time].
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -175,7 +175,7 @@ impl Job {
         self
     }
 
-    /// Sets or clear the value of [start_time][crate::model::Job::start_time].
+    /// Sets or clears the value of [start_time][crate::model::Job::start_time].
     pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -193,7 +193,7 @@ impl Job {
         self
     }
 
-    /// Sets or clear the value of [end_time][crate::model::Job::end_time].
+    /// Sets or clears the value of [end_time][crate::model::Job::end_time].
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -229,7 +229,7 @@ impl Job {
         self
     }
 
-    /// Sets or clear the value of [error][crate::model::Job::error].
+    /// Sets or clears the value of [error][crate::model::Job::error].
     pub fn set_or_clear_error<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<rpc::model::Status>,
@@ -812,7 +812,7 @@ impl JobTemplate {
         self
     }
 
-    /// Sets or clear the value of [config][crate::model::JobTemplate::config].
+    /// Sets or clears the value of [config][crate::model::JobTemplate::config].
     pub fn set_or_clear_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::JobConfig>,
@@ -971,7 +971,7 @@ impl JobConfig {
         self
     }
 
-    /// Sets or clear the value of [output][crate::model::JobConfig::output].
+    /// Sets or clears the value of [output][crate::model::JobConfig::output].
     pub fn set_or_clear_output<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Output>,
@@ -1000,7 +1000,7 @@ impl JobConfig {
         self
     }
 
-    /// Sets or clear the value of [pubsub_destination][crate::model::JobConfig::pubsub_destination].
+    /// Sets or clears the value of [pubsub_destination][crate::model::JobConfig::pubsub_destination].
     pub fn set_or_clear_pubsub_destination<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::PubsubDestination>,
@@ -1102,7 +1102,7 @@ impl Input {
         self
     }
 
-    /// Sets or clear the value of [preprocessing_config][crate::model::Input::preprocessing_config].
+    /// Sets or clears the value of [preprocessing_config][crate::model::Input::preprocessing_config].
     pub fn set_or_clear_preprocessing_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::PreprocessingConfig>,
@@ -1215,7 +1215,7 @@ impl EditAtom {
         self
     }
 
-    /// Sets or clear the value of [end_time_offset][crate::model::EditAtom::end_time_offset].
+    /// Sets or clears the value of [end_time_offset][crate::model::EditAtom::end_time_offset].
     pub fn set_or_clear_end_time_offset<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -1233,7 +1233,7 @@ impl EditAtom {
         self
     }
 
-    /// Sets or clear the value of [start_time_offset][crate::model::EditAtom::start_time_offset].
+    /// Sets or clears the value of [start_time_offset][crate::model::EditAtom::start_time_offset].
     pub fn set_or_clear_start_time_offset<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -1278,7 +1278,7 @@ impl AdBreak {
         self
     }
 
-    /// Sets or clear the value of [start_time_offset][crate::model::AdBreak::start_time_offset].
+    /// Sets or clears the value of [start_time_offset][crate::model::AdBreak::start_time_offset].
     pub fn set_or_clear_start_time_offset<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -1544,7 +1544,7 @@ impl MuxStream {
         self
     }
 
-    /// Sets or clear the value of [segment_settings][crate::model::MuxStream::segment_settings].
+    /// Sets or clears the value of [segment_settings][crate::model::MuxStream::segment_settings].
     pub fn set_or_clear_segment_settings<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::SegmentSettings>,
@@ -2183,7 +2183,7 @@ impl SpriteSheet {
         self
     }
 
-    /// Sets or clear the value of [start_time_offset][crate::model::SpriteSheet::start_time_offset].
+    /// Sets or clears the value of [start_time_offset][crate::model::SpriteSheet::start_time_offset].
     pub fn set_or_clear_start_time_offset<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -2201,7 +2201,7 @@ impl SpriteSheet {
         self
     }
 
-    /// Sets or clear the value of [end_time_offset][crate::model::SpriteSheet::end_time_offset].
+    /// Sets or clears the value of [end_time_offset][crate::model::SpriteSheet::end_time_offset].
     pub fn set_or_clear_end_time_offset<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -2344,7 +2344,7 @@ impl Overlay {
         self
     }
 
-    /// Sets or clear the value of [image][crate::model::Overlay::image].
+    /// Sets or clears the value of [image][crate::model::Overlay::image].
     pub fn set_or_clear_image<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::overlay::Image>,
@@ -2468,7 +2468,7 @@ pub mod overlay {
             self
         }
 
-        /// Sets or clear the value of [resolution][crate::model::overlay::Image::resolution].
+        /// Sets or clears the value of [resolution][crate::model::overlay::Image::resolution].
         pub fn set_or_clear_resolution<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::overlay::NormalizedCoordinate>,
@@ -2526,7 +2526,7 @@ pub mod overlay {
             self
         }
 
-        /// Sets or clear the value of [xy][crate::model::overlay::AnimationStatic::xy].
+        /// Sets or clears the value of [xy][crate::model::overlay::AnimationStatic::xy].
         pub fn set_or_clear_xy<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::overlay::NormalizedCoordinate>,
@@ -2544,7 +2544,7 @@ pub mod overlay {
             self
         }
 
-        /// Sets or clear the value of [start_time_offset][crate::model::overlay::AnimationStatic::start_time_offset].
+        /// Sets or clears the value of [start_time_offset][crate::model::overlay::AnimationStatic::start_time_offset].
         pub fn set_or_clear_start_time_offset<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
@@ -2613,7 +2613,7 @@ pub mod overlay {
             self
         }
 
-        /// Sets or clear the value of [xy][crate::model::overlay::AnimationFade::xy].
+        /// Sets or clears the value of [xy][crate::model::overlay::AnimationFade::xy].
         pub fn set_or_clear_xy<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::overlay::NormalizedCoordinate>,
@@ -2631,7 +2631,7 @@ pub mod overlay {
             self
         }
 
-        /// Sets or clear the value of [start_time_offset][crate::model::overlay::AnimationFade::start_time_offset].
+        /// Sets or clears the value of [start_time_offset][crate::model::overlay::AnimationFade::start_time_offset].
         pub fn set_or_clear_start_time_offset<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
@@ -2649,7 +2649,7 @@ pub mod overlay {
             self
         }
 
-        /// Sets or clear the value of [end_time_offset][crate::model::overlay::AnimationFade::end_time_offset].
+        /// Sets or clears the value of [end_time_offset][crate::model::overlay::AnimationFade::end_time_offset].
         pub fn set_or_clear_end_time_offset<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
@@ -2695,7 +2695,7 @@ pub mod overlay {
             self
         }
 
-        /// Sets or clear the value of [start_time_offset][crate::model::overlay::AnimationEnd::start_time_offset].
+        /// Sets or clears the value of [start_time_offset][crate::model::overlay::AnimationEnd::start_time_offset].
         pub fn set_or_clear_start_time_offset<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
@@ -3054,7 +3054,7 @@ impl PreprocessingConfig {
         self
     }
 
-    /// Sets or clear the value of [color][crate::model::PreprocessingConfig::color].
+    /// Sets or clears the value of [color][crate::model::PreprocessingConfig::color].
     pub fn set_or_clear_color<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::preprocessing_config::Color>,
@@ -3072,7 +3072,7 @@ impl PreprocessingConfig {
         self
     }
 
-    /// Sets or clear the value of [denoise][crate::model::PreprocessingConfig::denoise].
+    /// Sets or clears the value of [denoise][crate::model::PreprocessingConfig::denoise].
     pub fn set_or_clear_denoise<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::preprocessing_config::Denoise>,
@@ -3090,7 +3090,7 @@ impl PreprocessingConfig {
         self
     }
 
-    /// Sets or clear the value of [deblock][crate::model::PreprocessingConfig::deblock].
+    /// Sets or clears the value of [deblock][crate::model::PreprocessingConfig::deblock].
     pub fn set_or_clear_deblock<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::preprocessing_config::Deblock>,
@@ -3108,7 +3108,7 @@ impl PreprocessingConfig {
         self
     }
 
-    /// Sets or clear the value of [audio][crate::model::PreprocessingConfig::audio].
+    /// Sets or clears the value of [audio][crate::model::PreprocessingConfig::audio].
     pub fn set_or_clear_audio<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::preprocessing_config::Audio>,
@@ -3126,7 +3126,7 @@ impl PreprocessingConfig {
         self
     }
 
-    /// Sets or clear the value of [crop][crate::model::PreprocessingConfig::crop].
+    /// Sets or clears the value of [crop][crate::model::PreprocessingConfig::crop].
     pub fn set_or_clear_crop<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::preprocessing_config::Crop>,
@@ -3144,7 +3144,7 @@ impl PreprocessingConfig {
         self
     }
 
-    /// Sets or clear the value of [pad][crate::model::PreprocessingConfig::pad].
+    /// Sets or clears the value of [pad][crate::model::PreprocessingConfig::pad].
     pub fn set_or_clear_pad<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::preprocessing_config::Pad>,
@@ -3162,7 +3162,7 @@ impl PreprocessingConfig {
         self
     }
 
-    /// Sets or clear the value of [deinterlace][crate::model::PreprocessingConfig::deinterlace].
+    /// Sets or clears the value of [deinterlace][crate::model::PreprocessingConfig::deinterlace].
     pub fn set_or_clear_deinterlace<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::preprocessing_config::Deinterlace>,
@@ -5390,7 +5390,7 @@ impl SegmentSettings {
         self
     }
 
-    /// Sets or clear the value of [segment_duration][crate::model::SegmentSettings::segment_duration].
+    /// Sets or clears the value of [segment_duration][crate::model::SegmentSettings::segment_duration].
     pub fn set_or_clear_segment_duration<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -5459,7 +5459,7 @@ impl Encryption {
         self
     }
 
-    /// Sets or clear the value of [drm_systems][crate::model::Encryption::drm_systems].
+    /// Sets or clears the value of [drm_systems][crate::model::Encryption::drm_systems].
     pub fn set_or_clear_drm_systems<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::encryption::DrmSystems>,
@@ -5877,7 +5877,7 @@ pub mod encryption {
             self
         }
 
-        /// Sets or clear the value of [widevine][crate::model::encryption::DrmSystems::widevine].
+        /// Sets or clears the value of [widevine][crate::model::encryption::DrmSystems::widevine].
         pub fn set_or_clear_widevine<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::encryption::Widevine>,
@@ -5895,7 +5895,7 @@ pub mod encryption {
             self
         }
 
-        /// Sets or clear the value of [fairplay][crate::model::encryption::DrmSystems::fairplay].
+        /// Sets or clears the value of [fairplay][crate::model::encryption::DrmSystems::fairplay].
         pub fn set_or_clear_fairplay<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::encryption::Fairplay>,
@@ -5913,7 +5913,7 @@ pub mod encryption {
             self
         }
 
-        /// Sets or clear the value of [playready][crate::model::encryption::DrmSystems::playready].
+        /// Sets or clears the value of [playready][crate::model::encryption::DrmSystems::playready].
         pub fn set_or_clear_playready<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::encryption::Playready>,
@@ -5931,7 +5931,7 @@ pub mod encryption {
             self
         }
 
-        /// Sets or clear the value of [clearkey][crate::model::encryption::DrmSystems::clearkey].
+        /// Sets or clears the value of [clearkey][crate::model::encryption::DrmSystems::clearkey].
         pub fn set_or_clear_clearkey<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::encryption::Clearkey>,
@@ -6011,7 +6011,7 @@ impl CreateJobRequest {
         self
     }
 
-    /// Sets or clear the value of [job][crate::model::CreateJobRequest::job].
+    /// Sets or clears the value of [job][crate::model::CreateJobRequest::job].
     pub fn set_or_clear_job<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Job>,
@@ -6303,7 +6303,7 @@ impl CreateJobTemplateRequest {
         self
     }
 
-    /// Sets or clear the value of [job_template][crate::model::CreateJobTemplateRequest::job_template].
+    /// Sets or clears the value of [job_template][crate::model::CreateJobTemplateRequest::job_template].
     pub fn set_or_clear_job_template<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::JobTemplate>,

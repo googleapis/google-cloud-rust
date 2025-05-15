@@ -187,7 +187,7 @@ pub mod binauthz_management_service_v_1 {
             self
         }
 
-        /// Sets or clear the value of [policy][crate::model::UpdatePolicyRequest::policy].
+        /// Sets or clears the value of [policy][crate::model::UpdatePolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
@@ -279,7 +279,7 @@ pub mod binauthz_management_service_v_1 {
             self
         }
 
-        /// Sets or clear the value of [attestor][crate::model::CreateAttestorRequest::attestor].
+        /// Sets or clears the value of [attestor][crate::model::CreateAttestorRequest::attestor].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_attestor<T>(mut self, v: std::option::Option<T>) -> Self
@@ -417,7 +417,7 @@ pub mod binauthz_management_service_v_1 {
             self
         }
 
-        /// Sets or clear the value of [attestor][crate::model::UpdateAttestorRequest::attestor].
+        /// Sets or clears the value of [attestor][crate::model::UpdateAttestorRequest::attestor].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_attestor<T>(mut self, v: std::option::Option<T>) -> Self
@@ -842,7 +842,7 @@ pub mod validation_helper_v_1 {
             self
         }
 
-        /// Sets or clear the value of [attestation][crate::model::ValidateAttestationOccurrenceRequest::attestation].
+        /// Sets or clears the value of [attestation][crate::model::ValidateAttestationOccurrenceRequest::attestation].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_attestation<T>(mut self, v: std::option::Option<T>) -> Self

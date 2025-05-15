@@ -187,7 +187,7 @@ impl DenyRule {
         self
     }
 
-    /// Sets or clear the value of [denial_condition][crate::model::DenyRule::denial_condition].
+    /// Sets or clears the value of [denial_condition][crate::model::DenyRule::denial_condition].
     pub fn set_or_clear_denial_condition<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<gtype::model::Expr>,
@@ -333,7 +333,7 @@ impl Policy {
         self
     }
 
-    /// Sets or clear the value of [create_time][crate::model::Policy::create_time].
+    /// Sets or clears the value of [create_time][crate::model::Policy::create_time].
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -351,7 +351,7 @@ impl Policy {
         self
     }
 
-    /// Sets or clear the value of [update_time][crate::model::Policy::update_time].
+    /// Sets or clears the value of [update_time][crate::model::Policy::update_time].
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -369,7 +369,7 @@ impl Policy {
         self
     }
 
-    /// Sets or clear the value of [delete_time][crate::model::Policy::delete_time].
+    /// Sets or clears the value of [delete_time][crate::model::Policy::delete_time].
     pub fn set_or_clear_delete_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -716,7 +716,7 @@ impl CreatePolicyRequest {
         self
     }
 
-    /// Sets or clear the value of [policy][crate::model::CreatePolicyRequest::policy].
+    /// Sets or clears the value of [policy][crate::model::CreatePolicyRequest::policy].
     pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Policy>,
@@ -770,7 +770,7 @@ impl UpdatePolicyRequest {
         self
     }
 
-    /// Sets or clear the value of [policy][crate::model::UpdatePolicyRequest::policy].
+    /// Sets or clears the value of [policy][crate::model::UpdatePolicyRequest::policy].
     pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Policy>,
@@ -869,7 +869,7 @@ impl PolicyOperationMetadata {
         self
     }
 
-    /// Sets or clear the value of [create_time][crate::model::PolicyOperationMetadata::create_time].
+    /// Sets or clears the value of [create_time][crate::model::PolicyOperationMetadata::create_time].
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,

@@ -325,7 +325,7 @@ pub mod cloud_redis_cluster {
             self
         }
 
-        /// Sets or clear the value of [update_mask][crate::model::UpdateClusterRequest::update_mask].
+        /// Sets or clears the value of [update_mask][crate::model::UpdateClusterRequest::update_mask].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
@@ -347,7 +347,7 @@ pub mod cloud_redis_cluster {
             self
         }
 
-        /// Sets or clear the value of [cluster][crate::model::UpdateClusterRequest::cluster].
+        /// Sets or clears the value of [cluster][crate::model::UpdateClusterRequest::cluster].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_cluster<T>(mut self, v: std::option::Option<T>) -> Self
@@ -590,7 +590,7 @@ pub mod cloud_redis_cluster {
             self
         }
 
-        /// Sets or clear the value of [cluster][crate::model::CreateClusterRequest::cluster].
+        /// Sets or clears the value of [cluster][crate::model::CreateClusterRequest::cluster].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_cluster<T>(mut self, v: std::option::Option<T>) -> Self
@@ -799,7 +799,7 @@ pub mod cloud_redis_cluster {
             self
         }
 
-        /// Sets or clear the value of [schedule_time][crate::model::RescheduleClusterMaintenanceRequest::schedule_time].
+        /// Sets or clears the value of [schedule_time][crate::model::RescheduleClusterMaintenanceRequest::schedule_time].
         pub fn set_or_clear_schedule_time<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -1482,7 +1482,7 @@ pub mod cloud_redis_cluster {
             self
         }
 
-        /// Sets or clear the value of [ttl][crate::model::BackupClusterRequest::ttl].
+        /// Sets or clears the value of [ttl][crate::model::BackupClusterRequest::ttl].
         pub fn set_or_clear_ttl<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
@@ -1500,7 +1500,7 @@ pub mod cloud_redis_cluster {
             self
         }
 
-        /// Sets or clear the value of [backup_id][crate::model::BackupClusterRequest::backup_id].
+        /// Sets or clears the value of [backup_id][crate::model::BackupClusterRequest::backup_id].
         pub fn set_or_clear_backup_id<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<std::string::String>,

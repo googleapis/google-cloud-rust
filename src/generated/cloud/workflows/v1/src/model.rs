@@ -218,7 +218,7 @@ impl Workflow {
         self
     }
 
-    /// Sets or clear the value of [create_time][crate::model::Workflow::create_time].
+    /// Sets or clears the value of [create_time][crate::model::Workflow::create_time].
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -236,7 +236,7 @@ impl Workflow {
         self
     }
 
-    /// Sets or clear the value of [update_time][crate::model::Workflow::update_time].
+    /// Sets or clears the value of [update_time][crate::model::Workflow::update_time].
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -254,7 +254,7 @@ impl Workflow {
         self
     }
 
-    /// Sets or clear the value of [revision_create_time][crate::model::Workflow::revision_create_time].
+    /// Sets or clears the value of [revision_create_time][crate::model::Workflow::revision_create_time].
     pub fn set_or_clear_revision_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -296,7 +296,7 @@ impl Workflow {
         self
     }
 
-    /// Sets or clear the value of [state_error][crate::model::Workflow::state_error].
+    /// Sets or clears the value of [state_error][crate::model::Workflow::state_error].
     pub fn set_or_clear_state_error<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::workflow::StateError>,
@@ -1175,7 +1175,7 @@ impl CreateWorkflowRequest {
         self
     }
 
-    /// Sets or clear the value of [workflow][crate::model::CreateWorkflowRequest::workflow].
+    /// Sets or clears the value of [workflow][crate::model::CreateWorkflowRequest::workflow].
     pub fn set_or_clear_workflow<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Workflow>,
@@ -1271,7 +1271,7 @@ impl UpdateWorkflowRequest {
         self
     }
 
-    /// Sets or clear the value of [workflow][crate::model::UpdateWorkflowRequest::workflow].
+    /// Sets or clears the value of [workflow][crate::model::UpdateWorkflowRequest::workflow].
     pub fn set_or_clear_workflow<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Workflow>,
@@ -1289,7 +1289,7 @@ impl UpdateWorkflowRequest {
         self
     }
 
-    /// Sets or clear the value of [update_mask][crate::model::UpdateWorkflowRequest::update_mask].
+    /// Sets or clears the value of [update_mask][crate::model::UpdateWorkflowRequest::update_mask].
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -1349,7 +1349,7 @@ impl OperationMetadata {
         self
     }
 
-    /// Sets or clear the value of [create_time][crate::model::OperationMetadata::create_time].
+    /// Sets or clears the value of [create_time][crate::model::OperationMetadata::create_time].
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1367,7 +1367,7 @@ impl OperationMetadata {
         self
     }
 
-    /// Sets or clear the value of [end_time][crate::model::OperationMetadata::end_time].
+    /// Sets or clears the value of [end_time][crate::model::OperationMetadata::end_time].
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,

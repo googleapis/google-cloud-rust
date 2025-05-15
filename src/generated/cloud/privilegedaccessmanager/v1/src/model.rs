@@ -362,7 +362,7 @@ impl Entitlement {
         self
     }
 
-    /// Sets or clear the value of [create_time][crate::model::Entitlement::create_time].
+    /// Sets or clears the value of [create_time][crate::model::Entitlement::create_time].
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -380,7 +380,7 @@ impl Entitlement {
         self
     }
 
-    /// Sets or clear the value of [update_time][crate::model::Entitlement::update_time].
+    /// Sets or clears the value of [update_time][crate::model::Entitlement::update_time].
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -409,7 +409,7 @@ impl Entitlement {
         self
     }
 
-    /// Sets or clear the value of [approval_workflow][crate::model::Entitlement::approval_workflow].
+    /// Sets or clears the value of [approval_workflow][crate::model::Entitlement::approval_workflow].
     pub fn set_or_clear_approval_workflow<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ApprovalWorkflow>,
@@ -427,7 +427,7 @@ impl Entitlement {
         self
     }
 
-    /// Sets or clear the value of [privileged_access][crate::model::Entitlement::privileged_access].
+    /// Sets or clears the value of [privileged_access][crate::model::Entitlement::privileged_access].
     pub fn set_or_clear_privileged_access<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::PrivilegedAccess>,
@@ -445,7 +445,7 @@ impl Entitlement {
         self
     }
 
-    /// Sets or clear the value of [max_request_duration][crate::model::Entitlement::max_request_duration].
+    /// Sets or clears the value of [max_request_duration][crate::model::Entitlement::max_request_duration].
     pub fn set_or_clear_max_request_duration<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -472,7 +472,7 @@ impl Entitlement {
         self
     }
 
-    /// Sets or clear the value of [requester_justification_config][crate::model::Entitlement::requester_justification_config].
+    /// Sets or clears the value of [requester_justification_config][crate::model::Entitlement::requester_justification_config].
     pub fn set_or_clear_requester_justification_config<T>(
         mut self,
         v: std::option::Option<T>,
@@ -493,7 +493,7 @@ impl Entitlement {
         self
     }
 
-    /// Sets or clear the value of [additional_notification_targets][crate::model::Entitlement::additional_notification_targets].
+    /// Sets or clears the value of [additional_notification_targets][crate::model::Entitlement::additional_notification_targets].
     pub fn set_or_clear_additional_notification_targets<T>(
         mut self,
         v: std::option::Option<T>,
@@ -1932,7 +1932,7 @@ impl CreateEntitlementRequest {
         self
     }
 
-    /// Sets or clear the value of [entitlement][crate::model::CreateEntitlementRequest::entitlement].
+    /// Sets or clears the value of [entitlement][crate::model::CreateEntitlementRequest::entitlement].
     pub fn set_or_clear_entitlement<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Entitlement>,
@@ -2059,7 +2059,7 @@ impl UpdateEntitlementRequest {
         self
     }
 
-    /// Sets or clear the value of [entitlement][crate::model::UpdateEntitlementRequest::entitlement].
+    /// Sets or clears the value of [entitlement][crate::model::UpdateEntitlementRequest::entitlement].
     pub fn set_or_clear_entitlement<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Entitlement>,
@@ -2077,7 +2077,7 @@ impl UpdateEntitlementRequest {
         self
     }
 
-    /// Sets or clear the value of [update_mask][crate::model::UpdateEntitlementRequest::update_mask].
+    /// Sets or clears the value of [update_mask][crate::model::UpdateEntitlementRequest::update_mask].
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -2186,7 +2186,7 @@ impl Grant {
         self
     }
 
-    /// Sets or clear the value of [create_time][crate::model::Grant::create_time].
+    /// Sets or clears the value of [create_time][crate::model::Grant::create_time].
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2204,7 +2204,7 @@ impl Grant {
         self
     }
 
-    /// Sets or clear the value of [update_time][crate::model::Grant::update_time].
+    /// Sets or clears the value of [update_time][crate::model::Grant::update_time].
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2228,7 +2228,7 @@ impl Grant {
         self
     }
 
-    /// Sets or clear the value of [requested_duration][crate::model::Grant::requested_duration].
+    /// Sets or clears the value of [requested_duration][crate::model::Grant::requested_duration].
     pub fn set_or_clear_requested_duration<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -2246,7 +2246,7 @@ impl Grant {
         self
     }
 
-    /// Sets or clear the value of [justification][crate::model::Grant::justification].
+    /// Sets or clears the value of [justification][crate::model::Grant::justification].
     pub fn set_or_clear_justification<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Justification>,
@@ -2270,7 +2270,7 @@ impl Grant {
         self
     }
 
-    /// Sets or clear the value of [timeline][crate::model::Grant::timeline].
+    /// Sets or clears the value of [timeline][crate::model::Grant::timeline].
     pub fn set_or_clear_timeline<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::grant::Timeline>,
@@ -2288,7 +2288,7 @@ impl Grant {
         self
     }
 
-    /// Sets or clear the value of [privileged_access][crate::model::Grant::privileged_access].
+    /// Sets or clears the value of [privileged_access][crate::model::Grant::privileged_access].
     pub fn set_or_clear_privileged_access<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::PrivilegedAccess>,
@@ -2306,7 +2306,7 @@ impl Grant {
         self
     }
 
-    /// Sets or clear the value of [audit_trail][crate::model::Grant::audit_trail].
+    /// Sets or clears the value of [audit_trail][crate::model::Grant::audit_trail].
     pub fn set_or_clear_audit_trail<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::grant::AuditTrail>,
@@ -2420,7 +2420,7 @@ pub mod grant {
                 self
             }
 
-            /// Sets or clear the value of [event_time][crate::model::grant::timeline::Event::event_time].
+            /// Sets or clears the value of [event_time][crate::model::grant::timeline::Event::event_time].
             pub fn set_or_clear_event_time<T>(mut self, v: std::option::Option<T>) -> Self
             where
                 T: std::convert::Into<wkt::Timestamp>,
@@ -2831,7 +2831,7 @@ pub mod grant {
                     self
                 }
 
-                /// Sets or clear the value of [expire_time][crate::model::grant::timeline::event::Requested::expire_time].
+                /// Sets or clears the value of [expire_time][crate::model::grant::timeline::event::Requested::expire_time].
                 pub fn set_or_clear_expire_time<T>(mut self, v: std::option::Option<T>) -> Self
                 where
                     T: std::convert::Into<wkt::Timestamp>,
@@ -3022,7 +3022,7 @@ pub mod grant {
                     self
                 }
 
-                /// Sets or clear the value of [scheduled_activation_time][crate::model::grant::timeline::event::Scheduled::scheduled_activation_time].
+                /// Sets or clears the value of [scheduled_activation_time][crate::model::grant::timeline::event::Scheduled::scheduled_activation_time].
                 pub fn set_or_clear_scheduled_activation_time<T>(
                     mut self,
                     v: std::option::Option<T>,
@@ -3092,7 +3092,7 @@ pub mod grant {
                     self
                 }
 
-                /// Sets or clear the value of [error][crate::model::grant::timeline::event::ActivationFailed::error].
+                /// Sets or clears the value of [error][crate::model::grant::timeline::event::ActivationFailed::error].
                 pub fn set_or_clear_error<T>(mut self, v: std::option::Option<T>) -> Self
                 where
                     T: std::convert::Into<rpc::model::Status>,
@@ -3245,7 +3245,7 @@ pub mod grant {
             self
         }
 
-        /// Sets or clear the value of [access_grant_time][crate::model::grant::AuditTrail::access_grant_time].
+        /// Sets or clears the value of [access_grant_time][crate::model::grant::AuditTrail::access_grant_time].
         pub fn set_or_clear_access_grant_time<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -3263,7 +3263,7 @@ pub mod grant {
             self
         }
 
-        /// Sets or clear the value of [access_remove_time][crate::model::grant::AuditTrail::access_remove_time].
+        /// Sets or clears the value of [access_remove_time][crate::model::grant::AuditTrail::access_remove_time].
         pub fn set_or_clear_access_remove_time<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -4209,7 +4209,7 @@ impl CreateGrantRequest {
         self
     }
 
-    /// Sets or clear the value of [grant][crate::model::CreateGrantRequest::grant].
+    /// Sets or clears the value of [grant][crate::model::CreateGrantRequest::grant].
     pub fn set_or_clear_grant<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Grant>,
@@ -4289,7 +4289,7 @@ impl OperationMetadata {
         self
     }
 
-    /// Sets or clear the value of [create_time][crate::model::OperationMetadata::create_time].
+    /// Sets or clears the value of [create_time][crate::model::OperationMetadata::create_time].
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4307,7 +4307,7 @@ impl OperationMetadata {
         self
     }
 
-    /// Sets or clear the value of [end_time][crate::model::OperationMetadata::end_time].
+    /// Sets or clears the value of [end_time][crate::model::OperationMetadata::end_time].
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,

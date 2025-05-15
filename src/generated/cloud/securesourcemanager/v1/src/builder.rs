@@ -356,7 +356,7 @@ pub mod secure_source_manager {
             self
         }
 
-        /// Sets or clear the value of [instance][crate::model::CreateInstanceRequest::instance].
+        /// Sets or clears the value of [instance][crate::model::CreateInstanceRequest::instance].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_instance<T>(mut self, v: std::option::Option<T>) -> Self
@@ -776,7 +776,7 @@ pub mod secure_source_manager {
             self
         }
 
-        /// Sets or clear the value of [repository][crate::model::CreateRepositoryRequest::repository].
+        /// Sets or clears the value of [repository][crate::model::CreateRepositoryRequest::repository].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_repository<T>(mut self, v: std::option::Option<T>) -> Self
@@ -978,7 +978,7 @@ pub mod secure_source_manager {
             self
         }
 
-        /// Sets or clear the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        /// Sets or clears the value of [options][iam_v1::model::GetIamPolicyRequest::options].
         pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
@@ -1060,7 +1060,7 @@ pub mod secure_source_manager {
             self
         }
 
-        /// Sets or clear the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        /// Sets or clears the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
@@ -1080,7 +1080,7 @@ pub mod secure_source_manager {
             self
         }
 
-        /// Sets or clear the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        /// Sets or clears the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
@@ -1282,7 +1282,7 @@ pub mod secure_source_manager {
             self
         }
 
-        /// Sets or clear the value of [branch_rule][crate::model::CreateBranchRuleRequest::branch_rule].
+        /// Sets or clears the value of [branch_rule][crate::model::CreateBranchRuleRequest::branch_rule].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_branch_rule<T>(mut self, v: std::option::Option<T>) -> Self
@@ -1572,7 +1572,7 @@ pub mod secure_source_manager {
             self
         }
 
-        /// Sets or clear the value of [branch_rule][crate::model::UpdateBranchRuleRequest::branch_rule].
+        /// Sets or clears the value of [branch_rule][crate::model::UpdateBranchRuleRequest::branch_rule].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_branch_rule<T>(mut self, v: std::option::Option<T>) -> Self
@@ -1600,7 +1600,7 @@ pub mod secure_source_manager {
             self
         }
 
-        /// Sets or clear the value of [update_mask][crate::model::UpdateBranchRuleRequest::update_mask].
+        /// Sets or clears the value of [update_mask][crate::model::UpdateBranchRuleRequest::update_mask].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
@@ -1965,7 +1965,7 @@ pub mod secure_source_manager {
             self
         }
 
-        /// Sets or clear the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        /// Sets or clears the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
@@ -1985,7 +1985,7 @@ pub mod secure_source_manager {
             self
         }
 
-        /// Sets or clear the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        /// Sets or clears the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
@@ -2065,7 +2065,7 @@ pub mod secure_source_manager {
             self
         }
 
-        /// Sets or clear the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        /// Sets or clears the value of [options][iam_v1::model::GetIamPolicyRequest::options].
         pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<iam_v1::model::GetPolicyOptions>,

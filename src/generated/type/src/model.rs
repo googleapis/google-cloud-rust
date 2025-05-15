@@ -225,7 +225,7 @@ impl Color {
         self
     }
 
-    /// Sets or clear the value of [alpha][crate::model::Color::alpha].
+    /// Sets or clears the value of [alpha][crate::model::Color::alpha].
     pub fn set_or_clear_alpha<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FloatValue>,
@@ -864,7 +864,7 @@ impl Interval {
         self
     }
 
-    /// Sets or clear the value of [start_time][crate::model::Interval::start_time].
+    /// Sets or clears the value of [start_time][crate::model::Interval::start_time].
     pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -882,7 +882,7 @@ impl Interval {
         self
     }
 
-    /// Sets or clear the value of [end_time][crate::model::Interval::end_time].
+    /// Sets or clears the value of [end_time][crate::model::Interval::end_time].
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,

@@ -159,7 +159,7 @@ pub mod secret_manager_service {
             self
         }
 
-        /// Sets or clear the value of [filter][crate::model::ListLocationsRequest::filter].
+        /// Sets or clears the value of [filter][crate::model::ListLocationsRequest::filter].
         pub fn set_or_clear_filter<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<std::string::String>,
@@ -177,7 +177,7 @@ pub mod secret_manager_service {
             self
         }
 
-        /// Sets or clear the value of [page_size][crate::model::ListLocationsRequest::page_size].
+        /// Sets or clears the value of [page_size][crate::model::ListLocationsRequest::page_size].
         pub fn set_or_clear_page_size<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<i32>,
@@ -195,7 +195,7 @@ pub mod secret_manager_service {
             self
         }
 
-        /// Sets or clear the value of [page_token][crate::model::ListLocationsRequest::page_token].
+        /// Sets or clears the value of [page_token][crate::model::ListLocationsRequest::page_token].
         pub fn set_or_clear_page_token<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<std::string::String>,
@@ -373,7 +373,7 @@ pub mod secret_manager_service {
             self
         }
 
-        /// Sets or clear the value of [page_size][crate::model::ListSecretsRequest::page_size].
+        /// Sets or clears the value of [page_size][crate::model::ListSecretsRequest::page_size].
         pub fn set_or_clear_page_size<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<i32>,
@@ -391,7 +391,7 @@ pub mod secret_manager_service {
             self
         }
 
-        /// Sets or clear the value of [page_token][crate::model::ListSecretsRequest::page_token].
+        /// Sets or clears the value of [page_token][crate::model::ListSecretsRequest::page_token].
         pub fn set_or_clear_page_token<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<std::string::String>,
@@ -409,7 +409,7 @@ pub mod secret_manager_service {
             self
         }
 
-        /// Sets or clear the value of [filter][crate::model::ListSecretsRequest::filter].
+        /// Sets or clears the value of [filter][crate::model::ListSecretsRequest::filter].
         pub fn set_or_clear_filter<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<std::string::String>,
@@ -481,7 +481,7 @@ pub mod secret_manager_service {
             self
         }
 
-        /// Sets or clear the value of [request_body][crate::model::CreateSecretRequest::request_body].
+        /// Sets or clears the value of [request_body][crate::model::CreateSecretRequest::request_body].
         pub fn set_or_clear_request_body<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Secret>,
@@ -618,7 +618,7 @@ pub mod secret_manager_service {
             self
         }
 
-        /// Sets or clear the value of [page_size][crate::model::ListSecretsByProjectAndLocationRequest::page_size].
+        /// Sets or clears the value of [page_size][crate::model::ListSecretsByProjectAndLocationRequest::page_size].
         pub fn set_or_clear_page_size<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<i32>,
@@ -636,7 +636,7 @@ pub mod secret_manager_service {
             self
         }
 
-        /// Sets or clear the value of [page_token][crate::model::ListSecretsByProjectAndLocationRequest::page_token].
+        /// Sets or clears the value of [page_token][crate::model::ListSecretsByProjectAndLocationRequest::page_token].
         pub fn set_or_clear_page_token<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<std::string::String>,
@@ -654,7 +654,7 @@ pub mod secret_manager_service {
             self
         }
 
-        /// Sets or clear the value of [filter][crate::model::ListSecretsByProjectAndLocationRequest::filter].
+        /// Sets or clears the value of [filter][crate::model::ListSecretsByProjectAndLocationRequest::filter].
         pub fn set_or_clear_filter<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<std::string::String>,
@@ -731,7 +731,7 @@ pub mod secret_manager_service {
             self
         }
 
-        /// Sets or clear the value of [request_body][crate::model::CreateSecretByProjectAndLocationRequest::request_body].
+        /// Sets or clears the value of [request_body][crate::model::CreateSecretByProjectAndLocationRequest::request_body].
         pub fn set_or_clear_request_body<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Secret>,
@@ -830,7 +830,7 @@ pub mod secret_manager_service {
             self
         }
 
-        /// Sets or clear the value of [payload][crate::model::AddSecretVersionRequest::payload].
+        /// Sets or clears the value of [payload][crate::model::AddSecretVersionRequest::payload].
         pub fn set_or_clear_payload<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::SecretPayload>,
@@ -934,7 +934,7 @@ pub mod secret_manager_service {
             self
         }
 
-        /// Sets or clear the value of [payload][crate::model::AddSecretVersionRequest::payload].
+        /// Sets or clears the value of [payload][crate::model::AddSecretVersionRequest::payload].
         pub fn set_or_clear_payload<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::SecretPayload>,
@@ -1116,7 +1116,7 @@ pub mod secret_manager_service {
             self
         }
 
-        /// Sets or clear the value of [etag][crate::model::DeleteSecretRequest::etag].
+        /// Sets or clears the value of [etag][crate::model::DeleteSecretRequest::etag].
         pub fn set_or_clear_etag<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<std::string::String>,
@@ -1188,7 +1188,7 @@ pub mod secret_manager_service {
             self
         }
 
-        /// Sets or clear the value of [request_body][crate::model::UpdateSecretRequest::request_body].
+        /// Sets or clears the value of [request_body][crate::model::UpdateSecretRequest::request_body].
         pub fn set_or_clear_request_body<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Secret>,
@@ -1400,7 +1400,7 @@ pub mod secret_manager_service {
             self
         }
 
-        /// Sets or clear the value of [etag][crate::model::DeleteSecretByProjectAndLocationAndSecretRequest::etag].
+        /// Sets or clears the value of [etag][crate::model::DeleteSecretByProjectAndLocationAndSecretRequest::etag].
         pub fn set_or_clear_etag<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<std::string::String>,
@@ -1479,7 +1479,7 @@ pub mod secret_manager_service {
             self
         }
 
-        /// Sets or clear the value of [request_body][crate::model::UpdateSecretByProjectAndLocationAndSecretRequest::request_body].
+        /// Sets or clears the value of [request_body][crate::model::UpdateSecretByProjectAndLocationAndSecretRequest::request_body].
         pub fn set_or_clear_request_body<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Secret>,
@@ -1632,7 +1632,7 @@ pub mod secret_manager_service {
             self
         }
 
-        /// Sets or clear the value of [page_size][crate::model::ListSecretVersionsRequest::page_size].
+        /// Sets or clears the value of [page_size][crate::model::ListSecretVersionsRequest::page_size].
         pub fn set_or_clear_page_size<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<i32>,
@@ -1650,7 +1650,7 @@ pub mod secret_manager_service {
             self
         }
 
-        /// Sets or clear the value of [page_token][crate::model::ListSecretVersionsRequest::page_token].
+        /// Sets or clears the value of [page_token][crate::model::ListSecretVersionsRequest::page_token].
         pub fn set_or_clear_page_token<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<std::string::String>,
@@ -1668,7 +1668,7 @@ pub mod secret_manager_service {
             self
         }
 
-        /// Sets or clear the value of [filter][crate::model::ListSecretVersionsRequest::filter].
+        /// Sets or clears the value of [filter][crate::model::ListSecretVersionsRequest::filter].
         pub fn set_or_clear_filter<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<std::string::String>,
@@ -1804,7 +1804,7 @@ pub mod secret_manager_service {
             self
         }
 
-        /// Sets or clear the value of [page_size][crate::model::ListSecretVersionsByProjectAndLocationAndSecretRequest::page_size].
+        /// Sets or clears the value of [page_size][crate::model::ListSecretVersionsByProjectAndLocationAndSecretRequest::page_size].
         pub fn set_or_clear_page_size<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<i32>,
@@ -1822,7 +1822,7 @@ pub mod secret_manager_service {
             self
         }
 
-        /// Sets or clear the value of [page_token][crate::model::ListSecretVersionsByProjectAndLocationAndSecretRequest::page_token].
+        /// Sets or clears the value of [page_token][crate::model::ListSecretVersionsByProjectAndLocationAndSecretRequest::page_token].
         pub fn set_or_clear_page_token<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<std::string::String>,
@@ -1840,7 +1840,7 @@ pub mod secret_manager_service {
             self
         }
 
-        /// Sets or clear the value of [filter][crate::model::ListSecretVersionsByProjectAndLocationAndSecretRequest::filter].
+        /// Sets or clears the value of [filter][crate::model::ListSecretVersionsByProjectAndLocationAndSecretRequest::filter].
         pub fn set_or_clear_filter<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<std::string::String>,
@@ -2277,7 +2277,7 @@ pub mod secret_manager_service {
             self
         }
 
-        /// Sets or clear the value of [etag][crate::model::DisableSecretVersionRequest::etag].
+        /// Sets or clears the value of [etag][crate::model::DisableSecretVersionRequest::etag].
         pub fn set_or_clear_etag<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<std::string::String>,
@@ -2389,7 +2389,7 @@ pub mod secret_manager_service {
             self
         }
 
-        /// Sets or clear the value of [etag][crate::model::DisableSecretVersionRequest::etag].
+        /// Sets or clears the value of [etag][crate::model::DisableSecretVersionRequest::etag].
         pub fn set_or_clear_etag<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<std::string::String>,
@@ -2498,7 +2498,7 @@ pub mod secret_manager_service {
             self
         }
 
-        /// Sets or clear the value of [etag][crate::model::EnableSecretVersionRequest::etag].
+        /// Sets or clears the value of [etag][crate::model::EnableSecretVersionRequest::etag].
         pub fn set_or_clear_etag<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<std::string::String>,
@@ -2610,7 +2610,7 @@ pub mod secret_manager_service {
             self
         }
 
-        /// Sets or clear the value of [etag][crate::model::EnableSecretVersionRequest::etag].
+        /// Sets or clears the value of [etag][crate::model::EnableSecretVersionRequest::etag].
         pub fn set_or_clear_etag<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<std::string::String>,
@@ -2719,7 +2719,7 @@ pub mod secret_manager_service {
             self
         }
 
-        /// Sets or clear the value of [etag][crate::model::DestroySecretVersionRequest::etag].
+        /// Sets or clears the value of [etag][crate::model::DestroySecretVersionRequest::etag].
         pub fn set_or_clear_etag<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<std::string::String>,
@@ -2831,7 +2831,7 @@ pub mod secret_manager_service {
             self
         }
 
-        /// Sets or clear the value of [etag][crate::model::DestroySecretVersionRequest::etag].
+        /// Sets or clears the value of [etag][crate::model::DestroySecretVersionRequest::etag].
         pub fn set_or_clear_etag<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<std::string::String>,
@@ -2937,7 +2937,7 @@ pub mod secret_manager_service {
             self
         }
 
-        /// Sets or clear the value of [policy][crate::model::SetIamPolicyRequest::policy].
+        /// Sets or clears the value of [policy][crate::model::SetIamPolicyRequest::policy].
         pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Policy>,
@@ -2955,7 +2955,7 @@ pub mod secret_manager_service {
             self
         }
 
-        /// Sets or clear the value of [update_mask][crate::model::SetIamPolicyRequest::update_mask].
+        /// Sets or clears the value of [update_mask][crate::model::SetIamPolicyRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
@@ -3053,7 +3053,7 @@ pub mod secret_manager_service {
             self
         }
 
-        /// Sets or clear the value of [policy][crate::model::SetIamPolicyRequest::policy].
+        /// Sets or clears the value of [policy][crate::model::SetIamPolicyRequest::policy].
         pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Policy>,
@@ -3071,7 +3071,7 @@ pub mod secret_manager_service {
             self
         }
 
-        /// Sets or clear the value of [update_mask][crate::model::SetIamPolicyRequest::update_mask].
+        /// Sets or clears the value of [update_mask][crate::model::SetIamPolicyRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
@@ -3183,7 +3183,7 @@ pub mod secret_manager_service {
             self
         }
 
-        /// Sets or clear the value of [options_requested_policy_version][crate::model::GetIamPolicyRequest::options_requested_policy_version].
+        /// Sets or clears the value of [options_requested_policy_version][crate::model::GetIamPolicyRequest::options_requested_policy_version].
         pub fn set_or_clear_options_requested_policy_version<T>(
             mut self,
             v: std::option::Option<T>,
@@ -3289,7 +3289,7 @@ pub mod secret_manager_service {
             self
         }
 
-        /// Sets or clear the value of [options_requested_policy_version][crate::model::GetIamPolicyByProjectAndLocationAndSecretRequest::options_requested_policy_version].
+        /// Sets or clears the value of [options_requested_policy_version][crate::model::GetIamPolicyByProjectAndLocationAndSecretRequest::options_requested_policy_version].
         pub fn set_or_clear_options_requested_policy_version<T>(
             mut self,
             v: std::option::Option<T>,

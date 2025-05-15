@@ -358,7 +358,7 @@ pub mod instance_admin {
             self
         }
 
-        /// Sets or clear the value of [instance_config][crate::model::CreateInstanceConfigRequest::instance_config].
+        /// Sets or clears the value of [instance_config][crate::model::CreateInstanceConfigRequest::instance_config].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_instance_config<T>(mut self, v: std::option::Option<T>) -> Self
@@ -485,7 +485,7 @@ pub mod instance_admin {
             self
         }
 
-        /// Sets or clear the value of [instance_config][crate::model::UpdateInstanceConfigRequest::instance_config].
+        /// Sets or clears the value of [instance_config][crate::model::UpdateInstanceConfigRequest::instance_config].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_instance_config<T>(mut self, v: std::option::Option<T>) -> Self
@@ -507,7 +507,7 @@ pub mod instance_admin {
             self
         }
 
-        /// Sets or clear the value of [update_mask][crate::model::UpdateInstanceConfigRequest::update_mask].
+        /// Sets or clears the value of [update_mask][crate::model::UpdateInstanceConfigRequest::update_mask].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
@@ -835,7 +835,7 @@ pub mod instance_admin {
             self
         }
 
-        /// Sets or clear the value of [instance_deadline][crate::model::ListInstancesRequest::instance_deadline].
+        /// Sets or clears the value of [instance_deadline][crate::model::ListInstancesRequest::instance_deadline].
         pub fn set_or_clear_instance_deadline<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -962,7 +962,7 @@ pub mod instance_admin {
             self
         }
 
-        /// Sets or clear the value of [instance_partition_deadline][crate::model::ListInstancePartitionsRequest::instance_partition_deadline].
+        /// Sets or clears the value of [instance_partition_deadline][crate::model::ListInstancePartitionsRequest::instance_partition_deadline].
         pub fn set_or_clear_instance_partition_deadline<T>(
             mut self,
             v: std::option::Option<T>,
@@ -1045,7 +1045,7 @@ pub mod instance_admin {
             self
         }
 
-        /// Sets or clear the value of [field_mask][crate::model::GetInstanceRequest::field_mask].
+        /// Sets or clears the value of [field_mask][crate::model::GetInstanceRequest::field_mask].
         pub fn set_or_clear_field_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
@@ -1177,7 +1177,7 @@ pub mod instance_admin {
             self
         }
 
-        /// Sets or clear the value of [instance][crate::model::CreateInstanceRequest::instance].
+        /// Sets or clears the value of [instance][crate::model::CreateInstanceRequest::instance].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_instance<T>(mut self, v: std::option::Option<T>) -> Self
@@ -1295,7 +1295,7 @@ pub mod instance_admin {
             self
         }
 
-        /// Sets or clear the value of [instance][crate::model::UpdateInstanceRequest::instance].
+        /// Sets or clears the value of [instance][crate::model::UpdateInstanceRequest::instance].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_instance<T>(mut self, v: std::option::Option<T>) -> Self
@@ -1317,7 +1317,7 @@ pub mod instance_admin {
             self
         }
 
-        /// Sets or clear the value of [field_mask][crate::model::UpdateInstanceRequest::field_mask].
+        /// Sets or clears the value of [field_mask][crate::model::UpdateInstanceRequest::field_mask].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_field_mask<T>(mut self, v: std::option::Option<T>) -> Self
@@ -1463,7 +1463,7 @@ pub mod instance_admin {
             self
         }
 
-        /// Sets or clear the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        /// Sets or clears the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
@@ -1483,7 +1483,7 @@ pub mod instance_admin {
             self
         }
 
-        /// Sets or clear the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        /// Sets or clears the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
@@ -1563,7 +1563,7 @@ pub mod instance_admin {
             self
         }
 
-        /// Sets or clear the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        /// Sets or clears the value of [options][iam_v1::model::GetIamPolicyRequest::options].
         pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
@@ -1845,7 +1845,7 @@ pub mod instance_admin {
             self
         }
 
-        /// Sets or clear the value of [instance_partition][crate::model::CreateInstancePartitionRequest::instance_partition].
+        /// Sets or clears the value of [instance_partition][crate::model::CreateInstancePartitionRequest::instance_partition].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_instance_partition<T>(mut self, v: std::option::Option<T>) -> Self
@@ -2043,7 +2043,7 @@ pub mod instance_admin {
             self
         }
 
-        /// Sets or clear the value of [instance_partition][crate::model::UpdateInstancePartitionRequest::instance_partition].
+        /// Sets or clears the value of [instance_partition][crate::model::UpdateInstancePartitionRequest::instance_partition].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_instance_partition<T>(mut self, v: std::option::Option<T>) -> Self
@@ -2065,7 +2065,7 @@ pub mod instance_admin {
             self
         }
 
-        /// Sets or clear the value of [field_mask][crate::model::UpdateInstancePartitionRequest::field_mask].
+        /// Sets or clears the value of [field_mask][crate::model::UpdateInstancePartitionRequest::field_mask].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_field_mask<T>(mut self, v: std::option::Option<T>) -> Self
@@ -2202,7 +2202,7 @@ pub mod instance_admin {
             self
         }
 
-        /// Sets or clear the value of [instance_partition_deadline][crate::model::ListInstancePartitionOperationsRequest::instance_partition_deadline].
+        /// Sets or clears the value of [instance_partition_deadline][crate::model::ListInstancePartitionOperationsRequest::instance_partition_deadline].
         pub fn set_or_clear_instance_partition_deadline<T>(
             mut self,
             v: std::option::Option<T>,

@@ -356,7 +356,7 @@ pub mod storage_batch_operations {
             self
         }
 
-        /// Sets or clear the value of [job][crate::model::CreateJobRequest::job].
+        /// Sets or clears the value of [job][crate::model::CreateJobRequest::job].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_job<T>(mut self, v: std::option::Option<T>) -> Self

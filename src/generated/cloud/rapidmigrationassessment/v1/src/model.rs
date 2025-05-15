@@ -188,7 +188,7 @@ impl Collector {
         self
     }
 
-    /// Sets or clear the value of [create_time][crate::model::Collector::create_time].
+    /// Sets or clears the value of [create_time][crate::model::Collector::create_time].
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -206,7 +206,7 @@ impl Collector {
         self
     }
 
-    /// Sets or clear the value of [update_time][crate::model::Collector::update_time].
+    /// Sets or clears the value of [update_time][crate::model::Collector::update_time].
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -281,7 +281,7 @@ impl Collector {
         self
     }
 
-    /// Sets or clear the value of [guest_os_scan][crate::model::Collector::guest_os_scan].
+    /// Sets or clears the value of [guest_os_scan][crate::model::Collector::guest_os_scan].
     pub fn set_or_clear_guest_os_scan<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::GuestOsScan>,
@@ -299,7 +299,7 @@ impl Collector {
         self
     }
 
-    /// Sets or clear the value of [vsphere_scan][crate::model::Collector::vsphere_scan].
+    /// Sets or clears the value of [vsphere_scan][crate::model::Collector::vsphere_scan].
     pub fn set_or_clear_vsphere_scan<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::VSphereScan>,
@@ -564,7 +564,7 @@ impl Annotation {
         self
     }
 
-    /// Sets or clear the value of [create_time][crate::model::Annotation::create_time].
+    /// Sets or clears the value of [create_time][crate::model::Annotation::create_time].
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -582,7 +582,7 @@ impl Annotation {
         self
     }
 
-    /// Sets or clear the value of [update_time][crate::model::Annotation::update_time].
+    /// Sets or clears the value of [update_time][crate::model::Annotation::update_time].
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -798,7 +798,7 @@ impl CreateAnnotationRequest {
         self
     }
 
-    /// Sets or clear the value of [annotation][crate::model::CreateAnnotationRequest::annotation].
+    /// Sets or clears the value of [annotation][crate::model::CreateAnnotationRequest::annotation].
     pub fn set_or_clear_annotation<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Annotation>,
@@ -904,7 +904,7 @@ impl CreateCollectorRequest {
         self
     }
 
-    /// Sets or clear the value of [collector][crate::model::CreateCollectorRequest::collector].
+    /// Sets or clears the value of [collector][crate::model::CreateCollectorRequest::collector].
     pub fn set_or_clear_collector<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Collector>,
@@ -1213,7 +1213,7 @@ impl UpdateCollectorRequest {
         self
     }
 
-    /// Sets or clear the value of [update_mask][crate::model::UpdateCollectorRequest::update_mask].
+    /// Sets or clears the value of [update_mask][crate::model::UpdateCollectorRequest::update_mask].
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -1231,7 +1231,7 @@ impl UpdateCollectorRequest {
         self
     }
 
-    /// Sets or clear the value of [collector][crate::model::UpdateCollectorRequest::collector].
+    /// Sets or clears the value of [collector][crate::model::UpdateCollectorRequest::collector].
     pub fn set_or_clear_collector<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Collector>,
@@ -1473,7 +1473,7 @@ impl OperationMetadata {
         self
     }
 
-    /// Sets or clear the value of [create_time][crate::model::OperationMetadata::create_time].
+    /// Sets or clears the value of [create_time][crate::model::OperationMetadata::create_time].
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1491,7 +1491,7 @@ impl OperationMetadata {
         self
     }
 
-    /// Sets or clear the value of [end_time][crate::model::OperationMetadata::end_time].
+    /// Sets or clears the value of [end_time][crate::model::OperationMetadata::end_time].
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,

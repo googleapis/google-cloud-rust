@@ -75,7 +75,7 @@ impl CreateProfileRequest {
         self
     }
 
-    /// Sets or clear the value of [deployment][crate::model::CreateProfileRequest::deployment].
+    /// Sets or clears the value of [deployment][crate::model::CreateProfileRequest::deployment].
     pub fn set_or_clear_deployment<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Deployment>,
@@ -141,7 +141,7 @@ impl CreateOfflineProfileRequest {
         self
     }
 
-    /// Sets or clear the value of [profile][crate::model::CreateOfflineProfileRequest::profile].
+    /// Sets or clears the value of [profile][crate::model::CreateOfflineProfileRequest::profile].
     pub fn set_or_clear_profile<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Profile>,
@@ -192,7 +192,7 @@ impl UpdateProfileRequest {
         self
     }
 
-    /// Sets or clear the value of [profile][crate::model::UpdateProfileRequest::profile].
+    /// Sets or clears the value of [profile][crate::model::UpdateProfileRequest::profile].
     pub fn set_or_clear_profile<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Profile>,
@@ -210,7 +210,7 @@ impl UpdateProfileRequest {
         self
     }
 
-    /// Sets or clear the value of [update_mask][crate::model::UpdateProfileRequest::update_mask].
+    /// Sets or clears the value of [update_mask][crate::model::UpdateProfileRequest::update_mask].
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -304,7 +304,7 @@ impl Profile {
         self
     }
 
-    /// Sets or clear the value of [deployment][crate::model::Profile::deployment].
+    /// Sets or clears the value of [deployment][crate::model::Profile::deployment].
     pub fn set_or_clear_deployment<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Deployment>,
@@ -322,7 +322,7 @@ impl Profile {
         self
     }
 
-    /// Sets or clear the value of [duration][crate::model::Profile::duration].
+    /// Sets or clears the value of [duration][crate::model::Profile::duration].
     pub fn set_or_clear_duration<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -358,7 +358,7 @@ impl Profile {
         self
     }
 
-    /// Sets or clear the value of [start_time][crate::model::Profile::start_time].
+    /// Sets or clears the value of [start_time][crate::model::Profile::start_time].
     pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,

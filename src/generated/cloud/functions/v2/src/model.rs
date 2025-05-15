@@ -135,7 +135,7 @@ impl Function {
         self
     }
 
-    /// Sets or clear the value of [build_config][crate::model::Function::build_config].
+    /// Sets or clears the value of [build_config][crate::model::Function::build_config].
     pub fn set_or_clear_build_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::BuildConfig>,
@@ -153,7 +153,7 @@ impl Function {
         self
     }
 
-    /// Sets or clear the value of [service_config][crate::model::Function::service_config].
+    /// Sets or clears the value of [service_config][crate::model::Function::service_config].
     pub fn set_or_clear_service_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ServiceConfig>,
@@ -171,7 +171,7 @@ impl Function {
         self
     }
 
-    /// Sets or clear the value of [event_trigger][crate::model::Function::event_trigger].
+    /// Sets or clears the value of [event_trigger][crate::model::Function::event_trigger].
     pub fn set_or_clear_event_trigger<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::EventTrigger>,
@@ -195,7 +195,7 @@ impl Function {
         self
     }
 
-    /// Sets or clear the value of [update_time][crate::model::Function::update_time].
+    /// Sets or clears the value of [update_time][crate::model::Function::update_time].
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -263,7 +263,7 @@ impl Function {
         self
     }
 
-    /// Sets or clear the value of [create_time][crate::model::Function::create_time].
+    /// Sets or clears the value of [create_time][crate::model::Function::create_time].
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1070,7 +1070,7 @@ impl SourceProvenance {
         self
     }
 
-    /// Sets or clear the value of [resolved_storage_source][crate::model::SourceProvenance::resolved_storage_source].
+    /// Sets or clears the value of [resolved_storage_source][crate::model::SourceProvenance::resolved_storage_source].
     pub fn set_or_clear_resolved_storage_source<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::StorageSource>,
@@ -1088,7 +1088,7 @@ impl SourceProvenance {
         self
     }
 
-    /// Sets or clear the value of [resolved_repo_source][crate::model::SourceProvenance::resolved_repo_source].
+    /// Sets or clears the value of [resolved_repo_source][crate::model::SourceProvenance::resolved_repo_source].
     pub fn set_or_clear_resolved_repo_source<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::RepoSource>,
@@ -1237,7 +1237,7 @@ impl BuildConfig {
         self
     }
 
-    /// Sets or clear the value of [source][crate::model::BuildConfig::source].
+    /// Sets or clears the value of [source][crate::model::BuildConfig::source].
     pub fn set_or_clear_source<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Source>,
@@ -1255,7 +1255,7 @@ impl BuildConfig {
         self
     }
 
-    /// Sets or clear the value of [source_provenance][crate::model::BuildConfig::source_provenance].
+    /// Sets or clears the value of [source_provenance][crate::model::BuildConfig::source_provenance].
     pub fn set_or_clear_source_provenance<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::SourceProvenance>,
@@ -3076,7 +3076,7 @@ impl CreateFunctionRequest {
         self
     }
 
-    /// Sets or clear the value of [function][crate::model::CreateFunctionRequest::function].
+    /// Sets or clears the value of [function][crate::model::CreateFunctionRequest::function].
     pub fn set_or_clear_function<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Function>,
@@ -3131,7 +3131,7 @@ impl UpdateFunctionRequest {
         self
     }
 
-    /// Sets or clear the value of [function][crate::model::UpdateFunctionRequest::function].
+    /// Sets or clears the value of [function][crate::model::UpdateFunctionRequest::function].
     pub fn set_or_clear_function<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Function>,
@@ -3149,7 +3149,7 @@ impl UpdateFunctionRequest {
         self
     }
 
-    /// Sets or clear the value of [update_mask][crate::model::UpdateFunctionRequest::update_mask].
+    /// Sets or clears the value of [update_mask][crate::model::UpdateFunctionRequest::update_mask].
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -3316,7 +3316,7 @@ impl GenerateUploadUrlResponse {
         self
     }
 
-    /// Sets or clear the value of [storage_source][crate::model::GenerateUploadUrlResponse::storage_source].
+    /// Sets or clears the value of [storage_source][crate::model::GenerateUploadUrlResponse::storage_source].
     pub fn set_or_clear_storage_source<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::StorageSource>,
@@ -3581,7 +3581,7 @@ pub mod list_runtimes_response {
             self
         }
 
-        /// Sets or clear the value of [deprecation_date][crate::model::list_runtimes_response::Runtime::deprecation_date].
+        /// Sets or clears the value of [deprecation_date][crate::model::list_runtimes_response::Runtime::deprecation_date].
         pub fn set_or_clear_deprecation_date<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<gtype::model::Date>,
@@ -3599,7 +3599,7 @@ pub mod list_runtimes_response {
             self
         }
 
-        /// Sets or clear the value of [decommission_date][crate::model::list_runtimes_response::Runtime::decommission_date].
+        /// Sets or clears the value of [decommission_date][crate::model::list_runtimes_response::Runtime::decommission_date].
         pub fn set_or_clear_decommission_date<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<gtype::model::Date>,
@@ -3912,7 +3912,7 @@ impl OperationMetadata {
         self
     }
 
-    /// Sets or clear the value of [create_time][crate::model::OperationMetadata::create_time].
+    /// Sets or clears the value of [create_time][crate::model::OperationMetadata::create_time].
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3930,7 +3930,7 @@ impl OperationMetadata {
         self
     }
 
-    /// Sets or clear the value of [end_time][crate::model::OperationMetadata::end_time].
+    /// Sets or clears the value of [end_time][crate::model::OperationMetadata::end_time].
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3978,7 +3978,7 @@ impl OperationMetadata {
         self
     }
 
-    /// Sets or clear the value of [request_resource][crate::model::OperationMetadata::request_resource].
+    /// Sets or clears the value of [request_resource][crate::model::OperationMetadata::request_resource].
     pub fn set_or_clear_request_resource<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Any>,

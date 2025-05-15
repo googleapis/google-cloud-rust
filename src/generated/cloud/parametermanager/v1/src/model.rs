@@ -95,7 +95,7 @@ impl Parameter {
         self
     }
 
-    /// Sets or clear the value of [create_time][crate::model::Parameter::create_time].
+    /// Sets or clears the value of [create_time][crate::model::Parameter::create_time].
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -113,7 +113,7 @@ impl Parameter {
         self
     }
 
-    /// Sets or clear the value of [update_time][crate::model::Parameter::update_time].
+    /// Sets or clears the value of [update_time][crate::model::Parameter::update_time].
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -152,7 +152,7 @@ impl Parameter {
         self
     }
 
-    /// Sets or clear the value of [policy_member][crate::model::Parameter::policy_member].
+    /// Sets or clears the value of [policy_member][crate::model::Parameter::policy_member].
     pub fn set_or_clear_policy_member<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<iam_v1::model::ResourcePolicyMember>,
@@ -170,7 +170,7 @@ impl Parameter {
         self
     }
 
-    /// Sets or clear the value of [kms_key][crate::model::Parameter::kms_key].
+    /// Sets or clears the value of [kms_key][crate::model::Parameter::kms_key].
     pub fn set_or_clear_kms_key<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -434,7 +434,7 @@ impl CreateParameterRequest {
         self
     }
 
-    /// Sets or clear the value of [parameter][crate::model::CreateParameterRequest::parameter].
+    /// Sets or clears the value of [parameter][crate::model::CreateParameterRequest::parameter].
     pub fn set_or_clear_parameter<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Parameter>,
@@ -509,7 +509,7 @@ impl UpdateParameterRequest {
         self
     }
 
-    /// Sets or clear the value of [update_mask][crate::model::UpdateParameterRequest::update_mask].
+    /// Sets or clears the value of [update_mask][crate::model::UpdateParameterRequest::update_mask].
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -527,7 +527,7 @@ impl UpdateParameterRequest {
         self
     }
 
-    /// Sets or clear the value of [parameter][crate::model::UpdateParameterRequest::parameter].
+    /// Sets or clears the value of [parameter][crate::model::UpdateParameterRequest::parameter].
     pub fn set_or_clear_parameter<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Parameter>,
@@ -668,7 +668,7 @@ impl ParameterVersion {
         self
     }
 
-    /// Sets or clear the value of [create_time][crate::model::ParameterVersion::create_time].
+    /// Sets or clears the value of [create_time][crate::model::ParameterVersion::create_time].
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -686,7 +686,7 @@ impl ParameterVersion {
         self
     }
 
-    /// Sets or clear the value of [update_time][crate::model::ParameterVersion::update_time].
+    /// Sets or clears the value of [update_time][crate::model::ParameterVersion::update_time].
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -710,7 +710,7 @@ impl ParameterVersion {
         self
     }
 
-    /// Sets or clear the value of [payload][crate::model::ParameterVersion::payload].
+    /// Sets or clears the value of [payload][crate::model::ParameterVersion::payload].
     pub fn set_or_clear_payload<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ParameterVersionPayload>,
@@ -728,7 +728,7 @@ impl ParameterVersion {
         self
     }
 
-    /// Sets or clear the value of [kms_key_version][crate::model::ParameterVersion::kms_key_version].
+    /// Sets or clears the value of [kms_key_version][crate::model::ParameterVersion::kms_key_version].
     pub fn set_or_clear_kms_key_version<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -1053,7 +1053,7 @@ impl RenderParameterVersionResponse {
         self
     }
 
-    /// Sets or clear the value of [payload][crate::model::RenderParameterVersionResponse::payload].
+    /// Sets or clears the value of [payload][crate::model::RenderParameterVersionResponse::payload].
     pub fn set_or_clear_payload<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ParameterVersionPayload>,
@@ -1143,7 +1143,7 @@ impl CreateParameterVersionRequest {
         self
     }
 
-    /// Sets or clear the value of [parameter_version][crate::model::CreateParameterVersionRequest::parameter_version].
+    /// Sets or clears the value of [parameter_version][crate::model::CreateParameterVersionRequest::parameter_version].
     pub fn set_or_clear_parameter_version<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ParameterVersion>,
@@ -1218,7 +1218,7 @@ impl UpdateParameterVersionRequest {
         self
     }
 
-    /// Sets or clear the value of [update_mask][crate::model::UpdateParameterVersionRequest::update_mask].
+    /// Sets or clears the value of [update_mask][crate::model::UpdateParameterVersionRequest::update_mask].
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -1236,7 +1236,7 @@ impl UpdateParameterVersionRequest {
         self
     }
 
-    /// Sets or clear the value of [parameter_version][crate::model::UpdateParameterVersionRequest::parameter_version].
+    /// Sets or clears the value of [parameter_version][crate::model::UpdateParameterVersionRequest::parameter_version].
     pub fn set_or_clear_parameter_version<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ParameterVersion>,

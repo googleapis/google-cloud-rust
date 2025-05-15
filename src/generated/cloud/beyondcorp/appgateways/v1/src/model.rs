@@ -300,7 +300,7 @@ impl CreateAppGatewayRequest {
         self
     }
 
-    /// Sets or clear the value of [app_gateway][crate::model::CreateAppGatewayRequest::app_gateway].
+    /// Sets or clears the value of [app_gateway][crate::model::CreateAppGatewayRequest::app_gateway].
     pub fn set_or_clear_app_gateway<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::AppGateway>,
@@ -472,7 +472,7 @@ impl AppGateway {
         self
     }
 
-    /// Sets or clear the value of [create_time][crate::model::AppGateway::create_time].
+    /// Sets or clears the value of [create_time][crate::model::AppGateway::create_time].
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -490,7 +490,7 @@ impl AppGateway {
         self
     }
 
-    /// Sets or clear the value of [update_time][crate::model::AppGateway::update_time].
+    /// Sets or clears the value of [update_time][crate::model::AppGateway::update_time].
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1086,7 +1086,7 @@ impl AppGatewayOperationMetadata {
         self
     }
 
-    /// Sets or clear the value of [create_time][crate::model::AppGatewayOperationMetadata::create_time].
+    /// Sets or clears the value of [create_time][crate::model::AppGatewayOperationMetadata::create_time].
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1104,7 +1104,7 @@ impl AppGatewayOperationMetadata {
         self
     }
 
-    /// Sets or clear the value of [end_time][crate::model::AppGatewayOperationMetadata::end_time].
+    /// Sets or clears the value of [end_time][crate::model::AppGatewayOperationMetadata::end_time].
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,

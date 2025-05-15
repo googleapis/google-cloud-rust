@@ -233,7 +233,7 @@ impl CertificateAuthority {
         self
     }
 
-    /// Sets or clear the value of [config][crate::model::CertificateAuthority::config].
+    /// Sets or clears the value of [config][crate::model::CertificateAuthority::config].
     pub fn set_or_clear_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CertificateConfig>,
@@ -251,7 +251,7 @@ impl CertificateAuthority {
         self
     }
 
-    /// Sets or clear the value of [lifetime][crate::model::CertificateAuthority::lifetime].
+    /// Sets or clears the value of [lifetime][crate::model::CertificateAuthority::lifetime].
     pub fn set_or_clear_lifetime<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -269,7 +269,7 @@ impl CertificateAuthority {
         self
     }
 
-    /// Sets or clear the value of [key_spec][crate::model::CertificateAuthority::key_spec].
+    /// Sets or clears the value of [key_spec][crate::model::CertificateAuthority::key_spec].
     pub fn set_or_clear_key_spec<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::certificate_authority::KeyVersionSpec>,
@@ -287,7 +287,7 @@ impl CertificateAuthority {
         self
     }
 
-    /// Sets or clear the value of [subordinate_config][crate::model::CertificateAuthority::subordinate_config].
+    /// Sets or clears the value of [subordinate_config][crate::model::CertificateAuthority::subordinate_config].
     pub fn set_or_clear_subordinate_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::SubordinateConfig>,
@@ -348,7 +348,7 @@ impl CertificateAuthority {
         self
     }
 
-    /// Sets or clear the value of [access_urls][crate::model::CertificateAuthority::access_urls].
+    /// Sets or clears the value of [access_urls][crate::model::CertificateAuthority::access_urls].
     pub fn set_or_clear_access_urls<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::certificate_authority::AccessUrls>,
@@ -366,7 +366,7 @@ impl CertificateAuthority {
         self
     }
 
-    /// Sets or clear the value of [create_time][crate::model::CertificateAuthority::create_time].
+    /// Sets or clears the value of [create_time][crate::model::CertificateAuthority::create_time].
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -384,7 +384,7 @@ impl CertificateAuthority {
         self
     }
 
-    /// Sets or clear the value of [update_time][crate::model::CertificateAuthority::update_time].
+    /// Sets or clears the value of [update_time][crate::model::CertificateAuthority::update_time].
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -402,7 +402,7 @@ impl CertificateAuthority {
         self
     }
 
-    /// Sets or clear the value of [delete_time][crate::model::CertificateAuthority::delete_time].
+    /// Sets or clears the value of [delete_time][crate::model::CertificateAuthority::delete_time].
     pub fn set_or_clear_delete_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -420,7 +420,7 @@ impl CertificateAuthority {
         self
     }
 
-    /// Sets or clear the value of [expire_time][crate::model::CertificateAuthority::expire_time].
+    /// Sets or clears the value of [expire_time][crate::model::CertificateAuthority::expire_time].
     pub fn set_or_clear_expire_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1259,7 +1259,7 @@ impl CaPool {
         self
     }
 
-    /// Sets or clear the value of [issuance_policy][crate::model::CaPool::issuance_policy].
+    /// Sets or clears the value of [issuance_policy][crate::model::CaPool::issuance_policy].
     pub fn set_or_clear_issuance_policy<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ca_pool::IssuancePolicy>,
@@ -1277,7 +1277,7 @@ impl CaPool {
         self
     }
 
-    /// Sets or clear the value of [publishing_options][crate::model::CaPool::publishing_options].
+    /// Sets or clears the value of [publishing_options][crate::model::CaPool::publishing_options].
     pub fn set_or_clear_publishing_options<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ca_pool::PublishingOptions>,
@@ -1677,7 +1677,7 @@ pub mod ca_pool {
             self
         }
 
-        /// Sets or clear the value of [maximum_lifetime][crate::model::ca_pool::IssuancePolicy::maximum_lifetime].
+        /// Sets or clears the value of [maximum_lifetime][crate::model::ca_pool::IssuancePolicy::maximum_lifetime].
         pub fn set_or_clear_maximum_lifetime<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
@@ -1695,7 +1695,7 @@ pub mod ca_pool {
             self
         }
 
-        /// Sets or clear the value of [allowed_issuance_modes][crate::model::ca_pool::IssuancePolicy::allowed_issuance_modes].
+        /// Sets or clears the value of [allowed_issuance_modes][crate::model::ca_pool::IssuancePolicy::allowed_issuance_modes].
         pub fn set_or_clear_allowed_issuance_modes<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::ca_pool::issuance_policy::IssuanceModes>,
@@ -1713,7 +1713,7 @@ pub mod ca_pool {
             self
         }
 
-        /// Sets or clear the value of [baseline_values][crate::model::ca_pool::IssuancePolicy::baseline_values].
+        /// Sets or clears the value of [baseline_values][crate::model::ca_pool::IssuancePolicy::baseline_values].
         pub fn set_or_clear_baseline_values<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::X509Parameters>,
@@ -1731,7 +1731,7 @@ pub mod ca_pool {
             self
         }
 
-        /// Sets or clear the value of [identity_constraints][crate::model::ca_pool::IssuancePolicy::identity_constraints].
+        /// Sets or clears the value of [identity_constraints][crate::model::ca_pool::IssuancePolicy::identity_constraints].
         pub fn set_or_clear_identity_constraints<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::CertificateIdentityConstraints>,
@@ -1749,7 +1749,7 @@ pub mod ca_pool {
             self
         }
 
-        /// Sets or clear the value of [passthrough_extensions][crate::model::ca_pool::IssuancePolicy::passthrough_extensions].
+        /// Sets or clears the value of [passthrough_extensions][crate::model::ca_pool::IssuancePolicy::passthrough_extensions].
         pub fn set_or_clear_passthrough_extensions<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::CertificateExtensionConstraints>,
@@ -2520,7 +2520,7 @@ impl CertificateRevocationList {
         self
     }
 
-    /// Sets or clear the value of [create_time][crate::model::CertificateRevocationList::create_time].
+    /// Sets or clears the value of [create_time][crate::model::CertificateRevocationList::create_time].
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2538,7 +2538,7 @@ impl CertificateRevocationList {
         self
     }
 
-    /// Sets or clear the value of [update_time][crate::model::CertificateRevocationList::update_time].
+    /// Sets or clears the value of [update_time][crate::model::CertificateRevocationList::update_time].
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2926,7 +2926,7 @@ impl Certificate {
         self
     }
 
-    /// Sets or clear the value of [lifetime][crate::model::Certificate::lifetime].
+    /// Sets or clears the value of [lifetime][crate::model::Certificate::lifetime].
     pub fn set_or_clear_lifetime<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -2962,7 +2962,7 @@ impl Certificate {
         self
     }
 
-    /// Sets or clear the value of [revocation_details][crate::model::Certificate::revocation_details].
+    /// Sets or clears the value of [revocation_details][crate::model::Certificate::revocation_details].
     pub fn set_or_clear_revocation_details<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::certificate::RevocationDetails>,
@@ -2986,7 +2986,7 @@ impl Certificate {
         self
     }
 
-    /// Sets or clear the value of [certificate_description][crate::model::Certificate::certificate_description].
+    /// Sets or clears the value of [certificate_description][crate::model::Certificate::certificate_description].
     pub fn set_or_clear_certificate_description<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CertificateDescription>,
@@ -3015,7 +3015,7 @@ impl Certificate {
         self
     }
 
-    /// Sets or clear the value of [create_time][crate::model::Certificate::create_time].
+    /// Sets or clears the value of [create_time][crate::model::Certificate::create_time].
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3033,7 +3033,7 @@ impl Certificate {
         self
     }
 
-    /// Sets or clear the value of [update_time][crate::model::Certificate::update_time].
+    /// Sets or clears the value of [update_time][crate::model::Certificate::update_time].
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3180,7 +3180,7 @@ pub mod certificate {
             self
         }
 
-        /// Sets or clear the value of [revocation_time][crate::model::certificate::RevocationDetails::revocation_time].
+        /// Sets or clears the value of [revocation_time][crate::model::certificate::RevocationDetails::revocation_time].
         pub fn set_or_clear_revocation_time<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -3354,7 +3354,7 @@ impl CertificateTemplate {
         self
     }
 
-    /// Sets or clear the value of [maximum_lifetime][crate::model::CertificateTemplate::maximum_lifetime].
+    /// Sets or clears the value of [maximum_lifetime][crate::model::CertificateTemplate::maximum_lifetime].
     pub fn set_or_clear_maximum_lifetime<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -3372,7 +3372,7 @@ impl CertificateTemplate {
         self
     }
 
-    /// Sets or clear the value of [predefined_values][crate::model::CertificateTemplate::predefined_values].
+    /// Sets or clears the value of [predefined_values][crate::model::CertificateTemplate::predefined_values].
     pub fn set_or_clear_predefined_values<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::X509Parameters>,
@@ -3390,7 +3390,7 @@ impl CertificateTemplate {
         self
     }
 
-    /// Sets or clear the value of [identity_constraints][crate::model::CertificateTemplate::identity_constraints].
+    /// Sets or clears the value of [identity_constraints][crate::model::CertificateTemplate::identity_constraints].
     pub fn set_or_clear_identity_constraints<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CertificateIdentityConstraints>,
@@ -3408,7 +3408,7 @@ impl CertificateTemplate {
         self
     }
 
-    /// Sets or clear the value of [passthrough_extensions][crate::model::CertificateTemplate::passthrough_extensions].
+    /// Sets or clears the value of [passthrough_extensions][crate::model::CertificateTemplate::passthrough_extensions].
     pub fn set_or_clear_passthrough_extensions<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CertificateExtensionConstraints>,
@@ -3432,7 +3432,7 @@ impl CertificateTemplate {
         self
     }
 
-    /// Sets or clear the value of [create_time][crate::model::CertificateTemplate::create_time].
+    /// Sets or clears the value of [create_time][crate::model::CertificateTemplate::create_time].
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3450,7 +3450,7 @@ impl CertificateTemplate {
         self
     }
 
-    /// Sets or clear the value of [update_time][crate::model::CertificateTemplate::update_time].
+    /// Sets or clears the value of [update_time][crate::model::CertificateTemplate::update_time].
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3539,7 +3539,7 @@ impl X509Parameters {
         self
     }
 
-    /// Sets or clear the value of [key_usage][crate::model::X509Parameters::key_usage].
+    /// Sets or clears the value of [key_usage][crate::model::X509Parameters::key_usage].
     pub fn set_or_clear_key_usage<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::KeyUsage>,
@@ -3557,7 +3557,7 @@ impl X509Parameters {
         self
     }
 
-    /// Sets or clear the value of [ca_options][crate::model::X509Parameters::ca_options].
+    /// Sets or clears the value of [ca_options][crate::model::X509Parameters::ca_options].
     pub fn set_or_clear_ca_options<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::x_509_parameters::CaOptions>,
@@ -3597,7 +3597,7 @@ impl X509Parameters {
         self
     }
 
-    /// Sets or clear the value of [name_constraints][crate::model::X509Parameters::name_constraints].
+    /// Sets or clears the value of [name_constraints][crate::model::X509Parameters::name_constraints].
     pub fn set_or_clear_name_constraints<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::x_509_parameters::NameConstraints>,
@@ -3668,7 +3668,7 @@ pub mod x_509_parameters {
             self
         }
 
-        /// Sets or clear the value of [is_ca][crate::model::x_509_parameters::CaOptions::is_ca].
+        /// Sets or clears the value of [is_ca][crate::model::x_509_parameters::CaOptions::is_ca].
         pub fn set_or_clear_is_ca<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<bool>,
@@ -3686,7 +3686,7 @@ pub mod x_509_parameters {
             self
         }
 
-        /// Sets or clear the value of [max_issuer_path_length][crate::model::x_509_parameters::CaOptions::max_issuer_path_length].
+        /// Sets or clears the value of [max_issuer_path_length][crate::model::x_509_parameters::CaOptions::max_issuer_path_length].
         pub fn set_or_clear_max_issuer_path_length<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<i32>,
@@ -4310,7 +4310,7 @@ impl CertificateConfig {
         self
     }
 
-    /// Sets or clear the value of [subject_config][crate::model::CertificateConfig::subject_config].
+    /// Sets or clears the value of [subject_config][crate::model::CertificateConfig::subject_config].
     pub fn set_or_clear_subject_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::certificate_config::SubjectConfig>,
@@ -4328,7 +4328,7 @@ impl CertificateConfig {
         self
     }
 
-    /// Sets or clear the value of [x509_config][crate::model::CertificateConfig::x509_config].
+    /// Sets or clears the value of [x509_config][crate::model::CertificateConfig::x509_config].
     pub fn set_or_clear_x509_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::X509Parameters>,
@@ -4346,7 +4346,7 @@ impl CertificateConfig {
         self
     }
 
-    /// Sets or clear the value of [public_key][crate::model::CertificateConfig::public_key].
+    /// Sets or clears the value of [public_key][crate::model::CertificateConfig::public_key].
     pub fn set_or_clear_public_key<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::PublicKey>,
@@ -4364,7 +4364,7 @@ impl CertificateConfig {
         self
     }
 
-    /// Sets or clear the value of [subject_key_id][crate::model::CertificateConfig::subject_key_id].
+    /// Sets or clears the value of [subject_key_id][crate::model::CertificateConfig::subject_key_id].
     pub fn set_or_clear_subject_key_id<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::certificate_config::KeyId>,
@@ -4419,7 +4419,7 @@ pub mod certificate_config {
             self
         }
 
-        /// Sets or clear the value of [subject][crate::model::certificate_config::SubjectConfig::subject].
+        /// Sets or clears the value of [subject][crate::model::certificate_config::SubjectConfig::subject].
         pub fn set_or_clear_subject<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Subject>,
@@ -4437,7 +4437,7 @@ pub mod certificate_config {
             self
         }
 
-        /// Sets or clear the value of [subject_alt_name][crate::model::certificate_config::SubjectConfig::subject_alt_name].
+        /// Sets or clears the value of [subject_alt_name][crate::model::certificate_config::SubjectConfig::subject_alt_name].
         pub fn set_or_clear_subject_alt_name<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::SubjectAltNames>,
@@ -4557,7 +4557,7 @@ impl CertificateDescription {
         self
     }
 
-    /// Sets or clear the value of [subject_description][crate::model::CertificateDescription::subject_description].
+    /// Sets or clears the value of [subject_description][crate::model::CertificateDescription::subject_description].
     pub fn set_or_clear_subject_description<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::certificate_description::SubjectDescription>,
@@ -4575,7 +4575,7 @@ impl CertificateDescription {
         self
     }
 
-    /// Sets or clear the value of [x509_description][crate::model::CertificateDescription::x509_description].
+    /// Sets or clears the value of [x509_description][crate::model::CertificateDescription::x509_description].
     pub fn set_or_clear_x509_description<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::X509Parameters>,
@@ -4593,7 +4593,7 @@ impl CertificateDescription {
         self
     }
 
-    /// Sets or clear the value of [public_key][crate::model::CertificateDescription::public_key].
+    /// Sets or clears the value of [public_key][crate::model::CertificateDescription::public_key].
     pub fn set_or_clear_public_key<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::PublicKey>,
@@ -4611,7 +4611,7 @@ impl CertificateDescription {
         self
     }
 
-    /// Sets or clear the value of [subject_key_id][crate::model::CertificateDescription::subject_key_id].
+    /// Sets or clears the value of [subject_key_id][crate::model::CertificateDescription::subject_key_id].
     pub fn set_or_clear_subject_key_id<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::certificate_description::KeyId>,
@@ -4629,7 +4629,7 @@ impl CertificateDescription {
         self
     }
 
-    /// Sets or clear the value of [authority_key_id][crate::model::CertificateDescription::authority_key_id].
+    /// Sets or clears the value of [authority_key_id][crate::model::CertificateDescription::authority_key_id].
     pub fn set_or_clear_authority_key_id<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::certificate_description::KeyId>,
@@ -4669,7 +4669,7 @@ impl CertificateDescription {
         self
     }
 
-    /// Sets or clear the value of [cert_fingerprint][crate::model::CertificateDescription::cert_fingerprint].
+    /// Sets or clears the value of [cert_fingerprint][crate::model::CertificateDescription::cert_fingerprint].
     pub fn set_or_clear_cert_fingerprint<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::certificate_description::CertificateFingerprint>,
@@ -4743,7 +4743,7 @@ pub mod certificate_description {
             self
         }
 
-        /// Sets or clear the value of [subject][crate::model::certificate_description::SubjectDescription::subject].
+        /// Sets or clears the value of [subject][crate::model::certificate_description::SubjectDescription::subject].
         pub fn set_or_clear_subject<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Subject>,
@@ -4761,7 +4761,7 @@ pub mod certificate_description {
             self
         }
 
-        /// Sets or clear the value of [subject_alt_name][crate::model::certificate_description::SubjectDescription::subject_alt_name].
+        /// Sets or clears the value of [subject_alt_name][crate::model::certificate_description::SubjectDescription::subject_alt_name].
         pub fn set_or_clear_subject_alt_name<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::SubjectAltNames>,
@@ -4788,7 +4788,7 @@ pub mod certificate_description {
             self
         }
 
-        /// Sets or clear the value of [lifetime][crate::model::certificate_description::SubjectDescription::lifetime].
+        /// Sets or clears the value of [lifetime][crate::model::certificate_description::SubjectDescription::lifetime].
         pub fn set_or_clear_lifetime<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
@@ -4806,7 +4806,7 @@ pub mod certificate_description {
             self
         }
 
-        /// Sets or clear the value of [not_before_time][crate::model::certificate_description::SubjectDescription::not_before_time].
+        /// Sets or clears the value of [not_before_time][crate::model::certificate_description::SubjectDescription::not_before_time].
         pub fn set_or_clear_not_before_time<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -4824,7 +4824,7 @@ pub mod certificate_description {
             self
         }
 
-        /// Sets or clear the value of [not_after_time][crate::model::certificate_description::SubjectDescription::not_after_time].
+        /// Sets or clears the value of [not_after_time][crate::model::certificate_description::SubjectDescription::not_after_time].
         pub fn set_or_clear_not_after_time<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -4992,7 +4992,7 @@ impl X509Extension {
         self
     }
 
-    /// Sets or clear the value of [object_id][crate::model::X509Extension::object_id].
+    /// Sets or clears the value of [object_id][crate::model::X509Extension::object_id].
     pub fn set_or_clear_object_id<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ObjectId>,
@@ -5063,7 +5063,7 @@ impl KeyUsage {
         self
     }
 
-    /// Sets or clear the value of [base_key_usage][crate::model::KeyUsage::base_key_usage].
+    /// Sets or clears the value of [base_key_usage][crate::model::KeyUsage::base_key_usage].
     pub fn set_or_clear_base_key_usage<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::key_usage::KeyUsageOptions>,
@@ -5081,7 +5081,7 @@ impl KeyUsage {
         self
     }
 
-    /// Sets or clear the value of [extended_key_usage][crate::model::KeyUsage::extended_key_usage].
+    /// Sets or clears the value of [extended_key_usage][crate::model::KeyUsage::extended_key_usage].
     pub fn set_or_clear_extended_key_usage<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::key_usage::ExtendedKeyUsageOptions>,
@@ -5594,7 +5594,7 @@ impl CertificateIdentityConstraints {
         self
     }
 
-    /// Sets or clear the value of [cel_expression][crate::model::CertificateIdentityConstraints::cel_expression].
+    /// Sets or clears the value of [cel_expression][crate::model::CertificateIdentityConstraints::cel_expression].
     pub fn set_or_clear_cel_expression<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<gtype::model::Expr>,
@@ -5612,7 +5612,7 @@ impl CertificateIdentityConstraints {
         self
     }
 
-    /// Sets or clear the value of [allow_subject_passthrough][crate::model::CertificateIdentityConstraints::allow_subject_passthrough].
+    /// Sets or clears the value of [allow_subject_passthrough][crate::model::CertificateIdentityConstraints::allow_subject_passthrough].
     pub fn set_or_clear_allow_subject_passthrough<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<bool>,
@@ -5630,7 +5630,7 @@ impl CertificateIdentityConstraints {
         self
     }
 
-    /// Sets or clear the value of [allow_subject_alt_names_passthrough][crate::model::CertificateIdentityConstraints::allow_subject_alt_names_passthrough].
+    /// Sets or clears the value of [allow_subject_alt_names_passthrough][crate::model::CertificateIdentityConstraints::allow_subject_alt_names_passthrough].
     pub fn set_or_clear_allow_subject_alt_names_passthrough<T>(
         mut self,
         v: std::option::Option<T>,
@@ -6052,7 +6052,7 @@ impl CreateCertificateRequest {
         self
     }
 
-    /// Sets or clear the value of [certificate][crate::model::CreateCertificateRequest::certificate].
+    /// Sets or clears the value of [certificate][crate::model::CreateCertificateRequest::certificate].
     pub fn set_or_clear_certificate<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Certificate>,
@@ -6439,7 +6439,7 @@ impl UpdateCertificateRequest {
         self
     }
 
-    /// Sets or clear the value of [certificate][crate::model::UpdateCertificateRequest::certificate].
+    /// Sets or clears the value of [certificate][crate::model::UpdateCertificateRequest::certificate].
     pub fn set_or_clear_certificate<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Certificate>,
@@ -6457,7 +6457,7 @@ impl UpdateCertificateRequest {
         self
     }
 
-    /// Sets or clear the value of [update_mask][crate::model::UpdateCertificateRequest::update_mask].
+    /// Sets or clears the value of [update_mask][crate::model::UpdateCertificateRequest::update_mask].
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -6557,7 +6557,7 @@ impl ActivateCertificateAuthorityRequest {
         self
     }
 
-    /// Sets or clear the value of [subordinate_config][crate::model::ActivateCertificateAuthorityRequest::subordinate_config].
+    /// Sets or clears the value of [subordinate_config][crate::model::ActivateCertificateAuthorityRequest::subordinate_config].
     pub fn set_or_clear_subordinate_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::SubordinateConfig>,
@@ -6660,7 +6660,7 @@ impl CreateCertificateAuthorityRequest {
         self
     }
 
-    /// Sets or clear the value of [certificate_authority][crate::model::CreateCertificateAuthorityRequest::certificate_authority].
+    /// Sets or clears the value of [certificate_authority][crate::model::CreateCertificateAuthorityRequest::certificate_authority].
     pub fn set_or_clear_certificate_authority<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CertificateAuthority>,
@@ -7323,7 +7323,7 @@ impl UpdateCertificateAuthorityRequest {
         self
     }
 
-    /// Sets or clear the value of [certificate_authority][crate::model::UpdateCertificateAuthorityRequest::certificate_authority].
+    /// Sets or clears the value of [certificate_authority][crate::model::UpdateCertificateAuthorityRequest::certificate_authority].
     pub fn set_or_clear_certificate_authority<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CertificateAuthority>,
@@ -7341,7 +7341,7 @@ impl UpdateCertificateAuthorityRequest {
         self
     }
 
-    /// Sets or clear the value of [update_mask][crate::model::UpdateCertificateAuthorityRequest::update_mask].
+    /// Sets or clears the value of [update_mask][crate::model::UpdateCertificateAuthorityRequest::update_mask].
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -7438,7 +7438,7 @@ impl CreateCaPoolRequest {
         self
     }
 
-    /// Sets or clear the value of [ca_pool][crate::model::CreateCaPoolRequest::ca_pool].
+    /// Sets or clears the value of [ca_pool][crate::model::CreateCaPoolRequest::ca_pool].
     pub fn set_or_clear_ca_pool<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CaPool>,
@@ -7514,7 +7514,7 @@ impl UpdateCaPoolRequest {
         self
     }
 
-    /// Sets or clear the value of [ca_pool][crate::model::UpdateCaPoolRequest::ca_pool].
+    /// Sets or clears the value of [ca_pool][crate::model::UpdateCaPoolRequest::ca_pool].
     pub fn set_or_clear_ca_pool<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CaPool>,
@@ -7532,7 +7532,7 @@ impl UpdateCaPoolRequest {
         self
     }
 
-    /// Sets or clear the value of [update_mask][crate::model::UpdateCaPoolRequest::update_mask].
+    /// Sets or clears the value of [update_mask][crate::model::UpdateCaPoolRequest::update_mask].
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -8261,7 +8261,7 @@ impl UpdateCertificateRevocationListRequest {
         self
     }
 
-    /// Sets or clear the value of [certificate_revocation_list][crate::model::UpdateCertificateRevocationListRequest::certificate_revocation_list].
+    /// Sets or clears the value of [certificate_revocation_list][crate::model::UpdateCertificateRevocationListRequest::certificate_revocation_list].
     pub fn set_or_clear_certificate_revocation_list<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CertificateRevocationList>,
@@ -8279,7 +8279,7 @@ impl UpdateCertificateRevocationListRequest {
         self
     }
 
-    /// Sets or clear the value of [update_mask][crate::model::UpdateCertificateRevocationListRequest::update_mask].
+    /// Sets or clears the value of [update_mask][crate::model::UpdateCertificateRevocationListRequest::update_mask].
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -8380,7 +8380,7 @@ impl CreateCertificateTemplateRequest {
         self
     }
 
-    /// Sets or clear the value of [certificate_template][crate::model::CreateCertificateTemplateRequest::certificate_template].
+    /// Sets or clears the value of [certificate_template][crate::model::CreateCertificateTemplateRequest::certificate_template].
     pub fn set_or_clear_certificate_template<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CertificateTemplate>,
@@ -8735,7 +8735,7 @@ impl UpdateCertificateTemplateRequest {
         self
     }
 
-    /// Sets or clear the value of [certificate_template][crate::model::UpdateCertificateTemplateRequest::certificate_template].
+    /// Sets or clears the value of [certificate_template][crate::model::UpdateCertificateTemplateRequest::certificate_template].
     pub fn set_or_clear_certificate_template<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CertificateTemplate>,
@@ -8753,7 +8753,7 @@ impl UpdateCertificateTemplateRequest {
         self
     }
 
-    /// Sets or clear the value of [update_mask][crate::model::UpdateCertificateTemplateRequest::update_mask].
+    /// Sets or clears the value of [update_mask][crate::model::UpdateCertificateTemplateRequest::update_mask].
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -8833,7 +8833,7 @@ impl OperationMetadata {
         self
     }
 
-    /// Sets or clear the value of [create_time][crate::model::OperationMetadata::create_time].
+    /// Sets or clears the value of [create_time][crate::model::OperationMetadata::create_time].
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -8851,7 +8851,7 @@ impl OperationMetadata {
         self
     }
 
-    /// Sets or clear the value of [end_time][crate::model::OperationMetadata::end_time].
+    /// Sets or clears the value of [end_time][crate::model::OperationMetadata::end_time].
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,

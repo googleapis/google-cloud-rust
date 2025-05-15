@@ -337,7 +337,7 @@ impl HomepageExtensionPoint {
         self
     }
 
-    /// Sets or clear the value of [enabled][crate::model::HomepageExtensionPoint::enabled].
+    /// Sets or clears the value of [enabled][crate::model::HomepageExtensionPoint::enabled].
     pub fn set_or_clear_enabled<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::BoolValue>,
@@ -558,7 +558,7 @@ impl CommonAddOnManifest {
         self
     }
 
-    /// Sets or clear the value of [layout_properties][crate::model::CommonAddOnManifest::layout_properties].
+    /// Sets or clears the value of [layout_properties][crate::model::CommonAddOnManifest::layout_properties].
     pub fn set_or_clear_layout_properties<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::LayoutProperties>,
@@ -576,7 +576,7 @@ impl CommonAddOnManifest {
         self
     }
 
-    /// Sets or clear the value of [add_on_widget_set][crate::model::CommonAddOnManifest::add_on_widget_set].
+    /// Sets or clears the value of [add_on_widget_set][crate::model::CommonAddOnManifest::add_on_widget_set].
     pub fn set_or_clear_add_on_widget_set<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::AddOnWidgetSet>,
@@ -600,7 +600,7 @@ impl CommonAddOnManifest {
         self
     }
 
-    /// Sets or clear the value of [homepage_trigger][crate::model::CommonAddOnManifest::homepage_trigger].
+    /// Sets or clears the value of [homepage_trigger][crate::model::CommonAddOnManifest::homepage_trigger].
     pub fn set_or_clear_homepage_trigger<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::HomepageExtensionPoint>,
@@ -629,7 +629,7 @@ impl CommonAddOnManifest {
         self
     }
 
-    /// Sets or clear the value of [open_link_url_prefixes][crate::model::CommonAddOnManifest::open_link_url_prefixes].
+    /// Sets or clears the value of [open_link_url_prefixes][crate::model::CommonAddOnManifest::open_link_url_prefixes].
     pub fn set_or_clear_open_link_url_prefixes<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::ListValue>,

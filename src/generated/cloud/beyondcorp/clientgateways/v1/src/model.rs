@@ -89,7 +89,7 @@ impl ClientGateway {
         self
     }
 
-    /// Sets or clear the value of [create_time][crate::model::ClientGateway::create_time].
+    /// Sets or clears the value of [create_time][crate::model::ClientGateway::create_time].
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -107,7 +107,7 @@ impl ClientGateway {
         self
     }
 
-    /// Sets or clear the value of [update_time][crate::model::ClientGateway::update_time].
+    /// Sets or clears the value of [update_time][crate::model::ClientGateway::update_time].
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -571,7 +571,7 @@ impl CreateClientGatewayRequest {
         self
     }
 
-    /// Sets or clear the value of [client_gateway][crate::model::CreateClientGatewayRequest::client_gateway].
+    /// Sets or clears the value of [client_gateway][crate::model::CreateClientGatewayRequest::client_gateway].
     pub fn set_or_clear_client_gateway<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ClientGateway>,
@@ -722,7 +722,7 @@ impl ClientGatewayOperationMetadata {
         self
     }
 
-    /// Sets or clear the value of [create_time][crate::model::ClientGatewayOperationMetadata::create_time].
+    /// Sets or clears the value of [create_time][crate::model::ClientGatewayOperationMetadata::create_time].
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -740,7 +740,7 @@ impl ClientGatewayOperationMetadata {
         self
     }
 
-    /// Sets or clear the value of [end_time][crate::model::ClientGatewayOperationMetadata::end_time].
+    /// Sets or clears the value of [end_time][crate::model::ClientGatewayOperationMetadata::end_time].
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,

@@ -418,7 +418,7 @@ pub mod analytics_hub_service {
             self
         }
 
-        /// Sets or clear the value of [data_exchange][crate::model::CreateDataExchangeRequest::data_exchange].
+        /// Sets or clears the value of [data_exchange][crate::model::CreateDataExchangeRequest::data_exchange].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_data_exchange<T>(mut self, v: std::option::Option<T>) -> Self
@@ -497,7 +497,7 @@ pub mod analytics_hub_service {
             self
         }
 
-        /// Sets or clear the value of [update_mask][crate::model::UpdateDataExchangeRequest::update_mask].
+        /// Sets or clears the value of [update_mask][crate::model::UpdateDataExchangeRequest::update_mask].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
@@ -519,7 +519,7 @@ pub mod analytics_hub_service {
             self
         }
 
-        /// Sets or clear the value of [data_exchange][crate::model::UpdateDataExchangeRequest::data_exchange].
+        /// Sets or clears the value of [data_exchange][crate::model::UpdateDataExchangeRequest::data_exchange].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_data_exchange<T>(mut self, v: std::option::Option<T>) -> Self
@@ -840,7 +840,7 @@ pub mod analytics_hub_service {
             self
         }
 
-        /// Sets or clear the value of [listing][crate::model::CreateListingRequest::listing].
+        /// Sets or clears the value of [listing][crate::model::CreateListingRequest::listing].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_listing<T>(mut self, v: std::option::Option<T>) -> Self
@@ -916,7 +916,7 @@ pub mod analytics_hub_service {
             self
         }
 
-        /// Sets or clear the value of [update_mask][crate::model::UpdateListingRequest::update_mask].
+        /// Sets or clears the value of [update_mask][crate::model::UpdateListingRequest::update_mask].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
@@ -938,7 +938,7 @@ pub mod analytics_hub_service {
             self
         }
 
-        /// Sets or clear the value of [listing][crate::model::UpdateListingRequest::listing].
+        /// Sets or clears the value of [listing][crate::model::UpdateListingRequest::listing].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_listing<T>(mut self, v: std::option::Option<T>) -> Self
@@ -1250,7 +1250,7 @@ pub mod analytics_hub_service {
             self
         }
 
-        /// Sets or clear the value of [destination_dataset][crate::model::SubscribeDataExchangeRequest::destination_dataset].
+        /// Sets or clears the value of [destination_dataset][crate::model::SubscribeDataExchangeRequest::destination_dataset].
         pub fn set_or_clear_destination_dataset<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::DestinationDataset>,
@@ -1918,7 +1918,7 @@ pub mod analytics_hub_service {
             self
         }
 
-        /// Sets or clear the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        /// Sets or clears the value of [options][iam_v1::model::GetIamPolicyRequest::options].
         pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
@@ -2000,7 +2000,7 @@ pub mod analytics_hub_service {
             self
         }
 
-        /// Sets or clear the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        /// Sets or clears the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
@@ -2020,7 +2020,7 @@ pub mod analytics_hub_service {
             self
         }
 
-        /// Sets or clear the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        /// Sets or clears the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,

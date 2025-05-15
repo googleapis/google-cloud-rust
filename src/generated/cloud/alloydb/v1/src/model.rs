@@ -142,7 +142,7 @@ impl RestoreFromCloudSQLRequest {
         self
     }
 
-    /// Sets or clear the value of [cluster][crate::model::RestoreFromCloudSQLRequest::cluster].
+    /// Sets or clears the value of [cluster][crate::model::RestoreFromCloudSQLRequest::cluster].
     pub fn set_or_clear_cluster<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Cluster>,
@@ -390,7 +390,7 @@ impl SqlResultValue {
         self
     }
 
-    /// Sets or clear the value of [value][crate::model::SqlResultValue::value].
+    /// Sets or clears the value of [value][crate::model::SqlResultValue::value].
     pub fn set_or_clear_value<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -408,7 +408,7 @@ impl SqlResultValue {
         self
     }
 
-    /// Sets or clear the value of [null_value][crate::model::SqlResultValue::null_value].
+    /// Sets or clears the value of [null_value][crate::model::SqlResultValue::null_value].
     pub fn set_or_clear_null_value<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<bool>,
@@ -1307,7 +1307,7 @@ impl AutomatedBackupPolicy {
         self
     }
 
-    /// Sets or clear the value of [enabled][crate::model::AutomatedBackupPolicy::enabled].
+    /// Sets or clears the value of [enabled][crate::model::AutomatedBackupPolicy::enabled].
     pub fn set_or_clear_enabled<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<bool>,
@@ -1325,7 +1325,7 @@ impl AutomatedBackupPolicy {
         self
     }
 
-    /// Sets or clear the value of [backup_window][crate::model::AutomatedBackupPolicy::backup_window].
+    /// Sets or clears the value of [backup_window][crate::model::AutomatedBackupPolicy::backup_window].
     pub fn set_or_clear_backup_window<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -1343,7 +1343,7 @@ impl AutomatedBackupPolicy {
         self
     }
 
-    /// Sets or clear the value of [encryption_config][crate::model::AutomatedBackupPolicy::encryption_config].
+    /// Sets or clears the value of [encryption_config][crate::model::AutomatedBackupPolicy::encryption_config].
     pub fn set_or_clear_encryption_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::EncryptionConfig>,
@@ -1609,7 +1609,7 @@ pub mod automated_backup_policy {
             self
         }
 
-        /// Sets or clear the value of [retention_period][crate::model::automated_backup_policy::TimeBasedRetention::retention_period].
+        /// Sets or clears the value of [retention_period][crate::model::automated_backup_policy::TimeBasedRetention::retention_period].
         pub fn set_or_clear_retention_period<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
@@ -1740,7 +1740,7 @@ impl ContinuousBackupConfig {
         self
     }
 
-    /// Sets or clear the value of [enabled][crate::model::ContinuousBackupConfig::enabled].
+    /// Sets or clears the value of [enabled][crate::model::ContinuousBackupConfig::enabled].
     pub fn set_or_clear_enabled<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<bool>,
@@ -1764,7 +1764,7 @@ impl ContinuousBackupConfig {
         self
     }
 
-    /// Sets or clear the value of [encryption_config][crate::model::ContinuousBackupConfig::encryption_config].
+    /// Sets or clears the value of [encryption_config][crate::model::ContinuousBackupConfig::encryption_config].
     pub fn set_or_clear_encryption_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::EncryptionConfig>,
@@ -1825,7 +1825,7 @@ impl ContinuousBackupInfo {
         self
     }
 
-    /// Sets or clear the value of [encryption_info][crate::model::ContinuousBackupInfo::encryption_info].
+    /// Sets or clears the value of [encryption_info][crate::model::ContinuousBackupInfo::encryption_info].
     pub fn set_or_clear_encryption_info<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::EncryptionInfo>,
@@ -1843,7 +1843,7 @@ impl ContinuousBackupInfo {
         self
     }
 
-    /// Sets or clear the value of [enabled_time][crate::model::ContinuousBackupInfo::enabled_time].
+    /// Sets or clears the value of [enabled_time][crate::model::ContinuousBackupInfo::enabled_time].
     pub fn set_or_clear_enabled_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1872,7 +1872,7 @@ impl ContinuousBackupInfo {
         self
     }
 
-    /// Sets or clear the value of [earliest_restorable_time][crate::model::ContinuousBackupInfo::earliest_restorable_time].
+    /// Sets or clears the value of [earliest_restorable_time][crate::model::ContinuousBackupInfo::earliest_restorable_time].
     pub fn set_or_clear_earliest_restorable_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1974,7 +1974,7 @@ impl ContinuousBackupSource {
         self
     }
 
-    /// Sets or clear the value of [point_in_time][crate::model::ContinuousBackupSource::point_in_time].
+    /// Sets or clears the value of [point_in_time][crate::model::ContinuousBackupSource::point_in_time].
     pub fn set_or_clear_point_in_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2071,7 +2071,7 @@ pub mod maintenance_update_policy {
             self
         }
 
-        /// Sets or clear the value of [start_time][crate::model::maintenance_update_policy::MaintenanceWindow::start_time].
+        /// Sets or clears the value of [start_time][crate::model::maintenance_update_policy::MaintenanceWindow::start_time].
         pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<gtype::model::TimeOfDay>,
@@ -2120,7 +2120,7 @@ impl MaintenanceSchedule {
         self
     }
 
-    /// Sets or clear the value of [start_time][crate::model::MaintenanceSchedule::start_time].
+    /// Sets or clears the value of [start_time][crate::model::MaintenanceSchedule::start_time].
     pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2349,7 +2349,7 @@ impl Cluster {
         self
     }
 
-    /// Sets or clear the value of [create_time][crate::model::Cluster::create_time].
+    /// Sets or clears the value of [create_time][crate::model::Cluster::create_time].
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2367,7 +2367,7 @@ impl Cluster {
         self
     }
 
-    /// Sets or clear the value of [update_time][crate::model::Cluster::update_time].
+    /// Sets or clears the value of [update_time][crate::model::Cluster::update_time].
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2385,7 +2385,7 @@ impl Cluster {
         self
     }
 
-    /// Sets or clear the value of [delete_time][crate::model::Cluster::delete_time].
+    /// Sets or clears the value of [delete_time][crate::model::Cluster::delete_time].
     pub fn set_or_clear_delete_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2439,7 +2439,7 @@ impl Cluster {
         self
     }
 
-    /// Sets or clear the value of [network_config][crate::model::Cluster::network_config].
+    /// Sets or clears the value of [network_config][crate::model::Cluster::network_config].
     pub fn set_or_clear_network_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::cluster::NetworkConfig>,
@@ -2488,7 +2488,7 @@ impl Cluster {
         self
     }
 
-    /// Sets or clear the value of [initial_user][crate::model::Cluster::initial_user].
+    /// Sets or clears the value of [initial_user][crate::model::Cluster::initial_user].
     pub fn set_or_clear_initial_user<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::UserPassword>,
@@ -2506,7 +2506,7 @@ impl Cluster {
         self
     }
 
-    /// Sets or clear the value of [automated_backup_policy][crate::model::Cluster::automated_backup_policy].
+    /// Sets or clears the value of [automated_backup_policy][crate::model::Cluster::automated_backup_policy].
     pub fn set_or_clear_automated_backup_policy<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::AutomatedBackupPolicy>,
@@ -2525,7 +2525,7 @@ impl Cluster {
         self
     }
 
-    /// Sets or clear the value of [ssl_config][crate::model::Cluster::ssl_config].
+    /// Sets or clears the value of [ssl_config][crate::model::Cluster::ssl_config].
     #[deprecated]
     pub fn set_or_clear_ssl_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
@@ -2544,7 +2544,7 @@ impl Cluster {
         self
     }
 
-    /// Sets or clear the value of [encryption_config][crate::model::Cluster::encryption_config].
+    /// Sets or clears the value of [encryption_config][crate::model::Cluster::encryption_config].
     pub fn set_or_clear_encryption_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::EncryptionConfig>,
@@ -2562,7 +2562,7 @@ impl Cluster {
         self
     }
 
-    /// Sets or clear the value of [encryption_info][crate::model::Cluster::encryption_info].
+    /// Sets or clears the value of [encryption_info][crate::model::Cluster::encryption_info].
     pub fn set_or_clear_encryption_info<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::EncryptionInfo>,
@@ -2580,7 +2580,7 @@ impl Cluster {
         self
     }
 
-    /// Sets or clear the value of [continuous_backup_config][crate::model::Cluster::continuous_backup_config].
+    /// Sets or clears the value of [continuous_backup_config][crate::model::Cluster::continuous_backup_config].
     pub fn set_or_clear_continuous_backup_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ContinuousBackupConfig>,
@@ -2598,7 +2598,7 @@ impl Cluster {
         self
     }
 
-    /// Sets or clear the value of [continuous_backup_info][crate::model::Cluster::continuous_backup_info].
+    /// Sets or clears the value of [continuous_backup_info][crate::model::Cluster::continuous_backup_info].
     pub fn set_or_clear_continuous_backup_info<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ContinuousBackupInfo>,
@@ -2616,7 +2616,7 @@ impl Cluster {
         self
     }
 
-    /// Sets or clear the value of [secondary_config][crate::model::Cluster::secondary_config].
+    /// Sets or clears the value of [secondary_config][crate::model::Cluster::secondary_config].
     pub fn set_or_clear_secondary_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::cluster::SecondaryConfig>,
@@ -2634,7 +2634,7 @@ impl Cluster {
         self
     }
 
-    /// Sets or clear the value of [primary_config][crate::model::Cluster::primary_config].
+    /// Sets or clears the value of [primary_config][crate::model::Cluster::primary_config].
     pub fn set_or_clear_primary_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::cluster::PrimaryConfig>,
@@ -2658,7 +2658,7 @@ impl Cluster {
         self
     }
 
-    /// Sets or clear the value of [psc_config][crate::model::Cluster::psc_config].
+    /// Sets or clears the value of [psc_config][crate::model::Cluster::psc_config].
     pub fn set_or_clear_psc_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::cluster::PscConfig>,
@@ -2676,7 +2676,7 @@ impl Cluster {
         self
     }
 
-    /// Sets or clear the value of [maintenance_update_policy][crate::model::Cluster::maintenance_update_policy].
+    /// Sets or clears the value of [maintenance_update_policy][crate::model::Cluster::maintenance_update_policy].
     pub fn set_or_clear_maintenance_update_policy<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::MaintenanceUpdatePolicy>,
@@ -2694,7 +2694,7 @@ impl Cluster {
         self
     }
 
-    /// Sets or clear the value of [maintenance_schedule][crate::model::Cluster::maintenance_schedule].
+    /// Sets or clears the value of [maintenance_schedule][crate::model::Cluster::maintenance_schedule].
     pub fn set_or_clear_maintenance_schedule<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::MaintenanceSchedule>,
@@ -2721,7 +2721,7 @@ impl Cluster {
         self
     }
 
-    /// Sets or clear the value of [trial_metadata][crate::model::Cluster::trial_metadata].
+    /// Sets or clears the value of [trial_metadata][crate::model::Cluster::trial_metadata].
     pub fn set_or_clear_trial_metadata<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::cluster::TrialMetadata>,
@@ -3076,7 +3076,7 @@ pub mod cluster {
             self
         }
 
-        /// Sets or clear the value of [start_time][crate::model::cluster::TrialMetadata::start_time].
+        /// Sets or clears the value of [start_time][crate::model::cluster::TrialMetadata::start_time].
         pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -3094,7 +3094,7 @@ pub mod cluster {
             self
         }
 
-        /// Sets or clear the value of [end_time][crate::model::cluster::TrialMetadata::end_time].
+        /// Sets or clears the value of [end_time][crate::model::cluster::TrialMetadata::end_time].
         pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -3112,7 +3112,7 @@ pub mod cluster {
             self
         }
 
-        /// Sets or clear the value of [upgrade_time][crate::model::cluster::TrialMetadata::upgrade_time].
+        /// Sets or clears the value of [upgrade_time][crate::model::cluster::TrialMetadata::upgrade_time].
         pub fn set_or_clear_upgrade_time<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -3130,7 +3130,7 @@ pub mod cluster {
             self
         }
 
-        /// Sets or clear the value of [grace_end_time][crate::model::cluster::TrialMetadata::grace_end_time].
+        /// Sets or clears the value of [grace_end_time][crate::model::cluster::TrialMetadata::grace_end_time].
         pub fn set_or_clear_grace_end_time<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -3687,7 +3687,7 @@ impl Instance {
         self
     }
 
-    /// Sets or clear the value of [create_time][crate::model::Instance::create_time].
+    /// Sets or clears the value of [create_time][crate::model::Instance::create_time].
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3705,7 +3705,7 @@ impl Instance {
         self
     }
 
-    /// Sets or clear the value of [update_time][crate::model::Instance::update_time].
+    /// Sets or clears the value of [update_time][crate::model::Instance::update_time].
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3723,7 +3723,7 @@ impl Instance {
         self
     }
 
-    /// Sets or clear the value of [delete_time][crate::model::Instance::delete_time].
+    /// Sets or clears the value of [delete_time][crate::model::Instance::delete_time].
     pub fn set_or_clear_delete_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3768,7 +3768,7 @@ impl Instance {
         self
     }
 
-    /// Sets or clear the value of [machine_config][crate::model::Instance::machine_config].
+    /// Sets or clears the value of [machine_config][crate::model::Instance::machine_config].
     pub fn set_or_clear_machine_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::instance::MachineConfig>,
@@ -3815,7 +3815,7 @@ impl Instance {
         self
     }
 
-    /// Sets or clear the value of [writable_node][crate::model::Instance::writable_node].
+    /// Sets or clears the value of [writable_node][crate::model::Instance::writable_node].
     pub fn set_or_clear_writable_node<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::instance::Node>,
@@ -3844,7 +3844,7 @@ impl Instance {
         self
     }
 
-    /// Sets or clear the value of [query_insights_config][crate::model::Instance::query_insights_config].
+    /// Sets or clears the value of [query_insights_config][crate::model::Instance::query_insights_config].
     pub fn set_or_clear_query_insights_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::instance::QueryInsightsInstanceConfig>,
@@ -3862,7 +3862,7 @@ impl Instance {
         self
     }
 
-    /// Sets or clear the value of [observability_config][crate::model::Instance::observability_config].
+    /// Sets or clears the value of [observability_config][crate::model::Instance::observability_config].
     pub fn set_or_clear_observability_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::instance::ObservabilityInstanceConfig>,
@@ -3880,7 +3880,7 @@ impl Instance {
         self
     }
 
-    /// Sets or clear the value of [read_pool_config][crate::model::Instance::read_pool_config].
+    /// Sets or clears the value of [read_pool_config][crate::model::Instance::read_pool_config].
     pub fn set_or_clear_read_pool_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::instance::ReadPoolConfig>,
@@ -3937,7 +3937,7 @@ impl Instance {
         self
     }
 
-    /// Sets or clear the value of [client_connection_config][crate::model::Instance::client_connection_config].
+    /// Sets or clears the value of [client_connection_config][crate::model::Instance::client_connection_config].
     pub fn set_or_clear_client_connection_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::instance::ClientConnectionConfig>,
@@ -3961,7 +3961,7 @@ impl Instance {
         self
     }
 
-    /// Sets or clear the value of [psc_instance_config][crate::model::Instance::psc_instance_config].
+    /// Sets or clears the value of [psc_instance_config][crate::model::Instance::psc_instance_config].
     pub fn set_or_clear_psc_instance_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::instance::PscInstanceConfig>,
@@ -3979,7 +3979,7 @@ impl Instance {
         self
     }
 
-    /// Sets or clear the value of [network_config][crate::model::Instance::network_config].
+    /// Sets or clears the value of [network_config][crate::model::Instance::network_config].
     pub fn set_or_clear_network_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::instance::InstanceNetworkConfig>,
@@ -4171,7 +4171,7 @@ pub mod instance {
             self
         }
 
-        /// Sets or clear the value of [record_application_tags][crate::model::instance::QueryInsightsInstanceConfig::record_application_tags].
+        /// Sets or clears the value of [record_application_tags][crate::model::instance::QueryInsightsInstanceConfig::record_application_tags].
         pub fn set_or_clear_record_application_tags<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<bool>,
@@ -4189,7 +4189,7 @@ pub mod instance {
             self
         }
 
-        /// Sets or clear the value of [record_client_address][crate::model::instance::QueryInsightsInstanceConfig::record_client_address].
+        /// Sets or clears the value of [record_client_address][crate::model::instance::QueryInsightsInstanceConfig::record_client_address].
         pub fn set_or_clear_record_client_address<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<bool>,
@@ -4213,7 +4213,7 @@ pub mod instance {
             self
         }
 
-        /// Sets or clear the value of [query_plans_per_minute][crate::model::instance::QueryInsightsInstanceConfig::query_plans_per_minute].
+        /// Sets or clears the value of [query_plans_per_minute][crate::model::instance::QueryInsightsInstanceConfig::query_plans_per_minute].
         pub fn set_or_clear_query_plans_per_minute<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<u32>,
@@ -4296,7 +4296,7 @@ pub mod instance {
             self
         }
 
-        /// Sets or clear the value of [enabled][crate::model::instance::ObservabilityInstanceConfig::enabled].
+        /// Sets or clears the value of [enabled][crate::model::instance::ObservabilityInstanceConfig::enabled].
         pub fn set_or_clear_enabled<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<bool>,
@@ -4314,7 +4314,7 @@ pub mod instance {
             self
         }
 
-        /// Sets or clear the value of [preserve_comments][crate::model::instance::ObservabilityInstanceConfig::preserve_comments].
+        /// Sets or clears the value of [preserve_comments][crate::model::instance::ObservabilityInstanceConfig::preserve_comments].
         pub fn set_or_clear_preserve_comments<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<bool>,
@@ -4332,7 +4332,7 @@ pub mod instance {
             self
         }
 
-        /// Sets or clear the value of [track_wait_events][crate::model::instance::ObservabilityInstanceConfig::track_wait_events].
+        /// Sets or clears the value of [track_wait_events][crate::model::instance::ObservabilityInstanceConfig::track_wait_events].
         pub fn set_or_clear_track_wait_events<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<bool>,
@@ -4350,7 +4350,7 @@ pub mod instance {
             self
         }
 
-        /// Sets or clear the value of [track_wait_event_types][crate::model::instance::ObservabilityInstanceConfig::track_wait_event_types].
+        /// Sets or clears the value of [track_wait_event_types][crate::model::instance::ObservabilityInstanceConfig::track_wait_event_types].
         pub fn set_or_clear_track_wait_event_types<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<bool>,
@@ -4368,7 +4368,7 @@ pub mod instance {
             self
         }
 
-        /// Sets or clear the value of [max_query_string_length][crate::model::instance::ObservabilityInstanceConfig::max_query_string_length].
+        /// Sets or clears the value of [max_query_string_length][crate::model::instance::ObservabilityInstanceConfig::max_query_string_length].
         pub fn set_or_clear_max_query_string_length<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<i32>,
@@ -4386,7 +4386,7 @@ pub mod instance {
             self
         }
 
-        /// Sets or clear the value of [record_application_tags][crate::model::instance::ObservabilityInstanceConfig::record_application_tags].
+        /// Sets or clears the value of [record_application_tags][crate::model::instance::ObservabilityInstanceConfig::record_application_tags].
         pub fn set_or_clear_record_application_tags<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<bool>,
@@ -4404,7 +4404,7 @@ pub mod instance {
             self
         }
 
-        /// Sets or clear the value of [query_plans_per_minute][crate::model::instance::ObservabilityInstanceConfig::query_plans_per_minute].
+        /// Sets or clears the value of [query_plans_per_minute][crate::model::instance::ObservabilityInstanceConfig::query_plans_per_minute].
         pub fn set_or_clear_query_plans_per_minute<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<i32>,
@@ -4422,7 +4422,7 @@ pub mod instance {
             self
         }
 
-        /// Sets or clear the value of [track_active_queries][crate::model::instance::ObservabilityInstanceConfig::track_active_queries].
+        /// Sets or clears the value of [track_active_queries][crate::model::instance::ObservabilityInstanceConfig::track_active_queries].
         pub fn set_or_clear_track_active_queries<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<bool>,
@@ -4509,7 +4509,7 @@ pub mod instance {
             self
         }
 
-        /// Sets or clear the value of [ssl_config][crate::model::instance::ClientConnectionConfig::ssl_config].
+        /// Sets or clears the value of [ssl_config][crate::model::instance::ClientConnectionConfig::ssl_config].
         pub fn set_or_clear_ssl_config<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::SslConfig>,
@@ -5554,7 +5554,7 @@ impl Backup {
         self
     }
 
-    /// Sets or clear the value of [create_time][crate::model::Backup::create_time].
+    /// Sets or clears the value of [create_time][crate::model::Backup::create_time].
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -5572,7 +5572,7 @@ impl Backup {
         self
     }
 
-    /// Sets or clear the value of [update_time][crate::model::Backup::update_time].
+    /// Sets or clears the value of [update_time][crate::model::Backup::update_time].
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -5590,7 +5590,7 @@ impl Backup {
         self
     }
 
-    /// Sets or clear the value of [delete_time][crate::model::Backup::delete_time].
+    /// Sets or clears the value of [delete_time][crate::model::Backup::delete_time].
     pub fn set_or_clear_delete_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -5656,7 +5656,7 @@ impl Backup {
         self
     }
 
-    /// Sets or clear the value of [encryption_config][crate::model::Backup::encryption_config].
+    /// Sets or clears the value of [encryption_config][crate::model::Backup::encryption_config].
     pub fn set_or_clear_encryption_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::EncryptionConfig>,
@@ -5674,7 +5674,7 @@ impl Backup {
         self
     }
 
-    /// Sets or clear the value of [encryption_info][crate::model::Backup::encryption_info].
+    /// Sets or clears the value of [encryption_info][crate::model::Backup::encryption_info].
     pub fn set_or_clear_encryption_info<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::EncryptionInfo>,
@@ -5716,7 +5716,7 @@ impl Backup {
         self
     }
 
-    /// Sets or clear the value of [expiry_time][crate::model::Backup::expiry_time].
+    /// Sets or clears the value of [expiry_time][crate::model::Backup::expiry_time].
     pub fn set_or_clear_expiry_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -5734,7 +5734,7 @@ impl Backup {
         self
     }
 
-    /// Sets or clear the value of [expiry_quantity][crate::model::Backup::expiry_quantity].
+    /// Sets or clears the value of [expiry_quantity][crate::model::Backup::expiry_quantity].
     pub fn set_or_clear_expiry_quantity<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::backup::QuantityBasedExpiry>,
@@ -6495,7 +6495,7 @@ pub mod supported_database_flag {
             self
         }
 
-        /// Sets or clear the value of [min_value][crate::model::supported_database_flag::IntegerRestrictions::min_value].
+        /// Sets or clears the value of [min_value][crate::model::supported_database_flag::IntegerRestrictions::min_value].
         pub fn set_or_clear_min_value<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Int64Value>,
@@ -6513,7 +6513,7 @@ pub mod supported_database_flag {
             self
         }
 
-        /// Sets or clear the value of [max_value][crate::model::supported_database_flag::IntegerRestrictions::max_value].
+        /// Sets or clears the value of [max_value][crate::model::supported_database_flag::IntegerRestrictions::max_value].
         pub fn set_or_clear_max_value<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Int64Value>,
@@ -7385,7 +7385,7 @@ impl CreateSecondaryClusterRequest {
         self
     }
 
-    /// Sets or clear the value of [cluster][crate::model::CreateSecondaryClusterRequest::cluster].
+    /// Sets or clears the value of [cluster][crate::model::CreateSecondaryClusterRequest::cluster].
     pub fn set_or_clear_cluster<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Cluster>,
@@ -7484,7 +7484,7 @@ impl CreateClusterRequest {
         self
     }
 
-    /// Sets or clear the value of [cluster][crate::model::CreateClusterRequest::cluster].
+    /// Sets or clears the value of [cluster][crate::model::CreateClusterRequest::cluster].
     pub fn set_or_clear_cluster<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Cluster>,
@@ -7575,7 +7575,7 @@ impl UpdateClusterRequest {
         self
     }
 
-    /// Sets or clear the value of [update_mask][crate::model::UpdateClusterRequest::update_mask].
+    /// Sets or clears the value of [update_mask][crate::model::UpdateClusterRequest::update_mask].
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -7593,7 +7593,7 @@ impl UpdateClusterRequest {
         self
     }
 
-    /// Sets or clear the value of [cluster][crate::model::UpdateClusterRequest::cluster].
+    /// Sets or clears the value of [cluster][crate::model::UpdateClusterRequest::cluster].
     pub fn set_or_clear_cluster<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Cluster>,
@@ -7979,7 +7979,7 @@ pub mod export_cluster_request {
             self
         }
 
-        /// Sets or clear the value of [schema_only][crate::model::export_cluster_request::SqlExportOptions::schema_only].
+        /// Sets or clears the value of [schema_only][crate::model::export_cluster_request::SqlExportOptions::schema_only].
         pub fn set_or_clear_schema_only<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<bool>,
@@ -7997,7 +7997,7 @@ pub mod export_cluster_request {
             self
         }
 
-        /// Sets or clear the value of [clean_target_objects][crate::model::export_cluster_request::SqlExportOptions::clean_target_objects].
+        /// Sets or clears the value of [clean_target_objects][crate::model::export_cluster_request::SqlExportOptions::clean_target_objects].
         pub fn set_or_clear_clean_target_objects<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<bool>,
@@ -8015,7 +8015,7 @@ pub mod export_cluster_request {
             self
         }
 
-        /// Sets or clear the value of [if_exist_target_objects][crate::model::export_cluster_request::SqlExportOptions::if_exist_target_objects].
+        /// Sets or clears the value of [if_exist_target_objects][crate::model::export_cluster_request::SqlExportOptions::if_exist_target_objects].
         pub fn set_or_clear_if_exist_target_objects<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<bool>,
@@ -9494,7 +9494,7 @@ impl RestoreClusterRequest {
         self
     }
 
-    /// Sets or clear the value of [cluster][crate::model::RestoreClusterRequest::cluster].
+    /// Sets or clears the value of [cluster][crate::model::RestoreClusterRequest::cluster].
     pub fn set_or_clear_cluster<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Cluster>,
@@ -9886,7 +9886,7 @@ impl CreateInstanceRequest {
         self
     }
 
-    /// Sets or clear the value of [instance][crate::model::CreateInstanceRequest::instance].
+    /// Sets or clears the value of [instance][crate::model::CreateInstanceRequest::instance].
     pub fn set_or_clear_instance<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Instance>,
@@ -9985,7 +9985,7 @@ impl CreateSecondaryInstanceRequest {
         self
     }
 
-    /// Sets or clear the value of [instance][crate::model::CreateSecondaryInstanceRequest::instance].
+    /// Sets or clears the value of [instance][crate::model::CreateSecondaryInstanceRequest::instance].
     pub fn set_or_clear_instance<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Instance>,
@@ -10105,7 +10105,7 @@ impl BatchCreateInstancesRequest {
         self
     }
 
-    /// Sets or clear the value of [requests][crate::model::BatchCreateInstancesRequest::requests].
+    /// Sets or clears the value of [requests][crate::model::BatchCreateInstancesRequest::requests].
     pub fn set_or_clear_requests<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CreateInstanceRequests>,
@@ -10305,7 +10305,7 @@ impl BatchCreateInstanceStatus {
         self
     }
 
-    /// Sets or clear the value of [error][crate::model::BatchCreateInstanceStatus::error].
+    /// Sets or clears the value of [error][crate::model::BatchCreateInstanceStatus::error].
     pub fn set_or_clear_error<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<rpc::model::Status>,
@@ -10564,7 +10564,7 @@ impl UpdateInstanceRequest {
         self
     }
 
-    /// Sets or clear the value of [update_mask][crate::model::UpdateInstanceRequest::update_mask].
+    /// Sets or clears the value of [update_mask][crate::model::UpdateInstanceRequest::update_mask].
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -10582,7 +10582,7 @@ impl UpdateInstanceRequest {
         self
     }
 
-    /// Sets or clear the value of [instance][crate::model::UpdateInstanceRequest::instance].
+    /// Sets or clears the value of [instance][crate::model::UpdateInstanceRequest::instance].
     pub fn set_or_clear_instance<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Instance>,
@@ -11228,7 +11228,7 @@ impl ExecuteSqlResponse {
         self
     }
 
-    /// Sets or clear the value of [metadata][crate::model::ExecuteSqlResponse::metadata].
+    /// Sets or clears the value of [metadata][crate::model::ExecuteSqlResponse::metadata].
     pub fn set_or_clear_metadata<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ExecuteSqlMetadata>,
@@ -11299,7 +11299,7 @@ impl ExecuteSqlMetadata {
         self
     }
 
-    /// Sets or clear the value of [sql_statement_execution_duration][crate::model::ExecuteSqlMetadata::sql_statement_execution_duration].
+    /// Sets or clears the value of [sql_statement_execution_duration][crate::model::ExecuteSqlMetadata::sql_statement_execution_duration].
     pub fn set_or_clear_sql_statement_execution_duration<T>(
         mut self,
         v: std::option::Option<T>,
@@ -11730,7 +11730,7 @@ impl CreateBackupRequest {
         self
     }
 
-    /// Sets or clear the value of [backup][crate::model::CreateBackupRequest::backup].
+    /// Sets or clears the value of [backup][crate::model::CreateBackupRequest::backup].
     pub fn set_or_clear_backup<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Backup>,
@@ -11820,7 +11820,7 @@ impl UpdateBackupRequest {
         self
     }
 
-    /// Sets or clear the value of [update_mask][crate::model::UpdateBackupRequest::update_mask].
+    /// Sets or clears the value of [update_mask][crate::model::UpdateBackupRequest::update_mask].
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -11838,7 +11838,7 @@ impl UpdateBackupRequest {
         self
     }
 
-    /// Sets or clear the value of [backup][crate::model::UpdateBackupRequest::backup].
+    /// Sets or clears the value of [backup][crate::model::UpdateBackupRequest::backup].
     pub fn set_or_clear_backup<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Backup>,
@@ -12161,7 +12161,7 @@ impl GenerateClientCertificateRequest {
         self
     }
 
-    /// Sets or clear the value of [cert_duration][crate::model::GenerateClientCertificateRequest::cert_duration].
+    /// Sets or clears the value of [cert_duration][crate::model::GenerateClientCertificateRequest::cert_duration].
     pub fn set_or_clear_cert_duration<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -12356,7 +12356,7 @@ impl OperationMetadata {
         self
     }
 
-    /// Sets or clear the value of [create_time][crate::model::OperationMetadata::create_time].
+    /// Sets or clears the value of [create_time][crate::model::OperationMetadata::create_time].
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -12374,7 +12374,7 @@ impl OperationMetadata {
         self
     }
 
-    /// Sets or clear the value of [end_time][crate::model::OperationMetadata::end_time].
+    /// Sets or clears the value of [end_time][crate::model::OperationMetadata::end_time].
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -12765,7 +12765,7 @@ pub mod upgrade_cluster_status {
             self
         }
 
-        /// Sets or clear the value of [upgrade_stats][crate::model::upgrade_cluster_status::ReadPoolInstancesUpgradeStageStatus::upgrade_stats].
+        /// Sets or clears the value of [upgrade_stats][crate::model::upgrade_cluster_status::ReadPoolInstancesUpgradeStageStatus::upgrade_stats].
         pub fn set_or_clear_upgrade_stats<T>(mut self, v: std::option::Option<T>) -> Self
         where T: std::convert::Into<crate::model::upgrade_cluster_status::read_pool_instances_upgrade_stage_status::Stats>
         {
@@ -13100,7 +13100,7 @@ impl CreateUserRequest {
         self
     }
 
-    /// Sets or clear the value of [user][crate::model::CreateUserRequest::user].
+    /// Sets or clears the value of [user][crate::model::CreateUserRequest::user].
     pub fn set_or_clear_user<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::User>,
@@ -13189,7 +13189,7 @@ impl UpdateUserRequest {
         self
     }
 
-    /// Sets or clear the value of [update_mask][crate::model::UpdateUserRequest::update_mask].
+    /// Sets or clears the value of [update_mask][crate::model::UpdateUserRequest::update_mask].
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -13207,7 +13207,7 @@ impl UpdateUserRequest {
         self
     }
 
-    /// Sets or clear the value of [user][crate::model::UpdateUserRequest::user].
+    /// Sets or clears the value of [user][crate::model::UpdateUserRequest::user].
     pub fn set_or_clear_user<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::User>,

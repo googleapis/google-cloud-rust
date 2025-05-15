@@ -76,7 +76,7 @@ impl CommonMetadata {
         self
     }
 
-    /// Sets or clear the value of [start_time][crate::model::CommonMetadata::start_time].
+    /// Sets or clears the value of [start_time][crate::model::CommonMetadata::start_time].
     pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -94,7 +94,7 @@ impl CommonMetadata {
         self
     }
 
-    /// Sets or clear the value of [end_time][crate::model::CommonMetadata::end_time].
+    /// Sets or clears the value of [end_time][crate::model::CommonMetadata::end_time].
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -441,7 +441,7 @@ impl ExportEntitiesRequest {
         self
     }
 
-    /// Sets or clear the value of [entity_filter][crate::model::ExportEntitiesRequest::entity_filter].
+    /// Sets or clears the value of [entity_filter][crate::model::ExportEntitiesRequest::entity_filter].
     pub fn set_or_clear_entity_filter<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::EntityFilter>,
@@ -551,7 +551,7 @@ impl ImportEntitiesRequest {
         self
     }
 
-    /// Sets or clear the value of [entity_filter][crate::model::ImportEntitiesRequest::entity_filter].
+    /// Sets or clears the value of [entity_filter][crate::model::ImportEntitiesRequest::entity_filter].
     pub fn set_or_clear_entity_filter<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::EntityFilter>,
@@ -658,7 +658,7 @@ impl ExportEntitiesMetadata {
         self
     }
 
-    /// Sets or clear the value of [common][crate::model::ExportEntitiesMetadata::common].
+    /// Sets or clears the value of [common][crate::model::ExportEntitiesMetadata::common].
     pub fn set_or_clear_common<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CommonMetadata>,
@@ -676,7 +676,7 @@ impl ExportEntitiesMetadata {
         self
     }
 
-    /// Sets or clear the value of [progress_entities][crate::model::ExportEntitiesMetadata::progress_entities].
+    /// Sets or clears the value of [progress_entities][crate::model::ExportEntitiesMetadata::progress_entities].
     pub fn set_or_clear_progress_entities<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Progress>,
@@ -694,7 +694,7 @@ impl ExportEntitiesMetadata {
         self
     }
 
-    /// Sets or clear the value of [progress_bytes][crate::model::ExportEntitiesMetadata::progress_bytes].
+    /// Sets or clears the value of [progress_bytes][crate::model::ExportEntitiesMetadata::progress_bytes].
     pub fn set_or_clear_progress_bytes<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Progress>,
@@ -712,7 +712,7 @@ impl ExportEntitiesMetadata {
         self
     }
 
-    /// Sets or clear the value of [entity_filter][crate::model::ExportEntitiesMetadata::entity_filter].
+    /// Sets or clears the value of [entity_filter][crate::model::ExportEntitiesMetadata::entity_filter].
     pub fn set_or_clear_entity_filter<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::EntityFilter>,
@@ -786,7 +786,7 @@ impl ImportEntitiesMetadata {
         self
     }
 
-    /// Sets or clear the value of [common][crate::model::ImportEntitiesMetadata::common].
+    /// Sets or clears the value of [common][crate::model::ImportEntitiesMetadata::common].
     pub fn set_or_clear_common<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CommonMetadata>,
@@ -804,7 +804,7 @@ impl ImportEntitiesMetadata {
         self
     }
 
-    /// Sets or clear the value of [progress_entities][crate::model::ImportEntitiesMetadata::progress_entities].
+    /// Sets or clears the value of [progress_entities][crate::model::ImportEntitiesMetadata::progress_entities].
     pub fn set_or_clear_progress_entities<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Progress>,
@@ -822,7 +822,7 @@ impl ImportEntitiesMetadata {
         self
     }
 
-    /// Sets or clear the value of [progress_bytes][crate::model::ImportEntitiesMetadata::progress_bytes].
+    /// Sets or clears the value of [progress_bytes][crate::model::ImportEntitiesMetadata::progress_bytes].
     pub fn set_or_clear_progress_bytes<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Progress>,
@@ -840,7 +840,7 @@ impl ImportEntitiesMetadata {
         self
     }
 
-    /// Sets or clear the value of [entity_filter][crate::model::ImportEntitiesMetadata::entity_filter].
+    /// Sets or clears the value of [entity_filter][crate::model::ImportEntitiesMetadata::entity_filter].
     pub fn set_or_clear_entity_filter<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::EntityFilter>,
@@ -980,7 +980,7 @@ impl CreateIndexRequest {
         self
     }
 
-    /// Sets or clear the value of [index][crate::model::CreateIndexRequest::index].
+    /// Sets or clears the value of [index][crate::model::CreateIndexRequest::index].
     pub fn set_or_clear_index<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Index>,
@@ -1251,7 +1251,7 @@ impl IndexOperationMetadata {
         self
     }
 
-    /// Sets or clear the value of [common][crate::model::IndexOperationMetadata::common].
+    /// Sets or clears the value of [common][crate::model::IndexOperationMetadata::common].
     pub fn set_or_clear_common<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CommonMetadata>,
@@ -1269,7 +1269,7 @@ impl IndexOperationMetadata {
         self
     }
 
-    /// Sets or clear the value of [progress_entities][crate::model::IndexOperationMetadata::progress_entities].
+    /// Sets or clears the value of [progress_entities][crate::model::IndexOperationMetadata::progress_entities].
     pub fn set_or_clear_progress_entities<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Progress>,

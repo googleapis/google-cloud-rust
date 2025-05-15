@@ -566,7 +566,7 @@ pub mod case_service {
             self
         }
 
-        /// Sets or clear the value of [case][crate::model::CreateCaseRequest::case].
+        /// Sets or clears the value of [case][crate::model::CreateCaseRequest::case].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_case<T>(mut self, v: std::option::Option<T>) -> Self
@@ -642,7 +642,7 @@ pub mod case_service {
             self
         }
 
-        /// Sets or clear the value of [case][crate::model::UpdateCaseRequest::case].
+        /// Sets or clears the value of [case][crate::model::UpdateCaseRequest::case].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_case<T>(mut self, v: std::option::Option<T>) -> Self
@@ -662,7 +662,7 @@ pub mod case_service {
             self
         }
 
-        /// Sets or clear the value of [update_mask][crate::model::UpdateCaseRequest::update_mask].
+        /// Sets or clears the value of [update_mask][crate::model::UpdateCaseRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
@@ -742,7 +742,7 @@ pub mod case_service {
             self
         }
 
-        /// Sets or clear the value of [escalation][crate::model::EscalateCaseRequest::escalation].
+        /// Sets or clears the value of [escalation][crate::model::EscalateCaseRequest::escalation].
         pub fn set_or_clear_escalation<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Escalation>,
@@ -1152,7 +1152,7 @@ pub mod comment_service {
             self
         }
 
-        /// Sets or clear the value of [comment][crate::model::CreateCommentRequest::comment].
+        /// Sets or clears the value of [comment][crate::model::CreateCommentRequest::comment].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_comment<T>(mut self, v: std::option::Option<T>) -> Self

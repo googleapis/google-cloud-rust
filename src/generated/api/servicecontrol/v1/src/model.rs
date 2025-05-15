@@ -103,7 +103,7 @@ impl CheckError {
         self
     }
 
-    /// Sets or clear the value of [status][crate::model::CheckError::status].
+    /// Sets or clears the value of [status][crate::model::CheckError::status].
     pub fn set_or_clear_status<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<rpc::model::Status>,
@@ -1041,7 +1041,7 @@ impl HttpRequest {
         self
     }
 
-    /// Sets or clear the value of [latency][crate::model::HttpRequest::latency].
+    /// Sets or clears the value of [latency][crate::model::HttpRequest::latency].
     pub fn set_or_clear_latency<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -1170,7 +1170,7 @@ impl LogEntry {
         self
     }
 
-    /// Sets or clear the value of [timestamp][crate::model::LogEntry::timestamp].
+    /// Sets or clears the value of [timestamp][crate::model::LogEntry::timestamp].
     pub fn set_or_clear_timestamp<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1197,7 +1197,7 @@ impl LogEntry {
         self
     }
 
-    /// Sets or clear the value of [http_request][crate::model::LogEntry::http_request].
+    /// Sets or clears the value of [http_request][crate::model::LogEntry::http_request].
     pub fn set_or_clear_http_request<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::HttpRequest>,
@@ -1239,7 +1239,7 @@ impl LogEntry {
         self
     }
 
-    /// Sets or clear the value of [operation][crate::model::LogEntry::operation].
+    /// Sets or clears the value of [operation][crate::model::LogEntry::operation].
     pub fn set_or_clear_operation<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::LogEntryOperation>,
@@ -1257,7 +1257,7 @@ impl LogEntry {
         self
     }
 
-    /// Sets or clear the value of [source_location][crate::model::LogEntry::source_location].
+    /// Sets or clears the value of [source_location][crate::model::LogEntry::source_location].
     pub fn set_or_clear_source_location<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::LogEntrySourceLocation>,
@@ -1578,7 +1578,7 @@ impl MetricValue {
         self
     }
 
-    /// Sets or clear the value of [start_time][crate::model::MetricValue::start_time].
+    /// Sets or clears the value of [start_time][crate::model::MetricValue::start_time].
     pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1596,7 +1596,7 @@ impl MetricValue {
         self
     }
 
-    /// Sets or clear the value of [end_time][crate::model::MetricValue::end_time].
+    /// Sets or clears the value of [end_time][crate::model::MetricValue::end_time].
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1950,7 +1950,7 @@ impl Operation {
         self
     }
 
-    /// Sets or clear the value of [start_time][crate::model::Operation::start_time].
+    /// Sets or clears the value of [start_time][crate::model::Operation::start_time].
     pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1968,7 +1968,7 @@ impl Operation {
         self
     }
 
-    /// Sets or clear the value of [end_time][crate::model::Operation::end_time].
+    /// Sets or clears the value of [end_time][crate::model::Operation::end_time].
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2219,7 +2219,7 @@ impl AllocateQuotaRequest {
         self
     }
 
-    /// Sets or clear the value of [allocate_operation][crate::model::AllocateQuotaRequest::allocate_operation].
+    /// Sets or clears the value of [allocate_operation][crate::model::AllocateQuotaRequest::allocate_operation].
     pub fn set_or_clear_allocate_operation<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::QuotaOperation>,
@@ -2704,7 +2704,7 @@ impl QuotaError {
         self
     }
 
-    /// Sets or clear the value of [status][crate::model::QuotaError::status].
+    /// Sets or clears the value of [status][crate::model::QuotaError::status].
     pub fn set_or_clear_status<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<rpc::model::Status>,
@@ -2936,7 +2936,7 @@ impl CheckRequest {
         self
     }
 
-    /// Sets or clear the value of [operation][crate::model::CheckRequest::operation].
+    /// Sets or clears the value of [operation][crate::model::CheckRequest::operation].
     pub fn set_or_clear_operation<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Operation>,
@@ -3048,7 +3048,7 @@ impl CheckResponse {
         self
     }
 
-    /// Sets or clear the value of [check_info][crate::model::CheckResponse::check_info].
+    /// Sets or clears the value of [check_info][crate::model::CheckResponse::check_info].
     pub fn set_or_clear_check_info<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::check_response::CheckInfo>,
@@ -3120,7 +3120,7 @@ pub mod check_response {
             self
         }
 
-        /// Sets or clear the value of [consumer_info][crate::model::check_response::CheckInfo::consumer_info].
+        /// Sets or clears the value of [consumer_info][crate::model::check_response::CheckInfo::consumer_info].
         pub fn set_or_clear_consumer_info<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::check_response::ConsumerInfo>,
@@ -3580,7 +3580,7 @@ pub mod report_response {
             self
         }
 
-        /// Sets or clear the value of [status][crate::model::report_response::ReportError::status].
+        /// Sets or clears the value of [status][crate::model::report_response::ReportError::status].
         pub fn set_or_clear_status<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<rpc::model::Status>,

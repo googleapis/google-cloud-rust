@@ -124,7 +124,7 @@ impl Contact {
         self
     }
 
-    /// Sets or clear the value of [validate_time][crate::model::Contact::validate_time].
+    /// Sets or clears the value of [validate_time][crate::model::Contact::validate_time].
     pub fn set_or_clear_validate_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -375,7 +375,7 @@ impl CreateContactRequest {
         self
     }
 
-    /// Sets or clear the value of [contact][crate::model::CreateContactRequest::contact].
+    /// Sets or clears the value of [contact][crate::model::CreateContactRequest::contact].
     pub fn set_or_clear_contact<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Contact>,
@@ -426,7 +426,7 @@ impl UpdateContactRequest {
         self
     }
 
-    /// Sets or clear the value of [contact][crate::model::UpdateContactRequest::contact].
+    /// Sets or clears the value of [contact][crate::model::UpdateContactRequest::contact].
     pub fn set_or_clear_contact<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Contact>,
@@ -444,7 +444,7 @@ impl UpdateContactRequest {
         self
     }
 
-    /// Sets or clear the value of [update_mask][crate::model::UpdateContactRequest::update_mask].
+    /// Sets or clears the value of [update_mask][crate::model::UpdateContactRequest::update_mask].
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,

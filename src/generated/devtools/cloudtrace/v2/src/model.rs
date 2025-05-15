@@ -165,7 +165,7 @@ impl Span {
         self
     }
 
-    /// Sets or clear the value of [display_name][crate::model::Span::display_name].
+    /// Sets or clears the value of [display_name][crate::model::Span::display_name].
     pub fn set_or_clear_display_name<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::TruncatableString>,
@@ -183,7 +183,7 @@ impl Span {
         self
     }
 
-    /// Sets or clear the value of [start_time][crate::model::Span::start_time].
+    /// Sets or clears the value of [start_time][crate::model::Span::start_time].
     pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -201,7 +201,7 @@ impl Span {
         self
     }
 
-    /// Sets or clear the value of [end_time][crate::model::Span::end_time].
+    /// Sets or clears the value of [end_time][crate::model::Span::end_time].
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -219,7 +219,7 @@ impl Span {
         self
     }
 
-    /// Sets or clear the value of [attributes][crate::model::Span::attributes].
+    /// Sets or clears the value of [attributes][crate::model::Span::attributes].
     pub fn set_or_clear_attributes<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::span::Attributes>,
@@ -237,7 +237,7 @@ impl Span {
         self
     }
 
-    /// Sets or clear the value of [stack_trace][crate::model::Span::stack_trace].
+    /// Sets or clears the value of [stack_trace][crate::model::Span::stack_trace].
     pub fn set_or_clear_stack_trace<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::StackTrace>,
@@ -255,7 +255,7 @@ impl Span {
         self
     }
 
-    /// Sets or clear the value of [time_events][crate::model::Span::time_events].
+    /// Sets or clears the value of [time_events][crate::model::Span::time_events].
     pub fn set_or_clear_time_events<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::span::TimeEvents>,
@@ -273,7 +273,7 @@ impl Span {
         self
     }
 
-    /// Sets or clear the value of [links][crate::model::Span::links].
+    /// Sets or clears the value of [links][crate::model::Span::links].
     pub fn set_or_clear_links<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::span::Links>,
@@ -291,7 +291,7 @@ impl Span {
         self
     }
 
-    /// Sets or clear the value of [status][crate::model::Span::status].
+    /// Sets or clears the value of [status][crate::model::Span::status].
     pub fn set_or_clear_status<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<rpc::model::Status>,
@@ -309,7 +309,7 @@ impl Span {
         self
     }
 
-    /// Sets or clear the value of [same_process_as_parent_span][crate::model::Span::same_process_as_parent_span].
+    /// Sets or clears the value of [same_process_as_parent_span][crate::model::Span::same_process_as_parent_span].
     pub fn set_or_clear_same_process_as_parent_span<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::BoolValue>,
@@ -327,7 +327,7 @@ impl Span {
         self
     }
 
-    /// Sets or clear the value of [child_span_count][crate::model::Span::child_span_count].
+    /// Sets or clears the value of [child_span_count][crate::model::Span::child_span_count].
     pub fn set_or_clear_child_span_count<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Int32Value>,
@@ -449,7 +449,7 @@ pub mod span {
             self
         }
 
-        /// Sets or clear the value of [time][crate::model::span::TimeEvent::time].
+        /// Sets or clears the value of [time][crate::model::span::TimeEvent::time].
         pub fn set_or_clear_time<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -584,7 +584,7 @@ pub mod span {
                 self
             }
 
-            /// Sets or clear the value of [description][crate::model::span::time_event::Annotation::description].
+            /// Sets or clears the value of [description][crate::model::span::time_event::Annotation::description].
             pub fn set_or_clear_description<T>(mut self, v: std::option::Option<T>) -> Self
             where
                 T: std::convert::Into<crate::model::TruncatableString>,
@@ -602,7 +602,7 @@ pub mod span {
                 self
             }
 
-            /// Sets or clear the value of [attributes][crate::model::span::time_event::Annotation::attributes].
+            /// Sets or clears the value of [attributes][crate::model::span::time_event::Annotation::attributes].
             pub fn set_or_clear_attributes<T>(mut self, v: std::option::Option<T>) -> Self
             where
                 T: std::convert::Into<crate::model::span::Attributes>,
@@ -976,7 +976,7 @@ pub mod span {
             self
         }
 
-        /// Sets or clear the value of [attributes][crate::model::span::Link::attributes].
+        /// Sets or clears the value of [attributes][crate::model::span::Link::attributes].
         pub fn set_or_clear_attributes<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::span::Attributes>,
@@ -1521,7 +1521,7 @@ impl StackTrace {
         self
     }
 
-    /// Sets or clear the value of [stack_frames][crate::model::StackTrace::stack_frames].
+    /// Sets or clears the value of [stack_frames][crate::model::StackTrace::stack_frames].
     pub fn set_or_clear_stack_frames<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::stack_trace::StackFrames>,
@@ -1608,7 +1608,7 @@ pub mod stack_trace {
             self
         }
 
-        /// Sets or clear the value of [function_name][crate::model::stack_trace::StackFrame::function_name].
+        /// Sets or clears the value of [function_name][crate::model::stack_trace::StackFrame::function_name].
         pub fn set_or_clear_function_name<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::TruncatableString>,
@@ -1626,7 +1626,7 @@ pub mod stack_trace {
             self
         }
 
-        /// Sets or clear the value of [original_function_name][crate::model::stack_trace::StackFrame::original_function_name].
+        /// Sets or clears the value of [original_function_name][crate::model::stack_trace::StackFrame::original_function_name].
         pub fn set_or_clear_original_function_name<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::TruncatableString>,
@@ -1644,7 +1644,7 @@ pub mod stack_trace {
             self
         }
 
-        /// Sets or clear the value of [file_name][crate::model::stack_trace::StackFrame::file_name].
+        /// Sets or clears the value of [file_name][crate::model::stack_trace::StackFrame::file_name].
         pub fn set_or_clear_file_name<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::TruncatableString>,
@@ -1674,7 +1674,7 @@ pub mod stack_trace {
             self
         }
 
-        /// Sets or clear the value of [load_module][crate::model::stack_trace::StackFrame::load_module].
+        /// Sets or clears the value of [load_module][crate::model::stack_trace::StackFrame::load_module].
         pub fn set_or_clear_load_module<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Module>,
@@ -1692,7 +1692,7 @@ pub mod stack_trace {
             self
         }
 
-        /// Sets or clear the value of [source_version][crate::model::stack_trace::StackFrame::source_version].
+        /// Sets or clears the value of [source_version][crate::model::stack_trace::StackFrame::source_version].
         pub fn set_or_clear_source_version<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::TruncatableString>,
@@ -1792,7 +1792,7 @@ impl Module {
         self
     }
 
-    /// Sets or clear the value of [module][crate::model::Module::module].
+    /// Sets or clears the value of [module][crate::model::Module::module].
     pub fn set_or_clear_module<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::TruncatableString>,
@@ -1810,7 +1810,7 @@ impl Module {
         self
     }
 
-    /// Sets or clear the value of [build_id][crate::model::Module::build_id].
+    /// Sets or clears the value of [build_id][crate::model::Module::build_id].
     pub fn set_or_clear_build_id<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::TruncatableString>,

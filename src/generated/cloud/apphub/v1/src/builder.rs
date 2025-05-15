@@ -373,7 +373,7 @@ pub mod app_hub {
             self
         }
 
-        /// Sets or clear the value of [service_project_attachment][crate::model::CreateServiceProjectAttachmentRequest::service_project_attachment].
+        /// Sets or clears the value of [service_project_attachment][crate::model::CreateServiceProjectAttachmentRequest::service_project_attachment].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_service_project_attachment<T>(
@@ -1120,7 +1120,7 @@ pub mod app_hub {
             self
         }
 
-        /// Sets or clear the value of [service][crate::model::CreateServiceRequest::service].
+        /// Sets or clears the value of [service][crate::model::CreateServiceRequest::service].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_service<T>(mut self, v: std::option::Option<T>) -> Self
@@ -1299,7 +1299,7 @@ pub mod app_hub {
             self
         }
 
-        /// Sets or clear the value of [update_mask][crate::model::UpdateServiceRequest::update_mask].
+        /// Sets or clears the value of [update_mask][crate::model::UpdateServiceRequest::update_mask].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
@@ -1321,7 +1321,7 @@ pub mod app_hub {
             self
         }
 
-        /// Sets or clear the value of [service][crate::model::UpdateServiceRequest::service].
+        /// Sets or clears the value of [service][crate::model::UpdateServiceRequest::service].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_service<T>(mut self, v: std::option::Option<T>) -> Self
@@ -1932,7 +1932,7 @@ pub mod app_hub {
             self
         }
 
-        /// Sets or clear the value of [workload][crate::model::CreateWorkloadRequest::workload].
+        /// Sets or clears the value of [workload][crate::model::CreateWorkloadRequest::workload].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_workload<T>(mut self, v: std::option::Option<T>) -> Self
@@ -2111,7 +2111,7 @@ pub mod app_hub {
             self
         }
 
-        /// Sets or clear the value of [update_mask][crate::model::UpdateWorkloadRequest::update_mask].
+        /// Sets or clears the value of [update_mask][crate::model::UpdateWorkloadRequest::update_mask].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
@@ -2133,7 +2133,7 @@ pub mod app_hub {
             self
         }
 
-        /// Sets or clear the value of [workload][crate::model::UpdateWorkloadRequest::workload].
+        /// Sets or clears the value of [workload][crate::model::UpdateWorkloadRequest::workload].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_workload<T>(mut self, v: std::option::Option<T>) -> Self
@@ -2495,7 +2495,7 @@ pub mod app_hub {
             self
         }
 
-        /// Sets or clear the value of [application][crate::model::CreateApplicationRequest::application].
+        /// Sets or clears the value of [application][crate::model::CreateApplicationRequest::application].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_application<T>(mut self, v: std::option::Option<T>) -> Self
@@ -2679,7 +2679,7 @@ pub mod app_hub {
             self
         }
 
-        /// Sets or clear the value of [update_mask][crate::model::UpdateApplicationRequest::update_mask].
+        /// Sets or clears the value of [update_mask][crate::model::UpdateApplicationRequest::update_mask].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
@@ -2701,7 +2701,7 @@ pub mod app_hub {
             self
         }
 
-        /// Sets or clear the value of [application][crate::model::UpdateApplicationRequest::application].
+        /// Sets or clears the value of [application][crate::model::UpdateApplicationRequest::application].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_application<T>(mut self, v: std::option::Option<T>) -> Self
@@ -3064,7 +3064,7 @@ pub mod app_hub {
             self
         }
 
-        /// Sets or clear the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        /// Sets or clears the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
@@ -3084,7 +3084,7 @@ pub mod app_hub {
             self
         }
 
-        /// Sets or clear the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        /// Sets or clears the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
@@ -3162,7 +3162,7 @@ pub mod app_hub {
             self
         }
 
-        /// Sets or clear the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        /// Sets or clears the value of [options][iam_v1::model::GetIamPolicyRequest::options].
         pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<iam_v1::model::GetPolicyOptions>,

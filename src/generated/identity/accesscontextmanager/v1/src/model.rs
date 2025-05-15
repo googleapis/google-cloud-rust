@@ -220,7 +220,7 @@ impl UpdateAccessPolicyRequest {
         self
     }
 
-    /// Sets or clear the value of [policy][crate::model::UpdateAccessPolicyRequest::policy].
+    /// Sets or clears the value of [policy][crate::model::UpdateAccessPolicyRequest::policy].
     pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::AccessPolicy>,
@@ -238,7 +238,7 @@ impl UpdateAccessPolicyRequest {
         self
     }
 
-    /// Sets or clear the value of [update_mask][crate::model::UpdateAccessPolicyRequest::update_mask].
+    /// Sets or clears the value of [update_mask][crate::model::UpdateAccessPolicyRequest::update_mask].
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -525,7 +525,7 @@ impl CreateAccessLevelRequest {
         self
     }
 
-    /// Sets or clear the value of [access_level][crate::model::CreateAccessLevelRequest::access_level].
+    /// Sets or clears the value of [access_level][crate::model::CreateAccessLevelRequest::access_level].
     pub fn set_or_clear_access_level<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::AccessLevel>,
@@ -577,7 +577,7 @@ impl UpdateAccessLevelRequest {
         self
     }
 
-    /// Sets or clear the value of [access_level][crate::model::UpdateAccessLevelRequest::access_level].
+    /// Sets or clears the value of [access_level][crate::model::UpdateAccessLevelRequest::access_level].
     pub fn set_or_clear_access_level<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::AccessLevel>,
@@ -595,7 +595,7 @@ impl UpdateAccessLevelRequest {
         self
     }
 
-    /// Sets or clear the value of [update_mask][crate::model::UpdateAccessLevelRequest::update_mask].
+    /// Sets or clears the value of [update_mask][crate::model::UpdateAccessLevelRequest::update_mask].
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -963,7 +963,7 @@ impl CreateServicePerimeterRequest {
         self
     }
 
-    /// Sets or clear the value of [service_perimeter][crate::model::CreateServicePerimeterRequest::service_perimeter].
+    /// Sets or clears the value of [service_perimeter][crate::model::CreateServicePerimeterRequest::service_perimeter].
     pub fn set_or_clear_service_perimeter<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ServicePerimeter>,
@@ -1012,7 +1012,7 @@ impl UpdateServicePerimeterRequest {
         self
     }
 
-    /// Sets or clear the value of [service_perimeter][crate::model::UpdateServicePerimeterRequest::service_perimeter].
+    /// Sets or clears the value of [service_perimeter][crate::model::UpdateServicePerimeterRequest::service_perimeter].
     pub fn set_or_clear_service_perimeter<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ServicePerimeter>,
@@ -1030,7 +1030,7 @@ impl UpdateServicePerimeterRequest {
         self
     }
 
-    /// Sets or clear the value of [update_mask][crate::model::UpdateServicePerimeterRequest::update_mask].
+    /// Sets or clears the value of [update_mask][crate::model::UpdateServicePerimeterRequest::update_mask].
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -1486,7 +1486,7 @@ impl CreateGcpUserAccessBindingRequest {
         self
     }
 
-    /// Sets or clear the value of [gcp_user_access_binding][crate::model::CreateGcpUserAccessBindingRequest::gcp_user_access_binding].
+    /// Sets or clears the value of [gcp_user_access_binding][crate::model::CreateGcpUserAccessBindingRequest::gcp_user_access_binding].
     pub fn set_or_clear_gcp_user_access_binding<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::GcpUserAccessBinding>,
@@ -1541,7 +1541,7 @@ impl UpdateGcpUserAccessBindingRequest {
         self
     }
 
-    /// Sets or clear the value of [gcp_user_access_binding][crate::model::UpdateGcpUserAccessBindingRequest::gcp_user_access_binding].
+    /// Sets or clears the value of [gcp_user_access_binding][crate::model::UpdateGcpUserAccessBindingRequest::gcp_user_access_binding].
     pub fn set_or_clear_gcp_user_access_binding<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::GcpUserAccessBinding>,
@@ -1559,7 +1559,7 @@ impl UpdateGcpUserAccessBindingRequest {
         self
     }
 
-    /// Sets or clear the value of [update_mask][crate::model::UpdateGcpUserAccessBindingRequest::update_mask].
+    /// Sets or clears the value of [update_mask][crate::model::UpdateGcpUserAccessBindingRequest::update_mask].
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -1725,7 +1725,7 @@ impl AccessLevel {
         self
     }
 
-    /// Sets or clear the value of [create_time][crate::model::AccessLevel::create_time].
+    /// Sets or clears the value of [create_time][crate::model::AccessLevel::create_time].
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1743,7 +1743,7 @@ impl AccessLevel {
         self
     }
 
-    /// Sets or clear the value of [update_time][crate::model::AccessLevel::update_time].
+    /// Sets or clears the value of [update_time][crate::model::AccessLevel::update_time].
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2108,7 +2108,7 @@ impl Condition {
         self
     }
 
-    /// Sets or clear the value of [device_policy][crate::model::Condition::device_policy].
+    /// Sets or clears the value of [device_policy][crate::model::Condition::device_policy].
     pub fn set_or_clear_device_policy<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::DevicePolicy>,
@@ -2193,7 +2193,7 @@ impl CustomLevel {
         self
     }
 
-    /// Sets or clear the value of [expr][crate::model::CustomLevel::expr].
+    /// Sets or clears the value of [expr][crate::model::CustomLevel::expr].
     pub fn set_or_clear_expr<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<gtype::model::Expr>,
@@ -2482,7 +2482,7 @@ impl AccessPolicy {
         self
     }
 
-    /// Sets or clear the value of [create_time][crate::model::AccessPolicy::create_time].
+    /// Sets or clears the value of [create_time][crate::model::AccessPolicy::create_time].
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2500,7 +2500,7 @@ impl AccessPolicy {
         self
     }
 
-    /// Sets or clear the value of [update_time][crate::model::AccessPolicy::update_time].
+    /// Sets or clears the value of [update_time][crate::model::AccessPolicy::update_time].
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2702,7 +2702,7 @@ impl ServicePerimeter {
         self
     }
 
-    /// Sets or clear the value of [create_time][crate::model::ServicePerimeter::create_time].
+    /// Sets or clears the value of [create_time][crate::model::ServicePerimeter::create_time].
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2720,7 +2720,7 @@ impl ServicePerimeter {
         self
     }
 
-    /// Sets or clear the value of [update_time][crate::model::ServicePerimeter::update_time].
+    /// Sets or clears the value of [update_time][crate::model::ServicePerimeter::update_time].
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2749,7 +2749,7 @@ impl ServicePerimeter {
         self
     }
 
-    /// Sets or clear the value of [status][crate::model::ServicePerimeter::status].
+    /// Sets or clears the value of [status][crate::model::ServicePerimeter::status].
     pub fn set_or_clear_status<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ServicePerimeterConfig>,
@@ -2767,7 +2767,7 @@ impl ServicePerimeter {
         self
     }
 
-    /// Sets or clear the value of [spec][crate::model::ServicePerimeter::spec].
+    /// Sets or clears the value of [spec][crate::model::ServicePerimeter::spec].
     pub fn set_or_clear_spec<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ServicePerimeterConfig>,
@@ -3042,7 +3042,7 @@ impl ServicePerimeterConfig {
         self
     }
 
-    /// Sets or clear the value of [vpc_accessible_services][crate::model::ServicePerimeterConfig::vpc_accessible_services].
+    /// Sets or clears the value of [vpc_accessible_services][crate::model::ServicePerimeterConfig::vpc_accessible_services].
     pub fn set_or_clear_vpc_accessible_services<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::service_perimeter_config::VpcAccessibleServices>,
@@ -3671,7 +3671,7 @@ pub mod service_perimeter_config {
             self
         }
 
-        /// Sets or clear the value of [ingress_from][crate::model::service_perimeter_config::IngressPolicy::ingress_from].
+        /// Sets or clears the value of [ingress_from][crate::model::service_perimeter_config::IngressPolicy::ingress_from].
         pub fn set_or_clear_ingress_from<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::service_perimeter_config::IngressFrom>,
@@ -3689,7 +3689,7 @@ pub mod service_perimeter_config {
             self
         }
 
-        /// Sets or clear the value of [ingress_to][crate::model::service_perimeter_config::IngressPolicy::ingress_to].
+        /// Sets or clears the value of [ingress_to][crate::model::service_perimeter_config::IngressPolicy::ingress_to].
         pub fn set_or_clear_ingress_to<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::service_perimeter_config::IngressTo>,
@@ -3933,7 +3933,7 @@ pub mod service_perimeter_config {
             self
         }
 
-        /// Sets or clear the value of [egress_from][crate::model::service_perimeter_config::EgressPolicy::egress_from].
+        /// Sets or clears the value of [egress_from][crate::model::service_perimeter_config::EgressPolicy::egress_from].
         pub fn set_or_clear_egress_from<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::service_perimeter_config::EgressFrom>,
@@ -3951,7 +3951,7 @@ pub mod service_perimeter_config {
             self
         }
 
-        /// Sets or clear the value of [egress_to][crate::model::service_perimeter_config::EgressPolicy::egress_to].
+        /// Sets or clears the value of [egress_to][crate::model::service_perimeter_config::EgressPolicy::egress_to].
         pub fn set_or_clear_egress_to<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::service_perimeter_config::EgressTo>,

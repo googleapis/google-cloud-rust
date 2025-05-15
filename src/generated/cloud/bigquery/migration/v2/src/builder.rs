@@ -138,7 +138,7 @@ pub mod migration_service {
             self
         }
 
-        /// Sets or clear the value of [migration_workflow][crate::model::CreateMigrationWorkflowRequest::migration_workflow].
+        /// Sets or clears the value of [migration_workflow][crate::model::CreateMigrationWorkflowRequest::migration_workflow].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_migration_workflow<T>(mut self, v: std::option::Option<T>) -> Self
@@ -223,7 +223,7 @@ pub mod migration_service {
             self
         }
 
-        /// Sets or clear the value of [read_mask][crate::model::GetMigrationWorkflowRequest::read_mask].
+        /// Sets or clears the value of [read_mask][crate::model::GetMigrationWorkflowRequest::read_mask].
         pub fn set_or_clear_read_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
@@ -338,7 +338,7 @@ pub mod migration_service {
             self
         }
 
-        /// Sets or clear the value of [read_mask][crate::model::ListMigrationWorkflowsRequest::read_mask].
+        /// Sets or clears the value of [read_mask][crate::model::ListMigrationWorkflowsRequest::read_mask].
         pub fn set_or_clear_read_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
@@ -565,7 +565,7 @@ pub mod migration_service {
             self
         }
 
-        /// Sets or clear the value of [read_mask][crate::model::GetMigrationSubtaskRequest::read_mask].
+        /// Sets or clears the value of [read_mask][crate::model::GetMigrationSubtaskRequest::read_mask].
         pub fn set_or_clear_read_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
@@ -678,7 +678,7 @@ pub mod migration_service {
             self
         }
 
-        /// Sets or clear the value of [read_mask][crate::model::ListMigrationSubtasksRequest::read_mask].
+        /// Sets or clears the value of [read_mask][crate::model::ListMigrationSubtasksRequest::read_mask].
         pub fn set_or_clear_read_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,

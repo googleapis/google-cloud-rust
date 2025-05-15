@@ -519,7 +519,7 @@ pub mod gke_hub {
             self
         }
 
-        /// Sets or clear the value of [resource][crate::model::CreateMembershipRequest::resource].
+        /// Sets or clears the value of [resource][crate::model::CreateMembershipRequest::resource].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_resource<T>(mut self, v: std::option::Option<T>) -> Self
@@ -648,7 +648,7 @@ pub mod gke_hub {
             self
         }
 
-        /// Sets or clear the value of [resource][crate::model::CreateFeatureRequest::resource].
+        /// Sets or clears the value of [resource][crate::model::CreateFeatureRequest::resource].
         pub fn set_or_clear_resource<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Feature>,
@@ -1003,7 +1003,7 @@ pub mod gke_hub {
             self
         }
 
-        /// Sets or clear the value of [update_mask][crate::model::UpdateMembershipRequest::update_mask].
+        /// Sets or clears the value of [update_mask][crate::model::UpdateMembershipRequest::update_mask].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
@@ -1025,7 +1025,7 @@ pub mod gke_hub {
             self
         }
 
-        /// Sets or clear the value of [resource][crate::model::UpdateMembershipRequest::resource].
+        /// Sets or clears the value of [resource][crate::model::UpdateMembershipRequest::resource].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_resource<T>(mut self, v: std::option::Option<T>) -> Self
@@ -1148,7 +1148,7 @@ pub mod gke_hub {
             self
         }
 
-        /// Sets or clear the value of [update_mask][crate::model::UpdateFeatureRequest::update_mask].
+        /// Sets or clears the value of [update_mask][crate::model::UpdateFeatureRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
@@ -1166,7 +1166,7 @@ pub mod gke_hub {
             self
         }
 
-        /// Sets or clear the value of [resource][crate::model::UpdateFeatureRequest::resource].
+        /// Sets or clears the value of [resource][crate::model::UpdateFeatureRequest::resource].
         pub fn set_or_clear_resource<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Feature>,

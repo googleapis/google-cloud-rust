@@ -501,7 +501,7 @@ impl ApproveDecision {
         self
     }
 
-    /// Sets or clear the value of [approve_time][crate::model::ApproveDecision::approve_time].
+    /// Sets or clears the value of [approve_time][crate::model::ApproveDecision::approve_time].
     pub fn set_or_clear_approve_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -519,7 +519,7 @@ impl ApproveDecision {
         self
     }
 
-    /// Sets or clear the value of [expire_time][crate::model::ApproveDecision::expire_time].
+    /// Sets or clears the value of [expire_time][crate::model::ApproveDecision::expire_time].
     pub fn set_or_clear_expire_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -537,7 +537,7 @@ impl ApproveDecision {
         self
     }
 
-    /// Sets or clear the value of [invalidate_time][crate::model::ApproveDecision::invalidate_time].
+    /// Sets or clears the value of [invalidate_time][crate::model::ApproveDecision::invalidate_time].
     pub fn set_or_clear_invalidate_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -555,7 +555,7 @@ impl ApproveDecision {
         self
     }
 
-    /// Sets or clear the value of [signature_info][crate::model::ApproveDecision::signature_info].
+    /// Sets or clears the value of [signature_info][crate::model::ApproveDecision::signature_info].
     pub fn set_or_clear_signature_info<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::SignatureInfo>,
@@ -611,7 +611,7 @@ impl DismissDecision {
         self
     }
 
-    /// Sets or clear the value of [dismiss_time][crate::model::DismissDecision::dismiss_time].
+    /// Sets or clears the value of [dismiss_time][crate::model::DismissDecision::dismiss_time].
     pub fn set_or_clear_dismiss_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -745,7 +745,7 @@ impl ApprovalRequest {
         self
     }
 
-    /// Sets or clear the value of [requested_resource_properties][crate::model::ApprovalRequest::requested_resource_properties].
+    /// Sets or clears the value of [requested_resource_properties][crate::model::ApprovalRequest::requested_resource_properties].
     pub fn set_or_clear_requested_resource_properties<T>(
         mut self,
         v: std::option::Option<T>,
@@ -766,7 +766,7 @@ impl ApprovalRequest {
         self
     }
 
-    /// Sets or clear the value of [requested_reason][crate::model::ApprovalRequest::requested_reason].
+    /// Sets or clears the value of [requested_reason][crate::model::ApprovalRequest::requested_reason].
     pub fn set_or_clear_requested_reason<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::AccessReason>,
@@ -784,7 +784,7 @@ impl ApprovalRequest {
         self
     }
 
-    /// Sets or clear the value of [requested_locations][crate::model::ApprovalRequest::requested_locations].
+    /// Sets or clears the value of [requested_locations][crate::model::ApprovalRequest::requested_locations].
     pub fn set_or_clear_requested_locations<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::AccessLocations>,
@@ -802,7 +802,7 @@ impl ApprovalRequest {
         self
     }
 
-    /// Sets or clear the value of [request_time][crate::model::ApprovalRequest::request_time].
+    /// Sets or clears the value of [request_time][crate::model::ApprovalRequest::request_time].
     pub fn set_or_clear_request_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -820,7 +820,7 @@ impl ApprovalRequest {
         self
     }
 
-    /// Sets or clear the value of [requested_expiration][crate::model::ApprovalRequest::requested_expiration].
+    /// Sets or clears the value of [requested_expiration][crate::model::ApprovalRequest::requested_expiration].
     pub fn set_or_clear_requested_expiration<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1417,7 +1417,7 @@ impl ApproveApprovalRequestMessage {
         self
     }
 
-    /// Sets or clear the value of [expire_time][crate::model::ApproveApprovalRequestMessage::expire_time].
+    /// Sets or clears the value of [expire_time][crate::model::ApproveApprovalRequestMessage::expire_time].
     pub fn set_or_clear_expire_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1571,7 +1571,7 @@ impl UpdateAccessApprovalSettingsMessage {
         self
     }
 
-    /// Sets or clear the value of [settings][crate::model::UpdateAccessApprovalSettingsMessage::settings].
+    /// Sets or clears the value of [settings][crate::model::UpdateAccessApprovalSettingsMessage::settings].
     pub fn set_or_clear_settings<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::AccessApprovalSettings>,
@@ -1589,7 +1589,7 @@ impl UpdateAccessApprovalSettingsMessage {
         self
     }
 
-    /// Sets or clear the value of [update_mask][crate::model::UpdateAccessApprovalSettingsMessage::update_mask].
+    /// Sets or clears the value of [update_mask][crate::model::UpdateAccessApprovalSettingsMessage::update_mask].
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,

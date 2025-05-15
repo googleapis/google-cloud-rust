@@ -374,7 +374,7 @@ pub mod cloud_shell_service {
             self
         }
 
-        /// Sets or clear the value of [expire_time][crate::model::AuthorizeEnvironmentRequest::expire_time].
+        /// Sets or clears the value of [expire_time][crate::model::AuthorizeEnvironmentRequest::expire_time].
         pub fn set_or_clear_expire_time<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,

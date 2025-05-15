@@ -142,7 +142,7 @@ pub mod web_risk_service {
             self
         }
 
-        /// Sets or clear the value of [constraints][crate::model::ComputeThreatListDiffRequest::constraints].
+        /// Sets or clears the value of [constraints][crate::model::ComputeThreatListDiffRequest::constraints].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_constraints<T>(mut self, v: std::option::Option<T>) -> Self
@@ -377,7 +377,7 @@ pub mod web_risk_service {
             self
         }
 
-        /// Sets or clear the value of [submission][crate::model::CreateSubmissionRequest::submission].
+        /// Sets or clears the value of [submission][crate::model::CreateSubmissionRequest::submission].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_submission<T>(mut self, v: std::option::Option<T>) -> Self
@@ -500,7 +500,7 @@ pub mod web_risk_service {
             self
         }
 
-        /// Sets or clear the value of [submission][crate::model::SubmitUriRequest::submission].
+        /// Sets or clears the value of [submission][crate::model::SubmitUriRequest::submission].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_submission<T>(mut self, v: std::option::Option<T>) -> Self
@@ -520,7 +520,7 @@ pub mod web_risk_service {
             self
         }
 
-        /// Sets or clear the value of [threat_info][crate::model::SubmitUriRequest::threat_info].
+        /// Sets or clears the value of [threat_info][crate::model::SubmitUriRequest::threat_info].
         pub fn set_or_clear_threat_info<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::ThreatInfo>,
@@ -538,7 +538,7 @@ pub mod web_risk_service {
             self
         }
 
-        /// Sets or clear the value of [threat_discovery][crate::model::SubmitUriRequest::threat_discovery].
+        /// Sets or clears the value of [threat_discovery][crate::model::SubmitUriRequest::threat_discovery].
         pub fn set_or_clear_threat_discovery<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::ThreatDiscovery>,

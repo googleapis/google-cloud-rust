@@ -963,7 +963,7 @@ impl CreateConnectionProfileRequest {
         self
     }
 
-    /// Sets or clear the value of [connection_profile][crate::model::CreateConnectionProfileRequest::connection_profile].
+    /// Sets or clears the value of [connection_profile][crate::model::CreateConnectionProfileRequest::connection_profile].
     pub fn set_or_clear_connection_profile<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ConnectionProfile>,
@@ -1058,7 +1058,7 @@ impl UpdateConnectionProfileRequest {
         self
     }
 
-    /// Sets or clear the value of [update_mask][crate::model::UpdateConnectionProfileRequest::update_mask].
+    /// Sets or clears the value of [update_mask][crate::model::UpdateConnectionProfileRequest::update_mask].
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -1076,7 +1076,7 @@ impl UpdateConnectionProfileRequest {
         self
     }
 
-    /// Sets or clear the value of [connection_profile][crate::model::UpdateConnectionProfileRequest::connection_profile].
+    /// Sets or clears the value of [connection_profile][crate::model::UpdateConnectionProfileRequest::connection_profile].
     pub fn set_or_clear_connection_profile<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ConnectionProfile>,
@@ -1424,7 +1424,7 @@ impl CreateStreamRequest {
         self
     }
 
-    /// Sets or clear the value of [stream][crate::model::CreateStreamRequest::stream].
+    /// Sets or clears the value of [stream][crate::model::CreateStreamRequest::stream].
     pub fn set_or_clear_stream<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Stream>,
@@ -1519,7 +1519,7 @@ impl UpdateStreamRequest {
         self
     }
 
-    /// Sets or clear the value of [update_mask][crate::model::UpdateStreamRequest::update_mask].
+    /// Sets or clears the value of [update_mask][crate::model::UpdateStreamRequest::update_mask].
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -1537,7 +1537,7 @@ impl UpdateStreamRequest {
         self
     }
 
-    /// Sets or clear the value of [stream][crate::model::UpdateStreamRequest::stream].
+    /// Sets or clears the value of [stream][crate::model::UpdateStreamRequest::stream].
     pub fn set_or_clear_stream<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Stream>,
@@ -1669,7 +1669,7 @@ impl RunStreamRequest {
         self
     }
 
-    /// Sets or clear the value of [cdc_strategy][crate::model::RunStreamRequest::cdc_strategy].
+    /// Sets or clears the value of [cdc_strategy][crate::model::RunStreamRequest::cdc_strategy].
     pub fn set_or_clear_cdc_strategy<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CdcStrategy>,
@@ -1762,7 +1762,7 @@ impl LookupStreamObjectRequest {
         self
     }
 
-    /// Sets or clear the value of [source_object_identifier][crate::model::LookupStreamObjectRequest::source_object_identifier].
+    /// Sets or clears the value of [source_object_identifier][crate::model::LookupStreamObjectRequest::source_object_identifier].
     pub fn set_or_clear_source_object_identifier<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::SourceObjectIdentifier>,
@@ -1839,7 +1839,7 @@ impl StartBackfillJobResponse {
         self
     }
 
-    /// Sets or clear the value of [object][crate::model::StartBackfillJobResponse::object].
+    /// Sets or clears the value of [object][crate::model::StartBackfillJobResponse::object].
     pub fn set_or_clear_object<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::StreamObject>,
@@ -1917,7 +1917,7 @@ impl StopBackfillJobResponse {
         self
     }
 
-    /// Sets or clear the value of [object][crate::model::StopBackfillJobResponse::object].
+    /// Sets or clears the value of [object][crate::model::StopBackfillJobResponse::object].
     pub fn set_or_clear_object<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::StreamObject>,
@@ -2116,7 +2116,7 @@ impl OperationMetadata {
         self
     }
 
-    /// Sets or clear the value of [create_time][crate::model::OperationMetadata::create_time].
+    /// Sets or clears the value of [create_time][crate::model::OperationMetadata::create_time].
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2134,7 +2134,7 @@ impl OperationMetadata {
         self
     }
 
-    /// Sets or clear the value of [end_time][crate::model::OperationMetadata::end_time].
+    /// Sets or clears the value of [end_time][crate::model::OperationMetadata::end_time].
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2182,7 +2182,7 @@ impl OperationMetadata {
         self
     }
 
-    /// Sets or clear the value of [validation_result][crate::model::OperationMetadata::validation_result].
+    /// Sets or clears the value of [validation_result][crate::model::OperationMetadata::validation_result].
     pub fn set_or_clear_validation_result<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ValidationResult>,
@@ -2269,7 +2269,7 @@ impl CreatePrivateConnectionRequest {
         self
     }
 
-    /// Sets or clear the value of [private_connection][crate::model::CreatePrivateConnectionRequest::private_connection].
+    /// Sets or clears the value of [private_connection][crate::model::CreatePrivateConnectionRequest::private_connection].
     pub fn set_or_clear_private_connection<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::PrivateConnection>,
@@ -2616,7 +2616,7 @@ impl CreateRouteRequest {
         self
     }
 
-    /// Sets or clear the value of [route][crate::model::CreateRouteRequest::route].
+    /// Sets or clears the value of [route][crate::model::CreateRouteRequest::route].
     pub fn set_or_clear_route<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Route>,
@@ -2988,7 +2988,7 @@ impl OracleProfile {
         self
     }
 
-    /// Sets or clear the value of [oracle_ssl_config][crate::model::OracleProfile::oracle_ssl_config].
+    /// Sets or clears the value of [oracle_ssl_config][crate::model::OracleProfile::oracle_ssl_config].
     pub fn set_or_clear_oracle_ssl_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::OracleSslConfig>,
@@ -3006,7 +3006,7 @@ impl OracleProfile {
         self
     }
 
-    /// Sets or clear the value of [oracle_asm_config][crate::model::OracleProfile::oracle_asm_config].
+    /// Sets or clears the value of [oracle_asm_config][crate::model::OracleProfile::oracle_asm_config].
     pub fn set_or_clear_oracle_asm_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::OracleAsmConfig>,
@@ -3131,7 +3131,7 @@ impl OracleAsmConfig {
         self
     }
 
-    /// Sets or clear the value of [oracle_ssl_config][crate::model::OracleAsmConfig::oracle_ssl_config].
+    /// Sets or clears the value of [oracle_ssl_config][crate::model::OracleAsmConfig::oracle_ssl_config].
     pub fn set_or_clear_oracle_ssl_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::OracleSslConfig>,
@@ -3230,7 +3230,7 @@ impl MysqlProfile {
         self
     }
 
-    /// Sets or clear the value of [ssl_config][crate::model::MysqlProfile::ssl_config].
+    /// Sets or clears the value of [ssl_config][crate::model::MysqlProfile::ssl_config].
     pub fn set_or_clear_ssl_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::MysqlSslConfig>,
@@ -3352,7 +3352,7 @@ impl PostgresqlProfile {
         self
     }
 
-    /// Sets or clear the value of [ssl_config][crate::model::PostgresqlProfile::ssl_config].
+    /// Sets or clears the value of [ssl_config][crate::model::PostgresqlProfile::ssl_config].
     pub fn set_or_clear_ssl_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::PostgresqlSslConfig>,
@@ -4093,7 +4093,7 @@ impl PrivateConnection {
         self
     }
 
-    /// Sets or clear the value of [create_time][crate::model::PrivateConnection::create_time].
+    /// Sets or clears the value of [create_time][crate::model::PrivateConnection::create_time].
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4111,7 +4111,7 @@ impl PrivateConnection {
         self
     }
 
-    /// Sets or clear the value of [update_time][crate::model::PrivateConnection::update_time].
+    /// Sets or clears the value of [update_time][crate::model::PrivateConnection::update_time].
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4156,7 +4156,7 @@ impl PrivateConnection {
         self
     }
 
-    /// Sets or clear the value of [error][crate::model::PrivateConnection::error].
+    /// Sets or clears the value of [error][crate::model::PrivateConnection::error].
     pub fn set_or_clear_error<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Error>,
@@ -4174,7 +4174,7 @@ impl PrivateConnection {
         self
     }
 
-    /// Sets or clear the value of [satisfies_pzs][crate::model::PrivateConnection::satisfies_pzs].
+    /// Sets or clears the value of [satisfies_pzs][crate::model::PrivateConnection::satisfies_pzs].
     pub fn set_or_clear_satisfies_pzs<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<bool>,
@@ -4192,7 +4192,7 @@ impl PrivateConnection {
         self
     }
 
-    /// Sets or clear the value of [satisfies_pzi][crate::model::PrivateConnection::satisfies_pzi].
+    /// Sets or clears the value of [satisfies_pzi][crate::model::PrivateConnection::satisfies_pzi].
     pub fn set_or_clear_satisfies_pzi<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<bool>,
@@ -4210,7 +4210,7 @@ impl PrivateConnection {
         self
     }
 
-    /// Sets or clear the value of [vpc_peering_config][crate::model::PrivateConnection::vpc_peering_config].
+    /// Sets or clears the value of [vpc_peering_config][crate::model::PrivateConnection::vpc_peering_config].
     pub fn set_or_clear_vpc_peering_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::VpcPeeringConfig>,
@@ -4480,7 +4480,7 @@ impl Route {
         self
     }
 
-    /// Sets or clear the value of [create_time][crate::model::Route::create_time].
+    /// Sets or clears the value of [create_time][crate::model::Route::create_time].
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4498,7 +4498,7 @@ impl Route {
         self
     }
 
-    /// Sets or clear the value of [update_time][crate::model::Route::update_time].
+    /// Sets or clears the value of [update_time][crate::model::Route::update_time].
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -5003,7 +5003,7 @@ impl ConnectionProfile {
         self
     }
 
-    /// Sets or clear the value of [create_time][crate::model::ConnectionProfile::create_time].
+    /// Sets or clears the value of [create_time][crate::model::ConnectionProfile::create_time].
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -5021,7 +5021,7 @@ impl ConnectionProfile {
         self
     }
 
-    /// Sets or clear the value of [update_time][crate::model::ConnectionProfile::update_time].
+    /// Sets or clears the value of [update_time][crate::model::ConnectionProfile::update_time].
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -5057,7 +5057,7 @@ impl ConnectionProfile {
         self
     }
 
-    /// Sets or clear the value of [satisfies_pzs][crate::model::ConnectionProfile::satisfies_pzs].
+    /// Sets or clears the value of [satisfies_pzs][crate::model::ConnectionProfile::satisfies_pzs].
     pub fn set_or_clear_satisfies_pzs<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<bool>,
@@ -5075,7 +5075,7 @@ impl ConnectionProfile {
         self
     }
 
-    /// Sets or clear the value of [satisfies_pzi][crate::model::ConnectionProfile::satisfies_pzi].
+    /// Sets or clears the value of [satisfies_pzi][crate::model::ConnectionProfile::satisfies_pzi].
     pub fn set_or_clear_satisfies_pzi<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<bool>,
@@ -5771,7 +5771,7 @@ impl OracleSourceConfig {
         self
     }
 
-    /// Sets or clear the value of [include_objects][crate::model::OracleSourceConfig::include_objects].
+    /// Sets or clears the value of [include_objects][crate::model::OracleSourceConfig::include_objects].
     pub fn set_or_clear_include_objects<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::OracleRdbms>,
@@ -5789,7 +5789,7 @@ impl OracleSourceConfig {
         self
     }
 
-    /// Sets or clear the value of [exclude_objects][crate::model::OracleSourceConfig::exclude_objects].
+    /// Sets or clears the value of [exclude_objects][crate::model::OracleSourceConfig::exclude_objects].
     pub fn set_or_clear_exclude_objects<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::OracleRdbms>,
@@ -6570,7 +6570,7 @@ impl PostgresqlSourceConfig {
         self
     }
 
-    /// Sets or clear the value of [include_objects][crate::model::PostgresqlSourceConfig::include_objects].
+    /// Sets or clears the value of [include_objects][crate::model::PostgresqlSourceConfig::include_objects].
     pub fn set_or_clear_include_objects<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::PostgresqlRdbms>,
@@ -6588,7 +6588,7 @@ impl PostgresqlSourceConfig {
         self
     }
 
-    /// Sets or clear the value of [exclude_objects][crate::model::PostgresqlSourceConfig::exclude_objects].
+    /// Sets or clears the value of [exclude_objects][crate::model::PostgresqlSourceConfig::exclude_objects].
     pub fn set_or_clear_exclude_objects<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::PostgresqlRdbms>,
@@ -6904,7 +6904,7 @@ impl SqlServerSourceConfig {
         self
     }
 
-    /// Sets or clear the value of [include_objects][crate::model::SqlServerSourceConfig::include_objects].
+    /// Sets or clears the value of [include_objects][crate::model::SqlServerSourceConfig::include_objects].
     pub fn set_or_clear_include_objects<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::SqlServerRdbms>,
@@ -6922,7 +6922,7 @@ impl SqlServerSourceConfig {
         self
     }
 
-    /// Sets or clear the value of [exclude_objects][crate::model::SqlServerSourceConfig::exclude_objects].
+    /// Sets or clears the value of [exclude_objects][crate::model::SqlServerSourceConfig::exclude_objects].
     pub fn set_or_clear_exclude_objects<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::SqlServerRdbms>,
@@ -7383,7 +7383,7 @@ impl MysqlSourceConfig {
         self
     }
 
-    /// Sets or clear the value of [include_objects][crate::model::MysqlSourceConfig::include_objects].
+    /// Sets or clears the value of [include_objects][crate::model::MysqlSourceConfig::include_objects].
     pub fn set_or_clear_include_objects<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::MysqlRdbms>,
@@ -7401,7 +7401,7 @@ impl MysqlSourceConfig {
         self
     }
 
-    /// Sets or clear the value of [exclude_objects][crate::model::MysqlSourceConfig::exclude_objects].
+    /// Sets or clears the value of [exclude_objects][crate::model::MysqlSourceConfig::exclude_objects].
     pub fn set_or_clear_exclude_objects<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::MysqlRdbms>,
@@ -7605,7 +7605,7 @@ impl SalesforceSourceConfig {
         self
     }
 
-    /// Sets or clear the value of [include_objects][crate::model::SalesforceSourceConfig::include_objects].
+    /// Sets or clears the value of [include_objects][crate::model::SalesforceSourceConfig::include_objects].
     pub fn set_or_clear_include_objects<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::SalesforceOrg>,
@@ -7623,7 +7623,7 @@ impl SalesforceSourceConfig {
         self
     }
 
-    /// Sets or clear the value of [exclude_objects][crate::model::SalesforceSourceConfig::exclude_objects].
+    /// Sets or clears the value of [exclude_objects][crate::model::SalesforceSourceConfig::exclude_objects].
     pub fn set_or_clear_exclude_objects<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::SalesforceOrg>,
@@ -7641,7 +7641,7 @@ impl SalesforceSourceConfig {
         self
     }
 
-    /// Sets or clear the value of [polling_interval][crate::model::SalesforceSourceConfig::polling_interval].
+    /// Sets or clears the value of [polling_interval][crate::model::SalesforceSourceConfig::polling_interval].
     pub fn set_or_clear_polling_interval<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -8430,7 +8430,7 @@ impl GcsDestinationConfig {
         self
     }
 
-    /// Sets or clear the value of [file_rotation_interval][crate::model::GcsDestinationConfig::file_rotation_interval].
+    /// Sets or clears the value of [file_rotation_interval][crate::model::GcsDestinationConfig::file_rotation_interval].
     pub fn set_or_clear_file_rotation_interval<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -8585,7 +8585,7 @@ impl BigQueryDestinationConfig {
         self
     }
 
-    /// Sets or clear the value of [data_freshness][crate::model::BigQueryDestinationConfig::data_freshness].
+    /// Sets or clears the value of [data_freshness][crate::model::BigQueryDestinationConfig::data_freshness].
     pub fn set_or_clear_data_freshness<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -8603,7 +8603,7 @@ impl BigQueryDestinationConfig {
         self
     }
 
-    /// Sets or clear the value of [blmt_config][crate::model::BigQueryDestinationConfig::blmt_config].
+    /// Sets or clears the value of [blmt_config][crate::model::BigQueryDestinationConfig::blmt_config].
     pub fn set_or_clear_blmt_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::big_query_destination_config::BlmtConfig>,
@@ -8864,7 +8864,7 @@ pub mod big_query_destination_config {
             self
         }
 
-        /// Sets or clear the value of [dataset_template][crate::model::big_query_destination_config::SourceHierarchyDatasets::dataset_template].
+        /// Sets or clears the value of [dataset_template][crate::model::big_query_destination_config::SourceHierarchyDatasets::dataset_template].
         pub fn set_or_clear_dataset_template<T>(mut self, v: std::option::Option<T>) -> Self
         where T: std::convert::Into<crate::model::big_query_destination_config::source_hierarchy_datasets::DatasetTemplate>
         {
@@ -9610,7 +9610,7 @@ impl Stream {
         self
     }
 
-    /// Sets or clear the value of [create_time][crate::model::Stream::create_time].
+    /// Sets or clears the value of [create_time][crate::model::Stream::create_time].
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -9628,7 +9628,7 @@ impl Stream {
         self
     }
 
-    /// Sets or clear the value of [update_time][crate::model::Stream::update_time].
+    /// Sets or clears the value of [update_time][crate::model::Stream::update_time].
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -9664,7 +9664,7 @@ impl Stream {
         self
     }
 
-    /// Sets or clear the value of [source_config][crate::model::Stream::source_config].
+    /// Sets or clears the value of [source_config][crate::model::Stream::source_config].
     pub fn set_or_clear_source_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::SourceConfig>,
@@ -9682,7 +9682,7 @@ impl Stream {
         self
     }
 
-    /// Sets or clear the value of [destination_config][crate::model::Stream::destination_config].
+    /// Sets or clears the value of [destination_config][crate::model::Stream::destination_config].
     pub fn set_or_clear_destination_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::DestinationConfig>,
@@ -9717,7 +9717,7 @@ impl Stream {
         self
     }
 
-    /// Sets or clear the value of [customer_managed_encryption_key][crate::model::Stream::customer_managed_encryption_key].
+    /// Sets or clears the value of [customer_managed_encryption_key][crate::model::Stream::customer_managed_encryption_key].
     pub fn set_or_clear_customer_managed_encryption_key<T>(
         mut self,
         v: std::option::Option<T>,
@@ -9738,7 +9738,7 @@ impl Stream {
         self
     }
 
-    /// Sets or clear the value of [last_recovery_time][crate::model::Stream::last_recovery_time].
+    /// Sets or clears the value of [last_recovery_time][crate::model::Stream::last_recovery_time].
     pub fn set_or_clear_last_recovery_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -9756,7 +9756,7 @@ impl Stream {
         self
     }
 
-    /// Sets or clear the value of [satisfies_pzs][crate::model::Stream::satisfies_pzs].
+    /// Sets or clears the value of [satisfies_pzs][crate::model::Stream::satisfies_pzs].
     pub fn set_or_clear_satisfies_pzs<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<bool>,
@@ -9774,7 +9774,7 @@ impl Stream {
         self
     }
 
-    /// Sets or clear the value of [satisfies_pzi][crate::model::Stream::satisfies_pzi].
+    /// Sets or clears the value of [satisfies_pzi][crate::model::Stream::satisfies_pzi].
     pub fn set_or_clear_satisfies_pzi<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<bool>,
@@ -10371,7 +10371,7 @@ impl StreamObject {
         self
     }
 
-    /// Sets or clear the value of [create_time][crate::model::StreamObject::create_time].
+    /// Sets or clears the value of [create_time][crate::model::StreamObject::create_time].
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -10389,7 +10389,7 @@ impl StreamObject {
         self
     }
 
-    /// Sets or clear the value of [update_time][crate::model::StreamObject::update_time].
+    /// Sets or clears the value of [update_time][crate::model::StreamObject::update_time].
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -10424,7 +10424,7 @@ impl StreamObject {
         self
     }
 
-    /// Sets or clear the value of [backfill_job][crate::model::StreamObject::backfill_job].
+    /// Sets or clears the value of [backfill_job][crate::model::StreamObject::backfill_job].
     pub fn set_or_clear_backfill_job<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::BackfillJob>,
@@ -10442,7 +10442,7 @@ impl StreamObject {
         self
     }
 
-    /// Sets or clear the value of [source_object][crate::model::StreamObject::source_object].
+    /// Sets or clears the value of [source_object][crate::model::StreamObject::source_object].
     pub fn set_or_clear_source_object<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::SourceObjectIdentifier>,
@@ -10979,7 +10979,7 @@ impl BackfillJob {
         self
     }
 
-    /// Sets or clear the value of [last_start_time][crate::model::BackfillJob::last_start_time].
+    /// Sets or clears the value of [last_start_time][crate::model::BackfillJob::last_start_time].
     pub fn set_or_clear_last_start_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -10997,7 +10997,7 @@ impl BackfillJob {
         self
     }
 
-    /// Sets or clear the value of [last_end_time][crate::model::BackfillJob::last_end_time].
+    /// Sets or clears the value of [last_end_time][crate::model::BackfillJob::last_end_time].
     pub fn set_or_clear_last_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -11396,7 +11396,7 @@ impl Error {
         self
     }
 
-    /// Sets or clear the value of [error_time][crate::model::Error::error_time].
+    /// Sets or clears the value of [error_time][crate::model::Error::error_time].
     pub fn set_or_clear_error_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -12403,7 +12403,7 @@ impl MysqlLogPosition {
         self
     }
 
-    /// Sets or clear the value of [log_position][crate::model::MysqlLogPosition::log_position].
+    /// Sets or clears the value of [log_position][crate::model::MysqlLogPosition::log_position].
     pub fn set_or_clear_log_position<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<i32>,

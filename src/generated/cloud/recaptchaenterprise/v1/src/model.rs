@@ -70,7 +70,7 @@ impl CreateAssessmentRequest {
         self
     }
 
-    /// Sets or clear the value of [assessment][crate::model::CreateAssessmentRequest::assessment].
+    /// Sets or clears the value of [assessment][crate::model::CreateAssessmentRequest::assessment].
     pub fn set_or_clear_assessment<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Assessment>,
@@ -154,7 +154,7 @@ impl TransactionEvent {
         self
     }
 
-    /// Sets or clear the value of [event_time][crate::model::TransactionEvent::event_time].
+    /// Sets or clears the value of [event_time][crate::model::TransactionEvent::event_time].
     pub fn set_or_clear_event_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -559,7 +559,7 @@ impl AnnotateAssessmentRequest {
         self
     }
 
-    /// Sets or clear the value of [transaction_event][crate::model::AnnotateAssessmentRequest::transaction_event].
+    /// Sets or clears the value of [transaction_event][crate::model::AnnotateAssessmentRequest::transaction_event].
     pub fn set_or_clear_transaction_event<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::TransactionEvent>,
@@ -1031,7 +1031,7 @@ impl EndpointVerificationInfo {
         self
     }
 
-    /// Sets or clear the value of [last_verification_time][crate::model::EndpointVerificationInfo::last_verification_time].
+    /// Sets or clears the value of [last_verification_time][crate::model::EndpointVerificationInfo::last_verification_time].
     pub fn set_or_clear_last_verification_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1587,7 +1587,7 @@ impl Assessment {
         self
     }
 
-    /// Sets or clear the value of [event][crate::model::Assessment::event].
+    /// Sets or clears the value of [event][crate::model::Assessment::event].
     pub fn set_or_clear_event<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Event>,
@@ -1605,7 +1605,7 @@ impl Assessment {
         self
     }
 
-    /// Sets or clear the value of [risk_analysis][crate::model::Assessment::risk_analysis].
+    /// Sets or clears the value of [risk_analysis][crate::model::Assessment::risk_analysis].
     pub fn set_or_clear_risk_analysis<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::RiskAnalysis>,
@@ -1623,7 +1623,7 @@ impl Assessment {
         self
     }
 
-    /// Sets or clear the value of [token_properties][crate::model::Assessment::token_properties].
+    /// Sets or clears the value of [token_properties][crate::model::Assessment::token_properties].
     pub fn set_or_clear_token_properties<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::TokenProperties>,
@@ -1641,7 +1641,7 @@ impl Assessment {
         self
     }
 
-    /// Sets or clear the value of [account_verification][crate::model::Assessment::account_verification].
+    /// Sets or clears the value of [account_verification][crate::model::Assessment::account_verification].
     pub fn set_or_clear_account_verification<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::AccountVerificationInfo>,
@@ -1659,7 +1659,7 @@ impl Assessment {
         self
     }
 
-    /// Sets or clear the value of [account_defender_assessment][crate::model::Assessment::account_defender_assessment].
+    /// Sets or clears the value of [account_defender_assessment][crate::model::Assessment::account_defender_assessment].
     pub fn set_or_clear_account_defender_assessment<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::AccountDefenderAssessment>,
@@ -1677,7 +1677,7 @@ impl Assessment {
         self
     }
 
-    /// Sets or clear the value of [private_password_leak_verification][crate::model::Assessment::private_password_leak_verification].
+    /// Sets or clears the value of [private_password_leak_verification][crate::model::Assessment::private_password_leak_verification].
     pub fn set_or_clear_private_password_leak_verification<T>(
         mut self,
         v: std::option::Option<T>,
@@ -1698,7 +1698,7 @@ impl Assessment {
         self
     }
 
-    /// Sets or clear the value of [firewall_policy_assessment][crate::model::Assessment::firewall_policy_assessment].
+    /// Sets or clears the value of [firewall_policy_assessment][crate::model::Assessment::firewall_policy_assessment].
     pub fn set_or_clear_firewall_policy_assessment<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::FirewallPolicyAssessment>,
@@ -1716,7 +1716,7 @@ impl Assessment {
         self
     }
 
-    /// Sets or clear the value of [fraud_prevention_assessment][crate::model::Assessment::fraud_prevention_assessment].
+    /// Sets or clears the value of [fraud_prevention_assessment][crate::model::Assessment::fraud_prevention_assessment].
     pub fn set_or_clear_fraud_prevention_assessment<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::FraudPreventionAssessment>,
@@ -1734,7 +1734,7 @@ impl Assessment {
         self
     }
 
-    /// Sets or clear the value of [fraud_signals][crate::model::Assessment::fraud_signals].
+    /// Sets or clears the value of [fraud_signals][crate::model::Assessment::fraud_signals].
     pub fn set_or_clear_fraud_signals<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::FraudSignals>,
@@ -1752,7 +1752,7 @@ impl Assessment {
         self
     }
 
-    /// Sets or clear the value of [phone_fraud_assessment][crate::model::Assessment::phone_fraud_assessment].
+    /// Sets or clears the value of [phone_fraud_assessment][crate::model::Assessment::phone_fraud_assessment].
     pub fn set_or_clear_phone_fraud_assessment<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::PhoneFraudAssessment>,
@@ -1770,7 +1770,7 @@ impl Assessment {
         self
     }
 
-    /// Sets or clear the value of [assessment_environment][crate::model::Assessment::assessment_environment].
+    /// Sets or clears the value of [assessment_environment][crate::model::Assessment::assessment_environment].
     pub fn set_or_clear_assessment_environment<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::AssessmentEnvironment>,
@@ -1979,7 +1979,7 @@ impl Event {
         self
     }
 
-    /// Sets or clear the value of [transaction_data][crate::model::Event::transaction_data].
+    /// Sets or clears the value of [transaction_data][crate::model::Event::transaction_data].
     pub fn set_or_clear_transaction_data<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::TransactionData>,
@@ -1997,7 +1997,7 @@ impl Event {
         self
     }
 
-    /// Sets or clear the value of [user_info][crate::model::Event::user_info].
+    /// Sets or clears the value of [user_info][crate::model::Event::user_info].
     pub fn set_or_clear_user_info<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::UserInfo>,
@@ -2257,7 +2257,7 @@ impl TransactionData {
         self
     }
 
-    /// Sets or clear the value of [transaction_id][crate::model::TransactionData::transaction_id].
+    /// Sets or clears the value of [transaction_id][crate::model::TransactionData::transaction_id].
     pub fn set_or_clear_transaction_id<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -2311,7 +2311,7 @@ impl TransactionData {
         self
     }
 
-    /// Sets or clear the value of [shipping_address][crate::model::TransactionData::shipping_address].
+    /// Sets or clears the value of [shipping_address][crate::model::TransactionData::shipping_address].
     pub fn set_or_clear_shipping_address<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::transaction_data::Address>,
@@ -2329,7 +2329,7 @@ impl TransactionData {
         self
     }
 
-    /// Sets or clear the value of [billing_address][crate::model::TransactionData::billing_address].
+    /// Sets or clears the value of [billing_address][crate::model::TransactionData::billing_address].
     pub fn set_or_clear_billing_address<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::transaction_data::Address>,
@@ -2347,7 +2347,7 @@ impl TransactionData {
         self
     }
 
-    /// Sets or clear the value of [user][crate::model::TransactionData::user].
+    /// Sets or clears the value of [user][crate::model::TransactionData::user].
     pub fn set_or_clear_user<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::transaction_data::User>,
@@ -2387,7 +2387,7 @@ impl TransactionData {
         self
     }
 
-    /// Sets or clear the value of [gateway_info][crate::model::TransactionData::gateway_info].
+    /// Sets or clears the value of [gateway_info][crate::model::TransactionData::gateway_info].
     pub fn set_or_clear_gateway_info<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::transaction_data::GatewayInfo>,
@@ -2778,7 +2778,7 @@ impl UserInfo {
         self
     }
 
-    /// Sets or clear the value of [create_account_time][crate::model::UserInfo::create_account_time].
+    /// Sets or clears the value of [create_account_time][crate::model::UserInfo::create_account_time].
     pub fn set_or_clear_create_account_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3407,7 +3407,7 @@ impl TokenProperties {
         self
     }
 
-    /// Sets or clear the value of [create_time][crate::model::TokenProperties::create_time].
+    /// Sets or clears the value of [create_time][crate::model::TokenProperties::create_time].
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3671,7 +3671,7 @@ impl FraudPreventionAssessment {
         self
     }
 
-    /// Sets or clear the value of [stolen_instrument_verdict][crate::model::FraudPreventionAssessment::stolen_instrument_verdict].
+    /// Sets or clears the value of [stolen_instrument_verdict][crate::model::FraudPreventionAssessment::stolen_instrument_verdict].
     pub fn set_or_clear_stolen_instrument_verdict<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::fraud_prevention_assessment::StolenInstrumentVerdict>,
@@ -3689,7 +3689,7 @@ impl FraudPreventionAssessment {
         self
     }
 
-    /// Sets or clear the value of [card_testing_verdict][crate::model::FraudPreventionAssessment::card_testing_verdict].
+    /// Sets or clears the value of [card_testing_verdict][crate::model::FraudPreventionAssessment::card_testing_verdict].
     pub fn set_or_clear_card_testing_verdict<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::fraud_prevention_assessment::CardTestingVerdict>,
@@ -3707,7 +3707,7 @@ impl FraudPreventionAssessment {
         self
     }
 
-    /// Sets or clear the value of [behavioral_trust_verdict][crate::model::FraudPreventionAssessment::behavioral_trust_verdict].
+    /// Sets or clears the value of [behavioral_trust_verdict][crate::model::FraudPreventionAssessment::behavioral_trust_verdict].
     pub fn set_or_clear_behavioral_trust_verdict<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::fraud_prevention_assessment::BehavioralTrustVerdict>,
@@ -3867,7 +3867,7 @@ impl FraudSignals {
         self
     }
 
-    /// Sets or clear the value of [user_signals][crate::model::FraudSignals::user_signals].
+    /// Sets or clears the value of [user_signals][crate::model::FraudSignals::user_signals].
     pub fn set_or_clear_user_signals<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::fraud_signals::UserSignals>,
@@ -3885,7 +3885,7 @@ impl FraudSignals {
         self
     }
 
-    /// Sets or clear the value of [card_signals][crate::model::FraudSignals::card_signals].
+    /// Sets or clears the value of [card_signals][crate::model::FraudSignals::card_signals].
     pub fn set_or_clear_card_signals<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::fraud_signals::CardSignals>,
@@ -4349,7 +4349,7 @@ impl PhoneFraudAssessment {
         self
     }
 
-    /// Sets or clear the value of [sms_toll_fraud_verdict][crate::model::PhoneFraudAssessment::sms_toll_fraud_verdict].
+    /// Sets or clears the value of [sms_toll_fraud_verdict][crate::model::PhoneFraudAssessment::sms_toll_fraud_verdict].
     pub fn set_or_clear_sms_toll_fraud_verdict<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::SmsTollFraudVerdict>,
@@ -4604,7 +4604,7 @@ impl CreateKeyRequest {
         self
     }
 
-    /// Sets or clear the value of [key][crate::model::CreateKeyRequest::key].
+    /// Sets or clears the value of [key][crate::model::CreateKeyRequest::key].
     pub fn set_or_clear_key<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Key>,
@@ -4836,7 +4836,7 @@ impl UpdateKeyRequest {
         self
     }
 
-    /// Sets or clear the value of [key][crate::model::UpdateKeyRequest::key].
+    /// Sets or clears the value of [key][crate::model::UpdateKeyRequest::key].
     pub fn set_or_clear_key<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Key>,
@@ -4854,7 +4854,7 @@ impl UpdateKeyRequest {
         self
     }
 
-    /// Sets or clear the value of [update_mask][crate::model::UpdateKeyRequest::update_mask].
+    /// Sets or clears the value of [update_mask][crate::model::UpdateKeyRequest::update_mask].
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -4942,7 +4942,7 @@ impl CreateFirewallPolicyRequest {
         self
     }
 
-    /// Sets or clear the value of [firewall_policy][crate::model::CreateFirewallPolicyRequest::firewall_policy].
+    /// Sets or clears the value of [firewall_policy][crate::model::CreateFirewallPolicyRequest::firewall_policy].
     pub fn set_or_clear_firewall_policy<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::FirewallPolicy>,
@@ -5141,7 +5141,7 @@ impl UpdateFirewallPolicyRequest {
         self
     }
 
-    /// Sets or clear the value of [firewall_policy][crate::model::UpdateFirewallPolicyRequest::firewall_policy].
+    /// Sets or clears the value of [firewall_policy][crate::model::UpdateFirewallPolicyRequest::firewall_policy].
     pub fn set_or_clear_firewall_policy<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::FirewallPolicy>,
@@ -5159,7 +5159,7 @@ impl UpdateFirewallPolicyRequest {
         self
     }
 
-    /// Sets or clear the value of [update_mask][crate::model::UpdateFirewallPolicyRequest::update_mask].
+    /// Sets or clears the value of [update_mask][crate::model::UpdateFirewallPolicyRequest::update_mask].
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -5413,7 +5413,7 @@ impl Metrics {
         self
     }
 
-    /// Sets or clear the value of [start_time][crate::model::Metrics::start_time].
+    /// Sets or clears the value of [start_time][crate::model::Metrics::start_time].
     pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -5570,7 +5570,7 @@ impl Key {
         self
     }
 
-    /// Sets or clear the value of [create_time][crate::model::Key::create_time].
+    /// Sets or clears the value of [create_time][crate::model::Key::create_time].
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -5588,7 +5588,7 @@ impl Key {
         self
     }
 
-    /// Sets or clear the value of [testing_options][crate::model::Key::testing_options].
+    /// Sets or clears the value of [testing_options][crate::model::Key::testing_options].
     pub fn set_or_clear_testing_options<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::TestingOptions>,
@@ -5606,7 +5606,7 @@ impl Key {
         self
     }
 
-    /// Sets or clear the value of [waf_settings][crate::model::Key::waf_settings].
+    /// Sets or clears the value of [waf_settings][crate::model::Key::waf_settings].
     pub fn set_or_clear_waf_settings<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::WafSettings>,
@@ -6472,7 +6472,7 @@ impl IOSKeySettings {
         self
     }
 
-    /// Sets or clear the value of [apple_developer_id][crate::model::IOSKeySettings::apple_developer_id].
+    /// Sets or clears the value of [apple_developer_id][crate::model::IOSKeySettings::apple_developer_id].
     pub fn set_or_clear_apple_developer_id<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::AppleDeveloperId>,
@@ -6640,7 +6640,7 @@ impl ScoreMetrics {
         self
     }
 
-    /// Sets or clear the value of [overall_metrics][crate::model::ScoreMetrics::overall_metrics].
+    /// Sets or clears the value of [overall_metrics][crate::model::ScoreMetrics::overall_metrics].
     pub fn set_or_clear_overall_metrics<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ScoreDistribution>,
@@ -6773,7 +6773,7 @@ impl FirewallPolicyAssessment {
         self
     }
 
-    /// Sets or clear the value of [error][crate::model::FirewallPolicyAssessment::error].
+    /// Sets or clears the value of [error][crate::model::FirewallPolicyAssessment::error].
     pub fn set_or_clear_error<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<rpc::model::Status>,
@@ -6791,7 +6791,7 @@ impl FirewallPolicyAssessment {
         self
     }
 
-    /// Sets or clear the value of [firewall_policy][crate::model::FirewallPolicyAssessment::firewall_policy].
+    /// Sets or clears the value of [firewall_policy][crate::model::FirewallPolicyAssessment::firewall_policy].
     pub fn set_or_clear_firewall_policy<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::FirewallPolicy>,
@@ -7786,7 +7786,7 @@ impl AddIpOverrideRequest {
         self
     }
 
-    /// Sets or clear the value of [ip_override_data][crate::model::AddIpOverrideRequest::ip_override_data].
+    /// Sets or clears the value of [ip_override_data][crate::model::AddIpOverrideRequest::ip_override_data].
     pub fn set_or_clear_ip_override_data<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::IpOverrideData>,
@@ -7863,7 +7863,7 @@ impl RemoveIpOverrideRequest {
         self
     }
 
-    /// Sets or clear the value of [ip_override_data][crate::model::RemoveIpOverrideRequest::ip_override_data].
+    /// Sets or clears the value of [ip_override_data][crate::model::RemoveIpOverrideRequest::ip_override_data].
     pub fn set_or_clear_ip_override_data<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::IpOverrideData>,
