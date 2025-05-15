@@ -4077,6 +4077,7 @@ dependencies = [
  "serde",
  "serde_json",
  "serde_with",
+ "test-case",
  "tokio",
  "tokio-test",
  "tonic",
