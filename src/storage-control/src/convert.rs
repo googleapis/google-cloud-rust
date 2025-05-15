@@ -162,22 +162,6 @@ mod test {
     use super::*;
     use test_case::test_case;
 
-    #[test]
-    fn lro_any_to_prost_empty() -> anyhow::Result<()> {
-        let wkt = wkt::Any::default();
-        let prost = lro_any_to_prost(wkt)?;
-        assert_eq!(prost, prost_types::Any::default());
-        Ok(())
-    }
-
-    #[test]
-    fn lro_any_from_prost_empty() -> anyhow::Result<()> {
-        let prost = prost_types::Any::default();
-        let wkt = lro_any_from_prost(prost)?;
-        assert_eq!(wkt, wkt::Any::default());
-        Ok(())
-    }
-
     fn prost_folder() -> prost_types::Any {
         let folder = crate::google::storage::control::v2::Folder {
             name: "test-name".to_string(),
@@ -207,9 +191,10 @@ mod test {
         wkt::Any::try_from(&md).unwrap()
     }
 
-    #[test_case(prost_folder(), wkt_folder())]
-    #[test_case(prost_create_metadata(), wkt_create_metadata())]
-    fn lro_any_roundtrip_known_type(prost: prost_types::Any, wkt: wkt::Any) -> anyhow::Result<()> {
+    #[test_case(prost_types::Any::default(), wkt::Any::default(); "default Any")]
+    #[test_case(prost_folder(), wkt_folder(); "Any with LRO response type")]
+    #[test_case(prost_create_metadata(), wkt_create_metadata(); "Any with LRO metadata type")]
+    fn lro_any_roundtrip(prost: prost_types::Any, wkt: wkt::Any) -> anyhow::Result<()> {
         assert_eq!(prost, lro_any_to_prost(wkt.clone())?);
         assert_eq!(wkt, lro_any_from_prost(prost)?);
         Ok(())
