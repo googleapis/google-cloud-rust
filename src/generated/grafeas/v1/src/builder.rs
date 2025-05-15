@@ -357,11 +357,22 @@ pub mod grafeas {
         /// Sets the value of [occurrence][crate::model::CreateOccurrenceRequest::occurrence].
         ///
         /// This is a **required** field for requests.
-        pub fn set_occurrence<T: Into<std::option::Option<crate::model::Occurrence>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.occurrence = v.into();
+        pub fn set_occurrence<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Occurrence>,
+        {
+            self.0.request.occurrence = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [occurrence][crate::model::CreateOccurrenceRequest::occurrence].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_occurrence<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Occurrence>,
+        {
+            self.0.request.occurrence = v.map(|x| x.into());
             self
         }
     }
@@ -509,20 +520,40 @@ pub mod grafeas {
         /// Sets the value of [occurrence][crate::model::UpdateOccurrenceRequest::occurrence].
         ///
         /// This is a **required** field for requests.
-        pub fn set_occurrence<T: Into<std::option::Option<crate::model::Occurrence>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.occurrence = v.into();
+        pub fn set_occurrence<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Occurrence>,
+        {
+            self.0.request.occurrence = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [occurrence][crate::model::UpdateOccurrenceRequest::occurrence].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_occurrence<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Occurrence>,
+        {
+            self.0.request.occurrence = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateOccurrenceRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateOccurrenceRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -891,8 +922,22 @@ pub mod grafeas {
         /// Sets the value of [note][crate::model::CreateNoteRequest::note].
         ///
         /// This is a **required** field for requests.
-        pub fn set_note<T: Into<std::option::Option<crate::model::Note>>>(mut self, v: T) -> Self {
-            self.0.request.note = v.into();
+        pub fn set_note<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Note>,
+        {
+            self.0.request.note = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [note][crate::model::CreateNoteRequest::note].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_note<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Note>,
+        {
+            self.0.request.note = v.map(|x| x.into());
             self
         }
     }
@@ -1037,17 +1082,40 @@ pub mod grafeas {
         /// Sets the value of [note][crate::model::UpdateNoteRequest::note].
         ///
         /// This is a **required** field for requests.
-        pub fn set_note<T: Into<std::option::Option<crate::model::Note>>>(mut self, v: T) -> Self {
-            self.0.request.note = v.into();
+        pub fn set_note<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Note>,
+        {
+            self.0.request.note = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [note][crate::model::UpdateNoteRequest::note].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_note<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Note>,
+        {
+            self.0.request.note = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateNoteRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateNoteRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }

@@ -426,13 +426,20 @@ impl CreateBillingAccountRequest {
     }
 
     /// Sets the value of [billing_account][crate::model::CreateBillingAccountRequest::billing_account].
-    pub fn set_billing_account<
-        T: std::convert::Into<std::option::Option<crate::model::BillingAccount>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.billing_account = v.into();
+    pub fn set_billing_account<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::BillingAccount>,
+    {
+        self.billing_account = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [billing_account][crate::model::CreateBillingAccountRequest::billing_account].
+    pub fn set_or_clear_billing_account<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::BillingAccount>,
+    {
+        self.billing_account = v.map(|x| x.into());
         self
     }
 
@@ -485,20 +492,38 @@ impl UpdateBillingAccountRequest {
     }
 
     /// Sets the value of [account][crate::model::UpdateBillingAccountRequest::account].
-    pub fn set_account<T: std::convert::Into<std::option::Option<crate::model::BillingAccount>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.account = v.into();
+    pub fn set_account<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::BillingAccount>,
+    {
+        self.account = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [account][crate::model::UpdateBillingAccountRequest::account].
+    pub fn set_or_clear_account<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::BillingAccount>,
+    {
+        self.account = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateBillingAccountRequest::update_mask].
-    pub fn set_update_mask<T: std::convert::Into<std::option::Option<wkt::FieldMask>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.update_mask = v.into();
+    pub fn set_update_mask<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_mask][crate::model::UpdateBillingAccountRequest::update_mask].
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = v.map(|x| x.into());
         self
     }
 }
@@ -697,13 +722,20 @@ impl UpdateProjectBillingInfoRequest {
     }
 
     /// Sets the value of [project_billing_info][crate::model::UpdateProjectBillingInfoRequest::project_billing_info].
-    pub fn set_project_billing_info<
-        T: std::convert::Into<std::option::Option<crate::model::ProjectBillingInfo>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.project_billing_info = v.into();
+    pub fn set_project_billing_info<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::ProjectBillingInfo>,
+    {
+        self.project_billing_info = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [project_billing_info][crate::model::UpdateProjectBillingInfoRequest::project_billing_info].
+    pub fn set_or_clear_project_billing_info<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::ProjectBillingInfo>,
+    {
+        self.project_billing_info = v.map(|x| x.into());
         self
     }
 }
@@ -904,11 +936,20 @@ impl Sku {
     }
 
     /// Sets the value of [category][crate::model::Sku::category].
-    pub fn set_category<T: std::convert::Into<std::option::Option<crate::model::Category>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.category = v.into();
+    pub fn set_category<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::Category>,
+    {
+        self.category = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [category][crate::model::Sku::category].
+    pub fn set_or_clear_category<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::Category>,
+    {
+        self.category = v.map(|x| x.into());
         self
     }
 
@@ -944,13 +985,20 @@ impl Sku {
     }
 
     /// Sets the value of [geo_taxonomy][crate::model::Sku::geo_taxonomy].
-    pub fn set_geo_taxonomy<
-        T: std::convert::Into<std::option::Option<crate::model::GeoTaxonomy>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.geo_taxonomy = v.into();
+    pub fn set_geo_taxonomy<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::GeoTaxonomy>,
+    {
+        self.geo_taxonomy = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [geo_taxonomy][crate::model::Sku::geo_taxonomy].
+    pub fn set_or_clear_geo_taxonomy<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::GeoTaxonomy>,
+    {
+        self.geo_taxonomy = v.map(|x| x.into());
         self
     }
 }
@@ -1077,11 +1125,20 @@ impl PricingInfo {
     }
 
     /// Sets the value of [effective_time][crate::model::PricingInfo::effective_time].
-    pub fn set_effective_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.effective_time = v.into();
+    pub fn set_effective_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.effective_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [effective_time][crate::model::PricingInfo::effective_time].
+    pub fn set_or_clear_effective_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.effective_time = v.map(|x| x.into());
         self
     }
 
@@ -1092,24 +1149,38 @@ impl PricingInfo {
     }
 
     /// Sets the value of [pricing_expression][crate::model::PricingInfo::pricing_expression].
-    pub fn set_pricing_expression<
-        T: std::convert::Into<std::option::Option<crate::model::PricingExpression>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.pricing_expression = v.into();
+    pub fn set_pricing_expression<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::PricingExpression>,
+    {
+        self.pricing_expression = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [pricing_expression][crate::model::PricingInfo::pricing_expression].
+    pub fn set_or_clear_pricing_expression<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::PricingExpression>,
+    {
+        self.pricing_expression = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [aggregation_info][crate::model::PricingInfo::aggregation_info].
-    pub fn set_aggregation_info<
-        T: std::convert::Into<std::option::Option<crate::model::AggregationInfo>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.aggregation_info = v.into();
+    pub fn set_aggregation_info<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::AggregationInfo>,
+    {
+        self.aggregation_info = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [aggregation_info][crate::model::PricingInfo::aggregation_info].
+    pub fn set_or_clear_aggregation_info<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::AggregationInfo>,
+    {
+        self.aggregation_info = v.map(|x| x.into());
         self
     }
 
@@ -1296,11 +1367,20 @@ pub mod pricing_expression {
         }
 
         /// Sets the value of [unit_price][crate::model::pricing_expression::TierRate::unit_price].
-        pub fn set_unit_price<T: std::convert::Into<std::option::Option<gtype::model::Money>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.unit_price = v.into();
+        pub fn set_unit_price<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<gtype::model::Money>,
+        {
+            self.unit_price = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [unit_price][crate::model::pricing_expression::TierRate::unit_price].
+        pub fn set_or_clear_unit_price<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<gtype::model::Money>,
+        {
+            self.unit_price = v.map(|x| x.into());
             self
         }
     }
@@ -2006,20 +2086,38 @@ impl ListSkusRequest {
     }
 
     /// Sets the value of [start_time][crate::model::ListSkusRequest::start_time].
-    pub fn set_start_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.start_time = v.into();
+    pub fn set_start_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.start_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [start_time][crate::model::ListSkusRequest::start_time].
+    pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.start_time = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [end_time][crate::model::ListSkusRequest::end_time].
-    pub fn set_end_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.end_time = v.into();
+    pub fn set_end_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.end_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [end_time][crate::model::ListSkusRequest::end_time].
+    pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.end_time = v.map(|x| x.into());
         self
     }
 

@@ -185,11 +185,20 @@ pub mod logging_service_v_2 {
         }
 
         /// Sets the value of [resource][crate::model::WriteLogEntriesRequest::resource].
-        pub fn set_resource<T: Into<std::option::Option<api::model::MonitoredResource>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.resource = v.into();
+        pub fn set_resource<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<api::model::MonitoredResource>,
+        {
+            self.0.request.resource = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [resource][crate::model::WriteLogEntriesRequest::resource].
+        pub fn set_or_clear_resource<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<api::model::MonitoredResource>,
+        {
+            self.0.request.resource = v.map(|x| x.into());
             self
         }
 
@@ -1113,11 +1122,22 @@ pub mod config_service_v_2 {
         /// Sets the value of [bucket][crate::model::CreateBucketRequest::bucket].
         ///
         /// This is a **required** field for requests.
-        pub fn set_bucket<T: Into<std::option::Option<crate::model::LogBucket>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.bucket = v.into();
+        pub fn set_bucket<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::LogBucket>,
+        {
+            self.0.request.bucket = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [bucket][crate::model::CreateBucketRequest::bucket].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_bucket<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::LogBucket>,
+        {
+            self.0.request.bucket = v.map(|x| x.into());
             self
         }
     }
@@ -1226,22 +1246,44 @@ pub mod config_service_v_2 {
         /// Sets the value of [bucket][crate::model::UpdateBucketRequest::bucket].
         ///
         /// This is a **required** field for requests.
-        pub fn set_bucket<T: Into<std::option::Option<crate::model::LogBucket>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.bucket = v.into();
+        pub fn set_bucket<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::LogBucket>,
+        {
+            self.0.request.bucket = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [bucket][crate::model::UpdateBucketRequest::bucket].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_bucket<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::LogBucket>,
+        {
+            self.0.request.bucket = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateBucketRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateBucketRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -1319,11 +1361,22 @@ pub mod config_service_v_2 {
         /// Sets the value of [bucket][crate::model::CreateBucketRequest::bucket].
         ///
         /// This is a **required** field for requests.
-        pub fn set_bucket<T: Into<std::option::Option<crate::model::LogBucket>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.bucket = v.into();
+        pub fn set_bucket<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::LogBucket>,
+        {
+            self.0.request.bucket = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [bucket][crate::model::CreateBucketRequest::bucket].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_bucket<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::LogBucket>,
+        {
+            self.0.request.bucket = v.map(|x| x.into());
             self
         }
     }
@@ -1393,22 +1446,44 @@ pub mod config_service_v_2 {
         /// Sets the value of [bucket][crate::model::UpdateBucketRequest::bucket].
         ///
         /// This is a **required** field for requests.
-        pub fn set_bucket<T: Into<std::option::Option<crate::model::LogBucket>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.bucket = v.into();
+        pub fn set_bucket<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::LogBucket>,
+        {
+            self.0.request.bucket = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [bucket][crate::model::UpdateBucketRequest::bucket].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_bucket<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::LogBucket>,
+        {
+            self.0.request.bucket = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateBucketRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateBucketRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -1778,11 +1853,22 @@ pub mod config_service_v_2 {
         /// Sets the value of [view][crate::model::CreateViewRequest::view].
         ///
         /// This is a **required** field for requests.
-        pub fn set_view<T: Into<std::option::Option<crate::model::LogView>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.view = v.into();
+        pub fn set_view<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::LogView>,
+        {
+            self.0.request.view = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [view][crate::model::CreateViewRequest::view].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_view<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::LogView>,
+        {
+            self.0.request.view = v.map(|x| x.into());
             self
         }
     }
@@ -1852,20 +1938,40 @@ pub mod config_service_v_2 {
         /// Sets the value of [view][crate::model::UpdateViewRequest::view].
         ///
         /// This is a **required** field for requests.
-        pub fn set_view<T: Into<std::option::Option<crate::model::LogView>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.view = v.into();
+        pub fn set_view<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::LogView>,
+        {
+            self.0.request.view = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [view][crate::model::UpdateViewRequest::view].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_view<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::LogView>,
+        {
+            self.0.request.view = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateViewRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateViewRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -2164,11 +2270,22 @@ pub mod config_service_v_2 {
         /// Sets the value of [sink][crate::model::CreateSinkRequest::sink].
         ///
         /// This is a **required** field for requests.
-        pub fn set_sink<T: Into<std::option::Option<crate::model::LogSink>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.sink = v.into();
+        pub fn set_sink<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::LogSink>,
+        {
+            self.0.request.sink = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [sink][crate::model::CreateSinkRequest::sink].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_sink<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::LogSink>,
+        {
+            self.0.request.sink = v.map(|x| x.into());
             self
         }
 
@@ -2244,11 +2361,22 @@ pub mod config_service_v_2 {
         /// Sets the value of [sink][crate::model::UpdateSinkRequest::sink].
         ///
         /// This is a **required** field for requests.
-        pub fn set_sink<T: Into<std::option::Option<crate::model::LogSink>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.sink = v.into();
+        pub fn set_sink<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::LogSink>,
+        {
+            self.0.request.sink = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [sink][crate::model::UpdateSinkRequest::sink].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_sink<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::LogSink>,
+        {
+            self.0.request.sink = v.map(|x| x.into());
             self
         }
 
@@ -2259,11 +2387,20 @@ pub mod config_service_v_2 {
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateSinkRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateSinkRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -2433,8 +2570,22 @@ pub mod config_service_v_2 {
         /// Sets the value of [link][crate::model::CreateLinkRequest::link].
         ///
         /// This is a **required** field for requests.
-        pub fn set_link<T: Into<std::option::Option<crate::model::Link>>>(mut self, v: T) -> Self {
-            self.0.request.link = v.into();
+        pub fn set_link<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Link>,
+        {
+            self.0.request.link = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [link][crate::model::CreateLinkRequest::link].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_link<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Link>,
+        {
+            self.0.request.link = v.map(|x| x.into());
             self
         }
 
@@ -2948,11 +3099,22 @@ pub mod config_service_v_2 {
         /// Sets the value of [exclusion][crate::model::CreateExclusionRequest::exclusion].
         ///
         /// This is a **required** field for requests.
-        pub fn set_exclusion<T: Into<std::option::Option<crate::model::LogExclusion>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.exclusion = v.into();
+        pub fn set_exclusion<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::LogExclusion>,
+        {
+            self.0.request.exclusion = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [exclusion][crate::model::CreateExclusionRequest::exclusion].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_exclusion<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::LogExclusion>,
+        {
+            self.0.request.exclusion = v.map(|x| x.into());
             self
         }
     }
@@ -3022,22 +3184,44 @@ pub mod config_service_v_2 {
         /// Sets the value of [exclusion][crate::model::UpdateExclusionRequest::exclusion].
         ///
         /// This is a **required** field for requests.
-        pub fn set_exclusion<T: Into<std::option::Option<crate::model::LogExclusion>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.exclusion = v.into();
+        pub fn set_exclusion<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::LogExclusion>,
+        {
+            self.0.request.exclusion = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [exclusion][crate::model::UpdateExclusionRequest::exclusion].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_exclusion<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::LogExclusion>,
+        {
+            self.0.request.exclusion = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateExclusionRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateExclusionRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -3236,20 +3420,40 @@ pub mod config_service_v_2 {
         /// Sets the value of [cmek_settings][crate::model::UpdateCmekSettingsRequest::cmek_settings].
         ///
         /// This is a **required** field for requests.
-        pub fn set_cmek_settings<T: Into<std::option::Option<crate::model::CmekSettings>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.cmek_settings = v.into();
+        pub fn set_cmek_settings<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::CmekSettings>,
+        {
+            self.0.request.cmek_settings = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [cmek_settings][crate::model::UpdateCmekSettingsRequest::cmek_settings].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_cmek_settings<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::CmekSettings>,
+        {
+            self.0.request.cmek_settings = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateCmekSettingsRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateCmekSettingsRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -3382,20 +3586,40 @@ pub mod config_service_v_2 {
         /// Sets the value of [settings][crate::model::UpdateSettingsRequest::settings].
         ///
         /// This is a **required** field for requests.
-        pub fn set_settings<T: Into<std::option::Option<crate::model::Settings>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.settings = v.into();
+        pub fn set_settings<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Settings>,
+        {
+            self.0.request.settings = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [settings][crate::model::UpdateSettingsRequest::settings].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_settings<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Settings>,
+        {
+            self.0.request.settings = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateSettingsRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateSettingsRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -4045,11 +4269,22 @@ pub mod metrics_service_v_2 {
         /// Sets the value of [metric][crate::model::CreateLogMetricRequest::metric].
         ///
         /// This is a **required** field for requests.
-        pub fn set_metric<T: Into<std::option::Option<crate::model::LogMetric>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.metric = v.into();
+        pub fn set_metric<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::LogMetric>,
+        {
+            self.0.request.metric = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [metric][crate::model::CreateLogMetricRequest::metric].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_metric<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::LogMetric>,
+        {
+            self.0.request.metric = v.map(|x| x.into());
             self
         }
     }
@@ -4119,11 +4354,22 @@ pub mod metrics_service_v_2 {
         /// Sets the value of [metric][crate::model::UpdateLogMetricRequest::metric].
         ///
         /// This is a **required** field for requests.
-        pub fn set_metric<T: Into<std::option::Option<crate::model::LogMetric>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.metric = v.into();
+        pub fn set_metric<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::LogMetric>,
+        {
+            self.0.request.metric = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [metric][crate::model::UpdateLogMetricRequest::metric].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_metric<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::LogMetric>,
+        {
+            self.0.request.metric = v.map(|x| x.into());
             self
         }
     }

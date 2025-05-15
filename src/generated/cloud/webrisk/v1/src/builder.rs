@@ -135,13 +135,22 @@ pub mod web_risk_service {
         /// Sets the value of [constraints][crate::model::ComputeThreatListDiffRequest::constraints].
         ///
         /// This is a **required** field for requests.
-        pub fn set_constraints<
-            T: Into<std::option::Option<crate::model::compute_threat_list_diff_request::Constraints>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.constraints = v.into();
+        pub fn set_constraints<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::compute_threat_list_diff_request::Constraints>,
+        {
+            self.0.request.constraints = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [constraints][crate::model::ComputeThreatListDiffRequest::constraints].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_constraints<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::compute_threat_list_diff_request::Constraints>,
+        {
+            self.0.request.constraints = v.map(|x| x.into());
             self
         }
     }
@@ -364,11 +373,22 @@ pub mod web_risk_service {
         /// Sets the value of [submission][crate::model::CreateSubmissionRequest::submission].
         ///
         /// This is a **required** field for requests.
-        pub fn set_submission<T: Into<std::option::Option<crate::model::Submission>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.submission = v.into();
+        pub fn set_submission<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Submission>,
+        {
+            self.0.request.submission = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [submission][crate::model::CreateSubmissionRequest::submission].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_submission<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Submission>,
+        {
+            self.0.request.submission = v.map(|x| x.into());
             self
         }
     }
@@ -477,29 +497,58 @@ pub mod web_risk_service {
         /// Sets the value of [submission][crate::model::SubmitUriRequest::submission].
         ///
         /// This is a **required** field for requests.
-        pub fn set_submission<T: Into<std::option::Option<crate::model::Submission>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.submission = v.into();
+        pub fn set_submission<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Submission>,
+        {
+            self.0.request.submission = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [submission][crate::model::SubmitUriRequest::submission].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_submission<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Submission>,
+        {
+            self.0.request.submission = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [threat_info][crate::model::SubmitUriRequest::threat_info].
-        pub fn set_threat_info<T: Into<std::option::Option<crate::model::ThreatInfo>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.threat_info = v.into();
+        pub fn set_threat_info<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::ThreatInfo>,
+        {
+            self.0.request.threat_info = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [threat_info][crate::model::SubmitUriRequest::threat_info].
+        pub fn set_or_clear_threat_info<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::ThreatInfo>,
+        {
+            self.0.request.threat_info = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [threat_discovery][crate::model::SubmitUriRequest::threat_discovery].
-        pub fn set_threat_discovery<T: Into<std::option::Option<crate::model::ThreatDiscovery>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.threat_discovery = v.into();
+        pub fn set_threat_discovery<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::ThreatDiscovery>,
+        {
+            self.0.request.threat_discovery = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [threat_discovery][crate::model::SubmitUriRequest::threat_discovery].
+        pub fn set_or_clear_threat_discovery<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::ThreatDiscovery>,
+        {
+            self.0.request.threat_discovery = v.map(|x| x.into());
             self
         }
     }

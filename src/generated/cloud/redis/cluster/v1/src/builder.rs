@@ -320,22 +320,44 @@ pub mod cloud_redis_cluster {
         /// Sets the value of [update_mask][crate::model::UpdateClusterRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateClusterRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [cluster][crate::model::UpdateClusterRequest::cluster].
         ///
         /// This is a **required** field for requests.
-        pub fn set_cluster<T: Into<std::option::Option<crate::model::Cluster>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.cluster = v.into();
+        pub fn set_cluster<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Cluster>,
+        {
+            self.0.request.cluster = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [cluster][crate::model::UpdateClusterRequest::cluster].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_cluster<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Cluster>,
+        {
+            self.0.request.cluster = v.map(|x| x.into());
             self
         }
 
@@ -565,11 +587,22 @@ pub mod cloud_redis_cluster {
         /// Sets the value of [cluster][crate::model::CreateClusterRequest::cluster].
         ///
         /// This is a **required** field for requests.
-        pub fn set_cluster<T: Into<std::option::Option<crate::model::Cluster>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.cluster = v.into();
+        pub fn set_cluster<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Cluster>,
+        {
+            self.0.request.cluster = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [cluster][crate::model::CreateClusterRequest::cluster].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_cluster<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Cluster>,
+        {
+            self.0.request.cluster = v.map(|x| x.into());
             self
         }
 
@@ -765,11 +798,20 @@ pub mod cloud_redis_cluster {
         }
 
         /// Sets the value of [schedule_time][crate::model::RescheduleClusterMaintenanceRequest::schedule_time].
-        pub fn set_schedule_time<T: Into<std::option::Option<wkt::Timestamp>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.schedule_time = v.into();
+        pub fn set_schedule_time<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Timestamp>,
+        {
+            self.0.request.schedule_time = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [schedule_time][crate::model::RescheduleClusterMaintenanceRequest::schedule_time].
+        pub fn set_or_clear_schedule_time<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Timestamp>,
+        {
+            self.0.request.schedule_time = v.map(|x| x.into());
             self
         }
     }
@@ -1446,17 +1488,38 @@ pub mod cloud_redis_cluster {
         }
 
         /// Sets the value of [ttl][crate::model::BackupClusterRequest::ttl].
-        pub fn set_ttl<T: Into<std::option::Option<wkt::Duration>>>(mut self, v: T) -> Self {
-            self.0.request.ttl = v.into();
+        pub fn set_ttl<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Duration>,
+        {
+            self.0.request.ttl = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [ttl][crate::model::BackupClusterRequest::ttl].
+        pub fn set_or_clear_ttl<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Duration>,
+        {
+            self.0.request.ttl = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [backup_id][crate::model::BackupClusterRequest::backup_id].
-        pub fn set_backup_id<T: Into<std::option::Option<std::string::String>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.backup_id = v.into();
+        pub fn set_backup_id<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.backup_id = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [backup_id][crate::model::BackupClusterRequest::backup_id].
+        pub fn set_or_clear_backup_id<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.backup_id = v.map(|x| x.into());
             self
         }
     }

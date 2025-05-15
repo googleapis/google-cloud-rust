@@ -532,11 +532,20 @@ pub mod completion_service {
         }
 
         /// Sets the value of [error_config][crate::model::ImportCompletionSuggestionsRequest::error_config].
-        pub fn set_error_config<T: Into<std::option::Option<crate::model::ImportErrorConfig>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.error_config = v.into();
+        pub fn set_error_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::ImportErrorConfig>,
+        {
+            self.0.request.error_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [error_config][crate::model::ImportCompletionSuggestionsRequest::error_config].
+        pub fn set_or_clear_error_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::ImportErrorConfig>,
+        {
+            self.0.request.error_config = v.map(|x| x.into());
             self
         }
 
@@ -1074,11 +1083,22 @@ pub mod control_service {
         /// Sets the value of [control][crate::model::CreateControlRequest::control].
         ///
         /// This is a **required** field for requests.
-        pub fn set_control<T: Into<std::option::Option<crate::model::Control>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.control = v.into();
+        pub fn set_control<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Control>,
+        {
+            self.0.request.control = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [control][crate::model::CreateControlRequest::control].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_control<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Control>,
+        {
+            self.0.request.control = v.map(|x| x.into());
             self
         }
 
@@ -1211,20 +1231,40 @@ pub mod control_service {
         /// Sets the value of [control][crate::model::UpdateControlRequest::control].
         ///
         /// This is a **required** field for requests.
-        pub fn set_control<T: Into<std::option::Option<crate::model::Control>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.control = v.into();
+        pub fn set_control<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Control>,
+        {
+            self.0.request.control = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [control][crate::model::UpdateControlRequest::control].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_control<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Control>,
+        {
+            self.0.request.control = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateControlRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateControlRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -1764,11 +1804,22 @@ pub mod conversational_search_service {
         /// Sets the value of [query][crate::model::ConverseConversationRequest::query].
         ///
         /// This is a **required** field for requests.
-        pub fn set_query<T: Into<std::option::Option<crate::model::TextInput>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.query = v.into();
+        pub fn set_query<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::TextInput>,
+        {
+            self.0.request.query = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [query][crate::model::ConverseConversationRequest::query].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_query<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::TextInput>,
+        {
+            self.0.request.query = v.map(|x| x.into());
             self
         }
 
@@ -1779,11 +1830,20 @@ pub mod conversational_search_service {
         }
 
         /// Sets the value of [conversation][crate::model::ConverseConversationRequest::conversation].
-        pub fn set_conversation<T: Into<std::option::Option<crate::model::Conversation>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.conversation = v.into();
+        pub fn set_conversation<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Conversation>,
+        {
+            self.0.request.conversation = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [conversation][crate::model::ConverseConversationRequest::conversation].
+        pub fn set_or_clear_conversation<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Conversation>,
+        {
+            self.0.request.conversation = v.map(|x| x.into());
             self
         }
 
@@ -1805,15 +1865,20 @@ pub mod conversational_search_service {
         }
 
         /// Sets the value of [summary_spec][crate::model::ConverseConversationRequest::summary_spec].
-        pub fn set_summary_spec<
-            T: Into<
-                std::option::Option<crate::model::search_request::content_search_spec::SummarySpec>,
-            >,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.summary_spec = v.into();
+        pub fn set_summary_spec<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::search_request::content_search_spec::SummarySpec>,
+        {
+            self.0.request.summary_spec = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [summary_spec][crate::model::ConverseConversationRequest::summary_spec].
+        pub fn set_or_clear_summary_spec<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::search_request::content_search_spec::SummarySpec>,
+        {
+            self.0.request.summary_spec = v.map(|x| x.into());
             self
         }
 
@@ -1824,13 +1889,20 @@ pub mod conversational_search_service {
         }
 
         /// Sets the value of [boost_spec][crate::model::ConverseConversationRequest::boost_spec].
-        pub fn set_boost_spec<
-            T: Into<std::option::Option<crate::model::search_request::BoostSpec>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.boost_spec = v.into();
+        pub fn set_boost_spec<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::search_request::BoostSpec>,
+        {
+            self.0.request.boost_spec = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [boost_spec][crate::model::ConverseConversationRequest::boost_spec].
+        pub fn set_or_clear_boost_spec<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::search_request::BoostSpec>,
+        {
+            self.0.request.boost_spec = v.map(|x| x.into());
             self
         }
     }
@@ -1903,11 +1975,22 @@ pub mod conversational_search_service {
         /// Sets the value of [conversation][crate::model::CreateConversationRequest::conversation].
         ///
         /// This is a **required** field for requests.
-        pub fn set_conversation<T: Into<std::option::Option<crate::model::Conversation>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.conversation = v.into();
+        pub fn set_conversation<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Conversation>,
+        {
+            self.0.request.conversation = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [conversation][crate::model::CreateConversationRequest::conversation].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_conversation<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Conversation>,
+        {
+            self.0.request.conversation = v.map(|x| x.into());
             self
         }
     }
@@ -2038,20 +2121,40 @@ pub mod conversational_search_service {
         /// Sets the value of [conversation][crate::model::UpdateConversationRequest::conversation].
         ///
         /// This is a **required** field for requests.
-        pub fn set_conversation<T: Into<std::option::Option<crate::model::Conversation>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.conversation = v.into();
+        pub fn set_conversation<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Conversation>,
+        {
+            self.0.request.conversation = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [conversation][crate::model::UpdateConversationRequest::conversation].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_conversation<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Conversation>,
+        {
+            self.0.request.conversation = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateConversationRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateConversationRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -2302,11 +2405,22 @@ pub mod conversational_search_service {
         /// Sets the value of [query][crate::model::AnswerQueryRequest::query].
         ///
         /// This is a **required** field for requests.
-        pub fn set_query<T: Into<std::option::Option<crate::model::Query>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.query = v.into();
+        pub fn set_query<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Query>,
+        {
+            self.0.request.query = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [query][crate::model::AnswerQueryRequest::query].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_query<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Query>,
+        {
+            self.0.request.query = v.map(|x| x.into());
             self
         }
 
@@ -2317,68 +2431,110 @@ pub mod conversational_search_service {
         }
 
         /// Sets the value of [safety_spec][crate::model::AnswerQueryRequest::safety_spec].
-        pub fn set_safety_spec<
-            T: Into<std::option::Option<crate::model::answer_query_request::SafetySpec>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.safety_spec = v.into();
+        pub fn set_safety_spec<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::answer_query_request::SafetySpec>,
+        {
+            self.0.request.safety_spec = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [safety_spec][crate::model::AnswerQueryRequest::safety_spec].
+        pub fn set_or_clear_safety_spec<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::answer_query_request::SafetySpec>,
+        {
+            self.0.request.safety_spec = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [related_questions_spec][crate::model::AnswerQueryRequest::related_questions_spec].
-        pub fn set_related_questions_spec<
-            T: Into<std::option::Option<crate::model::answer_query_request::RelatedQuestionsSpec>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.related_questions_spec = v.into();
+        pub fn set_related_questions_spec<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::answer_query_request::RelatedQuestionsSpec>,
+        {
+            self.0.request.related_questions_spec = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [related_questions_spec][crate::model::AnswerQueryRequest::related_questions_spec].
+        pub fn set_or_clear_related_questions_spec<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::answer_query_request::RelatedQuestionsSpec>,
+        {
+            self.0.request.related_questions_spec = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [grounding_spec][crate::model::AnswerQueryRequest::grounding_spec].
-        pub fn set_grounding_spec<
-            T: Into<std::option::Option<crate::model::answer_query_request::GroundingSpec>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.grounding_spec = v.into();
+        pub fn set_grounding_spec<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::answer_query_request::GroundingSpec>,
+        {
+            self.0.request.grounding_spec = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [grounding_spec][crate::model::AnswerQueryRequest::grounding_spec].
+        pub fn set_or_clear_grounding_spec<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::answer_query_request::GroundingSpec>,
+        {
+            self.0.request.grounding_spec = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [answer_generation_spec][crate::model::AnswerQueryRequest::answer_generation_spec].
-        pub fn set_answer_generation_spec<
-            T: Into<std::option::Option<crate::model::answer_query_request::AnswerGenerationSpec>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.answer_generation_spec = v.into();
+        pub fn set_answer_generation_spec<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::answer_query_request::AnswerGenerationSpec>,
+        {
+            self.0.request.answer_generation_spec = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [answer_generation_spec][crate::model::AnswerQueryRequest::answer_generation_spec].
+        pub fn set_or_clear_answer_generation_spec<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::answer_query_request::AnswerGenerationSpec>,
+        {
+            self.0.request.answer_generation_spec = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [search_spec][crate::model::AnswerQueryRequest::search_spec].
-        pub fn set_search_spec<
-            T: Into<std::option::Option<crate::model::answer_query_request::SearchSpec>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.search_spec = v.into();
+        pub fn set_search_spec<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::answer_query_request::SearchSpec>,
+        {
+            self.0.request.search_spec = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [search_spec][crate::model::AnswerQueryRequest::search_spec].
+        pub fn set_or_clear_search_spec<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::answer_query_request::SearchSpec>,
+        {
+            self.0.request.search_spec = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [query_understanding_spec][crate::model::AnswerQueryRequest::query_understanding_spec].
-        pub fn set_query_understanding_spec<
-            T: Into<std::option::Option<crate::model::answer_query_request::QueryUnderstandingSpec>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.query_understanding_spec = v.into();
+        pub fn set_query_understanding_spec<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::answer_query_request::QueryUnderstandingSpec>,
+        {
+            self.0.request.query_understanding_spec = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [query_understanding_spec][crate::model::AnswerQueryRequest::query_understanding_spec].
+        pub fn set_or_clear_query_understanding_spec<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::answer_query_request::QueryUnderstandingSpec>,
+        {
+            self.0.request.query_understanding_spec = v.map(|x| x.into());
             self
         }
 
@@ -2407,13 +2563,20 @@ pub mod conversational_search_service {
         }
 
         /// Sets the value of [end_user_spec][crate::model::AnswerQueryRequest::end_user_spec].
-        pub fn set_end_user_spec<
-            T: Into<std::option::Option<crate::model::answer_query_request::EndUserSpec>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.end_user_spec = v.into();
+        pub fn set_end_user_spec<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::answer_query_request::EndUserSpec>,
+        {
+            self.0.request.end_user_spec = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [end_user_spec][crate::model::AnswerQueryRequest::end_user_spec].
+        pub fn set_or_clear_end_user_spec<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::answer_query_request::EndUserSpec>,
+        {
+            self.0.request.end_user_spec = v.map(|x| x.into());
             self
         }
     }
@@ -2546,11 +2709,22 @@ pub mod conversational_search_service {
         /// Sets the value of [session][crate::model::CreateSessionRequest::session].
         ///
         /// This is a **required** field for requests.
-        pub fn set_session<T: Into<std::option::Option<crate::model::Session>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.session = v.into();
+        pub fn set_session<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Session>,
+        {
+            self.0.request.session = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [session][crate::model::CreateSessionRequest::session].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_session<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Session>,
+        {
+            self.0.request.session = v.map(|x| x.into());
             self
         }
     }
@@ -2675,20 +2849,40 @@ pub mod conversational_search_service {
         /// Sets the value of [session][crate::model::UpdateSessionRequest::session].
         ///
         /// This is a **required** field for requests.
-        pub fn set_session<T: Into<std::option::Option<crate::model::Session>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.session = v.into();
+        pub fn set_session<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Session>,
+        {
+            self.0.request.session = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [session][crate::model::UpdateSessionRequest::session].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_session<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Session>,
+        {
+            self.0.request.session = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateSessionRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateSessionRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -3279,11 +3473,22 @@ pub mod data_store_service {
         /// Sets the value of [data_store][crate::model::CreateDataStoreRequest::data_store].
         ///
         /// This is a **required** field for requests.
-        pub fn set_data_store<T: Into<std::option::Option<crate::model::DataStore>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.data_store = v.into();
+        pub fn set_data_store<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::DataStore>,
+        {
+            self.0.request.data_store = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [data_store][crate::model::CreateDataStoreRequest::data_store].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_data_store<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::DataStore>,
+        {
+            self.0.request.data_store = v.map(|x| x.into());
             self
         }
 
@@ -3642,20 +3847,40 @@ pub mod data_store_service {
         /// Sets the value of [data_store][crate::model::UpdateDataStoreRequest::data_store].
         ///
         /// This is a **required** field for requests.
-        pub fn set_data_store<T: Into<std::option::Option<crate::model::DataStore>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.data_store = v.into();
+        pub fn set_data_store<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::DataStore>,
+        {
+            self.0.request.data_store = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [data_store][crate::model::UpdateDataStoreRequest::data_store].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_data_store<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::DataStore>,
+        {
+            self.0.request.data_store = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateDataStoreRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateDataStoreRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -4186,11 +4411,22 @@ pub mod document_service {
         /// Sets the value of [document][crate::model::CreateDocumentRequest::document].
         ///
         /// This is a **required** field for requests.
-        pub fn set_document<T: Into<std::option::Option<crate::model::Document>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.document = v.into();
+        pub fn set_document<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Document>,
+        {
+            self.0.request.document = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [document][crate::model::CreateDocumentRequest::document].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_document<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Document>,
+        {
+            self.0.request.document = v.map(|x| x.into());
             self
         }
 
@@ -4260,11 +4496,22 @@ pub mod document_service {
         /// Sets the value of [document][crate::model::UpdateDocumentRequest::document].
         ///
         /// This is a **required** field for requests.
-        pub fn set_document<T: Into<std::option::Option<crate::model::Document>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.document = v.into();
+        pub fn set_document<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Document>,
+        {
+            self.0.request.document = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [document][crate::model::UpdateDocumentRequest::document].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_document<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Document>,
+        {
+            self.0.request.document = v.map(|x| x.into());
             self
         }
 
@@ -4275,11 +4522,20 @@ pub mod document_service {
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateDocumentRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateDocumentRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -4452,11 +4708,20 @@ pub mod document_service {
         }
 
         /// Sets the value of [error_config][crate::model::ImportDocumentsRequest::error_config].
-        pub fn set_error_config<T: Into<std::option::Option<crate::model::ImportErrorConfig>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.error_config = v.into();
+        pub fn set_error_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::ImportErrorConfig>,
+        {
+            self.0.request.error_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [error_config][crate::model::ImportDocumentsRequest::error_config].
+        pub fn set_or_clear_error_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::ImportErrorConfig>,
+        {
+            self.0.request.error_config = v.map(|x| x.into());
             self
         }
 
@@ -4472,11 +4737,20 @@ pub mod document_service {
         }
 
         /// Sets the value of [update_mask][crate::model::ImportDocumentsRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::ImportDocumentsRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
@@ -4759,11 +5033,20 @@ pub mod document_service {
         }
 
         /// Sets the value of [error_config][crate::model::PurgeDocumentsRequest::error_config].
-        pub fn set_error_config<T: Into<std::option::Option<crate::model::PurgeErrorConfig>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.error_config = v.into();
+        pub fn set_error_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::PurgeErrorConfig>,
+        {
+            self.0.request.error_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [error_config][crate::model::PurgeDocumentsRequest::error_config].
+        pub fn set_or_clear_error_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::PurgeErrorConfig>,
+        {
+            self.0.request.error_config = v.map(|x| x.into());
             self
         }
 
@@ -4886,13 +5169,22 @@ pub mod document_service {
         /// Sets the value of [matcher][crate::model::BatchGetDocumentsMetadataRequest::matcher].
         ///
         /// This is a **required** field for requests.
-        pub fn set_matcher<
-            T: Into<std::option::Option<crate::model::batch_get_documents_metadata_request::Matcher>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.matcher = v.into();
+        pub fn set_matcher<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::batch_get_documents_metadata_request::Matcher>,
+        {
+            self.0.request.matcher = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [matcher][crate::model::BatchGetDocumentsMetadataRequest::matcher].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_matcher<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::batch_get_documents_metadata_request::Matcher>,
+        {
+            self.0.request.matcher = v.map(|x| x.into());
             self
         }
     }
@@ -5296,11 +5588,22 @@ pub mod engine_service {
         /// Sets the value of [engine][crate::model::CreateEngineRequest::engine].
         ///
         /// This is a **required** field for requests.
-        pub fn set_engine<T: Into<std::option::Option<crate::model::Engine>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.engine = v.into();
+        pub fn set_engine<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Engine>,
+        {
+            self.0.request.engine = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [engine][crate::model::CreateEngineRequest::engine].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_engine<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Engine>,
+        {
+            self.0.request.engine = v.map(|x| x.into());
             self
         }
 
@@ -5475,20 +5778,40 @@ pub mod engine_service {
         /// Sets the value of [engine][crate::model::UpdateEngineRequest::engine].
         ///
         /// This is a **required** field for requests.
-        pub fn set_engine<T: Into<std::option::Option<crate::model::Engine>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.engine = v.into();
+        pub fn set_engine<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Engine>,
+        {
+            self.0.request.engine = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [engine][crate::model::UpdateEngineRequest::engine].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_engine<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Engine>,
+        {
+            self.0.request.engine = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateEngineRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateEngineRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -6028,13 +6351,20 @@ pub mod grounded_generation_service {
         }
 
         /// Sets the value of [system_instruction][crate::model::GenerateGroundedContentRequest::system_instruction].
-        pub fn set_system_instruction<
-            T: Into<std::option::Option<crate::model::GroundedGenerationContent>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.system_instruction = v.into();
+        pub fn set_system_instruction<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::GroundedGenerationContent>,
+        {
+            self.0.request.system_instruction = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [system_instruction][crate::model::GenerateGroundedContentRequest::system_instruction].
+        pub fn set_or_clear_system_instruction<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::GroundedGenerationContent>,
+        {
+            self.0.request.system_instruction = v.map(|x| x.into());
             self
         }
 
@@ -6050,30 +6380,38 @@ pub mod grounded_generation_service {
         }
 
         /// Sets the value of [generation_spec][crate::model::GenerateGroundedContentRequest::generation_spec].
-        pub fn set_generation_spec<
-            T: Into<
-                std::option::Option<
-                    crate::model::generate_grounded_content_request::GenerationSpec,
-                >,
-            >,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.generation_spec = v.into();
+        pub fn set_generation_spec<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::generate_grounded_content_request::GenerationSpec>,
+        {
+            self.0.request.generation_spec = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [generation_spec][crate::model::GenerateGroundedContentRequest::generation_spec].
+        pub fn set_or_clear_generation_spec<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::generate_grounded_content_request::GenerationSpec>,
+        {
+            self.0.request.generation_spec = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [grounding_spec][crate::model::GenerateGroundedContentRequest::grounding_spec].
-        pub fn set_grounding_spec<
-            T: Into<
-                std::option::Option<crate::model::generate_grounded_content_request::GroundingSpec>,
-            >,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.grounding_spec = v.into();
+        pub fn set_grounding_spec<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::generate_grounded_content_request::GroundingSpec>,
+        {
+            self.0.request.grounding_spec = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [grounding_spec][crate::model::GenerateGroundedContentRequest::grounding_spec].
+        pub fn set_or_clear_grounding_spec<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::generate_grounded_content_request::GroundingSpec>,
+        {
+            self.0.request.grounding_spec = v.map(|x| x.into());
             self
         }
 
@@ -6169,13 +6507,20 @@ pub mod grounded_generation_service {
         }
 
         /// Sets the value of [grounding_spec][crate::model::CheckGroundingRequest::grounding_spec].
-        pub fn set_grounding_spec<
-            T: Into<std::option::Option<crate::model::CheckGroundingSpec>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.grounding_spec = v.into();
+        pub fn set_grounding_spec<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::CheckGroundingSpec>,
+        {
+            self.0.request.grounding_spec = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [grounding_spec][crate::model::CheckGroundingRequest::grounding_spec].
+        pub fn set_or_clear_grounding_spec<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::CheckGroundingSpec>,
+        {
+            self.0.request.grounding_spec = v.map(|x| x.into());
             self
         }
 
@@ -7376,11 +7721,22 @@ pub mod recommendation_service {
         /// Sets the value of [user_event][crate::model::RecommendRequest::user_event].
         ///
         /// This is a **required** field for requests.
-        pub fn set_user_event<T: Into<std::option::Option<crate::model::UserEvent>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.user_event = v.into();
+        pub fn set_user_event<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::UserEvent>,
+        {
+            self.0.request.user_event = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [user_event][crate::model::RecommendRequest::user_event].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_user_event<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::UserEvent>,
+        {
+            self.0.request.user_event = v.map(|x| x.into());
             self
         }
 
@@ -7990,11 +8346,22 @@ pub mod schema_service {
         /// Sets the value of [schema][crate::model::CreateSchemaRequest::schema].
         ///
         /// This is a **required** field for requests.
-        pub fn set_schema<T: Into<std::option::Option<crate::model::Schema>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.schema = v.into();
+        pub fn set_schema<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Schema>,
+        {
+            self.0.request.schema = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [schema][crate::model::CreateSchemaRequest::schema].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_schema<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Schema>,
+        {
+            self.0.request.schema = v.map(|x| x.into());
             self
         }
 
@@ -8103,11 +8470,22 @@ pub mod schema_service {
         /// Sets the value of [schema][crate::model::UpdateSchemaRequest::schema].
         ///
         /// This is a **required** field for requests.
-        pub fn set_schema<T: Into<std::option::Option<crate::model::Schema>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.schema = v.into();
+        pub fn set_schema<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Schema>,
+        {
+            self.0.request.schema = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [schema][crate::model::UpdateSchemaRequest::schema].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_schema<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Schema>,
+        {
+            self.0.request.schema = v.map(|x| x.into());
             self
         }
 
@@ -8621,13 +8999,20 @@ pub mod search_service {
         }
 
         /// Sets the value of [image_query][crate::model::SearchRequest::image_query].
-        pub fn set_image_query<
-            T: Into<std::option::Option<crate::model::search_request::ImageQuery>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.image_query = v.into();
+        pub fn set_image_query<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::search_request::ImageQuery>,
+        {
+            self.0.request.image_query = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [image_query][crate::model::SearchRequest::image_query].
+        pub fn set_or_clear_image_query<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::search_request::ImageQuery>,
+        {
+            self.0.request.image_query = v.map(|x| x.into());
             self
         }
 
@@ -8685,11 +9070,20 @@ pub mod search_service {
         }
 
         /// Sets the value of [user_info][crate::model::SearchRequest::user_info].
-        pub fn set_user_info<T: Into<std::option::Option<crate::model::UserInfo>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.user_info = v.into();
+        pub fn set_user_info<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::UserInfo>,
+        {
+            self.0.request.user_info = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [user_info][crate::model::SearchRequest::user_info].
+        pub fn set_or_clear_user_info<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::UserInfo>,
+        {
+            self.0.request.user_info = v.map(|x| x.into());
             self
         }
 
@@ -8711,13 +9105,20 @@ pub mod search_service {
         }
 
         /// Sets the value of [boost_spec][crate::model::SearchRequest::boost_spec].
-        pub fn set_boost_spec<
-            T: Into<std::option::Option<crate::model::search_request::BoostSpec>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.boost_spec = v.into();
+        pub fn set_boost_spec<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::search_request::BoostSpec>,
+        {
+            self.0.request.boost_spec = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [boost_spec][crate::model::SearchRequest::boost_spec].
+        pub fn set_or_clear_boost_spec<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::search_request::BoostSpec>,
+        {
+            self.0.request.boost_spec = v.map(|x| x.into());
             self
         }
 
@@ -8733,24 +9134,38 @@ pub mod search_service {
         }
 
         /// Sets the value of [query_expansion_spec][crate::model::SearchRequest::query_expansion_spec].
-        pub fn set_query_expansion_spec<
-            T: Into<std::option::Option<crate::model::search_request::QueryExpansionSpec>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.query_expansion_spec = v.into();
+        pub fn set_query_expansion_spec<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::search_request::QueryExpansionSpec>,
+        {
+            self.0.request.query_expansion_spec = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [query_expansion_spec][crate::model::SearchRequest::query_expansion_spec].
+        pub fn set_or_clear_query_expansion_spec<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::search_request::QueryExpansionSpec>,
+        {
+            self.0.request.query_expansion_spec = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [spell_correction_spec][crate::model::SearchRequest::spell_correction_spec].
-        pub fn set_spell_correction_spec<
-            T: Into<std::option::Option<crate::model::search_request::SpellCorrectionSpec>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.spell_correction_spec = v.into();
+        pub fn set_spell_correction_spec<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::search_request::SpellCorrectionSpec>,
+        {
+            self.0.request.spell_correction_spec = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [spell_correction_spec][crate::model::SearchRequest::spell_correction_spec].
+        pub fn set_or_clear_spell_correction_spec<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::search_request::SpellCorrectionSpec>,
+        {
+            self.0.request.spell_correction_spec = v.map(|x| x.into());
             self
         }
 
@@ -8761,13 +9176,20 @@ pub mod search_service {
         }
 
         /// Sets the value of [content_search_spec][crate::model::SearchRequest::content_search_spec].
-        pub fn set_content_search_spec<
-            T: Into<std::option::Option<crate::model::search_request::ContentSearchSpec>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.content_search_spec = v.into();
+        pub fn set_content_search_spec<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::search_request::ContentSearchSpec>,
+        {
+            self.0.request.content_search_spec = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [content_search_spec][crate::model::SearchRequest::content_search_spec].
+        pub fn set_or_clear_content_search_spec<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::search_request::ContentSearchSpec>,
+        {
+            self.0.request.content_search_spec = v.map(|x| x.into());
             self
         }
 
@@ -8789,24 +9211,38 @@ pub mod search_service {
         }
 
         /// Sets the value of [search_as_you_type_spec][crate::model::SearchRequest::search_as_you_type_spec].
-        pub fn set_search_as_you_type_spec<
-            T: Into<std::option::Option<crate::model::search_request::SearchAsYouTypeSpec>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.search_as_you_type_spec = v.into();
+        pub fn set_search_as_you_type_spec<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::search_request::SearchAsYouTypeSpec>,
+        {
+            self.0.request.search_as_you_type_spec = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [search_as_you_type_spec][crate::model::SearchRequest::search_as_you_type_spec].
+        pub fn set_or_clear_search_as_you_type_spec<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::search_request::SearchAsYouTypeSpec>,
+        {
+            self.0.request.search_as_you_type_spec = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [display_spec][crate::model::SearchRequest::display_spec].
-        pub fn set_display_spec<
-            T: Into<std::option::Option<crate::model::search_request::DisplaySpec>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.display_spec = v.into();
+        pub fn set_display_spec<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::search_request::DisplaySpec>,
+        {
+            self.0.request.display_spec = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [display_spec][crate::model::SearchRequest::display_spec].
+        pub fn set_or_clear_display_spec<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::search_request::DisplaySpec>,
+        {
+            self.0.request.display_spec = v.map(|x| x.into());
             self
         }
 
@@ -8817,13 +9253,20 @@ pub mod search_service {
         }
 
         /// Sets the value of [session_spec][crate::model::SearchRequest::session_spec].
-        pub fn set_session_spec<
-            T: Into<std::option::Option<crate::model::search_request::SessionSpec>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.session_spec = v.into();
+        pub fn set_session_spec<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::search_request::SessionSpec>,
+        {
+            self.0.request.session_spec = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [session_spec][crate::model::SearchRequest::session_spec].
+        pub fn set_or_clear_session_spec<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::search_request::SessionSpec>,
+        {
+            self.0.request.session_spec = v.map(|x| x.into());
             self
         }
 
@@ -8839,13 +9282,20 @@ pub mod search_service {
         }
 
         /// Sets the value of [relevance_score_spec][crate::model::SearchRequest::relevance_score_spec].
-        pub fn set_relevance_score_spec<
-            T: Into<std::option::Option<crate::model::search_request::RelevanceScoreSpec>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.relevance_score_spec = v.into();
+        pub fn set_relevance_score_spec<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::search_request::RelevanceScoreSpec>,
+        {
+            self.0.request.relevance_score_spec = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [relevance_score_spec][crate::model::SearchRequest::relevance_score_spec].
+        pub fn set_or_clear_relevance_score_spec<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::search_request::RelevanceScoreSpec>,
+        {
+            self.0.request.relevance_score_spec = v.map(|x| x.into());
             self
         }
     }
@@ -8953,13 +9403,20 @@ pub mod search_service {
         }
 
         /// Sets the value of [image_query][crate::model::SearchRequest::image_query].
-        pub fn set_image_query<
-            T: Into<std::option::Option<crate::model::search_request::ImageQuery>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.image_query = v.into();
+        pub fn set_image_query<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::search_request::ImageQuery>,
+        {
+            self.0.request.image_query = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [image_query][crate::model::SearchRequest::image_query].
+        pub fn set_or_clear_image_query<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::search_request::ImageQuery>,
+        {
+            self.0.request.image_query = v.map(|x| x.into());
             self
         }
 
@@ -9017,11 +9474,20 @@ pub mod search_service {
         }
 
         /// Sets the value of [user_info][crate::model::SearchRequest::user_info].
-        pub fn set_user_info<T: Into<std::option::Option<crate::model::UserInfo>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.user_info = v.into();
+        pub fn set_user_info<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::UserInfo>,
+        {
+            self.0.request.user_info = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [user_info][crate::model::SearchRequest::user_info].
+        pub fn set_or_clear_user_info<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::UserInfo>,
+        {
+            self.0.request.user_info = v.map(|x| x.into());
             self
         }
 
@@ -9043,13 +9509,20 @@ pub mod search_service {
         }
 
         /// Sets the value of [boost_spec][crate::model::SearchRequest::boost_spec].
-        pub fn set_boost_spec<
-            T: Into<std::option::Option<crate::model::search_request::BoostSpec>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.boost_spec = v.into();
+        pub fn set_boost_spec<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::search_request::BoostSpec>,
+        {
+            self.0.request.boost_spec = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [boost_spec][crate::model::SearchRequest::boost_spec].
+        pub fn set_or_clear_boost_spec<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::search_request::BoostSpec>,
+        {
+            self.0.request.boost_spec = v.map(|x| x.into());
             self
         }
 
@@ -9065,24 +9538,38 @@ pub mod search_service {
         }
 
         /// Sets the value of [query_expansion_spec][crate::model::SearchRequest::query_expansion_spec].
-        pub fn set_query_expansion_spec<
-            T: Into<std::option::Option<crate::model::search_request::QueryExpansionSpec>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.query_expansion_spec = v.into();
+        pub fn set_query_expansion_spec<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::search_request::QueryExpansionSpec>,
+        {
+            self.0.request.query_expansion_spec = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [query_expansion_spec][crate::model::SearchRequest::query_expansion_spec].
+        pub fn set_or_clear_query_expansion_spec<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::search_request::QueryExpansionSpec>,
+        {
+            self.0.request.query_expansion_spec = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [spell_correction_spec][crate::model::SearchRequest::spell_correction_spec].
-        pub fn set_spell_correction_spec<
-            T: Into<std::option::Option<crate::model::search_request::SpellCorrectionSpec>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.spell_correction_spec = v.into();
+        pub fn set_spell_correction_spec<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::search_request::SpellCorrectionSpec>,
+        {
+            self.0.request.spell_correction_spec = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [spell_correction_spec][crate::model::SearchRequest::spell_correction_spec].
+        pub fn set_or_clear_spell_correction_spec<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::search_request::SpellCorrectionSpec>,
+        {
+            self.0.request.spell_correction_spec = v.map(|x| x.into());
             self
         }
 
@@ -9093,13 +9580,20 @@ pub mod search_service {
         }
 
         /// Sets the value of [content_search_spec][crate::model::SearchRequest::content_search_spec].
-        pub fn set_content_search_spec<
-            T: Into<std::option::Option<crate::model::search_request::ContentSearchSpec>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.content_search_spec = v.into();
+        pub fn set_content_search_spec<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::search_request::ContentSearchSpec>,
+        {
+            self.0.request.content_search_spec = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [content_search_spec][crate::model::SearchRequest::content_search_spec].
+        pub fn set_or_clear_content_search_spec<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::search_request::ContentSearchSpec>,
+        {
+            self.0.request.content_search_spec = v.map(|x| x.into());
             self
         }
 
@@ -9121,24 +9615,38 @@ pub mod search_service {
         }
 
         /// Sets the value of [search_as_you_type_spec][crate::model::SearchRequest::search_as_you_type_spec].
-        pub fn set_search_as_you_type_spec<
-            T: Into<std::option::Option<crate::model::search_request::SearchAsYouTypeSpec>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.search_as_you_type_spec = v.into();
+        pub fn set_search_as_you_type_spec<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::search_request::SearchAsYouTypeSpec>,
+        {
+            self.0.request.search_as_you_type_spec = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [search_as_you_type_spec][crate::model::SearchRequest::search_as_you_type_spec].
+        pub fn set_or_clear_search_as_you_type_spec<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::search_request::SearchAsYouTypeSpec>,
+        {
+            self.0.request.search_as_you_type_spec = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [display_spec][crate::model::SearchRequest::display_spec].
-        pub fn set_display_spec<
-            T: Into<std::option::Option<crate::model::search_request::DisplaySpec>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.display_spec = v.into();
+        pub fn set_display_spec<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::search_request::DisplaySpec>,
+        {
+            self.0.request.display_spec = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [display_spec][crate::model::SearchRequest::display_spec].
+        pub fn set_or_clear_display_spec<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::search_request::DisplaySpec>,
+        {
+            self.0.request.display_spec = v.map(|x| x.into());
             self
         }
 
@@ -9149,13 +9657,20 @@ pub mod search_service {
         }
 
         /// Sets the value of [session_spec][crate::model::SearchRequest::session_spec].
-        pub fn set_session_spec<
-            T: Into<std::option::Option<crate::model::search_request::SessionSpec>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.session_spec = v.into();
+        pub fn set_session_spec<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::search_request::SessionSpec>,
+        {
+            self.0.request.session_spec = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [session_spec][crate::model::SearchRequest::session_spec].
+        pub fn set_or_clear_session_spec<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::search_request::SessionSpec>,
+        {
+            self.0.request.session_spec = v.map(|x| x.into());
             self
         }
 
@@ -9171,13 +9686,20 @@ pub mod search_service {
         }
 
         /// Sets the value of [relevance_score_spec][crate::model::SearchRequest::relevance_score_spec].
-        pub fn set_relevance_score_spec<
-            T: Into<std::option::Option<crate::model::search_request::RelevanceScoreSpec>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.relevance_score_spec = v.into();
+        pub fn set_relevance_score_spec<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::search_request::RelevanceScoreSpec>,
+        {
+            self.0.request.relevance_score_spec = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [relevance_score_spec][crate::model::SearchRequest::relevance_score_spec].
+        pub fn set_or_clear_relevance_score_spec<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::search_request::RelevanceScoreSpec>,
+        {
+            self.0.request.relevance_score_spec = v.map(|x| x.into());
             self
         }
     }
@@ -9593,11 +10115,20 @@ pub mod search_tuning_service {
         }
 
         /// Sets the value of [error_config][crate::model::TrainCustomModelRequest::error_config].
-        pub fn set_error_config<T: Into<std::option::Option<crate::model::ImportErrorConfig>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.error_config = v.into();
+        pub fn set_error_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::ImportErrorConfig>,
+        {
+            self.0.request.error_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [error_config][crate::model::TrainCustomModelRequest::error_config].
+        pub fn set_or_clear_error_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::ImportErrorConfig>,
+        {
+            self.0.request.error_config = v.map(|x| x.into());
             self
         }
 
@@ -10060,20 +10591,40 @@ pub mod serving_config_service {
         /// Sets the value of [serving_config][crate::model::UpdateServingConfigRequest::serving_config].
         ///
         /// This is a **required** field for requests.
-        pub fn set_serving_config<T: Into<std::option::Option<crate::model::ServingConfig>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.serving_config = v.into();
+        pub fn set_serving_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::ServingConfig>,
+        {
+            self.0.request.serving_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [serving_config][crate::model::UpdateServingConfigRequest::serving_config].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_serving_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::ServingConfig>,
+        {
+            self.0.request.serving_config = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateServingConfigRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateServingConfigRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -10549,11 +11100,22 @@ pub mod site_search_engine_service {
         /// Sets the value of [target_site][crate::model::CreateTargetSiteRequest::target_site].
         ///
         /// This is a **required** field for requests.
-        pub fn set_target_site<T: Into<std::option::Option<crate::model::TargetSite>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.target_site = v.into();
+        pub fn set_target_site<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::TargetSite>,
+        {
+            self.0.request.target_site = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [target_site][crate::model::CreateTargetSiteRequest::target_site].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_target_site<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::TargetSite>,
+        {
+            self.0.request.target_site = v.map(|x| x.into());
             self
         }
     }
@@ -10846,11 +11408,22 @@ pub mod site_search_engine_service {
         /// Sets the value of [target_site][crate::model::UpdateTargetSiteRequest::target_site].
         ///
         /// This is a **required** field for requests.
-        pub fn set_target_site<T: Into<std::option::Option<crate::model::TargetSite>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.target_site = v.into();
+        pub fn set_target_site<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::TargetSite>,
+        {
+            self.0.request.target_site = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [target_site][crate::model::UpdateTargetSiteRequest::target_site].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_target_site<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::TargetSite>,
+        {
+            self.0.request.target_site = v.map(|x| x.into());
             self
         }
     }
@@ -11172,11 +11745,22 @@ pub mod site_search_engine_service {
         /// Sets the value of [sitemap][crate::model::CreateSitemapRequest::sitemap].
         ///
         /// This is a **required** field for requests.
-        pub fn set_sitemap<T: Into<std::option::Option<crate::model::Sitemap>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.sitemap = v.into();
+        pub fn set_sitemap<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Sitemap>,
+        {
+            self.0.request.sitemap = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [sitemap][crate::model::CreateSitemapRequest::sitemap].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_sitemap<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Sitemap>,
+        {
+            self.0.request.sitemap = v.map(|x| x.into());
             self
         }
     }
@@ -11349,13 +11933,20 @@ pub mod site_search_engine_service {
         }
 
         /// Sets the value of [matcher][crate::model::FetchSitemapsRequest::matcher].
-        pub fn set_matcher<
-            T: Into<std::option::Option<crate::model::fetch_sitemaps_request::Matcher>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.matcher = v.into();
+        pub fn set_matcher<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::fetch_sitemaps_request::Matcher>,
+        {
+            self.0.request.matcher = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [matcher][crate::model::FetchSitemapsRequest::matcher].
+        pub fn set_or_clear_matcher<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::fetch_sitemaps_request::Matcher>,
+        {
+            self.0.request.matcher = v.map(|x| x.into());
             self
         }
     }
@@ -12290,11 +12881,22 @@ pub mod user_event_service {
         /// Sets the value of [user_event][crate::model::WriteUserEventRequest::user_event].
         ///
         /// This is a **required** field for requests.
-        pub fn set_user_event<T: Into<std::option::Option<crate::model::UserEvent>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.user_event = v.into();
+        pub fn set_user_event<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::UserEvent>,
+        {
+            self.0.request.user_event = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [user_event][crate::model::WriteUserEventRequest::user_event].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_user_event<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::UserEvent>,
+        {
+            self.0.request.user_event = v.map(|x| x.into());
             self
         }
 
@@ -12379,14 +12981,38 @@ pub mod user_event_service {
         }
 
         /// Sets the value of [uri][crate::model::CollectUserEventRequest::uri].
-        pub fn set_uri<T: Into<std::option::Option<std::string::String>>>(mut self, v: T) -> Self {
-            self.0.request.uri = v.into();
+        pub fn set_uri<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.uri = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [uri][crate::model::CollectUserEventRequest::uri].
+        pub fn set_or_clear_uri<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.uri = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [ets][crate::model::CollectUserEventRequest::ets].
-        pub fn set_ets<T: Into<std::option::Option<i64>>>(mut self, v: T) -> Self {
-            self.0.request.ets = v.into();
+        pub fn set_ets<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<i64>,
+        {
+            self.0.request.ets = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [ets][crate::model::CollectUserEventRequest::ets].
+        pub fn set_or_clear_ets<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<i64>,
+        {
+            self.0.request.ets = v.map(|x| x.into());
             self
         }
     }
@@ -12620,11 +13246,20 @@ pub mod user_event_service {
         }
 
         /// Sets the value of [error_config][crate::model::ImportUserEventsRequest::error_config].
-        pub fn set_error_config<T: Into<std::option::Option<crate::model::ImportErrorConfig>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.error_config = v.into();
+        pub fn set_error_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::ImportErrorConfig>,
+        {
+            self.0.request.error_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [error_config][crate::model::ImportUserEventsRequest::error_config].
+        pub fn set_or_clear_error_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::ImportErrorConfig>,
+        {
+            self.0.request.error_config = v.map(|x| x.into());
             self
         }
 

@@ -166,8 +166,20 @@ pub mod asset_service {
         }
 
         /// Sets the value of [read_time][crate::model::ExportAssetsRequest::read_time].
-        pub fn set_read_time<T: Into<std::option::Option<wkt::Timestamp>>>(mut self, v: T) -> Self {
-            self.0.request.read_time = v.into();
+        pub fn set_read_time<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Timestamp>,
+        {
+            self.0.request.read_time = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [read_time][crate::model::ExportAssetsRequest::read_time].
+        pub fn set_or_clear_read_time<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Timestamp>,
+        {
+            self.0.request.read_time = v.map(|x| x.into());
             self
         }
 
@@ -191,11 +203,22 @@ pub mod asset_service {
         /// Sets the value of [output_config][crate::model::ExportAssetsRequest::output_config].
         ///
         /// This is a **required** field for requests.
-        pub fn set_output_config<T: Into<std::option::Option<crate::model::OutputConfig>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.output_config = v.into();
+        pub fn set_output_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::OutputConfig>,
+        {
+            self.0.request.output_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [output_config][crate::model::ExportAssetsRequest::output_config].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_output_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::OutputConfig>,
+        {
+            self.0.request.output_config = v.map(|x| x.into());
             self
         }
 
@@ -302,8 +325,20 @@ pub mod asset_service {
         }
 
         /// Sets the value of [read_time][crate::model::ListAssetsRequest::read_time].
-        pub fn set_read_time<T: Into<std::option::Option<wkt::Timestamp>>>(mut self, v: T) -> Self {
-            self.0.request.read_time = v.into();
+        pub fn set_read_time<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Timestamp>,
+        {
+            self.0.request.read_time = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [read_time][crate::model::ListAssetsRequest::read_time].
+        pub fn set_or_clear_read_time<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Timestamp>,
+        {
+            self.0.request.read_time = v.map(|x| x.into());
             self
         }
 
@@ -431,11 +466,20 @@ pub mod asset_service {
         }
 
         /// Sets the value of [read_time_window][crate::model::BatchGetAssetsHistoryRequest::read_time_window].
-        pub fn set_read_time_window<T: Into<std::option::Option<crate::model::TimeWindow>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.read_time_window = v.into();
+        pub fn set_read_time_window<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::TimeWindow>,
+        {
+            self.0.request.read_time_window = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [read_time_window][crate::model::BatchGetAssetsHistoryRequest::read_time_window].
+        pub fn set_or_clear_read_time_window<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::TimeWindow>,
+        {
+            self.0.request.read_time_window = v.map(|x| x.into());
             self
         }
 
@@ -524,8 +568,22 @@ pub mod asset_service {
         /// Sets the value of [feed][crate::model::CreateFeedRequest::feed].
         ///
         /// This is a **required** field for requests.
-        pub fn set_feed<T: Into<std::option::Option<crate::model::Feed>>>(mut self, v: T) -> Self {
-            self.0.request.feed = v.into();
+        pub fn set_feed<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Feed>,
+        {
+            self.0.request.feed = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [feed][crate::model::CreateFeedRequest::feed].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_feed<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Feed>,
+        {
+            self.0.request.feed = v.map(|x| x.into());
             self
         }
     }
@@ -713,19 +771,44 @@ pub mod asset_service {
         /// Sets the value of [feed][crate::model::UpdateFeedRequest::feed].
         ///
         /// This is a **required** field for requests.
-        pub fn set_feed<T: Into<std::option::Option<crate::model::Feed>>>(mut self, v: T) -> Self {
-            self.0.request.feed = v.into();
+        pub fn set_feed<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Feed>,
+        {
+            self.0.request.feed = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [feed][crate::model::UpdateFeedRequest::feed].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_feed<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Feed>,
+        {
+            self.0.request.feed = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateFeedRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateFeedRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -924,8 +1007,20 @@ pub mod asset_service {
         }
 
         /// Sets the value of [read_mask][crate::model::SearchAllResourcesRequest::read_mask].
-        pub fn set_read_mask<T: Into<std::option::Option<wkt::FieldMask>>>(mut self, v: T) -> Self {
-            self.0.request.read_mask = v.into();
+        pub fn set_read_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.read_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [read_mask][crate::model::SearchAllResourcesRequest::read_mask].
+        pub fn set_or_clear_read_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.read_mask = v.map(|x| x.into());
             self
         }
     }
@@ -1121,13 +1216,22 @@ pub mod asset_service {
         /// Sets the value of [analysis_query][crate::model::AnalyzeIamPolicyRequest::analysis_query].
         ///
         /// This is a **required** field for requests.
-        pub fn set_analysis_query<
-            T: Into<std::option::Option<crate::model::IamPolicyAnalysisQuery>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.analysis_query = v.into();
+        pub fn set_analysis_query<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::IamPolicyAnalysisQuery>,
+        {
+            self.0.request.analysis_query = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [analysis_query][crate::model::AnalyzeIamPolicyRequest::analysis_query].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_analysis_query<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::IamPolicyAnalysisQuery>,
+        {
+            self.0.request.analysis_query = v.map(|x| x.into());
             self
         }
 
@@ -1138,11 +1242,20 @@ pub mod asset_service {
         }
 
         /// Sets the value of [execution_timeout][crate::model::AnalyzeIamPolicyRequest::execution_timeout].
-        pub fn set_execution_timeout<T: Into<std::option::Option<wkt::Duration>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.execution_timeout = v.into();
+        pub fn set_execution_timeout<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Duration>,
+        {
+            self.0.request.execution_timeout = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [execution_timeout][crate::model::AnalyzeIamPolicyRequest::execution_timeout].
+        pub fn set_or_clear_execution_timeout<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Duration>,
+        {
+            self.0.request.execution_timeout = v.map(|x| x.into());
             self
         }
     }
@@ -1253,13 +1366,22 @@ pub mod asset_service {
         /// Sets the value of [analysis_query][crate::model::AnalyzeIamPolicyLongrunningRequest::analysis_query].
         ///
         /// This is a **required** field for requests.
-        pub fn set_analysis_query<
-            T: Into<std::option::Option<crate::model::IamPolicyAnalysisQuery>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.analysis_query = v.into();
+        pub fn set_analysis_query<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::IamPolicyAnalysisQuery>,
+        {
+            self.0.request.analysis_query = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [analysis_query][crate::model::AnalyzeIamPolicyLongrunningRequest::analysis_query].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_analysis_query<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::IamPolicyAnalysisQuery>,
+        {
+            self.0.request.analysis_query = v.map(|x| x.into());
             self
         }
 
@@ -1272,13 +1394,22 @@ pub mod asset_service {
         /// Sets the value of [output_config][crate::model::AnalyzeIamPolicyLongrunningRequest::output_config].
         ///
         /// This is a **required** field for requests.
-        pub fn set_output_config<
-            T: Into<std::option::Option<crate::model::IamPolicyAnalysisOutputConfig>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.output_config = v.into();
+        pub fn set_output_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::IamPolicyAnalysisOutputConfig>,
+        {
+            self.0.request.output_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [output_config][crate::model::AnalyzeIamPolicyLongrunningRequest::output_config].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_output_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::IamPolicyAnalysisOutputConfig>,
+        {
+            self.0.request.output_config = v.map(|x| x.into());
             self
         }
     }
@@ -1438,19 +1569,38 @@ pub mod asset_service {
         }
 
         /// Sets the value of [timeout][crate::model::QueryAssetsRequest::timeout].
-        pub fn set_timeout<T: Into<std::option::Option<wkt::Duration>>>(mut self, v: T) -> Self {
-            self.0.request.timeout = v.into();
+        pub fn set_timeout<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Duration>,
+        {
+            self.0.request.timeout = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [timeout][crate::model::QueryAssetsRequest::timeout].
+        pub fn set_or_clear_timeout<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Duration>,
+        {
+            self.0.request.timeout = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [output_config][crate::model::QueryAssetsRequest::output_config].
-        pub fn set_output_config<
-            T: Into<std::option::Option<crate::model::QueryAssetsOutputConfig>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.output_config = v.into();
+        pub fn set_output_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::QueryAssetsOutputConfig>,
+        {
+            self.0.request.output_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [output_config][crate::model::QueryAssetsRequest::output_config].
+        pub fn set_or_clear_output_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::QueryAssetsOutputConfig>,
+        {
+            self.0.request.output_config = v.map(|x| x.into());
             self
         }
 
@@ -1598,11 +1748,22 @@ pub mod asset_service {
         /// Sets the value of [saved_query][crate::model::CreateSavedQueryRequest::saved_query].
         ///
         /// This is a **required** field for requests.
-        pub fn set_saved_query<T: Into<std::option::Option<crate::model::SavedQuery>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.saved_query = v.into();
+        pub fn set_saved_query<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::SavedQuery>,
+        {
+            self.0.request.saved_query = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [saved_query][crate::model::CreateSavedQueryRequest::saved_query].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_saved_query<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::SavedQuery>,
+        {
+            self.0.request.saved_query = v.map(|x| x.into());
             self
         }
 
@@ -1850,22 +2011,44 @@ pub mod asset_service {
         /// Sets the value of [saved_query][crate::model::UpdateSavedQueryRequest::saved_query].
         ///
         /// This is a **required** field for requests.
-        pub fn set_saved_query<T: Into<std::option::Option<crate::model::SavedQuery>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.saved_query = v.into();
+        pub fn set_saved_query<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::SavedQuery>,
+        {
+            self.0.request.saved_query = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [saved_query][crate::model::UpdateSavedQueryRequest::saved_query].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_saved_query<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::SavedQuery>,
+        {
+            self.0.request.saved_query = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateSavedQueryRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateSavedQueryRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -2127,8 +2310,20 @@ pub mod asset_service {
         }
 
         /// Sets the value of [page_size][crate::model::AnalyzeOrgPoliciesRequest::page_size].
-        pub fn set_page_size<T: Into<std::option::Option<i32>>>(mut self, v: T) -> Self {
-            self.0.request.page_size = v.into();
+        pub fn set_page_size<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<i32>,
+        {
+            self.0.request.page_size = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [page_size][crate::model::AnalyzeOrgPoliciesRequest::page_size].
+        pub fn set_or_clear_page_size<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<i32>,
+        {
+            self.0.request.page_size = v.map(|x| x.into());
             self
         }
 
@@ -2255,8 +2450,20 @@ pub mod asset_service {
         }
 
         /// Sets the value of [page_size][crate::model::AnalyzeOrgPolicyGovernedContainersRequest::page_size].
-        pub fn set_page_size<T: Into<std::option::Option<i32>>>(mut self, v: T) -> Self {
-            self.0.request.page_size = v.into();
+        pub fn set_page_size<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<i32>,
+        {
+            self.0.request.page_size = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [page_size][crate::model::AnalyzeOrgPolicyGovernedContainersRequest::page_size].
+        pub fn set_or_clear_page_size<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<i32>,
+        {
+            self.0.request.page_size = v.map(|x| x.into());
             self
         }
 
@@ -2381,8 +2588,20 @@ pub mod asset_service {
         }
 
         /// Sets the value of [page_size][crate::model::AnalyzeOrgPolicyGovernedAssetsRequest::page_size].
-        pub fn set_page_size<T: Into<std::option::Option<i32>>>(mut self, v: T) -> Self {
-            self.0.request.page_size = v.into();
+        pub fn set_page_size<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<i32>,
+        {
+            self.0.request.page_size = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [page_size][crate::model::AnalyzeOrgPolicyGovernedAssetsRequest::page_size].
+        pub fn set_or_clear_page_size<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<i32>,
+        {
+            self.0.request.page_size = v.map(|x| x.into());
             self
         }
 

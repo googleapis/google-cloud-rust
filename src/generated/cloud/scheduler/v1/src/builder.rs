@@ -292,8 +292,22 @@ pub mod cloud_scheduler {
         /// Sets the value of [job][crate::model::CreateJobRequest::job].
         ///
         /// This is a **required** field for requests.
-        pub fn set_job<T: Into<std::option::Option<crate::model::Job>>>(mut self, v: T) -> Self {
-            self.0.request.job = v.into();
+        pub fn set_job<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Job>,
+        {
+            self.0.request.job = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [job][crate::model::CreateJobRequest::job].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_job<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Job>,
+        {
+            self.0.request.job = v.map(|x| x.into());
             self
         }
     }
@@ -355,17 +369,40 @@ pub mod cloud_scheduler {
         /// Sets the value of [job][crate::model::UpdateJobRequest::job].
         ///
         /// This is a **required** field for requests.
-        pub fn set_job<T: Into<std::option::Option<crate::model::Job>>>(mut self, v: T) -> Self {
-            self.0.request.job = v.into();
+        pub fn set_job<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Job>,
+        {
+            self.0.request.job = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [job][crate::model::UpdateJobRequest::job].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_job<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Job>,
+        {
+            self.0.request.job = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateJobRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateJobRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }

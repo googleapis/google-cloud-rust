@@ -150,35 +150,59 @@ impl DataExchange {
     }
 
     /// Sets the value of [sharing_environment_config][crate::model::DataExchange::sharing_environment_config].
-    pub fn set_sharing_environment_config<
-        T: std::convert::Into<std::option::Option<crate::model::SharingEnvironmentConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.sharing_environment_config = v.into();
+    pub fn set_sharing_environment_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::SharingEnvironmentConfig>,
+    {
+        self.sharing_environment_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [sharing_environment_config][crate::model::DataExchange::sharing_environment_config].
+    pub fn set_or_clear_sharing_environment_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::SharingEnvironmentConfig>,
+    {
+        self.sharing_environment_config = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [discovery_type][crate::model::DataExchange::discovery_type].
-    pub fn set_discovery_type<
-        T: std::convert::Into<std::option::Option<crate::model::DiscoveryType>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.discovery_type = v.into();
+    pub fn set_discovery_type<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::DiscoveryType>,
+    {
+        self.discovery_type = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [discovery_type][crate::model::DataExchange::discovery_type].
+    pub fn set_or_clear_discovery_type<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::DiscoveryType>,
+    {
+        self.discovery_type = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [log_linked_dataset_query_user_email][crate::model::DataExchange::log_linked_dataset_query_user_email].
-    pub fn set_log_linked_dataset_query_user_email<
-        T: std::convert::Into<std::option::Option<bool>>,
-    >(
+    pub fn set_log_linked_dataset_query_user_email<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.log_linked_dataset_query_user_email = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [log_linked_dataset_query_user_email][crate::model::DataExchange::log_linked_dataset_query_user_email].
+    pub fn set_or_clear_log_linked_dataset_query_user_email<T>(
         mut self,
-        v: T,
-    ) -> Self {
-        self.log_linked_dataset_query_user_email = v.into();
+        v: std::option::Option<T>,
+    ) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.log_linked_dataset_query_user_email = v.map(|x| x.into());
         self
     }
 }
@@ -363,24 +387,44 @@ pub mod sharing_environment_config {
         }
 
         /// Sets the value of [single_selected_resource_sharing_restriction][crate::model::sharing_environment_config::DcrExchangeConfig::single_selected_resource_sharing_restriction].
-        pub fn set_single_selected_resource_sharing_restriction<
-            T: std::convert::Into<std::option::Option<bool>>,
-        >(
+        pub fn set_single_selected_resource_sharing_restriction<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<bool>,
+        {
+            self.single_selected_resource_sharing_restriction = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [single_selected_resource_sharing_restriction][crate::model::sharing_environment_config::DcrExchangeConfig::single_selected_resource_sharing_restriction].
+        pub fn set_or_clear_single_selected_resource_sharing_restriction<T>(
             mut self,
-            v: T,
-        ) -> Self {
-            self.single_selected_resource_sharing_restriction = v.into();
+            v: std::option::Option<T>,
+        ) -> Self
+        where
+            T: std::convert::Into<bool>,
+        {
+            self.single_selected_resource_sharing_restriction = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [single_linked_dataset_per_cleanroom][crate::model::sharing_environment_config::DcrExchangeConfig::single_linked_dataset_per_cleanroom].
-        pub fn set_single_linked_dataset_per_cleanroom<
-            T: std::convert::Into<std::option::Option<bool>>,
-        >(
+        pub fn set_single_linked_dataset_per_cleanroom<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<bool>,
+        {
+            self.single_linked_dataset_per_cleanroom = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [single_linked_dataset_per_cleanroom][crate::model::sharing_environment_config::DcrExchangeConfig::single_linked_dataset_per_cleanroom].
+        pub fn set_or_clear_single_linked_dataset_per_cleanroom<T>(
             mut self,
-            v: T,
-        ) -> Self {
-            self.single_linked_dataset_per_cleanroom = v.into();
+            v: std::option::Option<T>,
+        ) -> Self
+        where
+            T: std::convert::Into<bool>,
+        {
+            self.single_linked_dataset_per_cleanroom = v.map(|x| x.into());
             self
         }
     }
@@ -578,31 +622,56 @@ impl DestinationDataset {
     }
 
     /// Sets the value of [dataset_reference][crate::model::DestinationDataset::dataset_reference].
-    pub fn set_dataset_reference<
-        T: std::convert::Into<std::option::Option<crate::model::DestinationDatasetReference>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.dataset_reference = v.into();
+    pub fn set_dataset_reference<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::DestinationDatasetReference>,
+    {
+        self.dataset_reference = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [dataset_reference][crate::model::DestinationDataset::dataset_reference].
+    pub fn set_or_clear_dataset_reference<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::DestinationDatasetReference>,
+    {
+        self.dataset_reference = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [friendly_name][crate::model::DestinationDataset::friendly_name].
-    pub fn set_friendly_name<T: std::convert::Into<std::option::Option<wkt::StringValue>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.friendly_name = v.into();
+    pub fn set_friendly_name<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::StringValue>,
+    {
+        self.friendly_name = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [friendly_name][crate::model::DestinationDataset::friendly_name].
+    pub fn set_or_clear_friendly_name<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::StringValue>,
+    {
+        self.friendly_name = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [description][crate::model::DestinationDataset::description].
-    pub fn set_description<T: std::convert::Into<std::option::Option<wkt::StringValue>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.description = v.into();
+    pub fn set_description<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::StringValue>,
+    {
+        self.description = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [description][crate::model::DestinationDataset::description].
+    pub fn set_or_clear_description<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::StringValue>,
+    {
+        self.description = v.map(|x| x.into());
         self
     }
 
@@ -651,13 +720,20 @@ impl DestinationPubSubSubscription {
     }
 
     /// Sets the value of [pubsub_subscription][crate::model::DestinationPubSubSubscription::pubsub_subscription].
-    pub fn set_pubsub_subscription<
-        T: std::convert::Into<std::option::Option<crate::model::PubSubSubscription>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.pubsub_subscription = v.into();
+    pub fn set_pubsub_subscription<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::PubSubSubscription>,
+    {
+        self.pubsub_subscription = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [pubsub_subscription][crate::model::DestinationPubSubSubscription::pubsub_subscription].
+    pub fn set_or_clear_pubsub_subscription<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::PubSubSubscription>,
+    {
+        self.pubsub_subscription = v.map(|x| x.into());
         self
     }
 }
@@ -820,13 +896,20 @@ impl Listing {
     }
 
     /// Sets the value of [data_provider][crate::model::Listing::data_provider].
-    pub fn set_data_provider<
-        T: std::convert::Into<std::option::Option<crate::model::DataProvider>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.data_provider = v.into();
+    pub fn set_data_provider<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::DataProvider>,
+    {
+        self.data_provider = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [data_provider][crate::model::Listing::data_provider].
+    pub fn set_or_clear_data_provider<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::DataProvider>,
+    {
+        self.data_provider = v.map(|x| x.into());
         self
     }
 
@@ -842,11 +925,20 @@ impl Listing {
     }
 
     /// Sets the value of [publisher][crate::model::Listing::publisher].
-    pub fn set_publisher<T: std::convert::Into<std::option::Option<crate::model::Publisher>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.publisher = v.into();
+    pub fn set_publisher<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::Publisher>,
+    {
+        self.publisher = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [publisher][crate::model::Listing::publisher].
+    pub fn set_or_clear_publisher<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::Publisher>,
+    {
+        self.publisher = v.map(|x| x.into());
         self
     }
 
@@ -857,24 +949,38 @@ impl Listing {
     }
 
     /// Sets the value of [restricted_export_config][crate::model::Listing::restricted_export_config].
-    pub fn set_restricted_export_config<
-        T: std::convert::Into<std::option::Option<crate::model::listing::RestrictedExportConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.restricted_export_config = v.into();
+    pub fn set_restricted_export_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::listing::RestrictedExportConfig>,
+    {
+        self.restricted_export_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [restricted_export_config][crate::model::Listing::restricted_export_config].
+    pub fn set_or_clear_restricted_export_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::listing::RestrictedExportConfig>,
+    {
+        self.restricted_export_config = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [discovery_type][crate::model::Listing::discovery_type].
-    pub fn set_discovery_type<
-        T: std::convert::Into<std::option::Option<crate::model::DiscoveryType>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.discovery_type = v.into();
+    pub fn set_discovery_type<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::DiscoveryType>,
+    {
+        self.discovery_type = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [discovery_type][crate::model::Listing::discovery_type].
+    pub fn set_or_clear_discovery_type<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::DiscoveryType>,
+    {
+        self.discovery_type = v.map(|x| x.into());
         self
     }
 
@@ -888,33 +994,59 @@ impl Listing {
     }
 
     /// Sets the value of [commercial_info][crate::model::Listing::commercial_info].
-    pub fn set_commercial_info<
-        T: std::convert::Into<std::option::Option<crate::model::listing::CommercialInfo>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.commercial_info = v.into();
+    pub fn set_commercial_info<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::listing::CommercialInfo>,
+    {
+        self.commercial_info = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [commercial_info][crate::model::Listing::commercial_info].
+    pub fn set_or_clear_commercial_info<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::listing::CommercialInfo>,
+    {
+        self.commercial_info = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [log_linked_dataset_query_user_email][crate::model::Listing::log_linked_dataset_query_user_email].
-    pub fn set_log_linked_dataset_query_user_email<
-        T: std::convert::Into<std::option::Option<bool>>,
-    >(
+    pub fn set_log_linked_dataset_query_user_email<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.log_linked_dataset_query_user_email = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [log_linked_dataset_query_user_email][crate::model::Listing::log_linked_dataset_query_user_email].
+    pub fn set_or_clear_log_linked_dataset_query_user_email<T>(
         mut self,
-        v: T,
-    ) -> Self {
-        self.log_linked_dataset_query_user_email = v.into();
+        v: std::option::Option<T>,
+    ) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.log_linked_dataset_query_user_email = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [allow_only_metadata_sharing][crate::model::Listing::allow_only_metadata_sharing].
-    pub fn set_allow_only_metadata_sharing<T: std::convert::Into<std::option::Option<bool>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.allow_only_metadata_sharing = v.into();
+    pub fn set_allow_only_metadata_sharing<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.allow_only_metadata_sharing = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [allow_only_metadata_sharing][crate::model::Listing::allow_only_metadata_sharing].
+    pub fn set_or_clear_allow_only_metadata_sharing<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.allow_only_metadata_sharing = v.map(|x| x.into());
         self
     }
 
@@ -1059,17 +1191,24 @@ pub mod listing {
         }
 
         /// Sets the value of [restricted_export_policy][crate::model::listing::BigQueryDatasetSource::restricted_export_policy].
-        pub fn set_restricted_export_policy<
+        pub fn set_restricted_export_policy<T>(mut self, v: T) -> Self
+        where
             T: std::convert::Into<
-                    std::option::Option<
-                        crate::model::listing::big_query_dataset_source::RestrictedExportPolicy,
-                    >,
+                    crate::model::listing::big_query_dataset_source::RestrictedExportPolicy,
                 >,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.restricted_export_policy = v.into();
+        {
+            self.restricted_export_policy = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [restricted_export_policy][crate::model::listing::BigQueryDatasetSource::restricted_export_policy].
+        pub fn set_or_clear_restricted_export_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<
+                    crate::model::listing::big_query_dataset_source::RestrictedExportPolicy,
+                >,
+        {
+            self.restricted_export_policy = v.map(|x| x.into());
             self
         }
     }
@@ -1226,33 +1365,62 @@ pub mod listing {
             }
 
             /// Sets the value of [enabled][crate::model::listing::big_query_dataset_source::RestrictedExportPolicy::enabled].
-            pub fn set_enabled<T: std::convert::Into<std::option::Option<wkt::BoolValue>>>(
-                mut self,
-                v: T,
-            ) -> Self {
-                self.enabled = v.into();
+            pub fn set_enabled<T>(mut self, v: T) -> Self
+            where
+                T: std::convert::Into<wkt::BoolValue>,
+            {
+                self.enabled = std::option::Option::Some(v.into());
+                self
+            }
+
+            /// Sets or clears the value of [enabled][crate::model::listing::big_query_dataset_source::RestrictedExportPolicy::enabled].
+            pub fn set_or_clear_enabled<T>(mut self, v: std::option::Option<T>) -> Self
+            where
+                T: std::convert::Into<wkt::BoolValue>,
+            {
+                self.enabled = v.map(|x| x.into());
                 self
             }
 
             /// Sets the value of [restrict_direct_table_access][crate::model::listing::big_query_dataset_source::RestrictedExportPolicy::restrict_direct_table_access].
-            pub fn set_restrict_direct_table_access<
-                T: std::convert::Into<std::option::Option<wkt::BoolValue>>,
-            >(
+            pub fn set_restrict_direct_table_access<T>(mut self, v: T) -> Self
+            where
+                T: std::convert::Into<wkt::BoolValue>,
+            {
+                self.restrict_direct_table_access = std::option::Option::Some(v.into());
+                self
+            }
+
+            /// Sets or clears the value of [restrict_direct_table_access][crate::model::listing::big_query_dataset_source::RestrictedExportPolicy::restrict_direct_table_access].
+            pub fn set_or_clear_restrict_direct_table_access<T>(
                 mut self,
-                v: T,
-            ) -> Self {
-                self.restrict_direct_table_access = v.into();
+                v: std::option::Option<T>,
+            ) -> Self
+            where
+                T: std::convert::Into<wkt::BoolValue>,
+            {
+                self.restrict_direct_table_access = v.map(|x| x.into());
                 self
             }
 
             /// Sets the value of [restrict_query_result][crate::model::listing::big_query_dataset_source::RestrictedExportPolicy::restrict_query_result].
-            pub fn set_restrict_query_result<
-                T: std::convert::Into<std::option::Option<wkt::BoolValue>>,
-            >(
+            pub fn set_restrict_query_result<T>(mut self, v: T) -> Self
+            where
+                T: std::convert::Into<wkt::BoolValue>,
+            {
+                self.restrict_query_result = std::option::Option::Some(v.into());
+                self
+            }
+
+            /// Sets or clears the value of [restrict_query_result][crate::model::listing::big_query_dataset_source::RestrictedExportPolicy::restrict_query_result].
+            pub fn set_or_clear_restrict_query_result<T>(
                 mut self,
-                v: T,
-            ) -> Self {
-                self.restrict_query_result = v.into();
+                v: std::option::Option<T>,
+            ) -> Self
+            where
+                T: std::convert::Into<wkt::BoolValue>,
+            {
+                self.restrict_query_result = v.map(|x| x.into());
                 self
             }
         }
@@ -1395,17 +1563,24 @@ pub mod listing {
         }
 
         /// Sets the value of [cloud_marketplace][crate::model::listing::CommercialInfo::cloud_marketplace].
-        pub fn set_cloud_marketplace<
+        pub fn set_cloud_marketplace<T>(mut self, v: T) -> Self
+        where
             T: std::convert::Into<
-                    std::option::Option<
-                        crate::model::listing::commercial_info::GoogleCloudMarketplaceInfo,
-                    >,
+                    crate::model::listing::commercial_info::GoogleCloudMarketplaceInfo,
                 >,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.cloud_marketplace = v.into();
+        {
+            self.cloud_marketplace = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [cloud_marketplace][crate::model::listing::CommercialInfo::cloud_marketplace].
+        pub fn set_or_clear_cloud_marketplace<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<
+                    crate::model::listing::commercial_info::GoogleCloudMarketplaceInfo,
+                >,
+        {
+            self.cloud_marketplace = v.map(|x| x.into());
             self
         }
     }
@@ -1448,17 +1623,36 @@ pub mod listing {
             }
 
             /// Sets the value of [service][crate::model::listing::commercial_info::GoogleCloudMarketplaceInfo::service].
-            pub fn set_service<T: std::convert::Into<std::option::Option<std::string::String>>>(
-                mut self,
-                v: T,
-            ) -> Self {
-                self.service = v.into();
+            pub fn set_service<T>(mut self, v: T) -> Self
+            where
+                T: std::convert::Into<std::string::String>,
+            {
+                self.service = std::option::Option::Some(v.into());
+                self
+            }
+
+            /// Sets or clears the value of [service][crate::model::listing::commercial_info::GoogleCloudMarketplaceInfo::service].
+            pub fn set_or_clear_service<T>(mut self, v: std::option::Option<T>) -> Self
+            where
+                T: std::convert::Into<std::string::String>,
+            {
+                self.service = v.map(|x| x.into());
                 self
             }
 
             /// Sets the value of [commercial_state][crate::model::listing::commercial_info::GoogleCloudMarketplaceInfo::commercial_state].
-            pub fn set_commercial_state<T: std::convert::Into<std::option::Option<crate::model::listing::commercial_info::google_cloud_marketplace_info::CommercialState>>>(mut self, v: T) -> Self{
-                self.commercial_state = v.into();
+            pub fn set_commercial_state<T>(mut self, v: T) -> Self
+            where T: std::convert::Into<crate::model::listing::commercial_info::google_cloud_marketplace_info::CommercialState>
+            {
+                self.commercial_state = std::option::Option::Some(v.into());
+                self
+            }
+
+            /// Sets or clears the value of [commercial_state][crate::model::listing::commercial_info::GoogleCloudMarketplaceInfo::commercial_state].
+            pub fn set_or_clear_commercial_state<T>(mut self, v: std::option::Option<T>) -> Self
+            where T: std::convert::Into<crate::model::listing::commercial_info::google_cloud_marketplace_info::CommercialState>
+            {
+                self.commercial_state = v.map(|x| x.into());
                 self
             }
         }
@@ -2081,20 +2275,38 @@ impl Subscription {
     }
 
     /// Sets the value of [creation_time][crate::model::Subscription::creation_time].
-    pub fn set_creation_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.creation_time = v.into();
+    pub fn set_creation_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.creation_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [creation_time][crate::model::Subscription::creation_time].
+    pub fn set_or_clear_creation_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.creation_time = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [last_modify_time][crate::model::Subscription::last_modify_time].
-    pub fn set_last_modify_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.last_modify_time = v.into();
+    pub fn set_last_modify_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.last_modify_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [last_modify_time][crate::model::Subscription::last_modify_time].
+    pub fn set_or_clear_last_modify_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.last_modify_time = v.map(|x| x.into());
         self
     }
 
@@ -2164,35 +2376,59 @@ impl Subscription {
     }
 
     /// Sets the value of [commercial_info][crate::model::Subscription::commercial_info].
-    pub fn set_commercial_info<
-        T: std::convert::Into<std::option::Option<crate::model::subscription::CommercialInfo>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.commercial_info = v.into();
+    pub fn set_commercial_info<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::subscription::CommercialInfo>,
+    {
+        self.commercial_info = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [commercial_info][crate::model::Subscription::commercial_info].
+    pub fn set_or_clear_commercial_info<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::subscription::CommercialInfo>,
+    {
+        self.commercial_info = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [log_linked_dataset_query_user_email][crate::model::Subscription::log_linked_dataset_query_user_email].
-    pub fn set_log_linked_dataset_query_user_email<
-        T: std::convert::Into<std::option::Option<bool>>,
-    >(
+    pub fn set_log_linked_dataset_query_user_email<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.log_linked_dataset_query_user_email = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [log_linked_dataset_query_user_email][crate::model::Subscription::log_linked_dataset_query_user_email].
+    pub fn set_or_clear_log_linked_dataset_query_user_email<T>(
         mut self,
-        v: T,
-    ) -> Self {
-        self.log_linked_dataset_query_user_email = v.into();
+        v: std::option::Option<T>,
+    ) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.log_linked_dataset_query_user_email = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [destination_dataset][crate::model::Subscription::destination_dataset].
-    pub fn set_destination_dataset<
-        T: std::convert::Into<std::option::Option<crate::model::DestinationDataset>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.destination_dataset = v.into();
+    pub fn set_destination_dataset<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::DestinationDataset>,
+    {
+        self.destination_dataset = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [destination_dataset][crate::model::Subscription::destination_dataset].
+    pub fn set_or_clear_destination_dataset<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::DestinationDataset>,
+    {
+        self.destination_dataset = v.map(|x| x.into());
         self
     }
 
@@ -2418,17 +2654,24 @@ pub mod subscription {
         }
 
         /// Sets the value of [cloud_marketplace][crate::model::subscription::CommercialInfo::cloud_marketplace].
-        pub fn set_cloud_marketplace<
+        pub fn set_cloud_marketplace<T>(mut self, v: T) -> Self
+        where
             T: std::convert::Into<
-                    std::option::Option<
-                        crate::model::subscription::commercial_info::GoogleCloudMarketplaceInfo,
-                    >,
+                    crate::model::subscription::commercial_info::GoogleCloudMarketplaceInfo,
                 >,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.cloud_marketplace = v.into();
+        {
+            self.cloud_marketplace = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [cloud_marketplace][crate::model::subscription::CommercialInfo::cloud_marketplace].
+        pub fn set_or_clear_cloud_marketplace<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<
+                    crate::model::subscription::commercial_info::GoogleCloudMarketplaceInfo,
+                >,
+        {
+            self.cloud_marketplace = v.map(|x| x.into());
             self
         }
     }
@@ -2945,13 +3188,20 @@ impl CreateDataExchangeRequest {
     }
 
     /// Sets the value of [data_exchange][crate::model::CreateDataExchangeRequest::data_exchange].
-    pub fn set_data_exchange<
-        T: std::convert::Into<std::option::Option<crate::model::DataExchange>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.data_exchange = v.into();
+    pub fn set_data_exchange<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::DataExchange>,
+    {
+        self.data_exchange = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [data_exchange][crate::model::CreateDataExchangeRequest::data_exchange].
+    pub fn set_or_clear_data_exchange<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::DataExchange>,
+    {
+        self.data_exchange = v.map(|x| x.into());
         self
     }
 }
@@ -2988,22 +3238,38 @@ impl UpdateDataExchangeRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateDataExchangeRequest::update_mask].
-    pub fn set_update_mask<T: std::convert::Into<std::option::Option<wkt::FieldMask>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.update_mask = v.into();
+    pub fn set_update_mask<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_mask][crate::model::UpdateDataExchangeRequest::update_mask].
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [data_exchange][crate::model::UpdateDataExchangeRequest::data_exchange].
-    pub fn set_data_exchange<
-        T: std::convert::Into<std::option::Option<crate::model::DataExchange>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.data_exchange = v.into();
+    pub fn set_data_exchange<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::DataExchange>,
+    {
+        self.data_exchange = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [data_exchange][crate::model::UpdateDataExchangeRequest::data_exchange].
+    pub fn set_or_clear_data_exchange<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::DataExchange>,
+    {
+        self.data_exchange = v.map(|x| x.into());
         self
     }
 }
@@ -3239,11 +3505,20 @@ impl CreateListingRequest {
     }
 
     /// Sets the value of [listing][crate::model::CreateListingRequest::listing].
-    pub fn set_listing<T: std::convert::Into<std::option::Option<crate::model::Listing>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.listing = v.into();
+    pub fn set_listing<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::Listing>,
+    {
+        self.listing = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [listing][crate::model::CreateListingRequest::listing].
+    pub fn set_or_clear_listing<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::Listing>,
+    {
+        self.listing = v.map(|x| x.into());
         self
     }
 }
@@ -3280,20 +3555,38 @@ impl UpdateListingRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateListingRequest::update_mask].
-    pub fn set_update_mask<T: std::convert::Into<std::option::Option<wkt::FieldMask>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.update_mask = v.into();
+    pub fn set_update_mask<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_mask][crate::model::UpdateListingRequest::update_mask].
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [listing][crate::model::UpdateListingRequest::listing].
-    pub fn set_listing<T: std::convert::Into<std::option::Option<crate::model::Listing>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.listing = v.into();
+    pub fn set_listing<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::Listing>,
+    {
+        self.listing = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [listing][crate::model::UpdateListingRequest::listing].
+    pub fn set_or_clear_listing<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::Listing>,
+    {
+        self.listing = v.map(|x| x.into());
         self
     }
 }
@@ -3507,13 +3800,20 @@ impl SubscribeListingResponse {
     }
 
     /// Sets the value of [subscription][crate::model::SubscribeListingResponse::subscription].
-    pub fn set_subscription<
-        T: std::convert::Into<std::option::Option<crate::model::Subscription>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.subscription = v.into();
+    pub fn set_subscription<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::Subscription>,
+    {
+        self.subscription = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [subscription][crate::model::SubscribeListingResponse::subscription].
+    pub fn set_or_clear_subscription<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::Subscription>,
+    {
+        self.subscription = v.map(|x| x.into());
         self
     }
 }
@@ -3575,13 +3875,20 @@ impl SubscribeDataExchangeRequest {
     }
 
     /// Sets the value of [destination_dataset][crate::model::SubscribeDataExchangeRequest::destination_dataset].
-    pub fn set_destination_dataset<
-        T: std::convert::Into<std::option::Option<crate::model::DestinationDataset>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.destination_dataset = v.into();
+    pub fn set_destination_dataset<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::DestinationDataset>,
+    {
+        self.destination_dataset = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [destination_dataset][crate::model::SubscribeDataExchangeRequest::destination_dataset].
+    pub fn set_or_clear_destination_dataset<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::DestinationDataset>,
+    {
+        self.destination_dataset = v.map(|x| x.into());
         self
     }
 
@@ -3627,13 +3934,20 @@ impl SubscribeDataExchangeResponse {
     }
 
     /// Sets the value of [subscription][crate::model::SubscribeDataExchangeResponse::subscription].
-    pub fn set_subscription<
-        T: std::convert::Into<std::option::Option<crate::model::Subscription>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.subscription = v.into();
+    pub fn set_subscription<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::Subscription>,
+    {
+        self.subscription = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [subscription][crate::model::SubscribeDataExchangeResponse::subscription].
+    pub fn set_or_clear_subscription<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::Subscription>,
+    {
+        self.subscription = v.map(|x| x.into());
         self
     }
 }
@@ -3697,13 +4011,20 @@ impl RefreshSubscriptionResponse {
     }
 
     /// Sets the value of [subscription][crate::model::RefreshSubscriptionResponse::subscription].
-    pub fn set_subscription<
-        T: std::convert::Into<std::option::Option<crate::model::Subscription>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.subscription = v.into();
+    pub fn set_subscription<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::Subscription>,
+    {
+        self.subscription = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [subscription][crate::model::RefreshSubscriptionResponse::subscription].
+    pub fn set_or_clear_subscription<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::Subscription>,
+    {
+        self.subscription = v.map(|x| x.into());
         self
     }
 }
@@ -4163,20 +4484,38 @@ impl OperationMetadata {
     }
 
     /// Sets the value of [create_time][crate::model::OperationMetadata::create_time].
-    pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.create_time = v.into();
+    pub fn set_create_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [create_time][crate::model::OperationMetadata::create_time].
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [end_time][crate::model::OperationMetadata::end_time].
-    pub fn set_end_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.end_time = v.into();
+    pub fn set_end_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.end_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [end_time][crate::model::OperationMetadata::end_time].
+    pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.end_time = v.map(|x| x.into());
         self
     }
 
@@ -4382,33 +4721,56 @@ impl PubSubSubscription {
     }
 
     /// Sets the value of [push_config][crate::model::PubSubSubscription::push_config].
-    pub fn set_push_config<T: std::convert::Into<std::option::Option<crate::model::PushConfig>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.push_config = v.into();
+    pub fn set_push_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::PushConfig>,
+    {
+        self.push_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [push_config][crate::model::PubSubSubscription::push_config].
+    pub fn set_or_clear_push_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::PushConfig>,
+    {
+        self.push_config = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [bigquery_config][crate::model::PubSubSubscription::bigquery_config].
-    pub fn set_bigquery_config<
-        T: std::convert::Into<std::option::Option<crate::model::BigQueryConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.bigquery_config = v.into();
+    pub fn set_bigquery_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::BigQueryConfig>,
+    {
+        self.bigquery_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [bigquery_config][crate::model::PubSubSubscription::bigquery_config].
+    pub fn set_or_clear_bigquery_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::BigQueryConfig>,
+    {
+        self.bigquery_config = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [cloud_storage_config][crate::model::PubSubSubscription::cloud_storage_config].
-    pub fn set_cloud_storage_config<
-        T: std::convert::Into<std::option::Option<crate::model::CloudStorageConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.cloud_storage_config = v.into();
+    pub fn set_cloud_storage_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::CloudStorageConfig>,
+    {
+        self.cloud_storage_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [cloud_storage_config][crate::model::PubSubSubscription::cloud_storage_config].
+    pub fn set_or_clear_cloud_storage_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::CloudStorageConfig>,
+    {
+        self.cloud_storage_config = v.map(|x| x.into());
         self
     }
 
@@ -4425,13 +4787,20 @@ impl PubSubSubscription {
     }
 
     /// Sets the value of [message_retention_duration][crate::model::PubSubSubscription::message_retention_duration].
-    pub fn set_message_retention_duration<
-        T: std::convert::Into<std::option::Option<wkt::Duration>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.message_retention_duration = v.into();
+    pub fn set_message_retention_duration<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Duration>,
+    {
+        self.message_retention_duration = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [message_retention_duration][crate::model::PubSubSubscription::message_retention_duration].
+    pub fn set_or_clear_message_retention_duration<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Duration>,
+    {
+        self.message_retention_duration = v.map(|x| x.into());
         self
     }
 
@@ -4454,13 +4823,20 @@ impl PubSubSubscription {
     }
 
     /// Sets the value of [expiration_policy][crate::model::PubSubSubscription::expiration_policy].
-    pub fn set_expiration_policy<
-        T: std::convert::Into<std::option::Option<crate::model::ExpirationPolicy>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.expiration_policy = v.into();
+    pub fn set_expiration_policy<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::ExpirationPolicy>,
+    {
+        self.expiration_policy = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [expiration_policy][crate::model::PubSubSubscription::expiration_policy].
+    pub fn set_or_clear_expiration_policy<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::ExpirationPolicy>,
+    {
+        self.expiration_policy = v.map(|x| x.into());
         self
     }
 
@@ -4471,24 +4847,38 @@ impl PubSubSubscription {
     }
 
     /// Sets the value of [dead_letter_policy][crate::model::PubSubSubscription::dead_letter_policy].
-    pub fn set_dead_letter_policy<
-        T: std::convert::Into<std::option::Option<crate::model::DeadLetterPolicy>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.dead_letter_policy = v.into();
+    pub fn set_dead_letter_policy<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::DeadLetterPolicy>,
+    {
+        self.dead_letter_policy = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [dead_letter_policy][crate::model::PubSubSubscription::dead_letter_policy].
+    pub fn set_or_clear_dead_letter_policy<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::DeadLetterPolicy>,
+    {
+        self.dead_letter_policy = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [retry_policy][crate::model::PubSubSubscription::retry_policy].
-    pub fn set_retry_policy<
-        T: std::convert::Into<std::option::Option<crate::model::RetryPolicy>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.retry_policy = v.into();
+    pub fn set_retry_policy<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::RetryPolicy>,
+    {
+        self.retry_policy = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [retry_policy][crate::model::PubSubSubscription::retry_policy].
+    pub fn set_or_clear_retry_policy<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::RetryPolicy>,
+    {
+        self.retry_policy = v.map(|x| x.into());
         self
     }
 
@@ -4559,20 +4949,38 @@ impl RetryPolicy {
     }
 
     /// Sets the value of [minimum_backoff][crate::model::RetryPolicy::minimum_backoff].
-    pub fn set_minimum_backoff<T: std::convert::Into<std::option::Option<wkt::Duration>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.minimum_backoff = v.into();
+    pub fn set_minimum_backoff<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Duration>,
+    {
+        self.minimum_backoff = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [minimum_backoff][crate::model::RetryPolicy::minimum_backoff].
+    pub fn set_or_clear_minimum_backoff<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Duration>,
+    {
+        self.minimum_backoff = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [maximum_backoff][crate::model::RetryPolicy::maximum_backoff].
-    pub fn set_maximum_backoff<T: std::convert::Into<std::option::Option<wkt::Duration>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.maximum_backoff = v.into();
+    pub fn set_maximum_backoff<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Duration>,
+    {
+        self.maximum_backoff = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [maximum_backoff][crate::model::RetryPolicy::maximum_backoff].
+    pub fn set_or_clear_maximum_backoff<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Duration>,
+    {
+        self.maximum_backoff = v.map(|x| x.into());
         self
     }
 }
@@ -4678,11 +5086,20 @@ impl ExpirationPolicy {
     }
 
     /// Sets the value of [ttl][crate::model::ExpirationPolicy::ttl].
-    pub fn set_ttl<T: std::convert::Into<std::option::Option<wkt::Duration>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.ttl = v.into();
+    pub fn set_ttl<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Duration>,
+    {
+        self.ttl = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [ttl][crate::model::ExpirationPolicy::ttl].
+    pub fn set_or_clear_ttl<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Duration>,
+    {
+        self.ttl = v.map(|x| x.into());
         self
     }
 }
@@ -5252,11 +5669,20 @@ impl CloudStorageConfig {
     }
 
     /// Sets the value of [max_duration][crate::model::CloudStorageConfig::max_duration].
-    pub fn set_max_duration<T: std::convert::Into<std::option::Option<wkt::Duration>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.max_duration = v.into();
+    pub fn set_max_duration<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Duration>,
+    {
+        self.max_duration = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [max_duration][crate::model::CloudStorageConfig::max_duration].
+    pub fn set_or_clear_max_duration<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Duration>,
+    {
+        self.max_duration = v.map(|x| x.into());
         self
     }
 

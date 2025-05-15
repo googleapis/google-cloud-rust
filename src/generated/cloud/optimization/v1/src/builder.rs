@@ -124,17 +124,38 @@ pub mod fleet_routing {
         }
 
         /// Sets the value of [timeout][crate::model::OptimizeToursRequest::timeout].
-        pub fn set_timeout<T: Into<std::option::Option<wkt::Duration>>>(mut self, v: T) -> Self {
-            self.0.request.timeout = v.into();
+        pub fn set_timeout<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Duration>,
+        {
+            self.0.request.timeout = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [timeout][crate::model::OptimizeToursRequest::timeout].
+        pub fn set_or_clear_timeout<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Duration>,
+        {
+            self.0.request.timeout = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [model][crate::model::OptimizeToursRequest::model].
-        pub fn set_model<T: Into<std::option::Option<crate::model::ShipmentModel>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.model = v.into();
+        pub fn set_model<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::ShipmentModel>,
+        {
+            self.0.request.model = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [model][crate::model::OptimizeToursRequest::model].
+        pub fn set_or_clear_model<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::ShipmentModel>,
+        {
+            self.0.request.model = v.map(|x| x.into());
             self
         }
 
@@ -169,13 +190,23 @@ pub mod fleet_routing {
         }
 
         /// Sets the value of [injected_solution_constraint][crate::model::OptimizeToursRequest::injected_solution_constraint].
-        pub fn set_injected_solution_constraint<
-            T: Into<std::option::Option<crate::model::InjectedSolutionConstraint>>,
-        >(
+        pub fn set_injected_solution_constraint<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::InjectedSolutionConstraint>,
+        {
+            self.0.request.injected_solution_constraint = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [injected_solution_constraint][crate::model::OptimizeToursRequest::injected_solution_constraint].
+        pub fn set_or_clear_injected_solution_constraint<T>(
             mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.injected_solution_constraint = v.into();
+            v: std::option::Option<T>,
+        ) -> Self
+        where
+            T: std::convert::Into<crate::model::InjectedSolutionConstraint>,
+        {
+            self.0.request.injected_solution_constraint = v.map(|x| x.into());
             self
         }
 
@@ -235,20 +266,41 @@ pub mod fleet_routing {
         }
 
         /// Sets the value of [geodesic_meters_per_second][crate::model::OptimizeToursRequest::geodesic_meters_per_second].
-        pub fn set_geodesic_meters_per_second<T: Into<std::option::Option<f64>>>(
+        pub fn set_geodesic_meters_per_second<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<f64>,
+        {
+            self.0.request.geodesic_meters_per_second = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [geodesic_meters_per_second][crate::model::OptimizeToursRequest::geodesic_meters_per_second].
+        pub fn set_or_clear_geodesic_meters_per_second<T>(
             mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.geodesic_meters_per_second = v.into();
+            v: std::option::Option<T>,
+        ) -> Self
+        where
+            T: std::convert::Into<f64>,
+        {
+            self.0.request.geodesic_meters_per_second = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [max_validation_errors][crate::model::OptimizeToursRequest::max_validation_errors].
-        pub fn set_max_validation_errors<T: Into<std::option::Option<i32>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.max_validation_errors = v.into();
+        pub fn set_max_validation_errors<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<i32>,
+        {
+            self.0.request.max_validation_errors = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [max_validation_errors][crate::model::OptimizeToursRequest::max_validation_errors].
+        pub fn set_or_clear_max_validation_errors<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<i32>,
+        {
+            self.0.request.max_validation_errors = v.map(|x| x.into());
             self
         }
 

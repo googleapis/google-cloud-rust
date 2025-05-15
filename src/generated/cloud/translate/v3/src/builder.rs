@@ -163,24 +163,38 @@ pub mod translation_service {
         }
 
         /// Sets the value of [glossary_config][crate::model::TranslateTextRequest::glossary_config].
-        pub fn set_glossary_config<
-            T: Into<std::option::Option<crate::model::TranslateTextGlossaryConfig>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.glossary_config = v.into();
+        pub fn set_glossary_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::TranslateTextGlossaryConfig>,
+        {
+            self.0.request.glossary_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [glossary_config][crate::model::TranslateTextRequest::glossary_config].
+        pub fn set_or_clear_glossary_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::TranslateTextGlossaryConfig>,
+        {
+            self.0.request.glossary_config = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [transliteration_config][crate::model::TranslateTextRequest::transliteration_config].
-        pub fn set_transliteration_config<
-            T: Into<std::option::Option<crate::model::TransliterationConfig>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.transliteration_config = v.into();
+        pub fn set_transliteration_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::TransliterationConfig>,
+        {
+            self.0.request.transliteration_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [transliteration_config][crate::model::TranslateTextRequest::transliteration_config].
+        pub fn set_or_clear_transliteration_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::TransliterationConfig>,
+        {
+            self.0.request.transliteration_config = v.map(|x| x.into());
             self
         }
 
@@ -546,24 +560,40 @@ pub mod translation_service {
         /// Sets the value of [document_input_config][crate::model::TranslateDocumentRequest::document_input_config].
         ///
         /// This is a **required** field for requests.
-        pub fn set_document_input_config<
-            T: Into<std::option::Option<crate::model::DocumentInputConfig>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.document_input_config = v.into();
+        pub fn set_document_input_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::DocumentInputConfig>,
+        {
+            self.0.request.document_input_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [document_input_config][crate::model::TranslateDocumentRequest::document_input_config].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_document_input_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::DocumentInputConfig>,
+        {
+            self.0.request.document_input_config = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [document_output_config][crate::model::TranslateDocumentRequest::document_output_config].
-        pub fn set_document_output_config<
-            T: Into<std::option::Option<crate::model::DocumentOutputConfig>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.document_output_config = v.into();
+        pub fn set_document_output_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::DocumentOutputConfig>,
+        {
+            self.0.request.document_output_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [document_output_config][crate::model::TranslateDocumentRequest::document_output_config].
+        pub fn set_or_clear_document_output_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::DocumentOutputConfig>,
+        {
+            self.0.request.document_output_config = v.map(|x| x.into());
             self
         }
 
@@ -574,13 +604,20 @@ pub mod translation_service {
         }
 
         /// Sets the value of [glossary_config][crate::model::TranslateDocumentRequest::glossary_config].
-        pub fn set_glossary_config<
-            T: Into<std::option::Option<crate::model::TranslateTextGlossaryConfig>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.glossary_config = v.into();
+        pub fn set_glossary_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::TranslateTextGlossaryConfig>,
+        {
+            self.0.request.glossary_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [glossary_config][crate::model::TranslateDocumentRequest::glossary_config].
+        pub fn set_or_clear_glossary_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::TranslateTextGlossaryConfig>,
+        {
+            self.0.request.glossary_config = v.map(|x| x.into());
             self
         }
 
@@ -775,11 +812,22 @@ pub mod translation_service {
         /// Sets the value of [output_config][crate::model::BatchTranslateTextRequest::output_config].
         ///
         /// This is a **required** field for requests.
-        pub fn set_output_config<T: Into<std::option::Option<crate::model::OutputConfig>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.output_config = v.into();
+        pub fn set_output_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::OutputConfig>,
+        {
+            self.0.request.output_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [output_config][crate::model::BatchTranslateTextRequest::output_config].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_output_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::OutputConfig>,
+        {
+            self.0.request.output_config = v.map(|x| x.into());
             self
         }
 
@@ -952,13 +1000,22 @@ pub mod translation_service {
         /// Sets the value of [output_config][crate::model::BatchTranslateDocumentRequest::output_config].
         ///
         /// This is a **required** field for requests.
-        pub fn set_output_config<
-            T: Into<std::option::Option<crate::model::BatchDocumentOutputConfig>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.output_config = v.into();
+        pub fn set_output_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::BatchDocumentOutputConfig>,
+        {
+            self.0.request.output_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [output_config][crate::model::BatchTranslateDocumentRequest::output_config].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_output_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::BatchDocumentOutputConfig>,
+        {
+            self.0.request.output_config = v.map(|x| x.into());
             self
         }
 
@@ -1122,11 +1179,22 @@ pub mod translation_service {
         /// Sets the value of [glossary][crate::model::CreateGlossaryRequest::glossary].
         ///
         /// This is a **required** field for requests.
-        pub fn set_glossary<T: Into<std::option::Option<crate::model::Glossary>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.glossary = v.into();
+        pub fn set_glossary<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Glossary>,
+        {
+            self.0.request.glossary = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [glossary][crate::model::CreateGlossaryRequest::glossary].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_glossary<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Glossary>,
+        {
+            self.0.request.glossary = v.map(|x| x.into());
             self
         }
     }
@@ -1230,20 +1298,40 @@ pub mod translation_service {
         /// Sets the value of [glossary][crate::model::UpdateGlossaryRequest::glossary].
         ///
         /// This is a **required** field for requests.
-        pub fn set_glossary<T: Into<std::option::Option<crate::model::Glossary>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.glossary = v.into();
+        pub fn set_glossary<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Glossary>,
+        {
+            self.0.request.glossary = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [glossary][crate::model::UpdateGlossaryRequest::glossary].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_glossary<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Glossary>,
+        {
+            self.0.request.glossary = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateGlossaryRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateGlossaryRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -1767,11 +1855,22 @@ pub mod translation_service {
         /// Sets the value of [glossary_entry][crate::model::CreateGlossaryEntryRequest::glossary_entry].
         ///
         /// This is a **required** field for requests.
-        pub fn set_glossary_entry<T: Into<std::option::Option<crate::model::GlossaryEntry>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.glossary_entry = v.into();
+        pub fn set_glossary_entry<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::GlossaryEntry>,
+        {
+            self.0.request.glossary_entry = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [glossary_entry][crate::model::CreateGlossaryEntryRequest::glossary_entry].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_glossary_entry<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::GlossaryEntry>,
+        {
+            self.0.request.glossary_entry = v.map(|x| x.into());
             self
         }
     }
@@ -1836,11 +1935,22 @@ pub mod translation_service {
         /// Sets the value of [glossary_entry][crate::model::UpdateGlossaryEntryRequest::glossary_entry].
         ///
         /// This is a **required** field for requests.
-        pub fn set_glossary_entry<T: Into<std::option::Option<crate::model::GlossaryEntry>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.glossary_entry = v.into();
+        pub fn set_glossary_entry<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::GlossaryEntry>,
+        {
+            self.0.request.glossary_entry = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [glossary_entry][crate::model::UpdateGlossaryEntryRequest::glossary_entry].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_glossary_entry<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::GlossaryEntry>,
+        {
+            self.0.request.glossary_entry = v.map(|x| x.into());
             self
         }
     }
@@ -2017,11 +2127,22 @@ pub mod translation_service {
         /// Sets the value of [dataset][crate::model::CreateDatasetRequest::dataset].
         ///
         /// This is a **required** field for requests.
-        pub fn set_dataset<T: Into<std::option::Option<crate::model::Dataset>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.dataset = v.into();
+        pub fn set_dataset<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Dataset>,
+        {
+            self.0.request.dataset = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [dataset][crate::model::CreateDatasetRequest::dataset].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_dataset<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Dataset>,
+        {
+            self.0.request.dataset = v.map(|x| x.into());
             self
         }
     }
@@ -2367,13 +2488,22 @@ pub mod translation_service {
         /// Sets the value of [adaptive_mt_dataset][crate::model::CreateAdaptiveMtDatasetRequest::adaptive_mt_dataset].
         ///
         /// This is a **required** field for requests.
-        pub fn set_adaptive_mt_dataset<
-            T: Into<std::option::Option<crate::model::AdaptiveMtDataset>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.adaptive_mt_dataset = v.into();
+        pub fn set_adaptive_mt_dataset<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::AdaptiveMtDataset>,
+        {
+            self.0.request.adaptive_mt_dataset = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [adaptive_mt_dataset][crate::model::CreateAdaptiveMtDatasetRequest::adaptive_mt_dataset].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_adaptive_mt_dataset<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::AdaptiveMtDataset>,
+        {
+            self.0.request.adaptive_mt_dataset = v.map(|x| x.into());
             self
         }
     }
@@ -2715,28 +2845,45 @@ pub mod translation_service {
         }
 
         /// Sets the value of [reference_sentence_config][crate::model::AdaptiveMtTranslateRequest::reference_sentence_config].
-        pub fn set_reference_sentence_config<
-            T: Into<
-                std::option::Option<
+        pub fn set_reference_sentence_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<
                     crate::model::adaptive_mt_translate_request::ReferenceSentenceConfig,
                 >,
-            >,
-        >(
+        {
+            self.0.request.reference_sentence_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [reference_sentence_config][crate::model::AdaptiveMtTranslateRequest::reference_sentence_config].
+        pub fn set_or_clear_reference_sentence_config<T>(
             mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.reference_sentence_config = v.into();
+            v: std::option::Option<T>,
+        ) -> Self
+        where
+            T: std::convert::Into<
+                    crate::model::adaptive_mt_translate_request::ReferenceSentenceConfig,
+                >,
+        {
+            self.0.request.reference_sentence_config = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [glossary_config][crate::model::AdaptiveMtTranslateRequest::glossary_config].
-        pub fn set_glossary_config<
-            T: Into<std::option::Option<crate::model::adaptive_mt_translate_request::GlossaryConfig>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.glossary_config = v.into();
+        pub fn set_glossary_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::adaptive_mt_translate_request::GlossaryConfig>,
+        {
+            self.0.request.glossary_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [glossary_config][crate::model::AdaptiveMtTranslateRequest::glossary_config].
+        pub fn set_or_clear_glossary_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::adaptive_mt_translate_request::GlossaryConfig>,
+        {
+            self.0.request.glossary_config = v.map(|x| x.into());
             self
         }
     }
@@ -3309,11 +3456,22 @@ pub mod translation_service {
         /// Sets the value of [input_config][crate::model::ImportDataRequest::input_config].
         ///
         /// This is a **required** field for requests.
-        pub fn set_input_config<T: Into<std::option::Option<crate::model::DatasetInputConfig>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.input_config = v.into();
+        pub fn set_input_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::DatasetInputConfig>,
+        {
+            self.0.request.input_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [input_config][crate::model::ImportDataRequest::input_config].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_input_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::DatasetInputConfig>,
+        {
+            self.0.request.input_config = v.map(|x| x.into());
             self
         }
     }
@@ -3424,13 +3582,22 @@ pub mod translation_service {
         /// Sets the value of [output_config][crate::model::ExportDataRequest::output_config].
         ///
         /// This is a **required** field for requests.
-        pub fn set_output_config<
-            T: Into<std::option::Option<crate::model::DatasetOutputConfig>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.output_config = v.into();
+        pub fn set_output_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::DatasetOutputConfig>,
+        {
+            self.0.request.output_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [output_config][crate::model::ExportDataRequest::output_config].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_output_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::DatasetOutputConfig>,
+        {
+            self.0.request.output_config = v.map(|x| x.into());
             self
         }
     }
@@ -3648,11 +3815,22 @@ pub mod translation_service {
         /// Sets the value of [model][crate::model::CreateModelRequest::model].
         ///
         /// This is a **required** field for requests.
-        pub fn set_model<T: Into<std::option::Option<crate::model::Model>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.model = v.into();
+        pub fn set_model<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Model>,
+        {
+            self.0.request.model = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [model][crate::model::CreateModelRequest::model].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_model<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Model>,
+        {
+            self.0.request.model = v.map(|x| x.into());
             self
         }
     }
@@ -4473,8 +4651,20 @@ pub mod translation_service {
         }
 
         /// Sets the value of [timeout][longrunning::model::WaitOperationRequest::timeout].
-        pub fn set_timeout<T: Into<std::option::Option<wkt::Duration>>>(mut self, v: T) -> Self {
-            self.0.request.timeout = v.into();
+        pub fn set_timeout<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Duration>,
+        {
+            self.0.request.timeout = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [timeout][longrunning::model::WaitOperationRequest::timeout].
+        pub fn set_or_clear_timeout<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Duration>,
+        {
+            self.0.request.timeout = v.map(|x| x.into());
             self
         }
     }

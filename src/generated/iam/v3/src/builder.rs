@@ -179,11 +179,22 @@ pub mod policy_bindings {
         /// Sets the value of [policy_binding][crate::model::CreatePolicyBindingRequest::policy_binding].
         ///
         /// This is a **required** field for requests.
-        pub fn set_policy_binding<T: Into<std::option::Option<crate::model::PolicyBinding>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.policy_binding = v.into();
+        pub fn set_policy_binding<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::PolicyBinding>,
+        {
+            self.0.request.policy_binding = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [policy_binding][crate::model::CreatePolicyBindingRequest::policy_binding].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_policy_binding<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::PolicyBinding>,
+        {
+            self.0.request.policy_binding = v.map(|x| x.into());
             self
         }
 
@@ -362,11 +373,22 @@ pub mod policy_bindings {
         /// Sets the value of [policy_binding][crate::model::UpdatePolicyBindingRequest::policy_binding].
         ///
         /// This is a **required** field for requests.
-        pub fn set_policy_binding<T: Into<std::option::Option<crate::model::PolicyBinding>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.policy_binding = v.into();
+        pub fn set_policy_binding<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::PolicyBinding>,
+        {
+            self.0.request.policy_binding = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [policy_binding][crate::model::UpdatePolicyBindingRequest::policy_binding].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_policy_binding<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::PolicyBinding>,
+        {
+            self.0.request.policy_binding = v.map(|x| x.into());
             self
         }
 
@@ -377,11 +399,20 @@ pub mod policy_bindings {
         }
 
         /// Sets the value of [update_mask][crate::model::UpdatePolicyBindingRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdatePolicyBindingRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -981,13 +1012,25 @@ pub mod principal_access_boundary_policies {
         /// Sets the value of [principal_access_boundary_policy][crate::model::CreatePrincipalAccessBoundaryPolicyRequest::principal_access_boundary_policy].
         ///
         /// This is a **required** field for requests.
-        pub fn set_principal_access_boundary_policy<
-            T: Into<std::option::Option<crate::model::PrincipalAccessBoundaryPolicy>>,
-        >(
+        pub fn set_principal_access_boundary_policy<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::PrincipalAccessBoundaryPolicy>,
+        {
+            self.0.request.principal_access_boundary_policy = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [principal_access_boundary_policy][crate::model::CreatePrincipalAccessBoundaryPolicyRequest::principal_access_boundary_policy].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_principal_access_boundary_policy<T>(
             mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.principal_access_boundary_policy = v.into();
+            v: std::option::Option<T>,
+        ) -> Self
+        where
+            T: std::convert::Into<crate::model::PrincipalAccessBoundaryPolicy>,
+        {
+            self.0.request.principal_access_boundary_policy = v.map(|x| x.into());
             self
         }
 
@@ -1170,13 +1213,25 @@ pub mod principal_access_boundary_policies {
         /// Sets the value of [principal_access_boundary_policy][crate::model::UpdatePrincipalAccessBoundaryPolicyRequest::principal_access_boundary_policy].
         ///
         /// This is a **required** field for requests.
-        pub fn set_principal_access_boundary_policy<
-            T: Into<std::option::Option<crate::model::PrincipalAccessBoundaryPolicy>>,
-        >(
+        pub fn set_principal_access_boundary_policy<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::PrincipalAccessBoundaryPolicy>,
+        {
+            self.0.request.principal_access_boundary_policy = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [principal_access_boundary_policy][crate::model::UpdatePrincipalAccessBoundaryPolicyRequest::principal_access_boundary_policy].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_principal_access_boundary_policy<T>(
             mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.principal_access_boundary_policy = v.into();
+            v: std::option::Option<T>,
+        ) -> Self
+        where
+            T: std::convert::Into<crate::model::PrincipalAccessBoundaryPolicy>,
+        {
+            self.0.request.principal_access_boundary_policy = v.map(|x| x.into());
             self
         }
 
@@ -1187,11 +1242,20 @@ pub mod principal_access_boundary_policies {
         }
 
         /// Sets the value of [update_mask][crate::model::UpdatePrincipalAccessBoundaryPolicyRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdatePrincipalAccessBoundaryPolicyRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }

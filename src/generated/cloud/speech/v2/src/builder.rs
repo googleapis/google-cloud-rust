@@ -156,11 +156,22 @@ pub mod speech {
         /// Sets the value of [recognizer][crate::model::CreateRecognizerRequest::recognizer].
         ///
         /// This is a **required** field for requests.
-        pub fn set_recognizer<T: Into<std::option::Option<crate::model::Recognizer>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.recognizer = v.into();
+        pub fn set_recognizer<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Recognizer>,
+        {
+            self.0.request.recognizer = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [recognizer][crate::model::CreateRecognizerRequest::recognizer].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_recognizer<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Recognizer>,
+        {
+            self.0.request.recognizer = v.map(|x| x.into());
             self
         }
 
@@ -450,20 +461,40 @@ pub mod speech {
         /// Sets the value of [recognizer][crate::model::UpdateRecognizerRequest::recognizer].
         ///
         /// This is a **required** field for requests.
-        pub fn set_recognizer<T: Into<std::option::Option<crate::model::Recognizer>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.recognizer = v.into();
+        pub fn set_recognizer<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Recognizer>,
+        {
+            self.0.request.recognizer = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [recognizer][crate::model::UpdateRecognizerRequest::recognizer].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_recognizer<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Recognizer>,
+        {
+            self.0.request.recognizer = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateRecognizerRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateRecognizerRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
@@ -771,20 +802,38 @@ pub mod speech {
         }
 
         /// Sets the value of [config][crate::model::RecognizeRequest::config].
-        pub fn set_config<T: Into<std::option::Option<crate::model::RecognitionConfig>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.config = v.into();
+        pub fn set_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::RecognitionConfig>,
+        {
+            self.0.request.config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [config][crate::model::RecognizeRequest::config].
+        pub fn set_or_clear_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::RecognitionConfig>,
+        {
+            self.0.request.config = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [config_mask][crate::model::RecognizeRequest::config_mask].
-        pub fn set_config_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.config_mask = v.into();
+        pub fn set_config_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.config_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [config_mask][crate::model::RecognizeRequest::config_mask].
+        pub fn set_or_clear_config_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.config_mask = v.map(|x| x.into());
             self
         }
 
@@ -924,20 +973,38 @@ pub mod speech {
         }
 
         /// Sets the value of [config][crate::model::BatchRecognizeRequest::config].
-        pub fn set_config<T: Into<std::option::Option<crate::model::RecognitionConfig>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.config = v.into();
+        pub fn set_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::RecognitionConfig>,
+        {
+            self.0.request.config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [config][crate::model::BatchRecognizeRequest::config].
+        pub fn set_or_clear_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::RecognitionConfig>,
+        {
+            self.0.request.config = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [config_mask][crate::model::BatchRecognizeRequest::config_mask].
-        pub fn set_config_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.config_mask = v.into();
+        pub fn set_config_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.config_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [config_mask][crate::model::BatchRecognizeRequest::config_mask].
+        pub fn set_or_clear_config_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.config_mask = v.map(|x| x.into());
             self
         }
 
@@ -953,13 +1020,23 @@ pub mod speech {
         }
 
         /// Sets the value of [recognition_output_config][crate::model::BatchRecognizeRequest::recognition_output_config].
-        pub fn set_recognition_output_config<
-            T: Into<std::option::Option<crate::model::RecognitionOutputConfig>>,
-        >(
+        pub fn set_recognition_output_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::RecognitionOutputConfig>,
+        {
+            self.0.request.recognition_output_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [recognition_output_config][crate::model::BatchRecognizeRequest::recognition_output_config].
+        pub fn set_or_clear_recognition_output_config<T>(
             mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.recognition_output_config = v.into();
+            v: std::option::Option<T>,
+        ) -> Self
+        where
+            T: std::convert::Into<crate::model::RecognitionOutputConfig>,
+        {
+            self.0.request.recognition_output_config = v.map(|x| x.into());
             self
         }
 
@@ -1091,20 +1168,40 @@ pub mod speech {
         /// Sets the value of [config][crate::model::UpdateConfigRequest::config].
         ///
         /// This is a **required** field for requests.
-        pub fn set_config<T: Into<std::option::Option<crate::model::Config>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.config = v.into();
+        pub fn set_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Config>,
+        {
+            self.0.request.config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [config][crate::model::UpdateConfigRequest::config].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Config>,
+        {
+            self.0.request.config = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateConfigRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateConfigRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -1208,11 +1305,22 @@ pub mod speech {
         /// Sets the value of [custom_class][crate::model::CreateCustomClassRequest::custom_class].
         ///
         /// This is a **required** field for requests.
-        pub fn set_custom_class<T: Into<std::option::Option<crate::model::CustomClass>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.custom_class = v.into();
+        pub fn set_custom_class<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::CustomClass>,
+        {
+            self.0.request.custom_class = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [custom_class][crate::model::CreateCustomClassRequest::custom_class].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_custom_class<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::CustomClass>,
+        {
+            self.0.request.custom_class = v.map(|x| x.into());
             self
         }
 
@@ -1507,20 +1615,40 @@ pub mod speech {
         /// Sets the value of [custom_class][crate::model::UpdateCustomClassRequest::custom_class].
         ///
         /// This is a **required** field for requests.
-        pub fn set_custom_class<T: Into<std::option::Option<crate::model::CustomClass>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.custom_class = v.into();
+        pub fn set_custom_class<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::CustomClass>,
+        {
+            self.0.request.custom_class = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [custom_class][crate::model::UpdateCustomClassRequest::custom_class].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_custom_class<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::CustomClass>,
+        {
+            self.0.request.custom_class = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateCustomClassRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateCustomClassRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
@@ -1865,11 +1993,22 @@ pub mod speech {
         /// Sets the value of [phrase_set][crate::model::CreatePhraseSetRequest::phrase_set].
         ///
         /// This is a **required** field for requests.
-        pub fn set_phrase_set<T: Into<std::option::Option<crate::model::PhraseSet>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.phrase_set = v.into();
+        pub fn set_phrase_set<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::PhraseSet>,
+        {
+            self.0.request.phrase_set = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [phrase_set][crate::model::CreatePhraseSetRequest::phrase_set].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_phrase_set<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::PhraseSet>,
+        {
+            self.0.request.phrase_set = v.map(|x| x.into());
             self
         }
 
@@ -2156,20 +2295,40 @@ pub mod speech {
         /// Sets the value of [phrase_set][crate::model::UpdatePhraseSetRequest::phrase_set].
         ///
         /// This is a **required** field for requests.
-        pub fn set_phrase_set<T: Into<std::option::Option<crate::model::PhraseSet>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.phrase_set = v.into();
+        pub fn set_phrase_set<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::PhraseSet>,
+        {
+            self.0.request.phrase_set = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [phrase_set][crate::model::UpdatePhraseSetRequest::phrase_set].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_phrase_set<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::PhraseSet>,
+        {
+            self.0.request.phrase_set = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdatePhraseSetRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdatePhraseSetRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 

@@ -189,11 +189,22 @@ pub mod storage_transfer_service {
         /// Sets the value of [transfer_job][crate::model::CreateTransferJobRequest::transfer_job].
         ///
         /// This is a **required** field for requests.
-        pub fn set_transfer_job<T: Into<std::option::Option<crate::model::TransferJob>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.transfer_job = v.into();
+        pub fn set_transfer_job<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::TransferJob>,
+        {
+            self.0.request.transfer_job = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [transfer_job][crate::model::CreateTransferJobRequest::transfer_job].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_transfer_job<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::TransferJob>,
+        {
+            self.0.request.transfer_job = v.map(|x| x.into());
             self
         }
     }
@@ -274,20 +285,43 @@ pub mod storage_transfer_service {
         /// Sets the value of [transfer_job][crate::model::UpdateTransferJobRequest::transfer_job].
         ///
         /// This is a **required** field for requests.
-        pub fn set_transfer_job<T: Into<std::option::Option<crate::model::TransferJob>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.transfer_job = v.into();
+        pub fn set_transfer_job<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::TransferJob>,
+        {
+            self.0.request.transfer_job = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [transfer_job][crate::model::UpdateTransferJobRequest::transfer_job].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_transfer_job<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::TransferJob>,
+        {
+            self.0.request.transfer_job = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_transfer_job_field_mask][crate::model::UpdateTransferJobRequest::update_transfer_job_field_mask].
-        pub fn set_update_transfer_job_field_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
+        pub fn set_update_transfer_job_field_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_transfer_job_field_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_transfer_job_field_mask][crate::model::UpdateTransferJobRequest::update_transfer_job_field_mask].
+        pub fn set_or_clear_update_transfer_job_field_mask<T>(
             mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_transfer_job_field_mask = v.into();
+            v: std::option::Option<T>,
+        ) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_transfer_job_field_mask = v.map(|x| x.into());
             self
         }
     }
@@ -854,11 +888,22 @@ pub mod storage_transfer_service {
         /// Sets the value of [agent_pool][crate::model::CreateAgentPoolRequest::agent_pool].
         ///
         /// This is a **required** field for requests.
-        pub fn set_agent_pool<T: Into<std::option::Option<crate::model::AgentPool>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.agent_pool = v.into();
+        pub fn set_agent_pool<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::AgentPool>,
+        {
+            self.0.request.agent_pool = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [agent_pool][crate::model::CreateAgentPoolRequest::agent_pool].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_agent_pool<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::AgentPool>,
+        {
+            self.0.request.agent_pool = v.map(|x| x.into());
             self
         }
 
@@ -928,20 +973,40 @@ pub mod storage_transfer_service {
         /// Sets the value of [agent_pool][crate::model::UpdateAgentPoolRequest::agent_pool].
         ///
         /// This is a **required** field for requests.
-        pub fn set_agent_pool<T: Into<std::option::Option<crate::model::AgentPool>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.agent_pool = v.into();
+        pub fn set_agent_pool<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::AgentPool>,
+        {
+            self.0.request.agent_pool = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [agent_pool][crate::model::UpdateAgentPoolRequest::agent_pool].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_agent_pool<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::AgentPool>,
+        {
+            self.0.request.agent_pool = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateAgentPoolRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateAgentPoolRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }

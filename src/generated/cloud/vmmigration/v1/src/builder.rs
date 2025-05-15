@@ -353,11 +353,22 @@ pub mod vm_migration {
         /// Sets the value of [source][crate::model::CreateSourceRequest::source].
         ///
         /// This is a **required** field for requests.
-        pub fn set_source<T: Into<std::option::Option<crate::model::Source>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.source = v.into();
+        pub fn set_source<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Source>,
+        {
+            self.0.request.source = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [source][crate::model::CreateSourceRequest::source].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_source<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Source>,
+        {
+            self.0.request.source = v.map(|x| x.into());
             self
         }
 
@@ -462,22 +473,42 @@ pub mod vm_migration {
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateSourceRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateSourceRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [source][crate::model::UpdateSourceRequest::source].
         ///
         /// This is a **required** field for requests.
-        pub fn set_source<T: Into<std::option::Option<crate::model::Source>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.source = v.into();
+        pub fn set_source<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Source>,
+        {
+            self.0.request.source = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [source][crate::model::UpdateSourceRequest::source].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_source<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Source>,
+        {
+            self.0.request.source = v.map(|x| x.into());
             self
         }
 
@@ -981,13 +1012,22 @@ pub mod vm_migration {
         /// Sets the value of [utilization_report][crate::model::CreateUtilizationReportRequest::utilization_report].
         ///
         /// This is a **required** field for requests.
-        pub fn set_utilization_report<
-            T: Into<std::option::Option<crate::model::UtilizationReport>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.utilization_report = v.into();
+        pub fn set_utilization_report<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::UtilizationReport>,
+        {
+            self.0.request.utilization_report = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [utilization_report][crate::model::CreateUtilizationReportRequest::utilization_report].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_utilization_report<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::UtilizationReport>,
+        {
+            self.0.request.utilization_report = v.map(|x| x.into());
             self
         }
 
@@ -1433,13 +1473,22 @@ pub mod vm_migration {
         /// Sets the value of [datacenter_connector][crate::model::CreateDatacenterConnectorRequest::datacenter_connector].
         ///
         /// This is a **required** field for requests.
-        pub fn set_datacenter_connector<
-            T: Into<std::option::Option<crate::model::DatacenterConnector>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.datacenter_connector = v.into();
+        pub fn set_datacenter_connector<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::DatacenterConnector>,
+        {
+            self.0.request.datacenter_connector = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [datacenter_connector][crate::model::CreateDatacenterConnectorRequest::datacenter_connector].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_datacenter_connector<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::DatacenterConnector>,
+        {
+            self.0.request.datacenter_connector = v.map(|x| x.into());
             self
         }
 
@@ -1796,11 +1845,22 @@ pub mod vm_migration {
         /// Sets the value of [migrating_vm][crate::model::CreateMigratingVmRequest::migrating_vm].
         ///
         /// This is a **required** field for requests.
-        pub fn set_migrating_vm<T: Into<std::option::Option<crate::model::MigratingVm>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.migrating_vm = v.into();
+        pub fn set_migrating_vm<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::MigratingVm>,
+        {
+            self.0.request.migrating_vm = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [migrating_vm][crate::model::CreateMigratingVmRequest::migrating_vm].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_migrating_vm<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::MigratingVm>,
+        {
+            self.0.request.migrating_vm = v.map(|x| x.into());
             self
         }
 
@@ -2105,22 +2165,42 @@ pub mod vm_migration {
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateMigratingVmRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateMigratingVmRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [migrating_vm][crate::model::UpdateMigratingVmRequest::migrating_vm].
         ///
         /// This is a **required** field for requests.
-        pub fn set_migrating_vm<T: Into<std::option::Option<crate::model::MigratingVm>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.migrating_vm = v.into();
+        pub fn set_migrating_vm<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::MigratingVm>,
+        {
+            self.0.request.migrating_vm = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [migrating_vm][crate::model::UpdateMigratingVmRequest::migrating_vm].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_migrating_vm<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::MigratingVm>,
+        {
+            self.0.request.migrating_vm = v.map(|x| x.into());
             self
         }
 
@@ -2773,11 +2853,22 @@ pub mod vm_migration {
         /// Sets the value of [clone_job][crate::model::CreateCloneJobRequest::clone_job].
         ///
         /// This is a **required** field for requests.
-        pub fn set_clone_job<T: Into<std::option::Option<crate::model::CloneJob>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.clone_job = v.into();
+        pub fn set_clone_job<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::CloneJob>,
+        {
+            self.0.request.clone_job = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [clone_job][crate::model::CreateCloneJobRequest::clone_job].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_clone_job<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::CloneJob>,
+        {
+            self.0.request.clone_job = v.map(|x| x.into());
             self
         }
 
@@ -3188,11 +3279,22 @@ pub mod vm_migration {
         /// Sets the value of [cutover_job][crate::model::CreateCutoverJobRequest::cutover_job].
         ///
         /// This is a **required** field for requests.
-        pub fn set_cutover_job<T: Into<std::option::Option<crate::model::CutoverJob>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.cutover_job = v.into();
+        pub fn set_cutover_job<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::CutoverJob>,
+        {
+            self.0.request.cutover_job = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [cutover_job][crate::model::CreateCutoverJobRequest::cutover_job].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_cutover_job<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::CutoverJob>,
+        {
+            self.0.request.cutover_job = v.map(|x| x.into());
             self
         }
 
@@ -3783,11 +3885,22 @@ pub mod vm_migration {
         /// Sets the value of [group][crate::model::CreateGroupRequest::group].
         ///
         /// This is a **required** field for requests.
-        pub fn set_group<T: Into<std::option::Option<crate::model::Group>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.group = v.into();
+        pub fn set_group<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Group>,
+        {
+            self.0.request.group = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [group][crate::model::CreateGroupRequest::group].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_group<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Group>,
+        {
+            self.0.request.group = v.map(|x| x.into());
             self
         }
 
@@ -3892,22 +4005,42 @@ pub mod vm_migration {
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateGroupRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateGroupRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [group][crate::model::UpdateGroupRequest::group].
         ///
         /// This is a **required** field for requests.
-        pub fn set_group<T: Into<std::option::Option<crate::model::Group>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.group = v.into();
+        pub fn set_group<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Group>,
+        {
+            self.0.request.group = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [group][crate::model::UpdateGroupRequest::group].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_group<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Group>,
+        {
+            self.0.request.group = v.map(|x| x.into());
             self
         }
 
@@ -4562,11 +4695,22 @@ pub mod vm_migration {
         /// Sets the value of [target_project][crate::model::CreateTargetProjectRequest::target_project].
         ///
         /// This is a **required** field for requests.
-        pub fn set_target_project<T: Into<std::option::Option<crate::model::TargetProject>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.target_project = v.into();
+        pub fn set_target_project<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::TargetProject>,
+        {
+            self.0.request.target_project = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [target_project][crate::model::CreateTargetProjectRequest::target_project].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_target_project<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::TargetProject>,
+        {
+            self.0.request.target_project = v.map(|x| x.into());
             self
         }
 
@@ -4677,22 +4821,42 @@ pub mod vm_migration {
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateTargetProjectRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateTargetProjectRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [target_project][crate::model::UpdateTargetProjectRequest::target_project].
         ///
         /// This is a **required** field for requests.
-        pub fn set_target_project<T: Into<std::option::Option<crate::model::TargetProject>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.target_project = v.into();
+        pub fn set_target_project<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::TargetProject>,
+        {
+            self.0.request.target_project = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [target_project][crate::model::UpdateTargetProjectRequest::target_project].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_target_project<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::TargetProject>,
+        {
+            self.0.request.target_project = v.map(|x| x.into());
             self
         }
 

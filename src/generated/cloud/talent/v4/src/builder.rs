@@ -126,11 +126,22 @@ pub mod company_service {
         /// Sets the value of [company][crate::model::CreateCompanyRequest::company].
         ///
         /// This is a **required** field for requests.
-        pub fn set_company<T: Into<std::option::Option<crate::model::Company>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.company = v.into();
+        pub fn set_company<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Company>,
+        {
+            self.0.request.company = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [company][crate::model::CreateCompanyRequest::company].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_company<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Company>,
+        {
+            self.0.request.company = v.map(|x| x.into());
             self
         }
     }
@@ -255,20 +266,40 @@ pub mod company_service {
         /// Sets the value of [company][crate::model::UpdateCompanyRequest::company].
         ///
         /// This is a **required** field for requests.
-        pub fn set_company<T: Into<std::option::Option<crate::model::Company>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.company = v.into();
+        pub fn set_company<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Company>,
+        {
+            self.0.request.company = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [company][crate::model::UpdateCompanyRequest::company].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_company<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Company>,
+        {
+            self.0.request.company = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateCompanyRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateCompanyRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -865,11 +896,22 @@ pub mod event_service {
         /// Sets the value of [client_event][crate::model::CreateClientEventRequest::client_event].
         ///
         /// This is a **required** field for requests.
-        pub fn set_client_event<T: Into<std::option::Option<crate::model::ClientEvent>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.client_event = v.into();
+        pub fn set_client_event<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::ClientEvent>,
+        {
+            self.0.request.client_event = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [client_event][crate::model::CreateClientEventRequest::client_event].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_client_event<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::ClientEvent>,
+        {
+            self.0.request.client_event = v.map(|x| x.into());
             self
         }
     }
@@ -1058,8 +1100,22 @@ pub mod job_service {
         /// Sets the value of [job][crate::model::CreateJobRequest::job].
         ///
         /// This is a **required** field for requests.
-        pub fn set_job<T: Into<std::option::Option<crate::model::Job>>>(mut self, v: T) -> Self {
-            self.0.request.job = v.into();
+        pub fn set_job<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Job>,
+        {
+            self.0.request.job = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [job][crate::model::CreateJobRequest::job].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_job<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Job>,
+        {
+            self.0.request.job = v.map(|x| x.into());
             self
         }
     }
@@ -1302,17 +1358,40 @@ pub mod job_service {
         /// Sets the value of [job][crate::model::UpdateJobRequest::job].
         ///
         /// This is a **required** field for requests.
-        pub fn set_job<T: Into<std::option::Option<crate::model::Job>>>(mut self, v: T) -> Self {
-            self.0.request.job = v.into();
+        pub fn set_job<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Job>,
+        {
+            self.0.request.job = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [job][crate::model::UpdateJobRequest::job].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_job<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Job>,
+        {
+            self.0.request.job = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateJobRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateJobRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -1435,11 +1514,20 @@ pub mod job_service {
         }
 
         /// Sets the value of [update_mask][crate::model::BatchUpdateJobsRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::BatchUpdateJobsRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -1814,20 +1902,40 @@ pub mod job_service {
         /// Sets the value of [request_metadata][crate::model::SearchJobsRequest::request_metadata].
         ///
         /// This is a **required** field for requests.
-        pub fn set_request_metadata<T: Into<std::option::Option<crate::model::RequestMetadata>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.request_metadata = v.into();
+        pub fn set_request_metadata<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::RequestMetadata>,
+        {
+            self.0.request.request_metadata = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [request_metadata][crate::model::SearchJobsRequest::request_metadata].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_request_metadata<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::RequestMetadata>,
+        {
+            self.0.request.request_metadata = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [job_query][crate::model::SearchJobsRequest::job_query].
-        pub fn set_job_query<T: Into<std::option::Option<crate::model::JobQuery>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.job_query = v.into();
+        pub fn set_job_query<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::JobQuery>,
+        {
+            self.0.request.job_query = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [job_query][crate::model::SearchJobsRequest::job_query].
+        pub fn set_or_clear_job_query<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::JobQuery>,
+        {
+            self.0.request.job_query = v.map(|x| x.into());
             self
         }
 
@@ -1890,13 +1998,20 @@ pub mod job_service {
         }
 
         /// Sets the value of [custom_ranking_info][crate::model::SearchJobsRequest::custom_ranking_info].
-        pub fn set_custom_ranking_info<
-            T: Into<std::option::Option<crate::model::search_jobs_request::CustomRankingInfo>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.custom_ranking_info = v.into();
+        pub fn set_custom_ranking_info<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::search_jobs_request::CustomRankingInfo>,
+        {
+            self.0.request.custom_ranking_info = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [custom_ranking_info][crate::model::SearchJobsRequest::custom_ranking_info].
+        pub fn set_or_clear_custom_ranking_info<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::search_jobs_request::CustomRankingInfo>,
+        {
+            self.0.request.custom_ranking_info = v.map(|x| x.into());
             self
         }
 
@@ -2004,20 +2119,40 @@ pub mod job_service {
         /// Sets the value of [request_metadata][crate::model::SearchJobsRequest::request_metadata].
         ///
         /// This is a **required** field for requests.
-        pub fn set_request_metadata<T: Into<std::option::Option<crate::model::RequestMetadata>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.request_metadata = v.into();
+        pub fn set_request_metadata<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::RequestMetadata>,
+        {
+            self.0.request.request_metadata = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [request_metadata][crate::model::SearchJobsRequest::request_metadata].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_request_metadata<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::RequestMetadata>,
+        {
+            self.0.request.request_metadata = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [job_query][crate::model::SearchJobsRequest::job_query].
-        pub fn set_job_query<T: Into<std::option::Option<crate::model::JobQuery>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.job_query = v.into();
+        pub fn set_job_query<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::JobQuery>,
+        {
+            self.0.request.job_query = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [job_query][crate::model::SearchJobsRequest::job_query].
+        pub fn set_or_clear_job_query<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::JobQuery>,
+        {
+            self.0.request.job_query = v.map(|x| x.into());
             self
         }
 
@@ -2080,13 +2215,20 @@ pub mod job_service {
         }
 
         /// Sets the value of [custom_ranking_info][crate::model::SearchJobsRequest::custom_ranking_info].
-        pub fn set_custom_ranking_info<
-            T: Into<std::option::Option<crate::model::search_jobs_request::CustomRankingInfo>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.custom_ranking_info = v.into();
+        pub fn set_custom_ranking_info<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::search_jobs_request::CustomRankingInfo>,
+        {
+            self.0.request.custom_ranking_info = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [custom_ranking_info][crate::model::SearchJobsRequest::custom_ranking_info].
+        pub fn set_or_clear_custom_ranking_info<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::search_jobs_request::CustomRankingInfo>,
+        {
+            self.0.request.custom_ranking_info = v.map(|x| x.into());
             self
         }
 
@@ -2304,11 +2446,22 @@ pub mod tenant_service {
         /// Sets the value of [tenant][crate::model::CreateTenantRequest::tenant].
         ///
         /// This is a **required** field for requests.
-        pub fn set_tenant<T: Into<std::option::Option<crate::model::Tenant>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.tenant = v.into();
+        pub fn set_tenant<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Tenant>,
+        {
+            self.0.request.tenant = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [tenant][crate::model::CreateTenantRequest::tenant].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_tenant<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Tenant>,
+        {
+            self.0.request.tenant = v.map(|x| x.into());
             self
         }
     }
@@ -2433,20 +2586,40 @@ pub mod tenant_service {
         /// Sets the value of [tenant][crate::model::UpdateTenantRequest::tenant].
         ///
         /// This is a **required** field for requests.
-        pub fn set_tenant<T: Into<std::option::Option<crate::model::Tenant>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.tenant = v.into();
+        pub fn set_tenant<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Tenant>,
+        {
+            self.0.request.tenant = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [tenant][crate::model::UpdateTenantRequest::tenant].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_tenant<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Tenant>,
+        {
+            self.0.request.tenant = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateTenantRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateTenantRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }

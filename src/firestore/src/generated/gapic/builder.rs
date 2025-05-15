@@ -124,11 +124,20 @@ pub mod firestore {
         }
 
         /// Sets the value of [mask][crate::model::GetDocumentRequest::mask].
-        pub fn set_mask<T: Into<std::option::Option<crate::model::DocumentMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.mask = v.into();
+        pub fn set_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::DocumentMask>,
+        {
+            self.0.request.mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [mask][crate::model::GetDocumentRequest::mask].
+        pub fn set_or_clear_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::DocumentMask>,
+        {
+            self.0.request.mask = v.map(|x| x.into());
             self
         }
 
@@ -285,11 +294,20 @@ pub mod firestore {
         }
 
         /// Sets the value of [mask][crate::model::ListDocumentsRequest::mask].
-        pub fn set_mask<T: Into<std::option::Option<crate::model::DocumentMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.mask = v.into();
+        pub fn set_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::DocumentMask>,
+        {
+            self.0.request.mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [mask][crate::model::ListDocumentsRequest::mask].
+        pub fn set_or_clear_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::DocumentMask>,
+        {
+            self.0.request.mask = v.map(|x| x.into());
             self
         }
 
@@ -394,38 +412,76 @@ pub mod firestore {
         /// Sets the value of [document][crate::model::UpdateDocumentRequest::document].
         ///
         /// This is a **required** field for requests.
-        pub fn set_document<T: Into<std::option::Option<crate::model::Document>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.document = v.into();
+        pub fn set_document<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Document>,
+        {
+            self.0.request.document = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [document][crate::model::UpdateDocumentRequest::document].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_document<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Document>,
+        {
+            self.0.request.document = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateDocumentRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<crate::model::DocumentMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::DocumentMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateDocumentRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::DocumentMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [mask][crate::model::UpdateDocumentRequest::mask].
-        pub fn set_mask<T: Into<std::option::Option<crate::model::DocumentMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.mask = v.into();
+        pub fn set_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::DocumentMask>,
+        {
+            self.0.request.mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [mask][crate::model::UpdateDocumentRequest::mask].
+        pub fn set_or_clear_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::DocumentMask>,
+        {
+            self.0.request.mask = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [current_document][crate::model::UpdateDocumentRequest::current_document].
-        pub fn set_current_document<T: Into<std::option::Option<crate::model::Precondition>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.current_document = v.into();
+        pub fn set_current_document<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Precondition>,
+        {
+            self.0.request.current_document = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [current_document][crate::model::UpdateDocumentRequest::current_document].
+        pub fn set_or_clear_current_document<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Precondition>,
+        {
+            self.0.request.current_document = v.map(|x| x.into());
             self
         }
     }
@@ -493,11 +549,20 @@ pub mod firestore {
         }
 
         /// Sets the value of [current_document][crate::model::DeleteDocumentRequest::current_document].
-        pub fn set_current_document<T: Into<std::option::Option<crate::model::Precondition>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.current_document = v.into();
+        pub fn set_current_document<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Precondition>,
+        {
+            self.0.request.current_document = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [current_document][crate::model::DeleteDocumentRequest::current_document].
+        pub fn set_or_clear_current_document<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Precondition>,
+        {
+            self.0.request.current_document = v.map(|x| x.into());
             self
         }
     }
@@ -568,11 +633,20 @@ pub mod firestore {
         }
 
         /// Sets the value of [options][crate::model::BeginTransactionRequest::options].
-        pub fn set_options<T: Into<std::option::Option<crate::model::TransactionOptions>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.options = v.into();
+        pub fn set_options<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::TransactionOptions>,
+        {
+            self.0.request.options = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [options][crate::model::BeginTransactionRequest::options].
+        pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::TransactionOptions>,
+        {
+            self.0.request.options = v.map(|x| x.into());
             self
         }
     }
@@ -1160,20 +1234,40 @@ pub mod firestore {
         /// Sets the value of [document][crate::model::CreateDocumentRequest::document].
         ///
         /// This is a **required** field for requests.
-        pub fn set_document<T: Into<std::option::Option<crate::model::Document>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.document = v.into();
+        pub fn set_document<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Document>,
+        {
+            self.0.request.document = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [document][crate::model::CreateDocumentRequest::document].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_document<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Document>,
+        {
+            self.0.request.document = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [mask][crate::model::CreateDocumentRequest::mask].
-        pub fn set_mask<T: Into<std::option::Option<crate::model::DocumentMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.mask = v.into();
+        pub fn set_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::DocumentMask>,
+        {
+            self.0.request.mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [mask][crate::model::CreateDocumentRequest::mask].
+        pub fn set_or_clear_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::DocumentMask>,
+        {
+            self.0.request.mask = v.map(|x| x.into());
             self
         }
     }

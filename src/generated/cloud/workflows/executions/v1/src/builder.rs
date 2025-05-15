@@ -247,11 +247,22 @@ pub mod executions {
         /// Sets the value of [execution][crate::model::CreateExecutionRequest::execution].
         ///
         /// This is a **required** field for requests.
-        pub fn set_execution<T: Into<std::option::Option<crate::model::Execution>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.execution = v.into();
+        pub fn set_execution<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Execution>,
+        {
+            self.0.request.execution = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [execution][crate::model::CreateExecutionRequest::execution].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_execution<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Execution>,
+        {
+            self.0.request.execution = v.map(|x| x.into());
             self
         }
     }

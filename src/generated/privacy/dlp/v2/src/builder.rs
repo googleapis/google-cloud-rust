@@ -122,20 +122,38 @@ pub mod dlp_service {
         }
 
         /// Sets the value of [inspect_config][crate::model::InspectContentRequest::inspect_config].
-        pub fn set_inspect_config<T: Into<std::option::Option<crate::model::InspectConfig>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.inspect_config = v.into();
+        pub fn set_inspect_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::InspectConfig>,
+        {
+            self.0.request.inspect_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [inspect_config][crate::model::InspectContentRequest::inspect_config].
+        pub fn set_or_clear_inspect_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::InspectConfig>,
+        {
+            self.0.request.inspect_config = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [item][crate::model::InspectContentRequest::item].
-        pub fn set_item<T: Into<std::option::Option<crate::model::ContentItem>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.item = v.into();
+        pub fn set_item<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::ContentItem>,
+        {
+            self.0.request.item = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [item][crate::model::InspectContentRequest::item].
+        pub fn set_or_clear_item<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::ContentItem>,
+        {
+            self.0.request.item = v.map(|x| x.into());
             self
         }
 
@@ -219,11 +237,20 @@ pub mod dlp_service {
         }
 
         /// Sets the value of [inspect_config][crate::model::RedactImageRequest::inspect_config].
-        pub fn set_inspect_config<T: Into<std::option::Option<crate::model::InspectConfig>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.inspect_config = v.into();
+        pub fn set_inspect_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::InspectConfig>,
+        {
+            self.0.request.inspect_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [inspect_config][crate::model::RedactImageRequest::inspect_config].
+        pub fn set_or_clear_inspect_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::InspectConfig>,
+        {
+            self.0.request.inspect_config = v.map(|x| x.into());
             self
         }
 
@@ -245,11 +272,20 @@ pub mod dlp_service {
         }
 
         /// Sets the value of [byte_item][crate::model::RedactImageRequest::byte_item].
-        pub fn set_byte_item<T: Into<std::option::Option<crate::model::ByteContentItem>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.byte_item = v.into();
+        pub fn set_byte_item<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::ByteContentItem>,
+        {
+            self.0.request.byte_item = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [byte_item][crate::model::RedactImageRequest::byte_item].
+        pub fn set_or_clear_byte_item<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::ByteContentItem>,
+        {
+            self.0.request.byte_item = v.map(|x| x.into());
             self
         }
     }
@@ -318,31 +354,56 @@ pub mod dlp_service {
         }
 
         /// Sets the value of [deidentify_config][crate::model::DeidentifyContentRequest::deidentify_config].
-        pub fn set_deidentify_config<
-            T: Into<std::option::Option<crate::model::DeidentifyConfig>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.deidentify_config = v.into();
+        pub fn set_deidentify_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::DeidentifyConfig>,
+        {
+            self.0.request.deidentify_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [deidentify_config][crate::model::DeidentifyContentRequest::deidentify_config].
+        pub fn set_or_clear_deidentify_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::DeidentifyConfig>,
+        {
+            self.0.request.deidentify_config = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [inspect_config][crate::model::DeidentifyContentRequest::inspect_config].
-        pub fn set_inspect_config<T: Into<std::option::Option<crate::model::InspectConfig>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.inspect_config = v.into();
+        pub fn set_inspect_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::InspectConfig>,
+        {
+            self.0.request.inspect_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [inspect_config][crate::model::DeidentifyContentRequest::inspect_config].
+        pub fn set_or_clear_inspect_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::InspectConfig>,
+        {
+            self.0.request.inspect_config = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [item][crate::model::DeidentifyContentRequest::item].
-        pub fn set_item<T: Into<std::option::Option<crate::model::ContentItem>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.item = v.into();
+        pub fn set_item<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::ContentItem>,
+        {
+            self.0.request.item = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [item][crate::model::DeidentifyContentRequest::item].
+        pub fn set_or_clear_item<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::ContentItem>,
+        {
+            self.0.request.item = v.map(|x| x.into());
             self
         }
 
@@ -431,31 +492,56 @@ pub mod dlp_service {
         }
 
         /// Sets the value of [reidentify_config][crate::model::ReidentifyContentRequest::reidentify_config].
-        pub fn set_reidentify_config<
-            T: Into<std::option::Option<crate::model::DeidentifyConfig>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.reidentify_config = v.into();
+        pub fn set_reidentify_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::DeidentifyConfig>,
+        {
+            self.0.request.reidentify_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [reidentify_config][crate::model::ReidentifyContentRequest::reidentify_config].
+        pub fn set_or_clear_reidentify_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::DeidentifyConfig>,
+        {
+            self.0.request.reidentify_config = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [inspect_config][crate::model::ReidentifyContentRequest::inspect_config].
-        pub fn set_inspect_config<T: Into<std::option::Option<crate::model::InspectConfig>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.inspect_config = v.into();
+        pub fn set_inspect_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::InspectConfig>,
+        {
+            self.0.request.inspect_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [inspect_config][crate::model::ReidentifyContentRequest::inspect_config].
+        pub fn set_or_clear_inspect_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::InspectConfig>,
+        {
+            self.0.request.inspect_config = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [item][crate::model::ReidentifyContentRequest::item].
-        pub fn set_item<T: Into<std::option::Option<crate::model::ContentItem>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.item = v.into();
+        pub fn set_item<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::ContentItem>,
+        {
+            self.0.request.item = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [item][crate::model::ReidentifyContentRequest::item].
+        pub fn set_or_clear_item<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::ContentItem>,
+        {
+            self.0.request.item = v.map(|x| x.into());
             self
         }
 
@@ -625,11 +711,22 @@ pub mod dlp_service {
         /// Sets the value of [inspect_template][crate::model::CreateInspectTemplateRequest::inspect_template].
         ///
         /// This is a **required** field for requests.
-        pub fn set_inspect_template<T: Into<std::option::Option<crate::model::InspectTemplate>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.inspect_template = v.into();
+        pub fn set_inspect_template<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::InspectTemplate>,
+        {
+            self.0.request.inspect_template = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [inspect_template][crate::model::CreateInspectTemplateRequest::inspect_template].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_inspect_template<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::InspectTemplate>,
+        {
+            self.0.request.inspect_template = v.map(|x| x.into());
             self
         }
 
@@ -712,20 +809,38 @@ pub mod dlp_service {
         }
 
         /// Sets the value of [inspect_template][crate::model::UpdateInspectTemplateRequest::inspect_template].
-        pub fn set_inspect_template<T: Into<std::option::Option<crate::model::InspectTemplate>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.inspect_template = v.into();
+        pub fn set_inspect_template<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::InspectTemplate>,
+        {
+            self.0.request.inspect_template = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [inspect_template][crate::model::UpdateInspectTemplateRequest::inspect_template].
+        pub fn set_or_clear_inspect_template<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::InspectTemplate>,
+        {
+            self.0.request.inspect_template = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateInspectTemplateRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateInspectTemplateRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -1052,13 +1167,22 @@ pub mod dlp_service {
         /// Sets the value of [deidentify_template][crate::model::CreateDeidentifyTemplateRequest::deidentify_template].
         ///
         /// This is a **required** field for requests.
-        pub fn set_deidentify_template<
-            T: Into<std::option::Option<crate::model::DeidentifyTemplate>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.deidentify_template = v.into();
+        pub fn set_deidentify_template<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::DeidentifyTemplate>,
+        {
+            self.0.request.deidentify_template = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [deidentify_template][crate::model::CreateDeidentifyTemplateRequest::deidentify_template].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_deidentify_template<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::DeidentifyTemplate>,
+        {
+            self.0.request.deidentify_template = v.map(|x| x.into());
             self
         }
 
@@ -1143,22 +1267,38 @@ pub mod dlp_service {
         }
 
         /// Sets the value of [deidentify_template][crate::model::UpdateDeidentifyTemplateRequest::deidentify_template].
-        pub fn set_deidentify_template<
-            T: Into<std::option::Option<crate::model::DeidentifyTemplate>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.deidentify_template = v.into();
+        pub fn set_deidentify_template<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::DeidentifyTemplate>,
+        {
+            self.0.request.deidentify_template = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [deidentify_template][crate::model::UpdateDeidentifyTemplateRequest::deidentify_template].
+        pub fn set_or_clear_deidentify_template<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::DeidentifyTemplate>,
+        {
+            self.0.request.deidentify_template = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateDeidentifyTemplateRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateDeidentifyTemplateRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -1489,11 +1629,22 @@ pub mod dlp_service {
         /// Sets the value of [job_trigger][crate::model::CreateJobTriggerRequest::job_trigger].
         ///
         /// This is a **required** field for requests.
-        pub fn set_job_trigger<T: Into<std::option::Option<crate::model::JobTrigger>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.job_trigger = v.into();
+        pub fn set_job_trigger<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::JobTrigger>,
+        {
+            self.0.request.job_trigger = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [job_trigger][crate::model::CreateJobTriggerRequest::job_trigger].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_job_trigger<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::JobTrigger>,
+        {
+            self.0.request.job_trigger = v.map(|x| x.into());
             self
         }
 
@@ -1576,20 +1727,38 @@ pub mod dlp_service {
         }
 
         /// Sets the value of [job_trigger][crate::model::UpdateJobTriggerRequest::job_trigger].
-        pub fn set_job_trigger<T: Into<std::option::Option<crate::model::JobTrigger>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.job_trigger = v.into();
+        pub fn set_job_trigger<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::JobTrigger>,
+        {
+            self.0.request.job_trigger = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [job_trigger][crate::model::UpdateJobTriggerRequest::job_trigger].
+        pub fn set_or_clear_job_trigger<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::JobTrigger>,
+        {
+            self.0.request.job_trigger = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateJobTriggerRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateJobTriggerRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -1662,11 +1831,20 @@ pub mod dlp_service {
         }
 
         /// Sets the value of [hybrid_item][crate::model::HybridInspectJobTriggerRequest::hybrid_item].
-        pub fn set_hybrid_item<T: Into<std::option::Option<crate::model::HybridContentItem>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.hybrid_item = v.into();
+        pub fn set_hybrid_item<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::HybridContentItem>,
+        {
+            self.0.request.hybrid_item = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [hybrid_item][crate::model::HybridInspectJobTriggerRequest::hybrid_item].
+        pub fn set_or_clear_hybrid_item<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::HybridContentItem>,
+        {
+            self.0.request.hybrid_item = v.map(|x| x.into());
             self
         }
     }
@@ -2061,11 +2239,22 @@ pub mod dlp_service {
         /// Sets the value of [discovery_config][crate::model::CreateDiscoveryConfigRequest::discovery_config].
         ///
         /// This is a **required** field for requests.
-        pub fn set_discovery_config<T: Into<std::option::Option<crate::model::DiscoveryConfig>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.discovery_config = v.into();
+        pub fn set_discovery_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::DiscoveryConfig>,
+        {
+            self.0.request.discovery_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [discovery_config][crate::model::CreateDiscoveryConfigRequest::discovery_config].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_discovery_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::DiscoveryConfig>,
+        {
+            self.0.request.discovery_config = v.map(|x| x.into());
             self
         }
 
@@ -2144,20 +2333,40 @@ pub mod dlp_service {
         /// Sets the value of [discovery_config][crate::model::UpdateDiscoveryConfigRequest::discovery_config].
         ///
         /// This is a **required** field for requests.
-        pub fn set_discovery_config<T: Into<std::option::Option<crate::model::DiscoveryConfig>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.discovery_config = v.into();
+        pub fn set_discovery_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::DiscoveryConfig>,
+        {
+            self.0.request.discovery_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [discovery_config][crate::model::UpdateDiscoveryConfigRequest::discovery_config].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_discovery_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::DiscoveryConfig>,
+        {
+            self.0.request.discovery_config = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateDiscoveryConfigRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateDiscoveryConfigRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -2909,11 +3118,22 @@ pub mod dlp_service {
         /// Sets the value of [config][crate::model::CreateStoredInfoTypeRequest::config].
         ///
         /// This is a **required** field for requests.
-        pub fn set_config<T: Into<std::option::Option<crate::model::StoredInfoTypeConfig>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.config = v.into();
+        pub fn set_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::StoredInfoTypeConfig>,
+        {
+            self.0.request.config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [config][crate::model::CreateStoredInfoTypeRequest::config].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::StoredInfoTypeConfig>,
+        {
+            self.0.request.config = v.map(|x| x.into());
             self
         }
 
@@ -2996,20 +3216,38 @@ pub mod dlp_service {
         }
 
         /// Sets the value of [config][crate::model::UpdateStoredInfoTypeRequest::config].
-        pub fn set_config<T: Into<std::option::Option<crate::model::StoredInfoTypeConfig>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.config = v.into();
+        pub fn set_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::StoredInfoTypeConfig>,
+        {
+            self.0.request.config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [config][crate::model::UpdateStoredInfoTypeRequest::config].
+        pub fn set_or_clear_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::StoredInfoTypeConfig>,
+        {
+            self.0.request.config = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateStoredInfoTypeRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateStoredInfoTypeRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -4222,11 +4460,20 @@ pub mod dlp_service {
         }
 
         /// Sets the value of [hybrid_item][crate::model::HybridInspectDlpJobRequest::hybrid_item].
-        pub fn set_hybrid_item<T: Into<std::option::Option<crate::model::HybridContentItem>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.hybrid_item = v.into();
+        pub fn set_hybrid_item<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::HybridContentItem>,
+        {
+            self.0.request.hybrid_item = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [hybrid_item][crate::model::HybridInspectDlpJobRequest::hybrid_item].
+        pub fn set_or_clear_hybrid_item<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::HybridContentItem>,
+        {
+            self.0.request.hybrid_item = v.map(|x| x.into());
             self
         }
     }
@@ -4362,11 +4609,22 @@ pub mod dlp_service {
         /// Sets the value of [connection][crate::model::CreateConnectionRequest::connection].
         ///
         /// This is a **required** field for requests.
-        pub fn set_connection<T: Into<std::option::Option<crate::model::Connection>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.connection = v.into();
+        pub fn set_connection<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Connection>,
+        {
+            self.0.request.connection = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [connection][crate::model::CreateConnectionRequest::connection].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_connection<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Connection>,
+        {
+            self.0.request.connection = v.map(|x| x.into());
             self
         }
     }
@@ -4789,20 +5047,40 @@ pub mod dlp_service {
         /// Sets the value of [connection][crate::model::UpdateConnectionRequest::connection].
         ///
         /// This is a **required** field for requests.
-        pub fn set_connection<T: Into<std::option::Option<crate::model::Connection>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.connection = v.into();
+        pub fn set_connection<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Connection>,
+        {
+            self.0.request.connection = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [connection][crate::model::UpdateConnectionRequest::connection].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_connection<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Connection>,
+        {
+            self.0.request.connection = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateConnectionRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateConnectionRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }

@@ -171,11 +171,22 @@ pub mod cloud_build {
         /// Sets the value of [build][crate::model::CreateBuildRequest::build].
         ///
         /// This is a **required** field for requests.
-        pub fn set_build<T: Into<std::option::Option<crate::model::Build>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.build = v.into();
+        pub fn set_build<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Build>,
+        {
+            self.0.request.build = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [build][crate::model::CreateBuildRequest::build].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_build<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Build>,
+        {
+            self.0.request.build = v.map(|x| x.into());
             self
         }
     }
@@ -667,11 +678,20 @@ pub mod cloud_build {
         }
 
         /// Sets the value of [approval_result][crate::model::ApproveBuildRequest::approval_result].
-        pub fn set_approval_result<T: Into<std::option::Option<crate::model::ApprovalResult>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.approval_result = v.into();
+        pub fn set_approval_result<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::ApprovalResult>,
+        {
+            self.0.request.approval_result = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [approval_result][crate::model::ApproveBuildRequest::approval_result].
+        pub fn set_or_clear_approval_result<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::ApprovalResult>,
+        {
+            self.0.request.approval_result = v.map(|x| x.into());
             self
         }
     }
@@ -750,11 +770,22 @@ pub mod cloud_build {
         /// Sets the value of [trigger][crate::model::CreateBuildTriggerRequest::trigger].
         ///
         /// This is a **required** field for requests.
-        pub fn set_trigger<T: Into<std::option::Option<crate::model::BuildTrigger>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.trigger = v.into();
+        pub fn set_trigger<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::BuildTrigger>,
+        {
+            self.0.request.trigger = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [trigger][crate::model::CreateBuildTriggerRequest::trigger].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_trigger<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::BuildTrigger>,
+        {
+            self.0.request.trigger = v.map(|x| x.into());
             self
         }
     }
@@ -1104,20 +1135,40 @@ pub mod cloud_build {
         /// Sets the value of [trigger][crate::model::UpdateBuildTriggerRequest::trigger].
         ///
         /// This is a **required** field for requests.
-        pub fn set_trigger<T: Into<std::option::Option<crate::model::BuildTrigger>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.trigger = v.into();
+        pub fn set_trigger<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::BuildTrigger>,
+        {
+            self.0.request.trigger = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [trigger][crate::model::UpdateBuildTriggerRequest::trigger].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_trigger<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::BuildTrigger>,
+        {
+            self.0.request.trigger = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateBuildTriggerRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateBuildTriggerRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -1238,11 +1289,20 @@ pub mod cloud_build {
         }
 
         /// Sets the value of [source][crate::model::RunBuildTriggerRequest::source].
-        pub fn set_source<T: Into<std::option::Option<crate::model::RepoSource>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.source = v.into();
+        pub fn set_source<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::RepoSource>,
+        {
+            self.0.request.source = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [source][crate::model::RunBuildTriggerRequest::source].
+        pub fn set_or_clear_source<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::RepoSource>,
+        {
+            self.0.request.source = v.map(|x| x.into());
             self
         }
     }
@@ -1311,11 +1371,20 @@ pub mod cloud_build {
         }
 
         /// Sets the value of [body][crate::model::ReceiveTriggerWebhookRequest::body].
-        pub fn set_body<T: Into<std::option::Option<api::model::HttpBody>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.body = v.into();
+        pub fn set_body<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<api::model::HttpBody>,
+        {
+            self.0.request.body = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [body][crate::model::ReceiveTriggerWebhookRequest::body].
+        pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<api::model::HttpBody>,
+        {
+            self.0.request.body = v.map(|x| x.into());
             self
         }
 
@@ -1448,11 +1517,22 @@ pub mod cloud_build {
         /// Sets the value of [worker_pool][crate::model::CreateWorkerPoolRequest::worker_pool].
         ///
         /// This is a **required** field for requests.
-        pub fn set_worker_pool<T: Into<std::option::Option<crate::model::WorkerPool>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.worker_pool = v.into();
+        pub fn set_worker_pool<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::WorkerPool>,
+        {
+            self.0.request.worker_pool = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [worker_pool][crate::model::CreateWorkerPoolRequest::worker_pool].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_worker_pool<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::WorkerPool>,
+        {
+            self.0.request.worker_pool = v.map(|x| x.into());
             self
         }
 
@@ -1766,20 +1846,40 @@ pub mod cloud_build {
         /// Sets the value of [worker_pool][crate::model::UpdateWorkerPoolRequest::worker_pool].
         ///
         /// This is a **required** field for requests.
-        pub fn set_worker_pool<T: Into<std::option::Option<crate::model::WorkerPool>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.worker_pool = v.into();
+        pub fn set_worker_pool<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::WorkerPool>,
+        {
+            self.0.request.worker_pool = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [worker_pool][crate::model::UpdateWorkerPoolRequest::worker_pool].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_worker_pool<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::WorkerPool>,
+        {
+            self.0.request.worker_pool = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateWorkerPoolRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateWorkerPoolRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 

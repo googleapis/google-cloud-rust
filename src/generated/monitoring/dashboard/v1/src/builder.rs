@@ -126,11 +126,22 @@ pub mod dashboards_service {
         /// Sets the value of [dashboard][crate::model::CreateDashboardRequest::dashboard].
         ///
         /// This is a **required** field for requests.
-        pub fn set_dashboard<T: Into<std::option::Option<crate::model::Dashboard>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.dashboard = v.into();
+        pub fn set_dashboard<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Dashboard>,
+        {
+            self.0.request.dashboard = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [dashboard][crate::model::CreateDashboardRequest::dashboard].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_dashboard<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Dashboard>,
+        {
+            self.0.request.dashboard = v.map(|x| x.into());
             self
         }
 
@@ -427,11 +438,22 @@ pub mod dashboards_service {
         /// Sets the value of [dashboard][crate::model::UpdateDashboardRequest::dashboard].
         ///
         /// This is a **required** field for requests.
-        pub fn set_dashboard<T: Into<std::option::Option<crate::model::Dashboard>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.dashboard = v.into();
+        pub fn set_dashboard<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Dashboard>,
+        {
+            self.0.request.dashboard = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [dashboard][crate::model::UpdateDashboardRequest::dashboard].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_dashboard<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Dashboard>,
+        {
+            self.0.request.dashboard = v.map(|x| x.into());
             self
         }
 

@@ -177,11 +177,20 @@ pub mod datastore_admin {
         }
 
         /// Sets the value of [entity_filter][crate::model::ExportEntitiesRequest::entity_filter].
-        pub fn set_entity_filter<T: Into<std::option::Option<crate::model::EntityFilter>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.entity_filter = v.into();
+        pub fn set_entity_filter<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::EntityFilter>,
+        {
+            self.0.request.entity_filter = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [entity_filter][crate::model::ExportEntitiesRequest::entity_filter].
+        pub fn set_or_clear_entity_filter<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::EntityFilter>,
+        {
+            self.0.request.entity_filter = v.map(|x| x.into());
             self
         }
 
@@ -318,11 +327,20 @@ pub mod datastore_admin {
         }
 
         /// Sets the value of [entity_filter][crate::model::ImportEntitiesRequest::entity_filter].
-        pub fn set_entity_filter<T: Into<std::option::Option<crate::model::EntityFilter>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.entity_filter = v.into();
+        pub fn set_entity_filter<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::EntityFilter>,
+        {
+            self.0.request.entity_filter = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [entity_filter][crate::model::ImportEntitiesRequest::entity_filter].
+        pub fn set_or_clear_entity_filter<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::EntityFilter>,
+        {
+            self.0.request.entity_filter = v.map(|x| x.into());
             self
         }
     }
@@ -427,11 +445,20 @@ pub mod datastore_admin {
         }
 
         /// Sets the value of [index][crate::model::CreateIndexRequest::index].
-        pub fn set_index<T: Into<std::option::Option<crate::model::Index>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.index = v.into();
+        pub fn set_index<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Index>,
+        {
+            self.0.request.index = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [index][crate::model::CreateIndexRequest::index].
+        pub fn set_or_clear_index<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Index>,
+        {
+            self.0.request.index = v.map(|x| x.into());
             self
         }
     }

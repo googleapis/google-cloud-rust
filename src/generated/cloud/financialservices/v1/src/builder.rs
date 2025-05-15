@@ -343,11 +343,22 @@ pub mod aml {
         /// Sets the value of [instance][crate::model::CreateInstanceRequest::instance].
         ///
         /// This is a **required** field for requests.
-        pub fn set_instance<T: Into<std::option::Option<crate::model::Instance>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.instance = v.into();
+        pub fn set_instance<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Instance>,
+        {
+            self.0.request.instance = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [instance][crate::model::CreateInstanceRequest::instance].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_instance<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Instance>,
+        {
+            self.0.request.instance = v.map(|x| x.into());
             self
         }
 
@@ -450,22 +461,42 @@ pub mod aml {
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateInstanceRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateInstanceRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [instance][crate::model::UpdateInstanceRequest::instance].
         ///
         /// This is a **required** field for requests.
-        pub fn set_instance<T: Into<std::option::Option<crate::model::Instance>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.instance = v.into();
+        pub fn set_instance<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Instance>,
+        {
+            self.0.request.instance = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [instance][crate::model::UpdateInstanceRequest::instance].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_instance<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Instance>,
+        {
+            self.0.request.instance = v.map(|x| x.into());
             self
         }
 
@@ -842,11 +873,22 @@ pub mod aml {
         /// Sets the value of [dataset][crate::model::ExportRegisteredPartiesRequest::dataset].
         ///
         /// This is a **required** field for requests.
-        pub fn set_dataset<T: Into<std::option::Option<crate::model::BigQueryDestination>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.dataset = v.into();
+        pub fn set_dataset<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::BigQueryDestination>,
+        {
+            self.0.request.dataset = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [dataset][crate::model::ExportRegisteredPartiesRequest::dataset].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_dataset<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::BigQueryDestination>,
+        {
+            self.0.request.dataset = v.map(|x| x.into());
             self
         }
 
@@ -1143,11 +1185,22 @@ pub mod aml {
         /// Sets the value of [dataset][crate::model::CreateDatasetRequest::dataset].
         ///
         /// This is a **required** field for requests.
-        pub fn set_dataset<T: Into<std::option::Option<crate::model::Dataset>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.dataset = v.into();
+        pub fn set_dataset<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Dataset>,
+        {
+            self.0.request.dataset = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [dataset][crate::model::CreateDatasetRequest::dataset].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_dataset<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Dataset>,
+        {
+            self.0.request.dataset = v.map(|x| x.into());
             self
         }
 
@@ -1250,22 +1303,42 @@ pub mod aml {
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateDatasetRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateDatasetRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [dataset][crate::model::UpdateDatasetRequest::dataset].
         ///
         /// This is a **required** field for requests.
-        pub fn set_dataset<T: Into<std::option::Option<crate::model::Dataset>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.dataset = v.into();
+        pub fn set_dataset<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Dataset>,
+        {
+            self.0.request.dataset = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [dataset][crate::model::UpdateDatasetRequest::dataset].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_dataset<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Dataset>,
+        {
+            self.0.request.dataset = v.map(|x| x.into());
             self
         }
 
@@ -1668,11 +1741,22 @@ pub mod aml {
         /// Sets the value of [model][crate::model::CreateModelRequest::model].
         ///
         /// This is a **required** field for requests.
-        pub fn set_model<T: Into<std::option::Option<crate::model::Model>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.model = v.into();
+        pub fn set_model<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Model>,
+        {
+            self.0.request.model = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [model][crate::model::CreateModelRequest::model].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_model<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Model>,
+        {
+            self.0.request.model = v.map(|x| x.into());
             self
         }
 
@@ -1775,22 +1859,42 @@ pub mod aml {
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateModelRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateModelRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [model][crate::model::UpdateModelRequest::model].
         ///
         /// This is a **required** field for requests.
-        pub fn set_model<T: Into<std::option::Option<crate::model::Model>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.model = v.into();
+        pub fn set_model<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Model>,
+        {
+            self.0.request.model = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [model][crate::model::UpdateModelRequest::model].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_model<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Model>,
+        {
+            self.0.request.model = v.map(|x| x.into());
             self
         }
 
@@ -1909,13 +2013,25 @@ pub mod aml {
         /// Sets the value of [structured_metadata_destination][crate::model::ExportModelMetadataRequest::structured_metadata_destination].
         ///
         /// This is a **required** field for requests.
-        pub fn set_structured_metadata_destination<
-            T: Into<std::option::Option<crate::model::BigQueryDestination>>,
-        >(
+        pub fn set_structured_metadata_destination<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::BigQueryDestination>,
+        {
+            self.0.request.structured_metadata_destination = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [structured_metadata_destination][crate::model::ExportModelMetadataRequest::structured_metadata_destination].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_structured_metadata_destination<T>(
             mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.structured_metadata_destination = v.into();
+            v: std::option::Option<T>,
+        ) -> Self
+        where
+            T: std::convert::Into<crate::model::BigQueryDestination>,
+        {
+            self.0.request.structured_metadata_destination = v.map(|x| x.into());
             self
         }
     }
@@ -2320,11 +2436,22 @@ pub mod aml {
         /// Sets the value of [engine_config][crate::model::CreateEngineConfigRequest::engine_config].
         ///
         /// This is a **required** field for requests.
-        pub fn set_engine_config<T: Into<std::option::Option<crate::model::EngineConfig>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.engine_config = v.into();
+        pub fn set_engine_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::EngineConfig>,
+        {
+            self.0.request.engine_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [engine_config][crate::model::CreateEngineConfigRequest::engine_config].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_engine_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::EngineConfig>,
+        {
+            self.0.request.engine_config = v.map(|x| x.into());
             self
         }
 
@@ -2432,22 +2559,42 @@ pub mod aml {
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateEngineConfigRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateEngineConfigRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [engine_config][crate::model::UpdateEngineConfigRequest::engine_config].
         ///
         /// This is a **required** field for requests.
-        pub fn set_engine_config<T: Into<std::option::Option<crate::model::EngineConfig>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.engine_config = v.into();
+        pub fn set_engine_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::EngineConfig>,
+        {
+            self.0.request.engine_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [engine_config][crate::model::UpdateEngineConfigRequest::engine_config].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_engine_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::EngineConfig>,
+        {
+            self.0.request.engine_config = v.map(|x| x.into());
             self
         }
 
@@ -2570,13 +2717,25 @@ pub mod aml {
         /// Sets the value of [structured_metadata_destination][crate::model::ExportEngineConfigMetadataRequest::structured_metadata_destination].
         ///
         /// This is a **required** field for requests.
-        pub fn set_structured_metadata_destination<
-            T: Into<std::option::Option<crate::model::BigQueryDestination>>,
-        >(
+        pub fn set_structured_metadata_destination<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::BigQueryDestination>,
+        {
+            self.0.request.structured_metadata_destination = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [structured_metadata_destination][crate::model::ExportEngineConfigMetadataRequest::structured_metadata_destination].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_structured_metadata_destination<T>(
             mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.structured_metadata_destination = v.into();
+            v: std::option::Option<T>,
+        ) -> Self
+        where
+            T: std::convert::Into<crate::model::BigQueryDestination>,
+        {
+            self.0.request.structured_metadata_destination = v.map(|x| x.into());
             self
         }
     }
@@ -3172,13 +3331,22 @@ pub mod aml {
         /// Sets the value of [prediction_result][crate::model::CreatePredictionResultRequest::prediction_result].
         ///
         /// This is a **required** field for requests.
-        pub fn set_prediction_result<
-            T: Into<std::option::Option<crate::model::PredictionResult>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.prediction_result = v.into();
+        pub fn set_prediction_result<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::PredictionResult>,
+        {
+            self.0.request.prediction_result = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [prediction_result][crate::model::CreatePredictionResultRequest::prediction_result].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_prediction_result<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::PredictionResult>,
+        {
+            self.0.request.prediction_result = v.map(|x| x.into());
             self
         }
 
@@ -3287,24 +3455,42 @@ pub mod aml {
         }
 
         /// Sets the value of [update_mask][crate::model::UpdatePredictionResultRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdatePredictionResultRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [prediction_result][crate::model::UpdatePredictionResultRequest::prediction_result].
         ///
         /// This is a **required** field for requests.
-        pub fn set_prediction_result<
-            T: Into<std::option::Option<crate::model::PredictionResult>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.prediction_result = v.into();
+        pub fn set_prediction_result<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::PredictionResult>,
+        {
+            self.0.request.prediction_result = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [prediction_result][crate::model::UpdatePredictionResultRequest::prediction_result].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_prediction_result<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::PredictionResult>,
+        {
+            self.0.request.prediction_result = v.map(|x| x.into());
             self
         }
 
@@ -3427,13 +3613,25 @@ pub mod aml {
         /// Sets the value of [structured_metadata_destination][crate::model::ExportPredictionResultMetadataRequest::structured_metadata_destination].
         ///
         /// This is a **required** field for requests.
-        pub fn set_structured_metadata_destination<
-            T: Into<std::option::Option<crate::model::BigQueryDestination>>,
-        >(
+        pub fn set_structured_metadata_destination<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::BigQueryDestination>,
+        {
+            self.0.request.structured_metadata_destination = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [structured_metadata_destination][crate::model::ExportPredictionResultMetadataRequest::structured_metadata_destination].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_structured_metadata_destination<T>(
             mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.structured_metadata_destination = v.into();
+            v: std::option::Option<T>,
+        ) -> Self
+        where
+            T: std::convert::Into<crate::model::BigQueryDestination>,
+        {
+            self.0.request.structured_metadata_destination = v.map(|x| x.into());
             self
         }
     }
@@ -3847,11 +4045,22 @@ pub mod aml {
         /// Sets the value of [backtest_result][crate::model::CreateBacktestResultRequest::backtest_result].
         ///
         /// This is a **required** field for requests.
-        pub fn set_backtest_result<T: Into<std::option::Option<crate::model::BacktestResult>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.backtest_result = v.into();
+        pub fn set_backtest_result<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::BacktestResult>,
+        {
+            self.0.request.backtest_result = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [backtest_result][crate::model::CreateBacktestResultRequest::backtest_result].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_backtest_result<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::BacktestResult>,
+        {
+            self.0.request.backtest_result = v.map(|x| x.into());
             self
         }
 
@@ -3960,22 +4169,42 @@ pub mod aml {
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateBacktestResultRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateBacktestResultRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [backtest_result][crate::model::UpdateBacktestResultRequest::backtest_result].
         ///
         /// This is a **required** field for requests.
-        pub fn set_backtest_result<T: Into<std::option::Option<crate::model::BacktestResult>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.backtest_result = v.into();
+        pub fn set_backtest_result<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::BacktestResult>,
+        {
+            self.0.request.backtest_result = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [backtest_result][crate::model::UpdateBacktestResultRequest::backtest_result].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_backtest_result<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::BacktestResult>,
+        {
+            self.0.request.backtest_result = v.map(|x| x.into());
             self
         }
 
@@ -4098,13 +4327,25 @@ pub mod aml {
         /// Sets the value of [structured_metadata_destination][crate::model::ExportBacktestResultMetadataRequest::structured_metadata_destination].
         ///
         /// This is a **required** field for requests.
-        pub fn set_structured_metadata_destination<
-            T: Into<std::option::Option<crate::model::BigQueryDestination>>,
-        >(
+        pub fn set_structured_metadata_destination<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::BigQueryDestination>,
+        {
+            self.0.request.structured_metadata_destination = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [structured_metadata_destination][crate::model::ExportBacktestResultMetadataRequest::structured_metadata_destination].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_structured_metadata_destination<T>(
             mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.structured_metadata_destination = v.into();
+            v: std::option::Option<T>,
+        ) -> Self
+        where
+            T: std::convert::Into<crate::model::BigQueryDestination>,
+        {
+            self.0.request.structured_metadata_destination = v.map(|x| x.into());
             self
         }
     }

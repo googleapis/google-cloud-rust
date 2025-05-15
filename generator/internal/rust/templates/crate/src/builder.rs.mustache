@@ -251,10 +251,60 @@ pub mod {{Codec.ModuleName}} {
         #[deprecated]
         {{/Deprecated}}
         {{#Singular}}
+        {{^Optional}}
         pub fn set_{{Codec.SetterName}}<T: Into<{{{Codec.FieldType}}}>>(mut self, v: T) -> Self {
             self.0.request.{{Codec.FieldName}} = v.into();
             self
         }
+        {{/Optional}}
+        {{#Optional}}
+        {{^Codec.IsBoxed}}
+        pub fn set_{{Codec.SetterName}}<T>(mut self, v: T) -> Self
+        where T: std::convert::Into<{{{Codec.PrimitiveFieldType}}}>
+        {
+            self.0.request.{{Codec.FieldName}} = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [{{Codec.FieldName}}][{{Codec.FQMessageName}}::{{Codec.SetterName}}].
+        {{#DocumentAsRequired}}
+        ///
+        /// This is a **required** field for requests.
+        {{/DocumentAsRequired}}
+        {{#Deprecated}}
+        #[deprecated]
+        {{/Deprecated}}
+        pub fn set_or_clear_{{Codec.SetterName}}<T>(mut self, v: std::option::Option<T>) -> Self
+        where T: std::convert::Into<{{{Codec.PrimitiveFieldType}}}>
+        {
+            self.0.request.{{Codec.FieldName}} = v.map(|x| x.into());
+            self
+        }
+        {{/Codec.IsBoxed}}
+        {{#Codec.IsBoxed}}
+        pub fn set_{{Codec.SetterName}}<T>(mut self, v: T) -> Self
+        where T: std::convert::Into<{{{Codec.PrimitiveFieldType}}}>
+        {
+            self.0.request.{{Codec.FieldName}} = std::option::Option::Some(std::boxed::Box::new(v.into()));
+            self
+        }
+
+        /// Sets or clears the value of [{{Codec.FieldName}}][{{Codec.FQMessageName}}::{{Codec.SetterName}}].
+        {{#DocumentAsRequired}}
+        ///
+        /// This is a **required** field for requests.
+        {{/DocumentAsRequired}}
+        {{#Deprecated}}
+        #[deprecated]
+        {{/Deprecated}}
+        pub fn set_or_clear_{{Codec.SetterName}}<T>(mut self, v: std::option::Option<T>) -> Self
+        where T: std::convert::Into<{{{Codec.PrimitiveFieldType}}}>
+        {
+            self.0.request.{{Codec.FieldName}} = v.map(|x| std::boxed::Box::new(x.into()));
+            self
+        }
+        {{/Codec.IsBoxed}}
+        {{/Optional}}
         {{/Singular}}
         {{#Repeated}}
         pub fn set_{{Codec.SetterName}}<T, V>(mut self, v: T) -> Self

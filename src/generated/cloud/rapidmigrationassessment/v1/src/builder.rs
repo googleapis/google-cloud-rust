@@ -173,11 +173,22 @@ pub mod rapid_migration_assessment {
         /// Sets the value of [collector][crate::model::CreateCollectorRequest::collector].
         ///
         /// This is a **required** field for requests.
-        pub fn set_collector<T: Into<std::option::Option<crate::model::Collector>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.collector = v.into();
+        pub fn set_collector<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Collector>,
+        {
+            self.0.request.collector = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [collector][crate::model::CreateCollectorRequest::collector].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_collector<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Collector>,
+        {
+            self.0.request.collector = v.map(|x| x.into());
             self
         }
 
@@ -295,11 +306,22 @@ pub mod rapid_migration_assessment {
         /// Sets the value of [annotation][crate::model::CreateAnnotationRequest::annotation].
         ///
         /// This is a **required** field for requests.
-        pub fn set_annotation<T: Into<std::option::Option<crate::model::Annotation>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.annotation = v.into();
+        pub fn set_annotation<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Annotation>,
+        {
+            self.0.request.annotation = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [annotation][crate::model::CreateAnnotationRequest::annotation].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_annotation<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Annotation>,
+        {
+            self.0.request.annotation = v.map(|x| x.into());
             self
         }
 
@@ -647,22 +669,44 @@ pub mod rapid_migration_assessment {
         /// Sets the value of [update_mask][crate::model::UpdateCollectorRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateCollectorRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [collector][crate::model::UpdateCollectorRequest::collector].
         ///
         /// This is a **required** field for requests.
-        pub fn set_collector<T: Into<std::option::Option<crate::model::Collector>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.collector = v.into();
+        pub fn set_collector<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Collector>,
+        {
+            self.0.request.collector = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [collector][crate::model::UpdateCollectorRequest::collector].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_collector<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Collector>,
+        {
+            self.0.request.collector = v.map(|x| x.into());
             self
         }
 

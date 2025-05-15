@@ -264,11 +264,20 @@ impl Location {
     }
 
     /// Sets the value of [metadata][crate::model::Location::metadata].
-    pub fn set_metadata<T: std::convert::Into<std::option::Option<wkt::Any>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.metadata = v.into();
+    pub fn set_metadata<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Any>,
+    {
+        self.metadata = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [metadata][crate::model::Location::metadata].
+    pub fn set_or_clear_metadata<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Any>,
+    {
+        self.metadata = v.map(|x| x.into());
         self
     }
 }

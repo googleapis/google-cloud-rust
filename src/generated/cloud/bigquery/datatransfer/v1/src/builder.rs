@@ -295,11 +295,22 @@ pub mod data_transfer_service {
         /// Sets the value of [transfer_config][crate::model::CreateTransferConfigRequest::transfer_config].
         ///
         /// This is a **required** field for requests.
-        pub fn set_transfer_config<T: Into<std::option::Option<crate::model::TransferConfig>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.transfer_config = v.into();
+        pub fn set_transfer_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::TransferConfig>,
+        {
+            self.0.request.transfer_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [transfer_config][crate::model::CreateTransferConfigRequest::transfer_config].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_transfer_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::TransferConfig>,
+        {
+            self.0.request.transfer_config = v.map(|x| x.into());
             self
         }
 
@@ -383,11 +394,22 @@ pub mod data_transfer_service {
         /// Sets the value of [transfer_config][crate::model::UpdateTransferConfigRequest::transfer_config].
         ///
         /// This is a **required** field for requests.
-        pub fn set_transfer_config<T: Into<std::option::Option<crate::model::TransferConfig>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.transfer_config = v.into();
+        pub fn set_transfer_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::TransferConfig>,
+        {
+            self.0.request.transfer_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [transfer_config][crate::model::UpdateTransferConfigRequest::transfer_config].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_transfer_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::TransferConfig>,
+        {
+            self.0.request.transfer_config = v.map(|x| x.into());
             self
         }
 
@@ -401,11 +423,22 @@ pub mod data_transfer_service {
         /// Sets the value of [update_mask][crate::model::UpdateTransferConfigRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateTransferConfigRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
@@ -741,19 +774,44 @@ pub mod data_transfer_service {
         /// Sets the value of [start_time][crate::model::ScheduleTransferRunsRequest::start_time].
         ///
         /// This is a **required** field for requests.
-        pub fn set_start_time<T: Into<std::option::Option<wkt::Timestamp>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.start_time = v.into();
+        pub fn set_start_time<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Timestamp>,
+        {
+            self.0.request.start_time = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [start_time][crate::model::ScheduleTransferRunsRequest::start_time].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Timestamp>,
+        {
+            self.0.request.start_time = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [end_time][crate::model::ScheduleTransferRunsRequest::end_time].
         ///
         /// This is a **required** field for requests.
-        pub fn set_end_time<T: Into<std::option::Option<wkt::Timestamp>>>(mut self, v: T) -> Self {
-            self.0.request.end_time = v.into();
+        pub fn set_end_time<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Timestamp>,
+        {
+            self.0.request.end_time = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [end_time][crate::model::ScheduleTransferRunsRequest::end_time].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Timestamp>,
+        {
+            self.0.request.end_time = v.map(|x| x.into());
             self
         }
     }

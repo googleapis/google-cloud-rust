@@ -122,11 +122,20 @@ pub mod profiler_service {
         }
 
         /// Sets the value of [deployment][crate::model::CreateProfileRequest::deployment].
-        pub fn set_deployment<T: Into<std::option::Option<crate::model::Deployment>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.deployment = v.into();
+        pub fn set_deployment<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Deployment>,
+        {
+            self.0.request.deployment = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [deployment][crate::model::CreateProfileRequest::deployment].
+        pub fn set_or_clear_deployment<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Deployment>,
+        {
+            self.0.request.deployment = v.map(|x| x.into());
             self
         }
 
@@ -206,11 +215,20 @@ pub mod profiler_service {
         }
 
         /// Sets the value of [profile][crate::model::CreateOfflineProfileRequest::profile].
-        pub fn set_profile<T: Into<std::option::Option<crate::model::Profile>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.profile = v.into();
+        pub fn set_profile<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Profile>,
+        {
+            self.0.request.profile = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [profile][crate::model::CreateOfflineProfileRequest::profile].
+        pub fn set_or_clear_profile<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Profile>,
+        {
+            self.0.request.profile = v.map(|x| x.into());
             self
         }
     }
@@ -270,20 +288,38 @@ pub mod profiler_service {
         }
 
         /// Sets the value of [profile][crate::model::UpdateProfileRequest::profile].
-        pub fn set_profile<T: Into<std::option::Option<crate::model::Profile>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.profile = v.into();
+        pub fn set_profile<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Profile>,
+        {
+            self.0.request.profile = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [profile][crate::model::UpdateProfileRequest::profile].
+        pub fn set_or_clear_profile<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Profile>,
+        {
+            self.0.request.profile = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateProfileRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateProfileRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }

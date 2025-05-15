@@ -166,11 +166,20 @@ pub mod environments {
         }
 
         /// Sets the value of [environment][crate::model::CreateEnvironmentRequest::environment].
-        pub fn set_environment<T: Into<std::option::Option<crate::model::Environment>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.environment = v.into();
+        pub fn set_environment<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Environment>,
+        {
+            self.0.request.environment = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [environment][crate::model::CreateEnvironmentRequest::environment].
+        pub fn set_or_clear_environment<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Environment>,
+        {
+            self.0.request.environment = v.map(|x| x.into());
             self
         }
     }
@@ -445,20 +454,38 @@ pub mod environments {
         }
 
         /// Sets the value of [environment][crate::model::UpdateEnvironmentRequest::environment].
-        pub fn set_environment<T: Into<std::option::Option<crate::model::Environment>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.environment = v.into();
+        pub fn set_environment<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Environment>,
+        {
+            self.0.request.environment = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [environment][crate::model::UpdateEnvironmentRequest::environment].
+        pub fn set_or_clear_environment<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Environment>,
+        {
+            self.0.request.environment = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateEnvironmentRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateEnvironmentRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -1121,13 +1148,22 @@ pub mod environments {
         /// Sets the value of [user_workloads_secret][crate::model::CreateUserWorkloadsSecretRequest::user_workloads_secret].
         ///
         /// This is a **required** field for requests.
-        pub fn set_user_workloads_secret<
-            T: Into<std::option::Option<crate::model::UserWorkloadsSecret>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.user_workloads_secret = v.into();
+        pub fn set_user_workloads_secret<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::UserWorkloadsSecret>,
+        {
+            self.0.request.user_workloads_secret = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [user_workloads_secret][crate::model::CreateUserWorkloadsSecretRequest::user_workloads_secret].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_user_workloads_secret<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::UserWorkloadsSecret>,
+        {
+            self.0.request.user_workloads_secret = v.map(|x| x.into());
             self
         }
     }
@@ -1370,13 +1406,20 @@ pub mod environments {
         }
 
         /// Sets the value of [user_workloads_secret][crate::model::UpdateUserWorkloadsSecretRequest::user_workloads_secret].
-        pub fn set_user_workloads_secret<
-            T: Into<std::option::Option<crate::model::UserWorkloadsSecret>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.user_workloads_secret = v.into();
+        pub fn set_user_workloads_secret<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::UserWorkloadsSecret>,
+        {
+            self.0.request.user_workloads_secret = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [user_workloads_secret][crate::model::UpdateUserWorkloadsSecretRequest::user_workloads_secret].
+        pub fn set_or_clear_user_workloads_secret<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::UserWorkloadsSecret>,
+        {
+            self.0.request.user_workloads_secret = v.map(|x| x.into());
             self
         }
     }
@@ -1519,13 +1562,25 @@ pub mod environments {
         /// Sets the value of [user_workloads_config_map][crate::model::CreateUserWorkloadsConfigMapRequest::user_workloads_config_map].
         ///
         /// This is a **required** field for requests.
-        pub fn set_user_workloads_config_map<
-            T: Into<std::option::Option<crate::model::UserWorkloadsConfigMap>>,
-        >(
+        pub fn set_user_workloads_config_map<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::UserWorkloadsConfigMap>,
+        {
+            self.0.request.user_workloads_config_map = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [user_workloads_config_map][crate::model::CreateUserWorkloadsConfigMapRequest::user_workloads_config_map].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_user_workloads_config_map<T>(
             mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.user_workloads_config_map = v.into();
+            v: std::option::Option<T>,
+        ) -> Self
+        where
+            T: std::convert::Into<crate::model::UserWorkloadsConfigMap>,
+        {
+            self.0.request.user_workloads_config_map = v.map(|x| x.into());
             self
         }
     }
@@ -1770,13 +1825,23 @@ pub mod environments {
         }
 
         /// Sets the value of [user_workloads_config_map][crate::model::UpdateUserWorkloadsConfigMapRequest::user_workloads_config_map].
-        pub fn set_user_workloads_config_map<
-            T: Into<std::option::Option<crate::model::UserWorkloadsConfigMap>>,
-        >(
+        pub fn set_user_workloads_config_map<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::UserWorkloadsConfigMap>,
+        {
+            self.0.request.user_workloads_config_map = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [user_workloads_config_map][crate::model::UpdateUserWorkloadsConfigMapRequest::user_workloads_config_map].
+        pub fn set_or_clear_user_workloads_config_map<T>(
             mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.user_workloads_config_map = v.into();
+            v: std::option::Option<T>,
+        ) -> Self
+        where
+            T: std::convert::Into<crate::model::UserWorkloadsConfigMap>,
+        {
+            self.0.request.user_workloads_config_map = v.map(|x| x.into());
             self
         }
     }

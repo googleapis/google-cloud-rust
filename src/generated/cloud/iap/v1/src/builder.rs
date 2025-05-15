@@ -126,20 +126,40 @@ pub mod identity_aware_proxy_admin_service {
         /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
-        pub fn set_policy<T: Into<std::option::Option<iam_v1::model::Policy>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.policy = v.into();
+        pub fn set_policy<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -207,11 +227,20 @@ pub mod identity_aware_proxy_admin_service {
         }
 
         /// Sets the value of [options][iam_v1::model::GetIamPolicyRequest::options].
-        pub fn set_options<T: Into<std::option::Option<iam_v1::model::GetPolicyOptions>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.options = v.into();
+        pub fn set_options<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = v.map(|x| x.into());
             self
         }
     }
@@ -418,20 +447,40 @@ pub mod identity_aware_proxy_admin_service {
         /// Sets the value of [iap_settings][crate::model::UpdateIapSettingsRequest::iap_settings].
         ///
         /// This is a **required** field for requests.
-        pub fn set_iap_settings<T: Into<std::option::Option<crate::model::IapSettings>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.iap_settings = v.into();
+        pub fn set_iap_settings<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::IapSettings>,
+        {
+            self.0.request.iap_settings = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [iap_settings][crate::model::UpdateIapSettingsRequest::iap_settings].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_iap_settings<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::IapSettings>,
+        {
+            self.0.request.iap_settings = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateIapSettingsRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateIapSettingsRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -688,13 +737,22 @@ pub mod identity_aware_proxy_admin_service {
         /// Sets the value of [tunnel_dest_group][crate::model::CreateTunnelDestGroupRequest::tunnel_dest_group].
         ///
         /// This is a **required** field for requests.
-        pub fn set_tunnel_dest_group<
-            T: Into<std::option::Option<crate::model::TunnelDestGroup>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.tunnel_dest_group = v.into();
+        pub fn set_tunnel_dest_group<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::TunnelDestGroup>,
+        {
+            self.0.request.tunnel_dest_group = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [tunnel_dest_group][crate::model::CreateTunnelDestGroupRequest::tunnel_dest_group].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_tunnel_dest_group<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::TunnelDestGroup>,
+        {
+            self.0.request.tunnel_dest_group = v.map(|x| x.into());
             self
         }
 
@@ -899,22 +957,40 @@ pub mod identity_aware_proxy_admin_service {
         /// Sets the value of [tunnel_dest_group][crate::model::UpdateTunnelDestGroupRequest::tunnel_dest_group].
         ///
         /// This is a **required** field for requests.
-        pub fn set_tunnel_dest_group<
-            T: Into<std::option::Option<crate::model::TunnelDestGroup>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.tunnel_dest_group = v.into();
+        pub fn set_tunnel_dest_group<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::TunnelDestGroup>,
+        {
+            self.0.request.tunnel_dest_group = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [tunnel_dest_group][crate::model::UpdateTunnelDestGroupRequest::tunnel_dest_group].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_tunnel_dest_group<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::TunnelDestGroup>,
+        {
+            self.0.request.tunnel_dest_group = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateTunnelDestGroupRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateTunnelDestGroupRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -1102,11 +1178,22 @@ pub mod identity_aware_proxy_o_auth_service {
         /// Sets the value of [brand][crate::model::CreateBrandRequest::brand].
         ///
         /// This is a **required** field for requests.
-        pub fn set_brand<T: Into<std::option::Option<crate::model::Brand>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.brand = v.into();
+        pub fn set_brand<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Brand>,
+        {
+            self.0.request.brand = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [brand][crate::model::CreateBrandRequest::brand].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_brand<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Brand>,
+        {
+            self.0.request.brand = v.map(|x| x.into());
             self
         }
     }
@@ -1244,13 +1331,25 @@ pub mod identity_aware_proxy_o_auth_service {
         /// Sets the value of [identity_aware_proxy_client][crate::model::CreateIdentityAwareProxyClientRequest::identity_aware_proxy_client].
         ///
         /// This is a **required** field for requests.
-        pub fn set_identity_aware_proxy_client<
-            T: Into<std::option::Option<crate::model::IdentityAwareProxyClient>>,
-        >(
+        pub fn set_identity_aware_proxy_client<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::IdentityAwareProxyClient>,
+        {
+            self.0.request.identity_aware_proxy_client = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [identity_aware_proxy_client][crate::model::CreateIdentityAwareProxyClientRequest::identity_aware_proxy_client].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_identity_aware_proxy_client<T>(
             mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.identity_aware_proxy_client = v.into();
+            v: std::option::Option<T>,
+        ) -> Self
+        where
+            T: std::convert::Into<crate::model::IdentityAwareProxyClient>,
+        {
+            self.0.request.identity_aware_proxy_client = v.map(|x| x.into());
             self
         }
     }

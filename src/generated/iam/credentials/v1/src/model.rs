@@ -107,11 +107,20 @@ impl GenerateAccessTokenRequest {
     }
 
     /// Sets the value of [lifetime][crate::model::GenerateAccessTokenRequest::lifetime].
-    pub fn set_lifetime<T: std::convert::Into<std::option::Option<wkt::Duration>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.lifetime = v.into();
+    pub fn set_lifetime<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Duration>,
+    {
+        self.lifetime = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [lifetime][crate::model::GenerateAccessTokenRequest::lifetime].
+    pub fn set_or_clear_lifetime<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Duration>,
+    {
+        self.lifetime = v.map(|x| x.into());
         self
     }
 }
@@ -152,11 +161,20 @@ impl GenerateAccessTokenResponse {
     }
 
     /// Sets the value of [expire_time][crate::model::GenerateAccessTokenResponse::expire_time].
-    pub fn set_expire_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.expire_time = v.into();
+    pub fn set_expire_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.expire_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [expire_time][crate::model::GenerateAccessTokenResponse::expire_time].
+    pub fn set_or_clear_expire_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.expire_time = v.map(|x| x.into());
         self
     }
 }

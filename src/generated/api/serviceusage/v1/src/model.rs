@@ -87,11 +87,20 @@ impl Service {
     }
 
     /// Sets the value of [config][crate::model::Service::config].
-    pub fn set_config<T: std::convert::Into<std::option::Option<crate::model::ServiceConfig>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.config = v.into();
+    pub fn set_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::ServiceConfig>,
+    {
+        self.config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [config][crate::model::Service::config].
+    pub fn set_or_clear_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::ServiceConfig>,
+    {
+        self.config = v.map(|x| x.into());
         self
     }
 
@@ -196,42 +205,74 @@ impl ServiceConfig {
     }
 
     /// Sets the value of [documentation][crate::model::ServiceConfig::documentation].
-    pub fn set_documentation<
-        T: std::convert::Into<std::option::Option<api::model::Documentation>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.documentation = v.into();
+    pub fn set_documentation<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<api::model::Documentation>,
+    {
+        self.documentation = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [documentation][crate::model::ServiceConfig::documentation].
+    pub fn set_or_clear_documentation<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<api::model::Documentation>,
+    {
+        self.documentation = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [quota][crate::model::ServiceConfig::quota].
-    pub fn set_quota<T: std::convert::Into<std::option::Option<api::model::Quota>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.quota = v.into();
+    pub fn set_quota<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<api::model::Quota>,
+    {
+        self.quota = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [quota][crate::model::ServiceConfig::quota].
+    pub fn set_or_clear_quota<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<api::model::Quota>,
+    {
+        self.quota = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [authentication][crate::model::ServiceConfig::authentication].
-    pub fn set_authentication<
-        T: std::convert::Into<std::option::Option<api::model::Authentication>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.authentication = v.into();
+    pub fn set_authentication<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<api::model::Authentication>,
+    {
+        self.authentication = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [authentication][crate::model::ServiceConfig::authentication].
+    pub fn set_or_clear_authentication<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<api::model::Authentication>,
+    {
+        self.authentication = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [usage][crate::model::ServiceConfig::usage].
-    pub fn set_usage<T: std::convert::Into<std::option::Option<api::model::Usage>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.usage = v.into();
+    pub fn set_usage<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<api::model::Usage>,
+    {
+        self.usage = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [usage][crate::model::ServiceConfig::usage].
+    pub fn set_or_clear_usage<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<api::model::Usage>,
+    {
+        self.usage = v.map(|x| x.into());
         self
     }
 
@@ -258,11 +299,20 @@ impl ServiceConfig {
     }
 
     /// Sets the value of [monitoring][crate::model::ServiceConfig::monitoring].
-    pub fn set_monitoring<T: std::convert::Into<std::option::Option<api::model::Monitoring>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.monitoring = v.into();
+    pub fn set_monitoring<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<api::model::Monitoring>,
+    {
+        self.monitoring = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [monitoring][crate::model::ServiceConfig::monitoring].
+    pub fn set_or_clear_monitoring<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<api::model::Monitoring>,
+    {
+        self.monitoring = v.map(|x| x.into());
         self
     }
 }
@@ -375,11 +425,20 @@ impl EnableServiceResponse {
     }
 
     /// Sets the value of [service][crate::model::EnableServiceResponse::service].
-    pub fn set_service<T: std::convert::Into<std::option::Option<crate::model::Service>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.service = v.into();
+    pub fn set_service<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::Service>,
+    {
+        self.service = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [service][crate::model::EnableServiceResponse::service].
+    pub fn set_or_clear_service<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::Service>,
+    {
+        self.service = v.map(|x| x.into());
         self
     }
 }
@@ -621,11 +680,20 @@ impl DisableServiceResponse {
     }
 
     /// Sets the value of [service][crate::model::DisableServiceResponse::service].
-    pub fn set_service<T: std::convert::Into<std::option::Option<crate::model::Service>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.service = v.into();
+    pub fn set_service<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::Service>,
+    {
+        self.service = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [service][crate::model::DisableServiceResponse::service].
+    pub fn set_or_clear_service<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::Service>,
+    {
+        self.service = v.map(|x| x.into());
         self
     }
 }

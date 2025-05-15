@@ -54,13 +54,20 @@ impl AuditData {
     }
 
     /// Sets the value of [permission_delta][crate::model::AuditData::permission_delta].
-    pub fn set_permission_delta<
-        T: std::convert::Into<std::option::Option<crate::model::audit_data::PermissionDelta>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.permission_delta = v.into();
+    pub fn set_permission_delta<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::audit_data::PermissionDelta>,
+    {
+        self.permission_delta = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [permission_delta][crate::model::AuditData::permission_delta].
+    pub fn set_or_clear_permission_delta<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::audit_data::PermissionDelta>,
+    {
+        self.permission_delta = v.map(|x| x.into());
         self
     }
 }
@@ -331,13 +338,20 @@ impl CreateServiceAccountRequest {
     }
 
     /// Sets the value of [service_account][crate::model::CreateServiceAccountRequest::service_account].
-    pub fn set_service_account<
-        T: std::convert::Into<std::option::Option<crate::model::ServiceAccount>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.service_account = v.into();
+    pub fn set_service_account<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::ServiceAccount>,
+    {
+        self.service_account = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [service_account][crate::model::CreateServiceAccountRequest::service_account].
+    pub fn set_or_clear_service_account<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::ServiceAccount>,
+    {
+        self.service_account = v.map(|x| x.into());
         self
     }
 }
@@ -576,22 +590,38 @@ impl PatchServiceAccountRequest {
     }
 
     /// Sets the value of [service_account][crate::model::PatchServiceAccountRequest::service_account].
-    pub fn set_service_account<
-        T: std::convert::Into<std::option::Option<crate::model::ServiceAccount>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.service_account = v.into();
+    pub fn set_service_account<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::ServiceAccount>,
+    {
+        self.service_account = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [service_account][crate::model::PatchServiceAccountRequest::service_account].
+    pub fn set_or_clear_service_account<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::ServiceAccount>,
+    {
+        self.service_account = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [update_mask][crate::model::PatchServiceAccountRequest::update_mask].
-    pub fn set_update_mask<T: std::convert::Into<std::option::Option<wkt::FieldMask>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.update_mask = v.into();
+    pub fn set_update_mask<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_mask][crate::model::PatchServiceAccountRequest::update_mask].
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = v.map(|x| x.into());
         self
     }
 }
@@ -656,13 +686,20 @@ impl UndeleteServiceAccountResponse {
     }
 
     /// Sets the value of [restored_account][crate::model::UndeleteServiceAccountResponse::restored_account].
-    pub fn set_restored_account<
-        T: std::convert::Into<std::option::Option<crate::model::ServiceAccount>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.restored_account = v.into();
+    pub fn set_restored_account<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::ServiceAccount>,
+    {
+        self.restored_account = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [restored_account][crate::model::UndeleteServiceAccountResponse::restored_account].
+    pub fn set_or_clear_restored_account<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::ServiceAccount>,
+    {
+        self.restored_account = v.map(|x| x.into());
         self
     }
 }
@@ -1156,20 +1193,38 @@ impl ServiceAccountKey {
     }
 
     /// Sets the value of [valid_after_time][crate::model::ServiceAccountKey::valid_after_time].
-    pub fn set_valid_after_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.valid_after_time = v.into();
+    pub fn set_valid_after_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.valid_after_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [valid_after_time][crate::model::ServiceAccountKey::valid_after_time].
+    pub fn set_or_clear_valid_after_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.valid_after_time = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [valid_before_time][crate::model::ServiceAccountKey::valid_before_time].
-    pub fn set_valid_before_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.valid_before_time = v.into();
+    pub fn set_valid_before_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.valid_before_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [valid_before_time][crate::model::ServiceAccountKey::valid_before_time].
+    pub fn set_or_clear_valid_before_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.valid_before_time = v.map(|x| x.into());
         self
     }
 
@@ -2373,11 +2428,20 @@ impl CreateRoleRequest {
     }
 
     /// Sets the value of [role][crate::model::CreateRoleRequest::role].
-    pub fn set_role<T: std::convert::Into<std::option::Option<crate::model::Role>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.role = v.into();
+    pub fn set_role<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::Role>,
+    {
+        self.role = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [role][crate::model::CreateRoleRequest::role].
+    pub fn set_or_clear_role<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::Role>,
+    {
+        self.role = v.map(|x| x.into());
         self
     }
 }
@@ -2445,20 +2509,38 @@ impl UpdateRoleRequest {
     }
 
     /// Sets the value of [role][crate::model::UpdateRoleRequest::role].
-    pub fn set_role<T: std::convert::Into<std::option::Option<crate::model::Role>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.role = v.into();
+    pub fn set_role<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::Role>,
+    {
+        self.role = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [role][crate::model::UpdateRoleRequest::role].
+    pub fn set_or_clear_role<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::Role>,
+    {
+        self.role = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateRoleRequest::update_mask].
-    pub fn set_update_mask<T: std::convert::Into<std::option::Option<wkt::FieldMask>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.update_mask = v.into();
+    pub fn set_update_mask<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_mask][crate::model::UpdateRoleRequest::update_mask].
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = v.map(|x| x.into());
         self
     }
 }

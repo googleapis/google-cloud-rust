@@ -329,20 +329,40 @@ pub mod bare_metal_solution {
         /// Sets the value of [instance][crate::model::UpdateInstanceRequest::instance].
         ///
         /// This is a **required** field for requests.
-        pub fn set_instance<T: Into<std::option::Option<crate::model::Instance>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.instance = v.into();
+        pub fn set_instance<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Instance>,
+        {
+            self.0.request.instance = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [instance][crate::model::UpdateInstanceRequest::instance].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_instance<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Instance>,
+        {
+            self.0.request.instance = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateInstanceRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateInstanceRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -1241,11 +1261,22 @@ pub mod bare_metal_solution {
         /// Sets the value of [ssh_key][crate::model::CreateSSHKeyRequest::ssh_key].
         ///
         /// This is a **required** field for requests.
-        pub fn set_ssh_key<T: Into<std::option::Option<crate::model::SSHKey>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.ssh_key = v.into();
+        pub fn set_ssh_key<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::SSHKey>,
+        {
+            self.0.request.ssh_key = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [ssh_key][crate::model::CreateSSHKeyRequest::ssh_key].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_ssh_key<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::SSHKey>,
+        {
+            self.0.request.ssh_key = v.map(|x| x.into());
             self
         }
 
@@ -1589,20 +1620,40 @@ pub mod bare_metal_solution {
         /// Sets the value of [volume][crate::model::UpdateVolumeRequest::volume].
         ///
         /// This is a **required** field for requests.
-        pub fn set_volume<T: Into<std::option::Option<crate::model::Volume>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.volume = v.into();
+        pub fn set_volume<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Volume>,
+        {
+            self.0.request.volume = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [volume][crate::model::UpdateVolumeRequest::volume].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_volume<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Volume>,
+        {
+            self.0.request.volume = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateVolumeRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateVolumeRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -2224,20 +2275,40 @@ pub mod bare_metal_solution {
         /// Sets the value of [network][crate::model::UpdateNetworkRequest::network].
         ///
         /// This is a **required** field for requests.
-        pub fn set_network<T: Into<std::option::Option<crate::model::Network>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.network = v.into();
+        pub fn set_network<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Network>,
+        {
+            self.0.request.network = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [network][crate::model::UpdateNetworkRequest::network].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_network<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Network>,
+        {
+            self.0.request.network = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateNetworkRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateNetworkRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -2310,11 +2381,22 @@ pub mod bare_metal_solution {
         /// Sets the value of [volume_snapshot][crate::model::CreateVolumeSnapshotRequest::volume_snapshot].
         ///
         /// This is a **required** field for requests.
-        pub fn set_volume_snapshot<T: Into<std::option::Option<crate::model::VolumeSnapshot>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.volume_snapshot = v.into();
+        pub fn set_volume_snapshot<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::VolumeSnapshot>,
+        {
+            self.0.request.volume_snapshot = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [volume_snapshot][crate::model::CreateVolumeSnapshotRequest::volume_snapshot].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_volume_snapshot<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::VolumeSnapshot>,
+        {
+            self.0.request.volume_snapshot = v.map(|x| x.into());
             self
         }
     }
@@ -3205,20 +3287,40 @@ pub mod bare_metal_solution {
         /// Sets the value of [nfs_share][crate::model::UpdateNfsShareRequest::nfs_share].
         ///
         /// This is a **required** field for requests.
-        pub fn set_nfs_share<T: Into<std::option::Option<crate::model::NfsShare>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.nfs_share = v.into();
+        pub fn set_nfs_share<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::NfsShare>,
+        {
+            self.0.request.nfs_share = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [nfs_share][crate::model::UpdateNfsShareRequest::nfs_share].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_nfs_share<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::NfsShare>,
+        {
+            self.0.request.nfs_share = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateNfsShareRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateNfsShareRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -3327,11 +3429,22 @@ pub mod bare_metal_solution {
         /// Sets the value of [nfs_share][crate::model::CreateNfsShareRequest::nfs_share].
         ///
         /// This is a **required** field for requests.
-        pub fn set_nfs_share<T: Into<std::option::Option<crate::model::NfsShare>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.nfs_share = v.into();
+        pub fn set_nfs_share<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::NfsShare>,
+        {
+            self.0.request.nfs_share = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [nfs_share][crate::model::CreateNfsShareRequest::nfs_share].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_nfs_share<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::NfsShare>,
+        {
+            self.0.request.nfs_share = v.map(|x| x.into());
             self
         }
     }
@@ -3691,13 +3804,22 @@ pub mod bare_metal_solution {
         /// Sets the value of [provisioning_config][crate::model::SubmitProvisioningConfigRequest::provisioning_config].
         ///
         /// This is a **required** field for requests.
-        pub fn set_provisioning_config<
-            T: Into<std::option::Option<crate::model::ProvisioningConfig>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.provisioning_config = v.into();
+        pub fn set_provisioning_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::ProvisioningConfig>,
+        {
+            self.0.request.provisioning_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [provisioning_config][crate::model::SubmitProvisioningConfigRequest::provisioning_config].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_provisioning_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::ProvisioningConfig>,
+        {
+            self.0.request.provisioning_config = v.map(|x| x.into());
             self
         }
 
@@ -3844,13 +3966,22 @@ pub mod bare_metal_solution {
         /// Sets the value of [provisioning_config][crate::model::CreateProvisioningConfigRequest::provisioning_config].
         ///
         /// This is a **required** field for requests.
-        pub fn set_provisioning_config<
-            T: Into<std::option::Option<crate::model::ProvisioningConfig>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.provisioning_config = v.into();
+        pub fn set_provisioning_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::ProvisioningConfig>,
+        {
+            self.0.request.provisioning_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [provisioning_config][crate::model::CreateProvisioningConfigRequest::provisioning_config].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_provisioning_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::ProvisioningConfig>,
+        {
+            self.0.request.provisioning_config = v.map(|x| x.into());
             self
         }
 
@@ -3923,24 +4054,44 @@ pub mod bare_metal_solution {
         /// Sets the value of [provisioning_config][crate::model::UpdateProvisioningConfigRequest::provisioning_config].
         ///
         /// This is a **required** field for requests.
-        pub fn set_provisioning_config<
-            T: Into<std::option::Option<crate::model::ProvisioningConfig>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.provisioning_config = v.into();
+        pub fn set_provisioning_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::ProvisioningConfig>,
+        {
+            self.0.request.provisioning_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [provisioning_config][crate::model::UpdateProvisioningConfigRequest::provisioning_config].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_provisioning_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::ProvisioningConfig>,
+        {
+            self.0.request.provisioning_config = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateProvisioningConfigRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateProvisioningConfigRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 

@@ -121,11 +121,22 @@ pub mod language_service {
         /// Sets the value of [document][crate::model::AnalyzeSentimentRequest::document].
         ///
         /// This is a **required** field for requests.
-        pub fn set_document<T: Into<std::option::Option<crate::model::Document>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.document = v.into();
+        pub fn set_document<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Document>,
+        {
+            self.0.request.document = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [document][crate::model::AnalyzeSentimentRequest::document].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_document<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Document>,
+        {
+            self.0.request.document = v.map(|x| x.into());
             self
         }
 
@@ -193,11 +204,22 @@ pub mod language_service {
         /// Sets the value of [document][crate::model::AnalyzeEntitiesRequest::document].
         ///
         /// This is a **required** field for requests.
-        pub fn set_document<T: Into<std::option::Option<crate::model::Document>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.document = v.into();
+        pub fn set_document<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Document>,
+        {
+            self.0.request.document = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [document][crate::model::AnalyzeEntitiesRequest::document].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_document<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Document>,
+        {
+            self.0.request.document = v.map(|x| x.into());
             self
         }
 
@@ -265,11 +287,22 @@ pub mod language_service {
         /// Sets the value of [document][crate::model::ClassifyTextRequest::document].
         ///
         /// This is a **required** field for requests.
-        pub fn set_document<T: Into<std::option::Option<crate::model::Document>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.document = v.into();
+        pub fn set_document<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Document>,
+        {
+            self.0.request.document = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [document][crate::model::ClassifyTextRequest::document].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_document<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Document>,
+        {
+            self.0.request.document = v.map(|x| x.into());
             self
         }
     }
@@ -331,11 +364,22 @@ pub mod language_service {
         /// Sets the value of [document][crate::model::ModerateTextRequest::document].
         ///
         /// This is a **required** field for requests.
-        pub fn set_document<T: Into<std::option::Option<crate::model::Document>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.document = v.into();
+        pub fn set_document<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Document>,
+        {
+            self.0.request.document = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [document][crate::model::ModerateTextRequest::document].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_document<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Document>,
+        {
+            self.0.request.document = v.map(|x| x.into());
             self
         }
 
@@ -406,24 +450,44 @@ pub mod language_service {
         /// Sets the value of [document][crate::model::AnnotateTextRequest::document].
         ///
         /// This is a **required** field for requests.
-        pub fn set_document<T: Into<std::option::Option<crate::model::Document>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.document = v.into();
+        pub fn set_document<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Document>,
+        {
+            self.0.request.document = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [document][crate::model::AnnotateTextRequest::document].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_document<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Document>,
+        {
+            self.0.request.document = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [features][crate::model::AnnotateTextRequest::features].
         ///
         /// This is a **required** field for requests.
-        pub fn set_features<
-            T: Into<std::option::Option<crate::model::annotate_text_request::Features>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.features = v.into();
+        pub fn set_features<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::annotate_text_request::Features>,
+        {
+            self.0.request.features = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [features][crate::model::AnnotateTextRequest::features].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_features<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::annotate_text_request::Features>,
+        {
+            self.0.request.features = v.map(|x| x.into());
             self
         }
 

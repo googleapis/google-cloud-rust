@@ -414,11 +414,22 @@ pub mod analytics_hub_service {
         /// Sets the value of [data_exchange][crate::model::CreateDataExchangeRequest::data_exchange].
         ///
         /// This is a **required** field for requests.
-        pub fn set_data_exchange<T: Into<std::option::Option<crate::model::DataExchange>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.data_exchange = v.into();
+        pub fn set_data_exchange<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::DataExchange>,
+        {
+            self.0.request.data_exchange = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [data_exchange][crate::model::CreateDataExchangeRequest::data_exchange].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_data_exchange<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::DataExchange>,
+        {
+            self.0.request.data_exchange = v.map(|x| x.into());
             self
         }
     }
@@ -483,22 +494,44 @@ pub mod analytics_hub_service {
         /// Sets the value of [update_mask][crate::model::UpdateDataExchangeRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateDataExchangeRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [data_exchange][crate::model::UpdateDataExchangeRequest::data_exchange].
         ///
         /// This is a **required** field for requests.
-        pub fn set_data_exchange<T: Into<std::option::Option<crate::model::DataExchange>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.data_exchange = v.into();
+        pub fn set_data_exchange<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::DataExchange>,
+        {
+            self.0.request.data_exchange = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [data_exchange][crate::model::UpdateDataExchangeRequest::data_exchange].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_data_exchange<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::DataExchange>,
+        {
+            self.0.request.data_exchange = v.map(|x| x.into());
             self
         }
     }
@@ -808,11 +841,22 @@ pub mod analytics_hub_service {
         /// Sets the value of [listing][crate::model::CreateListingRequest::listing].
         ///
         /// This is a **required** field for requests.
-        pub fn set_listing<T: Into<std::option::Option<crate::model::Listing>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.listing = v.into();
+        pub fn set_listing<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Listing>,
+        {
+            self.0.request.listing = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [listing][crate::model::CreateListingRequest::listing].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_listing<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Listing>,
+        {
+            self.0.request.listing = v.map(|x| x.into());
             self
         }
     }
@@ -874,22 +918,44 @@ pub mod analytics_hub_service {
         /// Sets the value of [update_mask][crate::model::UpdateListingRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateListingRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [listing][crate::model::UpdateListingRequest::listing].
         ///
         /// This is a **required** field for requests.
-        pub fn set_listing<T: Into<std::option::Option<crate::model::Listing>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.listing = v.into();
+        pub fn set_listing<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Listing>,
+        {
+            self.0.request.listing = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [listing][crate::model::UpdateListingRequest::listing].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_listing<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Listing>,
+        {
+            self.0.request.listing = v.map(|x| x.into());
             self
         }
     }
@@ -1189,13 +1255,20 @@ pub mod analytics_hub_service {
         }
 
         /// Sets the value of [destination_dataset][crate::model::SubscribeDataExchangeRequest::destination_dataset].
-        pub fn set_destination_dataset<
-            T: Into<std::option::Option<crate::model::DestinationDataset>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.destination_dataset = v.into();
+        pub fn set_destination_dataset<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::DestinationDataset>,
+        {
+            self.0.request.destination_dataset = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [destination_dataset][crate::model::SubscribeDataExchangeRequest::destination_dataset].
+        pub fn set_or_clear_destination_dataset<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::DestinationDataset>,
+        {
+            self.0.request.destination_dataset = v.map(|x| x.into());
             self
         }
 
@@ -1857,11 +1930,20 @@ pub mod analytics_hub_service {
         }
 
         /// Sets the value of [options][iam_v1::model::GetIamPolicyRequest::options].
-        pub fn set_options<T: Into<std::option::Option<iam_v1::model::GetPolicyOptions>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.options = v.into();
+        pub fn set_options<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = v.map(|x| x.into());
             self
         }
     }
@@ -1931,20 +2013,40 @@ pub mod analytics_hub_service {
         /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
-        pub fn set_policy<T: Into<std::option::Option<iam_v1::model::Policy>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.policy = v.into();
+        pub fn set_policy<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }

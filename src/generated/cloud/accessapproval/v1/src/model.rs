@@ -493,40 +493,74 @@ impl ApproveDecision {
     }
 
     /// Sets the value of [approve_time][crate::model::ApproveDecision::approve_time].
-    pub fn set_approve_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.approve_time = v.into();
+    pub fn set_approve_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.approve_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [approve_time][crate::model::ApproveDecision::approve_time].
+    pub fn set_or_clear_approve_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.approve_time = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [expire_time][crate::model::ApproveDecision::expire_time].
-    pub fn set_expire_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.expire_time = v.into();
+    pub fn set_expire_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.expire_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [expire_time][crate::model::ApproveDecision::expire_time].
+    pub fn set_or_clear_expire_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.expire_time = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [invalidate_time][crate::model::ApproveDecision::invalidate_time].
-    pub fn set_invalidate_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.invalidate_time = v.into();
+    pub fn set_invalidate_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.invalidate_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [invalidate_time][crate::model::ApproveDecision::invalidate_time].
+    pub fn set_or_clear_invalidate_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.invalidate_time = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [signature_info][crate::model::ApproveDecision::signature_info].
-    pub fn set_signature_info<
-        T: std::convert::Into<std::option::Option<crate::model::SignatureInfo>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.signature_info = v.into();
+    pub fn set_signature_info<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::SignatureInfo>,
+    {
+        self.signature_info = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [signature_info][crate::model::ApproveDecision::signature_info].
+    pub fn set_or_clear_signature_info<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::SignatureInfo>,
+    {
+        self.signature_info = v.map(|x| x.into());
         self
     }
 
@@ -569,11 +603,20 @@ impl DismissDecision {
     }
 
     /// Sets the value of [dismiss_time][crate::model::DismissDecision::dismiss_time].
-    pub fn set_dismiss_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.dismiss_time = v.into();
+    pub fn set_dismiss_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.dismiss_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [dismiss_time][crate::model::DismissDecision::dismiss_time].
+    pub fn set_or_clear_dismiss_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.dismiss_time = v.map(|x| x.into());
         self
     }
 
@@ -694,53 +737,95 @@ impl ApprovalRequest {
     }
 
     /// Sets the value of [requested_resource_properties][crate::model::ApprovalRequest::requested_resource_properties].
-    pub fn set_requested_resource_properties<
-        T: std::convert::Into<std::option::Option<crate::model::ResourceProperties>>,
-    >(
+    pub fn set_requested_resource_properties<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::ResourceProperties>,
+    {
+        self.requested_resource_properties = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [requested_resource_properties][crate::model::ApprovalRequest::requested_resource_properties].
+    pub fn set_or_clear_requested_resource_properties<T>(
         mut self,
-        v: T,
-    ) -> Self {
-        self.requested_resource_properties = v.into();
+        v: std::option::Option<T>,
+    ) -> Self
+    where
+        T: std::convert::Into<crate::model::ResourceProperties>,
+    {
+        self.requested_resource_properties = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [requested_reason][crate::model::ApprovalRequest::requested_reason].
-    pub fn set_requested_reason<
-        T: std::convert::Into<std::option::Option<crate::model::AccessReason>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.requested_reason = v.into();
+    pub fn set_requested_reason<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::AccessReason>,
+    {
+        self.requested_reason = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [requested_reason][crate::model::ApprovalRequest::requested_reason].
+    pub fn set_or_clear_requested_reason<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::AccessReason>,
+    {
+        self.requested_reason = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [requested_locations][crate::model::ApprovalRequest::requested_locations].
-    pub fn set_requested_locations<
-        T: std::convert::Into<std::option::Option<crate::model::AccessLocations>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.requested_locations = v.into();
+    pub fn set_requested_locations<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::AccessLocations>,
+    {
+        self.requested_locations = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [requested_locations][crate::model::ApprovalRequest::requested_locations].
+    pub fn set_or_clear_requested_locations<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::AccessLocations>,
+    {
+        self.requested_locations = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [request_time][crate::model::ApprovalRequest::request_time].
-    pub fn set_request_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.request_time = v.into();
+    pub fn set_request_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.request_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [request_time][crate::model::ApprovalRequest::request_time].
+    pub fn set_or_clear_request_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.request_time = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [requested_expiration][crate::model::ApprovalRequest::requested_expiration].
-    pub fn set_requested_expiration<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.requested_expiration = v.into();
+    pub fn set_requested_expiration<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.requested_expiration = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [requested_expiration][crate::model::ApprovalRequest::requested_expiration].
+    pub fn set_or_clear_requested_expiration<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.requested_expiration = v.map(|x| x.into());
         self
     }
 
@@ -1324,11 +1409,20 @@ impl ApproveApprovalRequestMessage {
     }
 
     /// Sets the value of [expire_time][crate::model::ApproveApprovalRequestMessage::expire_time].
-    pub fn set_expire_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.expire_time = v.into();
+    pub fn set_expire_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.expire_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [expire_time][crate::model::ApproveApprovalRequestMessage::expire_time].
+    pub fn set_or_clear_expire_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.expire_time = v.map(|x| x.into());
         self
     }
 }
@@ -1469,22 +1563,38 @@ impl UpdateAccessApprovalSettingsMessage {
     }
 
     /// Sets the value of [settings][crate::model::UpdateAccessApprovalSettingsMessage::settings].
-    pub fn set_settings<
-        T: std::convert::Into<std::option::Option<crate::model::AccessApprovalSettings>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.settings = v.into();
+    pub fn set_settings<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::AccessApprovalSettings>,
+    {
+        self.settings = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [settings][crate::model::UpdateAccessApprovalSettingsMessage::settings].
+    pub fn set_or_clear_settings<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::AccessApprovalSettings>,
+    {
+        self.settings = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateAccessApprovalSettingsMessage::update_mask].
-    pub fn set_update_mask<T: std::convert::Into<std::option::Option<wkt::FieldMask>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.update_mask = v.into();
+    pub fn set_update_mask<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_mask][crate::model::UpdateAccessApprovalSettingsMessage::update_mask].
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = v.map(|x| x.into());
         self
     }
 }

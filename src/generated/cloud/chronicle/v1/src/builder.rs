@@ -129,13 +129,22 @@ pub mod data_access_control_service {
         /// Sets the value of [data_access_label][crate::model::CreateDataAccessLabelRequest::data_access_label].
         ///
         /// This is a **required** field for requests.
-        pub fn set_data_access_label<
-            T: Into<std::option::Option<crate::model::DataAccessLabel>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.data_access_label = v.into();
+        pub fn set_data_access_label<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::DataAccessLabel>,
+        {
+            self.0.request.data_access_label = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [data_access_label][crate::model::CreateDataAccessLabelRequest::data_access_label].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_data_access_label<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::DataAccessLabel>,
+        {
+            self.0.request.data_access_label = v.map(|x| x.into());
             self
         }
 
@@ -388,22 +397,40 @@ pub mod data_access_control_service {
         /// Sets the value of [data_access_label][crate::model::UpdateDataAccessLabelRequest::data_access_label].
         ///
         /// This is a **required** field for requests.
-        pub fn set_data_access_label<
-            T: Into<std::option::Option<crate::model::DataAccessLabel>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.data_access_label = v.into();
+        pub fn set_data_access_label<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::DataAccessLabel>,
+        {
+            self.0.request.data_access_label = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [data_access_label][crate::model::UpdateDataAccessLabelRequest::data_access_label].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_data_access_label<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::DataAccessLabel>,
+        {
+            self.0.request.data_access_label = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateDataAccessLabelRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateDataAccessLabelRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -542,13 +569,22 @@ pub mod data_access_control_service {
         /// Sets the value of [data_access_scope][crate::model::CreateDataAccessScopeRequest::data_access_scope].
         ///
         /// This is a **required** field for requests.
-        pub fn set_data_access_scope<
-            T: Into<std::option::Option<crate::model::DataAccessScope>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.data_access_scope = v.into();
+        pub fn set_data_access_scope<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::DataAccessScope>,
+        {
+            self.0.request.data_access_scope = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [data_access_scope][crate::model::CreateDataAccessScopeRequest::data_access_scope].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_data_access_scope<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::DataAccessScope>,
+        {
+            self.0.request.data_access_scope = v.map(|x| x.into());
             self
         }
 
@@ -801,22 +837,40 @@ pub mod data_access_control_service {
         /// Sets the value of [data_access_scope][crate::model::UpdateDataAccessScopeRequest::data_access_scope].
         ///
         /// This is a **required** field for requests.
-        pub fn set_data_access_scope<
-            T: Into<std::option::Option<crate::model::DataAccessScope>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.data_access_scope = v.into();
+        pub fn set_data_access_scope<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::DataAccessScope>,
+        {
+            self.0.request.data_access_scope = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [data_access_scope][crate::model::UpdateDataAccessScopeRequest::data_access_scope].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_data_access_scope<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::DataAccessScope>,
+        {
+            self.0.request.data_access_scope = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateDataAccessScopeRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateDataAccessScopeRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -1489,11 +1543,22 @@ pub mod entity_service {
         /// Sets the value of [watchlist][crate::model::CreateWatchlistRequest::watchlist].
         ///
         /// This is a **required** field for requests.
-        pub fn set_watchlist<T: Into<std::option::Option<crate::model::Watchlist>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.watchlist = v.into();
+        pub fn set_watchlist<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Watchlist>,
+        {
+            self.0.request.watchlist = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [watchlist][crate::model::CreateWatchlistRequest::watchlist].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_watchlist<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Watchlist>,
+        {
+            self.0.request.watchlist = v.map(|x| x.into());
             self
         }
     }
@@ -1555,20 +1620,40 @@ pub mod entity_service {
         /// Sets the value of [watchlist][crate::model::UpdateWatchlistRequest::watchlist].
         ///
         /// This is a **required** field for requests.
-        pub fn set_watchlist<T: Into<std::option::Option<crate::model::Watchlist>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.watchlist = v.into();
+        pub fn set_watchlist<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Watchlist>,
+        {
+            self.0.request.watchlist = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [watchlist][crate::model::UpdateWatchlistRequest::watchlist].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_watchlist<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Watchlist>,
+        {
+            self.0.request.watchlist = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateWatchlistRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateWatchlistRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -2677,11 +2762,22 @@ pub mod reference_list_service {
         /// Sets the value of [reference_list][crate::model::CreateReferenceListRequest::reference_list].
         ///
         /// This is a **required** field for requests.
-        pub fn set_reference_list<T: Into<std::option::Option<crate::model::ReferenceList>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.reference_list = v.into();
+        pub fn set_reference_list<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::ReferenceList>,
+        {
+            self.0.request.reference_list = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [reference_list][crate::model::CreateReferenceListRequest::reference_list].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_reference_list<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::ReferenceList>,
+        {
+            self.0.request.reference_list = v.map(|x| x.into());
             self
         }
 
@@ -2754,20 +2850,40 @@ pub mod reference_list_service {
         /// Sets the value of [reference_list][crate::model::UpdateReferenceListRequest::reference_list].
         ///
         /// This is a **required** field for requests.
-        pub fn set_reference_list<T: Into<std::option::Option<crate::model::ReferenceList>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.reference_list = v.into();
+        pub fn set_reference_list<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::ReferenceList>,
+        {
+            self.0.request.reference_list = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [reference_list][crate::model::UpdateReferenceListRequest::reference_list].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_reference_list<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::ReferenceList>,
+        {
+            self.0.request.reference_list = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateReferenceListRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateReferenceListRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -3196,8 +3312,22 @@ pub mod rule_service {
         /// Sets the value of [rule][crate::model::CreateRuleRequest::rule].
         ///
         /// This is a **required** field for requests.
-        pub fn set_rule<T: Into<std::option::Option<crate::model::Rule>>>(mut self, v: T) -> Self {
-            self.0.request.rule = v.into();
+        pub fn set_rule<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Rule>,
+        {
+            self.0.request.rule = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [rule][crate::model::CreateRuleRequest::rule].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_rule<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Rule>,
+        {
+            self.0.request.rule = v.map(|x| x.into());
             self
         }
     }
@@ -3443,17 +3573,40 @@ pub mod rule_service {
         /// Sets the value of [rule][crate::model::UpdateRuleRequest::rule].
         ///
         /// This is a **required** field for requests.
-        pub fn set_rule<T: Into<std::option::Option<crate::model::Rule>>>(mut self, v: T) -> Self {
-            self.0.request.rule = v.into();
+        pub fn set_rule<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Rule>,
+        {
+            self.0.request.rule = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [rule][crate::model::UpdateRuleRequest::rule].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_rule<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Rule>,
+        {
+            self.0.request.rule = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateRuleRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateRuleRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -3743,11 +3896,22 @@ pub mod rule_service {
         /// Sets the value of [retrohunt][crate::model::CreateRetrohuntRequest::retrohunt].
         ///
         /// This is a **required** field for requests.
-        pub fn set_retrohunt<T: Into<std::option::Option<crate::model::Retrohunt>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.retrohunt = v.into();
+        pub fn set_retrohunt<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Retrohunt>,
+        {
+            self.0.request.retrohunt = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [retrohunt][crate::model::CreateRetrohuntRequest::retrohunt].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_retrohunt<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Retrohunt>,
+        {
+            self.0.request.retrohunt = v.map(|x| x.into());
             self
         }
     }
@@ -4164,22 +4328,44 @@ pub mod rule_service {
         /// Sets the value of [rule_deployment][crate::model::UpdateRuleDeploymentRequest::rule_deployment].
         ///
         /// This is a **required** field for requests.
-        pub fn set_rule_deployment<T: Into<std::option::Option<crate::model::RuleDeployment>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.rule_deployment = v.into();
+        pub fn set_rule_deployment<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::RuleDeployment>,
+        {
+            self.0.request.rule_deployment = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [rule_deployment][crate::model::UpdateRuleDeploymentRequest::rule_deployment].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_rule_deployment<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::RuleDeployment>,
+        {
+            self.0.request.rule_deployment = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateRuleDeploymentRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateRuleDeploymentRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }

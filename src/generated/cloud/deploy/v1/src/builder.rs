@@ -365,13 +365,22 @@ pub mod cloud_deploy {
         /// Sets the value of [delivery_pipeline][crate::model::CreateDeliveryPipelineRequest::delivery_pipeline].
         ///
         /// This is a **required** field for requests.
-        pub fn set_delivery_pipeline<
-            T: Into<std::option::Option<crate::model::DeliveryPipeline>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.delivery_pipeline = v.into();
+        pub fn set_delivery_pipeline<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::DeliveryPipeline>,
+        {
+            self.0.request.delivery_pipeline = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [delivery_pipeline][crate::model::CreateDeliveryPipelineRequest::delivery_pipeline].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_delivery_pipeline<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::DeliveryPipeline>,
+        {
+            self.0.request.delivery_pipeline = v.map(|x| x.into());
             self
         }
 
@@ -490,24 +499,44 @@ pub mod cloud_deploy {
         /// Sets the value of [update_mask][crate::model::UpdateDeliveryPipelineRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateDeliveryPipelineRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [delivery_pipeline][crate::model::UpdateDeliveryPipelineRequest::delivery_pipeline].
         ///
         /// This is a **required** field for requests.
-        pub fn set_delivery_pipeline<
-            T: Into<std::option::Option<crate::model::DeliveryPipeline>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.delivery_pipeline = v.into();
+        pub fn set_delivery_pipeline<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::DeliveryPipeline>,
+        {
+            self.0.request.delivery_pipeline = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [delivery_pipeline][crate::model::UpdateDeliveryPipelineRequest::delivery_pipeline].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_delivery_pipeline<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::DeliveryPipeline>,
+        {
+            self.0.request.delivery_pipeline = v.map(|x| x.into());
             self
         }
 
@@ -873,13 +902,20 @@ pub mod cloud_deploy {
         }
 
         /// Sets the value of [rollback_config][crate::model::RollbackTargetRequest::rollback_config].
-        pub fn set_rollback_config<
-            T: Into<std::option::Option<crate::model::RollbackTargetConfig>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.rollback_config = v.into();
+        pub fn set_rollback_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::RollbackTargetConfig>,
+        {
+            self.0.request.rollback_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [rollback_config][crate::model::RollbackTargetRequest::rollback_config].
+        pub fn set_or_clear_rollback_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::RollbackTargetConfig>,
+        {
+            self.0.request.rollback_config = v.map(|x| x.into());
             self
         }
 
@@ -1076,11 +1112,22 @@ pub mod cloud_deploy {
         /// Sets the value of [target][crate::model::CreateTargetRequest::target].
         ///
         /// This is a **required** field for requests.
-        pub fn set_target<T: Into<std::option::Option<crate::model::Target>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.target = v.into();
+        pub fn set_target<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Target>,
+        {
+            self.0.request.target = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [target][crate::model::CreateTargetRequest::target].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_target<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Target>,
+        {
+            self.0.request.target = v.map(|x| x.into());
             self
         }
 
@@ -1193,22 +1240,44 @@ pub mod cloud_deploy {
         /// Sets the value of [update_mask][crate::model::UpdateTargetRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateTargetRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [target][crate::model::UpdateTargetRequest::target].
         ///
         /// This is a **required** field for requests.
-        pub fn set_target<T: Into<std::option::Option<crate::model::Target>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.target = v.into();
+        pub fn set_target<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Target>,
+        {
+            self.0.request.target = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [target][crate::model::UpdateTargetRequest::target].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_target<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Target>,
+        {
+            self.0.request.target = v.map(|x| x.into());
             self
         }
 
@@ -1663,13 +1732,22 @@ pub mod cloud_deploy {
         /// Sets the value of [custom_target_type][crate::model::CreateCustomTargetTypeRequest::custom_target_type].
         ///
         /// This is a **required** field for requests.
-        pub fn set_custom_target_type<
-            T: Into<std::option::Option<crate::model::CustomTargetType>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.custom_target_type = v.into();
+        pub fn set_custom_target_type<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::CustomTargetType>,
+        {
+            self.0.request.custom_target_type = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [custom_target_type][crate::model::CreateCustomTargetTypeRequest::custom_target_type].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_custom_target_type<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::CustomTargetType>,
+        {
+            self.0.request.custom_target_type = v.map(|x| x.into());
             self
         }
 
@@ -1788,24 +1866,44 @@ pub mod cloud_deploy {
         /// Sets the value of [update_mask][crate::model::UpdateCustomTargetTypeRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateCustomTargetTypeRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [custom_target_type][crate::model::UpdateCustomTargetTypeRequest::custom_target_type].
         ///
         /// This is a **required** field for requests.
-        pub fn set_custom_target_type<
-            T: Into<std::option::Option<crate::model::CustomTargetType>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.custom_target_type = v.into();
+        pub fn set_custom_target_type<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::CustomTargetType>,
+        {
+            self.0.request.custom_target_type = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [custom_target_type][crate::model::UpdateCustomTargetTypeRequest::custom_target_type].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_custom_target_type<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::CustomTargetType>,
+        {
+            self.0.request.custom_target_type = v.map(|x| x.into());
             self
         }
 
@@ -2249,11 +2347,22 @@ pub mod cloud_deploy {
         /// Sets the value of [release][crate::model::CreateReleaseRequest::release].
         ///
         /// This is a **required** field for requests.
-        pub fn set_release<T: Into<std::option::Option<crate::model::Release>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.release = v.into();
+        pub fn set_release<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Release>,
+        {
+            self.0.request.release = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [release][crate::model::CreateReleaseRequest::release].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_release<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Release>,
+        {
+            self.0.request.release = v.map(|x| x.into());
             self
         }
 
@@ -2461,11 +2570,22 @@ pub mod cloud_deploy {
         /// Sets the value of [deploy_policy][crate::model::CreateDeployPolicyRequest::deploy_policy].
         ///
         /// This is a **required** field for requests.
-        pub fn set_deploy_policy<T: Into<std::option::Option<crate::model::DeployPolicy>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.deploy_policy = v.into();
+        pub fn set_deploy_policy<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::DeployPolicy>,
+        {
+            self.0.request.deploy_policy = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [deploy_policy][crate::model::CreateDeployPolicyRequest::deploy_policy].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_deploy_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::DeployPolicy>,
+        {
+            self.0.request.deploy_policy = v.map(|x| x.into());
             self
         }
 
@@ -2583,22 +2703,44 @@ pub mod cloud_deploy {
         /// Sets the value of [update_mask][crate::model::UpdateDeployPolicyRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateDeployPolicyRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [deploy_policy][crate::model::UpdateDeployPolicyRequest::deploy_policy].
         ///
         /// This is a **required** field for requests.
-        pub fn set_deploy_policy<T: Into<std::option::Option<crate::model::DeployPolicy>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.deploy_policy = v.into();
+        pub fn set_deploy_policy<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::DeployPolicy>,
+        {
+            self.0.request.deploy_policy = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [deploy_policy][crate::model::UpdateDeployPolicyRequest::deploy_policy].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_deploy_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::DeployPolicy>,
+        {
+            self.0.request.deploy_policy = v.map(|x| x.into());
             self
         }
 
@@ -3463,11 +3605,22 @@ pub mod cloud_deploy {
         /// Sets the value of [rollout][crate::model::CreateRolloutRequest::rollout].
         ///
         /// This is a **required** field for requests.
-        pub fn set_rollout<T: Into<std::option::Option<crate::model::Rollout>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.rollout = v.into();
+        pub fn set_rollout<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Rollout>,
+        {
+            self.0.request.rollout = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [rollout][crate::model::CreateRolloutRequest::rollout].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_rollout<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Rollout>,
+        {
+            self.0.request.rollout = v.map(|x| x.into());
             self
         }
 
@@ -4111,11 +4264,22 @@ pub mod cloud_deploy {
         /// Sets the value of [automation][crate::model::CreateAutomationRequest::automation].
         ///
         /// This is a **required** field for requests.
-        pub fn set_automation<T: Into<std::option::Option<crate::model::Automation>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.automation = v.into();
+        pub fn set_automation<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Automation>,
+        {
+            self.0.request.automation = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [automation][crate::model::CreateAutomationRequest::automation].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_automation<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Automation>,
+        {
+            self.0.request.automation = v.map(|x| x.into());
             self
         }
 
@@ -4231,22 +4395,44 @@ pub mod cloud_deploy {
         /// Sets the value of [update_mask][crate::model::UpdateAutomationRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateAutomationRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [automation][crate::model::UpdateAutomationRequest::automation].
         ///
         /// This is a **required** field for requests.
-        pub fn set_automation<T: Into<std::option::Option<crate::model::Automation>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.automation = v.into();
+        pub fn set_automation<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Automation>,
+        {
+            self.0.request.automation = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [automation][crate::model::UpdateAutomationRequest::automation].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_automation<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Automation>,
+        {
+            self.0.request.automation = v.map(|x| x.into());
             self
         }
 
@@ -5066,20 +5252,40 @@ pub mod cloud_deploy {
         /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
-        pub fn set_policy<T: Into<std::option::Option<iam_v1::model::Policy>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.policy = v.into();
+        pub fn set_policy<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -5147,11 +5353,20 @@ pub mod cloud_deploy {
         }
 
         /// Sets the value of [options][iam_v1::model::GetIamPolicyRequest::options].
-        pub fn set_options<T: Into<std::option::Option<iam_v1::model::GetPolicyOptions>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.options = v.into();
+        pub fn set_options<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = v.map(|x| x.into());
             self
         }
     }

@@ -141,22 +141,38 @@ impl Feature {
     }
 
     /// Sets the value of [resource_state][crate::model::Feature::resource_state].
-    pub fn set_resource_state<
-        T: std::convert::Into<std::option::Option<crate::model::FeatureResourceState>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.resource_state = v.into();
+    pub fn set_resource_state<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::FeatureResourceState>,
+    {
+        self.resource_state = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [resource_state][crate::model::Feature::resource_state].
+    pub fn set_or_clear_resource_state<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::FeatureResourceState>,
+    {
+        self.resource_state = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [spec][crate::model::Feature::spec].
-    pub fn set_spec<T: std::convert::Into<std::option::Option<crate::model::CommonFeatureSpec>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.spec = v.into();
+    pub fn set_spec<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::CommonFeatureSpec>,
+    {
+        self.spec = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [spec][crate::model::Feature::spec].
+    pub fn set_or_clear_spec<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::CommonFeatureSpec>,
+    {
+        self.spec = v.map(|x| x.into());
         self
     }
 
@@ -173,13 +189,20 @@ impl Feature {
     }
 
     /// Sets the value of [state][crate::model::Feature::state].
-    pub fn set_state<
-        T: std::convert::Into<std::option::Option<crate::model::CommonFeatureState>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.state = v.into();
+    pub fn set_state<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::CommonFeatureState>,
+    {
+        self.state = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [state][crate::model::Feature::state].
+    pub fn set_or_clear_state<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::CommonFeatureState>,
+    {
+        self.state = v.map(|x| x.into());
         self
     }
 
@@ -196,29 +219,56 @@ impl Feature {
     }
 
     /// Sets the value of [create_time][crate::model::Feature::create_time].
-    pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.create_time = v.into();
+    pub fn set_create_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [create_time][crate::model::Feature::create_time].
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [update_time][crate::model::Feature::update_time].
-    pub fn set_update_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.update_time = v.into();
+    pub fn set_update_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_time][crate::model::Feature::update_time].
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [delete_time][crate::model::Feature::delete_time].
-    pub fn set_delete_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.delete_time = v.into();
+    pub fn set_delete_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.delete_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [delete_time][crate::model::Feature::delete_time].
+    pub fn set_or_clear_delete_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.delete_time = v.map(|x| x.into());
         self
     }
 }
@@ -471,11 +521,20 @@ impl FeatureState {
     }
 
     /// Sets the value of [update_time][crate::model::FeatureState::update_time].
-    pub fn set_update_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.update_time = v.into();
+    pub fn set_update_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_time][crate::model::FeatureState::update_time].
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = v.map(|x| x.into());
         self
     }
 }
@@ -744,11 +803,20 @@ impl CommonFeatureState {
     }
 
     /// Sets the value of [state][crate::model::CommonFeatureState::state].
-    pub fn set_state<T: std::convert::Into<std::option::Option<crate::model::FeatureState>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.state = v.into();
+    pub fn set_state<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::FeatureState>,
+    {
+        self.state = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [state][crate::model::CommonFeatureState::state].
+    pub fn set_or_clear_state<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::FeatureState>,
+    {
+        self.state = v.map(|x| x.into());
         self
     }
 }
@@ -871,11 +939,20 @@ impl MembershipFeatureState {
     }
 
     /// Sets the value of [state][crate::model::MembershipFeatureState::state].
-    pub fn set_state<T: std::convert::Into<std::option::Option<crate::model::FeatureState>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.state = v.into();
+    pub fn set_state<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::FeatureState>,
+    {
+        self.state = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [state][crate::model::MembershipFeatureState::state].
+    pub fn set_or_clear_state<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::FeatureState>,
+    {
+        self.state = v.map(|x| x.into());
         self
     }
 
@@ -1070,38 +1147,74 @@ impl Membership {
     }
 
     /// Sets the value of [state][crate::model::Membership::state].
-    pub fn set_state<T: std::convert::Into<std::option::Option<crate::model::MembershipState>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.state = v.into();
+    pub fn set_state<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::MembershipState>,
+    {
+        self.state = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [state][crate::model::Membership::state].
+    pub fn set_or_clear_state<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::MembershipState>,
+    {
+        self.state = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [create_time][crate::model::Membership::create_time].
-    pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.create_time = v.into();
+    pub fn set_create_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [create_time][crate::model::Membership::create_time].
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [update_time][crate::model::Membership::update_time].
-    pub fn set_update_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.update_time = v.into();
+    pub fn set_update_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_time][crate::model::Membership::update_time].
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [delete_time][crate::model::Membership::delete_time].
-    pub fn set_delete_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.delete_time = v.into();
+    pub fn set_delete_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.delete_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [delete_time][crate::model::Membership::delete_time].
+    pub fn set_or_clear_delete_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.delete_time = v.map(|x| x.into());
         self
     }
 
@@ -1112,11 +1225,20 @@ impl Membership {
     }
 
     /// Sets the value of [last_connection_time][crate::model::Membership::last_connection_time].
-    pub fn set_last_connection_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.last_connection_time = v.into();
+    pub fn set_last_connection_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.last_connection_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [last_connection_time][crate::model::Membership::last_connection_time].
+    pub fn set_or_clear_last_connection_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.last_connection_time = v.map(|x| x.into());
         self
     }
 
@@ -1127,22 +1249,38 @@ impl Membership {
     }
 
     /// Sets the value of [authority][crate::model::Membership::authority].
-    pub fn set_authority<T: std::convert::Into<std::option::Option<crate::model::Authority>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.authority = v.into();
+    pub fn set_authority<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::Authority>,
+    {
+        self.authority = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [authority][crate::model::Membership::authority].
+    pub fn set_or_clear_authority<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::Authority>,
+    {
+        self.authority = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [monitoring_config][crate::model::Membership::monitoring_config].
-    pub fn set_monitoring_config<
-        T: std::convert::Into<std::option::Option<crate::model::MonitoringConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.monitoring_config = v.into();
+    pub fn set_monitoring_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::MonitoringConfig>,
+    {
+        self.monitoring_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [monitoring_config][crate::model::Membership::monitoring_config].
+    pub fn set_or_clear_monitoring_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::MonitoringConfig>,
+    {
+        self.monitoring_config = v.map(|x| x.into());
         self
     }
 
@@ -1250,33 +1388,56 @@ impl MembershipEndpoint {
     }
 
     /// Sets the value of [gke_cluster][crate::model::MembershipEndpoint::gke_cluster].
-    pub fn set_gke_cluster<T: std::convert::Into<std::option::Option<crate::model::GkeCluster>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.gke_cluster = v.into();
+    pub fn set_gke_cluster<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::GkeCluster>,
+    {
+        self.gke_cluster = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [gke_cluster][crate::model::MembershipEndpoint::gke_cluster].
+    pub fn set_or_clear_gke_cluster<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::GkeCluster>,
+    {
+        self.gke_cluster = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [kubernetes_metadata][crate::model::MembershipEndpoint::kubernetes_metadata].
-    pub fn set_kubernetes_metadata<
-        T: std::convert::Into<std::option::Option<crate::model::KubernetesMetadata>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.kubernetes_metadata = v.into();
+    pub fn set_kubernetes_metadata<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::KubernetesMetadata>,
+    {
+        self.kubernetes_metadata = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [kubernetes_metadata][crate::model::MembershipEndpoint::kubernetes_metadata].
+    pub fn set_or_clear_kubernetes_metadata<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::KubernetesMetadata>,
+    {
+        self.kubernetes_metadata = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [kubernetes_resource][crate::model::MembershipEndpoint::kubernetes_resource].
-    pub fn set_kubernetes_resource<
-        T: std::convert::Into<std::option::Option<crate::model::KubernetesResource>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.kubernetes_resource = v.into();
+    pub fn set_kubernetes_resource<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::KubernetesResource>,
+    {
+        self.kubernetes_resource = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [kubernetes_resource][crate::model::MembershipEndpoint::kubernetes_resource].
+    pub fn set_or_clear_kubernetes_resource<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::KubernetesResource>,
+    {
+        self.kubernetes_resource = v.map(|x| x.into());
         self
     }
 
@@ -1377,13 +1538,20 @@ impl KubernetesResource {
     }
 
     /// Sets the value of [resource_options][crate::model::KubernetesResource::resource_options].
-    pub fn set_resource_options<
-        T: std::convert::Into<std::option::Option<crate::model::ResourceOptions>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.resource_options = v.into();
+    pub fn set_resource_options<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::ResourceOptions>,
+    {
+        self.resource_options = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [resource_options][crate::model::KubernetesResource::resource_options].
+    pub fn set_or_clear_resource_options<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::ResourceOptions>,
+    {
+        self.resource_options = v.map(|x| x.into());
         self
     }
 }
@@ -1634,11 +1802,20 @@ impl KubernetesMetadata {
     }
 
     /// Sets the value of [update_time][crate::model::KubernetesMetadata::update_time].
-    pub fn set_update_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.update_time = v.into();
+    pub fn set_update_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_time][crate::model::KubernetesMetadata::update_time].
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = v.map(|x| x.into());
         self
     }
 }
@@ -2294,11 +2471,20 @@ impl CreateMembershipRequest {
     }
 
     /// Sets the value of [resource][crate::model::CreateMembershipRequest::resource].
-    pub fn set_resource<T: std::convert::Into<std::option::Option<crate::model::Membership>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.resource = v.into();
+    pub fn set_resource<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::Membership>,
+    {
+        self.resource = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [resource][crate::model::CreateMembershipRequest::resource].
+    pub fn set_or_clear_resource<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::Membership>,
+    {
+        self.resource = v.map(|x| x.into());
         self
     }
 
@@ -2440,20 +2626,38 @@ impl UpdateMembershipRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateMembershipRequest::update_mask].
-    pub fn set_update_mask<T: std::convert::Into<std::option::Option<wkt::FieldMask>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.update_mask = v.into();
+    pub fn set_update_mask<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_mask][crate::model::UpdateMembershipRequest::update_mask].
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [resource][crate::model::UpdateMembershipRequest::resource].
-    pub fn set_resource<T: std::convert::Into<std::option::Option<crate::model::Membership>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.resource = v.into();
+    pub fn set_resource<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::Membership>,
+    {
+        self.resource = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [resource][crate::model::UpdateMembershipRequest::resource].
+    pub fn set_or_clear_resource<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::Membership>,
+    {
+        self.resource = v.map(|x| x.into());
         self
     }
 
@@ -2647,11 +2851,20 @@ impl ConnectAgentResource {
     }
 
     /// Sets the value of [r#type][crate::model::ConnectAgentResource::type].
-    pub fn set_type<T: std::convert::Into<std::option::Option<crate::model::TypeMeta>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.r#type = v.into();
+    pub fn set_type<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::TypeMeta>,
+    {
+        self.r#type = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [r#type][crate::model::ConnectAgentResource::type].
+    pub fn set_or_clear_type<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::TypeMeta>,
+    {
+        self.r#type = v.map(|x| x.into());
         self
     }
 
@@ -2958,11 +3171,20 @@ impl CreateFeatureRequest {
     }
 
     /// Sets the value of [resource][crate::model::CreateFeatureRequest::resource].
-    pub fn set_resource<T: std::convert::Into<std::option::Option<crate::model::Feature>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.resource = v.into();
+    pub fn set_resource<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::Feature>,
+    {
+        self.resource = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [resource][crate::model::CreateFeatureRequest::resource].
+    pub fn set_or_clear_resource<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::Feature>,
+    {
+        self.resource = v.map(|x| x.into());
         self
     }
 
@@ -3104,20 +3326,38 @@ impl UpdateFeatureRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateFeatureRequest::update_mask].
-    pub fn set_update_mask<T: std::convert::Into<std::option::Option<wkt::FieldMask>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.update_mask = v.into();
+    pub fn set_update_mask<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_mask][crate::model::UpdateFeatureRequest::update_mask].
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [resource][crate::model::UpdateFeatureRequest::resource].
-    pub fn set_resource<T: std::convert::Into<std::option::Option<crate::model::Feature>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.resource = v.into();
+    pub fn set_resource<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::Feature>,
+    {
+        self.resource = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [resource][crate::model::UpdateFeatureRequest::resource].
+    pub fn set_or_clear_resource<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::Feature>,
+    {
+        self.resource = v.map(|x| x.into());
         self
     }
 
@@ -3183,20 +3423,38 @@ impl OperationMetadata {
     }
 
     /// Sets the value of [create_time][crate::model::OperationMetadata::create_time].
-    pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.create_time = v.into();
+    pub fn set_create_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [create_time][crate::model::OperationMetadata::create_time].
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [end_time][crate::model::OperationMetadata::end_time].
-    pub fn set_end_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.end_time = v.into();
+    pub fn set_end_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.end_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [end_time][crate::model::OperationMetadata::end_time].
+    pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.end_time = v.map(|x| x.into());
         self
     }
 

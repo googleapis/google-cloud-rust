@@ -84,20 +84,38 @@ impl OperationMetadata {
     }
 
     /// Sets the value of [create_time][crate::model::OperationMetadata::create_time].
-    pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.create_time = v.into();
+    pub fn set_create_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [create_time][crate::model::OperationMetadata::create_time].
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [end_time][crate::model::OperationMetadata::end_time].
-    pub fn set_end_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.end_time = v.into();
+    pub fn set_end_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.end_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [end_time][crate::model::OperationMetadata::end_time].
+    pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.end_time = v.map(|x| x.into());
         self
     }
 
@@ -584,13 +602,20 @@ impl ExtensionChain {
     }
 
     /// Sets the value of [match_condition][crate::model::ExtensionChain::match_condition].
-    pub fn set_match_condition<
-        T: std::convert::Into<std::option::Option<crate::model::extension_chain::MatchCondition>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.match_condition = v.into();
+    pub fn set_match_condition<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::extension_chain::MatchCondition>,
+    {
+        self.match_condition = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [match_condition][crate::model::ExtensionChain::match_condition].
+    pub fn set_or_clear_match_condition<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::extension_chain::MatchCondition>,
+    {
+        self.match_condition = v.map(|x| x.into());
         self
     }
 
@@ -768,11 +793,20 @@ pub mod extension_chain {
         }
 
         /// Sets the value of [timeout][crate::model::extension_chain::Extension::timeout].
-        pub fn set_timeout<T: std::convert::Into<std::option::Option<wkt::Duration>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.timeout = v.into();
+        pub fn set_timeout<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Duration>,
+        {
+            self.timeout = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [timeout][crate::model::extension_chain::Extension::timeout].
+        pub fn set_or_clear_timeout<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Duration>,
+        {
+            self.timeout = v.map(|x| x.into());
             self
         }
 
@@ -885,20 +919,38 @@ impl LbTrafficExtension {
     }
 
     /// Sets the value of [create_time][crate::model::LbTrafficExtension::create_time].
-    pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.create_time = v.into();
+    pub fn set_create_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [create_time][crate::model::LbTrafficExtension::create_time].
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [update_time][crate::model::LbTrafficExtension::update_time].
-    pub fn set_update_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.update_time = v.into();
+    pub fn set_update_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_time][crate::model::LbTrafficExtension::update_time].
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = v.map(|x| x.into());
         self
     }
 
@@ -952,11 +1004,20 @@ impl LbTrafficExtension {
     }
 
     /// Sets the value of [metadata][crate::model::LbTrafficExtension::metadata].
-    pub fn set_metadata<T: std::convert::Into<std::option::Option<wkt::Struct>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.metadata = v.into();
+    pub fn set_metadata<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Struct>,
+    {
+        self.metadata = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [metadata][crate::model::LbTrafficExtension::metadata].
+    pub fn set_or_clear_metadata<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Struct>,
+    {
+        self.metadata = v.map(|x| x.into());
         self
     }
 }
@@ -1213,13 +1274,20 @@ impl CreateLbTrafficExtensionRequest {
     }
 
     /// Sets the value of [lb_traffic_extension][crate::model::CreateLbTrafficExtensionRequest::lb_traffic_extension].
-    pub fn set_lb_traffic_extension<
-        T: std::convert::Into<std::option::Option<crate::model::LbTrafficExtension>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.lb_traffic_extension = v.into();
+    pub fn set_lb_traffic_extension<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::LbTrafficExtension>,
+    {
+        self.lb_traffic_extension = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [lb_traffic_extension][crate::model::CreateLbTrafficExtensionRequest::lb_traffic_extension].
+    pub fn set_or_clear_lb_traffic_extension<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::LbTrafficExtension>,
+    {
+        self.lb_traffic_extension = v.map(|x| x.into());
         self
     }
 
@@ -1280,22 +1348,38 @@ impl UpdateLbTrafficExtensionRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateLbTrafficExtensionRequest::update_mask].
-    pub fn set_update_mask<T: std::convert::Into<std::option::Option<wkt::FieldMask>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.update_mask = v.into();
+    pub fn set_update_mask<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_mask][crate::model::UpdateLbTrafficExtensionRequest::update_mask].
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [lb_traffic_extension][crate::model::UpdateLbTrafficExtensionRequest::lb_traffic_extension].
-    pub fn set_lb_traffic_extension<
-        T: std::convert::Into<std::option::Option<crate::model::LbTrafficExtension>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.lb_traffic_extension = v.into();
+    pub fn set_lb_traffic_extension<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::LbTrafficExtension>,
+    {
+        self.lb_traffic_extension = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [lb_traffic_extension][crate::model::UpdateLbTrafficExtensionRequest::lb_traffic_extension].
+    pub fn set_or_clear_lb_traffic_extension<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::LbTrafficExtension>,
+    {
+        self.lb_traffic_extension = v.map(|x| x.into());
         self
     }
 
@@ -1451,20 +1535,38 @@ impl LbRouteExtension {
     }
 
     /// Sets the value of [create_time][crate::model::LbRouteExtension::create_time].
-    pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.create_time = v.into();
+    pub fn set_create_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [create_time][crate::model::LbRouteExtension::create_time].
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [update_time][crate::model::LbRouteExtension::update_time].
-    pub fn set_update_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.update_time = v.into();
+    pub fn set_update_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_time][crate::model::LbRouteExtension::update_time].
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = v.map(|x| x.into());
         self
     }
 
@@ -1518,11 +1620,20 @@ impl LbRouteExtension {
     }
 
     /// Sets the value of [metadata][crate::model::LbRouteExtension::metadata].
-    pub fn set_metadata<T: std::convert::Into<std::option::Option<wkt::Struct>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.metadata = v.into();
+    pub fn set_metadata<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Struct>,
+    {
+        self.metadata = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [metadata][crate::model::LbRouteExtension::metadata].
+    pub fn set_or_clear_metadata<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Struct>,
+    {
+        self.metadata = v.map(|x| x.into());
         self
     }
 }
@@ -1779,13 +1890,20 @@ impl CreateLbRouteExtensionRequest {
     }
 
     /// Sets the value of [lb_route_extension][crate::model::CreateLbRouteExtensionRequest::lb_route_extension].
-    pub fn set_lb_route_extension<
-        T: std::convert::Into<std::option::Option<crate::model::LbRouteExtension>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.lb_route_extension = v.into();
+    pub fn set_lb_route_extension<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::LbRouteExtension>,
+    {
+        self.lb_route_extension = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [lb_route_extension][crate::model::CreateLbRouteExtensionRequest::lb_route_extension].
+    pub fn set_or_clear_lb_route_extension<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::LbRouteExtension>,
+    {
+        self.lb_route_extension = v.map(|x| x.into());
         self
     }
 
@@ -1846,22 +1964,38 @@ impl UpdateLbRouteExtensionRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateLbRouteExtensionRequest::update_mask].
-    pub fn set_update_mask<T: std::convert::Into<std::option::Option<wkt::FieldMask>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.update_mask = v.into();
+    pub fn set_update_mask<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_mask][crate::model::UpdateLbRouteExtensionRequest::update_mask].
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [lb_route_extension][crate::model::UpdateLbRouteExtensionRequest::lb_route_extension].
-    pub fn set_lb_route_extension<
-        T: std::convert::Into<std::option::Option<crate::model::LbRouteExtension>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.lb_route_extension = v.into();
+    pub fn set_lb_route_extension<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::LbRouteExtension>,
+    {
+        self.lb_route_extension = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [lb_route_extension][crate::model::UpdateLbRouteExtensionRequest::lb_route_extension].
+    pub fn set_or_clear_lb_route_extension<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::LbRouteExtension>,
+    {
+        self.lb_route_extension = v.map(|x| x.into());
         self
     }
 
@@ -2022,20 +2156,38 @@ impl EndpointPolicy {
     }
 
     /// Sets the value of [create_time][crate::model::EndpointPolicy::create_time].
-    pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.create_time = v.into();
+    pub fn set_create_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [create_time][crate::model::EndpointPolicy::create_time].
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [update_time][crate::model::EndpointPolicy::update_time].
-    pub fn set_update_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.update_time = v.into();
+    pub fn set_update_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_time][crate::model::EndpointPolicy::update_time].
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = v.map(|x| x.into());
         self
     }
 
@@ -2070,24 +2222,38 @@ impl EndpointPolicy {
     }
 
     /// Sets the value of [endpoint_matcher][crate::model::EndpointPolicy::endpoint_matcher].
-    pub fn set_endpoint_matcher<
-        T: std::convert::Into<std::option::Option<crate::model::EndpointMatcher>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.endpoint_matcher = v.into();
+    pub fn set_endpoint_matcher<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::EndpointMatcher>,
+    {
+        self.endpoint_matcher = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [endpoint_matcher][crate::model::EndpointPolicy::endpoint_matcher].
+    pub fn set_or_clear_endpoint_matcher<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::EndpointMatcher>,
+    {
+        self.endpoint_matcher = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [traffic_port_selector][crate::model::EndpointPolicy::traffic_port_selector].
-    pub fn set_traffic_port_selector<
-        T: std::convert::Into<std::option::Option<crate::model::TrafficPortSelector>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.traffic_port_selector = v.into();
+    pub fn set_traffic_port_selector<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::TrafficPortSelector>,
+    {
+        self.traffic_port_selector = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [traffic_port_selector][crate::model::EndpointPolicy::traffic_port_selector].
+    pub fn set_or_clear_traffic_port_selector<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::TrafficPortSelector>,
+    {
+        self.traffic_port_selector = v.map(|x| x.into());
         self
     }
 
@@ -2457,13 +2623,20 @@ impl CreateEndpointPolicyRequest {
     }
 
     /// Sets the value of [endpoint_policy][crate::model::CreateEndpointPolicyRequest::endpoint_policy].
-    pub fn set_endpoint_policy<
-        T: std::convert::Into<std::option::Option<crate::model::EndpointPolicy>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.endpoint_policy = v.into();
+    pub fn set_endpoint_policy<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::EndpointPolicy>,
+    {
+        self.endpoint_policy = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [endpoint_policy][crate::model::CreateEndpointPolicyRequest::endpoint_policy].
+    pub fn set_or_clear_endpoint_policy<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::EndpointPolicy>,
+    {
+        self.endpoint_policy = v.map(|x| x.into());
         self
     }
 }
@@ -2502,22 +2675,38 @@ impl UpdateEndpointPolicyRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateEndpointPolicyRequest::update_mask].
-    pub fn set_update_mask<T: std::convert::Into<std::option::Option<wkt::FieldMask>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.update_mask = v.into();
+    pub fn set_update_mask<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_mask][crate::model::UpdateEndpointPolicyRequest::update_mask].
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [endpoint_policy][crate::model::UpdateEndpointPolicyRequest::endpoint_policy].
-    pub fn set_endpoint_policy<
-        T: std::convert::Into<std::option::Option<crate::model::EndpointPolicy>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.endpoint_policy = v.into();
+    pub fn set_endpoint_policy<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::EndpointPolicy>,
+    {
+        self.endpoint_policy = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [endpoint_policy][crate::model::UpdateEndpointPolicyRequest::endpoint_policy].
+    pub fn set_or_clear_endpoint_policy<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::EndpointPolicy>,
+    {
+        self.endpoint_policy = v.map(|x| x.into());
         self
     }
 }
@@ -2645,20 +2834,38 @@ impl Gateway {
     }
 
     /// Sets the value of [create_time][crate::model::Gateway::create_time].
-    pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.create_time = v.into();
+    pub fn set_create_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [create_time][crate::model::Gateway::create_time].
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [update_time][crate::model::Gateway::update_time].
-    pub fn set_update_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.update_time = v.into();
+    pub fn set_update_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_time][crate::model::Gateway::update_time].
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = v.map(|x| x.into());
         self
     }
 
@@ -3054,11 +3261,20 @@ impl CreateGatewayRequest {
     }
 
     /// Sets the value of [gateway][crate::model::CreateGatewayRequest::gateway].
-    pub fn set_gateway<T: std::convert::Into<std::option::Option<crate::model::Gateway>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.gateway = v.into();
+    pub fn set_gateway<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::Gateway>,
+    {
+        self.gateway = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [gateway][crate::model::CreateGatewayRequest::gateway].
+    pub fn set_or_clear_gateway<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::Gateway>,
+    {
+        self.gateway = v.map(|x| x.into());
         self
     }
 }
@@ -3097,20 +3313,38 @@ impl UpdateGatewayRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateGatewayRequest::update_mask].
-    pub fn set_update_mask<T: std::convert::Into<std::option::Option<wkt::FieldMask>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.update_mask = v.into();
+    pub fn set_update_mask<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_mask][crate::model::UpdateGatewayRequest::update_mask].
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [gateway][crate::model::UpdateGatewayRequest::gateway].
-    pub fn set_gateway<T: std::convert::Into<std::option::Option<crate::model::Gateway>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.gateway = v.into();
+    pub fn set_gateway<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::Gateway>,
+    {
+        self.gateway = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [gateway][crate::model::UpdateGatewayRequest::gateway].
+    pub fn set_or_clear_gateway<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::Gateway>,
+    {
+        self.gateway = v.map(|x| x.into());
         self
     }
 }
@@ -3269,20 +3503,38 @@ impl GrpcRoute {
     }
 
     /// Sets the value of [create_time][crate::model::GrpcRoute::create_time].
-    pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.create_time = v.into();
+    pub fn set_create_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [create_time][crate::model::GrpcRoute::create_time].
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [update_time][crate::model::GrpcRoute::update_time].
-    pub fn set_update_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.update_time = v.into();
+    pub fn set_update_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_time][crate::model::GrpcRoute::update_time].
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = v.map(|x| x.into());
         self
     }
 
@@ -3421,11 +3673,20 @@ pub mod grpc_route {
         }
 
         /// Sets the value of [case_sensitive][crate::model::grpc_route::MethodMatch::case_sensitive].
-        pub fn set_case_sensitive<T: std::convert::Into<std::option::Option<bool>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.case_sensitive = v.into();
+        pub fn set_case_sensitive<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<bool>,
+        {
+            self.case_sensitive = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [case_sensitive][crate::model::grpc_route::MethodMatch::case_sensitive].
+        pub fn set_or_clear_case_sensitive<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<bool>,
+        {
+            self.case_sensitive = v.map(|x| x.into());
             self
         }
     }
@@ -3802,13 +4063,20 @@ pub mod grpc_route {
         }
 
         /// Sets the value of [method][crate::model::grpc_route::RouteMatch::method].
-        pub fn set_method<
-            T: std::convert::Into<std::option::Option<crate::model::grpc_route::MethodMatch>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.method = v.into();
+        pub fn set_method<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::grpc_route::MethodMatch>,
+        {
+            self.method = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [method][crate::model::grpc_route::RouteMatch::method].
+        pub fn set_or_clear_method<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::grpc_route::MethodMatch>,
+        {
+            self.method = v.map(|x| x.into());
             self
         }
 
@@ -3869,8 +4137,20 @@ pub mod grpc_route {
         }
 
         /// Sets the value of [weight][crate::model::grpc_route::Destination::weight].
-        pub fn set_weight<T: std::convert::Into<std::option::Option<i32>>>(mut self, v: T) -> Self {
-            self.weight = v.into();
+        pub fn set_weight<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<i32>,
+        {
+            self.weight = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [weight][crate::model::grpc_route::Destination::weight].
+        pub fn set_or_clear_weight<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<i32>,
+        {
+            self.weight = v.map(|x| x.into());
             self
         }
 
@@ -3971,28 +4251,38 @@ pub mod grpc_route {
         }
 
         /// Sets the value of [delay][crate::model::grpc_route::FaultInjectionPolicy::delay].
-        pub fn set_delay<
-            T: std::convert::Into<
-                    std::option::Option<crate::model::grpc_route::fault_injection_policy::Delay>,
-                >,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.delay = v.into();
+        pub fn set_delay<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::grpc_route::fault_injection_policy::Delay>,
+        {
+            self.delay = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [delay][crate::model::grpc_route::FaultInjectionPolicy::delay].
+        pub fn set_or_clear_delay<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::grpc_route::fault_injection_policy::Delay>,
+        {
+            self.delay = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [abort][crate::model::grpc_route::FaultInjectionPolicy::abort].
-        pub fn set_abort<
-            T: std::convert::Into<
-                    std::option::Option<crate::model::grpc_route::fault_injection_policy::Abort>,
-                >,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.abort = v.into();
+        pub fn set_abort<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::grpc_route::fault_injection_policy::Abort>,
+        {
+            self.abort = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [abort][crate::model::grpc_route::FaultInjectionPolicy::abort].
+        pub fn set_or_clear_abort<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::grpc_route::fault_injection_policy::Abort>,
+        {
+            self.abort = v.map(|x| x.into());
             self
         }
     }
@@ -4035,20 +4325,38 @@ pub mod grpc_route {
             }
 
             /// Sets the value of [fixed_delay][crate::model::grpc_route::fault_injection_policy::Delay::fixed_delay].
-            pub fn set_fixed_delay<T: std::convert::Into<std::option::Option<wkt::Duration>>>(
-                mut self,
-                v: T,
-            ) -> Self {
-                self.fixed_delay = v.into();
+            pub fn set_fixed_delay<T>(mut self, v: T) -> Self
+            where
+                T: std::convert::Into<wkt::Duration>,
+            {
+                self.fixed_delay = std::option::Option::Some(v.into());
+                self
+            }
+
+            /// Sets or clears the value of [fixed_delay][crate::model::grpc_route::fault_injection_policy::Delay::fixed_delay].
+            pub fn set_or_clear_fixed_delay<T>(mut self, v: std::option::Option<T>) -> Self
+            where
+                T: std::convert::Into<wkt::Duration>,
+            {
+                self.fixed_delay = v.map(|x| x.into());
                 self
             }
 
             /// Sets the value of [percentage][crate::model::grpc_route::fault_injection_policy::Delay::percentage].
-            pub fn set_percentage<T: std::convert::Into<std::option::Option<i32>>>(
-                mut self,
-                v: T,
-            ) -> Self {
-                self.percentage = v.into();
+            pub fn set_percentage<T>(mut self, v: T) -> Self
+            where
+                T: std::convert::Into<i32>,
+            {
+                self.percentage = std::option::Option::Some(v.into());
+                self
+            }
+
+            /// Sets or clears the value of [percentage][crate::model::grpc_route::fault_injection_policy::Delay::percentage].
+            pub fn set_or_clear_percentage<T>(mut self, v: std::option::Option<T>) -> Self
+            where
+                T: std::convert::Into<i32>,
+            {
+                self.percentage = v.map(|x| x.into());
                 self
             }
         }
@@ -4088,20 +4396,38 @@ pub mod grpc_route {
             }
 
             /// Sets the value of [http_status][crate::model::grpc_route::fault_injection_policy::Abort::http_status].
-            pub fn set_http_status<T: std::convert::Into<std::option::Option<i32>>>(
-                mut self,
-                v: T,
-            ) -> Self {
-                self.http_status = v.into();
+            pub fn set_http_status<T>(mut self, v: T) -> Self
+            where
+                T: std::convert::Into<i32>,
+            {
+                self.http_status = std::option::Option::Some(v.into());
+                self
+            }
+
+            /// Sets or clears the value of [http_status][crate::model::grpc_route::fault_injection_policy::Abort::http_status].
+            pub fn set_or_clear_http_status<T>(mut self, v: std::option::Option<T>) -> Self
+            where
+                T: std::convert::Into<i32>,
+            {
+                self.http_status = v.map(|x| x.into());
                 self
             }
 
             /// Sets the value of [percentage][crate::model::grpc_route::fault_injection_policy::Abort::percentage].
-            pub fn set_percentage<T: std::convert::Into<std::option::Option<i32>>>(
-                mut self,
-                v: T,
-            ) -> Self {
-                self.percentage = v.into();
+            pub fn set_percentage<T>(mut self, v: T) -> Self
+            where
+                T: std::convert::Into<i32>,
+            {
+                self.percentage = std::option::Option::Some(v.into());
+                self
+            }
+
+            /// Sets or clears the value of [percentage][crate::model::grpc_route::fault_injection_policy::Abort::percentage].
+            pub fn set_or_clear_percentage<T>(mut self, v: std::option::Option<T>) -> Self
+            where
+                T: std::convert::Into<i32>,
+            {
+                self.percentage = v.map(|x| x.into());
                 self
             }
         }
@@ -4233,33 +4559,56 @@ pub mod grpc_route {
         }
 
         /// Sets the value of [fault_injection_policy][crate::model::grpc_route::RouteAction::fault_injection_policy].
-        pub fn set_fault_injection_policy<
-            T: std::convert::Into<std::option::Option<crate::model::grpc_route::FaultInjectionPolicy>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.fault_injection_policy = v.into();
+        pub fn set_fault_injection_policy<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::grpc_route::FaultInjectionPolicy>,
+        {
+            self.fault_injection_policy = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [fault_injection_policy][crate::model::grpc_route::RouteAction::fault_injection_policy].
+        pub fn set_or_clear_fault_injection_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::grpc_route::FaultInjectionPolicy>,
+        {
+            self.fault_injection_policy = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [timeout][crate::model::grpc_route::RouteAction::timeout].
-        pub fn set_timeout<T: std::convert::Into<std::option::Option<wkt::Duration>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.timeout = v.into();
+        pub fn set_timeout<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Duration>,
+        {
+            self.timeout = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [timeout][crate::model::grpc_route::RouteAction::timeout].
+        pub fn set_or_clear_timeout<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Duration>,
+        {
+            self.timeout = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [retry_policy][crate::model::grpc_route::RouteAction::retry_policy].
-        pub fn set_retry_policy<
-            T: std::convert::Into<std::option::Option<crate::model::grpc_route::RetryPolicy>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.retry_policy = v.into();
+        pub fn set_retry_policy<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::grpc_route::RetryPolicy>,
+        {
+            self.retry_policy = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [retry_policy][crate::model::grpc_route::RouteAction::retry_policy].
+        pub fn set_or_clear_retry_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::grpc_route::RetryPolicy>,
+        {
+            self.retry_policy = v.map(|x| x.into());
             self
         }
     }
@@ -4309,13 +4658,20 @@ pub mod grpc_route {
         }
 
         /// Sets the value of [action][crate::model::grpc_route::RouteRule::action].
-        pub fn set_action<
-            T: std::convert::Into<std::option::Option<crate::model::grpc_route::RouteAction>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.action = v.into();
+        pub fn set_action<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::grpc_route::RouteAction>,
+        {
+            self.action = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [action][crate::model::grpc_route::RouteRule::action].
+        pub fn set_or_clear_action<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::grpc_route::RouteAction>,
+        {
+            self.action = v.map(|x| x.into());
             self
         }
     }
@@ -4519,11 +4875,20 @@ impl CreateGrpcRouteRequest {
     }
 
     /// Sets the value of [grpc_route][crate::model::CreateGrpcRouteRequest::grpc_route].
-    pub fn set_grpc_route<T: std::convert::Into<std::option::Option<crate::model::GrpcRoute>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.grpc_route = v.into();
+    pub fn set_grpc_route<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::GrpcRoute>,
+    {
+        self.grpc_route = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [grpc_route][crate::model::CreateGrpcRouteRequest::grpc_route].
+    pub fn set_or_clear_grpc_route<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::GrpcRoute>,
+    {
+        self.grpc_route = v.map(|x| x.into());
         self
     }
 }
@@ -4562,20 +4927,38 @@ impl UpdateGrpcRouteRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateGrpcRouteRequest::update_mask].
-    pub fn set_update_mask<T: std::convert::Into<std::option::Option<wkt::FieldMask>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.update_mask = v.into();
+    pub fn set_update_mask<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_mask][crate::model::UpdateGrpcRouteRequest::update_mask].
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [grpc_route][crate::model::UpdateGrpcRouteRequest::grpc_route].
-    pub fn set_grpc_route<T: std::convert::Into<std::option::Option<crate::model::GrpcRoute>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.grpc_route = v.into();
+    pub fn set_grpc_route<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::GrpcRoute>,
+    {
+        self.grpc_route = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [grpc_route][crate::model::UpdateGrpcRouteRequest::grpc_route].
+    pub fn set_or_clear_grpc_route<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::GrpcRoute>,
+    {
+        self.grpc_route = v.map(|x| x.into());
         self
     }
 }
@@ -4733,20 +5116,38 @@ impl HttpRoute {
     }
 
     /// Sets the value of [create_time][crate::model::HttpRoute::create_time].
-    pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.create_time = v.into();
+    pub fn set_create_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [create_time][crate::model::HttpRoute::create_time].
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [update_time][crate::model::HttpRoute::update_time].
-    pub fn set_update_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.update_time = v.into();
+    pub fn set_update_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_time][crate::model::HttpRoute::update_time].
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = v.map(|x| x.into());
         self
     }
 
@@ -5851,28 +6252,38 @@ pub mod http_route {
         }
 
         /// Sets the value of [delay][crate::model::http_route::FaultInjectionPolicy::delay].
-        pub fn set_delay<
-            T: std::convert::Into<
-                    std::option::Option<crate::model::http_route::fault_injection_policy::Delay>,
-                >,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.delay = v.into();
+        pub fn set_delay<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::http_route::fault_injection_policy::Delay>,
+        {
+            self.delay = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [delay][crate::model::http_route::FaultInjectionPolicy::delay].
+        pub fn set_or_clear_delay<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::http_route::fault_injection_policy::Delay>,
+        {
+            self.delay = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [abort][crate::model::http_route::FaultInjectionPolicy::abort].
-        pub fn set_abort<
-            T: std::convert::Into<
-                    std::option::Option<crate::model::http_route::fault_injection_policy::Abort>,
-                >,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.abort = v.into();
+        pub fn set_abort<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::http_route::fault_injection_policy::Abort>,
+        {
+            self.abort = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [abort][crate::model::http_route::FaultInjectionPolicy::abort].
+        pub fn set_or_clear_abort<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::http_route::fault_injection_policy::Abort>,
+        {
+            self.abort = v.map(|x| x.into());
             self
         }
     }
@@ -5915,11 +6326,20 @@ pub mod http_route {
             }
 
             /// Sets the value of [fixed_delay][crate::model::http_route::fault_injection_policy::Delay::fixed_delay].
-            pub fn set_fixed_delay<T: std::convert::Into<std::option::Option<wkt::Duration>>>(
-                mut self,
-                v: T,
-            ) -> Self {
-                self.fixed_delay = v.into();
+            pub fn set_fixed_delay<T>(mut self, v: T) -> Self
+            where
+                T: std::convert::Into<wkt::Duration>,
+            {
+                self.fixed_delay = std::option::Option::Some(v.into());
+                self
+            }
+
+            /// Sets or clears the value of [fixed_delay][crate::model::http_route::fault_injection_policy::Delay::fixed_delay].
+            pub fn set_or_clear_fixed_delay<T>(mut self, v: std::option::Option<T>) -> Self
+            where
+                T: std::convert::Into<wkt::Duration>,
+            {
+                self.fixed_delay = v.map(|x| x.into());
                 self
             }
 
@@ -6174,11 +6594,20 @@ pub mod http_route {
         }
 
         /// Sets the value of [per_try_timeout][crate::model::http_route::RetryPolicy::per_try_timeout].
-        pub fn set_per_try_timeout<T: std::convert::Into<std::option::Option<wkt::Duration>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.per_try_timeout = v.into();
+        pub fn set_per_try_timeout<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Duration>,
+        {
+            self.per_try_timeout = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [per_try_timeout][crate::model::http_route::RetryPolicy::per_try_timeout].
+        pub fn set_or_clear_per_try_timeout<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Duration>,
+        {
+            self.per_try_timeout = v.map(|x| x.into());
             self
         }
     }
@@ -6213,13 +6642,20 @@ pub mod http_route {
         }
 
         /// Sets the value of [destination][crate::model::http_route::RequestMirrorPolicy::destination].
-        pub fn set_destination<
-            T: std::convert::Into<std::option::Option<crate::model::http_route::Destination>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.destination = v.into();
+        pub fn set_destination<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::http_route::Destination>,
+        {
+            self.destination = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [destination][crate::model::http_route::RequestMirrorPolicy::destination].
+        pub fn set_or_clear_destination<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::http_route::Destination>,
+        {
+            self.destination = v.map(|x| x.into());
             self
         }
     }
@@ -6457,99 +6893,164 @@ pub mod http_route {
         }
 
         /// Sets the value of [redirect][crate::model::http_route::RouteAction::redirect].
-        pub fn set_redirect<
-            T: std::convert::Into<std::option::Option<crate::model::http_route::Redirect>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.redirect = v.into();
+        pub fn set_redirect<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::http_route::Redirect>,
+        {
+            self.redirect = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [redirect][crate::model::http_route::RouteAction::redirect].
+        pub fn set_or_clear_redirect<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::http_route::Redirect>,
+        {
+            self.redirect = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [fault_injection_policy][crate::model::http_route::RouteAction::fault_injection_policy].
-        pub fn set_fault_injection_policy<
-            T: std::convert::Into<std::option::Option<crate::model::http_route::FaultInjectionPolicy>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.fault_injection_policy = v.into();
+        pub fn set_fault_injection_policy<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::http_route::FaultInjectionPolicy>,
+        {
+            self.fault_injection_policy = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [fault_injection_policy][crate::model::http_route::RouteAction::fault_injection_policy].
+        pub fn set_or_clear_fault_injection_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::http_route::FaultInjectionPolicy>,
+        {
+            self.fault_injection_policy = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [request_header_modifier][crate::model::http_route::RouteAction::request_header_modifier].
-        pub fn set_request_header_modifier<
-            T: std::convert::Into<std::option::Option<crate::model::http_route::HeaderModifier>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.request_header_modifier = v.into();
+        pub fn set_request_header_modifier<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::http_route::HeaderModifier>,
+        {
+            self.request_header_modifier = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [request_header_modifier][crate::model::http_route::RouteAction::request_header_modifier].
+        pub fn set_or_clear_request_header_modifier<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::http_route::HeaderModifier>,
+        {
+            self.request_header_modifier = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [response_header_modifier][crate::model::http_route::RouteAction::response_header_modifier].
-        pub fn set_response_header_modifier<
-            T: std::convert::Into<std::option::Option<crate::model::http_route::HeaderModifier>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.response_header_modifier = v.into();
+        pub fn set_response_header_modifier<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::http_route::HeaderModifier>,
+        {
+            self.response_header_modifier = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [response_header_modifier][crate::model::http_route::RouteAction::response_header_modifier].
+        pub fn set_or_clear_response_header_modifier<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::http_route::HeaderModifier>,
+        {
+            self.response_header_modifier = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [url_rewrite][crate::model::http_route::RouteAction::url_rewrite].
-        pub fn set_url_rewrite<
-            T: std::convert::Into<std::option::Option<crate::model::http_route::URLRewrite>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.url_rewrite = v.into();
+        pub fn set_url_rewrite<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::http_route::URLRewrite>,
+        {
+            self.url_rewrite = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [url_rewrite][crate::model::http_route::RouteAction::url_rewrite].
+        pub fn set_or_clear_url_rewrite<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::http_route::URLRewrite>,
+        {
+            self.url_rewrite = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [timeout][crate::model::http_route::RouteAction::timeout].
-        pub fn set_timeout<T: std::convert::Into<std::option::Option<wkt::Duration>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.timeout = v.into();
+        pub fn set_timeout<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Duration>,
+        {
+            self.timeout = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [timeout][crate::model::http_route::RouteAction::timeout].
+        pub fn set_or_clear_timeout<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Duration>,
+        {
+            self.timeout = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [retry_policy][crate::model::http_route::RouteAction::retry_policy].
-        pub fn set_retry_policy<
-            T: std::convert::Into<std::option::Option<crate::model::http_route::RetryPolicy>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.retry_policy = v.into();
+        pub fn set_retry_policy<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::http_route::RetryPolicy>,
+        {
+            self.retry_policy = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [retry_policy][crate::model::http_route::RouteAction::retry_policy].
+        pub fn set_or_clear_retry_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::http_route::RetryPolicy>,
+        {
+            self.retry_policy = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [request_mirror_policy][crate::model::http_route::RouteAction::request_mirror_policy].
-        pub fn set_request_mirror_policy<
-            T: std::convert::Into<std::option::Option<crate::model::http_route::RequestMirrorPolicy>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.request_mirror_policy = v.into();
+        pub fn set_request_mirror_policy<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::http_route::RequestMirrorPolicy>,
+        {
+            self.request_mirror_policy = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [request_mirror_policy][crate::model::http_route::RouteAction::request_mirror_policy].
+        pub fn set_or_clear_request_mirror_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::http_route::RequestMirrorPolicy>,
+        {
+            self.request_mirror_policy = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [cors_policy][crate::model::http_route::RouteAction::cors_policy].
-        pub fn set_cors_policy<
-            T: std::convert::Into<std::option::Option<crate::model::http_route::CorsPolicy>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.cors_policy = v.into();
+        pub fn set_cors_policy<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::http_route::CorsPolicy>,
+        {
+            self.cors_policy = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [cors_policy][crate::model::http_route::RouteAction::cors_policy].
+        pub fn set_or_clear_cors_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::http_route::CorsPolicy>,
+        {
+            self.cors_policy = v.map(|x| x.into());
             self
         }
     }
@@ -6604,13 +7105,20 @@ pub mod http_route {
         }
 
         /// Sets the value of [action][crate::model::http_route::RouteRule::action].
-        pub fn set_action<
-            T: std::convert::Into<std::option::Option<crate::model::http_route::RouteAction>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.action = v.into();
+        pub fn set_action<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::http_route::RouteAction>,
+        {
+            self.action = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [action][crate::model::http_route::RouteRule::action].
+        pub fn set_or_clear_action<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::http_route::RouteAction>,
+        {
+            self.action = v.map(|x| x.into());
             self
         }
     }
@@ -6814,11 +7322,20 @@ impl CreateHttpRouteRequest {
     }
 
     /// Sets the value of [http_route][crate::model::CreateHttpRouteRequest::http_route].
-    pub fn set_http_route<T: std::convert::Into<std::option::Option<crate::model::HttpRoute>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.http_route = v.into();
+    pub fn set_http_route<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::HttpRoute>,
+    {
+        self.http_route = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [http_route][crate::model::CreateHttpRouteRequest::http_route].
+    pub fn set_or_clear_http_route<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::HttpRoute>,
+    {
+        self.http_route = v.map(|x| x.into());
         self
     }
 }
@@ -6857,20 +7374,38 @@ impl UpdateHttpRouteRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateHttpRouteRequest::update_mask].
-    pub fn set_update_mask<T: std::convert::Into<std::option::Option<wkt::FieldMask>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.update_mask = v.into();
+    pub fn set_update_mask<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_mask][crate::model::UpdateHttpRouteRequest::update_mask].
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [http_route][crate::model::UpdateHttpRouteRequest::http_route].
-    pub fn set_http_route<T: std::convert::Into<std::option::Option<crate::model::HttpRoute>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.http_route = v.into();
+    pub fn set_http_route<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::HttpRoute>,
+    {
+        self.http_route = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [http_route][crate::model::UpdateHttpRouteRequest::http_route].
+    pub fn set_or_clear_http_route<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::HttpRoute>,
+    {
+        self.http_route = v.map(|x| x.into());
         self
     }
 }
@@ -6979,20 +7514,38 @@ impl Mesh {
     }
 
     /// Sets the value of [create_time][crate::model::Mesh::create_time].
-    pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.create_time = v.into();
+    pub fn set_create_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [create_time][crate::model::Mesh::create_time].
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [update_time][crate::model::Mesh::update_time].
-    pub fn set_update_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.update_time = v.into();
+    pub fn set_update_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_time][crate::model::Mesh::update_time].
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = v.map(|x| x.into());
         self
     }
 
@@ -7219,11 +7772,20 @@ impl CreateMeshRequest {
     }
 
     /// Sets the value of [mesh][crate::model::CreateMeshRequest::mesh].
-    pub fn set_mesh<T: std::convert::Into<std::option::Option<crate::model::Mesh>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.mesh = v.into();
+    pub fn set_mesh<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::Mesh>,
+    {
+        self.mesh = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [mesh][crate::model::CreateMeshRequest::mesh].
+    pub fn set_or_clear_mesh<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::Mesh>,
+    {
+        self.mesh = v.map(|x| x.into());
         self
     }
 }
@@ -7262,20 +7824,38 @@ impl UpdateMeshRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateMeshRequest::update_mask].
-    pub fn set_update_mask<T: std::convert::Into<std::option::Option<wkt::FieldMask>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.update_mask = v.into();
+    pub fn set_update_mask<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_mask][crate::model::UpdateMeshRequest::update_mask].
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [mesh][crate::model::UpdateMeshRequest::mesh].
-    pub fn set_mesh<T: std::convert::Into<std::option::Option<crate::model::Mesh>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.mesh = v.into();
+    pub fn set_mesh<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::Mesh>,
+    {
+        self.mesh = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [mesh][crate::model::UpdateMeshRequest::mesh].
+    pub fn set_or_clear_mesh<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::Mesh>,
+    {
+        self.mesh = v.map(|x| x.into());
         self
     }
 }
@@ -7375,20 +7955,38 @@ impl ServiceBinding {
     }
 
     /// Sets the value of [create_time][crate::model::ServiceBinding::create_time].
-    pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.create_time = v.into();
+    pub fn set_create_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [create_time][crate::model::ServiceBinding::create_time].
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [update_time][crate::model::ServiceBinding::update_time].
-    pub fn set_update_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.update_time = v.into();
+    pub fn set_update_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_time][crate::model::ServiceBinding::update_time].
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = v.map(|x| x.into());
         self
     }
 
@@ -7612,13 +8210,20 @@ impl CreateServiceBindingRequest {
     }
 
     /// Sets the value of [service_binding][crate::model::CreateServiceBindingRequest::service_binding].
-    pub fn set_service_binding<
-        T: std::convert::Into<std::option::Option<crate::model::ServiceBinding>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.service_binding = v.into();
+    pub fn set_service_binding<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::ServiceBinding>,
+    {
+        self.service_binding = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [service_binding][crate::model::CreateServiceBindingRequest::service_binding].
+    pub fn set_or_clear_service_binding<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::ServiceBinding>,
+    {
+        self.service_binding = v.map(|x| x.into());
         self
     }
 }
@@ -7741,20 +8346,38 @@ impl TcpRoute {
     }
 
     /// Sets the value of [create_time][crate::model::TcpRoute::create_time].
-    pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.create_time = v.into();
+    pub fn set_create_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [create_time][crate::model::TcpRoute::create_time].
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [update_time][crate::model::TcpRoute::update_time].
-    pub fn set_update_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.update_time = v.into();
+    pub fn set_update_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_time][crate::model::TcpRoute::update_time].
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = v.map(|x| x.into());
         self
     }
 
@@ -7860,13 +8483,20 @@ pub mod tcp_route {
         }
 
         /// Sets the value of [action][crate::model::tcp_route::RouteRule::action].
-        pub fn set_action<
-            T: std::convert::Into<std::option::Option<crate::model::tcp_route::RouteAction>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.action = v.into();
+        pub fn set_action<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::tcp_route::RouteAction>,
+        {
+            self.action = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [action][crate::model::tcp_route::RouteRule::action].
+        pub fn set_or_clear_action<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::tcp_route::RouteAction>,
+        {
+            self.action = v.map(|x| x.into());
             self
         }
     }
@@ -8233,11 +8863,20 @@ impl CreateTcpRouteRequest {
     }
 
     /// Sets the value of [tcp_route][crate::model::CreateTcpRouteRequest::tcp_route].
-    pub fn set_tcp_route<T: std::convert::Into<std::option::Option<crate::model::TcpRoute>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.tcp_route = v.into();
+    pub fn set_tcp_route<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::TcpRoute>,
+    {
+        self.tcp_route = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [tcp_route][crate::model::CreateTcpRouteRequest::tcp_route].
+    pub fn set_or_clear_tcp_route<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::TcpRoute>,
+    {
+        self.tcp_route = v.map(|x| x.into());
         self
     }
 }
@@ -8276,20 +8915,38 @@ impl UpdateTcpRouteRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateTcpRouteRequest::update_mask].
-    pub fn set_update_mask<T: std::convert::Into<std::option::Option<wkt::FieldMask>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.update_mask = v.into();
+    pub fn set_update_mask<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_mask][crate::model::UpdateTcpRouteRequest::update_mask].
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [tcp_route][crate::model::UpdateTcpRouteRequest::tcp_route].
-    pub fn set_tcp_route<T: std::convert::Into<std::option::Option<crate::model::TcpRoute>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.tcp_route = v.into();
+    pub fn set_tcp_route<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::TcpRoute>,
+    {
+        self.tcp_route = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [tcp_route][crate::model::UpdateTcpRouteRequest::tcp_route].
+    pub fn set_or_clear_tcp_route<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::TcpRoute>,
+    {
+        self.tcp_route = v.map(|x| x.into());
         self
     }
 }
@@ -8408,20 +9065,38 @@ impl TlsRoute {
     }
 
     /// Sets the value of [create_time][crate::model::TlsRoute::create_time].
-    pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.create_time = v.into();
+    pub fn set_create_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [create_time][crate::model::TlsRoute::create_time].
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [update_time][crate::model::TlsRoute::update_time].
-    pub fn set_update_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.update_time = v.into();
+    pub fn set_update_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_time][crate::model::TlsRoute::update_time].
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = v.map(|x| x.into());
         self
     }
 
@@ -8513,13 +9188,20 @@ pub mod tls_route {
         }
 
         /// Sets the value of [action][crate::model::tls_route::RouteRule::action].
-        pub fn set_action<
-            T: std::convert::Into<std::option::Option<crate::model::tls_route::RouteAction>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.action = v.into();
+        pub fn set_action<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::tls_route::RouteAction>,
+        {
+            self.action = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [action][crate::model::tls_route::RouteRule::action].
+        pub fn set_or_clear_action<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::tls_route::RouteAction>,
+        {
+            self.action = v.map(|x| x.into());
             self
         }
     }
@@ -8875,11 +9557,20 @@ impl CreateTlsRouteRequest {
     }
 
     /// Sets the value of [tls_route][crate::model::CreateTlsRouteRequest::tls_route].
-    pub fn set_tls_route<T: std::convert::Into<std::option::Option<crate::model::TlsRoute>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.tls_route = v.into();
+    pub fn set_tls_route<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::TlsRoute>,
+    {
+        self.tls_route = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [tls_route][crate::model::CreateTlsRouteRequest::tls_route].
+    pub fn set_or_clear_tls_route<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::TlsRoute>,
+    {
+        self.tls_route = v.map(|x| x.into());
         self
     }
 }
@@ -8918,20 +9609,38 @@ impl UpdateTlsRouteRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateTlsRouteRequest::update_mask].
-    pub fn set_update_mask<T: std::convert::Into<std::option::Option<wkt::FieldMask>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.update_mask = v.into();
+    pub fn set_update_mask<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_mask][crate::model::UpdateTlsRouteRequest::update_mask].
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [tls_route][crate::model::UpdateTlsRouteRequest::tls_route].
-    pub fn set_tls_route<T: std::convert::Into<std::option::Option<crate::model::TlsRoute>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.tls_route = v.into();
+    pub fn set_tls_route<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::TlsRoute>,
+    {
+        self.tls_route = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [tls_route][crate::model::UpdateTlsRouteRequest::tls_route].
+    pub fn set_or_clear_tls_route<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::TlsRoute>,
+    {
+        self.tls_route = v.map(|x| x.into());
         self
     }
 }

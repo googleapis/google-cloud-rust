@@ -527,11 +527,20 @@ impl AuthorizeEnvironmentRequest {
     }
 
     /// Sets the value of [expire_time][crate::model::AuthorizeEnvironmentRequest::expire_time].
-    pub fn set_expire_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.expire_time = v.into();
+    pub fn set_expire_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.expire_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [expire_time][crate::model::AuthorizeEnvironmentRequest::expire_time].
+    pub fn set_or_clear_expire_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.expire_time = v.map(|x| x.into());
         self
     }
 }
@@ -819,13 +828,20 @@ impl StartEnvironmentResponse {
     }
 
     /// Sets the value of [environment][crate::model::StartEnvironmentResponse::environment].
-    pub fn set_environment<
-        T: std::convert::Into<std::option::Option<crate::model::Environment>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.environment = v.into();
+    pub fn set_environment<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::Environment>,
+    {
+        self.environment = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [environment][crate::model::StartEnvironmentResponse::environment].
+    pub fn set_or_clear_environment<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::Environment>,
+    {
+        self.environment = v.map(|x| x.into());
         self
     }
 }

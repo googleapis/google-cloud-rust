@@ -143,11 +143,20 @@ impl OperationMetadata {
     }
 
     /// Sets the value of [start_time][crate::model::OperationMetadata::start_time].
-    pub fn set_start_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.start_time = v.into();
+    pub fn set_start_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.start_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [start_time][crate::model::OperationMetadata::start_time].
+    pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.start_time = v.map(|x| x.into());
         self
     }
 }
@@ -956,11 +965,20 @@ impl Rollout {
     }
 
     /// Sets the value of [create_time][crate::model::Rollout::create_time].
-    pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.create_time = v.into();
+    pub fn set_create_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [create_time][crate::model::Rollout::create_time].
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = v.map(|x| x.into());
         self
     }
 
@@ -1539,11 +1557,20 @@ impl CreateServiceRequest {
     }
 
     /// Sets the value of [service][crate::model::CreateServiceRequest::service].
-    pub fn set_service<T: std::convert::Into<std::option::Option<crate::model::ManagedService>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.service = v.into();
+    pub fn set_service<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::ManagedService>,
+    {
+        self.service = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [service][crate::model::CreateServiceRequest::service].
+    pub fn set_or_clear_service<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::ManagedService>,
+    {
+        self.service = v.map(|x| x.into());
         self
     }
 }
@@ -1642,11 +1669,20 @@ impl UndeleteServiceResponse {
     }
 
     /// Sets the value of [service][crate::model::UndeleteServiceResponse::service].
-    pub fn set_service<T: std::convert::Into<std::option::Option<crate::model::ManagedService>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.service = v.into();
+    pub fn set_service<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::ManagedService>,
+    {
+        self.service = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [service][crate::model::UndeleteServiceResponse::service].
+    pub fn set_or_clear_service<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::ManagedService>,
+    {
+        self.service = v.map(|x| x.into());
         self
     }
 }
@@ -1998,11 +2034,20 @@ impl CreateServiceConfigRequest {
     }
 
     /// Sets the value of [service_config][crate::model::CreateServiceConfigRequest::service_config].
-    pub fn set_service_config<T: std::convert::Into<std::option::Option<api::model::Service>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.service_config = v.into();
+    pub fn set_service_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<api::model::Service>,
+    {
+        self.service_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [service_config][crate::model::CreateServiceConfigRequest::service_config].
+    pub fn set_or_clear_service_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<api::model::Service>,
+    {
+        self.service_config = v.map(|x| x.into());
         self
     }
 }
@@ -2051,13 +2096,20 @@ impl SubmitConfigSourceRequest {
     }
 
     /// Sets the value of [config_source][crate::model::SubmitConfigSourceRequest::config_source].
-    pub fn set_config_source<
-        T: std::convert::Into<std::option::Option<crate::model::ConfigSource>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.config_source = v.into();
+    pub fn set_config_source<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::ConfigSource>,
+    {
+        self.config_source = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [config_source][crate::model::SubmitConfigSourceRequest::config_source].
+    pub fn set_or_clear_config_source<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::ConfigSource>,
+    {
+        self.config_source = v.map(|x| x.into());
         self
     }
 
@@ -2094,11 +2146,20 @@ impl SubmitConfigSourceResponse {
     }
 
     /// Sets the value of [service_config][crate::model::SubmitConfigSourceResponse::service_config].
-    pub fn set_service_config<T: std::convert::Into<std::option::Option<api::model::Service>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.service_config = v.into();
+    pub fn set_service_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<api::model::Service>,
+    {
+        self.service_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [service_config][crate::model::SubmitConfigSourceResponse::service_config].
+    pub fn set_or_clear_service_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<api::model::Service>,
+    {
+        self.service_config = v.map(|x| x.into());
         self
     }
 }
@@ -2141,11 +2202,20 @@ impl CreateServiceRolloutRequest {
     }
 
     /// Sets the value of [rollout][crate::model::CreateServiceRolloutRequest::rollout].
-    pub fn set_rollout<T: std::convert::Into<std::option::Option<crate::model::Rollout>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.rollout = v.into();
+    pub fn set_rollout<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::Rollout>,
+    {
+        self.rollout = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [rollout][crate::model::CreateServiceRolloutRequest::rollout].
+    pub fn set_or_clear_rollout<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::Rollout>,
+    {
+        self.rollout = v.map(|x| x.into());
         self
     }
 }
@@ -2397,20 +2467,38 @@ impl GenerateConfigReportRequest {
     }
 
     /// Sets the value of [new_config][crate::model::GenerateConfigReportRequest::new_config].
-    pub fn set_new_config<T: std::convert::Into<std::option::Option<wkt::Any>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.new_config = v.into();
+    pub fn set_new_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Any>,
+    {
+        self.new_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [new_config][crate::model::GenerateConfigReportRequest::new_config].
+    pub fn set_or_clear_new_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Any>,
+    {
+        self.new_config = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [old_config][crate::model::GenerateConfigReportRequest::old_config].
-    pub fn set_old_config<T: std::convert::Into<std::option::Option<wkt::Any>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.old_config = v.into();
+    pub fn set_old_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Any>,
+    {
+        self.old_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [old_config][crate::model::GenerateConfigReportRequest::old_config].
+    pub fn set_or_clear_old_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Any>,
+    {
+        self.old_config = v.map(|x| x.into());
         self
     }
 }

@@ -171,11 +171,22 @@ pub mod attached_clusters {
         /// Sets the value of [attached_cluster][crate::model::CreateAttachedClusterRequest::attached_cluster].
         ///
         /// This is a **required** field for requests.
-        pub fn set_attached_cluster<T: Into<std::option::Option<crate::model::AttachedCluster>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.attached_cluster = v.into();
+        pub fn set_attached_cluster<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::AttachedCluster>,
+        {
+            self.0.request.attached_cluster = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [attached_cluster][crate::model::CreateAttachedClusterRequest::attached_cluster].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_attached_cluster<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::AttachedCluster>,
+        {
+            self.0.request.attached_cluster = v.map(|x| x.into());
             self
         }
 
@@ -296,11 +307,22 @@ pub mod attached_clusters {
         /// Sets the value of [attached_cluster][crate::model::UpdateAttachedClusterRequest::attached_cluster].
         ///
         /// This is a **required** field for requests.
-        pub fn set_attached_cluster<T: Into<std::option::Option<crate::model::AttachedCluster>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.attached_cluster = v.into();
+        pub fn set_attached_cluster<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::AttachedCluster>,
+        {
+            self.0.request.attached_cluster = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [attached_cluster][crate::model::UpdateAttachedClusterRequest::attached_cluster].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_attached_cluster<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::AttachedCluster>,
+        {
+            self.0.request.attached_cluster = v.map(|x| x.into());
             self
         }
 
@@ -313,11 +335,22 @@ pub mod attached_clusters {
         /// Sets the value of [update_mask][crate::model::UpdateAttachedClusterRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateAttachedClusterRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -460,11 +493,20 @@ pub mod attached_clusters {
         }
 
         /// Sets the value of [proxy_config][crate::model::ImportAttachedClusterRequest::proxy_config].
-        pub fn set_proxy_config<T: Into<std::option::Option<crate::model::AttachedProxyConfig>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.proxy_config = v.into();
+        pub fn set_proxy_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::AttachedProxyConfig>,
+        {
+            self.0.request.proxy_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [proxy_config][crate::model::ImportAttachedClusterRequest::proxy_config].
+        pub fn set_or_clear_proxy_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::AttachedProxyConfig>,
+        {
+            self.0.request.proxy_config = v.map(|x| x.into());
             self
         }
     }
@@ -930,11 +972,20 @@ pub mod attached_clusters {
         }
 
         /// Sets the value of [proxy_config][crate::model::GenerateAttachedClusterInstallManifestRequest::proxy_config].
-        pub fn set_proxy_config<T: Into<std::option::Option<crate::model::AttachedProxyConfig>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.proxy_config = v.into();
+        pub fn set_proxy_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::AttachedProxyConfig>,
+        {
+            self.0.request.proxy_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [proxy_config][crate::model::GenerateAttachedClusterInstallManifestRequest::proxy_config].
+        pub fn set_or_clear_proxy_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::AttachedProxyConfig>,
+        {
+            self.0.request.proxy_config = v.map(|x| x.into());
             self
         }
     }
@@ -1527,11 +1578,22 @@ pub mod aws_clusters {
         /// Sets the value of [aws_cluster][crate::model::CreateAwsClusterRequest::aws_cluster].
         ///
         /// This is a **required** field for requests.
-        pub fn set_aws_cluster<T: Into<std::option::Option<crate::model::AwsCluster>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.aws_cluster = v.into();
+        pub fn set_aws_cluster<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::AwsCluster>,
+        {
+            self.0.request.aws_cluster = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [aws_cluster][crate::model::CreateAwsClusterRequest::aws_cluster].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_aws_cluster<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::AwsCluster>,
+        {
+            self.0.request.aws_cluster = v.map(|x| x.into());
             self
         }
 
@@ -1649,11 +1711,22 @@ pub mod aws_clusters {
         /// Sets the value of [aws_cluster][crate::model::UpdateAwsClusterRequest::aws_cluster].
         ///
         /// This is a **required** field for requests.
-        pub fn set_aws_cluster<T: Into<std::option::Option<crate::model::AwsCluster>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.aws_cluster = v.into();
+        pub fn set_aws_cluster<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::AwsCluster>,
+        {
+            self.0.request.aws_cluster = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [aws_cluster][crate::model::UpdateAwsClusterRequest::aws_cluster].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_aws_cluster<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::AwsCluster>,
+        {
+            self.0.request.aws_cluster = v.map(|x| x.into());
             self
         }
 
@@ -1666,11 +1739,22 @@ pub mod aws_clusters {
         /// Sets the value of [update_mask][crate::model::UpdateAwsClusterRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateAwsClusterRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -2275,11 +2359,22 @@ pub mod aws_clusters {
         /// Sets the value of [aws_node_pool][crate::model::CreateAwsNodePoolRequest::aws_node_pool].
         ///
         /// This is a **required** field for requests.
-        pub fn set_aws_node_pool<T: Into<std::option::Option<crate::model::AwsNodePool>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.aws_node_pool = v.into();
+        pub fn set_aws_node_pool<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::AwsNodePool>,
+        {
+            self.0.request.aws_node_pool = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [aws_node_pool][crate::model::CreateAwsNodePoolRequest::aws_node_pool].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_aws_node_pool<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::AwsNodePool>,
+        {
+            self.0.request.aws_node_pool = v.map(|x| x.into());
             self
         }
 
@@ -2399,11 +2494,22 @@ pub mod aws_clusters {
         /// Sets the value of [aws_node_pool][crate::model::UpdateAwsNodePoolRequest::aws_node_pool].
         ///
         /// This is a **required** field for requests.
-        pub fn set_aws_node_pool<T: Into<std::option::Option<crate::model::AwsNodePool>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.aws_node_pool = v.into();
+        pub fn set_aws_node_pool<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::AwsNodePool>,
+        {
+            self.0.request.aws_node_pool = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [aws_node_pool][crate::model::UpdateAwsNodePoolRequest::aws_node_pool].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_aws_node_pool<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::AwsNodePool>,
+        {
+            self.0.request.aws_node_pool = v.map(|x| x.into());
             self
         }
 
@@ -2416,11 +2522,22 @@ pub mod aws_clusters {
         /// Sets the value of [update_mask][crate::model::UpdateAwsNodePoolRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateAwsNodePoolRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -3506,11 +3623,22 @@ pub mod azure_clusters {
         /// Sets the value of [azure_client][crate::model::CreateAzureClientRequest::azure_client].
         ///
         /// This is a **required** field for requests.
-        pub fn set_azure_client<T: Into<std::option::Option<crate::model::AzureClient>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.azure_client = v.into();
+        pub fn set_azure_client<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::AzureClient>,
+        {
+            self.0.request.azure_client = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [azure_client][crate::model::CreateAzureClientRequest::azure_client].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_azure_client<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::AzureClient>,
+        {
+            self.0.request.azure_client = v.map(|x| x.into());
             self
         }
 
@@ -3926,11 +4054,22 @@ pub mod azure_clusters {
         /// Sets the value of [azure_cluster][crate::model::CreateAzureClusterRequest::azure_cluster].
         ///
         /// This is a **required** field for requests.
-        pub fn set_azure_cluster<T: Into<std::option::Option<crate::model::AzureCluster>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.azure_cluster = v.into();
+        pub fn set_azure_cluster<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::AzureCluster>,
+        {
+            self.0.request.azure_cluster = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [azure_cluster][crate::model::CreateAzureClusterRequest::azure_cluster].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_azure_cluster<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::AzureCluster>,
+        {
+            self.0.request.azure_cluster = v.map(|x| x.into());
             self
         }
 
@@ -4050,11 +4189,22 @@ pub mod azure_clusters {
         /// Sets the value of [azure_cluster][crate::model::UpdateAzureClusterRequest::azure_cluster].
         ///
         /// This is a **required** field for requests.
-        pub fn set_azure_cluster<T: Into<std::option::Option<crate::model::AzureCluster>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.azure_cluster = v.into();
+        pub fn set_azure_cluster<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::AzureCluster>,
+        {
+            self.0.request.azure_cluster = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [azure_cluster][crate::model::UpdateAzureClusterRequest::azure_cluster].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_azure_cluster<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::AzureCluster>,
+        {
+            self.0.request.azure_cluster = v.map(|x| x.into());
             self
         }
 
@@ -4067,11 +4217,22 @@ pub mod azure_clusters {
         /// Sets the value of [update_mask][crate::model::UpdateAzureClusterRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateAzureClusterRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -4682,11 +4843,22 @@ pub mod azure_clusters {
         /// Sets the value of [azure_node_pool][crate::model::CreateAzureNodePoolRequest::azure_node_pool].
         ///
         /// This is a **required** field for requests.
-        pub fn set_azure_node_pool<T: Into<std::option::Option<crate::model::AzureNodePool>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.azure_node_pool = v.into();
+        pub fn set_azure_node_pool<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::AzureNodePool>,
+        {
+            self.0.request.azure_node_pool = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [azure_node_pool][crate::model::CreateAzureNodePoolRequest::azure_node_pool].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_azure_node_pool<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::AzureNodePool>,
+        {
+            self.0.request.azure_node_pool = v.map(|x| x.into());
             self
         }
 
@@ -4807,11 +4979,22 @@ pub mod azure_clusters {
         /// Sets the value of [azure_node_pool][crate::model::UpdateAzureNodePoolRequest::azure_node_pool].
         ///
         /// This is a **required** field for requests.
-        pub fn set_azure_node_pool<T: Into<std::option::Option<crate::model::AzureNodePool>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.azure_node_pool = v.into();
+        pub fn set_azure_node_pool<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::AzureNodePool>,
+        {
+            self.0.request.azure_node_pool = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [azure_node_pool][crate::model::UpdateAzureNodePoolRequest::azure_node_pool].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_azure_node_pool<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::AzureNodePool>,
+        {
+            self.0.request.azure_node_pool = v.map(|x| x.into());
             self
         }
 
@@ -4824,11 +5007,22 @@ pub mod azure_clusters {
         /// Sets the value of [update_mask][crate::model::UpdateAzureNodePoolRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateAzureNodePoolRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }

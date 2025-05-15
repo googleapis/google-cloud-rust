@@ -125,11 +125,20 @@ pub mod web_security_scanner {
         }
 
         /// Sets the value of [scan_config][crate::model::CreateScanConfigRequest::scan_config].
-        pub fn set_scan_config<T: Into<std::option::Option<crate::model::ScanConfig>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.scan_config = v.into();
+        pub fn set_scan_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::ScanConfig>,
+        {
+            self.0.request.scan_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [scan_config][crate::model::CreateScanConfigRequest::scan_config].
+        pub fn set_or_clear_scan_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::ScanConfig>,
+        {
+            self.0.request.scan_config = v.map(|x| x.into());
             self
         }
     }
@@ -418,20 +427,38 @@ pub mod web_security_scanner {
         }
 
         /// Sets the value of [scan_config][crate::model::UpdateScanConfigRequest::scan_config].
-        pub fn set_scan_config<T: Into<std::option::Option<crate::model::ScanConfig>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.scan_config = v.into();
+        pub fn set_scan_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::ScanConfig>,
+        {
+            self.0.request.scan_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [scan_config][crate::model::UpdateScanConfigRequest::scan_config].
+        pub fn set_or_clear_scan_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::ScanConfig>,
+        {
+            self.0.request.scan_config = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateScanConfigRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateScanConfigRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }

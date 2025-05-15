@@ -165,20 +165,38 @@ pub mod backup_dr {
         }
 
         /// Sets the value of [filter][crate::model::ListManagementServersRequest::filter].
-        pub fn set_filter<T: Into<std::option::Option<std::string::String>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.filter = v.into();
+        pub fn set_filter<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.filter = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [filter][crate::model::ListManagementServersRequest::filter].
+        pub fn set_or_clear_filter<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.filter = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [order_by][crate::model::ListManagementServersRequest::order_by].
-        pub fn set_order_by<T: Into<std::option::Option<std::string::String>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.order_by = v.into();
+        pub fn set_order_by<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.order_by = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [order_by][crate::model::ListManagementServersRequest::order_by].
+        pub fn set_or_clear_order_by<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.order_by = v.map(|x| x.into());
             self
         }
     }
@@ -363,13 +381,22 @@ pub mod backup_dr {
         /// Sets the value of [management_server][crate::model::CreateManagementServerRequest::management_server].
         ///
         /// This is a **required** field for requests.
-        pub fn set_management_server<
-            T: Into<std::option::Option<crate::model::ManagementServer>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.management_server = v.into();
+        pub fn set_management_server<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::ManagementServer>,
+        {
+            self.0.request.management_server = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [management_server][crate::model::CreateManagementServerRequest::management_server].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_management_server<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::ManagementServer>,
+        {
+            self.0.request.management_server = v.map(|x| x.into());
             self
         }
 
@@ -606,11 +633,22 @@ pub mod backup_dr {
         /// Sets the value of [backup_vault][crate::model::CreateBackupVaultRequest::backup_vault].
         ///
         /// This is a **required** field for requests.
-        pub fn set_backup_vault<T: Into<std::option::Option<crate::model::BackupVault>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.backup_vault = v.into();
+        pub fn set_backup_vault<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::BackupVault>,
+        {
+            self.0.request.backup_vault = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [backup_vault][crate::model::CreateBackupVaultRequest::backup_vault].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_backup_vault<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::BackupVault>,
+        {
+            self.0.request.backup_vault = v.map(|x| x.into());
             self
         }
 
@@ -1037,22 +1075,44 @@ pub mod backup_dr {
         /// Sets the value of [update_mask][crate::model::UpdateBackupVaultRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateBackupVaultRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [backup_vault][crate::model::UpdateBackupVaultRequest::backup_vault].
         ///
         /// This is a **required** field for requests.
-        pub fn set_backup_vault<T: Into<std::option::Option<crate::model::BackupVault>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.backup_vault = v.into();
+        pub fn set_backup_vault<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::BackupVault>,
+        {
+            self.0.request.backup_vault = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [backup_vault][crate::model::UpdateBackupVaultRequest::backup_vault].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_backup_vault<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::BackupVault>,
+        {
+            self.0.request.backup_vault = v.map(|x| x.into());
             self
         }
 
@@ -1487,22 +1547,44 @@ pub mod backup_dr {
         /// Sets the value of [update_mask][crate::model::UpdateDataSourceRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateDataSourceRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [data_source][crate::model::UpdateDataSourceRequest::data_source].
         ///
         /// This is a **required** field for requests.
-        pub fn set_data_source<T: Into<std::option::Option<crate::model::DataSource>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.data_source = v.into();
+        pub fn set_data_source<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::DataSource>,
+        {
+            self.0.request.data_source = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [data_source][crate::model::UpdateDataSourceRequest::data_source].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_data_source<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::DataSource>,
+        {
+            self.0.request.data_source = v.map(|x| x.into());
             self
         }
 
@@ -1799,22 +1881,44 @@ pub mod backup_dr {
         /// Sets the value of [update_mask][crate::model::UpdateBackupRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateBackupRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [backup][crate::model::UpdateBackupRequest::backup].
         ///
         /// This is a **required** field for requests.
-        pub fn set_backup<T: Into<std::option::Option<crate::model::Backup>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.backup = v.into();
+        pub fn set_backup<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Backup>,
+        {
+            self.0.request.backup = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [backup][crate::model::UpdateBackupRequest::backup].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_backup<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Backup>,
+        {
+            self.0.request.backup = v.map(|x| x.into());
             self
         }
 
@@ -2211,11 +2315,22 @@ pub mod backup_dr {
         /// Sets the value of [backup_plan][crate::model::CreateBackupPlanRequest::backup_plan].
         ///
         /// This is a **required** field for requests.
-        pub fn set_backup_plan<T: Into<std::option::Option<crate::model::BackupPlan>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.backup_plan = v.into();
+        pub fn set_backup_plan<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::BackupPlan>,
+        {
+            self.0.request.backup_plan = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [backup_plan][crate::model::CreateBackupPlanRequest::backup_plan].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_backup_plan<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::BackupPlan>,
+        {
+            self.0.request.backup_plan = v.map(|x| x.into());
             self
         }
 
@@ -2632,13 +2747,22 @@ pub mod backup_dr {
         /// Sets the value of [backup_plan_association][crate::model::CreateBackupPlanAssociationRequest::backup_plan_association].
         ///
         /// This is a **required** field for requests.
-        pub fn set_backup_plan_association<
-            T: Into<std::option::Option<crate::model::BackupPlanAssociation>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.backup_plan_association = v.into();
+        pub fn set_backup_plan_association<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::BackupPlanAssociation>,
+        {
+            self.0.request.backup_plan_association = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [backup_plan_association][crate::model::CreateBackupPlanAssociationRequest::backup_plan_association].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_backup_plan_association<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::BackupPlanAssociation>,
+        {
+            self.0.request.backup_plan_association = v.map(|x| x.into());
             self
         }
 
@@ -3411,20 +3535,40 @@ pub mod backup_dr {
         /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
-        pub fn set_policy<T: Into<std::option::Option<iam_v1::model::Policy>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.policy = v.into();
+        pub fn set_policy<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -3490,11 +3634,20 @@ pub mod backup_dr {
         }
 
         /// Sets the value of [options][iam_v1::model::GetIamPolicyRequest::options].
-        pub fn set_options<T: Into<std::option::Option<iam_v1::model::GetPolicyOptions>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.options = v.into();
+        pub fn set_options<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = v.map(|x| x.into());
             self
         }
     }

@@ -312,11 +312,22 @@ pub mod parameter_manager {
         /// Sets the value of [parameter][crate::model::CreateParameterRequest::parameter].
         ///
         /// This is a **required** field for requests.
-        pub fn set_parameter<T: Into<std::option::Option<crate::model::Parameter>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.parameter = v.into();
+        pub fn set_parameter<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Parameter>,
+        {
+            self.0.request.parameter = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [parameter][crate::model::CreateParameterRequest::parameter].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_parameter<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Parameter>,
+        {
+            self.0.request.parameter = v.map(|x| x.into());
             self
         }
 
@@ -382,22 +393,42 @@ pub mod parameter_manager {
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateParameterRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateParameterRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [parameter][crate::model::UpdateParameterRequest::parameter].
         ///
         /// This is a **required** field for requests.
-        pub fn set_parameter<T: Into<std::option::Option<crate::model::Parameter>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.parameter = v.into();
+        pub fn set_parameter<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Parameter>,
+        {
+            self.0.request.parameter = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [parameter][crate::model::UpdateParameterRequest::parameter].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_parameter<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Parameter>,
+        {
+            self.0.request.parameter = v.map(|x| x.into());
             self
         }
 
@@ -811,13 +842,22 @@ pub mod parameter_manager {
         /// Sets the value of [parameter_version][crate::model::CreateParameterVersionRequest::parameter_version].
         ///
         /// This is a **required** field for requests.
-        pub fn set_parameter_version<
-            T: Into<std::option::Option<crate::model::ParameterVersion>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.parameter_version = v.into();
+        pub fn set_parameter_version<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::ParameterVersion>,
+        {
+            self.0.request.parameter_version = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [parameter_version][crate::model::CreateParameterVersionRequest::parameter_version].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_parameter_version<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::ParameterVersion>,
+        {
+            self.0.request.parameter_version = v.map(|x| x.into());
             self
         }
 
@@ -886,24 +926,42 @@ pub mod parameter_manager {
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateParameterVersionRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateParameterVersionRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [parameter_version][crate::model::UpdateParameterVersionRequest::parameter_version].
         ///
         /// This is a **required** field for requests.
-        pub fn set_parameter_version<
-            T: Into<std::option::Option<crate::model::ParameterVersion>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.parameter_version = v.into();
+        pub fn set_parameter_version<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::ParameterVersion>,
+        {
+            self.0.request.parameter_version = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [parameter_version][crate::model::UpdateParameterVersionRequest::parameter_version].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_parameter_version<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::ParameterVersion>,
+        {
+            self.0.request.parameter_version = v.map(|x| x.into());
             self
         }
 

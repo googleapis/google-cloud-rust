@@ -165,11 +165,22 @@ pub mod livestream_service {
         /// Sets the value of [channel][crate::model::CreateChannelRequest::channel].
         ///
         /// This is a **required** field for requests.
-        pub fn set_channel<T: Into<std::option::Option<crate::model::Channel>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.channel = v.into();
+        pub fn set_channel<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Channel>,
+        {
+            self.0.request.channel = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [channel][crate::model::CreateChannelRequest::channel].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_channel<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Channel>,
+        {
+            self.0.request.channel = v.map(|x| x.into());
             self
         }
 
@@ -576,22 +587,42 @@ pub mod livestream_service {
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateChannelRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateChannelRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [channel][crate::model::UpdateChannelRequest::channel].
         ///
         /// This is a **required** field for requests.
-        pub fn set_channel<T: Into<std::option::Option<crate::model::Channel>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.channel = v.into();
+        pub fn set_channel<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Channel>,
+        {
+            self.0.request.channel = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [channel][crate::model::UpdateChannelRequest::channel].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_channel<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Channel>,
+        {
+            self.0.request.channel = v.map(|x| x.into());
             self
         }
 
@@ -928,11 +959,22 @@ pub mod livestream_service {
         /// Sets the value of [input][crate::model::CreateInputRequest::input].
         ///
         /// This is a **required** field for requests.
-        pub fn set_input<T: Into<std::option::Option<crate::model::Input>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.input = v.into();
+        pub fn set_input<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Input>,
+        {
+            self.0.request.input = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [input][crate::model::CreateInputRequest::input].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_input<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Input>,
+        {
+            self.0.request.input = v.map(|x| x.into());
             self
         }
 
@@ -1333,22 +1375,42 @@ pub mod livestream_service {
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateInputRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateInputRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [input][crate::model::UpdateInputRequest::input].
         ///
         /// This is a **required** field for requests.
-        pub fn set_input<T: Into<std::option::Option<crate::model::Input>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.input = v.into();
+        pub fn set_input<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Input>,
+        {
+            self.0.request.input = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [input][crate::model::UpdateInputRequest::input].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_input<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Input>,
+        {
+            self.0.request.input = v.map(|x| x.into());
             self
         }
 
@@ -1424,11 +1486,22 @@ pub mod livestream_service {
         /// Sets the value of [event][crate::model::CreateEventRequest::event].
         ///
         /// This is a **required** field for requests.
-        pub fn set_event<T: Into<std::option::Option<crate::model::Event>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.event = v.into();
+        pub fn set_event<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Event>,
+        {
+            self.0.request.event = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [event][crate::model::CreateEventRequest::event].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_event<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Event>,
+        {
+            self.0.request.event = v.map(|x| x.into());
             self
         }
 
@@ -1984,8 +2057,22 @@ pub mod livestream_service {
         /// Sets the value of [clip][crate::model::CreateClipRequest::clip].
         ///
         /// This is a **required** field for requests.
-        pub fn set_clip<T: Into<std::option::Option<crate::model::Clip>>>(mut self, v: T) -> Self {
-            self.0.request.clip = v.into();
+        pub fn set_clip<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Clip>,
+        {
+            self.0.request.clip = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [clip][crate::model::CreateClipRequest::clip].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_clip<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Clip>,
+        {
+            self.0.request.clip = v.map(|x| x.into());
             self
         }
 
@@ -2210,11 +2297,22 @@ pub mod livestream_service {
         /// Sets the value of [asset][crate::model::CreateAssetRequest::asset].
         ///
         /// This is a **required** field for requests.
-        pub fn set_asset<T: Into<std::option::Option<crate::model::Asset>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.asset = v.into();
+        pub fn set_asset<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Asset>,
+        {
+            self.0.request.asset = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [asset][crate::model::CreateAssetRequest::asset].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_asset<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Asset>,
+        {
+            self.0.request.asset = v.map(|x| x.into());
             self
         }
 
@@ -2678,19 +2776,42 @@ pub mod livestream_service {
         }
 
         /// Sets the value of [update_mask][crate::model::UpdatePoolRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdatePoolRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [pool][crate::model::UpdatePoolRequest::pool].
         ///
         /// This is a **required** field for requests.
-        pub fn set_pool<T: Into<std::option::Option<crate::model::Pool>>>(mut self, v: T) -> Self {
-            self.0.request.pool = v.into();
+        pub fn set_pool<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Pool>,
+        {
+            self.0.request.pool = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [pool][crate::model::UpdatePoolRequest::pool].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_pool<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Pool>,
+        {
+            self.0.request.pool = v.map(|x| x.into());
             self
         }
 

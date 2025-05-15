@@ -329,11 +329,20 @@ impl HomepageExtensionPoint {
     }
 
     /// Sets the value of [enabled][crate::model::HomepageExtensionPoint::enabled].
-    pub fn set_enabled<T: std::convert::Into<std::option::Option<wkt::BoolValue>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.enabled = v.into();
+    pub fn set_enabled<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::BoolValue>,
+    {
+        self.enabled = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [enabled][crate::model::HomepageExtensionPoint::enabled].
+    pub fn set_or_clear_enabled<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::BoolValue>,
+    {
+        self.enabled = v.map(|x| x.into());
         self
     }
 }
@@ -541,24 +550,38 @@ impl CommonAddOnManifest {
     }
 
     /// Sets the value of [layout_properties][crate::model::CommonAddOnManifest::layout_properties].
-    pub fn set_layout_properties<
-        T: std::convert::Into<std::option::Option<crate::model::LayoutProperties>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.layout_properties = v.into();
+    pub fn set_layout_properties<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::LayoutProperties>,
+    {
+        self.layout_properties = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [layout_properties][crate::model::CommonAddOnManifest::layout_properties].
+    pub fn set_or_clear_layout_properties<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::LayoutProperties>,
+    {
+        self.layout_properties = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [add_on_widget_set][crate::model::CommonAddOnManifest::add_on_widget_set].
-    pub fn set_add_on_widget_set<
-        T: std::convert::Into<std::option::Option<crate::model::AddOnWidgetSet>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.add_on_widget_set = v.into();
+    pub fn set_add_on_widget_set<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::AddOnWidgetSet>,
+    {
+        self.add_on_widget_set = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [add_on_widget_set][crate::model::CommonAddOnManifest::add_on_widget_set].
+    pub fn set_or_clear_add_on_widget_set<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::AddOnWidgetSet>,
+    {
+        self.add_on_widget_set = v.map(|x| x.into());
         self
     }
 
@@ -569,13 +592,20 @@ impl CommonAddOnManifest {
     }
 
     /// Sets the value of [homepage_trigger][crate::model::CommonAddOnManifest::homepage_trigger].
-    pub fn set_homepage_trigger<
-        T: std::convert::Into<std::option::Option<crate::model::HomepageExtensionPoint>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.homepage_trigger = v.into();
+    pub fn set_homepage_trigger<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::HomepageExtensionPoint>,
+    {
+        self.homepage_trigger = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [homepage_trigger][crate::model::CommonAddOnManifest::homepage_trigger].
+    pub fn set_or_clear_homepage_trigger<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::HomepageExtensionPoint>,
+    {
+        self.homepage_trigger = v.map(|x| x.into());
         self
     }
 
@@ -591,13 +621,20 @@ impl CommonAddOnManifest {
     }
 
     /// Sets the value of [open_link_url_prefixes][crate::model::CommonAddOnManifest::open_link_url_prefixes].
-    pub fn set_open_link_url_prefixes<
-        T: std::convert::Into<std::option::Option<wkt::ListValue>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.open_link_url_prefixes = v.into();
+    pub fn set_open_link_url_prefixes<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::ListValue>,
+    {
+        self.open_link_url_prefixes = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [open_link_url_prefixes][crate::model::CommonAddOnManifest::open_link_url_prefixes].
+    pub fn set_or_clear_open_link_url_prefixes<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::ListValue>,
+    {
+        self.open_link_url_prefixes = v.map(|x| x.into());
         self
     }
 }

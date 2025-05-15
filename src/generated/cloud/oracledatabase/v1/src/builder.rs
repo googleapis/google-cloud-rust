@@ -364,13 +364,25 @@ pub mod oracle_database {
         /// Sets the value of [cloud_exadata_infrastructure][crate::model::CreateCloudExadataInfrastructureRequest::cloud_exadata_infrastructure].
         ///
         /// This is a **required** field for requests.
-        pub fn set_cloud_exadata_infrastructure<
-            T: Into<std::option::Option<crate::model::CloudExadataInfrastructure>>,
-        >(
+        pub fn set_cloud_exadata_infrastructure<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::CloudExadataInfrastructure>,
+        {
+            self.0.request.cloud_exadata_infrastructure = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [cloud_exadata_infrastructure][crate::model::CreateCloudExadataInfrastructureRequest::cloud_exadata_infrastructure].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_cloud_exadata_infrastructure<T>(
             mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.cloud_exadata_infrastructure = v.into();
+            v: std::option::Option<T>,
+        ) -> Self
+        where
+            T: std::convert::Into<crate::model::CloudExadataInfrastructure>,
+        {
+            self.0.request.cloud_exadata_infrastructure = v.map(|x| x.into());
             self
         }
 
@@ -800,11 +812,22 @@ pub mod oracle_database {
         /// Sets the value of [cloud_vm_cluster][crate::model::CreateCloudVmClusterRequest::cloud_vm_cluster].
         ///
         /// This is a **required** field for requests.
-        pub fn set_cloud_vm_cluster<T: Into<std::option::Option<crate::model::CloudVmCluster>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.cloud_vm_cluster = v.into();
+        pub fn set_cloud_vm_cluster<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::CloudVmCluster>,
+        {
+            self.0.request.cloud_vm_cluster = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [cloud_vm_cluster][crate::model::CreateCloudVmClusterRequest::cloud_vm_cluster].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_cloud_vm_cluster<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::CloudVmCluster>,
+        {
+            self.0.request.cloud_vm_cluster = v.map(|x| x.into());
             self
         }
 
@@ -1767,13 +1790,22 @@ pub mod oracle_database {
         /// Sets the value of [autonomous_database][crate::model::CreateAutonomousDatabaseRequest::autonomous_database].
         ///
         /// This is a **required** field for requests.
-        pub fn set_autonomous_database<
-            T: Into<std::option::Option<crate::model::AutonomousDatabase>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.autonomous_database = v.into();
+        pub fn set_autonomous_database<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::AutonomousDatabase>,
+        {
+            self.0.request.autonomous_database = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [autonomous_database][crate::model::CreateAutonomousDatabaseRequest::autonomous_database].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_autonomous_database<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::AutonomousDatabase>,
+        {
+            self.0.request.autonomous_database = v.map(|x| x.into());
             self
         }
 
@@ -2011,11 +2043,22 @@ pub mod oracle_database {
         /// Sets the value of [restore_time][crate::model::RestoreAutonomousDatabaseRequest::restore_time].
         ///
         /// This is a **required** field for requests.
-        pub fn set_restore_time<T: Into<std::option::Option<wkt::Timestamp>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.restore_time = v.into();
+        pub fn set_restore_time<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Timestamp>,
+        {
+            self.0.request.restore_time = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [restore_time][crate::model::RestoreAutonomousDatabaseRequest::restore_time].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_restore_time<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Timestamp>,
+        {
+            self.0.request.restore_time = v.map(|x| x.into());
             self
         }
     }

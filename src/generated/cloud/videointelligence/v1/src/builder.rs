@@ -183,11 +183,20 @@ pub mod video_intelligence_service {
         }
 
         /// Sets the value of [video_context][crate::model::AnnotateVideoRequest::video_context].
-        pub fn set_video_context<T: Into<std::option::Option<crate::model::VideoContext>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.video_context = v.into();
+        pub fn set_video_context<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::VideoContext>,
+        {
+            self.0.request.video_context = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [video_context][crate::model::AnnotateVideoRequest::video_context].
+        pub fn set_or_clear_video_context<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::VideoContext>,
+        {
+            self.0.request.video_context = v.map(|x| x.into());
             self
         }
 

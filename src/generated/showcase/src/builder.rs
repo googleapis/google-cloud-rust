@@ -122,11 +122,20 @@ pub mod compliance {
         }
 
         /// Sets the value of [info][crate::model::RepeatRequest::info].
-        pub fn set_info<T: Into<std::option::Option<crate::model::ComplianceData>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.info = v.into();
+        pub fn set_info<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::ComplianceData>,
+        {
+            self.0.request.info = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [info][crate::model::RepeatRequest::info].
+        pub fn set_or_clear_info<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::ComplianceData>,
+        {
+            self.0.request.info = v.map(|x| x.into());
             self
         }
 
@@ -137,11 +146,20 @@ pub mod compliance {
         }
 
         /// Sets the value of [intended_binding_uri][crate::model::RepeatRequest::intended_binding_uri].
-        pub fn set_intended_binding_uri<T: Into<std::option::Option<std::string::String>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.intended_binding_uri = v.into();
+        pub fn set_intended_binding_uri<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.intended_binding_uri = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [intended_binding_uri][crate::model::RepeatRequest::intended_binding_uri].
+        pub fn set_or_clear_intended_binding_uri<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.intended_binding_uri = v.map(|x| x.into());
             self
         }
 
@@ -164,20 +182,56 @@ pub mod compliance {
         }
 
         /// Sets the value of [p_int32][crate::model::RepeatRequest::p_int32].
-        pub fn set_p_int32<T: Into<std::option::Option<i32>>>(mut self, v: T) -> Self {
-            self.0.request.p_int32 = v.into();
+        pub fn set_p_int32<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<i32>,
+        {
+            self.0.request.p_int32 = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [p_int32][crate::model::RepeatRequest::p_int32].
+        pub fn set_or_clear_p_int32<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<i32>,
+        {
+            self.0.request.p_int32 = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [p_int64][crate::model::RepeatRequest::p_int64].
-        pub fn set_p_int64<T: Into<std::option::Option<i64>>>(mut self, v: T) -> Self {
-            self.0.request.p_int64 = v.into();
+        pub fn set_p_int64<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<i64>,
+        {
+            self.0.request.p_int64 = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [p_int64][crate::model::RepeatRequest::p_int64].
+        pub fn set_or_clear_p_int64<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<i64>,
+        {
+            self.0.request.p_int64 = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [p_double][crate::model::RepeatRequest::p_double].
-        pub fn set_p_double<T: Into<std::option::Option<f64>>>(mut self, v: T) -> Self {
-            self.0.request.p_double = v.into();
+        pub fn set_p_double<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<f64>,
+        {
+            self.0.request.p_double = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [p_double][crate::model::RepeatRequest::p_double].
+        pub fn set_or_clear_p_double<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<f64>,
+        {
+            self.0.request.p_double = v.map(|x| x.into());
             self
         }
     }
@@ -243,11 +297,20 @@ pub mod compliance {
         }
 
         /// Sets the value of [info][crate::model::RepeatRequest::info].
-        pub fn set_info<T: Into<std::option::Option<crate::model::ComplianceData>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.info = v.into();
+        pub fn set_info<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::ComplianceData>,
+        {
+            self.0.request.info = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [info][crate::model::RepeatRequest::info].
+        pub fn set_or_clear_info<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::ComplianceData>,
+        {
+            self.0.request.info = v.map(|x| x.into());
             self
         }
 
@@ -258,11 +321,20 @@ pub mod compliance {
         }
 
         /// Sets the value of [intended_binding_uri][crate::model::RepeatRequest::intended_binding_uri].
-        pub fn set_intended_binding_uri<T: Into<std::option::Option<std::string::String>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.intended_binding_uri = v.into();
+        pub fn set_intended_binding_uri<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.intended_binding_uri = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [intended_binding_uri][crate::model::RepeatRequest::intended_binding_uri].
+        pub fn set_or_clear_intended_binding_uri<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.intended_binding_uri = v.map(|x| x.into());
             self
         }
 
@@ -285,20 +357,56 @@ pub mod compliance {
         }
 
         /// Sets the value of [p_int32][crate::model::RepeatRequest::p_int32].
-        pub fn set_p_int32<T: Into<std::option::Option<i32>>>(mut self, v: T) -> Self {
-            self.0.request.p_int32 = v.into();
+        pub fn set_p_int32<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<i32>,
+        {
+            self.0.request.p_int32 = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [p_int32][crate::model::RepeatRequest::p_int32].
+        pub fn set_or_clear_p_int32<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<i32>,
+        {
+            self.0.request.p_int32 = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [p_int64][crate::model::RepeatRequest::p_int64].
-        pub fn set_p_int64<T: Into<std::option::Option<i64>>>(mut self, v: T) -> Self {
-            self.0.request.p_int64 = v.into();
+        pub fn set_p_int64<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<i64>,
+        {
+            self.0.request.p_int64 = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [p_int64][crate::model::RepeatRequest::p_int64].
+        pub fn set_or_clear_p_int64<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<i64>,
+        {
+            self.0.request.p_int64 = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [p_double][crate::model::RepeatRequest::p_double].
-        pub fn set_p_double<T: Into<std::option::Option<f64>>>(mut self, v: T) -> Self {
-            self.0.request.p_double = v.into();
+        pub fn set_p_double<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<f64>,
+        {
+            self.0.request.p_double = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [p_double][crate::model::RepeatRequest::p_double].
+        pub fn set_or_clear_p_double<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<f64>,
+        {
+            self.0.request.p_double = v.map(|x| x.into());
             self
         }
     }
@@ -364,11 +472,20 @@ pub mod compliance {
         }
 
         /// Sets the value of [info][crate::model::RepeatRequest::info].
-        pub fn set_info<T: Into<std::option::Option<crate::model::ComplianceData>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.info = v.into();
+        pub fn set_info<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::ComplianceData>,
+        {
+            self.0.request.info = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [info][crate::model::RepeatRequest::info].
+        pub fn set_or_clear_info<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::ComplianceData>,
+        {
+            self.0.request.info = v.map(|x| x.into());
             self
         }
 
@@ -379,11 +496,20 @@ pub mod compliance {
         }
 
         /// Sets the value of [intended_binding_uri][crate::model::RepeatRequest::intended_binding_uri].
-        pub fn set_intended_binding_uri<T: Into<std::option::Option<std::string::String>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.intended_binding_uri = v.into();
+        pub fn set_intended_binding_uri<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.intended_binding_uri = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [intended_binding_uri][crate::model::RepeatRequest::intended_binding_uri].
+        pub fn set_or_clear_intended_binding_uri<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.intended_binding_uri = v.map(|x| x.into());
             self
         }
 
@@ -406,20 +532,56 @@ pub mod compliance {
         }
 
         /// Sets the value of [p_int32][crate::model::RepeatRequest::p_int32].
-        pub fn set_p_int32<T: Into<std::option::Option<i32>>>(mut self, v: T) -> Self {
-            self.0.request.p_int32 = v.into();
+        pub fn set_p_int32<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<i32>,
+        {
+            self.0.request.p_int32 = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [p_int32][crate::model::RepeatRequest::p_int32].
+        pub fn set_or_clear_p_int32<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<i32>,
+        {
+            self.0.request.p_int32 = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [p_int64][crate::model::RepeatRequest::p_int64].
-        pub fn set_p_int64<T: Into<std::option::Option<i64>>>(mut self, v: T) -> Self {
-            self.0.request.p_int64 = v.into();
+        pub fn set_p_int64<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<i64>,
+        {
+            self.0.request.p_int64 = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [p_int64][crate::model::RepeatRequest::p_int64].
+        pub fn set_or_clear_p_int64<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<i64>,
+        {
+            self.0.request.p_int64 = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [p_double][crate::model::RepeatRequest::p_double].
-        pub fn set_p_double<T: Into<std::option::Option<f64>>>(mut self, v: T) -> Self {
-            self.0.request.p_double = v.into();
+        pub fn set_p_double<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<f64>,
+        {
+            self.0.request.p_double = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [p_double][crate::model::RepeatRequest::p_double].
+        pub fn set_or_clear_p_double<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<f64>,
+        {
+            self.0.request.p_double = v.map(|x| x.into());
             self
         }
     }
@@ -485,11 +647,20 @@ pub mod compliance {
         }
 
         /// Sets the value of [info][crate::model::RepeatRequest::info].
-        pub fn set_info<T: Into<std::option::Option<crate::model::ComplianceData>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.info = v.into();
+        pub fn set_info<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::ComplianceData>,
+        {
+            self.0.request.info = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [info][crate::model::RepeatRequest::info].
+        pub fn set_or_clear_info<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::ComplianceData>,
+        {
+            self.0.request.info = v.map(|x| x.into());
             self
         }
 
@@ -500,11 +671,20 @@ pub mod compliance {
         }
 
         /// Sets the value of [intended_binding_uri][crate::model::RepeatRequest::intended_binding_uri].
-        pub fn set_intended_binding_uri<T: Into<std::option::Option<std::string::String>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.intended_binding_uri = v.into();
+        pub fn set_intended_binding_uri<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.intended_binding_uri = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [intended_binding_uri][crate::model::RepeatRequest::intended_binding_uri].
+        pub fn set_or_clear_intended_binding_uri<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.intended_binding_uri = v.map(|x| x.into());
             self
         }
 
@@ -527,20 +707,56 @@ pub mod compliance {
         }
 
         /// Sets the value of [p_int32][crate::model::RepeatRequest::p_int32].
-        pub fn set_p_int32<T: Into<std::option::Option<i32>>>(mut self, v: T) -> Self {
-            self.0.request.p_int32 = v.into();
+        pub fn set_p_int32<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<i32>,
+        {
+            self.0.request.p_int32 = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [p_int32][crate::model::RepeatRequest::p_int32].
+        pub fn set_or_clear_p_int32<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<i32>,
+        {
+            self.0.request.p_int32 = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [p_int64][crate::model::RepeatRequest::p_int64].
-        pub fn set_p_int64<T: Into<std::option::Option<i64>>>(mut self, v: T) -> Self {
-            self.0.request.p_int64 = v.into();
+        pub fn set_p_int64<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<i64>,
+        {
+            self.0.request.p_int64 = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [p_int64][crate::model::RepeatRequest::p_int64].
+        pub fn set_or_clear_p_int64<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<i64>,
+        {
+            self.0.request.p_int64 = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [p_double][crate::model::RepeatRequest::p_double].
-        pub fn set_p_double<T: Into<std::option::Option<f64>>>(mut self, v: T) -> Self {
-            self.0.request.p_double = v.into();
+        pub fn set_p_double<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<f64>,
+        {
+            self.0.request.p_double = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [p_double][crate::model::RepeatRequest::p_double].
+        pub fn set_or_clear_p_double<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<f64>,
+        {
+            self.0.request.p_double = v.map(|x| x.into());
             self
         }
     }
@@ -606,11 +822,20 @@ pub mod compliance {
         }
 
         /// Sets the value of [info][crate::model::RepeatRequest::info].
-        pub fn set_info<T: Into<std::option::Option<crate::model::ComplianceData>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.info = v.into();
+        pub fn set_info<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::ComplianceData>,
+        {
+            self.0.request.info = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [info][crate::model::RepeatRequest::info].
+        pub fn set_or_clear_info<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::ComplianceData>,
+        {
+            self.0.request.info = v.map(|x| x.into());
             self
         }
 
@@ -621,11 +846,20 @@ pub mod compliance {
         }
 
         /// Sets the value of [intended_binding_uri][crate::model::RepeatRequest::intended_binding_uri].
-        pub fn set_intended_binding_uri<T: Into<std::option::Option<std::string::String>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.intended_binding_uri = v.into();
+        pub fn set_intended_binding_uri<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.intended_binding_uri = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [intended_binding_uri][crate::model::RepeatRequest::intended_binding_uri].
+        pub fn set_or_clear_intended_binding_uri<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.intended_binding_uri = v.map(|x| x.into());
             self
         }
 
@@ -648,20 +882,56 @@ pub mod compliance {
         }
 
         /// Sets the value of [p_int32][crate::model::RepeatRequest::p_int32].
-        pub fn set_p_int32<T: Into<std::option::Option<i32>>>(mut self, v: T) -> Self {
-            self.0.request.p_int32 = v.into();
+        pub fn set_p_int32<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<i32>,
+        {
+            self.0.request.p_int32 = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [p_int32][crate::model::RepeatRequest::p_int32].
+        pub fn set_or_clear_p_int32<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<i32>,
+        {
+            self.0.request.p_int32 = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [p_int64][crate::model::RepeatRequest::p_int64].
-        pub fn set_p_int64<T: Into<std::option::Option<i64>>>(mut self, v: T) -> Self {
-            self.0.request.p_int64 = v.into();
+        pub fn set_p_int64<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<i64>,
+        {
+            self.0.request.p_int64 = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [p_int64][crate::model::RepeatRequest::p_int64].
+        pub fn set_or_clear_p_int64<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<i64>,
+        {
+            self.0.request.p_int64 = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [p_double][crate::model::RepeatRequest::p_double].
-        pub fn set_p_double<T: Into<std::option::Option<f64>>>(mut self, v: T) -> Self {
-            self.0.request.p_double = v.into();
+        pub fn set_p_double<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<f64>,
+        {
+            self.0.request.p_double = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [p_double][crate::model::RepeatRequest::p_double].
+        pub fn set_or_clear_p_double<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<f64>,
+        {
+            self.0.request.p_double = v.map(|x| x.into());
             self
         }
     }
@@ -727,11 +997,20 @@ pub mod compliance {
         }
 
         /// Sets the value of [info][crate::model::RepeatRequest::info].
-        pub fn set_info<T: Into<std::option::Option<crate::model::ComplianceData>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.info = v.into();
+        pub fn set_info<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::ComplianceData>,
+        {
+            self.0.request.info = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [info][crate::model::RepeatRequest::info].
+        pub fn set_or_clear_info<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::ComplianceData>,
+        {
+            self.0.request.info = v.map(|x| x.into());
             self
         }
 
@@ -742,11 +1021,20 @@ pub mod compliance {
         }
 
         /// Sets the value of [intended_binding_uri][crate::model::RepeatRequest::intended_binding_uri].
-        pub fn set_intended_binding_uri<T: Into<std::option::Option<std::string::String>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.intended_binding_uri = v.into();
+        pub fn set_intended_binding_uri<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.intended_binding_uri = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [intended_binding_uri][crate::model::RepeatRequest::intended_binding_uri].
+        pub fn set_or_clear_intended_binding_uri<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.intended_binding_uri = v.map(|x| x.into());
             self
         }
 
@@ -769,20 +1057,56 @@ pub mod compliance {
         }
 
         /// Sets the value of [p_int32][crate::model::RepeatRequest::p_int32].
-        pub fn set_p_int32<T: Into<std::option::Option<i32>>>(mut self, v: T) -> Self {
-            self.0.request.p_int32 = v.into();
+        pub fn set_p_int32<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<i32>,
+        {
+            self.0.request.p_int32 = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [p_int32][crate::model::RepeatRequest::p_int32].
+        pub fn set_or_clear_p_int32<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<i32>,
+        {
+            self.0.request.p_int32 = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [p_int64][crate::model::RepeatRequest::p_int64].
-        pub fn set_p_int64<T: Into<std::option::Option<i64>>>(mut self, v: T) -> Self {
-            self.0.request.p_int64 = v.into();
+        pub fn set_p_int64<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<i64>,
+        {
+            self.0.request.p_int64 = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [p_int64][crate::model::RepeatRequest::p_int64].
+        pub fn set_or_clear_p_int64<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<i64>,
+        {
+            self.0.request.p_int64 = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [p_double][crate::model::RepeatRequest::p_double].
-        pub fn set_p_double<T: Into<std::option::Option<f64>>>(mut self, v: T) -> Self {
-            self.0.request.p_double = v.into();
+        pub fn set_p_double<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<f64>,
+        {
+            self.0.request.p_double = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [p_double][crate::model::RepeatRequest::p_double].
+        pub fn set_or_clear_p_double<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<f64>,
+        {
+            self.0.request.p_double = v.map(|x| x.into());
             self
         }
     }
@@ -848,11 +1172,20 @@ pub mod compliance {
         }
 
         /// Sets the value of [info][crate::model::RepeatRequest::info].
-        pub fn set_info<T: Into<std::option::Option<crate::model::ComplianceData>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.info = v.into();
+        pub fn set_info<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::ComplianceData>,
+        {
+            self.0.request.info = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [info][crate::model::RepeatRequest::info].
+        pub fn set_or_clear_info<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::ComplianceData>,
+        {
+            self.0.request.info = v.map(|x| x.into());
             self
         }
 
@@ -863,11 +1196,20 @@ pub mod compliance {
         }
 
         /// Sets the value of [intended_binding_uri][crate::model::RepeatRequest::intended_binding_uri].
-        pub fn set_intended_binding_uri<T: Into<std::option::Option<std::string::String>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.intended_binding_uri = v.into();
+        pub fn set_intended_binding_uri<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.intended_binding_uri = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [intended_binding_uri][crate::model::RepeatRequest::intended_binding_uri].
+        pub fn set_or_clear_intended_binding_uri<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.intended_binding_uri = v.map(|x| x.into());
             self
         }
 
@@ -890,20 +1232,56 @@ pub mod compliance {
         }
 
         /// Sets the value of [p_int32][crate::model::RepeatRequest::p_int32].
-        pub fn set_p_int32<T: Into<std::option::Option<i32>>>(mut self, v: T) -> Self {
-            self.0.request.p_int32 = v.into();
+        pub fn set_p_int32<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<i32>,
+        {
+            self.0.request.p_int32 = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [p_int32][crate::model::RepeatRequest::p_int32].
+        pub fn set_or_clear_p_int32<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<i32>,
+        {
+            self.0.request.p_int32 = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [p_int64][crate::model::RepeatRequest::p_int64].
-        pub fn set_p_int64<T: Into<std::option::Option<i64>>>(mut self, v: T) -> Self {
-            self.0.request.p_int64 = v.into();
+        pub fn set_p_int64<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<i64>,
+        {
+            self.0.request.p_int64 = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [p_int64][crate::model::RepeatRequest::p_int64].
+        pub fn set_or_clear_p_int64<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<i64>,
+        {
+            self.0.request.p_int64 = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [p_double][crate::model::RepeatRequest::p_double].
-        pub fn set_p_double<T: Into<std::option::Option<f64>>>(mut self, v: T) -> Self {
-            self.0.request.p_double = v.into();
+        pub fn set_p_double<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<f64>,
+        {
+            self.0.request.p_double = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [p_double][crate::model::RepeatRequest::p_double].
+        pub fn set_or_clear_p_double<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<f64>,
+        {
+            self.0.request.p_double = v.map(|x| x.into());
             self
         }
     }
@@ -969,11 +1347,20 @@ pub mod compliance {
         }
 
         /// Sets the value of [info][crate::model::RepeatRequest::info].
-        pub fn set_info<T: Into<std::option::Option<crate::model::ComplianceData>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.info = v.into();
+        pub fn set_info<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::ComplianceData>,
+        {
+            self.0.request.info = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [info][crate::model::RepeatRequest::info].
+        pub fn set_or_clear_info<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::ComplianceData>,
+        {
+            self.0.request.info = v.map(|x| x.into());
             self
         }
 
@@ -984,11 +1371,20 @@ pub mod compliance {
         }
 
         /// Sets the value of [intended_binding_uri][crate::model::RepeatRequest::intended_binding_uri].
-        pub fn set_intended_binding_uri<T: Into<std::option::Option<std::string::String>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.intended_binding_uri = v.into();
+        pub fn set_intended_binding_uri<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.intended_binding_uri = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [intended_binding_uri][crate::model::RepeatRequest::intended_binding_uri].
+        pub fn set_or_clear_intended_binding_uri<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.intended_binding_uri = v.map(|x| x.into());
             self
         }
 
@@ -1011,20 +1407,56 @@ pub mod compliance {
         }
 
         /// Sets the value of [p_int32][crate::model::RepeatRequest::p_int32].
-        pub fn set_p_int32<T: Into<std::option::Option<i32>>>(mut self, v: T) -> Self {
-            self.0.request.p_int32 = v.into();
+        pub fn set_p_int32<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<i32>,
+        {
+            self.0.request.p_int32 = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [p_int32][crate::model::RepeatRequest::p_int32].
+        pub fn set_or_clear_p_int32<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<i32>,
+        {
+            self.0.request.p_int32 = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [p_int64][crate::model::RepeatRequest::p_int64].
-        pub fn set_p_int64<T: Into<std::option::Option<i64>>>(mut self, v: T) -> Self {
-            self.0.request.p_int64 = v.into();
+        pub fn set_p_int64<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<i64>,
+        {
+            self.0.request.p_int64 = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [p_int64][crate::model::RepeatRequest::p_int64].
+        pub fn set_or_clear_p_int64<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<i64>,
+        {
+            self.0.request.p_int64 = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [p_double][crate::model::RepeatRequest::p_double].
-        pub fn set_p_double<T: Into<std::option::Option<f64>>>(mut self, v: T) -> Self {
-            self.0.request.p_double = v.into();
+        pub fn set_p_double<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<f64>,
+        {
+            self.0.request.p_double = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [p_double][crate::model::RepeatRequest::p_double].
+        pub fn set_or_clear_p_double<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<f64>,
+        {
+            self.0.request.p_double = v.map(|x| x.into());
             self
         }
     }
@@ -1145,11 +1577,20 @@ pub mod compliance {
         }
 
         /// Sets the value of [request][crate::model::EnumResponse::request].
-        pub fn set_request<T: Into<std::option::Option<crate::model::EnumRequest>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.request = v.into();
+        pub fn set_request<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::EnumRequest>,
+        {
+            self.0.request.request = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [request][crate::model::EnumResponse::request].
+        pub fn set_or_clear_request<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::EnumRequest>,
+        {
+            self.0.request.request = v.map(|x| x.into());
             self
         }
 
@@ -1396,20 +1837,40 @@ pub mod compliance {
         /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
-        pub fn set_policy<T: Into<std::option::Option<iam_v1::model::Policy>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.policy = v.into();
+        pub fn set_policy<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -1477,11 +1938,20 @@ pub mod compliance {
         }
 
         /// Sets the value of [options][iam_v1::model::GetIamPolicyRequest::options].
-        pub fn set_options<T: Into<std::option::Option<iam_v1::model::GetPolicyOptions>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.options = v.into();
+        pub fn set_options<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = v.map(|x| x.into());
             self
         }
     }
@@ -1999,11 +2469,20 @@ pub mod echo {
         }
 
         /// Sets the value of [other_request_id][crate::model::EchoRequest::other_request_id].
-        pub fn set_other_request_id<T: Into<std::option::Option<std::string::String>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.other_request_id = v.into();
+        pub fn set_other_request_id<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.other_request_id = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [other_request_id][crate::model::EchoRequest::other_request_id].
+        pub fn set_or_clear_other_request_id<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.other_request_id = v.map(|x| x.into());
             self
         }
 
@@ -2674,11 +3153,20 @@ pub mod echo {
         }
 
         /// Sets the value of [response_delay][crate::model::BlockRequest::response_delay].
-        pub fn set_response_delay<T: Into<std::option::Option<wkt::Duration>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.response_delay = v.into();
+        pub fn set_response_delay<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Duration>,
+        {
+            self.0.request.response_delay = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [response_delay][crate::model::BlockRequest::response_delay].
+        pub fn set_or_clear_response_delay<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Duration>,
+        {
+            self.0.request.response_delay = v.map(|x| x.into());
             self
         }
 
@@ -2951,20 +3439,40 @@ pub mod echo {
         /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
-        pub fn set_policy<T: Into<std::option::Option<iam_v1::model::Policy>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.policy = v.into();
+        pub fn set_policy<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -3030,11 +3538,20 @@ pub mod echo {
         }
 
         /// Sets the value of [options][iam_v1::model::GetIamPolicyRequest::options].
-        pub fn set_options<T: Into<std::option::Option<iam_v1::model::GetPolicyOptions>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.options = v.into();
+        pub fn set_options<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = v.map(|x| x.into());
             self
         }
     }
@@ -3518,8 +4035,20 @@ pub mod identity {
         }
 
         /// Sets the value of [user][crate::model::CreateUserRequest::user].
-        pub fn set_user<T: Into<std::option::Option<crate::model::User>>>(mut self, v: T) -> Self {
-            self.0.request.user = v.into();
+        pub fn set_user<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::User>,
+        {
+            self.0.request.user = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [user][crate::model::CreateUserRequest::user].
+        pub fn set_or_clear_user<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::User>,
+        {
+            self.0.request.user = v.map(|x| x.into());
             self
         }
     }
@@ -3638,17 +4167,38 @@ pub mod identity {
         }
 
         /// Sets the value of [user][crate::model::UpdateUserRequest::user].
-        pub fn set_user<T: Into<std::option::Option<crate::model::User>>>(mut self, v: T) -> Self {
-            self.0.request.user = v.into();
+        pub fn set_user<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::User>,
+        {
+            self.0.request.user = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [user][crate::model::UpdateUserRequest::user].
+        pub fn set_or_clear_user<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::User>,
+        {
+            self.0.request.user = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateUserRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateUserRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -4037,20 +4587,40 @@ pub mod identity {
         /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
-        pub fn set_policy<T: Into<std::option::Option<iam_v1::model::Policy>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.policy = v.into();
+        pub fn set_policy<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -4116,11 +4686,20 @@ pub mod identity {
         }
 
         /// Sets the value of [options][iam_v1::model::GetIamPolicyRequest::options].
-        pub fn set_options<T: Into<std::option::Option<iam_v1::model::GetPolicyOptions>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.options = v.into();
+        pub fn set_options<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = v.map(|x| x.into());
             self
         }
     }
@@ -4608,8 +5187,20 @@ pub mod messaging {
         }
 
         /// Sets the value of [room][crate::model::CreateRoomRequest::room].
-        pub fn set_room<T: Into<std::option::Option<crate::model::Room>>>(mut self, v: T) -> Self {
-            self.0.request.room = v.into();
+        pub fn set_room<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Room>,
+        {
+            self.0.request.room = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [room][crate::model::CreateRoomRequest::room].
+        pub fn set_or_clear_room<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Room>,
+        {
+            self.0.request.room = v.map(|x| x.into());
             self
         }
     }
@@ -4732,17 +5323,38 @@ pub mod messaging {
         }
 
         /// Sets the value of [room][crate::model::UpdateRoomRequest::room].
-        pub fn set_room<T: Into<std::option::Option<crate::model::Room>>>(mut self, v: T) -> Self {
-            self.0.request.room = v.into();
+        pub fn set_room<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Room>,
+        {
+            self.0.request.room = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [room][crate::model::UpdateRoomRequest::room].
+        pub fn set_or_clear_room<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Room>,
+        {
+            self.0.request.room = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateRoomRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateRoomRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -4968,11 +5580,20 @@ pub mod messaging {
         }
 
         /// Sets the value of [blurb][crate::model::CreateBlurbRequest::blurb].
-        pub fn set_blurb<T: Into<std::option::Option<crate::model::Blurb>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.blurb = v.into();
+        pub fn set_blurb<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Blurb>,
+        {
+            self.0.request.blurb = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [blurb][crate::model::CreateBlurbRequest::blurb].
+        pub fn set_or_clear_blurb<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Blurb>,
+        {
+            self.0.request.blurb = v.map(|x| x.into());
             self
         }
     }
@@ -5095,20 +5716,38 @@ pub mod messaging {
         }
 
         /// Sets the value of [blurb][crate::model::UpdateBlurbRequest::blurb].
-        pub fn set_blurb<T: Into<std::option::Option<crate::model::Blurb>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.blurb = v.into();
+        pub fn set_blurb<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Blurb>,
+        {
+            self.0.request.blurb = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [blurb][crate::model::UpdateBlurbRequest::blurb].
+        pub fn set_or_clear_blurb<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Blurb>,
+        {
+            self.0.request.blurb = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateBlurbRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateBlurbRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -5638,20 +6277,40 @@ pub mod messaging {
         /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
-        pub fn set_policy<T: Into<std::option::Option<iam_v1::model::Policy>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.policy = v.into();
+        pub fn set_policy<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -5719,11 +6378,20 @@ pub mod messaging {
         }
 
         /// Sets the value of [options][iam_v1::model::GetIamPolicyRequest::options].
-        pub fn set_options<T: Into<std::option::Option<iam_v1::model::GetPolicyOptions>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.options = v.into();
+        pub fn set_options<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = v.map(|x| x.into());
             self
         }
     }
@@ -6221,11 +6889,20 @@ pub mod sequence_service {
         }
 
         /// Sets the value of [sequence][crate::model::CreateSequenceRequest::sequence].
-        pub fn set_sequence<T: Into<std::option::Option<crate::model::Sequence>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.sequence = v.into();
+        pub fn set_sequence<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Sequence>,
+        {
+            self.0.request.sequence = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [sequence][crate::model::CreateSequenceRequest::sequence].
+        pub fn set_or_clear_sequence<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Sequence>,
+        {
+            self.0.request.sequence = v.map(|x| x.into());
             self
         }
     }
@@ -6290,13 +6967,20 @@ pub mod sequence_service {
         }
 
         /// Sets the value of [streaming_sequence][crate::model::CreateStreamingSequenceRequest::streaming_sequence].
-        pub fn set_streaming_sequence<
-            T: Into<std::option::Option<crate::model::StreamingSequence>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.streaming_sequence = v.into();
+        pub fn set_streaming_sequence<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::StreamingSequence>,
+        {
+            self.0.request.streaming_sequence = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [streaming_sequence][crate::model::CreateStreamingSequenceRequest::streaming_sequence].
+        pub fn set_or_clear_streaming_sequence<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::StreamingSequence>,
+        {
+            self.0.request.streaming_sequence = v.map(|x| x.into());
             self
         }
     }
@@ -6734,20 +7418,40 @@ pub mod sequence_service {
         /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
-        pub fn set_policy<T: Into<std::option::Option<iam_v1::model::Policy>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.policy = v.into();
+        pub fn set_policy<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -6815,11 +7519,20 @@ pub mod sequence_service {
         }
 
         /// Sets the value of [options][iam_v1::model::GetIamPolicyRequest::options].
-        pub fn set_options<T: Into<std::option::Option<iam_v1::model::GetPolicyOptions>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.options = v.into();
+        pub fn set_options<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = v.map(|x| x.into());
             self
         }
     }
@@ -7313,11 +8026,20 @@ pub mod testing {
         }
 
         /// Sets the value of [session][crate::model::CreateSessionRequest::session].
-        pub fn set_session<T: Into<std::option::Option<crate::model::Session>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.session = v.into();
+        pub fn set_session<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Session>,
+        {
+            self.0.request.session = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [session][crate::model::CreateSessionRequest::session].
+        pub fn set_or_clear_session<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Session>,
+        {
+            self.0.request.session = v.map(|x| x.into());
             self
         }
     }
@@ -8056,20 +8778,40 @@ pub mod testing {
         /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
-        pub fn set_policy<T: Into<std::option::Option<iam_v1::model::Policy>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.policy = v.into();
+        pub fn set_policy<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -8135,11 +8877,20 @@ pub mod testing {
         }
 
         /// Sets the value of [options][iam_v1::model::GetIamPolicyRequest::options].
-        pub fn set_options<T: Into<std::option::Option<iam_v1::model::GetPolicyOptions>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.options = v.into();
+        pub fn set_options<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = v.map(|x| x.into());
             self
         }
     }

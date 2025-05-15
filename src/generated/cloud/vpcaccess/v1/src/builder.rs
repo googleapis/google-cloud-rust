@@ -173,11 +173,22 @@ pub mod vpc_access_service {
         /// Sets the value of [connector][crate::model::CreateConnectorRequest::connector].
         ///
         /// This is a **required** field for requests.
-        pub fn set_connector<T: Into<std::option::Option<crate::model::Connector>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.connector = v.into();
+        pub fn set_connector<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Connector>,
+        {
+            self.0.request.connector = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [connector][crate::model::CreateConnectorRequest::connector].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_connector<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Connector>,
+        {
+            self.0.request.connector = v.map(|x| x.into());
             self
         }
     }

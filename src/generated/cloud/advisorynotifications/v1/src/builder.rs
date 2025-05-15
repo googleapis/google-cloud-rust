@@ -368,11 +368,22 @@ pub mod advisory_notifications_service {
         /// Sets the value of [settings][crate::model::UpdateSettingsRequest::settings].
         ///
         /// This is a **required** field for requests.
-        pub fn set_settings<T: Into<std::option::Option<crate::model::Settings>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.settings = v.into();
+        pub fn set_settings<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Settings>,
+        {
+            self.0.request.settings = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [settings][crate::model::UpdateSettingsRequest::settings].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_settings<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Settings>,
+        {
+            self.0.request.settings = v.map(|x| x.into());
             self
         }
     }
