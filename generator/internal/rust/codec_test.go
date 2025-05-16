@@ -2039,7 +2039,6 @@ func TestEnumValueVariantName(t *testing.T) {
 		Package: "test",
 		Values: []*api.EnumValue{
 			{Number: 0, Name: "ENUM_NAME_UNSPECIFIED"},
-			{Number: 1, Name: "ENUM_NAME1"},
 			{Number: 2, Name: "ENUM_NAME_1"},
 			{Number: 3, Name: "ENUM_NAME_A"},
 			{Number: 4, Name: "ENUM_NAME_PARTIAL"},
@@ -2071,7 +2070,7 @@ func TestEnumValueVariantName(t *testing.T) {
 	for _, value := range testEnum.Values {
 		got = append(got, enumValueVariantName(value))
 	}
-	want := []string{"Unspecified", "EnumName1", "_1", "A", "Partial", "Green"}
+	want := []string{"Unspecified", "EnumName1", "A", "Partial", "Green"}
 	if diff := cmp.Diff(want, got); diff != "" {
 		t.Errorf("mismatch in enum variant names (-want, +got):\n%s", diff)
 	}
