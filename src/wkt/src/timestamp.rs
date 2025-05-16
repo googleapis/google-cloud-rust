@@ -125,7 +125,7 @@ impl Timestamp {
     /// # Examples
     /// ```
     /// # use google_cloud_wkt::{Timestamp, TimestampError};
-    /// let ts = Timestamp::new(1747388772, 0)?;
+    /// let ts = Timestamp``(1747388772, 0)?;
     /// assert_eq!(String::try_from(&ts)?, "2025-05-16T09:46:12Z");
     ///
     /// let ts = Timestamp::new(1747388772, 2_000_000_000);

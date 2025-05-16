@@ -120,10 +120,18 @@ impl Duration {
     /// # use google_cloud_wkt::{Duration, DurationError};
     /// let d = Duration::new(12, 340_000_000)?;
     /// assert_eq!(String::from(&d), "12.34s");
+    ///
     /// let d = Duration::new(-12, -340_000_000)?;
     /// assert_eq!(String::from(&d), "-12.34s");
+    /// # Ok::<(), DurationError>(())
+    /// ```
+    ///
+    /// # Examples: invalid inputs
+    /// ```
+    /// # use google_cloud_wkt::{Duration, DurationError};
     /// let d = Duration::new(12, 2_000_000_000);
     /// assert!(matches!(d, Err(DurationError::OutOfRange)));
+    ///
     /// let d = Duration::new(-12, 340_000_000);
     /// assert!(matches!(d, Err(DurationError::MismatchedSigns)));
     /// # Ok::<(), DurationError>(())
