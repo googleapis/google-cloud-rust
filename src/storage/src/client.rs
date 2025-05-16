@@ -14,7 +14,9 @@
 
 pub use crate::Error;
 pub use crate::Result;
+use auth::credentials::CacheableResource;
 pub use control::model::Object;
+use gax::error::CredentialsError;
 use http::Extensions;
 
 /// Implements a client for the Cloud Storage API.
@@ -149,11 +151,22 @@ impl Storage {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&self::info::X_GOOG_API_CLIENT_HEADER),
             );
-        let auth_headers = self
+        let cached_auth_headers = self
             .cred
             .headers(Extensions::new())
             .await
             .map_err(Error::authentication)?;
+
+        let auth_headers = match cached_auth_headers {
+            CacheableResource::New { data, .. } => Ok(data),
+            CacheableResource::NotModified => {
+                Err(Error::authentication(CredentialsError::from_str(
+                    false,
+                    "Auth headers not refreshed; client requires new headers to proceed with the request.",
+                )))
+            }
+        }?;
+
         let builder = auth_headers
             .iter()
             .fold(builder, |b, (k, v)| b.header(k, v));
@@ -211,11 +224,21 @@ impl Storage {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&self::info::X_GOOG_API_CLIENT_HEADER),
             );
-        let auth_headers = self
+        let cached_auth_headers = self
             .cred
             .headers(Extensions::new())
             .await
             .map_err(Error::authentication)?;
+        let auth_headers = match cached_auth_headers {
+            CacheableResource::New { data, .. } => Ok(data),
+            CacheableResource::NotModified => {
+                Err(Error::authentication(CredentialsError::from_str(
+                    false,
+                    "Auth headers not refreshed; client requires new headers to proceed with the request.",
+                )))
+            }
+        }?;
+
         let builder = auth_headers
             .iter()
             .fold(builder, |b, (k, v)| b.header(k, v));

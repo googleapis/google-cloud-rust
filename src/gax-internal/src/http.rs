@@ -12,12 +12,11 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+use auth::credentials::CacheableResource;
 use auth::credentials::{Builder as AccessTokenCredentialBuilder, Credentials};
 use gax::Result;
 use gax::backoff_policy::BackoffPolicy;
-use gax::error::Error;
-use gax::error::HttpError;
-use gax::error::ServiceError;
+use gax::error::{CredentialsError, Error, HttpError, ServiceError};
 use gax::exponential_backoff::ExponentialBackoff;
 use gax::polling_backoff_policy::PollingBackoffPolicy;
 use gax::polling_error_policy::Aip194Strict;
@@ -128,11 +127,22 @@ impl ReqwestClient {
         builder = gax::retry_loop_internal::effective_timeout(options, remaining_time)
             .into_iter()
             .fold(builder, |b, t| b.timeout(t));
-        let auth_headers = self
+        let cached_auth_headers = self
             .cred
             .headers(Extensions::new())
             .await
             .map_err(Error::authentication)?;
+
+        let auth_headers = match cached_auth_headers {
+            CacheableResource::New { data, .. } => Ok(data),
+            CacheableResource::NotModified => {
+                Err(Error::authentication(CredentialsError::from_str(
+                    false,
+                    "Auth headers not refreshed; client requires new headers to proceed with the request.",
+                )))
+            }
+        }?;
+
         for (key, value) in auth_headers.iter() {
             builder = builder.header(key, value);
         }

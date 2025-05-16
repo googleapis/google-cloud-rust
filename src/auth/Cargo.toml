@@ -14,7 +14,7 @@
 
 [package]
 name        = "google-cloud-auth"
-version     = "0.20.0"
+version     = "0.21.0"
 description = "Google Cloud Client Libraries for Rust - Authentication"
 # Inherit other attributes from the workspace.
 authors.workspace      = true
@@ -37,6 +37,8 @@ serde_json.workspace  = true
 thiserror.workspace   = true
 time                  = { workspace = true, features = ["serde"] }
 tokio                 = { workspace = true, features = ["fs"] }
+blake3.workspace      = true
+hex.workspace         = true
 bon.workspace         = true
 # Local dependencies
 gax.workspace = true
