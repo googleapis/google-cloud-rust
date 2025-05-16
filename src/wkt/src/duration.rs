@@ -710,6 +710,15 @@ mod test {
         assert_eq!(got, want);
     }
 
+    #[test]
+    fn convert_from_string() -> Result {
+        let input = "12.750s".to_string();
+        let a = Duration::try_from(input.as_str())?;
+        let b = Duration::try_from(&input)?;
+        assert_eq!(a, b);
+        Ok(())
+    }
+
     #[test_case(std::time::Duration::new(i64::MAX as u64, 0))]
     #[test_case(std::time::Duration::new(i64::MAX as u64 + 10, 0))]
     fn from_std_time_out_of_range(input: std::time::Duration) {

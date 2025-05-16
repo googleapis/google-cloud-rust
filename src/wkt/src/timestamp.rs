@@ -676,6 +676,15 @@ mod test {
     }
 
     #[test]
+    fn convert_from_string() -> Result {
+        let input = "2025-05-16T18:00:00Z".to_string();
+        let a = Timestamp::try_from(input.as_str())?;
+        let b = Timestamp::try_from(&input)?;
+        assert_eq!(a, b);
+        Ok(())
+    }
+
+    #[test]
     fn convert_from_time() -> Result {
         let ts = time::OffsetDateTime::from_unix_timestamp(123)?
             + time::Duration::nanoseconds(456789012);
