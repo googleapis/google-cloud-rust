@@ -17,7 +17,6 @@
 /// # Example
 /// ```
 /// # use google_cloud_wkt::FieldMask;
-/// use serde_json::json;
 /// let mask = FieldMask::default().set_paths(["f.a", "f.b.d"]);
 /// assert_eq!(mask.paths, vec!["f.a".to_string(), "f.b.d".to_string()]);
 /// # Ok::<(), anyhow::Error>(())
@@ -264,7 +263,6 @@ impl FieldMask {
     /// # Example
     /// ```
     /// # use google_cloud_wkt::FieldMask;
-    /// use serde_json::json;
     /// let mask = FieldMask::default().set_paths(["abc", "xyz"]);
     /// assert_eq!(mask.paths, vec!["abc".to_string(), "xyz".to_string()]);
     /// # Ok::<(), anyhow::Error>(())
