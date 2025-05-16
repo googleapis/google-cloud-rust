@@ -59,7 +59,7 @@
 
 use crate::credentials::dynamic::CredentialsProvider;
 use crate::credentials::{CacheableResource, Credentials, DEFAULT_UNIVERSE_DOMAIN, Result};
-use crate::errors::{self, CredentialsError, is_retryable};
+use crate::errors::{CredentialsError, is_retryable};
 use crate::headers_util::build_cacheable_headers;
 use crate::token::{CachedTokenProvider, Token, TokenProvider};
 use crate::token_cache::TokenCache;
@@ -77,6 +77,7 @@ const METADATA_FLAVOR: &str = "metadata-flavor";
 const METADATA_ROOT: &str = "http://metadata.google.internal";
 const MDS_DEFAULT_URI: &str = "/computeMetadata/v1/instance/service-accounts/default";
 const GCE_METADATA_HOST_ENV_VAR: &str = "GCE_METADATA_HOST";
+const MDS_NOT_FOUND_ERROR: &str = "Unable to reach http://metadata.google.internal. You are likely not in a Google Cloud Environment. To setup credentials for local testing, run `gcloud auth application-default login`";
 
 #[derive(Debug)]
 struct MDSCredentials<T>
@@ -169,13 +170,28 @@ impl Builder {
     }
 
     fn build_token_provider(self) -> MDSAccessTokenProvider {
-        let endpoint = match std::env::var(GCE_METADATA_HOST_ENV_VAR) {
-            Ok(endpoint) => format!("http://{}", endpoint),
-            _ => self.endpoint.clone().unwrap_or(METADATA_ROOT.to_string()),
+        let final_endpoint: String;
+        let endpoint_was_overridden: bool;
+
+        // Determine the endpoint and whether it was overridden
+        // 1. Check GCE_METADATA_HOST environment variable first
+        if let Ok(host_from_env) = std::env::var(GCE_METADATA_HOST_ENV_VAR) {
+            final_endpoint = format!("http://{}", host_from_env);
+            endpoint_was_overridden = true;
+        // 2. Else, check if an endpoint was provided to the mds::Builder
+        } else if let Some(builder_endpoint) = self.endpoint {
+            final_endpoint = builder_endpoint;
+            endpoint_was_overridden = true;
+        // 3. Else, use the default metadata root
+        } else {
+            final_endpoint = METADATA_ROOT.to_string();
+            endpoint_was_overridden = false;
         };
+
         MDSAccessTokenProvider::builder()
-            .endpoint(endpoint)
+            .endpoint(final_endpoint)
             .maybe_scopes(self.scopes)
+            .endpoint_overriden(endpoint_was_overridden) // Set the mandatory field
             .build()
     }
 
@@ -231,6 +247,7 @@ struct MDSAccessTokenProvider {
     scopes: Option<Vec<String>>,
     #[builder(into)]
     endpoint: String,
+    endpoint_overriden: bool,
 }
 
 #[async_trait]
@@ -250,32 +267,50 @@ impl TokenProvider for MDSAccessTokenProvider {
             .into_iter()
             .fold(request, |r, s| r.query(&[("scopes", s)]));
 
-        let response = request.send().await.map_err(errors::retryable)?;
-        // Process the response
-        if !response.status().is_success() {
-            let status = response.status();
-            let body = response
-                .text()
-                .await
-                .map_err(|e| CredentialsError::new(is_retryable(status), e))?;
-            return Err(CredentialsError::from_str(
-                is_retryable(status),
-                format!("Failed to fetch token. {body}"),
-            ));
+        match request.send().await {
+            Ok(response) => {
+                // Process the response
+                if !response.status().is_success() {
+                    let status = response.status();
+                    println!("Status Code: {status}");
+
+                    if status == 404 && !self.endpoint_overriden {
+                        return Err(CredentialsError::from_str(false, MDS_NOT_FOUND_ERROR));
+                    }
+
+                    let body = response
+                        .text()
+                        .await
+                        .map_err(|e| CredentialsError::new(is_retryable(status), e))?;
+                    return Err(CredentialsError::from_str(
+                        is_retryable(status),
+                        format!("Failed to fetch token. {body}"),
+                    ));
+                }
+                let response = response.json::<MDSTokenResponse>().await.map_err(|e| {
+                    let retryable = !e.is_decode();
+                    CredentialsError::new(retryable, e)
+                })?;
+                let token = Token {
+                    token: response.access_token,
+                    token_type: response.token_type,
+                    expires_at: response
+                        .expires_in
+                        .map(|d| Instant::now() + Duration::from_secs(d)),
+                    metadata: None,
+                };
+                Ok(token)
+            }
+            Err(e) => {
+                return Err(CredentialsError::from_str(
+                    false,
+                    match self.endpoint_overriden {
+                        false => format!("Failed to fetch token. {}. Error: {}", MDS_NOT_FOUND_ERROR, e),
+                        true => format!("Failed to fetch token. Error: {}", e),
+                    },
+                ));
+            }
         }
-        let response = response.json::<MDSTokenResponse>().await.map_err(|e| {
-            let retryable = !e.is_decode();
-            CredentialsError::new(retryable, e)
-        })?;
-        let token = Token {
-            token: response.access_token,
-            token_type: response.token_type,
-            expires_at: response
-                .expires_in
-                .map(|d| Instant::now() + Duration::from_secs(d)),
-            metadata: None,
-        };
-        Ok(token)
     }
 }
 
@@ -374,6 +409,27 @@ mod test {
             token_provider: TokenCache::new(mock),
         };
         assert!(mdsc.headers(Extensions::new()).await.is_err());
+    }
+
+    #[tokio::test(start_paused = true)]
+    #[parallel]
+    async fn no_mds() -> TestResult {
+        let e = Builder::default()
+            .build_token_provider()
+            .token()
+            .await
+            .err()
+            .unwrap();
+
+        assert!(!e.is_retryable());
+        assert!(
+            e.source()
+                .unwrap()
+                .to_string()
+                .contains("application-default")
+        );
+
+        Ok(())
     }
 
     fn handle_token_factory(
