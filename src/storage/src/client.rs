@@ -491,6 +491,8 @@ mod v1 {
                 "acl": [{"id": "acl-id","unknownField": 5, "projectTeam": {"projectNumber": "123456", "team": "myteam"}}],
                 // map fields:
                 "metadata": {"key1": "val1", "key2": "val2", "key3": "val3"},
+                // base64 fields:
+                "customerEncryption": {"encryptionAlgorithm": "algorithm", "keySha256": "dGhlIHF1aWNrIGJyb3duIGZveCBqdW1wcyBvdmVyIHRoZSBsYXp5IGRvZw"}
             });
             let object: Object = serde_json::from_value(json)
                 .expect("json value in object test should be deserializable");
@@ -512,6 +514,7 @@ mod v1 {
                 component_count: 5,
                 // datetime fields:
                 time_created: wkt::Timestamp::clamp(1747132200, 0),
+                // list fields:
                 acl: vec![ObjectAccessControl {
                     id: "acl-id".to_string(),
                     project_team: Some(ProjectTeam {
@@ -520,11 +523,17 @@ mod v1 {
                     }),
                     ..Default::default()
                 }],
+                // map fields:
                 metadata: std::collections::HashMap::from([
                     ("key1".to_string(), "val1".to_string()),
                     ("key2".to_string(), "val2".to_string()),
                     ("key3".to_string(), "val3".to_string()),
                 ]),
+                // base64 encoded fields:
+                customer_encryption: Some(CustomerEncryption {
+                    encryption_algorithm: "algorithm".to_string(),
+                    key_sha256: bytes::Bytes::from("the quick brown fox jumps over the lazy dog"),
+                }),
                 ..Default::default()
             };
 
