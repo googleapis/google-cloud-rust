@@ -118,7 +118,7 @@ mod test {
     }
 
     #[test]
-    fn build_cachable_headers_basic_success() {
+    fn build_cacheable_headers_basic_success() {
         let token = create_test_token("test_token", "Bearer");
         let cacheable_token = CacheableResource::New {
             entity_tag: EntityTag::default(),
@@ -144,7 +144,7 @@ mod test {
     }
 
     #[test]
-    fn build_cachable_headers_basic_not_modified() {
+    fn build_cacheable_headers_basic_not_modified() {
         let cacheable_token = CacheableResource::NotModified;
 
         let result = build_cacheable_headers(&cacheable_token, &None);
@@ -245,7 +245,7 @@ mod test {
     }
 
     #[test]
-    fn build_cachable_api_key_headers_basic_not_modified() {
+    fn build_cacheable_api_key_headers_basic_not_modified() {
         let cacheable_token = CacheableResource::NotModified;
 
         let result = build_cacheable_api_key_headers(&cacheable_token, &None);
