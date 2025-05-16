@@ -75,8 +75,9 @@ pub mod key_dashboard_service {
     /// # use google_cloud_kms_inventory_v1::builder;
     /// use builder::key_dashboard_service::ListCryptoKeys;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -232,6 +233,7 @@ pub mod key_tracking_service {
     /// # use google_cloud_kms_inventory_v1::builder;
     /// use builder::key_tracking_service::GetProtectedResourcesSummary;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -299,8 +301,9 @@ pub mod key_tracking_service {
     /// # use google_cloud_kms_inventory_v1::builder;
     /// use builder::key_tracking_service::SearchProtectedResources;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;

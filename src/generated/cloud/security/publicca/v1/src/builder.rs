@@ -77,6 +77,7 @@ pub mod public_certificate_authority_service {
     /// # use google_cloud_security_publicca_v1::builder;
     /// use builder::public_certificate_authority_service::CreateExternalAccountKey;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -134,13 +135,22 @@ pub mod public_certificate_authority_service {
         /// Sets the value of [external_account_key][crate::model::CreateExternalAccountKeyRequest::external_account_key].
         ///
         /// This is a **required** field for requests.
-        pub fn set_external_account_key<
-            T: Into<std::option::Option<crate::model::ExternalAccountKey>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.external_account_key = v.into();
+        pub fn set_external_account_key<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::ExternalAccountKey>,
+        {
+            self.0.request.external_account_key = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [external_account_key][crate::model::CreateExternalAccountKeyRequest::external_account_key].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_external_account_key<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::ExternalAccountKey>,
+        {
+            self.0.request.external_account_key = v.map(|x| x.into());
             self
         }
     }

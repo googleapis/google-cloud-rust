@@ -75,6 +75,7 @@ pub mod cloud_shell_service {
     /// # use google_cloud_shell_v1::builder;
     /// use builder::cloud_shell_service::GetEnvironment;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -137,8 +138,9 @@ pub mod cloud_shell_service {
     /// # use google_cloud_shell_v1::builder;
     /// use builder::cloud_shell_service::StartEnvironment;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_shell_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -261,8 +263,9 @@ pub mod cloud_shell_service {
     /// # use google_cloud_shell_v1::builder;
     /// use builder::cloud_shell_service::AuthorizeEnvironment;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_shell_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -366,11 +369,20 @@ pub mod cloud_shell_service {
         }
 
         /// Sets the value of [expire_time][crate::model::AuthorizeEnvironmentRequest::expire_time].
-        pub fn set_expire_time<T: Into<std::option::Option<wkt::Timestamp>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.expire_time = v.into();
+        pub fn set_expire_time<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Timestamp>,
+        {
+            self.0.request.expire_time = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [expire_time][crate::model::AuthorizeEnvironmentRequest::expire_time].
+        pub fn set_or_clear_expire_time<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Timestamp>,
+        {
+            self.0.request.expire_time = v.map(|x| x.into());
             self
         }
     }
@@ -389,8 +401,9 @@ pub mod cloud_shell_service {
     /// # use google_cloud_shell_v1::builder;
     /// use builder::cloud_shell_service::AddPublicKey;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_shell_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -497,8 +510,9 @@ pub mod cloud_shell_service {
     /// # use google_cloud_shell_v1::builder;
     /// use builder::cloud_shell_service::RemovePublicKey;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_shell_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -605,6 +619,7 @@ pub mod cloud_shell_service {
     /// # use google_cloud_shell_v1::builder;
     /// use builder::cloud_shell_service::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });

@@ -75,6 +75,7 @@ pub mod privileged_access_manager {
     /// # use google_cloud_privilegedaccessmanager_v1::builder;
     /// use builder::privileged_access_manager::CheckOnboardingStatus;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -140,8 +141,9 @@ pub mod privileged_access_manager {
     /// # use google_cloud_privilegedaccessmanager_v1::builder;
     /// use builder::privileged_access_manager::ListEntitlements;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -257,8 +259,9 @@ pub mod privileged_access_manager {
     /// # use google_cloud_privilegedaccessmanager_v1::builder;
     /// use builder::privileged_access_manager::SearchEntitlements;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -383,6 +386,7 @@ pub mod privileged_access_manager {
     /// # use google_cloud_privilegedaccessmanager_v1::builder;
     /// use builder::privileged_access_manager::GetEntitlement;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -445,8 +449,9 @@ pub mod privileged_access_manager {
     /// # use google_cloud_privilegedaccessmanager_v1::builder;
     /// use builder::privileged_access_manager::CreateEntitlement;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_privilegedaccessmanager_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -547,11 +552,22 @@ pub mod privileged_access_manager {
         /// Sets the value of [entitlement][crate::model::CreateEntitlementRequest::entitlement].
         ///
         /// This is a **required** field for requests.
-        pub fn set_entitlement<T: Into<std::option::Option<crate::model::Entitlement>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.entitlement = v.into();
+        pub fn set_entitlement<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Entitlement>,
+        {
+            self.0.request.entitlement = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [entitlement][crate::model::CreateEntitlementRequest::entitlement].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_entitlement<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Entitlement>,
+        {
+            self.0.request.entitlement = v.map(|x| x.into());
             self
         }
 
@@ -576,8 +592,9 @@ pub mod privileged_access_manager {
     /// # use google_cloud_privilegedaccessmanager_v1::builder;
     /// use builder::privileged_access_manager::DeleteEntitlement;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_privilegedaccessmanager_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -694,8 +711,9 @@ pub mod privileged_access_manager {
     /// # use google_cloud_privilegedaccessmanager_v1::builder;
     /// use builder::privileged_access_manager::UpdateEntitlement;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_privilegedaccessmanager_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -780,22 +798,44 @@ pub mod privileged_access_manager {
         /// Sets the value of [entitlement][crate::model::UpdateEntitlementRequest::entitlement].
         ///
         /// This is a **required** field for requests.
-        pub fn set_entitlement<T: Into<std::option::Option<crate::model::Entitlement>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.entitlement = v.into();
+        pub fn set_entitlement<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Entitlement>,
+        {
+            self.0.request.entitlement = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [entitlement][crate::model::UpdateEntitlementRequest::entitlement].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_entitlement<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Entitlement>,
+        {
+            self.0.request.entitlement = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateEntitlementRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateEntitlementRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -814,8 +854,9 @@ pub mod privileged_access_manager {
     /// # use google_cloud_privilegedaccessmanager_v1::builder;
     /// use builder::privileged_access_manager::ListGrants;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -928,8 +969,9 @@ pub mod privileged_access_manager {
     /// # use google_cloud_privilegedaccessmanager_v1::builder;
     /// use builder::privileged_access_manager::SearchGrants;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -1049,6 +1091,7 @@ pub mod privileged_access_manager {
     /// # use google_cloud_privilegedaccessmanager_v1::builder;
     /// use builder::privileged_access_manager::GetGrant;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1111,6 +1154,7 @@ pub mod privileged_access_manager {
     /// # use google_cloud_privilegedaccessmanager_v1::builder;
     /// use builder::privileged_access_manager::CreateGrant;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1161,11 +1205,22 @@ pub mod privileged_access_manager {
         /// Sets the value of [grant][crate::model::CreateGrantRequest::grant].
         ///
         /// This is a **required** field for requests.
-        pub fn set_grant<T: Into<std::option::Option<crate::model::Grant>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.grant = v.into();
+        pub fn set_grant<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Grant>,
+        {
+            self.0.request.grant = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [grant][crate::model::CreateGrantRequest::grant].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_grant<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Grant>,
+        {
+            self.0.request.grant = v.map(|x| x.into());
             self
         }
 
@@ -1190,6 +1245,7 @@ pub mod privileged_access_manager {
     /// # use google_cloud_privilegedaccessmanager_v1::builder;
     /// use builder::privileged_access_manager::ApproveGrant;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1258,6 +1314,7 @@ pub mod privileged_access_manager {
     /// # use google_cloud_privilegedaccessmanager_v1::builder;
     /// use builder::privileged_access_manager::DenyGrant;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1326,8 +1383,9 @@ pub mod privileged_access_manager {
     /// # use google_cloud_privilegedaccessmanager_v1::builder;
     /// use builder::privileged_access_manager::RevokeGrant;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_privilegedaccessmanager_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1433,8 +1491,9 @@ pub mod privileged_access_manager {
     /// # use google_cloud_privilegedaccessmanager_v1::builder;
     /// use builder::privileged_access_manager::ListLocations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -1542,6 +1601,7 @@ pub mod privileged_access_manager {
     /// # use google_cloud_privilegedaccessmanager_v1::builder;
     /// use builder::privileged_access_manager::GetLocation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1602,8 +1662,9 @@ pub mod privileged_access_manager {
     /// # use google_cloud_privilegedaccessmanager_v1::builder;
     /// use builder::privileged_access_manager::ListOperations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -1713,6 +1774,7 @@ pub mod privileged_access_manager {
     /// # use google_cloud_privilegedaccessmanager_v1::builder;
     /// use builder::privileged_access_manager::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1776,6 +1838,7 @@ pub mod privileged_access_manager {
     /// # use google_cloud_privilegedaccessmanager_v1::builder;
     /// use builder::privileged_access_manager::DeleteOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });

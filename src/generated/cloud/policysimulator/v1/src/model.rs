@@ -196,11 +196,20 @@ impl ExplainedPolicy {
     }
 
     /// Sets the value of [policy][crate::model::ExplainedPolicy::policy].
-    pub fn set_policy<T: std::convert::Into<std::option::Option<iam_v1::model::Policy>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.policy = v.into();
+    pub fn set_policy<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<iam_v1::model::Policy>,
+    {
+        self.policy = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [policy][crate::model::ExplainedPolicy::policy].
+    pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<iam_v1::model::Policy>,
+    {
+        self.policy = v.map(|x| x.into());
         self
     }
 
@@ -367,11 +376,20 @@ impl BindingExplanation {
     }
 
     /// Sets the value of [condition][crate::model::BindingExplanation::condition].
-    pub fn set_condition<T: std::convert::Into<std::option::Option<gtype::model::Expr>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.condition = v.into();
+    pub fn set_condition<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<gtype::model::Expr>,
+    {
+        self.condition = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [condition][crate::model::BindingExplanation::condition].
+    pub fn set_or_clear_condition<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<gtype::model::Expr>,
+    {
+        self.condition = v.map(|x| x.into());
         self
     }
 }
@@ -794,22 +812,38 @@ impl Replay {
     }
 
     /// Sets the value of [config][crate::model::Replay::config].
-    pub fn set_config<T: std::convert::Into<std::option::Option<crate::model::ReplayConfig>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.config = v.into();
+    pub fn set_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::ReplayConfig>,
+    {
+        self.config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [config][crate::model::Replay::config].
+    pub fn set_or_clear_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::ReplayConfig>,
+    {
+        self.config = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [results_summary][crate::model::Replay::results_summary].
-    pub fn set_results_summary<
-        T: std::convert::Into<std::option::Option<crate::model::replay::ResultsSummary>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.results_summary = v.into();
+    pub fn set_results_summary<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::replay::ResultsSummary>,
+    {
+        self.results_summary = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [results_summary][crate::model::Replay::results_summary].
+    pub fn set_or_clear_results_summary<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::replay::ResultsSummary>,
+    {
+        self.results_summary = v.map(|x| x.into());
         self
     }
 }
@@ -891,20 +925,38 @@ pub mod replay {
         }
 
         /// Sets the value of [oldest_date][crate::model::replay::ResultsSummary::oldest_date].
-        pub fn set_oldest_date<T: std::convert::Into<std::option::Option<gtype::model::Date>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.oldest_date = v.into();
+        pub fn set_oldest_date<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<gtype::model::Date>,
+        {
+            self.oldest_date = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [oldest_date][crate::model::replay::ResultsSummary::oldest_date].
+        pub fn set_or_clear_oldest_date<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<gtype::model::Date>,
+        {
+            self.oldest_date = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [newest_date][crate::model::replay::ResultsSummary::newest_date].
-        pub fn set_newest_date<T: std::convert::Into<std::option::Option<gtype::model::Date>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.newest_date = v.into();
+        pub fn set_newest_date<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<gtype::model::Date>,
+        {
+            self.newest_date = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [newest_date][crate::model::replay::ResultsSummary::newest_date].
+        pub fn set_or_clear_newest_date<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<gtype::model::Date>,
+        {
+            self.newest_date = v.map(|x| x.into());
             self
         }
     }
@@ -1126,22 +1178,38 @@ impl ReplayResult {
     }
 
     /// Sets the value of [access_tuple][crate::model::ReplayResult::access_tuple].
-    pub fn set_access_tuple<
-        T: std::convert::Into<std::option::Option<crate::model::AccessTuple>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.access_tuple = v.into();
+    pub fn set_access_tuple<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::AccessTuple>,
+    {
+        self.access_tuple = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [access_tuple][crate::model::ReplayResult::access_tuple].
+    pub fn set_or_clear_access_tuple<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::AccessTuple>,
+    {
+        self.access_tuple = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [last_seen_date][crate::model::ReplayResult::last_seen_date].
-    pub fn set_last_seen_date<T: std::convert::Into<std::option::Option<gtype::model::Date>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.last_seen_date = v.into();
+    pub fn set_last_seen_date<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<gtype::model::Date>,
+    {
+        self.last_seen_date = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [last_seen_date][crate::model::ReplayResult::last_seen_date].
+    pub fn set_or_clear_last_seen_date<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<gtype::model::Date>,
+    {
+        self.last_seen_date = v.map(|x| x.into());
         self
     }
 
@@ -1285,11 +1353,20 @@ impl CreateReplayRequest {
     }
 
     /// Sets the value of [replay][crate::model::CreateReplayRequest::replay].
-    pub fn set_replay<T: std::convert::Into<std::option::Option<crate::model::Replay>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.replay = v.into();
+    pub fn set_replay<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::Replay>,
+    {
+        self.replay = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [replay][crate::model::CreateReplayRequest::replay].
+    pub fn set_or_clear_replay<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::Replay>,
+    {
+        self.replay = v.map(|x| x.into());
         self
     }
 }
@@ -1320,11 +1397,20 @@ impl ReplayOperationMetadata {
     }
 
     /// Sets the value of [start_time][crate::model::ReplayOperationMetadata::start_time].
-    pub fn set_start_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.start_time = v.into();
+    pub fn set_start_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.start_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [start_time][crate::model::ReplayOperationMetadata::start_time].
+    pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.start_time = v.map(|x| x.into());
         self
     }
 }
@@ -1768,13 +1854,20 @@ impl ReplayDiff {
     }
 
     /// Sets the value of [access_diff][crate::model::ReplayDiff::access_diff].
-    pub fn set_access_diff<
-        T: std::convert::Into<std::option::Option<crate::model::AccessStateDiff>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.access_diff = v.into();
+    pub fn set_access_diff<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::AccessStateDiff>,
+    {
+        self.access_diff = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [access_diff][crate::model::ReplayDiff::access_diff].
+    pub fn set_or_clear_access_diff<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::AccessStateDiff>,
+    {
+        self.access_diff = v.map(|x| x.into());
         self
     }
 }
@@ -1824,24 +1917,38 @@ impl AccessStateDiff {
     }
 
     /// Sets the value of [baseline][crate::model::AccessStateDiff::baseline].
-    pub fn set_baseline<
-        T: std::convert::Into<std::option::Option<crate::model::ExplainedAccess>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.baseline = v.into();
+    pub fn set_baseline<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::ExplainedAccess>,
+    {
+        self.baseline = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [baseline][crate::model::AccessStateDiff::baseline].
+    pub fn set_or_clear_baseline<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::ExplainedAccess>,
+    {
+        self.baseline = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [simulated][crate::model::AccessStateDiff::simulated].
-    pub fn set_simulated<
-        T: std::convert::Into<std::option::Option<crate::model::ExplainedAccess>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.simulated = v.into();
+    pub fn set_simulated<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::ExplainedAccess>,
+    {
+        self.simulated = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [simulated][crate::model::AccessStateDiff::simulated].
+    pub fn set_or_clear_simulated<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::ExplainedAccess>,
+    {
+        self.simulated = v.map(|x| x.into());
         self
     }
 

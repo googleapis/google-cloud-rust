@@ -73,6 +73,7 @@ pub mod folders {
     /// # use google_cloud_resourcemanager_v3::builder;
     /// use builder::folders::GetFolder;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -133,8 +134,9 @@ pub mod folders {
     /// # use google_cloud_resourcemanager_v3::builder;
     /// use builder::folders::ListFolders;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -239,8 +241,9 @@ pub mod folders {
     /// # use google_cloud_resourcemanager_v3::builder;
     /// use builder::folders::SearchFolders;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -337,8 +340,9 @@ pub mod folders {
     /// # use google_cloud_resourcemanager_v3::builder;
     /// use builder::folders::CreateFolder;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_resourcemanager_v3::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -416,11 +420,22 @@ pub mod folders {
         /// Sets the value of [folder][crate::model::CreateFolderRequest::folder].
         ///
         /// This is a **required** field for requests.
-        pub fn set_folder<T: Into<std::option::Option<crate::model::Folder>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.folder = v.into();
+        pub fn set_folder<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Folder>,
+        {
+            self.0.request.folder = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [folder][crate::model::CreateFolderRequest::folder].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_folder<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Folder>,
+        {
+            self.0.request.folder = v.map(|x| x.into());
             self
         }
     }
@@ -439,8 +454,9 @@ pub mod folders {
     /// # use google_cloud_resourcemanager_v3::builder;
     /// use builder::folders::UpdateFolder;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_resourcemanager_v3::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -518,22 +534,44 @@ pub mod folders {
         /// Sets the value of [folder][crate::model::UpdateFolderRequest::folder].
         ///
         /// This is a **required** field for requests.
-        pub fn set_folder<T: Into<std::option::Option<crate::model::Folder>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.folder = v.into();
+        pub fn set_folder<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Folder>,
+        {
+            self.0.request.folder = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [folder][crate::model::UpdateFolderRequest::folder].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_folder<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Folder>,
+        {
+            self.0.request.folder = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateFolderRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateFolderRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -552,8 +590,9 @@ pub mod folders {
     /// # use google_cloud_resourcemanager_v3::builder;
     /// use builder::folders::MoveFolder;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_resourcemanager_v3::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -659,8 +698,9 @@ pub mod folders {
     /// # use google_cloud_resourcemanager_v3::builder;
     /// use builder::folders::DeleteFolder;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_resourcemanager_v3::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -758,8 +798,9 @@ pub mod folders {
     /// # use google_cloud_resourcemanager_v3::builder;
     /// use builder::folders::UndeleteFolder;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_resourcemanager_v3::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -859,6 +900,7 @@ pub mod folders {
     /// # use google_cloud_resourcemanager_v3::builder;
     /// use builder::folders::GetIamPolicy;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -905,11 +947,20 @@ pub mod folders {
         }
 
         /// Sets the value of [options][iam_v1::model::GetIamPolicyRequest::options].
-        pub fn set_options<T: Into<std::option::Option<iam_v1::model::GetPolicyOptions>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.options = v.into();
+        pub fn set_options<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = v.map(|x| x.into());
             self
         }
     }
@@ -928,6 +979,7 @@ pub mod folders {
     /// # use google_cloud_resourcemanager_v3::builder;
     /// use builder::folders::SetIamPolicy;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -976,20 +1028,40 @@ pub mod folders {
         /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
-        pub fn set_policy<T: Into<std::option::Option<iam_v1::model::Policy>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.policy = v.into();
+        pub fn set_policy<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -1008,6 +1080,7 @@ pub mod folders {
     /// # use google_cloud_resourcemanager_v3::builder;
     /// use builder::folders::TestIamPermissions;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1084,6 +1157,7 @@ pub mod folders {
     /// # use google_cloud_resourcemanager_v3::builder;
     /// use builder::folders::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1200,6 +1274,7 @@ pub mod organizations {
     /// # use google_cloud_resourcemanager_v3::builder;
     /// use builder::organizations::GetOrganization;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1262,8 +1337,9 @@ pub mod organizations {
     /// # use google_cloud_resourcemanager_v3::builder;
     /// use builder::organizations::SearchOrganizations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -1367,6 +1443,7 @@ pub mod organizations {
     /// # use google_cloud_resourcemanager_v3::builder;
     /// use builder::organizations::GetIamPolicy;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1415,11 +1492,20 @@ pub mod organizations {
         }
 
         /// Sets the value of [options][iam_v1::model::GetIamPolicyRequest::options].
-        pub fn set_options<T: Into<std::option::Option<iam_v1::model::GetPolicyOptions>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.options = v.into();
+        pub fn set_options<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = v.map(|x| x.into());
             self
         }
     }
@@ -1438,6 +1524,7 @@ pub mod organizations {
     /// # use google_cloud_resourcemanager_v3::builder;
     /// use builder::organizations::SetIamPolicy;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1488,20 +1575,40 @@ pub mod organizations {
         /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
-        pub fn set_policy<T: Into<std::option::Option<iam_v1::model::Policy>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.policy = v.into();
+        pub fn set_policy<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -1520,6 +1627,7 @@ pub mod organizations {
     /// # use google_cloud_resourcemanager_v3::builder;
     /// use builder::organizations::TestIamPermissions;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1598,6 +1706,7 @@ pub mod organizations {
     /// # use google_cloud_resourcemanager_v3::builder;
     /// use builder::organizations::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1714,6 +1823,7 @@ pub mod projects {
     /// # use google_cloud_resourcemanager_v3::builder;
     /// use builder::projects::GetProject;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1774,8 +1884,9 @@ pub mod projects {
     /// # use google_cloud_resourcemanager_v3::builder;
     /// use builder::projects::ListProjects;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -1880,8 +1991,9 @@ pub mod projects {
     /// # use google_cloud_resourcemanager_v3::builder;
     /// use builder::projects::SearchProjects;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -1978,8 +2090,9 @@ pub mod projects {
     /// # use google_cloud_resourcemanager_v3::builder;
     /// use builder::projects::CreateProject;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_resourcemanager_v3::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -2059,11 +2172,22 @@ pub mod projects {
         /// Sets the value of [project][crate::model::CreateProjectRequest::project].
         ///
         /// This is a **required** field for requests.
-        pub fn set_project<T: Into<std::option::Option<crate::model::Project>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.project = v.into();
+        pub fn set_project<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Project>,
+        {
+            self.0.request.project = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [project][crate::model::CreateProjectRequest::project].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_project<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Project>,
+        {
+            self.0.request.project = v.map(|x| x.into());
             self
         }
     }
@@ -2082,8 +2206,9 @@ pub mod projects {
     /// # use google_cloud_resourcemanager_v3::builder;
     /// use builder::projects::UpdateProject;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_resourcemanager_v3::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -2163,20 +2288,40 @@ pub mod projects {
         /// Sets the value of [project][crate::model::UpdateProjectRequest::project].
         ///
         /// This is a **required** field for requests.
-        pub fn set_project<T: Into<std::option::Option<crate::model::Project>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.project = v.into();
+        pub fn set_project<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Project>,
+        {
+            self.0.request.project = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [project][crate::model::UpdateProjectRequest::project].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_project<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Project>,
+        {
+            self.0.request.project = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateProjectRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateProjectRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -2195,8 +2340,9 @@ pub mod projects {
     /// # use google_cloud_resourcemanager_v3::builder;
     /// use builder::projects::MoveProject;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_resourcemanager_v3::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -2302,8 +2448,9 @@ pub mod projects {
     /// # use google_cloud_resourcemanager_v3::builder;
     /// use builder::projects::DeleteProject;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_resourcemanager_v3::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -2403,8 +2550,9 @@ pub mod projects {
     /// # use google_cloud_resourcemanager_v3::builder;
     /// use builder::projects::UndeleteProject;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_resourcemanager_v3::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -2505,6 +2653,7 @@ pub mod projects {
     /// # use google_cloud_resourcemanager_v3::builder;
     /// use builder::projects::GetIamPolicy;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2551,11 +2700,20 @@ pub mod projects {
         }
 
         /// Sets the value of [options][iam_v1::model::GetIamPolicyRequest::options].
-        pub fn set_options<T: Into<std::option::Option<iam_v1::model::GetPolicyOptions>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.options = v.into();
+        pub fn set_options<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = v.map(|x| x.into());
             self
         }
     }
@@ -2574,6 +2732,7 @@ pub mod projects {
     /// # use google_cloud_resourcemanager_v3::builder;
     /// use builder::projects::SetIamPolicy;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2622,20 +2781,40 @@ pub mod projects {
         /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
-        pub fn set_policy<T: Into<std::option::Option<iam_v1::model::Policy>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.policy = v.into();
+        pub fn set_policy<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -2654,6 +2833,7 @@ pub mod projects {
     /// # use google_cloud_resourcemanager_v3::builder;
     /// use builder::projects::TestIamPermissions;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2730,6 +2910,7 @@ pub mod projects {
     /// # use google_cloud_resourcemanager_v3::builder;
     /// use builder::projects::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2846,8 +3027,9 @@ pub mod tag_bindings {
     /// # use google_cloud_resourcemanager_v3::builder;
     /// use builder::tag_bindings::ListTagBindings;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -2948,8 +3130,9 @@ pub mod tag_bindings {
     /// # use google_cloud_resourcemanager_v3::builder;
     /// use builder::tag_bindings::CreateTagBinding;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_resourcemanager_v3::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -3035,11 +3218,22 @@ pub mod tag_bindings {
         /// Sets the value of [tag_binding][crate::model::CreateTagBindingRequest::tag_binding].
         ///
         /// This is a **required** field for requests.
-        pub fn set_tag_binding<T: Into<std::option::Option<crate::model::TagBinding>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.tag_binding = v.into();
+        pub fn set_tag_binding<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::TagBinding>,
+        {
+            self.0.request.tag_binding = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [tag_binding][crate::model::CreateTagBindingRequest::tag_binding].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_tag_binding<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::TagBinding>,
+        {
+            self.0.request.tag_binding = v.map(|x| x.into());
             self
         }
 
@@ -3064,8 +3258,9 @@ pub mod tag_bindings {
     /// # use google_cloud_resourcemanager_v3::builder;
     /// use builder::tag_bindings::DeleteTagBinding;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_resourcemanager_v3::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -3171,8 +3366,9 @@ pub mod tag_bindings {
     /// # use google_cloud_resourcemanager_v3::builder;
     /// use builder::tag_bindings::ListEffectiveTags;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -3276,6 +3472,7 @@ pub mod tag_bindings {
     /// # use google_cloud_resourcemanager_v3::builder;
     /// use builder::tag_bindings::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3392,8 +3589,9 @@ pub mod tag_holds {
     /// # use google_cloud_resourcemanager_v3::builder;
     /// use builder::tag_holds::CreateTagHold;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_resourcemanager_v3::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -3481,11 +3679,22 @@ pub mod tag_holds {
         /// Sets the value of [tag_hold][crate::model::CreateTagHoldRequest::tag_hold].
         ///
         /// This is a **required** field for requests.
-        pub fn set_tag_hold<T: Into<std::option::Option<crate::model::TagHold>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.tag_hold = v.into();
+        pub fn set_tag_hold<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::TagHold>,
+        {
+            self.0.request.tag_hold = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [tag_hold][crate::model::CreateTagHoldRequest::tag_hold].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_tag_hold<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::TagHold>,
+        {
+            self.0.request.tag_hold = v.map(|x| x.into());
             self
         }
 
@@ -3510,8 +3719,9 @@ pub mod tag_holds {
     /// # use google_cloud_resourcemanager_v3::builder;
     /// use builder::tag_holds::DeleteTagHold;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_resourcemanager_v3::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -3618,8 +3828,9 @@ pub mod tag_holds {
     /// # use google_cloud_resourcemanager_v3::builder;
     /// use builder::tag_holds::ListTagHolds;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -3724,6 +3935,7 @@ pub mod tag_holds {
     /// # use google_cloud_resourcemanager_v3::builder;
     /// use builder::tag_holds::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3838,8 +4050,9 @@ pub mod tag_keys {
     /// # use google_cloud_resourcemanager_v3::builder;
     /// use builder::tag_keys::ListTagKeys;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -3938,6 +4151,7 @@ pub mod tag_keys {
     /// # use google_cloud_resourcemanager_v3::builder;
     /// use builder::tag_keys::GetTagKey;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3998,6 +4212,7 @@ pub mod tag_keys {
     /// # use google_cloud_resourcemanager_v3::builder;
     /// use builder::tag_keys::GetNamespacedTagKey;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -4061,8 +4276,9 @@ pub mod tag_keys {
     /// # use google_cloud_resourcemanager_v3::builder;
     /// use builder::tag_keys::CreateTagKey;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_resourcemanager_v3::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -4140,11 +4356,22 @@ pub mod tag_keys {
         /// Sets the value of [tag_key][crate::model::CreateTagKeyRequest::tag_key].
         ///
         /// This is a **required** field for requests.
-        pub fn set_tag_key<T: Into<std::option::Option<crate::model::TagKey>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.tag_key = v.into();
+        pub fn set_tag_key<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::TagKey>,
+        {
+            self.0.request.tag_key = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [tag_key][crate::model::CreateTagKeyRequest::tag_key].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_tag_key<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::TagKey>,
+        {
+            self.0.request.tag_key = v.map(|x| x.into());
             self
         }
 
@@ -4169,8 +4396,9 @@ pub mod tag_keys {
     /// # use google_cloud_resourcemanager_v3::builder;
     /// use builder::tag_keys::UpdateTagKey;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_resourcemanager_v3::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -4248,20 +4476,40 @@ pub mod tag_keys {
         /// Sets the value of [tag_key][crate::model::UpdateTagKeyRequest::tag_key].
         ///
         /// This is a **required** field for requests.
-        pub fn set_tag_key<T: Into<std::option::Option<crate::model::TagKey>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.tag_key = v.into();
+        pub fn set_tag_key<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::TagKey>,
+        {
+            self.0.request.tag_key = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [tag_key][crate::model::UpdateTagKeyRequest::tag_key].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_tag_key<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::TagKey>,
+        {
+            self.0.request.tag_key = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateTagKeyRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateTagKeyRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
@@ -4286,8 +4534,9 @@ pub mod tag_keys {
     /// # use google_cloud_resourcemanager_v3::builder;
     /// use builder::tag_keys::DeleteTagKey;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_resourcemanager_v3::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -4397,6 +4646,7 @@ pub mod tag_keys {
     /// # use google_cloud_resourcemanager_v3::builder;
     /// use builder::tag_keys::GetIamPolicy;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -4443,11 +4693,20 @@ pub mod tag_keys {
         }
 
         /// Sets the value of [options][iam_v1::model::GetIamPolicyRequest::options].
-        pub fn set_options<T: Into<std::option::Option<iam_v1::model::GetPolicyOptions>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.options = v.into();
+        pub fn set_options<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = v.map(|x| x.into());
             self
         }
     }
@@ -4466,6 +4725,7 @@ pub mod tag_keys {
     /// # use google_cloud_resourcemanager_v3::builder;
     /// use builder::tag_keys::SetIamPolicy;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -4514,20 +4774,40 @@ pub mod tag_keys {
         /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
-        pub fn set_policy<T: Into<std::option::Option<iam_v1::model::Policy>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.policy = v.into();
+        pub fn set_policy<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -4546,6 +4826,7 @@ pub mod tag_keys {
     /// # use google_cloud_resourcemanager_v3::builder;
     /// use builder::tag_keys::TestIamPermissions;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -4622,6 +4903,7 @@ pub mod tag_keys {
     /// # use google_cloud_resourcemanager_v3::builder;
     /// use builder::tag_keys::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -4738,8 +5020,9 @@ pub mod tag_values {
     /// # use google_cloud_resourcemanager_v3::builder;
     /// use builder::tag_values::ListTagValues;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -4840,6 +5123,7 @@ pub mod tag_values {
     /// # use google_cloud_resourcemanager_v3::builder;
     /// use builder::tag_values::GetTagValue;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -4902,6 +5186,7 @@ pub mod tag_values {
     /// # use google_cloud_resourcemanager_v3::builder;
     /// use builder::tag_values::GetNamespacedTagValue;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -4967,8 +5252,9 @@ pub mod tag_values {
     /// # use google_cloud_resourcemanager_v3::builder;
     /// use builder::tag_values::CreateTagValue;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_resourcemanager_v3::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -5051,11 +5337,22 @@ pub mod tag_values {
         /// Sets the value of [tag_value][crate::model::CreateTagValueRequest::tag_value].
         ///
         /// This is a **required** field for requests.
-        pub fn set_tag_value<T: Into<std::option::Option<crate::model::TagValue>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.tag_value = v.into();
+        pub fn set_tag_value<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::TagValue>,
+        {
+            self.0.request.tag_value = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [tag_value][crate::model::CreateTagValueRequest::tag_value].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_tag_value<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::TagValue>,
+        {
+            self.0.request.tag_value = v.map(|x| x.into());
             self
         }
 
@@ -5080,8 +5377,9 @@ pub mod tag_values {
     /// # use google_cloud_resourcemanager_v3::builder;
     /// use builder::tag_values::UpdateTagValue;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_resourcemanager_v3::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -5164,20 +5462,40 @@ pub mod tag_values {
         /// Sets the value of [tag_value][crate::model::UpdateTagValueRequest::tag_value].
         ///
         /// This is a **required** field for requests.
-        pub fn set_tag_value<T: Into<std::option::Option<crate::model::TagValue>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.tag_value = v.into();
+        pub fn set_tag_value<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::TagValue>,
+        {
+            self.0.request.tag_value = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [tag_value][crate::model::UpdateTagValueRequest::tag_value].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_tag_value<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::TagValue>,
+        {
+            self.0.request.tag_value = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateTagValueRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateTagValueRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
@@ -5202,8 +5520,9 @@ pub mod tag_values {
     /// # use google_cloud_resourcemanager_v3::builder;
     /// use builder::tag_values::DeleteTagValue;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_resourcemanager_v3::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -5318,6 +5637,7 @@ pub mod tag_values {
     /// # use google_cloud_resourcemanager_v3::builder;
     /// use builder::tag_values::GetIamPolicy;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -5366,11 +5686,20 @@ pub mod tag_values {
         }
 
         /// Sets the value of [options][iam_v1::model::GetIamPolicyRequest::options].
-        pub fn set_options<T: Into<std::option::Option<iam_v1::model::GetPolicyOptions>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.options = v.into();
+        pub fn set_options<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = v.map(|x| x.into());
             self
         }
     }
@@ -5389,6 +5718,7 @@ pub mod tag_values {
     /// # use google_cloud_resourcemanager_v3::builder;
     /// use builder::tag_values::SetIamPolicy;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -5439,20 +5769,40 @@ pub mod tag_values {
         /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
-        pub fn set_policy<T: Into<std::option::Option<iam_v1::model::Policy>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.policy = v.into();
+        pub fn set_policy<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -5471,6 +5821,7 @@ pub mod tag_values {
     /// # use google_cloud_resourcemanager_v3::builder;
     /// use builder::tag_values::TestIamPermissions;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -5549,6 +5900,7 @@ pub mod tag_values {
     /// # use google_cloud_resourcemanager_v3::builder;
     /// use builder::tag_values::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });

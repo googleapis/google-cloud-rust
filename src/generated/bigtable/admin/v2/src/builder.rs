@@ -75,8 +75,9 @@ pub mod bigtable_instance_admin {
     /// # use google_cloud_bigtable_admin_v2::builder;
     /// use builder::bigtable_instance_admin::CreateInstance;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_bigtable_admin_v2::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -175,11 +176,22 @@ pub mod bigtable_instance_admin {
         /// Sets the value of [instance][crate::model::CreateInstanceRequest::instance].
         ///
         /// This is a **required** field for requests.
-        pub fn set_instance<T: Into<std::option::Option<crate::model::Instance>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.instance = v.into();
+        pub fn set_instance<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Instance>,
+        {
+            self.0.request.instance = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [instance][crate::model::CreateInstanceRequest::instance].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_instance<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Instance>,
+        {
+            self.0.request.instance = v.map(|x| x.into());
             self
         }
 
@@ -211,6 +223,7 @@ pub mod bigtable_instance_admin {
     /// # use google_cloud_bigtable_admin_v2::builder;
     /// use builder::bigtable_instance_admin::GetInstance;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -273,6 +286,7 @@ pub mod bigtable_instance_admin {
     /// # use google_cloud_bigtable_admin_v2::builder;
     /// use builder::bigtable_instance_admin::ListInstances;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -341,6 +355,7 @@ pub mod bigtable_instance_admin {
     /// # use google_cloud_bigtable_admin_v2::builder;
     /// use builder::bigtable_instance_admin::UpdateInstance;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -418,23 +433,56 @@ pub mod bigtable_instance_admin {
         }
 
         /// Sets the value of [create_time][crate::model::Instance::create_time].
-        pub fn set_create_time<T: Into<std::option::Option<wkt::Timestamp>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.create_time = v.into();
+        pub fn set_create_time<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Timestamp>,
+        {
+            self.0.request.create_time = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [create_time][crate::model::Instance::create_time].
+        pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Timestamp>,
+        {
+            self.0.request.create_time = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [satisfies_pzs][crate::model::Instance::satisfies_pzs].
-        pub fn set_satisfies_pzs<T: Into<std::option::Option<bool>>>(mut self, v: T) -> Self {
-            self.0.request.satisfies_pzs = v.into();
+        pub fn set_satisfies_pzs<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<bool>,
+        {
+            self.0.request.satisfies_pzs = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [satisfies_pzs][crate::model::Instance::satisfies_pzs].
+        pub fn set_or_clear_satisfies_pzs<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<bool>,
+        {
+            self.0.request.satisfies_pzs = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [satisfies_pzi][crate::model::Instance::satisfies_pzi].
-        pub fn set_satisfies_pzi<T: Into<std::option::Option<bool>>>(mut self, v: T) -> Self {
-            self.0.request.satisfies_pzi = v.into();
+        pub fn set_satisfies_pzi<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<bool>,
+        {
+            self.0.request.satisfies_pzi = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [satisfies_pzi][crate::model::Instance::satisfies_pzi].
+        pub fn set_or_clear_satisfies_pzi<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<bool>,
+        {
+            self.0.request.satisfies_pzi = v.map(|x| x.into());
             self
         }
     }
@@ -453,8 +501,9 @@ pub mod bigtable_instance_admin {
     /// # use google_cloud_bigtable_admin_v2::builder;
     /// use builder::bigtable_instance_admin::PartialUpdateInstance;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_bigtable_admin_v2::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -540,22 +589,44 @@ pub mod bigtable_instance_admin {
         /// Sets the value of [instance][crate::model::PartialUpdateInstanceRequest::instance].
         ///
         /// This is a **required** field for requests.
-        pub fn set_instance<T: Into<std::option::Option<crate::model::Instance>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.instance = v.into();
+        pub fn set_instance<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Instance>,
+        {
+            self.0.request.instance = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [instance][crate::model::PartialUpdateInstanceRequest::instance].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_instance<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Instance>,
+        {
+            self.0.request.instance = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::PartialUpdateInstanceRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::PartialUpdateInstanceRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -574,6 +645,7 @@ pub mod bigtable_instance_admin {
     /// # use google_cloud_bigtable_admin_v2::builder;
     /// use builder::bigtable_instance_admin::DeleteInstance;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -636,8 +708,9 @@ pub mod bigtable_instance_admin {
     /// # use google_cloud_bigtable_admin_v2::builder;
     /// use builder::bigtable_instance_admin::CreateCluster;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_bigtable_admin_v2::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -735,11 +808,22 @@ pub mod bigtable_instance_admin {
         /// Sets the value of [cluster][crate::model::CreateClusterRequest::cluster].
         ///
         /// This is a **required** field for requests.
-        pub fn set_cluster<T: Into<std::option::Option<crate::model::Cluster>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.cluster = v.into();
+        pub fn set_cluster<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Cluster>,
+        {
+            self.0.request.cluster = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [cluster][crate::model::CreateClusterRequest::cluster].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_cluster<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Cluster>,
+        {
+            self.0.request.cluster = v.map(|x| x.into());
             self
         }
     }
@@ -758,6 +842,7 @@ pub mod bigtable_instance_admin {
     /// # use google_cloud_bigtable_admin_v2::builder;
     /// use builder::bigtable_instance_admin::GetCluster;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -820,6 +905,7 @@ pub mod bigtable_instance_admin {
     /// # use google_cloud_bigtable_admin_v2::builder;
     /// use builder::bigtable_instance_admin::ListClusters;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -888,8 +974,9 @@ pub mod bigtable_instance_admin {
     /// # use google_cloud_bigtable_admin_v2::builder;
     /// use builder::bigtable_instance_admin::UpdateCluster;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_bigtable_admin_v2::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1011,13 +1098,20 @@ pub mod bigtable_instance_admin {
         }
 
         /// Sets the value of [encryption_config][crate::model::Cluster::encryption_config].
-        pub fn set_encryption_config<
-            T: Into<std::option::Option<crate::model::cluster::EncryptionConfig>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.encryption_config = v.into();
+        pub fn set_encryption_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::cluster::EncryptionConfig>,
+        {
+            self.0.request.encryption_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [encryption_config][crate::model::Cluster::encryption_config].
+        pub fn set_or_clear_encryption_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::cluster::EncryptionConfig>,
+        {
+            self.0.request.encryption_config = v.map(|x| x.into());
             self
         }
 
@@ -1060,8 +1154,9 @@ pub mod bigtable_instance_admin {
     /// # use google_cloud_bigtable_admin_v2::builder;
     /// use builder::bigtable_instance_admin::PartialUpdateCluster;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_bigtable_admin_v2::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1147,22 +1242,44 @@ pub mod bigtable_instance_admin {
         /// Sets the value of [cluster][crate::model::PartialUpdateClusterRequest::cluster].
         ///
         /// This is a **required** field for requests.
-        pub fn set_cluster<T: Into<std::option::Option<crate::model::Cluster>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.cluster = v.into();
+        pub fn set_cluster<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Cluster>,
+        {
+            self.0.request.cluster = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [cluster][crate::model::PartialUpdateClusterRequest::cluster].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_cluster<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Cluster>,
+        {
+            self.0.request.cluster = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::PartialUpdateClusterRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::PartialUpdateClusterRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -1181,6 +1298,7 @@ pub mod bigtable_instance_admin {
     /// # use google_cloud_bigtable_admin_v2::builder;
     /// use builder::bigtable_instance_admin::DeleteCluster;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1243,6 +1361,7 @@ pub mod bigtable_instance_admin {
     /// # use google_cloud_bigtable_admin_v2::builder;
     /// use builder::bigtable_instance_admin::CreateAppProfile;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1304,11 +1423,22 @@ pub mod bigtable_instance_admin {
         /// Sets the value of [app_profile][crate::model::CreateAppProfileRequest::app_profile].
         ///
         /// This is a **required** field for requests.
-        pub fn set_app_profile<T: Into<std::option::Option<crate::model::AppProfile>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.app_profile = v.into();
+        pub fn set_app_profile<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::AppProfile>,
+        {
+            self.0.request.app_profile = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [app_profile][crate::model::CreateAppProfileRequest::app_profile].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_app_profile<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::AppProfile>,
+        {
+            self.0.request.app_profile = v.map(|x| x.into());
             self
         }
 
@@ -1333,6 +1463,7 @@ pub mod bigtable_instance_admin {
     /// # use google_cloud_bigtable_admin_v2::builder;
     /// use builder::bigtable_instance_admin::GetAppProfile;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1395,8 +1526,9 @@ pub mod bigtable_instance_admin {
     /// # use google_cloud_bigtable_admin_v2::builder;
     /// use builder::bigtable_instance_admin::ListAppProfiles;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -1497,8 +1629,9 @@ pub mod bigtable_instance_admin {
     /// # use google_cloud_bigtable_admin_v2::builder;
     /// use builder::bigtable_instance_admin::UpdateAppProfile;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_bigtable_admin_v2::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1584,22 +1717,44 @@ pub mod bigtable_instance_admin {
         /// Sets the value of [app_profile][crate::model::UpdateAppProfileRequest::app_profile].
         ///
         /// This is a **required** field for requests.
-        pub fn set_app_profile<T: Into<std::option::Option<crate::model::AppProfile>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.app_profile = v.into();
+        pub fn set_app_profile<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::AppProfile>,
+        {
+            self.0.request.app_profile = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [app_profile][crate::model::UpdateAppProfileRequest::app_profile].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_app_profile<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::AppProfile>,
+        {
+            self.0.request.app_profile = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateAppProfileRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateAppProfileRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
@@ -1624,6 +1779,7 @@ pub mod bigtable_instance_admin {
     /// # use google_cloud_bigtable_admin_v2::builder;
     /// use builder::bigtable_instance_admin::DeleteAppProfile;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1697,6 +1853,7 @@ pub mod bigtable_instance_admin {
     /// # use google_cloud_bigtable_admin_v2::builder;
     /// use builder::bigtable_instance_admin::GetIamPolicy;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1745,11 +1902,20 @@ pub mod bigtable_instance_admin {
         }
 
         /// Sets the value of [options][iam_v1::model::GetIamPolicyRequest::options].
-        pub fn set_options<T: Into<std::option::Option<iam_v1::model::GetPolicyOptions>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.options = v.into();
+        pub fn set_options<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = v.map(|x| x.into());
             self
         }
     }
@@ -1768,6 +1934,7 @@ pub mod bigtable_instance_admin {
     /// # use google_cloud_bigtable_admin_v2::builder;
     /// use builder::bigtable_instance_admin::SetIamPolicy;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1818,20 +1985,40 @@ pub mod bigtable_instance_admin {
         /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
-        pub fn set_policy<T: Into<std::option::Option<iam_v1::model::Policy>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.policy = v.into();
+        pub fn set_policy<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -1850,6 +2037,7 @@ pub mod bigtable_instance_admin {
     /// # use google_cloud_bigtable_admin_v2::builder;
     /// use builder::bigtable_instance_admin::TestIamPermissions;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1928,8 +2116,9 @@ pub mod bigtable_instance_admin {
     /// # use google_cloud_bigtable_admin_v2::builder;
     /// use builder::bigtable_instance_admin::ListHotTablets;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -2004,17 +2193,38 @@ pub mod bigtable_instance_admin {
         }
 
         /// Sets the value of [start_time][crate::model::ListHotTabletsRequest::start_time].
-        pub fn set_start_time<T: Into<std::option::Option<wkt::Timestamp>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.start_time = v.into();
+        pub fn set_start_time<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Timestamp>,
+        {
+            self.0.request.start_time = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [start_time][crate::model::ListHotTabletsRequest::start_time].
+        pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Timestamp>,
+        {
+            self.0.request.start_time = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [end_time][crate::model::ListHotTabletsRequest::end_time].
-        pub fn set_end_time<T: Into<std::option::Option<wkt::Timestamp>>>(mut self, v: T) -> Self {
-            self.0.request.end_time = v.into();
+        pub fn set_end_time<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Timestamp>,
+        {
+            self.0.request.end_time = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [end_time][crate::model::ListHotTabletsRequest::end_time].
+        pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Timestamp>,
+        {
+            self.0.request.end_time = v.map(|x| x.into());
             self
         }
 
@@ -2045,8 +2255,9 @@ pub mod bigtable_instance_admin {
     /// # use google_cloud_bigtable_admin_v2::builder;
     /// use builder::bigtable_instance_admin::CreateLogicalView;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_bigtable_admin_v2::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -2148,11 +2359,22 @@ pub mod bigtable_instance_admin {
         /// Sets the value of [logical_view][crate::model::CreateLogicalViewRequest::logical_view].
         ///
         /// This is a **required** field for requests.
-        pub fn set_logical_view<T: Into<std::option::Option<crate::model::LogicalView>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.logical_view = v.into();
+        pub fn set_logical_view<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::LogicalView>,
+        {
+            self.0.request.logical_view = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [logical_view][crate::model::CreateLogicalViewRequest::logical_view].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_logical_view<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::LogicalView>,
+        {
+            self.0.request.logical_view = v.map(|x| x.into());
             self
         }
     }
@@ -2171,6 +2393,7 @@ pub mod bigtable_instance_admin {
     /// # use google_cloud_bigtable_admin_v2::builder;
     /// use builder::bigtable_instance_admin::GetLogicalView;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2233,8 +2456,9 @@ pub mod bigtable_instance_admin {
     /// # use google_cloud_bigtable_admin_v2::builder;
     /// use builder::bigtable_instance_admin::ListLogicalViews;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -2338,8 +2562,9 @@ pub mod bigtable_instance_admin {
     /// # use google_cloud_bigtable_admin_v2::builder;
     /// use builder::bigtable_instance_admin::UpdateLogicalView;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_bigtable_admin_v2::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -2425,20 +2650,40 @@ pub mod bigtable_instance_admin {
         /// Sets the value of [logical_view][crate::model::UpdateLogicalViewRequest::logical_view].
         ///
         /// This is a **required** field for requests.
-        pub fn set_logical_view<T: Into<std::option::Option<crate::model::LogicalView>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.logical_view = v.into();
+        pub fn set_logical_view<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::LogicalView>,
+        {
+            self.0.request.logical_view = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [logical_view][crate::model::UpdateLogicalViewRequest::logical_view].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_logical_view<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::LogicalView>,
+        {
+            self.0.request.logical_view = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateLogicalViewRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateLogicalViewRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -2457,6 +2702,7 @@ pub mod bigtable_instance_admin {
     /// # use google_cloud_bigtable_admin_v2::builder;
     /// use builder::bigtable_instance_admin::DeleteLogicalView;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2528,8 +2774,9 @@ pub mod bigtable_instance_admin {
     /// # use google_cloud_bigtable_admin_v2::builder;
     /// use builder::bigtable_instance_admin::CreateMaterializedView;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_bigtable_admin_v2::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -2631,13 +2878,22 @@ pub mod bigtable_instance_admin {
         /// Sets the value of [materialized_view][crate::model::CreateMaterializedViewRequest::materialized_view].
         ///
         /// This is a **required** field for requests.
-        pub fn set_materialized_view<
-            T: Into<std::option::Option<crate::model::MaterializedView>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.materialized_view = v.into();
+        pub fn set_materialized_view<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::MaterializedView>,
+        {
+            self.0.request.materialized_view = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [materialized_view][crate::model::CreateMaterializedViewRequest::materialized_view].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_materialized_view<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::MaterializedView>,
+        {
+            self.0.request.materialized_view = v.map(|x| x.into());
             self
         }
     }
@@ -2656,6 +2912,7 @@ pub mod bigtable_instance_admin {
     /// # use google_cloud_bigtable_admin_v2::builder;
     /// use builder::bigtable_instance_admin::GetMaterializedView;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2721,8 +2978,9 @@ pub mod bigtable_instance_admin {
     /// # use google_cloud_bigtable_admin_v2::builder;
     /// use builder::bigtable_instance_admin::ListMaterializedViews;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -2828,8 +3086,9 @@ pub mod bigtable_instance_admin {
     /// # use google_cloud_bigtable_admin_v2::builder;
     /// use builder::bigtable_instance_admin::UpdateMaterializedView;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_bigtable_admin_v2::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -2915,22 +3174,40 @@ pub mod bigtable_instance_admin {
         /// Sets the value of [materialized_view][crate::model::UpdateMaterializedViewRequest::materialized_view].
         ///
         /// This is a **required** field for requests.
-        pub fn set_materialized_view<
-            T: Into<std::option::Option<crate::model::MaterializedView>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.materialized_view = v.into();
+        pub fn set_materialized_view<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::MaterializedView>,
+        {
+            self.0.request.materialized_view = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [materialized_view][crate::model::UpdateMaterializedViewRequest::materialized_view].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_materialized_view<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::MaterializedView>,
+        {
+            self.0.request.materialized_view = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateMaterializedViewRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateMaterializedViewRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -2949,6 +3226,7 @@ pub mod bigtable_instance_admin {
     /// # use google_cloud_bigtable_admin_v2::builder;
     /// use builder::bigtable_instance_admin::DeleteMaterializedView;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3020,8 +3298,9 @@ pub mod bigtable_instance_admin {
     /// # use google_cloud_bigtable_admin_v2::builder;
     /// use builder::bigtable_instance_admin::ListOperations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -3131,6 +3410,7 @@ pub mod bigtable_instance_admin {
     /// # use google_cloud_bigtable_admin_v2::builder;
     /// use builder::bigtable_instance_admin::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3194,6 +3474,7 @@ pub mod bigtable_instance_admin {
     /// # use google_cloud_bigtable_admin_v2::builder;
     /// use builder::bigtable_instance_admin::DeleteOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3257,6 +3538,7 @@ pub mod bigtable_instance_admin {
     /// # use google_cloud_bigtable_admin_v2::builder;
     /// use builder::bigtable_instance_admin::CancelOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3375,6 +3657,7 @@ pub mod bigtable_table_admin {
     /// # use google_cloud_bigtable_admin_v2::builder;
     /// use builder::bigtable_table_admin::CreateTable;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3433,11 +3716,22 @@ pub mod bigtable_table_admin {
         /// Sets the value of [table][crate::model::CreateTableRequest::table].
         ///
         /// This is a **required** field for requests.
-        pub fn set_table<T: Into<std::option::Option<crate::model::Table>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.table = v.into();
+        pub fn set_table<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Table>,
+        {
+            self.0.request.table = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [table][crate::model::CreateTableRequest::table].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_table<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Table>,
+        {
+            self.0.request.table = v.map(|x| x.into());
             self
         }
 
@@ -3467,8 +3761,9 @@ pub mod bigtable_table_admin {
     /// # use google_cloud_bigtable_admin_v2::builder;
     /// use builder::bigtable_table_admin::CreateTableFromSnapshot;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_bigtable_admin_v2::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -3592,8 +3887,9 @@ pub mod bigtable_table_admin {
     /// # use google_cloud_bigtable_admin_v2::builder;
     /// use builder::bigtable_table_admin::ListTables;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -3700,6 +3996,7 @@ pub mod bigtable_table_admin {
     /// # use google_cloud_bigtable_admin_v2::builder;
     /// use builder::bigtable_table_admin::GetTable;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3768,8 +4065,9 @@ pub mod bigtable_table_admin {
     /// # use google_cloud_bigtable_admin_v2::builder;
     /// use builder::bigtable_table_admin::UpdateTable;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_bigtable_admin_v2::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -3849,22 +4147,44 @@ pub mod bigtable_table_admin {
         /// Sets the value of [table][crate::model::UpdateTableRequest::table].
         ///
         /// This is a **required** field for requests.
-        pub fn set_table<T: Into<std::option::Option<crate::model::Table>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.table = v.into();
+        pub fn set_table<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Table>,
+        {
+            self.0.request.table = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [table][crate::model::UpdateTableRequest::table].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_table<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Table>,
+        {
+            self.0.request.table = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateTableRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateTableRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
@@ -3889,6 +4209,7 @@ pub mod bigtable_table_admin {
     /// # use google_cloud_bigtable_admin_v2::builder;
     /// use builder::bigtable_table_admin::DeleteTable;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3951,8 +4272,9 @@ pub mod bigtable_table_admin {
     /// # use google_cloud_bigtable_admin_v2::builder;
     /// use builder::bigtable_table_admin::UndeleteTable;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_bigtable_admin_v2::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -4052,8 +4374,9 @@ pub mod bigtable_table_admin {
     /// # use google_cloud_bigtable_admin_v2::builder;
     /// use builder::bigtable_table_admin::CreateAuthorizedView;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_bigtable_admin_v2::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -4155,11 +4478,22 @@ pub mod bigtable_table_admin {
         /// Sets the value of [authorized_view][crate::model::CreateAuthorizedViewRequest::authorized_view].
         ///
         /// This is a **required** field for requests.
-        pub fn set_authorized_view<T: Into<std::option::Option<crate::model::AuthorizedView>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.authorized_view = v.into();
+        pub fn set_authorized_view<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::AuthorizedView>,
+        {
+            self.0.request.authorized_view = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [authorized_view][crate::model::CreateAuthorizedViewRequest::authorized_view].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_authorized_view<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::AuthorizedView>,
+        {
+            self.0.request.authorized_view = v.map(|x| x.into());
             self
         }
     }
@@ -4178,8 +4512,9 @@ pub mod bigtable_table_admin {
     /// # use google_cloud_bigtable_admin_v2::builder;
     /// use builder::bigtable_table_admin::ListAuthorizedViews;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -4294,6 +4629,7 @@ pub mod bigtable_table_admin {
     /// # use google_cloud_bigtable_admin_v2::builder;
     /// use builder::bigtable_table_admin::GetAuthorizedView;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -4368,8 +4704,9 @@ pub mod bigtable_table_admin {
     /// # use google_cloud_bigtable_admin_v2::builder;
     /// use builder::bigtable_table_admin::UpdateAuthorizedView;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_bigtable_admin_v2::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -4455,20 +4792,40 @@ pub mod bigtable_table_admin {
         /// Sets the value of [authorized_view][crate::model::UpdateAuthorizedViewRequest::authorized_view].
         ///
         /// This is a **required** field for requests.
-        pub fn set_authorized_view<T: Into<std::option::Option<crate::model::AuthorizedView>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.authorized_view = v.into();
+        pub fn set_authorized_view<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::AuthorizedView>,
+        {
+            self.0.request.authorized_view = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [authorized_view][crate::model::UpdateAuthorizedViewRequest::authorized_view].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_authorized_view<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::AuthorizedView>,
+        {
+            self.0.request.authorized_view = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateAuthorizedViewRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateAuthorizedViewRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
@@ -4493,6 +4850,7 @@ pub mod bigtable_table_admin {
     /// # use google_cloud_bigtable_admin_v2::builder;
     /// use builder::bigtable_table_admin::DeleteAuthorizedView;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -4564,6 +4922,7 @@ pub mod bigtable_table_admin {
     /// # use google_cloud_bigtable_admin_v2::builder;
     /// use builder::bigtable_table_admin::ModifyColumnFamilies;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -4648,6 +5007,7 @@ pub mod bigtable_table_admin {
     /// # use google_cloud_bigtable_admin_v2::builder;
     /// use builder::bigtable_table_admin::DropRowRange;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -4742,6 +5102,7 @@ pub mod bigtable_table_admin {
     /// # use google_cloud_bigtable_admin_v2::builder;
     /// use builder::bigtable_table_admin::GenerateConsistencyToken;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -4809,6 +5170,7 @@ pub mod bigtable_table_admin {
     /// # use google_cloud_bigtable_admin_v2::builder;
     /// use builder::bigtable_table_admin::CheckConsistency;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -4924,8 +5286,9 @@ pub mod bigtable_table_admin {
     /// # use google_cloud_bigtable_admin_v2::builder;
     /// use builder::bigtable_table_admin::SnapshotTable;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_bigtable_admin_v2::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -5029,8 +5392,20 @@ pub mod bigtable_table_admin {
         }
 
         /// Sets the value of [ttl][crate::model::SnapshotTableRequest::ttl].
-        pub fn set_ttl<T: Into<std::option::Option<wkt::Duration>>>(mut self, v: T) -> Self {
-            self.0.request.ttl = v.into();
+        pub fn set_ttl<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Duration>,
+        {
+            self.0.request.ttl = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [ttl][crate::model::SnapshotTableRequest::ttl].
+        pub fn set_or_clear_ttl<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Duration>,
+        {
+            self.0.request.ttl = v.map(|x| x.into());
             self
         }
 
@@ -5055,6 +5430,7 @@ pub mod bigtable_table_admin {
     /// # use google_cloud_bigtable_admin_v2::builder;
     /// use builder::bigtable_table_admin::GetSnapshot;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -5117,8 +5493,9 @@ pub mod bigtable_table_admin {
     /// # use google_cloud_bigtable_admin_v2::builder;
     /// use builder::bigtable_table_admin::ListSnapshots;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -5219,6 +5596,7 @@ pub mod bigtable_table_admin {
     /// # use google_cloud_bigtable_admin_v2::builder;
     /// use builder::bigtable_table_admin::DeleteSnapshot;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -5281,8 +5659,9 @@ pub mod bigtable_table_admin {
     /// # use google_cloud_bigtable_admin_v2::builder;
     /// use builder::bigtable_table_admin::CreateBackup;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_bigtable_admin_v2::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -5378,11 +5757,22 @@ pub mod bigtable_table_admin {
         /// Sets the value of [backup][crate::model::CreateBackupRequest::backup].
         ///
         /// This is a **required** field for requests.
-        pub fn set_backup<T: Into<std::option::Option<crate::model::Backup>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.backup = v.into();
+        pub fn set_backup<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Backup>,
+        {
+            self.0.request.backup = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [backup][crate::model::CreateBackupRequest::backup].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_backup<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Backup>,
+        {
+            self.0.request.backup = v.map(|x| x.into());
             self
         }
     }
@@ -5401,6 +5791,7 @@ pub mod bigtable_table_admin {
     /// # use google_cloud_bigtable_admin_v2::builder;
     /// use builder::bigtable_table_admin::GetBackup;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -5463,6 +5854,7 @@ pub mod bigtable_table_admin {
     /// # use google_cloud_bigtable_admin_v2::builder;
     /// use builder::bigtable_table_admin::UpdateBackup;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -5505,22 +5897,44 @@ pub mod bigtable_table_admin {
         /// Sets the value of [backup][crate::model::UpdateBackupRequest::backup].
         ///
         /// This is a **required** field for requests.
-        pub fn set_backup<T: Into<std::option::Option<crate::model::Backup>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.backup = v.into();
+        pub fn set_backup<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Backup>,
+        {
+            self.0.request.backup = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [backup][crate::model::UpdateBackupRequest::backup].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_backup<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Backup>,
+        {
+            self.0.request.backup = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateBackupRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateBackupRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -5539,6 +5953,7 @@ pub mod bigtable_table_admin {
     /// # use google_cloud_bigtable_admin_v2::builder;
     /// use builder::bigtable_table_admin::DeleteBackup;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -5601,8 +6016,9 @@ pub mod bigtable_table_admin {
     /// # use google_cloud_bigtable_admin_v2::builder;
     /// use builder::bigtable_table_admin::ListBackups;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -5715,8 +6131,9 @@ pub mod bigtable_table_admin {
     /// # use google_cloud_bigtable_admin_v2::builder;
     /// use builder::bigtable_table_admin::RestoreTable;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_bigtable_admin_v2::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -5846,8 +6263,9 @@ pub mod bigtable_table_admin {
     /// # use google_cloud_bigtable_admin_v2::builder;
     /// use builder::bigtable_table_admin::CopyBackup;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_bigtable_admin_v2::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -5951,11 +6369,22 @@ pub mod bigtable_table_admin {
         /// Sets the value of [expire_time][crate::model::CopyBackupRequest::expire_time].
         ///
         /// This is a **required** field for requests.
-        pub fn set_expire_time<T: Into<std::option::Option<wkt::Timestamp>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.expire_time = v.into();
+        pub fn set_expire_time<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Timestamp>,
+        {
+            self.0.request.expire_time = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [expire_time][crate::model::CopyBackupRequest::expire_time].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_expire_time<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Timestamp>,
+        {
+            self.0.request.expire_time = v.map(|x| x.into());
             self
         }
     }
@@ -5974,6 +6403,7 @@ pub mod bigtable_table_admin {
     /// # use google_cloud_bigtable_admin_v2::builder;
     /// use builder::bigtable_table_admin::GetIamPolicy;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -6022,11 +6452,20 @@ pub mod bigtable_table_admin {
         }
 
         /// Sets the value of [options][iam_v1::model::GetIamPolicyRequest::options].
-        pub fn set_options<T: Into<std::option::Option<iam_v1::model::GetPolicyOptions>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.options = v.into();
+        pub fn set_options<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = v.map(|x| x.into());
             self
         }
     }
@@ -6045,6 +6484,7 @@ pub mod bigtable_table_admin {
     /// # use google_cloud_bigtable_admin_v2::builder;
     /// use builder::bigtable_table_admin::SetIamPolicy;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -6095,20 +6535,40 @@ pub mod bigtable_table_admin {
         /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
-        pub fn set_policy<T: Into<std::option::Option<iam_v1::model::Policy>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.policy = v.into();
+        pub fn set_policy<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -6127,6 +6587,7 @@ pub mod bigtable_table_admin {
     /// # use google_cloud_bigtable_admin_v2::builder;
     /// use builder::bigtable_table_admin::TestIamPermissions;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -6205,8 +6666,9 @@ pub mod bigtable_table_admin {
     /// # use google_cloud_bigtable_admin_v2::builder;
     /// use builder::bigtable_table_admin::ListOperations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -6316,6 +6778,7 @@ pub mod bigtable_table_admin {
     /// # use google_cloud_bigtable_admin_v2::builder;
     /// use builder::bigtable_table_admin::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -6379,6 +6842,7 @@ pub mod bigtable_table_admin {
     /// # use google_cloud_bigtable_admin_v2::builder;
     /// use builder::bigtable_table_admin::DeleteOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -6442,6 +6906,7 @@ pub mod bigtable_table_admin {
     /// # use google_cloud_bigtable_admin_v2::builder;
     /// use builder::bigtable_table_admin::CancelOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });

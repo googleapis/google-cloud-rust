@@ -17,13 +17,28 @@
 
 use std::collections::BTreeMap;
 
-#[derive(Clone, Debug, PartialEq, thiserror::Error)]
+type BoxError = Box<dyn std::error::Error + Send + Sync>;
+
+#[derive(thiserror::Error, Debug)]
 #[non_exhaustive]
 pub enum ConvertError {
     #[error("enum {0} does not contain an integer value")]
     EnumNoIntegerValue(&'static str),
     #[error("Conversion unimplemented")]
     Unimplemented,
+    #[error("Unexpected type URL: {0}")]
+    UnexpectedTypeUrl(String),
+    #[error("gax/prost conversion error: {0}")]
+    Other(#[source] BoxError),
+}
+
+impl ConvertError {
+    pub fn other<T>(e: T) -> Self
+    where
+        T: Into<BoxError>,
+    {
+        ConvertError::Other(e.into())
+    }
 }
 
 type Result<T> = std::result::Result<T, ConvertError>;
@@ -36,6 +51,8 @@ pub trait ToProto<T>: Sized {
 
 /// Converts from `Self` into `T`, where `Self` is expected to be a Protobuf-generated type.
 pub trait FromProto<T>: Sized {
+    // By convention `from_*` functions do not consume a `self`. And we need
+    // `self` so we can write generic code for repeated fields, maps, etc.
     fn cnv(self) -> Result<T>;
 }
 
@@ -209,8 +226,6 @@ impl ToProto<prost_types::NullValue> for wkt::NullValue {
 }
 
 impl FromProto<wkt::NullValue> for prost_types::NullValue {
-    // By convention `from_*` functions do not consume a `self`. And we need
-    // `self` so we can write generic code for repeated fields, maps, etc.
     fn cnv(self) -> Result<wkt::NullValue> {
         Ok(wkt::NullValue)
     }
@@ -226,32 +241,65 @@ mod test {
     fn fmt_convert_error() {
         let e = ConvertError::EnumNoIntegerValue("name123");
         let fmt = format!("{e}");
-        assert!(fmt.contains("name123"), "{fmt}");
+        assert!(
+            fmt.contains("name123") && fmt.contains("does not contain an integer"),
+            "{fmt}"
+        );
+
+        let e =
+            ConvertError::UnexpectedTypeUrl("type.googleapis.com/my.custom.Message".to_string());
+        let fmt = format!("{e}");
+        assert!(
+            fmt.contains("type.googleapis.com/my.custom.Message")
+                && fmt.contains("Unexpected type"),
+            "{fmt}"
+        );
+
+        let source = wkt::AnyError::TypeMismatch("blah blah blah".to_string());
+        let e = ConvertError::other(source);
+        let fmt = format!("{e}");
+        assert!(
+            fmt.contains("gax/prost conversion error") && fmt.contains("blah blah blah"),
+            "{fmt}"
+        );
     }
 
     fn err() -> ConvertError {
         ConvertError::EnumNoIntegerValue("test")
     }
 
-    #[test_case(Ok(1), Ok(2), Ok((1, 2)))]
-    #[test_case(Err(err()), Ok(2), Err(err()))]
-    #[test_case(Ok(1), Err(err()), Err(err()))]
-    #[test_case(Err(err()), Err(err()), Err(err()))]
-    fn pair_transpose(a: Result<i32>, b: Result<i32>, want: Result<(i32, i32)>) {
+    #[test]
+    fn pair_transpose_success() -> anyhow::Result<()> {
+        let got = super::pair_transpose(Ok(1), Ok(2))?;
+        assert_eq!(got, (1, 2));
+        Ok(())
+    }
+
+    #[test_case(Err(err()), Ok(2))]
+    #[test_case(Ok(1), Err(err()))]
+    #[test_case(Err(err()), Err(err()))]
+    fn pair_transpose_error(a: Result<i32>, b: Result<i32>) -> anyhow::Result<()> {
         let got = super::pair_transpose(a, b);
-        assert_eq!(got, want);
+        assert!(got.is_err());
+        Ok(())
     }
 
     #[test]
-    fn primitive_unit() {
-        assert_eq!(().cnv(), Ok(()));
+    fn primitive_unit() -> anyhow::Result<()> {
+        ().cnv()?;
+        ().to_proto()?;
+        Ok(())
     }
 
     #[test]
-    fn primitive_bool() {
+    fn primitive_bool() -> anyhow::Result<()> {
         let input: bool = true;
-        let got = input.cnv();
-        assert_eq!(got, Ok(input));
+        let got = input.cnv()?;
+        assert_eq!(got, input);
+        let input: bool = true;
+        let got = input.to_proto()?;
+        assert_eq!(got, input);
+        Ok(())
     }
 
     #[test_case(0 as f32)]
@@ -260,12 +308,13 @@ mod test {
     #[test_case(0 as f64)]
     #[test_case(0_i64)]
     #[test_case(0_u64)]
-    fn primitive_numeric_from_proto<T>(input: T)
+    fn primitive_numeric_from_proto<T>(input: T) -> anyhow::Result<()>
     where
         T: std::fmt::Debug + Copy + PartialEq + FromProto<T>,
     {
-        let got = input.cnv();
-        assert_eq!(got, Ok(input));
+        let got = input.cnv()?;
+        assert_eq!(got, input);
+        Ok(())
     }
 
     #[test_case(0 as f32)]
@@ -274,102 +323,108 @@ mod test {
     #[test_case(0 as f64)]
     #[test_case(0_i64)]
     #[test_case(0_u64)]
-    fn primitive_numeric_to_proto<T>(input: T)
+    fn primitive_numeric_to_proto<T>(input: T) -> anyhow::Result<()>
     where
         T: std::fmt::Debug + Copy + PartialEq + ToProto<T, Output = T>,
     {
-        let got = input.to_proto();
-        assert_eq!(got, Ok(input));
+        let got = input.to_proto()?;
+        assert_eq!(got, input);
+        Ok(())
     }
 
     #[test]
-    fn primitive_string() {
+    fn primitive_string() -> anyhow::Result<()> {
         let input = "abc".to_string();
-        let got = input.cnv();
-        assert_eq!(got, Ok("abc".into()));
+        let got = input.cnv()?;
+        assert_eq!(got, "abc");
         let input = "abc".to_string();
-        let got = input.to_proto();
-        assert_eq!(got, Ok("abc".into()));
+        let got = input.to_proto()?;
+        assert_eq!(got, "abc");
+        Ok(())
     }
 
     #[test]
-    fn primitive_bytes() {
+    fn primitive_bytes() -> anyhow::Result<()> {
         let input = bytes::Bytes::from_static(b"abc");
-        let got = input.clone().cnv();
-        assert_eq!(got, Ok(input));
+        let got = input.clone().cnv()?;
+        assert_eq!(got, input);
         let input = bytes::Bytes::from_static(b"abc");
-        let got = input.clone().to_proto();
-        assert_eq!(got, Ok(input));
+        let got = input.clone().to_proto()?;
+        assert_eq!(got, input);
+        Ok(())
     }
 
     #[test]
-    fn from_proto_duration() {
+    fn from_proto_duration() -> anyhow::Result<()> {
         let input = prost_types::Duration {
             seconds: 123,
             nanos: 456,
         };
-        let got = input.cnv();
-        assert_eq!(got, Ok(wkt::Duration::clamp(123, 456)));
+        let got = input.cnv()?;
+        assert_eq!(got, wkt::Duration::clamp(123, 456));
+        Ok(())
     }
 
     #[test]
-    fn to_proto_duration() {
+    fn to_proto_duration() -> anyhow::Result<()> {
         let input = wkt::Duration::clamp(123, 456);
-        let got = input.to_proto();
+        let got = input.to_proto()?;
         assert_eq!(
             got,
-            Ok(prost_types::Duration {
+            prost_types::Duration {
                 seconds: 123,
                 nanos: 456
-            })
+            }
         );
+        Ok(())
     }
 
     #[test]
-    fn from_proto_field_mask() {
+    fn from_proto_field_mask() -> anyhow::Result<()> {
         let input = prost_types::FieldMask {
             paths: ["a", "b", "c"].map(str::to_string).to_vec(),
         };
-        let got = input.cnv();
-        assert_eq!(
-            got,
-            Ok(wkt::FieldMask::default().set_paths(["a", "b", "c"]))
-        );
+        let got = input.cnv()?;
+        assert_eq!(got, wkt::FieldMask::default().set_paths(["a", "b", "c"]));
+        Ok(())
     }
 
     #[test]
-    fn to_proto_field_mask() {
+    fn to_proto_field_mask() -> anyhow::Result<()> {
         let input = wkt::FieldMask::default().set_paths(["p1", "p2", "p3"]);
-        let got = input.to_proto();
+        let got = input.to_proto()?;
         assert_eq!(
             got,
-            Ok(prost_types::FieldMask {
+            prost_types::FieldMask {
                 paths: ["p1", "p2", "p3"].map(str::to_string).to_vec()
-            })
+            }
         );
+        Ok(())
     }
 
     #[test]
-    fn from_proto_timestamp() {
+    fn from_proto_timestamp() -> anyhow::Result<()> {
         let input = prost_types::Timestamp {
             seconds: 123,
             nanos: 456,
         };
-        let got = input.cnv();
-        assert_eq!(got, Ok(wkt::Timestamp::clamp(123, 456)));
+        let got = input.cnv()?;
+        assert_eq!(got, wkt::Timestamp::clamp(123, 456));
+        Ok(())
     }
 
     #[test]
-    fn to_proto_timestamp() {
+    fn to_proto_timestamp() -> anyhow::Result<()> {
         let input = wkt::Timestamp::clamp(123, 456);
-        let got = input.to_proto();
+        let got = input.to_proto()?;
         assert_eq!(
             got,
-            Ok(prost_types::Timestamp {
+            prost_types::Timestamp {
                 seconds: 123,
                 nanos: 456
-            })
+            }
         );
+        Ok(())
     }
 
     #[test_case(json!(null))]
@@ -393,9 +448,10 @@ mod test {
     }
 
     #[test]
-    fn from_prost_null_value() {
+    fn from_prost_null_value() -> anyhow::Result<()> {
         let input = prost_types::NullValue::NullValue;
-        let got = input.cnv();
-        assert_eq!(got, Ok(wkt::NullValue));
+        let got = input.cnv()?;
+        assert_eq!(got, wkt::NullValue);
+        Ok(())
     }
 }

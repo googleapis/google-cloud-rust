@@ -196,22 +196,38 @@ impl Policy {
     }
 
     /// Sets the value of [default_admission_rule][crate::model::Policy::default_admission_rule].
-    pub fn set_default_admission_rule<
-        T: std::convert::Into<std::option::Option<crate::model::AdmissionRule>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.default_admission_rule = v.into();
+    pub fn set_default_admission_rule<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::AdmissionRule>,
+    {
+        self.default_admission_rule = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [default_admission_rule][crate::model::Policy::default_admission_rule].
+    pub fn set_or_clear_default_admission_rule<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::AdmissionRule>,
+    {
+        self.default_admission_rule = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [update_time][crate::model::Policy::update_time].
-    pub fn set_update_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.update_time = v.into();
+    pub fn set_update_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_time][crate::model::Policy::update_time].
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = v.map(|x| x.into());
         self
     }
 }
@@ -815,11 +831,20 @@ impl Attestor {
     }
 
     /// Sets the value of [update_time][crate::model::Attestor::update_time].
-    pub fn set_update_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.update_time = v.into();
+    pub fn set_update_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_time][crate::model::Attestor::update_time].
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = v.map(|x| x.into());
         self
     }
 
@@ -1480,11 +1505,20 @@ impl UpdatePolicyRequest {
     }
 
     /// Sets the value of [policy][crate::model::UpdatePolicyRequest::policy].
-    pub fn set_policy<T: std::convert::Into<std::option::Option<crate::model::Policy>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.policy = v.into();
+    pub fn set_policy<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::Policy>,
+    {
+        self.policy = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [policy][crate::model::UpdatePolicyRequest::policy].
+    pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::Policy>,
+    {
+        self.policy = v.map(|x| x.into());
         self
     }
 }
@@ -1544,11 +1578,20 @@ impl CreateAttestorRequest {
     }
 
     /// Sets the value of [attestor][crate::model::CreateAttestorRequest::attestor].
-    pub fn set_attestor<T: std::convert::Into<std::option::Option<crate::model::Attestor>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.attestor = v.into();
+    pub fn set_attestor<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::Attestor>,
+    {
+        self.attestor = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [attestor][crate::model::CreateAttestorRequest::attestor].
+    pub fn set_or_clear_attestor<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::Attestor>,
+    {
+        self.attestor = v.map(|x| x.into());
         self
     }
 }
@@ -1619,11 +1662,20 @@ impl UpdateAttestorRequest {
     }
 
     /// Sets the value of [attestor][crate::model::UpdateAttestorRequest::attestor].
-    pub fn set_attestor<T: std::convert::Into<std::option::Option<crate::model::Attestor>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.attestor = v.into();
+    pub fn set_attestor<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::Attestor>,
+    {
+        self.attestor = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [attestor][crate::model::UpdateAttestorRequest::attestor].
+    pub fn set_or_clear_attestor<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::Attestor>,
+    {
+        self.attestor = v.map(|x| x.into());
         self
     }
 }
@@ -1881,13 +1933,20 @@ impl ValidateAttestationOccurrenceRequest {
     }
 
     /// Sets the value of [attestation][crate::model::ValidateAttestationOccurrenceRequest::attestation].
-    pub fn set_attestation<
-        T: std::convert::Into<std::option::Option<grafeas::model::AttestationOccurrence>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.attestation = v.into();
+    pub fn set_attestation<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<grafeas::model::AttestationOccurrence>,
+    {
+        self.attestation = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [attestation][crate::model::ValidateAttestationOccurrenceRequest::attestation].
+    pub fn set_or_clear_attestation<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<grafeas::model::AttestationOccurrence>,
+    {
+        self.attestation = v.map(|x| x.into());
         self
     }
 

@@ -75,8 +75,9 @@ pub mod catalog_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::catalog_service::CreateEntryType;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_dataplex_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -172,11 +173,22 @@ pub mod catalog_service {
         /// Sets the value of [entry_type][crate::model::CreateEntryTypeRequest::entry_type].
         ///
         /// This is a **required** field for requests.
-        pub fn set_entry_type<T: Into<std::option::Option<crate::model::EntryType>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.entry_type = v.into();
+        pub fn set_entry_type<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::EntryType>,
+        {
+            self.0.request.entry_type = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [entry_type][crate::model::CreateEntryTypeRequest::entry_type].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_entry_type<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::EntryType>,
+        {
+            self.0.request.entry_type = v.map(|x| x.into());
             self
         }
 
@@ -201,8 +213,9 @@ pub mod catalog_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::catalog_service::UpdateEntryType;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_dataplex_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -282,22 +295,44 @@ pub mod catalog_service {
         /// Sets the value of [entry_type][crate::model::UpdateEntryTypeRequest::entry_type].
         ///
         /// This is a **required** field for requests.
-        pub fn set_entry_type<T: Into<std::option::Option<crate::model::EntryType>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.entry_type = v.into();
+        pub fn set_entry_type<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::EntryType>,
+        {
+            self.0.request.entry_type = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [entry_type][crate::model::UpdateEntryTypeRequest::entry_type].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_entry_type<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::EntryType>,
+        {
+            self.0.request.entry_type = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateEntryTypeRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateEntryTypeRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
@@ -322,8 +357,9 @@ pub mod catalog_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::catalog_service::DeleteEntryType;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_dataplex_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -431,8 +467,9 @@ pub mod catalog_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::catalog_service::ListEntryTypes;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -545,6 +582,7 @@ pub mod catalog_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::catalog_service::GetEntryType;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -607,8 +645,9 @@ pub mod catalog_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::catalog_service::CreateAspectType;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_dataplex_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -707,11 +746,22 @@ pub mod catalog_service {
         /// Sets the value of [aspect_type][crate::model::CreateAspectTypeRequest::aspect_type].
         ///
         /// This is a **required** field for requests.
-        pub fn set_aspect_type<T: Into<std::option::Option<crate::model::AspectType>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.aspect_type = v.into();
+        pub fn set_aspect_type<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::AspectType>,
+        {
+            self.0.request.aspect_type = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [aspect_type][crate::model::CreateAspectTypeRequest::aspect_type].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_aspect_type<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::AspectType>,
+        {
+            self.0.request.aspect_type = v.map(|x| x.into());
             self
         }
 
@@ -736,8 +786,9 @@ pub mod catalog_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::catalog_service::UpdateAspectType;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_dataplex_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -820,22 +871,44 @@ pub mod catalog_service {
         /// Sets the value of [aspect_type][crate::model::UpdateAspectTypeRequest::aspect_type].
         ///
         /// This is a **required** field for requests.
-        pub fn set_aspect_type<T: Into<std::option::Option<crate::model::AspectType>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.aspect_type = v.into();
+        pub fn set_aspect_type<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::AspectType>,
+        {
+            self.0.request.aspect_type = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [aspect_type][crate::model::UpdateAspectTypeRequest::aspect_type].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_aspect_type<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::AspectType>,
+        {
+            self.0.request.aspect_type = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateAspectTypeRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateAspectTypeRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
@@ -860,8 +933,9 @@ pub mod catalog_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::catalog_service::DeleteAspectType;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_dataplex_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -972,8 +1046,9 @@ pub mod catalog_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::catalog_service::ListAspectTypes;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -1086,6 +1161,7 @@ pub mod catalog_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::catalog_service::GetAspectType;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1148,8 +1224,9 @@ pub mod catalog_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::catalog_service::CreateEntryGroup;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_dataplex_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1248,11 +1325,22 @@ pub mod catalog_service {
         /// Sets the value of [entry_group][crate::model::CreateEntryGroupRequest::entry_group].
         ///
         /// This is a **required** field for requests.
-        pub fn set_entry_group<T: Into<std::option::Option<crate::model::EntryGroup>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.entry_group = v.into();
+        pub fn set_entry_group<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::EntryGroup>,
+        {
+            self.0.request.entry_group = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [entry_group][crate::model::CreateEntryGroupRequest::entry_group].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_entry_group<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::EntryGroup>,
+        {
+            self.0.request.entry_group = v.map(|x| x.into());
             self
         }
 
@@ -1277,8 +1365,9 @@ pub mod catalog_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::catalog_service::UpdateEntryGroup;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_dataplex_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1361,22 +1450,44 @@ pub mod catalog_service {
         /// Sets the value of [entry_group][crate::model::UpdateEntryGroupRequest::entry_group].
         ///
         /// This is a **required** field for requests.
-        pub fn set_entry_group<T: Into<std::option::Option<crate::model::EntryGroup>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.entry_group = v.into();
+        pub fn set_entry_group<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::EntryGroup>,
+        {
+            self.0.request.entry_group = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [entry_group][crate::model::UpdateEntryGroupRequest::entry_group].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_entry_group<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::EntryGroup>,
+        {
+            self.0.request.entry_group = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateEntryGroupRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateEntryGroupRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
@@ -1401,8 +1512,9 @@ pub mod catalog_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::catalog_service::DeleteEntryGroup;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_dataplex_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1513,8 +1625,9 @@ pub mod catalog_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::catalog_service::ListEntryGroups;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -1627,6 +1740,7 @@ pub mod catalog_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::catalog_service::GetEntryGroup;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1689,6 +1803,7 @@ pub mod catalog_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::catalog_service::CreateEntry;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1747,11 +1862,22 @@ pub mod catalog_service {
         /// Sets the value of [entry][crate::model::CreateEntryRequest::entry].
         ///
         /// This is a **required** field for requests.
-        pub fn set_entry<T: Into<std::option::Option<crate::model::Entry>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.entry = v.into();
+        pub fn set_entry<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Entry>,
+        {
+            self.0.request.entry = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [entry][crate::model::CreateEntryRequest::entry].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_entry<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Entry>,
+        {
+            self.0.request.entry = v.map(|x| x.into());
             self
         }
     }
@@ -1770,6 +1896,7 @@ pub mod catalog_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::catalog_service::UpdateEntry;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1812,20 +1939,40 @@ pub mod catalog_service {
         /// Sets the value of [entry][crate::model::UpdateEntryRequest::entry].
         ///
         /// This is a **required** field for requests.
-        pub fn set_entry<T: Into<std::option::Option<crate::model::Entry>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.entry = v.into();
+        pub fn set_entry<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Entry>,
+        {
+            self.0.request.entry = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [entry][crate::model::UpdateEntryRequest::entry].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_entry<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Entry>,
+        {
+            self.0.request.entry = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateEntryRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateEntryRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
@@ -1867,6 +2014,7 @@ pub mod catalog_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::catalog_service::DeleteEntry;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1929,8 +2077,9 @@ pub mod catalog_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::catalog_service::ListEntries;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -2037,6 +2186,7 @@ pub mod catalog_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::catalog_service::GetEntry;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2127,6 +2277,7 @@ pub mod catalog_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::catalog_service::LookupEntry;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2225,8 +2376,9 @@ pub mod catalog_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::catalog_service::SearchEntries;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -2347,8 +2499,9 @@ pub mod catalog_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::catalog_service::CreateMetadataJob;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_dataplex_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -2441,11 +2594,22 @@ pub mod catalog_service {
         /// Sets the value of [metadata_job][crate::model::CreateMetadataJobRequest::metadata_job].
         ///
         /// This is a **required** field for requests.
-        pub fn set_metadata_job<T: Into<std::option::Option<crate::model::MetadataJob>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.metadata_job = v.into();
+        pub fn set_metadata_job<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::MetadataJob>,
+        {
+            self.0.request.metadata_job = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [metadata_job][crate::model::CreateMetadataJobRequest::metadata_job].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_metadata_job<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::MetadataJob>,
+        {
+            self.0.request.metadata_job = v.map(|x| x.into());
             self
         }
 
@@ -2476,6 +2640,7 @@ pub mod catalog_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::catalog_service::GetMetadataJob;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2538,8 +2703,9 @@ pub mod catalog_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::catalog_service::ListMetadataJobs;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -2655,6 +2821,7 @@ pub mod catalog_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::catalog_service::CancelMetadataJob;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2720,8 +2887,9 @@ pub mod catalog_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::catalog_service::ListLocations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -2829,6 +2997,7 @@ pub mod catalog_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::catalog_service::GetLocation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2889,6 +3058,7 @@ pub mod catalog_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::catalog_service::SetIamPolicy;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2939,20 +3109,40 @@ pub mod catalog_service {
         /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
-        pub fn set_policy<T: Into<std::option::Option<iam_v1::model::Policy>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.policy = v.into();
+        pub fn set_policy<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -2971,6 +3161,7 @@ pub mod catalog_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::catalog_service::GetIamPolicy;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3019,11 +3210,20 @@ pub mod catalog_service {
         }
 
         /// Sets the value of [options][iam_v1::model::GetIamPolicyRequest::options].
-        pub fn set_options<T: Into<std::option::Option<iam_v1::model::GetPolicyOptions>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.options = v.into();
+        pub fn set_options<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = v.map(|x| x.into());
             self
         }
     }
@@ -3042,6 +3242,7 @@ pub mod catalog_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::catalog_service::TestIamPermissions;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3120,8 +3321,9 @@ pub mod catalog_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::catalog_service::ListOperations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -3231,6 +3433,7 @@ pub mod catalog_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::catalog_service::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3294,6 +3497,7 @@ pub mod catalog_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::catalog_service::DeleteOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3357,6 +3561,7 @@ pub mod catalog_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::catalog_service::CancelOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3475,8 +3680,9 @@ pub mod cmek_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::cmek_service::CreateEncryptionConfig;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_dataplex_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -3578,13 +3784,22 @@ pub mod cmek_service {
         /// Sets the value of [encryption_config][crate::model::CreateEncryptionConfigRequest::encryption_config].
         ///
         /// This is a **required** field for requests.
-        pub fn set_encryption_config<
-            T: Into<std::option::Option<crate::model::EncryptionConfig>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.encryption_config = v.into();
+        pub fn set_encryption_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::EncryptionConfig>,
+        {
+            self.0.request.encryption_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [encryption_config][crate::model::CreateEncryptionConfigRequest::encryption_config].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_encryption_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::EncryptionConfig>,
+        {
+            self.0.request.encryption_config = v.map(|x| x.into());
             self
         }
     }
@@ -3603,8 +3818,9 @@ pub mod cmek_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::cmek_service::UpdateEncryptionConfig;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_dataplex_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -3690,22 +3906,40 @@ pub mod cmek_service {
         /// Sets the value of [encryption_config][crate::model::UpdateEncryptionConfigRequest::encryption_config].
         ///
         /// This is a **required** field for requests.
-        pub fn set_encryption_config<
-            T: Into<std::option::Option<crate::model::EncryptionConfig>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.encryption_config = v.into();
+        pub fn set_encryption_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::EncryptionConfig>,
+        {
+            self.0.request.encryption_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [encryption_config][crate::model::UpdateEncryptionConfigRequest::encryption_config].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_encryption_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::EncryptionConfig>,
+        {
+            self.0.request.encryption_config = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateEncryptionConfigRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateEncryptionConfigRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -3724,8 +3958,9 @@ pub mod cmek_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::cmek_service::DeleteEncryptionConfig;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_dataplex_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -3836,8 +4071,9 @@ pub mod cmek_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::cmek_service::ListEncryptionConfigs;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -3955,6 +4191,7 @@ pub mod cmek_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::cmek_service::GetEncryptionConfig;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -4020,8 +4257,9 @@ pub mod cmek_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::cmek_service::ListLocations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -4129,6 +4367,7 @@ pub mod cmek_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::cmek_service::GetLocation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -4189,6 +4428,7 @@ pub mod cmek_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::cmek_service::SetIamPolicy;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -4239,20 +4479,40 @@ pub mod cmek_service {
         /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
-        pub fn set_policy<T: Into<std::option::Option<iam_v1::model::Policy>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.policy = v.into();
+        pub fn set_policy<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -4271,6 +4531,7 @@ pub mod cmek_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::cmek_service::GetIamPolicy;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -4319,11 +4580,20 @@ pub mod cmek_service {
         }
 
         /// Sets the value of [options][iam_v1::model::GetIamPolicyRequest::options].
-        pub fn set_options<T: Into<std::option::Option<iam_v1::model::GetPolicyOptions>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.options = v.into();
+        pub fn set_options<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = v.map(|x| x.into());
             self
         }
     }
@@ -4342,6 +4612,7 @@ pub mod cmek_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::cmek_service::TestIamPermissions;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -4420,8 +4691,9 @@ pub mod cmek_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::cmek_service::ListOperations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -4531,6 +4803,7 @@ pub mod cmek_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::cmek_service::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -4594,6 +4867,7 @@ pub mod cmek_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::cmek_service::DeleteOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -4657,6 +4931,7 @@ pub mod cmek_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::cmek_service::CancelOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -4775,6 +5050,7 @@ pub mod content_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::content_service::CreateContent;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -4825,11 +5101,22 @@ pub mod content_service {
         /// Sets the value of [content][crate::model::CreateContentRequest::content].
         ///
         /// This is a **required** field for requests.
-        pub fn set_content<T: Into<std::option::Option<crate::model::Content>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.content = v.into();
+        pub fn set_content<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Content>,
+        {
+            self.0.request.content = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [content][crate::model::CreateContentRequest::content].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_content<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Content>,
+        {
+            self.0.request.content = v.map(|x| x.into());
             self
         }
 
@@ -4854,6 +5141,7 @@ pub mod content_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::content_service::UpdateContent;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -4896,22 +5184,44 @@ pub mod content_service {
         /// Sets the value of [update_mask][crate::model::UpdateContentRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateContentRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [content][crate::model::UpdateContentRequest::content].
         ///
         /// This is a **required** field for requests.
-        pub fn set_content<T: Into<std::option::Option<crate::model::Content>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.content = v.into();
+        pub fn set_content<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Content>,
+        {
+            self.0.request.content = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [content][crate::model::UpdateContentRequest::content].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_content<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Content>,
+        {
+            self.0.request.content = v.map(|x| x.into());
             self
         }
 
@@ -4936,6 +5246,7 @@ pub mod content_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::content_service::DeleteContent;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -4998,6 +5309,7 @@ pub mod content_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::content_service::GetContent;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -5069,6 +5381,7 @@ pub mod content_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::content_service::GetIamPolicy;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -5117,11 +5430,20 @@ pub mod content_service {
         }
 
         /// Sets the value of [options][iam_v1::model::GetIamPolicyRequest::options].
-        pub fn set_options<T: Into<std::option::Option<iam_v1::model::GetPolicyOptions>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.options = v.into();
+        pub fn set_options<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = v.map(|x| x.into());
             self
         }
     }
@@ -5140,6 +5462,7 @@ pub mod content_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::content_service::SetIamPolicy;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -5190,20 +5513,40 @@ pub mod content_service {
         /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
-        pub fn set_policy<T: Into<std::option::Option<iam_v1::model::Policy>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.policy = v.into();
+        pub fn set_policy<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -5222,6 +5565,7 @@ pub mod content_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::content_service::TestIamPermissions;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -5300,8 +5644,9 @@ pub mod content_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::content_service::ListContent;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -5408,8 +5753,9 @@ pub mod content_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::content_service::ListLocations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -5517,6 +5863,7 @@ pub mod content_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::content_service::GetLocation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -5577,8 +5924,9 @@ pub mod content_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::content_service::ListOperations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -5688,6 +6036,7 @@ pub mod content_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::content_service::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -5751,6 +6100,7 @@ pub mod content_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::content_service::DeleteOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -5814,6 +6164,7 @@ pub mod content_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::content_service::CancelOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -5932,8 +6283,9 @@ pub mod data_taxonomy_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::data_taxonomy_service::CreateDataTaxonomy;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_dataplex_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -6034,11 +6386,22 @@ pub mod data_taxonomy_service {
         /// Sets the value of [data_taxonomy][crate::model::CreateDataTaxonomyRequest::data_taxonomy].
         ///
         /// This is a **required** field for requests.
-        pub fn set_data_taxonomy<T: Into<std::option::Option<crate::model::DataTaxonomy>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.data_taxonomy = v.into();
+        pub fn set_data_taxonomy<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::DataTaxonomy>,
+        {
+            self.0.request.data_taxonomy = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [data_taxonomy][crate::model::CreateDataTaxonomyRequest::data_taxonomy].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_data_taxonomy<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::DataTaxonomy>,
+        {
+            self.0.request.data_taxonomy = v.map(|x| x.into());
             self
         }
 
@@ -6063,8 +6426,9 @@ pub mod data_taxonomy_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::data_taxonomy_service::UpdateDataTaxonomy;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_dataplex_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -6149,22 +6513,44 @@ pub mod data_taxonomy_service {
         /// Sets the value of [update_mask][crate::model::UpdateDataTaxonomyRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateDataTaxonomyRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [data_taxonomy][crate::model::UpdateDataTaxonomyRequest::data_taxonomy].
         ///
         /// This is a **required** field for requests.
-        pub fn set_data_taxonomy<T: Into<std::option::Option<crate::model::DataTaxonomy>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.data_taxonomy = v.into();
+        pub fn set_data_taxonomy<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::DataTaxonomy>,
+        {
+            self.0.request.data_taxonomy = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [data_taxonomy][crate::model::UpdateDataTaxonomyRequest::data_taxonomy].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_data_taxonomy<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::DataTaxonomy>,
+        {
+            self.0.request.data_taxonomy = v.map(|x| x.into());
             self
         }
 
@@ -6189,8 +6575,9 @@ pub mod data_taxonomy_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::data_taxonomy_service::DeleteDataTaxonomy;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_dataplex_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -6301,8 +6688,9 @@ pub mod data_taxonomy_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::data_taxonomy_service::ListDataTaxonomies;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -6420,6 +6808,7 @@ pub mod data_taxonomy_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::data_taxonomy_service::GetDataTaxonomy;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -6482,8 +6871,9 @@ pub mod data_taxonomy_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::data_taxonomy_service::CreateDataAttributeBinding;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_dataplex_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -6587,13 +6977,22 @@ pub mod data_taxonomy_service {
         /// Sets the value of [data_attribute_binding][crate::model::CreateDataAttributeBindingRequest::data_attribute_binding].
         ///
         /// This is a **required** field for requests.
-        pub fn set_data_attribute_binding<
-            T: Into<std::option::Option<crate::model::DataAttributeBinding>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.data_attribute_binding = v.into();
+        pub fn set_data_attribute_binding<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::DataAttributeBinding>,
+        {
+            self.0.request.data_attribute_binding = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [data_attribute_binding][crate::model::CreateDataAttributeBindingRequest::data_attribute_binding].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_data_attribute_binding<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::DataAttributeBinding>,
+        {
+            self.0.request.data_attribute_binding = v.map(|x| x.into());
             self
         }
 
@@ -6618,8 +7017,9 @@ pub mod data_taxonomy_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::data_taxonomy_service::UpdateDataAttributeBinding;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_dataplex_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -6707,24 +7107,44 @@ pub mod data_taxonomy_service {
         /// Sets the value of [update_mask][crate::model::UpdateDataAttributeBindingRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateDataAttributeBindingRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [data_attribute_binding][crate::model::UpdateDataAttributeBindingRequest::data_attribute_binding].
         ///
         /// This is a **required** field for requests.
-        pub fn set_data_attribute_binding<
-            T: Into<std::option::Option<crate::model::DataAttributeBinding>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.data_attribute_binding = v.into();
+        pub fn set_data_attribute_binding<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::DataAttributeBinding>,
+        {
+            self.0.request.data_attribute_binding = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [data_attribute_binding][crate::model::UpdateDataAttributeBindingRequest::data_attribute_binding].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_data_attribute_binding<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::DataAttributeBinding>,
+        {
+            self.0.request.data_attribute_binding = v.map(|x| x.into());
             self
         }
 
@@ -6749,8 +7169,9 @@ pub mod data_taxonomy_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::data_taxonomy_service::DeleteDataAttributeBinding;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_dataplex_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -6865,8 +7286,9 @@ pub mod data_taxonomy_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::data_taxonomy_service::ListDataAttributeBindings;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -6988,6 +7410,7 @@ pub mod data_taxonomy_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::data_taxonomy_service::GetDataAttributeBinding;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -7055,8 +7478,9 @@ pub mod data_taxonomy_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::data_taxonomy_service::CreateDataAttribute;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_dataplex_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -7158,11 +7582,22 @@ pub mod data_taxonomy_service {
         /// Sets the value of [data_attribute][crate::model::CreateDataAttributeRequest::data_attribute].
         ///
         /// This is a **required** field for requests.
-        pub fn set_data_attribute<T: Into<std::option::Option<crate::model::DataAttribute>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.data_attribute = v.into();
+        pub fn set_data_attribute<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::DataAttribute>,
+        {
+            self.0.request.data_attribute = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [data_attribute][crate::model::CreateDataAttributeRequest::data_attribute].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_data_attribute<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::DataAttribute>,
+        {
+            self.0.request.data_attribute = v.map(|x| x.into());
             self
         }
 
@@ -7187,8 +7622,9 @@ pub mod data_taxonomy_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::data_taxonomy_service::UpdateDataAttribute;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_dataplex_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -7274,22 +7710,44 @@ pub mod data_taxonomy_service {
         /// Sets the value of [update_mask][crate::model::UpdateDataAttributeRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateDataAttributeRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [data_attribute][crate::model::UpdateDataAttributeRequest::data_attribute].
         ///
         /// This is a **required** field for requests.
-        pub fn set_data_attribute<T: Into<std::option::Option<crate::model::DataAttribute>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.data_attribute = v.into();
+        pub fn set_data_attribute<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::DataAttribute>,
+        {
+            self.0.request.data_attribute = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [data_attribute][crate::model::UpdateDataAttributeRequest::data_attribute].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_data_attribute<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::DataAttribute>,
+        {
+            self.0.request.data_attribute = v.map(|x| x.into());
             self
         }
 
@@ -7314,8 +7772,9 @@ pub mod data_taxonomy_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::data_taxonomy_service::DeleteDataAttribute;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_dataplex_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -7426,8 +7885,9 @@ pub mod data_taxonomy_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::data_taxonomy_service::ListDataAttributes;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -7545,6 +8005,7 @@ pub mod data_taxonomy_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::data_taxonomy_service::GetDataAttribute;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -7610,8 +8071,9 @@ pub mod data_taxonomy_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::data_taxonomy_service::ListLocations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -7719,6 +8181,7 @@ pub mod data_taxonomy_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::data_taxonomy_service::GetLocation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -7779,6 +8242,7 @@ pub mod data_taxonomy_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::data_taxonomy_service::SetIamPolicy;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -7829,20 +8293,40 @@ pub mod data_taxonomy_service {
         /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
-        pub fn set_policy<T: Into<std::option::Option<iam_v1::model::Policy>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.policy = v.into();
+        pub fn set_policy<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -7861,6 +8345,7 @@ pub mod data_taxonomy_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::data_taxonomy_service::GetIamPolicy;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -7909,11 +8394,20 @@ pub mod data_taxonomy_service {
         }
 
         /// Sets the value of [options][iam_v1::model::GetIamPolicyRequest::options].
-        pub fn set_options<T: Into<std::option::Option<iam_v1::model::GetPolicyOptions>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.options = v.into();
+        pub fn set_options<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = v.map(|x| x.into());
             self
         }
     }
@@ -7932,6 +8426,7 @@ pub mod data_taxonomy_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::data_taxonomy_service::TestIamPermissions;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -8010,8 +8505,9 @@ pub mod data_taxonomy_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::data_taxonomy_service::ListOperations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -8121,6 +8617,7 @@ pub mod data_taxonomy_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::data_taxonomy_service::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -8184,6 +8681,7 @@ pub mod data_taxonomy_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::data_taxonomy_service::DeleteOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -8247,6 +8745,7 @@ pub mod data_taxonomy_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::data_taxonomy_service::CancelOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -8365,8 +8864,9 @@ pub mod data_scan_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::data_scan_service::CreateDataScan;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_dataplex_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -8454,11 +8954,22 @@ pub mod data_scan_service {
         /// Sets the value of [data_scan][crate::model::CreateDataScanRequest::data_scan].
         ///
         /// This is a **required** field for requests.
-        pub fn set_data_scan<T: Into<std::option::Option<crate::model::DataScan>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.data_scan = v.into();
+        pub fn set_data_scan<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::DataScan>,
+        {
+            self.0.request.data_scan = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [data_scan][crate::model::CreateDataScanRequest::data_scan].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_data_scan<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::DataScan>,
+        {
+            self.0.request.data_scan = v.map(|x| x.into());
             self
         }
 
@@ -8491,8 +9002,9 @@ pub mod data_scan_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::data_scan_service::UpdateDataScan;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_dataplex_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -8572,20 +9084,40 @@ pub mod data_scan_service {
         /// Sets the value of [data_scan][crate::model::UpdateDataScanRequest::data_scan].
         ///
         /// This is a **required** field for requests.
-        pub fn set_data_scan<T: Into<std::option::Option<crate::model::DataScan>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.data_scan = v.into();
+        pub fn set_data_scan<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::DataScan>,
+        {
+            self.0.request.data_scan = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [data_scan][crate::model::UpdateDataScanRequest::data_scan].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_data_scan<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::DataScan>,
+        {
+            self.0.request.data_scan = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateDataScanRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateDataScanRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
@@ -8610,8 +9142,9 @@ pub mod data_scan_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::data_scan_service::DeleteDataScan;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_dataplex_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -8719,6 +9252,7 @@ pub mod data_scan_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::data_scan_service::GetDataScan;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -8790,8 +9324,9 @@ pub mod data_scan_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::data_scan_service::ListDataScans;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -8904,6 +9439,7 @@ pub mod data_scan_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::data_scan_service::RunDataScan;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -8966,6 +9502,7 @@ pub mod data_scan_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::data_scan_service::GetDataScanJob;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -9037,8 +9574,9 @@ pub mod data_scan_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::data_scan_service::ListDataScanJobs;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -9148,6 +9686,7 @@ pub mod data_scan_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::data_scan_service::GenerateDataQualityRules;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -9215,8 +9754,9 @@ pub mod data_scan_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::data_scan_service::ListLocations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -9324,6 +9864,7 @@ pub mod data_scan_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::data_scan_service::GetLocation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -9384,6 +9925,7 @@ pub mod data_scan_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::data_scan_service::SetIamPolicy;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -9434,20 +9976,40 @@ pub mod data_scan_service {
         /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
-        pub fn set_policy<T: Into<std::option::Option<iam_v1::model::Policy>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.policy = v.into();
+        pub fn set_policy<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -9466,6 +10028,7 @@ pub mod data_scan_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::data_scan_service::GetIamPolicy;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -9514,11 +10077,20 @@ pub mod data_scan_service {
         }
 
         /// Sets the value of [options][iam_v1::model::GetIamPolicyRequest::options].
-        pub fn set_options<T: Into<std::option::Option<iam_v1::model::GetPolicyOptions>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.options = v.into();
+        pub fn set_options<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = v.map(|x| x.into());
             self
         }
     }
@@ -9537,6 +10109,7 @@ pub mod data_scan_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::data_scan_service::TestIamPermissions;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -9615,8 +10188,9 @@ pub mod data_scan_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::data_scan_service::ListOperations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -9726,6 +10300,7 @@ pub mod data_scan_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::data_scan_service::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -9789,6 +10364,7 @@ pub mod data_scan_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::data_scan_service::DeleteOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -9852,6 +10428,7 @@ pub mod data_scan_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::data_scan_service::CancelOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -9970,6 +10547,7 @@ pub mod metadata_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::metadata_service::CreateEntity;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -10020,11 +10598,22 @@ pub mod metadata_service {
         /// Sets the value of [entity][crate::model::CreateEntityRequest::entity].
         ///
         /// This is a **required** field for requests.
-        pub fn set_entity<T: Into<std::option::Option<crate::model::Entity>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.entity = v.into();
+        pub fn set_entity<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Entity>,
+        {
+            self.0.request.entity = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [entity][crate::model::CreateEntityRequest::entity].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_entity<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Entity>,
+        {
+            self.0.request.entity = v.map(|x| x.into());
             self
         }
 
@@ -10049,6 +10638,7 @@ pub mod metadata_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::metadata_service::UpdateEntity;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -10091,11 +10681,22 @@ pub mod metadata_service {
         /// Sets the value of [entity][crate::model::UpdateEntityRequest::entity].
         ///
         /// This is a **required** field for requests.
-        pub fn set_entity<T: Into<std::option::Option<crate::model::Entity>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.entity = v.into();
+        pub fn set_entity<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Entity>,
+        {
+            self.0.request.entity = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [entity][crate::model::UpdateEntityRequest::entity].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_entity<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Entity>,
+        {
+            self.0.request.entity = v.map(|x| x.into());
             self
         }
 
@@ -10120,6 +10721,7 @@ pub mod metadata_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::metadata_service::DeleteEntity;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -10190,6 +10792,7 @@ pub mod metadata_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::metadata_service::GetEntity;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -10261,8 +10864,9 @@ pub mod metadata_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::metadata_service::ListEntities;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -10380,6 +10984,7 @@ pub mod metadata_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::metadata_service::CreatePartition;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -10430,11 +11035,22 @@ pub mod metadata_service {
         /// Sets the value of [partition][crate::model::CreatePartitionRequest::partition].
         ///
         /// This is a **required** field for requests.
-        pub fn set_partition<T: Into<std::option::Option<crate::model::Partition>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.partition = v.into();
+        pub fn set_partition<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Partition>,
+        {
+            self.0.request.partition = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [partition][crate::model::CreatePartitionRequest::partition].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_partition<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Partition>,
+        {
+            self.0.request.partition = v.map(|x| x.into());
             self
         }
 
@@ -10459,6 +11075,7 @@ pub mod metadata_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::metadata_service::DeletePartition;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -10528,6 +11145,7 @@ pub mod metadata_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::metadata_service::GetPartition;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -10590,8 +11208,9 @@ pub mod metadata_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::metadata_service::ListPartitions;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -10698,8 +11317,9 @@ pub mod metadata_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::metadata_service::ListLocations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -10807,6 +11427,7 @@ pub mod metadata_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::metadata_service::GetLocation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -10867,6 +11488,7 @@ pub mod metadata_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::metadata_service::SetIamPolicy;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -10917,20 +11539,40 @@ pub mod metadata_service {
         /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
-        pub fn set_policy<T: Into<std::option::Option<iam_v1::model::Policy>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.policy = v.into();
+        pub fn set_policy<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -10949,6 +11591,7 @@ pub mod metadata_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::metadata_service::GetIamPolicy;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -10997,11 +11640,20 @@ pub mod metadata_service {
         }
 
         /// Sets the value of [options][iam_v1::model::GetIamPolicyRequest::options].
-        pub fn set_options<T: Into<std::option::Option<iam_v1::model::GetPolicyOptions>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.options = v.into();
+        pub fn set_options<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = v.map(|x| x.into());
             self
         }
     }
@@ -11020,6 +11672,7 @@ pub mod metadata_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::metadata_service::TestIamPermissions;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -11098,8 +11751,9 @@ pub mod metadata_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::metadata_service::ListOperations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -11209,6 +11863,7 @@ pub mod metadata_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::metadata_service::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -11272,6 +11927,7 @@ pub mod metadata_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::metadata_service::DeleteOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -11335,6 +11991,7 @@ pub mod metadata_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::metadata_service::CancelOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -11453,8 +12110,9 @@ pub mod dataplex_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::dataplex_service::CreateLake;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_dataplex_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -11550,8 +12208,22 @@ pub mod dataplex_service {
         /// Sets the value of [lake][crate::model::CreateLakeRequest::lake].
         ///
         /// This is a **required** field for requests.
-        pub fn set_lake<T: Into<std::option::Option<crate::model::Lake>>>(mut self, v: T) -> Self {
-            self.0.request.lake = v.into();
+        pub fn set_lake<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Lake>,
+        {
+            self.0.request.lake = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [lake][crate::model::CreateLakeRequest::lake].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_lake<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Lake>,
+        {
+            self.0.request.lake = v.map(|x| x.into());
             self
         }
 
@@ -11576,8 +12248,9 @@ pub mod dataplex_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::dataplex_service::UpdateLake;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_dataplex_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -11657,19 +12330,44 @@ pub mod dataplex_service {
         /// Sets the value of [update_mask][crate::model::UpdateLakeRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateLakeRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [lake][crate::model::UpdateLakeRequest::lake].
         ///
         /// This is a **required** field for requests.
-        pub fn set_lake<T: Into<std::option::Option<crate::model::Lake>>>(mut self, v: T) -> Self {
-            self.0.request.lake = v.into();
+        pub fn set_lake<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Lake>,
+        {
+            self.0.request.lake = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [lake][crate::model::UpdateLakeRequest::lake].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_lake<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Lake>,
+        {
+            self.0.request.lake = v.map(|x| x.into());
             self
         }
 
@@ -11694,8 +12392,9 @@ pub mod dataplex_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::dataplex_service::DeleteLake;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_dataplex_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -11797,8 +12496,9 @@ pub mod dataplex_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::dataplex_service::ListLakes;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -11911,6 +12611,7 @@ pub mod dataplex_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::dataplex_service::GetLake;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -11973,8 +12674,9 @@ pub mod dataplex_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::dataplex_service::ListLakeActions;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -12075,8 +12777,9 @@ pub mod dataplex_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::dataplex_service::CreateZone;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_dataplex_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -12172,8 +12875,22 @@ pub mod dataplex_service {
         /// Sets the value of [zone][crate::model::CreateZoneRequest::zone].
         ///
         /// This is a **required** field for requests.
-        pub fn set_zone<T: Into<std::option::Option<crate::model::Zone>>>(mut self, v: T) -> Self {
-            self.0.request.zone = v.into();
+        pub fn set_zone<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Zone>,
+        {
+            self.0.request.zone = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [zone][crate::model::CreateZoneRequest::zone].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_zone<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Zone>,
+        {
+            self.0.request.zone = v.map(|x| x.into());
             self
         }
 
@@ -12198,8 +12915,9 @@ pub mod dataplex_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::dataplex_service::UpdateZone;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_dataplex_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -12279,19 +12997,44 @@ pub mod dataplex_service {
         /// Sets the value of [update_mask][crate::model::UpdateZoneRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateZoneRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [zone][crate::model::UpdateZoneRequest::zone].
         ///
         /// This is a **required** field for requests.
-        pub fn set_zone<T: Into<std::option::Option<crate::model::Zone>>>(mut self, v: T) -> Self {
-            self.0.request.zone = v.into();
+        pub fn set_zone<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Zone>,
+        {
+            self.0.request.zone = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [zone][crate::model::UpdateZoneRequest::zone].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_zone<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Zone>,
+        {
+            self.0.request.zone = v.map(|x| x.into());
             self
         }
 
@@ -12316,8 +13059,9 @@ pub mod dataplex_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::dataplex_service::DeleteZone;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_dataplex_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -12419,8 +13163,9 @@ pub mod dataplex_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::dataplex_service::ListZones;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -12533,6 +13278,7 @@ pub mod dataplex_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::dataplex_service::GetZone;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -12595,8 +13341,9 @@ pub mod dataplex_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::dataplex_service::ListZoneActions;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -12697,8 +13444,9 @@ pub mod dataplex_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::dataplex_service::CreateAsset;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_dataplex_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -12794,11 +13542,22 @@ pub mod dataplex_service {
         /// Sets the value of [asset][crate::model::CreateAssetRequest::asset].
         ///
         /// This is a **required** field for requests.
-        pub fn set_asset<T: Into<std::option::Option<crate::model::Asset>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.asset = v.into();
+        pub fn set_asset<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Asset>,
+        {
+            self.0.request.asset = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [asset][crate::model::CreateAssetRequest::asset].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_asset<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Asset>,
+        {
+            self.0.request.asset = v.map(|x| x.into());
             self
         }
 
@@ -12823,8 +13582,9 @@ pub mod dataplex_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::dataplex_service::UpdateAsset;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_dataplex_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -12904,22 +13664,44 @@ pub mod dataplex_service {
         /// Sets the value of [update_mask][crate::model::UpdateAssetRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateAssetRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [asset][crate::model::UpdateAssetRequest::asset].
         ///
         /// This is a **required** field for requests.
-        pub fn set_asset<T: Into<std::option::Option<crate::model::Asset>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.asset = v.into();
+        pub fn set_asset<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Asset>,
+        {
+            self.0.request.asset = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [asset][crate::model::UpdateAssetRequest::asset].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_asset<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Asset>,
+        {
+            self.0.request.asset = v.map(|x| x.into());
             self
         }
 
@@ -12944,8 +13726,9 @@ pub mod dataplex_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::dataplex_service::DeleteAsset;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_dataplex_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -13047,8 +13830,9 @@ pub mod dataplex_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::dataplex_service::ListAssets;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -13161,6 +13945,7 @@ pub mod dataplex_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::dataplex_service::GetAsset;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -13223,8 +14008,9 @@ pub mod dataplex_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::dataplex_service::ListAssetActions;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -13328,8 +14114,9 @@ pub mod dataplex_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::dataplex_service::CreateTask;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_dataplex_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -13425,8 +14212,22 @@ pub mod dataplex_service {
         /// Sets the value of [task][crate::model::CreateTaskRequest::task].
         ///
         /// This is a **required** field for requests.
-        pub fn set_task<T: Into<std::option::Option<crate::model::Task>>>(mut self, v: T) -> Self {
-            self.0.request.task = v.into();
+        pub fn set_task<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Task>,
+        {
+            self.0.request.task = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [task][crate::model::CreateTaskRequest::task].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_task<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Task>,
+        {
+            self.0.request.task = v.map(|x| x.into());
             self
         }
 
@@ -13451,8 +14252,9 @@ pub mod dataplex_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::dataplex_service::UpdateTask;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_dataplex_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -13532,19 +14334,44 @@ pub mod dataplex_service {
         /// Sets the value of [update_mask][crate::model::UpdateTaskRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateTaskRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [task][crate::model::UpdateTaskRequest::task].
         ///
         /// This is a **required** field for requests.
-        pub fn set_task<T: Into<std::option::Option<crate::model::Task>>>(mut self, v: T) -> Self {
-            self.0.request.task = v.into();
+        pub fn set_task<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Task>,
+        {
+            self.0.request.task = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [task][crate::model::UpdateTaskRequest::task].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_task<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Task>,
+        {
+            self.0.request.task = v.map(|x| x.into());
             self
         }
 
@@ -13569,8 +14396,9 @@ pub mod dataplex_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::dataplex_service::DeleteTask;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_dataplex_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -13672,8 +14500,9 @@ pub mod dataplex_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::dataplex_service::ListTasks;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -13786,6 +14615,7 @@ pub mod dataplex_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::dataplex_service::GetTask;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -13848,8 +14678,9 @@ pub mod dataplex_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::dataplex_service::ListJobs;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -13950,6 +14781,7 @@ pub mod dataplex_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::dataplex_service::RunTask;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -14034,6 +14866,7 @@ pub mod dataplex_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::dataplex_service::GetJob;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -14096,6 +14929,7 @@ pub mod dataplex_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::dataplex_service::CancelJob;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -14158,8 +14992,9 @@ pub mod dataplex_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::dataplex_service::CreateEnvironment;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_dataplex_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -14260,11 +15095,22 @@ pub mod dataplex_service {
         /// Sets the value of [environment][crate::model::CreateEnvironmentRequest::environment].
         ///
         /// This is a **required** field for requests.
-        pub fn set_environment<T: Into<std::option::Option<crate::model::Environment>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.environment = v.into();
+        pub fn set_environment<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Environment>,
+        {
+            self.0.request.environment = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [environment][crate::model::CreateEnvironmentRequest::environment].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_environment<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Environment>,
+        {
+            self.0.request.environment = v.map(|x| x.into());
             self
         }
 
@@ -14289,8 +15135,9 @@ pub mod dataplex_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::dataplex_service::UpdateEnvironment;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_dataplex_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -14375,22 +15222,44 @@ pub mod dataplex_service {
         /// Sets the value of [update_mask][crate::model::UpdateEnvironmentRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateEnvironmentRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [environment][crate::model::UpdateEnvironmentRequest::environment].
         ///
         /// This is a **required** field for requests.
-        pub fn set_environment<T: Into<std::option::Option<crate::model::Environment>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.environment = v.into();
+        pub fn set_environment<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Environment>,
+        {
+            self.0.request.environment = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [environment][crate::model::UpdateEnvironmentRequest::environment].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_environment<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Environment>,
+        {
+            self.0.request.environment = v.map(|x| x.into());
             self
         }
 
@@ -14415,8 +15284,9 @@ pub mod dataplex_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::dataplex_service::DeleteEnvironment;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_dataplex_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -14521,8 +15391,9 @@ pub mod dataplex_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::dataplex_service::ListEnvironments;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -14638,6 +15509,7 @@ pub mod dataplex_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::dataplex_service::GetEnvironment;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -14700,8 +15572,9 @@ pub mod dataplex_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::dataplex_service::ListSessions;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -14808,8 +15681,9 @@ pub mod dataplex_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::dataplex_service::ListLocations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -14917,6 +15791,7 @@ pub mod dataplex_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::dataplex_service::GetLocation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -14977,6 +15852,7 @@ pub mod dataplex_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::dataplex_service::SetIamPolicy;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -15027,20 +15903,40 @@ pub mod dataplex_service {
         /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
-        pub fn set_policy<T: Into<std::option::Option<iam_v1::model::Policy>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.policy = v.into();
+        pub fn set_policy<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -15059,6 +15955,7 @@ pub mod dataplex_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::dataplex_service::GetIamPolicy;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -15107,11 +16004,20 @@ pub mod dataplex_service {
         }
 
         /// Sets the value of [options][iam_v1::model::GetIamPolicyRequest::options].
-        pub fn set_options<T: Into<std::option::Option<iam_v1::model::GetPolicyOptions>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.options = v.into();
+        pub fn set_options<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = v.map(|x| x.into());
             self
         }
     }
@@ -15130,6 +16036,7 @@ pub mod dataplex_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::dataplex_service::TestIamPermissions;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -15208,8 +16115,9 @@ pub mod dataplex_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::dataplex_service::ListOperations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -15319,6 +16227,7 @@ pub mod dataplex_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::dataplex_service::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -15382,6 +16291,7 @@ pub mod dataplex_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::dataplex_service::DeleteOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -15445,6 +16355,7 @@ pub mod dataplex_service {
     /// # use google_cloud_dataplex_v1::builder;
     /// use builder::dataplex_service::CancelOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });

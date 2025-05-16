@@ -75,6 +75,7 @@ pub mod lookup_service {
     /// # use google_cloud_servicedirectory_v1::builder;
     /// use builder::lookup_service::ResolveService;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -149,8 +150,9 @@ pub mod lookup_service {
     /// # use google_cloud_servicedirectory_v1::builder;
     /// use builder::lookup_service::ListLocations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -258,6 +260,7 @@ pub mod lookup_service {
     /// # use google_cloud_servicedirectory_v1::builder;
     /// use builder::lookup_service::GetLocation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -373,6 +376,7 @@ pub mod registration_service {
     /// # use google_cloud_servicedirectory_v1::builder;
     /// use builder::registration_service::CreateNamespace;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -431,11 +435,22 @@ pub mod registration_service {
         /// Sets the value of [namespace][crate::model::CreateNamespaceRequest::namespace].
         ///
         /// This is a **required** field for requests.
-        pub fn set_namespace<T: Into<std::option::Option<crate::model::Namespace>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.namespace = v.into();
+        pub fn set_namespace<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Namespace>,
+        {
+            self.0.request.namespace = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [namespace][crate::model::CreateNamespaceRequest::namespace].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_namespace<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Namespace>,
+        {
+            self.0.request.namespace = v.map(|x| x.into());
             self
         }
     }
@@ -454,8 +469,9 @@ pub mod registration_service {
     /// # use google_cloud_servicedirectory_v1::builder;
     /// use builder::registration_service::ListNamespaces;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -568,6 +584,7 @@ pub mod registration_service {
     /// # use google_cloud_servicedirectory_v1::builder;
     /// use builder::registration_service::GetNamespace;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -630,6 +647,7 @@ pub mod registration_service {
     /// # use google_cloud_servicedirectory_v1::builder;
     /// use builder::registration_service::UpdateNamespace;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -672,22 +690,44 @@ pub mod registration_service {
         /// Sets the value of [namespace][crate::model::UpdateNamespaceRequest::namespace].
         ///
         /// This is a **required** field for requests.
-        pub fn set_namespace<T: Into<std::option::Option<crate::model::Namespace>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.namespace = v.into();
+        pub fn set_namespace<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Namespace>,
+        {
+            self.0.request.namespace = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [namespace][crate::model::UpdateNamespaceRequest::namespace].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_namespace<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Namespace>,
+        {
+            self.0.request.namespace = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateNamespaceRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateNamespaceRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -706,6 +746,7 @@ pub mod registration_service {
     /// # use google_cloud_servicedirectory_v1::builder;
     /// use builder::registration_service::DeleteNamespace;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -768,6 +809,7 @@ pub mod registration_service {
     /// # use google_cloud_servicedirectory_v1::builder;
     /// use builder::registration_service::CreateService;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -826,11 +868,22 @@ pub mod registration_service {
         /// Sets the value of [service][crate::model::CreateServiceRequest::service].
         ///
         /// This is a **required** field for requests.
-        pub fn set_service<T: Into<std::option::Option<crate::model::Service>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.service = v.into();
+        pub fn set_service<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Service>,
+        {
+            self.0.request.service = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [service][crate::model::CreateServiceRequest::service].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_service<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Service>,
+        {
+            self.0.request.service = v.map(|x| x.into());
             self
         }
     }
@@ -849,8 +902,9 @@ pub mod registration_service {
     /// # use google_cloud_servicedirectory_v1::builder;
     /// use builder::registration_service::ListServices;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -963,6 +1017,7 @@ pub mod registration_service {
     /// # use google_cloud_servicedirectory_v1::builder;
     /// use builder::registration_service::GetService;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1025,6 +1080,7 @@ pub mod registration_service {
     /// # use google_cloud_servicedirectory_v1::builder;
     /// use builder::registration_service::UpdateService;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1067,22 +1123,44 @@ pub mod registration_service {
         /// Sets the value of [service][crate::model::UpdateServiceRequest::service].
         ///
         /// This is a **required** field for requests.
-        pub fn set_service<T: Into<std::option::Option<crate::model::Service>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.service = v.into();
+        pub fn set_service<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Service>,
+        {
+            self.0.request.service = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [service][crate::model::UpdateServiceRequest::service].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_service<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Service>,
+        {
+            self.0.request.service = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateServiceRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateServiceRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -1101,6 +1179,7 @@ pub mod registration_service {
     /// # use google_cloud_servicedirectory_v1::builder;
     /// use builder::registration_service::DeleteService;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1163,6 +1242,7 @@ pub mod registration_service {
     /// # use google_cloud_servicedirectory_v1::builder;
     /// use builder::registration_service::CreateEndpoint;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1221,11 +1301,22 @@ pub mod registration_service {
         /// Sets the value of [endpoint][crate::model::CreateEndpointRequest::endpoint].
         ///
         /// This is a **required** field for requests.
-        pub fn set_endpoint<T: Into<std::option::Option<crate::model::Endpoint>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.endpoint = v.into();
+        pub fn set_endpoint<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Endpoint>,
+        {
+            self.0.request.endpoint = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [endpoint][crate::model::CreateEndpointRequest::endpoint].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_endpoint<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Endpoint>,
+        {
+            self.0.request.endpoint = v.map(|x| x.into());
             self
         }
     }
@@ -1244,8 +1335,9 @@ pub mod registration_service {
     /// # use google_cloud_servicedirectory_v1::builder;
     /// use builder::registration_service::ListEndpoints;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -1358,6 +1450,7 @@ pub mod registration_service {
     /// # use google_cloud_servicedirectory_v1::builder;
     /// use builder::registration_service::GetEndpoint;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1420,6 +1513,7 @@ pub mod registration_service {
     /// # use google_cloud_servicedirectory_v1::builder;
     /// use builder::registration_service::UpdateEndpoint;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1462,22 +1556,44 @@ pub mod registration_service {
         /// Sets the value of [endpoint][crate::model::UpdateEndpointRequest::endpoint].
         ///
         /// This is a **required** field for requests.
-        pub fn set_endpoint<T: Into<std::option::Option<crate::model::Endpoint>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.endpoint = v.into();
+        pub fn set_endpoint<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Endpoint>,
+        {
+            self.0.request.endpoint = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [endpoint][crate::model::UpdateEndpointRequest::endpoint].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_endpoint<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Endpoint>,
+        {
+            self.0.request.endpoint = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateEndpointRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateEndpointRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -1496,6 +1612,7 @@ pub mod registration_service {
     /// # use google_cloud_servicedirectory_v1::builder;
     /// use builder::registration_service::DeleteEndpoint;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1558,6 +1675,7 @@ pub mod registration_service {
     /// # use google_cloud_servicedirectory_v1::builder;
     /// use builder::registration_service::GetIamPolicy;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1606,11 +1724,20 @@ pub mod registration_service {
         }
 
         /// Sets the value of [options][iam_v1::model::GetIamPolicyRequest::options].
-        pub fn set_options<T: Into<std::option::Option<iam_v1::model::GetPolicyOptions>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.options = v.into();
+        pub fn set_options<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = v.map(|x| x.into());
             self
         }
     }
@@ -1629,6 +1756,7 @@ pub mod registration_service {
     /// # use google_cloud_servicedirectory_v1::builder;
     /// use builder::registration_service::SetIamPolicy;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1679,20 +1807,40 @@ pub mod registration_service {
         /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
-        pub fn set_policy<T: Into<std::option::Option<iam_v1::model::Policy>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.policy = v.into();
+        pub fn set_policy<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -1711,6 +1859,7 @@ pub mod registration_service {
     /// # use google_cloud_servicedirectory_v1::builder;
     /// use builder::registration_service::TestIamPermissions;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1789,8 +1938,9 @@ pub mod registration_service {
     /// # use google_cloud_servicedirectory_v1::builder;
     /// use builder::registration_service::ListLocations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -1898,6 +2048,7 @@ pub mod registration_service {
     /// # use google_cloud_servicedirectory_v1::builder;
     /// use builder::registration_service::GetLocation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });

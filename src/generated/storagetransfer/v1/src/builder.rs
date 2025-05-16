@@ -75,6 +75,7 @@ pub mod storage_transfer_service {
     /// # use google_cloud_storagetransfer_v1::builder;
     /// use builder::storage_transfer_service::GetGoogleServiceAccount;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -142,6 +143,7 @@ pub mod storage_transfer_service {
     /// # use google_cloud_storagetransfer_v1::builder;
     /// use builder::storage_transfer_service::CreateTransferJob;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -187,11 +189,22 @@ pub mod storage_transfer_service {
         /// Sets the value of [transfer_job][crate::model::CreateTransferJobRequest::transfer_job].
         ///
         /// This is a **required** field for requests.
-        pub fn set_transfer_job<T: Into<std::option::Option<crate::model::TransferJob>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.transfer_job = v.into();
+        pub fn set_transfer_job<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::TransferJob>,
+        {
+            self.0.request.transfer_job = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [transfer_job][crate::model::CreateTransferJobRequest::transfer_job].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_transfer_job<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::TransferJob>,
+        {
+            self.0.request.transfer_job = v.map(|x| x.into());
             self
         }
     }
@@ -210,6 +223,7 @@ pub mod storage_transfer_service {
     /// # use google_cloud_storagetransfer_v1::builder;
     /// use builder::storage_transfer_service::UpdateTransferJob;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -271,20 +285,43 @@ pub mod storage_transfer_service {
         /// Sets the value of [transfer_job][crate::model::UpdateTransferJobRequest::transfer_job].
         ///
         /// This is a **required** field for requests.
-        pub fn set_transfer_job<T: Into<std::option::Option<crate::model::TransferJob>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.transfer_job = v.into();
+        pub fn set_transfer_job<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::TransferJob>,
+        {
+            self.0.request.transfer_job = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [transfer_job][crate::model::UpdateTransferJobRequest::transfer_job].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_transfer_job<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::TransferJob>,
+        {
+            self.0.request.transfer_job = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_transfer_job_field_mask][crate::model::UpdateTransferJobRequest::update_transfer_job_field_mask].
-        pub fn set_update_transfer_job_field_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
+        pub fn set_update_transfer_job_field_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_transfer_job_field_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_transfer_job_field_mask][crate::model::UpdateTransferJobRequest::update_transfer_job_field_mask].
+        pub fn set_or_clear_update_transfer_job_field_mask<T>(
             mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_transfer_job_field_mask = v.into();
+            v: std::option::Option<T>,
+        ) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_transfer_job_field_mask = v.map(|x| x.into());
             self
         }
     }
@@ -303,6 +340,7 @@ pub mod storage_transfer_service {
     /// # use google_cloud_storagetransfer_v1::builder;
     /// use builder::storage_transfer_service::GetTransferJob;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -373,8 +411,9 @@ pub mod storage_transfer_service {
     /// # use google_cloud_storagetransfer_v1::builder;
     /// use builder::storage_transfer_service::ListTransferJobs;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -478,6 +517,7 @@ pub mod storage_transfer_service {
     /// # use google_cloud_storagetransfer_v1::builder;
     /// use builder::storage_transfer_service::PauseTransferOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -543,6 +583,7 @@ pub mod storage_transfer_service {
     /// # use google_cloud_storagetransfer_v1::builder;
     /// use builder::storage_transfer_service::ResumeTransferOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -610,8 +651,9 @@ pub mod storage_transfer_service {
     /// # use google_cloud_storagetransfer_v1::builder;
     /// use builder::storage_transfer_service::RunTransferJob;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_storagetransfer_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -721,6 +763,7 @@ pub mod storage_transfer_service {
     /// # use google_cloud_storagetransfer_v1::builder;
     /// use builder::storage_transfer_service::DeleteTransferJob;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -794,6 +837,7 @@ pub mod storage_transfer_service {
     /// # use google_cloud_storagetransfer_v1::builder;
     /// use builder::storage_transfer_service::CreateAgentPool;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -844,11 +888,22 @@ pub mod storage_transfer_service {
         /// Sets the value of [agent_pool][crate::model::CreateAgentPoolRequest::agent_pool].
         ///
         /// This is a **required** field for requests.
-        pub fn set_agent_pool<T: Into<std::option::Option<crate::model::AgentPool>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.agent_pool = v.into();
+        pub fn set_agent_pool<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::AgentPool>,
+        {
+            self.0.request.agent_pool = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [agent_pool][crate::model::CreateAgentPoolRequest::agent_pool].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_agent_pool<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::AgentPool>,
+        {
+            self.0.request.agent_pool = v.map(|x| x.into());
             self
         }
 
@@ -875,6 +930,7 @@ pub mod storage_transfer_service {
     /// # use google_cloud_storagetransfer_v1::builder;
     /// use builder::storage_transfer_service::UpdateAgentPool;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -917,20 +973,40 @@ pub mod storage_transfer_service {
         /// Sets the value of [agent_pool][crate::model::UpdateAgentPoolRequest::agent_pool].
         ///
         /// This is a **required** field for requests.
-        pub fn set_agent_pool<T: Into<std::option::Option<crate::model::AgentPool>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.agent_pool = v.into();
+        pub fn set_agent_pool<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::AgentPool>,
+        {
+            self.0.request.agent_pool = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [agent_pool][crate::model::UpdateAgentPoolRequest::agent_pool].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_agent_pool<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::AgentPool>,
+        {
+            self.0.request.agent_pool = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateAgentPoolRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateAgentPoolRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -949,6 +1025,7 @@ pub mod storage_transfer_service {
     /// # use google_cloud_storagetransfer_v1::builder;
     /// use builder::storage_transfer_service::GetAgentPool;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1011,8 +1088,9 @@ pub mod storage_transfer_service {
     /// # use google_cloud_storagetransfer_v1::builder;
     /// use builder::storage_transfer_service::ListAgentPools;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -1119,6 +1197,7 @@ pub mod storage_transfer_service {
     /// # use google_cloud_storagetransfer_v1::builder;
     /// use builder::storage_transfer_service::DeleteAgentPool;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1181,8 +1260,9 @@ pub mod storage_transfer_service {
     /// # use google_cloud_storagetransfer_v1::builder;
     /// use builder::storage_transfer_service::ListOperations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -1292,6 +1372,7 @@ pub mod storage_transfer_service {
     /// # use google_cloud_storagetransfer_v1::builder;
     /// use builder::storage_transfer_service::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1355,6 +1436,7 @@ pub mod storage_transfer_service {
     /// # use google_cloud_storagetransfer_v1::builder;
     /// use builder::storage_transfer_service::CancelOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });

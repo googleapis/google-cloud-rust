@@ -138,20 +138,38 @@ impl Registration {
     }
 
     /// Sets the value of [create_time][crate::model::Registration::create_time].
-    pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.create_time = v.into();
+    pub fn set_create_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [create_time][crate::model::Registration::create_time].
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [expire_time][crate::model::Registration::expire_time].
-    pub fn set_expire_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.expire_time = v.into();
+    pub fn set_expire_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.expire_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [expire_time][crate::model::Registration::expire_time].
+    pub fn set_or_clear_expire_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.expire_time = v.map(|x| x.into());
         self
     }
 
@@ -188,46 +206,74 @@ impl Registration {
     }
 
     /// Sets the value of [management_settings][crate::model::Registration::management_settings].
-    pub fn set_management_settings<
-        T: std::convert::Into<std::option::Option<crate::model::ManagementSettings>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.management_settings = v.into();
+    pub fn set_management_settings<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::ManagementSettings>,
+    {
+        self.management_settings = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [management_settings][crate::model::Registration::management_settings].
+    pub fn set_or_clear_management_settings<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::ManagementSettings>,
+    {
+        self.management_settings = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [dns_settings][crate::model::Registration::dns_settings].
-    pub fn set_dns_settings<
-        T: std::convert::Into<std::option::Option<crate::model::DnsSettings>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.dns_settings = v.into();
+    pub fn set_dns_settings<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::DnsSettings>,
+    {
+        self.dns_settings = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [dns_settings][crate::model::Registration::dns_settings].
+    pub fn set_or_clear_dns_settings<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::DnsSettings>,
+    {
+        self.dns_settings = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [contact_settings][crate::model::Registration::contact_settings].
-    pub fn set_contact_settings<
-        T: std::convert::Into<std::option::Option<crate::model::ContactSettings>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.contact_settings = v.into();
+    pub fn set_contact_settings<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::ContactSettings>,
+    {
+        self.contact_settings = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [contact_settings][crate::model::Registration::contact_settings].
+    pub fn set_or_clear_contact_settings<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::ContactSettings>,
+    {
+        self.contact_settings = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [pending_contact_settings][crate::model::Registration::pending_contact_settings].
-    pub fn set_pending_contact_settings<
-        T: std::convert::Into<std::option::Option<crate::model::ContactSettings>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.pending_contact_settings = v.into();
+    pub fn set_pending_contact_settings<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::ContactSettings>,
+    {
+        self.pending_contact_settings = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [pending_contact_settings][crate::model::Registration::pending_contact_settings].
+    pub fn set_or_clear_pending_contact_settings<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::ContactSettings>,
+    {
+        self.pending_contact_settings = v.map(|x| x.into());
         self
     }
 
@@ -1756,35 +1802,56 @@ impl ContactSettings {
     }
 
     /// Sets the value of [registrant_contact][crate::model::ContactSettings::registrant_contact].
-    pub fn set_registrant_contact<
-        T: std::convert::Into<std::option::Option<crate::model::contact_settings::Contact>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.registrant_contact = v.into();
+    pub fn set_registrant_contact<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::contact_settings::Contact>,
+    {
+        self.registrant_contact = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [registrant_contact][crate::model::ContactSettings::registrant_contact].
+    pub fn set_or_clear_registrant_contact<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::contact_settings::Contact>,
+    {
+        self.registrant_contact = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [admin_contact][crate::model::ContactSettings::admin_contact].
-    pub fn set_admin_contact<
-        T: std::convert::Into<std::option::Option<crate::model::contact_settings::Contact>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.admin_contact = v.into();
+    pub fn set_admin_contact<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::contact_settings::Contact>,
+    {
+        self.admin_contact = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [admin_contact][crate::model::ContactSettings::admin_contact].
+    pub fn set_or_clear_admin_contact<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::contact_settings::Contact>,
+    {
+        self.admin_contact = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [technical_contact][crate::model::ContactSettings::technical_contact].
-    pub fn set_technical_contact<
-        T: std::convert::Into<std::option::Option<crate::model::contact_settings::Contact>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.technical_contact = v.into();
+    pub fn set_technical_contact<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::contact_settings::Contact>,
+    {
+        self.technical_contact = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [technical_contact][crate::model::ContactSettings::technical_contact].
+    pub fn set_or_clear_technical_contact<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::contact_settings::Contact>,
+    {
+        self.technical_contact = v.map(|x| x.into());
         self
     }
 }
@@ -1834,13 +1901,20 @@ pub mod contact_settings {
         }
 
         /// Sets the value of [postal_address][crate::model::contact_settings::Contact::postal_address].
-        pub fn set_postal_address<
-            T: std::convert::Into<std::option::Option<gtype::model::PostalAddress>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.postal_address = v.into();
+        pub fn set_postal_address<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<gtype::model::PostalAddress>,
+        {
+            self.postal_address = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [postal_address][crate::model::contact_settings::Contact::postal_address].
+        pub fn set_or_clear_postal_address<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<gtype::model::PostalAddress>,
+        {
+            self.postal_address = v.map(|x| x.into());
             self
         }
 
@@ -2014,13 +2088,20 @@ impl RetrieveRegisterParametersResponse {
     }
 
     /// Sets the value of [register_parameters][crate::model::RetrieveRegisterParametersResponse::register_parameters].
-    pub fn set_register_parameters<
-        T: std::convert::Into<std::option::Option<crate::model::RegisterParameters>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.register_parameters = v.into();
+    pub fn set_register_parameters<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::RegisterParameters>,
+    {
+        self.register_parameters = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [register_parameters][crate::model::RetrieveRegisterParametersResponse::register_parameters].
+    pub fn set_or_clear_register_parameters<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::RegisterParameters>,
+    {
+        self.register_parameters = v.map(|x| x.into());
         self
     }
 }
@@ -2085,13 +2166,20 @@ impl RegisterDomainRequest {
     }
 
     /// Sets the value of [registration][crate::model::RegisterDomainRequest::registration].
-    pub fn set_registration<
-        T: std::convert::Into<std::option::Option<crate::model::Registration>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.registration = v.into();
+    pub fn set_registration<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::Registration>,
+    {
+        self.registration = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [registration][crate::model::RegisterDomainRequest::registration].
+    pub fn set_or_clear_registration<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::Registration>,
+    {
+        self.registration = v.map(|x| x.into());
         self
     }
 
@@ -2118,11 +2206,20 @@ impl RegisterDomainRequest {
     }
 
     /// Sets the value of [yearly_price][crate::model::RegisterDomainRequest::yearly_price].
-    pub fn set_yearly_price<T: std::convert::Into<std::option::Option<gtype::model::Money>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.yearly_price = v.into();
+    pub fn set_yearly_price<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<gtype::model::Money>,
+    {
+        self.yearly_price = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [yearly_price][crate::model::RegisterDomainRequest::yearly_price].
+    pub fn set_or_clear_yearly_price<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<gtype::model::Money>,
+    {
+        self.yearly_price = v.map(|x| x.into());
         self
     }
 
@@ -2201,13 +2298,20 @@ impl RetrieveTransferParametersResponse {
     }
 
     /// Sets the value of [transfer_parameters][crate::model::RetrieveTransferParametersResponse::transfer_parameters].
-    pub fn set_transfer_parameters<
-        T: std::convert::Into<std::option::Option<crate::model::TransferParameters>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.transfer_parameters = v.into();
+    pub fn set_transfer_parameters<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::TransferParameters>,
+    {
+        self.transfer_parameters = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [transfer_parameters][crate::model::RetrieveTransferParametersResponse::transfer_parameters].
+    pub fn set_or_clear_transfer_parameters<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::TransferParameters>,
+    {
+        self.transfer_parameters = v.map(|x| x.into());
         self
     }
 }
@@ -2276,13 +2380,20 @@ impl TransferDomainRequest {
     }
 
     /// Sets the value of [registration][crate::model::TransferDomainRequest::registration].
-    pub fn set_registration<
-        T: std::convert::Into<std::option::Option<crate::model::Registration>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.registration = v.into();
+    pub fn set_registration<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::Registration>,
+    {
+        self.registration = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [registration][crate::model::TransferDomainRequest::registration].
+    pub fn set_or_clear_registration<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::Registration>,
+    {
+        self.registration = v.map(|x| x.into());
         self
     }
 
@@ -2298,22 +2409,38 @@ impl TransferDomainRequest {
     }
 
     /// Sets the value of [yearly_price][crate::model::TransferDomainRequest::yearly_price].
-    pub fn set_yearly_price<T: std::convert::Into<std::option::Option<gtype::model::Money>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.yearly_price = v.into();
+    pub fn set_yearly_price<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<gtype::model::Money>,
+    {
+        self.yearly_price = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [yearly_price][crate::model::TransferDomainRequest::yearly_price].
+    pub fn set_or_clear_yearly_price<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<gtype::model::Money>,
+    {
+        self.yearly_price = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [authorization_code][crate::model::TransferDomainRequest::authorization_code].
-    pub fn set_authorization_code<
-        T: std::convert::Into<std::option::Option<crate::model::AuthorizationCode>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.authorization_code = v.into();
+    pub fn set_authorization_code<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::AuthorizationCode>,
+    {
+        self.authorization_code = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [authorization_code][crate::model::TransferDomainRequest::authorization_code].
+    pub fn set_or_clear_authorization_code<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::AuthorizationCode>,
+    {
+        self.authorization_code = v.map(|x| x.into());
         self
     }
 
@@ -2530,22 +2657,38 @@ impl UpdateRegistrationRequest {
     }
 
     /// Sets the value of [registration][crate::model::UpdateRegistrationRequest::registration].
-    pub fn set_registration<
-        T: std::convert::Into<std::option::Option<crate::model::Registration>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.registration = v.into();
+    pub fn set_registration<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::Registration>,
+    {
+        self.registration = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [registration][crate::model::UpdateRegistrationRequest::registration].
+    pub fn set_or_clear_registration<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::Registration>,
+    {
+        self.registration = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateRegistrationRequest::update_mask].
-    pub fn set_update_mask<T: std::convert::Into<std::option::Option<wkt::FieldMask>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.update_mask = v.into();
+    pub fn set_update_mask<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_mask][crate::model::UpdateRegistrationRequest::update_mask].
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = v.map(|x| x.into());
         self
     }
 }
@@ -2593,22 +2736,38 @@ impl ConfigureManagementSettingsRequest {
     }
 
     /// Sets the value of [management_settings][crate::model::ConfigureManagementSettingsRequest::management_settings].
-    pub fn set_management_settings<
-        T: std::convert::Into<std::option::Option<crate::model::ManagementSettings>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.management_settings = v.into();
+    pub fn set_management_settings<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::ManagementSettings>,
+    {
+        self.management_settings = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [management_settings][crate::model::ConfigureManagementSettingsRequest::management_settings].
+    pub fn set_or_clear_management_settings<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::ManagementSettings>,
+    {
+        self.management_settings = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [update_mask][crate::model::ConfigureManagementSettingsRequest::update_mask].
-    pub fn set_update_mask<T: std::convert::Into<std::option::Option<wkt::FieldMask>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.update_mask = v.into();
+    pub fn set_update_mask<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_mask][crate::model::ConfigureManagementSettingsRequest::update_mask].
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = v.map(|x| x.into());
         self
     }
 }
@@ -2666,22 +2825,38 @@ impl ConfigureDnsSettingsRequest {
     }
 
     /// Sets the value of [dns_settings][crate::model::ConfigureDnsSettingsRequest::dns_settings].
-    pub fn set_dns_settings<
-        T: std::convert::Into<std::option::Option<crate::model::DnsSettings>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.dns_settings = v.into();
+    pub fn set_dns_settings<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::DnsSettings>,
+    {
+        self.dns_settings = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [dns_settings][crate::model::ConfigureDnsSettingsRequest::dns_settings].
+    pub fn set_or_clear_dns_settings<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::DnsSettings>,
+    {
+        self.dns_settings = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [update_mask][crate::model::ConfigureDnsSettingsRequest::update_mask].
-    pub fn set_update_mask<T: std::convert::Into<std::option::Option<wkt::FieldMask>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.update_mask = v.into();
+    pub fn set_update_mask<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_mask][crate::model::ConfigureDnsSettingsRequest::update_mask].
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = v.map(|x| x.into());
         self
     }
 
@@ -2744,22 +2919,38 @@ impl ConfigureContactSettingsRequest {
     }
 
     /// Sets the value of [contact_settings][crate::model::ConfigureContactSettingsRequest::contact_settings].
-    pub fn set_contact_settings<
-        T: std::convert::Into<std::option::Option<crate::model::ContactSettings>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.contact_settings = v.into();
+    pub fn set_contact_settings<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::ContactSettings>,
+    {
+        self.contact_settings = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [contact_settings][crate::model::ConfigureContactSettingsRequest::contact_settings].
+    pub fn set_or_clear_contact_settings<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::ContactSettings>,
+    {
+        self.contact_settings = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [update_mask][crate::model::ConfigureContactSettingsRequest::update_mask].
-    pub fn set_update_mask<T: std::convert::Into<std::option::Option<wkt::FieldMask>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.update_mask = v.into();
+    pub fn set_update_mask<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_mask][crate::model::ConfigureContactSettingsRequest::update_mask].
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = v.map(|x| x.into());
         self
     }
 
@@ -2995,11 +3186,20 @@ impl RegisterParameters {
     }
 
     /// Sets the value of [yearly_price][crate::model::RegisterParameters::yearly_price].
-    pub fn set_yearly_price<T: std::convert::Into<std::option::Option<gtype::model::Money>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.yearly_price = v.into();
+    pub fn set_yearly_price<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<gtype::model::Money>,
+    {
+        self.yearly_price = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [yearly_price][crate::model::RegisterParameters::yearly_price].
+    pub fn set_or_clear_yearly_price<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<gtype::model::Money>,
+    {
+        self.yearly_price = v.map(|x| x.into());
         self
     }
 }
@@ -3252,11 +3452,20 @@ impl TransferParameters {
     }
 
     /// Sets the value of [yearly_price][crate::model::TransferParameters::yearly_price].
-    pub fn set_yearly_price<T: std::convert::Into<std::option::Option<gtype::model::Money>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.yearly_price = v.into();
+    pub fn set_yearly_price<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<gtype::model::Money>,
+    {
+        self.yearly_price = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [yearly_price][crate::model::TransferParameters::yearly_price].
+    pub fn set_or_clear_yearly_price<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<gtype::model::Money>,
+    {
+        self.yearly_price = v.map(|x| x.into());
         self
     }
 }
@@ -3340,20 +3549,38 @@ impl OperationMetadata {
     }
 
     /// Sets the value of [create_time][crate::model::OperationMetadata::create_time].
-    pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.create_time = v.into();
+    pub fn set_create_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [create_time][crate::model::OperationMetadata::create_time].
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [end_time][crate::model::OperationMetadata::end_time].
-    pub fn set_end_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.end_time = v.into();
+    pub fn set_end_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.end_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [end_time][crate::model::OperationMetadata::end_time].
+    pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.end_time = v.map(|x| x.into());
         self
     }
 

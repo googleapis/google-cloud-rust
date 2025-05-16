@@ -75,8 +75,9 @@ pub mod certificate_manager {
     /// # use google_cloud_certificatemanager_v1::builder;
     /// use builder::certificate_manager::ListCertificates;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -192,6 +193,7 @@ pub mod certificate_manager {
     /// # use google_cloud_certificatemanager_v1::builder;
     /// use builder::certificate_manager::GetCertificate;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -254,8 +256,9 @@ pub mod certificate_manager {
     /// # use google_cloud_certificatemanager_v1::builder;
     /// use builder::certificate_manager::CreateCertificate;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_certificatemanager_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -356,11 +359,22 @@ pub mod certificate_manager {
         /// Sets the value of [certificate][crate::model::CreateCertificateRequest::certificate].
         ///
         /// This is a **required** field for requests.
-        pub fn set_certificate<T: Into<std::option::Option<crate::model::Certificate>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.certificate = v.into();
+        pub fn set_certificate<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Certificate>,
+        {
+            self.0.request.certificate = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [certificate][crate::model::CreateCertificateRequest::certificate].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_certificate<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Certificate>,
+        {
+            self.0.request.certificate = v.map(|x| x.into());
             self
         }
     }
@@ -379,8 +393,9 @@ pub mod certificate_manager {
     /// # use google_cloud_certificatemanager_v1::builder;
     /// use builder::certificate_manager::UpdateCertificate;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_certificatemanager_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -465,22 +480,44 @@ pub mod certificate_manager {
         /// Sets the value of [certificate][crate::model::UpdateCertificateRequest::certificate].
         ///
         /// This is a **required** field for requests.
-        pub fn set_certificate<T: Into<std::option::Option<crate::model::Certificate>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.certificate = v.into();
+        pub fn set_certificate<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Certificate>,
+        {
+            self.0.request.certificate = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [certificate][crate::model::UpdateCertificateRequest::certificate].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_certificate<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Certificate>,
+        {
+            self.0.request.certificate = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateCertificateRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateCertificateRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -499,8 +536,9 @@ pub mod certificate_manager {
     /// # use google_cloud_certificatemanager_v1::builder;
     /// use builder::certificate_manager::DeleteCertificate;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_certificatemanager_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -605,8 +643,9 @@ pub mod certificate_manager {
     /// # use google_cloud_certificatemanager_v1::builder;
     /// use builder::certificate_manager::ListCertificateMaps;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -724,6 +763,7 @@ pub mod certificate_manager {
     /// # use google_cloud_certificatemanager_v1::builder;
     /// use builder::certificate_manager::GetCertificateMap;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -789,8 +829,9 @@ pub mod certificate_manager {
     /// # use google_cloud_certificatemanager_v1::builder;
     /// use builder::certificate_manager::CreateCertificateMap;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_certificatemanager_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -892,11 +933,22 @@ pub mod certificate_manager {
         /// Sets the value of [certificate_map][crate::model::CreateCertificateMapRequest::certificate_map].
         ///
         /// This is a **required** field for requests.
-        pub fn set_certificate_map<T: Into<std::option::Option<crate::model::CertificateMap>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.certificate_map = v.into();
+        pub fn set_certificate_map<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::CertificateMap>,
+        {
+            self.0.request.certificate_map = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [certificate_map][crate::model::CreateCertificateMapRequest::certificate_map].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_certificate_map<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::CertificateMap>,
+        {
+            self.0.request.certificate_map = v.map(|x| x.into());
             self
         }
     }
@@ -915,8 +967,9 @@ pub mod certificate_manager {
     /// # use google_cloud_certificatemanager_v1::builder;
     /// use builder::certificate_manager::UpdateCertificateMap;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_certificatemanager_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1002,22 +1055,44 @@ pub mod certificate_manager {
         /// Sets the value of [certificate_map][crate::model::UpdateCertificateMapRequest::certificate_map].
         ///
         /// This is a **required** field for requests.
-        pub fn set_certificate_map<T: Into<std::option::Option<crate::model::CertificateMap>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.certificate_map = v.into();
+        pub fn set_certificate_map<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::CertificateMap>,
+        {
+            self.0.request.certificate_map = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [certificate_map][crate::model::UpdateCertificateMapRequest::certificate_map].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_certificate_map<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::CertificateMap>,
+        {
+            self.0.request.certificate_map = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateCertificateMapRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateCertificateMapRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -1036,8 +1111,9 @@ pub mod certificate_manager {
     /// # use google_cloud_certificatemanager_v1::builder;
     /// use builder::certificate_manager::DeleteCertificateMap;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_certificatemanager_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1142,8 +1218,9 @@ pub mod certificate_manager {
     /// # use google_cloud_certificatemanager_v1::builder;
     /// use builder::certificate_manager::ListCertificateMapEntries;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -1265,6 +1342,7 @@ pub mod certificate_manager {
     /// # use google_cloud_certificatemanager_v1::builder;
     /// use builder::certificate_manager::GetCertificateMapEntry;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1330,8 +1408,9 @@ pub mod certificate_manager {
     /// # use google_cloud_certificatemanager_v1::builder;
     /// use builder::certificate_manager::CreateCertificateMapEntry;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_certificatemanager_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1435,13 +1514,22 @@ pub mod certificate_manager {
         /// Sets the value of [certificate_map_entry][crate::model::CreateCertificateMapEntryRequest::certificate_map_entry].
         ///
         /// This is a **required** field for requests.
-        pub fn set_certificate_map_entry<
-            T: Into<std::option::Option<crate::model::CertificateMapEntry>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.certificate_map_entry = v.into();
+        pub fn set_certificate_map_entry<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::CertificateMapEntry>,
+        {
+            self.0.request.certificate_map_entry = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [certificate_map_entry][crate::model::CreateCertificateMapEntryRequest::certificate_map_entry].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_certificate_map_entry<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::CertificateMapEntry>,
+        {
+            self.0.request.certificate_map_entry = v.map(|x| x.into());
             self
         }
     }
@@ -1460,8 +1548,9 @@ pub mod certificate_manager {
     /// # use google_cloud_certificatemanager_v1::builder;
     /// use builder::certificate_manager::UpdateCertificateMapEntry;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_certificatemanager_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1549,24 +1638,44 @@ pub mod certificate_manager {
         /// Sets the value of [certificate_map_entry][crate::model::UpdateCertificateMapEntryRequest::certificate_map_entry].
         ///
         /// This is a **required** field for requests.
-        pub fn set_certificate_map_entry<
-            T: Into<std::option::Option<crate::model::CertificateMapEntry>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.certificate_map_entry = v.into();
+        pub fn set_certificate_map_entry<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::CertificateMapEntry>,
+        {
+            self.0.request.certificate_map_entry = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [certificate_map_entry][crate::model::UpdateCertificateMapEntryRequest::certificate_map_entry].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_certificate_map_entry<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::CertificateMapEntry>,
+        {
+            self.0.request.certificate_map_entry = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateCertificateMapEntryRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateCertificateMapEntryRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -1585,8 +1694,9 @@ pub mod certificate_manager {
     /// # use google_cloud_certificatemanager_v1::builder;
     /// use builder::certificate_manager::DeleteCertificateMapEntry;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_certificatemanager_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1693,8 +1803,9 @@ pub mod certificate_manager {
     /// # use google_cloud_certificatemanager_v1::builder;
     /// use builder::certificate_manager::ListDnsAuthorizations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -1812,6 +1923,7 @@ pub mod certificate_manager {
     /// # use google_cloud_certificatemanager_v1::builder;
     /// use builder::certificate_manager::GetDnsAuthorization;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1877,8 +1989,9 @@ pub mod certificate_manager {
     /// # use google_cloud_certificatemanager_v1::builder;
     /// use builder::certificate_manager::CreateDnsAuthorization;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_certificatemanager_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1980,13 +2093,22 @@ pub mod certificate_manager {
         /// Sets the value of [dns_authorization][crate::model::CreateDnsAuthorizationRequest::dns_authorization].
         ///
         /// This is a **required** field for requests.
-        pub fn set_dns_authorization<
-            T: Into<std::option::Option<crate::model::DnsAuthorization>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.dns_authorization = v.into();
+        pub fn set_dns_authorization<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::DnsAuthorization>,
+        {
+            self.0.request.dns_authorization = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [dns_authorization][crate::model::CreateDnsAuthorizationRequest::dns_authorization].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_dns_authorization<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::DnsAuthorization>,
+        {
+            self.0.request.dns_authorization = v.map(|x| x.into());
             self
         }
     }
@@ -2005,8 +2127,9 @@ pub mod certificate_manager {
     /// # use google_cloud_certificatemanager_v1::builder;
     /// use builder::certificate_manager::UpdateDnsAuthorization;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_certificatemanager_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -2092,24 +2215,44 @@ pub mod certificate_manager {
         /// Sets the value of [dns_authorization][crate::model::UpdateDnsAuthorizationRequest::dns_authorization].
         ///
         /// This is a **required** field for requests.
-        pub fn set_dns_authorization<
-            T: Into<std::option::Option<crate::model::DnsAuthorization>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.dns_authorization = v.into();
+        pub fn set_dns_authorization<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::DnsAuthorization>,
+        {
+            self.0.request.dns_authorization = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [dns_authorization][crate::model::UpdateDnsAuthorizationRequest::dns_authorization].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_dns_authorization<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::DnsAuthorization>,
+        {
+            self.0.request.dns_authorization = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateDnsAuthorizationRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateDnsAuthorizationRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -2128,8 +2271,9 @@ pub mod certificate_manager {
     /// # use google_cloud_certificatemanager_v1::builder;
     /// use builder::certificate_manager::DeleteDnsAuthorization;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_certificatemanager_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -2234,8 +2378,9 @@ pub mod certificate_manager {
     /// # use google_cloud_certificatemanager_v1::builder;
     /// use builder::certificate_manager::ListCertificateIssuanceConfigs;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -2357,6 +2502,7 @@ pub mod certificate_manager {
     /// # use google_cloud_certificatemanager_v1::builder;
     /// use builder::certificate_manager::GetCertificateIssuanceConfig;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2424,8 +2570,9 @@ pub mod certificate_manager {
     /// # use google_cloud_certificatemanager_v1::builder;
     /// use builder::certificate_manager::CreateCertificateIssuanceConfig;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_certificatemanager_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -2532,13 +2679,25 @@ pub mod certificate_manager {
         /// Sets the value of [certificate_issuance_config][crate::model::CreateCertificateIssuanceConfigRequest::certificate_issuance_config].
         ///
         /// This is a **required** field for requests.
-        pub fn set_certificate_issuance_config<
-            T: Into<std::option::Option<crate::model::CertificateIssuanceConfig>>,
-        >(
+        pub fn set_certificate_issuance_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::CertificateIssuanceConfig>,
+        {
+            self.0.request.certificate_issuance_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [certificate_issuance_config][crate::model::CreateCertificateIssuanceConfigRequest::certificate_issuance_config].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_certificate_issuance_config<T>(
             mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.certificate_issuance_config = v.into();
+            v: std::option::Option<T>,
+        ) -> Self
+        where
+            T: std::convert::Into<crate::model::CertificateIssuanceConfig>,
+        {
+            self.0.request.certificate_issuance_config = v.map(|x| x.into());
             self
         }
     }
@@ -2557,8 +2716,9 @@ pub mod certificate_manager {
     /// # use google_cloud_certificatemanager_v1::builder;
     /// use builder::certificate_manager::DeleteCertificateIssuanceConfig;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_certificatemanager_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -2665,8 +2825,9 @@ pub mod certificate_manager {
     /// # use google_cloud_certificatemanager_v1::builder;
     /// use builder::certificate_manager::ListTrustConfigs;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -2782,6 +2943,7 @@ pub mod certificate_manager {
     /// # use google_cloud_certificatemanager_v1::builder;
     /// use builder::certificate_manager::GetTrustConfig;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2844,8 +3006,9 @@ pub mod certificate_manager {
     /// # use google_cloud_certificatemanager_v1::builder;
     /// use builder::certificate_manager::CreateTrustConfig;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_certificatemanager_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -2946,11 +3109,22 @@ pub mod certificate_manager {
         /// Sets the value of [trust_config][crate::model::CreateTrustConfigRequest::trust_config].
         ///
         /// This is a **required** field for requests.
-        pub fn set_trust_config<T: Into<std::option::Option<crate::model::TrustConfig>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.trust_config = v.into();
+        pub fn set_trust_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::TrustConfig>,
+        {
+            self.0.request.trust_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [trust_config][crate::model::CreateTrustConfigRequest::trust_config].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_trust_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::TrustConfig>,
+        {
+            self.0.request.trust_config = v.map(|x| x.into());
             self
         }
     }
@@ -2969,8 +3143,9 @@ pub mod certificate_manager {
     /// # use google_cloud_certificatemanager_v1::builder;
     /// use builder::certificate_manager::UpdateTrustConfig;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_certificatemanager_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -3055,22 +3230,44 @@ pub mod certificate_manager {
         /// Sets the value of [trust_config][crate::model::UpdateTrustConfigRequest::trust_config].
         ///
         /// This is a **required** field for requests.
-        pub fn set_trust_config<T: Into<std::option::Option<crate::model::TrustConfig>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.trust_config = v.into();
+        pub fn set_trust_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::TrustConfig>,
+        {
+            self.0.request.trust_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [trust_config][crate::model::UpdateTrustConfigRequest::trust_config].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_trust_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::TrustConfig>,
+        {
+            self.0.request.trust_config = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateTrustConfigRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateTrustConfigRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -3089,8 +3286,9 @@ pub mod certificate_manager {
     /// # use google_cloud_certificatemanager_v1::builder;
     /// use builder::certificate_manager::DeleteTrustConfig;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_certificatemanager_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -3201,8 +3399,9 @@ pub mod certificate_manager {
     /// # use google_cloud_certificatemanager_v1::builder;
     /// use builder::certificate_manager::ListLocations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -3310,6 +3509,7 @@ pub mod certificate_manager {
     /// # use google_cloud_certificatemanager_v1::builder;
     /// use builder::certificate_manager::GetLocation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3370,8 +3570,9 @@ pub mod certificate_manager {
     /// # use google_cloud_certificatemanager_v1::builder;
     /// use builder::certificate_manager::ListOperations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -3481,6 +3682,7 @@ pub mod certificate_manager {
     /// # use google_cloud_certificatemanager_v1::builder;
     /// use builder::certificate_manager::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3544,6 +3746,7 @@ pub mod certificate_manager {
     /// # use google_cloud_certificatemanager_v1::builder;
     /// use builder::certificate_manager::DeleteOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3607,6 +3810,7 @@ pub mod certificate_manager {
     /// # use google_cloud_certificatemanager_v1::builder;
     /// use builder::certificate_manager::CancelOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });

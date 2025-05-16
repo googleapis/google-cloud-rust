@@ -128,40 +128,74 @@ impl Insight {
     }
 
     /// Sets the value of [content][crate::model::Insight::content].
-    pub fn set_content<T: std::convert::Into<std::option::Option<wkt::Struct>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.content = v.into();
+    pub fn set_content<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Struct>,
+    {
+        self.content = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [content][crate::model::Insight::content].
+    pub fn set_or_clear_content<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Struct>,
+    {
+        self.content = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [last_refresh_time][crate::model::Insight::last_refresh_time].
-    pub fn set_last_refresh_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.last_refresh_time = v.into();
+    pub fn set_last_refresh_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.last_refresh_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [last_refresh_time][crate::model::Insight::last_refresh_time].
+    pub fn set_or_clear_last_refresh_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.last_refresh_time = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [observation_period][crate::model::Insight::observation_period].
-    pub fn set_observation_period<T: std::convert::Into<std::option::Option<wkt::Duration>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.observation_period = v.into();
+    pub fn set_observation_period<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Duration>,
+    {
+        self.observation_period = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [observation_period][crate::model::Insight::observation_period].
+    pub fn set_or_clear_observation_period<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Duration>,
+    {
+        self.observation_period = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [state_info][crate::model::Insight::state_info].
-    pub fn set_state_info<
-        T: std::convert::Into<std::option::Option<crate::model::InsightStateInfo>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.state_info = v.into();
+    pub fn set_state_info<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::InsightStateInfo>,
+    {
+        self.state_info = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [state_info][crate::model::Insight::state_info].
+    pub fn set_or_clear_state_info<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::InsightStateInfo>,
+    {
+        self.state_info = v.map(|x| x.into());
         self
     }
 
@@ -821,13 +855,23 @@ impl InsightTypeConfig {
     }
 
     /// Sets the value of [insight_type_generation_config][crate::model::InsightTypeConfig::insight_type_generation_config].
-    pub fn set_insight_type_generation_config<
-        T: std::convert::Into<std::option::Option<crate::model::InsightTypeGenerationConfig>>,
-    >(
+    pub fn set_insight_type_generation_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::InsightTypeGenerationConfig>,
+    {
+        self.insight_type_generation_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [insight_type_generation_config][crate::model::InsightTypeConfig::insight_type_generation_config].
+    pub fn set_or_clear_insight_type_generation_config<T>(
         mut self,
-        v: T,
-    ) -> Self {
-        self.insight_type_generation_config = v.into();
+        v: std::option::Option<T>,
+    ) -> Self
+    where
+        T: std::convert::Into<crate::model::InsightTypeGenerationConfig>,
+    {
+        self.insight_type_generation_config = v.map(|x| x.into());
         self
     }
 
@@ -838,11 +882,20 @@ impl InsightTypeConfig {
     }
 
     /// Sets the value of [update_time][crate::model::InsightTypeConfig::update_time].
-    pub fn set_update_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.update_time = v.into();
+    pub fn set_update_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_time][crate::model::InsightTypeConfig::update_time].
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = v.map(|x| x.into());
         self
     }
 
@@ -900,11 +953,20 @@ impl InsightTypeGenerationConfig {
     }
 
     /// Sets the value of [params][crate::model::InsightTypeGenerationConfig::params].
-    pub fn set_params<T: std::convert::Into<std::option::Option<wkt::Struct>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.params = v.into();
+    pub fn set_params<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Struct>,
+    {
+        self.params = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [params][crate::model::InsightTypeGenerationConfig::params].
+    pub fn set_or_clear_params<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Struct>,
+    {
+        self.params = v.map(|x| x.into());
         self
     }
 }
@@ -1017,20 +1079,38 @@ impl Recommendation {
     }
 
     /// Sets the value of [last_refresh_time][crate::model::Recommendation::last_refresh_time].
-    pub fn set_last_refresh_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.last_refresh_time = v.into();
+    pub fn set_last_refresh_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.last_refresh_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [last_refresh_time][crate::model::Recommendation::last_refresh_time].
+    pub fn set_or_clear_last_refresh_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.last_refresh_time = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [primary_impact][crate::model::Recommendation::primary_impact].
-    pub fn set_primary_impact<T: std::convert::Into<std::option::Option<crate::model::Impact>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.primary_impact = v.into();
+    pub fn set_primary_impact<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::Impact>,
+    {
+        self.primary_impact = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [primary_impact][crate::model::Recommendation::primary_impact].
+    pub fn set_or_clear_primary_impact<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::Impact>,
+    {
+        self.primary_impact = v.map(|x| x.into());
         self
     }
 
@@ -1055,24 +1135,38 @@ impl Recommendation {
     }
 
     /// Sets the value of [content][crate::model::Recommendation::content].
-    pub fn set_content<
-        T: std::convert::Into<std::option::Option<crate::model::RecommendationContent>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.content = v.into();
+    pub fn set_content<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::RecommendationContent>,
+    {
+        self.content = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [content][crate::model::Recommendation::content].
+    pub fn set_or_clear_content<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::RecommendationContent>,
+    {
+        self.content = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [state_info][crate::model::Recommendation::state_info].
-    pub fn set_state_info<
-        T: std::convert::Into<std::option::Option<crate::model::RecommendationStateInfo>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.state_info = v.into();
+    pub fn set_state_info<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::RecommendationStateInfo>,
+    {
+        self.state_info = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [state_info][crate::model::Recommendation::state_info].
+    pub fn set_or_clear_state_info<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::RecommendationStateInfo>,
+    {
+        self.state_info = v.map(|x| x.into());
         self
     }
 
@@ -1328,11 +1422,20 @@ impl RecommendationContent {
     }
 
     /// Sets the value of [overview][crate::model::RecommendationContent::overview].
-    pub fn set_overview<T: std::convert::Into<std::option::Option<wkt::Struct>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.overview = v.into();
+    pub fn set_overview<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Struct>,
+    {
+        self.overview = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [overview][crate::model::RecommendationContent::overview].
+    pub fn set_or_clear_overview<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Struct>,
+    {
+        self.overview = v.map(|x| x.into());
         self
     }
 }
@@ -1757,31 +1860,56 @@ impl CostProjection {
     }
 
     /// Sets the value of [cost][crate::model::CostProjection::cost].
-    pub fn set_cost<T: std::convert::Into<std::option::Option<gtype::model::Money>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.cost = v.into();
+    pub fn set_cost<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<gtype::model::Money>,
+    {
+        self.cost = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [cost][crate::model::CostProjection::cost].
+    pub fn set_or_clear_cost<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<gtype::model::Money>,
+    {
+        self.cost = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [duration][crate::model::CostProjection::duration].
-    pub fn set_duration<T: std::convert::Into<std::option::Option<wkt::Duration>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.duration = v.into();
+    pub fn set_duration<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Duration>,
+    {
+        self.duration = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [duration][crate::model::CostProjection::duration].
+    pub fn set_or_clear_duration<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Duration>,
+    {
+        self.duration = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [cost_in_local_currency][crate::model::CostProjection::cost_in_local_currency].
-    pub fn set_cost_in_local_currency<
-        T: std::convert::Into<std::option::Option<gtype::model::Money>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.cost_in_local_currency = v.into();
+    pub fn set_cost_in_local_currency<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<gtype::model::Money>,
+    {
+        self.cost_in_local_currency = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [cost_in_local_currency][crate::model::CostProjection::cost_in_local_currency].
+    pub fn set_or_clear_cost_in_local_currency<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<gtype::model::Money>,
+    {
+        self.cost_in_local_currency = v.map(|x| x.into());
         self
     }
 }
@@ -1812,11 +1940,20 @@ impl SecurityProjection {
     }
 
     /// Sets the value of [details][crate::model::SecurityProjection::details].
-    pub fn set_details<T: std::convert::Into<std::option::Option<wkt::Struct>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.details = v.into();
+    pub fn set_details<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Struct>,
+    {
+        self.details = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [details][crate::model::SecurityProjection::details].
+    pub fn set_or_clear_details<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Struct>,
+    {
+        self.details = v.map(|x| x.into());
         self
     }
 }
@@ -1861,11 +1998,20 @@ impl SustainabilityProjection {
     }
 
     /// Sets the value of [duration][crate::model::SustainabilityProjection::duration].
-    pub fn set_duration<T: std::convert::Into<std::option::Option<wkt::Duration>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.duration = v.into();
+    pub fn set_duration<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Duration>,
+    {
+        self.duration = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [duration][crate::model::SustainabilityProjection::duration].
+    pub fn set_or_clear_duration<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Duration>,
+    {
+        self.duration = v.map(|x| x.into());
         self
     }
 }
@@ -1911,11 +2057,20 @@ impl ReliabilityProjection {
     }
 
     /// Sets the value of [details][crate::model::ReliabilityProjection::details].
-    pub fn set_details<T: std::convert::Into<std::option::Option<wkt::Struct>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.details = v.into();
+    pub fn set_details<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Struct>,
+    {
+        self.details = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [details][crate::model::ReliabilityProjection::details].
+    pub fn set_or_clear_details<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Struct>,
+    {
+        self.details = v.map(|x| x.into());
         self
     }
 }
@@ -2718,13 +2873,23 @@ impl RecommenderConfig {
     }
 
     /// Sets the value of [recommender_generation_config][crate::model::RecommenderConfig::recommender_generation_config].
-    pub fn set_recommender_generation_config<
-        T: std::convert::Into<std::option::Option<crate::model::RecommenderGenerationConfig>>,
-    >(
+    pub fn set_recommender_generation_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::RecommenderGenerationConfig>,
+    {
+        self.recommender_generation_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [recommender_generation_config][crate::model::RecommenderConfig::recommender_generation_config].
+    pub fn set_or_clear_recommender_generation_config<T>(
         mut self,
-        v: T,
-    ) -> Self {
-        self.recommender_generation_config = v.into();
+        v: std::option::Option<T>,
+    ) -> Self
+    where
+        T: std::convert::Into<crate::model::RecommenderGenerationConfig>,
+    {
+        self.recommender_generation_config = v.map(|x| x.into());
         self
     }
 
@@ -2735,11 +2900,20 @@ impl RecommenderConfig {
     }
 
     /// Sets the value of [update_time][crate::model::RecommenderConfig::update_time].
-    pub fn set_update_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.update_time = v.into();
+    pub fn set_update_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_time][crate::model::RecommenderConfig::update_time].
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = v.map(|x| x.into());
         self
     }
 
@@ -2797,11 +2971,20 @@ impl RecommenderGenerationConfig {
     }
 
     /// Sets the value of [params][crate::model::RecommenderGenerationConfig::params].
-    pub fn set_params<T: std::convert::Into<std::option::Option<wkt::Struct>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.params = v.into();
+    pub fn set_params<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Struct>,
+    {
+        self.params = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [params][crate::model::RecommenderGenerationConfig::params].
+    pub fn set_or_clear_params<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Struct>,
+    {
+        self.params = v.map(|x| x.into());
         self
     }
 }
@@ -3582,22 +3765,38 @@ impl UpdateRecommenderConfigRequest {
     }
 
     /// Sets the value of [recommender_config][crate::model::UpdateRecommenderConfigRequest::recommender_config].
-    pub fn set_recommender_config<
-        T: std::convert::Into<std::option::Option<crate::model::RecommenderConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.recommender_config = v.into();
+    pub fn set_recommender_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::RecommenderConfig>,
+    {
+        self.recommender_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [recommender_config][crate::model::UpdateRecommenderConfigRequest::recommender_config].
+    pub fn set_or_clear_recommender_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::RecommenderConfig>,
+    {
+        self.recommender_config = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateRecommenderConfigRequest::update_mask].
-    pub fn set_update_mask<T: std::convert::Into<std::option::Option<wkt::FieldMask>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.update_mask = v.into();
+    pub fn set_update_mask<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_mask][crate::model::UpdateRecommenderConfigRequest::update_mask].
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = v.map(|x| x.into());
         self
     }
 
@@ -3686,22 +3885,38 @@ impl UpdateInsightTypeConfigRequest {
     }
 
     /// Sets the value of [insight_type_config][crate::model::UpdateInsightTypeConfigRequest::insight_type_config].
-    pub fn set_insight_type_config<
-        T: std::convert::Into<std::option::Option<crate::model::InsightTypeConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.insight_type_config = v.into();
+    pub fn set_insight_type_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::InsightTypeConfig>,
+    {
+        self.insight_type_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [insight_type_config][crate::model::UpdateInsightTypeConfigRequest::insight_type_config].
+    pub fn set_or_clear_insight_type_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::InsightTypeConfig>,
+    {
+        self.insight_type_config = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateInsightTypeConfigRequest::update_mask].
-    pub fn set_update_mask<T: std::convert::Into<std::option::Option<wkt::FieldMask>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.update_mask = v.into();
+    pub fn set_update_mask<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_mask][crate::model::UpdateInsightTypeConfigRequest::update_mask].
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = v.map(|x| x.into());
         self
     }
 

@@ -73,8 +73,9 @@ pub mod ids {
     /// # use google_cloud_ids_v1::builder;
     /// use builder::ids::ListEndpoints;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -185,6 +186,7 @@ pub mod ids {
     /// # use google_cloud_ids_v1::builder;
     /// use builder::ids::GetEndpoint;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -245,8 +247,9 @@ pub mod ids {
     /// # use google_cloud_ids_v1::builder;
     /// use builder::ids::CreateEndpoint;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_ids_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -340,11 +343,22 @@ pub mod ids {
         /// Sets the value of [endpoint][crate::model::CreateEndpointRequest::endpoint].
         ///
         /// This is a **required** field for requests.
-        pub fn set_endpoint<T: Into<std::option::Option<crate::model::Endpoint>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.endpoint = v.into();
+        pub fn set_endpoint<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Endpoint>,
+        {
+            self.0.request.endpoint = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [endpoint][crate::model::CreateEndpointRequest::endpoint].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_endpoint<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Endpoint>,
+        {
+            self.0.request.endpoint = v.map(|x| x.into());
             self
         }
 
@@ -369,8 +383,9 @@ pub mod ids {
     /// # use google_cloud_ids_v1::builder;
     /// use builder::ids::DeleteEndpoint;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_ids_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -476,8 +491,9 @@ pub mod ids {
     /// # use google_cloud_ids_v1::builder;
     /// use builder::ids::ListOperations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -585,6 +601,7 @@ pub mod ids {
     /// # use google_cloud_ids_v1::builder;
     /// use builder::ids::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -646,6 +663,7 @@ pub mod ids {
     /// # use google_cloud_ids_v1::builder;
     /// use builder::ids::DeleteOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -707,6 +725,7 @@ pub mod ids {
     /// # use google_cloud_ids_v1::builder;
     /// use builder::ids::CancelOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });

@@ -64,10 +64,52 @@ impl {{Codec.Name}} {
     #[deprecated]
     {{/Deprecated}}
     {{#Singular}}
+    {{^Optional}}
     pub fn set_{{Codec.SetterName}}<T: std::convert::Into<{{{Codec.FieldType}}}>>(mut self, v: T) -> Self {
         self.{{Codec.FieldName}} = v.into();
         self
     }
+    {{/Optional}}
+    {{#Optional}}
+    {{^Codec.IsBoxed}}
+    pub fn set_{{Codec.SetterName}}<T>(mut self, v: T) -> Self
+    where T: std::convert::Into<{{{Codec.PrimitiveFieldType}}}>
+    {
+        self.{{Codec.FieldName}} = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [{{Codec.FieldName}}][{{Codec.FQMessageName}}::{{Codec.SetterName}}].
+    {{#Deprecated}}
+    #[deprecated]
+    {{/Deprecated}}
+    pub fn set_or_clear_{{Codec.SetterName}}<T>(mut self, v: std::option::Option<T>) -> Self
+    where T: std::convert::Into<{{{Codec.PrimitiveFieldType}}}>
+    {
+        self.{{Codec.FieldName}} = v.map(|x| x.into());
+        self
+    }
+    {{/Codec.IsBoxed}}
+    {{#Codec.IsBoxed}}
+    pub fn set_{{Codec.SetterName}}<T>(mut self, v: T) -> Self
+    where T: std::convert::Into<{{{Codec.PrimitiveFieldType}}}>
+    {
+        self.{{Codec.FieldName}} = std::option::Option::Some(std::boxed::Box::new(v.into()));
+        self
+    }
+
+    /// Sets or clears the value of [{{Codec.FieldName}}][{{Codec.FQMessageName}}::{{Codec.SetterName}}].
+    {{#Deprecated}}
+    #[deprecated]
+    {{/Deprecated}}
+    pub fn set_or_clear_{{Codec.SetterName}}<T>(mut self, v: std::option::Option<T>) -> Self
+    where T: std::convert::Into<{{{Codec.PrimitiveFieldType}}}>
+    {
+        self.{{Codec.FieldName}} = v.map(|x| std::boxed::Box::new(x.into()));
+        self
+    }
+    {{/Codec.IsBoxed}}
+    {{/Optional}}
     {{/Singular}}
     {{#Repeated}}
     pub fn set_{{Codec.SetterName}}<T, V>(mut self, v: T) -> Self

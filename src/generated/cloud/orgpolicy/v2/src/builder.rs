@@ -75,8 +75,9 @@ pub mod org_policy {
     /// # use google_cloud_orgpolicy_v2::builder;
     /// use builder::org_policy::ListConstraints;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -177,8 +178,9 @@ pub mod org_policy {
     /// # use google_cloud_orgpolicy_v2::builder;
     /// use builder::org_policy::ListPolicies;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -279,6 +281,7 @@ pub mod org_policy {
     /// # use google_cloud_orgpolicy_v2::builder;
     /// use builder::org_policy::GetPolicy;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -341,6 +344,7 @@ pub mod org_policy {
     /// # use google_cloud_orgpolicy_v2::builder;
     /// use builder::org_policy::GetEffectivePolicy;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -406,6 +410,7 @@ pub mod org_policy {
     /// # use google_cloud_orgpolicy_v2::builder;
     /// use builder::org_policy::CreatePolicy;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -456,11 +461,22 @@ pub mod org_policy {
         /// Sets the value of [policy][crate::model::CreatePolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
-        pub fn set_policy<T: Into<std::option::Option<crate::model::Policy>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.policy = v.into();
+        pub fn set_policy<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Policy>,
+        {
+            self.0.request.policy = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [policy][crate::model::CreatePolicyRequest::policy].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Policy>,
+        {
+            self.0.request.policy = v.map(|x| x.into());
             self
         }
     }
@@ -479,6 +495,7 @@ pub mod org_policy {
     /// # use google_cloud_orgpolicy_v2::builder;
     /// use builder::org_policy::UpdatePolicy;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -521,20 +538,40 @@ pub mod org_policy {
         /// Sets the value of [policy][crate::model::UpdatePolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
-        pub fn set_policy<T: Into<std::option::Option<crate::model::Policy>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.policy = v.into();
+        pub fn set_policy<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Policy>,
+        {
+            self.0.request.policy = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [policy][crate::model::UpdatePolicyRequest::policy].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Policy>,
+        {
+            self.0.request.policy = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdatePolicyRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdatePolicyRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -553,6 +590,7 @@ pub mod org_policy {
     /// # use google_cloud_orgpolicy_v2::builder;
     /// use builder::org_policy::DeletePolicy;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -621,6 +659,7 @@ pub mod org_policy {
     /// # use google_cloud_orgpolicy_v2::builder;
     /// use builder::org_policy::CreateCustomConstraint;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -674,13 +713,22 @@ pub mod org_policy {
         /// Sets the value of [custom_constraint][crate::model::CreateCustomConstraintRequest::custom_constraint].
         ///
         /// This is a **required** field for requests.
-        pub fn set_custom_constraint<
-            T: Into<std::option::Option<crate::model::CustomConstraint>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.custom_constraint = v.into();
+        pub fn set_custom_constraint<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::CustomConstraint>,
+        {
+            self.0.request.custom_constraint = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [custom_constraint][crate::model::CreateCustomConstraintRequest::custom_constraint].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_custom_constraint<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::CustomConstraint>,
+        {
+            self.0.request.custom_constraint = v.map(|x| x.into());
             self
         }
     }
@@ -699,6 +747,7 @@ pub mod org_policy {
     /// # use google_cloud_orgpolicy_v2::builder;
     /// use builder::org_policy::UpdateCustomConstraint;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -744,13 +793,22 @@ pub mod org_policy {
         /// Sets the value of [custom_constraint][crate::model::UpdateCustomConstraintRequest::custom_constraint].
         ///
         /// This is a **required** field for requests.
-        pub fn set_custom_constraint<
-            T: Into<std::option::Option<crate::model::CustomConstraint>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.custom_constraint = v.into();
+        pub fn set_custom_constraint<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::CustomConstraint>,
+        {
+            self.0.request.custom_constraint = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [custom_constraint][crate::model::UpdateCustomConstraintRequest::custom_constraint].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_custom_constraint<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::CustomConstraint>,
+        {
+            self.0.request.custom_constraint = v.map(|x| x.into());
             self
         }
     }
@@ -769,6 +827,7 @@ pub mod org_policy {
     /// # use google_cloud_orgpolicy_v2::builder;
     /// use builder::org_policy::GetCustomConstraint;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -834,8 +893,9 @@ pub mod org_policy {
     /// # use google_cloud_orgpolicy_v2::builder;
     /// use builder::org_policy::ListCustomConstraints;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -941,6 +1001,7 @@ pub mod org_policy {
     /// # use google_cloud_orgpolicy_v2::builder;
     /// use builder::org_policy::DeleteCustomConstraint;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });

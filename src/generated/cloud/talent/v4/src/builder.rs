@@ -75,6 +75,7 @@ pub mod company_service {
     /// # use google_cloud_talent_v4::builder;
     /// use builder::company_service::CreateCompany;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -125,11 +126,22 @@ pub mod company_service {
         /// Sets the value of [company][crate::model::CreateCompanyRequest::company].
         ///
         /// This is a **required** field for requests.
-        pub fn set_company<T: Into<std::option::Option<crate::model::Company>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.company = v.into();
+        pub fn set_company<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Company>,
+        {
+            self.0.request.company = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [company][crate::model::CreateCompanyRequest::company].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_company<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Company>,
+        {
+            self.0.request.company = v.map(|x| x.into());
             self
         }
     }
@@ -148,6 +160,7 @@ pub mod company_service {
     /// # use google_cloud_talent_v4::builder;
     /// use builder::company_service::GetCompany;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -210,6 +223,7 @@ pub mod company_service {
     /// # use google_cloud_talent_v4::builder;
     /// use builder::company_service::UpdateCompany;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -252,20 +266,40 @@ pub mod company_service {
         /// Sets the value of [company][crate::model::UpdateCompanyRequest::company].
         ///
         /// This is a **required** field for requests.
-        pub fn set_company<T: Into<std::option::Option<crate::model::Company>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.company = v.into();
+        pub fn set_company<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Company>,
+        {
+            self.0.request.company = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [company][crate::model::UpdateCompanyRequest::company].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_company<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Company>,
+        {
+            self.0.request.company = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateCompanyRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateCompanyRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -284,6 +318,7 @@ pub mod company_service {
     /// # use google_cloud_talent_v4::builder;
     /// use builder::company_service::DeleteCompany;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -346,8 +381,9 @@ pub mod company_service {
     /// # use google_cloud_talent_v4::builder;
     /// use builder::company_service::ListCompanies;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -454,6 +490,7 @@ pub mod company_service {
     /// # use google_cloud_talent_v4::builder;
     /// use builder::company_service::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -572,6 +609,7 @@ pub mod completion {
     /// # use google_cloud_talent_v4::builder;
     /// use builder::completion::CompleteQuery;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -685,6 +723,7 @@ pub mod completion {
     /// # use google_cloud_talent_v4::builder;
     /// use builder::completion::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -803,6 +842,7 @@ pub mod event_service {
     /// # use google_cloud_talent_v4::builder;
     /// use builder::event_service::CreateClientEvent;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -856,11 +896,22 @@ pub mod event_service {
         /// Sets the value of [client_event][crate::model::CreateClientEventRequest::client_event].
         ///
         /// This is a **required** field for requests.
-        pub fn set_client_event<T: Into<std::option::Option<crate::model::ClientEvent>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.client_event = v.into();
+        pub fn set_client_event<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::ClientEvent>,
+        {
+            self.0.request.client_event = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [client_event][crate::model::CreateClientEventRequest::client_event].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_client_event<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::ClientEvent>,
+        {
+            self.0.request.client_event = v.map(|x| x.into());
             self
         }
     }
@@ -879,6 +930,7 @@ pub mod event_service {
     /// # use google_cloud_talent_v4::builder;
     /// use builder::event_service::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -997,6 +1049,7 @@ pub mod job_service {
     /// # use google_cloud_talent_v4::builder;
     /// use builder::job_service::CreateJob;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1047,8 +1100,22 @@ pub mod job_service {
         /// Sets the value of [job][crate::model::CreateJobRequest::job].
         ///
         /// This is a **required** field for requests.
-        pub fn set_job<T: Into<std::option::Option<crate::model::Job>>>(mut self, v: T) -> Self {
-            self.0.request.job = v.into();
+        pub fn set_job<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Job>,
+        {
+            self.0.request.job = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [job][crate::model::CreateJobRequest::job].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_job<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Job>,
+        {
+            self.0.request.job = v.map(|x| x.into());
             self
         }
     }
@@ -1067,8 +1134,9 @@ pub mod job_service {
     /// # use google_cloud_talent_v4::builder;
     /// use builder::job_service::BatchCreateJobs;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_talent_v4::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1184,6 +1252,7 @@ pub mod job_service {
     /// # use google_cloud_talent_v4::builder;
     /// use builder::job_service::GetJob;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1246,6 +1315,7 @@ pub mod job_service {
     /// # use google_cloud_talent_v4::builder;
     /// use builder::job_service::UpdateJob;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1288,17 +1358,40 @@ pub mod job_service {
         /// Sets the value of [job][crate::model::UpdateJobRequest::job].
         ///
         /// This is a **required** field for requests.
-        pub fn set_job<T: Into<std::option::Option<crate::model::Job>>>(mut self, v: T) -> Self {
-            self.0.request.job = v.into();
+        pub fn set_job<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Job>,
+        {
+            self.0.request.job = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [job][crate::model::UpdateJobRequest::job].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_job<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Job>,
+        {
+            self.0.request.job = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateJobRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateJobRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -1317,8 +1410,9 @@ pub mod job_service {
     /// # use google_cloud_talent_v4::builder;
     /// use builder::job_service::BatchUpdateJobs;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_talent_v4::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1420,11 +1514,20 @@ pub mod job_service {
         }
 
         /// Sets the value of [update_mask][crate::model::BatchUpdateJobsRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::BatchUpdateJobsRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -1443,6 +1546,7 @@ pub mod job_service {
     /// # use google_cloud_talent_v4::builder;
     /// use builder::job_service::DeleteJob;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1505,8 +1609,9 @@ pub mod job_service {
     /// # use google_cloud_talent_v4::builder;
     /// use builder::job_service::BatchDeleteJobs;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_talent_v4::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1620,8 +1725,9 @@ pub mod job_service {
     /// # use google_cloud_talent_v4::builder;
     /// use builder::job_service::ListJobs;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -1736,6 +1842,7 @@ pub mod job_service {
     /// # use google_cloud_talent_v4::builder;
     /// use builder::job_service::SearchJobs;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1795,20 +1902,40 @@ pub mod job_service {
         /// Sets the value of [request_metadata][crate::model::SearchJobsRequest::request_metadata].
         ///
         /// This is a **required** field for requests.
-        pub fn set_request_metadata<T: Into<std::option::Option<crate::model::RequestMetadata>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.request_metadata = v.into();
+        pub fn set_request_metadata<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::RequestMetadata>,
+        {
+            self.0.request.request_metadata = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [request_metadata][crate::model::SearchJobsRequest::request_metadata].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_request_metadata<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::RequestMetadata>,
+        {
+            self.0.request.request_metadata = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [job_query][crate::model::SearchJobsRequest::job_query].
-        pub fn set_job_query<T: Into<std::option::Option<crate::model::JobQuery>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.job_query = v.into();
+        pub fn set_job_query<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::JobQuery>,
+        {
+            self.0.request.job_query = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [job_query][crate::model::SearchJobsRequest::job_query].
+        pub fn set_or_clear_job_query<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::JobQuery>,
+        {
+            self.0.request.job_query = v.map(|x| x.into());
             self
         }
 
@@ -1871,13 +1998,20 @@ pub mod job_service {
         }
 
         /// Sets the value of [custom_ranking_info][crate::model::SearchJobsRequest::custom_ranking_info].
-        pub fn set_custom_ranking_info<
-            T: Into<std::option::Option<crate::model::search_jobs_request::CustomRankingInfo>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.custom_ranking_info = v.into();
+        pub fn set_custom_ranking_info<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::search_jobs_request::CustomRankingInfo>,
+        {
+            self.0.request.custom_ranking_info = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [custom_ranking_info][crate::model::SearchJobsRequest::custom_ranking_info].
+        pub fn set_or_clear_custom_ranking_info<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::search_jobs_request::CustomRankingInfo>,
+        {
+            self.0.request.custom_ranking_info = v.map(|x| x.into());
             self
         }
 
@@ -1925,6 +2059,7 @@ pub mod job_service {
     /// # use google_cloud_talent_v4::builder;
     /// use builder::job_service::SearchJobsForAlert;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1984,20 +2119,40 @@ pub mod job_service {
         /// Sets the value of [request_metadata][crate::model::SearchJobsRequest::request_metadata].
         ///
         /// This is a **required** field for requests.
-        pub fn set_request_metadata<T: Into<std::option::Option<crate::model::RequestMetadata>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.request_metadata = v.into();
+        pub fn set_request_metadata<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::RequestMetadata>,
+        {
+            self.0.request.request_metadata = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [request_metadata][crate::model::SearchJobsRequest::request_metadata].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_request_metadata<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::RequestMetadata>,
+        {
+            self.0.request.request_metadata = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [job_query][crate::model::SearchJobsRequest::job_query].
-        pub fn set_job_query<T: Into<std::option::Option<crate::model::JobQuery>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.job_query = v.into();
+        pub fn set_job_query<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::JobQuery>,
+        {
+            self.0.request.job_query = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [job_query][crate::model::SearchJobsRequest::job_query].
+        pub fn set_or_clear_job_query<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::JobQuery>,
+        {
+            self.0.request.job_query = v.map(|x| x.into());
             self
         }
 
@@ -2060,13 +2215,20 @@ pub mod job_service {
         }
 
         /// Sets the value of [custom_ranking_info][crate::model::SearchJobsRequest::custom_ranking_info].
-        pub fn set_custom_ranking_info<
-            T: Into<std::option::Option<crate::model::search_jobs_request::CustomRankingInfo>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.custom_ranking_info = v.into();
+        pub fn set_custom_ranking_info<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::search_jobs_request::CustomRankingInfo>,
+        {
+            self.0.request.custom_ranking_info = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [custom_ranking_info][crate::model::SearchJobsRequest::custom_ranking_info].
+        pub fn set_or_clear_custom_ranking_info<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::search_jobs_request::CustomRankingInfo>,
+        {
+            self.0.request.custom_ranking_info = v.map(|x| x.into());
             self
         }
 
@@ -2114,6 +2276,7 @@ pub mod job_service {
     /// # use google_cloud_talent_v4::builder;
     /// use builder::job_service::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2232,6 +2395,7 @@ pub mod tenant_service {
     /// # use google_cloud_talent_v4::builder;
     /// use builder::tenant_service::CreateTenant;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2282,11 +2446,22 @@ pub mod tenant_service {
         /// Sets the value of [tenant][crate::model::CreateTenantRequest::tenant].
         ///
         /// This is a **required** field for requests.
-        pub fn set_tenant<T: Into<std::option::Option<crate::model::Tenant>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.tenant = v.into();
+        pub fn set_tenant<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Tenant>,
+        {
+            self.0.request.tenant = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [tenant][crate::model::CreateTenantRequest::tenant].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_tenant<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Tenant>,
+        {
+            self.0.request.tenant = v.map(|x| x.into());
             self
         }
     }
@@ -2305,6 +2480,7 @@ pub mod tenant_service {
     /// # use google_cloud_talent_v4::builder;
     /// use builder::tenant_service::GetTenant;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2367,6 +2543,7 @@ pub mod tenant_service {
     /// # use google_cloud_talent_v4::builder;
     /// use builder::tenant_service::UpdateTenant;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2409,20 +2586,40 @@ pub mod tenant_service {
         /// Sets the value of [tenant][crate::model::UpdateTenantRequest::tenant].
         ///
         /// This is a **required** field for requests.
-        pub fn set_tenant<T: Into<std::option::Option<crate::model::Tenant>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.tenant = v.into();
+        pub fn set_tenant<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Tenant>,
+        {
+            self.0.request.tenant = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [tenant][crate::model::UpdateTenantRequest::tenant].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_tenant<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Tenant>,
+        {
+            self.0.request.tenant = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateTenantRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateTenantRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -2441,6 +2638,7 @@ pub mod tenant_service {
     /// # use google_cloud_talent_v4::builder;
     /// use builder::tenant_service::DeleteTenant;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2503,8 +2701,9 @@ pub mod tenant_service {
     /// # use google_cloud_talent_v4::builder;
     /// use builder::tenant_service::ListTenants;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -2605,6 +2804,7 @@ pub mod tenant_service {
     /// # use google_cloud_talent_v4::builder;
     /// use builder::tenant_service::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });

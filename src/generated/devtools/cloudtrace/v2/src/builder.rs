@@ -75,6 +75,7 @@ pub mod trace_service {
     /// # use google_cloud_trace_v2::builder;
     /// use builder::trace_service::BatchWriteSpans;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -150,6 +151,7 @@ pub mod trace_service {
     /// # use google_cloud_trace_v2::builder;
     /// use builder::trace_service::CreateSpan;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -214,93 +216,195 @@ pub mod trace_service {
         /// Sets the value of [display_name][crate::model::Span::display_name].
         ///
         /// This is a **required** field for requests.
-        pub fn set_display_name<T: Into<std::option::Option<crate::model::TruncatableString>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.display_name = v.into();
+        pub fn set_display_name<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::TruncatableString>,
+        {
+            self.0.request.display_name = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [display_name][crate::model::Span::display_name].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_display_name<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::TruncatableString>,
+        {
+            self.0.request.display_name = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [start_time][crate::model::Span::start_time].
         ///
         /// This is a **required** field for requests.
-        pub fn set_start_time<T: Into<std::option::Option<wkt::Timestamp>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.start_time = v.into();
+        pub fn set_start_time<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Timestamp>,
+        {
+            self.0.request.start_time = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [start_time][crate::model::Span::start_time].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Timestamp>,
+        {
+            self.0.request.start_time = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [end_time][crate::model::Span::end_time].
         ///
         /// This is a **required** field for requests.
-        pub fn set_end_time<T: Into<std::option::Option<wkt::Timestamp>>>(mut self, v: T) -> Self {
-            self.0.request.end_time = v.into();
+        pub fn set_end_time<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Timestamp>,
+        {
+            self.0.request.end_time = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [end_time][crate::model::Span::end_time].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Timestamp>,
+        {
+            self.0.request.end_time = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [attributes][crate::model::Span::attributes].
-        pub fn set_attributes<T: Into<std::option::Option<crate::model::span::Attributes>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.attributes = v.into();
+        pub fn set_attributes<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::span::Attributes>,
+        {
+            self.0.request.attributes = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [attributes][crate::model::Span::attributes].
+        pub fn set_or_clear_attributes<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::span::Attributes>,
+        {
+            self.0.request.attributes = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [stack_trace][crate::model::Span::stack_trace].
-        pub fn set_stack_trace<T: Into<std::option::Option<crate::model::StackTrace>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.stack_trace = v.into();
+        pub fn set_stack_trace<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::StackTrace>,
+        {
+            self.0.request.stack_trace = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [stack_trace][crate::model::Span::stack_trace].
+        pub fn set_or_clear_stack_trace<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::StackTrace>,
+        {
+            self.0.request.stack_trace = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [time_events][crate::model::Span::time_events].
-        pub fn set_time_events<T: Into<std::option::Option<crate::model::span::TimeEvents>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.time_events = v.into();
+        pub fn set_time_events<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::span::TimeEvents>,
+        {
+            self.0.request.time_events = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [time_events][crate::model::Span::time_events].
+        pub fn set_or_clear_time_events<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::span::TimeEvents>,
+        {
+            self.0.request.time_events = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [links][crate::model::Span::links].
-        pub fn set_links<T: Into<std::option::Option<crate::model::span::Links>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.links = v.into();
+        pub fn set_links<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::span::Links>,
+        {
+            self.0.request.links = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [links][crate::model::Span::links].
+        pub fn set_or_clear_links<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::span::Links>,
+        {
+            self.0.request.links = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [status][crate::model::Span::status].
-        pub fn set_status<T: Into<std::option::Option<rpc::model::Status>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.status = v.into();
+        pub fn set_status<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<rpc::model::Status>,
+        {
+            self.0.request.status = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [status][crate::model::Span::status].
+        pub fn set_or_clear_status<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<rpc::model::Status>,
+        {
+            self.0.request.status = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [same_process_as_parent_span][crate::model::Span::same_process_as_parent_span].
-        pub fn set_same_process_as_parent_span<T: Into<std::option::Option<wkt::BoolValue>>>(
+        pub fn set_same_process_as_parent_span<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::BoolValue>,
+        {
+            self.0.request.same_process_as_parent_span = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [same_process_as_parent_span][crate::model::Span::same_process_as_parent_span].
+        pub fn set_or_clear_same_process_as_parent_span<T>(
             mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.same_process_as_parent_span = v.into();
+            v: std::option::Option<T>,
+        ) -> Self
+        where
+            T: std::convert::Into<wkt::BoolValue>,
+        {
+            self.0.request.same_process_as_parent_span = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [child_span_count][crate::model::Span::child_span_count].
-        pub fn set_child_span_count<T: Into<std::option::Option<wkt::Int32Value>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.child_span_count = v.into();
+        pub fn set_child_span_count<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Int32Value>,
+        {
+            self.0.request.child_span_count = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [child_span_count][crate::model::Span::child_span_count].
+        pub fn set_or_clear_child_span_count<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Int32Value>,
+        {
+            self.0.request.child_span_count = v.map(|x| x.into());
             self
         }
 

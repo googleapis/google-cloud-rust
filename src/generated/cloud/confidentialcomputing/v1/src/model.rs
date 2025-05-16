@@ -76,20 +76,38 @@ impl Challenge {
     }
 
     /// Sets the value of [create_time][crate::model::Challenge::create_time].
-    pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.create_time = v.into();
+    pub fn set_create_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [create_time][crate::model::Challenge::create_time].
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [expire_time][crate::model::Challenge::expire_time].
-    pub fn set_expire_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.expire_time = v.into();
+    pub fn set_expire_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.expire_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [expire_time][crate::model::Challenge::expire_time].
+    pub fn set_or_clear_expire_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.expire_time = v.map(|x| x.into());
         self
     }
 
@@ -144,11 +162,20 @@ impl CreateChallengeRequest {
     }
 
     /// Sets the value of [challenge][crate::model::CreateChallengeRequest::challenge].
-    pub fn set_challenge<T: std::convert::Into<std::option::Option<crate::model::Challenge>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.challenge = v.into();
+    pub fn set_challenge<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::Challenge>,
+    {
+        self.challenge = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [challenge][crate::model::CreateChallengeRequest::challenge].
+    pub fn set_or_clear_challenge<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::Challenge>,
+    {
+        self.challenge = v.map(|x| x.into());
         self
     }
 }
@@ -218,46 +245,74 @@ impl VerifyAttestationRequest {
     }
 
     /// Sets the value of [gcp_credentials][crate::model::VerifyAttestationRequest::gcp_credentials].
-    pub fn set_gcp_credentials<
-        T: std::convert::Into<std::option::Option<crate::model::GcpCredentials>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.gcp_credentials = v.into();
+    pub fn set_gcp_credentials<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::GcpCredentials>,
+    {
+        self.gcp_credentials = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [gcp_credentials][crate::model::VerifyAttestationRequest::gcp_credentials].
+    pub fn set_or_clear_gcp_credentials<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::GcpCredentials>,
+    {
+        self.gcp_credentials = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [tpm_attestation][crate::model::VerifyAttestationRequest::tpm_attestation].
-    pub fn set_tpm_attestation<
-        T: std::convert::Into<std::option::Option<crate::model::TpmAttestation>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.tpm_attestation = v.into();
+    pub fn set_tpm_attestation<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::TpmAttestation>,
+    {
+        self.tpm_attestation = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [tpm_attestation][crate::model::VerifyAttestationRequest::tpm_attestation].
+    pub fn set_or_clear_tpm_attestation<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::TpmAttestation>,
+    {
+        self.tpm_attestation = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [confidential_space_info][crate::model::VerifyAttestationRequest::confidential_space_info].
-    pub fn set_confidential_space_info<
-        T: std::convert::Into<std::option::Option<crate::model::ConfidentialSpaceInfo>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.confidential_space_info = v.into();
+    pub fn set_confidential_space_info<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::ConfidentialSpaceInfo>,
+    {
+        self.confidential_space_info = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [confidential_space_info][crate::model::VerifyAttestationRequest::confidential_space_info].
+    pub fn set_or_clear_confidential_space_info<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::ConfidentialSpaceInfo>,
+    {
+        self.confidential_space_info = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [token_options][crate::model::VerifyAttestationRequest::token_options].
-    pub fn set_token_options<
-        T: std::convert::Into<std::option::Option<crate::model::TokenOptions>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.token_options = v.into();
+    pub fn set_token_options<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::TokenOptions>,
+    {
+        self.token_options = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [token_options][crate::model::VerifyAttestationRequest::token_options].
+    pub fn set_or_clear_token_options<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::TokenOptions>,
+    {
+        self.token_options = v.map(|x| x.into());
         self
     }
 
@@ -719,8 +774,24 @@ pub mod token_options {
         }
 
         /// Sets the value of [allowed_principal_tags][crate::model::token_options::AwsPrincipalTagsOptions::allowed_principal_tags].
-        pub fn set_allowed_principal_tags<T: std::convert::Into<std::option::Option<crate::model::token_options::aws_principal_tags_options::AllowedPrincipalTags>>>(mut self, v: T) -> Self{
-            self.allowed_principal_tags = v.into();
+        pub fn set_allowed_principal_tags<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<
+                    crate::model::token_options::aws_principal_tags_options::AllowedPrincipalTags,
+                >,
+        {
+            self.allowed_principal_tags = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [allowed_principal_tags][crate::model::token_options::AwsPrincipalTagsOptions::allowed_principal_tags].
+        pub fn set_or_clear_allowed_principal_tags<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<
+                    crate::model::token_options::aws_principal_tags_options::AllowedPrincipalTags,
+                >,
+        {
+            self.allowed_principal_tags = v.map(|x| x.into());
             self
         }
     }
@@ -758,8 +829,18 @@ pub mod token_options {
             }
 
             /// Sets the value of [container_image_signatures][crate::model::token_options::aws_principal_tags_options::AllowedPrincipalTags::container_image_signatures].
-            pub fn set_container_image_signatures<T: std::convert::Into<std::option::Option<crate::model::token_options::aws_principal_tags_options::allowed_principal_tags::ContainerImageSignatures>>>(mut self, v: T) -> Self{
-                self.container_image_signatures = v.into();
+            pub fn set_container_image_signatures<T>(mut self, v: T) -> Self
+            where T: std::convert::Into<crate::model::token_options::aws_principal_tags_options::allowed_principal_tags::ContainerImageSignatures>
+            {
+                self.container_image_signatures = std::option::Option::Some(v.into());
+                self
+            }
+
+            /// Sets or clears the value of [container_image_signatures][crate::model::token_options::aws_principal_tags_options::AllowedPrincipalTags::container_image_signatures].
+            pub fn set_or_clear_container_image_signatures<T>(mut self, v: std::option::Option<T>) -> Self
+            where T: std::convert::Into<crate::model::token_options::aws_principal_tags_options::allowed_principal_tags::ContainerImageSignatures>
+            {
+                self.container_image_signatures = v.map(|x| x.into());
                 self
             }
         }

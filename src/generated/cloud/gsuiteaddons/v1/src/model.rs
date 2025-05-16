@@ -173,11 +173,20 @@ impl CreateDeploymentRequest {
     }
 
     /// Sets the value of [deployment][crate::model::CreateDeploymentRequest::deployment].
-    pub fn set_deployment<T: std::convert::Into<std::option::Option<crate::model::Deployment>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.deployment = v.into();
+    pub fn set_deployment<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::Deployment>,
+    {
+        self.deployment = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [deployment][crate::model::CreateDeploymentRequest::deployment].
+    pub fn set_or_clear_deployment<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::Deployment>,
+    {
+        self.deployment = v.map(|x| x.into());
         self
     }
 }
@@ -208,11 +217,20 @@ impl ReplaceDeploymentRequest {
     }
 
     /// Sets the value of [deployment][crate::model::ReplaceDeploymentRequest::deployment].
-    pub fn set_deployment<T: std::convert::Into<std::option::Option<crate::model::Deployment>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.deployment = v.into();
+    pub fn set_deployment<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::Deployment>,
+    {
+        self.deployment = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [deployment][crate::model::ReplaceDeploymentRequest::deployment].
+    pub fn set_or_clear_deployment<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::Deployment>,
+    {
+        self.deployment = v.map(|x| x.into());
         self
     }
 }
@@ -559,11 +577,20 @@ impl InstallStatus {
     }
 
     /// Sets the value of [installed][crate::model::InstallStatus::installed].
-    pub fn set_installed<T: std::convert::Into<std::option::Option<wkt::BoolValue>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.installed = v.into();
+    pub fn set_installed<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::BoolValue>,
+    {
+        self.installed = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [installed][crate::model::InstallStatus::installed].
+    pub fn set_or_clear_installed<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::BoolValue>,
+    {
+        self.installed = v.map(|x| x.into());
         self
     }
 }
@@ -627,11 +654,20 @@ impl Deployment {
     }
 
     /// Sets the value of [add_ons][crate::model::Deployment::add_ons].
-    pub fn set_add_ons<T: std::convert::Into<std::option::Option<crate::model::AddOns>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.add_ons = v.into();
+    pub fn set_add_ons<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::AddOns>,
+    {
+        self.add_ons = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [add_ons][crate::model::Deployment::add_ons].
+    pub fn set_or_clear_add_ons<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::AddOns>,
+    {
+        self.add_ons = v.map(|x| x.into());
         self
     }
 
@@ -696,90 +732,146 @@ impl AddOns {
     }
 
     /// Sets the value of [common][crate::model::AddOns::common].
-    pub fn set_common<
-        T: std::convert::Into<std::option::Option<apps_script_type::model::CommonAddOnManifest>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.common = v.into();
+    pub fn set_common<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<apps_script_type::model::CommonAddOnManifest>,
+    {
+        self.common = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [common][crate::model::AddOns::common].
+    pub fn set_or_clear_common<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<apps_script_type::model::CommonAddOnManifest>,
+    {
+        self.common = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [gmail][crate::model::AddOns::gmail].
-    pub fn set_gmail<
-        T: std::convert::Into<std::option::Option<apps_script_gmail::model::GmailAddOnManifest>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.gmail = v.into();
+    pub fn set_gmail<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<apps_script_gmail::model::GmailAddOnManifest>,
+    {
+        self.gmail = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [gmail][crate::model::AddOns::gmail].
+    pub fn set_or_clear_gmail<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<apps_script_gmail::model::GmailAddOnManifest>,
+    {
+        self.gmail = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [drive][crate::model::AddOns::drive].
-    pub fn set_drive<
-        T: std::convert::Into<std::option::Option<apps_script_drive::model::DriveAddOnManifest>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.drive = v.into();
+    pub fn set_drive<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<apps_script_drive::model::DriveAddOnManifest>,
+    {
+        self.drive = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [drive][crate::model::AddOns::drive].
+    pub fn set_or_clear_drive<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<apps_script_drive::model::DriveAddOnManifest>,
+    {
+        self.drive = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [calendar][crate::model::AddOns::calendar].
-    pub fn set_calendar<
-        T: std::convert::Into<std::option::Option<apps_script_calendar::model::CalendarAddOnManifest>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.calendar = v.into();
+    pub fn set_calendar<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<apps_script_calendar::model::CalendarAddOnManifest>,
+    {
+        self.calendar = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [calendar][crate::model::AddOns::calendar].
+    pub fn set_or_clear_calendar<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<apps_script_calendar::model::CalendarAddOnManifest>,
+    {
+        self.calendar = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [docs][crate::model::AddOns::docs].
-    pub fn set_docs<
-        T: std::convert::Into<std::option::Option<apps_script_docs::model::DocsAddOnManifest>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.docs = v.into();
+    pub fn set_docs<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<apps_script_docs::model::DocsAddOnManifest>,
+    {
+        self.docs = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [docs][crate::model::AddOns::docs].
+    pub fn set_or_clear_docs<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<apps_script_docs::model::DocsAddOnManifest>,
+    {
+        self.docs = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [sheets][crate::model::AddOns::sheets].
-    pub fn set_sheets<
-        T: std::convert::Into<std::option::Option<apps_script_sheets::model::SheetsAddOnManifest>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.sheets = v.into();
+    pub fn set_sheets<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<apps_script_sheets::model::SheetsAddOnManifest>,
+    {
+        self.sheets = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [sheets][crate::model::AddOns::sheets].
+    pub fn set_or_clear_sheets<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<apps_script_sheets::model::SheetsAddOnManifest>,
+    {
+        self.sheets = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [slides][crate::model::AddOns::slides].
-    pub fn set_slides<
-        T: std::convert::Into<std::option::Option<apps_script_slides::model::SlidesAddOnManifest>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.slides = v.into();
+    pub fn set_slides<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<apps_script_slides::model::SlidesAddOnManifest>,
+    {
+        self.slides = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [slides][crate::model::AddOns::slides].
+    pub fn set_or_clear_slides<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<apps_script_slides::model::SlidesAddOnManifest>,
+    {
+        self.slides = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [http_options][crate::model::AddOns::http_options].
-    pub fn set_http_options<
-        T: std::convert::Into<std::option::Option<apps_script_type::model::HttpOptions>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.http_options = v.into();
+    pub fn set_http_options<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<apps_script_type::model::HttpOptions>,
+    {
+        self.http_options = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [http_options][crate::model::AddOns::http_options].
+    pub fn set_or_clear_http_options<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<apps_script_type::model::HttpOptions>,
+    {
+        self.http_options = v.map(|x| x.into());
         self
     }
 }

@@ -75,8 +75,9 @@ pub mod alert_policy_service {
     /// # use google_cloud_monitoring_v3::builder;
     /// use builder::alert_policy_service::ListAlertPolicies;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -192,6 +193,7 @@ pub mod alert_policy_service {
     /// # use google_cloud_monitoring_v3::builder;
     /// use builder::alert_policy_service::GetAlertPolicy;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -254,6 +256,7 @@ pub mod alert_policy_service {
     /// # use google_cloud_monitoring_v3::builder;
     /// use builder::alert_policy_service::CreateAlertPolicy;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -307,11 +310,22 @@ pub mod alert_policy_service {
         /// Sets the value of [alert_policy][crate::model::CreateAlertPolicyRequest::alert_policy].
         ///
         /// This is a **required** field for requests.
-        pub fn set_alert_policy<T: Into<std::option::Option<crate::model::AlertPolicy>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.alert_policy = v.into();
+        pub fn set_alert_policy<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::AlertPolicy>,
+        {
+            self.0.request.alert_policy = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [alert_policy][crate::model::CreateAlertPolicyRequest::alert_policy].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_alert_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::AlertPolicy>,
+        {
+            self.0.request.alert_policy = v.map(|x| x.into());
             self
         }
     }
@@ -330,6 +344,7 @@ pub mod alert_policy_service {
     /// # use google_cloud_monitoring_v3::builder;
     /// use builder::alert_policy_service::DeleteAlertPolicy;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -395,6 +410,7 @@ pub mod alert_policy_service {
     /// # use google_cloud_monitoring_v3::builder;
     /// use builder::alert_policy_service::UpdateAlertPolicy;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -438,22 +454,42 @@ pub mod alert_policy_service {
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateAlertPolicyRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateAlertPolicyRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [alert_policy][crate::model::UpdateAlertPolicyRequest::alert_policy].
         ///
         /// This is a **required** field for requests.
-        pub fn set_alert_policy<T: Into<std::option::Option<crate::model::AlertPolicy>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.alert_policy = v.into();
+        pub fn set_alert_policy<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::AlertPolicy>,
+        {
+            self.0.request.alert_policy = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [alert_policy][crate::model::UpdateAlertPolicyRequest::alert_policy].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_alert_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::AlertPolicy>,
+        {
+            self.0.request.alert_policy = v.map(|x| x.into());
             self
         }
     }
@@ -527,8 +563,9 @@ pub mod group_service {
     /// # use google_cloud_monitoring_v3::builder;
     /// use builder::group_service::ListGroups;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -680,6 +717,7 @@ pub mod group_service {
     /// # use google_cloud_monitoring_v3::builder;
     /// use builder::group_service::GetGroup;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -742,6 +780,7 @@ pub mod group_service {
     /// # use google_cloud_monitoring_v3::builder;
     /// use builder::group_service::CreateGroup;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -792,11 +831,22 @@ pub mod group_service {
         /// Sets the value of [group][crate::model::CreateGroupRequest::group].
         ///
         /// This is a **required** field for requests.
-        pub fn set_group<T: Into<std::option::Option<crate::model::Group>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.group = v.into();
+        pub fn set_group<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Group>,
+        {
+            self.0.request.group = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [group][crate::model::CreateGroupRequest::group].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_group<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Group>,
+        {
+            self.0.request.group = v.map(|x| x.into());
             self
         }
 
@@ -821,6 +871,7 @@ pub mod group_service {
     /// # use google_cloud_monitoring_v3::builder;
     /// use builder::group_service::UpdateGroup;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -863,11 +914,22 @@ pub mod group_service {
         /// Sets the value of [group][crate::model::UpdateGroupRequest::group].
         ///
         /// This is a **required** field for requests.
-        pub fn set_group<T: Into<std::option::Option<crate::model::Group>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.group = v.into();
+        pub fn set_group<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Group>,
+        {
+            self.0.request.group = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [group][crate::model::UpdateGroupRequest::group].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_group<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Group>,
+        {
+            self.0.request.group = v.map(|x| x.into());
             self
         }
 
@@ -892,6 +954,7 @@ pub mod group_service {
     /// # use google_cloud_monitoring_v3::builder;
     /// use builder::group_service::DeleteGroup;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -960,8 +1023,9 @@ pub mod group_service {
     /// # use google_cloud_monitoring_v3::builder;
     /// use builder::group_service::ListGroupMembers;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -1057,11 +1121,20 @@ pub mod group_service {
         }
 
         /// Sets the value of [interval][crate::model::ListGroupMembersRequest::interval].
-        pub fn set_interval<T: Into<std::option::Option<crate::model::TimeInterval>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.interval = v.into();
+        pub fn set_interval<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::TimeInterval>,
+        {
+            self.0.request.interval = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [interval][crate::model::ListGroupMembersRequest::interval].
+        pub fn set_or_clear_interval<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::TimeInterval>,
+        {
+            self.0.request.interval = v.map(|x| x.into());
             self
         }
     }
@@ -1135,8 +1208,9 @@ pub mod metric_service {
     /// # use google_cloud_monitoring_v3::builder;
     /// use builder::metric_service::ListMonitoredResourceDescriptors;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -1252,6 +1326,7 @@ pub mod metric_service {
     /// # use google_cloud_monitoring_v3::builder;
     /// use builder::metric_service::GetMonitoredResourceDescriptor;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1319,8 +1394,9 @@ pub mod metric_service {
     /// # use google_cloud_monitoring_v3::builder;
     /// use builder::metric_service::ListMetricDescriptors;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -1438,6 +1514,7 @@ pub mod metric_service {
     /// # use google_cloud_monitoring_v3::builder;
     /// use builder::metric_service::GetMetricDescriptor;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1503,6 +1580,7 @@ pub mod metric_service {
     /// # use google_cloud_monitoring_v3::builder;
     /// use builder::metric_service::CreateMetricDescriptor;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1556,11 +1634,22 @@ pub mod metric_service {
         /// Sets the value of [metric_descriptor][crate::model::CreateMetricDescriptorRequest::metric_descriptor].
         ///
         /// This is a **required** field for requests.
-        pub fn set_metric_descriptor<T: Into<std::option::Option<api::model::MetricDescriptor>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.metric_descriptor = v.into();
+        pub fn set_metric_descriptor<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<api::model::MetricDescriptor>,
+        {
+            self.0.request.metric_descriptor = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [metric_descriptor][crate::model::CreateMetricDescriptorRequest::metric_descriptor].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_metric_descriptor<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<api::model::MetricDescriptor>,
+        {
+            self.0.request.metric_descriptor = v.map(|x| x.into());
             self
         }
     }
@@ -1579,6 +1668,7 @@ pub mod metric_service {
     /// # use google_cloud_monitoring_v3::builder;
     /// use builder::metric_service::DeleteMetricDescriptor;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1644,8 +1734,9 @@ pub mod metric_service {
     /// # use google_cloud_monitoring_v3::builder;
     /// use builder::metric_service::ListTimeSeries;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -1730,31 +1821,58 @@ pub mod metric_service {
         /// Sets the value of [interval][crate::model::ListTimeSeriesRequest::interval].
         ///
         /// This is a **required** field for requests.
-        pub fn set_interval<T: Into<std::option::Option<crate::model::TimeInterval>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.interval = v.into();
+        pub fn set_interval<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::TimeInterval>,
+        {
+            self.0.request.interval = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [interval][crate::model::ListTimeSeriesRequest::interval].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_interval<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::TimeInterval>,
+        {
+            self.0.request.interval = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [aggregation][crate::model::ListTimeSeriesRequest::aggregation].
-        pub fn set_aggregation<T: Into<std::option::Option<crate::model::Aggregation>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.aggregation = v.into();
+        pub fn set_aggregation<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Aggregation>,
+        {
+            self.0.request.aggregation = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [aggregation][crate::model::ListTimeSeriesRequest::aggregation].
+        pub fn set_or_clear_aggregation<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Aggregation>,
+        {
+            self.0.request.aggregation = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [secondary_aggregation][crate::model::ListTimeSeriesRequest::secondary_aggregation].
-        pub fn set_secondary_aggregation<
-            T: Into<std::option::Option<crate::model::Aggregation>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.secondary_aggregation = v.into();
+        pub fn set_secondary_aggregation<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Aggregation>,
+        {
+            self.0.request.secondary_aggregation = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [secondary_aggregation][crate::model::ListTimeSeriesRequest::secondary_aggregation].
+        pub fn set_or_clear_secondary_aggregation<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Aggregation>,
+        {
+            self.0.request.secondary_aggregation = v.map(|x| x.into());
             self
         }
 
@@ -1802,6 +1920,7 @@ pub mod metric_service {
     /// # use google_cloud_monitoring_v3::builder;
     /// use builder::metric_service::CreateTimeSeries;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1880,6 +1999,7 @@ pub mod metric_service {
     /// # use google_cloud_monitoring_v3::builder;
     /// use builder::metric_service::CreateServiceTimeSeries;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2013,8 +2133,9 @@ pub mod notification_channel_service {
     /// # use google_cloud_monitoring_v3::builder;
     /// use builder::notification_channel_service::ListNotificationChannelDescriptors;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -2126,6 +2247,7 @@ pub mod notification_channel_service {
     /// # use google_cloud_monitoring_v3::builder;
     /// use builder::notification_channel_service::GetNotificationChannelDescriptor;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2193,8 +2315,9 @@ pub mod notification_channel_service {
     /// # use google_cloud_monitoring_v3::builder;
     /// use builder::notification_channel_service::ListNotificationChannels;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -2316,6 +2439,7 @@ pub mod notification_channel_service {
     /// # use google_cloud_monitoring_v3::builder;
     /// use builder::notification_channel_service::GetNotificationChannel;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2381,6 +2505,7 @@ pub mod notification_channel_service {
     /// # use google_cloud_monitoring_v3::builder;
     /// use builder::notification_channel_service::CreateNotificationChannel;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2436,13 +2561,22 @@ pub mod notification_channel_service {
         /// Sets the value of [notification_channel][crate::model::CreateNotificationChannelRequest::notification_channel].
         ///
         /// This is a **required** field for requests.
-        pub fn set_notification_channel<
-            T: Into<std::option::Option<crate::model::NotificationChannel>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.notification_channel = v.into();
+        pub fn set_notification_channel<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::NotificationChannel>,
+        {
+            self.0.request.notification_channel = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [notification_channel][crate::model::CreateNotificationChannelRequest::notification_channel].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_notification_channel<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::NotificationChannel>,
+        {
+            self.0.request.notification_channel = v.map(|x| x.into());
             self
         }
     }
@@ -2461,6 +2595,7 @@ pub mod notification_channel_service {
     /// # use google_cloud_monitoring_v3::builder;
     /// use builder::notification_channel_service::UpdateNotificationChannel;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2506,24 +2641,42 @@ pub mod notification_channel_service {
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateNotificationChannelRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateNotificationChannelRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [notification_channel][crate::model::UpdateNotificationChannelRequest::notification_channel].
         ///
         /// This is a **required** field for requests.
-        pub fn set_notification_channel<
-            T: Into<std::option::Option<crate::model::NotificationChannel>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.notification_channel = v.into();
+        pub fn set_notification_channel<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::NotificationChannel>,
+        {
+            self.0.request.notification_channel = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [notification_channel][crate::model::UpdateNotificationChannelRequest::notification_channel].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_notification_channel<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::NotificationChannel>,
+        {
+            self.0.request.notification_channel = v.map(|x| x.into());
             self
         }
     }
@@ -2542,6 +2695,7 @@ pub mod notification_channel_service {
     /// # use google_cloud_monitoring_v3::builder;
     /// use builder::notification_channel_service::DeleteNotificationChannel;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2615,6 +2769,7 @@ pub mod notification_channel_service {
     /// # use google_cloud_monitoring_v3::builder;
     /// use builder::notification_channel_service::SendNotificationChannelVerificationCode;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2684,6 +2839,7 @@ pub mod notification_channel_service {
     /// # use google_cloud_monitoring_v3::builder;
     /// use builder::notification_channel_service::GetNotificationChannelVerificationCode;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2741,11 +2897,20 @@ pub mod notification_channel_service {
         }
 
         /// Sets the value of [expire_time][crate::model::GetNotificationChannelVerificationCodeRequest::expire_time].
-        pub fn set_expire_time<T: Into<std::option::Option<wkt::Timestamp>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.expire_time = v.into();
+        pub fn set_expire_time<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Timestamp>,
+        {
+            self.0.request.expire_time = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [expire_time][crate::model::GetNotificationChannelVerificationCodeRequest::expire_time].
+        pub fn set_or_clear_expire_time<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Timestamp>,
+        {
+            self.0.request.expire_time = v.map(|x| x.into());
             self
         }
     }
@@ -2764,6 +2929,7 @@ pub mod notification_channel_service {
     /// # use google_cloud_monitoring_v3::builder;
     /// use builder::notification_channel_service::VerifyNotificationChannel;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2894,8 +3060,9 @@ pub mod query_service {
     /// # use google_cloud_monitoring_v3::builder;
     /// use builder::query_service::QueryTimeSeries;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -3059,6 +3226,7 @@ pub mod service_monitoring_service {
     /// # use google_cloud_monitoring_v3::builder;
     /// use builder::service_monitoring_service::CreateService;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3115,11 +3283,22 @@ pub mod service_monitoring_service {
         /// Sets the value of [service][crate::model::CreateServiceRequest::service].
         ///
         /// This is a **required** field for requests.
-        pub fn set_service<T: Into<std::option::Option<crate::model::Service>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.service = v.into();
+        pub fn set_service<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Service>,
+        {
+            self.0.request.service = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [service][crate::model::CreateServiceRequest::service].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_service<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Service>,
+        {
+            self.0.request.service = v.map(|x| x.into());
             self
         }
     }
@@ -3138,6 +3317,7 @@ pub mod service_monitoring_service {
     /// # use google_cloud_monitoring_v3::builder;
     /// use builder::service_monitoring_service::GetService;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3200,8 +3380,9 @@ pub mod service_monitoring_service {
     /// # use google_cloud_monitoring_v3::builder;
     /// use builder::service_monitoring_service::ListServices;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -3308,6 +3489,7 @@ pub mod service_monitoring_service {
     /// # use google_cloud_monitoring_v3::builder;
     /// use builder::service_monitoring_service::UpdateService;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3350,20 +3532,40 @@ pub mod service_monitoring_service {
         /// Sets the value of [service][crate::model::UpdateServiceRequest::service].
         ///
         /// This is a **required** field for requests.
-        pub fn set_service<T: Into<std::option::Option<crate::model::Service>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.service = v.into();
+        pub fn set_service<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Service>,
+        {
+            self.0.request.service = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [service][crate::model::UpdateServiceRequest::service].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_service<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Service>,
+        {
+            self.0.request.service = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateServiceRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateServiceRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -3382,6 +3584,7 @@ pub mod service_monitoring_service {
     /// # use google_cloud_monitoring_v3::builder;
     /// use builder::service_monitoring_service::DeleteService;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3444,6 +3647,7 @@ pub mod service_monitoring_service {
     /// # use google_cloud_monitoring_v3::builder;
     /// use builder::service_monitoring_service::CreateServiceLevelObjective;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3508,13 +3712,22 @@ pub mod service_monitoring_service {
         /// Sets the value of [service_level_objective][crate::model::CreateServiceLevelObjectiveRequest::service_level_objective].
         ///
         /// This is a **required** field for requests.
-        pub fn set_service_level_objective<
-            T: Into<std::option::Option<crate::model::ServiceLevelObjective>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.service_level_objective = v.into();
+        pub fn set_service_level_objective<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::ServiceLevelObjective>,
+        {
+            self.0.request.service_level_objective = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [service_level_objective][crate::model::CreateServiceLevelObjectiveRequest::service_level_objective].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_service_level_objective<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::ServiceLevelObjective>,
+        {
+            self.0.request.service_level_objective = v.map(|x| x.into());
             self
         }
     }
@@ -3533,6 +3746,7 @@ pub mod service_monitoring_service {
     /// # use google_cloud_monitoring_v3::builder;
     /// use builder::service_monitoring_service::GetServiceLevelObjective;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3609,8 +3823,9 @@ pub mod service_monitoring_service {
     /// # use google_cloud_monitoring_v3::builder;
     /// use builder::service_monitoring_service::ListServiceLevelObjectives;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -3735,6 +3950,7 @@ pub mod service_monitoring_service {
     /// # use google_cloud_monitoring_v3::builder;
     /// use builder::service_monitoring_service::UpdateServiceLevelObjective;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3782,22 +3998,40 @@ pub mod service_monitoring_service {
         /// Sets the value of [service_level_objective][crate::model::UpdateServiceLevelObjectiveRequest::service_level_objective].
         ///
         /// This is a **required** field for requests.
-        pub fn set_service_level_objective<
-            T: Into<std::option::Option<crate::model::ServiceLevelObjective>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.service_level_objective = v.into();
+        pub fn set_service_level_objective<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::ServiceLevelObjective>,
+        {
+            self.0.request.service_level_objective = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [service_level_objective][crate::model::UpdateServiceLevelObjectiveRequest::service_level_objective].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_service_level_objective<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::ServiceLevelObjective>,
+        {
+            self.0.request.service_level_objective = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateServiceLevelObjectiveRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateServiceLevelObjectiveRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -3816,6 +4050,7 @@ pub mod service_monitoring_service {
     /// # use google_cloud_monitoring_v3::builder;
     /// use builder::service_monitoring_service::DeleteServiceLevelObjective;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3938,6 +4173,7 @@ pub mod snooze_service {
     /// # use google_cloud_monitoring_v3::builder;
     /// use builder::snooze_service::CreateSnooze;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3988,11 +4224,22 @@ pub mod snooze_service {
         /// Sets the value of [snooze][crate::model::CreateSnoozeRequest::snooze].
         ///
         /// This is a **required** field for requests.
-        pub fn set_snooze<T: Into<std::option::Option<crate::model::Snooze>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.snooze = v.into();
+        pub fn set_snooze<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Snooze>,
+        {
+            self.0.request.snooze = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [snooze][crate::model::CreateSnoozeRequest::snooze].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_snooze<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Snooze>,
+        {
+            self.0.request.snooze = v.map(|x| x.into());
             self
         }
     }
@@ -4011,8 +4258,9 @@ pub mod snooze_service {
     /// # use google_cloud_monitoring_v3::builder;
     /// use builder::snooze_service::ListSnoozes;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -4119,6 +4367,7 @@ pub mod snooze_service {
     /// # use google_cloud_monitoring_v3::builder;
     /// use builder::snooze_service::GetSnooze;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -4181,6 +4430,7 @@ pub mod snooze_service {
     /// # use google_cloud_monitoring_v3::builder;
     /// use builder::snooze_service::UpdateSnooze;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -4223,22 +4473,44 @@ pub mod snooze_service {
         /// Sets the value of [snooze][crate::model::UpdateSnoozeRequest::snooze].
         ///
         /// This is a **required** field for requests.
-        pub fn set_snooze<T: Into<std::option::Option<crate::model::Snooze>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.snooze = v.into();
+        pub fn set_snooze<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Snooze>,
+        {
+            self.0.request.snooze = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [snooze][crate::model::UpdateSnoozeRequest::snooze].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_snooze<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Snooze>,
+        {
+            self.0.request.snooze = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateSnoozeRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateSnoozeRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -4312,8 +4584,9 @@ pub mod uptime_check_service {
     /// # use google_cloud_monitoring_v3::builder;
     /// use builder::uptime_check_service::ListUptimeCheckConfigs;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -4427,6 +4700,7 @@ pub mod uptime_check_service {
     /// # use google_cloud_monitoring_v3::builder;
     /// use builder::uptime_check_service::GetUptimeCheckConfig;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -4492,6 +4766,7 @@ pub mod uptime_check_service {
     /// # use google_cloud_monitoring_v3::builder;
     /// use builder::uptime_check_service::CreateUptimeCheckConfig;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -4547,13 +4822,22 @@ pub mod uptime_check_service {
         /// Sets the value of [uptime_check_config][crate::model::CreateUptimeCheckConfigRequest::uptime_check_config].
         ///
         /// This is a **required** field for requests.
-        pub fn set_uptime_check_config<
-            T: Into<std::option::Option<crate::model::UptimeCheckConfig>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.uptime_check_config = v.into();
+        pub fn set_uptime_check_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::UptimeCheckConfig>,
+        {
+            self.0.request.uptime_check_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [uptime_check_config][crate::model::CreateUptimeCheckConfigRequest::uptime_check_config].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_uptime_check_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::UptimeCheckConfig>,
+        {
+            self.0.request.uptime_check_config = v.map(|x| x.into());
             self
         }
     }
@@ -4572,6 +4856,7 @@ pub mod uptime_check_service {
     /// # use google_cloud_monitoring_v3::builder;
     /// use builder::uptime_check_service::UpdateUptimeCheckConfig;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -4617,24 +4902,42 @@ pub mod uptime_check_service {
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateUptimeCheckConfigRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateUptimeCheckConfigRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [uptime_check_config][crate::model::UpdateUptimeCheckConfigRequest::uptime_check_config].
         ///
         /// This is a **required** field for requests.
-        pub fn set_uptime_check_config<
-            T: Into<std::option::Option<crate::model::UptimeCheckConfig>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.uptime_check_config = v.into();
+        pub fn set_uptime_check_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::UptimeCheckConfig>,
+        {
+            self.0.request.uptime_check_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [uptime_check_config][crate::model::UpdateUptimeCheckConfigRequest::uptime_check_config].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_uptime_check_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::UptimeCheckConfig>,
+        {
+            self.0.request.uptime_check_config = v.map(|x| x.into());
             self
         }
     }
@@ -4653,6 +4956,7 @@ pub mod uptime_check_service {
     /// # use google_cloud_monitoring_v3::builder;
     /// use builder::uptime_check_service::DeleteUptimeCheckConfig;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -4720,8 +5024,9 @@ pub mod uptime_check_service {
     /// # use google_cloud_monitoring_v3::builder;
     /// use builder::uptime_check_service::ListUptimeCheckIps;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;

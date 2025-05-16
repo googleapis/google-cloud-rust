@@ -75,8 +75,9 @@ pub mod datastream {
     /// # use google_cloud_datastream_v1::builder;
     /// use builder::datastream::ListConnectionProfiles;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -196,6 +197,7 @@ pub mod datastream {
     /// # use google_cloud_datastream_v1::builder;
     /// use builder::datastream::GetConnectionProfile;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -261,8 +263,9 @@ pub mod datastream {
     /// # use google_cloud_datastream_v1::builder;
     /// use builder::datastream::CreateConnectionProfile;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_datastream_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -366,13 +369,22 @@ pub mod datastream {
         /// Sets the value of [connection_profile][crate::model::CreateConnectionProfileRequest::connection_profile].
         ///
         /// This is a **required** field for requests.
-        pub fn set_connection_profile<
-            T: Into<std::option::Option<crate::model::ConnectionProfile>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.connection_profile = v.into();
+        pub fn set_connection_profile<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::ConnectionProfile>,
+        {
+            self.0.request.connection_profile = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [connection_profile][crate::model::CreateConnectionProfileRequest::connection_profile].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_connection_profile<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::ConnectionProfile>,
+        {
+            self.0.request.connection_profile = v.map(|x| x.into());
             self
         }
 
@@ -409,8 +421,9 @@ pub mod datastream {
     /// # use google_cloud_datastream_v1::builder;
     /// use builder::datastream::UpdateConnectionProfile;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_datastream_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -496,24 +509,42 @@ pub mod datastream {
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateConnectionProfileRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateConnectionProfileRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [connection_profile][crate::model::UpdateConnectionProfileRequest::connection_profile].
         ///
         /// This is a **required** field for requests.
-        pub fn set_connection_profile<
-            T: Into<std::option::Option<crate::model::ConnectionProfile>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.connection_profile = v.into();
+        pub fn set_connection_profile<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::ConnectionProfile>,
+        {
+            self.0.request.connection_profile = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [connection_profile][crate::model::UpdateConnectionProfileRequest::connection_profile].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_connection_profile<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::ConnectionProfile>,
+        {
+            self.0.request.connection_profile = v.map(|x| x.into());
             self
         }
 
@@ -550,8 +581,9 @@ pub mod datastream {
     /// # use google_cloud_datastream_v1::builder;
     /// use builder::datastream::DeleteConnectionProfile;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_datastream_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -664,6 +696,7 @@ pub mod datastream {
     /// # use google_cloud_datastream_v1::builder;
     /// use builder::datastream::DiscoverConnectionProfile;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -879,8 +912,9 @@ pub mod datastream {
     /// # use google_cloud_datastream_v1::builder;
     /// use builder::datastream::ListStreams;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -993,6 +1027,7 @@ pub mod datastream {
     /// # use google_cloud_datastream_v1::builder;
     /// use builder::datastream::GetStream;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1055,8 +1090,9 @@ pub mod datastream {
     /// # use google_cloud_datastream_v1::builder;
     /// use builder::datastream::CreateStream;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_datastream_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1152,11 +1188,22 @@ pub mod datastream {
         /// Sets the value of [stream][crate::model::CreateStreamRequest::stream].
         ///
         /// This is a **required** field for requests.
-        pub fn set_stream<T: Into<std::option::Option<crate::model::Stream>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.stream = v.into();
+        pub fn set_stream<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Stream>,
+        {
+            self.0.request.stream = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [stream][crate::model::CreateStreamRequest::stream].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_stream<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Stream>,
+        {
+            self.0.request.stream = v.map(|x| x.into());
             self
         }
 
@@ -1193,8 +1240,9 @@ pub mod datastream {
     /// # use google_cloud_datastream_v1::builder;
     /// use builder::datastream::UpdateStream;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_datastream_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1272,22 +1320,42 @@ pub mod datastream {
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateStreamRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateStreamRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [stream][crate::model::UpdateStreamRequest::stream].
         ///
         /// This is a **required** field for requests.
-        pub fn set_stream<T: Into<std::option::Option<crate::model::Stream>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.stream = v.into();
+        pub fn set_stream<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Stream>,
+        {
+            self.0.request.stream = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [stream][crate::model::UpdateStreamRequest::stream].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_stream<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Stream>,
+        {
+            self.0.request.stream = v.map(|x| x.into());
             self
         }
 
@@ -1324,8 +1392,9 @@ pub mod datastream {
     /// # use google_cloud_datastream_v1::builder;
     /// use builder::datastream::DeleteStream;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_datastream_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1433,8 +1502,9 @@ pub mod datastream {
     /// # use google_cloud_datastream_v1::builder;
     /// use builder::datastream::RunStream;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_datastream_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1520,11 +1590,20 @@ pub mod datastream {
         }
 
         /// Sets the value of [cdc_strategy][crate::model::RunStreamRequest::cdc_strategy].
-        pub fn set_cdc_strategy<T: Into<std::option::Option<crate::model::CdcStrategy>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.cdc_strategy = v.into();
+        pub fn set_cdc_strategy<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::CdcStrategy>,
+        {
+            self.0.request.cdc_strategy = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [cdc_strategy][crate::model::RunStreamRequest::cdc_strategy].
+        pub fn set_or_clear_cdc_strategy<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::CdcStrategy>,
+        {
+            self.0.request.cdc_strategy = v.map(|x| x.into());
             self
         }
 
@@ -1549,6 +1628,7 @@ pub mod datastream {
     /// # use google_cloud_datastream_v1::builder;
     /// use builder::datastream::GetStreamObject;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1611,6 +1691,7 @@ pub mod datastream {
     /// # use google_cloud_datastream_v1::builder;
     /// use builder::datastream::LookupStreamObject;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1664,13 +1745,22 @@ pub mod datastream {
         /// Sets the value of [source_object_identifier][crate::model::LookupStreamObjectRequest::source_object_identifier].
         ///
         /// This is a **required** field for requests.
-        pub fn set_source_object_identifier<
-            T: Into<std::option::Option<crate::model::SourceObjectIdentifier>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.source_object_identifier = v.into();
+        pub fn set_source_object_identifier<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::SourceObjectIdentifier>,
+        {
+            self.0.request.source_object_identifier = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [source_object_identifier][crate::model::LookupStreamObjectRequest::source_object_identifier].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_source_object_identifier<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::SourceObjectIdentifier>,
+        {
+            self.0.request.source_object_identifier = v.map(|x| x.into());
             self
         }
     }
@@ -1689,8 +1779,9 @@ pub mod datastream {
     /// # use google_cloud_datastream_v1::builder;
     /// use builder::datastream::ListStreamObjects;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -1794,6 +1885,7 @@ pub mod datastream {
     /// # use google_cloud_datastream_v1::builder;
     /// use builder::datastream::StartBackfillJob;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1859,6 +1951,7 @@ pub mod datastream {
     /// # use google_cloud_datastream_v1::builder;
     /// use builder::datastream::StopBackfillJob;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1921,6 +2014,7 @@ pub mod datastream {
     /// # use google_cloud_datastream_v1::builder;
     /// use builder::datastream::FetchStaticIps;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1995,8 +2089,9 @@ pub mod datastream {
     /// # use google_cloud_datastream_v1::builder;
     /// use builder::datastream::CreatePrivateConnection;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_datastream_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -2100,13 +2195,22 @@ pub mod datastream {
         /// Sets the value of [private_connection][crate::model::CreatePrivateConnectionRequest::private_connection].
         ///
         /// This is a **required** field for requests.
-        pub fn set_private_connection<
-            T: Into<std::option::Option<crate::model::PrivateConnection>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.private_connection = v.into();
+        pub fn set_private_connection<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::PrivateConnection>,
+        {
+            self.0.request.private_connection = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [private_connection][crate::model::CreatePrivateConnectionRequest::private_connection].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_private_connection<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::PrivateConnection>,
+        {
+            self.0.request.private_connection = v.map(|x| x.into());
             self
         }
 
@@ -2137,6 +2241,7 @@ pub mod datastream {
     /// # use google_cloud_datastream_v1::builder;
     /// use builder::datastream::GetPrivateConnection;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2202,8 +2307,9 @@ pub mod datastream {
     /// # use google_cloud_datastream_v1::builder;
     /// use builder::datastream::ListPrivateConnections;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -2323,8 +2429,9 @@ pub mod datastream {
     /// # use google_cloud_datastream_v1::builder;
     /// use builder::datastream::DeletePrivateConnection;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_datastream_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -2443,8 +2550,9 @@ pub mod datastream {
     /// # use google_cloud_datastream_v1::builder;
     /// use builder::datastream::CreateRoute;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_datastream_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -2540,11 +2648,22 @@ pub mod datastream {
         /// Sets the value of [route][crate::model::CreateRouteRequest::route].
         ///
         /// This is a **required** field for requests.
-        pub fn set_route<T: Into<std::option::Option<crate::model::Route>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.route = v.into();
+        pub fn set_route<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Route>,
+        {
+            self.0.request.route = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [route][crate::model::CreateRouteRequest::route].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_route<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Route>,
+        {
+            self.0.request.route = v.map(|x| x.into());
             self
         }
 
@@ -2569,6 +2688,7 @@ pub mod datastream {
     /// # use google_cloud_datastream_v1::builder;
     /// use builder::datastream::GetRoute;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2631,8 +2751,9 @@ pub mod datastream {
     /// # use google_cloud_datastream_v1::builder;
     /// use builder::datastream::ListRoutes;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -2745,8 +2866,9 @@ pub mod datastream {
     /// # use google_cloud_datastream_v1::builder;
     /// use builder::datastream::DeleteRoute;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_datastream_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -2854,8 +2976,9 @@ pub mod datastream {
     /// # use google_cloud_datastream_v1::builder;
     /// use builder::datastream::ListLocations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -2963,6 +3086,7 @@ pub mod datastream {
     /// # use google_cloud_datastream_v1::builder;
     /// use builder::datastream::GetLocation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3023,8 +3147,9 @@ pub mod datastream {
     /// # use google_cloud_datastream_v1::builder;
     /// use builder::datastream::ListOperations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -3134,6 +3259,7 @@ pub mod datastream {
     /// # use google_cloud_datastream_v1::builder;
     /// use builder::datastream::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3197,6 +3323,7 @@ pub mod datastream {
     /// # use google_cloud_datastream_v1::builder;
     /// use builder::datastream::DeleteOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3260,6 +3387,7 @@ pub mod datastream {
     /// # use google_cloud_datastream_v1::builder;
     /// use builder::datastream::CancelOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });

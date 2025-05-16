@@ -75,6 +75,7 @@ pub mod license_management_service {
     /// # use google_cloud_commerce_consumer_procurement_v1::builder;
     /// use builder::license_management_service::GetLicensePool;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -137,6 +138,7 @@ pub mod license_management_service {
     /// # use google_cloud_commerce_consumer_procurement_v1::builder;
     /// use builder::license_management_service::UpdateLicensePool;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -182,22 +184,44 @@ pub mod license_management_service {
         /// Sets the value of [license_pool][crate::model::UpdateLicensePoolRequest::license_pool].
         ///
         /// This is a **required** field for requests.
-        pub fn set_license_pool<T: Into<std::option::Option<crate::model::LicensePool>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.license_pool = v.into();
+        pub fn set_license_pool<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::LicensePool>,
+        {
+            self.0.request.license_pool = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [license_pool][crate::model::UpdateLicensePoolRequest::license_pool].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_license_pool<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::LicensePool>,
+        {
+            self.0.request.license_pool = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateLicensePoolRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateLicensePoolRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -216,6 +240,7 @@ pub mod license_management_service {
     /// # use google_cloud_commerce_consumer_procurement_v1::builder;
     /// use builder::license_management_service::Assign;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -291,6 +316,7 @@ pub mod license_management_service {
     /// # use google_cloud_commerce_consumer_procurement_v1::builder;
     /// use builder::license_management_service::Unassign;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -366,8 +392,9 @@ pub mod license_management_service {
     /// # use google_cloud_commerce_consumer_procurement_v1::builder;
     /// use builder::license_management_service::EnumerateLicensedUsers;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -475,6 +502,7 @@ pub mod license_management_service {
     /// # use google_cloud_commerce_consumer_procurement_v1::builder;
     /// use builder::license_management_service::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -593,8 +621,9 @@ pub mod consumer_procurement_service {
     /// # use google_cloud_commerce_consumer_procurement_v1::builder;
     /// use builder::consumer_procurement_service::PlaceOrder;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_commerce_consumer_procurement_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -719,6 +748,7 @@ pub mod consumer_procurement_service {
     /// # use google_cloud_commerce_consumer_procurement_v1::builder;
     /// use builder::consumer_procurement_service::GetOrder;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -781,8 +811,9 @@ pub mod consumer_procurement_service {
     /// # use google_cloud_commerce_consumer_procurement_v1::builder;
     /// use builder::consumer_procurement_service::ListOrders;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -889,8 +920,9 @@ pub mod consumer_procurement_service {
     /// # use google_cloud_commerce_consumer_procurement_v1::builder;
     /// use builder::consumer_procurement_service::ModifyOrder;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_commerce_consumer_procurement_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1013,8 +1045,9 @@ pub mod consumer_procurement_service {
     /// # use google_cloud_commerce_consumer_procurement_v1::builder;
     /// use builder::consumer_procurement_service::CancelOrder;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_commerce_consumer_procurement_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1131,6 +1164,7 @@ pub mod consumer_procurement_service {
     /// # use google_cloud_commerce_consumer_procurement_v1::builder;
     /// use builder::consumer_procurement_service::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });

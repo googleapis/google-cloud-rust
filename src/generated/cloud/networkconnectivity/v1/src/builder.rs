@@ -75,8 +75,9 @@ pub mod cross_network_automation_service {
     /// # use google_cloud_networkconnectivity_v1::builder;
     /// use builder::cross_network_automation_service::ListServiceConnectionMaps;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -198,6 +199,7 @@ pub mod cross_network_automation_service {
     /// # use google_cloud_networkconnectivity_v1::builder;
     /// use builder::cross_network_automation_service::GetServiceConnectionMap;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -265,8 +267,9 @@ pub mod cross_network_automation_service {
     /// # use google_cloud_networkconnectivity_v1::builder;
     /// use builder::cross_network_automation_service::CreateServiceConnectionMap;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_networkconnectivity_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -368,13 +371,22 @@ pub mod cross_network_automation_service {
         /// Sets the value of [service_connection_map][crate::model::CreateServiceConnectionMapRequest::service_connection_map].
         ///
         /// This is a **required** field for requests.
-        pub fn set_service_connection_map<
-            T: Into<std::option::Option<crate::model::ServiceConnectionMap>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.service_connection_map = v.into();
+        pub fn set_service_connection_map<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::ServiceConnectionMap>,
+        {
+            self.0.request.service_connection_map = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [service_connection_map][crate::model::CreateServiceConnectionMapRequest::service_connection_map].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_service_connection_map<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::ServiceConnectionMap>,
+        {
+            self.0.request.service_connection_map = v.map(|x| x.into());
             self
         }
 
@@ -399,8 +411,9 @@ pub mod cross_network_automation_service {
     /// # use google_cloud_networkconnectivity_v1::builder;
     /// use builder::cross_network_automation_service::UpdateServiceConnectionMap;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_networkconnectivity_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -486,24 +499,42 @@ pub mod cross_network_automation_service {
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateServiceConnectionMapRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateServiceConnectionMapRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [service_connection_map][crate::model::UpdateServiceConnectionMapRequest::service_connection_map].
         ///
         /// This is a **required** field for requests.
-        pub fn set_service_connection_map<
-            T: Into<std::option::Option<crate::model::ServiceConnectionMap>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.service_connection_map = v.into();
+        pub fn set_service_connection_map<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::ServiceConnectionMap>,
+        {
+            self.0.request.service_connection_map = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [service_connection_map][crate::model::UpdateServiceConnectionMapRequest::service_connection_map].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_service_connection_map<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::ServiceConnectionMap>,
+        {
+            self.0.request.service_connection_map = v.map(|x| x.into());
             self
         }
 
@@ -528,8 +559,9 @@ pub mod cross_network_automation_service {
     /// # use google_cloud_networkconnectivity_v1::builder;
     /// use builder::cross_network_automation_service::DeleteServiceConnectionMap;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_networkconnectivity_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -628,8 +660,20 @@ pub mod cross_network_automation_service {
         }
 
         /// Sets the value of [etag][crate::model::DeleteServiceConnectionMapRequest::etag].
-        pub fn set_etag<T: Into<std::option::Option<std::string::String>>>(mut self, v: T) -> Self {
-            self.0.request.etag = v.into();
+        pub fn set_etag<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.etag = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [etag][crate::model::DeleteServiceConnectionMapRequest::etag].
+        pub fn set_or_clear_etag<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.etag = v.map(|x| x.into());
             self
         }
     }
@@ -648,8 +692,9 @@ pub mod cross_network_automation_service {
     /// # use google_cloud_networkconnectivity_v1::builder;
     /// use builder::cross_network_automation_service::ListServiceConnectionPolicies;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -771,6 +816,7 @@ pub mod cross_network_automation_service {
     /// # use google_cloud_networkconnectivity_v1::builder;
     /// use builder::cross_network_automation_service::GetServiceConnectionPolicy;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -838,8 +884,9 @@ pub mod cross_network_automation_service {
     /// # use google_cloud_networkconnectivity_v1::builder;
     /// use builder::cross_network_automation_service::CreateServiceConnectionPolicy;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_networkconnectivity_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -944,13 +991,25 @@ pub mod cross_network_automation_service {
         /// Sets the value of [service_connection_policy][crate::model::CreateServiceConnectionPolicyRequest::service_connection_policy].
         ///
         /// This is a **required** field for requests.
-        pub fn set_service_connection_policy<
-            T: Into<std::option::Option<crate::model::ServiceConnectionPolicy>>,
-        >(
+        pub fn set_service_connection_policy<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::ServiceConnectionPolicy>,
+        {
+            self.0.request.service_connection_policy = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [service_connection_policy][crate::model::CreateServiceConnectionPolicyRequest::service_connection_policy].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_service_connection_policy<T>(
             mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.service_connection_policy = v.into();
+            v: std::option::Option<T>,
+        ) -> Self
+        where
+            T: std::convert::Into<crate::model::ServiceConnectionPolicy>,
+        {
+            self.0.request.service_connection_policy = v.map(|x| x.into());
             self
         }
 
@@ -975,8 +1034,9 @@ pub mod cross_network_automation_service {
     /// # use google_cloud_networkconnectivity_v1::builder;
     /// use builder::cross_network_automation_service::UpdateServiceConnectionPolicy;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_networkconnectivity_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1062,24 +1122,45 @@ pub mod cross_network_automation_service {
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateServiceConnectionPolicyRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateServiceConnectionPolicyRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [service_connection_policy][crate::model::UpdateServiceConnectionPolicyRequest::service_connection_policy].
         ///
         /// This is a **required** field for requests.
-        pub fn set_service_connection_policy<
-            T: Into<std::option::Option<crate::model::ServiceConnectionPolicy>>,
-        >(
+        pub fn set_service_connection_policy<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::ServiceConnectionPolicy>,
+        {
+            self.0.request.service_connection_policy = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [service_connection_policy][crate::model::UpdateServiceConnectionPolicyRequest::service_connection_policy].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_service_connection_policy<T>(
             mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.service_connection_policy = v.into();
+            v: std::option::Option<T>,
+        ) -> Self
+        where
+            T: std::convert::Into<crate::model::ServiceConnectionPolicy>,
+        {
+            self.0.request.service_connection_policy = v.map(|x| x.into());
             self
         }
 
@@ -1104,8 +1185,9 @@ pub mod cross_network_automation_service {
     /// # use google_cloud_networkconnectivity_v1::builder;
     /// use builder::cross_network_automation_service::DeleteServiceConnectionPolicy;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_networkconnectivity_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1204,8 +1286,20 @@ pub mod cross_network_automation_service {
         }
 
         /// Sets the value of [etag][crate::model::DeleteServiceConnectionPolicyRequest::etag].
-        pub fn set_etag<T: Into<std::option::Option<std::string::String>>>(mut self, v: T) -> Self {
-            self.0.request.etag = v.into();
+        pub fn set_etag<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.etag = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [etag][crate::model::DeleteServiceConnectionPolicyRequest::etag].
+        pub fn set_or_clear_etag<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.etag = v.map(|x| x.into());
             self
         }
     }
@@ -1224,8 +1318,9 @@ pub mod cross_network_automation_service {
     /// # use google_cloud_networkconnectivity_v1::builder;
     /// use builder::cross_network_automation_service::ListServiceClasses;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -1343,6 +1438,7 @@ pub mod cross_network_automation_service {
     /// # use google_cloud_networkconnectivity_v1::builder;
     /// use builder::cross_network_automation_service::GetServiceClass;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1405,8 +1501,9 @@ pub mod cross_network_automation_service {
     /// # use google_cloud_networkconnectivity_v1::builder;
     /// use builder::cross_network_automation_service::UpdateServiceClass;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_networkconnectivity_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1489,22 +1586,42 @@ pub mod cross_network_automation_service {
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateServiceClassRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateServiceClassRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [service_class][crate::model::UpdateServiceClassRequest::service_class].
         ///
         /// This is a **required** field for requests.
-        pub fn set_service_class<T: Into<std::option::Option<crate::model::ServiceClass>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.service_class = v.into();
+        pub fn set_service_class<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::ServiceClass>,
+        {
+            self.0.request.service_class = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [service_class][crate::model::UpdateServiceClassRequest::service_class].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_service_class<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::ServiceClass>,
+        {
+            self.0.request.service_class = v.map(|x| x.into());
             self
         }
 
@@ -1529,8 +1646,9 @@ pub mod cross_network_automation_service {
     /// # use google_cloud_networkconnectivity_v1::builder;
     /// use builder::cross_network_automation_service::DeleteServiceClass;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_networkconnectivity_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1627,8 +1745,20 @@ pub mod cross_network_automation_service {
         }
 
         /// Sets the value of [etag][crate::model::DeleteServiceClassRequest::etag].
-        pub fn set_etag<T: Into<std::option::Option<std::string::String>>>(mut self, v: T) -> Self {
-            self.0.request.etag = v.into();
+        pub fn set_etag<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.etag = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [etag][crate::model::DeleteServiceClassRequest::etag].
+        pub fn set_or_clear_etag<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.etag = v.map(|x| x.into());
             self
         }
     }
@@ -1647,6 +1777,7 @@ pub mod cross_network_automation_service {
     /// # use google_cloud_networkconnectivity_v1::builder;
     /// use builder::cross_network_automation_service::GetServiceConnectionToken;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1714,8 +1845,9 @@ pub mod cross_network_automation_service {
     /// # use google_cloud_networkconnectivity_v1::builder;
     /// use builder::cross_network_automation_service::ListServiceConnectionTokens;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -1837,8 +1969,9 @@ pub mod cross_network_automation_service {
     /// # use google_cloud_networkconnectivity_v1::builder;
     /// use builder::cross_network_automation_service::CreateServiceConnectionToken;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_networkconnectivity_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1943,13 +2076,22 @@ pub mod cross_network_automation_service {
         /// Sets the value of [service_connection_token][crate::model::CreateServiceConnectionTokenRequest::service_connection_token].
         ///
         /// This is a **required** field for requests.
-        pub fn set_service_connection_token<
-            T: Into<std::option::Option<crate::model::ServiceConnectionToken>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.service_connection_token = v.into();
+        pub fn set_service_connection_token<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::ServiceConnectionToken>,
+        {
+            self.0.request.service_connection_token = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [service_connection_token][crate::model::CreateServiceConnectionTokenRequest::service_connection_token].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_service_connection_token<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::ServiceConnectionToken>,
+        {
+            self.0.request.service_connection_token = v.map(|x| x.into());
             self
         }
 
@@ -1974,8 +2116,9 @@ pub mod cross_network_automation_service {
     /// # use google_cloud_networkconnectivity_v1::builder;
     /// use builder::cross_network_automation_service::DeleteServiceConnectionToken;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_networkconnectivity_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -2074,8 +2217,20 @@ pub mod cross_network_automation_service {
         }
 
         /// Sets the value of [etag][crate::model::DeleteServiceConnectionTokenRequest::etag].
-        pub fn set_etag<T: Into<std::option::Option<std::string::String>>>(mut self, v: T) -> Self {
-            self.0.request.etag = v.into();
+        pub fn set_etag<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.etag = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [etag][crate::model::DeleteServiceConnectionTokenRequest::etag].
+        pub fn set_or_clear_etag<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.etag = v.map(|x| x.into());
             self
         }
     }
@@ -2094,8 +2249,9 @@ pub mod cross_network_automation_service {
     /// # use google_cloud_networkconnectivity_v1::builder;
     /// use builder::cross_network_automation_service::ListLocations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -2203,6 +2359,7 @@ pub mod cross_network_automation_service {
     /// # use google_cloud_networkconnectivity_v1::builder;
     /// use builder::cross_network_automation_service::GetLocation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2263,6 +2420,7 @@ pub mod cross_network_automation_service {
     /// # use google_cloud_networkconnectivity_v1::builder;
     /// use builder::cross_network_automation_service::SetIamPolicy;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2313,20 +2471,40 @@ pub mod cross_network_automation_service {
         /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
-        pub fn set_policy<T: Into<std::option::Option<iam_v1::model::Policy>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.policy = v.into();
+        pub fn set_policy<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -2345,6 +2523,7 @@ pub mod cross_network_automation_service {
     /// # use google_cloud_networkconnectivity_v1::builder;
     /// use builder::cross_network_automation_service::GetIamPolicy;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2393,11 +2572,20 @@ pub mod cross_network_automation_service {
         }
 
         /// Sets the value of [options][iam_v1::model::GetIamPolicyRequest::options].
-        pub fn set_options<T: Into<std::option::Option<iam_v1::model::GetPolicyOptions>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.options = v.into();
+        pub fn set_options<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = v.map(|x| x.into());
             self
         }
     }
@@ -2416,6 +2604,7 @@ pub mod cross_network_automation_service {
     /// # use google_cloud_networkconnectivity_v1::builder;
     /// use builder::cross_network_automation_service::TestIamPermissions;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2494,8 +2683,9 @@ pub mod cross_network_automation_service {
     /// # use google_cloud_networkconnectivity_v1::builder;
     /// use builder::cross_network_automation_service::ListOperations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -2605,6 +2795,7 @@ pub mod cross_network_automation_service {
     /// # use google_cloud_networkconnectivity_v1::builder;
     /// use builder::cross_network_automation_service::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2668,6 +2859,7 @@ pub mod cross_network_automation_service {
     /// # use google_cloud_networkconnectivity_v1::builder;
     /// use builder::cross_network_automation_service::DeleteOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2731,6 +2923,7 @@ pub mod cross_network_automation_service {
     /// # use google_cloud_networkconnectivity_v1::builder;
     /// use builder::cross_network_automation_service::CancelOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2849,8 +3042,9 @@ pub mod hub_service {
     /// # use google_cloud_networkconnectivity_v1::builder;
     /// use builder::hub_service::ListHubs;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -2963,6 +3157,7 @@ pub mod hub_service {
     /// # use google_cloud_networkconnectivity_v1::builder;
     /// use builder::hub_service::GetHub;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3025,8 +3220,9 @@ pub mod hub_service {
     /// # use google_cloud_networkconnectivity_v1::builder;
     /// use builder::hub_service::CreateHub;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_networkconnectivity_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -3122,8 +3318,22 @@ pub mod hub_service {
         /// Sets the value of [hub][crate::model::CreateHubRequest::hub].
         ///
         /// This is a **required** field for requests.
-        pub fn set_hub<T: Into<std::option::Option<crate::model::Hub>>>(mut self, v: T) -> Self {
-            self.0.request.hub = v.into();
+        pub fn set_hub<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Hub>,
+        {
+            self.0.request.hub = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [hub][crate::model::CreateHubRequest::hub].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_hub<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Hub>,
+        {
+            self.0.request.hub = v.map(|x| x.into());
             self
         }
 
@@ -3148,8 +3358,9 @@ pub mod hub_service {
     /// # use google_cloud_networkconnectivity_v1::builder;
     /// use builder::hub_service::UpdateHub;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_networkconnectivity_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -3227,19 +3438,42 @@ pub mod hub_service {
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateHubRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateHubRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [hub][crate::model::UpdateHubRequest::hub].
         ///
         /// This is a **required** field for requests.
-        pub fn set_hub<T: Into<std::option::Option<crate::model::Hub>>>(mut self, v: T) -> Self {
-            self.0.request.hub = v.into();
+        pub fn set_hub<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Hub>,
+        {
+            self.0.request.hub = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [hub][crate::model::UpdateHubRequest::hub].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_hub<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Hub>,
+        {
+            self.0.request.hub = v.map(|x| x.into());
             self
         }
 
@@ -3264,8 +3498,9 @@ pub mod hub_service {
     /// # use google_cloud_networkconnectivity_v1::builder;
     /// use builder::hub_service::DeleteHub;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_networkconnectivity_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -3373,8 +3608,9 @@ pub mod hub_service {
     /// # use google_cloud_networkconnectivity_v1::builder;
     /// use builder::hub_service::ListHubSpokes;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -3507,8 +3743,9 @@ pub mod hub_service {
     /// # use google_cloud_networkconnectivity_v1::builder;
     /// use builder::hub_service::QueryHubStatus;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -3627,8 +3864,9 @@ pub mod hub_service {
     /// # use google_cloud_networkconnectivity_v1::builder;
     /// use builder::hub_service::ListSpokes;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -3741,6 +3979,7 @@ pub mod hub_service {
     /// # use google_cloud_networkconnectivity_v1::builder;
     /// use builder::hub_service::GetSpoke;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3803,8 +4042,9 @@ pub mod hub_service {
     /// # use google_cloud_networkconnectivity_v1::builder;
     /// use builder::hub_service::CreateSpoke;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_networkconnectivity_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -3900,11 +4140,22 @@ pub mod hub_service {
         /// Sets the value of [spoke][crate::model::CreateSpokeRequest::spoke].
         ///
         /// This is a **required** field for requests.
-        pub fn set_spoke<T: Into<std::option::Option<crate::model::Spoke>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.spoke = v.into();
+        pub fn set_spoke<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Spoke>,
+        {
+            self.0.request.spoke = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [spoke][crate::model::CreateSpokeRequest::spoke].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_spoke<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Spoke>,
+        {
+            self.0.request.spoke = v.map(|x| x.into());
             self
         }
 
@@ -3929,8 +4180,9 @@ pub mod hub_service {
     /// # use google_cloud_networkconnectivity_v1::builder;
     /// use builder::hub_service::UpdateSpoke;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_networkconnectivity_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -4008,22 +4260,42 @@ pub mod hub_service {
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateSpokeRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateSpokeRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [spoke][crate::model::UpdateSpokeRequest::spoke].
         ///
         /// This is a **required** field for requests.
-        pub fn set_spoke<T: Into<std::option::Option<crate::model::Spoke>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.spoke = v.into();
+        pub fn set_spoke<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Spoke>,
+        {
+            self.0.request.spoke = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [spoke][crate::model::UpdateSpokeRequest::spoke].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_spoke<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Spoke>,
+        {
+            self.0.request.spoke = v.map(|x| x.into());
             self
         }
 
@@ -4048,8 +4320,9 @@ pub mod hub_service {
     /// # use google_cloud_networkconnectivity_v1::builder;
     /// use builder::hub_service::RejectHubSpoke;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_networkconnectivity_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -4172,8 +4445,9 @@ pub mod hub_service {
     /// # use google_cloud_networkconnectivity_v1::builder;
     /// use builder::hub_service::AcceptHubSpoke;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_networkconnectivity_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -4290,8 +4564,9 @@ pub mod hub_service {
     /// # use google_cloud_networkconnectivity_v1::builder;
     /// use builder::hub_service::AcceptSpokeUpdate;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_networkconnectivity_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -4419,8 +4694,9 @@ pub mod hub_service {
     /// # use google_cloud_networkconnectivity_v1::builder;
     /// use builder::hub_service::RejectSpokeUpdate;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_networkconnectivity_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -4554,8 +4830,9 @@ pub mod hub_service {
     /// # use google_cloud_networkconnectivity_v1::builder;
     /// use builder::hub_service::DeleteSpoke;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_networkconnectivity_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -4663,6 +4940,7 @@ pub mod hub_service {
     /// # use google_cloud_networkconnectivity_v1::builder;
     /// use builder::hub_service::GetRouteTable;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -4725,6 +5003,7 @@ pub mod hub_service {
     /// # use google_cloud_networkconnectivity_v1::builder;
     /// use builder::hub_service::GetRoute;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -4787,8 +5066,9 @@ pub mod hub_service {
     /// # use google_cloud_networkconnectivity_v1::builder;
     /// use builder::hub_service::ListRoutes;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -4901,8 +5181,9 @@ pub mod hub_service {
     /// # use google_cloud_networkconnectivity_v1::builder;
     /// use builder::hub_service::ListRouteTables;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -5015,6 +5296,7 @@ pub mod hub_service {
     /// # use google_cloud_networkconnectivity_v1::builder;
     /// use builder::hub_service::GetGroup;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -5077,8 +5359,9 @@ pub mod hub_service {
     /// # use google_cloud_networkconnectivity_v1::builder;
     /// use builder::hub_service::ListGroups;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -5191,8 +5474,9 @@ pub mod hub_service {
     /// # use google_cloud_networkconnectivity_v1::builder;
     /// use builder::hub_service::UpdateGroup;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_networkconnectivity_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -5270,22 +5554,42 @@ pub mod hub_service {
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateGroupRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateGroupRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [group][crate::model::UpdateGroupRequest::group].
         ///
         /// This is a **required** field for requests.
-        pub fn set_group<T: Into<std::option::Option<crate::model::Group>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.group = v.into();
+        pub fn set_group<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Group>,
+        {
+            self.0.request.group = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [group][crate::model::UpdateGroupRequest::group].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_group<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Group>,
+        {
+            self.0.request.group = v.map(|x| x.into());
             self
         }
 
@@ -5310,8 +5614,9 @@ pub mod hub_service {
     /// # use google_cloud_networkconnectivity_v1::builder;
     /// use builder::hub_service::ListLocations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -5419,6 +5724,7 @@ pub mod hub_service {
     /// # use google_cloud_networkconnectivity_v1::builder;
     /// use builder::hub_service::GetLocation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -5479,6 +5785,7 @@ pub mod hub_service {
     /// # use google_cloud_networkconnectivity_v1::builder;
     /// use builder::hub_service::SetIamPolicy;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -5529,20 +5836,40 @@ pub mod hub_service {
         /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
-        pub fn set_policy<T: Into<std::option::Option<iam_v1::model::Policy>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.policy = v.into();
+        pub fn set_policy<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -5561,6 +5888,7 @@ pub mod hub_service {
     /// # use google_cloud_networkconnectivity_v1::builder;
     /// use builder::hub_service::GetIamPolicy;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -5609,11 +5937,20 @@ pub mod hub_service {
         }
 
         /// Sets the value of [options][iam_v1::model::GetIamPolicyRequest::options].
-        pub fn set_options<T: Into<std::option::Option<iam_v1::model::GetPolicyOptions>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.options = v.into();
+        pub fn set_options<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = v.map(|x| x.into());
             self
         }
     }
@@ -5632,6 +5969,7 @@ pub mod hub_service {
     /// # use google_cloud_networkconnectivity_v1::builder;
     /// use builder::hub_service::TestIamPermissions;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -5710,8 +6048,9 @@ pub mod hub_service {
     /// # use google_cloud_networkconnectivity_v1::builder;
     /// use builder::hub_service::ListOperations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -5821,6 +6160,7 @@ pub mod hub_service {
     /// # use google_cloud_networkconnectivity_v1::builder;
     /// use builder::hub_service::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -5884,6 +6224,7 @@ pub mod hub_service {
     /// # use google_cloud_networkconnectivity_v1::builder;
     /// use builder::hub_service::DeleteOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -5947,6 +6288,7 @@ pub mod hub_service {
     /// # use google_cloud_networkconnectivity_v1::builder;
     /// use builder::hub_service::CancelOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -6065,8 +6407,9 @@ pub mod policy_based_routing_service {
     /// # use google_cloud_networkconnectivity_v1::builder;
     /// use builder::policy_based_routing_service::ListPolicyBasedRoutes;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -6184,6 +6527,7 @@ pub mod policy_based_routing_service {
     /// # use google_cloud_networkconnectivity_v1::builder;
     /// use builder::policy_based_routing_service::GetPolicyBasedRoute;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -6249,8 +6593,9 @@ pub mod policy_based_routing_service {
     /// # use google_cloud_networkconnectivity_v1::builder;
     /// use builder::policy_based_routing_service::CreatePolicyBasedRoute;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_networkconnectivity_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -6352,13 +6697,22 @@ pub mod policy_based_routing_service {
         /// Sets the value of [policy_based_route][crate::model::CreatePolicyBasedRouteRequest::policy_based_route].
         ///
         /// This is a **required** field for requests.
-        pub fn set_policy_based_route<
-            T: Into<std::option::Option<crate::model::PolicyBasedRoute>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.policy_based_route = v.into();
+        pub fn set_policy_based_route<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::PolicyBasedRoute>,
+        {
+            self.0.request.policy_based_route = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [policy_based_route][crate::model::CreatePolicyBasedRouteRequest::policy_based_route].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_policy_based_route<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::PolicyBasedRoute>,
+        {
+            self.0.request.policy_based_route = v.map(|x| x.into());
             self
         }
 
@@ -6383,8 +6737,9 @@ pub mod policy_based_routing_service {
     /// # use google_cloud_networkconnectivity_v1::builder;
     /// use builder::policy_based_routing_service::DeletePolicyBasedRoute;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_networkconnectivity_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -6495,8 +6850,9 @@ pub mod policy_based_routing_service {
     /// # use google_cloud_networkconnectivity_v1::builder;
     /// use builder::policy_based_routing_service::ListLocations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -6604,6 +6960,7 @@ pub mod policy_based_routing_service {
     /// # use google_cloud_networkconnectivity_v1::builder;
     /// use builder::policy_based_routing_service::GetLocation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -6664,6 +7021,7 @@ pub mod policy_based_routing_service {
     /// # use google_cloud_networkconnectivity_v1::builder;
     /// use builder::policy_based_routing_service::SetIamPolicy;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -6714,20 +7072,40 @@ pub mod policy_based_routing_service {
         /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
-        pub fn set_policy<T: Into<std::option::Option<iam_v1::model::Policy>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.policy = v.into();
+        pub fn set_policy<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -6746,6 +7124,7 @@ pub mod policy_based_routing_service {
     /// # use google_cloud_networkconnectivity_v1::builder;
     /// use builder::policy_based_routing_service::GetIamPolicy;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -6794,11 +7173,20 @@ pub mod policy_based_routing_service {
         }
 
         /// Sets the value of [options][iam_v1::model::GetIamPolicyRequest::options].
-        pub fn set_options<T: Into<std::option::Option<iam_v1::model::GetPolicyOptions>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.options = v.into();
+        pub fn set_options<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = v.map(|x| x.into());
             self
         }
     }
@@ -6817,6 +7205,7 @@ pub mod policy_based_routing_service {
     /// # use google_cloud_networkconnectivity_v1::builder;
     /// use builder::policy_based_routing_service::TestIamPermissions;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -6895,8 +7284,9 @@ pub mod policy_based_routing_service {
     /// # use google_cloud_networkconnectivity_v1::builder;
     /// use builder::policy_based_routing_service::ListOperations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -7006,6 +7396,7 @@ pub mod policy_based_routing_service {
     /// # use google_cloud_networkconnectivity_v1::builder;
     /// use builder::policy_based_routing_service::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -7069,6 +7460,7 @@ pub mod policy_based_routing_service {
     /// # use google_cloud_networkconnectivity_v1::builder;
     /// use builder::policy_based_routing_service::DeleteOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -7132,6 +7524,7 @@ pub mod policy_based_routing_service {
     /// # use google_cloud_networkconnectivity_v1::builder;
     /// use builder::policy_based_routing_service::CancelOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });

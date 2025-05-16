@@ -75,6 +75,7 @@ pub mod cloud_billing {
     /// # use google_cloud_billing_v1::builder;
     /// use builder::cloud_billing::GetBillingAccount;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -140,8 +141,9 @@ pub mod cloud_billing {
     /// # use google_cloud_billing_v1::builder;
     /// use builder::cloud_billing::ListBillingAccounts;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -251,6 +253,7 @@ pub mod cloud_billing {
     /// # use google_cloud_billing_v1::builder;
     /// use builder::cloud_billing::UpdateBillingAccount;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -304,20 +307,40 @@ pub mod cloud_billing {
         /// Sets the value of [account][crate::model::UpdateBillingAccountRequest::account].
         ///
         /// This is a **required** field for requests.
-        pub fn set_account<T: Into<std::option::Option<crate::model::BillingAccount>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.account = v.into();
+        pub fn set_account<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::BillingAccount>,
+        {
+            self.0.request.account = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [account][crate::model::UpdateBillingAccountRequest::account].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_account<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::BillingAccount>,
+        {
+            self.0.request.account = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateBillingAccountRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateBillingAccountRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -336,6 +359,7 @@ pub mod cloud_billing {
     /// # use google_cloud_billing_v1::builder;
     /// use builder::cloud_billing::CreateBillingAccount;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -381,11 +405,22 @@ pub mod cloud_billing {
         /// Sets the value of [billing_account][crate::model::CreateBillingAccountRequest::billing_account].
         ///
         /// This is a **required** field for requests.
-        pub fn set_billing_account<T: Into<std::option::Option<crate::model::BillingAccount>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.billing_account = v.into();
+        pub fn set_billing_account<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::BillingAccount>,
+        {
+            self.0.request.billing_account = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [billing_account][crate::model::CreateBillingAccountRequest::billing_account].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_billing_account<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::BillingAccount>,
+        {
+            self.0.request.billing_account = v.map(|x| x.into());
             self
         }
 
@@ -410,8 +445,9 @@ pub mod cloud_billing {
     /// # use google_cloud_billing_v1::builder;
     /// use builder::cloud_billing::ListProjectBillingInfo;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -519,6 +555,7 @@ pub mod cloud_billing {
     /// # use google_cloud_billing_v1::builder;
     /// use builder::cloud_billing::GetProjectBillingInfo;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -584,6 +621,7 @@ pub mod cloud_billing {
     /// # use google_cloud_billing_v1::builder;
     /// use builder::cloud_billing::UpdateProjectBillingInfo;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -637,13 +675,20 @@ pub mod cloud_billing {
         }
 
         /// Sets the value of [project_billing_info][crate::model::UpdateProjectBillingInfoRequest::project_billing_info].
-        pub fn set_project_billing_info<
-            T: Into<std::option::Option<crate::model::ProjectBillingInfo>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.project_billing_info = v.into();
+        pub fn set_project_billing_info<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::ProjectBillingInfo>,
+        {
+            self.0.request.project_billing_info = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [project_billing_info][crate::model::UpdateProjectBillingInfoRequest::project_billing_info].
+        pub fn set_or_clear_project_billing_info<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::ProjectBillingInfo>,
+        {
+            self.0.request.project_billing_info = v.map(|x| x.into());
             self
         }
     }
@@ -662,6 +707,7 @@ pub mod cloud_billing {
     /// # use google_cloud_billing_v1::builder;
     /// use builder::cloud_billing::GetIamPolicy;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -710,11 +756,20 @@ pub mod cloud_billing {
         }
 
         /// Sets the value of [options][iam_v1::model::GetIamPolicyRequest::options].
-        pub fn set_options<T: Into<std::option::Option<iam_v1::model::GetPolicyOptions>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.options = v.into();
+        pub fn set_options<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = v.map(|x| x.into());
             self
         }
     }
@@ -733,6 +788,7 @@ pub mod cloud_billing {
     /// # use google_cloud_billing_v1::builder;
     /// use builder::cloud_billing::SetIamPolicy;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -783,20 +839,40 @@ pub mod cloud_billing {
         /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
-        pub fn set_policy<T: Into<std::option::Option<iam_v1::model::Policy>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.policy = v.into();
+        pub fn set_policy<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -815,6 +891,7 @@ pub mod cloud_billing {
     /// # use google_cloud_billing_v1::builder;
     /// use builder::cloud_billing::TestIamPermissions;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -893,6 +970,7 @@ pub mod cloud_billing {
     /// # use google_cloud_billing_v1::builder;
     /// use builder::cloud_billing::MoveBillingAccount;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1021,8 +1099,9 @@ pub mod cloud_catalog {
     /// # use google_cloud_billing_v1::builder;
     /// use builder::cloud_catalog::ListServices;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -1115,8 +1194,9 @@ pub mod cloud_catalog {
     /// # use google_cloud_billing_v1::builder;
     /// use builder::cloud_catalog::ListSkus;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -1191,17 +1271,38 @@ pub mod cloud_catalog {
         }
 
         /// Sets the value of [start_time][crate::model::ListSkusRequest::start_time].
-        pub fn set_start_time<T: Into<std::option::Option<wkt::Timestamp>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.start_time = v.into();
+        pub fn set_start_time<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Timestamp>,
+        {
+            self.0.request.start_time = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [start_time][crate::model::ListSkusRequest::start_time].
+        pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Timestamp>,
+        {
+            self.0.request.start_time = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [end_time][crate::model::ListSkusRequest::end_time].
-        pub fn set_end_time<T: Into<std::option::Option<wkt::Timestamp>>>(mut self, v: T) -> Self {
-            self.0.request.end_time = v.into();
+        pub fn set_end_time<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Timestamp>,
+        {
+            self.0.request.end_time = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [end_time][crate::model::ListSkusRequest::end_time].
+        pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Timestamp>,
+        {
+            self.0.request.end_time = v.map(|x| x.into());
             self
         }
 

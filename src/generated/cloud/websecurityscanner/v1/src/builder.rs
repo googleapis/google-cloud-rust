@@ -75,6 +75,7 @@ pub mod web_security_scanner {
     /// # use google_cloud_websecurityscanner_v1::builder;
     /// use builder::web_security_scanner::CreateScanConfig;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -124,11 +125,20 @@ pub mod web_security_scanner {
         }
 
         /// Sets the value of [scan_config][crate::model::CreateScanConfigRequest::scan_config].
-        pub fn set_scan_config<T: Into<std::option::Option<crate::model::ScanConfig>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.scan_config = v.into();
+        pub fn set_scan_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::ScanConfig>,
+        {
+            self.0.request.scan_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [scan_config][crate::model::CreateScanConfigRequest::scan_config].
+        pub fn set_or_clear_scan_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::ScanConfig>,
+        {
+            self.0.request.scan_config = v.map(|x| x.into());
             self
         }
     }
@@ -147,6 +157,7 @@ pub mod web_security_scanner {
     /// # use google_cloud_websecurityscanner_v1::builder;
     /// use builder::web_security_scanner::DeleteScanConfig;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -210,6 +221,7 @@ pub mod web_security_scanner {
     /// # use google_cloud_websecurityscanner_v1::builder;
     /// use builder::web_security_scanner::GetScanConfig;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -270,8 +282,9 @@ pub mod web_security_scanner {
     /// # use google_cloud_websecurityscanner_v1::builder;
     /// use builder::web_security_scanner::ListScanConfigs;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -370,6 +383,7 @@ pub mod web_security_scanner {
     /// # use google_cloud_websecurityscanner_v1::builder;
     /// use builder::web_security_scanner::UpdateScanConfig;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -413,20 +427,38 @@ pub mod web_security_scanner {
         }
 
         /// Sets the value of [scan_config][crate::model::UpdateScanConfigRequest::scan_config].
-        pub fn set_scan_config<T: Into<std::option::Option<crate::model::ScanConfig>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.scan_config = v.into();
+        pub fn set_scan_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::ScanConfig>,
+        {
+            self.0.request.scan_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [scan_config][crate::model::UpdateScanConfigRequest::scan_config].
+        pub fn set_or_clear_scan_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::ScanConfig>,
+        {
+            self.0.request.scan_config = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateScanConfigRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateScanConfigRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -445,6 +477,7 @@ pub mod web_security_scanner {
     /// # use google_cloud_websecurityscanner_v1::builder;
     /// use builder::web_security_scanner::StartScanRun;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -505,6 +538,7 @@ pub mod web_security_scanner {
     /// # use google_cloud_websecurityscanner_v1::builder;
     /// use builder::web_security_scanner::GetScanRun;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -565,8 +599,9 @@ pub mod web_security_scanner {
     /// # use google_cloud_websecurityscanner_v1::builder;
     /// use builder::web_security_scanner::ListScanRuns;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -665,6 +700,7 @@ pub mod web_security_scanner {
     /// # use google_cloud_websecurityscanner_v1::builder;
     /// use builder::web_security_scanner::StopScanRun;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -725,8 +761,9 @@ pub mod web_security_scanner {
     /// # use google_cloud_websecurityscanner_v1::builder;
     /// use builder::web_security_scanner::ListCrawledUrls;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -825,6 +862,7 @@ pub mod web_security_scanner {
     /// # use google_cloud_websecurityscanner_v1::builder;
     /// use builder::web_security_scanner::GetFinding;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -885,8 +923,9 @@ pub mod web_security_scanner {
     /// # use google_cloud_websecurityscanner_v1::builder;
     /// use builder::web_security_scanner::ListFindings;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -991,6 +1030,7 @@ pub mod web_security_scanner {
     /// # use google_cloud_websecurityscanner_v1::builder;
     /// use builder::web_security_scanner::ListFindingTypeStats;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });

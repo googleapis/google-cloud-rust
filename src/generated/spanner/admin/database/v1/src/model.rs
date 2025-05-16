@@ -226,20 +226,38 @@ impl Backup {
     }
 
     /// Sets the value of [version_time][crate::model::Backup::version_time].
-    pub fn set_version_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.version_time = v.into();
+    pub fn set_version_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.version_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [version_time][crate::model::Backup::version_time].
+    pub fn set_or_clear_version_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.version_time = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [expire_time][crate::model::Backup::expire_time].
-    pub fn set_expire_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.expire_time = v.into();
+    pub fn set_expire_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.expire_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [expire_time][crate::model::Backup::expire_time].
+    pub fn set_or_clear_expire_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.expire_time = v.map(|x| x.into());
         self
     }
 
@@ -250,11 +268,20 @@ impl Backup {
     }
 
     /// Sets the value of [create_time][crate::model::Backup::create_time].
-    pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.create_time = v.into();
+    pub fn set_create_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [create_time][crate::model::Backup::create_time].
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = v.map(|x| x.into());
         self
     }
 
@@ -294,13 +321,20 @@ impl Backup {
     }
 
     /// Sets the value of [encryption_info][crate::model::Backup::encryption_info].
-    pub fn set_encryption_info<
-        T: std::convert::Into<std::option::Option<crate::model::EncryptionInfo>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.encryption_info = v.into();
+    pub fn set_encryption_info<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::EncryptionInfo>,
+    {
+        self.encryption_info = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [encryption_info][crate::model::Backup::encryption_info].
+    pub fn set_or_clear_encryption_info<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::EncryptionInfo>,
+    {
+        self.encryption_info = v.map(|x| x.into());
         self
     }
 
@@ -336,11 +370,20 @@ impl Backup {
     }
 
     /// Sets the value of [max_expire_time][crate::model::Backup::max_expire_time].
-    pub fn set_max_expire_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.max_expire_time = v.into();
+    pub fn set_max_expire_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.max_expire_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [max_expire_time][crate::model::Backup::max_expire_time].
+    pub fn set_or_clear_max_expire_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.max_expire_time = v.map(|x| x.into());
         self
     }
 
@@ -365,11 +408,20 @@ impl Backup {
     }
 
     /// Sets the value of [oldest_version_time][crate::model::Backup::oldest_version_time].
-    pub fn set_oldest_version_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.oldest_version_time = v.into();
+    pub fn set_oldest_version_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.oldest_version_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [oldest_version_time][crate::model::Backup::oldest_version_time].
+    pub fn set_or_clear_oldest_version_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.oldest_version_time = v.map(|x| x.into());
         self
     }
 
@@ -590,22 +642,38 @@ impl CreateBackupRequest {
     }
 
     /// Sets the value of [backup][crate::model::CreateBackupRequest::backup].
-    pub fn set_backup<T: std::convert::Into<std::option::Option<crate::model::Backup>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.backup = v.into();
+    pub fn set_backup<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::Backup>,
+    {
+        self.backup = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [backup][crate::model::CreateBackupRequest::backup].
+    pub fn set_or_clear_backup<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::Backup>,
+    {
+        self.backup = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [encryption_config][crate::model::CreateBackupRequest::encryption_config].
-    pub fn set_encryption_config<
-        T: std::convert::Into<std::option::Option<crate::model::CreateBackupEncryptionConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.encryption_config = v.into();
+    pub fn set_encryption_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::CreateBackupEncryptionConfig>,
+    {
+        self.encryption_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [encryption_config][crate::model::CreateBackupRequest::encryption_config].
+    pub fn set_or_clear_encryption_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::CreateBackupEncryptionConfig>,
+    {
+        self.encryption_config = v.map(|x| x.into());
         self
     }
 }
@@ -681,22 +749,38 @@ impl CreateBackupMetadata {
     }
 
     /// Sets the value of [progress][crate::model::CreateBackupMetadata::progress].
-    pub fn set_progress<
-        T: std::convert::Into<std::option::Option<crate::model::OperationProgress>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.progress = v.into();
+    pub fn set_progress<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::OperationProgress>,
+    {
+        self.progress = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [progress][crate::model::CreateBackupMetadata::progress].
+    pub fn set_or_clear_progress<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::OperationProgress>,
+    {
+        self.progress = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [cancel_time][crate::model::CreateBackupMetadata::cancel_time].
-    pub fn set_cancel_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.cancel_time = v.into();
+    pub fn set_cancel_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.cancel_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [cancel_time][crate::model::CreateBackupMetadata::cancel_time].
+    pub fn set_or_clear_cancel_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.cancel_time = v.map(|x| x.into());
         self
     }
 }
@@ -782,22 +866,38 @@ impl CopyBackupRequest {
     }
 
     /// Sets the value of [expire_time][crate::model::CopyBackupRequest::expire_time].
-    pub fn set_expire_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.expire_time = v.into();
+    pub fn set_expire_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.expire_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [expire_time][crate::model::CopyBackupRequest::expire_time].
+    pub fn set_or_clear_expire_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.expire_time = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [encryption_config][crate::model::CopyBackupRequest::encryption_config].
-    pub fn set_encryption_config<
-        T: std::convert::Into<std::option::Option<crate::model::CopyBackupEncryptionConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.encryption_config = v.into();
+    pub fn set_encryption_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::CopyBackupEncryptionConfig>,
+    {
+        self.encryption_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [encryption_config][crate::model::CopyBackupRequest::encryption_config].
+    pub fn set_or_clear_encryption_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::CopyBackupEncryptionConfig>,
+    {
+        self.encryption_config = v.map(|x| x.into());
         self
     }
 }
@@ -877,22 +977,38 @@ impl CopyBackupMetadata {
     }
 
     /// Sets the value of [progress][crate::model::CopyBackupMetadata::progress].
-    pub fn set_progress<
-        T: std::convert::Into<std::option::Option<crate::model::OperationProgress>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.progress = v.into();
+    pub fn set_progress<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::OperationProgress>,
+    {
+        self.progress = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [progress][crate::model::CopyBackupMetadata::progress].
+    pub fn set_or_clear_progress<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::OperationProgress>,
+    {
+        self.progress = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [cancel_time][crate::model::CopyBackupMetadata::cancel_time].
-    pub fn set_cancel_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.cancel_time = v.into();
+    pub fn set_cancel_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.cancel_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [cancel_time][crate::model::CopyBackupMetadata::cancel_time].
+    pub fn set_or_clear_cancel_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.cancel_time = v.map(|x| x.into());
         self
     }
 }
@@ -938,20 +1054,38 @@ impl UpdateBackupRequest {
     }
 
     /// Sets the value of [backup][crate::model::UpdateBackupRequest::backup].
-    pub fn set_backup<T: std::convert::Into<std::option::Option<crate::model::Backup>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.backup = v.into();
+    pub fn set_backup<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::Backup>,
+    {
+        self.backup = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [backup][crate::model::UpdateBackupRequest::backup].
+    pub fn set_or_clear_backup<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::Backup>,
+    {
+        self.backup = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateBackupRequest::update_mask].
-    pub fn set_update_mask<T: std::convert::Into<std::option::Option<wkt::FieldMask>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.update_mask = v.into();
+    pub fn set_update_mask<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_mask][crate::model::UpdateBackupRequest::update_mask].
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = v.map(|x| x.into());
         self
     }
 }
@@ -1494,20 +1628,38 @@ impl BackupInfo {
     }
 
     /// Sets the value of [version_time][crate::model::BackupInfo::version_time].
-    pub fn set_version_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.version_time = v.into();
+    pub fn set_version_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.version_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [version_time][crate::model::BackupInfo::version_time].
+    pub fn set_or_clear_version_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.version_time = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [create_time][crate::model::BackupInfo::create_time].
-    pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.create_time = v.into();
+    pub fn set_create_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [create_time][crate::model::BackupInfo::create_time].
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = v.map(|x| x.into());
         self
     }
 
@@ -2246,42 +2398,74 @@ impl BackupSchedule {
     }
 
     /// Sets the value of [spec][crate::model::BackupSchedule::spec].
-    pub fn set_spec<
-        T: std::convert::Into<std::option::Option<crate::model::BackupScheduleSpec>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.spec = v.into();
+    pub fn set_spec<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::BackupScheduleSpec>,
+    {
+        self.spec = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [spec][crate::model::BackupSchedule::spec].
+    pub fn set_or_clear_spec<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::BackupScheduleSpec>,
+    {
+        self.spec = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [retention_duration][crate::model::BackupSchedule::retention_duration].
-    pub fn set_retention_duration<T: std::convert::Into<std::option::Option<wkt::Duration>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.retention_duration = v.into();
+    pub fn set_retention_duration<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Duration>,
+    {
+        self.retention_duration = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [retention_duration][crate::model::BackupSchedule::retention_duration].
+    pub fn set_or_clear_retention_duration<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Duration>,
+    {
+        self.retention_duration = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [encryption_config][crate::model::BackupSchedule::encryption_config].
-    pub fn set_encryption_config<
-        T: std::convert::Into<std::option::Option<crate::model::CreateBackupEncryptionConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.encryption_config = v.into();
+    pub fn set_encryption_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::CreateBackupEncryptionConfig>,
+    {
+        self.encryption_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [encryption_config][crate::model::BackupSchedule::encryption_config].
+    pub fn set_or_clear_encryption_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::CreateBackupEncryptionConfig>,
+    {
+        self.encryption_config = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [update_time][crate::model::BackupSchedule::update_time].
-    pub fn set_update_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.update_time = v.into();
+    pub fn set_update_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_time][crate::model::BackupSchedule::update_time].
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = v.map(|x| x.into());
         self
     }
 
@@ -2449,11 +2633,20 @@ impl CrontabSpec {
     }
 
     /// Sets the value of [creation_window][crate::model::CrontabSpec::creation_window].
-    pub fn set_creation_window<T: std::convert::Into<std::option::Option<wkt::Duration>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.creation_window = v.into();
+    pub fn set_creation_window<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Duration>,
+    {
+        self.creation_window = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [creation_window][crate::model::CrontabSpec::creation_window].
+    pub fn set_or_clear_creation_window<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Duration>,
+    {
+        self.creation_window = v.map(|x| x.into());
         self
     }
 }
@@ -2512,13 +2705,20 @@ impl CreateBackupScheduleRequest {
     }
 
     /// Sets the value of [backup_schedule][crate::model::CreateBackupScheduleRequest::backup_schedule].
-    pub fn set_backup_schedule<
-        T: std::convert::Into<std::option::Option<crate::model::BackupSchedule>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.backup_schedule = v.into();
+    pub fn set_backup_schedule<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::BackupSchedule>,
+    {
+        self.backup_schedule = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [backup_schedule][crate::model::CreateBackupScheduleRequest::backup_schedule].
+    pub fn set_or_clear_backup_schedule<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::BackupSchedule>,
+    {
+        self.backup_schedule = v.map(|x| x.into());
         self
     }
 }
@@ -2769,22 +2969,38 @@ impl UpdateBackupScheduleRequest {
     }
 
     /// Sets the value of [backup_schedule][crate::model::UpdateBackupScheduleRequest::backup_schedule].
-    pub fn set_backup_schedule<
-        T: std::convert::Into<std::option::Option<crate::model::BackupSchedule>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.backup_schedule = v.into();
+    pub fn set_backup_schedule<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::BackupSchedule>,
+    {
+        self.backup_schedule = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [backup_schedule][crate::model::UpdateBackupScheduleRequest::backup_schedule].
+    pub fn set_or_clear_backup_schedule<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::BackupSchedule>,
+    {
+        self.backup_schedule = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateBackupScheduleRequest::update_mask].
-    pub fn set_update_mask<T: std::convert::Into<std::option::Option<wkt::FieldMask>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.update_mask = v.into();
+    pub fn set_update_mask<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_mask][crate::model::UpdateBackupScheduleRequest::update_mask].
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = v.map(|x| x.into());
         self
     }
 }
@@ -2832,20 +3048,38 @@ impl OperationProgress {
     }
 
     /// Sets the value of [start_time][crate::model::OperationProgress::start_time].
-    pub fn set_start_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.start_time = v.into();
+    pub fn set_start_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.start_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [start_time][crate::model::OperationProgress::start_time].
+    pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.start_time = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [end_time][crate::model::OperationProgress::end_time].
-    pub fn set_end_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.end_time = v.into();
+    pub fn set_end_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.end_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [end_time][crate::model::OperationProgress::end_time].
+    pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.end_time = v.map(|x| x.into());
         self
     }
 }
@@ -2959,11 +3193,20 @@ impl EncryptionInfo {
     }
 
     /// Sets the value of [encryption_status][crate::model::EncryptionInfo::encryption_status].
-    pub fn set_encryption_status<T: std::convert::Into<std::option::Option<rpc::model::Status>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.encryption_status = v.into();
+    pub fn set_encryption_status<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<rpc::model::Status>,
+    {
+        self.encryption_status = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [encryption_status][crate::model::EncryptionInfo::encryption_status].
+    pub fn set_or_clear_encryption_status<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<rpc::model::Status>,
+    {
+        self.encryption_status = v.map(|x| x.into());
         self
     }
 
@@ -3330,33 +3573,56 @@ impl Database {
     }
 
     /// Sets the value of [create_time][crate::model::Database::create_time].
-    pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.create_time = v.into();
+    pub fn set_create_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [create_time][crate::model::Database::create_time].
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [restore_info][crate::model::Database::restore_info].
-    pub fn set_restore_info<
-        T: std::convert::Into<std::option::Option<crate::model::RestoreInfo>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.restore_info = v.into();
+    pub fn set_restore_info<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::RestoreInfo>,
+    {
+        self.restore_info = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [restore_info][crate::model::Database::restore_info].
+    pub fn set_or_clear_restore_info<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::RestoreInfo>,
+    {
+        self.restore_info = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [encryption_config][crate::model::Database::encryption_config].
-    pub fn set_encryption_config<
-        T: std::convert::Into<std::option::Option<crate::model::EncryptionConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.encryption_config = v.into();
+    pub fn set_encryption_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::EncryptionConfig>,
+    {
+        self.encryption_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [encryption_config][crate::model::Database::encryption_config].
+    pub fn set_or_clear_encryption_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::EncryptionConfig>,
+    {
+        self.encryption_config = v.map(|x| x.into());
         self
     }
 
@@ -3381,11 +3647,20 @@ impl Database {
     }
 
     /// Sets the value of [earliest_version_time][crate::model::Database::earliest_version_time].
-    pub fn set_earliest_version_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.earliest_version_time = v.into();
+    pub fn set_earliest_version_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.earliest_version_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [earliest_version_time][crate::model::Database::earliest_version_time].
+    pub fn set_or_clear_earliest_version_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.earliest_version_time = v.map(|x| x.into());
         self
     }
 
@@ -3802,13 +4077,20 @@ impl CreateDatabaseRequest {
     }
 
     /// Sets the value of [encryption_config][crate::model::CreateDatabaseRequest::encryption_config].
-    pub fn set_encryption_config<
-        T: std::convert::Into<std::option::Option<crate::model::EncryptionConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.encryption_config = v.into();
+    pub fn set_encryption_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::EncryptionConfig>,
+    {
+        self.encryption_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [encryption_config][crate::model::CreateDatabaseRequest::encryption_config].
+    pub fn set_or_clear_encryption_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::EncryptionConfig>,
+    {
+        self.encryption_config = v.map(|x| x.into());
         self
     }
 
@@ -3935,20 +4217,38 @@ impl UpdateDatabaseRequest {
     }
 
     /// Sets the value of [database][crate::model::UpdateDatabaseRequest::database].
-    pub fn set_database<T: std::convert::Into<std::option::Option<crate::model::Database>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.database = v.into();
+    pub fn set_database<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::Database>,
+    {
+        self.database = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [database][crate::model::UpdateDatabaseRequest::database].
+    pub fn set_or_clear_database<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::Database>,
+    {
+        self.database = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateDatabaseRequest::update_mask].
-    pub fn set_update_mask<T: std::convert::Into<std::option::Option<wkt::FieldMask>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.update_mask = v.into();
+    pub fn set_update_mask<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_mask][crate::model::UpdateDatabaseRequest::update_mask].
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = v.map(|x| x.into());
         self
     }
 }
@@ -3998,33 +4298,56 @@ impl UpdateDatabaseMetadata {
     }
 
     /// Sets the value of [request][crate::model::UpdateDatabaseMetadata::request].
-    pub fn set_request<
-        T: std::convert::Into<std::option::Option<crate::model::UpdateDatabaseRequest>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.request = v.into();
+    pub fn set_request<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::UpdateDatabaseRequest>,
+    {
+        self.request = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [request][crate::model::UpdateDatabaseMetadata::request].
+    pub fn set_or_clear_request<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::UpdateDatabaseRequest>,
+    {
+        self.request = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [progress][crate::model::UpdateDatabaseMetadata::progress].
-    pub fn set_progress<
-        T: std::convert::Into<std::option::Option<crate::model::OperationProgress>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.progress = v.into();
+    pub fn set_progress<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::OperationProgress>,
+    {
+        self.progress = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [progress][crate::model::UpdateDatabaseMetadata::progress].
+    pub fn set_or_clear_progress<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::OperationProgress>,
+    {
+        self.progress = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [cancel_time][crate::model::UpdateDatabaseMetadata::cancel_time].
-    pub fn set_cancel_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.cancel_time = v.into();
+    pub fn set_cancel_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.cancel_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [cancel_time][crate::model::UpdateDatabaseMetadata::cancel_time].
+    pub fn set_or_clear_cancel_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.cancel_time = v.map(|x| x.into());
         self
     }
 }
@@ -4734,13 +5057,20 @@ impl RestoreDatabaseRequest {
     }
 
     /// Sets the value of [encryption_config][crate::model::RestoreDatabaseRequest::encryption_config].
-    pub fn set_encryption_config<
-        T: std::convert::Into<std::option::Option<crate::model::RestoreDatabaseEncryptionConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.encryption_config = v.into();
+    pub fn set_encryption_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::RestoreDatabaseEncryptionConfig>,
+    {
+        self.encryption_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [encryption_config][crate::model::RestoreDatabaseRequest::encryption_config].
+    pub fn set_or_clear_encryption_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::RestoreDatabaseEncryptionConfig>,
+    {
+        self.encryption_config = v.map(|x| x.into());
         self
     }
 
@@ -5138,22 +5468,38 @@ impl RestoreDatabaseMetadata {
     }
 
     /// Sets the value of [progress][crate::model::RestoreDatabaseMetadata::progress].
-    pub fn set_progress<
-        T: std::convert::Into<std::option::Option<crate::model::OperationProgress>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.progress = v.into();
+    pub fn set_progress<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::OperationProgress>,
+    {
+        self.progress = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [progress][crate::model::RestoreDatabaseMetadata::progress].
+    pub fn set_or_clear_progress<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::OperationProgress>,
+    {
+        self.progress = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [cancel_time][crate::model::RestoreDatabaseMetadata::cancel_time].
-    pub fn set_cancel_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.cancel_time = v.into();
+    pub fn set_cancel_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.cancel_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [cancel_time][crate::model::RestoreDatabaseMetadata::cancel_time].
+    pub fn set_or_clear_cancel_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.cancel_time = v.map(|x| x.into());
         self
     }
 
@@ -5270,13 +5616,20 @@ impl OptimizeRestoredDatabaseMetadata {
     }
 
     /// Sets the value of [progress][crate::model::OptimizeRestoredDatabaseMetadata::progress].
-    pub fn set_progress<
-        T: std::convert::Into<std::option::Option<crate::model::OperationProgress>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.progress = v.into();
+    pub fn set_progress<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::OperationProgress>,
+    {
+        self.progress = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [progress][crate::model::OptimizeRestoredDatabaseMetadata::progress].
+    pub fn set_or_clear_progress<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::OperationProgress>,
+    {
+        self.progress = v.map(|x| x.into());
         self
     }
 }
@@ -5603,11 +5956,20 @@ impl SplitPoints {
     }
 
     /// Sets the value of [expire_time][crate::model::SplitPoints::expire_time].
-    pub fn set_expire_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.expire_time = v.into();
+    pub fn set_expire_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.expire_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [expire_time][crate::model::SplitPoints::expire_time].
+    pub fn set_or_clear_expire_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.expire_time = v.map(|x| x.into());
         self
     }
 }
@@ -5643,11 +6005,20 @@ pub mod split_points {
         }
 
         /// Sets the value of [key_parts][crate::model::split_points::Key::key_parts].
-        pub fn set_key_parts<T: std::convert::Into<std::option::Option<wkt::ListValue>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.key_parts = v.into();
+        pub fn set_key_parts<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::ListValue>,
+        {
+            self.key_parts = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [key_parts][crate::model::split_points::Key::key_parts].
+        pub fn set_or_clear_key_parts<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::ListValue>,
+        {
+            self.key_parts = v.map(|x| x.into());
             self
         }
     }

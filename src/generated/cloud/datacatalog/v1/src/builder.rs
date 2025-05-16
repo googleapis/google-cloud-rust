@@ -75,8 +75,9 @@ pub mod data_catalog {
     /// # use google_cloud_datacatalog_v1::builder;
     /// use builder::data_catalog::SearchCatalog;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -145,13 +146,22 @@ pub mod data_catalog {
         /// Sets the value of [scope][crate::model::SearchCatalogRequest::scope].
         ///
         /// This is a **required** field for requests.
-        pub fn set_scope<
-            T: Into<std::option::Option<crate::model::search_catalog_request::Scope>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.scope = v.into();
+        pub fn set_scope<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::search_catalog_request::Scope>,
+        {
+            self.0.request.scope = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [scope][crate::model::SearchCatalogRequest::scope].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_scope<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::search_catalog_request::Scope>,
+        {
+            self.0.request.scope = v.map(|x| x.into());
             self
         }
 
@@ -200,6 +210,7 @@ pub mod data_catalog {
     /// # use google_cloud_datacatalog_v1::builder;
     /// use builder::data_catalog::CreateEntryGroup;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -259,11 +270,20 @@ pub mod data_catalog {
         }
 
         /// Sets the value of [entry_group][crate::model::CreateEntryGroupRequest::entry_group].
-        pub fn set_entry_group<T: Into<std::option::Option<crate::model::EntryGroup>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.entry_group = v.into();
+        pub fn set_entry_group<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::EntryGroup>,
+        {
+            self.0.request.entry_group = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [entry_group][crate::model::CreateEntryGroupRequest::entry_group].
+        pub fn set_or_clear_entry_group<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::EntryGroup>,
+        {
+            self.0.request.entry_group = v.map(|x| x.into());
             self
         }
     }
@@ -282,6 +302,7 @@ pub mod data_catalog {
     /// # use google_cloud_datacatalog_v1::builder;
     /// use builder::data_catalog::GetEntryGroup;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -330,8 +351,20 @@ pub mod data_catalog {
         }
 
         /// Sets the value of [read_mask][crate::model::GetEntryGroupRequest::read_mask].
-        pub fn set_read_mask<T: Into<std::option::Option<wkt::FieldMask>>>(mut self, v: T) -> Self {
-            self.0.request.read_mask = v.into();
+        pub fn set_read_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.read_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [read_mask][crate::model::GetEntryGroupRequest::read_mask].
+        pub fn set_or_clear_read_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.read_mask = v.map(|x| x.into());
             self
         }
     }
@@ -350,6 +383,7 @@ pub mod data_catalog {
     /// # use google_cloud_datacatalog_v1::builder;
     /// use builder::data_catalog::UpdateEntryGroup;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -395,20 +429,40 @@ pub mod data_catalog {
         /// Sets the value of [entry_group][crate::model::UpdateEntryGroupRequest::entry_group].
         ///
         /// This is a **required** field for requests.
-        pub fn set_entry_group<T: Into<std::option::Option<crate::model::EntryGroup>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.entry_group = v.into();
+        pub fn set_entry_group<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::EntryGroup>,
+        {
+            self.0.request.entry_group = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [entry_group][crate::model::UpdateEntryGroupRequest::entry_group].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_entry_group<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::EntryGroup>,
+        {
+            self.0.request.entry_group = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateEntryGroupRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateEntryGroupRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -427,6 +481,7 @@ pub mod data_catalog {
     /// # use google_cloud_datacatalog_v1::builder;
     /// use builder::data_catalog::DeleteEntryGroup;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -498,8 +553,9 @@ pub mod data_catalog {
     /// # use google_cloud_datacatalog_v1::builder;
     /// use builder::data_catalog::ListEntryGroups;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -600,6 +656,7 @@ pub mod data_catalog {
     /// # use google_cloud_datacatalog_v1::builder;
     /// use builder::data_catalog::CreateEntry;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -658,11 +715,22 @@ pub mod data_catalog {
         /// Sets the value of [entry][crate::model::CreateEntryRequest::entry].
         ///
         /// This is a **required** field for requests.
-        pub fn set_entry<T: Into<std::option::Option<crate::model::Entry>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.entry = v.into();
+        pub fn set_entry<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Entry>,
+        {
+            self.0.request.entry = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [entry][crate::model::CreateEntryRequest::entry].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_entry<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Entry>,
+        {
+            self.0.request.entry = v.map(|x| x.into());
             self
         }
     }
@@ -681,6 +749,7 @@ pub mod data_catalog {
     /// # use google_cloud_datacatalog_v1::builder;
     /// use builder::data_catalog::UpdateEntry;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -723,20 +792,40 @@ pub mod data_catalog {
         /// Sets the value of [entry][crate::model::UpdateEntryRequest::entry].
         ///
         /// This is a **required** field for requests.
-        pub fn set_entry<T: Into<std::option::Option<crate::model::Entry>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.entry = v.into();
+        pub fn set_entry<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Entry>,
+        {
+            self.0.request.entry = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [entry][crate::model::UpdateEntryRequest::entry].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_entry<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Entry>,
+        {
+            self.0.request.entry = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateEntryRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateEntryRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -755,6 +844,7 @@ pub mod data_catalog {
     /// # use google_cloud_datacatalog_v1::builder;
     /// use builder::data_catalog::DeleteEntry;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -817,6 +907,7 @@ pub mod data_catalog {
     /// # use google_cloud_datacatalog_v1::builder;
     /// use builder::data_catalog::GetEntry;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -879,6 +970,7 @@ pub mod data_catalog {
     /// # use google_cloud_datacatalog_v1::builder;
     /// use builder::data_catalog::LookupEntry;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -996,8 +1088,9 @@ pub mod data_catalog {
     /// # use google_cloud_datacatalog_v1::builder;
     /// use builder::data_catalog::ListEntries;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -1084,8 +1177,20 @@ pub mod data_catalog {
         }
 
         /// Sets the value of [read_mask][crate::model::ListEntriesRequest::read_mask].
-        pub fn set_read_mask<T: Into<std::option::Option<wkt::FieldMask>>>(mut self, v: T) -> Self {
-            self.0.request.read_mask = v.into();
+        pub fn set_read_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.read_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [read_mask][crate::model::ListEntriesRequest::read_mask].
+        pub fn set_or_clear_read_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.read_mask = v.map(|x| x.into());
             self
         }
     }
@@ -1104,6 +1209,7 @@ pub mod data_catalog {
     /// # use google_cloud_datacatalog_v1::builder;
     /// use builder::data_catalog::ModifyEntryOverview;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1157,11 +1263,22 @@ pub mod data_catalog {
         /// Sets the value of [entry_overview][crate::model::ModifyEntryOverviewRequest::entry_overview].
         ///
         /// This is a **required** field for requests.
-        pub fn set_entry_overview<T: Into<std::option::Option<crate::model::EntryOverview>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.entry_overview = v.into();
+        pub fn set_entry_overview<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::EntryOverview>,
+        {
+            self.0.request.entry_overview = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [entry_overview][crate::model::ModifyEntryOverviewRequest::entry_overview].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_entry_overview<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::EntryOverview>,
+        {
+            self.0.request.entry_overview = v.map(|x| x.into());
             self
         }
     }
@@ -1180,6 +1297,7 @@ pub mod data_catalog {
     /// # use google_cloud_datacatalog_v1::builder;
     /// use builder::data_catalog::ModifyEntryContacts;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1233,11 +1351,22 @@ pub mod data_catalog {
         /// Sets the value of [contacts][crate::model::ModifyEntryContactsRequest::contacts].
         ///
         /// This is a **required** field for requests.
-        pub fn set_contacts<T: Into<std::option::Option<crate::model::Contacts>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.contacts = v.into();
+        pub fn set_contacts<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Contacts>,
+        {
+            self.0.request.contacts = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [contacts][crate::model::ModifyEntryContactsRequest::contacts].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_contacts<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Contacts>,
+        {
+            self.0.request.contacts = v.map(|x| x.into());
             self
         }
     }
@@ -1256,6 +1385,7 @@ pub mod data_catalog {
     /// # use google_cloud_datacatalog_v1::builder;
     /// use builder::data_catalog::CreateTagTemplate;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1317,11 +1447,22 @@ pub mod data_catalog {
         /// Sets the value of [tag_template][crate::model::CreateTagTemplateRequest::tag_template].
         ///
         /// This is a **required** field for requests.
-        pub fn set_tag_template<T: Into<std::option::Option<crate::model::TagTemplate>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.tag_template = v.into();
+        pub fn set_tag_template<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::TagTemplate>,
+        {
+            self.0.request.tag_template = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [tag_template][crate::model::CreateTagTemplateRequest::tag_template].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_tag_template<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::TagTemplate>,
+        {
+            self.0.request.tag_template = v.map(|x| x.into());
             self
         }
     }
@@ -1340,6 +1481,7 @@ pub mod data_catalog {
     /// # use google_cloud_datacatalog_v1::builder;
     /// use builder::data_catalog::GetTagTemplate;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1402,6 +1544,7 @@ pub mod data_catalog {
     /// # use google_cloud_datacatalog_v1::builder;
     /// use builder::data_catalog::UpdateTagTemplate;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1447,20 +1590,40 @@ pub mod data_catalog {
         /// Sets the value of [tag_template][crate::model::UpdateTagTemplateRequest::tag_template].
         ///
         /// This is a **required** field for requests.
-        pub fn set_tag_template<T: Into<std::option::Option<crate::model::TagTemplate>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.tag_template = v.into();
+        pub fn set_tag_template<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::TagTemplate>,
+        {
+            self.0.request.tag_template = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [tag_template][crate::model::UpdateTagTemplateRequest::tag_template].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_tag_template<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::TagTemplate>,
+        {
+            self.0.request.tag_template = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateTagTemplateRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateTagTemplateRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -1479,6 +1642,7 @@ pub mod data_catalog {
     /// # use google_cloud_datacatalog_v1::builder;
     /// use builder::data_catalog::DeleteTagTemplate;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1552,6 +1716,7 @@ pub mod data_catalog {
     /// # use google_cloud_datacatalog_v1::builder;
     /// use builder::data_catalog::CreateTagTemplateField;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1613,13 +1778,22 @@ pub mod data_catalog {
         /// Sets the value of [tag_template_field][crate::model::CreateTagTemplateFieldRequest::tag_template_field].
         ///
         /// This is a **required** field for requests.
-        pub fn set_tag_template_field<
-            T: Into<std::option::Option<crate::model::TagTemplateField>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.tag_template_field = v.into();
+        pub fn set_tag_template_field<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::TagTemplateField>,
+        {
+            self.0.request.tag_template_field = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [tag_template_field][crate::model::CreateTagTemplateFieldRequest::tag_template_field].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_tag_template_field<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::TagTemplateField>,
+        {
+            self.0.request.tag_template_field = v.map(|x| x.into());
             self
         }
     }
@@ -1638,6 +1812,7 @@ pub mod data_catalog {
     /// # use google_cloud_datacatalog_v1::builder;
     /// use builder::data_catalog::UpdateTagTemplateField;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1691,22 +1866,40 @@ pub mod data_catalog {
         /// Sets the value of [tag_template_field][crate::model::UpdateTagTemplateFieldRequest::tag_template_field].
         ///
         /// This is a **required** field for requests.
-        pub fn set_tag_template_field<
-            T: Into<std::option::Option<crate::model::TagTemplateField>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.tag_template_field = v.into();
+        pub fn set_tag_template_field<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::TagTemplateField>,
+        {
+            self.0.request.tag_template_field = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [tag_template_field][crate::model::UpdateTagTemplateFieldRequest::tag_template_field].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_tag_template_field<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::TagTemplateField>,
+        {
+            self.0.request.tag_template_field = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateTagTemplateFieldRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateTagTemplateFieldRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -1725,6 +1918,7 @@ pub mod data_catalog {
     /// # use google_cloud_datacatalog_v1::builder;
     /// use builder::data_catalog::RenameTagTemplateField;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1798,6 +1992,7 @@ pub mod data_catalog {
     /// # use google_cloud_datacatalog_v1::builder;
     /// use builder::data_catalog::RenameTagTemplateFieldEnumValue;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1876,6 +2071,7 @@ pub mod data_catalog {
     /// # use google_cloud_datacatalog_v1::builder;
     /// use builder::data_catalog::DeleteTagTemplateField;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1949,6 +2145,7 @@ pub mod data_catalog {
     /// # use google_cloud_datacatalog_v1::builder;
     /// use builder::data_catalog::CreateTag;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1999,8 +2196,22 @@ pub mod data_catalog {
         /// Sets the value of [tag][crate::model::CreateTagRequest::tag].
         ///
         /// This is a **required** field for requests.
-        pub fn set_tag<T: Into<std::option::Option<crate::model::Tag>>>(mut self, v: T) -> Self {
-            self.0.request.tag = v.into();
+        pub fn set_tag<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Tag>,
+        {
+            self.0.request.tag = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [tag][crate::model::CreateTagRequest::tag].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_tag<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Tag>,
+        {
+            self.0.request.tag = v.map(|x| x.into());
             self
         }
     }
@@ -2019,6 +2230,7 @@ pub mod data_catalog {
     /// # use google_cloud_datacatalog_v1::builder;
     /// use builder::data_catalog::UpdateTag;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2061,17 +2273,40 @@ pub mod data_catalog {
         /// Sets the value of [tag][crate::model::UpdateTagRequest::tag].
         ///
         /// This is a **required** field for requests.
-        pub fn set_tag<T: Into<std::option::Option<crate::model::Tag>>>(mut self, v: T) -> Self {
-            self.0.request.tag = v.into();
+        pub fn set_tag<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Tag>,
+        {
+            self.0.request.tag = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [tag][crate::model::UpdateTagRequest::tag].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_tag<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Tag>,
+        {
+            self.0.request.tag = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateTagRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateTagRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -2090,6 +2325,7 @@ pub mod data_catalog {
     /// # use google_cloud_datacatalog_v1::builder;
     /// use builder::data_catalog::DeleteTag;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2152,8 +2388,9 @@ pub mod data_catalog {
     /// # use google_cloud_datacatalog_v1::builder;
     /// use builder::data_catalog::ListTags;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -2254,8 +2491,9 @@ pub mod data_catalog {
     /// # use google_cloud_datacatalog_v1::builder;
     /// use builder::data_catalog::ReconcileTags;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_datacatalog_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -2383,6 +2621,7 @@ pub mod data_catalog {
     /// # use google_cloud_datacatalog_v1::builder;
     /// use builder::data_catalog::StarEntry;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2445,6 +2684,7 @@ pub mod data_catalog {
     /// # use google_cloud_datacatalog_v1::builder;
     /// use builder::data_catalog::UnstarEntry;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2507,6 +2747,7 @@ pub mod data_catalog {
     /// # use google_cloud_datacatalog_v1::builder;
     /// use builder::data_catalog::SetIamPolicy;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2557,20 +2798,40 @@ pub mod data_catalog {
         /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
-        pub fn set_policy<T: Into<std::option::Option<iam_v1::model::Policy>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.policy = v.into();
+        pub fn set_policy<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -2589,6 +2850,7 @@ pub mod data_catalog {
     /// # use google_cloud_datacatalog_v1::builder;
     /// use builder::data_catalog::GetIamPolicy;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2637,11 +2899,20 @@ pub mod data_catalog {
         }
 
         /// Sets the value of [options][iam_v1::model::GetIamPolicyRequest::options].
-        pub fn set_options<T: Into<std::option::Option<iam_v1::model::GetPolicyOptions>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.options = v.into();
+        pub fn set_options<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = v.map(|x| x.into());
             self
         }
     }
@@ -2660,6 +2931,7 @@ pub mod data_catalog {
     /// # use google_cloud_datacatalog_v1::builder;
     /// use builder::data_catalog::TestIamPermissions;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2738,8 +3010,9 @@ pub mod data_catalog {
     /// # use google_cloud_datacatalog_v1::builder;
     /// use builder::data_catalog::ImportEntries;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_datacatalog_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -2873,6 +3146,7 @@ pub mod data_catalog {
     /// # use google_cloud_datacatalog_v1::builder;
     /// use builder::data_catalog::SetConfig;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2979,6 +3253,7 @@ pub mod data_catalog {
     /// # use google_cloud_datacatalog_v1::builder;
     /// use builder::data_catalog::RetrieveConfig;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3041,6 +3316,7 @@ pub mod data_catalog {
     /// # use google_cloud_datacatalog_v1::builder;
     /// use builder::data_catalog::RetrieveEffectiveConfig;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3108,8 +3384,9 @@ pub mod data_catalog {
     /// # use google_cloud_datacatalog_v1::builder;
     /// use builder::data_catalog::ListOperations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -3219,6 +3496,7 @@ pub mod data_catalog {
     /// # use google_cloud_datacatalog_v1::builder;
     /// use builder::data_catalog::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3282,6 +3560,7 @@ pub mod data_catalog {
     /// # use google_cloud_datacatalog_v1::builder;
     /// use builder::data_catalog::DeleteOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3345,6 +3624,7 @@ pub mod data_catalog {
     /// # use google_cloud_datacatalog_v1::builder;
     /// use builder::data_catalog::CancelOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3463,6 +3743,7 @@ pub mod policy_tag_manager {
     /// # use google_cloud_datacatalog_v1::builder;
     /// use builder::policy_tag_manager::CreateTaxonomy;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3511,11 +3792,20 @@ pub mod policy_tag_manager {
         }
 
         /// Sets the value of [taxonomy][crate::model::CreateTaxonomyRequest::taxonomy].
-        pub fn set_taxonomy<T: Into<std::option::Option<crate::model::Taxonomy>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.taxonomy = v.into();
+        pub fn set_taxonomy<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Taxonomy>,
+        {
+            self.0.request.taxonomy = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [taxonomy][crate::model::CreateTaxonomyRequest::taxonomy].
+        pub fn set_or_clear_taxonomy<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Taxonomy>,
+        {
+            self.0.request.taxonomy = v.map(|x| x.into());
             self
         }
     }
@@ -3534,6 +3824,7 @@ pub mod policy_tag_manager {
     /// # use google_cloud_datacatalog_v1::builder;
     /// use builder::policy_tag_manager::DeleteTaxonomy;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3596,6 +3887,7 @@ pub mod policy_tag_manager {
     /// # use google_cloud_datacatalog_v1::builder;
     /// use builder::policy_tag_manager::UpdateTaxonomy;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3636,20 +3928,38 @@ pub mod policy_tag_manager {
         }
 
         /// Sets the value of [taxonomy][crate::model::UpdateTaxonomyRequest::taxonomy].
-        pub fn set_taxonomy<T: Into<std::option::Option<crate::model::Taxonomy>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.taxonomy = v.into();
+        pub fn set_taxonomy<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Taxonomy>,
+        {
+            self.0.request.taxonomy = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [taxonomy][crate::model::UpdateTaxonomyRequest::taxonomy].
+        pub fn set_or_clear_taxonomy<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Taxonomy>,
+        {
+            self.0.request.taxonomy = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateTaxonomyRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateTaxonomyRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -3668,8 +3978,9 @@ pub mod policy_tag_manager {
     /// # use google_cloud_datacatalog_v1::builder;
     /// use builder::policy_tag_manager::ListTaxonomies;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -3776,6 +4087,7 @@ pub mod policy_tag_manager {
     /// # use google_cloud_datacatalog_v1::builder;
     /// use builder::policy_tag_manager::GetTaxonomy;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3838,6 +4150,7 @@ pub mod policy_tag_manager {
     /// # use google_cloud_datacatalog_v1::builder;
     /// use builder::policy_tag_manager::CreatePolicyTag;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3886,11 +4199,20 @@ pub mod policy_tag_manager {
         }
 
         /// Sets the value of [policy_tag][crate::model::CreatePolicyTagRequest::policy_tag].
-        pub fn set_policy_tag<T: Into<std::option::Option<crate::model::PolicyTag>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.policy_tag = v.into();
+        pub fn set_policy_tag<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::PolicyTag>,
+        {
+            self.0.request.policy_tag = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [policy_tag][crate::model::CreatePolicyTagRequest::policy_tag].
+        pub fn set_or_clear_policy_tag<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::PolicyTag>,
+        {
+            self.0.request.policy_tag = v.map(|x| x.into());
             self
         }
     }
@@ -3909,6 +4231,7 @@ pub mod policy_tag_manager {
     /// # use google_cloud_datacatalog_v1::builder;
     /// use builder::policy_tag_manager::DeletePolicyTag;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3971,6 +4294,7 @@ pub mod policy_tag_manager {
     /// # use google_cloud_datacatalog_v1::builder;
     /// use builder::policy_tag_manager::UpdatePolicyTag;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -4011,20 +4335,38 @@ pub mod policy_tag_manager {
         }
 
         /// Sets the value of [policy_tag][crate::model::UpdatePolicyTagRequest::policy_tag].
-        pub fn set_policy_tag<T: Into<std::option::Option<crate::model::PolicyTag>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.policy_tag = v.into();
+        pub fn set_policy_tag<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::PolicyTag>,
+        {
+            self.0.request.policy_tag = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [policy_tag][crate::model::UpdatePolicyTagRequest::policy_tag].
+        pub fn set_or_clear_policy_tag<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::PolicyTag>,
+        {
+            self.0.request.policy_tag = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdatePolicyTagRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdatePolicyTagRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -4043,8 +4385,9 @@ pub mod policy_tag_manager {
     /// # use google_cloud_datacatalog_v1::builder;
     /// use builder::policy_tag_manager::ListPolicyTags;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -4145,6 +4488,7 @@ pub mod policy_tag_manager {
     /// # use google_cloud_datacatalog_v1::builder;
     /// use builder::policy_tag_manager::GetPolicyTag;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -4207,6 +4551,7 @@ pub mod policy_tag_manager {
     /// # use google_cloud_datacatalog_v1::builder;
     /// use builder::policy_tag_manager::GetIamPolicy;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -4255,11 +4600,20 @@ pub mod policy_tag_manager {
         }
 
         /// Sets the value of [options][iam_v1::model::GetIamPolicyRequest::options].
-        pub fn set_options<T: Into<std::option::Option<iam_v1::model::GetPolicyOptions>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.options = v.into();
+        pub fn set_options<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = v.map(|x| x.into());
             self
         }
     }
@@ -4278,6 +4632,7 @@ pub mod policy_tag_manager {
     /// # use google_cloud_datacatalog_v1::builder;
     /// use builder::policy_tag_manager::SetIamPolicy;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -4328,20 +4683,40 @@ pub mod policy_tag_manager {
         /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
-        pub fn set_policy<T: Into<std::option::Option<iam_v1::model::Policy>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.policy = v.into();
+        pub fn set_policy<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -4360,6 +4735,7 @@ pub mod policy_tag_manager {
     /// # use google_cloud_datacatalog_v1::builder;
     /// use builder::policy_tag_manager::TestIamPermissions;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -4438,8 +4814,9 @@ pub mod policy_tag_manager {
     /// # use google_cloud_datacatalog_v1::builder;
     /// use builder::policy_tag_manager::ListOperations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -4549,6 +4926,7 @@ pub mod policy_tag_manager {
     /// # use google_cloud_datacatalog_v1::builder;
     /// use builder::policy_tag_manager::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -4612,6 +4990,7 @@ pub mod policy_tag_manager {
     /// # use google_cloud_datacatalog_v1::builder;
     /// use builder::policy_tag_manager::DeleteOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -4675,6 +5054,7 @@ pub mod policy_tag_manager {
     /// # use google_cloud_datacatalog_v1::builder;
     /// use builder::policy_tag_manager::CancelOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -4793,6 +5173,7 @@ pub mod policy_tag_manager_serialization {
     /// # use google_cloud_datacatalog_v1::builder;
     /// use builder::policy_tag_manager_serialization::ReplaceTaxonomy;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -4843,13 +5224,22 @@ pub mod policy_tag_manager_serialization {
         /// Sets the value of [serialized_taxonomy][crate::model::ReplaceTaxonomyRequest::serialized_taxonomy].
         ///
         /// This is a **required** field for requests.
-        pub fn set_serialized_taxonomy<
-            T: Into<std::option::Option<crate::model::SerializedTaxonomy>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.serialized_taxonomy = v.into();
+        pub fn set_serialized_taxonomy<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::SerializedTaxonomy>,
+        {
+            self.0.request.serialized_taxonomy = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [serialized_taxonomy][crate::model::ReplaceTaxonomyRequest::serialized_taxonomy].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_serialized_taxonomy<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::SerializedTaxonomy>,
+        {
+            self.0.request.serialized_taxonomy = v.map(|x| x.into());
             self
         }
     }
@@ -4868,6 +5258,7 @@ pub mod policy_tag_manager_serialization {
     /// # use google_cloud_datacatalog_v1::builder;
     /// use builder::policy_tag_manager_serialization::ImportTaxonomies;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -4975,6 +5366,7 @@ pub mod policy_tag_manager_serialization {
     /// # use google_cloud_datacatalog_v1::builder;
     /// use builder::policy_tag_manager_serialization::ExportTaxonomies;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -5077,8 +5469,9 @@ pub mod policy_tag_manager_serialization {
     /// # use google_cloud_datacatalog_v1::builder;
     /// use builder::policy_tag_manager_serialization::ListOperations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -5188,6 +5581,7 @@ pub mod policy_tag_manager_serialization {
     /// # use google_cloud_datacatalog_v1::builder;
     /// use builder::policy_tag_manager_serialization::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -5251,6 +5645,7 @@ pub mod policy_tag_manager_serialization {
     /// # use google_cloud_datacatalog_v1::builder;
     /// use builder::policy_tag_manager_serialization::DeleteOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -5314,6 +5709,7 @@ pub mod policy_tag_manager_serialization {
     /// # use google_cloud_datacatalog_v1::builder;
     /// use builder::policy_tag_manager_serialization::CancelOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });

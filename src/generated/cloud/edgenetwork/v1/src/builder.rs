@@ -75,6 +75,7 @@ pub mod edge_network {
     /// # use google_cloud_edgenetwork_v1::builder;
     /// use builder::edge_network::InitializeZone;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -137,8 +138,9 @@ pub mod edge_network {
     /// # use google_cloud_edgenetwork_v1::builder;
     /// use builder::edge_network::ListZones;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -251,6 +253,7 @@ pub mod edge_network {
     /// # use google_cloud_edgenetwork_v1::builder;
     /// use builder::edge_network::GetZone;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -313,8 +316,9 @@ pub mod edge_network {
     /// # use google_cloud_edgenetwork_v1::builder;
     /// use builder::edge_network::ListNetworks;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -427,6 +431,7 @@ pub mod edge_network {
     /// # use google_cloud_edgenetwork_v1::builder;
     /// use builder::edge_network::GetNetwork;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -489,6 +494,7 @@ pub mod edge_network {
     /// # use google_cloud_edgenetwork_v1::builder;
     /// use builder::edge_network::DiagnoseNetwork;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -551,8 +557,9 @@ pub mod edge_network {
     /// # use google_cloud_edgenetwork_v1::builder;
     /// use builder::edge_network::CreateNetwork;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_edgenetwork_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -648,11 +655,22 @@ pub mod edge_network {
         /// Sets the value of [network][crate::model::CreateNetworkRequest::network].
         ///
         /// This is a **required** field for requests.
-        pub fn set_network<T: Into<std::option::Option<crate::model::Network>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.network = v.into();
+        pub fn set_network<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Network>,
+        {
+            self.0.request.network = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [network][crate::model::CreateNetworkRequest::network].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_network<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Network>,
+        {
+            self.0.request.network = v.map(|x| x.into());
             self
         }
 
@@ -677,8 +695,9 @@ pub mod edge_network {
     /// # use google_cloud_edgenetwork_v1::builder;
     /// use builder::edge_network::DeleteNetwork;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_edgenetwork_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -786,8 +805,9 @@ pub mod edge_network {
     /// # use google_cloud_edgenetwork_v1::builder;
     /// use builder::edge_network::ListSubnets;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -900,6 +920,7 @@ pub mod edge_network {
     /// # use google_cloud_edgenetwork_v1::builder;
     /// use builder::edge_network::GetSubnet;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -962,8 +983,9 @@ pub mod edge_network {
     /// # use google_cloud_edgenetwork_v1::builder;
     /// use builder::edge_network::CreateSubnet;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_edgenetwork_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1059,11 +1081,22 @@ pub mod edge_network {
         /// Sets the value of [subnet][crate::model::CreateSubnetRequest::subnet].
         ///
         /// This is a **required** field for requests.
-        pub fn set_subnet<T: Into<std::option::Option<crate::model::Subnet>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.subnet = v.into();
+        pub fn set_subnet<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Subnet>,
+        {
+            self.0.request.subnet = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [subnet][crate::model::CreateSubnetRequest::subnet].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_subnet<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Subnet>,
+        {
+            self.0.request.subnet = v.map(|x| x.into());
             self
         }
 
@@ -1088,8 +1121,9 @@ pub mod edge_network {
     /// # use google_cloud_edgenetwork_v1::builder;
     /// use builder::edge_network::UpdateSubnet;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_edgenetwork_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1169,22 +1203,44 @@ pub mod edge_network {
         /// Sets the value of [update_mask][crate::model::UpdateSubnetRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateSubnetRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [subnet][crate::model::UpdateSubnetRequest::subnet].
         ///
         /// This is a **required** field for requests.
-        pub fn set_subnet<T: Into<std::option::Option<crate::model::Subnet>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.subnet = v.into();
+        pub fn set_subnet<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Subnet>,
+        {
+            self.0.request.subnet = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [subnet][crate::model::UpdateSubnetRequest::subnet].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_subnet<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Subnet>,
+        {
+            self.0.request.subnet = v.map(|x| x.into());
             self
         }
 
@@ -1209,8 +1265,9 @@ pub mod edge_network {
     /// # use google_cloud_edgenetwork_v1::builder;
     /// use builder::edge_network::DeleteSubnet;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_edgenetwork_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1318,8 +1375,9 @@ pub mod edge_network {
     /// # use google_cloud_edgenetwork_v1::builder;
     /// use builder::edge_network::ListInterconnects;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -1435,6 +1493,7 @@ pub mod edge_network {
     /// # use google_cloud_edgenetwork_v1::builder;
     /// use builder::edge_network::GetInterconnect;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1497,6 +1556,7 @@ pub mod edge_network {
     /// # use google_cloud_edgenetwork_v1::builder;
     /// use builder::edge_network::DiagnoseInterconnect;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1562,8 +1622,9 @@ pub mod edge_network {
     /// # use google_cloud_edgenetwork_v1::builder;
     /// use builder::edge_network::ListInterconnectAttachments;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -1685,6 +1746,7 @@ pub mod edge_network {
     /// # use google_cloud_edgenetwork_v1::builder;
     /// use builder::edge_network::GetInterconnectAttachment;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1752,8 +1814,9 @@ pub mod edge_network {
     /// # use google_cloud_edgenetwork_v1::builder;
     /// use builder::edge_network::CreateInterconnectAttachment;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_edgenetwork_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1860,13 +1923,22 @@ pub mod edge_network {
         /// Sets the value of [interconnect_attachment][crate::model::CreateInterconnectAttachmentRequest::interconnect_attachment].
         ///
         /// This is a **required** field for requests.
-        pub fn set_interconnect_attachment<
-            T: Into<std::option::Option<crate::model::InterconnectAttachment>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.interconnect_attachment = v.into();
+        pub fn set_interconnect_attachment<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::InterconnectAttachment>,
+        {
+            self.0.request.interconnect_attachment = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [interconnect_attachment][crate::model::CreateInterconnectAttachmentRequest::interconnect_attachment].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_interconnect_attachment<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::InterconnectAttachment>,
+        {
+            self.0.request.interconnect_attachment = v.map(|x| x.into());
             self
         }
 
@@ -1891,8 +1963,9 @@ pub mod edge_network {
     /// # use google_cloud_edgenetwork_v1::builder;
     /// use builder::edge_network::DeleteInterconnectAttachment;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_edgenetwork_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -2005,8 +2078,9 @@ pub mod edge_network {
     /// # use google_cloud_edgenetwork_v1::builder;
     /// use builder::edge_network::ListRouters;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -2119,6 +2193,7 @@ pub mod edge_network {
     /// # use google_cloud_edgenetwork_v1::builder;
     /// use builder::edge_network::GetRouter;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2181,6 +2256,7 @@ pub mod edge_network {
     /// # use google_cloud_edgenetwork_v1::builder;
     /// use builder::edge_network::DiagnoseRouter;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2243,8 +2319,9 @@ pub mod edge_network {
     /// # use google_cloud_edgenetwork_v1::builder;
     /// use builder::edge_network::CreateRouter;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_edgenetwork_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -2340,11 +2417,22 @@ pub mod edge_network {
         /// Sets the value of [router][crate::model::CreateRouterRequest::router].
         ///
         /// This is a **required** field for requests.
-        pub fn set_router<T: Into<std::option::Option<crate::model::Router>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.router = v.into();
+        pub fn set_router<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Router>,
+        {
+            self.0.request.router = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [router][crate::model::CreateRouterRequest::router].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_router<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Router>,
+        {
+            self.0.request.router = v.map(|x| x.into());
             self
         }
 
@@ -2369,8 +2457,9 @@ pub mod edge_network {
     /// # use google_cloud_edgenetwork_v1::builder;
     /// use builder::edge_network::UpdateRouter;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_edgenetwork_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -2450,22 +2539,44 @@ pub mod edge_network {
         /// Sets the value of [update_mask][crate::model::UpdateRouterRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateRouterRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [router][crate::model::UpdateRouterRequest::router].
         ///
         /// This is a **required** field for requests.
-        pub fn set_router<T: Into<std::option::Option<crate::model::Router>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.router = v.into();
+        pub fn set_router<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Router>,
+        {
+            self.0.request.router = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [router][crate::model::UpdateRouterRequest::router].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_router<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Router>,
+        {
+            self.0.request.router = v.map(|x| x.into());
             self
         }
 
@@ -2490,8 +2601,9 @@ pub mod edge_network {
     /// # use google_cloud_edgenetwork_v1::builder;
     /// use builder::edge_network::DeleteRouter;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_edgenetwork_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -2599,8 +2711,9 @@ pub mod edge_network {
     /// # use google_cloud_edgenetwork_v1::builder;
     /// use builder::edge_network::ListLocations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -2708,6 +2821,7 @@ pub mod edge_network {
     /// # use google_cloud_edgenetwork_v1::builder;
     /// use builder::edge_network::GetLocation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2768,8 +2882,9 @@ pub mod edge_network {
     /// # use google_cloud_edgenetwork_v1::builder;
     /// use builder::edge_network::ListOperations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -2879,6 +2994,7 @@ pub mod edge_network {
     /// # use google_cloud_edgenetwork_v1::builder;
     /// use builder::edge_network::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2942,6 +3058,7 @@ pub mod edge_network {
     /// # use google_cloud_edgenetwork_v1::builder;
     /// use builder::edge_network::DeleteOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3005,6 +3122,7 @@ pub mod edge_network {
     /// # use google_cloud_edgenetwork_v1::builder;
     /// use builder::edge_network::CancelOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });

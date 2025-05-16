@@ -75,8 +75,9 @@ pub mod datastore_admin {
     /// # use google_cloud_datastore_admin_v1::builder;
     /// use builder::datastore_admin::ExportEntities;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_datastore_admin_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -176,11 +177,20 @@ pub mod datastore_admin {
         }
 
         /// Sets the value of [entity_filter][crate::model::ExportEntitiesRequest::entity_filter].
-        pub fn set_entity_filter<T: Into<std::option::Option<crate::model::EntityFilter>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.entity_filter = v.into();
+        pub fn set_entity_filter<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::EntityFilter>,
+        {
+            self.0.request.entity_filter = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [entity_filter][crate::model::ExportEntitiesRequest::entity_filter].
+        pub fn set_or_clear_entity_filter<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::EntityFilter>,
+        {
+            self.0.request.entity_filter = v.map(|x| x.into());
             self
         }
 
@@ -207,8 +217,9 @@ pub mod datastore_admin {
     /// # use google_cloud_datastore_admin_v1::builder;
     /// use builder::datastore_admin::ImportEntities;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_datastore_admin_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -316,11 +327,20 @@ pub mod datastore_admin {
         }
 
         /// Sets the value of [entity_filter][crate::model::ImportEntitiesRequest::entity_filter].
-        pub fn set_entity_filter<T: Into<std::option::Option<crate::model::EntityFilter>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.entity_filter = v.into();
+        pub fn set_entity_filter<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::EntityFilter>,
+        {
+            self.0.request.entity_filter = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [entity_filter][crate::model::ImportEntitiesRequest::entity_filter].
+        pub fn set_or_clear_entity_filter<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::EntityFilter>,
+        {
+            self.0.request.entity_filter = v.map(|x| x.into());
             self
         }
     }
@@ -339,8 +359,9 @@ pub mod datastore_admin {
     /// # use google_cloud_datastore_admin_v1::builder;
     /// use builder::datastore_admin::CreateIndex;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_datastore_admin_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -424,11 +445,20 @@ pub mod datastore_admin {
         }
 
         /// Sets the value of [index][crate::model::CreateIndexRequest::index].
-        pub fn set_index<T: Into<std::option::Option<crate::model::Index>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.index = v.into();
+        pub fn set_index<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Index>,
+        {
+            self.0.request.index = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [index][crate::model::CreateIndexRequest::index].
+        pub fn set_or_clear_index<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Index>,
+        {
+            self.0.request.index = v.map(|x| x.into());
             self
         }
     }
@@ -447,8 +477,9 @@ pub mod datastore_admin {
     /// # use google_cloud_datastore_admin_v1::builder;
     /// use builder::datastore_admin::DeleteIndex;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_datastore_admin_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -552,6 +583,7 @@ pub mod datastore_admin {
     /// # use google_cloud_datastore_admin_v1::builder;
     /// use builder::datastore_admin::GetIndex;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -618,8 +650,9 @@ pub mod datastore_admin {
     /// # use google_cloud_datastore_admin_v1::builder;
     /// use builder::datastore_admin::ListIndexes;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -724,8 +757,9 @@ pub mod datastore_admin {
     /// # use google_cloud_datastore_admin_v1::builder;
     /// use builder::datastore_admin::ListOperations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -835,6 +869,7 @@ pub mod datastore_admin {
     /// # use google_cloud_datastore_admin_v1::builder;
     /// use builder::datastore_admin::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -898,6 +933,7 @@ pub mod datastore_admin {
     /// # use google_cloud_datastore_admin_v1::builder;
     /// use builder::datastore_admin::DeleteOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -961,6 +997,7 @@ pub mod datastore_admin {
     /// # use google_cloud_datastore_admin_v1::builder;
     /// use builder::datastore_admin::CancelOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });

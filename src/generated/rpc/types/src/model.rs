@@ -158,11 +158,20 @@ impl RetryInfo {
     }
 
     /// Sets the value of [retry_delay][crate::model::RetryInfo::retry_delay].
-    pub fn set_retry_delay<T: std::convert::Into<std::option::Option<wkt::Duration>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.retry_delay = v.into();
+    pub fn set_retry_delay<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Duration>,
+    {
+        self.retry_delay = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [retry_delay][crate::model::RetryInfo::retry_delay].
+    pub fn set_or_clear_retry_delay<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Duration>,
+    {
+        self.retry_delay = v.map(|x| x.into());
         self
     }
 }
@@ -429,11 +438,20 @@ pub mod quota_failure {
         }
 
         /// Sets the value of [future_quota_value][crate::model::quota_failure::Violation::future_quota_value].
-        pub fn set_future_quota_value<T: std::convert::Into<std::option::Option<i64>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.future_quota_value = v.into();
+        pub fn set_future_quota_value<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<i64>,
+        {
+            self.future_quota_value = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [future_quota_value][crate::model::quota_failure::Violation::future_quota_value].
+        pub fn set_or_clear_future_quota_value<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<i64>,
+        {
+            self.future_quota_value = v.map(|x| x.into());
             self
         }
     }
@@ -689,13 +707,20 @@ pub mod bad_request {
         }
 
         /// Sets the value of [localized_message][crate::model::bad_request::FieldViolation::localized_message].
-        pub fn set_localized_message<
-            T: std::convert::Into<std::option::Option<crate::model::LocalizedMessage>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.localized_message = v.into();
+        pub fn set_localized_message<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::LocalizedMessage>,
+        {
+            self.localized_message = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [localized_message][crate::model::bad_request::FieldViolation::localized_message].
+        pub fn set_or_clear_localized_message<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::LocalizedMessage>,
+        {
+            self.localized_message = v.map(|x| x.into());
             self
         }
     }

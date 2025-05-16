@@ -75,8 +75,9 @@ pub mod firestore_admin {
     /// # use google_cloud_firestore_admin_v1::builder;
     /// use builder::firestore_admin::CreateIndex;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_firestore_admin_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -164,11 +165,22 @@ pub mod firestore_admin {
         /// Sets the value of [index][crate::model::CreateIndexRequest::index].
         ///
         /// This is a **required** field for requests.
-        pub fn set_index<T: Into<std::option::Option<crate::model::Index>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.index = v.into();
+        pub fn set_index<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Index>,
+        {
+            self.0.request.index = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [index][crate::model::CreateIndexRequest::index].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_index<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Index>,
+        {
+            self.0.request.index = v.map(|x| x.into());
             self
         }
     }
@@ -187,8 +199,9 @@ pub mod firestore_admin {
     /// # use google_cloud_firestore_admin_v1::builder;
     /// use builder::firestore_admin::ListIndexes;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -295,6 +308,7 @@ pub mod firestore_admin {
     /// # use google_cloud_firestore_admin_v1::builder;
     /// use builder::firestore_admin::GetIndex;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -357,6 +371,7 @@ pub mod firestore_admin {
     /// # use google_cloud_firestore_admin_v1::builder;
     /// use builder::firestore_admin::DeleteIndex;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -419,6 +434,7 @@ pub mod firestore_admin {
     /// # use google_cloud_firestore_admin_v1::builder;
     /// use builder::firestore_admin::GetField;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -481,8 +497,9 @@ pub mod firestore_admin {
     /// # use google_cloud_firestore_admin_v1::builder;
     /// use builder::firestore_admin::UpdateField;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_firestore_admin_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -562,20 +579,40 @@ pub mod firestore_admin {
         /// Sets the value of [field][crate::model::UpdateFieldRequest::field].
         ///
         /// This is a **required** field for requests.
-        pub fn set_field<T: Into<std::option::Option<crate::model::Field>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.field = v.into();
+        pub fn set_field<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Field>,
+        {
+            self.0.request.field = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [field][crate::model::UpdateFieldRequest::field].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_field<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Field>,
+        {
+            self.0.request.field = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateFieldRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateFieldRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -594,8 +631,9 @@ pub mod firestore_admin {
     /// # use google_cloud_firestore_admin_v1::builder;
     /// use builder::firestore_admin::ListFields;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -702,8 +740,9 @@ pub mod firestore_admin {
     /// # use google_cloud_firestore_admin_v1::builder;
     /// use builder::firestore_admin::ExportDocuments;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_firestore_admin_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -820,11 +859,20 @@ pub mod firestore_admin {
         }
 
         /// Sets the value of [snapshot_time][crate::model::ExportDocumentsRequest::snapshot_time].
-        pub fn set_snapshot_time<T: Into<std::option::Option<wkt::Timestamp>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.snapshot_time = v.into();
+        pub fn set_snapshot_time<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Timestamp>,
+        {
+            self.0.request.snapshot_time = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [snapshot_time][crate::model::ExportDocumentsRequest::snapshot_time].
+        pub fn set_or_clear_snapshot_time<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Timestamp>,
+        {
+            self.0.request.snapshot_time = v.map(|x| x.into());
             self
         }
     }
@@ -843,8 +891,9 @@ pub mod firestore_admin {
     /// # use google_cloud_firestore_admin_v1::builder;
     /// use builder::firestore_admin::ImportDocuments;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_firestore_admin_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -975,8 +1024,9 @@ pub mod firestore_admin {
     /// # use google_cloud_firestore_admin_v1::builder;
     /// use builder::firestore_admin::BulkDeleteDocuments;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_firestore_admin_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1106,8 +1156,9 @@ pub mod firestore_admin {
     /// # use google_cloud_firestore_admin_v1::builder;
     /// use builder::firestore_admin::CreateDatabase;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_firestore_admin_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1198,11 +1249,22 @@ pub mod firestore_admin {
         /// Sets the value of [database][crate::model::CreateDatabaseRequest::database].
         ///
         /// This is a **required** field for requests.
-        pub fn set_database<T: Into<std::option::Option<crate::model::Database>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.database = v.into();
+        pub fn set_database<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Database>,
+        {
+            self.0.request.database = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [database][crate::model::CreateDatabaseRequest::database].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_database<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Database>,
+        {
+            self.0.request.database = v.map(|x| x.into());
             self
         }
 
@@ -1229,6 +1291,7 @@ pub mod firestore_admin {
     /// # use google_cloud_firestore_admin_v1::builder;
     /// use builder::firestore_admin::GetDatabase;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1291,6 +1354,7 @@ pub mod firestore_admin {
     /// # use google_cloud_firestore_admin_v1::builder;
     /// use builder::firestore_admin::ListDatabases;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1359,8 +1423,9 @@ pub mod firestore_admin {
     /// # use google_cloud_firestore_admin_v1::builder;
     /// use builder::firestore_admin::UpdateDatabase;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_firestore_admin_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1443,20 +1508,40 @@ pub mod firestore_admin {
         /// Sets the value of [database][crate::model::UpdateDatabaseRequest::database].
         ///
         /// This is a **required** field for requests.
-        pub fn set_database<T: Into<std::option::Option<crate::model::Database>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.database = v.into();
+        pub fn set_database<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Database>,
+        {
+            self.0.request.database = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [database][crate::model::UpdateDatabaseRequest::database].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_database<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Database>,
+        {
+            self.0.request.database = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateDatabaseRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateDatabaseRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -1475,8 +1560,9 @@ pub mod firestore_admin {
     /// # use google_cloud_firestore_admin_v1::builder;
     /// use builder::firestore_admin::DeleteDatabase;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_firestore_admin_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1585,6 +1671,7 @@ pub mod firestore_admin {
     /// # use google_cloud_firestore_admin_v1::builder;
     /// use builder::firestore_admin::CreateUserCreds;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1635,11 +1722,22 @@ pub mod firestore_admin {
         /// Sets the value of [user_creds][crate::model::CreateUserCredsRequest::user_creds].
         ///
         /// This is a **required** field for requests.
-        pub fn set_user_creds<T: Into<std::option::Option<crate::model::UserCreds>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.user_creds = v.into();
+        pub fn set_user_creds<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::UserCreds>,
+        {
+            self.0.request.user_creds = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [user_creds][crate::model::CreateUserCredsRequest::user_creds].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_user_creds<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::UserCreds>,
+        {
+            self.0.request.user_creds = v.map(|x| x.into());
             self
         }
 
@@ -1666,6 +1764,7 @@ pub mod firestore_admin {
     /// # use google_cloud_firestore_admin_v1::builder;
     /// use builder::firestore_admin::GetUserCreds;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1728,6 +1827,7 @@ pub mod firestore_admin {
     /// # use google_cloud_firestore_admin_v1::builder;
     /// use builder::firestore_admin::ListUserCreds;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1790,6 +1890,7 @@ pub mod firestore_admin {
     /// # use google_cloud_firestore_admin_v1::builder;
     /// use builder::firestore_admin::EnableUserCreds;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1852,6 +1953,7 @@ pub mod firestore_admin {
     /// # use google_cloud_firestore_admin_v1::builder;
     /// use builder::firestore_admin::DisableUserCreds;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1917,6 +2019,7 @@ pub mod firestore_admin {
     /// # use google_cloud_firestore_admin_v1::builder;
     /// use builder::firestore_admin::ResetUserPassword;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1982,6 +2085,7 @@ pub mod firestore_admin {
     /// # use google_cloud_firestore_admin_v1::builder;
     /// use builder::firestore_admin::DeleteUserCreds;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2044,6 +2148,7 @@ pub mod firestore_admin {
     /// # use google_cloud_firestore_admin_v1::builder;
     /// use builder::firestore_admin::GetBackup;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2106,6 +2211,7 @@ pub mod firestore_admin {
     /// # use google_cloud_firestore_admin_v1::builder;
     /// use builder::firestore_admin::ListBackups;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2174,6 +2280,7 @@ pub mod firestore_admin {
     /// # use google_cloud_firestore_admin_v1::builder;
     /// use builder::firestore_admin::DeleteBackup;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2236,8 +2343,9 @@ pub mod firestore_admin {
     /// # use google_cloud_firestore_admin_v1::builder;
     /// use builder::firestore_admin::RestoreDatabase;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_firestore_admin_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -2342,13 +2450,20 @@ pub mod firestore_admin {
         }
 
         /// Sets the value of [encryption_config][crate::model::RestoreDatabaseRequest::encryption_config].
-        pub fn set_encryption_config<
-            T: Into<std::option::Option<crate::model::database::EncryptionConfig>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.encryption_config = v.into();
+        pub fn set_encryption_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::database::EncryptionConfig>,
+        {
+            self.0.request.encryption_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [encryption_config][crate::model::RestoreDatabaseRequest::encryption_config].
+        pub fn set_or_clear_encryption_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::database::EncryptionConfig>,
+        {
+            self.0.request.encryption_config = v.map(|x| x.into());
             self
         }
     }
@@ -2367,6 +2482,7 @@ pub mod firestore_admin {
     /// # use google_cloud_firestore_admin_v1::builder;
     /// use builder::firestore_admin::CreateBackupSchedule;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2420,11 +2536,22 @@ pub mod firestore_admin {
         /// Sets the value of [backup_schedule][crate::model::CreateBackupScheduleRequest::backup_schedule].
         ///
         /// This is a **required** field for requests.
-        pub fn set_backup_schedule<T: Into<std::option::Option<crate::model::BackupSchedule>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.backup_schedule = v.into();
+        pub fn set_backup_schedule<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::BackupSchedule>,
+        {
+            self.0.request.backup_schedule = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [backup_schedule][crate::model::CreateBackupScheduleRequest::backup_schedule].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_backup_schedule<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::BackupSchedule>,
+        {
+            self.0.request.backup_schedule = v.map(|x| x.into());
             self
         }
     }
@@ -2443,6 +2570,7 @@ pub mod firestore_admin {
     /// # use google_cloud_firestore_admin_v1::builder;
     /// use builder::firestore_admin::GetBackupSchedule;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2508,6 +2636,7 @@ pub mod firestore_admin {
     /// # use google_cloud_firestore_admin_v1::builder;
     /// use builder::firestore_admin::ListBackupSchedules;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2573,6 +2702,7 @@ pub mod firestore_admin {
     /// # use google_cloud_firestore_admin_v1::builder;
     /// use builder::firestore_admin::UpdateBackupSchedule;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2618,20 +2748,40 @@ pub mod firestore_admin {
         /// Sets the value of [backup_schedule][crate::model::UpdateBackupScheduleRequest::backup_schedule].
         ///
         /// This is a **required** field for requests.
-        pub fn set_backup_schedule<T: Into<std::option::Option<crate::model::BackupSchedule>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.backup_schedule = v.into();
+        pub fn set_backup_schedule<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::BackupSchedule>,
+        {
+            self.0.request.backup_schedule = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [backup_schedule][crate::model::UpdateBackupScheduleRequest::backup_schedule].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_backup_schedule<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::BackupSchedule>,
+        {
+            self.0.request.backup_schedule = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateBackupScheduleRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateBackupScheduleRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -2650,6 +2800,7 @@ pub mod firestore_admin {
     /// # use google_cloud_firestore_admin_v1::builder;
     /// use builder::firestore_admin::DeleteBackupSchedule;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2715,8 +2866,9 @@ pub mod firestore_admin {
     /// # use google_cloud_firestore_admin_v1::builder;
     /// use builder::firestore_admin::ListOperations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -2826,6 +2978,7 @@ pub mod firestore_admin {
     /// # use google_cloud_firestore_admin_v1::builder;
     /// use builder::firestore_admin::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2889,6 +3042,7 @@ pub mod firestore_admin {
     /// # use google_cloud_firestore_admin_v1::builder;
     /// use builder::firestore_admin::DeleteOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2952,6 +3106,7 @@ pub mod firestore_admin {
     /// # use google_cloud_firestore_admin_v1::builder;
     /// use builder::firestore_admin::CancelOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });

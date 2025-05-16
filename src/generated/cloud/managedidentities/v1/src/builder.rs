@@ -75,8 +75,9 @@ pub mod managed_identities_service {
     /// # use google_cloud_managedidentities_v1::builder;
     /// use builder::managed_identities_service::CreateMicrosoftAdDomain;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_managedidentities_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -175,11 +176,22 @@ pub mod managed_identities_service {
         /// Sets the value of [domain][crate::model::CreateMicrosoftAdDomainRequest::domain].
         ///
         /// This is a **required** field for requests.
-        pub fn set_domain<T: Into<std::option::Option<crate::model::Domain>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.domain = v.into();
+        pub fn set_domain<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Domain>,
+        {
+            self.0.request.domain = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [domain][crate::model::CreateMicrosoftAdDomainRequest::domain].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_domain<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Domain>,
+        {
+            self.0.request.domain = v.map(|x| x.into());
             self
         }
     }
@@ -198,6 +210,7 @@ pub mod managed_identities_service {
     /// # use google_cloud_managedidentities_v1::builder;
     /// use builder::managed_identities_service::ResetAdminPassword;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -263,8 +276,9 @@ pub mod managed_identities_service {
     /// # use google_cloud_managedidentities_v1::builder;
     /// use builder::managed_identities_service::ListDomains;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -377,6 +391,7 @@ pub mod managed_identities_service {
     /// # use google_cloud_managedidentities_v1::builder;
     /// use builder::managed_identities_service::GetDomain;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -439,8 +454,9 @@ pub mod managed_identities_service {
     /// # use google_cloud_managedidentities_v1::builder;
     /// use builder::managed_identities_service::UpdateDomain;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_managedidentities_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -518,22 +534,44 @@ pub mod managed_identities_service {
         /// Sets the value of [update_mask][crate::model::UpdateDomainRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateDomainRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [domain][crate::model::UpdateDomainRequest::domain].
         ///
         /// This is a **required** field for requests.
-        pub fn set_domain<T: Into<std::option::Option<crate::model::Domain>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.domain = v.into();
+        pub fn set_domain<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Domain>,
+        {
+            self.0.request.domain = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [domain][crate::model::UpdateDomainRequest::domain].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_domain<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Domain>,
+        {
+            self.0.request.domain = v.map(|x| x.into());
             self
         }
     }
@@ -552,8 +590,9 @@ pub mod managed_identities_service {
     /// # use google_cloud_managedidentities_v1::builder;
     /// use builder::managed_identities_service::DeleteDomain;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_managedidentities_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -655,8 +694,9 @@ pub mod managed_identities_service {
     /// # use google_cloud_managedidentities_v1::builder;
     /// use builder::managed_identities_service::AttachTrust;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_managedidentities_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -742,11 +782,22 @@ pub mod managed_identities_service {
         /// Sets the value of [trust][crate::model::AttachTrustRequest::trust].
         ///
         /// This is a **required** field for requests.
-        pub fn set_trust<T: Into<std::option::Option<crate::model::Trust>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.trust = v.into();
+        pub fn set_trust<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Trust>,
+        {
+            self.0.request.trust = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [trust][crate::model::AttachTrustRequest::trust].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_trust<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Trust>,
+        {
+            self.0.request.trust = v.map(|x| x.into());
             self
         }
     }
@@ -765,8 +816,9 @@ pub mod managed_identities_service {
     /// # use google_cloud_managedidentities_v1::builder;
     /// use builder::managed_identities_service::ReconfigureTrust;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_managedidentities_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -888,8 +940,9 @@ pub mod managed_identities_service {
     /// # use google_cloud_managedidentities_v1::builder;
     /// use builder::managed_identities_service::DetachTrust;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_managedidentities_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -975,11 +1028,22 @@ pub mod managed_identities_service {
         /// Sets the value of [trust][crate::model::DetachTrustRequest::trust].
         ///
         /// This is a **required** field for requests.
-        pub fn set_trust<T: Into<std::option::Option<crate::model::Trust>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.trust = v.into();
+        pub fn set_trust<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Trust>,
+        {
+            self.0.request.trust = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [trust][crate::model::DetachTrustRequest::trust].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_trust<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Trust>,
+        {
+            self.0.request.trust = v.map(|x| x.into());
             self
         }
     }
@@ -998,8 +1062,9 @@ pub mod managed_identities_service {
     /// # use google_cloud_managedidentities_v1::builder;
     /// use builder::managed_identities_service::ValidateTrust;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_managedidentities_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1085,11 +1150,22 @@ pub mod managed_identities_service {
         /// Sets the value of [trust][crate::model::ValidateTrustRequest::trust].
         ///
         /// This is a **required** field for requests.
-        pub fn set_trust<T: Into<std::option::Option<crate::model::Trust>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.trust = v.into();
+        pub fn set_trust<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Trust>,
+        {
+            self.0.request.trust = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [trust][crate::model::ValidateTrustRequest::trust].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_trust<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Trust>,
+        {
+            self.0.request.trust = v.map(|x| x.into());
             self
         }
     }
@@ -1108,8 +1184,9 @@ pub mod managed_identities_service {
     /// # use google_cloud_managedidentities_v1::builder;
     /// use builder::managed_identities_service::ListOperations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -1219,6 +1296,7 @@ pub mod managed_identities_service {
     /// # use google_cloud_managedidentities_v1::builder;
     /// use builder::managed_identities_service::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1282,6 +1360,7 @@ pub mod managed_identities_service {
     /// # use google_cloud_managedidentities_v1::builder;
     /// use builder::managed_identities_service::DeleteOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1345,6 +1424,7 @@ pub mod managed_identities_service {
     /// # use google_cloud_managedidentities_v1::builder;
     /// use builder::managed_identities_service::CancelOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });

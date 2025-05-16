@@ -454,12 +454,10 @@ mod test {
     use crate::token::test::MockTokenProvider;
     use http::HeaderValue;
     use http::header::AUTHORIZATION;
-    use rsa::RsaPrivateKey;
     use rsa::pkcs1::EncodeRsaPrivateKey;
     use rsa::pkcs8::LineEnding;
     use rustls_pemfile::Item;
     use serde_json::json;
-    use std::sync::LazyLock;
     use std::time::Duration;
 
     type TestResult = std::result::Result<(), Box<dyn std::error::Error>>;
@@ -594,20 +592,16 @@ mod test {
         })
     }
 
-    static PKCS1_PK: LazyLock<String> = LazyLock::new(|| {
-        let mut rng = rand::thread_rng();
-        let bits = 2048;
-        let priv_key = RsaPrivateKey::new(&mut rng, bits).expect("failed to generate a key");
-        priv_key
-            .to_pkcs1_pem(LineEnding::LF)
-            .expect("Failed to encode key to PKCS#1 PEM")
-            .to_string()
-    });
-
     #[tokio::test]
     async fn get_service_account_headers_pkcs1_private_key_failure() -> TestResult {
         let mut service_account_key = get_mock_service_key();
-        service_account_key["private_key"] = Value::from(PKCS1_PK.clone());
+
+        let key = crate::credentials::test::RSA_PRIVATE_KEY
+            .to_pkcs1_pem(LineEnding::LF)
+            .expect("Failed to encode key to PKCS#1 PEM")
+            .to_string();
+
+        service_account_key["private_key"] = Value::from(key);
         let cred = Builder::new(service_account_key).build()?;
         let expected_error_message = "expected key to be in form of PKCS8, found Pkcs1Key";
         assert!(

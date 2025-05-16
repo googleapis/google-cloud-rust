@@ -75,6 +75,7 @@ pub mod certificate_authority_service {
     /// # use google_cloud_security_privateca_v1::builder;
     /// use builder::certificate_authority_service::CreateCertificate;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -134,11 +135,22 @@ pub mod certificate_authority_service {
         /// Sets the value of [certificate][crate::model::CreateCertificateRequest::certificate].
         ///
         /// This is a **required** field for requests.
-        pub fn set_certificate<T: Into<std::option::Option<crate::model::Certificate>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.certificate = v.into();
+        pub fn set_certificate<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Certificate>,
+        {
+            self.0.request.certificate = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [certificate][crate::model::CreateCertificateRequest::certificate].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_certificate<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Certificate>,
+        {
+            self.0.request.certificate = v.map(|x| x.into());
             self
         }
 
@@ -178,6 +190,7 @@ pub mod certificate_authority_service {
     /// # use google_cloud_security_privateca_v1::builder;
     /// use builder::certificate_authority_service::GetCertificate;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -240,8 +253,9 @@ pub mod certificate_authority_service {
     /// # use google_cloud_security_privateca_v1::builder;
     /// use builder::certificate_authority_service::ListCertificates;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -357,6 +371,7 @@ pub mod certificate_authority_service {
     /// # use google_cloud_security_privateca_v1::builder;
     /// use builder::certificate_authority_service::RevokeCertificate;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -436,6 +451,7 @@ pub mod certificate_authority_service {
     /// # use google_cloud_security_privateca_v1::builder;
     /// use builder::certificate_authority_service::UpdateCertificate;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -481,22 +497,44 @@ pub mod certificate_authority_service {
         /// Sets the value of [certificate][crate::model::UpdateCertificateRequest::certificate].
         ///
         /// This is a **required** field for requests.
-        pub fn set_certificate<T: Into<std::option::Option<crate::model::Certificate>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.certificate = v.into();
+        pub fn set_certificate<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Certificate>,
+        {
+            self.0.request.certificate = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [certificate][crate::model::UpdateCertificateRequest::certificate].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_certificate<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Certificate>,
+        {
+            self.0.request.certificate = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateCertificateRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateCertificateRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
@@ -521,8 +559,9 @@ pub mod certificate_authority_service {
     /// # use google_cloud_security_privateca_v1::builder;
     /// use builder::certificate_authority_service::ActivateCertificateAuthority;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_security_privateca_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -626,13 +665,22 @@ pub mod certificate_authority_service {
         /// Sets the value of [subordinate_config][crate::model::ActivateCertificateAuthorityRequest::subordinate_config].
         ///
         /// This is a **required** field for requests.
-        pub fn set_subordinate_config<
-            T: Into<std::option::Option<crate::model::SubordinateConfig>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.subordinate_config = v.into();
+        pub fn set_subordinate_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::SubordinateConfig>,
+        {
+            self.0.request.subordinate_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [subordinate_config][crate::model::ActivateCertificateAuthorityRequest::subordinate_config].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_subordinate_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::SubordinateConfig>,
+        {
+            self.0.request.subordinate_config = v.map(|x| x.into());
             self
         }
 
@@ -657,8 +705,9 @@ pub mod certificate_authority_service {
     /// # use google_cloud_security_privateca_v1::builder;
     /// use builder::certificate_authority_service::CreateCertificateAuthority;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_security_privateca_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -762,13 +811,22 @@ pub mod certificate_authority_service {
         /// Sets the value of [certificate_authority][crate::model::CreateCertificateAuthorityRequest::certificate_authority].
         ///
         /// This is a **required** field for requests.
-        pub fn set_certificate_authority<
-            T: Into<std::option::Option<crate::model::CertificateAuthority>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.certificate_authority = v.into();
+        pub fn set_certificate_authority<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::CertificateAuthority>,
+        {
+            self.0.request.certificate_authority = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [certificate_authority][crate::model::CreateCertificateAuthorityRequest::certificate_authority].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_certificate_authority<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::CertificateAuthority>,
+        {
+            self.0.request.certificate_authority = v.map(|x| x.into());
             self
         }
 
@@ -793,8 +851,9 @@ pub mod certificate_authority_service {
     /// # use google_cloud_security_privateca_v1::builder;
     /// use builder::certificate_authority_service::DisableCertificateAuthority;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_security_privateca_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -914,8 +973,9 @@ pub mod certificate_authority_service {
     /// # use google_cloud_security_privateca_v1::builder;
     /// use builder::certificate_authority_service::EnableCertificateAuthority;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_security_privateca_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1029,6 +1089,7 @@ pub mod certificate_authority_service {
     /// # use google_cloud_security_privateca_v1::builder;
     /// use builder::certificate_authority_service::FetchCertificateAuthorityCsr;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1096,6 +1157,7 @@ pub mod certificate_authority_service {
     /// # use google_cloud_security_privateca_v1::builder;
     /// use builder::certificate_authority_service::GetCertificateAuthority;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1163,8 +1225,9 @@ pub mod certificate_authority_service {
     /// # use google_cloud_security_privateca_v1::builder;
     /// use builder::certificate_authority_service::ListCertificateAuthorities;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -1286,8 +1349,9 @@ pub mod certificate_authority_service {
     /// # use google_cloud_security_privateca_v1::builder;
     /// use builder::certificate_authority_service::UndeleteCertificateAuthority;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_security_privateca_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1401,8 +1465,9 @@ pub mod certificate_authority_service {
     /// # use google_cloud_security_privateca_v1::builder;
     /// use builder::certificate_authority_service::DeleteCertificateAuthority;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_security_privateca_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1534,8 +1599,9 @@ pub mod certificate_authority_service {
     /// # use google_cloud_security_privateca_v1::builder;
     /// use builder::certificate_authority_service::UpdateCertificateAuthority;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_security_privateca_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1623,24 +1689,44 @@ pub mod certificate_authority_service {
         /// Sets the value of [certificate_authority][crate::model::UpdateCertificateAuthorityRequest::certificate_authority].
         ///
         /// This is a **required** field for requests.
-        pub fn set_certificate_authority<
-            T: Into<std::option::Option<crate::model::CertificateAuthority>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.certificate_authority = v.into();
+        pub fn set_certificate_authority<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::CertificateAuthority>,
+        {
+            self.0.request.certificate_authority = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [certificate_authority][crate::model::UpdateCertificateAuthorityRequest::certificate_authority].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_certificate_authority<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::CertificateAuthority>,
+        {
+            self.0.request.certificate_authority = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateCertificateAuthorityRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateCertificateAuthorityRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
@@ -1665,8 +1751,9 @@ pub mod certificate_authority_service {
     /// # use google_cloud_security_privateca_v1::builder;
     /// use builder::certificate_authority_service::CreateCaPool;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_security_privateca_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1762,11 +1849,22 @@ pub mod certificate_authority_service {
         /// Sets the value of [ca_pool][crate::model::CreateCaPoolRequest::ca_pool].
         ///
         /// This is a **required** field for requests.
-        pub fn set_ca_pool<T: Into<std::option::Option<crate::model::CaPool>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.ca_pool = v.into();
+        pub fn set_ca_pool<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::CaPool>,
+        {
+            self.0.request.ca_pool = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [ca_pool][crate::model::CreateCaPoolRequest::ca_pool].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_ca_pool<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::CaPool>,
+        {
+            self.0.request.ca_pool = v.map(|x| x.into());
             self
         }
 
@@ -1791,8 +1889,9 @@ pub mod certificate_authority_service {
     /// # use google_cloud_security_privateca_v1::builder;
     /// use builder::certificate_authority_service::UpdateCaPool;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_security_privateca_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1872,22 +1971,44 @@ pub mod certificate_authority_service {
         /// Sets the value of [ca_pool][crate::model::UpdateCaPoolRequest::ca_pool].
         ///
         /// This is a **required** field for requests.
-        pub fn set_ca_pool<T: Into<std::option::Option<crate::model::CaPool>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.ca_pool = v.into();
+        pub fn set_ca_pool<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::CaPool>,
+        {
+            self.0.request.ca_pool = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [ca_pool][crate::model::UpdateCaPoolRequest::ca_pool].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_ca_pool<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::CaPool>,
+        {
+            self.0.request.ca_pool = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateCaPoolRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateCaPoolRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
@@ -1912,6 +2033,7 @@ pub mod certificate_authority_service {
     /// # use google_cloud_security_privateca_v1::builder;
     /// use builder::certificate_authority_service::GetCaPool;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1974,8 +2096,9 @@ pub mod certificate_authority_service {
     /// # use google_cloud_security_privateca_v1::builder;
     /// use builder::certificate_authority_service::ListCaPools;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -2088,8 +2211,9 @@ pub mod certificate_authority_service {
     /// # use google_cloud_security_privateca_v1::builder;
     /// use builder::certificate_authority_service::DeleteCaPool;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_security_privateca_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -2203,6 +2327,7 @@ pub mod certificate_authority_service {
     /// # use google_cloud_security_privateca_v1::builder;
     /// use builder::certificate_authority_service::FetchCaCerts;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2271,6 +2396,7 @@ pub mod certificate_authority_service {
     /// # use google_cloud_security_privateca_v1::builder;
     /// use builder::certificate_authority_service::GetCertificateRevocationList;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2338,8 +2464,9 @@ pub mod certificate_authority_service {
     /// # use google_cloud_security_privateca_v1::builder;
     /// use builder::certificate_authority_service::ListCertificateRevocationLists;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -2461,8 +2588,9 @@ pub mod certificate_authority_service {
     /// # use google_cloud_security_privateca_v1::builder;
     /// use builder::certificate_authority_service::UpdateCertificateRevocationList;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_security_privateca_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -2550,24 +2678,47 @@ pub mod certificate_authority_service {
         /// Sets the value of [certificate_revocation_list][crate::model::UpdateCertificateRevocationListRequest::certificate_revocation_list].
         ///
         /// This is a **required** field for requests.
-        pub fn set_certificate_revocation_list<
-            T: Into<std::option::Option<crate::model::CertificateRevocationList>>,
-        >(
+        pub fn set_certificate_revocation_list<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::CertificateRevocationList>,
+        {
+            self.0.request.certificate_revocation_list = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [certificate_revocation_list][crate::model::UpdateCertificateRevocationListRequest::certificate_revocation_list].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_certificate_revocation_list<T>(
             mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.certificate_revocation_list = v.into();
+            v: std::option::Option<T>,
+        ) -> Self
+        where
+            T: std::convert::Into<crate::model::CertificateRevocationList>,
+        {
+            self.0.request.certificate_revocation_list = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateCertificateRevocationListRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateCertificateRevocationListRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
@@ -2592,8 +2743,9 @@ pub mod certificate_authority_service {
     /// # use google_cloud_security_privateca_v1::builder;
     /// use builder::certificate_authority_service::CreateCertificateTemplate;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_security_privateca_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -2697,13 +2849,22 @@ pub mod certificate_authority_service {
         /// Sets the value of [certificate_template][crate::model::CreateCertificateTemplateRequest::certificate_template].
         ///
         /// This is a **required** field for requests.
-        pub fn set_certificate_template<
-            T: Into<std::option::Option<crate::model::CertificateTemplate>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.certificate_template = v.into();
+        pub fn set_certificate_template<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::CertificateTemplate>,
+        {
+            self.0.request.certificate_template = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [certificate_template][crate::model::CreateCertificateTemplateRequest::certificate_template].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_certificate_template<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::CertificateTemplate>,
+        {
+            self.0.request.certificate_template = v.map(|x| x.into());
             self
         }
 
@@ -2728,8 +2889,9 @@ pub mod certificate_authority_service {
     /// # use google_cloud_security_privateca_v1::builder;
     /// use builder::certificate_authority_service::DeleteCertificateTemplate;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_security_privateca_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -2842,6 +3004,7 @@ pub mod certificate_authority_service {
     /// # use google_cloud_security_privateca_v1::builder;
     /// use builder::certificate_authority_service::GetCertificateTemplate;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2907,8 +3070,9 @@ pub mod certificate_authority_service {
     /// # use google_cloud_security_privateca_v1::builder;
     /// use builder::certificate_authority_service::ListCertificateTemplates;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -3030,8 +3194,9 @@ pub mod certificate_authority_service {
     /// # use google_cloud_security_privateca_v1::builder;
     /// use builder::certificate_authority_service::UpdateCertificateTemplate;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_security_privateca_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -3119,24 +3284,44 @@ pub mod certificate_authority_service {
         /// Sets the value of [certificate_template][crate::model::UpdateCertificateTemplateRequest::certificate_template].
         ///
         /// This is a **required** field for requests.
-        pub fn set_certificate_template<
-            T: Into<std::option::Option<crate::model::CertificateTemplate>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.certificate_template = v.into();
+        pub fn set_certificate_template<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::CertificateTemplate>,
+        {
+            self.0.request.certificate_template = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [certificate_template][crate::model::UpdateCertificateTemplateRequest::certificate_template].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_certificate_template<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::CertificateTemplate>,
+        {
+            self.0.request.certificate_template = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateCertificateTemplateRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateCertificateTemplateRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
@@ -3161,8 +3346,9 @@ pub mod certificate_authority_service {
     /// # use google_cloud_security_privateca_v1::builder;
     /// use builder::certificate_authority_service::ListLocations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -3270,6 +3456,7 @@ pub mod certificate_authority_service {
     /// # use google_cloud_security_privateca_v1::builder;
     /// use builder::certificate_authority_service::GetLocation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3330,6 +3517,7 @@ pub mod certificate_authority_service {
     /// # use google_cloud_security_privateca_v1::builder;
     /// use builder::certificate_authority_service::SetIamPolicy;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3380,20 +3568,40 @@ pub mod certificate_authority_service {
         /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
-        pub fn set_policy<T: Into<std::option::Option<iam_v1::model::Policy>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.policy = v.into();
+        pub fn set_policy<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -3412,6 +3620,7 @@ pub mod certificate_authority_service {
     /// # use google_cloud_security_privateca_v1::builder;
     /// use builder::certificate_authority_service::GetIamPolicy;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3460,11 +3669,20 @@ pub mod certificate_authority_service {
         }
 
         /// Sets the value of [options][iam_v1::model::GetIamPolicyRequest::options].
-        pub fn set_options<T: Into<std::option::Option<iam_v1::model::GetPolicyOptions>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.options = v.into();
+        pub fn set_options<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = v.map(|x| x.into());
             self
         }
     }
@@ -3483,6 +3701,7 @@ pub mod certificate_authority_service {
     /// # use google_cloud_security_privateca_v1::builder;
     /// use builder::certificate_authority_service::TestIamPermissions;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3561,8 +3780,9 @@ pub mod certificate_authority_service {
     /// # use google_cloud_security_privateca_v1::builder;
     /// use builder::certificate_authority_service::ListOperations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -3672,6 +3892,7 @@ pub mod certificate_authority_service {
     /// # use google_cloud_security_privateca_v1::builder;
     /// use builder::certificate_authority_service::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3735,6 +3956,7 @@ pub mod certificate_authority_service {
     /// # use google_cloud_security_privateca_v1::builder;
     /// use builder::certificate_authority_service::DeleteOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3798,6 +4020,7 @@ pub mod certificate_authority_service {
     /// # use google_cloud_security_privateca_v1::builder;
     /// use builder::certificate_authority_service::CancelOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });

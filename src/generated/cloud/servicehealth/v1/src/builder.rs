@@ -75,8 +75,9 @@ pub mod service_health {
     /// # use google_cloud_servicehealth_v1::builder;
     /// use builder::service_health::ListEvents;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -189,6 +190,7 @@ pub mod service_health {
     /// # use google_cloud_servicehealth_v1::builder;
     /// use builder::service_health::GetEvent;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -251,8 +253,9 @@ pub mod service_health {
     /// # use google_cloud_servicehealth_v1::builder;
     /// use builder::service_health::ListOrganizationEvents;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -372,6 +375,7 @@ pub mod service_health {
     /// # use google_cloud_servicehealth_v1::builder;
     /// use builder::service_health::GetOrganizationEvent;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -437,8 +441,9 @@ pub mod service_health {
     /// # use google_cloud_servicehealth_v1::builder;
     /// use builder::service_health::ListOrganizationImpacts;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -554,6 +559,7 @@ pub mod service_health {
     /// # use google_cloud_servicehealth_v1::builder;
     /// use builder::service_health::GetOrganizationImpact;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -619,8 +625,9 @@ pub mod service_health {
     /// # use google_cloud_servicehealth_v1::builder;
     /// use builder::service_health::ListLocations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -728,6 +735,7 @@ pub mod service_health {
     /// # use google_cloud_servicehealth_v1::builder;
     /// use builder::service_health::GetLocation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });

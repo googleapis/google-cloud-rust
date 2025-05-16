@@ -103,20 +103,38 @@ impl Instance {
     }
 
     /// Sets the value of [create_time][crate::model::Instance::create_time].
-    pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.create_time = v.into();
+    pub fn set_create_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [create_time][crate::model::Instance::create_time].
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [update_time][crate::model::Instance::update_time].
-    pub fn set_update_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.update_time = v.into();
+    pub fn set_update_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_time][crate::model::Instance::update_time].
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = v.map(|x| x.into());
         self
     }
 
@@ -133,13 +151,20 @@ impl Instance {
     }
 
     /// Sets the value of [private_config][crate::model::Instance::private_config].
-    pub fn set_private_config<
-        T: std::convert::Into<std::option::Option<crate::model::instance::PrivateConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.private_config = v.into();
+    pub fn set_private_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::instance::PrivateConfig>,
+    {
+        self.private_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [private_config][crate::model::Instance::private_config].
+    pub fn set_or_clear_private_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::instance::PrivateConfig>,
+    {
+        self.private_config = v.map(|x| x.into());
         self
     }
 
@@ -165,13 +190,20 @@ impl Instance {
     }
 
     /// Sets the value of [host_config][crate::model::Instance::host_config].
-    pub fn set_host_config<
-        T: std::convert::Into<std::option::Option<crate::model::instance::HostConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.host_config = v.into();
+    pub fn set_host_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::instance::HostConfig>,
+    {
+        self.host_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [host_config][crate::model::Instance::host_config].
+    pub fn set_or_clear_host_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::instance::HostConfig>,
+    {
+        self.host_config = v.map(|x| x.into());
         self
     }
 }
@@ -713,20 +745,38 @@ impl Repository {
     }
 
     /// Sets the value of [create_time][crate::model::Repository::create_time].
-    pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.create_time = v.into();
+    pub fn set_create_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [create_time][crate::model::Repository::create_time].
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [update_time][crate::model::Repository::update_time].
-    pub fn set_update_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.update_time = v.into();
+    pub fn set_update_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_time][crate::model::Repository::update_time].
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = v.map(|x| x.into());
         self
     }
 
@@ -737,22 +787,38 @@ impl Repository {
     }
 
     /// Sets the value of [uris][crate::model::Repository::uris].
-    pub fn set_uris<T: std::convert::Into<std::option::Option<crate::model::repository::URIs>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.uris = v.into();
+    pub fn set_uris<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::repository::URIs>,
+    {
+        self.uris = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [uris][crate::model::Repository::uris].
+    pub fn set_or_clear_uris<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::repository::URIs>,
+    {
+        self.uris = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [initial_config][crate::model::Repository::initial_config].
-    pub fn set_initial_config<
-        T: std::convert::Into<std::option::Option<crate::model::repository::InitialConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.initial_config = v.into();
+    pub fn set_initial_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::repository::InitialConfig>,
+    {
+        self.initial_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [initial_config][crate::model::Repository::initial_config].
+    pub fn set_or_clear_initial_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::repository::InitialConfig>,
+    {
+        self.initial_config = v.map(|x| x.into());
         self
     }
 }
@@ -1119,20 +1185,38 @@ impl BranchRule {
     }
 
     /// Sets the value of [create_time][crate::model::BranchRule::create_time].
-    pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.create_time = v.into();
+    pub fn set_create_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [create_time][crate::model::BranchRule::create_time].
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [update_time][crate::model::BranchRule::update_time].
-    pub fn set_update_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.update_time = v.into();
+    pub fn set_update_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_time][crate::model::BranchRule::update_time].
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = v.map(|x| x.into());
         self
     }
 
@@ -1494,11 +1578,20 @@ impl CreateInstanceRequest {
     }
 
     /// Sets the value of [instance][crate::model::CreateInstanceRequest::instance].
-    pub fn set_instance<T: std::convert::Into<std::option::Option<crate::model::Instance>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.instance = v.into();
+    pub fn set_instance<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::Instance>,
+    {
+        self.instance = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [instance][crate::model::CreateInstanceRequest::instance].
+    pub fn set_or_clear_instance<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::Instance>,
+    {
+        self.instance = v.map(|x| x.into());
         self
     }
 
@@ -1619,20 +1712,38 @@ impl OperationMetadata {
     }
 
     /// Sets the value of [create_time][crate::model::OperationMetadata::create_time].
-    pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.create_time = v.into();
+    pub fn set_create_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [create_time][crate::model::OperationMetadata::create_time].
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [end_time][crate::model::OperationMetadata::end_time].
-    pub fn set_end_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.end_time = v.into();
+    pub fn set_end_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.end_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [end_time][crate::model::OperationMetadata::end_time].
+    pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.end_time = v.map(|x| x.into());
         self
     }
 
@@ -1883,11 +1994,20 @@ impl CreateRepositoryRequest {
     }
 
     /// Sets the value of [repository][crate::model::CreateRepositoryRequest::repository].
-    pub fn set_repository<T: std::convert::Into<std::option::Option<crate::model::Repository>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.repository = v.into();
+    pub fn set_repository<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::Repository>,
+    {
+        self.repository = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [repository][crate::model::CreateRepositoryRequest::repository].
+    pub fn set_or_clear_repository<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::Repository>,
+    {
+        self.repository = v.map(|x| x.into());
         self
     }
 
@@ -2014,11 +2134,20 @@ impl CreateBranchRuleRequest {
     }
 
     /// Sets the value of [branch_rule][crate::model::CreateBranchRuleRequest::branch_rule].
-    pub fn set_branch_rule<T: std::convert::Into<std::option::Option<crate::model::BranchRule>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.branch_rule = v.into();
+    pub fn set_branch_rule<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::BranchRule>,
+    {
+        self.branch_rule = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [branch_rule][crate::model::CreateBranchRuleRequest::branch_rule].
+    pub fn set_or_clear_branch_rule<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::BranchRule>,
+    {
+        self.branch_rule = v.map(|x| x.into());
         self
     }
 
@@ -2158,11 +2287,20 @@ impl UpdateBranchRuleRequest {
     }
 
     /// Sets the value of [branch_rule][crate::model::UpdateBranchRuleRequest::branch_rule].
-    pub fn set_branch_rule<T: std::convert::Into<std::option::Option<crate::model::BranchRule>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.branch_rule = v.into();
+    pub fn set_branch_rule<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::BranchRule>,
+    {
+        self.branch_rule = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [branch_rule][crate::model::UpdateBranchRuleRequest::branch_rule].
+    pub fn set_or_clear_branch_rule<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::BranchRule>,
+    {
+        self.branch_rule = v.map(|x| x.into());
         self
     }
 
@@ -2173,11 +2311,20 @@ impl UpdateBranchRuleRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateBranchRuleRequest::update_mask].
-    pub fn set_update_mask<T: std::convert::Into<std::option::Option<wkt::FieldMask>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.update_mask = v.into();
+    pub fn set_update_mask<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_mask][crate::model::UpdateBranchRuleRequest::update_mask].
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = v.map(|x| x.into());
         self
     }
 }

@@ -75,6 +75,7 @@ pub mod migration_service {
     /// # use google_cloud_bigquery_migration_v2::builder;
     /// use builder::migration_service::CreateMigrationWorkflow;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -130,13 +131,22 @@ pub mod migration_service {
         /// Sets the value of [migration_workflow][crate::model::CreateMigrationWorkflowRequest::migration_workflow].
         ///
         /// This is a **required** field for requests.
-        pub fn set_migration_workflow<
-            T: Into<std::option::Option<crate::model::MigrationWorkflow>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.migration_workflow = v.into();
+        pub fn set_migration_workflow<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::MigrationWorkflow>,
+        {
+            self.0.request.migration_workflow = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [migration_workflow][crate::model::CreateMigrationWorkflowRequest::migration_workflow].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_migration_workflow<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::MigrationWorkflow>,
+        {
+            self.0.request.migration_workflow = v.map(|x| x.into());
             self
         }
     }
@@ -155,6 +165,7 @@ pub mod migration_service {
     /// # use google_cloud_bigquery_migration_v2::builder;
     /// use builder::migration_service::GetMigrationWorkflow;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -206,8 +217,20 @@ pub mod migration_service {
         }
 
         /// Sets the value of [read_mask][crate::model::GetMigrationWorkflowRequest::read_mask].
-        pub fn set_read_mask<T: Into<std::option::Option<wkt::FieldMask>>>(mut self, v: T) -> Self {
-            self.0.request.read_mask = v.into();
+        pub fn set_read_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.read_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [read_mask][crate::model::GetMigrationWorkflowRequest::read_mask].
+        pub fn set_or_clear_read_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.read_mask = v.map(|x| x.into());
             self
         }
     }
@@ -226,8 +249,9 @@ pub mod migration_service {
     /// # use google_cloud_bigquery_migration_v2::builder;
     /// use builder::migration_service::ListMigrationWorkflows;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -309,8 +333,20 @@ pub mod migration_service {
         }
 
         /// Sets the value of [read_mask][crate::model::ListMigrationWorkflowsRequest::read_mask].
-        pub fn set_read_mask<T: Into<std::option::Option<wkt::FieldMask>>>(mut self, v: T) -> Self {
-            self.0.request.read_mask = v.into();
+        pub fn set_read_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.read_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [read_mask][crate::model::ListMigrationWorkflowsRequest::read_mask].
+        pub fn set_or_clear_read_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.read_mask = v.map(|x| x.into());
             self
         }
 
@@ -341,6 +377,7 @@ pub mod migration_service {
     /// # use google_cloud_bigquery_migration_v2::builder;
     /// use builder::migration_service::DeleteMigrationWorkflow;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -408,6 +445,7 @@ pub mod migration_service {
     /// # use google_cloud_bigquery_migration_v2::builder;
     /// use builder::migration_service::StartMigrationWorkflow;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -473,6 +511,7 @@ pub mod migration_service {
     /// # use google_cloud_bigquery_migration_v2::builder;
     /// use builder::migration_service::GetMigrationSubtask;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -524,8 +563,20 @@ pub mod migration_service {
         }
 
         /// Sets the value of [read_mask][crate::model::GetMigrationSubtaskRequest::read_mask].
-        pub fn set_read_mask<T: Into<std::option::Option<wkt::FieldMask>>>(mut self, v: T) -> Self {
-            self.0.request.read_mask = v.into();
+        pub fn set_read_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.read_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [read_mask][crate::model::GetMigrationSubtaskRequest::read_mask].
+        pub fn set_or_clear_read_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.read_mask = v.map(|x| x.into());
             self
         }
     }
@@ -544,8 +595,9 @@ pub mod migration_service {
     /// # use google_cloud_bigquery_migration_v2::builder;
     /// use builder::migration_service::ListMigrationSubtasks;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -625,8 +677,20 @@ pub mod migration_service {
         }
 
         /// Sets the value of [read_mask][crate::model::ListMigrationSubtasksRequest::read_mask].
-        pub fn set_read_mask<T: Into<std::option::Option<wkt::FieldMask>>>(mut self, v: T) -> Self {
-            self.0.request.read_mask = v.into();
+        pub fn set_read_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.read_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [read_mask][crate::model::ListMigrationSubtasksRequest::read_mask].
+        pub fn set_or_clear_read_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.read_mask = v.map(|x| x.into());
             self
         }
 

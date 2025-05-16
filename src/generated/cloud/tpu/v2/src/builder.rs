@@ -73,8 +73,9 @@ pub mod tpu {
     /// # use google_cloud_tpu_v2::builder;
     /// use builder::tpu::ListNodes;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -173,6 +174,7 @@ pub mod tpu {
     /// # use google_cloud_tpu_v2::builder;
     /// use builder::tpu::GetNode;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -233,8 +235,9 @@ pub mod tpu {
     /// # use google_cloud_tpu_v2::builder;
     /// use builder::tpu::CreateNode;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_tpu_v2::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -326,8 +329,22 @@ pub mod tpu {
         /// Sets the value of [node][crate::model::CreateNodeRequest::node].
         ///
         /// This is a **required** field for requests.
-        pub fn set_node<T: Into<std::option::Option<crate::model::Node>>>(mut self, v: T) -> Self {
-            self.0.request.node = v.into();
+        pub fn set_node<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Node>,
+        {
+            self.0.request.node = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [node][crate::model::CreateNodeRequest::node].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_node<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Node>,
+        {
+            self.0.request.node = v.map(|x| x.into());
             self
         }
     }
@@ -346,8 +363,9 @@ pub mod tpu {
     /// # use google_cloud_tpu_v2::builder;
     /// use builder::tpu::DeleteNode;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_tpu_v2::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -447,8 +465,9 @@ pub mod tpu {
     /// # use google_cloud_tpu_v2::builder;
     /// use builder::tpu::StopNode;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_tpu_v2::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -546,8 +565,9 @@ pub mod tpu {
     /// # use google_cloud_tpu_v2::builder;
     /// use builder::tpu::StartNode;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_tpu_v2::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -645,8 +665,9 @@ pub mod tpu {
     /// # use google_cloud_tpu_v2::builder;
     /// use builder::tpu::UpdateNode;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_tpu_v2::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -724,19 +745,44 @@ pub mod tpu {
         /// Sets the value of [update_mask][crate::model::UpdateNodeRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateNodeRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [node][crate::model::UpdateNodeRequest::node].
         ///
         /// This is a **required** field for requests.
-        pub fn set_node<T: Into<std::option::Option<crate::model::Node>>>(mut self, v: T) -> Self {
-            self.0.request.node = v.into();
+        pub fn set_node<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Node>,
+        {
+            self.0.request.node = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [node][crate::model::UpdateNodeRequest::node].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_node<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Node>,
+        {
+            self.0.request.node = v.map(|x| x.into());
             self
         }
     }
@@ -755,8 +801,9 @@ pub mod tpu {
     /// # use google_cloud_tpu_v2::builder;
     /// use builder::tpu::ListQueuedResources;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -860,6 +907,7 @@ pub mod tpu {
     /// # use google_cloud_tpu_v2::builder;
     /// use builder::tpu::GetQueuedResource;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -923,8 +971,9 @@ pub mod tpu {
     /// # use google_cloud_tpu_v2::builder;
     /// use builder::tpu::CreateQueuedResource;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_tpu_v2::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1022,11 +1071,22 @@ pub mod tpu {
         /// Sets the value of [queued_resource][crate::model::CreateQueuedResourceRequest::queued_resource].
         ///
         /// This is a **required** field for requests.
-        pub fn set_queued_resource<T: Into<std::option::Option<crate::model::QueuedResource>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.queued_resource = v.into();
+        pub fn set_queued_resource<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::QueuedResource>,
+        {
+            self.0.request.queued_resource = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [queued_resource][crate::model::CreateQueuedResourceRequest::queued_resource].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_queued_resource<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::QueuedResource>,
+        {
+            self.0.request.queued_resource = v.map(|x| x.into());
             self
         }
 
@@ -1051,8 +1111,9 @@ pub mod tpu {
     /// # use google_cloud_tpu_v2::builder;
     /// use builder::tpu::DeleteQueuedResource;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_tpu_v2::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1167,8 +1228,9 @@ pub mod tpu {
     /// # use google_cloud_tpu_v2::builder;
     /// use builder::tpu::ResetQueuedResource;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_tpu_v2::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1272,6 +1334,7 @@ pub mod tpu {
     /// # use google_cloud_tpu_v2::builder;
     /// use builder::tpu::GenerateServiceIdentity;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1337,8 +1400,9 @@ pub mod tpu {
     /// # use google_cloud_tpu_v2::builder;
     /// use builder::tpu::ListAcceleratorTypes;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -1454,6 +1518,7 @@ pub mod tpu {
     /// # use google_cloud_tpu_v2::builder;
     /// use builder::tpu::GetAcceleratorType;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1517,8 +1582,9 @@ pub mod tpu {
     /// # use google_cloud_tpu_v2::builder;
     /// use builder::tpu::ListRuntimeVersions;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -1634,6 +1700,7 @@ pub mod tpu {
     /// # use google_cloud_tpu_v2::builder;
     /// use builder::tpu::GetRuntimeVersion;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1697,6 +1764,7 @@ pub mod tpu {
     /// # use google_cloud_tpu_v2::builder;
     /// use builder::tpu::GetGuestAttributes;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1777,8 +1845,9 @@ pub mod tpu {
     /// # use google_cloud_tpu_v2::builder;
     /// use builder::tpu::ListLocations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -1884,6 +1953,7 @@ pub mod tpu {
     /// # use google_cloud_tpu_v2::builder;
     /// use builder::tpu::GetLocation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1942,8 +2012,9 @@ pub mod tpu {
     /// # use google_cloud_tpu_v2::builder;
     /// use builder::tpu::ListOperations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -2051,6 +2122,7 @@ pub mod tpu {
     /// # use google_cloud_tpu_v2::builder;
     /// use builder::tpu::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2112,6 +2184,7 @@ pub mod tpu {
     /// # use google_cloud_tpu_v2::builder;
     /// use builder::tpu::DeleteOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2173,6 +2246,7 @@ pub mod tpu {
     /// # use google_cloud_tpu_v2::builder;
     /// use builder::tpu::CancelOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });

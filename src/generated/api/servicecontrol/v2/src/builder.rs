@@ -75,6 +75,7 @@ pub mod service_controller {
     /// # use google_cloud_api_servicecontrol_v2::builder;
     /// use builder::service_controller::Check;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -127,13 +128,20 @@ pub mod service_controller {
         }
 
         /// Sets the value of [attributes][crate::model::CheckRequest::attributes].
-        pub fn set_attributes<
-            T: Into<std::option::Option<rpc_context::model::AttributeContext>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.attributes = v.into();
+        pub fn set_attributes<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<rpc_context::model::AttributeContext>,
+        {
+            self.0.request.attributes = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [attributes][crate::model::CheckRequest::attributes].
+        pub fn set_or_clear_attributes<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<rpc_context::model::AttributeContext>,
+        {
+            self.0.request.attributes = v.map(|x| x.into());
             self
         }
 
@@ -169,6 +177,7 @@ pub mod service_controller {
     /// # use google_cloud_api_servicecontrol_v2::builder;
     /// use builder::service_controller::Report;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });

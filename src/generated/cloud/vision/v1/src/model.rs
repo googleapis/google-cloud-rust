@@ -605,11 +605,20 @@ impl Image {
     }
 
     /// Sets the value of [source][crate::model::Image::source].
-    pub fn set_source<T: std::convert::Into<std::option::Option<crate::model::ImageSource>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.source = v.into();
+    pub fn set_source<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::ImageSource>,
+    {
+        self.source = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [source][crate::model::Image::source].
+    pub fn set_or_clear_source<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::ImageSource>,
+    {
+        self.source = v.map(|x| x.into());
         self
     }
 }
@@ -710,24 +719,38 @@ impl FaceAnnotation {
     }
 
     /// Sets the value of [bounding_poly][crate::model::FaceAnnotation::bounding_poly].
-    pub fn set_bounding_poly<
-        T: std::convert::Into<std::option::Option<crate::model::BoundingPoly>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.bounding_poly = v.into();
+    pub fn set_bounding_poly<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::BoundingPoly>,
+    {
+        self.bounding_poly = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [bounding_poly][crate::model::FaceAnnotation::bounding_poly].
+    pub fn set_or_clear_bounding_poly<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::BoundingPoly>,
+    {
+        self.bounding_poly = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [fd_bounding_poly][crate::model::FaceAnnotation::fd_bounding_poly].
-    pub fn set_fd_bounding_poly<
-        T: std::convert::Into<std::option::Option<crate::model::BoundingPoly>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.fd_bounding_poly = v.into();
+    pub fn set_fd_bounding_poly<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::BoundingPoly>,
+    {
+        self.fd_bounding_poly = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [fd_bounding_poly][crate::model::FaceAnnotation::fd_bounding_poly].
+    pub fn set_or_clear_fd_bounding_poly<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::BoundingPoly>,
+    {
+        self.fd_bounding_poly = v.map(|x| x.into());
         self
     }
 
@@ -880,11 +903,20 @@ pub mod face_annotation {
         }
 
         /// Sets the value of [position][crate::model::face_annotation::Landmark::position].
-        pub fn set_position<T: std::convert::Into<std::option::Option<crate::model::Position>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.position = v.into();
+        pub fn set_position<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Position>,
+        {
+            self.position = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [position][crate::model::face_annotation::Landmark::position].
+        pub fn set_or_clear_position<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Position>,
+        {
+            self.position = v.map(|x| x.into());
             self
         }
     }
@@ -1312,11 +1344,20 @@ impl LocationInfo {
     }
 
     /// Sets the value of [lat_lng][crate::model::LocationInfo::lat_lng].
-    pub fn set_lat_lng<T: std::convert::Into<std::option::Option<gtype::model::LatLng>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.lat_lng = v.into();
+    pub fn set_lat_lng<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<gtype::model::LatLng>,
+    {
+        self.lat_lng = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [lat_lng][crate::model::LocationInfo::lat_lng].
+    pub fn set_or_clear_lat_lng<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<gtype::model::LatLng>,
+    {
+        self.lat_lng = v.map(|x| x.into());
         self
     }
 }
@@ -1490,13 +1531,20 @@ impl EntityAnnotation {
     }
 
     /// Sets the value of [bounding_poly][crate::model::EntityAnnotation::bounding_poly].
-    pub fn set_bounding_poly<
-        T: std::convert::Into<std::option::Option<crate::model::BoundingPoly>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.bounding_poly = v.into();
+    pub fn set_bounding_poly<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::BoundingPoly>,
+    {
+        self.bounding_poly = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [bounding_poly][crate::model::EntityAnnotation::bounding_poly].
+    pub fn set_or_clear_bounding_poly<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::BoundingPoly>,
+    {
+        self.bounding_poly = v.map(|x| x.into());
         self
     }
 
@@ -1592,13 +1640,20 @@ impl LocalizedObjectAnnotation {
     }
 
     /// Sets the value of [bounding_poly][crate::model::LocalizedObjectAnnotation::bounding_poly].
-    pub fn set_bounding_poly<
-        T: std::convert::Into<std::option::Option<crate::model::BoundingPoly>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.bounding_poly = v.into();
+    pub fn set_bounding_poly<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::BoundingPoly>,
+    {
+        self.bounding_poly = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [bounding_poly][crate::model::LocalizedObjectAnnotation::bounding_poly].
+    pub fn set_or_clear_bounding_poly<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::BoundingPoly>,
+    {
+        self.bounding_poly = v.map(|x| x.into());
         self
     }
 }
@@ -1711,20 +1766,38 @@ impl LatLongRect {
     }
 
     /// Sets the value of [min_lat_lng][crate::model::LatLongRect::min_lat_lng].
-    pub fn set_min_lat_lng<T: std::convert::Into<std::option::Option<gtype::model::LatLng>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.min_lat_lng = v.into();
+    pub fn set_min_lat_lng<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<gtype::model::LatLng>,
+    {
+        self.min_lat_lng = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [min_lat_lng][crate::model::LatLongRect::min_lat_lng].
+    pub fn set_or_clear_min_lat_lng<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<gtype::model::LatLng>,
+    {
+        self.min_lat_lng = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [max_lat_lng][crate::model::LatLongRect::max_lat_lng].
-    pub fn set_max_lat_lng<T: std::convert::Into<std::option::Option<gtype::model::LatLng>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.max_lat_lng = v.into();
+    pub fn set_max_lat_lng<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<gtype::model::LatLng>,
+    {
+        self.max_lat_lng = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [max_lat_lng][crate::model::LatLongRect::max_lat_lng].
+    pub fn set_or_clear_max_lat_lng<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<gtype::model::LatLng>,
+    {
+        self.max_lat_lng = v.map(|x| x.into());
         self
     }
 }
@@ -1767,11 +1840,20 @@ impl ColorInfo {
     }
 
     /// Sets the value of [color][crate::model::ColorInfo::color].
-    pub fn set_color<T: std::convert::Into<std::option::Option<gtype::model::Color>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.color = v.into();
+    pub fn set_color<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<gtype::model::Color>,
+    {
+        self.color = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [color][crate::model::ColorInfo::color].
+    pub fn set_or_clear_color<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<gtype::model::Color>,
+    {
+        self.color = v.map(|x| x.into());
         self
     }
 
@@ -1851,13 +1933,20 @@ impl ImageProperties {
     }
 
     /// Sets the value of [dominant_colors][crate::model::ImageProperties::dominant_colors].
-    pub fn set_dominant_colors<
-        T: std::convert::Into<std::option::Option<crate::model::DominantColorsAnnotation>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.dominant_colors = v.into();
+    pub fn set_dominant_colors<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::DominantColorsAnnotation>,
+    {
+        self.dominant_colors = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [dominant_colors][crate::model::ImageProperties::dominant_colors].
+    pub fn set_or_clear_dominant_colors<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::DominantColorsAnnotation>,
+    {
+        self.dominant_colors = v.map(|x| x.into());
         self
     }
 }
@@ -1900,13 +1989,20 @@ impl CropHint {
     }
 
     /// Sets the value of [bounding_poly][crate::model::CropHint::bounding_poly].
-    pub fn set_bounding_poly<
-        T: std::convert::Into<std::option::Option<crate::model::BoundingPoly>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.bounding_poly = v.into();
+    pub fn set_bounding_poly<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::BoundingPoly>,
+    {
+        self.bounding_poly = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [bounding_poly][crate::model::CropHint::bounding_poly].
+    pub fn set_or_clear_bounding_poly<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::BoundingPoly>,
+    {
+        self.bounding_poly = v.map(|x| x.into());
         self
     }
 
@@ -2149,13 +2245,20 @@ impl ImageContext {
     }
 
     /// Sets the value of [lat_long_rect][crate::model::ImageContext::lat_long_rect].
-    pub fn set_lat_long_rect<
-        T: std::convert::Into<std::option::Option<crate::model::LatLongRect>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.lat_long_rect = v.into();
+    pub fn set_lat_long_rect<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::LatLongRect>,
+    {
+        self.lat_long_rect = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [lat_long_rect][crate::model::ImageContext::lat_long_rect].
+    pub fn set_or_clear_lat_long_rect<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::LatLongRect>,
+    {
+        self.lat_long_rect = v.map(|x| x.into());
         self
     }
 
@@ -2171,46 +2274,74 @@ impl ImageContext {
     }
 
     /// Sets the value of [crop_hints_params][crate::model::ImageContext::crop_hints_params].
-    pub fn set_crop_hints_params<
-        T: std::convert::Into<std::option::Option<crate::model::CropHintsParams>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.crop_hints_params = v.into();
+    pub fn set_crop_hints_params<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::CropHintsParams>,
+    {
+        self.crop_hints_params = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [crop_hints_params][crate::model::ImageContext::crop_hints_params].
+    pub fn set_or_clear_crop_hints_params<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::CropHintsParams>,
+    {
+        self.crop_hints_params = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [product_search_params][crate::model::ImageContext::product_search_params].
-    pub fn set_product_search_params<
-        T: std::convert::Into<std::option::Option<crate::model::ProductSearchParams>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.product_search_params = v.into();
+    pub fn set_product_search_params<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::ProductSearchParams>,
+    {
+        self.product_search_params = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [product_search_params][crate::model::ImageContext::product_search_params].
+    pub fn set_or_clear_product_search_params<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::ProductSearchParams>,
+    {
+        self.product_search_params = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [web_detection_params][crate::model::ImageContext::web_detection_params].
-    pub fn set_web_detection_params<
-        T: std::convert::Into<std::option::Option<crate::model::WebDetectionParams>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.web_detection_params = v.into();
+    pub fn set_web_detection_params<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::WebDetectionParams>,
+    {
+        self.web_detection_params = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [web_detection_params][crate::model::ImageContext::web_detection_params].
+    pub fn set_or_clear_web_detection_params<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::WebDetectionParams>,
+    {
+        self.web_detection_params = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [text_detection_params][crate::model::ImageContext::text_detection_params].
-    pub fn set_text_detection_params<
-        T: std::convert::Into<std::option::Option<crate::model::TextDetectionParams>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.text_detection_params = v.into();
+    pub fn set_text_detection_params<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::TextDetectionParams>,
+    {
+        self.text_detection_params = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [text_detection_params][crate::model::ImageContext::text_detection_params].
+    pub fn set_or_clear_text_detection_params<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::TextDetectionParams>,
+    {
+        self.text_detection_params = v.map(|x| x.into());
         self
     }
 }
@@ -2250,11 +2381,20 @@ impl AnnotateImageRequest {
     }
 
     /// Sets the value of [image][crate::model::AnnotateImageRequest::image].
-    pub fn set_image<T: std::convert::Into<std::option::Option<crate::model::Image>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.image = v.into();
+    pub fn set_image<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::Image>,
+    {
+        self.image = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [image][crate::model::AnnotateImageRequest::image].
+    pub fn set_or_clear_image<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::Image>,
+    {
+        self.image = v.map(|x| x.into());
         self
     }
 
@@ -2270,13 +2410,20 @@ impl AnnotateImageRequest {
     }
 
     /// Sets the value of [image_context][crate::model::AnnotateImageRequest::image_context].
-    pub fn set_image_context<
-        T: std::convert::Into<std::option::Option<crate::model::ImageContext>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.image_context = v.into();
+    pub fn set_image_context<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::ImageContext>,
+    {
+        self.image_context = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [image_context][crate::model::AnnotateImageRequest::image_context].
+    pub fn set_or_clear_image_context<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::ImageContext>,
+    {
+        self.image_context = v.map(|x| x.into());
         self
     }
 }
@@ -2476,88 +2623,146 @@ impl AnnotateImageResponse {
     }
 
     /// Sets the value of [full_text_annotation][crate::model::AnnotateImageResponse::full_text_annotation].
-    pub fn set_full_text_annotation<
-        T: std::convert::Into<std::option::Option<crate::model::TextAnnotation>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.full_text_annotation = v.into();
+    pub fn set_full_text_annotation<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::TextAnnotation>,
+    {
+        self.full_text_annotation = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [full_text_annotation][crate::model::AnnotateImageResponse::full_text_annotation].
+    pub fn set_or_clear_full_text_annotation<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::TextAnnotation>,
+    {
+        self.full_text_annotation = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [safe_search_annotation][crate::model::AnnotateImageResponse::safe_search_annotation].
-    pub fn set_safe_search_annotation<
-        T: std::convert::Into<std::option::Option<crate::model::SafeSearchAnnotation>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.safe_search_annotation = v.into();
+    pub fn set_safe_search_annotation<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::SafeSearchAnnotation>,
+    {
+        self.safe_search_annotation = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [safe_search_annotation][crate::model::AnnotateImageResponse::safe_search_annotation].
+    pub fn set_or_clear_safe_search_annotation<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::SafeSearchAnnotation>,
+    {
+        self.safe_search_annotation = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [image_properties_annotation][crate::model::AnnotateImageResponse::image_properties_annotation].
-    pub fn set_image_properties_annotation<
-        T: std::convert::Into<std::option::Option<crate::model::ImageProperties>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.image_properties_annotation = v.into();
+    pub fn set_image_properties_annotation<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::ImageProperties>,
+    {
+        self.image_properties_annotation = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [image_properties_annotation][crate::model::AnnotateImageResponse::image_properties_annotation].
+    pub fn set_or_clear_image_properties_annotation<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::ImageProperties>,
+    {
+        self.image_properties_annotation = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [crop_hints_annotation][crate::model::AnnotateImageResponse::crop_hints_annotation].
-    pub fn set_crop_hints_annotation<
-        T: std::convert::Into<std::option::Option<crate::model::CropHintsAnnotation>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.crop_hints_annotation = v.into();
+    pub fn set_crop_hints_annotation<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::CropHintsAnnotation>,
+    {
+        self.crop_hints_annotation = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [crop_hints_annotation][crate::model::AnnotateImageResponse::crop_hints_annotation].
+    pub fn set_or_clear_crop_hints_annotation<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::CropHintsAnnotation>,
+    {
+        self.crop_hints_annotation = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [web_detection][crate::model::AnnotateImageResponse::web_detection].
-    pub fn set_web_detection<
-        T: std::convert::Into<std::option::Option<crate::model::WebDetection>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.web_detection = v.into();
+    pub fn set_web_detection<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::WebDetection>,
+    {
+        self.web_detection = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [web_detection][crate::model::AnnotateImageResponse::web_detection].
+    pub fn set_or_clear_web_detection<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::WebDetection>,
+    {
+        self.web_detection = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [product_search_results][crate::model::AnnotateImageResponse::product_search_results].
-    pub fn set_product_search_results<
-        T: std::convert::Into<std::option::Option<crate::model::ProductSearchResults>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.product_search_results = v.into();
+    pub fn set_product_search_results<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::ProductSearchResults>,
+    {
+        self.product_search_results = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [product_search_results][crate::model::AnnotateImageResponse::product_search_results].
+    pub fn set_or_clear_product_search_results<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::ProductSearchResults>,
+    {
+        self.product_search_results = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [error][crate::model::AnnotateImageResponse::error].
-    pub fn set_error<T: std::convert::Into<std::option::Option<rpc::model::Status>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.error = v.into();
+    pub fn set_error<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<rpc::model::Status>,
+    {
+        self.error = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [error][crate::model::AnnotateImageResponse::error].
+    pub fn set_or_clear_error<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<rpc::model::Status>,
+    {
+        self.error = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [context][crate::model::AnnotateImageResponse::context].
-    pub fn set_context<
-        T: std::convert::Into<std::option::Option<crate::model::ImageAnnotationContext>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.context = v.into();
+    pub fn set_context<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::ImageAnnotationContext>,
+    {
+        self.context = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [context][crate::model::AnnotateImageResponse::context].
+    pub fn set_or_clear_context<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::ImageAnnotationContext>,
+    {
+        self.context = v.map(|x| x.into());
         self
     }
 }
@@ -2729,13 +2934,20 @@ impl AnnotateFileRequest {
     }
 
     /// Sets the value of [input_config][crate::model::AnnotateFileRequest::input_config].
-    pub fn set_input_config<
-        T: std::convert::Into<std::option::Option<crate::model::InputConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.input_config = v.into();
+    pub fn set_input_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::InputConfig>,
+    {
+        self.input_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [input_config][crate::model::AnnotateFileRequest::input_config].
+    pub fn set_or_clear_input_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::InputConfig>,
+    {
+        self.input_config = v.map(|x| x.into());
         self
     }
 
@@ -2751,13 +2963,20 @@ impl AnnotateFileRequest {
     }
 
     /// Sets the value of [image_context][crate::model::AnnotateFileRequest::image_context].
-    pub fn set_image_context<
-        T: std::convert::Into<std::option::Option<crate::model::ImageContext>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.image_context = v.into();
+    pub fn set_image_context<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::ImageContext>,
+    {
+        self.image_context = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [image_context][crate::model::AnnotateFileRequest::image_context].
+    pub fn set_or_clear_image_context<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::ImageContext>,
+    {
+        self.image_context = v.map(|x| x.into());
         self
     }
 
@@ -2814,13 +3033,20 @@ impl AnnotateFileResponse {
     }
 
     /// Sets the value of [input_config][crate::model::AnnotateFileResponse::input_config].
-    pub fn set_input_config<
-        T: std::convert::Into<std::option::Option<crate::model::InputConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.input_config = v.into();
+    pub fn set_input_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::InputConfig>,
+    {
+        self.input_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [input_config][crate::model::AnnotateFileResponse::input_config].
+    pub fn set_or_clear_input_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::InputConfig>,
+    {
+        self.input_config = v.map(|x| x.into());
         self
     }
 
@@ -2842,11 +3068,20 @@ impl AnnotateFileResponse {
     }
 
     /// Sets the value of [error][crate::model::AnnotateFileResponse::error].
-    pub fn set_error<T: std::convert::Into<std::option::Option<rpc::model::Status>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.error = v.into();
+    pub fn set_error<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<rpc::model::Status>,
+    {
+        self.error = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [error][crate::model::AnnotateFileResponse::error].
+    pub fn set_or_clear_error<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<rpc::model::Status>,
+    {
+        self.error = v.map(|x| x.into());
         self
     }
 }
@@ -3007,13 +3242,20 @@ impl AsyncAnnotateFileRequest {
     }
 
     /// Sets the value of [input_config][crate::model::AsyncAnnotateFileRequest::input_config].
-    pub fn set_input_config<
-        T: std::convert::Into<std::option::Option<crate::model::InputConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.input_config = v.into();
+    pub fn set_input_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::InputConfig>,
+    {
+        self.input_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [input_config][crate::model::AsyncAnnotateFileRequest::input_config].
+    pub fn set_or_clear_input_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::InputConfig>,
+    {
+        self.input_config = v.map(|x| x.into());
         self
     }
 
@@ -3029,24 +3271,38 @@ impl AsyncAnnotateFileRequest {
     }
 
     /// Sets the value of [image_context][crate::model::AsyncAnnotateFileRequest::image_context].
-    pub fn set_image_context<
-        T: std::convert::Into<std::option::Option<crate::model::ImageContext>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.image_context = v.into();
+    pub fn set_image_context<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::ImageContext>,
+    {
+        self.image_context = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [image_context][crate::model::AsyncAnnotateFileRequest::image_context].
+    pub fn set_or_clear_image_context<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::ImageContext>,
+    {
+        self.image_context = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [output_config][crate::model::AsyncAnnotateFileRequest::output_config].
-    pub fn set_output_config<
-        T: std::convert::Into<std::option::Option<crate::model::OutputConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.output_config = v.into();
+    pub fn set_output_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::OutputConfig>,
+    {
+        self.output_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [output_config][crate::model::AsyncAnnotateFileRequest::output_config].
+    pub fn set_or_clear_output_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::OutputConfig>,
+    {
+        self.output_config = v.map(|x| x.into());
         self
     }
 }
@@ -3077,13 +3333,20 @@ impl AsyncAnnotateFileResponse {
     }
 
     /// Sets the value of [output_config][crate::model::AsyncAnnotateFileResponse::output_config].
-    pub fn set_output_config<
-        T: std::convert::Into<std::option::Option<crate::model::OutputConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.output_config = v.into();
+    pub fn set_output_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::OutputConfig>,
+    {
+        self.output_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [output_config][crate::model::AsyncAnnotateFileResponse::output_config].
+    pub fn set_or_clear_output_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::OutputConfig>,
+    {
+        self.output_config = v.map(|x| x.into());
         self
     }
 }
@@ -3153,13 +3416,20 @@ impl AsyncBatchAnnotateImagesRequest {
     }
 
     /// Sets the value of [output_config][crate::model::AsyncBatchAnnotateImagesRequest::output_config].
-    pub fn set_output_config<
-        T: std::convert::Into<std::option::Option<crate::model::OutputConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.output_config = v.into();
+    pub fn set_output_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::OutputConfig>,
+    {
+        self.output_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [output_config][crate::model::AsyncBatchAnnotateImagesRequest::output_config].
+    pub fn set_or_clear_output_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::OutputConfig>,
+    {
+        self.output_config = v.map(|x| x.into());
         self
     }
 
@@ -3208,13 +3478,20 @@ impl AsyncBatchAnnotateImagesResponse {
     }
 
     /// Sets the value of [output_config][crate::model::AsyncBatchAnnotateImagesResponse::output_config].
-    pub fn set_output_config<
-        T: std::convert::Into<std::option::Option<crate::model::OutputConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.output_config = v.into();
+    pub fn set_output_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::OutputConfig>,
+    {
+        self.output_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [output_config][crate::model::AsyncBatchAnnotateImagesResponse::output_config].
+    pub fn set_or_clear_output_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::OutputConfig>,
+    {
+        self.output_config = v.map(|x| x.into());
         self
     }
 }
@@ -3378,11 +3655,20 @@ impl InputConfig {
     }
 
     /// Sets the value of [gcs_source][crate::model::InputConfig::gcs_source].
-    pub fn set_gcs_source<T: std::convert::Into<std::option::Option<crate::model::GcsSource>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.gcs_source = v.into();
+    pub fn set_gcs_source<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::GcsSource>,
+    {
+        self.gcs_source = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [gcs_source][crate::model::InputConfig::gcs_source].
+    pub fn set_or_clear_gcs_source<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::GcsSource>,
+    {
+        self.gcs_source = v.map(|x| x.into());
         self
     }
 
@@ -3439,13 +3725,20 @@ impl OutputConfig {
     }
 
     /// Sets the value of [gcs_destination][crate::model::OutputConfig::gcs_destination].
-    pub fn set_gcs_destination<
-        T: std::convert::Into<std::option::Option<crate::model::GcsDestination>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.gcs_destination = v.into();
+    pub fn set_gcs_destination<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::GcsDestination>,
+    {
+        self.gcs_destination = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [gcs_destination][crate::model::OutputConfig::gcs_destination].
+    pub fn set_or_clear_gcs_destination<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::GcsDestination>,
+    {
+        self.gcs_destination = v.map(|x| x.into());
         self
     }
 
@@ -3585,20 +3878,38 @@ impl OperationMetadata {
     }
 
     /// Sets the value of [create_time][crate::model::OperationMetadata::create_time].
-    pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.create_time = v.into();
+    pub fn set_create_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [create_time][crate::model::OperationMetadata::create_time].
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [update_time][crate::model::OperationMetadata::update_time].
-    pub fn set_update_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.update_time = v.into();
+    pub fn set_update_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_time][crate::model::OperationMetadata::update_time].
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = v.map(|x| x.into());
         self
     }
 }
@@ -3813,13 +4124,20 @@ impl ProductSearchParams {
     }
 
     /// Sets the value of [bounding_poly][crate::model::ProductSearchParams::bounding_poly].
-    pub fn set_bounding_poly<
-        T: std::convert::Into<std::option::Option<crate::model::BoundingPoly>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.bounding_poly = v.into();
+    pub fn set_bounding_poly<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::BoundingPoly>,
+    {
+        self.bounding_poly = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [bounding_poly][crate::model::ProductSearchParams::bounding_poly].
+    pub fn set_or_clear_bounding_poly<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::BoundingPoly>,
+    {
+        self.bounding_poly = v.map(|x| x.into());
         self
     }
 
@@ -3886,11 +4204,20 @@ impl ProductSearchResults {
     }
 
     /// Sets the value of [index_time][crate::model::ProductSearchResults::index_time].
-    pub fn set_index_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.index_time = v.into();
+    pub fn set_index_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.index_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [index_time][crate::model::ProductSearchResults::index_time].
+    pub fn set_or_clear_index_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.index_time = v.map(|x| x.into());
         self
     }
 
@@ -3959,11 +4286,20 @@ pub mod product_search_results {
         }
 
         /// Sets the value of [product][crate::model::product_search_results::Result::product].
-        pub fn set_product<T: std::convert::Into<std::option::Option<crate::model::Product>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.product = v.into();
+        pub fn set_product<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Product>,
+        {
+            self.product = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [product][crate::model::product_search_results::Result::product].
+        pub fn set_or_clear_product<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Product>,
+        {
+            self.product = v.map(|x| x.into());
             self
         }
 
@@ -4084,13 +4420,20 @@ pub mod product_search_results {
         }
 
         /// Sets the value of [bounding_poly][crate::model::product_search_results::GroupedResult::bounding_poly].
-        pub fn set_bounding_poly<
-            T: std::convert::Into<std::option::Option<crate::model::BoundingPoly>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.bounding_poly = v.into();
+        pub fn set_bounding_poly<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::BoundingPoly>,
+        {
+            self.bounding_poly = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [bounding_poly][crate::model::product_search_results::GroupedResult::bounding_poly].
+        pub fn set_or_clear_bounding_poly<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::BoundingPoly>,
+        {
+            self.bounding_poly = v.map(|x| x.into());
             self
         }
 
@@ -4337,20 +4680,38 @@ impl ProductSet {
     }
 
     /// Sets the value of [index_time][crate::model::ProductSet::index_time].
-    pub fn set_index_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.index_time = v.into();
+    pub fn set_index_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.index_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [index_time][crate::model::ProductSet::index_time].
+    pub fn set_or_clear_index_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.index_time = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [index_error][crate::model::ProductSet::index_error].
-    pub fn set_index_error<T: std::convert::Into<std::option::Option<rpc::model::Status>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.index_error = v.into();
+    pub fn set_index_error<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<rpc::model::Status>,
+    {
+        self.index_error = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [index_error][crate::model::ProductSet::index_error].
+    pub fn set_or_clear_index_error<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<rpc::model::Status>,
+    {
+        self.index_error = v.map(|x| x.into());
         self
     }
 }
@@ -4473,11 +4834,20 @@ impl CreateProductRequest {
     }
 
     /// Sets the value of [product][crate::model::CreateProductRequest::product].
-    pub fn set_product<T: std::convert::Into<std::option::Option<crate::model::Product>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.product = v.into();
+    pub fn set_product<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::Product>,
+    {
+        self.product = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [product][crate::model::CreateProductRequest::product].
+    pub fn set_or_clear_product<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::Product>,
+    {
+        self.product = v.map(|x| x.into());
         self
     }
 
@@ -4677,20 +5047,38 @@ impl UpdateProductRequest {
     }
 
     /// Sets the value of [product][crate::model::UpdateProductRequest::product].
-    pub fn set_product<T: std::convert::Into<std::option::Option<crate::model::Product>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.product = v.into();
+    pub fn set_product<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::Product>,
+    {
+        self.product = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [product][crate::model::UpdateProductRequest::product].
+    pub fn set_or_clear_product<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::Product>,
+    {
+        self.product = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateProductRequest::update_mask].
-    pub fn set_update_mask<T: std::convert::Into<std::option::Option<wkt::FieldMask>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.update_mask = v.into();
+    pub fn set_update_mask<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_mask][crate::model::UpdateProductRequest::update_mask].
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = v.map(|x| x.into());
         self
     }
 }
@@ -4775,11 +5163,20 @@ impl CreateProductSetRequest {
     }
 
     /// Sets the value of [product_set][crate::model::CreateProductSetRequest::product_set].
-    pub fn set_product_set<T: std::convert::Into<std::option::Option<crate::model::ProductSet>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.product_set = v.into();
+    pub fn set_product_set<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::ProductSet>,
+    {
+        self.product_set = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [product_set][crate::model::CreateProductSetRequest::product_set].
+    pub fn set_or_clear_product_set<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::ProductSet>,
+    {
+        self.product_set = v.map(|x| x.into());
         self
     }
 
@@ -4976,20 +5373,38 @@ impl UpdateProductSetRequest {
     }
 
     /// Sets the value of [product_set][crate::model::UpdateProductSetRequest::product_set].
-    pub fn set_product_set<T: std::convert::Into<std::option::Option<crate::model::ProductSet>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.product_set = v.into();
+    pub fn set_product_set<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::ProductSet>,
+    {
+        self.product_set = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [product_set][crate::model::UpdateProductSetRequest::product_set].
+    pub fn set_or_clear_product_set<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::ProductSet>,
+    {
+        self.product_set = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateProductSetRequest::update_mask].
-    pub fn set_update_mask<T: std::convert::Into<std::option::Option<wkt::FieldMask>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.update_mask = v.into();
+    pub fn set_update_mask<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_mask][crate::model::UpdateProductSetRequest::update_mask].
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = v.map(|x| x.into());
         self
     }
 }
@@ -5077,13 +5492,20 @@ impl CreateReferenceImageRequest {
     }
 
     /// Sets the value of [reference_image][crate::model::CreateReferenceImageRequest::reference_image].
-    pub fn set_reference_image<
-        T: std::convert::Into<std::option::Option<crate::model::ReferenceImage>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.reference_image = v.into();
+    pub fn set_reference_image<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::ReferenceImage>,
+    {
+        self.reference_image = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [reference_image][crate::model::CreateReferenceImageRequest::reference_image].
+    pub fn set_or_clear_reference_image<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::ReferenceImage>,
+    {
+        self.reference_image = v.map(|x| x.into());
         self
     }
 
@@ -5740,13 +6162,20 @@ impl ImportProductSetsRequest {
     }
 
     /// Sets the value of [input_config][crate::model::ImportProductSetsRequest::input_config].
-    pub fn set_input_config<
-        T: std::convert::Into<std::option::Option<crate::model::ImportProductSetsInputConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.input_config = v.into();
+    pub fn set_input_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::ImportProductSetsInputConfig>,
+    {
+        self.input_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [input_config][crate::model::ImportProductSetsRequest::input_config].
+    pub fn set_or_clear_input_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::ImportProductSetsInputConfig>,
+    {
+        self.input_config = v.map(|x| x.into());
         self
     }
 }
@@ -5865,20 +6294,38 @@ impl BatchOperationMetadata {
     }
 
     /// Sets the value of [submit_time][crate::model::BatchOperationMetadata::submit_time].
-    pub fn set_submit_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.submit_time = v.into();
+    pub fn set_submit_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.submit_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [submit_time][crate::model::BatchOperationMetadata::submit_time].
+    pub fn set_or_clear_submit_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.submit_time = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [end_time][crate::model::BatchOperationMetadata::end_time].
-    pub fn set_end_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.end_time = v.into();
+    pub fn set_end_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.end_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [end_time][crate::model::BatchOperationMetadata::end_time].
+    pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.end_time = v.map(|x| x.into());
         self
     }
 }
@@ -6571,13 +7018,20 @@ pub mod text_annotation {
         }
 
         /// Sets the value of [detected_break][crate::model::text_annotation::TextProperty::detected_break].
-        pub fn set_detected_break<
-            T: std::convert::Into<std::option::Option<crate::model::text_annotation::DetectedBreak>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.detected_break = v.into();
+        pub fn set_detected_break<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::text_annotation::DetectedBreak>,
+        {
+            self.detected_break = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [detected_break][crate::model::text_annotation::TextProperty::detected_break].
+        pub fn set_or_clear_detected_break<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::text_annotation::DetectedBreak>,
+        {
+            self.detected_break = v.map(|x| x.into());
             self
         }
     }
@@ -6628,13 +7082,20 @@ impl Page {
     }
 
     /// Sets the value of [property][crate::model::Page::property].
-    pub fn set_property<
-        T: std::convert::Into<std::option::Option<crate::model::text_annotation::TextProperty>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.property = v.into();
+    pub fn set_property<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::text_annotation::TextProperty>,
+    {
+        self.property = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [property][crate::model::Page::property].
+    pub fn set_or_clear_property<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::text_annotation::TextProperty>,
+    {
+        self.property = v.map(|x| x.into());
         self
     }
 
@@ -6734,24 +7195,38 @@ impl Block {
     }
 
     /// Sets the value of [property][crate::model::Block::property].
-    pub fn set_property<
-        T: std::convert::Into<std::option::Option<crate::model::text_annotation::TextProperty>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.property = v.into();
+    pub fn set_property<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::text_annotation::TextProperty>,
+    {
+        self.property = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [property][crate::model::Block::property].
+    pub fn set_or_clear_property<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::text_annotation::TextProperty>,
+    {
+        self.property = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [bounding_box][crate::model::Block::bounding_box].
-    pub fn set_bounding_box<
-        T: std::convert::Into<std::option::Option<crate::model::BoundingPoly>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.bounding_box = v.into();
+    pub fn set_bounding_box<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::BoundingPoly>,
+    {
+        self.bounding_box = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [bounding_box][crate::model::Block::bounding_box].
+    pub fn set_or_clear_bounding_box<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::BoundingPoly>,
+    {
+        self.bounding_box = v.map(|x| x.into());
         self
     }
 
@@ -6995,24 +7470,38 @@ impl Paragraph {
     }
 
     /// Sets the value of [property][crate::model::Paragraph::property].
-    pub fn set_property<
-        T: std::convert::Into<std::option::Option<crate::model::text_annotation::TextProperty>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.property = v.into();
+    pub fn set_property<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::text_annotation::TextProperty>,
+    {
+        self.property = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [property][crate::model::Paragraph::property].
+    pub fn set_or_clear_property<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::text_annotation::TextProperty>,
+    {
+        self.property = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [bounding_box][crate::model::Paragraph::bounding_box].
-    pub fn set_bounding_box<
-        T: std::convert::Into<std::option::Option<crate::model::BoundingPoly>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.bounding_box = v.into();
+    pub fn set_bounding_box<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::BoundingPoly>,
+    {
+        self.bounding_box = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [bounding_box][crate::model::Paragraph::bounding_box].
+    pub fn set_or_clear_bounding_box<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::BoundingPoly>,
+    {
+        self.bounding_box = v.map(|x| x.into());
         self
     }
 
@@ -7089,24 +7578,38 @@ impl Word {
     }
 
     /// Sets the value of [property][crate::model::Word::property].
-    pub fn set_property<
-        T: std::convert::Into<std::option::Option<crate::model::text_annotation::TextProperty>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.property = v.into();
+    pub fn set_property<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::text_annotation::TextProperty>,
+    {
+        self.property = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [property][crate::model::Word::property].
+    pub fn set_or_clear_property<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::text_annotation::TextProperty>,
+    {
+        self.property = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [bounding_box][crate::model::Word::bounding_box].
-    pub fn set_bounding_box<
-        T: std::convert::Into<std::option::Option<crate::model::BoundingPoly>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.bounding_box = v.into();
+    pub fn set_bounding_box<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::BoundingPoly>,
+    {
+        self.bounding_box = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [bounding_box][crate::model::Word::bounding_box].
+    pub fn set_or_clear_bounding_box<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::BoundingPoly>,
+    {
+        self.bounding_box = v.map(|x| x.into());
         self
     }
 
@@ -7182,24 +7685,38 @@ impl Symbol {
     }
 
     /// Sets the value of [property][crate::model::Symbol::property].
-    pub fn set_property<
-        T: std::convert::Into<std::option::Option<crate::model::text_annotation::TextProperty>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.property = v.into();
+    pub fn set_property<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::text_annotation::TextProperty>,
+    {
+        self.property = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [property][crate::model::Symbol::property].
+    pub fn set_or_clear_property<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::text_annotation::TextProperty>,
+    {
+        self.property = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [bounding_box][crate::model::Symbol::bounding_box].
-    pub fn set_bounding_box<
-        T: std::convert::Into<std::option::Option<crate::model::BoundingPoly>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.bounding_box = v.into();
+    pub fn set_bounding_box<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::BoundingPoly>,
+    {
+        self.bounding_box = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [bounding_box][crate::model::Symbol::bounding_box].
+    pub fn set_or_clear_bounding_box<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::BoundingPoly>,
+    {
+        self.bounding_box = v.map(|x| x.into());
         self
     }
 

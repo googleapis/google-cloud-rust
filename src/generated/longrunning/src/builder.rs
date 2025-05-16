@@ -75,8 +75,9 @@ pub mod operations {
     /// # use google_cloud_longrunning::builder;
     /// use builder::operations::ListOperations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -181,6 +182,7 @@ pub mod operations {
     /// # use google_cloud_longrunning::builder;
     /// use builder::operations::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -241,6 +243,7 @@ pub mod operations {
     /// # use google_cloud_longrunning::builder;
     /// use builder::operations::DeleteOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -301,6 +304,7 @@ pub mod operations {
     /// # use google_cloud_longrunning::builder;
     /// use builder::operations::CancelOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });

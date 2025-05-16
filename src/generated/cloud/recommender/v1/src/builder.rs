@@ -75,8 +75,9 @@ pub mod recommender {
     /// # use google_cloud_recommender_v1::builder;
     /// use builder::recommender::ListInsights;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -183,6 +184,7 @@ pub mod recommender {
     /// # use google_cloud_recommender_v1::builder;
     /// use builder::recommender::GetInsight;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -245,6 +247,7 @@ pub mod recommender {
     /// # use google_cloud_recommender_v1::builder;
     /// use builder::recommender::MarkInsightAccepted;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -330,8 +333,9 @@ pub mod recommender {
     /// # use google_cloud_recommender_v1::builder;
     /// use builder::recommender::ListRecommendations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -443,6 +447,7 @@ pub mod recommender {
     /// # use google_cloud_recommender_v1::builder;
     /// use builder::recommender::GetRecommendation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -508,6 +513,7 @@ pub mod recommender {
     /// # use google_cloud_recommender_v1::builder;
     /// use builder::recommender::MarkRecommendationDismissed;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -581,6 +587,7 @@ pub mod recommender {
     /// # use google_cloud_recommender_v1::builder;
     /// use builder::recommender::MarkRecommendationClaimed;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -668,6 +675,7 @@ pub mod recommender {
     /// # use google_cloud_recommender_v1::builder;
     /// use builder::recommender::MarkRecommendationSucceeded;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -755,6 +763,7 @@ pub mod recommender {
     /// # use google_cloud_recommender_v1::builder;
     /// use builder::recommender::MarkRecommendationFailed;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -842,6 +851,7 @@ pub mod recommender {
     /// # use google_cloud_recommender_v1::builder;
     /// use builder::recommender::GetRecommenderConfig;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -907,6 +917,7 @@ pub mod recommender {
     /// # use google_cloud_recommender_v1::builder;
     /// use builder::recommender::UpdateRecommenderConfig;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -954,22 +965,40 @@ pub mod recommender {
         /// Sets the value of [recommender_config][crate::model::UpdateRecommenderConfigRequest::recommender_config].
         ///
         /// This is a **required** field for requests.
-        pub fn set_recommender_config<
-            T: Into<std::option::Option<crate::model::RecommenderConfig>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.recommender_config = v.into();
+        pub fn set_recommender_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::RecommenderConfig>,
+        {
+            self.0.request.recommender_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [recommender_config][crate::model::UpdateRecommenderConfigRequest::recommender_config].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_recommender_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::RecommenderConfig>,
+        {
+            self.0.request.recommender_config = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateRecommenderConfigRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateRecommenderConfigRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
@@ -994,6 +1023,7 @@ pub mod recommender {
     /// # use google_cloud_recommender_v1::builder;
     /// use builder::recommender::GetInsightTypeConfig;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1059,6 +1089,7 @@ pub mod recommender {
     /// # use google_cloud_recommender_v1::builder;
     /// use builder::recommender::UpdateInsightTypeConfig;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1106,22 +1137,40 @@ pub mod recommender {
         /// Sets the value of [insight_type_config][crate::model::UpdateInsightTypeConfigRequest::insight_type_config].
         ///
         /// This is a **required** field for requests.
-        pub fn set_insight_type_config<
-            T: Into<std::option::Option<crate::model::InsightTypeConfig>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.insight_type_config = v.into();
+        pub fn set_insight_type_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::InsightTypeConfig>,
+        {
+            self.0.request.insight_type_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [insight_type_config][crate::model::UpdateInsightTypeConfigRequest::insight_type_config].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_insight_type_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::InsightTypeConfig>,
+        {
+            self.0.request.insight_type_config = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateInsightTypeConfigRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateInsightTypeConfigRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 

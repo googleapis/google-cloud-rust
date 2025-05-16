@@ -77,20 +77,38 @@ impl Template {
     }
 
     /// Sets the value of [create_time][crate::model::Template::create_time].
-    pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.create_time = v.into();
+    pub fn set_create_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [create_time][crate::model::Template::create_time].
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [update_time][crate::model::Template::update_time].
-    pub fn set_update_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.update_time = v.into();
+    pub fn set_update_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_time][crate::model::Template::update_time].
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = v.map(|x| x.into());
         self
     }
 
@@ -107,24 +125,38 @@ impl Template {
     }
 
     /// Sets the value of [filter_config][crate::model::Template::filter_config].
-    pub fn set_filter_config<
-        T: std::convert::Into<std::option::Option<crate::model::FilterConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.filter_config = v.into();
+    pub fn set_filter_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::FilterConfig>,
+    {
+        self.filter_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [filter_config][crate::model::Template::filter_config].
+    pub fn set_or_clear_filter_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::FilterConfig>,
+    {
+        self.filter_config = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [template_metadata][crate::model::Template::template_metadata].
-    pub fn set_template_metadata<
-        T: std::convert::Into<std::option::Option<crate::model::template::TemplateMetadata>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.template_metadata = v.into();
+    pub fn set_template_metadata<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::template::TemplateMetadata>,
+    {
+        self.template_metadata = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [template_metadata][crate::model::Template::template_metadata].
+    pub fn set_or_clear_template_metadata<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::template::TemplateMetadata>,
+    {
+        self.template_metadata = v.map(|x| x.into());
         self
     }
 }
@@ -299,42 +331,77 @@ impl FloorSetting {
     }
 
     /// Sets the value of [create_time][crate::model::FloorSetting::create_time].
-    pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.create_time = v.into();
+    pub fn set_create_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [create_time][crate::model::FloorSetting::create_time].
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [update_time][crate::model::FloorSetting::update_time].
-    pub fn set_update_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.update_time = v.into();
+    pub fn set_update_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_time][crate::model::FloorSetting::update_time].
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [filter_config][crate::model::FloorSetting::filter_config].
-    pub fn set_filter_config<
-        T: std::convert::Into<std::option::Option<crate::model::FilterConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.filter_config = v.into();
+    pub fn set_filter_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::FilterConfig>,
+    {
+        self.filter_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [filter_config][crate::model::FloorSetting::filter_config].
+    pub fn set_or_clear_filter_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::FilterConfig>,
+    {
+        self.filter_config = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [enable_floor_setting_enforcement][crate::model::FloorSetting::enable_floor_setting_enforcement].
-    pub fn set_enable_floor_setting_enforcement<
-        T: std::convert::Into<std::option::Option<bool>>,
-    >(
+    pub fn set_enable_floor_setting_enforcement<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.enable_floor_setting_enforcement = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [enable_floor_setting_enforcement][crate::model::FloorSetting::enable_floor_setting_enforcement].
+    pub fn set_or_clear_enable_floor_setting_enforcement<T>(
         mut self,
-        v: T,
-    ) -> Self {
-        self.enable_floor_setting_enforcement = v.into();
+        v: std::option::Option<T>,
+    ) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.enable_floor_setting_enforcement = v.map(|x| x.into());
         self
     }
 }
@@ -584,11 +651,20 @@ impl CreateTemplateRequest {
     }
 
     /// Sets the value of [template][crate::model::CreateTemplateRequest::template].
-    pub fn set_template<T: std::convert::Into<std::option::Option<crate::model::Template>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.template = v.into();
+    pub fn set_template<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::Template>,
+    {
+        self.template = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [template][crate::model::CreateTemplateRequest::template].
+    pub fn set_or_clear_template<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::Template>,
+    {
+        self.template = v.map(|x| x.into());
         self
     }
 
@@ -649,20 +725,38 @@ impl UpdateTemplateRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateTemplateRequest::update_mask].
-    pub fn set_update_mask<T: std::convert::Into<std::option::Option<wkt::FieldMask>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.update_mask = v.into();
+    pub fn set_update_mask<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_mask][crate::model::UpdateTemplateRequest::update_mask].
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [template][crate::model::UpdateTemplateRequest::template].
-    pub fn set_template<T: std::convert::Into<std::option::Option<crate::model::Template>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.template = v.into();
+    pub fn set_template<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::Template>,
+    {
+        self.template = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [template][crate::model::UpdateTemplateRequest::template].
+    pub fn set_or_clear_template<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::Template>,
+    {
+        self.template = v.map(|x| x.into());
         self
     }
 
@@ -794,22 +888,38 @@ impl UpdateFloorSettingRequest {
     }
 
     /// Sets the value of [floor_setting][crate::model::UpdateFloorSettingRequest::floor_setting].
-    pub fn set_floor_setting<
-        T: std::convert::Into<std::option::Option<crate::model::FloorSetting>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.floor_setting = v.into();
+    pub fn set_floor_setting<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::FloorSetting>,
+    {
+        self.floor_setting = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [floor_setting][crate::model::UpdateFloorSettingRequest::floor_setting].
+    pub fn set_or_clear_floor_setting<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::FloorSetting>,
+    {
+        self.floor_setting = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateFloorSettingRequest::update_mask].
-    pub fn set_update_mask<T: std::convert::Into<std::option::Option<wkt::FieldMask>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.update_mask = v.into();
+    pub fn set_update_mask<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_mask][crate::model::UpdateFloorSettingRequest::update_mask].
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = v.map(|x| x.into());
         self
     }
 }
@@ -854,46 +964,80 @@ impl FilterConfig {
     }
 
     /// Sets the value of [rai_settings][crate::model::FilterConfig::rai_settings].
-    pub fn set_rai_settings<
-        T: std::convert::Into<std::option::Option<crate::model::RaiFilterSettings>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.rai_settings = v.into();
+    pub fn set_rai_settings<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::RaiFilterSettings>,
+    {
+        self.rai_settings = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [rai_settings][crate::model::FilterConfig::rai_settings].
+    pub fn set_or_clear_rai_settings<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::RaiFilterSettings>,
+    {
+        self.rai_settings = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [sdp_settings][crate::model::FilterConfig::sdp_settings].
-    pub fn set_sdp_settings<
-        T: std::convert::Into<std::option::Option<crate::model::SdpFilterSettings>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.sdp_settings = v.into();
+    pub fn set_sdp_settings<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::SdpFilterSettings>,
+    {
+        self.sdp_settings = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [sdp_settings][crate::model::FilterConfig::sdp_settings].
+    pub fn set_or_clear_sdp_settings<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::SdpFilterSettings>,
+    {
+        self.sdp_settings = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [pi_and_jailbreak_filter_settings][crate::model::FilterConfig::pi_and_jailbreak_filter_settings].
-    pub fn set_pi_and_jailbreak_filter_settings<
-        T: std::convert::Into<std::option::Option<crate::model::PiAndJailbreakFilterSettings>>,
-    >(
+    pub fn set_pi_and_jailbreak_filter_settings<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::PiAndJailbreakFilterSettings>,
+    {
+        self.pi_and_jailbreak_filter_settings = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [pi_and_jailbreak_filter_settings][crate::model::FilterConfig::pi_and_jailbreak_filter_settings].
+    pub fn set_or_clear_pi_and_jailbreak_filter_settings<T>(
         mut self,
-        v: T,
-    ) -> Self {
-        self.pi_and_jailbreak_filter_settings = v.into();
+        v: std::option::Option<T>,
+    ) -> Self
+    where
+        T: std::convert::Into<crate::model::PiAndJailbreakFilterSettings>,
+    {
+        self.pi_and_jailbreak_filter_settings = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [malicious_uri_filter_settings][crate::model::FilterConfig::malicious_uri_filter_settings].
-    pub fn set_malicious_uri_filter_settings<
-        T: std::convert::Into<std::option::Option<crate::model::MaliciousUriFilterSettings>>,
-    >(
+    pub fn set_malicious_uri_filter_settings<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::MaliciousUriFilterSettings>,
+    {
+        self.malicious_uri_filter_settings = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [malicious_uri_filter_settings][crate::model::FilterConfig::malicious_uri_filter_settings].
+    pub fn set_or_clear_malicious_uri_filter_settings<T>(
         mut self,
-        v: T,
-    ) -> Self {
-        self.malicious_uri_filter_settings = v.into();
+        v: std::option::Option<T>,
+    ) -> Self
+    where
+        T: std::convert::Into<crate::model::MaliciousUriFilterSettings>,
+    {
+        self.malicious_uri_filter_settings = v.map(|x| x.into());
         self
     }
 }
@@ -1780,13 +1924,20 @@ impl SanitizeUserPromptRequest {
     }
 
     /// Sets the value of [user_prompt_data][crate::model::SanitizeUserPromptRequest::user_prompt_data].
-    pub fn set_user_prompt_data<
-        T: std::convert::Into<std::option::Option<crate::model::DataItem>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.user_prompt_data = v.into();
+    pub fn set_user_prompt_data<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::DataItem>,
+    {
+        self.user_prompt_data = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [user_prompt_data][crate::model::SanitizeUserPromptRequest::user_prompt_data].
+    pub fn set_or_clear_user_prompt_data<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::DataItem>,
+    {
+        self.user_prompt_data = v.map(|x| x.into());
         self
     }
 }
@@ -1832,13 +1983,20 @@ impl SanitizeModelResponseRequest {
     }
 
     /// Sets the value of [model_response_data][crate::model::SanitizeModelResponseRequest::model_response_data].
-    pub fn set_model_response_data<
-        T: std::convert::Into<std::option::Option<crate::model::DataItem>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.model_response_data = v.into();
+    pub fn set_model_response_data<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::DataItem>,
+    {
+        self.model_response_data = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [model_response_data][crate::model::SanitizeModelResponseRequest::model_response_data].
+    pub fn set_or_clear_model_response_data<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::DataItem>,
+    {
+        self.model_response_data = v.map(|x| x.into());
         self
     }
 
@@ -1875,13 +2033,20 @@ impl SanitizeUserPromptResponse {
     }
 
     /// Sets the value of [sanitization_result][crate::model::SanitizeUserPromptResponse::sanitization_result].
-    pub fn set_sanitization_result<
-        T: std::convert::Into<std::option::Option<crate::model::SanitizationResult>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.sanitization_result = v.into();
+    pub fn set_sanitization_result<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::SanitizationResult>,
+    {
+        self.sanitization_result = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [sanitization_result][crate::model::SanitizeUserPromptResponse::sanitization_result].
+    pub fn set_or_clear_sanitization_result<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::SanitizationResult>,
+    {
+        self.sanitization_result = v.map(|x| x.into());
         self
     }
 }
@@ -1912,13 +2077,20 @@ impl SanitizeModelResponseResponse {
     }
 
     /// Sets the value of [sanitization_result][crate::model::SanitizeModelResponseResponse::sanitization_result].
-    pub fn set_sanitization_result<
-        T: std::convert::Into<std::option::Option<crate::model::SanitizationResult>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.sanitization_result = v.into();
+    pub fn set_sanitization_result<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::SanitizationResult>,
+    {
+        self.sanitization_result = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [sanitization_result][crate::model::SanitizeModelResponseResponse::sanitization_result].
+    pub fn set_or_clear_sanitization_result<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::SanitizationResult>,
+    {
+        self.sanitization_result = v.map(|x| x.into());
         self
     }
 }
@@ -2002,15 +2174,20 @@ impl SanitizationResult {
     }
 
     /// Sets the value of [sanitization_metadata][crate::model::SanitizationResult::sanitization_metadata].
-    pub fn set_sanitization_metadata<
-        T: std::convert::Into<
-                std::option::Option<crate::model::sanitization_result::SanitizationMetadata>,
-            >,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.sanitization_metadata = v.into();
+    pub fn set_sanitization_metadata<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::sanitization_result::SanitizationMetadata>,
+    {
+        self.sanitization_metadata = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [sanitization_metadata][crate::model::SanitizationResult::sanitization_metadata].
+    pub fn set_or_clear_sanitization_metadata<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::sanitization_result::SanitizationMetadata>,
+    {
+        self.sanitization_metadata = v.map(|x| x.into());
         self
     }
 }
@@ -3103,11 +3280,20 @@ impl SdpDeidentifyResult {
     }
 
     /// Sets the value of [data][crate::model::SdpDeidentifyResult::data].
-    pub fn set_data<T: std::convert::Into<std::option::Option<crate::model::DataItem>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.data = v.into();
+    pub fn set_data<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::DataItem>,
+    {
+        self.data = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [data][crate::model::SdpDeidentifyResult::data].
+    pub fn set_or_clear_data<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::DataItem>,
+    {
+        self.data = v.map(|x| x.into());
         self
     }
 
@@ -3177,13 +3363,20 @@ impl SdpFinding {
     }
 
     /// Sets the value of [location][crate::model::SdpFinding::location].
-    pub fn set_location<
-        T: std::convert::Into<std::option::Option<crate::model::sdp_finding::SdpFindingLocation>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.location = v.into();
+    pub fn set_location<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::sdp_finding::SdpFindingLocation>,
+    {
+        self.location = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [location][crate::model::SdpFinding::location].
+    pub fn set_or_clear_location<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::sdp_finding::SdpFindingLocation>,
+    {
+        self.location = v.map(|x| x.into());
         self
     }
 }
@@ -3228,24 +3421,38 @@ pub mod sdp_finding {
         }
 
         /// Sets the value of [byte_range][crate::model::sdp_finding::SdpFindingLocation::byte_range].
-        pub fn set_byte_range<
-            T: std::convert::Into<std::option::Option<crate::model::RangeInfo>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.byte_range = v.into();
+        pub fn set_byte_range<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::RangeInfo>,
+        {
+            self.byte_range = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [byte_range][crate::model::sdp_finding::SdpFindingLocation::byte_range].
+        pub fn set_or_clear_byte_range<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::RangeInfo>,
+        {
+            self.byte_range = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [codepoint_range][crate::model::sdp_finding::SdpFindingLocation::codepoint_range].
-        pub fn set_codepoint_range<
-            T: std::convert::Into<std::option::Option<crate::model::RangeInfo>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.codepoint_range = v.into();
+        pub fn set_codepoint_range<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::RangeInfo>,
+        {
+            self.codepoint_range = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [codepoint_range][crate::model::sdp_finding::SdpFindingLocation::codepoint_range].
+        pub fn set_or_clear_codepoint_range<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::RangeInfo>,
+        {
+            self.codepoint_range = v.map(|x| x.into());
             self
         }
     }
@@ -3555,11 +3762,20 @@ impl VirusScanFilterResult {
     }
 
     /// Sets the value of [scanned_size][crate::model::VirusScanFilterResult::scanned_size].
-    pub fn set_scanned_size<T: std::convert::Into<std::option::Option<i64>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.scanned_size = v.into();
+    pub fn set_scanned_size<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<i64>,
+    {
+        self.scanned_size = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [scanned_size][crate::model::VirusScanFilterResult::scanned_size].
+    pub fn set_or_clear_scanned_size<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<i64>,
+    {
+        self.scanned_size = v.map(|x| x.into());
         self
     }
 
@@ -4231,14 +4447,38 @@ impl RangeInfo {
     }
 
     /// Sets the value of [start][crate::model::RangeInfo::start].
-    pub fn set_start<T: std::convert::Into<std::option::Option<i64>>>(mut self, v: T) -> Self {
-        self.start = v.into();
+    pub fn set_start<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<i64>,
+    {
+        self.start = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [start][crate::model::RangeInfo::start].
+    pub fn set_or_clear_start<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<i64>,
+    {
+        self.start = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [end][crate::model::RangeInfo::end].
-    pub fn set_end<T: std::convert::Into<std::option::Option<i64>>>(mut self, v: T) -> Self {
-        self.end = v.into();
+    pub fn set_end<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<i64>,
+    {
+        self.end = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [end][crate::model::RangeInfo::end].
+    pub fn set_or_clear_end<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<i64>,
+    {
+        self.end = v.map(|x| x.into());
         self
     }
 }

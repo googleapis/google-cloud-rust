@@ -75,6 +75,7 @@ pub mod g_suite_add_ons {
     /// # use google_cloud_gsuiteaddons_v1::builder;
     /// use builder::g_suite_add_ons::GetAuthorization;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -140,6 +141,7 @@ pub mod g_suite_add_ons {
     /// # use google_cloud_gsuiteaddons_v1::builder;
     /// use builder::g_suite_add_ons::CreateDeployment;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -201,11 +203,22 @@ pub mod g_suite_add_ons {
         /// Sets the value of [deployment][crate::model::CreateDeploymentRequest::deployment].
         ///
         /// This is a **required** field for requests.
-        pub fn set_deployment<T: Into<std::option::Option<crate::model::Deployment>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.deployment = v.into();
+        pub fn set_deployment<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Deployment>,
+        {
+            self.0.request.deployment = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [deployment][crate::model::CreateDeploymentRequest::deployment].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_deployment<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Deployment>,
+        {
+            self.0.request.deployment = v.map(|x| x.into());
             self
         }
     }
@@ -224,6 +237,7 @@ pub mod g_suite_add_ons {
     /// # use google_cloud_gsuiteaddons_v1::builder;
     /// use builder::g_suite_add_ons::ReplaceDeployment;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -269,11 +283,22 @@ pub mod g_suite_add_ons {
         /// Sets the value of [deployment][crate::model::ReplaceDeploymentRequest::deployment].
         ///
         /// This is a **required** field for requests.
-        pub fn set_deployment<T: Into<std::option::Option<crate::model::Deployment>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.deployment = v.into();
+        pub fn set_deployment<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Deployment>,
+        {
+            self.0.request.deployment = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [deployment][crate::model::ReplaceDeploymentRequest::deployment].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_deployment<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Deployment>,
+        {
+            self.0.request.deployment = v.map(|x| x.into());
             self
         }
     }
@@ -292,6 +317,7 @@ pub mod g_suite_add_ons {
     /// # use google_cloud_gsuiteaddons_v1::builder;
     /// use builder::g_suite_add_ons::GetDeployment;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -354,8 +380,9 @@ pub mod g_suite_add_ons {
     /// # use google_cloud_gsuiteaddons_v1::builder;
     /// use builder::g_suite_add_ons::ListDeployments;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -456,6 +483,7 @@ pub mod g_suite_add_ons {
     /// # use google_cloud_gsuiteaddons_v1::builder;
     /// use builder::g_suite_add_ons::DeleteDeployment;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -527,6 +555,7 @@ pub mod g_suite_add_ons {
     /// # use google_cloud_gsuiteaddons_v1::builder;
     /// use builder::g_suite_add_ons::InstallDeployment;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -592,6 +621,7 @@ pub mod g_suite_add_ons {
     /// # use google_cloud_gsuiteaddons_v1::builder;
     /// use builder::g_suite_add_ons::UninstallDeployment;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -657,6 +687,7 @@ pub mod g_suite_add_ons {
     /// # use google_cloud_gsuiteaddons_v1::builder;
     /// use builder::g_suite_add_ons::GetInstallStatus;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });

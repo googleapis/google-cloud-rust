@@ -20,6 +20,7 @@ pub mod bigquery;
 pub mod error_details;
 pub mod firestore;
 pub mod secret_manager;
+pub mod showcase;
 pub mod sql;
 pub mod storage;
 pub mod workflows;
@@ -54,6 +55,12 @@ pub fn region_id() -> String {
 pub fn workflows_runner() -> Result<String> {
     let value = std::env::var("GOOGLE_CLOUD_RUST_TEST_WORKFLOWS_RUNNER").map_err(Error::other)?;
     Ok(value)
+}
+
+pub fn report_error(e: Error) -> Error {
+    eprintln!("\n\nERROR {e}\n");
+    tracing::error!("ERROR {e}");
+    e
 }
 
 pub(crate) fn random_workflow_id() -> String {

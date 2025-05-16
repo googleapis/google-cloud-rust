@@ -73,8 +73,9 @@ pub mod net_app {
     /// # use google_cloud_netapp_v1::builder;
     /// use builder::net_app::ListStoragePools;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -188,8 +189,9 @@ pub mod net_app {
     /// # use google_cloud_netapp_v1::builder;
     /// use builder::net_app::CreateStoragePool;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_netapp_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -288,11 +290,22 @@ pub mod net_app {
         /// Sets the value of [storage_pool][crate::model::CreateStoragePoolRequest::storage_pool].
         ///
         /// This is a **required** field for requests.
-        pub fn set_storage_pool<T: Into<std::option::Option<crate::model::StoragePool>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.storage_pool = v.into();
+        pub fn set_storage_pool<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::StoragePool>,
+        {
+            self.0.request.storage_pool = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [storage_pool][crate::model::CreateStoragePoolRequest::storage_pool].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_storage_pool<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::StoragePool>,
+        {
+            self.0.request.storage_pool = v.map(|x| x.into());
             self
         }
     }
@@ -311,6 +324,7 @@ pub mod net_app {
     /// # use google_cloud_netapp_v1::builder;
     /// use builder::net_app::GetStoragePool;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -371,8 +385,9 @@ pub mod net_app {
     /// # use google_cloud_netapp_v1::builder;
     /// use builder::net_app::UpdateStoragePool;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_netapp_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -455,22 +470,44 @@ pub mod net_app {
         /// Sets the value of [update_mask][crate::model::UpdateStoragePoolRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateStoragePoolRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [storage_pool][crate::model::UpdateStoragePoolRequest::storage_pool].
         ///
         /// This is a **required** field for requests.
-        pub fn set_storage_pool<T: Into<std::option::Option<crate::model::StoragePool>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.storage_pool = v.into();
+        pub fn set_storage_pool<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::StoragePool>,
+        {
+            self.0.request.storage_pool = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [storage_pool][crate::model::UpdateStoragePoolRequest::storage_pool].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_storage_pool<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::StoragePool>,
+        {
+            self.0.request.storage_pool = v.map(|x| x.into());
             self
         }
     }
@@ -489,8 +526,9 @@ pub mod net_app {
     /// # use google_cloud_netapp_v1::builder;
     /// use builder::net_app::DeleteStoragePool;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_netapp_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -593,8 +631,9 @@ pub mod net_app {
     /// # use google_cloud_netapp_v1::builder;
     /// use builder::net_app::ValidateDirectoryService;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_netapp_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -708,8 +747,9 @@ pub mod net_app {
     /// # use google_cloud_netapp_v1::builder;
     /// use builder::net_app::SwitchActiveReplicaZone;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_netapp_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -814,8 +854,9 @@ pub mod net_app {
     /// # use google_cloud_netapp_v1::builder;
     /// use builder::net_app::ListVolumes;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -926,6 +967,7 @@ pub mod net_app {
     /// # use google_cloud_netapp_v1::builder;
     /// use builder::net_app::GetVolume;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -986,8 +1028,9 @@ pub mod net_app {
     /// # use google_cloud_netapp_v1::builder;
     /// use builder::net_app::CreateVolume;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_netapp_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1081,11 +1124,22 @@ pub mod net_app {
         /// Sets the value of [volume][crate::model::CreateVolumeRequest::volume].
         ///
         /// This is a **required** field for requests.
-        pub fn set_volume<T: Into<std::option::Option<crate::model::Volume>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.volume = v.into();
+        pub fn set_volume<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Volume>,
+        {
+            self.0.request.volume = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [volume][crate::model::CreateVolumeRequest::volume].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_volume<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Volume>,
+        {
+            self.0.request.volume = v.map(|x| x.into());
             self
         }
     }
@@ -1104,8 +1158,9 @@ pub mod net_app {
     /// # use google_cloud_netapp_v1::builder;
     /// use builder::net_app::UpdateVolume;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_netapp_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1183,22 +1238,44 @@ pub mod net_app {
         /// Sets the value of [update_mask][crate::model::UpdateVolumeRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateVolumeRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [volume][crate::model::UpdateVolumeRequest::volume].
         ///
         /// This is a **required** field for requests.
-        pub fn set_volume<T: Into<std::option::Option<crate::model::Volume>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.volume = v.into();
+        pub fn set_volume<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Volume>,
+        {
+            self.0.request.volume = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [volume][crate::model::UpdateVolumeRequest::volume].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_volume<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Volume>,
+        {
+            self.0.request.volume = v.map(|x| x.into());
             self
         }
     }
@@ -1217,8 +1294,9 @@ pub mod net_app {
     /// # use google_cloud_netapp_v1::builder;
     /// use builder::net_app::DeleteVolume;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_netapp_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1324,8 +1402,9 @@ pub mod net_app {
     /// # use google_cloud_netapp_v1::builder;
     /// use builder::net_app::RevertVolume;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_netapp_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1431,8 +1510,9 @@ pub mod net_app {
     /// # use google_cloud_netapp_v1::builder;
     /// use builder::net_app::ListSnapshots;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -1543,6 +1623,7 @@ pub mod net_app {
     /// # use google_cloud_netapp_v1::builder;
     /// use builder::net_app::GetSnapshot;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1603,8 +1684,9 @@ pub mod net_app {
     /// # use google_cloud_netapp_v1::builder;
     /// use builder::net_app::CreateSnapshot;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_netapp_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1690,11 +1772,22 @@ pub mod net_app {
         /// Sets the value of [snapshot][crate::model::CreateSnapshotRequest::snapshot].
         ///
         /// This is a **required** field for requests.
-        pub fn set_snapshot<T: Into<std::option::Option<crate::model::Snapshot>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.snapshot = v.into();
+        pub fn set_snapshot<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Snapshot>,
+        {
+            self.0.request.snapshot = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [snapshot][crate::model::CreateSnapshotRequest::snapshot].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_snapshot<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Snapshot>,
+        {
+            self.0.request.snapshot = v.map(|x| x.into());
             self
         }
 
@@ -1721,8 +1814,9 @@ pub mod net_app {
     /// # use google_cloud_netapp_v1::builder;
     /// use builder::net_app::DeleteSnapshot;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_netapp_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1822,8 +1916,9 @@ pub mod net_app {
     /// # use google_cloud_netapp_v1::builder;
     /// use builder::net_app::UpdateSnapshot;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_netapp_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1901,22 +1996,44 @@ pub mod net_app {
         /// Sets the value of [update_mask][crate::model::UpdateSnapshotRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateSnapshotRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [snapshot][crate::model::UpdateSnapshotRequest::snapshot].
         ///
         /// This is a **required** field for requests.
-        pub fn set_snapshot<T: Into<std::option::Option<crate::model::Snapshot>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.snapshot = v.into();
+        pub fn set_snapshot<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Snapshot>,
+        {
+            self.0.request.snapshot = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [snapshot][crate::model::UpdateSnapshotRequest::snapshot].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_snapshot<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Snapshot>,
+        {
+            self.0.request.snapshot = v.map(|x| x.into());
             self
         }
     }
@@ -1935,8 +2052,9 @@ pub mod net_app {
     /// # use google_cloud_netapp_v1::builder;
     /// use builder::net_app::ListActiveDirectories;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -2052,6 +2170,7 @@ pub mod net_app {
     /// # use google_cloud_netapp_v1::builder;
     /// use builder::net_app::GetActiveDirectory;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2115,8 +2234,9 @@ pub mod net_app {
     /// # use google_cloud_netapp_v1::builder;
     /// use builder::net_app::CreateActiveDirectory;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_netapp_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -2208,11 +2328,22 @@ pub mod net_app {
         /// Sets the value of [active_directory][crate::model::CreateActiveDirectoryRequest::active_directory].
         ///
         /// This is a **required** field for requests.
-        pub fn set_active_directory<T: Into<std::option::Option<crate::model::ActiveDirectory>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.active_directory = v.into();
+        pub fn set_active_directory<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::ActiveDirectory>,
+        {
+            self.0.request.active_directory = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [active_directory][crate::model::CreateActiveDirectoryRequest::active_directory].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_active_directory<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::ActiveDirectory>,
+        {
+            self.0.request.active_directory = v.map(|x| x.into());
             self
         }
 
@@ -2239,8 +2370,9 @@ pub mod net_app {
     /// # use google_cloud_netapp_v1::builder;
     /// use builder::net_app::UpdateActiveDirectory;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_netapp_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -2324,22 +2456,44 @@ pub mod net_app {
         /// Sets the value of [update_mask][crate::model::UpdateActiveDirectoryRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateActiveDirectoryRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [active_directory][crate::model::UpdateActiveDirectoryRequest::active_directory].
         ///
         /// This is a **required** field for requests.
-        pub fn set_active_directory<T: Into<std::option::Option<crate::model::ActiveDirectory>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.active_directory = v.into();
+        pub fn set_active_directory<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::ActiveDirectory>,
+        {
+            self.0.request.active_directory = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [active_directory][crate::model::UpdateActiveDirectoryRequest::active_directory].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_active_directory<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::ActiveDirectory>,
+        {
+            self.0.request.active_directory = v.map(|x| x.into());
             self
         }
     }
@@ -2358,8 +2512,9 @@ pub mod net_app {
     /// # use google_cloud_netapp_v1::builder;
     /// use builder::net_app::DeleteActiveDirectory;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_netapp_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -2462,8 +2617,9 @@ pub mod net_app {
     /// # use google_cloud_netapp_v1::builder;
     /// use builder::net_app::ListKmsConfigs;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -2574,8 +2730,9 @@ pub mod net_app {
     /// # use google_cloud_netapp_v1::builder;
     /// use builder::net_app::CreateKmsConfig;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_netapp_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -2669,11 +2826,22 @@ pub mod net_app {
         /// Sets the value of [kms_config][crate::model::CreateKmsConfigRequest::kms_config].
         ///
         /// This is a **required** field for requests.
-        pub fn set_kms_config<T: Into<std::option::Option<crate::model::KmsConfig>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.kms_config = v.into();
+        pub fn set_kms_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::KmsConfig>,
+        {
+            self.0.request.kms_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [kms_config][crate::model::CreateKmsConfigRequest::kms_config].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_kms_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::KmsConfig>,
+        {
+            self.0.request.kms_config = v.map(|x| x.into());
             self
         }
     }
@@ -2692,6 +2860,7 @@ pub mod net_app {
     /// # use google_cloud_netapp_v1::builder;
     /// use builder::net_app::GetKmsConfig;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2752,8 +2921,9 @@ pub mod net_app {
     /// # use google_cloud_netapp_v1::builder;
     /// use builder::net_app::UpdateKmsConfig;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_netapp_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -2831,22 +3001,44 @@ pub mod net_app {
         /// Sets the value of [update_mask][crate::model::UpdateKmsConfigRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateKmsConfigRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [kms_config][crate::model::UpdateKmsConfigRequest::kms_config].
         ///
         /// This is a **required** field for requests.
-        pub fn set_kms_config<T: Into<std::option::Option<crate::model::KmsConfig>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.kms_config = v.into();
+        pub fn set_kms_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::KmsConfig>,
+        {
+            self.0.request.kms_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [kms_config][crate::model::UpdateKmsConfigRequest::kms_config].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_kms_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::KmsConfig>,
+        {
+            self.0.request.kms_config = v.map(|x| x.into());
             self
         }
     }
@@ -2865,8 +3057,9 @@ pub mod net_app {
     /// # use google_cloud_netapp_v1::builder;
     /// use builder::net_app::EncryptVolumes;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_netapp_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -2964,6 +3157,7 @@ pub mod net_app {
     /// # use google_cloud_netapp_v1::builder;
     /// use builder::net_app::VerifyKmsConfig;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3024,8 +3218,9 @@ pub mod net_app {
     /// # use google_cloud_netapp_v1::builder;
     /// use builder::net_app::DeleteKmsConfig;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_netapp_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -3125,8 +3320,9 @@ pub mod net_app {
     /// # use google_cloud_netapp_v1::builder;
     /// use builder::net_app::ListReplications;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -3240,6 +3436,7 @@ pub mod net_app {
     /// # use google_cloud_netapp_v1::builder;
     /// use builder::net_app::GetReplication;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3300,8 +3497,9 @@ pub mod net_app {
     /// # use google_cloud_netapp_v1::builder;
     /// use builder::net_app::CreateReplication;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_netapp_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -3392,11 +3590,22 @@ pub mod net_app {
         /// Sets the value of [replication][crate::model::CreateReplicationRequest::replication].
         ///
         /// This is a **required** field for requests.
-        pub fn set_replication<T: Into<std::option::Option<crate::model::Replication>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.replication = v.into();
+        pub fn set_replication<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Replication>,
+        {
+            self.0.request.replication = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [replication][crate::model::CreateReplicationRequest::replication].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_replication<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Replication>,
+        {
+            self.0.request.replication = v.map(|x| x.into());
             self
         }
 
@@ -3423,8 +3632,9 @@ pub mod net_app {
     /// # use google_cloud_netapp_v1::builder;
     /// use builder::net_app::DeleteReplication;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_netapp_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -3527,8 +3737,9 @@ pub mod net_app {
     /// # use google_cloud_netapp_v1::builder;
     /// use builder::net_app::UpdateReplication;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_netapp_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -3611,22 +3822,44 @@ pub mod net_app {
         /// Sets the value of [update_mask][crate::model::UpdateReplicationRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateReplicationRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [replication][crate::model::UpdateReplicationRequest::replication].
         ///
         /// This is a **required** field for requests.
-        pub fn set_replication<T: Into<std::option::Option<crate::model::Replication>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.replication = v.into();
+        pub fn set_replication<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Replication>,
+        {
+            self.0.request.replication = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [replication][crate::model::UpdateReplicationRequest::replication].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_replication<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Replication>,
+        {
+            self.0.request.replication = v.map(|x| x.into());
             self
         }
     }
@@ -3645,8 +3878,9 @@ pub mod net_app {
     /// # use google_cloud_netapp_v1::builder;
     /// use builder::net_app::StopReplication;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_netapp_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -3752,8 +3986,9 @@ pub mod net_app {
     /// # use google_cloud_netapp_v1::builder;
     /// use builder::net_app::ResumeReplication;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_netapp_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -3856,8 +4091,9 @@ pub mod net_app {
     /// # use google_cloud_netapp_v1::builder;
     /// use builder::net_app::ReverseReplicationDirection;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_netapp_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -3962,8 +4198,9 @@ pub mod net_app {
     /// # use google_cloud_netapp_v1::builder;
     /// use builder::net_app::EstablishPeering;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_netapp_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -4101,8 +4338,9 @@ pub mod net_app {
     /// # use google_cloud_netapp_v1::builder;
     /// use builder::net_app::SyncReplication;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_netapp_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -4202,8 +4440,9 @@ pub mod net_app {
     /// # use google_cloud_netapp_v1::builder;
     /// use builder::net_app::CreateBackupVault;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_netapp_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -4302,11 +4541,22 @@ pub mod net_app {
         /// Sets the value of [backup_vault][crate::model::CreateBackupVaultRequest::backup_vault].
         ///
         /// This is a **required** field for requests.
-        pub fn set_backup_vault<T: Into<std::option::Option<crate::model::BackupVault>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.backup_vault = v.into();
+        pub fn set_backup_vault<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::BackupVault>,
+        {
+            self.0.request.backup_vault = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [backup_vault][crate::model::CreateBackupVaultRequest::backup_vault].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_backup_vault<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::BackupVault>,
+        {
+            self.0.request.backup_vault = v.map(|x| x.into());
             self
         }
     }
@@ -4325,6 +4575,7 @@ pub mod net_app {
     /// # use google_cloud_netapp_v1::builder;
     /// use builder::net_app::GetBackupVault;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -4385,8 +4636,9 @@ pub mod net_app {
     /// # use google_cloud_netapp_v1::builder;
     /// use builder::net_app::ListBackupVaults;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -4500,8 +4752,9 @@ pub mod net_app {
     /// # use google_cloud_netapp_v1::builder;
     /// use builder::net_app::UpdateBackupVault;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_netapp_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -4584,22 +4837,44 @@ pub mod net_app {
         /// Sets the value of [update_mask][crate::model::UpdateBackupVaultRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateBackupVaultRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [backup_vault][crate::model::UpdateBackupVaultRequest::backup_vault].
         ///
         /// This is a **required** field for requests.
-        pub fn set_backup_vault<T: Into<std::option::Option<crate::model::BackupVault>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.backup_vault = v.into();
+        pub fn set_backup_vault<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::BackupVault>,
+        {
+            self.0.request.backup_vault = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [backup_vault][crate::model::UpdateBackupVaultRequest::backup_vault].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_backup_vault<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::BackupVault>,
+        {
+            self.0.request.backup_vault = v.map(|x| x.into());
             self
         }
     }
@@ -4618,8 +4893,9 @@ pub mod net_app {
     /// # use google_cloud_netapp_v1::builder;
     /// use builder::net_app::DeleteBackupVault;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_netapp_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -4722,8 +4998,9 @@ pub mod net_app {
     /// # use google_cloud_netapp_v1::builder;
     /// use builder::net_app::CreateBackup;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_netapp_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -4817,11 +5094,22 @@ pub mod net_app {
         /// Sets the value of [backup][crate::model::CreateBackupRequest::backup].
         ///
         /// This is a **required** field for requests.
-        pub fn set_backup<T: Into<std::option::Option<crate::model::Backup>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.backup = v.into();
+        pub fn set_backup<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Backup>,
+        {
+            self.0.request.backup = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [backup][crate::model::CreateBackupRequest::backup].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_backup<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Backup>,
+        {
+            self.0.request.backup = v.map(|x| x.into());
             self
         }
     }
@@ -4840,6 +5128,7 @@ pub mod net_app {
     /// # use google_cloud_netapp_v1::builder;
     /// use builder::net_app::GetBackup;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -4900,8 +5189,9 @@ pub mod net_app {
     /// # use google_cloud_netapp_v1::builder;
     /// use builder::net_app::ListBackups;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -5012,8 +5302,9 @@ pub mod net_app {
     /// # use google_cloud_netapp_v1::builder;
     /// use builder::net_app::DeleteBackup;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_netapp_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -5113,8 +5404,9 @@ pub mod net_app {
     /// # use google_cloud_netapp_v1::builder;
     /// use builder::net_app::UpdateBackup;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_netapp_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -5192,22 +5484,44 @@ pub mod net_app {
         /// Sets the value of [update_mask][crate::model::UpdateBackupRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateBackupRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [backup][crate::model::UpdateBackupRequest::backup].
         ///
         /// This is a **required** field for requests.
-        pub fn set_backup<T: Into<std::option::Option<crate::model::Backup>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.backup = v.into();
+        pub fn set_backup<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Backup>,
+        {
+            self.0.request.backup = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [backup][crate::model::UpdateBackupRequest::backup].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_backup<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Backup>,
+        {
+            self.0.request.backup = v.map(|x| x.into());
             self
         }
     }
@@ -5226,8 +5540,9 @@ pub mod net_app {
     /// # use google_cloud_netapp_v1::builder;
     /// use builder::net_app::CreateBackupPolicy;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_netapp_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -5318,11 +5633,22 @@ pub mod net_app {
         /// Sets the value of [backup_policy][crate::model::CreateBackupPolicyRequest::backup_policy].
         ///
         /// This is a **required** field for requests.
-        pub fn set_backup_policy<T: Into<std::option::Option<crate::model::BackupPolicy>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.backup_policy = v.into();
+        pub fn set_backup_policy<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::BackupPolicy>,
+        {
+            self.0.request.backup_policy = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [backup_policy][crate::model::CreateBackupPolicyRequest::backup_policy].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_backup_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::BackupPolicy>,
+        {
+            self.0.request.backup_policy = v.map(|x| x.into());
             self
         }
 
@@ -5349,6 +5675,7 @@ pub mod net_app {
     /// # use google_cloud_netapp_v1::builder;
     /// use builder::net_app::GetBackupPolicy;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -5409,8 +5736,9 @@ pub mod net_app {
     /// # use google_cloud_netapp_v1::builder;
     /// use builder::net_app::ListBackupPolicies;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -5526,8 +5854,9 @@ pub mod net_app {
     /// # use google_cloud_netapp_v1::builder;
     /// use builder::net_app::UpdateBackupPolicy;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_netapp_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -5610,22 +5939,44 @@ pub mod net_app {
         /// Sets the value of [update_mask][crate::model::UpdateBackupPolicyRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateBackupPolicyRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [backup_policy][crate::model::UpdateBackupPolicyRequest::backup_policy].
         ///
         /// This is a **required** field for requests.
-        pub fn set_backup_policy<T: Into<std::option::Option<crate::model::BackupPolicy>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.backup_policy = v.into();
+        pub fn set_backup_policy<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::BackupPolicy>,
+        {
+            self.0.request.backup_policy = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [backup_policy][crate::model::UpdateBackupPolicyRequest::backup_policy].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_backup_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::BackupPolicy>,
+        {
+            self.0.request.backup_policy = v.map(|x| x.into());
             self
         }
     }
@@ -5644,8 +5995,9 @@ pub mod net_app {
     /// # use google_cloud_netapp_v1::builder;
     /// use builder::net_app::DeleteBackupPolicy;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_netapp_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -5748,8 +6100,9 @@ pub mod net_app {
     /// # use google_cloud_netapp_v1::builder;
     /// use builder::net_app::ListQuotaRules;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -5860,6 +6213,7 @@ pub mod net_app {
     /// # use google_cloud_netapp_v1::builder;
     /// use builder::net_app::GetQuotaRule;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -5920,8 +6274,9 @@ pub mod net_app {
     /// # use google_cloud_netapp_v1::builder;
     /// use builder::net_app::CreateQuotaRule;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_netapp_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -6007,11 +6362,22 @@ pub mod net_app {
         /// Sets the value of [quota_rule][crate::model::CreateQuotaRuleRequest::quota_rule].
         ///
         /// This is a **required** field for requests.
-        pub fn set_quota_rule<T: Into<std::option::Option<crate::model::QuotaRule>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.quota_rule = v.into();
+        pub fn set_quota_rule<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::QuotaRule>,
+        {
+            self.0.request.quota_rule = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [quota_rule][crate::model::CreateQuotaRuleRequest::quota_rule].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_quota_rule<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::QuotaRule>,
+        {
+            self.0.request.quota_rule = v.map(|x| x.into());
             self
         }
 
@@ -6038,8 +6404,9 @@ pub mod net_app {
     /// # use google_cloud_netapp_v1::builder;
     /// use builder::net_app::UpdateQuotaRule;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_netapp_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -6115,22 +6482,42 @@ pub mod net_app {
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateQuotaRuleRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateQuotaRuleRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [quota_rule][crate::model::UpdateQuotaRuleRequest::quota_rule].
         ///
         /// This is a **required** field for requests.
-        pub fn set_quota_rule<T: Into<std::option::Option<crate::model::QuotaRule>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.quota_rule = v.into();
+        pub fn set_quota_rule<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::QuotaRule>,
+        {
+            self.0.request.quota_rule = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [quota_rule][crate::model::UpdateQuotaRuleRequest::quota_rule].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_quota_rule<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::QuotaRule>,
+        {
+            self.0.request.quota_rule = v.map(|x| x.into());
             self
         }
     }
@@ -6149,8 +6536,9 @@ pub mod net_app {
     /// # use google_cloud_netapp_v1::builder;
     /// use builder::net_app::DeleteQuotaRule;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_netapp_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -6250,8 +6638,9 @@ pub mod net_app {
     /// # use google_cloud_netapp_v1::builder;
     /// use builder::net_app::ListLocations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -6357,6 +6746,7 @@ pub mod net_app {
     /// # use google_cloud_netapp_v1::builder;
     /// use builder::net_app::GetLocation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -6415,8 +6805,9 @@ pub mod net_app {
     /// # use google_cloud_netapp_v1::builder;
     /// use builder::net_app::ListOperations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -6524,6 +6915,7 @@ pub mod net_app {
     /// # use google_cloud_netapp_v1::builder;
     /// use builder::net_app::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -6585,6 +6977,7 @@ pub mod net_app {
     /// # use google_cloud_netapp_v1::builder;
     /// use builder::net_app::DeleteOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -6646,6 +7039,7 @@ pub mod net_app {
     /// # use google_cloud_netapp_v1::builder;
     /// use builder::net_app::CancelOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });

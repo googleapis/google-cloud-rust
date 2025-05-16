@@ -17,8 +17,8 @@ use gax::exponential_backoff::{ExponentialBackoff, ExponentialBackoffBuilder};
 use gax::options::RequestOptionsBuilder;
 use gax::paginator::ItemPaginator as _;
 use gax::retry_policy::{AlwaysRetry, RetryPolicyExt};
+use lro::Poller;
 use std::time::Duration;
-use wf::Poller;
 
 // Verify enum query parameters are serialized correctly.
 pub async fn list(builder: wfe::builder::executions::ClientBuilder) -> Result<()> {

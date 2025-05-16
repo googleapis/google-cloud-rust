@@ -75,8 +75,9 @@ pub mod instance_admin {
     /// # use google_cloud_spanner_admin_instance_v1::builder;
     /// use builder::instance_admin::ListInstanceConfigs;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -182,6 +183,7 @@ pub mod instance_admin {
     /// # use google_cloud_spanner_admin_instance_v1::builder;
     /// use builder::instance_admin::GetInstanceConfig;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -247,8 +249,9 @@ pub mod instance_admin {
     /// # use google_cloud_spanner_admin_instance_v1::builder;
     /// use builder::instance_admin::CreateInstanceConfig;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_spanner_admin_instance_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -350,11 +353,22 @@ pub mod instance_admin {
         /// Sets the value of [instance_config][crate::model::CreateInstanceConfigRequest::instance_config].
         ///
         /// This is a **required** field for requests.
-        pub fn set_instance_config<T: Into<std::option::Option<crate::model::InstanceConfig>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.instance_config = v.into();
+        pub fn set_instance_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::InstanceConfig>,
+        {
+            self.0.request.instance_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [instance_config][crate::model::CreateInstanceConfigRequest::instance_config].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_instance_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::InstanceConfig>,
+        {
+            self.0.request.instance_config = v.map(|x| x.into());
             self
         }
 
@@ -379,8 +393,9 @@ pub mod instance_admin {
     /// # use google_cloud_spanner_admin_instance_v1::builder;
     /// use builder::instance_admin::UpdateInstanceConfig;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_spanner_admin_instance_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -466,22 +481,44 @@ pub mod instance_admin {
         /// Sets the value of [instance_config][crate::model::UpdateInstanceConfigRequest::instance_config].
         ///
         /// This is a **required** field for requests.
-        pub fn set_instance_config<T: Into<std::option::Option<crate::model::InstanceConfig>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.instance_config = v.into();
+        pub fn set_instance_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::InstanceConfig>,
+        {
+            self.0.request.instance_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [instance_config][crate::model::UpdateInstanceConfigRequest::instance_config].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_instance_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::InstanceConfig>,
+        {
+            self.0.request.instance_config = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateInstanceConfigRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateInstanceConfigRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
@@ -506,6 +543,7 @@ pub mod instance_admin {
     /// # use google_cloud_spanner_admin_instance_v1::builder;
     /// use builder::instance_admin::DeleteInstanceConfig;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -583,8 +621,9 @@ pub mod instance_admin {
     /// # use google_cloud_spanner_admin_instance_v1::builder;
     /// use builder::instance_admin::ListInstanceConfigOperations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -700,8 +739,9 @@ pub mod instance_admin {
     /// # use google_cloud_spanner_admin_instance_v1::builder;
     /// use builder::instance_admin::ListInstances;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -794,11 +834,20 @@ pub mod instance_admin {
         }
 
         /// Sets the value of [instance_deadline][crate::model::ListInstancesRequest::instance_deadline].
-        pub fn set_instance_deadline<T: Into<std::option::Option<wkt::Timestamp>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.instance_deadline = v.into();
+        pub fn set_instance_deadline<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Timestamp>,
+        {
+            self.0.request.instance_deadline = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [instance_deadline][crate::model::ListInstancesRequest::instance_deadline].
+        pub fn set_or_clear_instance_deadline<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Timestamp>,
+        {
+            self.0.request.instance_deadline = v.map(|x| x.into());
             self
         }
     }
@@ -817,8 +866,9 @@ pub mod instance_admin {
     /// # use google_cloud_spanner_admin_instance_v1::builder;
     /// use builder::instance_admin::ListInstancePartitions;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -912,11 +962,23 @@ pub mod instance_admin {
         }
 
         /// Sets the value of [instance_partition_deadline][crate::model::ListInstancePartitionsRequest::instance_partition_deadline].
-        pub fn set_instance_partition_deadline<T: Into<std::option::Option<wkt::Timestamp>>>(
+        pub fn set_instance_partition_deadline<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Timestamp>,
+        {
+            self.0.request.instance_partition_deadline = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [instance_partition_deadline][crate::model::ListInstancePartitionsRequest::instance_partition_deadline].
+        pub fn set_or_clear_instance_partition_deadline<T>(
             mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.instance_partition_deadline = v.into();
+            v: std::option::Option<T>,
+        ) -> Self
+        where
+            T: std::convert::Into<wkt::Timestamp>,
+        {
+            self.0.request.instance_partition_deadline = v.map(|x| x.into());
             self
         }
     }
@@ -935,6 +997,7 @@ pub mod instance_admin {
     /// # use google_cloud_spanner_admin_instance_v1::builder;
     /// use builder::instance_admin::GetInstance;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -983,11 +1046,20 @@ pub mod instance_admin {
         }
 
         /// Sets the value of [field_mask][crate::model::GetInstanceRequest::field_mask].
-        pub fn set_field_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.field_mask = v.into();
+        pub fn set_field_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.field_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [field_mask][crate::model::GetInstanceRequest::field_mask].
+        pub fn set_or_clear_field_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.field_mask = v.map(|x| x.into());
             self
         }
     }
@@ -1006,8 +1078,9 @@ pub mod instance_admin {
     /// # use google_cloud_spanner_admin_instance_v1::builder;
     /// use builder::instance_admin::CreateInstance;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_spanner_admin_instance_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1106,11 +1179,22 @@ pub mod instance_admin {
         /// Sets the value of [instance][crate::model::CreateInstanceRequest::instance].
         ///
         /// This is a **required** field for requests.
-        pub fn set_instance<T: Into<std::option::Option<crate::model::Instance>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.instance = v.into();
+        pub fn set_instance<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Instance>,
+        {
+            self.0.request.instance = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [instance][crate::model::CreateInstanceRequest::instance].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_instance<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Instance>,
+        {
+            self.0.request.instance = v.map(|x| x.into());
             self
         }
     }
@@ -1129,8 +1213,9 @@ pub mod instance_admin {
     /// # use google_cloud_spanner_admin_instance_v1::builder;
     /// use builder::instance_admin::UpdateInstance;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_spanner_admin_instance_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1213,22 +1298,44 @@ pub mod instance_admin {
         /// Sets the value of [instance][crate::model::UpdateInstanceRequest::instance].
         ///
         /// This is a **required** field for requests.
-        pub fn set_instance<T: Into<std::option::Option<crate::model::Instance>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.instance = v.into();
+        pub fn set_instance<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Instance>,
+        {
+            self.0.request.instance = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [instance][crate::model::UpdateInstanceRequest::instance].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_instance<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Instance>,
+        {
+            self.0.request.instance = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [field_mask][crate::model::UpdateInstanceRequest::field_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_field_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.field_mask = v.into();
+        pub fn set_field_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.field_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [field_mask][crate::model::UpdateInstanceRequest::field_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_field_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.field_mask = v.map(|x| x.into());
             self
         }
     }
@@ -1247,6 +1354,7 @@ pub mod instance_admin {
     /// # use google_cloud_spanner_admin_instance_v1::builder;
     /// use builder::instance_admin::DeleteInstance;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1309,6 +1417,7 @@ pub mod instance_admin {
     /// # use google_cloud_spanner_admin_instance_v1::builder;
     /// use builder::instance_admin::SetIamPolicy;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1359,20 +1468,40 @@ pub mod instance_admin {
         /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
-        pub fn set_policy<T: Into<std::option::Option<iam_v1::model::Policy>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.policy = v.into();
+        pub fn set_policy<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -1391,6 +1520,7 @@ pub mod instance_admin {
     /// # use google_cloud_spanner_admin_instance_v1::builder;
     /// use builder::instance_admin::GetIamPolicy;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1439,11 +1569,20 @@ pub mod instance_admin {
         }
 
         /// Sets the value of [options][iam_v1::model::GetIamPolicyRequest::options].
-        pub fn set_options<T: Into<std::option::Option<iam_v1::model::GetPolicyOptions>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.options = v.into();
+        pub fn set_options<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = v.map(|x| x.into());
             self
         }
     }
@@ -1462,6 +1601,7 @@ pub mod instance_admin {
     /// # use google_cloud_spanner_admin_instance_v1::builder;
     /// use builder::instance_admin::TestIamPermissions;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1540,6 +1680,7 @@ pub mod instance_admin {
     /// # use google_cloud_spanner_admin_instance_v1::builder;
     /// use builder::instance_admin::GetInstancePartition;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1605,8 +1746,9 @@ pub mod instance_admin {
     /// # use google_cloud_spanner_admin_instance_v1::builder;
     /// use builder::instance_admin::CreateInstancePartition;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_spanner_admin_instance_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1712,13 +1854,22 @@ pub mod instance_admin {
         /// Sets the value of [instance_partition][crate::model::CreateInstancePartitionRequest::instance_partition].
         ///
         /// This is a **required** field for requests.
-        pub fn set_instance_partition<
-            T: Into<std::option::Option<crate::model::InstancePartition>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.instance_partition = v.into();
+        pub fn set_instance_partition<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::InstancePartition>,
+        {
+            self.0.request.instance_partition = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [instance_partition][crate::model::CreateInstancePartitionRequest::instance_partition].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_instance_partition<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::InstancePartition>,
+        {
+            self.0.request.instance_partition = v.map(|x| x.into());
             self
         }
     }
@@ -1737,6 +1888,7 @@ pub mod instance_admin {
     /// # use google_cloud_spanner_admin_instance_v1::builder;
     /// use builder::instance_admin::DeleteInstancePartition;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1810,8 +1962,9 @@ pub mod instance_admin {
     /// # use google_cloud_spanner_admin_instance_v1::builder;
     /// use builder::instance_admin::UpdateInstancePartition;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_spanner_admin_instance_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1901,24 +2054,44 @@ pub mod instance_admin {
         /// Sets the value of [instance_partition][crate::model::UpdateInstancePartitionRequest::instance_partition].
         ///
         /// This is a **required** field for requests.
-        pub fn set_instance_partition<
-            T: Into<std::option::Option<crate::model::InstancePartition>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.instance_partition = v.into();
+        pub fn set_instance_partition<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::InstancePartition>,
+        {
+            self.0.request.instance_partition = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [instance_partition][crate::model::UpdateInstancePartitionRequest::instance_partition].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_instance_partition<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::InstancePartition>,
+        {
+            self.0.request.instance_partition = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [field_mask][crate::model::UpdateInstancePartitionRequest::field_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_field_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.field_mask = v.into();
+        pub fn set_field_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.field_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [field_mask][crate::model::UpdateInstancePartitionRequest::field_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_field_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.field_mask = v.map(|x| x.into());
             self
         }
     }
@@ -1937,8 +2110,9 @@ pub mod instance_admin {
     /// # use google_cloud_spanner_admin_instance_v1::builder;
     /// use builder::instance_admin::ListInstancePartitionOperations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -2040,11 +2214,23 @@ pub mod instance_admin {
         }
 
         /// Sets the value of [instance_partition_deadline][crate::model::ListInstancePartitionOperationsRequest::instance_partition_deadline].
-        pub fn set_instance_partition_deadline<T: Into<std::option::Option<wkt::Timestamp>>>(
+        pub fn set_instance_partition_deadline<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Timestamp>,
+        {
+            self.0.request.instance_partition_deadline = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [instance_partition_deadline][crate::model::ListInstancePartitionOperationsRequest::instance_partition_deadline].
+        pub fn set_or_clear_instance_partition_deadline<T>(
             mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.instance_partition_deadline = v.into();
+            v: std::option::Option<T>,
+        ) -> Self
+        where
+            T: std::convert::Into<wkt::Timestamp>,
+        {
+            self.0.request.instance_partition_deadline = v.map(|x| x.into());
             self
         }
     }
@@ -2063,8 +2249,9 @@ pub mod instance_admin {
     /// # use google_cloud_spanner_admin_instance_v1::builder;
     /// use builder::instance_admin::MoveInstance;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_spanner_admin_instance_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -2175,8 +2362,9 @@ pub mod instance_admin {
     /// # use google_cloud_spanner_admin_instance_v1::builder;
     /// use builder::instance_admin::ListOperations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -2286,6 +2474,7 @@ pub mod instance_admin {
     /// # use google_cloud_spanner_admin_instance_v1::builder;
     /// use builder::instance_admin::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2349,6 +2538,7 @@ pub mod instance_admin {
     /// # use google_cloud_spanner_admin_instance_v1::builder;
     /// use builder::instance_admin::DeleteOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2412,6 +2602,7 @@ pub mod instance_admin {
     /// # use google_cloud_spanner_admin_instance_v1::builder;
     /// use builder::instance_admin::CancelOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });

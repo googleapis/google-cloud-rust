@@ -75,6 +75,7 @@ pub mod essential_contacts_service {
     /// # use google_cloud_essentialcontacts_v1::builder;
     /// use builder::essential_contacts_service::CreateContact;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -125,11 +126,22 @@ pub mod essential_contacts_service {
         /// Sets the value of [contact][crate::model::CreateContactRequest::contact].
         ///
         /// This is a **required** field for requests.
-        pub fn set_contact<T: Into<std::option::Option<crate::model::Contact>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.contact = v.into();
+        pub fn set_contact<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Contact>,
+        {
+            self.0.request.contact = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [contact][crate::model::CreateContactRequest::contact].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_contact<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Contact>,
+        {
+            self.0.request.contact = v.map(|x| x.into());
             self
         }
     }
@@ -148,6 +160,7 @@ pub mod essential_contacts_service {
     /// # use google_cloud_essentialcontacts_v1::builder;
     /// use builder::essential_contacts_service::UpdateContact;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -190,20 +203,40 @@ pub mod essential_contacts_service {
         /// Sets the value of [contact][crate::model::UpdateContactRequest::contact].
         ///
         /// This is a **required** field for requests.
-        pub fn set_contact<T: Into<std::option::Option<crate::model::Contact>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.contact = v.into();
+        pub fn set_contact<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Contact>,
+        {
+            self.0.request.contact = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [contact][crate::model::UpdateContactRequest::contact].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_contact<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Contact>,
+        {
+            self.0.request.contact = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateContactRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateContactRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -222,8 +255,9 @@ pub mod essential_contacts_service {
     /// # use google_cloud_essentialcontacts_v1::builder;
     /// use builder::essential_contacts_service::ListContacts;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -324,6 +358,7 @@ pub mod essential_contacts_service {
     /// # use google_cloud_essentialcontacts_v1::builder;
     /// use builder::essential_contacts_service::GetContact;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -386,6 +421,7 @@ pub mod essential_contacts_service {
     /// # use google_cloud_essentialcontacts_v1::builder;
     /// use builder::essential_contacts_service::DeleteContact;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -448,8 +484,9 @@ pub mod essential_contacts_service {
     /// # use google_cloud_essentialcontacts_v1::builder;
     /// use builder::essential_contacts_service::ComputeContacts;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -561,6 +598,7 @@ pub mod essential_contacts_service {
     /// # use google_cloud_essentialcontacts_v1::builder;
     /// use builder::essential_contacts_service::SendTestMessage;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });

@@ -75,8 +75,9 @@ pub mod security_posture {
     /// # use google_cloud_securityposture_v1::builder;
     /// use builder::security_posture::ListPostures;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -177,8 +178,9 @@ pub mod security_posture {
     /// # use google_cloud_securityposture_v1::builder;
     /// use builder::security_posture::ListPostureRevisions;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -284,6 +286,7 @@ pub mod security_posture {
     /// # use google_cloud_securityposture_v1::builder;
     /// use builder::security_posture::GetPosture;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -352,8 +355,9 @@ pub mod security_posture {
     /// # use google_cloud_securityposture_v1::builder;
     /// use builder::security_posture::CreatePosture;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_securityposture_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -449,11 +453,22 @@ pub mod security_posture {
         /// Sets the value of [posture][crate::model::CreatePostureRequest::posture].
         ///
         /// This is a **required** field for requests.
-        pub fn set_posture<T: Into<std::option::Option<crate::model::Posture>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.posture = v.into();
+        pub fn set_posture<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Posture>,
+        {
+            self.0.request.posture = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [posture][crate::model::CreatePostureRequest::posture].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_posture<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Posture>,
+        {
+            self.0.request.posture = v.map(|x| x.into());
             self
         }
     }
@@ -472,8 +487,9 @@ pub mod security_posture {
     /// # use google_cloud_securityposture_v1::builder;
     /// use builder::security_posture::UpdatePosture;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_securityposture_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -553,22 +569,44 @@ pub mod security_posture {
         /// Sets the value of [update_mask][crate::model::UpdatePostureRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdatePostureRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [posture][crate::model::UpdatePostureRequest::posture].
         ///
         /// This is a **required** field for requests.
-        pub fn set_posture<T: Into<std::option::Option<crate::model::Posture>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.posture = v.into();
+        pub fn set_posture<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Posture>,
+        {
+            self.0.request.posture = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [posture][crate::model::UpdatePostureRequest::posture].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_posture<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Posture>,
+        {
+            self.0.request.posture = v.map(|x| x.into());
             self
         }
 
@@ -595,8 +633,9 @@ pub mod security_posture {
     /// # use google_cloud_securityposture_v1::builder;
     /// use builder::security_posture::DeletePosture;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_securityposture_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -704,8 +743,9 @@ pub mod security_posture {
     /// # use google_cloud_securityposture_v1::builder;
     /// use builder::security_posture::ExtractPosture;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_securityposture_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -821,8 +861,9 @@ pub mod security_posture {
     /// # use google_cloud_securityposture_v1::builder;
     /// use builder::security_posture::ListPostureDeployments;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -936,6 +977,7 @@ pub mod security_posture {
     /// # use google_cloud_securityposture_v1::builder;
     /// use builder::security_posture::GetPostureDeployment;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1001,8 +1043,9 @@ pub mod security_posture {
     /// # use google_cloud_securityposture_v1::builder;
     /// use builder::security_posture::CreatePostureDeployment;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_securityposture_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1106,13 +1149,22 @@ pub mod security_posture {
         /// Sets the value of [posture_deployment][crate::model::CreatePostureDeploymentRequest::posture_deployment].
         ///
         /// This is a **required** field for requests.
-        pub fn set_posture_deployment<
-            T: Into<std::option::Option<crate::model::PostureDeployment>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.posture_deployment = v.into();
+        pub fn set_posture_deployment<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::PostureDeployment>,
+        {
+            self.0.request.posture_deployment = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [posture_deployment][crate::model::CreatePostureDeploymentRequest::posture_deployment].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_posture_deployment<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::PostureDeployment>,
+        {
+            self.0.request.posture_deployment = v.map(|x| x.into());
             self
         }
     }
@@ -1131,8 +1183,9 @@ pub mod security_posture {
     /// # use google_cloud_securityposture_v1::builder;
     /// use builder::security_posture::UpdatePostureDeployment;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_securityposture_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1220,24 +1273,44 @@ pub mod security_posture {
         /// Sets the value of [update_mask][crate::model::UpdatePostureDeploymentRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdatePostureDeploymentRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [posture_deployment][crate::model::UpdatePostureDeploymentRequest::posture_deployment].
         ///
         /// This is a **required** field for requests.
-        pub fn set_posture_deployment<
-            T: Into<std::option::Option<crate::model::PostureDeployment>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.posture_deployment = v.into();
+        pub fn set_posture_deployment<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::PostureDeployment>,
+        {
+            self.0.request.posture_deployment = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [posture_deployment][crate::model::UpdatePostureDeploymentRequest::posture_deployment].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_posture_deployment<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::PostureDeployment>,
+        {
+            self.0.request.posture_deployment = v.map(|x| x.into());
             self
         }
     }
@@ -1256,8 +1329,9 @@ pub mod security_posture {
     /// # use google_cloud_securityposture_v1::builder;
     /// use builder::security_posture::DeletePostureDeployment;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_securityposture_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1370,8 +1444,9 @@ pub mod security_posture {
     /// # use google_cloud_securityposture_v1::builder;
     /// use builder::security_posture::ListPostureTemplates;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -1483,6 +1558,7 @@ pub mod security_posture {
     /// # use google_cloud_securityposture_v1::builder;
     /// use builder::security_posture::GetPostureTemplate;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1554,8 +1630,9 @@ pub mod security_posture {
     /// # use google_cloud_securityposture_v1::builder;
     /// use builder::security_posture::ListLocations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -1663,6 +1740,7 @@ pub mod security_posture {
     /// # use google_cloud_securityposture_v1::builder;
     /// use builder::security_posture::GetLocation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1723,8 +1801,9 @@ pub mod security_posture {
     /// # use google_cloud_securityposture_v1::builder;
     /// use builder::security_posture::ListOperations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -1834,6 +1913,7 @@ pub mod security_posture {
     /// # use google_cloud_securityposture_v1::builder;
     /// use builder::security_posture::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1897,6 +1977,7 @@ pub mod security_posture {
     /// # use google_cloud_securityposture_v1::builder;
     /// use builder::security_posture::DeleteOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1960,6 +2041,7 @@ pub mod security_posture {
     /// # use google_cloud_securityposture_v1::builder;
     /// use builder::security_posture::CancelOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });

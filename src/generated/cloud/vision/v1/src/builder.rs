@@ -75,6 +75,7 @@ pub mod image_annotator {
     /// # use google_cloud_vision_v1::builder;
     /// use builder::image_annotator::BatchAnnotateImages;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -162,6 +163,7 @@ pub mod image_annotator {
     /// # use google_cloud_vision_v1::builder;
     /// use builder::image_annotator::BatchAnnotateFiles;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -249,8 +251,9 @@ pub mod image_annotator {
     /// # use google_cloud_vision_v1::builder;
     /// use builder::image_annotator::AsyncBatchAnnotateImages;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_vision_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -353,11 +356,22 @@ pub mod image_annotator {
         /// Sets the value of [output_config][crate::model::AsyncBatchAnnotateImagesRequest::output_config].
         ///
         /// This is a **required** field for requests.
-        pub fn set_output_config<T: Into<std::option::Option<crate::model::OutputConfig>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.output_config = v.into();
+        pub fn set_output_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::OutputConfig>,
+        {
+            self.0.request.output_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [output_config][crate::model::AsyncBatchAnnotateImagesRequest::output_config].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_output_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::OutputConfig>,
+        {
+            self.0.request.output_config = v.map(|x| x.into());
             self
         }
 
@@ -393,8 +407,9 @@ pub mod image_annotator {
     /// # use google_cloud_vision_v1::builder;
     /// use builder::image_annotator::AsyncBatchAnnotateFiles;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_vision_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -526,6 +541,7 @@ pub mod image_annotator {
     /// # use google_cloud_vision_v1::builder;
     /// use builder::image_annotator::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -644,6 +660,7 @@ pub mod product_search {
     /// # use google_cloud_vision_v1::builder;
     /// use builder::product_search::CreateProductSet;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -697,11 +714,22 @@ pub mod product_search {
         /// Sets the value of [product_set][crate::model::CreateProductSetRequest::product_set].
         ///
         /// This is a **required** field for requests.
-        pub fn set_product_set<T: Into<std::option::Option<crate::model::ProductSet>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.product_set = v.into();
+        pub fn set_product_set<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::ProductSet>,
+        {
+            self.0.request.product_set = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [product_set][crate::model::CreateProductSetRequest::product_set].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_product_set<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::ProductSet>,
+        {
+            self.0.request.product_set = v.map(|x| x.into());
             self
         }
 
@@ -726,8 +754,9 @@ pub mod product_search {
     /// # use google_cloud_vision_v1::builder;
     /// use builder::product_search::ListProductSets;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -828,6 +857,7 @@ pub mod product_search {
     /// # use google_cloud_vision_v1::builder;
     /// use builder::product_search::GetProductSet;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -890,6 +920,7 @@ pub mod product_search {
     /// # use google_cloud_vision_v1::builder;
     /// use builder::product_search::UpdateProductSet;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -935,20 +966,40 @@ pub mod product_search {
         /// Sets the value of [product_set][crate::model::UpdateProductSetRequest::product_set].
         ///
         /// This is a **required** field for requests.
-        pub fn set_product_set<T: Into<std::option::Option<crate::model::ProductSet>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.product_set = v.into();
+        pub fn set_product_set<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::ProductSet>,
+        {
+            self.0.request.product_set = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [product_set][crate::model::UpdateProductSetRequest::product_set].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_product_set<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::ProductSet>,
+        {
+            self.0.request.product_set = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateProductSetRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateProductSetRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -967,6 +1018,7 @@ pub mod product_search {
     /// # use google_cloud_vision_v1::builder;
     /// use builder::product_search::DeleteProductSet;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1032,6 +1084,7 @@ pub mod product_search {
     /// # use google_cloud_vision_v1::builder;
     /// use builder::product_search::CreateProduct;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1082,11 +1135,22 @@ pub mod product_search {
         /// Sets the value of [product][crate::model::CreateProductRequest::product].
         ///
         /// This is a **required** field for requests.
-        pub fn set_product<T: Into<std::option::Option<crate::model::Product>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.product = v.into();
+        pub fn set_product<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Product>,
+        {
+            self.0.request.product = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [product][crate::model::CreateProductRequest::product].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_product<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Product>,
+        {
+            self.0.request.product = v.map(|x| x.into());
             self
         }
 
@@ -1111,8 +1175,9 @@ pub mod product_search {
     /// # use google_cloud_vision_v1::builder;
     /// use builder::product_search::ListProducts;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -1213,6 +1278,7 @@ pub mod product_search {
     /// # use google_cloud_vision_v1::builder;
     /// use builder::product_search::GetProduct;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1275,6 +1341,7 @@ pub mod product_search {
     /// # use google_cloud_vision_v1::builder;
     /// use builder::product_search::UpdateProduct;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1317,20 +1384,40 @@ pub mod product_search {
         /// Sets the value of [product][crate::model::UpdateProductRequest::product].
         ///
         /// This is a **required** field for requests.
-        pub fn set_product<T: Into<std::option::Option<crate::model::Product>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.product = v.into();
+        pub fn set_product<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Product>,
+        {
+            self.0.request.product = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [product][crate::model::UpdateProductRequest::product].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_product<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Product>,
+        {
+            self.0.request.product = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateProductRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateProductRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -1349,6 +1436,7 @@ pub mod product_search {
     /// # use google_cloud_vision_v1::builder;
     /// use builder::product_search::DeleteProduct;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1411,6 +1499,7 @@ pub mod product_search {
     /// # use google_cloud_vision_v1::builder;
     /// use builder::product_search::CreateReferenceImage;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1464,11 +1553,22 @@ pub mod product_search {
         /// Sets the value of [reference_image][crate::model::CreateReferenceImageRequest::reference_image].
         ///
         /// This is a **required** field for requests.
-        pub fn set_reference_image<T: Into<std::option::Option<crate::model::ReferenceImage>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.reference_image = v.into();
+        pub fn set_reference_image<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::ReferenceImage>,
+        {
+            self.0.request.reference_image = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [reference_image][crate::model::CreateReferenceImageRequest::reference_image].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_reference_image<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::ReferenceImage>,
+        {
+            self.0.request.reference_image = v.map(|x| x.into());
             self
         }
 
@@ -1493,6 +1593,7 @@ pub mod product_search {
     /// # use google_cloud_vision_v1::builder;
     /// use builder::product_search::DeleteReferenceImage;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1558,8 +1659,9 @@ pub mod product_search {
     /// # use google_cloud_vision_v1::builder;
     /// use builder::product_search::ListReferenceImages;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -1665,6 +1767,7 @@ pub mod product_search {
     /// # use google_cloud_vision_v1::builder;
     /// use builder::product_search::GetReferenceImage;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1730,6 +1833,7 @@ pub mod product_search {
     /// # use google_cloud_vision_v1::builder;
     /// use builder::product_search::AddProductToProductSet;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1803,6 +1907,7 @@ pub mod product_search {
     /// # use google_cloud_vision_v1::builder;
     /// use builder::product_search::RemoveProductFromProductSet;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1878,8 +1983,9 @@ pub mod product_search {
     /// # use google_cloud_vision_v1::builder;
     /// use builder::product_search::ListProductsInProductSet;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -1989,8 +2095,9 @@ pub mod product_search {
     /// # use google_cloud_vision_v1::builder;
     /// use builder::product_search::ImportProductSets;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_vision_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -2086,13 +2193,22 @@ pub mod product_search {
         /// Sets the value of [input_config][crate::model::ImportProductSetsRequest::input_config].
         ///
         /// This is a **required** field for requests.
-        pub fn set_input_config<
-            T: Into<std::option::Option<crate::model::ImportProductSetsInputConfig>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.input_config = v.into();
+        pub fn set_input_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::ImportProductSetsInputConfig>,
+        {
+            self.0.request.input_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [input_config][crate::model::ImportProductSetsRequest::input_config].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_input_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::ImportProductSetsInputConfig>,
+        {
+            self.0.request.input_config = v.map(|x| x.into());
             self
         }
     }
@@ -2111,8 +2227,9 @@ pub mod product_search {
     /// # use google_cloud_vision_v1::builder;
     /// use builder::product_search::PurgeProducts;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_vision_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -2258,6 +2375,7 @@ pub mod product_search {
     /// # use google_cloud_vision_v1::builder;
     /// use builder::product_search::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });

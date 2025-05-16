@@ -75,6 +75,7 @@ pub mod text_to_speech {
     /// # use google_cloud_texttospeech_v1::builder;
     /// use builder::text_to_speech::ListVoices;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -135,6 +136,7 @@ pub mod text_to_speech {
     /// # use google_cloud_texttospeech_v1::builder;
     /// use builder::text_to_speech::SynthesizeSpeech;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -180,44 +182,84 @@ pub mod text_to_speech {
         /// Sets the value of [input][crate::model::SynthesizeSpeechRequest::input].
         ///
         /// This is a **required** field for requests.
-        pub fn set_input<T: Into<std::option::Option<crate::model::SynthesisInput>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.input = v.into();
+        pub fn set_input<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::SynthesisInput>,
+        {
+            self.0.request.input = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [input][crate::model::SynthesizeSpeechRequest::input].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_input<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::SynthesisInput>,
+        {
+            self.0.request.input = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [voice][crate::model::SynthesizeSpeechRequest::voice].
         ///
         /// This is a **required** field for requests.
-        pub fn set_voice<T: Into<std::option::Option<crate::model::VoiceSelectionParams>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.voice = v.into();
+        pub fn set_voice<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::VoiceSelectionParams>,
+        {
+            self.0.request.voice = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [voice][crate::model::SynthesizeSpeechRequest::voice].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_voice<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::VoiceSelectionParams>,
+        {
+            self.0.request.voice = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [audio_config][crate::model::SynthesizeSpeechRequest::audio_config].
         ///
         /// This is a **required** field for requests.
-        pub fn set_audio_config<T: Into<std::option::Option<crate::model::AudioConfig>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.audio_config = v.into();
+        pub fn set_audio_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::AudioConfig>,
+        {
+            self.0.request.audio_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [audio_config][crate::model::SynthesizeSpeechRequest::audio_config].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_audio_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::AudioConfig>,
+        {
+            self.0.request.audio_config = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [advanced_voice_options][crate::model::SynthesizeSpeechRequest::advanced_voice_options].
-        pub fn set_advanced_voice_options<
-            T: Into<std::option::Option<crate::model::AdvancedVoiceOptions>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.advanced_voice_options = v.into();
+        pub fn set_advanced_voice_options<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::AdvancedVoiceOptions>,
+        {
+            self.0.request.advanced_voice_options = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [advanced_voice_options][crate::model::SynthesizeSpeechRequest::advanced_voice_options].
+        pub fn set_or_clear_advanced_voice_options<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::AdvancedVoiceOptions>,
+        {
+            self.0.request.advanced_voice_options = v.map(|x| x.into());
             self
         }
     }
@@ -236,8 +278,9 @@ pub mod text_to_speech {
     /// # use google_cloud_texttospeech_v1::builder;
     /// use builder::text_to_speech::ListOperations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -347,6 +390,7 @@ pub mod text_to_speech {
     /// # use google_cloud_texttospeech_v1::builder;
     /// use builder::text_to_speech::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -465,8 +509,9 @@ pub mod text_to_speech_long_audio_synthesize {
     /// # use google_cloud_texttospeech_v1::builder;
     /// use builder::text_to_speech_long_audio_synthesize::SynthesizeLongAudio;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_texttospeech_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -560,22 +605,44 @@ pub mod text_to_speech_long_audio_synthesize {
         /// Sets the value of [input][crate::model::SynthesizeLongAudioRequest::input].
         ///
         /// This is a **required** field for requests.
-        pub fn set_input<T: Into<std::option::Option<crate::model::SynthesisInput>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.input = v.into();
+        pub fn set_input<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::SynthesisInput>,
+        {
+            self.0.request.input = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [input][crate::model::SynthesizeLongAudioRequest::input].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_input<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::SynthesisInput>,
+        {
+            self.0.request.input = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [audio_config][crate::model::SynthesizeLongAudioRequest::audio_config].
         ///
         /// This is a **required** field for requests.
-        pub fn set_audio_config<T: Into<std::option::Option<crate::model::AudioConfig>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.audio_config = v.into();
+        pub fn set_audio_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::AudioConfig>,
+        {
+            self.0.request.audio_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [audio_config][crate::model::SynthesizeLongAudioRequest::audio_config].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_audio_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::AudioConfig>,
+        {
+            self.0.request.audio_config = v.map(|x| x.into());
             self
         }
 
@@ -590,11 +657,22 @@ pub mod text_to_speech_long_audio_synthesize {
         /// Sets the value of [voice][crate::model::SynthesizeLongAudioRequest::voice].
         ///
         /// This is a **required** field for requests.
-        pub fn set_voice<T: Into<std::option::Option<crate::model::VoiceSelectionParams>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.voice = v.into();
+        pub fn set_voice<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::VoiceSelectionParams>,
+        {
+            self.0.request.voice = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [voice][crate::model::SynthesizeLongAudioRequest::voice].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_voice<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::VoiceSelectionParams>,
+        {
+            self.0.request.voice = v.map(|x| x.into());
             self
         }
     }
@@ -613,8 +691,9 @@ pub mod text_to_speech_long_audio_synthesize {
     /// # use google_cloud_texttospeech_v1::builder;
     /// use builder::text_to_speech_long_audio_synthesize::ListOperations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -724,6 +803,7 @@ pub mod text_to_speech_long_audio_synthesize {
     /// # use google_cloud_texttospeech_v1::builder;
     /// use builder::text_to_speech_long_audio_synthesize::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });

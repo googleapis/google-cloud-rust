@@ -73,8 +73,9 @@ pub mod agents {
     /// # use google_cloud_dialogflow_cx_v3::builder;
     /// use builder::agents::ListAgents;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -173,6 +174,7 @@ pub mod agents {
     /// # use google_cloud_dialogflow_cx_v3::builder;
     /// use builder::agents::GetAgent;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -233,6 +235,7 @@ pub mod agents {
     /// # use google_cloud_dialogflow_cx_v3::builder;
     /// use builder::agents::CreateAgent;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -281,11 +284,22 @@ pub mod agents {
         /// Sets the value of [agent][crate::model::CreateAgentRequest::agent].
         ///
         /// This is a **required** field for requests.
-        pub fn set_agent<T: Into<std::option::Option<crate::model::Agent>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.agent = v.into();
+        pub fn set_agent<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Agent>,
+        {
+            self.0.request.agent = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [agent][crate::model::CreateAgentRequest::agent].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_agent<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Agent>,
+        {
+            self.0.request.agent = v.map(|x| x.into());
             self
         }
     }
@@ -304,6 +318,7 @@ pub mod agents {
     /// # use google_cloud_dialogflow_cx_v3::builder;
     /// use builder::agents::UpdateAgent;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -344,20 +359,40 @@ pub mod agents {
         /// Sets the value of [agent][crate::model::UpdateAgentRequest::agent].
         ///
         /// This is a **required** field for requests.
-        pub fn set_agent<T: Into<std::option::Option<crate::model::Agent>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.agent = v.into();
+        pub fn set_agent<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Agent>,
+        {
+            self.0.request.agent = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [agent][crate::model::UpdateAgentRequest::agent].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_agent<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Agent>,
+        {
+            self.0.request.agent = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateAgentRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateAgentRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -376,6 +411,7 @@ pub mod agents {
     /// # use google_cloud_dialogflow_cx_v3::builder;
     /// use builder::agents::DeleteAgent;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -436,8 +472,9 @@ pub mod agents {
     /// # use google_cloud_dialogflow_cx_v3::builder;
     /// use builder::agents::ExportAgent;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_dialogflow_cx_v3::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -540,13 +577,20 @@ pub mod agents {
         }
 
         /// Sets the value of [git_destination][crate::model::ExportAgentRequest::git_destination].
-        pub fn set_git_destination<
-            T: Into<std::option::Option<crate::model::export_agent_request::GitDestination>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.git_destination = v.into();
+        pub fn set_git_destination<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::export_agent_request::GitDestination>,
+        {
+            self.0.request.git_destination = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [git_destination][crate::model::ExportAgentRequest::git_destination].
+        pub fn set_or_clear_git_destination<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::export_agent_request::GitDestination>,
+        {
+            self.0.request.git_destination = v.map(|x| x.into());
             self
         }
 
@@ -571,8 +615,9 @@ pub mod agents {
     /// # use google_cloud_dialogflow_cx_v3::builder;
     /// use builder::agents::RestoreAgent;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_dialogflow_cx_v3::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -728,6 +773,7 @@ pub mod agents {
     /// # use google_cloud_dialogflow_cx_v3::builder;
     /// use builder::agents::ValidateAgent;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -794,6 +840,7 @@ pub mod agents {
     /// # use google_cloud_dialogflow_cx_v3::builder;
     /// use builder::agents::GetAgentValidationResult;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -865,6 +912,7 @@ pub mod agents {
     /// # use google_cloud_dialogflow_cx_v3::builder;
     /// use builder::agents::GetGenerativeSettings;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -936,6 +984,7 @@ pub mod agents {
     /// # use google_cloud_dialogflow_cx_v3::builder;
     /// use builder::agents::UpdateGenerativeSettings;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -981,22 +1030,40 @@ pub mod agents {
         /// Sets the value of [generative_settings][crate::model::UpdateGenerativeSettingsRequest::generative_settings].
         ///
         /// This is a **required** field for requests.
-        pub fn set_generative_settings<
-            T: Into<std::option::Option<crate::model::GenerativeSettings>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.generative_settings = v.into();
+        pub fn set_generative_settings<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::GenerativeSettings>,
+        {
+            self.0.request.generative_settings = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [generative_settings][crate::model::UpdateGenerativeSettingsRequest::generative_settings].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_generative_settings<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::GenerativeSettings>,
+        {
+            self.0.request.generative_settings = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateGenerativeSettingsRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateGenerativeSettingsRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -1015,8 +1082,9 @@ pub mod agents {
     /// # use google_cloud_dialogflow_cx_v3::builder;
     /// use builder::agents::ListLocations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -1122,6 +1190,7 @@ pub mod agents {
     /// # use google_cloud_dialogflow_cx_v3::builder;
     /// use builder::agents::GetLocation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1180,8 +1249,9 @@ pub mod agents {
     /// # use google_cloud_dialogflow_cx_v3::builder;
     /// use builder::agents::ListOperations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -1289,6 +1359,7 @@ pub mod agents {
     /// # use google_cloud_dialogflow_cx_v3::builder;
     /// use builder::agents::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1350,6 +1421,7 @@ pub mod agents {
     /// # use google_cloud_dialogflow_cx_v3::builder;
     /// use builder::agents::CancelOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1466,8 +1538,9 @@ pub mod changelogs {
     /// # use google_cloud_dialogflow_cx_v3::builder;
     /// use builder::changelogs::ListChangelogs;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -1574,6 +1647,7 @@ pub mod changelogs {
     /// # use google_cloud_dialogflow_cx_v3::builder;
     /// use builder::changelogs::GetChangelog;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1636,8 +1710,9 @@ pub mod changelogs {
     /// # use google_cloud_dialogflow_cx_v3::builder;
     /// use builder::changelogs::ListLocations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -1745,6 +1820,7 @@ pub mod changelogs {
     /// # use google_cloud_dialogflow_cx_v3::builder;
     /// use builder::changelogs::GetLocation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1805,8 +1881,9 @@ pub mod changelogs {
     /// # use google_cloud_dialogflow_cx_v3::builder;
     /// use builder::changelogs::ListOperations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -1916,6 +1993,7 @@ pub mod changelogs {
     /// # use google_cloud_dialogflow_cx_v3::builder;
     /// use builder::changelogs::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1979,6 +2057,7 @@ pub mod changelogs {
     /// # use google_cloud_dialogflow_cx_v3::builder;
     /// use builder::changelogs::CancelOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2097,8 +2176,9 @@ pub mod deployments {
     /// # use google_cloud_dialogflow_cx_v3::builder;
     /// use builder::deployments::ListDeployments;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -2199,6 +2279,7 @@ pub mod deployments {
     /// # use google_cloud_dialogflow_cx_v3::builder;
     /// use builder::deployments::GetDeployment;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2261,8 +2342,9 @@ pub mod deployments {
     /// # use google_cloud_dialogflow_cx_v3::builder;
     /// use builder::deployments::ListLocations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -2370,6 +2452,7 @@ pub mod deployments {
     /// # use google_cloud_dialogflow_cx_v3::builder;
     /// use builder::deployments::GetLocation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2430,8 +2513,9 @@ pub mod deployments {
     /// # use google_cloud_dialogflow_cx_v3::builder;
     /// use builder::deployments::ListOperations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -2541,6 +2625,7 @@ pub mod deployments {
     /// # use google_cloud_dialogflow_cx_v3::builder;
     /// use builder::deployments::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2604,6 +2689,7 @@ pub mod deployments {
     /// # use google_cloud_dialogflow_cx_v3::builder;
     /// use builder::deployments::CancelOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2722,6 +2808,7 @@ pub mod entity_types {
     /// # use google_cloud_dialogflow_cx_v3::builder;
     /// use builder::entity_types::GetEntityType;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2790,6 +2877,7 @@ pub mod entity_types {
     /// # use google_cloud_dialogflow_cx_v3::builder;
     /// use builder::entity_types::CreateEntityType;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2843,11 +2931,22 @@ pub mod entity_types {
         /// Sets the value of [entity_type][crate::model::CreateEntityTypeRequest::entity_type].
         ///
         /// This is a **required** field for requests.
-        pub fn set_entity_type<T: Into<std::option::Option<crate::model::EntityType>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.entity_type = v.into();
+        pub fn set_entity_type<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::EntityType>,
+        {
+            self.0.request.entity_type = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [entity_type][crate::model::CreateEntityTypeRequest::entity_type].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_entity_type<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::EntityType>,
+        {
+            self.0.request.entity_type = v.map(|x| x.into());
             self
         }
 
@@ -2872,6 +2971,7 @@ pub mod entity_types {
     /// # use google_cloud_dialogflow_cx_v3::builder;
     /// use builder::entity_types::UpdateEntityType;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2917,11 +3017,22 @@ pub mod entity_types {
         /// Sets the value of [entity_type][crate::model::UpdateEntityTypeRequest::entity_type].
         ///
         /// This is a **required** field for requests.
-        pub fn set_entity_type<T: Into<std::option::Option<crate::model::EntityType>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.entity_type = v.into();
+        pub fn set_entity_type<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::EntityType>,
+        {
+            self.0.request.entity_type = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [entity_type][crate::model::UpdateEntityTypeRequest::entity_type].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_entity_type<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::EntityType>,
+        {
+            self.0.request.entity_type = v.map(|x| x.into());
             self
         }
 
@@ -2932,11 +3043,20 @@ pub mod entity_types {
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateEntityTypeRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateEntityTypeRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -2955,6 +3075,7 @@ pub mod entity_types {
     /// # use google_cloud_dialogflow_cx_v3::builder;
     /// use builder::entity_types::DeleteEntityType;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3026,8 +3147,9 @@ pub mod entity_types {
     /// # use google_cloud_dialogflow_cx_v3::builder;
     /// use builder::entity_types::ListEntityTypes;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -3134,8 +3256,9 @@ pub mod entity_types {
     /// # use google_cloud_dialogflow_cx_v3::builder;
     /// use builder::entity_types::ExportEntityTypes;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_dialogflow_cx_v3::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -3311,8 +3434,9 @@ pub mod entity_types {
     /// # use google_cloud_dialogflow_cx_v3::builder;
     /// use builder::entity_types::ImportEntityTypes;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_dialogflow_cx_v3::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -3479,8 +3603,9 @@ pub mod entity_types {
     /// # use google_cloud_dialogflow_cx_v3::builder;
     /// use builder::entity_types::ListLocations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -3588,6 +3713,7 @@ pub mod entity_types {
     /// # use google_cloud_dialogflow_cx_v3::builder;
     /// use builder::entity_types::GetLocation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3648,8 +3774,9 @@ pub mod entity_types {
     /// # use google_cloud_dialogflow_cx_v3::builder;
     /// use builder::entity_types::ListOperations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -3759,6 +3886,7 @@ pub mod entity_types {
     /// # use google_cloud_dialogflow_cx_v3::builder;
     /// use builder::entity_types::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3822,6 +3950,7 @@ pub mod entity_types {
     /// # use google_cloud_dialogflow_cx_v3::builder;
     /// use builder::entity_types::CancelOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3940,8 +4069,9 @@ pub mod environments {
     /// # use google_cloud_dialogflow_cx_v3::builder;
     /// use builder::environments::ListEnvironments;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -4045,6 +4175,7 @@ pub mod environments {
     /// # use google_cloud_dialogflow_cx_v3::builder;
     /// use builder::environments::GetEnvironment;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -4107,8 +4238,9 @@ pub mod environments {
     /// # use google_cloud_dialogflow_cx_v3::builder;
     /// use builder::environments::CreateEnvironment;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_dialogflow_cx_v3::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -4196,11 +4328,22 @@ pub mod environments {
         /// Sets the value of [environment][crate::model::CreateEnvironmentRequest::environment].
         ///
         /// This is a **required** field for requests.
-        pub fn set_environment<T: Into<std::option::Option<crate::model::Environment>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.environment = v.into();
+        pub fn set_environment<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Environment>,
+        {
+            self.0.request.environment = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [environment][crate::model::CreateEnvironmentRequest::environment].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_environment<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Environment>,
+        {
+            self.0.request.environment = v.map(|x| x.into());
             self
         }
     }
@@ -4219,8 +4362,9 @@ pub mod environments {
     /// # use google_cloud_dialogflow_cx_v3::builder;
     /// use builder::environments::UpdateEnvironment;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_dialogflow_cx_v3::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -4300,22 +4444,44 @@ pub mod environments {
         /// Sets the value of [environment][crate::model::UpdateEnvironmentRequest::environment].
         ///
         /// This is a **required** field for requests.
-        pub fn set_environment<T: Into<std::option::Option<crate::model::Environment>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.environment = v.into();
+        pub fn set_environment<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Environment>,
+        {
+            self.0.request.environment = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [environment][crate::model::UpdateEnvironmentRequest::environment].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_environment<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Environment>,
+        {
+            self.0.request.environment = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateEnvironmentRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateEnvironmentRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -4334,6 +4500,7 @@ pub mod environments {
     /// # use google_cloud_dialogflow_cx_v3::builder;
     /// use builder::environments::DeleteEnvironment;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -4399,8 +4566,9 @@ pub mod environments {
     /// # use google_cloud_dialogflow_cx_v3::builder;
     /// use builder::environments::LookupEnvironmentHistory;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -4510,8 +4678,9 @@ pub mod environments {
     /// # use google_cloud_dialogflow_cx_v3::builder;
     /// use builder::environments::RunContinuousTest;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_dialogflow_cx_v3::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -4619,8 +4788,9 @@ pub mod environments {
     /// # use google_cloud_dialogflow_cx_v3::builder;
     /// use builder::environments::ListContinuousTestResults;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -4730,8 +4900,9 @@ pub mod environments {
     /// # use google_cloud_dialogflow_cx_v3::builder;
     /// use builder::environments::DeployFlow;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_dialogflow_cx_v3::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -4842,8 +5013,9 @@ pub mod environments {
     /// # use google_cloud_dialogflow_cx_v3::builder;
     /// use builder::environments::ListLocations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -4951,6 +5123,7 @@ pub mod environments {
     /// # use google_cloud_dialogflow_cx_v3::builder;
     /// use builder::environments::GetLocation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -5011,8 +5184,9 @@ pub mod environments {
     /// # use google_cloud_dialogflow_cx_v3::builder;
     /// use builder::environments::ListOperations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -5122,6 +5296,7 @@ pub mod environments {
     /// # use google_cloud_dialogflow_cx_v3::builder;
     /// use builder::environments::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -5185,6 +5360,7 @@ pub mod environments {
     /// # use google_cloud_dialogflow_cx_v3::builder;
     /// use builder::environments::CancelOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -5303,8 +5479,9 @@ pub mod experiments {
     /// # use google_cloud_dialogflow_cx_v3::builder;
     /// use builder::experiments::ListExperiments;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -5405,6 +5582,7 @@ pub mod experiments {
     /// # use google_cloud_dialogflow_cx_v3::builder;
     /// use builder::experiments::GetExperiment;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -5467,6 +5645,7 @@ pub mod experiments {
     /// # use google_cloud_dialogflow_cx_v3::builder;
     /// use builder::experiments::CreateExperiment;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -5520,11 +5699,22 @@ pub mod experiments {
         /// Sets the value of [experiment][crate::model::CreateExperimentRequest::experiment].
         ///
         /// This is a **required** field for requests.
-        pub fn set_experiment<T: Into<std::option::Option<crate::model::Experiment>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.experiment = v.into();
+        pub fn set_experiment<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Experiment>,
+        {
+            self.0.request.experiment = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [experiment][crate::model::CreateExperimentRequest::experiment].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_experiment<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Experiment>,
+        {
+            self.0.request.experiment = v.map(|x| x.into());
             self
         }
     }
@@ -5543,6 +5733,7 @@ pub mod experiments {
     /// # use google_cloud_dialogflow_cx_v3::builder;
     /// use builder::experiments::UpdateExperiment;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -5588,22 +5779,44 @@ pub mod experiments {
         /// Sets the value of [experiment][crate::model::UpdateExperimentRequest::experiment].
         ///
         /// This is a **required** field for requests.
-        pub fn set_experiment<T: Into<std::option::Option<crate::model::Experiment>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.experiment = v.into();
+        pub fn set_experiment<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Experiment>,
+        {
+            self.0.request.experiment = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [experiment][crate::model::UpdateExperimentRequest::experiment].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_experiment<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Experiment>,
+        {
+            self.0.request.experiment = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateExperimentRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateExperimentRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -5622,6 +5835,7 @@ pub mod experiments {
     /// # use google_cloud_dialogflow_cx_v3::builder;
     /// use builder::experiments::DeleteExperiment;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -5687,6 +5901,7 @@ pub mod experiments {
     /// # use google_cloud_dialogflow_cx_v3::builder;
     /// use builder::experiments::StartExperiment;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -5749,6 +5964,7 @@ pub mod experiments {
     /// # use google_cloud_dialogflow_cx_v3::builder;
     /// use builder::experiments::StopExperiment;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -5811,8 +6027,9 @@ pub mod experiments {
     /// # use google_cloud_dialogflow_cx_v3::builder;
     /// use builder::experiments::ListLocations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -5920,6 +6137,7 @@ pub mod experiments {
     /// # use google_cloud_dialogflow_cx_v3::builder;
     /// use builder::experiments::GetLocation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -5980,8 +6198,9 @@ pub mod experiments {
     /// # use google_cloud_dialogflow_cx_v3::builder;
     /// use builder::experiments::ListOperations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -6091,6 +6310,7 @@ pub mod experiments {
     /// # use google_cloud_dialogflow_cx_v3::builder;
     /// use builder::experiments::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -6154,6 +6374,7 @@ pub mod experiments {
     /// # use google_cloud_dialogflow_cx_v3::builder;
     /// use builder::experiments::CancelOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -6270,6 +6491,7 @@ pub mod flows {
     /// # use google_cloud_dialogflow_cx_v3::builder;
     /// use builder::flows::CreateFlow;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -6318,8 +6540,22 @@ pub mod flows {
         /// Sets the value of [flow][crate::model::CreateFlowRequest::flow].
         ///
         /// This is a **required** field for requests.
-        pub fn set_flow<T: Into<std::option::Option<crate::model::Flow>>>(mut self, v: T) -> Self {
-            self.0.request.flow = v.into();
+        pub fn set_flow<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Flow>,
+        {
+            self.0.request.flow = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [flow][crate::model::CreateFlowRequest::flow].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_flow<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Flow>,
+        {
+            self.0.request.flow = v.map(|x| x.into());
             self
         }
 
@@ -6344,6 +6580,7 @@ pub mod flows {
     /// # use google_cloud_dialogflow_cx_v3::builder;
     /// use builder::flows::DeleteFlow;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -6410,8 +6647,9 @@ pub mod flows {
     /// # use google_cloud_dialogflow_cx_v3::builder;
     /// use builder::flows::ListFlows;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -6516,6 +6754,7 @@ pub mod flows {
     /// # use google_cloud_dialogflow_cx_v3::builder;
     /// use builder::flows::GetFlow;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -6582,6 +6821,7 @@ pub mod flows {
     /// # use google_cloud_dialogflow_cx_v3::builder;
     /// use builder::flows::UpdateFlow;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -6622,17 +6862,40 @@ pub mod flows {
         /// Sets the value of [flow][crate::model::UpdateFlowRequest::flow].
         ///
         /// This is a **required** field for requests.
-        pub fn set_flow<T: Into<std::option::Option<crate::model::Flow>>>(mut self, v: T) -> Self {
-            self.0.request.flow = v.into();
+        pub fn set_flow<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Flow>,
+        {
+            self.0.request.flow = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [flow][crate::model::UpdateFlowRequest::flow].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_flow<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Flow>,
+        {
+            self.0.request.flow = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateFlowRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateFlowRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
@@ -6657,8 +6920,9 @@ pub mod flows {
     /// # use google_cloud_dialogflow_cx_v3::builder;
     /// use builder::flows::TrainFlow;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_dialogflow_cx_v3::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -6758,6 +7022,7 @@ pub mod flows {
     /// # use google_cloud_dialogflow_cx_v3::builder;
     /// use builder::flows::ValidateFlow;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -6824,6 +7089,7 @@ pub mod flows {
     /// # use google_cloud_dialogflow_cx_v3::builder;
     /// use builder::flows::GetFlowValidationResult;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -6895,8 +7161,9 @@ pub mod flows {
     /// # use google_cloud_dialogflow_cx_v3::builder;
     /// use builder::flows::ImportFlow;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_dialogflow_cx_v3::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -6987,13 +7254,20 @@ pub mod flows {
         }
 
         /// Sets the value of [flow_import_strategy][crate::model::ImportFlowRequest::flow_import_strategy].
-        pub fn set_flow_import_strategy<
-            T: Into<std::option::Option<crate::model::FlowImportStrategy>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.flow_import_strategy = v.into();
+        pub fn set_flow_import_strategy<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::FlowImportStrategy>,
+        {
+            self.0.request.flow_import_strategy = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [flow_import_strategy][crate::model::ImportFlowRequest::flow_import_strategy].
+        pub fn set_or_clear_flow_import_strategy<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::FlowImportStrategy>,
+        {
+            self.0.request.flow_import_strategy = v.map(|x| x.into());
             self
         }
 
@@ -7044,8 +7318,9 @@ pub mod flows {
     /// # use google_cloud_dialogflow_cx_v3::builder;
     /// use builder::flows::ExportFlow;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_dialogflow_cx_v3::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -7153,8 +7428,9 @@ pub mod flows {
     /// # use google_cloud_dialogflow_cx_v3::builder;
     /// use builder::flows::ListLocations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -7260,6 +7536,7 @@ pub mod flows {
     /// # use google_cloud_dialogflow_cx_v3::builder;
     /// use builder::flows::GetLocation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -7318,8 +7595,9 @@ pub mod flows {
     /// # use google_cloud_dialogflow_cx_v3::builder;
     /// use builder::flows::ListOperations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -7427,6 +7705,7 @@ pub mod flows {
     /// # use google_cloud_dialogflow_cx_v3::builder;
     /// use builder::flows::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -7488,6 +7767,7 @@ pub mod flows {
     /// # use google_cloud_dialogflow_cx_v3::builder;
     /// use builder::flows::CancelOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -7604,8 +7884,9 @@ pub mod generators {
     /// # use google_cloud_dialogflow_cx_v3::builder;
     /// use builder::generators::ListGenerators;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -7712,6 +7993,7 @@ pub mod generators {
     /// # use google_cloud_dialogflow_cx_v3::builder;
     /// use builder::generators::GetGenerator;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -7780,6 +8062,7 @@ pub mod generators {
     /// # use google_cloud_dialogflow_cx_v3::builder;
     /// use builder::generators::CreateGenerator;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -7830,11 +8113,22 @@ pub mod generators {
         /// Sets the value of [generator][crate::model::CreateGeneratorRequest::generator].
         ///
         /// This is a **required** field for requests.
-        pub fn set_generator<T: Into<std::option::Option<crate::model::Generator>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.generator = v.into();
+        pub fn set_generator<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Generator>,
+        {
+            self.0.request.generator = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [generator][crate::model::CreateGeneratorRequest::generator].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_generator<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Generator>,
+        {
+            self.0.request.generator = v.map(|x| x.into());
             self
         }
 
@@ -7859,6 +8153,7 @@ pub mod generators {
     /// # use google_cloud_dialogflow_cx_v3::builder;
     /// use builder::generators::UpdateGenerator;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -7901,11 +8196,22 @@ pub mod generators {
         /// Sets the value of [generator][crate::model::UpdateGeneratorRequest::generator].
         ///
         /// This is a **required** field for requests.
-        pub fn set_generator<T: Into<std::option::Option<crate::model::Generator>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.generator = v.into();
+        pub fn set_generator<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Generator>,
+        {
+            self.0.request.generator = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [generator][crate::model::UpdateGeneratorRequest::generator].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_generator<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Generator>,
+        {
+            self.0.request.generator = v.map(|x| x.into());
             self
         }
 
@@ -7916,11 +8222,20 @@ pub mod generators {
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateGeneratorRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateGeneratorRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -7939,6 +8254,7 @@ pub mod generators {
     /// # use google_cloud_dialogflow_cx_v3::builder;
     /// use builder::generators::DeleteGenerator;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -8007,8 +8323,9 @@ pub mod generators {
     /// # use google_cloud_dialogflow_cx_v3::builder;
     /// use builder::generators::ListLocations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -8116,6 +8433,7 @@ pub mod generators {
     /// # use google_cloud_dialogflow_cx_v3::builder;
     /// use builder::generators::GetLocation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -8176,8 +8494,9 @@ pub mod generators {
     /// # use google_cloud_dialogflow_cx_v3::builder;
     /// use builder::generators::ListOperations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -8287,6 +8606,7 @@ pub mod generators {
     /// # use google_cloud_dialogflow_cx_v3::builder;
     /// use builder::generators::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -8350,6 +8670,7 @@ pub mod generators {
     /// # use google_cloud_dialogflow_cx_v3::builder;
     /// use builder::generators::CancelOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -8466,8 +8787,9 @@ pub mod intents {
     /// # use google_cloud_dialogflow_cx_v3::builder;
     /// use builder::intents::ListIntents;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -8578,6 +8900,7 @@ pub mod intents {
     /// # use google_cloud_dialogflow_cx_v3::builder;
     /// use builder::intents::GetIntent;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -8644,6 +8967,7 @@ pub mod intents {
     /// # use google_cloud_dialogflow_cx_v3::builder;
     /// use builder::intents::CreateIntent;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -8692,11 +9016,22 @@ pub mod intents {
         /// Sets the value of [intent][crate::model::CreateIntentRequest::intent].
         ///
         /// This is a **required** field for requests.
-        pub fn set_intent<T: Into<std::option::Option<crate::model::Intent>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.intent = v.into();
+        pub fn set_intent<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Intent>,
+        {
+            self.0.request.intent = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [intent][crate::model::CreateIntentRequest::intent].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_intent<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Intent>,
+        {
+            self.0.request.intent = v.map(|x| x.into());
             self
         }
 
@@ -8721,6 +9056,7 @@ pub mod intents {
     /// # use google_cloud_dialogflow_cx_v3::builder;
     /// use builder::intents::UpdateIntent;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -8761,11 +9097,22 @@ pub mod intents {
         /// Sets the value of [intent][crate::model::UpdateIntentRequest::intent].
         ///
         /// This is a **required** field for requests.
-        pub fn set_intent<T: Into<std::option::Option<crate::model::Intent>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.intent = v.into();
+        pub fn set_intent<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Intent>,
+        {
+            self.0.request.intent = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [intent][crate::model::UpdateIntentRequest::intent].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_intent<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Intent>,
+        {
+            self.0.request.intent = v.map(|x| x.into());
             self
         }
 
@@ -8776,11 +9123,20 @@ pub mod intents {
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateIntentRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateIntentRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -8799,6 +9155,7 @@ pub mod intents {
     /// # use google_cloud_dialogflow_cx_v3::builder;
     /// use builder::intents::DeleteIntent;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -8859,8 +9216,9 @@ pub mod intents {
     /// # use google_cloud_dialogflow_cx_v3::builder;
     /// use builder::intents::ImportIntents;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_dialogflow_cx_v3::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -9007,8 +9365,9 @@ pub mod intents {
     /// # use google_cloud_dialogflow_cx_v3::builder;
     /// use builder::intents::ExportIntents;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_dialogflow_cx_v3::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -9165,8 +9524,9 @@ pub mod intents {
     /// # use google_cloud_dialogflow_cx_v3::builder;
     /// use builder::intents::ListLocations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -9272,6 +9632,7 @@ pub mod intents {
     /// # use google_cloud_dialogflow_cx_v3::builder;
     /// use builder::intents::GetLocation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -9330,8 +9691,9 @@ pub mod intents {
     /// # use google_cloud_dialogflow_cx_v3::builder;
     /// use builder::intents::ListOperations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -9439,6 +9801,7 @@ pub mod intents {
     /// # use google_cloud_dialogflow_cx_v3::builder;
     /// use builder::intents::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -9500,6 +9863,7 @@ pub mod intents {
     /// # use google_cloud_dialogflow_cx_v3::builder;
     /// use builder::intents::CancelOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -9614,8 +9978,9 @@ pub mod pages {
     /// # use google_cloud_dialogflow_cx_v3::builder;
     /// use builder::pages::ListPages;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -9720,6 +10085,7 @@ pub mod pages {
     /// # use google_cloud_dialogflow_cx_v3::builder;
     /// use builder::pages::GetPage;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -9786,6 +10152,7 @@ pub mod pages {
     /// # use google_cloud_dialogflow_cx_v3::builder;
     /// use builder::pages::CreatePage;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -9834,8 +10201,22 @@ pub mod pages {
         /// Sets the value of [page][crate::model::CreatePageRequest::page].
         ///
         /// This is a **required** field for requests.
-        pub fn set_page<T: Into<std::option::Option<crate::model::Page>>>(mut self, v: T) -> Self {
-            self.0.request.page = v.into();
+        pub fn set_page<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Page>,
+        {
+            self.0.request.page = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [page][crate::model::CreatePageRequest::page].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_page<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Page>,
+        {
+            self.0.request.page = v.map(|x| x.into());
             self
         }
 
@@ -9860,6 +10241,7 @@ pub mod pages {
     /// # use google_cloud_dialogflow_cx_v3::builder;
     /// use builder::pages::UpdatePage;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -9900,8 +10282,22 @@ pub mod pages {
         /// Sets the value of [page][crate::model::UpdatePageRequest::page].
         ///
         /// This is a **required** field for requests.
-        pub fn set_page<T: Into<std::option::Option<crate::model::Page>>>(mut self, v: T) -> Self {
-            self.0.request.page = v.into();
+        pub fn set_page<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Page>,
+        {
+            self.0.request.page = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [page][crate::model::UpdatePageRequest::page].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_page<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Page>,
+        {
+            self.0.request.page = v.map(|x| x.into());
             self
         }
 
@@ -9912,11 +10308,20 @@ pub mod pages {
         }
 
         /// Sets the value of [update_mask][crate::model::UpdatePageRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdatePageRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -9935,6 +10340,7 @@ pub mod pages {
     /// # use google_cloud_dialogflow_cx_v3::builder;
     /// use builder::pages::DeletePage;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -10001,8 +10407,9 @@ pub mod pages {
     /// # use google_cloud_dialogflow_cx_v3::builder;
     /// use builder::pages::ListLocations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -10108,6 +10515,7 @@ pub mod pages {
     /// # use google_cloud_dialogflow_cx_v3::builder;
     /// use builder::pages::GetLocation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -10166,8 +10574,9 @@ pub mod pages {
     /// # use google_cloud_dialogflow_cx_v3::builder;
     /// use builder::pages::ListOperations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -10275,6 +10684,7 @@ pub mod pages {
     /// # use google_cloud_dialogflow_cx_v3::builder;
     /// use builder::pages::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -10336,6 +10746,7 @@ pub mod pages {
     /// # use google_cloud_dialogflow_cx_v3::builder;
     /// use builder::pages::CancelOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -10452,6 +10863,7 @@ pub mod security_settings_service {
     /// # use google_cloud_dialogflow_cx_v3::builder;
     /// use builder::security_settings_service::CreateSecuritySettings;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -10505,13 +10917,22 @@ pub mod security_settings_service {
         /// Sets the value of [security_settings][crate::model::CreateSecuritySettingsRequest::security_settings].
         ///
         /// This is a **required** field for requests.
-        pub fn set_security_settings<
-            T: Into<std::option::Option<crate::model::SecuritySettings>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.security_settings = v.into();
+        pub fn set_security_settings<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::SecuritySettings>,
+        {
+            self.0.request.security_settings = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [security_settings][crate::model::CreateSecuritySettingsRequest::security_settings].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_security_settings<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::SecuritySettings>,
+        {
+            self.0.request.security_settings = v.map(|x| x.into());
             self
         }
     }
@@ -10530,6 +10951,7 @@ pub mod security_settings_service {
     /// # use google_cloud_dialogflow_cx_v3::builder;
     /// use builder::security_settings_service::GetSecuritySettings;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -10595,6 +11017,7 @@ pub mod security_settings_service {
     /// # use google_cloud_dialogflow_cx_v3::builder;
     /// use builder::security_settings_service::UpdateSecuritySettings;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -10640,24 +11063,44 @@ pub mod security_settings_service {
         /// Sets the value of [security_settings][crate::model::UpdateSecuritySettingsRequest::security_settings].
         ///
         /// This is a **required** field for requests.
-        pub fn set_security_settings<
-            T: Into<std::option::Option<crate::model::SecuritySettings>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.security_settings = v.into();
+        pub fn set_security_settings<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::SecuritySettings>,
+        {
+            self.0.request.security_settings = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [security_settings][crate::model::UpdateSecuritySettingsRequest::security_settings].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_security_settings<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::SecuritySettings>,
+        {
+            self.0.request.security_settings = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateSecuritySettingsRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateSecuritySettingsRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -10676,8 +11119,9 @@ pub mod security_settings_service {
     /// # use google_cloud_dialogflow_cx_v3::builder;
     /// use builder::security_settings_service::ListSecuritySettings;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -10783,6 +11227,7 @@ pub mod security_settings_service {
     /// # use google_cloud_dialogflow_cx_v3::builder;
     /// use builder::security_settings_service::DeleteSecuritySettings;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -10848,8 +11293,9 @@ pub mod security_settings_service {
     /// # use google_cloud_dialogflow_cx_v3::builder;
     /// use builder::security_settings_service::ListLocations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -10957,6 +11403,7 @@ pub mod security_settings_service {
     /// # use google_cloud_dialogflow_cx_v3::builder;
     /// use builder::security_settings_service::GetLocation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -11017,8 +11464,9 @@ pub mod security_settings_service {
     /// # use google_cloud_dialogflow_cx_v3::builder;
     /// use builder::security_settings_service::ListOperations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -11128,6 +11576,7 @@ pub mod security_settings_service {
     /// # use google_cloud_dialogflow_cx_v3::builder;
     /// use builder::security_settings_service::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -11191,6 +11640,7 @@ pub mod security_settings_service {
     /// # use google_cloud_dialogflow_cx_v3::builder;
     /// use builder::security_settings_service::CancelOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -11307,6 +11757,7 @@ pub mod sessions {
     /// # use google_cloud_dialogflow_cx_v3::builder;
     /// use builder::sessions::DetectIntent;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -11353,33 +11804,60 @@ pub mod sessions {
         }
 
         /// Sets the value of [query_params][crate::model::DetectIntentRequest::query_params].
-        pub fn set_query_params<T: Into<std::option::Option<crate::model::QueryParameters>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.query_params = v.into();
+        pub fn set_query_params<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::QueryParameters>,
+        {
+            self.0.request.query_params = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [query_params][crate::model::DetectIntentRequest::query_params].
+        pub fn set_or_clear_query_params<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::QueryParameters>,
+        {
+            self.0.request.query_params = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [query_input][crate::model::DetectIntentRequest::query_input].
         ///
         /// This is a **required** field for requests.
-        pub fn set_query_input<T: Into<std::option::Option<crate::model::QueryInput>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.query_input = v.into();
+        pub fn set_query_input<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::QueryInput>,
+        {
+            self.0.request.query_input = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [query_input][crate::model::DetectIntentRequest::query_input].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_query_input<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::QueryInput>,
+        {
+            self.0.request.query_input = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [output_audio_config][crate::model::DetectIntentRequest::output_audio_config].
-        pub fn set_output_audio_config<
-            T: Into<std::option::Option<crate::model::OutputAudioConfig>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.output_audio_config = v.into();
+        pub fn set_output_audio_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::OutputAudioConfig>,
+        {
+            self.0.request.output_audio_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [output_audio_config][crate::model::DetectIntentRequest::output_audio_config].
+        pub fn set_or_clear_output_audio_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::OutputAudioConfig>,
+        {
+            self.0.request.output_audio_config = v.map(|x| x.into());
             self
         }
     }
@@ -11398,6 +11876,7 @@ pub mod sessions {
     /// # use google_cloud_dialogflow_cx_v3::builder;
     /// use builder::sessions::MatchIntent;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -11444,22 +11923,42 @@ pub mod sessions {
         }
 
         /// Sets the value of [query_params][crate::model::MatchIntentRequest::query_params].
-        pub fn set_query_params<T: Into<std::option::Option<crate::model::QueryParameters>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.query_params = v.into();
+        pub fn set_query_params<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::QueryParameters>,
+        {
+            self.0.request.query_params = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [query_params][crate::model::MatchIntentRequest::query_params].
+        pub fn set_or_clear_query_params<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::QueryParameters>,
+        {
+            self.0.request.query_params = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [query_input][crate::model::MatchIntentRequest::query_input].
         ///
         /// This is a **required** field for requests.
-        pub fn set_query_input<T: Into<std::option::Option<crate::model::QueryInput>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.query_input = v.into();
+        pub fn set_query_input<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::QueryInput>,
+        {
+            self.0.request.query_input = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [query_input][crate::model::MatchIntentRequest::query_input].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_query_input<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::QueryInput>,
+        {
+            self.0.request.query_input = v.map(|x| x.into());
             self
         }
 
@@ -11484,6 +11983,7 @@ pub mod sessions {
     /// # use google_cloud_dialogflow_cx_v3::builder;
     /// use builder::sessions::FulfillIntent;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -11522,33 +12022,56 @@ pub mod sessions {
         }
 
         /// Sets the value of [match_intent_request][crate::model::FulfillIntentRequest::match_intent_request].
-        pub fn set_match_intent_request<
-            T: Into<std::option::Option<crate::model::MatchIntentRequest>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.match_intent_request = v.into();
+        pub fn set_match_intent_request<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::MatchIntentRequest>,
+        {
+            self.0.request.match_intent_request = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [match_intent_request][crate::model::FulfillIntentRequest::match_intent_request].
+        pub fn set_or_clear_match_intent_request<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::MatchIntentRequest>,
+        {
+            self.0.request.match_intent_request = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [r#match][crate::model::FulfillIntentRequest::match].
-        pub fn set_match<T: Into<std::option::Option<crate::model::Match>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.r#match = v.into();
+        pub fn set_match<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Match>,
+        {
+            self.0.request.r#match = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [r#match][crate::model::FulfillIntentRequest::match].
+        pub fn set_or_clear_match<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Match>,
+        {
+            self.0.request.r#match = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [output_audio_config][crate::model::FulfillIntentRequest::output_audio_config].
-        pub fn set_output_audio_config<
-            T: Into<std::option::Option<crate::model::OutputAudioConfig>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.output_audio_config = v.into();
+        pub fn set_output_audio_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::OutputAudioConfig>,
+        {
+            self.0.request.output_audio_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [output_audio_config][crate::model::FulfillIntentRequest::output_audio_config].
+        pub fn set_or_clear_output_audio_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::OutputAudioConfig>,
+        {
+            self.0.request.output_audio_config = v.map(|x| x.into());
             self
         }
     }
@@ -11567,6 +12090,7 @@ pub mod sessions {
     /// # use google_cloud_dialogflow_cx_v3::builder;
     /// use builder::sessions::SubmitAnswerFeedback;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -11626,20 +12150,40 @@ pub mod sessions {
         /// Sets the value of [answer_feedback][crate::model::SubmitAnswerFeedbackRequest::answer_feedback].
         ///
         /// This is a **required** field for requests.
-        pub fn set_answer_feedback<T: Into<std::option::Option<crate::model::AnswerFeedback>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.answer_feedback = v.into();
+        pub fn set_answer_feedback<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::AnswerFeedback>,
+        {
+            self.0.request.answer_feedback = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [answer_feedback][crate::model::SubmitAnswerFeedbackRequest::answer_feedback].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_answer_feedback<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::AnswerFeedback>,
+        {
+            self.0.request.answer_feedback = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::SubmitAnswerFeedbackRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::SubmitAnswerFeedbackRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -11658,8 +12202,9 @@ pub mod sessions {
     /// # use google_cloud_dialogflow_cx_v3::builder;
     /// use builder::sessions::ListLocations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -11765,6 +12310,7 @@ pub mod sessions {
     /// # use google_cloud_dialogflow_cx_v3::builder;
     /// use builder::sessions::GetLocation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -11823,8 +12369,9 @@ pub mod sessions {
     /// # use google_cloud_dialogflow_cx_v3::builder;
     /// use builder::sessions::ListOperations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -11932,6 +12479,7 @@ pub mod sessions {
     /// # use google_cloud_dialogflow_cx_v3::builder;
     /// use builder::sessions::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -11993,6 +12541,7 @@ pub mod sessions {
     /// # use google_cloud_dialogflow_cx_v3::builder;
     /// use builder::sessions::CancelOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -12109,8 +12658,9 @@ pub mod session_entity_types {
     /// # use google_cloud_dialogflow_cx_v3::builder;
     /// use builder::session_entity_types::ListSessionEntityTypes;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -12218,6 +12768,7 @@ pub mod session_entity_types {
     /// # use google_cloud_dialogflow_cx_v3::builder;
     /// use builder::session_entity_types::GetSessionEntityType;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -12283,6 +12834,7 @@ pub mod session_entity_types {
     /// # use google_cloud_dialogflow_cx_v3::builder;
     /// use builder::session_entity_types::CreateSessionEntityType;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -12338,13 +12890,22 @@ pub mod session_entity_types {
         /// Sets the value of [session_entity_type][crate::model::CreateSessionEntityTypeRequest::session_entity_type].
         ///
         /// This is a **required** field for requests.
-        pub fn set_session_entity_type<
-            T: Into<std::option::Option<crate::model::SessionEntityType>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.session_entity_type = v.into();
+        pub fn set_session_entity_type<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::SessionEntityType>,
+        {
+            self.0.request.session_entity_type = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [session_entity_type][crate::model::CreateSessionEntityTypeRequest::session_entity_type].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_session_entity_type<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::SessionEntityType>,
+        {
+            self.0.request.session_entity_type = v.map(|x| x.into());
             self
         }
     }
@@ -12363,6 +12924,7 @@ pub mod session_entity_types {
     /// # use google_cloud_dialogflow_cx_v3::builder;
     /// use builder::session_entity_types::UpdateSessionEntityType;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -12410,22 +12972,40 @@ pub mod session_entity_types {
         /// Sets the value of [session_entity_type][crate::model::UpdateSessionEntityTypeRequest::session_entity_type].
         ///
         /// This is a **required** field for requests.
-        pub fn set_session_entity_type<
-            T: Into<std::option::Option<crate::model::SessionEntityType>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.session_entity_type = v.into();
+        pub fn set_session_entity_type<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::SessionEntityType>,
+        {
+            self.0.request.session_entity_type = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [session_entity_type][crate::model::UpdateSessionEntityTypeRequest::session_entity_type].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_session_entity_type<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::SessionEntityType>,
+        {
+            self.0.request.session_entity_type = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateSessionEntityTypeRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateSessionEntityTypeRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -12444,6 +13024,7 @@ pub mod session_entity_types {
     /// # use google_cloud_dialogflow_cx_v3::builder;
     /// use builder::session_entity_types::DeleteSessionEntityType;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -12511,8 +13092,9 @@ pub mod session_entity_types {
     /// # use google_cloud_dialogflow_cx_v3::builder;
     /// use builder::session_entity_types::ListLocations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -12620,6 +13202,7 @@ pub mod session_entity_types {
     /// # use google_cloud_dialogflow_cx_v3::builder;
     /// use builder::session_entity_types::GetLocation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -12680,8 +13263,9 @@ pub mod session_entity_types {
     /// # use google_cloud_dialogflow_cx_v3::builder;
     /// use builder::session_entity_types::ListOperations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -12791,6 +13375,7 @@ pub mod session_entity_types {
     /// # use google_cloud_dialogflow_cx_v3::builder;
     /// use builder::session_entity_types::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -12854,6 +13439,7 @@ pub mod session_entity_types {
     /// # use google_cloud_dialogflow_cx_v3::builder;
     /// use builder::session_entity_types::CancelOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -12972,8 +13558,9 @@ pub mod test_cases {
     /// # use google_cloud_dialogflow_cx_v3::builder;
     /// use builder::test_cases::ListTestCases;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -13083,6 +13670,7 @@ pub mod test_cases {
     /// # use google_cloud_dialogflow_cx_v3::builder;
     /// use builder::test_cases::BatchDeleteTestCases;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -13161,6 +13749,7 @@ pub mod test_cases {
     /// # use google_cloud_dialogflow_cx_v3::builder;
     /// use builder::test_cases::GetTestCase;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -13223,6 +13812,7 @@ pub mod test_cases {
     /// # use google_cloud_dialogflow_cx_v3::builder;
     /// use builder::test_cases::CreateTestCase;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -13273,11 +13863,22 @@ pub mod test_cases {
         /// Sets the value of [test_case][crate::model::CreateTestCaseRequest::test_case].
         ///
         /// This is a **required** field for requests.
-        pub fn set_test_case<T: Into<std::option::Option<crate::model::TestCase>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.test_case = v.into();
+        pub fn set_test_case<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::TestCase>,
+        {
+            self.0.request.test_case = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [test_case][crate::model::CreateTestCaseRequest::test_case].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_test_case<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::TestCase>,
+        {
+            self.0.request.test_case = v.map(|x| x.into());
             self
         }
     }
@@ -13296,6 +13897,7 @@ pub mod test_cases {
     /// # use google_cloud_dialogflow_cx_v3::builder;
     /// use builder::test_cases::UpdateTestCase;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -13338,22 +13940,44 @@ pub mod test_cases {
         /// Sets the value of [test_case][crate::model::UpdateTestCaseRequest::test_case].
         ///
         /// This is a **required** field for requests.
-        pub fn set_test_case<T: Into<std::option::Option<crate::model::TestCase>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.test_case = v.into();
+        pub fn set_test_case<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::TestCase>,
+        {
+            self.0.request.test_case = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [test_case][crate::model::UpdateTestCaseRequest::test_case].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_test_case<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::TestCase>,
+        {
+            self.0.request.test_case = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateTestCaseRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateTestCaseRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -13372,8 +13996,9 @@ pub mod test_cases {
     /// # use google_cloud_dialogflow_cx_v3::builder;
     /// use builder::test_cases::RunTestCase;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_dialogflow_cx_v3::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -13482,8 +14107,9 @@ pub mod test_cases {
     /// # use google_cloud_dialogflow_cx_v3::builder;
     /// use builder::test_cases::BatchRunTestCases;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_dialogflow_cx_v3::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -13610,6 +14236,7 @@ pub mod test_cases {
     /// # use google_cloud_dialogflow_cx_v3::builder;
     /// use builder::test_cases::CalculateCoverage;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -13686,8 +14313,9 @@ pub mod test_cases {
     /// # use google_cloud_dialogflow_cx_v3::builder;
     /// use builder::test_cases::ImportTestCases;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_dialogflow_cx_v3::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -13822,8 +14450,9 @@ pub mod test_cases {
     /// # use google_cloud_dialogflow_cx_v3::builder;
     /// use builder::test_cases::ExportTestCases;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_dialogflow_cx_v3::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -13965,8 +14594,9 @@ pub mod test_cases {
     /// # use google_cloud_dialogflow_cx_v3::builder;
     /// use builder::test_cases::ListTestCaseResults;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -14078,6 +14708,7 @@ pub mod test_cases {
     /// # use google_cloud_dialogflow_cx_v3::builder;
     /// use builder::test_cases::GetTestCaseResult;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -14143,8 +14774,9 @@ pub mod test_cases {
     /// # use google_cloud_dialogflow_cx_v3::builder;
     /// use builder::test_cases::ListLocations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -14252,6 +14884,7 @@ pub mod test_cases {
     /// # use google_cloud_dialogflow_cx_v3::builder;
     /// use builder::test_cases::GetLocation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -14312,8 +14945,9 @@ pub mod test_cases {
     /// # use google_cloud_dialogflow_cx_v3::builder;
     /// use builder::test_cases::ListOperations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -14423,6 +15057,7 @@ pub mod test_cases {
     /// # use google_cloud_dialogflow_cx_v3::builder;
     /// use builder::test_cases::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -14486,6 +15121,7 @@ pub mod test_cases {
     /// # use google_cloud_dialogflow_cx_v3::builder;
     /// use builder::test_cases::CancelOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -14604,8 +15240,9 @@ pub mod transition_route_groups {
     /// # use google_cloud_dialogflow_cx_v3::builder;
     /// use builder::transition_route_groups::ListTransitionRouteGroups;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -14721,6 +15358,7 @@ pub mod transition_route_groups {
     /// # use google_cloud_dialogflow_cx_v3::builder;
     /// use builder::transition_route_groups::GetTransitionRouteGroup;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -14794,6 +15432,7 @@ pub mod transition_route_groups {
     /// # use google_cloud_dialogflow_cx_v3::builder;
     /// use builder::transition_route_groups::CreateTransitionRouteGroup;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -14849,13 +15488,22 @@ pub mod transition_route_groups {
         /// Sets the value of [transition_route_group][crate::model::CreateTransitionRouteGroupRequest::transition_route_group].
         ///
         /// This is a **required** field for requests.
-        pub fn set_transition_route_group<
-            T: Into<std::option::Option<crate::model::TransitionRouteGroup>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.transition_route_group = v.into();
+        pub fn set_transition_route_group<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::TransitionRouteGroup>,
+        {
+            self.0.request.transition_route_group = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [transition_route_group][crate::model::CreateTransitionRouteGroupRequest::transition_route_group].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_transition_route_group<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::TransitionRouteGroup>,
+        {
+            self.0.request.transition_route_group = v.map(|x| x.into());
             self
         }
 
@@ -14880,6 +15528,7 @@ pub mod transition_route_groups {
     /// # use google_cloud_dialogflow_cx_v3::builder;
     /// use builder::transition_route_groups::UpdateTransitionRouteGroup;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -14927,22 +15576,40 @@ pub mod transition_route_groups {
         /// Sets the value of [transition_route_group][crate::model::UpdateTransitionRouteGroupRequest::transition_route_group].
         ///
         /// This is a **required** field for requests.
-        pub fn set_transition_route_group<
-            T: Into<std::option::Option<crate::model::TransitionRouteGroup>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.transition_route_group = v.into();
+        pub fn set_transition_route_group<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::TransitionRouteGroup>,
+        {
+            self.0.request.transition_route_group = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [transition_route_group][crate::model::UpdateTransitionRouteGroupRequest::transition_route_group].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_transition_route_group<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::TransitionRouteGroup>,
+        {
+            self.0.request.transition_route_group = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateTransitionRouteGroupRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateTransitionRouteGroupRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
@@ -14967,6 +15634,7 @@ pub mod transition_route_groups {
     /// # use google_cloud_dialogflow_cx_v3::builder;
     /// use builder::transition_route_groups::DeleteTransitionRouteGroup;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -15040,8 +15708,9 @@ pub mod transition_route_groups {
     /// # use google_cloud_dialogflow_cx_v3::builder;
     /// use builder::transition_route_groups::ListLocations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -15149,6 +15818,7 @@ pub mod transition_route_groups {
     /// # use google_cloud_dialogflow_cx_v3::builder;
     /// use builder::transition_route_groups::GetLocation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -15209,8 +15879,9 @@ pub mod transition_route_groups {
     /// # use google_cloud_dialogflow_cx_v3::builder;
     /// use builder::transition_route_groups::ListOperations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -15320,6 +15991,7 @@ pub mod transition_route_groups {
     /// # use google_cloud_dialogflow_cx_v3::builder;
     /// use builder::transition_route_groups::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -15383,6 +16055,7 @@ pub mod transition_route_groups {
     /// # use google_cloud_dialogflow_cx_v3::builder;
     /// use builder::transition_route_groups::CancelOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -15499,8 +16172,9 @@ pub mod versions {
     /// # use google_cloud_dialogflow_cx_v3::builder;
     /// use builder::versions::ListVersions;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -15599,6 +16273,7 @@ pub mod versions {
     /// # use google_cloud_dialogflow_cx_v3::builder;
     /// use builder::versions::GetVersion;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -15659,8 +16334,9 @@ pub mod versions {
     /// # use google_cloud_dialogflow_cx_v3::builder;
     /// use builder::versions::CreateVersion;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_dialogflow_cx_v3::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -15749,11 +16425,22 @@ pub mod versions {
         /// Sets the value of [version][crate::model::CreateVersionRequest::version].
         ///
         /// This is a **required** field for requests.
-        pub fn set_version<T: Into<std::option::Option<crate::model::Version>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.version = v.into();
+        pub fn set_version<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Version>,
+        {
+            self.0.request.version = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [version][crate::model::CreateVersionRequest::version].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_version<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Version>,
+        {
+            self.0.request.version = v.map(|x| x.into());
             self
         }
     }
@@ -15772,6 +16459,7 @@ pub mod versions {
     /// # use google_cloud_dialogflow_cx_v3::builder;
     /// use builder::versions::UpdateVersion;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -15812,22 +16500,44 @@ pub mod versions {
         /// Sets the value of [version][crate::model::UpdateVersionRequest::version].
         ///
         /// This is a **required** field for requests.
-        pub fn set_version<T: Into<std::option::Option<crate::model::Version>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.version = v.into();
+        pub fn set_version<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Version>,
+        {
+            self.0.request.version = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [version][crate::model::UpdateVersionRequest::version].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_version<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Version>,
+        {
+            self.0.request.version = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateVersionRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateVersionRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -15846,6 +16556,7 @@ pub mod versions {
     /// # use google_cloud_dialogflow_cx_v3::builder;
     /// use builder::versions::DeleteVersion;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -15906,8 +16617,9 @@ pub mod versions {
     /// # use google_cloud_dialogflow_cx_v3::builder;
     /// use builder::versions::LoadVersion;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_dialogflow_cx_v3::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -16013,6 +16725,7 @@ pub mod versions {
     /// # use google_cloud_dialogflow_cx_v3::builder;
     /// use builder::versions::CompareVersions;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -16087,8 +16800,9 @@ pub mod versions {
     /// # use google_cloud_dialogflow_cx_v3::builder;
     /// use builder::versions::ListLocations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -16194,6 +16908,7 @@ pub mod versions {
     /// # use google_cloud_dialogflow_cx_v3::builder;
     /// use builder::versions::GetLocation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -16252,8 +16967,9 @@ pub mod versions {
     /// # use google_cloud_dialogflow_cx_v3::builder;
     /// use builder::versions::ListOperations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -16361,6 +17077,7 @@ pub mod versions {
     /// # use google_cloud_dialogflow_cx_v3::builder;
     /// use builder::versions::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -16422,6 +17139,7 @@ pub mod versions {
     /// # use google_cloud_dialogflow_cx_v3::builder;
     /// use builder::versions::CancelOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -16536,8 +17254,9 @@ pub mod webhooks {
     /// # use google_cloud_dialogflow_cx_v3::builder;
     /// use builder::webhooks::ListWebhooks;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -16636,6 +17355,7 @@ pub mod webhooks {
     /// # use google_cloud_dialogflow_cx_v3::builder;
     /// use builder::webhooks::GetWebhook;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -16696,6 +17416,7 @@ pub mod webhooks {
     /// # use google_cloud_dialogflow_cx_v3::builder;
     /// use builder::webhooks::CreateWebhook;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -16744,11 +17465,22 @@ pub mod webhooks {
         /// Sets the value of [webhook][crate::model::CreateWebhookRequest::webhook].
         ///
         /// This is a **required** field for requests.
-        pub fn set_webhook<T: Into<std::option::Option<crate::model::Webhook>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.webhook = v.into();
+        pub fn set_webhook<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Webhook>,
+        {
+            self.0.request.webhook = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [webhook][crate::model::CreateWebhookRequest::webhook].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_webhook<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Webhook>,
+        {
+            self.0.request.webhook = v.map(|x| x.into());
             self
         }
     }
@@ -16767,6 +17499,7 @@ pub mod webhooks {
     /// # use google_cloud_dialogflow_cx_v3::builder;
     /// use builder::webhooks::UpdateWebhook;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -16807,20 +17540,40 @@ pub mod webhooks {
         /// Sets the value of [webhook][crate::model::UpdateWebhookRequest::webhook].
         ///
         /// This is a **required** field for requests.
-        pub fn set_webhook<T: Into<std::option::Option<crate::model::Webhook>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.webhook = v.into();
+        pub fn set_webhook<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Webhook>,
+        {
+            self.0.request.webhook = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [webhook][crate::model::UpdateWebhookRequest::webhook].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_webhook<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Webhook>,
+        {
+            self.0.request.webhook = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateWebhookRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateWebhookRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -16839,6 +17592,7 @@ pub mod webhooks {
     /// # use google_cloud_dialogflow_cx_v3::builder;
     /// use builder::webhooks::DeleteWebhook;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -16905,8 +17659,9 @@ pub mod webhooks {
     /// # use google_cloud_dialogflow_cx_v3::builder;
     /// use builder::webhooks::ListLocations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -17012,6 +17767,7 @@ pub mod webhooks {
     /// # use google_cloud_dialogflow_cx_v3::builder;
     /// use builder::webhooks::GetLocation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -17070,8 +17826,9 @@ pub mod webhooks {
     /// # use google_cloud_dialogflow_cx_v3::builder;
     /// use builder::webhooks::ListOperations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -17179,6 +17936,7 @@ pub mod webhooks {
     /// # use google_cloud_dialogflow_cx_v3::builder;
     /// use builder::webhooks::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -17240,6 +17998,7 @@ pub mod webhooks {
     /// # use google_cloud_dialogflow_cx_v3::builder;
     /// use builder::webhooks::CancelOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });

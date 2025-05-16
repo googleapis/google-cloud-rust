@@ -180,20 +180,38 @@ impl Collector {
     }
 
     /// Sets the value of [create_time][crate::model::Collector::create_time].
-    pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.create_time = v.into();
+    pub fn set_create_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [create_time][crate::model::Collector::create_time].
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [update_time][crate::model::Collector::update_time].
-    pub fn set_update_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.update_time = v.into();
+    pub fn set_update_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_time][crate::model::Collector::update_time].
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = v.map(|x| x.into());
         self
     }
 
@@ -255,24 +273,38 @@ impl Collector {
     }
 
     /// Sets the value of [guest_os_scan][crate::model::Collector::guest_os_scan].
-    pub fn set_guest_os_scan<
-        T: std::convert::Into<std::option::Option<crate::model::GuestOsScan>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.guest_os_scan = v.into();
+    pub fn set_guest_os_scan<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::GuestOsScan>,
+    {
+        self.guest_os_scan = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [guest_os_scan][crate::model::Collector::guest_os_scan].
+    pub fn set_or_clear_guest_os_scan<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::GuestOsScan>,
+    {
+        self.guest_os_scan = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [vsphere_scan][crate::model::Collector::vsphere_scan].
-    pub fn set_vsphere_scan<
-        T: std::convert::Into<std::option::Option<crate::model::VSphereScan>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.vsphere_scan = v.into();
+    pub fn set_vsphere_scan<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::VSphereScan>,
+    {
+        self.vsphere_scan = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [vsphere_scan][crate::model::Collector::vsphere_scan].
+    pub fn set_or_clear_vsphere_scan<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::VSphereScan>,
+    {
+        self.vsphere_scan = v.map(|x| x.into());
         self
     }
 
@@ -524,20 +556,38 @@ impl Annotation {
     }
 
     /// Sets the value of [create_time][crate::model::Annotation::create_time].
-    pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.create_time = v.into();
+    pub fn set_create_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [create_time][crate::model::Annotation::create_time].
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [update_time][crate::model::Annotation::update_time].
-    pub fn set_update_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.update_time = v.into();
+    pub fn set_update_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_time][crate::model::Annotation::update_time].
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = v.map(|x| x.into());
         self
     }
 
@@ -740,11 +790,20 @@ impl CreateAnnotationRequest {
     }
 
     /// Sets the value of [annotation][crate::model::CreateAnnotationRequest::annotation].
-    pub fn set_annotation<T: std::convert::Into<std::option::Option<crate::model::Annotation>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.annotation = v.into();
+    pub fn set_annotation<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::Annotation>,
+    {
+        self.annotation = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [annotation][crate::model::CreateAnnotationRequest::annotation].
+    pub fn set_or_clear_annotation<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::Annotation>,
+    {
+        self.annotation = v.map(|x| x.into());
         self
     }
 
@@ -837,11 +896,20 @@ impl CreateCollectorRequest {
     }
 
     /// Sets the value of [collector][crate::model::CreateCollectorRequest::collector].
-    pub fn set_collector<T: std::convert::Into<std::option::Option<crate::model::Collector>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.collector = v.into();
+    pub fn set_collector<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::Collector>,
+    {
+        self.collector = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [collector][crate::model::CreateCollectorRequest::collector].
+    pub fn set_or_clear_collector<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::Collector>,
+    {
+        self.collector = v.map(|x| x.into());
         self
     }
 
@@ -1137,20 +1205,38 @@ impl UpdateCollectorRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateCollectorRequest::update_mask].
-    pub fn set_update_mask<T: std::convert::Into<std::option::Option<wkt::FieldMask>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.update_mask = v.into();
+    pub fn set_update_mask<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_mask][crate::model::UpdateCollectorRequest::update_mask].
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [collector][crate::model::UpdateCollectorRequest::collector].
-    pub fn set_collector<T: std::convert::Into<std::option::Option<crate::model::Collector>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.collector = v.into();
+    pub fn set_collector<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::Collector>,
+    {
+        self.collector = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [collector][crate::model::UpdateCollectorRequest::collector].
+    pub fn set_or_clear_collector<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::Collector>,
+    {
+        self.collector = v.map(|x| x.into());
         self
     }
 
@@ -1379,20 +1465,38 @@ impl OperationMetadata {
     }
 
     /// Sets the value of [create_time][crate::model::OperationMetadata::create_time].
-    pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.create_time = v.into();
+    pub fn set_create_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [create_time][crate::model::OperationMetadata::create_time].
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [end_time][crate::model::OperationMetadata::end_time].
-    pub fn set_end_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.end_time = v.into();
+    pub fn set_end_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.end_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [end_time][crate::model::OperationMetadata::end_time].
+    pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.end_time = v.map(|x| x.into());
         self
     }
 

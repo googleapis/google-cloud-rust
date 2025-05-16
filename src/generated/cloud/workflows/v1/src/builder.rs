@@ -75,8 +75,9 @@ pub mod workflows {
     /// # use google_cloud_workflows_v1::builder;
     /// use builder::workflows::ListWorkflows;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -189,6 +190,7 @@ pub mod workflows {
     /// # use google_cloud_workflows_v1::builder;
     /// use builder::workflows::GetWorkflow;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -257,8 +259,9 @@ pub mod workflows {
     /// # use google_cloud_workflows_v1::builder;
     /// use builder::workflows::CreateWorkflow;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_workflows_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -346,11 +349,22 @@ pub mod workflows {
         /// Sets the value of [workflow][crate::model::CreateWorkflowRequest::workflow].
         ///
         /// This is a **required** field for requests.
-        pub fn set_workflow<T: Into<std::option::Option<crate::model::Workflow>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.workflow = v.into();
+        pub fn set_workflow<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Workflow>,
+        {
+            self.0.request.workflow = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [workflow][crate::model::CreateWorkflowRequest::workflow].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_workflow<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Workflow>,
+        {
+            self.0.request.workflow = v.map(|x| x.into());
             self
         }
 
@@ -377,8 +391,9 @@ pub mod workflows {
     /// # use google_cloud_workflows_v1::builder;
     /// use builder::workflows::DeleteWorkflow;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_workflows_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -480,8 +495,9 @@ pub mod workflows {
     /// # use google_cloud_workflows_v1::builder;
     /// use builder::workflows::UpdateWorkflow;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_workflows_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -561,20 +577,40 @@ pub mod workflows {
         /// Sets the value of [workflow][crate::model::UpdateWorkflowRequest::workflow].
         ///
         /// This is a **required** field for requests.
-        pub fn set_workflow<T: Into<std::option::Option<crate::model::Workflow>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.workflow = v.into();
+        pub fn set_workflow<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Workflow>,
+        {
+            self.0.request.workflow = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [workflow][crate::model::UpdateWorkflowRequest::workflow].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_workflow<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Workflow>,
+        {
+            self.0.request.workflow = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateWorkflowRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateWorkflowRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -593,8 +629,9 @@ pub mod workflows {
     /// # use google_cloud_workflows_v1::builder;
     /// use builder::workflows::ListWorkflowRevisions;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -700,8 +737,9 @@ pub mod workflows {
     /// # use google_cloud_workflows_v1::builder;
     /// use builder::workflows::ListLocations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -809,6 +847,7 @@ pub mod workflows {
     /// # use google_cloud_workflows_v1::builder;
     /// use builder::workflows::GetLocation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -869,8 +908,9 @@ pub mod workflows {
     /// # use google_cloud_workflows_v1::builder;
     /// use builder::workflows::ListOperations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -980,6 +1020,7 @@ pub mod workflows {
     /// # use google_cloud_workflows_v1::builder;
     /// use builder::workflows::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1043,6 +1084,7 @@ pub mod workflows {
     /// # use google_cloud_workflows_v1::builder;
     /// use builder::workflows::DeleteOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });

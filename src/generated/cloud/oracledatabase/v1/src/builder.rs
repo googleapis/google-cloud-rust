@@ -75,8 +75,9 @@ pub mod oracle_database {
     /// # use google_cloud_oracledatabase_v1::builder;
     /// use builder::oracle_database::ListCloudExadataInfrastructures;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -186,6 +187,7 @@ pub mod oracle_database {
     /// # use google_cloud_oracledatabase_v1::builder;
     /// use builder::oracle_database::GetCloudExadataInfrastructure;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -253,8 +255,9 @@ pub mod oracle_database {
     /// # use google_cloud_oracledatabase_v1::builder;
     /// use builder::oracle_database::CreateCloudExadataInfrastructure;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_oracledatabase_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -361,13 +364,25 @@ pub mod oracle_database {
         /// Sets the value of [cloud_exadata_infrastructure][crate::model::CreateCloudExadataInfrastructureRequest::cloud_exadata_infrastructure].
         ///
         /// This is a **required** field for requests.
-        pub fn set_cloud_exadata_infrastructure<
-            T: Into<std::option::Option<crate::model::CloudExadataInfrastructure>>,
-        >(
+        pub fn set_cloud_exadata_infrastructure<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::CloudExadataInfrastructure>,
+        {
+            self.0.request.cloud_exadata_infrastructure = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [cloud_exadata_infrastructure][crate::model::CreateCloudExadataInfrastructureRequest::cloud_exadata_infrastructure].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_cloud_exadata_infrastructure<T>(
             mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.cloud_exadata_infrastructure = v.into();
+            v: std::option::Option<T>,
+        ) -> Self
+        where
+            T: std::convert::Into<crate::model::CloudExadataInfrastructure>,
+        {
+            self.0.request.cloud_exadata_infrastructure = v.map(|x| x.into());
             self
         }
 
@@ -392,8 +407,9 @@ pub mod oracle_database {
     /// # use google_cloud_oracledatabase_v1::builder;
     /// use builder::oracle_database::DeleteCloudExadataInfrastructure;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_oracledatabase_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -512,8 +528,9 @@ pub mod oracle_database {
     /// # use google_cloud_oracledatabase_v1::builder;
     /// use builder::oracle_database::ListCloudVmClusters;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -625,6 +642,7 @@ pub mod oracle_database {
     /// # use google_cloud_oracledatabase_v1::builder;
     /// use builder::oracle_database::GetCloudVmCluster;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -690,8 +708,9 @@ pub mod oracle_database {
     /// # use google_cloud_oracledatabase_v1::builder;
     /// use builder::oracle_database::CreateCloudVmCluster;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_oracledatabase_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -793,11 +812,22 @@ pub mod oracle_database {
         /// Sets the value of [cloud_vm_cluster][crate::model::CreateCloudVmClusterRequest::cloud_vm_cluster].
         ///
         /// This is a **required** field for requests.
-        pub fn set_cloud_vm_cluster<T: Into<std::option::Option<crate::model::CloudVmCluster>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.cloud_vm_cluster = v.into();
+        pub fn set_cloud_vm_cluster<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::CloudVmCluster>,
+        {
+            self.0.request.cloud_vm_cluster = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [cloud_vm_cluster][crate::model::CreateCloudVmClusterRequest::cloud_vm_cluster].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_cloud_vm_cluster<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::CloudVmCluster>,
+        {
+            self.0.request.cloud_vm_cluster = v.map(|x| x.into());
             self
         }
 
@@ -822,8 +852,9 @@ pub mod oracle_database {
     /// # use google_cloud_oracledatabase_v1::builder;
     /// use builder::oracle_database::DeleteCloudVmCluster;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_oracledatabase_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -940,8 +971,9 @@ pub mod oracle_database {
     /// # use google_cloud_oracledatabase_v1::builder;
     /// use builder::oracle_database::ListEntitlements;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -1045,8 +1077,9 @@ pub mod oracle_database {
     /// # use google_cloud_oracledatabase_v1::builder;
     /// use builder::oracle_database::ListDbServers;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -1147,8 +1180,9 @@ pub mod oracle_database {
     /// # use google_cloud_oracledatabase_v1::builder;
     /// use builder::oracle_database::ListDbNodes;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -1249,8 +1283,9 @@ pub mod oracle_database {
     /// # use google_cloud_oracledatabase_v1::builder;
     /// use builder::oracle_database::ListGiVersions;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -1351,8 +1386,9 @@ pub mod oracle_database {
     /// # use google_cloud_oracledatabase_v1::builder;
     /// use builder::oracle_database::ListDbSystemShapes;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -1458,8 +1494,9 @@ pub mod oracle_database {
     /// # use google_cloud_oracledatabase_v1::builder;
     /// use builder::oracle_database::ListAutonomousDatabases;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -1581,6 +1618,7 @@ pub mod oracle_database {
     /// # use google_cloud_oracledatabase_v1::builder;
     /// use builder::oracle_database::GetAutonomousDatabase;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1646,8 +1684,9 @@ pub mod oracle_database {
     /// # use google_cloud_oracledatabase_v1::builder;
     /// use builder::oracle_database::CreateAutonomousDatabase;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_oracledatabase_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1751,13 +1790,22 @@ pub mod oracle_database {
         /// Sets the value of [autonomous_database][crate::model::CreateAutonomousDatabaseRequest::autonomous_database].
         ///
         /// This is a **required** field for requests.
-        pub fn set_autonomous_database<
-            T: Into<std::option::Option<crate::model::AutonomousDatabase>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.autonomous_database = v.into();
+        pub fn set_autonomous_database<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::AutonomousDatabase>,
+        {
+            self.0.request.autonomous_database = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [autonomous_database][crate::model::CreateAutonomousDatabaseRequest::autonomous_database].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_autonomous_database<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::AutonomousDatabase>,
+        {
+            self.0.request.autonomous_database = v.map(|x| x.into());
             self
         }
 
@@ -1782,8 +1830,9 @@ pub mod oracle_database {
     /// # use google_cloud_oracledatabase_v1::builder;
     /// use builder::oracle_database::DeleteAutonomousDatabase;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_oracledatabase_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1896,8 +1945,9 @@ pub mod oracle_database {
     /// # use google_cloud_oracledatabase_v1::builder;
     /// use builder::oracle_database::RestoreAutonomousDatabase;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_oracledatabase_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1993,11 +2043,22 @@ pub mod oracle_database {
         /// Sets the value of [restore_time][crate::model::RestoreAutonomousDatabaseRequest::restore_time].
         ///
         /// This is a **required** field for requests.
-        pub fn set_restore_time<T: Into<std::option::Option<wkt::Timestamp>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.restore_time = v.into();
+        pub fn set_restore_time<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Timestamp>,
+        {
+            self.0.request.restore_time = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [restore_time][crate::model::RestoreAutonomousDatabaseRequest::restore_time].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_restore_time<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Timestamp>,
+        {
+            self.0.request.restore_time = v.map(|x| x.into());
             self
         }
     }
@@ -2016,6 +2077,7 @@ pub mod oracle_database {
     /// # use google_cloud_oracledatabase_v1::builder;
     /// use builder::oracle_database::GenerateAutonomousDatabaseWallet;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2103,8 +2165,9 @@ pub mod oracle_database {
     /// # use google_cloud_oracledatabase_v1::builder;
     /// use builder::oracle_database::ListAutonomousDbVersions;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -2214,8 +2277,9 @@ pub mod oracle_database {
     /// # use google_cloud_oracledatabase_v1::builder;
     /// use builder::oracle_database::ListAutonomousDatabaseCharacterSets;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -2333,8 +2397,9 @@ pub mod oracle_database {
     /// # use google_cloud_oracledatabase_v1::builder;
     /// use builder::oracle_database::ListAutonomousDatabaseBackups;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -2450,8 +2515,9 @@ pub mod oracle_database {
     /// # use google_cloud_oracledatabase_v1::builder;
     /// use builder::oracle_database::StopAutonomousDatabase;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_oracledatabase_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -2557,8 +2623,9 @@ pub mod oracle_database {
     /// # use google_cloud_oracledatabase_v1::builder;
     /// use builder::oracle_database::StartAutonomousDatabase;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_oracledatabase_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -2666,8 +2733,9 @@ pub mod oracle_database {
     /// # use google_cloud_oracledatabase_v1::builder;
     /// use builder::oracle_database::RestartAutonomousDatabase;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_oracledatabase_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -2775,8 +2843,9 @@ pub mod oracle_database {
     /// # use google_cloud_oracledatabase_v1::builder;
     /// use builder::oracle_database::ListLocations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -2884,6 +2953,7 @@ pub mod oracle_database {
     /// # use google_cloud_oracledatabase_v1::builder;
     /// use builder::oracle_database::GetLocation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2944,8 +3014,9 @@ pub mod oracle_database {
     /// # use google_cloud_oracledatabase_v1::builder;
     /// use builder::oracle_database::ListOperations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -3055,6 +3126,7 @@ pub mod oracle_database {
     /// # use google_cloud_oracledatabase_v1::builder;
     /// use builder::oracle_database::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3118,6 +3190,7 @@ pub mod oracle_database {
     /// # use google_cloud_oracledatabase_v1::builder;
     /// use builder::oracle_database::DeleteOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3181,6 +3254,7 @@ pub mod oracle_database {
     /// # use google_cloud_oracledatabase_v1::builder;
     /// use builder::oracle_database::CancelOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
