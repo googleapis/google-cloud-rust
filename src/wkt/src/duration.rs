@@ -53,19 +53,19 @@ pub struct Duration {
 }
 
 /// Represent failures in converting or creating [Duration] instances.
-/// 
+///
 /// # Examples
 /// ```
 /// # use google_cloud_wkt::{Duration, DurationError};
 /// let duration = Duration::new(Duration::MAX_SECONDS + 2, 0);
 /// assert!(matches!(duration, Err(DurationError::OutOfRange)));
-/// 
+///
 /// let duration = Duration::new(0, 1_500_000_000);
 /// assert!(matches!(duration, Err(DurationError::OutOfRange)));
-/// 
+///
 /// let duration = Duration::new(120, -500_000_000);
 /// assert!(matches!(duration, Err(DurationError::MismatchedSigns)));
-/// 
+///
 /// let ts = Duration::try_from("invalid");
 /// assert!(matches!(ts, Err(DurationError::Deserialize(_))));
 /// ```

@@ -58,16 +58,16 @@ pub struct Timestamp {
 }
 
 /// Represent failures in converting or creating [Timestamp] instances.
-/// 
+///
 /// Examples
 /// ```
 /// # use google_cloud_wkt::{Timestamp, TimestampError};
 /// let ts = Timestamp::new(Timestamp::MAX_SECONDS + 2, 0);
 /// assert!(matches!(ts, Err(TimestampError::OutOfRange)));
-/// 
+///
 /// let ts = Timestamp::new(0, 1_500_000_000);
 /// assert!(matches!(ts, Err(TimestampError::OutOfRange)));
-/// 
+///
 /// let ts = Timestamp::try_from("invalid");
 /// assert!(matches!(ts, Err(TimestampError::Deserialize(_))));
 /// ```
