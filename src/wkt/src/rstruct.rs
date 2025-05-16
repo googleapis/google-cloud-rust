@@ -23,28 +23,28 @@
 //! `google.protobuf.NullValue` as part of their interface specification.
 
 /// The Google Cloud APIs use `google.protobuf.Struct` to represent JSON objects.
-/// 
+///
 /// The Google Cloud client libraries for Rust map `google.protobuf.Struct` to
 /// this alias.
 pub type Struct = serde_json::Map<String, serde_json::Value>;
 
 /// The Google Cloud APIs use `google.protobuf.Value` to represent JSON values,
 /// including objects, lists, and scalars.
-/// 
+///
 /// The Google Cloud client libraries for Rust map `google.protobuf.Value` to
 /// this alias.
 pub type Value = serde_json::Value;
 
 /// The Google Cloud APIs use `google.protobuf.ListValue` to represent JSON
 /// to represent lists of JSON values.
-/// 
+///
 /// The Google Cloud client libraries for Rust map `google.protobuf.ListValue`
 /// to this alias.
 pub type ListValue = Vec<serde_json::Value>;
 
 /// The Google Cloud APIs use `google.protobuf.NullValue` to represent JSON
 /// null values.
-/// 
+///
 /// The Google Cloud client libraries for Rust map `google.protobuf.NullValue`
 /// to this unit type.
 #[derive(Clone, Debug, Default, PartialEq)]
