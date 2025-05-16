@@ -75,8 +75,9 @@ pub mod environments {
     /// # use google_cloud_orchestration_airflow_service_v1::builder;
     /// use builder::environments::CreateEnvironment;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_orchestration_airflow_service_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -165,11 +166,20 @@ pub mod environments {
         }
 
         /// Sets the value of [environment][crate::model::CreateEnvironmentRequest::environment].
-        pub fn set_environment<T: Into<std::option::Option<crate::model::Environment>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.environment = v.into();
+        pub fn set_environment<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Environment>,
+        {
+            self.0.request.environment = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [environment][crate::model::CreateEnvironmentRequest::environment].
+        pub fn set_or_clear_environment<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Environment>,
+        {
+            self.0.request.environment = v.map(|x| x.into());
             self
         }
     }
@@ -188,6 +198,7 @@ pub mod environments {
     /// # use google_cloud_orchestration_airflow_service_v1::builder;
     /// use builder::environments::GetEnvironment;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -248,8 +259,9 @@ pub mod environments {
     /// # use google_cloud_orchestration_airflow_service_v1::builder;
     /// use builder::environments::ListEnvironments;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -351,8 +363,9 @@ pub mod environments {
     /// # use google_cloud_orchestration_airflow_service_v1::builder;
     /// use builder::environments::UpdateEnvironment;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_orchestration_airflow_service_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -441,20 +454,38 @@ pub mod environments {
         }
 
         /// Sets the value of [environment][crate::model::UpdateEnvironmentRequest::environment].
-        pub fn set_environment<T: Into<std::option::Option<crate::model::Environment>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.environment = v.into();
+        pub fn set_environment<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Environment>,
+        {
+            self.0.request.environment = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [environment][crate::model::UpdateEnvironmentRequest::environment].
+        pub fn set_or_clear_environment<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Environment>,
+        {
+            self.0.request.environment = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateEnvironmentRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateEnvironmentRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -473,8 +504,9 @@ pub mod environments {
     /// # use google_cloud_orchestration_airflow_service_v1::builder;
     /// use builder::environments::DeleteEnvironment;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_orchestration_airflow_service_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -577,6 +609,7 @@ pub mod environments {
     /// # use google_cloud_orchestration_airflow_service_v1::builder;
     /// use builder::environments::ExecuteAirflowCommand;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -663,6 +696,7 @@ pub mod environments {
     /// # use google_cloud_orchestration_airflow_service_v1::builder;
     /// use builder::environments::StopAirflowCommand;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -750,6 +784,7 @@ pub mod environments {
     /// # use google_cloud_orchestration_airflow_service_v1::builder;
     /// use builder::environments::PollAirflowCommand;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -837,8 +872,9 @@ pub mod environments {
     /// # use google_cloud_orchestration_airflow_service_v1::builder;
     /// use builder::environments::ListWorkloads;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -945,8 +981,9 @@ pub mod environments {
     /// # use google_cloud_orchestration_airflow_service_v1::builder;
     /// use builder::environments::CheckUpgrade;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_orchestration_airflow_service_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1055,6 +1092,7 @@ pub mod environments {
     /// # use google_cloud_orchestration_airflow_service_v1::builder;
     /// use builder::environments::CreateUserWorkloadsSecret;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1110,13 +1148,22 @@ pub mod environments {
         /// Sets the value of [user_workloads_secret][crate::model::CreateUserWorkloadsSecretRequest::user_workloads_secret].
         ///
         /// This is a **required** field for requests.
-        pub fn set_user_workloads_secret<
-            T: Into<std::option::Option<crate::model::UserWorkloadsSecret>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.user_workloads_secret = v.into();
+        pub fn set_user_workloads_secret<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::UserWorkloadsSecret>,
+        {
+            self.0.request.user_workloads_secret = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [user_workloads_secret][crate::model::CreateUserWorkloadsSecretRequest::user_workloads_secret].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_user_workloads_secret<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::UserWorkloadsSecret>,
+        {
+            self.0.request.user_workloads_secret = v.map(|x| x.into());
             self
         }
     }
@@ -1135,6 +1182,7 @@ pub mod environments {
     /// # use google_cloud_orchestration_airflow_service_v1::builder;
     /// use builder::environments::GetUserWorkloadsSecret;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1200,8 +1248,9 @@ pub mod environments {
     /// # use google_cloud_orchestration_airflow_service_v1::builder;
     /// use builder::environments::ListUserWorkloadsSecrets;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -1311,6 +1360,7 @@ pub mod environments {
     /// # use google_cloud_orchestration_airflow_service_v1::builder;
     /// use builder::environments::UpdateUserWorkloadsSecret;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1356,13 +1406,20 @@ pub mod environments {
         }
 
         /// Sets the value of [user_workloads_secret][crate::model::UpdateUserWorkloadsSecretRequest::user_workloads_secret].
-        pub fn set_user_workloads_secret<
-            T: Into<std::option::Option<crate::model::UserWorkloadsSecret>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.user_workloads_secret = v.into();
+        pub fn set_user_workloads_secret<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::UserWorkloadsSecret>,
+        {
+            self.0.request.user_workloads_secret = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [user_workloads_secret][crate::model::UpdateUserWorkloadsSecretRequest::user_workloads_secret].
+        pub fn set_or_clear_user_workloads_secret<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::UserWorkloadsSecret>,
+        {
+            self.0.request.user_workloads_secret = v.map(|x| x.into());
             self
         }
     }
@@ -1381,6 +1438,7 @@ pub mod environments {
     /// # use google_cloud_orchestration_airflow_service_v1::builder;
     /// use builder::environments::DeleteUserWorkloadsSecret;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1448,6 +1506,7 @@ pub mod environments {
     /// # use google_cloud_orchestration_airflow_service_v1::builder;
     /// use builder::environments::CreateUserWorkloadsConfigMap;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1503,13 +1562,25 @@ pub mod environments {
         /// Sets the value of [user_workloads_config_map][crate::model::CreateUserWorkloadsConfigMapRequest::user_workloads_config_map].
         ///
         /// This is a **required** field for requests.
-        pub fn set_user_workloads_config_map<
-            T: Into<std::option::Option<crate::model::UserWorkloadsConfigMap>>,
-        >(
+        pub fn set_user_workloads_config_map<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::UserWorkloadsConfigMap>,
+        {
+            self.0.request.user_workloads_config_map = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [user_workloads_config_map][crate::model::CreateUserWorkloadsConfigMapRequest::user_workloads_config_map].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_user_workloads_config_map<T>(
             mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.user_workloads_config_map = v.into();
+            v: std::option::Option<T>,
+        ) -> Self
+        where
+            T: std::convert::Into<crate::model::UserWorkloadsConfigMap>,
+        {
+            self.0.request.user_workloads_config_map = v.map(|x| x.into());
             self
         }
     }
@@ -1528,6 +1599,7 @@ pub mod environments {
     /// # use google_cloud_orchestration_airflow_service_v1::builder;
     /// use builder::environments::GetUserWorkloadsConfigMap;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1595,8 +1667,9 @@ pub mod environments {
     /// # use google_cloud_orchestration_airflow_service_v1::builder;
     /// use builder::environments::ListUserWorkloadsConfigMaps;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -1706,6 +1779,7 @@ pub mod environments {
     /// # use google_cloud_orchestration_airflow_service_v1::builder;
     /// use builder::environments::UpdateUserWorkloadsConfigMap;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1751,13 +1825,23 @@ pub mod environments {
         }
 
         /// Sets the value of [user_workloads_config_map][crate::model::UpdateUserWorkloadsConfigMapRequest::user_workloads_config_map].
-        pub fn set_user_workloads_config_map<
-            T: Into<std::option::Option<crate::model::UserWorkloadsConfigMap>>,
-        >(
+        pub fn set_user_workloads_config_map<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::UserWorkloadsConfigMap>,
+        {
+            self.0.request.user_workloads_config_map = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [user_workloads_config_map][crate::model::UpdateUserWorkloadsConfigMapRequest::user_workloads_config_map].
+        pub fn set_or_clear_user_workloads_config_map<T>(
             mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.user_workloads_config_map = v.into();
+            v: std::option::Option<T>,
+        ) -> Self
+        where
+            T: std::convert::Into<crate::model::UserWorkloadsConfigMap>,
+        {
+            self.0.request.user_workloads_config_map = v.map(|x| x.into());
             self
         }
     }
@@ -1776,6 +1860,7 @@ pub mod environments {
     /// # use google_cloud_orchestration_airflow_service_v1::builder;
     /// use builder::environments::DeleteUserWorkloadsConfigMap;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1843,8 +1928,9 @@ pub mod environments {
     /// # use google_cloud_orchestration_airflow_service_v1::builder;
     /// use builder::environments::SaveSnapshot;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_orchestration_airflow_service_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1951,8 +2037,9 @@ pub mod environments {
     /// # use google_cloud_orchestration_airflow_service_v1::builder;
     /// use builder::environments::LoadSnapshot;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_orchestration_airflow_service_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -2083,8 +2170,9 @@ pub mod environments {
     /// # use google_cloud_orchestration_airflow_service_v1::builder;
     /// use builder::environments::DatabaseFailover;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_orchestration_airflow_service_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -2188,6 +2276,7 @@ pub mod environments {
     /// # use google_cloud_orchestration_airflow_service_v1::builder;
     /// use builder::environments::FetchDatabaseProperties;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2255,8 +2344,9 @@ pub mod environments {
     /// # use google_cloud_orchestration_airflow_service_v1::builder;
     /// use builder::environments::ListOperations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -2366,6 +2456,7 @@ pub mod environments {
     /// # use google_cloud_orchestration_airflow_service_v1::builder;
     /// use builder::environments::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2429,6 +2520,7 @@ pub mod environments {
     /// # use google_cloud_orchestration_airflow_service_v1::builder;
     /// use builder::environments::DeleteOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2547,8 +2639,9 @@ pub mod image_versions {
     /// # use google_cloud_orchestration_airflow_service_v1::builder;
     /// use builder::image_versions::ListImageVersions;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -2656,8 +2749,9 @@ pub mod image_versions {
     /// # use google_cloud_orchestration_airflow_service_v1::builder;
     /// use builder::image_versions::ListOperations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -2767,6 +2861,7 @@ pub mod image_versions {
     /// # use google_cloud_orchestration_airflow_service_v1::builder;
     /// use builder::image_versions::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2830,6 +2925,7 @@ pub mod image_versions {
     /// # use google_cloud_orchestration_airflow_service_v1::builder;
     /// use builder::image_versions::DeleteOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });

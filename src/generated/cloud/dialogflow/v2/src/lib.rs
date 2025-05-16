@@ -87,6 +87,3 @@ pub(crate) mod info {
         };
     }
 }
-
-pub use lro::Poller;
-pub use lro::PollingResult;

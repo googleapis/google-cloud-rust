@@ -75,6 +75,7 @@ pub mod workstations {
     /// # use google_cloud_workstations_v1::builder;
     /// use builder::workstations::GetWorkstationCluster;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -140,8 +141,9 @@ pub mod workstations {
     /// # use google_cloud_workstations_v1::builder;
     /// use builder::workstations::ListWorkstationClusters;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -251,8 +253,9 @@ pub mod workstations {
     /// # use google_cloud_workstations_v1::builder;
     /// use builder::workstations::CreateWorkstationCluster;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_workstations_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -356,13 +359,22 @@ pub mod workstations {
         /// Sets the value of [workstation_cluster][crate::model::CreateWorkstationClusterRequest::workstation_cluster].
         ///
         /// This is a **required** field for requests.
-        pub fn set_workstation_cluster<
-            T: Into<std::option::Option<crate::model::WorkstationCluster>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.workstation_cluster = v.into();
+        pub fn set_workstation_cluster<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::WorkstationCluster>,
+        {
+            self.0.request.workstation_cluster = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [workstation_cluster][crate::model::CreateWorkstationClusterRequest::workstation_cluster].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_workstation_cluster<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::WorkstationCluster>,
+        {
+            self.0.request.workstation_cluster = v.map(|x| x.into());
             self
         }
 
@@ -387,8 +399,9 @@ pub mod workstations {
     /// # use google_cloud_workstations_v1::builder;
     /// use builder::workstations::UpdateWorkstationCluster;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_workstations_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -476,24 +489,44 @@ pub mod workstations {
         /// Sets the value of [workstation_cluster][crate::model::UpdateWorkstationClusterRequest::workstation_cluster].
         ///
         /// This is a **required** field for requests.
-        pub fn set_workstation_cluster<
-            T: Into<std::option::Option<crate::model::WorkstationCluster>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.workstation_cluster = v.into();
+        pub fn set_workstation_cluster<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::WorkstationCluster>,
+        {
+            self.0.request.workstation_cluster = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [workstation_cluster][crate::model::UpdateWorkstationClusterRequest::workstation_cluster].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_workstation_cluster<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::WorkstationCluster>,
+        {
+            self.0.request.workstation_cluster = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateWorkstationClusterRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateWorkstationClusterRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
@@ -524,8 +557,9 @@ pub mod workstations {
     /// # use google_cloud_workstations_v1::builder;
     /// use builder::workstations::DeleteWorkstationCluster;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_workstations_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -651,6 +685,7 @@ pub mod workstations {
     /// # use google_cloud_workstations_v1::builder;
     /// use builder::workstations::GetWorkstationConfig;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -716,8 +751,9 @@ pub mod workstations {
     /// # use google_cloud_workstations_v1::builder;
     /// use builder::workstations::ListWorkstationConfigs;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -825,8 +861,9 @@ pub mod workstations {
     /// # use google_cloud_workstations_v1::builder;
     /// use builder::workstations::ListUsableWorkstationConfigs;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -936,8 +973,9 @@ pub mod workstations {
     /// # use google_cloud_workstations_v1::builder;
     /// use builder::workstations::CreateWorkstationConfig;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_workstations_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1041,13 +1079,22 @@ pub mod workstations {
         /// Sets the value of [workstation_config][crate::model::CreateWorkstationConfigRequest::workstation_config].
         ///
         /// This is a **required** field for requests.
-        pub fn set_workstation_config<
-            T: Into<std::option::Option<crate::model::WorkstationConfig>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.workstation_config = v.into();
+        pub fn set_workstation_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::WorkstationConfig>,
+        {
+            self.0.request.workstation_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [workstation_config][crate::model::CreateWorkstationConfigRequest::workstation_config].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_workstation_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::WorkstationConfig>,
+        {
+            self.0.request.workstation_config = v.map(|x| x.into());
             self
         }
 
@@ -1072,8 +1119,9 @@ pub mod workstations {
     /// # use google_cloud_workstations_v1::builder;
     /// use builder::workstations::UpdateWorkstationConfig;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_workstations_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1161,24 +1209,44 @@ pub mod workstations {
         /// Sets the value of [workstation_config][crate::model::UpdateWorkstationConfigRequest::workstation_config].
         ///
         /// This is a **required** field for requests.
-        pub fn set_workstation_config<
-            T: Into<std::option::Option<crate::model::WorkstationConfig>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.workstation_config = v.into();
+        pub fn set_workstation_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::WorkstationConfig>,
+        {
+            self.0.request.workstation_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [workstation_config][crate::model::UpdateWorkstationConfigRequest::workstation_config].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_workstation_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::WorkstationConfig>,
+        {
+            self.0.request.workstation_config = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateWorkstationConfigRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateWorkstationConfigRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
@@ -1209,8 +1277,9 @@ pub mod workstations {
     /// # use google_cloud_workstations_v1::builder;
     /// use builder::workstations::DeleteWorkstationConfig;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_workstations_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1336,6 +1405,7 @@ pub mod workstations {
     /// # use google_cloud_workstations_v1::builder;
     /// use builder::workstations::GetWorkstation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1398,8 +1468,9 @@ pub mod workstations {
     /// # use google_cloud_workstations_v1::builder;
     /// use builder::workstations::ListWorkstations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -1503,8 +1574,9 @@ pub mod workstations {
     /// # use google_cloud_workstations_v1::builder;
     /// use builder::workstations::ListUsableWorkstations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -1612,8 +1684,9 @@ pub mod workstations {
     /// # use google_cloud_workstations_v1::builder;
     /// use builder::workstations::CreateWorkstation;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_workstations_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1714,11 +1787,22 @@ pub mod workstations {
         /// Sets the value of [workstation][crate::model::CreateWorkstationRequest::workstation].
         ///
         /// This is a **required** field for requests.
-        pub fn set_workstation<T: Into<std::option::Option<crate::model::Workstation>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.workstation = v.into();
+        pub fn set_workstation<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Workstation>,
+        {
+            self.0.request.workstation = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [workstation][crate::model::CreateWorkstationRequest::workstation].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_workstation<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Workstation>,
+        {
+            self.0.request.workstation = v.map(|x| x.into());
             self
         }
 
@@ -1743,8 +1827,9 @@ pub mod workstations {
     /// # use google_cloud_workstations_v1::builder;
     /// use builder::workstations::UpdateWorkstation;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_workstations_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1829,22 +1914,44 @@ pub mod workstations {
         /// Sets the value of [workstation][crate::model::UpdateWorkstationRequest::workstation].
         ///
         /// This is a **required** field for requests.
-        pub fn set_workstation<T: Into<std::option::Option<crate::model::Workstation>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.workstation = v.into();
+        pub fn set_workstation<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Workstation>,
+        {
+            self.0.request.workstation = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [workstation][crate::model::UpdateWorkstationRequest::workstation].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_workstation<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Workstation>,
+        {
+            self.0.request.workstation = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateWorkstationRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateWorkstationRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
@@ -1875,8 +1982,9 @@ pub mod workstations {
     /// # use google_cloud_workstations_v1::builder;
     /// use builder::workstations::DeleteWorkstation;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_workstations_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1993,8 +2101,9 @@ pub mod workstations {
     /// # use google_cloud_workstations_v1::builder;
     /// use builder::workstations::StartWorkstation;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_workstations_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -2111,8 +2220,9 @@ pub mod workstations {
     /// # use google_cloud_workstations_v1::builder;
     /// use builder::workstations::StopWorkstation;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_workstations_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -2226,6 +2336,7 @@ pub mod workstations {
     /// # use google_cloud_workstations_v1::builder;
     /// use builder::workstations::GenerateAccessToken;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2331,6 +2442,7 @@ pub mod workstations {
     /// # use google_cloud_workstations_v1::builder;
     /// use builder::workstations::SetIamPolicy;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2381,20 +2493,40 @@ pub mod workstations {
         /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
-        pub fn set_policy<T: Into<std::option::Option<iam_v1::model::Policy>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.policy = v.into();
+        pub fn set_policy<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -2413,6 +2545,7 @@ pub mod workstations {
     /// # use google_cloud_workstations_v1::builder;
     /// use builder::workstations::GetIamPolicy;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2461,11 +2594,20 @@ pub mod workstations {
         }
 
         /// Sets the value of [options][iam_v1::model::GetIamPolicyRequest::options].
-        pub fn set_options<T: Into<std::option::Option<iam_v1::model::GetPolicyOptions>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.options = v.into();
+        pub fn set_options<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = v.map(|x| x.into());
             self
         }
     }
@@ -2484,6 +2626,7 @@ pub mod workstations {
     /// # use google_cloud_workstations_v1::builder;
     /// use builder::workstations::TestIamPermissions;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2562,8 +2705,9 @@ pub mod workstations {
     /// # use google_cloud_workstations_v1::builder;
     /// use builder::workstations::ListOperations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -2673,6 +2817,7 @@ pub mod workstations {
     /// # use google_cloud_workstations_v1::builder;
     /// use builder::workstations::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2736,6 +2881,7 @@ pub mod workstations {
     /// # use google_cloud_workstations_v1::builder;
     /// use builder::workstations::DeleteOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2799,6 +2945,7 @@ pub mod workstations {
     /// # use google_cloud_workstations_v1::builder;
     /// use builder::workstations::CancelOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });

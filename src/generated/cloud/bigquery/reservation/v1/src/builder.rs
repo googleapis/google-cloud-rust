@@ -75,6 +75,7 @@ pub mod reservation_service {
     /// # use google_cloud_bigquery_reservation_v1::builder;
     /// use builder::reservation_service::CreateReservation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -132,11 +133,20 @@ pub mod reservation_service {
         }
 
         /// Sets the value of [reservation][crate::model::CreateReservationRequest::reservation].
-        pub fn set_reservation<T: Into<std::option::Option<crate::model::Reservation>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.reservation = v.into();
+        pub fn set_reservation<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Reservation>,
+        {
+            self.0.request.reservation = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [reservation][crate::model::CreateReservationRequest::reservation].
+        pub fn set_or_clear_reservation<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Reservation>,
+        {
+            self.0.request.reservation = v.map(|x| x.into());
             self
         }
     }
@@ -155,8 +165,9 @@ pub mod reservation_service {
     /// # use google_cloud_bigquery_reservation_v1::builder;
     /// use builder::reservation_service::ListReservations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -260,6 +271,7 @@ pub mod reservation_service {
     /// # use google_cloud_bigquery_reservation_v1::builder;
     /// use builder::reservation_service::GetReservation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -322,6 +334,7 @@ pub mod reservation_service {
     /// # use google_cloud_bigquery_reservation_v1::builder;
     /// use builder::reservation_service::DeleteReservation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -387,6 +400,7 @@ pub mod reservation_service {
     /// # use google_cloud_bigquery_reservation_v1::builder;
     /// use builder::reservation_service::UpdateReservation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -430,20 +444,38 @@ pub mod reservation_service {
         }
 
         /// Sets the value of [reservation][crate::model::UpdateReservationRequest::reservation].
-        pub fn set_reservation<T: Into<std::option::Option<crate::model::Reservation>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.reservation = v.into();
+        pub fn set_reservation<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Reservation>,
+        {
+            self.0.request.reservation = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [reservation][crate::model::UpdateReservationRequest::reservation].
+        pub fn set_or_clear_reservation<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Reservation>,
+        {
+            self.0.request.reservation = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateReservationRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateReservationRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -462,6 +494,7 @@ pub mod reservation_service {
     /// # use google_cloud_bigquery_reservation_v1::builder;
     /// use builder::reservation_service::FailoverReservation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -527,6 +560,7 @@ pub mod reservation_service {
     /// # use google_cloud_bigquery_reservation_v1::builder;
     /// use builder::reservation_service::CreateCapacityCommitment;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -580,13 +614,20 @@ pub mod reservation_service {
         }
 
         /// Sets the value of [capacity_commitment][crate::model::CreateCapacityCommitmentRequest::capacity_commitment].
-        pub fn set_capacity_commitment<
-            T: Into<std::option::Option<crate::model::CapacityCommitment>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.capacity_commitment = v.into();
+        pub fn set_capacity_commitment<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::CapacityCommitment>,
+        {
+            self.0.request.capacity_commitment = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [capacity_commitment][crate::model::CreateCapacityCommitmentRequest::capacity_commitment].
+        pub fn set_or_clear_capacity_commitment<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::CapacityCommitment>,
+        {
+            self.0.request.capacity_commitment = v.map(|x| x.into());
             self
         }
 
@@ -617,8 +658,9 @@ pub mod reservation_service {
     /// # use google_cloud_bigquery_reservation_v1::builder;
     /// use builder::reservation_service::ListCapacityCommitments;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -728,6 +770,7 @@ pub mod reservation_service {
     /// # use google_cloud_bigquery_reservation_v1::builder;
     /// use builder::reservation_service::GetCapacityCommitment;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -793,6 +836,7 @@ pub mod reservation_service {
     /// # use google_cloud_bigquery_reservation_v1::builder;
     /// use builder::reservation_service::DeleteCapacityCommitment;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -866,6 +910,7 @@ pub mod reservation_service {
     /// # use google_cloud_bigquery_reservation_v1::builder;
     /// use builder::reservation_service::UpdateCapacityCommitment;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -911,22 +956,38 @@ pub mod reservation_service {
         }
 
         /// Sets the value of [capacity_commitment][crate::model::UpdateCapacityCommitmentRequest::capacity_commitment].
-        pub fn set_capacity_commitment<
-            T: Into<std::option::Option<crate::model::CapacityCommitment>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.capacity_commitment = v.into();
+        pub fn set_capacity_commitment<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::CapacityCommitment>,
+        {
+            self.0.request.capacity_commitment = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [capacity_commitment][crate::model::UpdateCapacityCommitmentRequest::capacity_commitment].
+        pub fn set_or_clear_capacity_commitment<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::CapacityCommitment>,
+        {
+            self.0.request.capacity_commitment = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateCapacityCommitmentRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateCapacityCommitmentRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -945,6 +1006,7 @@ pub mod reservation_service {
     /// # use google_cloud_bigquery_reservation_v1::builder;
     /// use builder::reservation_service::SplitCapacityCommitment;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1018,6 +1080,7 @@ pub mod reservation_service {
     /// # use google_cloud_bigquery_reservation_v1::builder;
     /// use builder::reservation_service::MergeCapacityCommitments;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1094,6 +1157,7 @@ pub mod reservation_service {
     /// # use google_cloud_bigquery_reservation_v1::builder;
     /// use builder::reservation_service::CreateAssignment;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1145,11 +1209,20 @@ pub mod reservation_service {
         }
 
         /// Sets the value of [assignment][crate::model::CreateAssignmentRequest::assignment].
-        pub fn set_assignment<T: Into<std::option::Option<crate::model::Assignment>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.assignment = v.into();
+        pub fn set_assignment<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Assignment>,
+        {
+            self.0.request.assignment = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [assignment][crate::model::CreateAssignmentRequest::assignment].
+        pub fn set_or_clear_assignment<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Assignment>,
+        {
+            self.0.request.assignment = v.map(|x| x.into());
             self
         }
 
@@ -1174,8 +1247,9 @@ pub mod reservation_service {
     /// # use google_cloud_bigquery_reservation_v1::builder;
     /// use builder::reservation_service::ListAssignments;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -1276,6 +1350,7 @@ pub mod reservation_service {
     /// # use google_cloud_bigquery_reservation_v1::builder;
     /// use builder::reservation_service::DeleteAssignment;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1341,8 +1416,9 @@ pub mod reservation_service {
     /// # use google_cloud_bigquery_reservation_v1::builder;
     /// use builder::reservation_service::SearchAssignments;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -1452,8 +1528,9 @@ pub mod reservation_service {
     /// # use google_cloud_bigquery_reservation_v1::builder;
     /// use builder::reservation_service::SearchAllAssignments;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -1565,6 +1642,7 @@ pub mod reservation_service {
     /// # use google_cloud_bigquery_reservation_v1::builder;
     /// use builder::reservation_service::MoveAssignment;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1639,6 +1717,7 @@ pub mod reservation_service {
     /// # use google_cloud_bigquery_reservation_v1::builder;
     /// use builder::reservation_service::UpdateAssignment;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1682,20 +1761,38 @@ pub mod reservation_service {
         }
 
         /// Sets the value of [assignment][crate::model::UpdateAssignmentRequest::assignment].
-        pub fn set_assignment<T: Into<std::option::Option<crate::model::Assignment>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.assignment = v.into();
+        pub fn set_assignment<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Assignment>,
+        {
+            self.0.request.assignment = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [assignment][crate::model::UpdateAssignmentRequest::assignment].
+        pub fn set_or_clear_assignment<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Assignment>,
+        {
+            self.0.request.assignment = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateAssignmentRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateAssignmentRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -1714,6 +1811,7 @@ pub mod reservation_service {
     /// # use google_cloud_bigquery_reservation_v1::builder;
     /// use builder::reservation_service::GetBiReservation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1779,6 +1877,7 @@ pub mod reservation_service {
     /// # use google_cloud_bigquery_reservation_v1::builder;
     /// use builder::reservation_service::UpdateBiReservation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1822,20 +1921,38 @@ pub mod reservation_service {
         }
 
         /// Sets the value of [bi_reservation][crate::model::UpdateBiReservationRequest::bi_reservation].
-        pub fn set_bi_reservation<T: Into<std::option::Option<crate::model::BiReservation>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.bi_reservation = v.into();
+        pub fn set_bi_reservation<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::BiReservation>,
+        {
+            self.0.request.bi_reservation = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [bi_reservation][crate::model::UpdateBiReservationRequest::bi_reservation].
+        pub fn set_or_clear_bi_reservation<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::BiReservation>,
+        {
+            self.0.request.bi_reservation = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateBiReservationRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateBiReservationRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }

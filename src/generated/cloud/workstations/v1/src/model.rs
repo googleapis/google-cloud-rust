@@ -185,29 +185,56 @@ impl WorkstationCluster {
     }
 
     /// Sets the value of [create_time][crate::model::WorkstationCluster::create_time].
-    pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.create_time = v.into();
+    pub fn set_create_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [create_time][crate::model::WorkstationCluster::create_time].
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [update_time][crate::model::WorkstationCluster::update_time].
-    pub fn set_update_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.update_time = v.into();
+    pub fn set_update_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_time][crate::model::WorkstationCluster::update_time].
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [delete_time][crate::model::WorkstationCluster::delete_time].
-    pub fn set_delete_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.delete_time = v.into();
+    pub fn set_delete_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.delete_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [delete_time][crate::model::WorkstationCluster::delete_time].
+    pub fn set_or_clear_delete_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.delete_time = v.map(|x| x.into());
         self
     }
 
@@ -239,15 +266,20 @@ impl WorkstationCluster {
     }
 
     /// Sets the value of [private_cluster_config][crate::model::WorkstationCluster::private_cluster_config].
-    pub fn set_private_cluster_config<
-        T: std::convert::Into<
-                std::option::Option<crate::model::workstation_cluster::PrivateClusterConfig>,
-            >,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.private_cluster_config = v.into();
+    pub fn set_private_cluster_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::workstation_cluster::PrivateClusterConfig>,
+    {
+        self.private_cluster_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [private_cluster_config][crate::model::WorkstationCluster::private_cluster_config].
+    pub fn set_or_clear_private_cluster_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::workstation_cluster::PrivateClusterConfig>,
+    {
+        self.private_cluster_config = v.map(|x| x.into());
         self
     }
 
@@ -590,29 +622,56 @@ impl WorkstationConfig {
     }
 
     /// Sets the value of [create_time][crate::model::WorkstationConfig::create_time].
-    pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.create_time = v.into();
+    pub fn set_create_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [create_time][crate::model::WorkstationConfig::create_time].
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [update_time][crate::model::WorkstationConfig::update_time].
-    pub fn set_update_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.update_time = v.into();
+    pub fn set_update_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_time][crate::model::WorkstationConfig::update_time].
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [delete_time][crate::model::WorkstationConfig::delete_time].
-    pub fn set_delete_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.delete_time = v.into();
+    pub fn set_delete_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.delete_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [delete_time][crate::model::WorkstationConfig::delete_time].
+    pub fn set_or_clear_delete_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.delete_time = v.map(|x| x.into());
         self
     }
 
@@ -623,31 +682,56 @@ impl WorkstationConfig {
     }
 
     /// Sets the value of [idle_timeout][crate::model::WorkstationConfig::idle_timeout].
-    pub fn set_idle_timeout<T: std::convert::Into<std::option::Option<wkt::Duration>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.idle_timeout = v.into();
+    pub fn set_idle_timeout<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Duration>,
+    {
+        self.idle_timeout = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [idle_timeout][crate::model::WorkstationConfig::idle_timeout].
+    pub fn set_or_clear_idle_timeout<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Duration>,
+    {
+        self.idle_timeout = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [running_timeout][crate::model::WorkstationConfig::running_timeout].
-    pub fn set_running_timeout<T: std::convert::Into<std::option::Option<wkt::Duration>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.running_timeout = v.into();
+    pub fn set_running_timeout<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Duration>,
+    {
+        self.running_timeout = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [running_timeout][crate::model::WorkstationConfig::running_timeout].
+    pub fn set_or_clear_running_timeout<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Duration>,
+    {
+        self.running_timeout = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [host][crate::model::WorkstationConfig::host].
-    pub fn set_host<
-        T: std::convert::Into<std::option::Option<crate::model::workstation_config::Host>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.host = v.into();
+    pub fn set_host<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::workstation_config::Host>,
+    {
+        self.host = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [host][crate::model::WorkstationConfig::host].
+    pub fn set_or_clear_host<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::workstation_config::Host>,
+    {
+        self.host = v.map(|x| x.into());
         self
     }
 
@@ -663,26 +747,38 @@ impl WorkstationConfig {
     }
 
     /// Sets the value of [container][crate::model::WorkstationConfig::container].
-    pub fn set_container<
-        T: std::convert::Into<std::option::Option<crate::model::workstation_config::Container>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.container = v.into();
+    pub fn set_container<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::workstation_config::Container>,
+    {
+        self.container = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [container][crate::model::WorkstationConfig::container].
+    pub fn set_or_clear_container<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::workstation_config::Container>,
+    {
+        self.container = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [encryption_key][crate::model::WorkstationConfig::encryption_key].
-    pub fn set_encryption_key<
-        T: std::convert::Into<
-                std::option::Option<crate::model::workstation_config::CustomerEncryptionKey>,
-            >,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.encryption_key = v.into();
+    pub fn set_encryption_key<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::workstation_config::CustomerEncryptionKey>,
+    {
+        self.encryption_key = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [encryption_key][crate::model::WorkstationConfig::encryption_key].
+    pub fn set_or_clear_encryption_key<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::workstation_config::CustomerEncryptionKey>,
+    {
+        self.encryption_key = v.map(|x| x.into());
         self
     }
 
@@ -1029,14 +1125,34 @@ pub mod workstation_config {
             }
 
             /// Sets the value of [shielded_instance_config][crate::model::workstation_config::host::GceInstance::shielded_instance_config].
-            pub fn set_shielded_instance_config<T: std::convert::Into<std::option::Option<crate::model::workstation_config::host::gce_instance::GceShieldedInstanceConfig>>>(mut self, v: T) -> Self{
-                self.shielded_instance_config = v.into();
+            pub fn set_shielded_instance_config<T>(mut self, v: T) -> Self
+            where T: std::convert::Into<crate::model::workstation_config::host::gce_instance::GceShieldedInstanceConfig>
+            {
+                self.shielded_instance_config = std::option::Option::Some(v.into());
+                self
+            }
+
+            /// Sets or clears the value of [shielded_instance_config][crate::model::workstation_config::host::GceInstance::shielded_instance_config].
+            pub fn set_or_clear_shielded_instance_config<T>(mut self, v: std::option::Option<T>) -> Self
+            where T: std::convert::Into<crate::model::workstation_config::host::gce_instance::GceShieldedInstanceConfig>
+            {
+                self.shielded_instance_config = v.map(|x| x.into());
                 self
             }
 
             /// Sets the value of [confidential_instance_config][crate::model::workstation_config::host::GceInstance::confidential_instance_config].
-            pub fn set_confidential_instance_config<T: std::convert::Into<std::option::Option<crate::model::workstation_config::host::gce_instance::GceConfidentialInstanceConfig>>>(mut self, v: T) -> Self{
-                self.confidential_instance_config = v.into();
+            pub fn set_confidential_instance_config<T>(mut self, v: T) -> Self
+            where T: std::convert::Into<crate::model::workstation_config::host::gce_instance::GceConfidentialInstanceConfig>
+            {
+                self.confidential_instance_config = std::option::Option::Some(v.into());
+                self
+            }
+
+            /// Sets or clears the value of [confidential_instance_config][crate::model::workstation_config::host::GceInstance::confidential_instance_config].
+            pub fn set_or_clear_confidential_instance_config<T>(mut self, v: std::option::Option<T>) -> Self
+            where T: std::convert::Into<crate::model::workstation_config::host::gce_instance::GceConfidentialInstanceConfig>
+            {
+                self.confidential_instance_config = v.map(|x| x.into());
                 self
             }
 
@@ -1866,38 +1982,74 @@ impl Workstation {
     }
 
     /// Sets the value of [create_time][crate::model::Workstation::create_time].
-    pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.create_time = v.into();
+    pub fn set_create_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [create_time][crate::model::Workstation::create_time].
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [update_time][crate::model::Workstation::update_time].
-    pub fn set_update_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.update_time = v.into();
+    pub fn set_update_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_time][crate::model::Workstation::update_time].
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [start_time][crate::model::Workstation::start_time].
-    pub fn set_start_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.start_time = v.into();
+    pub fn set_start_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.start_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [start_time][crate::model::Workstation::start_time].
+    pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.start_time = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [delete_time][crate::model::Workstation::delete_time].
-    pub fn set_delete_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.delete_time = v.into();
+    pub fn set_delete_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.delete_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [delete_time][crate::model::Workstation::delete_time].
+    pub fn set_or_clear_delete_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.delete_time = v.map(|x| x.into());
         self
     }
 
@@ -2293,13 +2445,20 @@ impl CreateWorkstationClusterRequest {
     }
 
     /// Sets the value of [workstation_cluster][crate::model::CreateWorkstationClusterRequest::workstation_cluster].
-    pub fn set_workstation_cluster<
-        T: std::convert::Into<std::option::Option<crate::model::WorkstationCluster>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.workstation_cluster = v.into();
+    pub fn set_workstation_cluster<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::WorkstationCluster>,
+    {
+        self.workstation_cluster = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [workstation_cluster][crate::model::CreateWorkstationClusterRequest::workstation_cluster].
+    pub fn set_or_clear_workstation_cluster<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::WorkstationCluster>,
+    {
+        self.workstation_cluster = v.map(|x| x.into());
         self
     }
 
@@ -2352,22 +2511,38 @@ impl UpdateWorkstationClusterRequest {
     }
 
     /// Sets the value of [workstation_cluster][crate::model::UpdateWorkstationClusterRequest::workstation_cluster].
-    pub fn set_workstation_cluster<
-        T: std::convert::Into<std::option::Option<crate::model::WorkstationCluster>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.workstation_cluster = v.into();
+    pub fn set_workstation_cluster<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::WorkstationCluster>,
+    {
+        self.workstation_cluster = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [workstation_cluster][crate::model::UpdateWorkstationClusterRequest::workstation_cluster].
+    pub fn set_or_clear_workstation_cluster<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::WorkstationCluster>,
+    {
+        self.workstation_cluster = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateWorkstationClusterRequest::update_mask].
-    pub fn set_update_mask<T: std::convert::Into<std::option::Option<wkt::FieldMask>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.update_mask = v.into();
+    pub fn set_update_mask<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_mask][crate::model::UpdateWorkstationClusterRequest::update_mask].
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = v.map(|x| x.into());
         self
     }
 
@@ -2796,13 +2971,20 @@ impl CreateWorkstationConfigRequest {
     }
 
     /// Sets the value of [workstation_config][crate::model::CreateWorkstationConfigRequest::workstation_config].
-    pub fn set_workstation_config<
-        T: std::convert::Into<std::option::Option<crate::model::WorkstationConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.workstation_config = v.into();
+    pub fn set_workstation_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::WorkstationConfig>,
+    {
+        self.workstation_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [workstation_config][crate::model::CreateWorkstationConfigRequest::workstation_config].
+    pub fn set_or_clear_workstation_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::WorkstationConfig>,
+    {
+        self.workstation_config = v.map(|x| x.into());
         self
     }
 
@@ -2855,22 +3037,38 @@ impl UpdateWorkstationConfigRequest {
     }
 
     /// Sets the value of [workstation_config][crate::model::UpdateWorkstationConfigRequest::workstation_config].
-    pub fn set_workstation_config<
-        T: std::convert::Into<std::option::Option<crate::model::WorkstationConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.workstation_config = v.into();
+    pub fn set_workstation_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::WorkstationConfig>,
+    {
+        self.workstation_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [workstation_config][crate::model::UpdateWorkstationConfigRequest::workstation_config].
+    pub fn set_or_clear_workstation_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::WorkstationConfig>,
+    {
+        self.workstation_config = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateWorkstationConfigRequest::update_mask].
-    pub fn set_update_mask<T: std::convert::Into<std::option::Option<wkt::FieldMask>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.update_mask = v.into();
+    pub fn set_update_mask<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_mask][crate::model::UpdateWorkstationConfigRequest::update_mask].
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = v.map(|x| x.into());
         self
     }
 
@@ -3296,13 +3494,20 @@ impl CreateWorkstationRequest {
     }
 
     /// Sets the value of [workstation][crate::model::CreateWorkstationRequest::workstation].
-    pub fn set_workstation<
-        T: std::convert::Into<std::option::Option<crate::model::Workstation>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.workstation = v.into();
+    pub fn set_workstation<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::Workstation>,
+    {
+        self.workstation = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [workstation][crate::model::CreateWorkstationRequest::workstation].
+    pub fn set_or_clear_workstation<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::Workstation>,
+    {
+        self.workstation = v.map(|x| x.into());
         self
     }
 
@@ -3355,22 +3560,38 @@ impl UpdateWorkstationRequest {
     }
 
     /// Sets the value of [workstation][crate::model::UpdateWorkstationRequest::workstation].
-    pub fn set_workstation<
-        T: std::convert::Into<std::option::Option<crate::model::Workstation>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.workstation = v.into();
+    pub fn set_workstation<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::Workstation>,
+    {
+        self.workstation = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [workstation][crate::model::UpdateWorkstationRequest::workstation].
+    pub fn set_or_clear_workstation<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::Workstation>,
+    {
+        self.workstation = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateWorkstationRequest::update_mask].
-    pub fn set_update_mask<T: std::convert::Into<std::option::Option<wkt::FieldMask>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.update_mask = v.into();
+    pub fn set_update_mask<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_mask][crate::model::UpdateWorkstationRequest::update_mask].
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = v.map(|x| x.into());
         self
     }
 
@@ -3717,11 +3938,20 @@ impl GenerateAccessTokenResponse {
     }
 
     /// Sets the value of [expire_time][crate::model::GenerateAccessTokenResponse::expire_time].
-    pub fn set_expire_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.expire_time = v.into();
+    pub fn set_expire_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.expire_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [expire_time][crate::model::GenerateAccessTokenResponse::expire_time].
+    pub fn set_or_clear_expire_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.expire_time = v.map(|x| x.into());
         self
     }
 }
@@ -3777,20 +4007,38 @@ impl OperationMetadata {
     }
 
     /// Sets the value of [create_time][crate::model::OperationMetadata::create_time].
-    pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.create_time = v.into();
+    pub fn set_create_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [create_time][crate::model::OperationMetadata::create_time].
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [end_time][crate::model::OperationMetadata::end_time].
-    pub fn set_end_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.end_time = v.into();
+    pub fn set_end_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.end_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [end_time][crate::model::OperationMetadata::end_time].
+    pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.end_time = v.map(|x| x.into());
         self
     }
 

@@ -75,8 +75,9 @@ pub mod storage_insights {
     /// # use google_cloud_storageinsights_v1::builder;
     /// use builder::storage_insights::ListReportConfigs;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -192,6 +193,7 @@ pub mod storage_insights {
     /// # use google_cloud_storageinsights_v1::builder;
     /// use builder::storage_insights::GetReportConfig;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -254,6 +256,7 @@ pub mod storage_insights {
     /// # use google_cloud_storageinsights_v1::builder;
     /// use builder::storage_insights::CreateReportConfig;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -307,11 +310,22 @@ pub mod storage_insights {
         /// Sets the value of [report_config][crate::model::CreateReportConfigRequest::report_config].
         ///
         /// This is a **required** field for requests.
-        pub fn set_report_config<T: Into<std::option::Option<crate::model::ReportConfig>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.report_config = v.into();
+        pub fn set_report_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::ReportConfig>,
+        {
+            self.0.request.report_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [report_config][crate::model::CreateReportConfigRequest::report_config].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_report_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::ReportConfig>,
+        {
+            self.0.request.report_config = v.map(|x| x.into());
             self
         }
 
@@ -336,6 +350,7 @@ pub mod storage_insights {
     /// # use google_cloud_storageinsights_v1::builder;
     /// use builder::storage_insights::UpdateReportConfig;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -381,22 +396,44 @@ pub mod storage_insights {
         /// Sets the value of [update_mask][crate::model::UpdateReportConfigRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateReportConfigRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [report_config][crate::model::UpdateReportConfigRequest::report_config].
         ///
         /// This is a **required** field for requests.
-        pub fn set_report_config<T: Into<std::option::Option<crate::model::ReportConfig>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.report_config = v.into();
+        pub fn set_report_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::ReportConfig>,
+        {
+            self.0.request.report_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [report_config][crate::model::UpdateReportConfigRequest::report_config].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_report_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::ReportConfig>,
+        {
+            self.0.request.report_config = v.map(|x| x.into());
             self
         }
 
@@ -421,6 +458,7 @@ pub mod storage_insights {
     /// # use google_cloud_storageinsights_v1::builder;
     /// use builder::storage_insights::DeleteReportConfig;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -498,8 +536,9 @@ pub mod storage_insights {
     /// # use google_cloud_storageinsights_v1::builder;
     /// use builder::storage_insights::ListReportDetails;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -615,6 +654,7 @@ pub mod storage_insights {
     /// # use google_cloud_storageinsights_v1::builder;
     /// use builder::storage_insights::GetReportDetail;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -677,8 +717,9 @@ pub mod storage_insights {
     /// # use google_cloud_storageinsights_v1::builder;
     /// use builder::storage_insights::ListLocations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -786,6 +827,7 @@ pub mod storage_insights {
     /// # use google_cloud_storageinsights_v1::builder;
     /// use builder::storage_insights::GetLocation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -846,8 +888,9 @@ pub mod storage_insights {
     /// # use google_cloud_storageinsights_v1::builder;
     /// use builder::storage_insights::ListOperations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -957,6 +1000,7 @@ pub mod storage_insights {
     /// # use google_cloud_storageinsights_v1::builder;
     /// use builder::storage_insights::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1020,6 +1064,7 @@ pub mod storage_insights {
     /// # use google_cloud_storageinsights_v1::builder;
     /// use builder::storage_insights::DeleteOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1083,6 +1128,7 @@ pub mod storage_insights {
     /// # use google_cloud_storageinsights_v1::builder;
     /// use builder::storage_insights::CancelOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });

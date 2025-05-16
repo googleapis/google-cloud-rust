@@ -77,33 +77,56 @@ impl AppConnectorInstanceConfig {
     }
 
     /// Sets the value of [instance_config][crate::model::AppConnectorInstanceConfig::instance_config].
-    pub fn set_instance_config<T: std::convert::Into<std::option::Option<wkt::Any>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.instance_config = v.into();
+    pub fn set_instance_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Any>,
+    {
+        self.instance_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [instance_config][crate::model::AppConnectorInstanceConfig::instance_config].
+    pub fn set_or_clear_instance_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Any>,
+    {
+        self.instance_config = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [notification_config][crate::model::AppConnectorInstanceConfig::notification_config].
-    pub fn set_notification_config<
-        T: std::convert::Into<std::option::Option<crate::model::NotificationConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.notification_config = v.into();
+    pub fn set_notification_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::NotificationConfig>,
+    {
+        self.notification_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [notification_config][crate::model::AppConnectorInstanceConfig::notification_config].
+    pub fn set_or_clear_notification_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::NotificationConfig>,
+    {
+        self.notification_config = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [image_config][crate::model::AppConnectorInstanceConfig::image_config].
-    pub fn set_image_config<
-        T: std::convert::Into<std::option::Option<crate::model::ImageConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.image_config = v.into();
+    pub fn set_image_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::ImageConfig>,
+    {
+        self.image_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [image_config][crate::model::AppConnectorInstanceConfig::image_config].
+    pub fn set_or_clear_image_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::ImageConfig>,
+    {
+        self.image_config = v.map(|x| x.into());
         self
     }
 }
@@ -546,13 +569,20 @@ impl CreateAppConnectorRequest {
     }
 
     /// Sets the value of [app_connector][crate::model::CreateAppConnectorRequest::app_connector].
-    pub fn set_app_connector<
-        T: std::convert::Into<std::option::Option<crate::model::AppConnector>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.app_connector = v.into();
+    pub fn set_app_connector<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::AppConnector>,
+    {
+        self.app_connector = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [app_connector][crate::model::CreateAppConnectorRequest::app_connector].
+    pub fn set_or_clear_app_connector<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::AppConnector>,
+    {
+        self.app_connector = v.map(|x| x.into());
         self
     }
 
@@ -626,22 +656,38 @@ impl UpdateAppConnectorRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateAppConnectorRequest::update_mask].
-    pub fn set_update_mask<T: std::convert::Into<std::option::Option<wkt::FieldMask>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.update_mask = v.into();
+    pub fn set_update_mask<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_mask][crate::model::UpdateAppConnectorRequest::update_mask].
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [app_connector][crate::model::UpdateAppConnectorRequest::app_connector].
-    pub fn set_app_connector<
-        T: std::convert::Into<std::option::Option<crate::model::AppConnector>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.app_connector = v.into();
+    pub fn set_app_connector<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::AppConnector>,
+    {
+        self.app_connector = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [app_connector][crate::model::UpdateAppConnectorRequest::app_connector].
+    pub fn set_or_clear_app_connector<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::AppConnector>,
+    {
+        self.app_connector = v.map(|x| x.into());
         self
     }
 
@@ -782,13 +828,20 @@ impl ReportStatusRequest {
     }
 
     /// Sets the value of [resource_info][crate::model::ReportStatusRequest::resource_info].
-    pub fn set_resource_info<
-        T: std::convert::Into<std::option::Option<crate::model::ResourceInfo>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.resource_info = v.into();
+    pub fn set_resource_info<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::ResourceInfo>,
+    {
+        self.resource_info = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [resource_info][crate::model::ReportStatusRequest::resource_info].
+    pub fn set_or_clear_resource_info<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::ResourceInfo>,
+    {
+        self.resource_info = v.map(|x| x.into());
         self
     }
 
@@ -875,20 +928,38 @@ impl AppConnector {
     }
 
     /// Sets the value of [create_time][crate::model::AppConnector::create_time].
-    pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.create_time = v.into();
+    pub fn set_create_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [create_time][crate::model::AppConnector::create_time].
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [update_time][crate::model::AppConnector::update_time].
-    pub fn set_update_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.update_time = v.into();
+    pub fn set_update_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_time][crate::model::AppConnector::update_time].
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = v.map(|x| x.into());
         self
     }
 
@@ -926,24 +997,38 @@ impl AppConnector {
     }
 
     /// Sets the value of [principal_info][crate::model::AppConnector::principal_info].
-    pub fn set_principal_info<
-        T: std::convert::Into<std::option::Option<crate::model::app_connector::PrincipalInfo>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.principal_info = v.into();
+    pub fn set_principal_info<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::app_connector::PrincipalInfo>,
+    {
+        self.principal_info = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [principal_info][crate::model::AppConnector::principal_info].
+    pub fn set_or_clear_principal_info<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::app_connector::PrincipalInfo>,
+    {
+        self.principal_info = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [resource_info][crate::model::AppConnector::resource_info].
-    pub fn set_resource_info<
-        T: std::convert::Into<std::option::Option<crate::model::ResourceInfo>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.resource_info = v.into();
+    pub fn set_resource_info<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::ResourceInfo>,
+    {
+        self.resource_info = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [resource_info][crate::model::AppConnector::resource_info].
+    pub fn set_or_clear_resource_info<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::ResourceInfo>,
+    {
+        self.resource_info = v.map(|x| x.into());
         self
     }
 }
@@ -1290,20 +1375,38 @@ impl AppConnectorOperationMetadata {
     }
 
     /// Sets the value of [create_time][crate::model::AppConnectorOperationMetadata::create_time].
-    pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.create_time = v.into();
+    pub fn set_create_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [create_time][crate::model::AppConnectorOperationMetadata::create_time].
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [end_time][crate::model::AppConnectorOperationMetadata::end_time].
-    pub fn set_end_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.end_time = v.into();
+    pub fn set_end_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.end_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [end_time][crate::model::AppConnectorOperationMetadata::end_time].
+    pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.end_time = v.map(|x| x.into());
         self
     }
 
@@ -1403,20 +1506,38 @@ impl ResourceInfo {
     }
 
     /// Sets the value of [resource][crate::model::ResourceInfo::resource].
-    pub fn set_resource<T: std::convert::Into<std::option::Option<wkt::Any>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.resource = v.into();
+    pub fn set_resource<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Any>,
+    {
+        self.resource = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [resource][crate::model::ResourceInfo::resource].
+    pub fn set_or_clear_resource<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Any>,
+    {
+        self.resource = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [time][crate::model::ResourceInfo::time].
-    pub fn set_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.time = v.into();
+    pub fn set_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [time][crate::model::ResourceInfo::time].
+    pub fn set_or_clear_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.time = v.map(|x| x.into());
         self
     }
 

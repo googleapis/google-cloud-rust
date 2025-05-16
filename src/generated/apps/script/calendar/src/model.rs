@@ -70,13 +70,20 @@ impl CalendarAddOnManifest {
     }
 
     /// Sets the value of [homepage_trigger][crate::model::CalendarAddOnManifest::homepage_trigger].
-    pub fn set_homepage_trigger<
-        T: std::convert::Into<std::option::Option<apps_script_type::model::HomepageExtensionPoint>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.homepage_trigger = v.into();
+    pub fn set_homepage_trigger<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<apps_script_type::model::HomepageExtensionPoint>,
+    {
+        self.homepage_trigger = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [homepage_trigger][crate::model::CalendarAddOnManifest::homepage_trigger].
+    pub fn set_or_clear_homepage_trigger<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<apps_script_type::model::HomepageExtensionPoint>,
+    {
+        self.homepage_trigger = v.map(|x| x.into());
         self
     }
 
@@ -101,24 +108,38 @@ impl CalendarAddOnManifest {
     }
 
     /// Sets the value of [event_open_trigger][crate::model::CalendarAddOnManifest::event_open_trigger].
-    pub fn set_event_open_trigger<
-        T: std::convert::Into<std::option::Option<crate::model::CalendarExtensionPoint>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.event_open_trigger = v.into();
+    pub fn set_event_open_trigger<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::CalendarExtensionPoint>,
+    {
+        self.event_open_trigger = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [event_open_trigger][crate::model::CalendarAddOnManifest::event_open_trigger].
+    pub fn set_or_clear_event_open_trigger<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::CalendarExtensionPoint>,
+    {
+        self.event_open_trigger = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [event_update_trigger][crate::model::CalendarAddOnManifest::event_update_trigger].
-    pub fn set_event_update_trigger<
-        T: std::convert::Into<std::option::Option<crate::model::CalendarExtensionPoint>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.event_update_trigger = v.into();
+    pub fn set_event_update_trigger<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::CalendarExtensionPoint>,
+    {
+        self.event_update_trigger = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [event_update_trigger][crate::model::CalendarAddOnManifest::event_update_trigger].
+    pub fn set_or_clear_event_update_trigger<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::CalendarExtensionPoint>,
+    {
+        self.event_update_trigger = v.map(|x| x.into());
         self
     }
 

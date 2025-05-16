@@ -15,7 +15,7 @@
 [package]
 description = "Google Cloud Client Libraries for Rust - Well Known Types"
 name        = "google-cloud-wkt"
-version     = "0.4.0"
+version     = "0.5.0"
 # Inherit other attributes from the workspace.
 authors.workspace      = true
 categories.workspace   = true
@@ -52,4 +52,5 @@ time                 = { workspace = true, features = ["formatting", "parsing"] 
 [dev-dependencies]
 anyhow.workspace    = true
 test-case.workspace = true
+time                = { workspace = true, features = ["formatting", "macros", "parsing"] }
 wkt                 = { path = ".", package = "google-cloud-wkt", features = ["chrono", "time"] }

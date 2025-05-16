@@ -48,7 +48,7 @@ mod my_application {
         client: &speech::client::Speech,
         project_id: &str,
     ) -> BatchRecognizeResult {
-        use speech::Poller;
+        use google_cloud_lro::{Poller, PollingResult};
         let mut progress_updates = Vec::new();
         let mut poller = client
             .batch_recognize()
@@ -59,7 +59,7 @@ mod my_application {
         while let Some(p) = poller.poll().await {
             match p {
                 // ANCHOR: completed-branch
-                speech::PollingResult::Completed(r) => {
+                PollingResult::Completed(r) => {
                     // ANCHOR_END: completed-branch
                     let billed_duration = r.map(|r| r.total_billed_duration);
                     return BatchRecognizeResult {
@@ -67,7 +67,7 @@ mod my_application {
                         billed_duration,
                     };
                 }
-                speech::PollingResult::InProgress(m) => {
+                PollingResult::InProgress(m) => {
                     if let Some(metadata) = m {
                         // This is a silly application. Your application likely
                         // performs some task immediately with the partial
@@ -77,7 +77,7 @@ mod my_application {
                     }
                 }
                 // ANCHOR: polling-error-branch
-                speech::PollingResult::PollingError(e) => {
+                PollingResult::PollingError(e) => {
                     // ANCHOR_END: polling-error-branch
                     return BatchRecognizeResult {
                         progress_updates,
@@ -112,7 +112,7 @@ mod test {
     fn make_partial_operation(progress: i32) -> Result<Response<Operation>> {
         let metadata = OperationMetadata::new().set_progress_percent(progress);
         let any = wkt::Any::try_from(&metadata).map_err(Error::serde)?;
-        let operation = Operation::new().set_metadata(Some(any));
+        let operation = Operation::new().set_metadata(any);
         Ok(Response::from(operation))
     }
 

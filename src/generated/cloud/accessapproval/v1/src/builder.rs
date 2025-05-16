@@ -75,8 +75,9 @@ pub mod access_approval {
     /// # use google_cloud_accessapproval_v1::builder;
     /// use builder::access_approval::ListApprovalRequests;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -186,6 +187,7 @@ pub mod access_approval {
     /// # use google_cloud_accessapproval_v1::builder;
     /// use builder::access_approval::GetApprovalRequest;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -249,6 +251,7 @@ pub mod access_approval {
     /// # use google_cloud_accessapproval_v1::builder;
     /// use builder::access_approval::ApproveApprovalRequest;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -298,11 +301,20 @@ pub mod access_approval {
         }
 
         /// Sets the value of [expire_time][crate::model::ApproveApprovalRequestMessage::expire_time].
-        pub fn set_expire_time<T: Into<std::option::Option<wkt::Timestamp>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.expire_time = v.into();
+        pub fn set_expire_time<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Timestamp>,
+        {
+            self.0.request.expire_time = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [expire_time][crate::model::ApproveApprovalRequestMessage::expire_time].
+        pub fn set_or_clear_expire_time<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Timestamp>,
+        {
+            self.0.request.expire_time = v.map(|x| x.into());
             self
         }
     }
@@ -321,6 +333,7 @@ pub mod access_approval {
     /// # use google_cloud_accessapproval_v1::builder;
     /// use builder::access_approval::DismissApprovalRequest;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -384,6 +397,7 @@ pub mod access_approval {
     /// # use google_cloud_accessapproval_v1::builder;
     /// use builder::access_approval::InvalidateApprovalRequest;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -449,6 +463,7 @@ pub mod access_approval {
     /// # use google_cloud_accessapproval_v1::builder;
     /// use builder::access_approval::GetAccessApprovalSettings;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -514,6 +529,7 @@ pub mod access_approval {
     /// # use google_cloud_accessapproval_v1::builder;
     /// use builder::access_approval::UpdateAccessApprovalSettings;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -559,20 +575,38 @@ pub mod access_approval {
         }
 
         /// Sets the value of [settings][crate::model::UpdateAccessApprovalSettingsMessage::settings].
-        pub fn set_settings<T: Into<std::option::Option<crate::model::AccessApprovalSettings>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.settings = v.into();
+        pub fn set_settings<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::AccessApprovalSettings>,
+        {
+            self.0.request.settings = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [settings][crate::model::UpdateAccessApprovalSettingsMessage::settings].
+        pub fn set_or_clear_settings<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::AccessApprovalSettings>,
+        {
+            self.0.request.settings = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateAccessApprovalSettingsMessage::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateAccessApprovalSettingsMessage::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -591,6 +625,7 @@ pub mod access_approval {
     /// # use google_cloud_accessapproval_v1::builder;
     /// use builder::access_approval::DeleteAccessApprovalSettings;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -656,6 +691,7 @@ pub mod access_approval {
     /// # use google_cloud_accessapproval_v1::builder;
     /// use builder::access_approval::GetAccessApprovalServiceAccount;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });

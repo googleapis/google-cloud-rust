@@ -75,6 +75,7 @@ pub mod simulator {
     /// # use google_cloud_policysimulator_v1::builder;
     /// use builder::simulator::GetReplay;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -137,8 +138,9 @@ pub mod simulator {
     /// # use google_cloud_policysimulator_v1::builder;
     /// use builder::simulator::CreateReplay;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_policysimulator_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -228,11 +230,22 @@ pub mod simulator {
         /// Sets the value of [replay][crate::model::CreateReplayRequest::replay].
         ///
         /// This is a **required** field for requests.
-        pub fn set_replay<T: Into<std::option::Option<crate::model::Replay>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.replay = v.into();
+        pub fn set_replay<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Replay>,
+        {
+            self.0.request.replay = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [replay][crate::model::CreateReplayRequest::replay].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_replay<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Replay>,
+        {
+            self.0.request.replay = v.map(|x| x.into());
             self
         }
     }
@@ -251,8 +264,9 @@ pub mod simulator {
     /// # use google_cloud_policysimulator_v1::builder;
     /// use builder::simulator::ListReplayResults;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -356,8 +370,9 @@ pub mod simulator {
     /// # use google_cloud_policysimulator_v1::builder;
     /// use builder::simulator::ListOperations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -467,6 +482,7 @@ pub mod simulator {
     /// # use google_cloud_policysimulator_v1::builder;
     /// use builder::simulator::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });

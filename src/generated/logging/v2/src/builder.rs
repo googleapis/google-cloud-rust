@@ -75,6 +75,7 @@ pub mod logging_service_v_2 {
     /// # use google_cloud_logging_v2::builder;
     /// use builder::logging_service_v_2::DeleteLog;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -137,6 +138,7 @@ pub mod logging_service_v_2 {
     /// # use google_cloud_logging_v2::builder;
     /// use builder::logging_service_v_2::WriteLogEntries;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -183,11 +185,20 @@ pub mod logging_service_v_2 {
         }
 
         /// Sets the value of [resource][crate::model::WriteLogEntriesRequest::resource].
-        pub fn set_resource<T: Into<std::option::Option<api::model::MonitoredResource>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.resource = v.into();
+        pub fn set_resource<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<api::model::MonitoredResource>,
+        {
+            self.0.request.resource = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [resource][crate::model::WriteLogEntriesRequest::resource].
+        pub fn set_or_clear_resource<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<api::model::MonitoredResource>,
+        {
+            self.0.request.resource = v.map(|x| x.into());
             self
         }
 
@@ -242,8 +253,9 @@ pub mod logging_service_v_2 {
     /// # use google_cloud_logging_v2::builder;
     /// use builder::logging_service_v_2::ListLogEntries;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -361,8 +373,9 @@ pub mod logging_service_v_2 {
     /// # use google_cloud_logging_v2::builder;
     /// use builder::logging_service_v_2::ListMonitoredResourceDescriptors;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -464,6 +477,7 @@ pub mod logging_service_v_2 {
     /// # use google_cloud_logging_v2::builder;
     /// use builder::logging_service_v_2::ListLogs;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -549,8 +563,9 @@ pub mod logging_service_v_2 {
     /// # use google_cloud_logging_v2::builder;
     /// use builder::logging_service_v_2::ListOperations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -660,6 +675,7 @@ pub mod logging_service_v_2 {
     /// # use google_cloud_logging_v2::builder;
     /// use builder::logging_service_v_2::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -723,6 +739,7 @@ pub mod logging_service_v_2 {
     /// # use google_cloud_logging_v2::builder;
     /// use builder::logging_service_v_2::CancelOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -841,8 +858,9 @@ pub mod config_service_v_2 {
     /// # use google_cloud_logging_v2::builder;
     /// use builder::config_service_v_2::ListBuckets;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -943,6 +961,7 @@ pub mod config_service_v_2 {
     /// # use google_cloud_logging_v2::builder;
     /// use builder::config_service_v_2::GetBucket;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1005,8 +1024,9 @@ pub mod config_service_v_2 {
     /// # use google_cloud_logging_v2::builder;
     /// use builder::config_service_v_2::CreateBucketAsync;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_logging_v2::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1102,11 +1122,22 @@ pub mod config_service_v_2 {
         /// Sets the value of [bucket][crate::model::CreateBucketRequest::bucket].
         ///
         /// This is a **required** field for requests.
-        pub fn set_bucket<T: Into<std::option::Option<crate::model::LogBucket>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.bucket = v.into();
+        pub fn set_bucket<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::LogBucket>,
+        {
+            self.0.request.bucket = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [bucket][crate::model::CreateBucketRequest::bucket].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_bucket<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::LogBucket>,
+        {
+            self.0.request.bucket = v.map(|x| x.into());
             self
         }
     }
@@ -1125,8 +1156,9 @@ pub mod config_service_v_2 {
     /// # use google_cloud_logging_v2::builder;
     /// use builder::config_service_v_2::UpdateBucketAsync;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_logging_v2::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1214,22 +1246,44 @@ pub mod config_service_v_2 {
         /// Sets the value of [bucket][crate::model::UpdateBucketRequest::bucket].
         ///
         /// This is a **required** field for requests.
-        pub fn set_bucket<T: Into<std::option::Option<crate::model::LogBucket>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.bucket = v.into();
+        pub fn set_bucket<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::LogBucket>,
+        {
+            self.0.request.bucket = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [bucket][crate::model::UpdateBucketRequest::bucket].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_bucket<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::LogBucket>,
+        {
+            self.0.request.bucket = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateBucketRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateBucketRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -1248,6 +1302,7 @@ pub mod config_service_v_2 {
     /// # use google_cloud_logging_v2::builder;
     /// use builder::config_service_v_2::CreateBucket;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1306,11 +1361,22 @@ pub mod config_service_v_2 {
         /// Sets the value of [bucket][crate::model::CreateBucketRequest::bucket].
         ///
         /// This is a **required** field for requests.
-        pub fn set_bucket<T: Into<std::option::Option<crate::model::LogBucket>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.bucket = v.into();
+        pub fn set_bucket<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::LogBucket>,
+        {
+            self.0.request.bucket = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [bucket][crate::model::CreateBucketRequest::bucket].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_bucket<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::LogBucket>,
+        {
+            self.0.request.bucket = v.map(|x| x.into());
             self
         }
     }
@@ -1329,6 +1395,7 @@ pub mod config_service_v_2 {
     /// # use google_cloud_logging_v2::builder;
     /// use builder::config_service_v_2::UpdateBucket;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1379,22 +1446,44 @@ pub mod config_service_v_2 {
         /// Sets the value of [bucket][crate::model::UpdateBucketRequest::bucket].
         ///
         /// This is a **required** field for requests.
-        pub fn set_bucket<T: Into<std::option::Option<crate::model::LogBucket>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.bucket = v.into();
+        pub fn set_bucket<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::LogBucket>,
+        {
+            self.0.request.bucket = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [bucket][crate::model::UpdateBucketRequest::bucket].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_bucket<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::LogBucket>,
+        {
+            self.0.request.bucket = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateBucketRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateBucketRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -1413,6 +1502,7 @@ pub mod config_service_v_2 {
     /// # use google_cloud_logging_v2::builder;
     /// use builder::config_service_v_2::DeleteBucket;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1475,6 +1565,7 @@ pub mod config_service_v_2 {
     /// # use google_cloud_logging_v2::builder;
     /// use builder::config_service_v_2::UndeleteBucket;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1537,8 +1628,9 @@ pub mod config_service_v_2 {
     /// # use google_cloud_logging_v2::builder;
     /// use builder::config_service_v_2::ListViews;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -1639,6 +1731,7 @@ pub mod config_service_v_2 {
     /// # use google_cloud_logging_v2::builder;
     /// use builder::config_service_v_2::GetView;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1701,6 +1794,7 @@ pub mod config_service_v_2 {
     /// # use google_cloud_logging_v2::builder;
     /// use builder::config_service_v_2::CreateView;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1759,11 +1853,22 @@ pub mod config_service_v_2 {
         /// Sets the value of [view][crate::model::CreateViewRequest::view].
         ///
         /// This is a **required** field for requests.
-        pub fn set_view<T: Into<std::option::Option<crate::model::LogView>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.view = v.into();
+        pub fn set_view<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::LogView>,
+        {
+            self.0.request.view = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [view][crate::model::CreateViewRequest::view].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_view<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::LogView>,
+        {
+            self.0.request.view = v.map(|x| x.into());
             self
         }
     }
@@ -1782,6 +1887,7 @@ pub mod config_service_v_2 {
     /// # use google_cloud_logging_v2::builder;
     /// use builder::config_service_v_2::UpdateView;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1832,20 +1938,40 @@ pub mod config_service_v_2 {
         /// Sets the value of [view][crate::model::UpdateViewRequest::view].
         ///
         /// This is a **required** field for requests.
-        pub fn set_view<T: Into<std::option::Option<crate::model::LogView>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.view = v.into();
+        pub fn set_view<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::LogView>,
+        {
+            self.0.request.view = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [view][crate::model::UpdateViewRequest::view].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_view<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::LogView>,
+        {
+            self.0.request.view = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateViewRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateViewRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -1864,6 +1990,7 @@ pub mod config_service_v_2 {
     /// # use google_cloud_logging_v2::builder;
     /// use builder::config_service_v_2::DeleteView;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1926,8 +2053,9 @@ pub mod config_service_v_2 {
     /// # use google_cloud_logging_v2::builder;
     /// use builder::config_service_v_2::ListSinks;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -2028,6 +2156,7 @@ pub mod config_service_v_2 {
     /// # use google_cloud_logging_v2::builder;
     /// use builder::config_service_v_2::GetSink;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2090,6 +2219,7 @@ pub mod config_service_v_2 {
     /// # use google_cloud_logging_v2::builder;
     /// use builder::config_service_v_2::CreateSink;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2140,11 +2270,22 @@ pub mod config_service_v_2 {
         /// Sets the value of [sink][crate::model::CreateSinkRequest::sink].
         ///
         /// This is a **required** field for requests.
-        pub fn set_sink<T: Into<std::option::Option<crate::model::LogSink>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.sink = v.into();
+        pub fn set_sink<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::LogSink>,
+        {
+            self.0.request.sink = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [sink][crate::model::CreateSinkRequest::sink].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_sink<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::LogSink>,
+        {
+            self.0.request.sink = v.map(|x| x.into());
             self
         }
 
@@ -2169,6 +2310,7 @@ pub mod config_service_v_2 {
     /// # use google_cloud_logging_v2::builder;
     /// use builder::config_service_v_2::UpdateSink;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2219,11 +2361,22 @@ pub mod config_service_v_2 {
         /// Sets the value of [sink][crate::model::UpdateSinkRequest::sink].
         ///
         /// This is a **required** field for requests.
-        pub fn set_sink<T: Into<std::option::Option<crate::model::LogSink>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.sink = v.into();
+        pub fn set_sink<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::LogSink>,
+        {
+            self.0.request.sink = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [sink][crate::model::UpdateSinkRequest::sink].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_sink<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::LogSink>,
+        {
+            self.0.request.sink = v.map(|x| x.into());
             self
         }
 
@@ -2234,11 +2387,20 @@ pub mod config_service_v_2 {
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateSinkRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateSinkRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -2257,6 +2419,7 @@ pub mod config_service_v_2 {
     /// # use google_cloud_logging_v2::builder;
     /// use builder::config_service_v_2::DeleteSink;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2319,8 +2482,9 @@ pub mod config_service_v_2 {
     /// # use google_cloud_logging_v2::builder;
     /// use builder::config_service_v_2::CreateLink;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_logging_v2::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -2406,8 +2570,22 @@ pub mod config_service_v_2 {
         /// Sets the value of [link][crate::model::CreateLinkRequest::link].
         ///
         /// This is a **required** field for requests.
-        pub fn set_link<T: Into<std::option::Option<crate::model::Link>>>(mut self, v: T) -> Self {
-            self.0.request.link = v.into();
+        pub fn set_link<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Link>,
+        {
+            self.0.request.link = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [link][crate::model::CreateLinkRequest::link].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_link<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Link>,
+        {
+            self.0.request.link = v.map(|x| x.into());
             self
         }
 
@@ -2434,8 +2612,9 @@ pub mod config_service_v_2 {
     /// # use google_cloud_logging_v2::builder;
     /// use builder::config_service_v_2::DeleteLink;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_logging_v2::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -2537,8 +2716,9 @@ pub mod config_service_v_2 {
     /// # use google_cloud_logging_v2::builder;
     /// use builder::config_service_v_2::ListLinks;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -2639,6 +2819,7 @@ pub mod config_service_v_2 {
     /// # use google_cloud_logging_v2::builder;
     /// use builder::config_service_v_2::GetLink;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2701,8 +2882,9 @@ pub mod config_service_v_2 {
     /// # use google_cloud_logging_v2::builder;
     /// use builder::config_service_v_2::ListExclusions;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -2803,6 +2985,7 @@ pub mod config_service_v_2 {
     /// # use google_cloud_logging_v2::builder;
     /// use builder::config_service_v_2::GetExclusion;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2865,6 +3048,7 @@ pub mod config_service_v_2 {
     /// # use google_cloud_logging_v2::builder;
     /// use builder::config_service_v_2::CreateExclusion;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2915,11 +3099,22 @@ pub mod config_service_v_2 {
         /// Sets the value of [exclusion][crate::model::CreateExclusionRequest::exclusion].
         ///
         /// This is a **required** field for requests.
-        pub fn set_exclusion<T: Into<std::option::Option<crate::model::LogExclusion>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.exclusion = v.into();
+        pub fn set_exclusion<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::LogExclusion>,
+        {
+            self.0.request.exclusion = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [exclusion][crate::model::CreateExclusionRequest::exclusion].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_exclusion<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::LogExclusion>,
+        {
+            self.0.request.exclusion = v.map(|x| x.into());
             self
         }
     }
@@ -2938,6 +3133,7 @@ pub mod config_service_v_2 {
     /// # use google_cloud_logging_v2::builder;
     /// use builder::config_service_v_2::UpdateExclusion;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2988,22 +3184,44 @@ pub mod config_service_v_2 {
         /// Sets the value of [exclusion][crate::model::UpdateExclusionRequest::exclusion].
         ///
         /// This is a **required** field for requests.
-        pub fn set_exclusion<T: Into<std::option::Option<crate::model::LogExclusion>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.exclusion = v.into();
+        pub fn set_exclusion<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::LogExclusion>,
+        {
+            self.0.request.exclusion = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [exclusion][crate::model::UpdateExclusionRequest::exclusion].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_exclusion<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::LogExclusion>,
+        {
+            self.0.request.exclusion = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateExclusionRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateExclusionRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -3022,6 +3240,7 @@ pub mod config_service_v_2 {
     /// # use google_cloud_logging_v2::builder;
     /// use builder::config_service_v_2::DeleteExclusion;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3084,6 +3303,7 @@ pub mod config_service_v_2 {
     /// # use google_cloud_logging_v2::builder;
     /// use builder::config_service_v_2::GetCmekSettings;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3146,6 +3366,7 @@ pub mod config_service_v_2 {
     /// # use google_cloud_logging_v2::builder;
     /// use builder::config_service_v_2::UpdateCmekSettings;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3199,20 +3420,40 @@ pub mod config_service_v_2 {
         /// Sets the value of [cmek_settings][crate::model::UpdateCmekSettingsRequest::cmek_settings].
         ///
         /// This is a **required** field for requests.
-        pub fn set_cmek_settings<T: Into<std::option::Option<crate::model::CmekSettings>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.cmek_settings = v.into();
+        pub fn set_cmek_settings<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::CmekSettings>,
+        {
+            self.0.request.cmek_settings = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [cmek_settings][crate::model::UpdateCmekSettingsRequest::cmek_settings].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_cmek_settings<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::CmekSettings>,
+        {
+            self.0.request.cmek_settings = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateCmekSettingsRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateCmekSettingsRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -3231,6 +3472,7 @@ pub mod config_service_v_2 {
     /// # use google_cloud_logging_v2::builder;
     /// use builder::config_service_v_2::GetSettings;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3293,6 +3535,7 @@ pub mod config_service_v_2 {
     /// # use google_cloud_logging_v2::builder;
     /// use builder::config_service_v_2::UpdateSettings;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3343,20 +3586,40 @@ pub mod config_service_v_2 {
         /// Sets the value of [settings][crate::model::UpdateSettingsRequest::settings].
         ///
         /// This is a **required** field for requests.
-        pub fn set_settings<T: Into<std::option::Option<crate::model::Settings>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.settings = v.into();
+        pub fn set_settings<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Settings>,
+        {
+            self.0.request.settings = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [settings][crate::model::UpdateSettingsRequest::settings].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_settings<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Settings>,
+        {
+            self.0.request.settings = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateSettingsRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateSettingsRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -3375,8 +3638,9 @@ pub mod config_service_v_2 {
     /// # use google_cloud_logging_v2::builder;
     /// use builder::config_service_v_2::CopyLogEntries;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_logging_v2::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -3493,8 +3757,9 @@ pub mod config_service_v_2 {
     /// # use google_cloud_logging_v2::builder;
     /// use builder::config_service_v_2::ListOperations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -3604,6 +3869,7 @@ pub mod config_service_v_2 {
     /// # use google_cloud_logging_v2::builder;
     /// use builder::config_service_v_2::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3667,6 +3933,7 @@ pub mod config_service_v_2 {
     /// # use google_cloud_logging_v2::builder;
     /// use builder::config_service_v_2::CancelOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3785,8 +4052,9 @@ pub mod metrics_service_v_2 {
     /// # use google_cloud_logging_v2::builder;
     /// use builder::metrics_service_v_2::ListLogMetrics;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -3887,6 +4155,7 @@ pub mod metrics_service_v_2 {
     /// # use google_cloud_logging_v2::builder;
     /// use builder::metrics_service_v_2::GetLogMetric;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3949,6 +4218,7 @@ pub mod metrics_service_v_2 {
     /// # use google_cloud_logging_v2::builder;
     /// use builder::metrics_service_v_2::CreateLogMetric;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3999,11 +4269,22 @@ pub mod metrics_service_v_2 {
         /// Sets the value of [metric][crate::model::CreateLogMetricRequest::metric].
         ///
         /// This is a **required** field for requests.
-        pub fn set_metric<T: Into<std::option::Option<crate::model::LogMetric>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.metric = v.into();
+        pub fn set_metric<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::LogMetric>,
+        {
+            self.0.request.metric = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [metric][crate::model::CreateLogMetricRequest::metric].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_metric<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::LogMetric>,
+        {
+            self.0.request.metric = v.map(|x| x.into());
             self
         }
     }
@@ -4022,6 +4303,7 @@ pub mod metrics_service_v_2 {
     /// # use google_cloud_logging_v2::builder;
     /// use builder::metrics_service_v_2::UpdateLogMetric;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -4072,11 +4354,22 @@ pub mod metrics_service_v_2 {
         /// Sets the value of [metric][crate::model::UpdateLogMetricRequest::metric].
         ///
         /// This is a **required** field for requests.
-        pub fn set_metric<T: Into<std::option::Option<crate::model::LogMetric>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.metric = v.into();
+        pub fn set_metric<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::LogMetric>,
+        {
+            self.0.request.metric = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [metric][crate::model::UpdateLogMetricRequest::metric].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_metric<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::LogMetric>,
+        {
+            self.0.request.metric = v.map(|x| x.into());
             self
         }
     }
@@ -4095,6 +4388,7 @@ pub mod metrics_service_v_2 {
     /// # use google_cloud_logging_v2::builder;
     /// use builder::metrics_service_v_2::DeleteLogMetric;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -4157,8 +4451,9 @@ pub mod metrics_service_v_2 {
     /// # use google_cloud_logging_v2::builder;
     /// use builder::metrics_service_v_2::ListOperations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -4268,6 +4563,7 @@ pub mod metrics_service_v_2 {
     /// # use google_cloud_logging_v2::builder;
     /// use builder::metrics_service_v_2::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -4331,6 +4627,7 @@ pub mod metrics_service_v_2 {
     /// # use google_cloud_logging_v2::builder;
     /// use builder::metrics_service_v_2::CancelOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });

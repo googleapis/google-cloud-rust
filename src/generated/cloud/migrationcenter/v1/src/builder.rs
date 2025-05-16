@@ -75,8 +75,9 @@ pub mod migration_center {
     /// # use google_cloud_migrationcenter_v1::builder;
     /// use builder::migration_center::ListAssets;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -195,6 +196,7 @@ pub mod migration_center {
     /// # use google_cloud_migrationcenter_v1::builder;
     /// use builder::migration_center::GetAsset;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -263,6 +265,7 @@ pub mod migration_center {
     /// # use google_cloud_migrationcenter_v1::builder;
     /// use builder::migration_center::UpdateAsset;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -305,22 +308,44 @@ pub mod migration_center {
         /// Sets the value of [update_mask][crate::model::UpdateAssetRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateAssetRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [asset][crate::model::UpdateAssetRequest::asset].
         ///
         /// This is a **required** field for requests.
-        pub fn set_asset<T: Into<std::option::Option<crate::model::Asset>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.asset = v.into();
+        pub fn set_asset<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Asset>,
+        {
+            self.0.request.asset = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [asset][crate::model::UpdateAssetRequest::asset].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_asset<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Asset>,
+        {
+            self.0.request.asset = v.map(|x| x.into());
             self
         }
 
@@ -345,6 +370,7 @@ pub mod migration_center {
     /// # use google_cloud_migrationcenter_v1::builder;
     /// use builder::migration_center::BatchUpdateAssets;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -423,6 +449,7 @@ pub mod migration_center {
     /// # use google_cloud_migrationcenter_v1::builder;
     /// use builder::migration_center::DeleteAsset;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -491,6 +518,7 @@ pub mod migration_center {
     /// # use google_cloud_migrationcenter_v1::builder;
     /// use builder::migration_center::BatchDeleteAssets;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -575,6 +603,7 @@ pub mod migration_center {
     /// # use google_cloud_migrationcenter_v1::builder;
     /// use builder::migration_center::ReportAssetFrames;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -626,11 +655,20 @@ pub mod migration_center {
         }
 
         /// Sets the value of [frames][crate::model::ReportAssetFramesRequest::frames].
-        pub fn set_frames<T: Into<std::option::Option<crate::model::Frames>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.frames = v.into();
+        pub fn set_frames<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Frames>,
+        {
+            self.0.request.frames = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [frames][crate::model::ReportAssetFramesRequest::frames].
+        pub fn set_or_clear_frames<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Frames>,
+        {
+            self.0.request.frames = v.map(|x| x.into());
             self
         }
 
@@ -657,6 +695,7 @@ pub mod migration_center {
     /// # use google_cloud_migrationcenter_v1::builder;
     /// use builder::migration_center::AggregateAssetsValues;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -739,8 +778,9 @@ pub mod migration_center {
     /// # use google_cloud_migrationcenter_v1::builder;
     /// use builder::migration_center::CreateImportJob;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_migrationcenter_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -836,11 +876,22 @@ pub mod migration_center {
         /// Sets the value of [import_job][crate::model::CreateImportJobRequest::import_job].
         ///
         /// This is a **required** field for requests.
-        pub fn set_import_job<T: Into<std::option::Option<crate::model::ImportJob>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.import_job = v.into();
+        pub fn set_import_job<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::ImportJob>,
+        {
+            self.0.request.import_job = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [import_job][crate::model::CreateImportJobRequest::import_job].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_import_job<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::ImportJob>,
+        {
+            self.0.request.import_job = v.map(|x| x.into());
             self
         }
 
@@ -865,8 +916,9 @@ pub mod migration_center {
     /// # use google_cloud_migrationcenter_v1::builder;
     /// use builder::migration_center::ListImportJobs;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -985,6 +1037,7 @@ pub mod migration_center {
     /// # use google_cloud_migrationcenter_v1::builder;
     /// use builder::migration_center::GetImportJob;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1053,8 +1106,9 @@ pub mod migration_center {
     /// # use google_cloud_migrationcenter_v1::builder;
     /// use builder::migration_center::DeleteImportJob;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_migrationcenter_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1168,8 +1222,9 @@ pub mod migration_center {
     /// # use google_cloud_migrationcenter_v1::builder;
     /// use builder::migration_center::UpdateImportJob;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_migrationcenter_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1249,22 +1304,44 @@ pub mod migration_center {
         /// Sets the value of [update_mask][crate::model::UpdateImportJobRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateImportJobRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [import_job][crate::model::UpdateImportJobRequest::import_job].
         ///
         /// This is a **required** field for requests.
-        pub fn set_import_job<T: Into<std::option::Option<crate::model::ImportJob>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.import_job = v.into();
+        pub fn set_import_job<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::ImportJob>,
+        {
+            self.0.request.import_job = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [import_job][crate::model::UpdateImportJobRequest::import_job].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_import_job<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::ImportJob>,
+        {
+            self.0.request.import_job = v.map(|x| x.into());
             self
         }
 
@@ -1289,8 +1366,9 @@ pub mod migration_center {
     /// # use google_cloud_migrationcenter_v1::builder;
     /// use builder::migration_center::ValidateImportJob;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_migrationcenter_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1401,8 +1479,9 @@ pub mod migration_center {
     /// # use google_cloud_migrationcenter_v1::builder;
     /// use builder::migration_center::RunImportJob;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_migrationcenter_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1510,6 +1589,7 @@ pub mod migration_center {
     /// # use google_cloud_migrationcenter_v1::builder;
     /// use builder::migration_center::GetImportDataFile;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1575,8 +1655,9 @@ pub mod migration_center {
     /// # use google_cloud_migrationcenter_v1::builder;
     /// use builder::migration_center::ListImportDataFiles;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -1694,8 +1775,9 @@ pub mod migration_center {
     /// # use google_cloud_migrationcenter_v1::builder;
     /// use builder::migration_center::CreateImportDataFile;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_migrationcenter_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1797,11 +1879,22 @@ pub mod migration_center {
         /// Sets the value of [import_data_file][crate::model::CreateImportDataFileRequest::import_data_file].
         ///
         /// This is a **required** field for requests.
-        pub fn set_import_data_file<T: Into<std::option::Option<crate::model::ImportDataFile>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.import_data_file = v.into();
+        pub fn set_import_data_file<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::ImportDataFile>,
+        {
+            self.0.request.import_data_file = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [import_data_file][crate::model::CreateImportDataFileRequest::import_data_file].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_import_data_file<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::ImportDataFile>,
+        {
+            self.0.request.import_data_file = v.map(|x| x.into());
             self
         }
 
@@ -1826,8 +1919,9 @@ pub mod migration_center {
     /// # use google_cloud_migrationcenter_v1::builder;
     /// use builder::migration_center::DeleteImportDataFile;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_migrationcenter_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1938,8 +2032,9 @@ pub mod migration_center {
     /// # use google_cloud_migrationcenter_v1::builder;
     /// use builder::migration_center::ListGroups;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -2052,6 +2147,7 @@ pub mod migration_center {
     /// # use google_cloud_migrationcenter_v1::builder;
     /// use builder::migration_center::GetGroup;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2114,8 +2210,9 @@ pub mod migration_center {
     /// # use google_cloud_migrationcenter_v1::builder;
     /// use builder::migration_center::CreateGroup;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_migrationcenter_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -2211,11 +2308,22 @@ pub mod migration_center {
         /// Sets the value of [group][crate::model::CreateGroupRequest::group].
         ///
         /// This is a **required** field for requests.
-        pub fn set_group<T: Into<std::option::Option<crate::model::Group>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.group = v.into();
+        pub fn set_group<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Group>,
+        {
+            self.0.request.group = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [group][crate::model::CreateGroupRequest::group].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_group<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Group>,
+        {
+            self.0.request.group = v.map(|x| x.into());
             self
         }
 
@@ -2240,8 +2348,9 @@ pub mod migration_center {
     /// # use google_cloud_migrationcenter_v1::builder;
     /// use builder::migration_center::UpdateGroup;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_migrationcenter_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -2321,22 +2430,44 @@ pub mod migration_center {
         /// Sets the value of [update_mask][crate::model::UpdateGroupRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateGroupRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [group][crate::model::UpdateGroupRequest::group].
         ///
         /// This is a **required** field for requests.
-        pub fn set_group<T: Into<std::option::Option<crate::model::Group>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.group = v.into();
+        pub fn set_group<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Group>,
+        {
+            self.0.request.group = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [group][crate::model::UpdateGroupRequest::group].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_group<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Group>,
+        {
+            self.0.request.group = v.map(|x| x.into());
             self
         }
 
@@ -2361,8 +2492,9 @@ pub mod migration_center {
     /// # use google_cloud_migrationcenter_v1::builder;
     /// use builder::migration_center::DeleteGroup;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_migrationcenter_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -2470,8 +2602,9 @@ pub mod migration_center {
     /// # use google_cloud_migrationcenter_v1::builder;
     /// use builder::migration_center::AddAssetsToGroup;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_migrationcenter_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -2568,11 +2701,22 @@ pub mod migration_center {
         /// Sets the value of [assets][crate::model::AddAssetsToGroupRequest::assets].
         ///
         /// This is a **required** field for requests.
-        pub fn set_assets<T: Into<std::option::Option<crate::model::AssetList>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.assets = v.into();
+        pub fn set_assets<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::AssetList>,
+        {
+            self.0.request.assets = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [assets][crate::model::AddAssetsToGroupRequest::assets].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_assets<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::AssetList>,
+        {
+            self.0.request.assets = v.map(|x| x.into());
             self
         }
 
@@ -2597,8 +2741,9 @@ pub mod migration_center {
     /// # use google_cloud_migrationcenter_v1::builder;
     /// use builder::migration_center::RemoveAssetsFromGroup;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_migrationcenter_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -2695,11 +2840,22 @@ pub mod migration_center {
         /// Sets the value of [assets][crate::model::RemoveAssetsFromGroupRequest::assets].
         ///
         /// This is a **required** field for requests.
-        pub fn set_assets<T: Into<std::option::Option<crate::model::AssetList>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.assets = v.into();
+        pub fn set_assets<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::AssetList>,
+        {
+            self.0.request.assets = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [assets][crate::model::RemoveAssetsFromGroupRequest::assets].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_assets<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::AssetList>,
+        {
+            self.0.request.assets = v.map(|x| x.into());
             self
         }
 
@@ -2724,8 +2880,9 @@ pub mod migration_center {
     /// # use google_cloud_migrationcenter_v1::builder;
     /// use builder::migration_center::ListErrorFrames;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -2832,6 +2989,7 @@ pub mod migration_center {
     /// # use google_cloud_migrationcenter_v1::builder;
     /// use builder::migration_center::GetErrorFrame;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2900,8 +3058,9 @@ pub mod migration_center {
     /// # use google_cloud_migrationcenter_v1::builder;
     /// use builder::migration_center::ListSources;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -3014,6 +3173,7 @@ pub mod migration_center {
     /// # use google_cloud_migrationcenter_v1::builder;
     /// use builder::migration_center::GetSource;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3076,8 +3236,9 @@ pub mod migration_center {
     /// # use google_cloud_migrationcenter_v1::builder;
     /// use builder::migration_center::CreateSource;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_migrationcenter_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -3173,11 +3334,22 @@ pub mod migration_center {
         /// Sets the value of [source][crate::model::CreateSourceRequest::source].
         ///
         /// This is a **required** field for requests.
-        pub fn set_source<T: Into<std::option::Option<crate::model::Source>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.source = v.into();
+        pub fn set_source<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Source>,
+        {
+            self.0.request.source = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [source][crate::model::CreateSourceRequest::source].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_source<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Source>,
+        {
+            self.0.request.source = v.map(|x| x.into());
             self
         }
 
@@ -3202,8 +3374,9 @@ pub mod migration_center {
     /// # use google_cloud_migrationcenter_v1::builder;
     /// use builder::migration_center::UpdateSource;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_migrationcenter_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -3283,22 +3456,44 @@ pub mod migration_center {
         /// Sets the value of [update_mask][crate::model::UpdateSourceRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateSourceRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [source][crate::model::UpdateSourceRequest::source].
         ///
         /// This is a **required** field for requests.
-        pub fn set_source<T: Into<std::option::Option<crate::model::Source>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.source = v.into();
+        pub fn set_source<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Source>,
+        {
+            self.0.request.source = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [source][crate::model::UpdateSourceRequest::source].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_source<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Source>,
+        {
+            self.0.request.source = v.map(|x| x.into());
             self
         }
 
@@ -3323,8 +3518,9 @@ pub mod migration_center {
     /// # use google_cloud_migrationcenter_v1::builder;
     /// use builder::migration_center::DeleteSource;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_migrationcenter_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -3432,8 +3628,9 @@ pub mod migration_center {
     /// # use google_cloud_migrationcenter_v1::builder;
     /// use builder::migration_center::ListPreferenceSets;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -3545,6 +3742,7 @@ pub mod migration_center {
     /// # use google_cloud_migrationcenter_v1::builder;
     /// use builder::migration_center::GetPreferenceSet;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3610,8 +3808,9 @@ pub mod migration_center {
     /// # use google_cloud_migrationcenter_v1::builder;
     /// use builder::migration_center::CreatePreferenceSet;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_migrationcenter_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -3713,11 +3912,22 @@ pub mod migration_center {
         /// Sets the value of [preference_set][crate::model::CreatePreferenceSetRequest::preference_set].
         ///
         /// This is a **required** field for requests.
-        pub fn set_preference_set<T: Into<std::option::Option<crate::model::PreferenceSet>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.preference_set = v.into();
+        pub fn set_preference_set<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::PreferenceSet>,
+        {
+            self.0.request.preference_set = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [preference_set][crate::model::CreatePreferenceSetRequest::preference_set].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_preference_set<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::PreferenceSet>,
+        {
+            self.0.request.preference_set = v.map(|x| x.into());
             self
         }
 
@@ -3742,8 +3952,9 @@ pub mod migration_center {
     /// # use google_cloud_migrationcenter_v1::builder;
     /// use builder::migration_center::UpdatePreferenceSet;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_migrationcenter_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -3829,22 +4040,44 @@ pub mod migration_center {
         /// Sets the value of [update_mask][crate::model::UpdatePreferenceSetRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdatePreferenceSetRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [preference_set][crate::model::UpdatePreferenceSetRequest::preference_set].
         ///
         /// This is a **required** field for requests.
-        pub fn set_preference_set<T: Into<std::option::Option<crate::model::PreferenceSet>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.preference_set = v.into();
+        pub fn set_preference_set<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::PreferenceSet>,
+        {
+            self.0.request.preference_set = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [preference_set][crate::model::UpdatePreferenceSetRequest::preference_set].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_preference_set<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::PreferenceSet>,
+        {
+            self.0.request.preference_set = v.map(|x| x.into());
             self
         }
 
@@ -3869,8 +4102,9 @@ pub mod migration_center {
     /// # use google_cloud_migrationcenter_v1::builder;
     /// use builder::migration_center::DeletePreferenceSet;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_migrationcenter_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -3981,6 +4215,7 @@ pub mod migration_center {
     /// # use google_cloud_migrationcenter_v1::builder;
     /// use builder::migration_center::GetSettings;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -4043,8 +4278,9 @@ pub mod migration_center {
     /// # use google_cloud_migrationcenter_v1::builder;
     /// use builder::migration_center::UpdateSettings;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_migrationcenter_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -4124,22 +4360,44 @@ pub mod migration_center {
         /// Sets the value of [update_mask][crate::model::UpdateSettingsRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateSettingsRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [settings][crate::model::UpdateSettingsRequest::settings].
         ///
         /// This is a **required** field for requests.
-        pub fn set_settings<T: Into<std::option::Option<crate::model::Settings>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.settings = v.into();
+        pub fn set_settings<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Settings>,
+        {
+            self.0.request.settings = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [settings][crate::model::UpdateSettingsRequest::settings].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_settings<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Settings>,
+        {
+            self.0.request.settings = v.map(|x| x.into());
             self
         }
 
@@ -4164,8 +4422,9 @@ pub mod migration_center {
     /// # use google_cloud_migrationcenter_v1::builder;
     /// use builder::migration_center::CreateReportConfig;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_migrationcenter_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -4266,11 +4525,22 @@ pub mod migration_center {
         /// Sets the value of [report_config][crate::model::CreateReportConfigRequest::report_config].
         ///
         /// This is a **required** field for requests.
-        pub fn set_report_config<T: Into<std::option::Option<crate::model::ReportConfig>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.report_config = v.into();
+        pub fn set_report_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::ReportConfig>,
+        {
+            self.0.request.report_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [report_config][crate::model::CreateReportConfigRequest::report_config].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_report_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::ReportConfig>,
+        {
+            self.0.request.report_config = v.map(|x| x.into());
             self
         }
 
@@ -4295,6 +4565,7 @@ pub mod migration_center {
     /// # use google_cloud_migrationcenter_v1::builder;
     /// use builder::migration_center::GetReportConfig;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -4357,8 +4628,9 @@ pub mod migration_center {
     /// # use google_cloud_migrationcenter_v1::builder;
     /// use builder::migration_center::ListReportConfigs;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -4474,8 +4746,9 @@ pub mod migration_center {
     /// # use google_cloud_migrationcenter_v1::builder;
     /// use builder::migration_center::DeleteReportConfig;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_migrationcenter_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -4592,8 +4865,9 @@ pub mod migration_center {
     /// # use google_cloud_migrationcenter_v1::builder;
     /// use builder::migration_center::CreateReport;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_migrationcenter_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -4689,11 +4963,22 @@ pub mod migration_center {
         /// Sets the value of [report][crate::model::CreateReportRequest::report].
         ///
         /// This is a **required** field for requests.
-        pub fn set_report<T: Into<std::option::Option<crate::model::Report>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.report = v.into();
+        pub fn set_report<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Report>,
+        {
+            self.0.request.report = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [report][crate::model::CreateReportRequest::report].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_report<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Report>,
+        {
+            self.0.request.report = v.map(|x| x.into());
             self
         }
 
@@ -4718,6 +5003,7 @@ pub mod migration_center {
     /// # use google_cloud_migrationcenter_v1::builder;
     /// use builder::migration_center::GetReport;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -4786,8 +5072,9 @@ pub mod migration_center {
     /// # use google_cloud_migrationcenter_v1::builder;
     /// use builder::migration_center::ListReports;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -4906,8 +5193,9 @@ pub mod migration_center {
     /// # use google_cloud_migrationcenter_v1::builder;
     /// use builder::migration_center::DeleteReport;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_migrationcenter_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -5015,8 +5303,9 @@ pub mod migration_center {
     /// # use google_cloud_migrationcenter_v1::builder;
     /// use builder::migration_center::ListLocations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -5124,6 +5413,7 @@ pub mod migration_center {
     /// # use google_cloud_migrationcenter_v1::builder;
     /// use builder::migration_center::GetLocation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -5184,8 +5474,9 @@ pub mod migration_center {
     /// # use google_cloud_migrationcenter_v1::builder;
     /// use builder::migration_center::ListOperations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -5295,6 +5586,7 @@ pub mod migration_center {
     /// # use google_cloud_migrationcenter_v1::builder;
     /// use builder::migration_center::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -5358,6 +5650,7 @@ pub mod migration_center {
     /// # use google_cloud_migrationcenter_v1::builder;
     /// use builder::migration_center::DeleteOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -5421,6 +5714,7 @@ pub mod migration_center {
     /// # use google_cloud_migrationcenter_v1::builder;
     /// use builder::migration_center::CancelOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });

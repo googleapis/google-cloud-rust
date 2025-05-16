@@ -73,6 +73,7 @@ pub mod domains {
     /// # use google_cloud_domains_v1::builder;
     /// use builder::domains::SearchDomains;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -141,6 +142,7 @@ pub mod domains {
     /// # use google_cloud_domains_v1::builder;
     /// use builder::domains::RetrieveRegisterParameters;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -214,8 +216,9 @@ pub mod domains {
     /// # use google_cloud_domains_v1::builder;
     /// use builder::domains::RegisterDomain;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_domains_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -303,11 +306,22 @@ pub mod domains {
         /// Sets the value of [registration][crate::model::RegisterDomainRequest::registration].
         ///
         /// This is a **required** field for requests.
-        pub fn set_registration<T: Into<std::option::Option<crate::model::Registration>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.registration = v.into();
+        pub fn set_registration<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Registration>,
+        {
+            self.0.request.registration = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [registration][crate::model::RegisterDomainRequest::registration].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_registration<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Registration>,
+        {
+            self.0.request.registration = v.map(|x| x.into());
             self
         }
 
@@ -336,11 +350,22 @@ pub mod domains {
         /// Sets the value of [yearly_price][crate::model::RegisterDomainRequest::yearly_price].
         ///
         /// This is a **required** field for requests.
-        pub fn set_yearly_price<T: Into<std::option::Option<gtype::model::Money>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.yearly_price = v.into();
+        pub fn set_yearly_price<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<gtype::model::Money>,
+        {
+            self.0.request.yearly_price = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [yearly_price][crate::model::RegisterDomainRequest::yearly_price].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_yearly_price<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<gtype::model::Money>,
+        {
+            self.0.request.yearly_price = v.map(|x| x.into());
             self
         }
 
@@ -365,6 +390,7 @@ pub mod domains {
     /// # use google_cloud_domains_v1::builder;
     /// use builder::domains::RetrieveTransferParameters;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -438,8 +464,9 @@ pub mod domains {
     /// # use google_cloud_domains_v1::builder;
     /// use builder::domains::TransferDomain;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_domains_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -527,11 +554,22 @@ pub mod domains {
         /// Sets the value of [registration][crate::model::TransferDomainRequest::registration].
         ///
         /// This is a **required** field for requests.
-        pub fn set_registration<T: Into<std::option::Option<crate::model::Registration>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.registration = v.into();
+        pub fn set_registration<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Registration>,
+        {
+            self.0.request.registration = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [registration][crate::model::TransferDomainRequest::registration].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_registration<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Registration>,
+        {
+            self.0.request.registration = v.map(|x| x.into());
             self
         }
 
@@ -549,22 +587,40 @@ pub mod domains {
         /// Sets the value of [yearly_price][crate::model::TransferDomainRequest::yearly_price].
         ///
         /// This is a **required** field for requests.
-        pub fn set_yearly_price<T: Into<std::option::Option<gtype::model::Money>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.yearly_price = v.into();
+        pub fn set_yearly_price<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<gtype::model::Money>,
+        {
+            self.0.request.yearly_price = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [yearly_price][crate::model::TransferDomainRequest::yearly_price].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_yearly_price<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<gtype::model::Money>,
+        {
+            self.0.request.yearly_price = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [authorization_code][crate::model::TransferDomainRequest::authorization_code].
-        pub fn set_authorization_code<
-            T: Into<std::option::Option<crate::model::AuthorizationCode>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.authorization_code = v.into();
+        pub fn set_authorization_code<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::AuthorizationCode>,
+        {
+            self.0.request.authorization_code = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [authorization_code][crate::model::TransferDomainRequest::authorization_code].
+        pub fn set_or_clear_authorization_code<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::AuthorizationCode>,
+        {
+            self.0.request.authorization_code = v.map(|x| x.into());
             self
         }
 
@@ -589,8 +645,9 @@ pub mod domains {
     /// # use google_cloud_domains_v1::builder;
     /// use builder::domains::ListRegistrations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -698,6 +755,7 @@ pub mod domains {
     /// # use google_cloud_domains_v1::builder;
     /// use builder::domains::GetRegistration;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -758,8 +816,9 @@ pub mod domains {
     /// # use google_cloud_domains_v1::builder;
     /// use builder::domains::UpdateRegistration;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_domains_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -840,22 +899,42 @@ pub mod domains {
         }
 
         /// Sets the value of [registration][crate::model::UpdateRegistrationRequest::registration].
-        pub fn set_registration<T: Into<std::option::Option<crate::model::Registration>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.registration = v.into();
+        pub fn set_registration<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Registration>,
+        {
+            self.0.request.registration = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [registration][crate::model::UpdateRegistrationRequest::registration].
+        pub fn set_or_clear_registration<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Registration>,
+        {
+            self.0.request.registration = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateRegistrationRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateRegistrationRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -874,8 +953,9 @@ pub mod domains {
     /// # use google_cloud_domains_v1::builder;
     /// use builder::domains::ConfigureManagementSettings;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_domains_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -966,24 +1046,42 @@ pub mod domains {
         }
 
         /// Sets the value of [management_settings][crate::model::ConfigureManagementSettingsRequest::management_settings].
-        pub fn set_management_settings<
-            T: Into<std::option::Option<crate::model::ManagementSettings>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.management_settings = v.into();
+        pub fn set_management_settings<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::ManagementSettings>,
+        {
+            self.0.request.management_settings = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [management_settings][crate::model::ConfigureManagementSettingsRequest::management_settings].
+        pub fn set_or_clear_management_settings<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::ManagementSettings>,
+        {
+            self.0.request.management_settings = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::ConfigureManagementSettingsRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::ConfigureManagementSettingsRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -1002,8 +1100,9 @@ pub mod domains {
     /// # use google_cloud_domains_v1::builder;
     /// use builder::domains::ConfigureDnsSettings;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_domains_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1092,22 +1191,42 @@ pub mod domains {
         }
 
         /// Sets the value of [dns_settings][crate::model::ConfigureDnsSettingsRequest::dns_settings].
-        pub fn set_dns_settings<T: Into<std::option::Option<crate::model::DnsSettings>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.dns_settings = v.into();
+        pub fn set_dns_settings<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::DnsSettings>,
+        {
+            self.0.request.dns_settings = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [dns_settings][crate::model::ConfigureDnsSettingsRequest::dns_settings].
+        pub fn set_or_clear_dns_settings<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::DnsSettings>,
+        {
+            self.0.request.dns_settings = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::ConfigureDnsSettingsRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::ConfigureDnsSettingsRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
@@ -1132,8 +1251,9 @@ pub mod domains {
     /// # use google_cloud_domains_v1::builder;
     /// use builder::domains::ConfigureContactSettings;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_domains_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1224,22 +1344,42 @@ pub mod domains {
         }
 
         /// Sets the value of [contact_settings][crate::model::ConfigureContactSettingsRequest::contact_settings].
-        pub fn set_contact_settings<T: Into<std::option::Option<crate::model::ContactSettings>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.contact_settings = v.into();
+        pub fn set_contact_settings<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::ContactSettings>,
+        {
+            self.0.request.contact_settings = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [contact_settings][crate::model::ConfigureContactSettingsRequest::contact_settings].
+        pub fn set_or_clear_contact_settings<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::ContactSettings>,
+        {
+            self.0.request.contact_settings = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::ConfigureContactSettingsRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::ConfigureContactSettingsRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
@@ -1275,8 +1415,9 @@ pub mod domains {
     /// # use google_cloud_domains_v1::builder;
     /// use builder::domains::ExportRegistration;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_domains_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1379,8 +1520,9 @@ pub mod domains {
     /// # use google_cloud_domains_v1::builder;
     /// use builder::domains::DeleteRegistration;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_domains_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1483,6 +1625,7 @@ pub mod domains {
     /// # use google_cloud_domains_v1::builder;
     /// use builder::domains::RetrieveAuthorizationCode;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1548,6 +1691,7 @@ pub mod domains {
     /// # use google_cloud_domains_v1::builder;
     /// use builder::domains::ResetAuthorizationCode;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1611,8 +1755,9 @@ pub mod domains {
     /// # use google_cloud_domains_v1::builder;
     /// use builder::domains::ListOperations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -1720,6 +1865,7 @@ pub mod domains {
     /// # use google_cloud_domains_v1::builder;
     /// use builder::domains::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });

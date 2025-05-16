@@ -75,8 +75,9 @@ pub mod secret_manager_service {
     /// # use google_cloud_secretmanager_v1::builder;
     /// use builder::secret_manager_service::ListSecrets;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -183,6 +184,7 @@ pub mod secret_manager_service {
     /// # use google_cloud_secretmanager_v1::builder;
     /// use builder::secret_manager_service::CreateSecret;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -241,11 +243,22 @@ pub mod secret_manager_service {
         /// Sets the value of [secret][crate::model::CreateSecretRequest::secret].
         ///
         /// This is a **required** field for requests.
-        pub fn set_secret<T: Into<std::option::Option<crate::model::Secret>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.secret = v.into();
+        pub fn set_secret<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Secret>,
+        {
+            self.0.request.secret = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [secret][crate::model::CreateSecretRequest::secret].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_secret<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Secret>,
+        {
+            self.0.request.secret = v.map(|x| x.into());
             self
         }
     }
@@ -264,6 +277,7 @@ pub mod secret_manager_service {
     /// # use google_cloud_secretmanager_v1::builder;
     /// use builder::secret_manager_service::AddSecretVersion;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -317,11 +331,22 @@ pub mod secret_manager_service {
         /// Sets the value of [payload][crate::model::AddSecretVersionRequest::payload].
         ///
         /// This is a **required** field for requests.
-        pub fn set_payload<T: Into<std::option::Option<crate::model::SecretPayload>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.payload = v.into();
+        pub fn set_payload<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::SecretPayload>,
+        {
+            self.0.request.payload = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [payload][crate::model::AddSecretVersionRequest::payload].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_payload<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::SecretPayload>,
+        {
+            self.0.request.payload = v.map(|x| x.into());
             self
         }
     }
@@ -340,6 +365,7 @@ pub mod secret_manager_service {
     /// # use google_cloud_secretmanager_v1::builder;
     /// use builder::secret_manager_service::GetSecret;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -402,6 +428,7 @@ pub mod secret_manager_service {
     /// # use google_cloud_secretmanager_v1::builder;
     /// use builder::secret_manager_service::UpdateSecret;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -444,22 +471,44 @@ pub mod secret_manager_service {
         /// Sets the value of [secret][crate::model::UpdateSecretRequest::secret].
         ///
         /// This is a **required** field for requests.
-        pub fn set_secret<T: Into<std::option::Option<crate::model::Secret>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.secret = v.into();
+        pub fn set_secret<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Secret>,
+        {
+            self.0.request.secret = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [secret][crate::model::UpdateSecretRequest::secret].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_secret<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Secret>,
+        {
+            self.0.request.secret = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateSecretRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateSecretRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -478,6 +527,7 @@ pub mod secret_manager_service {
     /// # use google_cloud_secretmanager_v1::builder;
     /// use builder::secret_manager_service::DeleteSecret;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -546,8 +596,9 @@ pub mod secret_manager_service {
     /// # use google_cloud_secretmanager_v1::builder;
     /// use builder::secret_manager_service::ListSecretVersions;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -659,6 +710,7 @@ pub mod secret_manager_service {
     /// # use google_cloud_secretmanager_v1::builder;
     /// use builder::secret_manager_service::GetSecretVersion;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -724,6 +776,7 @@ pub mod secret_manager_service {
     /// # use google_cloud_secretmanager_v1::builder;
     /// use builder::secret_manager_service::AccessSecretVersion;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -789,6 +842,7 @@ pub mod secret_manager_service {
     /// # use google_cloud_secretmanager_v1::builder;
     /// use builder::secret_manager_service::DisableSecretVersion;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -860,6 +914,7 @@ pub mod secret_manager_service {
     /// # use google_cloud_secretmanager_v1::builder;
     /// use builder::secret_manager_service::EnableSecretVersion;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -931,6 +986,7 @@ pub mod secret_manager_service {
     /// # use google_cloud_secretmanager_v1::builder;
     /// use builder::secret_manager_service::DestroySecretVersion;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1002,6 +1058,7 @@ pub mod secret_manager_service {
     /// # use google_cloud_secretmanager_v1::builder;
     /// use builder::secret_manager_service::SetIamPolicy;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1052,20 +1109,40 @@ pub mod secret_manager_service {
         /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
-        pub fn set_policy<T: Into<std::option::Option<iam_v1::model::Policy>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.policy = v.into();
+        pub fn set_policy<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -1084,6 +1161,7 @@ pub mod secret_manager_service {
     /// # use google_cloud_secretmanager_v1::builder;
     /// use builder::secret_manager_service::GetIamPolicy;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1132,11 +1210,20 @@ pub mod secret_manager_service {
         }
 
         /// Sets the value of [options][iam_v1::model::GetIamPolicyRequest::options].
-        pub fn set_options<T: Into<std::option::Option<iam_v1::model::GetPolicyOptions>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.options = v.into();
+        pub fn set_options<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = v.map(|x| x.into());
             self
         }
     }
@@ -1155,6 +1242,7 @@ pub mod secret_manager_service {
     /// # use google_cloud_secretmanager_v1::builder;
     /// use builder::secret_manager_service::TestIamPermissions;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1233,8 +1321,9 @@ pub mod secret_manager_service {
     /// # use google_cloud_secretmanager_v1::builder;
     /// use builder::secret_manager_service::ListLocations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -1342,6 +1431,7 @@ pub mod secret_manager_service {
     /// # use google_cloud_secretmanager_v1::builder;
     /// use builder::secret_manager_service::GetLocation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });

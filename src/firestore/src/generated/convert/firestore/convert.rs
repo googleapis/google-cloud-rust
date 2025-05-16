@@ -73,7 +73,7 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::BloomFilter> for Blo
     fn cnv(self) -> std::result::Result<crate::generated::gapic::model::BloomFilter, gaxi::prost::ConvertError> {
         Ok(
             crate::generated::gapic::model::BloomFilter::new()
-                .set_bits(self.bits.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_bits(self.bits.map(|v| v.cnv()).transpose()?)
                 .set_hash_count(self.hash_count)
         )
     }
@@ -256,8 +256,8 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::Document> for Docume
                     .map(|(k, v)| {
                         gaxi::prost::pair_transpose(k.cnv(), v.cnv())
                     }).collect::<std::result::Result<std::collections::HashMap<_, _>, _>>()?)
-                .set_create_time(self.create_time.map(|v| v.cnv()).transpose()?)
-                .set_update_time(self.update_time.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_create_time(self.create_time.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_update_time(self.update_time.map(|v| v.cnv()).transpose()?)
         )
     }
 }
@@ -401,7 +401,7 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::GetDocumentRequest> 
         Ok(
             crate::generated::gapic::model::GetDocumentRequest::new()
                 .set_name(self.name)
-                .set_mask(self.mask.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_mask(self.mask.map(|v| v.cnv()).transpose()?)
                 .set_consistency_selector(self.consistency_selector.map(|v| v.cnv()).transpose()?)
         )
     }
@@ -452,7 +452,7 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::ListDocumentsRequest
                 .set_page_size(self.page_size)
                 .set_page_token(self.page_token)
                 .set_order_by(self.order_by)
-                .set_mask(self.mask.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_mask(self.mask.map(|v| v.cnv()).transpose()?)
                 .set_show_missing(self.show_missing)
                 .set_consistency_selector(self.consistency_selector.map(|v| v.cnv()).transpose()?)
         )
@@ -503,8 +503,8 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::CreateDocumentReques
                 .set_parent(self.parent)
                 .set_collection_id(self.collection_id)
                 .set_document_id(self.document_id)
-                .set_document(self.document.map(|v| v.cnv()).transpose()?)
-                .set_mask(self.mask.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_document(self.document.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_mask(self.mask.map(|v| v.cnv()).transpose()?)
         )
     }
 }
@@ -525,10 +525,10 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::UpdateDocumentReques
     fn cnv(self) -> std::result::Result<crate::generated::gapic::model::UpdateDocumentRequest, gaxi::prost::ConvertError> {
         Ok(
             crate::generated::gapic::model::UpdateDocumentRequest::new()
-                .set_document(self.document.map(|v| v.cnv()).transpose()?)
-                .set_update_mask(self.update_mask.map(|v| v.cnv()).transpose()?)
-                .set_mask(self.mask.map(|v| v.cnv()).transpose()?)
-                .set_current_document(self.current_document.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_document(self.document.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_update_mask(self.update_mask.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_mask(self.mask.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_current_document(self.current_document.map(|v| v.cnv()).transpose()?)
         )
     }
 }
@@ -548,7 +548,7 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::DeleteDocumentReques
         Ok(
             crate::generated::gapic::model::DeleteDocumentRequest::new()
                 .set_name(self.name)
-                .set_current_document(self.current_document.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_current_document(self.current_document.map(|v| v.cnv()).transpose()?)
         )
     }
 }
@@ -597,7 +597,7 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::BatchGetDocumentsReq
                 .set_database(self.database)
                 .set_documents(self.documents.into_iter().map(|v| v.cnv())
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
-                .set_mask(self.mask.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_mask(self.mask.map(|v| v.cnv()).transpose()?)
                 .set_consistency_selector(self.consistency_selector.map(|v| v.cnv()).transpose()?)
         )
     }
@@ -639,7 +639,7 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::BatchGetDocumentsRes
         Ok(
             crate::generated::gapic::model::BatchGetDocumentsResponse::new()
                 .set_transaction(self.transaction)
-                .set_read_time(self.read_time.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_read_time(self.read_time.map(|v| v.cnv()).transpose()?)
                 .set_result(self.result.map(|v| v.cnv()).transpose()?)
         )
     }
@@ -660,7 +660,7 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::BeginTransactionRequ
         Ok(
             crate::generated::gapic::model::BeginTransactionRequest::new()
                 .set_database(self.database)
-                .set_options(self.options.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_options(self.options.map(|v| v.cnv()).transpose()?)
         )
     }
 }
@@ -728,7 +728,7 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::CommitResponse> for 
             crate::generated::gapic::model::CommitResponse::new()
                 .set_write_results(self.write_results.into_iter().map(|v| v.cnv())
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
-                .set_commit_time(self.commit_time.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_commit_time(self.commit_time.map(|v| v.cnv()).transpose()?)
         )
     }
 }
@@ -810,7 +810,7 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::RunQueryRequest> for
         Ok(
             crate::generated::gapic::model::RunQueryRequest::new()
                 .set_parent(self.parent)
-                .set_explain_options(self.explain_options.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_explain_options(self.explain_options.map(|v| v.cnv()).transpose()?)
                 .set_query_type(self.query_type.map(|v| v.cnv()).transpose()?)
                 .set_consistency_selector(self.consistency_selector.map(|v| v.cnv()).transpose()?)
         )
@@ -854,10 +854,10 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::RunQueryResponse> fo
         Ok(
             crate::generated::gapic::model::RunQueryResponse::new()
                 .set_transaction(self.transaction)
-                .set_document(self.document.map(|v| v.cnv()).transpose()?)
-                .set_read_time(self.read_time.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_document(self.document.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_read_time(self.read_time.map(|v| v.cnv()).transpose()?)
                 .set_skipped_results(self.skipped_results)
-                .set_explain_metrics(self.explain_metrics.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_explain_metrics(self.explain_metrics.map(|v| v.cnv()).transpose()?)
                 .set_continuation_selector(self.continuation_selector.map(|v| v.cnv()).transpose()?)
         )
     }
@@ -920,7 +920,7 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::RunAggregationQueryR
         Ok(
             crate::generated::gapic::model::RunAggregationQueryRequest::new()
                 .set_parent(self.parent)
-                .set_explain_options(self.explain_options.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_explain_options(self.explain_options.map(|v| v.cnv()).transpose()?)
                 .set_query_type(self.query_type.map(|v| v.cnv()).transpose()?)
                 .set_consistency_selector(self.consistency_selector.map(|v| v.cnv()).transpose()?)
         )
@@ -943,10 +943,10 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::RunAggregationQueryR
     fn cnv(self) -> std::result::Result<crate::generated::gapic::model::RunAggregationQueryResponse, gaxi::prost::ConvertError> {
         Ok(
             crate::generated::gapic::model::RunAggregationQueryResponse::new()
-                .set_result(self.result.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_result(self.result.map(|v| v.cnv()).transpose()?)
                 .set_transaction(self.transaction)
-                .set_read_time(self.read_time.map(|v| v.cnv()).transpose()?)
-                .set_explain_metrics(self.explain_metrics.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_read_time(self.read_time.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_explain_metrics(self.explain_metrics.map(|v| v.cnv()).transpose()?)
         )
     }
 }
@@ -1099,7 +1099,7 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::WriteResponse> for W
                 .set_stream_token(self.stream_token)
                 .set_write_results(self.write_results.into_iter().map(|v| v.cnv())
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
-                .set_commit_time(self.commit_time.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_commit_time(self.commit_time.map(|v| v.cnv()).transpose()?)
         )
     }
 }
@@ -1316,7 +1316,7 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::Target> for Target {
             crate::generated::gapic::model::Target::new()
                 .set_target_id(self.target_id)
                 .set_once(self.once)
-                .set_expected_count(self.expected_count.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_expected_count(self.expected_count.map(|v| v.cnv()).transpose()?)
                 .set_target_type(self.target_type.map(|v| v.cnv()).transpose()?)
                 .set_resume_type(self.resume_type.map(|v| v.cnv()).transpose()?)
         )
@@ -1353,9 +1353,9 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::TargetChange> for Ta
                 .set_target_change_type(self.target_change_type)
                 .set_target_ids(self.target_ids.into_iter().map(|v| v.cnv())
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
-                .set_cause(self.cause.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_cause(self.cause.map(|v| v.cnv()).transpose()?)
                 .set_resume_token(self.resume_token)
-                .set_read_time(self.read_time.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_read_time(self.read_time.map(|v| v.cnv()).transpose()?)
         )
     }
 }
@@ -1600,9 +1600,9 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::structured_query::Fi
     fn cnv(self) -> std::result::Result<crate::generated::gapic::model::structured_query::FieldFilter, gaxi::prost::ConvertError> {
         Ok(
             crate::generated::gapic::model::structured_query::FieldFilter::new()
-                .set_field(self.field.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_field(self.field.map(|v| v.cnv()).transpose()?)
                 .set_op(self.op)
-                .set_value(self.value.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_value(self.value.map(|v| v.cnv()).transpose()?)
         )
     }
 }
@@ -1666,7 +1666,7 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::structured_query::Or
     fn cnv(self) -> std::result::Result<crate::generated::gapic::model::structured_query::Order, gaxi::prost::ConvertError> {
         Ok(
             crate::generated::gapic::model::structured_query::Order::new()
-                .set_field(self.field.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_field(self.field.map(|v| v.cnv()).transpose()?)
                 .set_direction(self.direction)
         )
     }
@@ -1737,12 +1737,12 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::structured_query::Fi
     fn cnv(self) -> std::result::Result<crate::generated::gapic::model::structured_query::FindNearest, gaxi::prost::ConvertError> {
         Ok(
             crate::generated::gapic::model::structured_query::FindNearest::new()
-                .set_vector_field(self.vector_field.map(|v| v.cnv()).transpose()?)
-                .set_query_vector(self.query_vector.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_vector_field(self.vector_field.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_query_vector(self.query_vector.map(|v| v.cnv()).transpose()?)
                 .set_distance_measure(self.distance_measure)
-                .set_limit(self.limit.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_limit(self.limit.map(|v| v.cnv()).transpose()?)
                 .set_distance_result_field(self.distance_result_field)
-                .set_distance_threshold(self.distance_threshold.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_distance_threshold(self.distance_threshold.map(|v| v.cnv()).transpose()?)
         )
     }
 }
@@ -1781,17 +1781,17 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::StructuredQuery> for
     fn cnv(self) -> std::result::Result<crate::generated::gapic::model::StructuredQuery, gaxi::prost::ConvertError> {
         Ok(
             crate::generated::gapic::model::StructuredQuery::new()
-                .set_select(self.select.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_select(self.select.map(|v| v.cnv()).transpose()?)
                 .set_from(self.from.into_iter().map(|v| v.cnv())
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
-                .set_where(self.r#where.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_where(self.r#where.map(|v| v.cnv()).transpose()?)
                 .set_order_by(self.order_by.into_iter().map(|v| v.cnv())
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
-                .set_start_at(self.start_at.map(|v| v.cnv()).transpose()?)
-                .set_end_at(self.end_at.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_start_at(self.start_at.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_end_at(self.end_at.map(|v| v.cnv()).transpose()?)
                 .set_offset(self.offset)
-                .set_limit(self.limit.map(|v| v.cnv()).transpose()?)
-                .set_find_nearest(self.find_nearest.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_limit(self.limit.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_find_nearest(self.find_nearest.map(|v| v.cnv()).transpose()?)
         )
     }
 }
@@ -1809,7 +1809,7 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::structured_aggregati
     fn cnv(self) -> std::result::Result<crate::generated::gapic::model::structured_aggregation_query::aggregation::Count, gaxi::prost::ConvertError> {
         Ok(
             crate::generated::gapic::model::structured_aggregation_query::aggregation::Count::new()
-                .set_up_to(self.up_to.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_up_to(self.up_to.map(|v| v.cnv()).transpose()?)
         )
     }
 }
@@ -1827,7 +1827,7 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::structured_aggregati
     fn cnv(self) -> std::result::Result<crate::generated::gapic::model::structured_aggregation_query::aggregation::Sum, gaxi::prost::ConvertError> {
         Ok(
             crate::generated::gapic::model::structured_aggregation_query::aggregation::Sum::new()
-                .set_field(self.field.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_field(self.field.map(|v| v.cnv()).transpose()?)
         )
     }
 }
@@ -1845,7 +1845,7 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::structured_aggregati
     fn cnv(self) -> std::result::Result<crate::generated::gapic::model::structured_aggregation_query::aggregation::Avg, gaxi::prost::ConvertError> {
         Ok(
             crate::generated::gapic::model::structured_aggregation_query::aggregation::Avg::new()
-                .set_field(self.field.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_field(self.field.map(|v| v.cnv()).transpose()?)
         )
     }
 }
@@ -1990,8 +1990,8 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::ExplainMetrics> for 
     fn cnv(self) -> std::result::Result<crate::generated::gapic::model::ExplainMetrics, gaxi::prost::ConvertError> {
         Ok(
             crate::generated::gapic::model::ExplainMetrics::new()
-                .set_plan_summary(self.plan_summary.map(|v| v.cnv()).transpose()?)
-                .set_execution_stats(self.execution_stats.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_plan_summary(self.plan_summary.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_execution_stats(self.execution_stats.map(|v| v.cnv()).transpose()?)
         )
     }
 }
@@ -2035,9 +2035,9 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::ExecutionStats> for 
         Ok(
             crate::generated::gapic::model::ExecutionStats::new()
                 .set_results_returned(self.results_returned)
-                .set_execution_duration(self.execution_duration.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_execution_duration(self.execution_duration.map(|v| v.cnv()).transpose()?)
                 .set_read_operations(self.read_operations)
-                .set_debug_stats(self.debug_stats.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_debug_stats(self.debug_stats.map(|v| v.cnv()).transpose()?)
         )
     }
 }
@@ -2083,10 +2083,10 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::Write> for Write {
     fn cnv(self) -> std::result::Result<crate::generated::gapic::model::Write, gaxi::prost::ConvertError> {
         Ok(
             crate::generated::gapic::model::Write::new()
-                .set_update_mask(self.update_mask.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_update_mask(self.update_mask.map(|v| v.cnv()).transpose()?)
                 .set_update_transforms(self.update_transforms.into_iter().map(|v| v.cnv())
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
-                .set_current_document(self.current_document.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_current_document(self.current_document.map(|v| v.cnv()).transpose()?)
                 .set_operation(self.operation.map(|v| v.cnv()).transpose()?)
         )
     }
@@ -2188,7 +2188,7 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::WriteResult> for Wri
     fn cnv(self) -> std::result::Result<crate::generated::gapic::model::WriteResult, gaxi::prost::ConvertError> {
         Ok(
             crate::generated::gapic::model::WriteResult::new()
-                .set_update_time(self.update_time.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_update_time(self.update_time.map(|v| v.cnv()).transpose()?)
                 .set_transform_results(self.transform_results.into_iter().map(|v| v.cnv())
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
         )
@@ -2216,7 +2216,7 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::DocumentChange> for 
     fn cnv(self) -> std::result::Result<crate::generated::gapic::model::DocumentChange, gaxi::prost::ConvertError> {
         Ok(
             crate::generated::gapic::model::DocumentChange::new()
-                .set_document(self.document.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_document(self.document.map(|v| v.cnv()).transpose()?)
                 .set_target_ids(self.target_ids.into_iter().map(|v| v.cnv())
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
                 .set_removed_target_ids(self.removed_target_ids.into_iter().map(|v| v.cnv())
@@ -2246,7 +2246,7 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::DocumentDelete> for 
                 .set_document(self.document)
                 .set_removed_target_ids(self.removed_target_ids.into_iter().map(|v| v.cnv())
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
-                .set_read_time(self.read_time.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_read_time(self.read_time.map(|v| v.cnv()).transpose()?)
         )
     }
 }
@@ -2272,7 +2272,7 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::DocumentRemove> for 
                 .set_document(self.document)
                 .set_removed_target_ids(self.removed_target_ids.into_iter().map(|v| v.cnv())
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
-                .set_read_time(self.read_time.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_read_time(self.read_time.map(|v| v.cnv()).transpose()?)
         )
     }
 }
@@ -2294,7 +2294,7 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::ExistenceFilter> for
             crate::generated::gapic::model::ExistenceFilter::new()
                 .set_target_id(self.target_id)
                 .set_count(self.count)
-                .set_unchanged_names(self.unchanged_names.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_unchanged_names(self.unchanged_names.map(|v| v.cnv()).transpose()?)
         )
     }
 }

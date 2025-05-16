@@ -75,8 +75,9 @@ pub mod video_stitcher_service {
     /// # use google_cloud_video_stitcher_v1::builder;
     /// use builder::video_stitcher_service::CreateCdnKey;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_video_stitcher_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -164,11 +165,22 @@ pub mod video_stitcher_service {
         /// Sets the value of [cdn_key][crate::model::CreateCdnKeyRequest::cdn_key].
         ///
         /// This is a **required** field for requests.
-        pub fn set_cdn_key<T: Into<std::option::Option<crate::model::CdnKey>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.cdn_key = v.into();
+        pub fn set_cdn_key<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::CdnKey>,
+        {
+            self.0.request.cdn_key = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [cdn_key][crate::model::CreateCdnKeyRequest::cdn_key].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_cdn_key<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::CdnKey>,
+        {
+            self.0.request.cdn_key = v.map(|x| x.into());
             self
         }
 
@@ -195,8 +207,9 @@ pub mod video_stitcher_service {
     /// # use google_cloud_video_stitcher_v1::builder;
     /// use builder::video_stitcher_service::ListCdnKeys;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -309,6 +322,7 @@ pub mod video_stitcher_service {
     /// # use google_cloud_video_stitcher_v1::builder;
     /// use builder::video_stitcher_service::GetCdnKey;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -371,8 +385,9 @@ pub mod video_stitcher_service {
     /// # use google_cloud_video_stitcher_v1::builder;
     /// use builder::video_stitcher_service::DeleteCdnKey;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_video_stitcher_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -474,8 +489,9 @@ pub mod video_stitcher_service {
     /// # use google_cloud_video_stitcher_v1::builder;
     /// use builder::video_stitcher_service::UpdateCdnKey;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_video_stitcher_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -555,22 +571,44 @@ pub mod video_stitcher_service {
         /// Sets the value of [cdn_key][crate::model::UpdateCdnKeyRequest::cdn_key].
         ///
         /// This is a **required** field for requests.
-        pub fn set_cdn_key<T: Into<std::option::Option<crate::model::CdnKey>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.cdn_key = v.into();
+        pub fn set_cdn_key<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::CdnKey>,
+        {
+            self.0.request.cdn_key = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [cdn_key][crate::model::UpdateCdnKeyRequest::cdn_key].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_cdn_key<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::CdnKey>,
+        {
+            self.0.request.cdn_key = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateCdnKeyRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateCdnKeyRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -589,6 +627,7 @@ pub mod video_stitcher_service {
     /// # use google_cloud_video_stitcher_v1::builder;
     /// use builder::video_stitcher_service::CreateVodSession;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -642,11 +681,22 @@ pub mod video_stitcher_service {
         /// Sets the value of [vod_session][crate::model::CreateVodSessionRequest::vod_session].
         ///
         /// This is a **required** field for requests.
-        pub fn set_vod_session<T: Into<std::option::Option<crate::model::VodSession>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.vod_session = v.into();
+        pub fn set_vod_session<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::VodSession>,
+        {
+            self.0.request.vod_session = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [vod_session][crate::model::CreateVodSessionRequest::vod_session].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_vod_session<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::VodSession>,
+        {
+            self.0.request.vod_session = v.map(|x| x.into());
             self
         }
     }
@@ -665,6 +715,7 @@ pub mod video_stitcher_service {
     /// # use google_cloud_video_stitcher_v1::builder;
     /// use builder::video_stitcher_service::GetVodSession;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -727,8 +778,9 @@ pub mod video_stitcher_service {
     /// # use google_cloud_video_stitcher_v1::builder;
     /// use builder::video_stitcher_service::ListVodStitchDetails;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -834,6 +886,7 @@ pub mod video_stitcher_service {
     /// # use google_cloud_video_stitcher_v1::builder;
     /// use builder::video_stitcher_service::GetVodStitchDetail;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -899,8 +952,9 @@ pub mod video_stitcher_service {
     /// # use google_cloud_video_stitcher_v1::builder;
     /// use builder::video_stitcher_service::ListVodAdTagDetails;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -1006,6 +1060,7 @@ pub mod video_stitcher_service {
     /// # use google_cloud_video_stitcher_v1::builder;
     /// use builder::video_stitcher_service::GetVodAdTagDetail;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1071,8 +1126,9 @@ pub mod video_stitcher_service {
     /// # use google_cloud_video_stitcher_v1::builder;
     /// use builder::video_stitcher_service::ListLiveAdTagDetails;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -1178,6 +1234,7 @@ pub mod video_stitcher_service {
     /// # use google_cloud_video_stitcher_v1::builder;
     /// use builder::video_stitcher_service::GetLiveAdTagDetail;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1243,8 +1300,9 @@ pub mod video_stitcher_service {
     /// # use google_cloud_video_stitcher_v1::builder;
     /// use builder::video_stitcher_service::CreateSlate;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_video_stitcher_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1340,11 +1398,22 @@ pub mod video_stitcher_service {
         /// Sets the value of [slate][crate::model::CreateSlateRequest::slate].
         ///
         /// This is a **required** field for requests.
-        pub fn set_slate<T: Into<std::option::Option<crate::model::Slate>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.slate = v.into();
+        pub fn set_slate<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Slate>,
+        {
+            self.0.request.slate = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [slate][crate::model::CreateSlateRequest::slate].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_slate<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Slate>,
+        {
+            self.0.request.slate = v.map(|x| x.into());
             self
         }
 
@@ -1369,8 +1438,9 @@ pub mod video_stitcher_service {
     /// # use google_cloud_video_stitcher_v1::builder;
     /// use builder::video_stitcher_service::ListSlates;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -1483,6 +1553,7 @@ pub mod video_stitcher_service {
     /// # use google_cloud_video_stitcher_v1::builder;
     /// use builder::video_stitcher_service::GetSlate;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1545,8 +1616,9 @@ pub mod video_stitcher_service {
     /// # use google_cloud_video_stitcher_v1::builder;
     /// use builder::video_stitcher_service::UpdateSlate;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_video_stitcher_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1626,22 +1698,44 @@ pub mod video_stitcher_service {
         /// Sets the value of [slate][crate::model::UpdateSlateRequest::slate].
         ///
         /// This is a **required** field for requests.
-        pub fn set_slate<T: Into<std::option::Option<crate::model::Slate>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.slate = v.into();
+        pub fn set_slate<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Slate>,
+        {
+            self.0.request.slate = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [slate][crate::model::UpdateSlateRequest::slate].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_slate<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Slate>,
+        {
+            self.0.request.slate = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateSlateRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateSlateRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -1660,8 +1754,9 @@ pub mod video_stitcher_service {
     /// # use google_cloud_video_stitcher_v1::builder;
     /// use builder::video_stitcher_service::DeleteSlate;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_video_stitcher_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1763,6 +1858,7 @@ pub mod video_stitcher_service {
     /// # use google_cloud_video_stitcher_v1::builder;
     /// use builder::video_stitcher_service::CreateLiveSession;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1816,11 +1912,22 @@ pub mod video_stitcher_service {
         /// Sets the value of [live_session][crate::model::CreateLiveSessionRequest::live_session].
         ///
         /// This is a **required** field for requests.
-        pub fn set_live_session<T: Into<std::option::Option<crate::model::LiveSession>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.live_session = v.into();
+        pub fn set_live_session<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::LiveSession>,
+        {
+            self.0.request.live_session = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [live_session][crate::model::CreateLiveSessionRequest::live_session].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_live_session<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::LiveSession>,
+        {
+            self.0.request.live_session = v.map(|x| x.into());
             self
         }
     }
@@ -1839,6 +1946,7 @@ pub mod video_stitcher_service {
     /// # use google_cloud_video_stitcher_v1::builder;
     /// use builder::video_stitcher_service::GetLiveSession;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1901,8 +2009,9 @@ pub mod video_stitcher_service {
     /// # use google_cloud_video_stitcher_v1::builder;
     /// use builder::video_stitcher_service::CreateLiveConfig;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_video_stitcher_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -2001,11 +2110,22 @@ pub mod video_stitcher_service {
         /// Sets the value of [live_config][crate::model::CreateLiveConfigRequest::live_config].
         ///
         /// This is a **required** field for requests.
-        pub fn set_live_config<T: Into<std::option::Option<crate::model::LiveConfig>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.live_config = v.into();
+        pub fn set_live_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::LiveConfig>,
+        {
+            self.0.request.live_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [live_config][crate::model::CreateLiveConfigRequest::live_config].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_live_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::LiveConfig>,
+        {
+            self.0.request.live_config = v.map(|x| x.into());
             self
         }
 
@@ -2030,8 +2150,9 @@ pub mod video_stitcher_service {
     /// # use google_cloud_video_stitcher_v1::builder;
     /// use builder::video_stitcher_service::ListLiveConfigs;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -2144,6 +2265,7 @@ pub mod video_stitcher_service {
     /// # use google_cloud_video_stitcher_v1::builder;
     /// use builder::video_stitcher_service::GetLiveConfig;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2206,8 +2328,9 @@ pub mod video_stitcher_service {
     /// # use google_cloud_video_stitcher_v1::builder;
     /// use builder::video_stitcher_service::DeleteLiveConfig;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_video_stitcher_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -2312,8 +2435,9 @@ pub mod video_stitcher_service {
     /// # use google_cloud_video_stitcher_v1::builder;
     /// use builder::video_stitcher_service::UpdateLiveConfig;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_video_stitcher_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -2396,22 +2520,44 @@ pub mod video_stitcher_service {
         /// Sets the value of [live_config][crate::model::UpdateLiveConfigRequest::live_config].
         ///
         /// This is a **required** field for requests.
-        pub fn set_live_config<T: Into<std::option::Option<crate::model::LiveConfig>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.live_config = v.into();
+        pub fn set_live_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::LiveConfig>,
+        {
+            self.0.request.live_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [live_config][crate::model::UpdateLiveConfigRequest::live_config].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_live_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::LiveConfig>,
+        {
+            self.0.request.live_config = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateLiveConfigRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateLiveConfigRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -2430,8 +2576,9 @@ pub mod video_stitcher_service {
     /// # use google_cloud_video_stitcher_v1::builder;
     /// use builder::video_stitcher_service::CreateVodConfig;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_video_stitcher_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -2527,11 +2674,22 @@ pub mod video_stitcher_service {
         /// Sets the value of [vod_config][crate::model::CreateVodConfigRequest::vod_config].
         ///
         /// This is a **required** field for requests.
-        pub fn set_vod_config<T: Into<std::option::Option<crate::model::VodConfig>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.vod_config = v.into();
+        pub fn set_vod_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::VodConfig>,
+        {
+            self.0.request.vod_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [vod_config][crate::model::CreateVodConfigRequest::vod_config].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_vod_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::VodConfig>,
+        {
+            self.0.request.vod_config = v.map(|x| x.into());
             self
         }
 
@@ -2556,8 +2714,9 @@ pub mod video_stitcher_service {
     /// # use google_cloud_video_stitcher_v1::builder;
     /// use builder::video_stitcher_service::ListVodConfigs;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -2670,6 +2829,7 @@ pub mod video_stitcher_service {
     /// # use google_cloud_video_stitcher_v1::builder;
     /// use builder::video_stitcher_service::GetVodConfig;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2732,8 +2892,9 @@ pub mod video_stitcher_service {
     /// # use google_cloud_video_stitcher_v1::builder;
     /// use builder::video_stitcher_service::DeleteVodConfig;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_video_stitcher_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -2835,8 +2996,9 @@ pub mod video_stitcher_service {
     /// # use google_cloud_video_stitcher_v1::builder;
     /// use builder::video_stitcher_service::UpdateVodConfig;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_video_stitcher_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -2916,22 +3078,44 @@ pub mod video_stitcher_service {
         /// Sets the value of [vod_config][crate::model::UpdateVodConfigRequest::vod_config].
         ///
         /// This is a **required** field for requests.
-        pub fn set_vod_config<T: Into<std::option::Option<crate::model::VodConfig>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.vod_config = v.into();
+        pub fn set_vod_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::VodConfig>,
+        {
+            self.0.request.vod_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [vod_config][crate::model::UpdateVodConfigRequest::vod_config].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_vod_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::VodConfig>,
+        {
+            self.0.request.vod_config = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateVodConfigRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateVodConfigRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -2950,8 +3134,9 @@ pub mod video_stitcher_service {
     /// # use google_cloud_video_stitcher_v1::builder;
     /// use builder::video_stitcher_service::ListOperations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -3061,6 +3246,7 @@ pub mod video_stitcher_service {
     /// # use google_cloud_video_stitcher_v1::builder;
     /// use builder::video_stitcher_service::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3124,6 +3310,7 @@ pub mod video_stitcher_service {
     /// # use google_cloud_video_stitcher_v1::builder;
     /// use builder::video_stitcher_service::DeleteOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3187,6 +3374,7 @@ pub mod video_stitcher_service {
     /// # use google_cloud_video_stitcher_v1::builder;
     /// use builder::video_stitcher_service::CancelOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });

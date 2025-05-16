@@ -73,6 +73,7 @@ pub mod eventarc {
     /// # use google_cloud_eventarc_v1::builder;
     /// use builder::eventarc::GetTrigger;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -133,8 +134,9 @@ pub mod eventarc {
     /// # use google_cloud_eventarc_v1::builder;
     /// use builder::eventarc::ListTriggers;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -245,8 +247,9 @@ pub mod eventarc {
     /// # use google_cloud_eventarc_v1::builder;
     /// use builder::eventarc::CreateTrigger;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_eventarc_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -332,11 +335,22 @@ pub mod eventarc {
         /// Sets the value of [trigger][crate::model::CreateTriggerRequest::trigger].
         ///
         /// This is a **required** field for requests.
-        pub fn set_trigger<T: Into<std::option::Option<crate::model::Trigger>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.trigger = v.into();
+        pub fn set_trigger<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Trigger>,
+        {
+            self.0.request.trigger = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [trigger][crate::model::CreateTriggerRequest::trigger].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_trigger<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Trigger>,
+        {
+            self.0.request.trigger = v.map(|x| x.into());
             self
         }
 
@@ -369,8 +383,9 @@ pub mod eventarc {
     /// # use google_cloud_eventarc_v1::builder;
     /// use builder::eventarc::UpdateTrigger;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_eventarc_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -446,20 +461,38 @@ pub mod eventarc {
         }
 
         /// Sets the value of [trigger][crate::model::UpdateTriggerRequest::trigger].
-        pub fn set_trigger<T: Into<std::option::Option<crate::model::Trigger>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.trigger = v.into();
+        pub fn set_trigger<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Trigger>,
+        {
+            self.0.request.trigger = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [trigger][crate::model::UpdateTriggerRequest::trigger].
+        pub fn set_or_clear_trigger<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Trigger>,
+        {
+            self.0.request.trigger = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateTriggerRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateTriggerRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
@@ -490,8 +523,9 @@ pub mod eventarc {
     /// # use google_cloud_eventarc_v1::builder;
     /// use builder::eventarc::DeleteTrigger;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_eventarc_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -607,6 +641,7 @@ pub mod eventarc {
     /// # use google_cloud_eventarc_v1::builder;
     /// use builder::eventarc::GetChannel;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -667,8 +702,9 @@ pub mod eventarc {
     /// # use google_cloud_eventarc_v1::builder;
     /// use builder::eventarc::ListChannels;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -773,8 +809,9 @@ pub mod eventarc {
     /// # use google_cloud_eventarc_v1::builder;
     /// use builder::eventarc::CreateChannel;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_eventarc_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -860,11 +897,22 @@ pub mod eventarc {
         /// Sets the value of [channel][crate::model::CreateChannelRequest::channel].
         ///
         /// This is a **required** field for requests.
-        pub fn set_channel<T: Into<std::option::Option<crate::model::Channel>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.channel = v.into();
+        pub fn set_channel<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Channel>,
+        {
+            self.0.request.channel = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [channel][crate::model::CreateChannelRequest::channel].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_channel<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Channel>,
+        {
+            self.0.request.channel = v.map(|x| x.into());
             self
         }
 
@@ -897,8 +945,9 @@ pub mod eventarc {
     /// # use google_cloud_eventarc_v1::builder;
     /// use builder::eventarc::UpdateChannel;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_eventarc_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -974,20 +1023,38 @@ pub mod eventarc {
         }
 
         /// Sets the value of [channel][crate::model::UpdateChannelRequest::channel].
-        pub fn set_channel<T: Into<std::option::Option<crate::model::Channel>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.channel = v.into();
+        pub fn set_channel<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Channel>,
+        {
+            self.0.request.channel = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [channel][crate::model::UpdateChannelRequest::channel].
+        pub fn set_or_clear_channel<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Channel>,
+        {
+            self.0.request.channel = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateChannelRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateChannelRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
@@ -1012,8 +1079,9 @@ pub mod eventarc {
     /// # use google_cloud_eventarc_v1::builder;
     /// use builder::eventarc::DeleteChannel;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_eventarc_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1117,6 +1185,7 @@ pub mod eventarc {
     /// # use google_cloud_eventarc_v1::builder;
     /// use builder::eventarc::GetProvider;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1177,8 +1246,9 @@ pub mod eventarc {
     /// # use google_cloud_eventarc_v1::builder;
     /// use builder::eventarc::ListProviders;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -1289,6 +1359,7 @@ pub mod eventarc {
     /// # use google_cloud_eventarc_v1::builder;
     /// use builder::eventarc::GetChannelConnection;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1352,8 +1423,9 @@ pub mod eventarc {
     /// # use google_cloud_eventarc_v1::builder;
     /// use builder::eventarc::ListChannelConnections;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -1459,8 +1531,9 @@ pub mod eventarc {
     /// # use google_cloud_eventarc_v1::builder;
     /// use builder::eventarc::CreateChannelConnection;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_eventarc_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1554,13 +1627,22 @@ pub mod eventarc {
         /// Sets the value of [channel_connection][crate::model::CreateChannelConnectionRequest::channel_connection].
         ///
         /// This is a **required** field for requests.
-        pub fn set_channel_connection<
-            T: Into<std::option::Option<crate::model::ChannelConnection>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.channel_connection = v.into();
+        pub fn set_channel_connection<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::ChannelConnection>,
+        {
+            self.0.request.channel_connection = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [channel_connection][crate::model::CreateChannelConnectionRequest::channel_connection].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_channel_connection<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::ChannelConnection>,
+        {
+            self.0.request.channel_connection = v.map(|x| x.into());
             self
         }
 
@@ -1587,8 +1669,9 @@ pub mod eventarc {
     /// # use google_cloud_eventarc_v1::builder;
     /// use builder::eventarc::DeleteChannelConnection;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_eventarc_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1694,6 +1777,7 @@ pub mod eventarc {
     /// # use google_cloud_eventarc_v1::builder;
     /// use builder::eventarc::GetGoogleChannelConfig;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1757,6 +1841,7 @@ pub mod eventarc {
     /// # use google_cloud_eventarc_v1::builder;
     /// use builder::eventarc::UpdateGoogleChannelConfig;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1802,22 +1887,40 @@ pub mod eventarc {
         /// Sets the value of [google_channel_config][crate::model::UpdateGoogleChannelConfigRequest::google_channel_config].
         ///
         /// This is a **required** field for requests.
-        pub fn set_google_channel_config<
-            T: Into<std::option::Option<crate::model::GoogleChannelConfig>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.google_channel_config = v.into();
+        pub fn set_google_channel_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::GoogleChannelConfig>,
+        {
+            self.0.request.google_channel_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [google_channel_config][crate::model::UpdateGoogleChannelConfigRequest::google_channel_config].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_google_channel_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::GoogleChannelConfig>,
+        {
+            self.0.request.google_channel_config = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateGoogleChannelConfigRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateGoogleChannelConfigRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -1836,6 +1939,7 @@ pub mod eventarc {
     /// # use google_cloud_eventarc_v1::builder;
     /// use builder::eventarc::GetMessageBus;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1896,8 +2000,9 @@ pub mod eventarc {
     /// # use google_cloud_eventarc_v1::builder;
     /// use builder::eventarc::ListMessageBuses;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -2011,6 +2116,7 @@ pub mod eventarc {
     /// # use google_cloud_eventarc_v1::builder;
     /// use builder::eventarc::ListMessageBusEnrollments;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2088,8 +2194,9 @@ pub mod eventarc {
     /// # use google_cloud_eventarc_v1::builder;
     /// use builder::eventarc::CreateMessageBus;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_eventarc_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -2178,11 +2285,22 @@ pub mod eventarc {
         /// Sets the value of [message_bus][crate::model::CreateMessageBusRequest::message_bus].
         ///
         /// This is a **required** field for requests.
-        pub fn set_message_bus<T: Into<std::option::Option<crate::model::MessageBus>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.message_bus = v.into();
+        pub fn set_message_bus<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::MessageBus>,
+        {
+            self.0.request.message_bus = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [message_bus][crate::model::CreateMessageBusRequest::message_bus].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_message_bus<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::MessageBus>,
+        {
+            self.0.request.message_bus = v.map(|x| x.into());
             self
         }
 
@@ -2215,8 +2333,9 @@ pub mod eventarc {
     /// # use google_cloud_eventarc_v1::builder;
     /// use builder::eventarc::UpdateMessageBus;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_eventarc_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -2297,20 +2416,40 @@ pub mod eventarc {
         /// Sets the value of [message_bus][crate::model::UpdateMessageBusRequest::message_bus].
         ///
         /// This is a **required** field for requests.
-        pub fn set_message_bus<T: Into<std::option::Option<crate::model::MessageBus>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.message_bus = v.into();
+        pub fn set_message_bus<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::MessageBus>,
+        {
+            self.0.request.message_bus = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [message_bus][crate::model::UpdateMessageBusRequest::message_bus].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_message_bus<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::MessageBus>,
+        {
+            self.0.request.message_bus = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateMessageBusRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateMessageBusRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
@@ -2341,8 +2480,9 @@ pub mod eventarc {
     /// # use google_cloud_eventarc_v1::builder;
     /// use builder::eventarc::DeleteMessageBus;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_eventarc_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -2461,6 +2601,7 @@ pub mod eventarc {
     /// # use google_cloud_eventarc_v1::builder;
     /// use builder::eventarc::GetEnrollment;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2521,8 +2662,9 @@ pub mod eventarc {
     /// # use google_cloud_eventarc_v1::builder;
     /// use builder::eventarc::ListEnrollments;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -2633,8 +2775,9 @@ pub mod eventarc {
     /// # use google_cloud_eventarc_v1::builder;
     /// use builder::eventarc::CreateEnrollment;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_eventarc_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -2723,11 +2866,22 @@ pub mod eventarc {
         /// Sets the value of [enrollment][crate::model::CreateEnrollmentRequest::enrollment].
         ///
         /// This is a **required** field for requests.
-        pub fn set_enrollment<T: Into<std::option::Option<crate::model::Enrollment>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.enrollment = v.into();
+        pub fn set_enrollment<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Enrollment>,
+        {
+            self.0.request.enrollment = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [enrollment][crate::model::CreateEnrollmentRequest::enrollment].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_enrollment<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Enrollment>,
+        {
+            self.0.request.enrollment = v.map(|x| x.into());
             self
         }
 
@@ -2760,8 +2914,9 @@ pub mod eventarc {
     /// # use google_cloud_eventarc_v1::builder;
     /// use builder::eventarc::UpdateEnrollment;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_eventarc_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -2842,20 +2997,40 @@ pub mod eventarc {
         /// Sets the value of [enrollment][crate::model::UpdateEnrollmentRequest::enrollment].
         ///
         /// This is a **required** field for requests.
-        pub fn set_enrollment<T: Into<std::option::Option<crate::model::Enrollment>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.enrollment = v.into();
+        pub fn set_enrollment<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Enrollment>,
+        {
+            self.0.request.enrollment = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [enrollment][crate::model::UpdateEnrollmentRequest::enrollment].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_enrollment<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Enrollment>,
+        {
+            self.0.request.enrollment = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateEnrollmentRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateEnrollmentRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
@@ -2886,8 +3061,9 @@ pub mod eventarc {
     /// # use google_cloud_eventarc_v1::builder;
     /// use builder::eventarc::DeleteEnrollment;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_eventarc_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -3006,6 +3182,7 @@ pub mod eventarc {
     /// # use google_cloud_eventarc_v1::builder;
     /// use builder::eventarc::GetPipeline;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3066,8 +3243,9 @@ pub mod eventarc {
     /// # use google_cloud_eventarc_v1::builder;
     /// use builder::eventarc::ListPipelines;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -3178,8 +3356,9 @@ pub mod eventarc {
     /// # use google_cloud_eventarc_v1::builder;
     /// use builder::eventarc::CreatePipeline;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_eventarc_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -3265,11 +3444,22 @@ pub mod eventarc {
         /// Sets the value of [pipeline][crate::model::CreatePipelineRequest::pipeline].
         ///
         /// This is a **required** field for requests.
-        pub fn set_pipeline<T: Into<std::option::Option<crate::model::Pipeline>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.pipeline = v.into();
+        pub fn set_pipeline<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Pipeline>,
+        {
+            self.0.request.pipeline = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [pipeline][crate::model::CreatePipelineRequest::pipeline].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_pipeline<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Pipeline>,
+        {
+            self.0.request.pipeline = v.map(|x| x.into());
             self
         }
 
@@ -3302,8 +3492,9 @@ pub mod eventarc {
     /// # use google_cloud_eventarc_v1::builder;
     /// use builder::eventarc::UpdatePipeline;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_eventarc_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -3381,20 +3572,40 @@ pub mod eventarc {
         /// Sets the value of [pipeline][crate::model::UpdatePipelineRequest::pipeline].
         ///
         /// This is a **required** field for requests.
-        pub fn set_pipeline<T: Into<std::option::Option<crate::model::Pipeline>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.pipeline = v.into();
+        pub fn set_pipeline<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Pipeline>,
+        {
+            self.0.request.pipeline = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [pipeline][crate::model::UpdatePipelineRequest::pipeline].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_pipeline<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Pipeline>,
+        {
+            self.0.request.pipeline = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdatePipelineRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdatePipelineRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
@@ -3425,8 +3636,9 @@ pub mod eventarc {
     /// # use google_cloud_eventarc_v1::builder;
     /// use builder::eventarc::DeletePipeline;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_eventarc_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -3542,6 +3754,7 @@ pub mod eventarc {
     /// # use google_cloud_eventarc_v1::builder;
     /// use builder::eventarc::GetGoogleApiSource;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3605,8 +3818,9 @@ pub mod eventarc {
     /// # use google_cloud_eventarc_v1::builder;
     /// use builder::eventarc::ListGoogleApiSources;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -3722,8 +3936,9 @@ pub mod eventarc {
     /// # use google_cloud_eventarc_v1::builder;
     /// use builder::eventarc::CreateGoogleApiSource;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_eventarc_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -3815,13 +4030,22 @@ pub mod eventarc {
         /// Sets the value of [google_api_source][crate::model::CreateGoogleApiSourceRequest::google_api_source].
         ///
         /// This is a **required** field for requests.
-        pub fn set_google_api_source<
-            T: Into<std::option::Option<crate::model::GoogleApiSource>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.google_api_source = v.into();
+        pub fn set_google_api_source<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::GoogleApiSource>,
+        {
+            self.0.request.google_api_source = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [google_api_source][crate::model::CreateGoogleApiSourceRequest::google_api_source].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_google_api_source<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::GoogleApiSource>,
+        {
+            self.0.request.google_api_source = v.map(|x| x.into());
             self
         }
 
@@ -3854,8 +4078,9 @@ pub mod eventarc {
     /// # use google_cloud_eventarc_v1::builder;
     /// use builder::eventarc::UpdateGoogleApiSource;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_eventarc_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -3939,22 +4164,40 @@ pub mod eventarc {
         /// Sets the value of [google_api_source][crate::model::UpdateGoogleApiSourceRequest::google_api_source].
         ///
         /// This is a **required** field for requests.
-        pub fn set_google_api_source<
-            T: Into<std::option::Option<crate::model::GoogleApiSource>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.google_api_source = v.into();
+        pub fn set_google_api_source<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::GoogleApiSource>,
+        {
+            self.0.request.google_api_source = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [google_api_source][crate::model::UpdateGoogleApiSourceRequest::google_api_source].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_google_api_source<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::GoogleApiSource>,
+        {
+            self.0.request.google_api_source = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateGoogleApiSourceRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateGoogleApiSourceRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
@@ -3985,8 +4228,9 @@ pub mod eventarc {
     /// # use google_cloud_eventarc_v1::builder;
     /// use builder::eventarc::DeleteGoogleApiSource;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_eventarc_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -4108,8 +4352,9 @@ pub mod eventarc {
     /// # use google_cloud_eventarc_v1::builder;
     /// use builder::eventarc::ListLocations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -4215,6 +4460,7 @@ pub mod eventarc {
     /// # use google_cloud_eventarc_v1::builder;
     /// use builder::eventarc::GetLocation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -4273,6 +4519,7 @@ pub mod eventarc {
     /// # use google_cloud_eventarc_v1::builder;
     /// use builder::eventarc::SetIamPolicy;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -4321,20 +4568,40 @@ pub mod eventarc {
         /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
-        pub fn set_policy<T: Into<std::option::Option<iam_v1::model::Policy>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.policy = v.into();
+        pub fn set_policy<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -4353,6 +4620,7 @@ pub mod eventarc {
     /// # use google_cloud_eventarc_v1::builder;
     /// use builder::eventarc::GetIamPolicy;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -4399,11 +4667,20 @@ pub mod eventarc {
         }
 
         /// Sets the value of [options][iam_v1::model::GetIamPolicyRequest::options].
-        pub fn set_options<T: Into<std::option::Option<iam_v1::model::GetPolicyOptions>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.options = v.into();
+        pub fn set_options<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = v.map(|x| x.into());
             self
         }
     }
@@ -4422,6 +4699,7 @@ pub mod eventarc {
     /// # use google_cloud_eventarc_v1::builder;
     /// use builder::eventarc::TestIamPermissions;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -4498,8 +4776,9 @@ pub mod eventarc {
     /// # use google_cloud_eventarc_v1::builder;
     /// use builder::eventarc::ListOperations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -4607,6 +4886,7 @@ pub mod eventarc {
     /// # use google_cloud_eventarc_v1::builder;
     /// use builder::eventarc::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -4668,6 +4948,7 @@ pub mod eventarc {
     /// # use google_cloud_eventarc_v1::builder;
     /// use builder::eventarc::DeleteOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -4729,6 +5010,7 @@ pub mod eventarc {
     /// # use google_cloud_eventarc_v1::builder;
     /// use builder::eventarc::CancelOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });

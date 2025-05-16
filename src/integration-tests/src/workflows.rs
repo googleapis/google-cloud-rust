@@ -16,8 +16,8 @@ use crate::Result;
 use gax::exponential_backoff::{ExponentialBackoff, ExponentialBackoffBuilder};
 use gax::paginator::ItemPaginator as _;
 use gax::{error::Error, options::RequestOptionsBuilder};
+use lro::Poller;
 use std::time::Duration;
-use wf::Poller;
 
 pub async fn until_done(builder: wf::builder::workflows::ClientBuilder) -> Result<()> {
     // Enable a basic subscriber. Useful to troubleshoot problems and visually
@@ -127,13 +127,13 @@ main:
     let mut backoff = Duration::from_millis(100);
     while let Some(status) = create.poll().await {
         match status {
-            wf::PollingResult::PollingError(e) => {
+            lro::PollingResult::PollingError(e) => {
                 println!("    error polling create LRO, continuing {e}");
             }
-            wf::PollingResult::InProgress(m) => {
+            lro::PollingResult::InProgress(m) => {
                 println!("    create LRO still in progress, metadata={m:?}");
             }
-            wf::PollingResult::Completed(r) => match r {
+            lro::PollingResult::Completed(r) => match r {
                 Err(e) => {
                     println!("    create LRO finished with error={e}\n\n");
                     return Err(e);
@@ -157,16 +157,16 @@ main:
     let mut backoff = Duration::from_millis(100);
     while let Some(status) = delete.poll().await {
         match status {
-            wf::PollingResult::PollingError(e) => {
+            lro::PollingResult::PollingError(e) => {
                 println!("    error polling delete LRO, continuing {e:?}");
             }
-            wf::PollingResult::InProgress(m) => {
+            lro::PollingResult::InProgress(m) => {
                 println!("    delete LRO still in progress, metadata={m:?}");
             }
-            wf::PollingResult::Completed(Ok(_)) => {
+            lro::PollingResult::Completed(Ok(_)) => {
                 println!("    delete LRO finished successfully");
             }
-            wf::PollingResult::Completed(Err(e)) => {
+            lro::PollingResult::Completed(Err(e)) => {
                 println!("    delete LRO finished with an error {e}");
                 return Err(e);
             }

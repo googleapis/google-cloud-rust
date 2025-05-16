@@ -87,20 +87,38 @@ impl Parameter {
     }
 
     /// Sets the value of [create_time][crate::model::Parameter::create_time].
-    pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.create_time = v.into();
+    pub fn set_create_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [create_time][crate::model::Parameter::create_time].
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [update_time][crate::model::Parameter::update_time].
-    pub fn set_update_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.update_time = v.into();
+    pub fn set_update_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_time][crate::model::Parameter::update_time].
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = v.map(|x| x.into());
         self
     }
 
@@ -126,22 +144,38 @@ impl Parameter {
     }
 
     /// Sets the value of [policy_member][crate::model::Parameter::policy_member].
-    pub fn set_policy_member<
-        T: std::convert::Into<std::option::Option<iam_v1::model::ResourcePolicyMember>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.policy_member = v.into();
+    pub fn set_policy_member<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<iam_v1::model::ResourcePolicyMember>,
+    {
+        self.policy_member = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [policy_member][crate::model::Parameter::policy_member].
+    pub fn set_or_clear_policy_member<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<iam_v1::model::ResourcePolicyMember>,
+    {
+        self.policy_member = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [kms_key][crate::model::Parameter::kms_key].
-    pub fn set_kms_key<T: std::convert::Into<std::option::Option<std::string::String>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.kms_key = v.into();
+    pub fn set_kms_key<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.kms_key = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [kms_key][crate::model::Parameter::kms_key].
+    pub fn set_or_clear_kms_key<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.kms_key = v.map(|x| x.into());
         self
     }
 }
@@ -392,11 +426,20 @@ impl CreateParameterRequest {
     }
 
     /// Sets the value of [parameter][crate::model::CreateParameterRequest::parameter].
-    pub fn set_parameter<T: std::convert::Into<std::option::Option<crate::model::Parameter>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.parameter = v.into();
+    pub fn set_parameter<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::Parameter>,
+    {
+        self.parameter = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [parameter][crate::model::CreateParameterRequest::parameter].
+    pub fn set_or_clear_parameter<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::Parameter>,
+    {
+        self.parameter = v.map(|x| x.into());
         self
     }
 
@@ -458,20 +501,38 @@ impl UpdateParameterRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateParameterRequest::update_mask].
-    pub fn set_update_mask<T: std::convert::Into<std::option::Option<wkt::FieldMask>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.update_mask = v.into();
+    pub fn set_update_mask<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_mask][crate::model::UpdateParameterRequest::update_mask].
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [parameter][crate::model::UpdateParameterRequest::parameter].
-    pub fn set_parameter<T: std::convert::Into<std::option::Option<crate::model::Parameter>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.parameter = v.into();
+    pub fn set_parameter<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::Parameter>,
+    {
+        self.parameter = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [parameter][crate::model::UpdateParameterRequest::parameter].
+    pub fn set_or_clear_parameter<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::Parameter>,
+    {
+        self.parameter = v.map(|x| x.into());
         self
     }
 
@@ -599,20 +660,38 @@ impl ParameterVersion {
     }
 
     /// Sets the value of [create_time][crate::model::ParameterVersion::create_time].
-    pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.create_time = v.into();
+    pub fn set_create_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [create_time][crate::model::ParameterVersion::create_time].
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [update_time][crate::model::ParameterVersion::update_time].
-    pub fn set_update_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.update_time = v.into();
+    pub fn set_update_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_time][crate::model::ParameterVersion::update_time].
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = v.map(|x| x.into());
         self
     }
 
@@ -623,22 +702,38 @@ impl ParameterVersion {
     }
 
     /// Sets the value of [payload][crate::model::ParameterVersion::payload].
-    pub fn set_payload<
-        T: std::convert::Into<std::option::Option<crate::model::ParameterVersionPayload>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.payload = v.into();
+    pub fn set_payload<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::ParameterVersionPayload>,
+    {
+        self.payload = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [payload][crate::model::ParameterVersion::payload].
+    pub fn set_or_clear_payload<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::ParameterVersionPayload>,
+    {
+        self.payload = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [kms_key_version][crate::model::ParameterVersion::kms_key_version].
-    pub fn set_kms_key_version<T: std::convert::Into<std::option::Option<std::string::String>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.kms_key_version = v.into();
+    pub fn set_kms_key_version<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.kms_key_version = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [kms_key_version][crate::model::ParameterVersion::kms_key_version].
+    pub fn set_or_clear_kms_key_version<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.kms_key_version = v.map(|x| x.into());
         self
     }
 }
@@ -950,13 +1045,20 @@ impl RenderParameterVersionResponse {
     }
 
     /// Sets the value of [payload][crate::model::RenderParameterVersionResponse::payload].
-    pub fn set_payload<
-        T: std::convert::Into<std::option::Option<crate::model::ParameterVersionPayload>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.payload = v.into();
+    pub fn set_payload<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::ParameterVersionPayload>,
+    {
+        self.payload = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [payload][crate::model::RenderParameterVersionResponse::payload].
+    pub fn set_or_clear_payload<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::ParameterVersionPayload>,
+    {
+        self.payload = v.map(|x| x.into());
         self
     }
 
@@ -1033,13 +1135,20 @@ impl CreateParameterVersionRequest {
     }
 
     /// Sets the value of [parameter_version][crate::model::CreateParameterVersionRequest::parameter_version].
-    pub fn set_parameter_version<
-        T: std::convert::Into<std::option::Option<crate::model::ParameterVersion>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.parameter_version = v.into();
+    pub fn set_parameter_version<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::ParameterVersion>,
+    {
+        self.parameter_version = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [parameter_version][crate::model::CreateParameterVersionRequest::parameter_version].
+    pub fn set_or_clear_parameter_version<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::ParameterVersion>,
+    {
+        self.parameter_version = v.map(|x| x.into());
         self
     }
 
@@ -1101,22 +1210,38 @@ impl UpdateParameterVersionRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateParameterVersionRequest::update_mask].
-    pub fn set_update_mask<T: std::convert::Into<std::option::Option<wkt::FieldMask>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.update_mask = v.into();
+    pub fn set_update_mask<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_mask][crate::model::UpdateParameterVersionRequest::update_mask].
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [parameter_version][crate::model::UpdateParameterVersionRequest::parameter_version].
-    pub fn set_parameter_version<
-        T: std::convert::Into<std::option::Option<crate::model::ParameterVersion>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.parameter_version = v.into();
+    pub fn set_parameter_version<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::ParameterVersion>,
+    {
+        self.parameter_version = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [parameter_version][crate::model::UpdateParameterVersionRequest::parameter_version].
+    pub fn set_or_clear_parameter_version<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::ParameterVersion>,
+    {
+        self.parameter_version = v.map(|x| x.into());
         self
     }
 

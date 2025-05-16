@@ -97,13 +97,20 @@ impl LinuxNodeConfig {
     }
 
     /// Sets the value of [hugepages][crate::model::LinuxNodeConfig::hugepages].
-    pub fn set_hugepages<
-        T: std::convert::Into<std::option::Option<crate::model::linux_node_config::HugepagesConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.hugepages = v.into();
+    pub fn set_hugepages<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::linux_node_config::HugepagesConfig>,
+    {
+        self.hugepages = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [hugepages][crate::model::LinuxNodeConfig::hugepages].
+    pub fn set_or_clear_hugepages<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::linux_node_config::HugepagesConfig>,
+    {
+        self.hugepages = v.map(|x| x.into());
         self
     }
 }
@@ -145,20 +152,38 @@ pub mod linux_node_config {
         }
 
         /// Sets the value of [hugepage_size2m][crate::model::linux_node_config::HugepagesConfig::hugepage_size2m].
-        pub fn set_hugepage_size2m<T: std::convert::Into<std::option::Option<i32>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.hugepage_size2m = v.into();
+        pub fn set_hugepage_size2m<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<i32>,
+        {
+            self.hugepage_size2m = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [hugepage_size2m][crate::model::linux_node_config::HugepagesConfig::hugepage_size2m].
+        pub fn set_or_clear_hugepage_size2m<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<i32>,
+        {
+            self.hugepage_size2m = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [hugepage_size1g][crate::model::linux_node_config::HugepagesConfig::hugepage_size1g].
-        pub fn set_hugepage_size1g<T: std::convert::Into<std::option::Option<i32>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.hugepage_size1g = v.into();
+        pub fn set_hugepage_size1g<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<i32>,
+        {
+            self.hugepage_size1g = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [hugepage_size1g][crate::model::linux_node_config::HugepagesConfig::hugepage_size1g].
+        pub fn set_or_clear_hugepage_size1g<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<i32>,
+        {
+            self.hugepage_size1g = v.map(|x| x.into());
             self
         }
     }
@@ -553,11 +578,20 @@ impl NodeKubeletConfig {
     }
 
     /// Sets the value of [cpu_cfs_quota][crate::model::NodeKubeletConfig::cpu_cfs_quota].
-    pub fn set_cpu_cfs_quota<T: std::convert::Into<std::option::Option<wkt::BoolValue>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.cpu_cfs_quota = v.into();
+    pub fn set_cpu_cfs_quota<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::BoolValue>,
+    {
+        self.cpu_cfs_quota = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [cpu_cfs_quota][crate::model::NodeKubeletConfig::cpu_cfs_quota].
+    pub fn set_or_clear_cpu_cfs_quota<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::BoolValue>,
+    {
+        self.cpu_cfs_quota = v.map(|x| x.into());
         self
     }
 
@@ -577,13 +611,23 @@ impl NodeKubeletConfig {
     }
 
     /// Sets the value of [insecure_kubelet_readonly_port_enabled][crate::model::NodeKubeletConfig::insecure_kubelet_readonly_port_enabled].
-    pub fn set_insecure_kubelet_readonly_port_enabled<
-        T: std::convert::Into<std::option::Option<bool>>,
-    >(
+    pub fn set_insecure_kubelet_readonly_port_enabled<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.insecure_kubelet_readonly_port_enabled = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [insecure_kubelet_readonly_port_enabled][crate::model::NodeKubeletConfig::insecure_kubelet_readonly_port_enabled].
+    pub fn set_or_clear_insecure_kubelet_readonly_port_enabled<T>(
         mut self,
-        v: T,
-    ) -> Self {
-        self.insecure_kubelet_readonly_port_enabled = v.into();
+        v: std::option::Option<T>,
+    ) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.insecure_kubelet_readonly_port_enabled = v.map(|x| x.into());
         self
     }
 }
@@ -1001,13 +1045,20 @@ impl NodeConfig {
     }
 
     /// Sets the value of [workload_metadata_config][crate::model::NodeConfig::workload_metadata_config].
-    pub fn set_workload_metadata_config<
-        T: std::convert::Into<std::option::Option<crate::model::WorkloadMetadataConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.workload_metadata_config = v.into();
+    pub fn set_workload_metadata_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::WorkloadMetadataConfig>,
+    {
+        self.workload_metadata_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [workload_metadata_config][crate::model::NodeConfig::workload_metadata_config].
+    pub fn set_or_clear_workload_metadata_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::WorkloadMetadataConfig>,
+    {
+        self.workload_metadata_config = v.map(|x| x.into());
         self
     }
 
@@ -1023,13 +1074,20 @@ impl NodeConfig {
     }
 
     /// Sets the value of [sandbox_config][crate::model::NodeConfig::sandbox_config].
-    pub fn set_sandbox_config<
-        T: std::convert::Into<std::option::Option<crate::model::SandboxConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.sandbox_config = v.into();
+    pub fn set_sandbox_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::SandboxConfig>,
+    {
+        self.sandbox_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [sandbox_config][crate::model::NodeConfig::sandbox_config].
+    pub fn set_or_clear_sandbox_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::SandboxConfig>,
+    {
+        self.sandbox_config = v.map(|x| x.into());
         self
     }
 
@@ -1040,46 +1098,74 @@ impl NodeConfig {
     }
 
     /// Sets the value of [reservation_affinity][crate::model::NodeConfig::reservation_affinity].
-    pub fn set_reservation_affinity<
-        T: std::convert::Into<std::option::Option<crate::model::ReservationAffinity>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.reservation_affinity = v.into();
+    pub fn set_reservation_affinity<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::ReservationAffinity>,
+    {
+        self.reservation_affinity = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [reservation_affinity][crate::model::NodeConfig::reservation_affinity].
+    pub fn set_or_clear_reservation_affinity<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::ReservationAffinity>,
+    {
+        self.reservation_affinity = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [shielded_instance_config][crate::model::NodeConfig::shielded_instance_config].
-    pub fn set_shielded_instance_config<
-        T: std::convert::Into<std::option::Option<crate::model::ShieldedInstanceConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.shielded_instance_config = v.into();
+    pub fn set_shielded_instance_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::ShieldedInstanceConfig>,
+    {
+        self.shielded_instance_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [shielded_instance_config][crate::model::NodeConfig::shielded_instance_config].
+    pub fn set_or_clear_shielded_instance_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::ShieldedInstanceConfig>,
+    {
+        self.shielded_instance_config = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [linux_node_config][crate::model::NodeConfig::linux_node_config].
-    pub fn set_linux_node_config<
-        T: std::convert::Into<std::option::Option<crate::model::LinuxNodeConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.linux_node_config = v.into();
+    pub fn set_linux_node_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::LinuxNodeConfig>,
+    {
+        self.linux_node_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [linux_node_config][crate::model::NodeConfig::linux_node_config].
+    pub fn set_or_clear_linux_node_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::LinuxNodeConfig>,
+    {
+        self.linux_node_config = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [kubelet_config][crate::model::NodeConfig::kubelet_config].
-    pub fn set_kubelet_config<
-        T: std::convert::Into<std::option::Option<crate::model::NodeKubeletConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.kubelet_config = v.into();
+    pub fn set_kubelet_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::NodeKubeletConfig>,
+    {
+        self.kubelet_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [kubelet_config][crate::model::NodeConfig::kubelet_config].
+    pub fn set_or_clear_kubelet_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::NodeKubeletConfig>,
+    {
+        self.kubelet_config = v.map(|x| x.into());
         self
     }
 
@@ -1093,31 +1179,56 @@ impl NodeConfig {
     }
 
     /// Sets the value of [gcfs_config][crate::model::NodeConfig::gcfs_config].
-    pub fn set_gcfs_config<T: std::convert::Into<std::option::Option<crate::model::GcfsConfig>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.gcfs_config = v.into();
+    pub fn set_gcfs_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::GcfsConfig>,
+    {
+        self.gcfs_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [gcfs_config][crate::model::NodeConfig::gcfs_config].
+    pub fn set_or_clear_gcfs_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::GcfsConfig>,
+    {
+        self.gcfs_config = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [advanced_machine_features][crate::model::NodeConfig::advanced_machine_features].
-    pub fn set_advanced_machine_features<
-        T: std::convert::Into<std::option::Option<crate::model::AdvancedMachineFeatures>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.advanced_machine_features = v.into();
+    pub fn set_advanced_machine_features<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::AdvancedMachineFeatures>,
+    {
+        self.advanced_machine_features = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [advanced_machine_features][crate::model::NodeConfig::advanced_machine_features].
+    pub fn set_or_clear_advanced_machine_features<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::AdvancedMachineFeatures>,
+    {
+        self.advanced_machine_features = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [gvnic][crate::model::NodeConfig::gvnic].
-    pub fn set_gvnic<T: std::convert::Into<std::option::Option<crate::model::VirtualNIC>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.gvnic = v.into();
+    pub fn set_gvnic<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::VirtualNIC>,
+    {
+        self.gvnic = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [gvnic][crate::model::NodeConfig::gvnic].
+    pub fn set_or_clear_gvnic<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::VirtualNIC>,
+    {
+        self.gvnic = v.map(|x| x.into());
         self
     }
 
@@ -1128,22 +1239,38 @@ impl NodeConfig {
     }
 
     /// Sets the value of [confidential_nodes][crate::model::NodeConfig::confidential_nodes].
-    pub fn set_confidential_nodes<
-        T: std::convert::Into<std::option::Option<crate::model::ConfidentialNodes>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.confidential_nodes = v.into();
+    pub fn set_confidential_nodes<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::ConfidentialNodes>,
+    {
+        self.confidential_nodes = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [confidential_nodes][crate::model::NodeConfig::confidential_nodes].
+    pub fn set_or_clear_confidential_nodes<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::ConfidentialNodes>,
+    {
+        self.confidential_nodes = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [fast_socket][crate::model::NodeConfig::fast_socket].
-    pub fn set_fast_socket<T: std::convert::Into<std::option::Option<crate::model::FastSocket>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.fast_socket = v.into();
+    pub fn set_fast_socket<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::FastSocket>,
+    {
+        self.fast_socket = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [fast_socket][crate::model::NodeConfig::fast_socket].
+    pub fn set_or_clear_fast_socket<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::FastSocket>,
+    {
+        self.fast_socket = v.map(|x| x.into());
         self
     }
 
@@ -1160,79 +1287,131 @@ impl NodeConfig {
     }
 
     /// Sets the value of [logging_config][crate::model::NodeConfig::logging_config].
-    pub fn set_logging_config<
-        T: std::convert::Into<std::option::Option<crate::model::NodePoolLoggingConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.logging_config = v.into();
+    pub fn set_logging_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::NodePoolLoggingConfig>,
+    {
+        self.logging_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [logging_config][crate::model::NodeConfig::logging_config].
+    pub fn set_or_clear_logging_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::NodePoolLoggingConfig>,
+    {
+        self.logging_config = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [windows_node_config][crate::model::NodeConfig::windows_node_config].
-    pub fn set_windows_node_config<
-        T: std::convert::Into<std::option::Option<crate::model::WindowsNodeConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.windows_node_config = v.into();
+    pub fn set_windows_node_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::WindowsNodeConfig>,
+    {
+        self.windows_node_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [windows_node_config][crate::model::NodeConfig::windows_node_config].
+    pub fn set_or_clear_windows_node_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::WindowsNodeConfig>,
+    {
+        self.windows_node_config = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [local_nvme_ssd_block_config][crate::model::NodeConfig::local_nvme_ssd_block_config].
-    pub fn set_local_nvme_ssd_block_config<
-        T: std::convert::Into<std::option::Option<crate::model::LocalNvmeSsdBlockConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.local_nvme_ssd_block_config = v.into();
+    pub fn set_local_nvme_ssd_block_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::LocalNvmeSsdBlockConfig>,
+    {
+        self.local_nvme_ssd_block_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [local_nvme_ssd_block_config][crate::model::NodeConfig::local_nvme_ssd_block_config].
+    pub fn set_or_clear_local_nvme_ssd_block_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::LocalNvmeSsdBlockConfig>,
+    {
+        self.local_nvme_ssd_block_config = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [ephemeral_storage_local_ssd_config][crate::model::NodeConfig::ephemeral_storage_local_ssd_config].
-    pub fn set_ephemeral_storage_local_ssd_config<
-        T: std::convert::Into<std::option::Option<crate::model::EphemeralStorageLocalSsdConfig>>,
-    >(
+    pub fn set_ephemeral_storage_local_ssd_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::EphemeralStorageLocalSsdConfig>,
+    {
+        self.ephemeral_storage_local_ssd_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [ephemeral_storage_local_ssd_config][crate::model::NodeConfig::ephemeral_storage_local_ssd_config].
+    pub fn set_or_clear_ephemeral_storage_local_ssd_config<T>(
         mut self,
-        v: T,
-    ) -> Self {
-        self.ephemeral_storage_local_ssd_config = v.into();
+        v: std::option::Option<T>,
+    ) -> Self
+    where
+        T: std::convert::Into<crate::model::EphemeralStorageLocalSsdConfig>,
+    {
+        self.ephemeral_storage_local_ssd_config = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [sole_tenant_config][crate::model::NodeConfig::sole_tenant_config].
-    pub fn set_sole_tenant_config<
-        T: std::convert::Into<std::option::Option<crate::model::SoleTenantConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.sole_tenant_config = v.into();
+    pub fn set_sole_tenant_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::SoleTenantConfig>,
+    {
+        self.sole_tenant_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [sole_tenant_config][crate::model::NodeConfig::sole_tenant_config].
+    pub fn set_or_clear_sole_tenant_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::SoleTenantConfig>,
+    {
+        self.sole_tenant_config = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [containerd_config][crate::model::NodeConfig::containerd_config].
-    pub fn set_containerd_config<
-        T: std::convert::Into<std::option::Option<crate::model::ContainerdConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.containerd_config = v.into();
+    pub fn set_containerd_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::ContainerdConfig>,
+    {
+        self.containerd_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [containerd_config][crate::model::NodeConfig::containerd_config].
+    pub fn set_or_clear_containerd_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::ContainerdConfig>,
+    {
+        self.containerd_config = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [resource_manager_tags][crate::model::NodeConfig::resource_manager_tags].
-    pub fn set_resource_manager_tags<
-        T: std::convert::Into<std::option::Option<crate::model::ResourceManagerTags>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.resource_manager_tags = v.into();
+    pub fn set_resource_manager_tags<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::ResourceManagerTags>,
+    {
+        self.resource_manager_tags = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [resource_manager_tags][crate::model::NodeConfig::resource_manager_tags].
+    pub fn set_or_clear_resource_manager_tags<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::ResourceManagerTags>,
+    {
+        self.resource_manager_tags = v.map(|x| x.into());
         self
     }
 
@@ -1265,24 +1444,41 @@ impl NodeConfig {
     }
 
     /// Sets the value of [secondary_boot_disk_update_strategy][crate::model::NodeConfig::secondary_boot_disk_update_strategy].
-    pub fn set_secondary_boot_disk_update_strategy<
-        T: std::convert::Into<std::option::Option<crate::model::SecondaryBootDiskUpdateStrategy>>,
-    >(
+    pub fn set_secondary_boot_disk_update_strategy<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::SecondaryBootDiskUpdateStrategy>,
+    {
+        self.secondary_boot_disk_update_strategy = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [secondary_boot_disk_update_strategy][crate::model::NodeConfig::secondary_boot_disk_update_strategy].
+    pub fn set_or_clear_secondary_boot_disk_update_strategy<T>(
         mut self,
-        v: T,
-    ) -> Self {
-        self.secondary_boot_disk_update_strategy = v.into();
+        v: std::option::Option<T>,
+    ) -> Self
+    where
+        T: std::convert::Into<crate::model::SecondaryBootDiskUpdateStrategy>,
+    {
+        self.secondary_boot_disk_update_strategy = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [local_ssd_encryption_mode][crate::model::NodeConfig::local_ssd_encryption_mode].
-    pub fn set_local_ssd_encryption_mode<
-        T: std::convert::Into<std::option::Option<crate::model::node_config::LocalSsdEncryptionMode>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.local_ssd_encryption_mode = v.into();
+    pub fn set_local_ssd_encryption_mode<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::node_config::LocalSsdEncryptionMode>,
+    {
+        self.local_ssd_encryption_mode = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [local_ssd_encryption_mode][crate::model::NodeConfig::local_ssd_encryption_mode].
+    pub fn set_or_clear_local_ssd_encryption_mode<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::node_config::LocalSsdEncryptionMode>,
+    {
+        self.local_ssd_encryption_mode = v.map(|x| x.into());
         self
     }
 
@@ -1616,20 +1812,38 @@ impl AdvancedMachineFeatures {
     }
 
     /// Sets the value of [threads_per_core][crate::model::AdvancedMachineFeatures::threads_per_core].
-    pub fn set_threads_per_core<T: std::convert::Into<std::option::Option<i64>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.threads_per_core = v.into();
+    pub fn set_threads_per_core<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<i64>,
+    {
+        self.threads_per_core = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [threads_per_core][crate::model::AdvancedMachineFeatures::threads_per_core].
+    pub fn set_or_clear_threads_per_core<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<i64>,
+    {
+        self.threads_per_core = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [enable_nested_virtualization][crate::model::AdvancedMachineFeatures::enable_nested_virtualization].
-    pub fn set_enable_nested_virtualization<T: std::convert::Into<std::option::Option<bool>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.enable_nested_virtualization = v.into();
+    pub fn set_enable_nested_virtualization<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.enable_nested_virtualization = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [enable_nested_virtualization][crate::model::AdvancedMachineFeatures::enable_nested_virtualization].
+    pub fn set_or_clear_enable_nested_virtualization<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.enable_nested_virtualization = v.map(|x| x.into());
         self
     }
 }
@@ -1765,35 +1979,59 @@ impl NodeNetworkConfig {
     }
 
     /// Sets the value of [enable_private_nodes][crate::model::NodeNetworkConfig::enable_private_nodes].
-    pub fn set_enable_private_nodes<T: std::convert::Into<std::option::Option<bool>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.enable_private_nodes = v.into();
+    pub fn set_enable_private_nodes<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.enable_private_nodes = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [enable_private_nodes][crate::model::NodeNetworkConfig::enable_private_nodes].
+    pub fn set_or_clear_enable_private_nodes<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.enable_private_nodes = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [network_performance_config][crate::model::NodeNetworkConfig::network_performance_config].
-    pub fn set_network_performance_config<
-        T: std::convert::Into<
-                std::option::Option<crate::model::node_network_config::NetworkPerformanceConfig>,
-            >,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.network_performance_config = v.into();
+    pub fn set_network_performance_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::node_network_config::NetworkPerformanceConfig>,
+    {
+        self.network_performance_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [network_performance_config][crate::model::NodeNetworkConfig::network_performance_config].
+    pub fn set_or_clear_network_performance_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::node_network_config::NetworkPerformanceConfig>,
+    {
+        self.network_performance_config = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [pod_cidr_overprovision_config][crate::model::NodeNetworkConfig::pod_cidr_overprovision_config].
-    pub fn set_pod_cidr_overprovision_config<
-        T: std::convert::Into<std::option::Option<crate::model::PodCIDROverprovisionConfig>>,
-    >(
+    pub fn set_pod_cidr_overprovision_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::PodCIDROverprovisionConfig>,
+    {
+        self.pod_cidr_overprovision_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [pod_cidr_overprovision_config][crate::model::NodeNetworkConfig::pod_cidr_overprovision_config].
+    pub fn set_or_clear_pod_cidr_overprovision_config<T>(
         mut self,
-        v: T,
-    ) -> Self {
-        self.pod_cidr_overprovision_config = v.into();
+        v: std::option::Option<T>,
+    ) -> Self
+    where
+        T: std::convert::Into<crate::model::PodCIDROverprovisionConfig>,
+    {
+        self.pod_cidr_overprovision_config = v.map(|x| x.into());
         self
     }
 
@@ -1859,17 +2097,27 @@ pub mod node_network_config {
         }
 
         /// Sets the value of [total_egress_bandwidth_tier][crate::model::node_network_config::NetworkPerformanceConfig::total_egress_bandwidth_tier].
-        pub fn set_total_egress_bandwidth_tier<
+        pub fn set_total_egress_bandwidth_tier<T>(mut self, v: T) -> Self
+        where
             T: std::convert::Into<
-                    std::option::Option<
-                        crate::model::node_network_config::network_performance_config::Tier,
-                    >,
+                    crate::model::node_network_config::network_performance_config::Tier,
                 >,
-        >(
+        {
+            self.total_egress_bandwidth_tier = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [total_egress_bandwidth_tier][crate::model::node_network_config::NetworkPerformanceConfig::total_egress_bandwidth_tier].
+        pub fn set_or_clear_total_egress_bandwidth_tier<T>(
             mut self,
-            v: T,
-        ) -> Self {
-            self.total_egress_bandwidth_tier = v.into();
+            v: std::option::Option<T>,
+        ) -> Self
+        where
+            T: std::convert::Into<
+                    crate::model::node_network_config::network_performance_config::Tier,
+                >,
+        {
+            self.total_egress_bandwidth_tier = v.map(|x| x.into());
             self
         }
     }
@@ -2103,13 +2351,20 @@ impl AdditionalPodNetworkConfig {
     }
 
     /// Sets the value of [max_pods_per_node][crate::model::AdditionalPodNetworkConfig::max_pods_per_node].
-    pub fn set_max_pods_per_node<
-        T: std::convert::Into<std::option::Option<crate::model::MaxPodsConstraint>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.max_pods_per_node = v.into();
+    pub fn set_max_pods_per_node<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::MaxPodsConstraint>,
+    {
+        self.max_pods_per_node = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [max_pods_per_node][crate::model::AdditionalPodNetworkConfig::max_pods_per_node].
+    pub fn set_or_clear_max_pods_per_node<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::MaxPodsConstraint>,
+    {
+        self.max_pods_per_node = v.map(|x| x.into());
         self
     }
 }
@@ -2853,15 +3108,23 @@ impl ContainerdConfig {
     }
 
     /// Sets the value of [private_registry_access_config][crate::model::ContainerdConfig::private_registry_access_config].
-    pub fn set_private_registry_access_config<
-        T: std::convert::Into<
-                std::option::Option<crate::model::containerd_config::PrivateRegistryAccessConfig>,
-            >,
-    >(
+    pub fn set_private_registry_access_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::containerd_config::PrivateRegistryAccessConfig>,
+    {
+        self.private_registry_access_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [private_registry_access_config][crate::model::ContainerdConfig::private_registry_access_config].
+    pub fn set_or_clear_private_registry_access_config<T>(
         mut self,
-        v: T,
-    ) -> Self {
-        self.private_registry_access_config = v.into();
+        v: std::option::Option<T>,
+    ) -> Self
+    where
+        T: std::convert::Into<crate::model::containerd_config::PrivateRegistryAccessConfig>,
+    {
+        self.private_registry_access_config = v.map(|x| x.into());
         self
     }
 }
@@ -3512,13 +3775,20 @@ impl MasterAuth {
     }
 
     /// Sets the value of [client_certificate_config][crate::model::MasterAuth::client_certificate_config].
-    pub fn set_client_certificate_config<
-        T: std::convert::Into<std::option::Option<crate::model::ClientCertificateConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.client_certificate_config = v.into();
+    pub fn set_client_certificate_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::ClientCertificateConfig>,
+    {
+        self.client_certificate_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [client_certificate_config][crate::model::MasterAuth::client_certificate_config].
+    pub fn set_or_clear_client_certificate_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::ClientCertificateConfig>,
+    {
+        self.client_certificate_config = v.map(|x| x.into());
         self
     }
 
@@ -3673,157 +3943,265 @@ impl AddonsConfig {
     }
 
     /// Sets the value of [http_load_balancing][crate::model::AddonsConfig::http_load_balancing].
-    pub fn set_http_load_balancing<
-        T: std::convert::Into<std::option::Option<crate::model::HttpLoadBalancing>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.http_load_balancing = v.into();
+    pub fn set_http_load_balancing<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::HttpLoadBalancing>,
+    {
+        self.http_load_balancing = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [http_load_balancing][crate::model::AddonsConfig::http_load_balancing].
+    pub fn set_or_clear_http_load_balancing<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::HttpLoadBalancing>,
+    {
+        self.http_load_balancing = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [horizontal_pod_autoscaling][crate::model::AddonsConfig::horizontal_pod_autoscaling].
-    pub fn set_horizontal_pod_autoscaling<
-        T: std::convert::Into<std::option::Option<crate::model::HorizontalPodAutoscaling>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.horizontal_pod_autoscaling = v.into();
+    pub fn set_horizontal_pod_autoscaling<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::HorizontalPodAutoscaling>,
+    {
+        self.horizontal_pod_autoscaling = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [horizontal_pod_autoscaling][crate::model::AddonsConfig::horizontal_pod_autoscaling].
+    pub fn set_or_clear_horizontal_pod_autoscaling<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::HorizontalPodAutoscaling>,
+    {
+        self.horizontal_pod_autoscaling = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [kubernetes_dashboard][crate::model::AddonsConfig::kubernetes_dashboard].
     #[deprecated]
-    pub fn set_kubernetes_dashboard<
-        T: std::convert::Into<std::option::Option<crate::model::KubernetesDashboard>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.kubernetes_dashboard = v.into();
+    pub fn set_kubernetes_dashboard<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::KubernetesDashboard>,
+    {
+        self.kubernetes_dashboard = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [kubernetes_dashboard][crate::model::AddonsConfig::kubernetes_dashboard].
+    #[deprecated]
+    pub fn set_or_clear_kubernetes_dashboard<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::KubernetesDashboard>,
+    {
+        self.kubernetes_dashboard = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [network_policy_config][crate::model::AddonsConfig::network_policy_config].
-    pub fn set_network_policy_config<
-        T: std::convert::Into<std::option::Option<crate::model::NetworkPolicyConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.network_policy_config = v.into();
+    pub fn set_network_policy_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::NetworkPolicyConfig>,
+    {
+        self.network_policy_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [network_policy_config][crate::model::AddonsConfig::network_policy_config].
+    pub fn set_or_clear_network_policy_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::NetworkPolicyConfig>,
+    {
+        self.network_policy_config = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [cloud_run_config][crate::model::AddonsConfig::cloud_run_config].
-    pub fn set_cloud_run_config<
-        T: std::convert::Into<std::option::Option<crate::model::CloudRunConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.cloud_run_config = v.into();
+    pub fn set_cloud_run_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::CloudRunConfig>,
+    {
+        self.cloud_run_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [cloud_run_config][crate::model::AddonsConfig::cloud_run_config].
+    pub fn set_or_clear_cloud_run_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::CloudRunConfig>,
+    {
+        self.cloud_run_config = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [dns_cache_config][crate::model::AddonsConfig::dns_cache_config].
-    pub fn set_dns_cache_config<
-        T: std::convert::Into<std::option::Option<crate::model::DnsCacheConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.dns_cache_config = v.into();
+    pub fn set_dns_cache_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::DnsCacheConfig>,
+    {
+        self.dns_cache_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [dns_cache_config][crate::model::AddonsConfig::dns_cache_config].
+    pub fn set_or_clear_dns_cache_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::DnsCacheConfig>,
+    {
+        self.dns_cache_config = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [config_connector_config][crate::model::AddonsConfig::config_connector_config].
-    pub fn set_config_connector_config<
-        T: std::convert::Into<std::option::Option<crate::model::ConfigConnectorConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.config_connector_config = v.into();
+    pub fn set_config_connector_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::ConfigConnectorConfig>,
+    {
+        self.config_connector_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [config_connector_config][crate::model::AddonsConfig::config_connector_config].
+    pub fn set_or_clear_config_connector_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::ConfigConnectorConfig>,
+    {
+        self.config_connector_config = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [gce_persistent_disk_csi_driver_config][crate::model::AddonsConfig::gce_persistent_disk_csi_driver_config].
-    pub fn set_gce_persistent_disk_csi_driver_config<
-        T: std::convert::Into<std::option::Option<crate::model::GcePersistentDiskCsiDriverConfig>>,
-    >(
+    pub fn set_gce_persistent_disk_csi_driver_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::GcePersistentDiskCsiDriverConfig>,
+    {
+        self.gce_persistent_disk_csi_driver_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [gce_persistent_disk_csi_driver_config][crate::model::AddonsConfig::gce_persistent_disk_csi_driver_config].
+    pub fn set_or_clear_gce_persistent_disk_csi_driver_config<T>(
         mut self,
-        v: T,
-    ) -> Self {
-        self.gce_persistent_disk_csi_driver_config = v.into();
+        v: std::option::Option<T>,
+    ) -> Self
+    where
+        T: std::convert::Into<crate::model::GcePersistentDiskCsiDriverConfig>,
+    {
+        self.gce_persistent_disk_csi_driver_config = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [gcp_filestore_csi_driver_config][crate::model::AddonsConfig::gcp_filestore_csi_driver_config].
-    pub fn set_gcp_filestore_csi_driver_config<
-        T: std::convert::Into<std::option::Option<crate::model::GcpFilestoreCsiDriverConfig>>,
-    >(
+    pub fn set_gcp_filestore_csi_driver_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::GcpFilestoreCsiDriverConfig>,
+    {
+        self.gcp_filestore_csi_driver_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [gcp_filestore_csi_driver_config][crate::model::AddonsConfig::gcp_filestore_csi_driver_config].
+    pub fn set_or_clear_gcp_filestore_csi_driver_config<T>(
         mut self,
-        v: T,
-    ) -> Self {
-        self.gcp_filestore_csi_driver_config = v.into();
+        v: std::option::Option<T>,
+    ) -> Self
+    where
+        T: std::convert::Into<crate::model::GcpFilestoreCsiDriverConfig>,
+    {
+        self.gcp_filestore_csi_driver_config = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [gke_backup_agent_config][crate::model::AddonsConfig::gke_backup_agent_config].
-    pub fn set_gke_backup_agent_config<
-        T: std::convert::Into<std::option::Option<crate::model::GkeBackupAgentConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.gke_backup_agent_config = v.into();
+    pub fn set_gke_backup_agent_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::GkeBackupAgentConfig>,
+    {
+        self.gke_backup_agent_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [gke_backup_agent_config][crate::model::AddonsConfig::gke_backup_agent_config].
+    pub fn set_or_clear_gke_backup_agent_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::GkeBackupAgentConfig>,
+    {
+        self.gke_backup_agent_config = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [gcs_fuse_csi_driver_config][crate::model::AddonsConfig::gcs_fuse_csi_driver_config].
-    pub fn set_gcs_fuse_csi_driver_config<
-        T: std::convert::Into<std::option::Option<crate::model::GcsFuseCsiDriverConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.gcs_fuse_csi_driver_config = v.into();
+    pub fn set_gcs_fuse_csi_driver_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::GcsFuseCsiDriverConfig>,
+    {
+        self.gcs_fuse_csi_driver_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [gcs_fuse_csi_driver_config][crate::model::AddonsConfig::gcs_fuse_csi_driver_config].
+    pub fn set_or_clear_gcs_fuse_csi_driver_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::GcsFuseCsiDriverConfig>,
+    {
+        self.gcs_fuse_csi_driver_config = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [stateful_ha_config][crate::model::AddonsConfig::stateful_ha_config].
-    pub fn set_stateful_ha_config<
-        T: std::convert::Into<std::option::Option<crate::model::StatefulHAConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.stateful_ha_config = v.into();
+    pub fn set_stateful_ha_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::StatefulHAConfig>,
+    {
+        self.stateful_ha_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [stateful_ha_config][crate::model::AddonsConfig::stateful_ha_config].
+    pub fn set_or_clear_stateful_ha_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::StatefulHAConfig>,
+    {
+        self.stateful_ha_config = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [parallelstore_csi_driver_config][crate::model::AddonsConfig::parallelstore_csi_driver_config].
-    pub fn set_parallelstore_csi_driver_config<
-        T: std::convert::Into<std::option::Option<crate::model::ParallelstoreCsiDriverConfig>>,
-    >(
+    pub fn set_parallelstore_csi_driver_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::ParallelstoreCsiDriverConfig>,
+    {
+        self.parallelstore_csi_driver_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [parallelstore_csi_driver_config][crate::model::AddonsConfig::parallelstore_csi_driver_config].
+    pub fn set_or_clear_parallelstore_csi_driver_config<T>(
         mut self,
-        v: T,
-    ) -> Self {
-        self.parallelstore_csi_driver_config = v.into();
+        v: std::option::Option<T>,
+    ) -> Self
+    where
+        T: std::convert::Into<crate::model::ParallelstoreCsiDriverConfig>,
+    {
+        self.parallelstore_csi_driver_config = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [ray_operator_config][crate::model::AddonsConfig::ray_operator_config].
-    pub fn set_ray_operator_config<
-        T: std::convert::Into<std::option::Option<crate::model::RayOperatorConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.ray_operator_config = v.into();
+    pub fn set_ray_operator_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::RayOperatorConfig>,
+    {
+        self.ray_operator_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [ray_operator_config][crate::model::AddonsConfig::ray_operator_config].
+    pub fn set_or_clear_ray_operator_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::RayOperatorConfig>,
+    {
+        self.ray_operator_config = v.map(|x| x.into());
         self
     }
 }
@@ -4178,15 +4556,21 @@ impl PrivateClusterConfig {
 
     /// Sets the value of [master_global_access_config][crate::model::PrivateClusterConfig::master_global_access_config].
     #[deprecated]
-    pub fn set_master_global_access_config<
-        T: std::convert::Into<
-                std::option::Option<crate::model::PrivateClusterMasterGlobalAccessConfig>,
-            >,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.master_global_access_config = v.into();
+    pub fn set_master_global_access_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::PrivateClusterMasterGlobalAccessConfig>,
+    {
+        self.master_global_access_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [master_global_access_config][crate::model::PrivateClusterConfig::master_global_access_config].
+    #[deprecated]
+    pub fn set_or_clear_master_global_access_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::PrivateClusterMasterGlobalAccessConfig>,
+    {
+        self.master_global_access_config = v.map(|x| x.into());
         self
     }
 
@@ -4631,24 +5015,41 @@ impl RayOperatorConfig {
     }
 
     /// Sets the value of [ray_cluster_logging_config][crate::model::RayOperatorConfig::ray_cluster_logging_config].
-    pub fn set_ray_cluster_logging_config<
-        T: std::convert::Into<std::option::Option<crate::model::RayClusterLoggingConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.ray_cluster_logging_config = v.into();
+    pub fn set_ray_cluster_logging_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::RayClusterLoggingConfig>,
+    {
+        self.ray_cluster_logging_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [ray_cluster_logging_config][crate::model::RayOperatorConfig::ray_cluster_logging_config].
+    pub fn set_or_clear_ray_cluster_logging_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::RayClusterLoggingConfig>,
+    {
+        self.ray_cluster_logging_config = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [ray_cluster_monitoring_config][crate::model::RayOperatorConfig::ray_cluster_monitoring_config].
-    pub fn set_ray_cluster_monitoring_config<
-        T: std::convert::Into<std::option::Option<crate::model::RayClusterMonitoringConfig>>,
-    >(
+    pub fn set_ray_cluster_monitoring_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::RayClusterMonitoringConfig>,
+    {
+        self.ray_cluster_monitoring_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [ray_cluster_monitoring_config][crate::model::RayOperatorConfig::ray_cluster_monitoring_config].
+    pub fn set_or_clear_ray_cluster_monitoring_config<T>(
         mut self,
-        v: T,
-    ) -> Self {
-        self.ray_cluster_monitoring_config = v.into();
+        v: std::option::Option<T>,
+    ) -> Self
+    where
+        T: std::convert::Into<crate::model::RayClusterMonitoringConfig>,
+    {
+        self.ray_cluster_monitoring_config = v.map(|x| x.into());
         self
     }
 }
@@ -4776,22 +5177,44 @@ impl MasterAuthorizedNetworksConfig {
     }
 
     /// Sets the value of [gcp_public_cidrs_access_enabled][crate::model::MasterAuthorizedNetworksConfig::gcp_public_cidrs_access_enabled].
-    pub fn set_gcp_public_cidrs_access_enabled<T: std::convert::Into<std::option::Option<bool>>>(
+    pub fn set_gcp_public_cidrs_access_enabled<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.gcp_public_cidrs_access_enabled = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [gcp_public_cidrs_access_enabled][crate::model::MasterAuthorizedNetworksConfig::gcp_public_cidrs_access_enabled].
+    pub fn set_or_clear_gcp_public_cidrs_access_enabled<T>(
         mut self,
-        v: T,
-    ) -> Self {
-        self.gcp_public_cidrs_access_enabled = v.into();
+        v: std::option::Option<T>,
+    ) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.gcp_public_cidrs_access_enabled = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [private_endpoint_enforcement_enabled][crate::model::MasterAuthorizedNetworksConfig::private_endpoint_enforcement_enabled].
-    pub fn set_private_endpoint_enforcement_enabled<
-        T: std::convert::Into<std::option::Option<bool>>,
-    >(
+    pub fn set_private_endpoint_enforcement_enabled<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.private_endpoint_enforcement_enabled = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [private_endpoint_enforcement_enabled][crate::model::MasterAuthorizedNetworksConfig::private_endpoint_enforcement_enabled].
+    pub fn set_or_clear_private_endpoint_enforcement_enabled<T>(
         mut self,
-        v: T,
-    ) -> Self {
-        self.private_endpoint_enforcement_enabled = v.into();
+        v: std::option::Option<T>,
+    ) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.private_endpoint_enforcement_enabled = v.map(|x| x.into());
         self
     }
 }
@@ -5604,13 +6027,23 @@ impl IPAllocationPolicy {
     }
 
     /// Sets the value of [pod_cidr_overprovision_config][crate::model::IPAllocationPolicy::pod_cidr_overprovision_config].
-    pub fn set_pod_cidr_overprovision_config<
-        T: std::convert::Into<std::option::Option<crate::model::PodCIDROverprovisionConfig>>,
-    >(
+    pub fn set_pod_cidr_overprovision_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::PodCIDROverprovisionConfig>,
+    {
+        self.pod_cidr_overprovision_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [pod_cidr_overprovision_config][crate::model::IPAllocationPolicy::pod_cidr_overprovision_config].
+    pub fn set_or_clear_pod_cidr_overprovision_config<T>(
         mut self,
-        v: T,
-    ) -> Self {
-        self.pod_cidr_overprovision_config = v.into();
+        v: std::option::Option<T>,
+    ) -> Self
+    where
+        T: std::convert::Into<crate::model::PodCIDROverprovisionConfig>,
+    {
+        self.pod_cidr_overprovision_config = v.map(|x| x.into());
         self
     }
 
@@ -5633,13 +6066,20 @@ impl IPAllocationPolicy {
     }
 
     /// Sets the value of [additional_pod_ranges_config][crate::model::IPAllocationPolicy::additional_pod_ranges_config].
-    pub fn set_additional_pod_ranges_config<
-        T: std::convert::Into<std::option::Option<crate::model::AdditionalPodRangesConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.additional_pod_ranges_config = v.into();
+    pub fn set_additional_pod_ranges_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::AdditionalPodRangesConfig>,
+    {
+        self.additional_pod_ranges_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [additional_pod_ranges_config][crate::model::IPAllocationPolicy::additional_pod_ranges_config].
+    pub fn set_or_clear_additional_pod_ranges_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::AdditionalPodRangesConfig>,
+    {
+        self.additional_pod_ranges_config = v.map(|x| x.into());
         self
     }
 
@@ -6139,20 +6579,39 @@ impl Cluster {
 
     /// Sets the value of [node_config][crate::model::Cluster::node_config].
     #[deprecated]
-    pub fn set_node_config<T: std::convert::Into<std::option::Option<crate::model::NodeConfig>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.node_config = v.into();
+    pub fn set_node_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::NodeConfig>,
+    {
+        self.node_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [node_config][crate::model::Cluster::node_config].
+    #[deprecated]
+    pub fn set_or_clear_node_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::NodeConfig>,
+    {
+        self.node_config = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [master_auth][crate::model::Cluster::master_auth].
-    pub fn set_master_auth<T: std::convert::Into<std::option::Option<crate::model::MasterAuth>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.master_auth = v.into();
+    pub fn set_master_auth<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::MasterAuth>,
+    {
+        self.master_auth = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [master_auth][crate::model::Cluster::master_auth].
+    pub fn set_or_clear_master_auth<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::MasterAuth>,
+    {
+        self.master_auth = v.map(|x| x.into());
         self
     }
 
@@ -6187,13 +6646,20 @@ impl Cluster {
     }
 
     /// Sets the value of [addons_config][crate::model::Cluster::addons_config].
-    pub fn set_addons_config<
-        T: std::convert::Into<std::option::Option<crate::model::AddonsConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.addons_config = v.into();
+    pub fn set_addons_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::AddonsConfig>,
+    {
+        self.addons_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [addons_config][crate::model::Cluster::addons_config].
+    pub fn set_or_clear_addons_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::AddonsConfig>,
+    {
+        self.addons_config = v.map(|x| x.into());
         self
     }
 
@@ -6253,243 +6719,403 @@ impl Cluster {
     }
 
     /// Sets the value of [legacy_abac][crate::model::Cluster::legacy_abac].
-    pub fn set_legacy_abac<T: std::convert::Into<std::option::Option<crate::model::LegacyAbac>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.legacy_abac = v.into();
+    pub fn set_legacy_abac<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::LegacyAbac>,
+    {
+        self.legacy_abac = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [legacy_abac][crate::model::Cluster::legacy_abac].
+    pub fn set_or_clear_legacy_abac<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::LegacyAbac>,
+    {
+        self.legacy_abac = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [network_policy][crate::model::Cluster::network_policy].
-    pub fn set_network_policy<
-        T: std::convert::Into<std::option::Option<crate::model::NetworkPolicy>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.network_policy = v.into();
+    pub fn set_network_policy<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::NetworkPolicy>,
+    {
+        self.network_policy = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [network_policy][crate::model::Cluster::network_policy].
+    pub fn set_or_clear_network_policy<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::NetworkPolicy>,
+    {
+        self.network_policy = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [ip_allocation_policy][crate::model::Cluster::ip_allocation_policy].
-    pub fn set_ip_allocation_policy<
-        T: std::convert::Into<std::option::Option<crate::model::IPAllocationPolicy>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.ip_allocation_policy = v.into();
+    pub fn set_ip_allocation_policy<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::IPAllocationPolicy>,
+    {
+        self.ip_allocation_policy = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [ip_allocation_policy][crate::model::Cluster::ip_allocation_policy].
+    pub fn set_or_clear_ip_allocation_policy<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::IPAllocationPolicy>,
+    {
+        self.ip_allocation_policy = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [master_authorized_networks_config][crate::model::Cluster::master_authorized_networks_config].
     #[deprecated]
-    pub fn set_master_authorized_networks_config<
-        T: std::convert::Into<std::option::Option<crate::model::MasterAuthorizedNetworksConfig>>,
-    >(
+    pub fn set_master_authorized_networks_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::MasterAuthorizedNetworksConfig>,
+    {
+        self.master_authorized_networks_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [master_authorized_networks_config][crate::model::Cluster::master_authorized_networks_config].
+    #[deprecated]
+    pub fn set_or_clear_master_authorized_networks_config<T>(
         mut self,
-        v: T,
-    ) -> Self {
-        self.master_authorized_networks_config = v.into();
+        v: std::option::Option<T>,
+    ) -> Self
+    where
+        T: std::convert::Into<crate::model::MasterAuthorizedNetworksConfig>,
+    {
+        self.master_authorized_networks_config = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [maintenance_policy][crate::model::Cluster::maintenance_policy].
-    pub fn set_maintenance_policy<
-        T: std::convert::Into<std::option::Option<crate::model::MaintenancePolicy>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.maintenance_policy = v.into();
+    pub fn set_maintenance_policy<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::MaintenancePolicy>,
+    {
+        self.maintenance_policy = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [maintenance_policy][crate::model::Cluster::maintenance_policy].
+    pub fn set_or_clear_maintenance_policy<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::MaintenancePolicy>,
+    {
+        self.maintenance_policy = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [binary_authorization][crate::model::Cluster::binary_authorization].
-    pub fn set_binary_authorization<
-        T: std::convert::Into<std::option::Option<crate::model::BinaryAuthorization>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.binary_authorization = v.into();
+    pub fn set_binary_authorization<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::BinaryAuthorization>,
+    {
+        self.binary_authorization = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [binary_authorization][crate::model::Cluster::binary_authorization].
+    pub fn set_or_clear_binary_authorization<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::BinaryAuthorization>,
+    {
+        self.binary_authorization = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [autoscaling][crate::model::Cluster::autoscaling].
-    pub fn set_autoscaling<
-        T: std::convert::Into<std::option::Option<crate::model::ClusterAutoscaling>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.autoscaling = v.into();
+    pub fn set_autoscaling<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::ClusterAutoscaling>,
+    {
+        self.autoscaling = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [autoscaling][crate::model::Cluster::autoscaling].
+    pub fn set_or_clear_autoscaling<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::ClusterAutoscaling>,
+    {
+        self.autoscaling = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [network_config][crate::model::Cluster::network_config].
-    pub fn set_network_config<
-        T: std::convert::Into<std::option::Option<crate::model::NetworkConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.network_config = v.into();
+    pub fn set_network_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::NetworkConfig>,
+    {
+        self.network_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [network_config][crate::model::Cluster::network_config].
+    pub fn set_or_clear_network_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::NetworkConfig>,
+    {
+        self.network_config = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [default_max_pods_constraint][crate::model::Cluster::default_max_pods_constraint].
-    pub fn set_default_max_pods_constraint<
-        T: std::convert::Into<std::option::Option<crate::model::MaxPodsConstraint>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.default_max_pods_constraint = v.into();
+    pub fn set_default_max_pods_constraint<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::MaxPodsConstraint>,
+    {
+        self.default_max_pods_constraint = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [default_max_pods_constraint][crate::model::Cluster::default_max_pods_constraint].
+    pub fn set_or_clear_default_max_pods_constraint<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::MaxPodsConstraint>,
+    {
+        self.default_max_pods_constraint = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [resource_usage_export_config][crate::model::Cluster::resource_usage_export_config].
-    pub fn set_resource_usage_export_config<
-        T: std::convert::Into<std::option::Option<crate::model::ResourceUsageExportConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.resource_usage_export_config = v.into();
+    pub fn set_resource_usage_export_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::ResourceUsageExportConfig>,
+    {
+        self.resource_usage_export_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [resource_usage_export_config][crate::model::Cluster::resource_usage_export_config].
+    pub fn set_or_clear_resource_usage_export_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::ResourceUsageExportConfig>,
+    {
+        self.resource_usage_export_config = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [authenticator_groups_config][crate::model::Cluster::authenticator_groups_config].
-    pub fn set_authenticator_groups_config<
-        T: std::convert::Into<std::option::Option<crate::model::AuthenticatorGroupsConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.authenticator_groups_config = v.into();
+    pub fn set_authenticator_groups_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::AuthenticatorGroupsConfig>,
+    {
+        self.authenticator_groups_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [authenticator_groups_config][crate::model::Cluster::authenticator_groups_config].
+    pub fn set_or_clear_authenticator_groups_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::AuthenticatorGroupsConfig>,
+    {
+        self.authenticator_groups_config = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [private_cluster_config][crate::model::Cluster::private_cluster_config].
-    pub fn set_private_cluster_config<
-        T: std::convert::Into<std::option::Option<crate::model::PrivateClusterConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.private_cluster_config = v.into();
+    pub fn set_private_cluster_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::PrivateClusterConfig>,
+    {
+        self.private_cluster_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [private_cluster_config][crate::model::Cluster::private_cluster_config].
+    pub fn set_or_clear_private_cluster_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::PrivateClusterConfig>,
+    {
+        self.private_cluster_config = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [database_encryption][crate::model::Cluster::database_encryption].
-    pub fn set_database_encryption<
-        T: std::convert::Into<std::option::Option<crate::model::DatabaseEncryption>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.database_encryption = v.into();
+    pub fn set_database_encryption<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::DatabaseEncryption>,
+    {
+        self.database_encryption = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [database_encryption][crate::model::Cluster::database_encryption].
+    pub fn set_or_clear_database_encryption<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::DatabaseEncryption>,
+    {
+        self.database_encryption = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [vertical_pod_autoscaling][crate::model::Cluster::vertical_pod_autoscaling].
-    pub fn set_vertical_pod_autoscaling<
-        T: std::convert::Into<std::option::Option<crate::model::VerticalPodAutoscaling>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.vertical_pod_autoscaling = v.into();
+    pub fn set_vertical_pod_autoscaling<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::VerticalPodAutoscaling>,
+    {
+        self.vertical_pod_autoscaling = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [vertical_pod_autoscaling][crate::model::Cluster::vertical_pod_autoscaling].
+    pub fn set_or_clear_vertical_pod_autoscaling<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::VerticalPodAutoscaling>,
+    {
+        self.vertical_pod_autoscaling = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [shielded_nodes][crate::model::Cluster::shielded_nodes].
-    pub fn set_shielded_nodes<
-        T: std::convert::Into<std::option::Option<crate::model::ShieldedNodes>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.shielded_nodes = v.into();
+    pub fn set_shielded_nodes<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::ShieldedNodes>,
+    {
+        self.shielded_nodes = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [shielded_nodes][crate::model::Cluster::shielded_nodes].
+    pub fn set_or_clear_shielded_nodes<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::ShieldedNodes>,
+    {
+        self.shielded_nodes = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [release_channel][crate::model::Cluster::release_channel].
-    pub fn set_release_channel<
-        T: std::convert::Into<std::option::Option<crate::model::ReleaseChannel>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.release_channel = v.into();
+    pub fn set_release_channel<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::ReleaseChannel>,
+    {
+        self.release_channel = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [release_channel][crate::model::Cluster::release_channel].
+    pub fn set_or_clear_release_channel<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::ReleaseChannel>,
+    {
+        self.release_channel = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [workload_identity_config][crate::model::Cluster::workload_identity_config].
-    pub fn set_workload_identity_config<
-        T: std::convert::Into<std::option::Option<crate::model::WorkloadIdentityConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.workload_identity_config = v.into();
+    pub fn set_workload_identity_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::WorkloadIdentityConfig>,
+    {
+        self.workload_identity_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [workload_identity_config][crate::model::Cluster::workload_identity_config].
+    pub fn set_or_clear_workload_identity_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::WorkloadIdentityConfig>,
+    {
+        self.workload_identity_config = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [mesh_certificates][crate::model::Cluster::mesh_certificates].
-    pub fn set_mesh_certificates<
-        T: std::convert::Into<std::option::Option<crate::model::MeshCertificates>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.mesh_certificates = v.into();
+    pub fn set_mesh_certificates<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::MeshCertificates>,
+    {
+        self.mesh_certificates = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [mesh_certificates][crate::model::Cluster::mesh_certificates].
+    pub fn set_or_clear_mesh_certificates<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::MeshCertificates>,
+    {
+        self.mesh_certificates = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [cost_management_config][crate::model::Cluster::cost_management_config].
-    pub fn set_cost_management_config<
-        T: std::convert::Into<std::option::Option<crate::model::CostManagementConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.cost_management_config = v.into();
+    pub fn set_cost_management_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::CostManagementConfig>,
+    {
+        self.cost_management_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [cost_management_config][crate::model::Cluster::cost_management_config].
+    pub fn set_or_clear_cost_management_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::CostManagementConfig>,
+    {
+        self.cost_management_config = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [notification_config][crate::model::Cluster::notification_config].
-    pub fn set_notification_config<
-        T: std::convert::Into<std::option::Option<crate::model::NotificationConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.notification_config = v.into();
+    pub fn set_notification_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::NotificationConfig>,
+    {
+        self.notification_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [notification_config][crate::model::Cluster::notification_config].
+    pub fn set_or_clear_notification_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::NotificationConfig>,
+    {
+        self.notification_config = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [confidential_nodes][crate::model::Cluster::confidential_nodes].
-    pub fn set_confidential_nodes<
-        T: std::convert::Into<std::option::Option<crate::model::ConfidentialNodes>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.confidential_nodes = v.into();
+    pub fn set_confidential_nodes<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::ConfidentialNodes>,
+    {
+        self.confidential_nodes = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [confidential_nodes][crate::model::Cluster::confidential_nodes].
+    pub fn set_or_clear_confidential_nodes<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::ConfidentialNodes>,
+    {
+        self.confidential_nodes = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [identity_service_config][crate::model::Cluster::identity_service_config].
-    pub fn set_identity_service_config<
-        T: std::convert::Into<std::option::Option<crate::model::IdentityServiceConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.identity_service_config = v.into();
+    pub fn set_identity_service_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::IdentityServiceConfig>,
+    {
+        self.identity_service_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [identity_service_config][crate::model::Cluster::identity_service_config].
+    pub fn set_or_clear_identity_service_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::IdentityServiceConfig>,
+    {
+        self.identity_service_config = v.map(|x| x.into());
         self
     }
 
@@ -6635,11 +7261,20 @@ impl Cluster {
     }
 
     /// Sets the value of [autopilot][crate::model::Cluster::autopilot].
-    pub fn set_autopilot<T: std::convert::Into<std::option::Option<crate::model::Autopilot>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.autopilot = v.into();
+    pub fn set_autopilot<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::Autopilot>,
+    {
+        self.autopilot = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [autopilot][crate::model::Cluster::autopilot].
+    pub fn set_or_clear_autopilot<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::Autopilot>,
+    {
+        self.autopilot = v.map(|x| x.into());
         self
     }
 
@@ -6650,46 +7285,74 @@ impl Cluster {
     }
 
     /// Sets the value of [node_pool_defaults][crate::model::Cluster::node_pool_defaults].
-    pub fn set_node_pool_defaults<
-        T: std::convert::Into<std::option::Option<crate::model::NodePoolDefaults>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.node_pool_defaults = v.into();
+    pub fn set_node_pool_defaults<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::NodePoolDefaults>,
+    {
+        self.node_pool_defaults = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [node_pool_defaults][crate::model::Cluster::node_pool_defaults].
+    pub fn set_or_clear_node_pool_defaults<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::NodePoolDefaults>,
+    {
+        self.node_pool_defaults = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [logging_config][crate::model::Cluster::logging_config].
-    pub fn set_logging_config<
-        T: std::convert::Into<std::option::Option<crate::model::LoggingConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.logging_config = v.into();
+    pub fn set_logging_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::LoggingConfig>,
+    {
+        self.logging_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [logging_config][crate::model::Cluster::logging_config].
+    pub fn set_or_clear_logging_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::LoggingConfig>,
+    {
+        self.logging_config = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [monitoring_config][crate::model::Cluster::monitoring_config].
-    pub fn set_monitoring_config<
-        T: std::convert::Into<std::option::Option<crate::model::MonitoringConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.monitoring_config = v.into();
+    pub fn set_monitoring_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::MonitoringConfig>,
+    {
+        self.monitoring_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [monitoring_config][crate::model::Cluster::monitoring_config].
+    pub fn set_or_clear_monitoring_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::MonitoringConfig>,
+    {
+        self.monitoring_config = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [node_pool_auto_config][crate::model::Cluster::node_pool_auto_config].
-    pub fn set_node_pool_auto_config<
-        T: std::convert::Into<std::option::Option<crate::model::NodePoolAutoConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.node_pool_auto_config = v.into();
+    pub fn set_node_pool_auto_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::NodePoolAutoConfig>,
+    {
+        self.node_pool_auto_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [node_pool_auto_config][crate::model::Cluster::node_pool_auto_config].
+    pub fn set_or_clear_node_pool_auto_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::NodePoolAutoConfig>,
+    {
+        self.node_pool_auto_config = v.map(|x| x.into());
         self
     }
 
@@ -6700,117 +7363,203 @@ impl Cluster {
     }
 
     /// Sets the value of [fleet][crate::model::Cluster::fleet].
-    pub fn set_fleet<T: std::convert::Into<std::option::Option<crate::model::Fleet>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.fleet = v.into();
+    pub fn set_fleet<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::Fleet>,
+    {
+        self.fleet = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [fleet][crate::model::Cluster::fleet].
+    pub fn set_or_clear_fleet<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::Fleet>,
+    {
+        self.fleet = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [security_posture_config][crate::model::Cluster::security_posture_config].
-    pub fn set_security_posture_config<
-        T: std::convert::Into<std::option::Option<crate::model::SecurityPostureConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.security_posture_config = v.into();
+    pub fn set_security_posture_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::SecurityPostureConfig>,
+    {
+        self.security_posture_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [security_posture_config][crate::model::Cluster::security_posture_config].
+    pub fn set_or_clear_security_posture_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::SecurityPostureConfig>,
+    {
+        self.security_posture_config = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [control_plane_endpoints_config][crate::model::Cluster::control_plane_endpoints_config].
-    pub fn set_control_plane_endpoints_config<
-        T: std::convert::Into<std::option::Option<crate::model::ControlPlaneEndpointsConfig>>,
-    >(
+    pub fn set_control_plane_endpoints_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::ControlPlaneEndpointsConfig>,
+    {
+        self.control_plane_endpoints_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [control_plane_endpoints_config][crate::model::Cluster::control_plane_endpoints_config].
+    pub fn set_or_clear_control_plane_endpoints_config<T>(
         mut self,
-        v: T,
-    ) -> Self {
-        self.control_plane_endpoints_config = v.into();
+        v: std::option::Option<T>,
+    ) -> Self
+    where
+        T: std::convert::Into<crate::model::ControlPlaneEndpointsConfig>,
+    {
+        self.control_plane_endpoints_config = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [enable_k8s_beta_apis][crate::model::Cluster::enable_k8s_beta_apis].
-    pub fn set_enable_k8s_beta_apis<
-        T: std::convert::Into<std::option::Option<crate::model::K8sBetaAPIConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.enable_k8s_beta_apis = v.into();
+    pub fn set_enable_k8s_beta_apis<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::K8sBetaAPIConfig>,
+    {
+        self.enable_k8s_beta_apis = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [enable_k8s_beta_apis][crate::model::Cluster::enable_k8s_beta_apis].
+    pub fn set_or_clear_enable_k8s_beta_apis<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::K8sBetaAPIConfig>,
+    {
+        self.enable_k8s_beta_apis = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [enterprise_config][crate::model::Cluster::enterprise_config].
-    pub fn set_enterprise_config<
-        T: std::convert::Into<std::option::Option<crate::model::EnterpriseConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.enterprise_config = v.into();
+    pub fn set_enterprise_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::EnterpriseConfig>,
+    {
+        self.enterprise_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [enterprise_config][crate::model::Cluster::enterprise_config].
+    pub fn set_or_clear_enterprise_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::EnterpriseConfig>,
+    {
+        self.enterprise_config = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [secret_manager_config][crate::model::Cluster::secret_manager_config].
-    pub fn set_secret_manager_config<
-        T: std::convert::Into<std::option::Option<crate::model::SecretManagerConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.secret_manager_config = v.into();
+    pub fn set_secret_manager_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::SecretManagerConfig>,
+    {
+        self.secret_manager_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [secret_manager_config][crate::model::Cluster::secret_manager_config].
+    pub fn set_or_clear_secret_manager_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::SecretManagerConfig>,
+    {
+        self.secret_manager_config = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [compliance_posture_config][crate::model::Cluster::compliance_posture_config].
-    pub fn set_compliance_posture_config<
-        T: std::convert::Into<std::option::Option<crate::model::CompliancePostureConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.compliance_posture_config = v.into();
+    pub fn set_compliance_posture_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::CompliancePostureConfig>,
+    {
+        self.compliance_posture_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [compliance_posture_config][crate::model::Cluster::compliance_posture_config].
+    pub fn set_or_clear_compliance_posture_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::CompliancePostureConfig>,
+    {
+        self.compliance_posture_config = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [satisfies_pzs][crate::model::Cluster::satisfies_pzs].
-    pub fn set_satisfies_pzs<T: std::convert::Into<std::option::Option<bool>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.satisfies_pzs = v.into();
+    pub fn set_satisfies_pzs<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.satisfies_pzs = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [satisfies_pzs][crate::model::Cluster::satisfies_pzs].
+    pub fn set_or_clear_satisfies_pzs<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.satisfies_pzs = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [satisfies_pzi][crate::model::Cluster::satisfies_pzi].
-    pub fn set_satisfies_pzi<T: std::convert::Into<std::option::Option<bool>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.satisfies_pzi = v.into();
+    pub fn set_satisfies_pzi<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.satisfies_pzi = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [satisfies_pzi][crate::model::Cluster::satisfies_pzi].
+    pub fn set_or_clear_satisfies_pzi<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.satisfies_pzi = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [user_managed_keys_config][crate::model::Cluster::user_managed_keys_config].
-    pub fn set_user_managed_keys_config<
-        T: std::convert::Into<std::option::Option<crate::model::UserManagedKeysConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.user_managed_keys_config = v.into();
+    pub fn set_user_managed_keys_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::UserManagedKeysConfig>,
+    {
+        self.user_managed_keys_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [user_managed_keys_config][crate::model::Cluster::user_managed_keys_config].
+    pub fn set_or_clear_user_managed_keys_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::UserManagedKeysConfig>,
+    {
+        self.user_managed_keys_config = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [rbac_binding_config][crate::model::Cluster::rbac_binding_config].
-    pub fn set_rbac_binding_config<
-        T: std::convert::Into<std::option::Option<crate::model::RBACBindingConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.rbac_binding_config = v.into();
+    pub fn set_rbac_binding_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::RBACBindingConfig>,
+    {
+        self.rbac_binding_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [rbac_binding_config][crate::model::Cluster::rbac_binding_config].
+    pub fn set_or_clear_rbac_binding_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::RBACBindingConfig>,
+    {
+        self.rbac_binding_config = v.map(|x| x.into());
         self
     }
 }
@@ -7019,24 +7768,44 @@ impl RBACBindingConfig {
     }
 
     /// Sets the value of [enable_insecure_binding_system_unauthenticated][crate::model::RBACBindingConfig::enable_insecure_binding_system_unauthenticated].
-    pub fn set_enable_insecure_binding_system_unauthenticated<
-        T: std::convert::Into<std::option::Option<bool>>,
-    >(
+    pub fn set_enable_insecure_binding_system_unauthenticated<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.enable_insecure_binding_system_unauthenticated = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [enable_insecure_binding_system_unauthenticated][crate::model::RBACBindingConfig::enable_insecure_binding_system_unauthenticated].
+    pub fn set_or_clear_enable_insecure_binding_system_unauthenticated<T>(
         mut self,
-        v: T,
-    ) -> Self {
-        self.enable_insecure_binding_system_unauthenticated = v.into();
+        v: std::option::Option<T>,
+    ) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.enable_insecure_binding_system_unauthenticated = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [enable_insecure_binding_system_authenticated][crate::model::RBACBindingConfig::enable_insecure_binding_system_authenticated].
-    pub fn set_enable_insecure_binding_system_authenticated<
-        T: std::convert::Into<std::option::Option<bool>>,
-    >(
+    pub fn set_enable_insecure_binding_system_authenticated<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.enable_insecure_binding_system_authenticated = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [enable_insecure_binding_system_authenticated][crate::model::RBACBindingConfig::enable_insecure_binding_system_authenticated].
+    pub fn set_or_clear_enable_insecure_binding_system_authenticated<T>(
         mut self,
-        v: T,
-    ) -> Self {
-        self.enable_insecure_binding_system_authenticated = v.into();
+        v: std::option::Option<T>,
+    ) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.enable_insecure_binding_system_authenticated = v.map(|x| x.into());
         self
     }
 }
@@ -7206,13 +7975,20 @@ impl CompliancePostureConfig {
     }
 
     /// Sets the value of [mode][crate::model::CompliancePostureConfig::mode].
-    pub fn set_mode<
-        T: std::convert::Into<std::option::Option<crate::model::compliance_posture_config::Mode>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.mode = v.into();
+    pub fn set_mode<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::compliance_posture_config::Mode>,
+    {
+        self.mode = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [mode][crate::model::CompliancePostureConfig::mode].
+    pub fn set_or_clear_mode<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::compliance_posture_config::Mode>,
+    {
+        self.mode = v.map(|x| x.into());
         self
     }
 
@@ -7259,11 +8035,20 @@ pub mod compliance_posture_config {
         }
 
         /// Sets the value of [standard][crate::model::compliance_posture_config::ComplianceStandard::standard].
-        pub fn set_standard<T: std::convert::Into<std::option::Option<std::string::String>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.standard = v.into();
+        pub fn set_standard<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.standard = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [standard][crate::model::compliance_posture_config::ComplianceStandard::standard].
+        pub fn set_or_clear_standard<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.standard = v.map(|x| x.into());
             self
         }
     }
@@ -7470,26 +8255,38 @@ impl SecurityPostureConfig {
     }
 
     /// Sets the value of [mode][crate::model::SecurityPostureConfig::mode].
-    pub fn set_mode<
-        T: std::convert::Into<std::option::Option<crate::model::security_posture_config::Mode>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.mode = v.into();
+    pub fn set_mode<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::security_posture_config::Mode>,
+    {
+        self.mode = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [mode][crate::model::SecurityPostureConfig::mode].
+    pub fn set_or_clear_mode<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::security_posture_config::Mode>,
+    {
+        self.mode = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [vulnerability_mode][crate::model::SecurityPostureConfig::vulnerability_mode].
-    pub fn set_vulnerability_mode<
-        T: std::convert::Into<
-                std::option::Option<crate::model::security_posture_config::VulnerabilityMode>,
-            >,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.vulnerability_mode = v.into();
+    pub fn set_vulnerability_mode<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::security_posture_config::VulnerabilityMode>,
+    {
+        self.vulnerability_mode = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [vulnerability_mode][crate::model::SecurityPostureConfig::vulnerability_mode].
+    pub fn set_or_clear_vulnerability_mode<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::security_posture_config::VulnerabilityMode>,
+    {
+        self.vulnerability_mode = v.map(|x| x.into());
         self
     }
 }
@@ -7826,46 +8623,74 @@ impl NodePoolAutoConfig {
     }
 
     /// Sets the value of [network_tags][crate::model::NodePoolAutoConfig::network_tags].
-    pub fn set_network_tags<
-        T: std::convert::Into<std::option::Option<crate::model::NetworkTags>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.network_tags = v.into();
+    pub fn set_network_tags<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::NetworkTags>,
+    {
+        self.network_tags = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [network_tags][crate::model::NodePoolAutoConfig::network_tags].
+    pub fn set_or_clear_network_tags<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::NetworkTags>,
+    {
+        self.network_tags = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [resource_manager_tags][crate::model::NodePoolAutoConfig::resource_manager_tags].
-    pub fn set_resource_manager_tags<
-        T: std::convert::Into<std::option::Option<crate::model::ResourceManagerTags>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.resource_manager_tags = v.into();
+    pub fn set_resource_manager_tags<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::ResourceManagerTags>,
+    {
+        self.resource_manager_tags = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [resource_manager_tags][crate::model::NodePoolAutoConfig::resource_manager_tags].
+    pub fn set_or_clear_resource_manager_tags<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::ResourceManagerTags>,
+    {
+        self.resource_manager_tags = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [node_kubelet_config][crate::model::NodePoolAutoConfig::node_kubelet_config].
-    pub fn set_node_kubelet_config<
-        T: std::convert::Into<std::option::Option<crate::model::NodeKubeletConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.node_kubelet_config = v.into();
+    pub fn set_node_kubelet_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::NodeKubeletConfig>,
+    {
+        self.node_kubelet_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [node_kubelet_config][crate::model::NodePoolAutoConfig::node_kubelet_config].
+    pub fn set_or_clear_node_kubelet_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::NodeKubeletConfig>,
+    {
+        self.node_kubelet_config = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [linux_node_config][crate::model::NodePoolAutoConfig::linux_node_config].
-    pub fn set_linux_node_config<
-        T: std::convert::Into<std::option::Option<crate::model::LinuxNodeConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.linux_node_config = v.into();
+    pub fn set_linux_node_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::LinuxNodeConfig>,
+    {
+        self.linux_node_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [linux_node_config][crate::model::NodePoolAutoConfig::linux_node_config].
+    pub fn set_or_clear_linux_node_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::LinuxNodeConfig>,
+    {
+        self.linux_node_config = v.map(|x| x.into());
         self
     }
 }
@@ -7896,13 +8721,20 @@ impl NodePoolDefaults {
     }
 
     /// Sets the value of [node_config_defaults][crate::model::NodePoolDefaults::node_config_defaults].
-    pub fn set_node_config_defaults<
-        T: std::convert::Into<std::option::Option<crate::model::NodeConfigDefaults>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.node_config_defaults = v.into();
+    pub fn set_node_config_defaults<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::NodeConfigDefaults>,
+    {
+        self.node_config_defaults = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [node_config_defaults][crate::model::NodePoolDefaults::node_config_defaults].
+    pub fn set_or_clear_node_config_defaults<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::NodeConfigDefaults>,
+    {
+        self.node_config_defaults = v.map(|x| x.into());
         self
     }
 }
@@ -7947,44 +8779,74 @@ impl NodeConfigDefaults {
     }
 
     /// Sets the value of [gcfs_config][crate::model::NodeConfigDefaults::gcfs_config].
-    pub fn set_gcfs_config<T: std::convert::Into<std::option::Option<crate::model::GcfsConfig>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.gcfs_config = v.into();
+    pub fn set_gcfs_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::GcfsConfig>,
+    {
+        self.gcfs_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [gcfs_config][crate::model::NodeConfigDefaults::gcfs_config].
+    pub fn set_or_clear_gcfs_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::GcfsConfig>,
+    {
+        self.gcfs_config = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [logging_config][crate::model::NodeConfigDefaults::logging_config].
-    pub fn set_logging_config<
-        T: std::convert::Into<std::option::Option<crate::model::NodePoolLoggingConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.logging_config = v.into();
+    pub fn set_logging_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::NodePoolLoggingConfig>,
+    {
+        self.logging_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [logging_config][crate::model::NodeConfigDefaults::logging_config].
+    pub fn set_or_clear_logging_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::NodePoolLoggingConfig>,
+    {
+        self.logging_config = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [containerd_config][crate::model::NodeConfigDefaults::containerd_config].
-    pub fn set_containerd_config<
-        T: std::convert::Into<std::option::Option<crate::model::ContainerdConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.containerd_config = v.into();
+    pub fn set_containerd_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::ContainerdConfig>,
+    {
+        self.containerd_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [containerd_config][crate::model::NodeConfigDefaults::containerd_config].
+    pub fn set_or_clear_containerd_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::ContainerdConfig>,
+    {
+        self.containerd_config = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [node_kubelet_config][crate::model::NodeConfigDefaults::node_kubelet_config].
-    pub fn set_node_kubelet_config<
-        T: std::convert::Into<std::option::Option<crate::model::NodeKubeletConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.node_kubelet_config = v.into();
+    pub fn set_node_kubelet_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::NodeKubeletConfig>,
+    {
+        self.node_kubelet_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [node_kubelet_config][crate::model::NodeConfigDefaults::node_kubelet_config].
+    pub fn set_or_clear_node_kubelet_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::NodeKubeletConfig>,
+    {
+        self.node_kubelet_config = v.map(|x| x.into());
         self
     }
 }
@@ -8402,13 +9264,20 @@ impl ClusterUpdate {
     }
 
     /// Sets the value of [desired_addons_config][crate::model::ClusterUpdate::desired_addons_config].
-    pub fn set_desired_addons_config<
-        T: std::convert::Into<std::option::Option<crate::model::AddonsConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.desired_addons_config = v.into();
+    pub fn set_desired_addons_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::AddonsConfig>,
+    {
+        self.desired_addons_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [desired_addons_config][crate::model::ClusterUpdate::desired_addons_config].
+    pub fn set_or_clear_desired_addons_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::AddonsConfig>,
+    {
+        self.desired_addons_config = v.map(|x| x.into());
         self
     }
 
@@ -8431,79 +9300,137 @@ impl ClusterUpdate {
     }
 
     /// Sets the value of [desired_database_encryption][crate::model::ClusterUpdate::desired_database_encryption].
-    pub fn set_desired_database_encryption<
-        T: std::convert::Into<std::option::Option<crate::model::DatabaseEncryption>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.desired_database_encryption = v.into();
+    pub fn set_desired_database_encryption<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::DatabaseEncryption>,
+    {
+        self.desired_database_encryption = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [desired_database_encryption][crate::model::ClusterUpdate::desired_database_encryption].
+    pub fn set_or_clear_desired_database_encryption<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::DatabaseEncryption>,
+    {
+        self.desired_database_encryption = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [desired_workload_identity_config][crate::model::ClusterUpdate::desired_workload_identity_config].
-    pub fn set_desired_workload_identity_config<
-        T: std::convert::Into<std::option::Option<crate::model::WorkloadIdentityConfig>>,
-    >(
+    pub fn set_desired_workload_identity_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::WorkloadIdentityConfig>,
+    {
+        self.desired_workload_identity_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [desired_workload_identity_config][crate::model::ClusterUpdate::desired_workload_identity_config].
+    pub fn set_or_clear_desired_workload_identity_config<T>(
         mut self,
-        v: T,
-    ) -> Self {
-        self.desired_workload_identity_config = v.into();
+        v: std::option::Option<T>,
+    ) -> Self
+    where
+        T: std::convert::Into<crate::model::WorkloadIdentityConfig>,
+    {
+        self.desired_workload_identity_config = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [desired_mesh_certificates][crate::model::ClusterUpdate::desired_mesh_certificates].
-    pub fn set_desired_mesh_certificates<
-        T: std::convert::Into<std::option::Option<crate::model::MeshCertificates>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.desired_mesh_certificates = v.into();
+    pub fn set_desired_mesh_certificates<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::MeshCertificates>,
+    {
+        self.desired_mesh_certificates = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [desired_mesh_certificates][crate::model::ClusterUpdate::desired_mesh_certificates].
+    pub fn set_or_clear_desired_mesh_certificates<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::MeshCertificates>,
+    {
+        self.desired_mesh_certificates = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [desired_shielded_nodes][crate::model::ClusterUpdate::desired_shielded_nodes].
-    pub fn set_desired_shielded_nodes<
-        T: std::convert::Into<std::option::Option<crate::model::ShieldedNodes>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.desired_shielded_nodes = v.into();
+    pub fn set_desired_shielded_nodes<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::ShieldedNodes>,
+    {
+        self.desired_shielded_nodes = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [desired_shielded_nodes][crate::model::ClusterUpdate::desired_shielded_nodes].
+    pub fn set_or_clear_desired_shielded_nodes<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::ShieldedNodes>,
+    {
+        self.desired_shielded_nodes = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [desired_cost_management_config][crate::model::ClusterUpdate::desired_cost_management_config].
-    pub fn set_desired_cost_management_config<
-        T: std::convert::Into<std::option::Option<crate::model::CostManagementConfig>>,
-    >(
+    pub fn set_desired_cost_management_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::CostManagementConfig>,
+    {
+        self.desired_cost_management_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [desired_cost_management_config][crate::model::ClusterUpdate::desired_cost_management_config].
+    pub fn set_or_clear_desired_cost_management_config<T>(
         mut self,
-        v: T,
-    ) -> Self {
-        self.desired_cost_management_config = v.into();
+        v: std::option::Option<T>,
+    ) -> Self
+    where
+        T: std::convert::Into<crate::model::CostManagementConfig>,
+    {
+        self.desired_cost_management_config = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [desired_dns_config][crate::model::ClusterUpdate::desired_dns_config].
-    pub fn set_desired_dns_config<
-        T: std::convert::Into<std::option::Option<crate::model::DNSConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.desired_dns_config = v.into();
+    pub fn set_desired_dns_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::DNSConfig>,
+    {
+        self.desired_dns_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [desired_dns_config][crate::model::ClusterUpdate::desired_dns_config].
+    pub fn set_or_clear_desired_dns_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::DNSConfig>,
+    {
+        self.desired_dns_config = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [desired_node_pool_autoscaling][crate::model::ClusterUpdate::desired_node_pool_autoscaling].
-    pub fn set_desired_node_pool_autoscaling<
-        T: std::convert::Into<std::option::Option<crate::model::NodePoolAutoscaling>>,
-    >(
+    pub fn set_desired_node_pool_autoscaling<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::NodePoolAutoscaling>,
+    {
+        self.desired_node_pool_autoscaling = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [desired_node_pool_autoscaling][crate::model::ClusterUpdate::desired_node_pool_autoscaling].
+    pub fn set_or_clear_desired_node_pool_autoscaling<T>(
         mut self,
-        v: T,
-    ) -> Self {
-        self.desired_node_pool_autoscaling = v.into();
+        v: std::option::Option<T>,
+    ) -> Self
+    where
+        T: std::convert::Into<crate::model::NodePoolAutoscaling>,
+    {
+        self.desired_node_pool_autoscaling = v.map(|x| x.into());
         self
     }
 
@@ -8520,35 +9447,60 @@ impl ClusterUpdate {
 
     /// Sets the value of [desired_master_authorized_networks_config][crate::model::ClusterUpdate::desired_master_authorized_networks_config].
     #[deprecated]
-    pub fn set_desired_master_authorized_networks_config<
-        T: std::convert::Into<std::option::Option<crate::model::MasterAuthorizedNetworksConfig>>,
-    >(
+    pub fn set_desired_master_authorized_networks_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::MasterAuthorizedNetworksConfig>,
+    {
+        self.desired_master_authorized_networks_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [desired_master_authorized_networks_config][crate::model::ClusterUpdate::desired_master_authorized_networks_config].
+    #[deprecated]
+    pub fn set_or_clear_desired_master_authorized_networks_config<T>(
         mut self,
-        v: T,
-    ) -> Self {
-        self.desired_master_authorized_networks_config = v.into();
+        v: std::option::Option<T>,
+    ) -> Self
+    where
+        T: std::convert::Into<crate::model::MasterAuthorizedNetworksConfig>,
+    {
+        self.desired_master_authorized_networks_config = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [desired_cluster_autoscaling][crate::model::ClusterUpdate::desired_cluster_autoscaling].
-    pub fn set_desired_cluster_autoscaling<
-        T: std::convert::Into<std::option::Option<crate::model::ClusterAutoscaling>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.desired_cluster_autoscaling = v.into();
+    pub fn set_desired_cluster_autoscaling<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::ClusterAutoscaling>,
+    {
+        self.desired_cluster_autoscaling = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [desired_cluster_autoscaling][crate::model::ClusterUpdate::desired_cluster_autoscaling].
+    pub fn set_or_clear_desired_cluster_autoscaling<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::ClusterAutoscaling>,
+    {
+        self.desired_cluster_autoscaling = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [desired_binary_authorization][crate::model::ClusterUpdate::desired_binary_authorization].
-    pub fn set_desired_binary_authorization<
-        T: std::convert::Into<std::option::Option<crate::model::BinaryAuthorization>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.desired_binary_authorization = v.into();
+    pub fn set_desired_binary_authorization<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::BinaryAuthorization>,
+    {
+        self.desired_binary_authorization = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [desired_binary_authorization][crate::model::ClusterUpdate::desired_binary_authorization].
+    pub fn set_or_clear_desired_binary_authorization<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::BinaryAuthorization>,
+    {
+        self.desired_binary_authorization = v.map(|x| x.into());
         self
     }
 
@@ -8562,80 +9514,145 @@ impl ClusterUpdate {
     }
 
     /// Sets the value of [desired_resource_usage_export_config][crate::model::ClusterUpdate::desired_resource_usage_export_config].
-    pub fn set_desired_resource_usage_export_config<
-        T: std::convert::Into<std::option::Option<crate::model::ResourceUsageExportConfig>>,
-    >(
+    pub fn set_desired_resource_usage_export_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::ResourceUsageExportConfig>,
+    {
+        self.desired_resource_usage_export_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [desired_resource_usage_export_config][crate::model::ClusterUpdate::desired_resource_usage_export_config].
+    pub fn set_or_clear_desired_resource_usage_export_config<T>(
         mut self,
-        v: T,
-    ) -> Self {
-        self.desired_resource_usage_export_config = v.into();
+        v: std::option::Option<T>,
+    ) -> Self
+    where
+        T: std::convert::Into<crate::model::ResourceUsageExportConfig>,
+    {
+        self.desired_resource_usage_export_config = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [desired_vertical_pod_autoscaling][crate::model::ClusterUpdate::desired_vertical_pod_autoscaling].
-    pub fn set_desired_vertical_pod_autoscaling<
-        T: std::convert::Into<std::option::Option<crate::model::VerticalPodAutoscaling>>,
-    >(
+    pub fn set_desired_vertical_pod_autoscaling<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::VerticalPodAutoscaling>,
+    {
+        self.desired_vertical_pod_autoscaling = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [desired_vertical_pod_autoscaling][crate::model::ClusterUpdate::desired_vertical_pod_autoscaling].
+    pub fn set_or_clear_desired_vertical_pod_autoscaling<T>(
         mut self,
-        v: T,
-    ) -> Self {
-        self.desired_vertical_pod_autoscaling = v.into();
+        v: std::option::Option<T>,
+    ) -> Self
+    where
+        T: std::convert::Into<crate::model::VerticalPodAutoscaling>,
+    {
+        self.desired_vertical_pod_autoscaling = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [desired_private_cluster_config][crate::model::ClusterUpdate::desired_private_cluster_config].
     #[deprecated]
-    pub fn set_desired_private_cluster_config<
-        T: std::convert::Into<std::option::Option<crate::model::PrivateClusterConfig>>,
-    >(
+    pub fn set_desired_private_cluster_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::PrivateClusterConfig>,
+    {
+        self.desired_private_cluster_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [desired_private_cluster_config][crate::model::ClusterUpdate::desired_private_cluster_config].
+    #[deprecated]
+    pub fn set_or_clear_desired_private_cluster_config<T>(
         mut self,
-        v: T,
-    ) -> Self {
-        self.desired_private_cluster_config = v.into();
+        v: std::option::Option<T>,
+    ) -> Self
+    where
+        T: std::convert::Into<crate::model::PrivateClusterConfig>,
+    {
+        self.desired_private_cluster_config = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [desired_intra_node_visibility_config][crate::model::ClusterUpdate::desired_intra_node_visibility_config].
-    pub fn set_desired_intra_node_visibility_config<
-        T: std::convert::Into<std::option::Option<crate::model::IntraNodeVisibilityConfig>>,
-    >(
+    pub fn set_desired_intra_node_visibility_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::IntraNodeVisibilityConfig>,
+    {
+        self.desired_intra_node_visibility_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [desired_intra_node_visibility_config][crate::model::ClusterUpdate::desired_intra_node_visibility_config].
+    pub fn set_or_clear_desired_intra_node_visibility_config<T>(
         mut self,
-        v: T,
-    ) -> Self {
-        self.desired_intra_node_visibility_config = v.into();
+        v: std::option::Option<T>,
+    ) -> Self
+    where
+        T: std::convert::Into<crate::model::IntraNodeVisibilityConfig>,
+    {
+        self.desired_intra_node_visibility_config = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [desired_default_snat_status][crate::model::ClusterUpdate::desired_default_snat_status].
-    pub fn set_desired_default_snat_status<
-        T: std::convert::Into<std::option::Option<crate::model::DefaultSnatStatus>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.desired_default_snat_status = v.into();
+    pub fn set_desired_default_snat_status<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::DefaultSnatStatus>,
+    {
+        self.desired_default_snat_status = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [desired_default_snat_status][crate::model::ClusterUpdate::desired_default_snat_status].
+    pub fn set_or_clear_desired_default_snat_status<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::DefaultSnatStatus>,
+    {
+        self.desired_default_snat_status = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [desired_release_channel][crate::model::ClusterUpdate::desired_release_channel].
-    pub fn set_desired_release_channel<
-        T: std::convert::Into<std::option::Option<crate::model::ReleaseChannel>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.desired_release_channel = v.into();
+    pub fn set_desired_release_channel<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::ReleaseChannel>,
+    {
+        self.desired_release_channel = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [desired_release_channel][crate::model::ClusterUpdate::desired_release_channel].
+    pub fn set_or_clear_desired_release_channel<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::ReleaseChannel>,
+    {
+        self.desired_release_channel = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [desired_l4ilb_subsetting_config][crate::model::ClusterUpdate::desired_l4ilb_subsetting_config].
-    pub fn set_desired_l4ilb_subsetting_config<
-        T: std::convert::Into<std::option::Option<crate::model::ILBSubsettingConfig>>,
-    >(
+    pub fn set_desired_l4ilb_subsetting_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::ILBSubsettingConfig>,
+    {
+        self.desired_l4ilb_subsetting_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [desired_l4ilb_subsetting_config][crate::model::ClusterUpdate::desired_l4ilb_subsetting_config].
+    pub fn set_or_clear_desired_l4ilb_subsetting_config<T>(
         mut self,
-        v: T,
-    ) -> Self {
-        self.desired_l4ilb_subsetting_config = v.into();
+        v: std::option::Option<T>,
+    ) -> Self
+    where
+        T: std::convert::Into<crate::model::ILBSubsettingConfig>,
+    {
+        self.desired_l4ilb_subsetting_config = v.map(|x| x.into());
         self
     }
 
@@ -8660,100 +9677,184 @@ impl ClusterUpdate {
     }
 
     /// Sets the value of [desired_notification_config][crate::model::ClusterUpdate::desired_notification_config].
-    pub fn set_desired_notification_config<
-        T: std::convert::Into<std::option::Option<crate::model::NotificationConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.desired_notification_config = v.into();
+    pub fn set_desired_notification_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::NotificationConfig>,
+    {
+        self.desired_notification_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [desired_notification_config][crate::model::ClusterUpdate::desired_notification_config].
+    pub fn set_or_clear_desired_notification_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::NotificationConfig>,
+    {
+        self.desired_notification_config = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [desired_authenticator_groups_config][crate::model::ClusterUpdate::desired_authenticator_groups_config].
-    pub fn set_desired_authenticator_groups_config<
-        T: std::convert::Into<std::option::Option<crate::model::AuthenticatorGroupsConfig>>,
-    >(
+    pub fn set_desired_authenticator_groups_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::AuthenticatorGroupsConfig>,
+    {
+        self.desired_authenticator_groups_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [desired_authenticator_groups_config][crate::model::ClusterUpdate::desired_authenticator_groups_config].
+    pub fn set_or_clear_desired_authenticator_groups_config<T>(
         mut self,
-        v: T,
-    ) -> Self {
-        self.desired_authenticator_groups_config = v.into();
+        v: std::option::Option<T>,
+    ) -> Self
+    where
+        T: std::convert::Into<crate::model::AuthenticatorGroupsConfig>,
+    {
+        self.desired_authenticator_groups_config = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [desired_logging_config][crate::model::ClusterUpdate::desired_logging_config].
-    pub fn set_desired_logging_config<
-        T: std::convert::Into<std::option::Option<crate::model::LoggingConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.desired_logging_config = v.into();
+    pub fn set_desired_logging_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::LoggingConfig>,
+    {
+        self.desired_logging_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [desired_logging_config][crate::model::ClusterUpdate::desired_logging_config].
+    pub fn set_or_clear_desired_logging_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::LoggingConfig>,
+    {
+        self.desired_logging_config = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [desired_monitoring_config][crate::model::ClusterUpdate::desired_monitoring_config].
-    pub fn set_desired_monitoring_config<
-        T: std::convert::Into<std::option::Option<crate::model::MonitoringConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.desired_monitoring_config = v.into();
+    pub fn set_desired_monitoring_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::MonitoringConfig>,
+    {
+        self.desired_monitoring_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [desired_monitoring_config][crate::model::ClusterUpdate::desired_monitoring_config].
+    pub fn set_or_clear_desired_monitoring_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::MonitoringConfig>,
+    {
+        self.desired_monitoring_config = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [desired_identity_service_config][crate::model::ClusterUpdate::desired_identity_service_config].
-    pub fn set_desired_identity_service_config<
-        T: std::convert::Into<std::option::Option<crate::model::IdentityServiceConfig>>,
-    >(
+    pub fn set_desired_identity_service_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::IdentityServiceConfig>,
+    {
+        self.desired_identity_service_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [desired_identity_service_config][crate::model::ClusterUpdate::desired_identity_service_config].
+    pub fn set_or_clear_desired_identity_service_config<T>(
         mut self,
-        v: T,
-    ) -> Self {
-        self.desired_identity_service_config = v.into();
+        v: std::option::Option<T>,
+    ) -> Self
+    where
+        T: std::convert::Into<crate::model::IdentityServiceConfig>,
+    {
+        self.desired_identity_service_config = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [desired_service_external_ips_config][crate::model::ClusterUpdate::desired_service_external_ips_config].
-    pub fn set_desired_service_external_ips_config<
-        T: std::convert::Into<std::option::Option<crate::model::ServiceExternalIPsConfig>>,
-    >(
+    pub fn set_desired_service_external_ips_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::ServiceExternalIPsConfig>,
+    {
+        self.desired_service_external_ips_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [desired_service_external_ips_config][crate::model::ClusterUpdate::desired_service_external_ips_config].
+    pub fn set_or_clear_desired_service_external_ips_config<T>(
         mut self,
-        v: T,
-    ) -> Self {
-        self.desired_service_external_ips_config = v.into();
+        v: std::option::Option<T>,
+    ) -> Self
+    where
+        T: std::convert::Into<crate::model::ServiceExternalIPsConfig>,
+    {
+        self.desired_service_external_ips_config = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [desired_enable_private_endpoint][crate::model::ClusterUpdate::desired_enable_private_endpoint].
     #[deprecated]
-    pub fn set_desired_enable_private_endpoint<T: std::convert::Into<std::option::Option<bool>>>(
+    pub fn set_desired_enable_private_endpoint<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.desired_enable_private_endpoint = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [desired_enable_private_endpoint][crate::model::ClusterUpdate::desired_enable_private_endpoint].
+    #[deprecated]
+    pub fn set_or_clear_desired_enable_private_endpoint<T>(
         mut self,
-        v: T,
-    ) -> Self {
-        self.desired_enable_private_endpoint = v.into();
+        v: std::option::Option<T>,
+    ) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.desired_enable_private_endpoint = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [desired_default_enable_private_nodes][crate::model::ClusterUpdate::desired_default_enable_private_nodes].
-    pub fn set_desired_default_enable_private_nodes<
-        T: std::convert::Into<std::option::Option<bool>>,
-    >(
+    pub fn set_desired_default_enable_private_nodes<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.desired_default_enable_private_nodes = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [desired_default_enable_private_nodes][crate::model::ClusterUpdate::desired_default_enable_private_nodes].
+    pub fn set_or_clear_desired_default_enable_private_nodes<T>(
         mut self,
-        v: T,
-    ) -> Self {
-        self.desired_default_enable_private_nodes = v.into();
+        v: std::option::Option<T>,
+    ) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.desired_default_enable_private_nodes = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [desired_control_plane_endpoints_config][crate::model::ClusterUpdate::desired_control_plane_endpoints_config].
-    pub fn set_desired_control_plane_endpoints_config<
-        T: std::convert::Into<std::option::Option<crate::model::ControlPlaneEndpointsConfig>>,
-    >(
+    pub fn set_desired_control_plane_endpoints_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::ControlPlaneEndpointsConfig>,
+    {
+        self.desired_control_plane_endpoints_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [desired_control_plane_endpoints_config][crate::model::ClusterUpdate::desired_control_plane_endpoints_config].
+    pub fn set_or_clear_desired_control_plane_endpoints_config<T>(
         mut self,
-        v: T,
-    ) -> Self {
-        self.desired_control_plane_endpoints_config = v.into();
+        v: std::option::Option<T>,
+    ) -> Self
+    where
+        T: std::convert::Into<crate::model::ControlPlaneEndpointsConfig>,
+    {
+        self.desired_control_plane_endpoints_config = v.map(|x| x.into());
         self
     }
 
@@ -8767,35 +9868,59 @@ impl ClusterUpdate {
     }
 
     /// Sets the value of [desired_gcfs_config][crate::model::ClusterUpdate::desired_gcfs_config].
-    pub fn set_desired_gcfs_config<
-        T: std::convert::Into<std::option::Option<crate::model::GcfsConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.desired_gcfs_config = v.into();
+    pub fn set_desired_gcfs_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::GcfsConfig>,
+    {
+        self.desired_gcfs_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [desired_gcfs_config][crate::model::ClusterUpdate::desired_gcfs_config].
+    pub fn set_or_clear_desired_gcfs_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::GcfsConfig>,
+    {
+        self.desired_gcfs_config = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [desired_node_pool_auto_config_network_tags][crate::model::ClusterUpdate::desired_node_pool_auto_config_network_tags].
-    pub fn set_desired_node_pool_auto_config_network_tags<
-        T: std::convert::Into<std::option::Option<crate::model::NetworkTags>>,
-    >(
+    pub fn set_desired_node_pool_auto_config_network_tags<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::NetworkTags>,
+    {
+        self.desired_node_pool_auto_config_network_tags = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [desired_node_pool_auto_config_network_tags][crate::model::ClusterUpdate::desired_node_pool_auto_config_network_tags].
+    pub fn set_or_clear_desired_node_pool_auto_config_network_tags<T>(
         mut self,
-        v: T,
-    ) -> Self {
-        self.desired_node_pool_auto_config_network_tags = v.into();
+        v: std::option::Option<T>,
+    ) -> Self
+    where
+        T: std::convert::Into<crate::model::NetworkTags>,
+    {
+        self.desired_node_pool_auto_config_network_tags = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [desired_gateway_api_config][crate::model::ClusterUpdate::desired_gateway_api_config].
-    pub fn set_desired_gateway_api_config<
-        T: std::convert::Into<std::option::Option<crate::model::GatewayAPIConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.desired_gateway_api_config = v.into();
+    pub fn set_desired_gateway_api_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::GatewayAPIConfig>,
+    {
+        self.desired_gateway_api_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [desired_gateway_api_config][crate::model::ClusterUpdate::desired_gateway_api_config].
+    pub fn set_or_clear_desired_gateway_api_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::GatewayAPIConfig>,
+    {
+        self.desired_gateway_api_config = v.map(|x| x.into());
         self
     }
 
@@ -8806,22 +9931,41 @@ impl ClusterUpdate {
     }
 
     /// Sets the value of [desired_node_pool_logging_config][crate::model::ClusterUpdate::desired_node_pool_logging_config].
-    pub fn set_desired_node_pool_logging_config<
-        T: std::convert::Into<std::option::Option<crate::model::NodePoolLoggingConfig>>,
-    >(
+    pub fn set_desired_node_pool_logging_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::NodePoolLoggingConfig>,
+    {
+        self.desired_node_pool_logging_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [desired_node_pool_logging_config][crate::model::ClusterUpdate::desired_node_pool_logging_config].
+    pub fn set_or_clear_desired_node_pool_logging_config<T>(
         mut self,
-        v: T,
-    ) -> Self {
-        self.desired_node_pool_logging_config = v.into();
+        v: std::option::Option<T>,
+    ) -> Self
+    where
+        T: std::convert::Into<crate::model::NodePoolLoggingConfig>,
+    {
+        self.desired_node_pool_logging_config = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [desired_fleet][crate::model::ClusterUpdate::desired_fleet].
-    pub fn set_desired_fleet<T: std::convert::Into<std::option::Option<crate::model::Fleet>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.desired_fleet = v.into();
+    pub fn set_desired_fleet<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::Fleet>,
+    {
+        self.desired_fleet = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [desired_fleet][crate::model::ClusterUpdate::desired_fleet].
+    pub fn set_or_clear_desired_fleet<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::Fleet>,
+    {
+        self.desired_fleet = v.map(|x| x.into());
         self
     }
 
@@ -8835,233 +9979,420 @@ impl ClusterUpdate {
     }
 
     /// Sets the value of [additional_pod_ranges_config][crate::model::ClusterUpdate::additional_pod_ranges_config].
-    pub fn set_additional_pod_ranges_config<
-        T: std::convert::Into<std::option::Option<crate::model::AdditionalPodRangesConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.additional_pod_ranges_config = v.into();
+    pub fn set_additional_pod_ranges_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::AdditionalPodRangesConfig>,
+    {
+        self.additional_pod_ranges_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [additional_pod_ranges_config][crate::model::ClusterUpdate::additional_pod_ranges_config].
+    pub fn set_or_clear_additional_pod_ranges_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::AdditionalPodRangesConfig>,
+    {
+        self.additional_pod_ranges_config = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [removed_additional_pod_ranges_config][crate::model::ClusterUpdate::removed_additional_pod_ranges_config].
-    pub fn set_removed_additional_pod_ranges_config<
-        T: std::convert::Into<std::option::Option<crate::model::AdditionalPodRangesConfig>>,
-    >(
+    pub fn set_removed_additional_pod_ranges_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::AdditionalPodRangesConfig>,
+    {
+        self.removed_additional_pod_ranges_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [removed_additional_pod_ranges_config][crate::model::ClusterUpdate::removed_additional_pod_ranges_config].
+    pub fn set_or_clear_removed_additional_pod_ranges_config<T>(
         mut self,
-        v: T,
-    ) -> Self {
-        self.removed_additional_pod_ranges_config = v.into();
+        v: std::option::Option<T>,
+    ) -> Self
+    where
+        T: std::convert::Into<crate::model::AdditionalPodRangesConfig>,
+    {
+        self.removed_additional_pod_ranges_config = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [enable_k8s_beta_apis][crate::model::ClusterUpdate::enable_k8s_beta_apis].
-    pub fn set_enable_k8s_beta_apis<
-        T: std::convert::Into<std::option::Option<crate::model::K8sBetaAPIConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.enable_k8s_beta_apis = v.into();
+    pub fn set_enable_k8s_beta_apis<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::K8sBetaAPIConfig>,
+    {
+        self.enable_k8s_beta_apis = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [enable_k8s_beta_apis][crate::model::ClusterUpdate::enable_k8s_beta_apis].
+    pub fn set_or_clear_enable_k8s_beta_apis<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::K8sBetaAPIConfig>,
+    {
+        self.enable_k8s_beta_apis = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [desired_security_posture_config][crate::model::ClusterUpdate::desired_security_posture_config].
-    pub fn set_desired_security_posture_config<
-        T: std::convert::Into<std::option::Option<crate::model::SecurityPostureConfig>>,
-    >(
+    pub fn set_desired_security_posture_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::SecurityPostureConfig>,
+    {
+        self.desired_security_posture_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [desired_security_posture_config][crate::model::ClusterUpdate::desired_security_posture_config].
+    pub fn set_or_clear_desired_security_posture_config<T>(
         mut self,
-        v: T,
-    ) -> Self {
-        self.desired_security_posture_config = v.into();
+        v: std::option::Option<T>,
+    ) -> Self
+    where
+        T: std::convert::Into<crate::model::SecurityPostureConfig>,
+    {
+        self.desired_security_posture_config = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [desired_network_performance_config][crate::model::ClusterUpdate::desired_network_performance_config].
-    pub fn set_desired_network_performance_config<
-        T: std::convert::Into<
-                std::option::Option<crate::model::network_config::ClusterNetworkPerformanceConfig>,
-            >,
-    >(
+    pub fn set_desired_network_performance_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::network_config::ClusterNetworkPerformanceConfig>,
+    {
+        self.desired_network_performance_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [desired_network_performance_config][crate::model::ClusterUpdate::desired_network_performance_config].
+    pub fn set_or_clear_desired_network_performance_config<T>(
         mut self,
-        v: T,
-    ) -> Self {
-        self.desired_network_performance_config = v.into();
+        v: std::option::Option<T>,
+    ) -> Self
+    where
+        T: std::convert::Into<crate::model::network_config::ClusterNetworkPerformanceConfig>,
+    {
+        self.desired_network_performance_config = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [desired_enable_fqdn_network_policy][crate::model::ClusterUpdate::desired_enable_fqdn_network_policy].
-    pub fn set_desired_enable_fqdn_network_policy<
-        T: std::convert::Into<std::option::Option<bool>>,
-    >(
+    pub fn set_desired_enable_fqdn_network_policy<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.desired_enable_fqdn_network_policy = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [desired_enable_fqdn_network_policy][crate::model::ClusterUpdate::desired_enable_fqdn_network_policy].
+    pub fn set_or_clear_desired_enable_fqdn_network_policy<T>(
         mut self,
-        v: T,
-    ) -> Self {
-        self.desired_enable_fqdn_network_policy = v.into();
+        v: std::option::Option<T>,
+    ) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.desired_enable_fqdn_network_policy = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [desired_autopilot_workload_policy_config][crate::model::ClusterUpdate::desired_autopilot_workload_policy_config].
-    pub fn set_desired_autopilot_workload_policy_config<
-        T: std::convert::Into<std::option::Option<crate::model::WorkloadPolicyConfig>>,
-    >(
+    pub fn set_desired_autopilot_workload_policy_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::WorkloadPolicyConfig>,
+    {
+        self.desired_autopilot_workload_policy_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [desired_autopilot_workload_policy_config][crate::model::ClusterUpdate::desired_autopilot_workload_policy_config].
+    pub fn set_or_clear_desired_autopilot_workload_policy_config<T>(
         mut self,
-        v: T,
-    ) -> Self {
-        self.desired_autopilot_workload_policy_config = v.into();
+        v: std::option::Option<T>,
+    ) -> Self
+    where
+        T: std::convert::Into<crate::model::WorkloadPolicyConfig>,
+    {
+        self.desired_autopilot_workload_policy_config = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [desired_k8s_beta_apis][crate::model::ClusterUpdate::desired_k8s_beta_apis].
-    pub fn set_desired_k8s_beta_apis<
-        T: std::convert::Into<std::option::Option<crate::model::K8sBetaAPIConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.desired_k8s_beta_apis = v.into();
+    pub fn set_desired_k8s_beta_apis<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::K8sBetaAPIConfig>,
+    {
+        self.desired_k8s_beta_apis = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [desired_k8s_beta_apis][crate::model::ClusterUpdate::desired_k8s_beta_apis].
+    pub fn set_or_clear_desired_k8s_beta_apis<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::K8sBetaAPIConfig>,
+    {
+        self.desired_k8s_beta_apis = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [desired_containerd_config][crate::model::ClusterUpdate::desired_containerd_config].
-    pub fn set_desired_containerd_config<
-        T: std::convert::Into<std::option::Option<crate::model::ContainerdConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.desired_containerd_config = v.into();
+    pub fn set_desired_containerd_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::ContainerdConfig>,
+    {
+        self.desired_containerd_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [desired_containerd_config][crate::model::ClusterUpdate::desired_containerd_config].
+    pub fn set_or_clear_desired_containerd_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::ContainerdConfig>,
+    {
+        self.desired_containerd_config = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [desired_enable_multi_networking][crate::model::ClusterUpdate::desired_enable_multi_networking].
-    pub fn set_desired_enable_multi_networking<T: std::convert::Into<std::option::Option<bool>>>(
+    pub fn set_desired_enable_multi_networking<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.desired_enable_multi_networking = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [desired_enable_multi_networking][crate::model::ClusterUpdate::desired_enable_multi_networking].
+    pub fn set_or_clear_desired_enable_multi_networking<T>(
         mut self,
-        v: T,
-    ) -> Self {
-        self.desired_enable_multi_networking = v.into();
+        v: std::option::Option<T>,
+    ) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.desired_enable_multi_networking = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [desired_node_pool_auto_config_resource_manager_tags][crate::model::ClusterUpdate::desired_node_pool_auto_config_resource_manager_tags].
-    pub fn set_desired_node_pool_auto_config_resource_manager_tags<
-        T: std::convert::Into<std::option::Option<crate::model::ResourceManagerTags>>,
-    >(
+    pub fn set_desired_node_pool_auto_config_resource_manager_tags<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::ResourceManagerTags>,
+    {
+        self.desired_node_pool_auto_config_resource_manager_tags =
+            std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [desired_node_pool_auto_config_resource_manager_tags][crate::model::ClusterUpdate::desired_node_pool_auto_config_resource_manager_tags].
+    pub fn set_or_clear_desired_node_pool_auto_config_resource_manager_tags<T>(
         mut self,
-        v: T,
-    ) -> Self {
-        self.desired_node_pool_auto_config_resource_manager_tags = v.into();
+        v: std::option::Option<T>,
+    ) -> Self
+    where
+        T: std::convert::Into<crate::model::ResourceManagerTags>,
+    {
+        self.desired_node_pool_auto_config_resource_manager_tags = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [desired_in_transit_encryption_config][crate::model::ClusterUpdate::desired_in_transit_encryption_config].
-    pub fn set_desired_in_transit_encryption_config<
-        T: std::convert::Into<std::option::Option<crate::model::InTransitEncryptionConfig>>,
-    >(
+    pub fn set_desired_in_transit_encryption_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::InTransitEncryptionConfig>,
+    {
+        self.desired_in_transit_encryption_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [desired_in_transit_encryption_config][crate::model::ClusterUpdate::desired_in_transit_encryption_config].
+    pub fn set_or_clear_desired_in_transit_encryption_config<T>(
         mut self,
-        v: T,
-    ) -> Self {
-        self.desired_in_transit_encryption_config = v.into();
+        v: std::option::Option<T>,
+    ) -> Self
+    where
+        T: std::convert::Into<crate::model::InTransitEncryptionConfig>,
+    {
+        self.desired_in_transit_encryption_config = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [desired_enable_cilium_clusterwide_network_policy][crate::model::ClusterUpdate::desired_enable_cilium_clusterwide_network_policy].
-    pub fn set_desired_enable_cilium_clusterwide_network_policy<
-        T: std::convert::Into<std::option::Option<bool>>,
-    >(
+    pub fn set_desired_enable_cilium_clusterwide_network_policy<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.desired_enable_cilium_clusterwide_network_policy = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [desired_enable_cilium_clusterwide_network_policy][crate::model::ClusterUpdate::desired_enable_cilium_clusterwide_network_policy].
+    pub fn set_or_clear_desired_enable_cilium_clusterwide_network_policy<T>(
         mut self,
-        v: T,
-    ) -> Self {
-        self.desired_enable_cilium_clusterwide_network_policy = v.into();
+        v: std::option::Option<T>,
+    ) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.desired_enable_cilium_clusterwide_network_policy = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [desired_secret_manager_config][crate::model::ClusterUpdate::desired_secret_manager_config].
-    pub fn set_desired_secret_manager_config<
-        T: std::convert::Into<std::option::Option<crate::model::SecretManagerConfig>>,
-    >(
+    pub fn set_desired_secret_manager_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::SecretManagerConfig>,
+    {
+        self.desired_secret_manager_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [desired_secret_manager_config][crate::model::ClusterUpdate::desired_secret_manager_config].
+    pub fn set_or_clear_desired_secret_manager_config<T>(
         mut self,
-        v: T,
-    ) -> Self {
-        self.desired_secret_manager_config = v.into();
+        v: std::option::Option<T>,
+    ) -> Self
+    where
+        T: std::convert::Into<crate::model::SecretManagerConfig>,
+    {
+        self.desired_secret_manager_config = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [desired_compliance_posture_config][crate::model::ClusterUpdate::desired_compliance_posture_config].
-    pub fn set_desired_compliance_posture_config<
-        T: std::convert::Into<std::option::Option<crate::model::CompliancePostureConfig>>,
-    >(
+    pub fn set_desired_compliance_posture_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::CompliancePostureConfig>,
+    {
+        self.desired_compliance_posture_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [desired_compliance_posture_config][crate::model::ClusterUpdate::desired_compliance_posture_config].
+    pub fn set_or_clear_desired_compliance_posture_config<T>(
         mut self,
-        v: T,
-    ) -> Self {
-        self.desired_compliance_posture_config = v.into();
+        v: std::option::Option<T>,
+    ) -> Self
+    where
+        T: std::convert::Into<crate::model::CompliancePostureConfig>,
+    {
+        self.desired_compliance_posture_config = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [desired_node_kubelet_config][crate::model::ClusterUpdate::desired_node_kubelet_config].
-    pub fn set_desired_node_kubelet_config<
-        T: std::convert::Into<std::option::Option<crate::model::NodeKubeletConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.desired_node_kubelet_config = v.into();
+    pub fn set_desired_node_kubelet_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::NodeKubeletConfig>,
+    {
+        self.desired_node_kubelet_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [desired_node_kubelet_config][crate::model::ClusterUpdate::desired_node_kubelet_config].
+    pub fn set_or_clear_desired_node_kubelet_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::NodeKubeletConfig>,
+    {
+        self.desired_node_kubelet_config = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [desired_node_pool_auto_config_kubelet_config][crate::model::ClusterUpdate::desired_node_pool_auto_config_kubelet_config].
-    pub fn set_desired_node_pool_auto_config_kubelet_config<
-        T: std::convert::Into<std::option::Option<crate::model::NodeKubeletConfig>>,
-    >(
+    pub fn set_desired_node_pool_auto_config_kubelet_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::NodeKubeletConfig>,
+    {
+        self.desired_node_pool_auto_config_kubelet_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [desired_node_pool_auto_config_kubelet_config][crate::model::ClusterUpdate::desired_node_pool_auto_config_kubelet_config].
+    pub fn set_or_clear_desired_node_pool_auto_config_kubelet_config<T>(
         mut self,
-        v: T,
-    ) -> Self {
-        self.desired_node_pool_auto_config_kubelet_config = v.into();
+        v: std::option::Option<T>,
+    ) -> Self
+    where
+        T: std::convert::Into<crate::model::NodeKubeletConfig>,
+    {
+        self.desired_node_pool_auto_config_kubelet_config = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [user_managed_keys_config][crate::model::ClusterUpdate::user_managed_keys_config].
-    pub fn set_user_managed_keys_config<
-        T: std::convert::Into<std::option::Option<crate::model::UserManagedKeysConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.user_managed_keys_config = v.into();
+    pub fn set_user_managed_keys_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::UserManagedKeysConfig>,
+    {
+        self.user_managed_keys_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [user_managed_keys_config][crate::model::ClusterUpdate::user_managed_keys_config].
+    pub fn set_or_clear_user_managed_keys_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::UserManagedKeysConfig>,
+    {
+        self.user_managed_keys_config = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [desired_rbac_binding_config][crate::model::ClusterUpdate::desired_rbac_binding_config].
-    pub fn set_desired_rbac_binding_config<
-        T: std::convert::Into<std::option::Option<crate::model::RBACBindingConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.desired_rbac_binding_config = v.into();
+    pub fn set_desired_rbac_binding_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::RBACBindingConfig>,
+    {
+        self.desired_rbac_binding_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [desired_rbac_binding_config][crate::model::ClusterUpdate::desired_rbac_binding_config].
+    pub fn set_or_clear_desired_rbac_binding_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::RBACBindingConfig>,
+    {
+        self.desired_rbac_binding_config = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [desired_enterprise_config][crate::model::ClusterUpdate::desired_enterprise_config].
-    pub fn set_desired_enterprise_config<
-        T: std::convert::Into<std::option::Option<crate::model::DesiredEnterpriseConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.desired_enterprise_config = v.into();
+    pub fn set_desired_enterprise_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::DesiredEnterpriseConfig>,
+    {
+        self.desired_enterprise_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [desired_enterprise_config][crate::model::ClusterUpdate::desired_enterprise_config].
+    pub fn set_or_clear_desired_enterprise_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::DesiredEnterpriseConfig>,
+    {
+        self.desired_enterprise_config = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [desired_node_pool_auto_config_linux_node_config][crate::model::ClusterUpdate::desired_node_pool_auto_config_linux_node_config].
-    pub fn set_desired_node_pool_auto_config_linux_node_config<
-        T: std::convert::Into<std::option::Option<crate::model::LinuxNodeConfig>>,
-    >(
+    pub fn set_desired_node_pool_auto_config_linux_node_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::LinuxNodeConfig>,
+    {
+        self.desired_node_pool_auto_config_linux_node_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [desired_node_pool_auto_config_linux_node_config][crate::model::ClusterUpdate::desired_node_pool_auto_config_linux_node_config].
+    pub fn set_or_clear_desired_node_pool_auto_config_linux_node_config<T>(
         mut self,
-        v: T,
-    ) -> Self {
-        self.desired_node_pool_auto_config_linux_node_config = v.into();
+        v: std::option::Option<T>,
+    ) -> Self
+    where
+        T: std::convert::Into<crate::model::LinuxNodeConfig>,
+    {
+        self.desired_node_pool_auto_config_linux_node_config = v.map(|x| x.into());
         self
     }
 }
@@ -9383,13 +10714,20 @@ impl Operation {
     }
 
     /// Sets the value of [progress][crate::model::Operation::progress].
-    pub fn set_progress<
-        T: std::convert::Into<std::option::Option<crate::model::OperationProgress>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.progress = v.into();
+    pub fn set_progress<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::OperationProgress>,
+    {
+        self.progress = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [progress][crate::model::Operation::progress].
+    pub fn set_or_clear_progress<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::OperationProgress>,
+    {
+        self.progress = v.map(|x| x.into());
         self
     }
 
@@ -9418,11 +10756,20 @@ impl Operation {
     }
 
     /// Sets the value of [error][crate::model::Operation::error].
-    pub fn set_error<T: std::convert::Into<std::option::Option<rpc::model::Status>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.error = v.into();
+    pub fn set_error<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<rpc::model::Status>,
+    {
+        self.error = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [error][crate::model::Operation::error].
+    pub fn set_or_clear_error<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<rpc::model::Status>,
+    {
+        self.error = v.map(|x| x.into());
         self
     }
 }
@@ -10214,11 +11561,20 @@ impl CreateClusterRequest {
     }
 
     /// Sets the value of [cluster][crate::model::CreateClusterRequest::cluster].
-    pub fn set_cluster<T: std::convert::Into<std::option::Option<crate::model::Cluster>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.cluster = v.into();
+    pub fn set_cluster<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::Cluster>,
+    {
+        self.cluster = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [cluster][crate::model::CreateClusterRequest::cluster].
+    pub fn set_or_clear_cluster<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::Cluster>,
+    {
+        self.cluster = v.map(|x| x.into());
         self
     }
 
@@ -10377,11 +11733,20 @@ impl UpdateClusterRequest {
     }
 
     /// Sets the value of [update][crate::model::UpdateClusterRequest::update].
-    pub fn set_update<T: std::convert::Into<std::option::Option<crate::model::ClusterUpdate>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.update = v.into();
+    pub fn set_update<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::ClusterUpdate>,
+    {
+        self.update = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update][crate::model::UpdateClusterRequest::update].
+    pub fn set_or_clear_update<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::ClusterUpdate>,
+    {
+        self.update = v.map(|x| x.into());
         self
     }
 
@@ -10655,113 +12020,200 @@ impl UpdateNodePoolRequest {
     }
 
     /// Sets the value of [workload_metadata_config][crate::model::UpdateNodePoolRequest::workload_metadata_config].
-    pub fn set_workload_metadata_config<
-        T: std::convert::Into<std::option::Option<crate::model::WorkloadMetadataConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.workload_metadata_config = v.into();
+    pub fn set_workload_metadata_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::WorkloadMetadataConfig>,
+    {
+        self.workload_metadata_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [workload_metadata_config][crate::model::UpdateNodePoolRequest::workload_metadata_config].
+    pub fn set_or_clear_workload_metadata_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::WorkloadMetadataConfig>,
+    {
+        self.workload_metadata_config = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [upgrade_settings][crate::model::UpdateNodePoolRequest::upgrade_settings].
-    pub fn set_upgrade_settings<
-        T: std::convert::Into<std::option::Option<crate::model::node_pool::UpgradeSettings>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.upgrade_settings = v.into();
+    pub fn set_upgrade_settings<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::node_pool::UpgradeSettings>,
+    {
+        self.upgrade_settings = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [upgrade_settings][crate::model::UpdateNodePoolRequest::upgrade_settings].
+    pub fn set_or_clear_upgrade_settings<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::node_pool::UpgradeSettings>,
+    {
+        self.upgrade_settings = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [tags][crate::model::UpdateNodePoolRequest::tags].
-    pub fn set_tags<T: std::convert::Into<std::option::Option<crate::model::NetworkTags>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.tags = v.into();
+    pub fn set_tags<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::NetworkTags>,
+    {
+        self.tags = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [tags][crate::model::UpdateNodePoolRequest::tags].
+    pub fn set_or_clear_tags<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::NetworkTags>,
+    {
+        self.tags = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [taints][crate::model::UpdateNodePoolRequest::taints].
-    pub fn set_taints<T: std::convert::Into<std::option::Option<crate::model::NodeTaints>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.taints = v.into();
+    pub fn set_taints<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::NodeTaints>,
+    {
+        self.taints = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [taints][crate::model::UpdateNodePoolRequest::taints].
+    pub fn set_or_clear_taints<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::NodeTaints>,
+    {
+        self.taints = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [labels][crate::model::UpdateNodePoolRequest::labels].
-    pub fn set_labels<T: std::convert::Into<std::option::Option<crate::model::NodeLabels>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.labels = v.into();
+    pub fn set_labels<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::NodeLabels>,
+    {
+        self.labels = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [labels][crate::model::UpdateNodePoolRequest::labels].
+    pub fn set_or_clear_labels<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::NodeLabels>,
+    {
+        self.labels = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [linux_node_config][crate::model::UpdateNodePoolRequest::linux_node_config].
-    pub fn set_linux_node_config<
-        T: std::convert::Into<std::option::Option<crate::model::LinuxNodeConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.linux_node_config = v.into();
+    pub fn set_linux_node_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::LinuxNodeConfig>,
+    {
+        self.linux_node_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [linux_node_config][crate::model::UpdateNodePoolRequest::linux_node_config].
+    pub fn set_or_clear_linux_node_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::LinuxNodeConfig>,
+    {
+        self.linux_node_config = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [kubelet_config][crate::model::UpdateNodePoolRequest::kubelet_config].
-    pub fn set_kubelet_config<
-        T: std::convert::Into<std::option::Option<crate::model::NodeKubeletConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.kubelet_config = v.into();
+    pub fn set_kubelet_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::NodeKubeletConfig>,
+    {
+        self.kubelet_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [kubelet_config][crate::model::UpdateNodePoolRequest::kubelet_config].
+    pub fn set_or_clear_kubelet_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::NodeKubeletConfig>,
+    {
+        self.kubelet_config = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [node_network_config][crate::model::UpdateNodePoolRequest::node_network_config].
-    pub fn set_node_network_config<
-        T: std::convert::Into<std::option::Option<crate::model::NodeNetworkConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.node_network_config = v.into();
+    pub fn set_node_network_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::NodeNetworkConfig>,
+    {
+        self.node_network_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [node_network_config][crate::model::UpdateNodePoolRequest::node_network_config].
+    pub fn set_or_clear_node_network_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::NodeNetworkConfig>,
+    {
+        self.node_network_config = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [gcfs_config][crate::model::UpdateNodePoolRequest::gcfs_config].
-    pub fn set_gcfs_config<T: std::convert::Into<std::option::Option<crate::model::GcfsConfig>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.gcfs_config = v.into();
+    pub fn set_gcfs_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::GcfsConfig>,
+    {
+        self.gcfs_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [gcfs_config][crate::model::UpdateNodePoolRequest::gcfs_config].
+    pub fn set_or_clear_gcfs_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::GcfsConfig>,
+    {
+        self.gcfs_config = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [confidential_nodes][crate::model::UpdateNodePoolRequest::confidential_nodes].
-    pub fn set_confidential_nodes<
-        T: std::convert::Into<std::option::Option<crate::model::ConfidentialNodes>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.confidential_nodes = v.into();
+    pub fn set_confidential_nodes<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::ConfidentialNodes>,
+    {
+        self.confidential_nodes = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [confidential_nodes][crate::model::UpdateNodePoolRequest::confidential_nodes].
+    pub fn set_or_clear_confidential_nodes<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::ConfidentialNodes>,
+    {
+        self.confidential_nodes = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [gvnic][crate::model::UpdateNodePoolRequest::gvnic].
-    pub fn set_gvnic<T: std::convert::Into<std::option::Option<crate::model::VirtualNIC>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.gvnic = v.into();
+    pub fn set_gvnic<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::VirtualNIC>,
+    {
+        self.gvnic = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [gvnic][crate::model::UpdateNodePoolRequest::gvnic].
+    pub fn set_or_clear_gvnic<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::VirtualNIC>,
+    {
+        self.gvnic = v.map(|x| x.into());
         self
     }
 
@@ -10772,44 +12224,74 @@ impl UpdateNodePoolRequest {
     }
 
     /// Sets the value of [fast_socket][crate::model::UpdateNodePoolRequest::fast_socket].
-    pub fn set_fast_socket<T: std::convert::Into<std::option::Option<crate::model::FastSocket>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.fast_socket = v.into();
+    pub fn set_fast_socket<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::FastSocket>,
+    {
+        self.fast_socket = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [fast_socket][crate::model::UpdateNodePoolRequest::fast_socket].
+    pub fn set_or_clear_fast_socket<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::FastSocket>,
+    {
+        self.fast_socket = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [logging_config][crate::model::UpdateNodePoolRequest::logging_config].
-    pub fn set_logging_config<
-        T: std::convert::Into<std::option::Option<crate::model::NodePoolLoggingConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.logging_config = v.into();
+    pub fn set_logging_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::NodePoolLoggingConfig>,
+    {
+        self.logging_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [logging_config][crate::model::UpdateNodePoolRequest::logging_config].
+    pub fn set_or_clear_logging_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::NodePoolLoggingConfig>,
+    {
+        self.logging_config = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [resource_labels][crate::model::UpdateNodePoolRequest::resource_labels].
-    pub fn set_resource_labels<
-        T: std::convert::Into<std::option::Option<crate::model::ResourceLabels>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.resource_labels = v.into();
+    pub fn set_resource_labels<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::ResourceLabels>,
+    {
+        self.resource_labels = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [resource_labels][crate::model::UpdateNodePoolRequest::resource_labels].
+    pub fn set_or_clear_resource_labels<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::ResourceLabels>,
+    {
+        self.resource_labels = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [windows_node_config][crate::model::UpdateNodePoolRequest::windows_node_config].
-    pub fn set_windows_node_config<
-        T: std::convert::Into<std::option::Option<crate::model::WindowsNodeConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.windows_node_config = v.into();
+    pub fn set_windows_node_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::WindowsNodeConfig>,
+    {
+        self.windows_node_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [windows_node_config][crate::model::UpdateNodePoolRequest::windows_node_config].
+    pub fn set_or_clear_windows_node_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::WindowsNodeConfig>,
+    {
+        self.windows_node_config = v.map(|x| x.into());
         self
     }
 
@@ -10843,35 +12325,56 @@ impl UpdateNodePoolRequest {
     }
 
     /// Sets the value of [resource_manager_tags][crate::model::UpdateNodePoolRequest::resource_manager_tags].
-    pub fn set_resource_manager_tags<
-        T: std::convert::Into<std::option::Option<crate::model::ResourceManagerTags>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.resource_manager_tags = v.into();
+    pub fn set_resource_manager_tags<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::ResourceManagerTags>,
+    {
+        self.resource_manager_tags = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [resource_manager_tags][crate::model::UpdateNodePoolRequest::resource_manager_tags].
+    pub fn set_or_clear_resource_manager_tags<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::ResourceManagerTags>,
+    {
+        self.resource_manager_tags = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [containerd_config][crate::model::UpdateNodePoolRequest::containerd_config].
-    pub fn set_containerd_config<
-        T: std::convert::Into<std::option::Option<crate::model::ContainerdConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.containerd_config = v.into();
+    pub fn set_containerd_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::ContainerdConfig>,
+    {
+        self.containerd_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [containerd_config][crate::model::UpdateNodePoolRequest::containerd_config].
+    pub fn set_or_clear_containerd_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::ContainerdConfig>,
+    {
+        self.containerd_config = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [queued_provisioning][crate::model::UpdateNodePoolRequest::queued_provisioning].
-    pub fn set_queued_provisioning<
-        T: std::convert::Into<std::option::Option<crate::model::node_pool::QueuedProvisioning>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.queued_provisioning = v.into();
+    pub fn set_queued_provisioning<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::node_pool::QueuedProvisioning>,
+    {
+        self.queued_provisioning = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [queued_provisioning][crate::model::UpdateNodePoolRequest::queued_provisioning].
+    pub fn set_or_clear_queued_provisioning<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::node_pool::QueuedProvisioning>,
+    {
+        self.queued_provisioning = v.map(|x| x.into());
         self
     }
 
@@ -10974,13 +12477,20 @@ impl SetNodePoolAutoscalingRequest {
     }
 
     /// Sets the value of [autoscaling][crate::model::SetNodePoolAutoscalingRequest::autoscaling].
-    pub fn set_autoscaling<
-        T: std::convert::Into<std::option::Option<crate::model::NodePoolAutoscaling>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.autoscaling = v.into();
+    pub fn set_autoscaling<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::NodePoolAutoscaling>,
+    {
+        self.autoscaling = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [autoscaling][crate::model::SetNodePoolAutoscalingRequest::autoscaling].
+    pub fn set_or_clear_autoscaling<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::NodePoolAutoscaling>,
+    {
+        self.autoscaling = v.map(|x| x.into());
         self
     }
 
@@ -11258,13 +12768,20 @@ impl SetAddonsConfigRequest {
     }
 
     /// Sets the value of [addons_config][crate::model::SetAddonsConfigRequest::addons_config].
-    pub fn set_addons_config<
-        T: std::convert::Into<std::option::Option<crate::model::AddonsConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.addons_config = v.into();
+    pub fn set_addons_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::AddonsConfig>,
+    {
+        self.addons_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [addons_config][crate::model::SetAddonsConfigRequest::addons_config].
+    pub fn set_or_clear_addons_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::AddonsConfig>,
+    {
+        self.addons_config = v.map(|x| x.into());
         self
     }
 
@@ -11550,11 +13067,20 @@ impl SetMasterAuthRequest {
     }
 
     /// Sets the value of [update][crate::model::SetMasterAuthRequest::update].
-    pub fn set_update<T: std::convert::Into<std::option::Option<crate::model::MasterAuth>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.update = v.into();
+    pub fn set_update<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::MasterAuth>,
+    {
+        self.update = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update][crate::model::SetMasterAuthRequest::update].
+    pub fn set_or_clear_update<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::MasterAuth>,
+    {
+        self.update = v.map(|x| x.into());
         self
     }
 
@@ -12496,11 +14022,20 @@ impl CreateNodePoolRequest {
     }
 
     /// Sets the value of [node_pool][crate::model::CreateNodePoolRequest::node_pool].
-    pub fn set_node_pool<T: std::convert::Into<std::option::Option<crate::model::NodePool>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.node_pool = v.into();
+    pub fn set_node_pool<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::NodePool>,
+    {
+        self.node_pool = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [node_pool][crate::model::CreateNodePoolRequest::node_pool].
+    pub fn set_or_clear_node_pool<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::NodePool>,
+    {
+        self.node_pool = v.map(|x| x.into());
         self
     }
 
@@ -12795,13 +14330,20 @@ impl BlueGreenSettings {
     }
 
     /// Sets the value of [node_pool_soak_duration][crate::model::BlueGreenSettings::node_pool_soak_duration].
-    pub fn set_node_pool_soak_duration<
-        T: std::convert::Into<std::option::Option<wkt::Duration>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.node_pool_soak_duration = v.into();
+    pub fn set_node_pool_soak_duration<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Duration>,
+    {
+        self.node_pool_soak_duration = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [node_pool_soak_duration][crate::model::BlueGreenSettings::node_pool_soak_duration].
+    pub fn set_or_clear_node_pool_soak_duration<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Duration>,
+    {
+        self.node_pool_soak_duration = v.map(|x| x.into());
         self
     }
 
@@ -12893,13 +14435,20 @@ pub mod blue_green_settings {
         }
 
         /// Sets the value of [batch_soak_duration][crate::model::blue_green_settings::StandardRolloutPolicy::batch_soak_duration].
-        pub fn set_batch_soak_duration<
-            T: std::convert::Into<std::option::Option<wkt::Duration>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.batch_soak_duration = v.into();
+        pub fn set_batch_soak_duration<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Duration>,
+        {
+            self.batch_soak_duration = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [batch_soak_duration][crate::model::blue_green_settings::StandardRolloutPolicy::batch_soak_duration].
+        pub fn set_or_clear_batch_soak_duration<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Duration>,
+        {
+            self.batch_soak_duration = v.map(|x| x.into());
             self
         }
 
@@ -13147,11 +14696,20 @@ impl NodePool {
     }
 
     /// Sets the value of [config][crate::model::NodePool::config].
-    pub fn set_config<T: std::convert::Into<std::option::Option<crate::model::NodeConfig>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.config = v.into();
+    pub fn set_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::NodeConfig>,
+    {
+        self.config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [config][crate::model::NodePool::config].
+    pub fn set_or_clear_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::NodeConfig>,
+    {
+        self.config = v.map(|x| x.into());
         self
     }
 
@@ -13173,13 +14731,20 @@ impl NodePool {
     }
 
     /// Sets the value of [network_config][crate::model::NodePool::network_config].
-    pub fn set_network_config<
-        T: std::convert::Into<std::option::Option<crate::model::NodeNetworkConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.network_config = v.into();
+    pub fn set_network_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::NodeNetworkConfig>,
+    {
+        self.network_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [network_config][crate::model::NodePool::network_config].
+    pub fn set_or_clear_network_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::NodeNetworkConfig>,
+    {
+        self.network_config = v.map(|x| x.into());
         self
     }
 
@@ -13223,35 +14788,56 @@ impl NodePool {
     }
 
     /// Sets the value of [autoscaling][crate::model::NodePool::autoscaling].
-    pub fn set_autoscaling<
-        T: std::convert::Into<std::option::Option<crate::model::NodePoolAutoscaling>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.autoscaling = v.into();
+    pub fn set_autoscaling<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::NodePoolAutoscaling>,
+    {
+        self.autoscaling = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [autoscaling][crate::model::NodePool::autoscaling].
+    pub fn set_or_clear_autoscaling<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::NodePoolAutoscaling>,
+    {
+        self.autoscaling = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [management][crate::model::NodePool::management].
-    pub fn set_management<
-        T: std::convert::Into<std::option::Option<crate::model::NodeManagement>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.management = v.into();
+    pub fn set_management<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::NodeManagement>,
+    {
+        self.management = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [management][crate::model::NodePool::management].
+    pub fn set_or_clear_management<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::NodeManagement>,
+    {
+        self.management = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [max_pods_constraint][crate::model::NodePool::max_pods_constraint].
-    pub fn set_max_pods_constraint<
-        T: std::convert::Into<std::option::Option<crate::model::MaxPodsConstraint>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.max_pods_constraint = v.into();
+    pub fn set_max_pods_constraint<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::MaxPodsConstraint>,
+    {
+        self.max_pods_constraint = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [max_pods_constraint][crate::model::NodePool::max_pods_constraint].
+    pub fn set_or_clear_max_pods_constraint<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::MaxPodsConstraint>,
+    {
+        self.max_pods_constraint = v.map(|x| x.into());
         self
     }
 
@@ -13273,35 +14859,56 @@ impl NodePool {
     }
 
     /// Sets the value of [upgrade_settings][crate::model::NodePool::upgrade_settings].
-    pub fn set_upgrade_settings<
-        T: std::convert::Into<std::option::Option<crate::model::node_pool::UpgradeSettings>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.upgrade_settings = v.into();
+    pub fn set_upgrade_settings<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::node_pool::UpgradeSettings>,
+    {
+        self.upgrade_settings = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [upgrade_settings][crate::model::NodePool::upgrade_settings].
+    pub fn set_or_clear_upgrade_settings<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::node_pool::UpgradeSettings>,
+    {
+        self.upgrade_settings = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [placement_policy][crate::model::NodePool::placement_policy].
-    pub fn set_placement_policy<
-        T: std::convert::Into<std::option::Option<crate::model::node_pool::PlacementPolicy>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.placement_policy = v.into();
+    pub fn set_placement_policy<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::node_pool::PlacementPolicy>,
+    {
+        self.placement_policy = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [placement_policy][crate::model::NodePool::placement_policy].
+    pub fn set_or_clear_placement_policy<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::node_pool::PlacementPolicy>,
+    {
+        self.placement_policy = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [update_info][crate::model::NodePool::update_info].
-    pub fn set_update_info<
-        T: std::convert::Into<std::option::Option<crate::model::node_pool::UpdateInfo>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.update_info = v.into();
+    pub fn set_update_info<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::node_pool::UpdateInfo>,
+    {
+        self.update_info = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_info][crate::model::NodePool::update_info].
+    pub fn set_or_clear_update_info<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::node_pool::UpdateInfo>,
+    {
+        self.update_info = v.map(|x| x.into());
         self
     }
 
@@ -13312,24 +14919,38 @@ impl NodePool {
     }
 
     /// Sets the value of [queued_provisioning][crate::model::NodePool::queued_provisioning].
-    pub fn set_queued_provisioning<
-        T: std::convert::Into<std::option::Option<crate::model::node_pool::QueuedProvisioning>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.queued_provisioning = v.into();
+    pub fn set_queued_provisioning<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::node_pool::QueuedProvisioning>,
+    {
+        self.queued_provisioning = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [queued_provisioning][crate::model::NodePool::queued_provisioning].
+    pub fn set_or_clear_queued_provisioning<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::node_pool::QueuedProvisioning>,
+    {
+        self.queued_provisioning = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [best_effort_provisioning][crate::model::NodePool::best_effort_provisioning].
-    pub fn set_best_effort_provisioning<
-        T: std::convert::Into<std::option::Option<crate::model::BestEffortProvisioning>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.best_effort_provisioning = v.into();
+    pub fn set_best_effort_provisioning<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::BestEffortProvisioning>,
+    {
+        self.best_effort_provisioning = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [best_effort_provisioning][crate::model::NodePool::best_effort_provisioning].
+    pub fn set_or_clear_best_effort_provisioning<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::BestEffortProvisioning>,
+    {
+        self.best_effort_provisioning = v.map(|x| x.into());
         self
     }
 }
@@ -13439,24 +15060,38 @@ pub mod node_pool {
         }
 
         /// Sets the value of [strategy][crate::model::node_pool::UpgradeSettings::strategy].
-        pub fn set_strategy<
-            T: std::convert::Into<std::option::Option<crate::model::NodePoolUpdateStrategy>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.strategy = v.into();
+        pub fn set_strategy<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::NodePoolUpdateStrategy>,
+        {
+            self.strategy = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [strategy][crate::model::node_pool::UpgradeSettings::strategy].
+        pub fn set_or_clear_strategy<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::NodePoolUpdateStrategy>,
+        {
+            self.strategy = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [blue_green_settings][crate::model::node_pool::UpgradeSettings::blue_green_settings].
-        pub fn set_blue_green_settings<
-            T: std::convert::Into<std::option::Option<crate::model::BlueGreenSettings>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.blue_green_settings = v.into();
+        pub fn set_blue_green_settings<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::BlueGreenSettings>,
+        {
+            self.blue_green_settings = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [blue_green_settings][crate::model::node_pool::UpgradeSettings::blue_green_settings].
+        pub fn set_or_clear_blue_green_settings<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::BlueGreenSettings>,
+        {
+            self.blue_green_settings = v.map(|x| x.into());
             self
         }
     }
@@ -13489,15 +15124,20 @@ pub mod node_pool {
         }
 
         /// Sets the value of [blue_green_info][crate::model::node_pool::UpdateInfo::blue_green_info].
-        pub fn set_blue_green_info<
-            T: std::convert::Into<
-                    std::option::Option<crate::model::node_pool::update_info::BlueGreenInfo>,
-                >,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.blue_green_info = v.into();
+        pub fn set_blue_green_info<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::node_pool::update_info::BlueGreenInfo>,
+        {
+            self.blue_green_info = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [blue_green_info][crate::model::node_pool::UpdateInfo::blue_green_info].
+        pub fn set_or_clear_blue_green_info<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::node_pool::update_info::BlueGreenInfo>,
+        {
+            self.blue_green_info = v.map(|x| x.into());
             self
         }
     }
@@ -14232,13 +15872,20 @@ impl NodeManagement {
     }
 
     /// Sets the value of [upgrade_options][crate::model::NodeManagement::upgrade_options].
-    pub fn set_upgrade_options<
-        T: std::convert::Into<std::option::Option<crate::model::AutoUpgradeOptions>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.upgrade_options = v.into();
+    pub fn set_upgrade_options<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::AutoUpgradeOptions>,
+    {
+        self.upgrade_options = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [upgrade_options][crate::model::NodeManagement::upgrade_options].
+    pub fn set_or_clear_upgrade_options<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::AutoUpgradeOptions>,
+    {
+        self.upgrade_options = v.map(|x| x.into());
         self
     }
 }
@@ -14372,13 +16019,20 @@ impl MaintenancePolicy {
     }
 
     /// Sets the value of [window][crate::model::MaintenancePolicy::window].
-    pub fn set_window<
-        T: std::convert::Into<std::option::Option<crate::model::MaintenanceWindow>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.window = v.into();
+    pub fn set_window<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::MaintenanceWindow>,
+    {
+        self.window = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [window][crate::model::MaintenancePolicy::window].
+    pub fn set_or_clear_window<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::MaintenanceWindow>,
+    {
+        self.window = v.map(|x| x.into());
         self
     }
 
@@ -14566,20 +16220,38 @@ impl TimeWindow {
     }
 
     /// Sets the value of [start_time][crate::model::TimeWindow::start_time].
-    pub fn set_start_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.start_time = v.into();
+    pub fn set_start_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.start_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [start_time][crate::model::TimeWindow::start_time].
+    pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.start_time = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [end_time][crate::model::TimeWindow::end_time].
-    pub fn set_end_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.end_time = v.into();
+    pub fn set_end_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.end_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [end_time][crate::model::TimeWindow::end_time].
+    pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.end_time = v.map(|x| x.into());
         self
     }
 
@@ -14889,11 +16561,20 @@ impl RecurringTimeWindow {
     }
 
     /// Sets the value of [window][crate::model::RecurringTimeWindow::window].
-    pub fn set_window<T: std::convert::Into<std::option::Option<crate::model::TimeWindow>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.window = v.into();
+    pub fn set_window<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::TimeWindow>,
+    {
+        self.window = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [window][crate::model::RecurringTimeWindow::window].
+    pub fn set_or_clear_window<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::TimeWindow>,
+    {
+        self.window = v.map(|x| x.into());
         self
     }
 
@@ -15039,13 +16720,20 @@ impl SetNodePoolManagementRequest {
     }
 
     /// Sets the value of [management][crate::model::SetNodePoolManagementRequest::management].
-    pub fn set_management<
-        T: std::convert::Into<std::option::Option<crate::model::NodeManagement>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.management = v.into();
+    pub fn set_management<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::NodeManagement>,
+    {
+        self.management = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [management][crate::model::SetNodePoolManagementRequest::management].
+    pub fn set_or_clear_management<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::NodeManagement>,
+    {
+        self.management = v.map(|x| x.into());
         self
     }
 
@@ -15406,13 +17094,23 @@ impl ClusterAutoscaling {
     }
 
     /// Sets the value of [autoprovisioning_node_pool_defaults][crate::model::ClusterAutoscaling::autoprovisioning_node_pool_defaults].
-    pub fn set_autoprovisioning_node_pool_defaults<
-        T: std::convert::Into<std::option::Option<crate::model::AutoprovisioningNodePoolDefaults>>,
-    >(
+    pub fn set_autoprovisioning_node_pool_defaults<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::AutoprovisioningNodePoolDefaults>,
+    {
+        self.autoprovisioning_node_pool_defaults = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [autoprovisioning_node_pool_defaults][crate::model::ClusterAutoscaling::autoprovisioning_node_pool_defaults].
+    pub fn set_or_clear_autoprovisioning_node_pool_defaults<T>(
         mut self,
-        v: T,
-    ) -> Self {
-        self.autoprovisioning_node_pool_defaults = v.into();
+        v: std::option::Option<T>,
+    ) -> Self
+    where
+        T: std::convert::Into<crate::model::AutoprovisioningNodePoolDefaults>,
+    {
+        self.autoprovisioning_node_pool_defaults = v.map(|x| x.into());
         self
     }
 
@@ -15674,24 +17372,38 @@ impl AutoprovisioningNodePoolDefaults {
     }
 
     /// Sets the value of [upgrade_settings][crate::model::AutoprovisioningNodePoolDefaults::upgrade_settings].
-    pub fn set_upgrade_settings<
-        T: std::convert::Into<std::option::Option<crate::model::node_pool::UpgradeSettings>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.upgrade_settings = v.into();
+    pub fn set_upgrade_settings<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::node_pool::UpgradeSettings>,
+    {
+        self.upgrade_settings = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [upgrade_settings][crate::model::AutoprovisioningNodePoolDefaults::upgrade_settings].
+    pub fn set_or_clear_upgrade_settings<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::node_pool::UpgradeSettings>,
+    {
+        self.upgrade_settings = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [management][crate::model::AutoprovisioningNodePoolDefaults::management].
-    pub fn set_management<
-        T: std::convert::Into<std::option::Option<crate::model::NodeManagement>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.management = v.into();
+    pub fn set_management<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::NodeManagement>,
+    {
+        self.management = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [management][crate::model::AutoprovisioningNodePoolDefaults::management].
+    pub fn set_or_clear_management<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::NodeManagement>,
+    {
+        self.management = v.map(|x| x.into());
         self
     }
 
@@ -15718,13 +17430,20 @@ impl AutoprovisioningNodePoolDefaults {
     }
 
     /// Sets the value of [shielded_instance_config][crate::model::AutoprovisioningNodePoolDefaults::shielded_instance_config].
-    pub fn set_shielded_instance_config<
-        T: std::convert::Into<std::option::Option<crate::model::ShieldedInstanceConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.shielded_instance_config = v.into();
+    pub fn set_shielded_instance_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::ShieldedInstanceConfig>,
+    {
+        self.shielded_instance_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [shielded_instance_config][crate::model::AutoprovisioningNodePoolDefaults::shielded_instance_config].
+    pub fn set_or_clear_shielded_instance_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::ShieldedInstanceConfig>,
+    {
+        self.shielded_instance_config = v.map(|x| x.into());
         self
     }
 
@@ -15744,13 +17463,23 @@ impl AutoprovisioningNodePoolDefaults {
     }
 
     /// Sets the value of [insecure_kubelet_readonly_port_enabled][crate::model::AutoprovisioningNodePoolDefaults::insecure_kubelet_readonly_port_enabled].
-    pub fn set_insecure_kubelet_readonly_port_enabled<
-        T: std::convert::Into<std::option::Option<bool>>,
-    >(
+    pub fn set_insecure_kubelet_readonly_port_enabled<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.insecure_kubelet_readonly_port_enabled = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [insecure_kubelet_readonly_port_enabled][crate::model::AutoprovisioningNodePoolDefaults::insecure_kubelet_readonly_port_enabled].
+    pub fn set_or_clear_insecure_kubelet_readonly_port_enabled<T>(
         mut self,
-        v: T,
-    ) -> Self {
-        self.insecure_kubelet_readonly_port_enabled = v.into();
+        v: std::option::Option<T>,
+    ) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.insecure_kubelet_readonly_port_enabled = v.map(|x| x.into());
         self
     }
 }
@@ -16484,24 +18213,41 @@ impl AcceleratorConfig {
     }
 
     /// Sets the value of [gpu_sharing_config][crate::model::AcceleratorConfig::gpu_sharing_config].
-    pub fn set_gpu_sharing_config<
-        T: std::convert::Into<std::option::Option<crate::model::GPUSharingConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.gpu_sharing_config = v.into();
+    pub fn set_gpu_sharing_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::GPUSharingConfig>,
+    {
+        self.gpu_sharing_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [gpu_sharing_config][crate::model::AcceleratorConfig::gpu_sharing_config].
+    pub fn set_or_clear_gpu_sharing_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::GPUSharingConfig>,
+    {
+        self.gpu_sharing_config = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [gpu_driver_installation_config][crate::model::AcceleratorConfig::gpu_driver_installation_config].
-    pub fn set_gpu_driver_installation_config<
-        T: std::convert::Into<std::option::Option<crate::model::GPUDriverInstallationConfig>>,
-    >(
+    pub fn set_gpu_driver_installation_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::GPUDriverInstallationConfig>,
+    {
+        self.gpu_driver_installation_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [gpu_driver_installation_config][crate::model::AcceleratorConfig::gpu_driver_installation_config].
+    pub fn set_or_clear_gpu_driver_installation_config<T>(
         mut self,
-        v: T,
-    ) -> Self {
-        self.gpu_driver_installation_config = v.into();
+        v: std::option::Option<T>,
+    ) -> Self
+    where
+        T: std::convert::Into<crate::model::GPUDriverInstallationConfig>,
+    {
+        self.gpu_driver_installation_config = v.map(|x| x.into());
         self
     }
 }
@@ -16545,15 +18291,20 @@ impl GPUSharingConfig {
     }
 
     /// Sets the value of [gpu_sharing_strategy][crate::model::GPUSharingConfig::gpu_sharing_strategy].
-    pub fn set_gpu_sharing_strategy<
-        T: std::convert::Into<
-                std::option::Option<crate::model::gpu_sharing_config::GPUSharingStrategy>,
-            >,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.gpu_sharing_strategy = v.into();
+    pub fn set_gpu_sharing_strategy<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::gpu_sharing_config::GPUSharingStrategy>,
+    {
+        self.gpu_sharing_strategy = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [gpu_sharing_strategy][crate::model::GPUSharingConfig::gpu_sharing_strategy].
+    pub fn set_or_clear_gpu_sharing_strategy<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::gpu_sharing_config::GPUSharingStrategy>,
+    {
+        self.gpu_sharing_strategy = v.map(|x| x.into());
         self
     }
 }
@@ -16724,15 +18475,20 @@ impl GPUDriverInstallationConfig {
     }
 
     /// Sets the value of [gpu_driver_version][crate::model::GPUDriverInstallationConfig::gpu_driver_version].
-    pub fn set_gpu_driver_version<
-        T: std::convert::Into<
-                std::option::Option<crate::model::gpu_driver_installation_config::GPUDriverVersion>,
-            >,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.gpu_driver_version = v.into();
+    pub fn set_gpu_driver_version<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::gpu_driver_installation_config::GPUDriverVersion>,
+    {
+        self.gpu_driver_version = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [gpu_driver_version][crate::model::GPUDriverInstallationConfig::gpu_driver_version].
+    pub fn set_or_clear_gpu_driver_version<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::gpu_driver_installation_config::GPUDriverVersion>,
+    {
+        self.gpu_driver_version = v.map(|x| x.into());
         self
     }
 }
@@ -17134,13 +18890,20 @@ impl SetNetworkPolicyRequest {
     }
 
     /// Sets the value of [network_policy][crate::model::SetNetworkPolicyRequest::network_policy].
-    pub fn set_network_policy<
-        T: std::convert::Into<std::option::Option<crate::model::NetworkPolicy>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.network_policy = v.into();
+    pub fn set_network_policy<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::NetworkPolicy>,
+    {
+        self.network_policy = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [network_policy][crate::model::SetNetworkPolicyRequest::network_policy].
+    pub fn set_or_clear_network_policy<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::NetworkPolicy>,
+    {
+        self.network_policy = v.map(|x| x.into());
         self
     }
 
@@ -17217,13 +18980,20 @@ impl SetMaintenancePolicyRequest {
     }
 
     /// Sets the value of [maintenance_policy][crate::model::SetMaintenancePolicyRequest::maintenance_policy].
-    pub fn set_maintenance_policy<
-        T: std::convert::Into<std::option::Option<crate::model::MaintenancePolicy>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.maintenance_policy = v.into();
+    pub fn set_maintenance_policy<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::MaintenancePolicy>,
+    {
+        self.maintenance_policy = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [maintenance_policy][crate::model::SetMaintenancePolicyRequest::maintenance_policy].
+    pub fn set_or_clear_maintenance_policy<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::MaintenancePolicy>,
+    {
+        self.maintenance_policy = v.map(|x| x.into());
         self
     }
 
@@ -17588,13 +19358,20 @@ impl NetworkConfig {
     }
 
     /// Sets the value of [default_snat_status][crate::model::NetworkConfig::default_snat_status].
-    pub fn set_default_snat_status<
-        T: std::convert::Into<std::option::Option<crate::model::DefaultSnatStatus>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.default_snat_status = v.into();
+    pub fn set_default_snat_status<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::DefaultSnatStatus>,
+    {
+        self.default_snat_status = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [default_snat_status][crate::model::NetworkConfig::default_snat_status].
+    pub fn set_or_clear_default_snat_status<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::DefaultSnatStatus>,
+    {
+        self.default_snat_status = v.map(|x| x.into());
         self
     }
 
@@ -17625,33 +19402,56 @@ impl NetworkConfig {
     }
 
     /// Sets the value of [dns_config][crate::model::NetworkConfig::dns_config].
-    pub fn set_dns_config<T: std::convert::Into<std::option::Option<crate::model::DNSConfig>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.dns_config = v.into();
+    pub fn set_dns_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::DNSConfig>,
+    {
+        self.dns_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [dns_config][crate::model::NetworkConfig::dns_config].
+    pub fn set_or_clear_dns_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::DNSConfig>,
+    {
+        self.dns_config = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [service_external_ips_config][crate::model::NetworkConfig::service_external_ips_config].
-    pub fn set_service_external_ips_config<
-        T: std::convert::Into<std::option::Option<crate::model::ServiceExternalIPsConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.service_external_ips_config = v.into();
+    pub fn set_service_external_ips_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::ServiceExternalIPsConfig>,
+    {
+        self.service_external_ips_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [service_external_ips_config][crate::model::NetworkConfig::service_external_ips_config].
+    pub fn set_or_clear_service_external_ips_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::ServiceExternalIPsConfig>,
+    {
+        self.service_external_ips_config = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [gateway_api_config][crate::model::NetworkConfig::gateway_api_config].
-    pub fn set_gateway_api_config<
-        T: std::convert::Into<std::option::Option<crate::model::GatewayAPIConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.gateway_api_config = v.into();
+    pub fn set_gateway_api_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::GatewayAPIConfig>,
+    {
+        self.gateway_api_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [gateway_api_config][crate::model::NetworkConfig::gateway_api_config].
+    pub fn set_or_clear_gateway_api_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::GatewayAPIConfig>,
+    {
+        self.gateway_api_config = v.map(|x| x.into());
         self
     }
 
@@ -17662,55 +19462,95 @@ impl NetworkConfig {
     }
 
     /// Sets the value of [network_performance_config][crate::model::NetworkConfig::network_performance_config].
-    pub fn set_network_performance_config<
-        T: std::convert::Into<
-                std::option::Option<crate::model::network_config::ClusterNetworkPerformanceConfig>,
-            >,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.network_performance_config = v.into();
+    pub fn set_network_performance_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::network_config::ClusterNetworkPerformanceConfig>,
+    {
+        self.network_performance_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [network_performance_config][crate::model::NetworkConfig::network_performance_config].
+    pub fn set_or_clear_network_performance_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::network_config::ClusterNetworkPerformanceConfig>,
+    {
+        self.network_performance_config = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [enable_fqdn_network_policy][crate::model::NetworkConfig::enable_fqdn_network_policy].
-    pub fn set_enable_fqdn_network_policy<T: std::convert::Into<std::option::Option<bool>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.enable_fqdn_network_policy = v.into();
+    pub fn set_enable_fqdn_network_policy<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.enable_fqdn_network_policy = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [enable_fqdn_network_policy][crate::model::NetworkConfig::enable_fqdn_network_policy].
+    pub fn set_or_clear_enable_fqdn_network_policy<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.enable_fqdn_network_policy = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [in_transit_encryption_config][crate::model::NetworkConfig::in_transit_encryption_config].
-    pub fn set_in_transit_encryption_config<
-        T: std::convert::Into<std::option::Option<crate::model::InTransitEncryptionConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.in_transit_encryption_config = v.into();
+    pub fn set_in_transit_encryption_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::InTransitEncryptionConfig>,
+    {
+        self.in_transit_encryption_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [in_transit_encryption_config][crate::model::NetworkConfig::in_transit_encryption_config].
+    pub fn set_or_clear_in_transit_encryption_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::InTransitEncryptionConfig>,
+    {
+        self.in_transit_encryption_config = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [enable_cilium_clusterwide_network_policy][crate::model::NetworkConfig::enable_cilium_clusterwide_network_policy].
-    pub fn set_enable_cilium_clusterwide_network_policy<
-        T: std::convert::Into<std::option::Option<bool>>,
-    >(
+    pub fn set_enable_cilium_clusterwide_network_policy<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.enable_cilium_clusterwide_network_policy = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [enable_cilium_clusterwide_network_policy][crate::model::NetworkConfig::enable_cilium_clusterwide_network_policy].
+    pub fn set_or_clear_enable_cilium_clusterwide_network_policy<T>(
         mut self,
-        v: T,
-    ) -> Self {
-        self.enable_cilium_clusterwide_network_policy = v.into();
+        v: std::option::Option<T>,
+    ) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.enable_cilium_clusterwide_network_policy = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [default_enable_private_nodes][crate::model::NetworkConfig::default_enable_private_nodes].
-    pub fn set_default_enable_private_nodes<T: std::convert::Into<std::option::Option<bool>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.default_enable_private_nodes = v.into();
+    pub fn set_default_enable_private_nodes<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.default_enable_private_nodes = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [default_enable_private_nodes][crate::model::NetworkConfig::default_enable_private_nodes].
+    pub fn set_or_clear_default_enable_private_nodes<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.default_enable_private_nodes = v.map(|x| x.into());
         self
     }
 }
@@ -17748,17 +19588,27 @@ pub mod network_config {
         }
 
         /// Sets the value of [total_egress_bandwidth_tier][crate::model::network_config::ClusterNetworkPerformanceConfig::total_egress_bandwidth_tier].
-        pub fn set_total_egress_bandwidth_tier<
+        pub fn set_total_egress_bandwidth_tier<T>(mut self, v: T) -> Self
+        where
             T: std::convert::Into<
-                    std::option::Option<
-                        crate::model::network_config::cluster_network_performance_config::Tier,
-                    >,
+                    crate::model::network_config::cluster_network_performance_config::Tier,
                 >,
-        >(
+        {
+            self.total_egress_bandwidth_tier = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [total_egress_bandwidth_tier][crate::model::network_config::ClusterNetworkPerformanceConfig::total_egress_bandwidth_tier].
+        pub fn set_or_clear_total_egress_bandwidth_tier<T>(
             mut self,
-            v: T,
-        ) -> Self {
-            self.total_egress_bandwidth_tier = v.into();
+            v: std::option::Option<T>,
+        ) -> Self
+        where
+            T: std::convert::Into<
+                    crate::model::network_config::cluster_network_performance_config::Tier,
+                >,
+        {
+            self.total_egress_bandwidth_tier = v.map(|x| x.into());
             self
         }
     }
@@ -18531,11 +20381,20 @@ impl AutopilotCompatibilityIssue {
     }
 
     /// Sets the value of [last_observation][crate::model::AutopilotCompatibilityIssue::last_observation].
-    pub fn set_last_observation<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.last_observation = v.into();
+    pub fn set_last_observation<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.last_observation = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [last_observation][crate::model::AutopilotCompatibilityIssue::last_observation].
+    pub fn set_or_clear_last_observation<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.last_observation = v.map(|x| x.into());
         self
     }
 
@@ -19565,11 +21424,20 @@ impl MeshCertificates {
     }
 
     /// Sets the value of [enable_certificates][crate::model::MeshCertificates::enable_certificates].
-    pub fn set_enable_certificates<T: std::convert::Into<std::option::Option<wkt::BoolValue>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.enable_certificates = v.into();
+    pub fn set_enable_certificates<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::BoolValue>,
+    {
+        self.enable_certificates = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [enable_certificates][crate::model::MeshCertificates::enable_certificates].
+    pub fn set_or_clear_enable_certificates<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::BoolValue>,
+    {
+        self.enable_certificates = v.map(|x| x.into());
         self
     }
 }
@@ -19635,13 +21503,20 @@ impl DatabaseEncryption {
     }
 
     /// Sets the value of [current_state][crate::model::DatabaseEncryption::current_state].
-    pub fn set_current_state<
-        T: std::convert::Into<std::option::Option<crate::model::database_encryption::CurrentState>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.current_state = v.into();
+    pub fn set_current_state<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::database_encryption::CurrentState>,
+    {
+        self.current_state = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [current_state][crate::model::DatabaseEncryption::current_state].
+    pub fn set_or_clear_current_state<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::database_encryption::CurrentState>,
+    {
+        self.current_state = v.map(|x| x.into());
         self
     }
 
@@ -19723,11 +21598,20 @@ pub mod database_encryption {
         }
 
         /// Sets the value of [timestamp][crate::model::database_encryption::OperationError::timestamp].
-        pub fn set_timestamp<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.timestamp = v.into();
+        pub fn set_timestamp<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Timestamp>,
+        {
+            self.timestamp = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [timestamp][crate::model::database_encryption::OperationError::timestamp].
+        pub fn set_or_clear_timestamp<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Timestamp>,
+        {
+            self.timestamp = v.map(|x| x.into());
             self
         }
     }
@@ -20507,17 +22391,20 @@ impl ResourceUsageExportConfig {
     }
 
     /// Sets the value of [bigquery_destination][crate::model::ResourceUsageExportConfig::bigquery_destination].
-    pub fn set_bigquery_destination<
-        T: std::convert::Into<
-                std::option::Option<
-                    crate::model::resource_usage_export_config::BigQueryDestination,
-                >,
-            >,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.bigquery_destination = v.into();
+    pub fn set_bigquery_destination<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::resource_usage_export_config::BigQueryDestination>,
+    {
+        self.bigquery_destination = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [bigquery_destination][crate::model::ResourceUsageExportConfig::bigquery_destination].
+    pub fn set_or_clear_bigquery_destination<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::resource_usage_export_config::BigQueryDestination>,
+    {
+        self.bigquery_destination = v.map(|x| x.into());
         self
     }
 
@@ -20528,17 +22415,24 @@ impl ResourceUsageExportConfig {
     }
 
     /// Sets the value of [consumption_metering_config][crate::model::ResourceUsageExportConfig::consumption_metering_config].
-    pub fn set_consumption_metering_config<
+    pub fn set_consumption_metering_config<T>(mut self, v: T) -> Self
+    where
         T: std::convert::Into<
-                std::option::Option<
-                    crate::model::resource_usage_export_config::ConsumptionMeteringConfig,
-                >,
+                crate::model::resource_usage_export_config::ConsumptionMeteringConfig,
             >,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.consumption_metering_config = v.into();
+    {
+        self.consumption_metering_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [consumption_metering_config][crate::model::ResourceUsageExportConfig::consumption_metering_config].
+    pub fn set_or_clear_consumption_metering_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<
+                crate::model::resource_usage_export_config::ConsumptionMeteringConfig,
+            >,
+    {
+        self.consumption_metering_config = v.map(|x| x.into());
         self
     }
 }
@@ -20804,13 +22698,20 @@ impl NotificationConfig {
     }
 
     /// Sets the value of [pubsub][crate::model::NotificationConfig::pubsub].
-    pub fn set_pubsub<
-        T: std::convert::Into<std::option::Option<crate::model::notification_config::PubSub>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.pubsub = v.into();
+    pub fn set_pubsub<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::notification_config::PubSub>,
+    {
+        self.pubsub = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [pubsub][crate::model::NotificationConfig::pubsub].
+    pub fn set_or_clear_pubsub<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::notification_config::PubSub>,
+    {
+        self.pubsub = v.map(|x| x.into());
         self
     }
 }
@@ -20869,13 +22770,20 @@ pub mod notification_config {
         }
 
         /// Sets the value of [filter][crate::model::notification_config::PubSub::filter].
-        pub fn set_filter<
-            T: std::convert::Into<std::option::Option<crate::model::notification_config::Filter>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.filter = v.into();
+        pub fn set_filter<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::notification_config::Filter>,
+        {
+            self.filter = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [filter][crate::model::notification_config::PubSub::filter].
+        pub fn set_or_clear_filter<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::notification_config::Filter>,
+        {
+            self.filter = v.map(|x| x.into());
             self
         }
     }
@@ -21156,11 +23064,20 @@ impl UpgradeEvent {
     }
 
     /// Sets the value of [operation_start_time][crate::model::UpgradeEvent::operation_start_time].
-    pub fn set_operation_start_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.operation_start_time = v.into();
+    pub fn set_operation_start_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.operation_start_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [operation_start_time][crate::model::UpgradeEvent::operation_start_time].
+    pub fn set_or_clear_operation_start_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.operation_start_time = v.map(|x| x.into());
         self
     }
 
@@ -21256,20 +23173,38 @@ impl UpgradeInfoEvent {
     }
 
     /// Sets the value of [start_time][crate::model::UpgradeInfoEvent::start_time].
-    pub fn set_start_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.start_time = v.into();
+    pub fn set_start_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.start_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [start_time][crate::model::UpgradeInfoEvent::start_time].
+    pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.start_time = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [end_time][crate::model::UpgradeInfoEvent::end_time].
-    pub fn set_end_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.end_time = v.into();
+    pub fn set_end_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.end_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [end_time][crate::model::UpgradeInfoEvent::end_time].
+    pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.end_time = v.map(|x| x.into());
         self
     }
 
@@ -21514,13 +23449,20 @@ impl UpgradeAvailableEvent {
     }
 
     /// Sets the value of [release_channel][crate::model::UpgradeAvailableEvent::release_channel].
-    pub fn set_release_channel<
-        T: std::convert::Into<std::option::Option<crate::model::ReleaseChannel>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.release_channel = v.into();
+    pub fn set_release_channel<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::ReleaseChannel>,
+    {
+        self.release_channel = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [release_channel][crate::model::UpgradeAvailableEvent::release_channel].
+    pub fn set_or_clear_release_channel<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::ReleaseChannel>,
+    {
+        self.release_channel = v.map(|x| x.into());
         self
     }
 
@@ -21722,13 +23664,20 @@ impl Autopilot {
     }
 
     /// Sets the value of [workload_policy_config][crate::model::Autopilot::workload_policy_config].
-    pub fn set_workload_policy_config<
-        T: std::convert::Into<std::option::Option<crate::model::WorkloadPolicyConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.workload_policy_config = v.into();
+    pub fn set_workload_policy_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::WorkloadPolicyConfig>,
+    {
+        self.workload_policy_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [workload_policy_config][crate::model::Autopilot::workload_policy_config].
+    pub fn set_or_clear_workload_policy_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::WorkloadPolicyConfig>,
+    {
+        self.workload_policy_config = v.map(|x| x.into());
         self
     }
 }
@@ -21760,11 +23709,20 @@ impl WorkloadPolicyConfig {
     }
 
     /// Sets the value of [allow_net_admin][crate::model::WorkloadPolicyConfig::allow_net_admin].
-    pub fn set_allow_net_admin<T: std::convert::Into<std::option::Option<bool>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.allow_net_admin = v.into();
+    pub fn set_allow_net_admin<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.allow_net_admin = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [allow_net_admin][crate::model::WorkloadPolicyConfig::allow_net_admin].
+    pub fn set_or_clear_allow_net_admin<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.allow_net_admin = v.map(|x| x.into());
         self
     }
 }
@@ -21795,13 +23753,20 @@ impl LoggingConfig {
     }
 
     /// Sets the value of [component_config][crate::model::LoggingConfig::component_config].
-    pub fn set_component_config<
-        T: std::convert::Into<std::option::Option<crate::model::LoggingComponentConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.component_config = v.into();
+    pub fn set_component_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::LoggingComponentConfig>,
+    {
+        self.component_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [component_config][crate::model::LoggingConfig::component_config].
+    pub fn set_or_clear_component_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::LoggingComponentConfig>,
+    {
+        self.component_config = v.map(|x| x.into());
         self
     }
 }
@@ -22084,35 +24049,59 @@ impl MonitoringConfig {
     }
 
     /// Sets the value of [component_config][crate::model::MonitoringConfig::component_config].
-    pub fn set_component_config<
-        T: std::convert::Into<std::option::Option<crate::model::MonitoringComponentConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.component_config = v.into();
+    pub fn set_component_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::MonitoringComponentConfig>,
+    {
+        self.component_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [component_config][crate::model::MonitoringConfig::component_config].
+    pub fn set_or_clear_component_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::MonitoringComponentConfig>,
+    {
+        self.component_config = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [managed_prometheus_config][crate::model::MonitoringConfig::managed_prometheus_config].
-    pub fn set_managed_prometheus_config<
-        T: std::convert::Into<std::option::Option<crate::model::ManagedPrometheusConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.managed_prometheus_config = v.into();
+    pub fn set_managed_prometheus_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::ManagedPrometheusConfig>,
+    {
+        self.managed_prometheus_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [managed_prometheus_config][crate::model::MonitoringConfig::managed_prometheus_config].
+    pub fn set_or_clear_managed_prometheus_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::ManagedPrometheusConfig>,
+    {
+        self.managed_prometheus_config = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [advanced_datapath_observability_config][crate::model::MonitoringConfig::advanced_datapath_observability_config].
-    pub fn set_advanced_datapath_observability_config<
-        T: std::convert::Into<std::option::Option<crate::model::AdvancedDatapathObservabilityConfig>>,
-    >(
+    pub fn set_advanced_datapath_observability_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::AdvancedDatapathObservabilityConfig>,
+    {
+        self.advanced_datapath_observability_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [advanced_datapath_observability_config][crate::model::MonitoringConfig::advanced_datapath_observability_config].
+    pub fn set_or_clear_advanced_datapath_observability_config<T>(
         mut self,
-        v: T,
-    ) -> Self {
-        self.advanced_datapath_observability_config = v.into();
+        v: std::option::Option<T>,
+    ) -> Self
+    where
+        T: std::convert::Into<crate::model::AdvancedDatapathObservabilityConfig>,
+    {
+        self.advanced_datapath_observability_config = v.map(|x| x.into());
         self
     }
 }
@@ -22168,11 +24157,20 @@ impl AdvancedDatapathObservabilityConfig {
     }
 
     /// Sets the value of [enable_relay][crate::model::AdvancedDatapathObservabilityConfig::enable_relay].
-    pub fn set_enable_relay<T: std::convert::Into<std::option::Option<bool>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.enable_relay = v.into();
+    pub fn set_enable_relay<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.enable_relay = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [enable_relay][crate::model::AdvancedDatapathObservabilityConfig::enable_relay].
+    pub fn set_or_clear_enable_relay<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.enable_relay = v.map(|x| x.into());
         self
     }
 }
@@ -22381,13 +24379,20 @@ impl NodePoolLoggingConfig {
     }
 
     /// Sets the value of [variant_config][crate::model::NodePoolLoggingConfig::variant_config].
-    pub fn set_variant_config<
-        T: std::convert::Into<std::option::Option<crate::model::LoggingVariantConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.variant_config = v.into();
+    pub fn set_variant_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::LoggingVariantConfig>,
+    {
+        self.variant_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [variant_config][crate::model::NodePoolLoggingConfig::variant_config].
+    pub fn set_or_clear_variant_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::LoggingVariantConfig>,
+    {
+        self.variant_config = v.map(|x| x.into());
         self
     }
 }
@@ -22939,32 +24944,38 @@ impl ControlPlaneEndpointsConfig {
     }
 
     /// Sets the value of [dns_endpoint_config][crate::model::ControlPlaneEndpointsConfig::dns_endpoint_config].
-    pub fn set_dns_endpoint_config<
-        T: std::convert::Into<
-                std::option::Option<
-                    crate::model::control_plane_endpoints_config::DNSEndpointConfig,
-                >,
-            >,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.dns_endpoint_config = v.into();
+    pub fn set_dns_endpoint_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::control_plane_endpoints_config::DNSEndpointConfig>,
+    {
+        self.dns_endpoint_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [dns_endpoint_config][crate::model::ControlPlaneEndpointsConfig::dns_endpoint_config].
+    pub fn set_or_clear_dns_endpoint_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::control_plane_endpoints_config::DNSEndpointConfig>,
+    {
+        self.dns_endpoint_config = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [ip_endpoints_config][crate::model::ControlPlaneEndpointsConfig::ip_endpoints_config].
-    pub fn set_ip_endpoints_config<
-        T: std::convert::Into<
-                std::option::Option<
-                    crate::model::control_plane_endpoints_config::IPEndpointsConfig,
-                >,
-            >,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.ip_endpoints_config = v.into();
+    pub fn set_ip_endpoints_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::control_plane_endpoints_config::IPEndpointsConfig>,
+    {
+        self.ip_endpoints_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [ip_endpoints_config][crate::model::ControlPlaneEndpointsConfig::ip_endpoints_config].
+    pub fn set_or_clear_ip_endpoints_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::control_plane_endpoints_config::IPEndpointsConfig>,
+    {
+        self.ip_endpoints_config = v.map(|x| x.into());
         self
     }
 }
@@ -23017,11 +25028,20 @@ pub mod control_plane_endpoints_config {
         }
 
         /// Sets the value of [allow_external_traffic][crate::model::control_plane_endpoints_config::DNSEndpointConfig::allow_external_traffic].
-        pub fn set_allow_external_traffic<T: std::convert::Into<std::option::Option<bool>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.allow_external_traffic = v.into();
+        pub fn set_allow_external_traffic<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<bool>,
+        {
+            self.allow_external_traffic = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [allow_external_traffic][crate::model::control_plane_endpoints_config::DNSEndpointConfig::allow_external_traffic].
+        pub fn set_or_clear_allow_external_traffic<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<bool>,
+        {
+            self.allow_external_traffic = v.map(|x| x.into());
             self
         }
     }
@@ -23096,40 +25116,77 @@ pub mod control_plane_endpoints_config {
         }
 
         /// Sets the value of [enabled][crate::model::control_plane_endpoints_config::IPEndpointsConfig::enabled].
-        pub fn set_enabled<T: std::convert::Into<std::option::Option<bool>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.enabled = v.into();
+        pub fn set_enabled<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<bool>,
+        {
+            self.enabled = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [enabled][crate::model::control_plane_endpoints_config::IPEndpointsConfig::enabled].
+        pub fn set_or_clear_enabled<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<bool>,
+        {
+            self.enabled = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [enable_public_endpoint][crate::model::control_plane_endpoints_config::IPEndpointsConfig::enable_public_endpoint].
-        pub fn set_enable_public_endpoint<T: std::convert::Into<std::option::Option<bool>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.enable_public_endpoint = v.into();
+        pub fn set_enable_public_endpoint<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<bool>,
+        {
+            self.enable_public_endpoint = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [enable_public_endpoint][crate::model::control_plane_endpoints_config::IPEndpointsConfig::enable_public_endpoint].
+        pub fn set_or_clear_enable_public_endpoint<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<bool>,
+        {
+            self.enable_public_endpoint = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [global_access][crate::model::control_plane_endpoints_config::IPEndpointsConfig::global_access].
-        pub fn set_global_access<T: std::convert::Into<std::option::Option<bool>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.global_access = v.into();
+        pub fn set_global_access<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<bool>,
+        {
+            self.global_access = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [global_access][crate::model::control_plane_endpoints_config::IPEndpointsConfig::global_access].
+        pub fn set_or_clear_global_access<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<bool>,
+        {
+            self.global_access = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [authorized_networks_config][crate::model::control_plane_endpoints_config::IPEndpointsConfig::authorized_networks_config].
-        pub fn set_authorized_networks_config<
-            T: std::convert::Into<std::option::Option<crate::model::MasterAuthorizedNetworksConfig>>,
-        >(
+        pub fn set_authorized_networks_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::MasterAuthorizedNetworksConfig>,
+        {
+            self.authorized_networks_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [authorized_networks_config][crate::model::control_plane_endpoints_config::IPEndpointsConfig::authorized_networks_config].
+        pub fn set_or_clear_authorized_networks_config<T>(
             mut self,
-            v: T,
-        ) -> Self {
-            self.authorized_networks_config = v.into();
+            v: std::option::Option<T>,
+        ) -> Self
+        where
+            T: std::convert::Into<crate::model::MasterAuthorizedNetworksConfig>,
+        {
+            self.authorized_networks_config = v.map(|x| x.into());
             self
         }
 
@@ -23519,8 +25576,20 @@ impl SecretManagerConfig {
     }
 
     /// Sets the value of [enabled][crate::model::SecretManagerConfig::enabled].
-    pub fn set_enabled<T: std::convert::Into<std::option::Option<bool>>>(mut self, v: T) -> Self {
-        self.enabled = v.into();
+    pub fn set_enabled<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.enabled = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [enabled][crate::model::SecretManagerConfig::enabled].
+    pub fn set_or_clear_enabled<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.enabled = v.map(|x| x.into());
         self
     }
 }

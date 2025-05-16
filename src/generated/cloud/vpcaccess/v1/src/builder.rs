@@ -75,8 +75,9 @@ pub mod vpc_access_service {
     /// # use google_cloud_vpcaccess_v1::builder;
     /// use builder::vpc_access_service::CreateConnector;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_vpcaccess_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -172,11 +173,22 @@ pub mod vpc_access_service {
         /// Sets the value of [connector][crate::model::CreateConnectorRequest::connector].
         ///
         /// This is a **required** field for requests.
-        pub fn set_connector<T: Into<std::option::Option<crate::model::Connector>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.connector = v.into();
+        pub fn set_connector<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Connector>,
+        {
+            self.0.request.connector = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [connector][crate::model::CreateConnectorRequest::connector].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_connector<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Connector>,
+        {
+            self.0.request.connector = v.map(|x| x.into());
             self
         }
     }
@@ -195,6 +207,7 @@ pub mod vpc_access_service {
     /// # use google_cloud_vpcaccess_v1::builder;
     /// use builder::vpc_access_service::GetConnector;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -257,8 +270,9 @@ pub mod vpc_access_service {
     /// # use google_cloud_vpcaccess_v1::builder;
     /// use builder::vpc_access_service::ListConnectors;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -359,8 +373,9 @@ pub mod vpc_access_service {
     /// # use google_cloud_vpcaccess_v1::builder;
     /// use builder::vpc_access_service::DeleteConnector;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_vpcaccess_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -462,8 +477,9 @@ pub mod vpc_access_service {
     /// # use google_cloud_vpcaccess_v1::builder;
     /// use builder::vpc_access_service::ListLocations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -571,8 +587,9 @@ pub mod vpc_access_service {
     /// # use google_cloud_vpcaccess_v1::builder;
     /// use builder::vpc_access_service::ListOperations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -682,6 +699,7 @@ pub mod vpc_access_service {
     /// # use google_cloud_vpcaccess_v1::builder;
     /// use builder::vpc_access_service::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });

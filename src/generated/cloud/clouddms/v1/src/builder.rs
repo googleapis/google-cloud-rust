@@ -75,8 +75,9 @@ pub mod data_migration_service {
     /// # use google_cloud_clouddms_v1::builder;
     /// use builder::data_migration_service::ListMigrationJobs;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -192,6 +193,7 @@ pub mod data_migration_service {
     /// # use google_cloud_clouddms_v1::builder;
     /// use builder::data_migration_service::GetMigrationJob;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -254,8 +256,9 @@ pub mod data_migration_service {
     /// # use google_cloud_clouddms_v1::builder;
     /// use builder::data_migration_service::CreateMigrationJob;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_clouddms_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -356,11 +359,22 @@ pub mod data_migration_service {
         /// Sets the value of [migration_job][crate::model::CreateMigrationJobRequest::migration_job].
         ///
         /// This is a **required** field for requests.
-        pub fn set_migration_job<T: Into<std::option::Option<crate::model::MigrationJob>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.migration_job = v.into();
+        pub fn set_migration_job<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::MigrationJob>,
+        {
+            self.0.request.migration_job = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [migration_job][crate::model::CreateMigrationJobRequest::migration_job].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_migration_job<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::MigrationJob>,
+        {
+            self.0.request.migration_job = v.map(|x| x.into());
             self
         }
 
@@ -385,8 +399,9 @@ pub mod data_migration_service {
     /// # use google_cloud_clouddms_v1::builder;
     /// use builder::data_migration_service::UpdateMigrationJob;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_clouddms_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -471,22 +486,44 @@ pub mod data_migration_service {
         /// Sets the value of [update_mask][crate::model::UpdateMigrationJobRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateMigrationJobRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [migration_job][crate::model::UpdateMigrationJobRequest::migration_job].
         ///
         /// This is a **required** field for requests.
-        pub fn set_migration_job<T: Into<std::option::Option<crate::model::MigrationJob>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.migration_job = v.into();
+        pub fn set_migration_job<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::MigrationJob>,
+        {
+            self.0.request.migration_job = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [migration_job][crate::model::UpdateMigrationJobRequest::migration_job].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_migration_job<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::MigrationJob>,
+        {
+            self.0.request.migration_job = v.map(|x| x.into());
             self
         }
 
@@ -511,8 +548,9 @@ pub mod data_migration_service {
     /// # use google_cloud_clouddms_v1::builder;
     /// use builder::data_migration_service::DeleteMigrationJob;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_clouddms_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -629,8 +667,9 @@ pub mod data_migration_service {
     /// # use google_cloud_clouddms_v1::builder;
     /// use builder::data_migration_service::StartMigrationJob;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_clouddms_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -739,8 +778,9 @@ pub mod data_migration_service {
     /// # use google_cloud_clouddms_v1::builder;
     /// use builder::data_migration_service::StopMigrationJob;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_clouddms_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -843,8 +883,9 @@ pub mod data_migration_service {
     /// # use google_cloud_clouddms_v1::builder;
     /// use builder::data_migration_service::ResumeMigrationJob;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_clouddms_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -947,8 +988,9 @@ pub mod data_migration_service {
     /// # use google_cloud_clouddms_v1::builder;
     /// use builder::data_migration_service::PromoteMigrationJob;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_clouddms_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1051,8 +1093,9 @@ pub mod data_migration_service {
     /// # use google_cloud_clouddms_v1::builder;
     /// use builder::data_migration_service::VerifyMigrationJob;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_clouddms_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1141,20 +1184,38 @@ pub mod data_migration_service {
         }
 
         /// Sets the value of [update_mask][crate::model::VerifyMigrationJobRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::VerifyMigrationJobRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [migration_job][crate::model::VerifyMigrationJobRequest::migration_job].
-        pub fn set_migration_job<T: Into<std::option::Option<crate::model::MigrationJob>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.migration_job = v.into();
+        pub fn set_migration_job<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::MigrationJob>,
+        {
+            self.0.request.migration_job = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [migration_job][crate::model::VerifyMigrationJobRequest::migration_job].
+        pub fn set_or_clear_migration_job<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::MigrationJob>,
+        {
+            self.0.request.migration_job = v.map(|x| x.into());
             self
         }
     }
@@ -1173,8 +1234,9 @@ pub mod data_migration_service {
     /// # use google_cloud_clouddms_v1::builder;
     /// use builder::data_migration_service::RestartMigrationJob;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_clouddms_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1283,6 +1345,7 @@ pub mod data_migration_service {
     /// # use google_cloud_clouddms_v1::builder;
     /// use builder::data_migration_service::GenerateSshScript;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1404,6 +1467,7 @@ pub mod data_migration_service {
     /// # use google_cloud_clouddms_v1::builder;
     /// use builder::data_migration_service::GenerateTcpProxyScript;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1497,8 +1561,9 @@ pub mod data_migration_service {
     /// # use google_cloud_clouddms_v1::builder;
     /// use builder::data_migration_service::ListConnectionProfiles;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -1618,6 +1683,7 @@ pub mod data_migration_service {
     /// # use google_cloud_clouddms_v1::builder;
     /// use builder::data_migration_service::GetConnectionProfile;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1683,8 +1749,9 @@ pub mod data_migration_service {
     /// # use google_cloud_clouddms_v1::builder;
     /// use builder::data_migration_service::CreateConnectionProfile;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_clouddms_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1788,13 +1855,22 @@ pub mod data_migration_service {
         /// Sets the value of [connection_profile][crate::model::CreateConnectionProfileRequest::connection_profile].
         ///
         /// This is a **required** field for requests.
-        pub fn set_connection_profile<
-            T: Into<std::option::Option<crate::model::ConnectionProfile>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.connection_profile = v.into();
+        pub fn set_connection_profile<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::ConnectionProfile>,
+        {
+            self.0.request.connection_profile = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [connection_profile][crate::model::CreateConnectionProfileRequest::connection_profile].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_connection_profile<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::ConnectionProfile>,
+        {
+            self.0.request.connection_profile = v.map(|x| x.into());
             self
         }
 
@@ -1831,8 +1907,9 @@ pub mod data_migration_service {
     /// # use google_cloud_clouddms_v1::builder;
     /// use builder::data_migration_service::UpdateConnectionProfile;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_clouddms_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1920,24 +1997,44 @@ pub mod data_migration_service {
         /// Sets the value of [update_mask][crate::model::UpdateConnectionProfileRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateConnectionProfileRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [connection_profile][crate::model::UpdateConnectionProfileRequest::connection_profile].
         ///
         /// This is a **required** field for requests.
-        pub fn set_connection_profile<
-            T: Into<std::option::Option<crate::model::ConnectionProfile>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.connection_profile = v.into();
+        pub fn set_connection_profile<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::ConnectionProfile>,
+        {
+            self.0.request.connection_profile = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [connection_profile][crate::model::UpdateConnectionProfileRequest::connection_profile].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_connection_profile<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::ConnectionProfile>,
+        {
+            self.0.request.connection_profile = v.map(|x| x.into());
             self
         }
 
@@ -1974,8 +2071,9 @@ pub mod data_migration_service {
     /// # use google_cloud_clouddms_v1::builder;
     /// use builder::data_migration_service::DeleteConnectionProfile;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_clouddms_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -2094,8 +2192,9 @@ pub mod data_migration_service {
     /// # use google_cloud_clouddms_v1::builder;
     /// use builder::data_migration_service::CreatePrivateConnection;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_clouddms_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -2199,13 +2298,22 @@ pub mod data_migration_service {
         /// Sets the value of [private_connection][crate::model::CreatePrivateConnectionRequest::private_connection].
         ///
         /// This is a **required** field for requests.
-        pub fn set_private_connection<
-            T: Into<std::option::Option<crate::model::PrivateConnection>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.private_connection = v.into();
+        pub fn set_private_connection<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::PrivateConnection>,
+        {
+            self.0.request.private_connection = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [private_connection][crate::model::CreatePrivateConnectionRequest::private_connection].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_private_connection<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::PrivateConnection>,
+        {
+            self.0.request.private_connection = v.map(|x| x.into());
             self
         }
 
@@ -2236,6 +2344,7 @@ pub mod data_migration_service {
     /// # use google_cloud_clouddms_v1::builder;
     /// use builder::data_migration_service::GetPrivateConnection;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2301,8 +2410,9 @@ pub mod data_migration_service {
     /// # use google_cloud_clouddms_v1::builder;
     /// use builder::data_migration_service::ListPrivateConnections;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -2422,8 +2532,9 @@ pub mod data_migration_service {
     /// # use google_cloud_clouddms_v1::builder;
     /// use builder::data_migration_service::DeletePrivateConnection;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_clouddms_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -2536,6 +2647,7 @@ pub mod data_migration_service {
     /// # use google_cloud_clouddms_v1::builder;
     /// use builder::data_migration_service::GetConversionWorkspace;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2601,8 +2713,9 @@ pub mod data_migration_service {
     /// # use google_cloud_clouddms_v1::builder;
     /// use builder::data_migration_service::ListConversionWorkspaces;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -2718,8 +2831,9 @@ pub mod data_migration_service {
     /// # use google_cloud_clouddms_v1::builder;
     /// use builder::data_migration_service::CreateConversionWorkspace;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_clouddms_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -2823,13 +2937,22 @@ pub mod data_migration_service {
         /// Sets the value of [conversion_workspace][crate::model::CreateConversionWorkspaceRequest::conversion_workspace].
         ///
         /// This is a **required** field for requests.
-        pub fn set_conversion_workspace<
-            T: Into<std::option::Option<crate::model::ConversionWorkspace>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.conversion_workspace = v.into();
+        pub fn set_conversion_workspace<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::ConversionWorkspace>,
+        {
+            self.0.request.conversion_workspace = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [conversion_workspace][crate::model::CreateConversionWorkspaceRequest::conversion_workspace].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_conversion_workspace<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::ConversionWorkspace>,
+        {
+            self.0.request.conversion_workspace = v.map(|x| x.into());
             self
         }
 
@@ -2854,8 +2977,9 @@ pub mod data_migration_service {
     /// # use google_cloud_clouddms_v1::builder;
     /// use builder::data_migration_service::UpdateConversionWorkspace;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_clouddms_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -2943,24 +3067,44 @@ pub mod data_migration_service {
         /// Sets the value of [update_mask][crate::model::UpdateConversionWorkspaceRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateConversionWorkspaceRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [conversion_workspace][crate::model::UpdateConversionWorkspaceRequest::conversion_workspace].
         ///
         /// This is a **required** field for requests.
-        pub fn set_conversion_workspace<
-            T: Into<std::option::Option<crate::model::ConversionWorkspace>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.conversion_workspace = v.into();
+        pub fn set_conversion_workspace<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::ConversionWorkspace>,
+        {
+            self.0.request.conversion_workspace = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [conversion_workspace][crate::model::UpdateConversionWorkspaceRequest::conversion_workspace].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_conversion_workspace<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::ConversionWorkspace>,
+        {
+            self.0.request.conversion_workspace = v.map(|x| x.into());
             self
         }
 
@@ -2985,8 +3129,9 @@ pub mod data_migration_service {
     /// # use google_cloud_clouddms_v1::builder;
     /// use builder::data_migration_service::DeleteConversionWorkspace;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_clouddms_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -3105,6 +3250,7 @@ pub mod data_migration_service {
     /// # use google_cloud_clouddms_v1::builder;
     /// use builder::data_migration_service::CreateMappingRule;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3166,11 +3312,22 @@ pub mod data_migration_service {
         /// Sets the value of [mapping_rule][crate::model::CreateMappingRuleRequest::mapping_rule].
         ///
         /// This is a **required** field for requests.
-        pub fn set_mapping_rule<T: Into<std::option::Option<crate::model::MappingRule>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.mapping_rule = v.into();
+        pub fn set_mapping_rule<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::MappingRule>,
+        {
+            self.0.request.mapping_rule = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [mapping_rule][crate::model::CreateMappingRuleRequest::mapping_rule].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_mapping_rule<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::MappingRule>,
+        {
+            self.0.request.mapping_rule = v.map(|x| x.into());
             self
         }
 
@@ -3195,6 +3352,7 @@ pub mod data_migration_service {
     /// # use google_cloud_clouddms_v1::builder;
     /// use builder::data_migration_service::DeleteMappingRule;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3266,8 +3424,9 @@ pub mod data_migration_service {
     /// # use google_cloud_clouddms_v1::builder;
     /// use builder::data_migration_service::ListMappingRules;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -3371,6 +3530,7 @@ pub mod data_migration_service {
     /// # use google_cloud_clouddms_v1::builder;
     /// use builder::data_migration_service::GetMappingRule;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3433,8 +3593,9 @@ pub mod data_migration_service {
     /// # use google_cloud_clouddms_v1::builder;
     /// use builder::data_migration_service::SeedConversionWorkspace;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_clouddms_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -3586,8 +3747,9 @@ pub mod data_migration_service {
     /// # use google_cloud_clouddms_v1::builder;
     /// use builder::data_migration_service::ImportMappingRules;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_clouddms_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -3725,8 +3887,9 @@ pub mod data_migration_service {
     /// # use google_cloud_clouddms_v1::builder;
     /// use builder::data_migration_service::ConvertConversionWorkspace;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_clouddms_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -3850,8 +4013,9 @@ pub mod data_migration_service {
     /// # use google_cloud_clouddms_v1::builder;
     /// use builder::data_migration_service::CommitConversionWorkspace;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_clouddms_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -3965,8 +4129,9 @@ pub mod data_migration_service {
     /// # use google_cloud_clouddms_v1::builder;
     /// use builder::data_migration_service::RollbackConversionWorkspace;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_clouddms_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -4074,8 +4239,9 @@ pub mod data_migration_service {
     /// # use google_cloud_clouddms_v1::builder;
     /// use builder::data_migration_service::ApplyConversionWorkspace;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_clouddms_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -4228,8 +4394,9 @@ pub mod data_migration_service {
     /// # use google_cloud_clouddms_v1::builder;
     /// use builder::data_migration_service::DescribeDatabaseEntities;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -4374,6 +4541,7 @@ pub mod data_migration_service {
     /// # use google_cloud_clouddms_v1::builder;
     /// use builder::data_migration_service::SearchBackgroundJobs;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -4437,11 +4605,20 @@ pub mod data_migration_service {
         }
 
         /// Sets the value of [completed_until_time][crate::model::SearchBackgroundJobsRequest::completed_until_time].
-        pub fn set_completed_until_time<T: Into<std::option::Option<wkt::Timestamp>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.completed_until_time = v.into();
+        pub fn set_completed_until_time<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Timestamp>,
+        {
+            self.0.request.completed_until_time = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [completed_until_time][crate::model::SearchBackgroundJobsRequest::completed_until_time].
+        pub fn set_or_clear_completed_until_time<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Timestamp>,
+        {
+            self.0.request.completed_until_time = v.map(|x| x.into());
             self
         }
     }
@@ -4460,6 +4637,7 @@ pub mod data_migration_service {
     /// # use google_cloud_clouddms_v1::builder;
     /// use builder::data_migration_service::DescribeConversionWorkspaceRevisions;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -4535,6 +4713,7 @@ pub mod data_migration_service {
     /// # use google_cloud_clouddms_v1::builder;
     /// use builder::data_migration_service::FetchStaticIps;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -4609,8 +4788,9 @@ pub mod data_migration_service {
     /// # use google_cloud_clouddms_v1::builder;
     /// use builder::data_migration_service::ListLocations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -4718,6 +4898,7 @@ pub mod data_migration_service {
     /// # use google_cloud_clouddms_v1::builder;
     /// use builder::data_migration_service::GetLocation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -4778,6 +4959,7 @@ pub mod data_migration_service {
     /// # use google_cloud_clouddms_v1::builder;
     /// use builder::data_migration_service::SetIamPolicy;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -4828,20 +5010,40 @@ pub mod data_migration_service {
         /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
-        pub fn set_policy<T: Into<std::option::Option<iam_v1::model::Policy>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.policy = v.into();
+        pub fn set_policy<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -4860,6 +5062,7 @@ pub mod data_migration_service {
     /// # use google_cloud_clouddms_v1::builder;
     /// use builder::data_migration_service::GetIamPolicy;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -4908,11 +5111,20 @@ pub mod data_migration_service {
         }
 
         /// Sets the value of [options][iam_v1::model::GetIamPolicyRequest::options].
-        pub fn set_options<T: Into<std::option::Option<iam_v1::model::GetPolicyOptions>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.options = v.into();
+        pub fn set_options<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = v.map(|x| x.into());
             self
         }
     }
@@ -4931,6 +5143,7 @@ pub mod data_migration_service {
     /// # use google_cloud_clouddms_v1::builder;
     /// use builder::data_migration_service::TestIamPermissions;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -5009,8 +5222,9 @@ pub mod data_migration_service {
     /// # use google_cloud_clouddms_v1::builder;
     /// use builder::data_migration_service::ListOperations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -5120,6 +5334,7 @@ pub mod data_migration_service {
     /// # use google_cloud_clouddms_v1::builder;
     /// use builder::data_migration_service::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -5183,6 +5398,7 @@ pub mod data_migration_service {
     /// # use google_cloud_clouddms_v1::builder;
     /// use builder::data_migration_service::DeleteOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -5246,6 +5462,7 @@ pub mod data_migration_service {
     /// # use google_cloud_clouddms_v1::builder;
     /// use builder::data_migration_service::CancelOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });

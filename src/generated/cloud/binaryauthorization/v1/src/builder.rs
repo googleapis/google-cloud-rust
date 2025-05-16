@@ -75,6 +75,7 @@ pub mod binauthz_management_service_v_1 {
     /// # use google_cloud_binaryauthorization_v1::builder;
     /// use builder::binauthz_management_service_v_1::GetPolicy;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -137,6 +138,7 @@ pub mod binauthz_management_service_v_1 {
     /// # use google_cloud_binaryauthorization_v1::builder;
     /// use builder::binauthz_management_service_v_1::UpdatePolicy;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -179,11 +181,22 @@ pub mod binauthz_management_service_v_1 {
         /// Sets the value of [policy][crate::model::UpdatePolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
-        pub fn set_policy<T: Into<std::option::Option<crate::model::Policy>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.policy = v.into();
+        pub fn set_policy<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Policy>,
+        {
+            self.0.request.policy = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [policy][crate::model::UpdatePolicyRequest::policy].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Policy>,
+        {
+            self.0.request.policy = v.map(|x| x.into());
             self
         }
     }
@@ -202,6 +215,7 @@ pub mod binauthz_management_service_v_1 {
     /// # use google_cloud_binaryauthorization_v1::builder;
     /// use builder::binauthz_management_service_v_1::CreateAttestor;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -260,11 +274,22 @@ pub mod binauthz_management_service_v_1 {
         /// Sets the value of [attestor][crate::model::CreateAttestorRequest::attestor].
         ///
         /// This is a **required** field for requests.
-        pub fn set_attestor<T: Into<std::option::Option<crate::model::Attestor>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.attestor = v.into();
+        pub fn set_attestor<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Attestor>,
+        {
+            self.0.request.attestor = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [attestor][crate::model::CreateAttestorRequest::attestor].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_attestor<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Attestor>,
+        {
+            self.0.request.attestor = v.map(|x| x.into());
             self
         }
     }
@@ -283,6 +308,7 @@ pub mod binauthz_management_service_v_1 {
     /// # use google_cloud_binaryauthorization_v1::builder;
     /// use builder::binauthz_management_service_v_1::GetAttestor;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -345,6 +371,7 @@ pub mod binauthz_management_service_v_1 {
     /// # use google_cloud_binaryauthorization_v1::builder;
     /// use builder::binauthz_management_service_v_1::UpdateAttestor;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -387,11 +414,22 @@ pub mod binauthz_management_service_v_1 {
         /// Sets the value of [attestor][crate::model::UpdateAttestorRequest::attestor].
         ///
         /// This is a **required** field for requests.
-        pub fn set_attestor<T: Into<std::option::Option<crate::model::Attestor>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.attestor = v.into();
+        pub fn set_attestor<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Attestor>,
+        {
+            self.0.request.attestor = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [attestor][crate::model::UpdateAttestorRequest::attestor].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_attestor<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Attestor>,
+        {
+            self.0.request.attestor = v.map(|x| x.into());
             self
         }
     }
@@ -410,8 +448,9 @@ pub mod binauthz_management_service_v_1 {
     /// # use google_cloud_binaryauthorization_v1::builder;
     /// use builder::binauthz_management_service_v_1::ListAttestors;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -512,6 +551,7 @@ pub mod binauthz_management_service_v_1 {
     /// # use google_cloud_binaryauthorization_v1::builder;
     /// use builder::binauthz_management_service_v_1::DeleteAttestor;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -629,6 +669,7 @@ pub mod system_policy_v_1 {
     /// # use google_cloud_binaryauthorization_v1::builder;
     /// use builder::system_policy_v_1::GetSystemPolicy;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -746,6 +787,7 @@ pub mod validation_helper_v_1 {
     /// # use google_cloud_binaryauthorization_v1::builder;
     /// use builder::validation_helper_v_1::ValidateAttestationOccurrence;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -801,13 +843,22 @@ pub mod validation_helper_v_1 {
         /// Sets the value of [attestation][crate::model::ValidateAttestationOccurrenceRequest::attestation].
         ///
         /// This is a **required** field for requests.
-        pub fn set_attestation<
-            T: Into<std::option::Option<grafeas::model::AttestationOccurrence>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.attestation = v.into();
+        pub fn set_attestation<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<grafeas::model::AttestationOccurrence>,
+        {
+            self.0.request.attestation = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [attestation][crate::model::ValidateAttestationOccurrenceRequest::attestation].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_attestation<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<grafeas::model::AttestationOccurrence>,
+        {
+            self.0.request.attestation = v.map(|x| x.into());
             self
         }
 

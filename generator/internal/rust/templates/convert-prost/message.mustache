@@ -70,7 +70,7 @@ impl gaxi::prost::FromProto<{{Codec.QualifiedName}}> for {{Codec.RelativeName}} 
                 {{/Optional}}
                 {{#Optional}}
                 {{^IsEnum}}
-                .set_{{Codec.SetterName}}(self.{{Codec.FieldName}}.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_{{Codec.SetterName}}(self.{{Codec.FieldName}}.map(|v| v.cnv()).transpose()?)
                 {{/IsEnum}}
                 {{#IsEnum}}
                 .set_{{Codec.SetterName}}(self.{{Codec.FieldName}}.map(|v| v.into()))

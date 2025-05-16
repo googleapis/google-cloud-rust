@@ -266,13 +266,20 @@ impl CreateCertificateIssuanceConfigRequest {
     }
 
     /// Sets the value of [certificate_issuance_config][crate::model::CreateCertificateIssuanceConfigRequest::certificate_issuance_config].
-    pub fn set_certificate_issuance_config<
-        T: std::convert::Into<std::option::Option<crate::model::CertificateIssuanceConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.certificate_issuance_config = v.into();
+    pub fn set_certificate_issuance_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::CertificateIssuanceConfig>,
+    {
+        self.certificate_issuance_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [certificate_issuance_config][crate::model::CreateCertificateIssuanceConfigRequest::certificate_issuance_config].
+    pub fn set_or_clear_certificate_issuance_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::CertificateIssuanceConfig>,
+    {
+        self.certificate_issuance_config = v.map(|x| x.into());
         self
     }
 }
@@ -379,20 +386,38 @@ impl CertificateIssuanceConfig {
     }
 
     /// Sets the value of [create_time][crate::model::CertificateIssuanceConfig::create_time].
-    pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.create_time = v.into();
+    pub fn set_create_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [create_time][crate::model::CertificateIssuanceConfig::create_time].
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [update_time][crate::model::CertificateIssuanceConfig::update_time].
-    pub fn set_update_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.update_time = v.into();
+    pub fn set_update_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_time][crate::model::CertificateIssuanceConfig::update_time].
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = v.map(|x| x.into());
         self
     }
 
@@ -415,26 +440,42 @@ impl CertificateIssuanceConfig {
     }
 
     /// Sets the value of [certificate_authority_config][crate::model::CertificateIssuanceConfig::certificate_authority_config].
-    pub fn set_certificate_authority_config<
+    pub fn set_certificate_authority_config<T>(mut self, v: T) -> Self
+    where
         T: std::convert::Into<
-                std::option::Option<
-                    crate::model::certificate_issuance_config::CertificateAuthorityConfig,
-                >,
+                crate::model::certificate_issuance_config::CertificateAuthorityConfig,
             >,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.certificate_authority_config = v.into();
+    {
+        self.certificate_authority_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [certificate_authority_config][crate::model::CertificateIssuanceConfig::certificate_authority_config].
+    pub fn set_or_clear_certificate_authority_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<
+                crate::model::certificate_issuance_config::CertificateAuthorityConfig,
+            >,
+    {
+        self.certificate_authority_config = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [lifetime][crate::model::CertificateIssuanceConfig::lifetime].
-    pub fn set_lifetime<T: std::convert::Into<std::option::Option<wkt::Duration>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.lifetime = v.into();
+    pub fn set_lifetime<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Duration>,
+    {
+        self.lifetime = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [lifetime][crate::model::CertificateIssuanceConfig::lifetime].
+    pub fn set_or_clear_lifetime<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Duration>,
+    {
+        self.lifetime = v.map(|x| x.into());
         self
     }
 
@@ -941,13 +982,20 @@ impl CreateCertificateRequest {
     }
 
     /// Sets the value of [certificate][crate::model::CreateCertificateRequest::certificate].
-    pub fn set_certificate<
-        T: std::convert::Into<std::option::Option<crate::model::Certificate>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.certificate = v.into();
+    pub fn set_certificate<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::Certificate>,
+    {
+        self.certificate = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [certificate][crate::model::CreateCertificateRequest::certificate].
+    pub fn set_or_clear_certificate<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::Certificate>,
+    {
+        self.certificate = v.map(|x| x.into());
         self
     }
 }
@@ -984,22 +1032,38 @@ impl UpdateCertificateRequest {
     }
 
     /// Sets the value of [certificate][crate::model::UpdateCertificateRequest::certificate].
-    pub fn set_certificate<
-        T: std::convert::Into<std::option::Option<crate::model::Certificate>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.certificate = v.into();
+    pub fn set_certificate<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::Certificate>,
+    {
+        self.certificate = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [certificate][crate::model::UpdateCertificateRequest::certificate].
+    pub fn set_or_clear_certificate<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::Certificate>,
+    {
+        self.certificate = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateCertificateRequest::update_mask].
-    pub fn set_update_mask<T: std::convert::Into<std::option::Option<wkt::FieldMask>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.update_mask = v.into();
+    pub fn set_update_mask<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_mask][crate::model::UpdateCertificateRequest::update_mask].
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = v.map(|x| x.into());
         self
     }
 }
@@ -1275,13 +1339,20 @@ impl CreateCertificateMapRequest {
     }
 
     /// Sets the value of [certificate_map][crate::model::CreateCertificateMapRequest::certificate_map].
-    pub fn set_certificate_map<
-        T: std::convert::Into<std::option::Option<crate::model::CertificateMap>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.certificate_map = v.into();
+    pub fn set_certificate_map<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::CertificateMap>,
+    {
+        self.certificate_map = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [certificate_map][crate::model::CreateCertificateMapRequest::certificate_map].
+    pub fn set_or_clear_certificate_map<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::CertificateMap>,
+    {
+        self.certificate_map = v.map(|x| x.into());
         self
     }
 }
@@ -1318,22 +1389,38 @@ impl UpdateCertificateMapRequest {
     }
 
     /// Sets the value of [certificate_map][crate::model::UpdateCertificateMapRequest::certificate_map].
-    pub fn set_certificate_map<
-        T: std::convert::Into<std::option::Option<crate::model::CertificateMap>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.certificate_map = v.into();
+    pub fn set_certificate_map<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::CertificateMap>,
+    {
+        self.certificate_map = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [certificate_map][crate::model::UpdateCertificateMapRequest::certificate_map].
+    pub fn set_or_clear_certificate_map<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::CertificateMap>,
+    {
+        self.certificate_map = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateCertificateMapRequest::update_mask].
-    pub fn set_update_mask<T: std::convert::Into<std::option::Option<wkt::FieldMask>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.update_mask = v.into();
+    pub fn set_update_mask<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_mask][crate::model::UpdateCertificateMapRequest::update_mask].
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = v.map(|x| x.into());
         self
     }
 }
@@ -1614,13 +1701,20 @@ impl CreateCertificateMapEntryRequest {
     }
 
     /// Sets the value of [certificate_map_entry][crate::model::CreateCertificateMapEntryRequest::certificate_map_entry].
-    pub fn set_certificate_map_entry<
-        T: std::convert::Into<std::option::Option<crate::model::CertificateMapEntry>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.certificate_map_entry = v.into();
+    pub fn set_certificate_map_entry<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::CertificateMapEntry>,
+    {
+        self.certificate_map_entry = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [certificate_map_entry][crate::model::CreateCertificateMapEntryRequest::certificate_map_entry].
+    pub fn set_or_clear_certificate_map_entry<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::CertificateMapEntry>,
+    {
+        self.certificate_map_entry = v.map(|x| x.into());
         self
     }
 }
@@ -1657,22 +1751,38 @@ impl UpdateCertificateMapEntryRequest {
     }
 
     /// Sets the value of [certificate_map_entry][crate::model::UpdateCertificateMapEntryRequest::certificate_map_entry].
-    pub fn set_certificate_map_entry<
-        T: std::convert::Into<std::option::Option<crate::model::CertificateMapEntry>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.certificate_map_entry = v.into();
+    pub fn set_certificate_map_entry<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::CertificateMapEntry>,
+    {
+        self.certificate_map_entry = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [certificate_map_entry][crate::model::UpdateCertificateMapEntryRequest::certificate_map_entry].
+    pub fn set_or_clear_certificate_map_entry<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::CertificateMapEntry>,
+    {
+        self.certificate_map_entry = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateCertificateMapEntryRequest::update_mask].
-    pub fn set_update_mask<T: std::convert::Into<std::option::Option<wkt::FieldMask>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.update_mask = v.into();
+    pub fn set_update_mask<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_mask][crate::model::UpdateCertificateMapEntryRequest::update_mask].
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = v.map(|x| x.into());
         self
     }
 }
@@ -1948,13 +2058,20 @@ impl CreateDnsAuthorizationRequest {
     }
 
     /// Sets the value of [dns_authorization][crate::model::CreateDnsAuthorizationRequest::dns_authorization].
-    pub fn set_dns_authorization<
-        T: std::convert::Into<std::option::Option<crate::model::DnsAuthorization>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.dns_authorization = v.into();
+    pub fn set_dns_authorization<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::DnsAuthorization>,
+    {
+        self.dns_authorization = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [dns_authorization][crate::model::CreateDnsAuthorizationRequest::dns_authorization].
+    pub fn set_or_clear_dns_authorization<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::DnsAuthorization>,
+    {
+        self.dns_authorization = v.map(|x| x.into());
         self
     }
 }
@@ -1991,22 +2108,38 @@ impl UpdateDnsAuthorizationRequest {
     }
 
     /// Sets the value of [dns_authorization][crate::model::UpdateDnsAuthorizationRequest::dns_authorization].
-    pub fn set_dns_authorization<
-        T: std::convert::Into<std::option::Option<crate::model::DnsAuthorization>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.dns_authorization = v.into();
+    pub fn set_dns_authorization<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::DnsAuthorization>,
+    {
+        self.dns_authorization = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [dns_authorization][crate::model::UpdateDnsAuthorizationRequest::dns_authorization].
+    pub fn set_or_clear_dns_authorization<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::DnsAuthorization>,
+    {
+        self.dns_authorization = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateDnsAuthorizationRequest::update_mask].
-    pub fn set_update_mask<T: std::convert::Into<std::option::Option<wkt::FieldMask>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.update_mask = v.into();
+    pub fn set_update_mask<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_mask][crate::model::UpdateDnsAuthorizationRequest::update_mask].
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = v.map(|x| x.into());
         self
     }
 }
@@ -2100,20 +2233,38 @@ impl OperationMetadata {
     }
 
     /// Sets the value of [create_time][crate::model::OperationMetadata::create_time].
-    pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.create_time = v.into();
+    pub fn set_create_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [create_time][crate::model::OperationMetadata::create_time].
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [end_time][crate::model::OperationMetadata::end_time].
-    pub fn set_end_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.end_time = v.into();
+    pub fn set_end_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.end_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [end_time][crate::model::OperationMetadata::end_time].
+    pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.end_time = v.map(|x| x.into());
         self
     }
 
@@ -2224,20 +2375,38 @@ impl Certificate {
     }
 
     /// Sets the value of [create_time][crate::model::Certificate::create_time].
-    pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.create_time = v.into();
+    pub fn set_create_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [create_time][crate::model::Certificate::create_time].
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [update_time][crate::model::Certificate::update_time].
-    pub fn set_update_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.update_time = v.into();
+    pub fn set_update_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_time][crate::model::Certificate::update_time].
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = v.map(|x| x.into());
         self
     }
 
@@ -2271,11 +2440,20 @@ impl Certificate {
     }
 
     /// Sets the value of [expire_time][crate::model::Certificate::expire_time].
-    pub fn set_expire_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.expire_time = v.into();
+    pub fn set_expire_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.expire_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [expire_time][crate::model::Certificate::expire_time].
+    pub fn set_or_clear_expire_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.expire_time = v.map(|x| x.into());
         self
     }
 
@@ -2519,17 +2697,24 @@ pub mod certificate {
         }
 
         /// Sets the value of [provisioning_issue][crate::model::certificate::ManagedCertificate::provisioning_issue].
-        pub fn set_provisioning_issue<
+        pub fn set_provisioning_issue<T>(mut self, v: T) -> Self
+        where
             T: std::convert::Into<
-                    std::option::Option<
-                        crate::model::certificate::managed_certificate::ProvisioningIssue,
-                    >,
+                    crate::model::certificate::managed_certificate::ProvisioningIssue,
                 >,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.provisioning_issue = v.into();
+        {
+            self.provisioning_issue = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [provisioning_issue][crate::model::certificate::ManagedCertificate::provisioning_issue].
+        pub fn set_or_clear_provisioning_issue<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<
+                    crate::model::certificate::managed_certificate::ProvisioningIssue,
+                >,
+        {
+            self.provisioning_issue = v.map(|x| x.into());
             self
         }
 
@@ -3468,20 +3653,38 @@ impl CertificateMap {
     }
 
     /// Sets the value of [create_time][crate::model::CertificateMap::create_time].
-    pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.create_time = v.into();
+    pub fn set_create_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [create_time][crate::model::CertificateMap::create_time].
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [update_time][crate::model::CertificateMap::update_time].
-    pub fn set_update_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.update_time = v.into();
+    pub fn set_update_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_time][crate::model::CertificateMap::update_time].
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = v.map(|x| x.into());
         self
     }
 
@@ -3770,20 +3973,38 @@ impl CertificateMapEntry {
     }
 
     /// Sets the value of [create_time][crate::model::CertificateMapEntry::create_time].
-    pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.create_time = v.into();
+    pub fn set_create_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [create_time][crate::model::CertificateMapEntry::create_time].
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [update_time][crate::model::CertificateMapEntry::update_time].
-    pub fn set_update_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.update_time = v.into();
+    pub fn set_update_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_time][crate::model::CertificateMapEntry::update_time].
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = v.map(|x| x.into());
         self
     }
 
@@ -4097,20 +4318,38 @@ impl DnsAuthorization {
     }
 
     /// Sets the value of [create_time][crate::model::DnsAuthorization::create_time].
-    pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.create_time = v.into();
+    pub fn set_create_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [create_time][crate::model::DnsAuthorization::create_time].
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [update_time][crate::model::DnsAuthorization::update_time].
-    pub fn set_update_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.update_time = v.into();
+    pub fn set_update_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_time][crate::model::DnsAuthorization::update_time].
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = v.map(|x| x.into());
         self
     }
 
@@ -4139,13 +4378,20 @@ impl DnsAuthorization {
     }
 
     /// Sets the value of [dns_resource_record][crate::model::DnsAuthorization::dns_resource_record].
-    pub fn set_dns_resource_record<
-        T: std::convert::Into<std::option::Option<crate::model::dns_authorization::DnsResourceRecord>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.dns_resource_record = v.into();
+    pub fn set_dns_resource_record<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::dns_authorization::DnsResourceRecord>,
+    {
+        self.dns_resource_record = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [dns_resource_record][crate::model::DnsAuthorization::dns_resource_record].
+    pub fn set_or_clear_dns_resource_record<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::dns_authorization::DnsResourceRecord>,
+    {
+        self.dns_resource_record = v.map(|x| x.into());
         self
     }
 
@@ -4592,13 +4838,20 @@ impl CreateTrustConfigRequest {
     }
 
     /// Sets the value of [trust_config][crate::model::CreateTrustConfigRequest::trust_config].
-    pub fn set_trust_config<
-        T: std::convert::Into<std::option::Option<crate::model::TrustConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.trust_config = v.into();
+    pub fn set_trust_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::TrustConfig>,
+    {
+        self.trust_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [trust_config][crate::model::CreateTrustConfigRequest::trust_config].
+    pub fn set_or_clear_trust_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::TrustConfig>,
+    {
+        self.trust_config = v.map(|x| x.into());
         self
     }
 }
@@ -4635,22 +4888,38 @@ impl UpdateTrustConfigRequest {
     }
 
     /// Sets the value of [trust_config][crate::model::UpdateTrustConfigRequest::trust_config].
-    pub fn set_trust_config<
-        T: std::convert::Into<std::option::Option<crate::model::TrustConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.trust_config = v.into();
+    pub fn set_trust_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::TrustConfig>,
+    {
+        self.trust_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [trust_config][crate::model::UpdateTrustConfigRequest::trust_config].
+    pub fn set_or_clear_trust_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::TrustConfig>,
+    {
+        self.trust_config = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateTrustConfigRequest::update_mask].
-    pub fn set_update_mask<T: std::convert::Into<std::option::Option<wkt::FieldMask>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.update_mask = v.into();
+    pub fn set_update_mask<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_mask][crate::model::UpdateTrustConfigRequest::update_mask].
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = v.map(|x| x.into());
         self
     }
 }
@@ -4765,20 +5034,38 @@ impl TrustConfig {
     }
 
     /// Sets the value of [create_time][crate::model::TrustConfig::create_time].
-    pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.create_time = v.into();
+    pub fn set_create_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [create_time][crate::model::TrustConfig::create_time].
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [update_time][crate::model::TrustConfig::update_time].
-    pub fn set_update_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.update_time = v.into();
+    pub fn set_update_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_time][crate::model::TrustConfig::update_time].
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = v.map(|x| x.into());
         self
     }
 

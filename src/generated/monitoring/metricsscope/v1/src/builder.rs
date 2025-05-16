@@ -75,6 +75,7 @@ pub mod metrics_scopes {
     /// # use google_cloud_monitoring_metricsscope_v1::builder;
     /// use builder::metrics_scopes::GetMetricsScope;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -137,6 +138,7 @@ pub mod metrics_scopes {
     /// # use google_cloud_monitoring_metricsscope_v1::builder;
     /// use builder::metrics_scopes::ListMetricsScopesByMonitoredProject;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -209,8 +211,9 @@ pub mod metrics_scopes {
     /// # use google_cloud_monitoring_metricsscope_v1::builder;
     /// use builder::metrics_scopes::CreateMonitoredProject;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_monitoring_metricsscope_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -304,13 +307,22 @@ pub mod metrics_scopes {
         /// Sets the value of [monitored_project][crate::model::CreateMonitoredProjectRequest::monitored_project].
         ///
         /// This is a **required** field for requests.
-        pub fn set_monitored_project<
-            T: Into<std::option::Option<crate::model::MonitoredProject>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.monitored_project = v.into();
+        pub fn set_monitored_project<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::MonitoredProject>,
+        {
+            self.0.request.monitored_project = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [monitored_project][crate::model::CreateMonitoredProjectRequest::monitored_project].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_monitored_project<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::MonitoredProject>,
+        {
+            self.0.request.monitored_project = v.map(|x| x.into());
             self
         }
     }
@@ -329,8 +341,9 @@ pub mod metrics_scopes {
     /// # use google_cloud_monitoring_metricsscope_v1::builder;
     /// use builder::metrics_scopes::DeleteMonitoredProject;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_monitoring_metricsscope_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -435,6 +448,7 @@ pub mod metrics_scopes {
     /// # use google_cloud_monitoring_metricsscope_v1::builder;
     /// use builder::metrics_scopes::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });

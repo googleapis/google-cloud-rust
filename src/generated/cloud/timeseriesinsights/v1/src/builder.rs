@@ -75,8 +75,9 @@ pub mod timeseries_insights_controller {
     /// # use google_cloud_timeseriesinsights_v1::builder;
     /// use builder::timeseries_insights_controller::ListDataSets;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -177,6 +178,7 @@ pub mod timeseries_insights_controller {
     /// # use google_cloud_timeseriesinsights_v1::builder;
     /// use builder::timeseries_insights_controller::CreateDataSet;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -227,11 +229,22 @@ pub mod timeseries_insights_controller {
         /// Sets the value of [dataset][crate::model::CreateDataSetRequest::dataset].
         ///
         /// This is a **required** field for requests.
-        pub fn set_dataset<T: Into<std::option::Option<crate::model::DataSet>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.dataset = v.into();
+        pub fn set_dataset<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::DataSet>,
+        {
+            self.0.request.dataset = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [dataset][crate::model::CreateDataSetRequest::dataset].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_dataset<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::DataSet>,
+        {
+            self.0.request.dataset = v.map(|x| x.into());
             self
         }
     }
@@ -250,6 +263,7 @@ pub mod timeseries_insights_controller {
     /// # use google_cloud_timeseriesinsights_v1::builder;
     /// use builder::timeseries_insights_controller::DeleteDataSet;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -312,6 +326,7 @@ pub mod timeseries_insights_controller {
     /// # use google_cloud_timeseriesinsights_v1::builder;
     /// use builder::timeseries_insights_controller::AppendEvents;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -385,6 +400,7 @@ pub mod timeseries_insights_controller {
     /// # use google_cloud_timeseriesinsights_v1::builder;
     /// use builder::timeseries_insights_controller::QueryDataSet;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -435,46 +451,94 @@ pub mod timeseries_insights_controller {
         /// Sets the value of [detection_time][crate::model::QueryDataSetRequest::detection_time].
         ///
         /// This is a **required** field for requests.
-        pub fn set_detection_time<T: Into<std::option::Option<wkt::Timestamp>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.detection_time = v.into();
+        pub fn set_detection_time<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Timestamp>,
+        {
+            self.0.request.detection_time = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [detection_time][crate::model::QueryDataSetRequest::detection_time].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_detection_time<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Timestamp>,
+        {
+            self.0.request.detection_time = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [num_returned_slices][crate::model::QueryDataSetRequest::num_returned_slices].
-        pub fn set_num_returned_slices<T: Into<std::option::Option<i32>>>(mut self, v: T) -> Self {
-            self.0.request.num_returned_slices = v.into();
+        pub fn set_num_returned_slices<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<i32>,
+        {
+            self.0.request.num_returned_slices = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [num_returned_slices][crate::model::QueryDataSetRequest::num_returned_slices].
+        pub fn set_or_clear_num_returned_slices<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<i32>,
+        {
+            self.0.request.num_returned_slices = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [slicing_params][crate::model::QueryDataSetRequest::slicing_params].
-        pub fn set_slicing_params<T: Into<std::option::Option<crate::model::SlicingParams>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.slicing_params = v.into();
+        pub fn set_slicing_params<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::SlicingParams>,
+        {
+            self.0.request.slicing_params = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [slicing_params][crate::model::QueryDataSetRequest::slicing_params].
+        pub fn set_or_clear_slicing_params<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::SlicingParams>,
+        {
+            self.0.request.slicing_params = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [timeseries_params][crate::model::QueryDataSetRequest::timeseries_params].
-        pub fn set_timeseries_params<
-            T: Into<std::option::Option<crate::model::TimeseriesParams>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.timeseries_params = v.into();
+        pub fn set_timeseries_params<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::TimeseriesParams>,
+        {
+            self.0.request.timeseries_params = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [timeseries_params][crate::model::QueryDataSetRequest::timeseries_params].
+        pub fn set_or_clear_timeseries_params<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::TimeseriesParams>,
+        {
+            self.0.request.timeseries_params = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [forecast_params][crate::model::QueryDataSetRequest::forecast_params].
-        pub fn set_forecast_params<T: Into<std::option::Option<crate::model::ForecastParams>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.forecast_params = v.into();
+        pub fn set_forecast_params<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::ForecastParams>,
+        {
+            self.0.request.forecast_params = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [forecast_params][crate::model::QueryDataSetRequest::forecast_params].
+        pub fn set_or_clear_forecast_params<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::ForecastParams>,
+        {
+            self.0.request.forecast_params = v.map(|x| x.into());
             self
         }
 
@@ -499,6 +563,7 @@ pub mod timeseries_insights_controller {
     /// # use google_cloud_timeseriesinsights_v1::builder;
     /// use builder::timeseries_insights_controller::EvaluateSlice;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -562,31 +627,58 @@ pub mod timeseries_insights_controller {
         /// Sets the value of [detection_time][crate::model::EvaluateSliceRequest::detection_time].
         ///
         /// This is a **required** field for requests.
-        pub fn set_detection_time<T: Into<std::option::Option<wkt::Timestamp>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.detection_time = v.into();
+        pub fn set_detection_time<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Timestamp>,
+        {
+            self.0.request.detection_time = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [detection_time][crate::model::EvaluateSliceRequest::detection_time].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_detection_time<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Timestamp>,
+        {
+            self.0.request.detection_time = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [timeseries_params][crate::model::EvaluateSliceRequest::timeseries_params].
-        pub fn set_timeseries_params<
-            T: Into<std::option::Option<crate::model::TimeseriesParams>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.timeseries_params = v.into();
+        pub fn set_timeseries_params<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::TimeseriesParams>,
+        {
+            self.0.request.timeseries_params = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [timeseries_params][crate::model::EvaluateSliceRequest::timeseries_params].
+        pub fn set_or_clear_timeseries_params<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::TimeseriesParams>,
+        {
+            self.0.request.timeseries_params = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [forecast_params][crate::model::EvaluateSliceRequest::forecast_params].
-        pub fn set_forecast_params<T: Into<std::option::Option<crate::model::ForecastParams>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.forecast_params = v.into();
+        pub fn set_forecast_params<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::ForecastParams>,
+        {
+            self.0.request.forecast_params = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [forecast_params][crate::model::EvaluateSliceRequest::forecast_params].
+        pub fn set_or_clear_forecast_params<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::ForecastParams>,
+        {
+            self.0.request.forecast_params = v.map(|x| x.into());
             self
         }
     }
@@ -605,6 +697,7 @@ pub mod timeseries_insights_controller {
     /// # use google_cloud_timeseriesinsights_v1::builder;
     /// use builder::timeseries_insights_controller::EvaluateTimeseries;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -656,29 +749,56 @@ pub mod timeseries_insights_controller {
         }
 
         /// Sets the value of [timeseries][crate::model::EvaluateTimeseriesRequest::timeseries].
-        pub fn set_timeseries<T: Into<std::option::Option<crate::model::Timeseries>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.timeseries = v.into();
+        pub fn set_timeseries<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Timeseries>,
+        {
+            self.0.request.timeseries = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [timeseries][crate::model::EvaluateTimeseriesRequest::timeseries].
+        pub fn set_or_clear_timeseries<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Timeseries>,
+        {
+            self.0.request.timeseries = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [granularity][crate::model::EvaluateTimeseriesRequest::granularity].
-        pub fn set_granularity<T: Into<std::option::Option<wkt::Duration>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.granularity = v.into();
+        pub fn set_granularity<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Duration>,
+        {
+            self.0.request.granularity = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [granularity][crate::model::EvaluateTimeseriesRequest::granularity].
+        pub fn set_or_clear_granularity<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Duration>,
+        {
+            self.0.request.granularity = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [forecast_params][crate::model::EvaluateTimeseriesRequest::forecast_params].
-        pub fn set_forecast_params<T: Into<std::option::Option<crate::model::ForecastParams>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.forecast_params = v.into();
+        pub fn set_forecast_params<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::ForecastParams>,
+        {
+            self.0.request.forecast_params = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [forecast_params][crate::model::EvaluateTimeseriesRequest::forecast_params].
+        pub fn set_or_clear_forecast_params<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::ForecastParams>,
+        {
+            self.0.request.forecast_params = v.map(|x| x.into());
             self
         }
     }

@@ -57,13 +57,20 @@ impl TroubleshootIamPolicyRequest {
     }
 
     /// Sets the value of [access_tuple][crate::model::TroubleshootIamPolicyRequest::access_tuple].
-    pub fn set_access_tuple<
-        T: std::convert::Into<std::option::Option<crate::model::AccessTuple>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.access_tuple = v.into();
+    pub fn set_access_tuple<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::AccessTuple>,
+    {
+        self.access_tuple = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [access_tuple][crate::model::TroubleshootIamPolicyRequest::access_tuple].
+    pub fn set_or_clear_access_tuple<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::AccessTuple>,
+    {
+        self.access_tuple = v.map(|x| x.into());
         self
     }
 }
@@ -297,11 +304,20 @@ impl ExplainedPolicy {
     }
 
     /// Sets the value of [policy][crate::model::ExplainedPolicy::policy].
-    pub fn set_policy<T: std::convert::Into<std::option::Option<iam_v1::model::Policy>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.policy = v.into();
+    pub fn set_policy<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<iam_v1::model::Policy>,
+    {
+        self.policy = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [policy][crate::model::ExplainedPolicy::policy].
+    pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<iam_v1::model::Policy>,
+    {
+        self.policy = v.map(|x| x.into());
         self
     }
 
@@ -468,11 +484,20 @@ impl BindingExplanation {
     }
 
     /// Sets the value of [condition][crate::model::BindingExplanation::condition].
-    pub fn set_condition<T: std::convert::Into<std::option::Option<gtype::model::Expr>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.condition = v.into();
+    pub fn set_condition<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<gtype::model::Expr>,
+    {
+        self.condition = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [condition][crate::model::BindingExplanation::condition].
+    pub fn set_or_clear_condition<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<gtype::model::Expr>,
+    {
+        self.condition = v.map(|x| x.into());
         self
     }
 }

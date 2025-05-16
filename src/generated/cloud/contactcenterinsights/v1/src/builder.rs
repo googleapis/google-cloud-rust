@@ -75,6 +75,7 @@ pub mod contact_center_insights {
     /// # use google_cloud_contactcenterinsights_v1::builder;
     /// use builder::contact_center_insights::CreateConversation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -128,11 +129,22 @@ pub mod contact_center_insights {
         /// Sets the value of [conversation][crate::model::CreateConversationRequest::conversation].
         ///
         /// This is a **required** field for requests.
-        pub fn set_conversation<T: Into<std::option::Option<crate::model::Conversation>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.conversation = v.into();
+        pub fn set_conversation<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Conversation>,
+        {
+            self.0.request.conversation = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [conversation][crate::model::CreateConversationRequest::conversation].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_conversation<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Conversation>,
+        {
+            self.0.request.conversation = v.map(|x| x.into());
             self
         }
 
@@ -157,8 +169,9 @@ pub mod contact_center_insights {
     /// # use google_cloud_contactcenterinsights_v1::builder;
     /// use builder::contact_center_insights::UploadConversation;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_contactcenterinsights_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -252,11 +265,22 @@ pub mod contact_center_insights {
         /// Sets the value of [conversation][crate::model::UploadConversationRequest::conversation].
         ///
         /// This is a **required** field for requests.
-        pub fn set_conversation<T: Into<std::option::Option<crate::model::Conversation>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.conversation = v.into();
+        pub fn set_conversation<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Conversation>,
+        {
+            self.0.request.conversation = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [conversation][crate::model::UploadConversationRequest::conversation].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_conversation<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Conversation>,
+        {
+            self.0.request.conversation = v.map(|x| x.into());
             self
         }
 
@@ -267,20 +291,38 @@ pub mod contact_center_insights {
         }
 
         /// Sets the value of [redaction_config][crate::model::UploadConversationRequest::redaction_config].
-        pub fn set_redaction_config<T: Into<std::option::Option<crate::model::RedactionConfig>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.redaction_config = v.into();
+        pub fn set_redaction_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::RedactionConfig>,
+        {
+            self.0.request.redaction_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [redaction_config][crate::model::UploadConversationRequest::redaction_config].
+        pub fn set_or_clear_redaction_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::RedactionConfig>,
+        {
+            self.0.request.redaction_config = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [speech_config][crate::model::UploadConversationRequest::speech_config].
-        pub fn set_speech_config<T: Into<std::option::Option<crate::model::SpeechConfig>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.speech_config = v.into();
+        pub fn set_speech_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::SpeechConfig>,
+        {
+            self.0.request.speech_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [speech_config][crate::model::UploadConversationRequest::speech_config].
+        pub fn set_or_clear_speech_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::SpeechConfig>,
+        {
+            self.0.request.speech_config = v.map(|x| x.into());
             self
         }
     }
@@ -299,6 +341,7 @@ pub mod contact_center_insights {
     /// # use google_cloud_contactcenterinsights_v1::builder;
     /// use builder::contact_center_insights::UpdateConversation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -344,20 +387,40 @@ pub mod contact_center_insights {
         /// Sets the value of [conversation][crate::model::UpdateConversationRequest::conversation].
         ///
         /// This is a **required** field for requests.
-        pub fn set_conversation<T: Into<std::option::Option<crate::model::Conversation>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.conversation = v.into();
+        pub fn set_conversation<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Conversation>,
+        {
+            self.0.request.conversation = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [conversation][crate::model::UpdateConversationRequest::conversation].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_conversation<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Conversation>,
+        {
+            self.0.request.conversation = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateConversationRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateConversationRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -376,6 +439,7 @@ pub mod contact_center_insights {
     /// # use google_cloud_contactcenterinsights_v1::builder;
     /// use builder::contact_center_insights::GetConversation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -444,8 +508,9 @@ pub mod contact_center_insights {
     /// # use google_cloud_contactcenterinsights_v1::builder;
     /// use builder::contact_center_insights::ListConversations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -567,6 +632,7 @@ pub mod contact_center_insights {
     /// # use google_cloud_contactcenterinsights_v1::builder;
     /// use builder::contact_center_insights::DeleteConversation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -638,8 +704,9 @@ pub mod contact_center_insights {
     /// # use google_cloud_contactcenterinsights_v1::builder;
     /// use builder::contact_center_insights::CreateAnalysis;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_contactcenterinsights_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -730,11 +797,22 @@ pub mod contact_center_insights {
         /// Sets the value of [analysis][crate::model::CreateAnalysisRequest::analysis].
         ///
         /// This is a **required** field for requests.
-        pub fn set_analysis<T: Into<std::option::Option<crate::model::Analysis>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.analysis = v.into();
+        pub fn set_analysis<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Analysis>,
+        {
+            self.0.request.analysis = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [analysis][crate::model::CreateAnalysisRequest::analysis].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_analysis<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Analysis>,
+        {
+            self.0.request.analysis = v.map(|x| x.into());
             self
         }
     }
@@ -753,6 +831,7 @@ pub mod contact_center_insights {
     /// # use google_cloud_contactcenterinsights_v1::builder;
     /// use builder::contact_center_insights::GetAnalysis;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -815,8 +894,9 @@ pub mod contact_center_insights {
     /// # use google_cloud_contactcenterinsights_v1::builder;
     /// use builder::contact_center_insights::ListAnalyses;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -923,6 +1003,7 @@ pub mod contact_center_insights {
     /// # use google_cloud_contactcenterinsights_v1::builder;
     /// use builder::contact_center_insights::DeleteAnalysis;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -985,8 +1066,9 @@ pub mod contact_center_insights {
     /// # use google_cloud_contactcenterinsights_v1::builder;
     /// use builder::contact_center_insights::BulkAnalyzeConversations;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_contactcenterinsights_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1098,13 +1180,20 @@ pub mod contact_center_insights {
         }
 
         /// Sets the value of [annotator_selector][crate::model::BulkAnalyzeConversationsRequest::annotator_selector].
-        pub fn set_annotator_selector<
-            T: Into<std::option::Option<crate::model::AnnotatorSelector>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.annotator_selector = v.into();
+        pub fn set_annotator_selector<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::AnnotatorSelector>,
+        {
+            self.0.request.annotator_selector = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [annotator_selector][crate::model::BulkAnalyzeConversationsRequest::annotator_selector].
+        pub fn set_or_clear_annotator_selector<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::AnnotatorSelector>,
+        {
+            self.0.request.annotator_selector = v.map(|x| x.into());
             self
         }
     }
@@ -1123,8 +1212,9 @@ pub mod contact_center_insights {
     /// # use google_cloud_contactcenterinsights_v1::builder;
     /// use builder::contact_center_insights::BulkDeleteConversations;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_contactcenterinsights_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1252,8 +1342,9 @@ pub mod contact_center_insights {
     /// # use google_cloud_contactcenterinsights_v1::builder;
     /// use builder::contact_center_insights::IngestConversations;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_contactcenterinsights_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1347,39 +1438,74 @@ pub mod contact_center_insights {
         }
 
         /// Sets the value of [conversation_config][crate::model::IngestConversationsRequest::conversation_config].
-        pub fn set_conversation_config<
-            T: Into<
-                std::option::Option<crate::model::ingest_conversations_request::ConversationConfig>,
-            >,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.conversation_config = v.into();
+        pub fn set_conversation_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::ingest_conversations_request::ConversationConfig>,
+        {
+            self.0.request.conversation_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [conversation_config][crate::model::IngestConversationsRequest::conversation_config].
+        pub fn set_or_clear_conversation_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::ingest_conversations_request::ConversationConfig>,
+        {
+            self.0.request.conversation_config = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [redaction_config][crate::model::IngestConversationsRequest::redaction_config].
-        pub fn set_redaction_config<T: Into<std::option::Option<crate::model::RedactionConfig>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.redaction_config = v.into();
+        pub fn set_redaction_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::RedactionConfig>,
+        {
+            self.0.request.redaction_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [redaction_config][crate::model::IngestConversationsRequest::redaction_config].
+        pub fn set_or_clear_redaction_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::RedactionConfig>,
+        {
+            self.0.request.redaction_config = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [speech_config][crate::model::IngestConversationsRequest::speech_config].
-        pub fn set_speech_config<T: Into<std::option::Option<crate::model::SpeechConfig>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.speech_config = v.into();
+        pub fn set_speech_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::SpeechConfig>,
+        {
+            self.0.request.speech_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [speech_config][crate::model::IngestConversationsRequest::speech_config].
+        pub fn set_or_clear_speech_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::SpeechConfig>,
+        {
+            self.0.request.speech_config = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [sample_size][crate::model::IngestConversationsRequest::sample_size].
-        pub fn set_sample_size<T: Into<std::option::Option<i32>>>(mut self, v: T) -> Self {
-            self.0.request.sample_size = v.into();
+        pub fn set_sample_size<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<i32>,
+        {
+            self.0.request.sample_size = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [sample_size][crate::model::IngestConversationsRequest::sample_size].
+        pub fn set_or_clear_sample_size<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<i32>,
+        {
+            self.0.request.sample_size = v.map(|x| x.into());
             self
         }
 
@@ -1460,8 +1586,9 @@ pub mod contact_center_insights {
     /// # use google_cloud_contactcenterinsights_v1::builder;
     /// use builder::contact_center_insights::ExportInsightsData;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_contactcenterinsights_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1625,8 +1752,9 @@ pub mod contact_center_insights {
     /// # use google_cloud_contactcenterinsights_v1::builder;
     /// use builder::contact_center_insights::CreateIssueModel;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_contactcenterinsights_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1720,11 +1848,22 @@ pub mod contact_center_insights {
         /// Sets the value of [issue_model][crate::model::CreateIssueModelRequest::issue_model].
         ///
         /// This is a **required** field for requests.
-        pub fn set_issue_model<T: Into<std::option::Option<crate::model::IssueModel>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.issue_model = v.into();
+        pub fn set_issue_model<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::IssueModel>,
+        {
+            self.0.request.issue_model = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [issue_model][crate::model::CreateIssueModelRequest::issue_model].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_issue_model<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::IssueModel>,
+        {
+            self.0.request.issue_model = v.map(|x| x.into());
             self
         }
     }
@@ -1743,6 +1882,7 @@ pub mod contact_center_insights {
     /// # use google_cloud_contactcenterinsights_v1::builder;
     /// use builder::contact_center_insights::UpdateIssueModel;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1788,20 +1928,40 @@ pub mod contact_center_insights {
         /// Sets the value of [issue_model][crate::model::UpdateIssueModelRequest::issue_model].
         ///
         /// This is a **required** field for requests.
-        pub fn set_issue_model<T: Into<std::option::Option<crate::model::IssueModel>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.issue_model = v.into();
+        pub fn set_issue_model<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::IssueModel>,
+        {
+            self.0.request.issue_model = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [issue_model][crate::model::UpdateIssueModelRequest::issue_model].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_issue_model<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::IssueModel>,
+        {
+            self.0.request.issue_model = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateIssueModelRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateIssueModelRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -1820,6 +1980,7 @@ pub mod contact_center_insights {
     /// # use google_cloud_contactcenterinsights_v1::builder;
     /// use builder::contact_center_insights::GetIssueModel;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1882,6 +2043,7 @@ pub mod contact_center_insights {
     /// # use google_cloud_contactcenterinsights_v1::builder;
     /// use builder::contact_center_insights::ListIssueModels;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1944,8 +2106,9 @@ pub mod contact_center_insights {
     /// # use google_cloud_contactcenterinsights_v1::builder;
     /// use builder::contact_center_insights::DeleteIssueModel;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_contactcenterinsights_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -2051,8 +2214,9 @@ pub mod contact_center_insights {
     /// # use google_cloud_contactcenterinsights_v1::builder;
     /// use builder::contact_center_insights::DeployIssueModel;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_contactcenterinsights_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -2160,8 +2324,9 @@ pub mod contact_center_insights {
     /// # use google_cloud_contactcenterinsights_v1::builder;
     /// use builder::contact_center_insights::UndeployIssueModel;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_contactcenterinsights_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -2269,8 +2434,9 @@ pub mod contact_center_insights {
     /// # use google_cloud_contactcenterinsights_v1::builder;
     /// use builder::contact_center_insights::ExportIssueModel;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_contactcenterinsights_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -2409,8 +2575,9 @@ pub mod contact_center_insights {
     /// # use google_cloud_contactcenterinsights_v1::builder;
     /// use builder::contact_center_insights::ImportIssueModel;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_contactcenterinsights_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -2553,6 +2720,7 @@ pub mod contact_center_insights {
     /// # use google_cloud_contactcenterinsights_v1::builder;
     /// use builder::contact_center_insights::GetIssue;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2615,6 +2783,7 @@ pub mod contact_center_insights {
     /// # use google_cloud_contactcenterinsights_v1::builder;
     /// use builder::contact_center_insights::ListIssues;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2677,6 +2846,7 @@ pub mod contact_center_insights {
     /// # use google_cloud_contactcenterinsights_v1::builder;
     /// use builder::contact_center_insights::UpdateIssue;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2719,20 +2889,40 @@ pub mod contact_center_insights {
         /// Sets the value of [issue][crate::model::UpdateIssueRequest::issue].
         ///
         /// This is a **required** field for requests.
-        pub fn set_issue<T: Into<std::option::Option<crate::model::Issue>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.issue = v.into();
+        pub fn set_issue<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Issue>,
+        {
+            self.0.request.issue = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [issue][crate::model::UpdateIssueRequest::issue].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_issue<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Issue>,
+        {
+            self.0.request.issue = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateIssueRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateIssueRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -2751,6 +2941,7 @@ pub mod contact_center_insights {
     /// # use google_cloud_contactcenterinsights_v1::builder;
     /// use builder::contact_center_insights::DeleteIssue;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2813,6 +3004,7 @@ pub mod contact_center_insights {
     /// # use google_cloud_contactcenterinsights_v1::builder;
     /// use builder::contact_center_insights::CalculateIssueModelStats;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2880,6 +3072,7 @@ pub mod contact_center_insights {
     /// # use google_cloud_contactcenterinsights_v1::builder;
     /// use builder::contact_center_insights::CreatePhraseMatcher;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2933,11 +3126,22 @@ pub mod contact_center_insights {
         /// Sets the value of [phrase_matcher][crate::model::CreatePhraseMatcherRequest::phrase_matcher].
         ///
         /// This is a **required** field for requests.
-        pub fn set_phrase_matcher<T: Into<std::option::Option<crate::model::PhraseMatcher>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.phrase_matcher = v.into();
+        pub fn set_phrase_matcher<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::PhraseMatcher>,
+        {
+            self.0.request.phrase_matcher = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [phrase_matcher][crate::model::CreatePhraseMatcherRequest::phrase_matcher].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_phrase_matcher<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::PhraseMatcher>,
+        {
+            self.0.request.phrase_matcher = v.map(|x| x.into());
             self
         }
     }
@@ -2956,6 +3160,7 @@ pub mod contact_center_insights {
     /// # use google_cloud_contactcenterinsights_v1::builder;
     /// use builder::contact_center_insights::GetPhraseMatcher;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3021,8 +3226,9 @@ pub mod contact_center_insights {
     /// # use google_cloud_contactcenterinsights_v1::builder;
     /// use builder::contact_center_insights::ListPhraseMatchers;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -3134,6 +3340,7 @@ pub mod contact_center_insights {
     /// # use google_cloud_contactcenterinsights_v1::builder;
     /// use builder::contact_center_insights::DeletePhraseMatcher;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3199,6 +3406,7 @@ pub mod contact_center_insights {
     /// # use google_cloud_contactcenterinsights_v1::builder;
     /// use builder::contact_center_insights::UpdatePhraseMatcher;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3244,20 +3452,40 @@ pub mod contact_center_insights {
         /// Sets the value of [phrase_matcher][crate::model::UpdatePhraseMatcherRequest::phrase_matcher].
         ///
         /// This is a **required** field for requests.
-        pub fn set_phrase_matcher<T: Into<std::option::Option<crate::model::PhraseMatcher>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.phrase_matcher = v.into();
+        pub fn set_phrase_matcher<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::PhraseMatcher>,
+        {
+            self.0.request.phrase_matcher = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [phrase_matcher][crate::model::UpdatePhraseMatcherRequest::phrase_matcher].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_phrase_matcher<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::PhraseMatcher>,
+        {
+            self.0.request.phrase_matcher = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdatePhraseMatcherRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdatePhraseMatcherRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -3276,6 +3504,7 @@ pub mod contact_center_insights {
     /// # use google_cloud_contactcenterinsights_v1::builder;
     /// use builder::contact_center_insights::CalculateStats;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3344,6 +3573,7 @@ pub mod contact_center_insights {
     /// # use google_cloud_contactcenterinsights_v1::builder;
     /// use builder::contact_center_insights::GetSettings;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3406,6 +3636,7 @@ pub mod contact_center_insights {
     /// # use google_cloud_contactcenterinsights_v1::builder;
     /// use builder::contact_center_insights::UpdateSettings;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3448,22 +3679,44 @@ pub mod contact_center_insights {
         /// Sets the value of [settings][crate::model::UpdateSettingsRequest::settings].
         ///
         /// This is a **required** field for requests.
-        pub fn set_settings<T: Into<std::option::Option<crate::model::Settings>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.settings = v.into();
+        pub fn set_settings<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Settings>,
+        {
+            self.0.request.settings = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [settings][crate::model::UpdateSettingsRequest::settings].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_settings<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Settings>,
+        {
+            self.0.request.settings = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateSettingsRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateSettingsRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -3482,6 +3735,7 @@ pub mod contact_center_insights {
     /// # use google_cloud_contactcenterinsights_v1::builder;
     /// use builder::contact_center_insights::CreateAnalysisRule;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3535,11 +3789,22 @@ pub mod contact_center_insights {
         /// Sets the value of [analysis_rule][crate::model::CreateAnalysisRuleRequest::analysis_rule].
         ///
         /// This is a **required** field for requests.
-        pub fn set_analysis_rule<T: Into<std::option::Option<crate::model::AnalysisRule>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.analysis_rule = v.into();
+        pub fn set_analysis_rule<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::AnalysisRule>,
+        {
+            self.0.request.analysis_rule = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [analysis_rule][crate::model::CreateAnalysisRuleRequest::analysis_rule].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_analysis_rule<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::AnalysisRule>,
+        {
+            self.0.request.analysis_rule = v.map(|x| x.into());
             self
         }
     }
@@ -3558,6 +3823,7 @@ pub mod contact_center_insights {
     /// # use google_cloud_contactcenterinsights_v1::builder;
     /// use builder::contact_center_insights::GetAnalysisRule;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3620,8 +3886,9 @@ pub mod contact_center_insights {
     /// # use google_cloud_contactcenterinsights_v1::builder;
     /// use builder::contact_center_insights::ListAnalysisRules;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -3725,6 +3992,7 @@ pub mod contact_center_insights {
     /// # use google_cloud_contactcenterinsights_v1::builder;
     /// use builder::contact_center_insights::UpdateAnalysisRule;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3770,20 +4038,40 @@ pub mod contact_center_insights {
         /// Sets the value of [analysis_rule][crate::model::UpdateAnalysisRuleRequest::analysis_rule].
         ///
         /// This is a **required** field for requests.
-        pub fn set_analysis_rule<T: Into<std::option::Option<crate::model::AnalysisRule>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.analysis_rule = v.into();
+        pub fn set_analysis_rule<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::AnalysisRule>,
+        {
+            self.0.request.analysis_rule = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [analysis_rule][crate::model::UpdateAnalysisRuleRequest::analysis_rule].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_analysis_rule<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::AnalysisRule>,
+        {
+            self.0.request.analysis_rule = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateAnalysisRuleRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateAnalysisRuleRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -3802,6 +4090,7 @@ pub mod contact_center_insights {
     /// # use google_cloud_contactcenterinsights_v1::builder;
     /// use builder::contact_center_insights::DeleteAnalysisRule;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3867,6 +4156,7 @@ pub mod contact_center_insights {
     /// # use google_cloud_contactcenterinsights_v1::builder;
     /// use builder::contact_center_insights::GetEncryptionSpec;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3932,8 +4222,9 @@ pub mod contact_center_insights {
     /// # use google_cloud_contactcenterinsights_v1::builder;
     /// use builder::contact_center_insights::InitializeEncryptionSpec;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_contactcenterinsights_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -4023,11 +4314,22 @@ pub mod contact_center_insights {
         /// Sets the value of [encryption_spec][crate::model::InitializeEncryptionSpecRequest::encryption_spec].
         ///
         /// This is a **required** field for requests.
-        pub fn set_encryption_spec<T: Into<std::option::Option<crate::model::EncryptionSpec>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.encryption_spec = v.into();
+        pub fn set_encryption_spec<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::EncryptionSpec>,
+        {
+            self.0.request.encryption_spec = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [encryption_spec][crate::model::InitializeEncryptionSpecRequest::encryption_spec].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_encryption_spec<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::EncryptionSpec>,
+        {
+            self.0.request.encryption_spec = v.map(|x| x.into());
             self
         }
     }
@@ -4046,6 +4348,7 @@ pub mod contact_center_insights {
     /// # use google_cloud_contactcenterinsights_v1::builder;
     /// use builder::contact_center_insights::CreateView;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -4096,8 +4399,22 @@ pub mod contact_center_insights {
         /// Sets the value of [view][crate::model::CreateViewRequest::view].
         ///
         /// This is a **required** field for requests.
-        pub fn set_view<T: Into<std::option::Option<crate::model::View>>>(mut self, v: T) -> Self {
-            self.0.request.view = v.into();
+        pub fn set_view<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::View>,
+        {
+            self.0.request.view = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [view][crate::model::CreateViewRequest::view].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_view<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::View>,
+        {
+            self.0.request.view = v.map(|x| x.into());
             self
         }
     }
@@ -4116,6 +4433,7 @@ pub mod contact_center_insights {
     /// # use google_cloud_contactcenterinsights_v1::builder;
     /// use builder::contact_center_insights::GetView;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -4178,8 +4496,9 @@ pub mod contact_center_insights {
     /// # use google_cloud_contactcenterinsights_v1::builder;
     /// use builder::contact_center_insights::ListViews;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -4280,6 +4599,7 @@ pub mod contact_center_insights {
     /// # use google_cloud_contactcenterinsights_v1::builder;
     /// use builder::contact_center_insights::UpdateView;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -4322,17 +4642,40 @@ pub mod contact_center_insights {
         /// Sets the value of [view][crate::model::UpdateViewRequest::view].
         ///
         /// This is a **required** field for requests.
-        pub fn set_view<T: Into<std::option::Option<crate::model::View>>>(mut self, v: T) -> Self {
-            self.0.request.view = v.into();
+        pub fn set_view<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::View>,
+        {
+            self.0.request.view = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [view][crate::model::UpdateViewRequest::view].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_view<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::View>,
+        {
+            self.0.request.view = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateViewRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateViewRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -4351,6 +4694,7 @@ pub mod contact_center_insights {
     /// # use google_cloud_contactcenterinsights_v1::builder;
     /// use builder::contact_center_insights::DeleteView;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -4413,8 +4757,9 @@ pub mod contact_center_insights {
     /// # use google_cloud_contactcenterinsights_v1::builder;
     /// use builder::contact_center_insights::QueryMetrics;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_contactcenterinsights_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -4533,11 +4878,20 @@ pub mod contact_center_insights {
         }
 
         /// Sets the value of [measure_mask][crate::model::QueryMetricsRequest::measure_mask].
-        pub fn set_measure_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.measure_mask = v.into();
+        pub fn set_measure_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.measure_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [measure_mask][crate::model::QueryMetricsRequest::measure_mask].
+        pub fn set_or_clear_measure_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.measure_mask = v.map(|x| x.into());
             self
         }
     }
@@ -4556,6 +4910,7 @@ pub mod contact_center_insights {
     /// # use google_cloud_contactcenterinsights_v1::builder;
     /// use builder::contact_center_insights::CreateQaQuestion;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -4609,11 +4964,22 @@ pub mod contact_center_insights {
         /// Sets the value of [qa_question][crate::model::CreateQaQuestionRequest::qa_question].
         ///
         /// This is a **required** field for requests.
-        pub fn set_qa_question<T: Into<std::option::Option<crate::model::QaQuestion>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.qa_question = v.into();
+        pub fn set_qa_question<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::QaQuestion>,
+        {
+            self.0.request.qa_question = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [qa_question][crate::model::CreateQaQuestionRequest::qa_question].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_qa_question<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::QaQuestion>,
+        {
+            self.0.request.qa_question = v.map(|x| x.into());
             self
         }
 
@@ -4638,6 +5004,7 @@ pub mod contact_center_insights {
     /// # use google_cloud_contactcenterinsights_v1::builder;
     /// use builder::contact_center_insights::GetQaQuestion;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -4700,6 +5067,7 @@ pub mod contact_center_insights {
     /// # use google_cloud_contactcenterinsights_v1::builder;
     /// use builder::contact_center_insights::UpdateQaQuestion;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -4745,22 +5113,44 @@ pub mod contact_center_insights {
         /// Sets the value of [qa_question][crate::model::UpdateQaQuestionRequest::qa_question].
         ///
         /// This is a **required** field for requests.
-        pub fn set_qa_question<T: Into<std::option::Option<crate::model::QaQuestion>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.qa_question = v.into();
+        pub fn set_qa_question<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::QaQuestion>,
+        {
+            self.0.request.qa_question = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [qa_question][crate::model::UpdateQaQuestionRequest::qa_question].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_qa_question<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::QaQuestion>,
+        {
+            self.0.request.qa_question = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateQaQuestionRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateQaQuestionRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -4779,6 +5169,7 @@ pub mod contact_center_insights {
     /// # use google_cloud_contactcenterinsights_v1::builder;
     /// use builder::contact_center_insights::DeleteQaQuestion;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -4844,8 +5235,9 @@ pub mod contact_center_insights {
     /// # use google_cloud_contactcenterinsights_v1::builder;
     /// use builder::contact_center_insights::ListQaQuestions;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -4946,6 +5338,7 @@ pub mod contact_center_insights {
     /// # use google_cloud_contactcenterinsights_v1::builder;
     /// use builder::contact_center_insights::CreateQaScorecard;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -4999,11 +5392,22 @@ pub mod contact_center_insights {
         /// Sets the value of [qa_scorecard][crate::model::CreateQaScorecardRequest::qa_scorecard].
         ///
         /// This is a **required** field for requests.
-        pub fn set_qa_scorecard<T: Into<std::option::Option<crate::model::QaScorecard>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.qa_scorecard = v.into();
+        pub fn set_qa_scorecard<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::QaScorecard>,
+        {
+            self.0.request.qa_scorecard = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [qa_scorecard][crate::model::CreateQaScorecardRequest::qa_scorecard].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_qa_scorecard<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::QaScorecard>,
+        {
+            self.0.request.qa_scorecard = v.map(|x| x.into());
             self
         }
 
@@ -5028,6 +5432,7 @@ pub mod contact_center_insights {
     /// # use google_cloud_contactcenterinsights_v1::builder;
     /// use builder::contact_center_insights::GetQaScorecard;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -5090,6 +5495,7 @@ pub mod contact_center_insights {
     /// # use google_cloud_contactcenterinsights_v1::builder;
     /// use builder::contact_center_insights::UpdateQaScorecard;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -5135,22 +5541,44 @@ pub mod contact_center_insights {
         /// Sets the value of [qa_scorecard][crate::model::UpdateQaScorecardRequest::qa_scorecard].
         ///
         /// This is a **required** field for requests.
-        pub fn set_qa_scorecard<T: Into<std::option::Option<crate::model::QaScorecard>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.qa_scorecard = v.into();
+        pub fn set_qa_scorecard<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::QaScorecard>,
+        {
+            self.0.request.qa_scorecard = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [qa_scorecard][crate::model::UpdateQaScorecardRequest::qa_scorecard].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_qa_scorecard<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::QaScorecard>,
+        {
+            self.0.request.qa_scorecard = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateQaScorecardRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateQaScorecardRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -5169,6 +5597,7 @@ pub mod contact_center_insights {
     /// # use google_cloud_contactcenterinsights_v1::builder;
     /// use builder::contact_center_insights::DeleteQaScorecard;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -5240,8 +5669,9 @@ pub mod contact_center_insights {
     /// # use google_cloud_contactcenterinsights_v1::builder;
     /// use builder::contact_center_insights::ListQaScorecards;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -5345,6 +5775,7 @@ pub mod contact_center_insights {
     /// # use google_cloud_contactcenterinsights_v1::builder;
     /// use builder::contact_center_insights::CreateQaScorecardRevision;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -5400,13 +5831,22 @@ pub mod contact_center_insights {
         /// Sets the value of [qa_scorecard_revision][crate::model::CreateQaScorecardRevisionRequest::qa_scorecard_revision].
         ///
         /// This is a **required** field for requests.
-        pub fn set_qa_scorecard_revision<
-            T: Into<std::option::Option<crate::model::QaScorecardRevision>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.qa_scorecard_revision = v.into();
+        pub fn set_qa_scorecard_revision<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::QaScorecardRevision>,
+        {
+            self.0.request.qa_scorecard_revision = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [qa_scorecard_revision][crate::model::CreateQaScorecardRevisionRequest::qa_scorecard_revision].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_qa_scorecard_revision<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::QaScorecardRevision>,
+        {
+            self.0.request.qa_scorecard_revision = v.map(|x| x.into());
             self
         }
 
@@ -5431,6 +5871,7 @@ pub mod contact_center_insights {
     /// # use google_cloud_contactcenterinsights_v1::builder;
     /// use builder::contact_center_insights::GetQaScorecardRevision;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -5496,8 +5937,9 @@ pub mod contact_center_insights {
     /// # use google_cloud_contactcenterinsights_v1::builder;
     /// use builder::contact_center_insights::TuneQaScorecardRevision;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_contactcenterinsights_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -5621,6 +6063,7 @@ pub mod contact_center_insights {
     /// # use google_cloud_contactcenterinsights_v1::builder;
     /// use builder::contact_center_insights::DeployQaScorecardRevision;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -5688,6 +6131,7 @@ pub mod contact_center_insights {
     /// # use google_cloud_contactcenterinsights_v1::builder;
     /// use builder::contact_center_insights::UndeployQaScorecardRevision;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -5755,6 +6199,7 @@ pub mod contact_center_insights {
     /// # use google_cloud_contactcenterinsights_v1::builder;
     /// use builder::contact_center_insights::DeleteQaScorecardRevision;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -5828,8 +6273,9 @@ pub mod contact_center_insights {
     /// # use google_cloud_contactcenterinsights_v1::builder;
     /// use builder::contact_center_insights::ListQaScorecardRevisions;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -5945,6 +6391,7 @@ pub mod contact_center_insights {
     /// # use google_cloud_contactcenterinsights_v1::builder;
     /// use builder::contact_center_insights::CreateFeedbackLabel;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -6004,11 +6451,22 @@ pub mod contact_center_insights {
         /// Sets the value of [feedback_label][crate::model::CreateFeedbackLabelRequest::feedback_label].
         ///
         /// This is a **required** field for requests.
-        pub fn set_feedback_label<T: Into<std::option::Option<crate::model::FeedbackLabel>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.feedback_label = v.into();
+        pub fn set_feedback_label<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::FeedbackLabel>,
+        {
+            self.0.request.feedback_label = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [feedback_label][crate::model::CreateFeedbackLabelRequest::feedback_label].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_feedback_label<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::FeedbackLabel>,
+        {
+            self.0.request.feedback_label = v.map(|x| x.into());
             self
         }
     }
@@ -6027,8 +6485,9 @@ pub mod contact_center_insights {
     /// # use google_cloud_contactcenterinsights_v1::builder;
     /// use builder::contact_center_insights::ListFeedbackLabels;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -6140,6 +6599,7 @@ pub mod contact_center_insights {
     /// # use google_cloud_contactcenterinsights_v1::builder;
     /// use builder::contact_center_insights::GetFeedbackLabel;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -6205,6 +6665,7 @@ pub mod contact_center_insights {
     /// # use google_cloud_contactcenterinsights_v1::builder;
     /// use builder::contact_center_insights::UpdateFeedbackLabel;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -6250,22 +6711,44 @@ pub mod contact_center_insights {
         /// Sets the value of [feedback_label][crate::model::UpdateFeedbackLabelRequest::feedback_label].
         ///
         /// This is a **required** field for requests.
-        pub fn set_feedback_label<T: Into<std::option::Option<crate::model::FeedbackLabel>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.feedback_label = v.into();
+        pub fn set_feedback_label<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::FeedbackLabel>,
+        {
+            self.0.request.feedback_label = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [feedback_label][crate::model::UpdateFeedbackLabelRequest::feedback_label].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_feedback_label<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::FeedbackLabel>,
+        {
+            self.0.request.feedback_label = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateFeedbackLabelRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateFeedbackLabelRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -6284,6 +6767,7 @@ pub mod contact_center_insights {
     /// # use google_cloud_contactcenterinsights_v1::builder;
     /// use builder::contact_center_insights::DeleteFeedbackLabel;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -6349,8 +6833,9 @@ pub mod contact_center_insights {
     /// # use google_cloud_contactcenterinsights_v1::builder;
     /// use builder::contact_center_insights::ListAllFeedbackLabels;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -6462,8 +6947,9 @@ pub mod contact_center_insights {
     /// # use google_cloud_contactcenterinsights_v1::builder;
     /// use builder::contact_center_insights::BulkUploadFeedbackLabels;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_contactcenterinsights_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -6610,8 +7096,9 @@ pub mod contact_center_insights {
     /// # use google_cloud_contactcenterinsights_v1::builder;
     /// use builder::contact_center_insights::BulkDownloadFeedbackLabels;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_contactcenterinsights_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -6794,8 +7281,9 @@ pub mod contact_center_insights {
     /// # use google_cloud_contactcenterinsights_v1::builder;
     /// use builder::contact_center_insights::ListOperations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -6905,6 +7393,7 @@ pub mod contact_center_insights {
     /// # use google_cloud_contactcenterinsights_v1::builder;
     /// use builder::contact_center_insights::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -6968,6 +7457,7 @@ pub mod contact_center_insights {
     /// # use google_cloud_contactcenterinsights_v1::builder;
     /// use builder::contact_center_insights::CancelOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });

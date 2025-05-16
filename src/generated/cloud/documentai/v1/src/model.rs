@@ -288,22 +288,38 @@ impl Document {
     }
 
     /// Sets the value of [shard_info][crate::model::Document::shard_info].
-    pub fn set_shard_info<
-        T: std::convert::Into<std::option::Option<crate::model::document::ShardInfo>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.shard_info = v.into();
+    pub fn set_shard_info<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::document::ShardInfo>,
+    {
+        self.shard_info = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [shard_info][crate::model::Document::shard_info].
+    pub fn set_or_clear_shard_info<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::document::ShardInfo>,
+    {
+        self.shard_info = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [error][crate::model::Document::error].
-    pub fn set_error<T: std::convert::Into<std::option::Option<rpc::model::Status>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.error = v.into();
+    pub fn set_error<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<rpc::model::Status>,
+    {
+        self.error = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [error][crate::model::Document::error].
+    pub fn set_or_clear_error<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<rpc::model::Status>,
+    {
+        self.error = v.map(|x| x.into());
         self
     }
 
@@ -319,24 +335,38 @@ impl Document {
     }
 
     /// Sets the value of [document_layout][crate::model::Document::document_layout].
-    pub fn set_document_layout<
-        T: std::convert::Into<std::option::Option<crate::model::document::DocumentLayout>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.document_layout = v.into();
+    pub fn set_document_layout<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::document::DocumentLayout>,
+    {
+        self.document_layout = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [document_layout][crate::model::Document::document_layout].
+    pub fn set_or_clear_document_layout<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::document::DocumentLayout>,
+    {
+        self.document_layout = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [chunked_document][crate::model::Document::chunked_document].
-    pub fn set_chunked_document<
-        T: std::convert::Into<std::option::Option<crate::model::document::ChunkedDocument>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.chunked_document = v.into();
+    pub fn set_chunked_document<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::document::ChunkedDocument>,
+    {
+        self.chunked_document = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [chunked_document][crate::model::Document::chunked_document].
+    pub fn set_or_clear_chunked_document<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::document::ChunkedDocument>,
+    {
+        self.chunked_document = v.map(|x| x.into());
         self
     }
 
@@ -527,33 +557,56 @@ pub mod document {
         }
 
         /// Sets the value of [text_anchor][crate::model::document::Style::text_anchor].
-        pub fn set_text_anchor<
-            T: std::convert::Into<std::option::Option<crate::model::document::TextAnchor>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.text_anchor = v.into();
+        pub fn set_text_anchor<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::document::TextAnchor>,
+        {
+            self.text_anchor = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [text_anchor][crate::model::document::Style::text_anchor].
+        pub fn set_or_clear_text_anchor<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::document::TextAnchor>,
+        {
+            self.text_anchor = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [color][crate::model::document::Style::color].
-        pub fn set_color<T: std::convert::Into<std::option::Option<gtype::model::Color>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.color = v.into();
+        pub fn set_color<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<gtype::model::Color>,
+        {
+            self.color = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [color][crate::model::document::Style::color].
+        pub fn set_or_clear_color<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<gtype::model::Color>,
+        {
+            self.color = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [background_color][crate::model::document::Style::background_color].
-        pub fn set_background_color<
-            T: std::convert::Into<std::option::Option<gtype::model::Color>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.background_color = v.into();
+        pub fn set_background_color<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<gtype::model::Color>,
+        {
+            self.background_color = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [background_color][crate::model::document::Style::background_color].
+        pub fn set_or_clear_background_color<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<gtype::model::Color>,
+        {
+            self.background_color = v.map(|x| x.into());
             self
         }
 
@@ -579,13 +632,20 @@ pub mod document {
         }
 
         /// Sets the value of [font_size][crate::model::document::Style::font_size].
-        pub fn set_font_size<
-            T: std::convert::Into<std::option::Option<crate::model::document::style::FontSize>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.font_size = v.into();
+        pub fn set_font_size<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::document::style::FontSize>,
+        {
+            self.font_size = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [font_size][crate::model::document::Style::font_size].
+        pub fn set_or_clear_font_size<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::document::style::FontSize>,
+        {
+            self.font_size = v.map(|x| x.into());
             self
         }
 
@@ -765,13 +825,20 @@ pub mod document {
         }
 
         /// Sets the value of [image][crate::model::document::Page::image].
-        pub fn set_image<
-            T: std::convert::Into<std::option::Option<crate::model::document::page::Image>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.image = v.into();
+        pub fn set_image<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::document::page::Image>,
+        {
+            self.image = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [image][crate::model::document::Page::image].
+        pub fn set_or_clear_image<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::document::page::Image>,
+        {
+            self.image = v.map(|x| x.into());
             self
         }
 
@@ -787,24 +854,38 @@ pub mod document {
         }
 
         /// Sets the value of [dimension][crate::model::document::Page::dimension].
-        pub fn set_dimension<
-            T: std::convert::Into<std::option::Option<crate::model::document::page::Dimension>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.dimension = v.into();
+        pub fn set_dimension<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::document::page::Dimension>,
+        {
+            self.dimension = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [dimension][crate::model::document::Page::dimension].
+        pub fn set_or_clear_dimension<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::document::page::Dimension>,
+        {
+            self.dimension = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [layout][crate::model::document::Page::layout].
-        pub fn set_layout<
-            T: std::convert::Into<std::option::Option<crate::model::document::page::Layout>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.layout = v.into();
+        pub fn set_layout<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::document::page::Layout>,
+        {
+            self.layout = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [layout][crate::model::document::Page::layout].
+        pub fn set_or_clear_layout<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::document::page::Layout>,
+        {
+            self.layout = v.map(|x| x.into());
             self
         }
 
@@ -919,27 +1000,40 @@ pub mod document {
         }
 
         /// Sets the value of [image_quality_scores][crate::model::document::Page::image_quality_scores].
-        pub fn set_image_quality_scores<
-            T: std::convert::Into<
-                    std::option::Option<crate::model::document::page::ImageQualityScores>,
-                >,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.image_quality_scores = v.into();
+        pub fn set_image_quality_scores<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::document::page::ImageQualityScores>,
+        {
+            self.image_quality_scores = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [image_quality_scores][crate::model::document::Page::image_quality_scores].
+        pub fn set_or_clear_image_quality_scores<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::document::page::ImageQualityScores>,
+        {
+            self.image_quality_scores = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [provenance][crate::model::document::Page::provenance].
         #[deprecated]
-        pub fn set_provenance<
-            T: std::convert::Into<std::option::Option<crate::model::document::Provenance>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.provenance = v.into();
+        pub fn set_provenance<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::document::Provenance>,
+        {
+            self.provenance = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [provenance][crate::model::document::Page::provenance].
+        #[deprecated]
+        pub fn set_or_clear_provenance<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::document::Provenance>,
+        {
+            self.provenance = v.map(|x| x.into());
             self
         }
     }
@@ -1192,13 +1286,20 @@ pub mod document {
             }
 
             /// Sets the value of [text_anchor][crate::model::document::page::Layout::text_anchor].
-            pub fn set_text_anchor<
-                T: std::convert::Into<std::option::Option<crate::model::document::TextAnchor>>,
-            >(
-                mut self,
-                v: T,
-            ) -> Self {
-                self.text_anchor = v.into();
+            pub fn set_text_anchor<T>(mut self, v: T) -> Self
+            where
+                T: std::convert::Into<crate::model::document::TextAnchor>,
+            {
+                self.text_anchor = std::option::Option::Some(v.into());
+                self
+            }
+
+            /// Sets or clears the value of [text_anchor][crate::model::document::page::Layout::text_anchor].
+            pub fn set_or_clear_text_anchor<T>(mut self, v: std::option::Option<T>) -> Self
+            where
+                T: std::convert::Into<crate::model::document::TextAnchor>,
+            {
+                self.text_anchor = v.map(|x| x.into());
                 self
             }
 
@@ -1209,13 +1310,20 @@ pub mod document {
             }
 
             /// Sets the value of [bounding_poly][crate::model::document::page::Layout::bounding_poly].
-            pub fn set_bounding_poly<
-                T: std::convert::Into<std::option::Option<crate::model::BoundingPoly>>,
-            >(
-                mut self,
-                v: T,
-            ) -> Self {
-                self.bounding_poly = v.into();
+            pub fn set_bounding_poly<T>(mut self, v: T) -> Self
+            where
+                T: std::convert::Into<crate::model::BoundingPoly>,
+            {
+                self.bounding_poly = std::option::Option::Some(v.into());
+                self
+            }
+
+            /// Sets or clears the value of [bounding_poly][crate::model::document::page::Layout::bounding_poly].
+            pub fn set_or_clear_bounding_poly<T>(mut self, v: std::option::Option<T>) -> Self
+            where
+                T: std::convert::Into<crate::model::BoundingPoly>,
+            {
+                self.bounding_poly = v.map(|x| x.into());
                 self
             }
 
@@ -1429,13 +1537,20 @@ pub mod document {
             }
 
             /// Sets the value of [layout][crate::model::document::page::Block::layout].
-            pub fn set_layout<
-                T: std::convert::Into<std::option::Option<crate::model::document::page::Layout>>,
-            >(
-                mut self,
-                v: T,
-            ) -> Self {
-                self.layout = v.into();
+            pub fn set_layout<T>(mut self, v: T) -> Self
+            where
+                T: std::convert::Into<crate::model::document::page::Layout>,
+            {
+                self.layout = std::option::Option::Some(v.into());
+                self
+            }
+
+            /// Sets or clears the value of [layout][crate::model::document::page::Block::layout].
+            pub fn set_or_clear_layout<T>(mut self, v: std::option::Option<T>) -> Self
+            where
+                T: std::convert::Into<crate::model::document::page::Layout>,
+            {
+                self.layout = v.map(|x| x.into());
                 self
             }
 
@@ -1452,13 +1567,21 @@ pub mod document {
 
             /// Sets the value of [provenance][crate::model::document::page::Block::provenance].
             #[deprecated]
-            pub fn set_provenance<
-                T: std::convert::Into<std::option::Option<crate::model::document::Provenance>>,
-            >(
-                mut self,
-                v: T,
-            ) -> Self {
-                self.provenance = v.into();
+            pub fn set_provenance<T>(mut self, v: T) -> Self
+            where
+                T: std::convert::Into<crate::model::document::Provenance>,
+            {
+                self.provenance = std::option::Option::Some(v.into());
+                self
+            }
+
+            /// Sets or clears the value of [provenance][crate::model::document::page::Block::provenance].
+            #[deprecated]
+            pub fn set_or_clear_provenance<T>(mut self, v: std::option::Option<T>) -> Self
+            where
+                T: std::convert::Into<crate::model::document::Provenance>,
+            {
+                self.provenance = v.map(|x| x.into());
                 self
             }
         }
@@ -1502,13 +1625,20 @@ pub mod document {
             }
 
             /// Sets the value of [layout][crate::model::document::page::Paragraph::layout].
-            pub fn set_layout<
-                T: std::convert::Into<std::option::Option<crate::model::document::page::Layout>>,
-            >(
-                mut self,
-                v: T,
-            ) -> Self {
-                self.layout = v.into();
+            pub fn set_layout<T>(mut self, v: T) -> Self
+            where
+                T: std::convert::Into<crate::model::document::page::Layout>,
+            {
+                self.layout = std::option::Option::Some(v.into());
+                self
+            }
+
+            /// Sets or clears the value of [layout][crate::model::document::page::Paragraph::layout].
+            pub fn set_or_clear_layout<T>(mut self, v: std::option::Option<T>) -> Self
+            where
+                T: std::convert::Into<crate::model::document::page::Layout>,
+            {
+                self.layout = v.map(|x| x.into());
                 self
             }
 
@@ -1525,13 +1655,21 @@ pub mod document {
 
             /// Sets the value of [provenance][crate::model::document::page::Paragraph::provenance].
             #[deprecated]
-            pub fn set_provenance<
-                T: std::convert::Into<std::option::Option<crate::model::document::Provenance>>,
-            >(
-                mut self,
-                v: T,
-            ) -> Self {
-                self.provenance = v.into();
+            pub fn set_provenance<T>(mut self, v: T) -> Self
+            where
+                T: std::convert::Into<crate::model::document::Provenance>,
+            {
+                self.provenance = std::option::Option::Some(v.into());
+                self
+            }
+
+            /// Sets or clears the value of [provenance][crate::model::document::page::Paragraph::provenance].
+            #[deprecated]
+            pub fn set_or_clear_provenance<T>(mut self, v: std::option::Option<T>) -> Self
+            where
+                T: std::convert::Into<crate::model::document::Provenance>,
+            {
+                self.provenance = v.map(|x| x.into());
                 self
             }
         }
@@ -1576,13 +1714,20 @@ pub mod document {
             }
 
             /// Sets the value of [layout][crate::model::document::page::Line::layout].
-            pub fn set_layout<
-                T: std::convert::Into<std::option::Option<crate::model::document::page::Layout>>,
-            >(
-                mut self,
-                v: T,
-            ) -> Self {
-                self.layout = v.into();
+            pub fn set_layout<T>(mut self, v: T) -> Self
+            where
+                T: std::convert::Into<crate::model::document::page::Layout>,
+            {
+                self.layout = std::option::Option::Some(v.into());
+                self
+            }
+
+            /// Sets or clears the value of [layout][crate::model::document::page::Line::layout].
+            pub fn set_or_clear_layout<T>(mut self, v: std::option::Option<T>) -> Self
+            where
+                T: std::convert::Into<crate::model::document::page::Layout>,
+            {
+                self.layout = v.map(|x| x.into());
                 self
             }
 
@@ -1599,13 +1744,21 @@ pub mod document {
 
             /// Sets the value of [provenance][crate::model::document::page::Line::provenance].
             #[deprecated]
-            pub fn set_provenance<
-                T: std::convert::Into<std::option::Option<crate::model::document::Provenance>>,
-            >(
-                mut self,
-                v: T,
-            ) -> Self {
-                self.provenance = v.into();
+            pub fn set_provenance<T>(mut self, v: T) -> Self
+            where
+                T: std::convert::Into<crate::model::document::Provenance>,
+            {
+                self.provenance = std::option::Option::Some(v.into());
+                self
+            }
+
+            /// Sets or clears the value of [provenance][crate::model::document::page::Line::provenance].
+            #[deprecated]
+            pub fn set_or_clear_provenance<T>(mut self, v: std::option::Option<T>) -> Self
+            where
+                T: std::convert::Into<crate::model::document::Provenance>,
+            {
+                self.provenance = v.map(|x| x.into());
                 self
             }
         }
@@ -1661,26 +1814,38 @@ pub mod document {
             }
 
             /// Sets the value of [layout][crate::model::document::page::Token::layout].
-            pub fn set_layout<
-                T: std::convert::Into<std::option::Option<crate::model::document::page::Layout>>,
-            >(
-                mut self,
-                v: T,
-            ) -> Self {
-                self.layout = v.into();
+            pub fn set_layout<T>(mut self, v: T) -> Self
+            where
+                T: std::convert::Into<crate::model::document::page::Layout>,
+            {
+                self.layout = std::option::Option::Some(v.into());
+                self
+            }
+
+            /// Sets or clears the value of [layout][crate::model::document::page::Token::layout].
+            pub fn set_or_clear_layout<T>(mut self, v: std::option::Option<T>) -> Self
+            where
+                T: std::convert::Into<crate::model::document::page::Layout>,
+            {
+                self.layout = v.map(|x| x.into());
                 self
             }
 
             /// Sets the value of [detected_break][crate::model::document::page::Token::detected_break].
-            pub fn set_detected_break<
-                T: std::convert::Into<
-                        std::option::Option<crate::model::document::page::token::DetectedBreak>,
-                    >,
-            >(
-                mut self,
-                v: T,
-            ) -> Self {
-                self.detected_break = v.into();
+            pub fn set_detected_break<T>(mut self, v: T) -> Self
+            where
+                T: std::convert::Into<crate::model::document::page::token::DetectedBreak>,
+            {
+                self.detected_break = std::option::Option::Some(v.into());
+                self
+            }
+
+            /// Sets or clears the value of [detected_break][crate::model::document::page::Token::detected_break].
+            pub fn set_or_clear_detected_break<T>(mut self, v: std::option::Option<T>) -> Self
+            where
+                T: std::convert::Into<crate::model::document::page::token::DetectedBreak>,
+            {
+                self.detected_break = v.map(|x| x.into());
                 self
             }
 
@@ -1697,26 +1862,39 @@ pub mod document {
 
             /// Sets the value of [provenance][crate::model::document::page::Token::provenance].
             #[deprecated]
-            pub fn set_provenance<
-                T: std::convert::Into<std::option::Option<crate::model::document::Provenance>>,
-            >(
-                mut self,
-                v: T,
-            ) -> Self {
-                self.provenance = v.into();
+            pub fn set_provenance<T>(mut self, v: T) -> Self
+            where
+                T: std::convert::Into<crate::model::document::Provenance>,
+            {
+                self.provenance = std::option::Option::Some(v.into());
+                self
+            }
+
+            /// Sets or clears the value of [provenance][crate::model::document::page::Token::provenance].
+            #[deprecated]
+            pub fn set_or_clear_provenance<T>(mut self, v: std::option::Option<T>) -> Self
+            where
+                T: std::convert::Into<crate::model::document::Provenance>,
+            {
+                self.provenance = v.map(|x| x.into());
                 self
             }
 
             /// Sets the value of [style_info][crate::model::document::page::Token::style_info].
-            pub fn set_style_info<
-                T: std::convert::Into<
-                        std::option::Option<crate::model::document::page::token::StyleInfo>,
-                    >,
-            >(
-                mut self,
-                v: T,
-            ) -> Self {
-                self.style_info = v.into();
+            pub fn set_style_info<T>(mut self, v: T) -> Self
+            where
+                T: std::convert::Into<crate::model::document::page::token::StyleInfo>,
+            {
+                self.style_info = std::option::Option::Some(v.into());
+                self
+            }
+
+            /// Sets or clears the value of [style_info][crate::model::document::page::Token::style_info].
+            pub fn set_or_clear_style_info<T>(mut self, v: std::option::Option<T>) -> Self
+            where
+                T: std::convert::Into<crate::model::document::page::token::StyleInfo>,
+            {
+                self.style_info = v.map(|x| x.into());
                 self
             }
         }
@@ -2089,24 +2267,38 @@ pub mod document {
                 }
 
                 /// Sets the value of [text_color][crate::model::document::page::token::StyleInfo::text_color].
-                pub fn set_text_color<
-                    T: std::convert::Into<std::option::Option<gtype::model::Color>>,
-                >(
-                    mut self,
-                    v: T,
-                ) -> Self {
-                    self.text_color = v.into();
+                pub fn set_text_color<T>(mut self, v: T) -> Self
+                where
+                    T: std::convert::Into<gtype::model::Color>,
+                {
+                    self.text_color = std::option::Option::Some(v.into());
+                    self
+                }
+
+                /// Sets or clears the value of [text_color][crate::model::document::page::token::StyleInfo::text_color].
+                pub fn set_or_clear_text_color<T>(mut self, v: std::option::Option<T>) -> Self
+                where
+                    T: std::convert::Into<gtype::model::Color>,
+                {
+                    self.text_color = v.map(|x| x.into());
                     self
                 }
 
                 /// Sets the value of [background_color][crate::model::document::page::token::StyleInfo::background_color].
-                pub fn set_background_color<
-                    T: std::convert::Into<std::option::Option<gtype::model::Color>>,
-                >(
-                    mut self,
-                    v: T,
-                ) -> Self {
-                    self.background_color = v.into();
+                pub fn set_background_color<T>(mut self, v: T) -> Self
+                where
+                    T: std::convert::Into<gtype::model::Color>,
+                {
+                    self.background_color = std::option::Option::Some(v.into());
+                    self
+                }
+
+                /// Sets or clears the value of [background_color][crate::model::document::page::token::StyleInfo::background_color].
+                pub fn set_or_clear_background_color<T>(mut self, v: std::option::Option<T>) -> Self
+                where
+                    T: std::convert::Into<gtype::model::Color>,
+                {
+                    self.background_color = v.map(|x| x.into());
                     self
                 }
             }
@@ -2146,13 +2338,20 @@ pub mod document {
             }
 
             /// Sets the value of [layout][crate::model::document::page::Symbol::layout].
-            pub fn set_layout<
-                T: std::convert::Into<std::option::Option<crate::model::document::page::Layout>>,
-            >(
-                mut self,
-                v: T,
-            ) -> Self {
-                self.layout = v.into();
+            pub fn set_layout<T>(mut self, v: T) -> Self
+            where
+                T: std::convert::Into<crate::model::document::page::Layout>,
+            {
+                self.layout = std::option::Option::Some(v.into());
+                self
+            }
+
+            /// Sets or clears the value of [layout][crate::model::document::page::Symbol::layout].
+            pub fn set_or_clear_layout<T>(mut self, v: std::option::Option<T>) -> Self
+            where
+                T: std::convert::Into<crate::model::document::page::Layout>,
+            {
+                self.layout = v.map(|x| x.into());
                 self
             }
 
@@ -2211,13 +2410,20 @@ pub mod document {
             }
 
             /// Sets the value of [layout][crate::model::document::page::VisualElement::layout].
-            pub fn set_layout<
-                T: std::convert::Into<std::option::Option<crate::model::document::page::Layout>>,
-            >(
-                mut self,
-                v: T,
-            ) -> Self {
-                self.layout = v.into();
+            pub fn set_layout<T>(mut self, v: T) -> Self
+            where
+                T: std::convert::Into<crate::model::document::page::Layout>,
+            {
+                self.layout = std::option::Option::Some(v.into());
+                self
+            }
+
+            /// Sets or clears the value of [layout][crate::model::document::page::VisualElement::layout].
+            pub fn set_or_clear_layout<T>(mut self, v: std::option::Option<T>) -> Self
+            where
+                T: std::convert::Into<crate::model::document::page::Layout>,
+            {
+                self.layout = v.map(|x| x.into());
                 self
             }
 
@@ -2286,13 +2492,20 @@ pub mod document {
             }
 
             /// Sets the value of [layout][crate::model::document::page::Table::layout].
-            pub fn set_layout<
-                T: std::convert::Into<std::option::Option<crate::model::document::page::Layout>>,
-            >(
-                mut self,
-                v: T,
-            ) -> Self {
-                self.layout = v.into();
+            pub fn set_layout<T>(mut self, v: T) -> Self
+            where
+                T: std::convert::Into<crate::model::document::page::Layout>,
+            {
+                self.layout = std::option::Option::Some(v.into());
+                self
+            }
+
+            /// Sets or clears the value of [layout][crate::model::document::page::Table::layout].
+            pub fn set_or_clear_layout<T>(mut self, v: std::option::Option<T>) -> Self
+            where
+                T: std::convert::Into<crate::model::document::page::Layout>,
+            {
+                self.layout = v.map(|x| x.into());
                 self
             }
 
@@ -2331,13 +2544,21 @@ pub mod document {
 
             /// Sets the value of [provenance][crate::model::document::page::Table::provenance].
             #[deprecated]
-            pub fn set_provenance<
-                T: std::convert::Into<std::option::Option<crate::model::document::Provenance>>,
-            >(
-                mut self,
-                v: T,
-            ) -> Self {
-                self.provenance = v.into();
+            pub fn set_provenance<T>(mut self, v: T) -> Self
+            where
+                T: std::convert::Into<crate::model::document::Provenance>,
+            {
+                self.provenance = std::option::Option::Some(v.into());
+                self
+            }
+
+            /// Sets or clears the value of [provenance][crate::model::document::page::Table::provenance].
+            #[deprecated]
+            pub fn set_or_clear_provenance<T>(mut self, v: std::option::Option<T>) -> Self
+            where
+                T: std::convert::Into<crate::model::document::Provenance>,
+            {
+                self.provenance = v.map(|x| x.into());
                 self
             }
         }
@@ -2427,13 +2648,20 @@ pub mod document {
                 }
 
                 /// Sets the value of [layout][crate::model::document::page::table::TableCell::layout].
-                pub fn set_layout<
-                    T: std::convert::Into<std::option::Option<crate::model::document::page::Layout>>,
-                >(
-                    mut self,
-                    v: T,
-                ) -> Self {
-                    self.layout = v.into();
+                pub fn set_layout<T>(mut self, v: T) -> Self
+                where
+                    T: std::convert::Into<crate::model::document::page::Layout>,
+                {
+                    self.layout = std::option::Option::Some(v.into());
+                    self
+                }
+
+                /// Sets or clears the value of [layout][crate::model::document::page::table::TableCell::layout].
+                pub fn set_or_clear_layout<T>(mut self, v: std::option::Option<T>) -> Self
+                where
+                    T: std::convert::Into<crate::model::document::page::Layout>,
+                {
+                    self.layout = v.map(|x| x.into());
                     self
                 }
 
@@ -2536,24 +2764,38 @@ pub mod document {
             }
 
             /// Sets the value of [field_name][crate::model::document::page::FormField::field_name].
-            pub fn set_field_name<
-                T: std::convert::Into<std::option::Option<crate::model::document::page::Layout>>,
-            >(
-                mut self,
-                v: T,
-            ) -> Self {
-                self.field_name = v.into();
+            pub fn set_field_name<T>(mut self, v: T) -> Self
+            where
+                T: std::convert::Into<crate::model::document::page::Layout>,
+            {
+                self.field_name = std::option::Option::Some(v.into());
+                self
+            }
+
+            /// Sets or clears the value of [field_name][crate::model::document::page::FormField::field_name].
+            pub fn set_or_clear_field_name<T>(mut self, v: std::option::Option<T>) -> Self
+            where
+                T: std::convert::Into<crate::model::document::page::Layout>,
+            {
+                self.field_name = v.map(|x| x.into());
                 self
             }
 
             /// Sets the value of [field_value][crate::model::document::page::FormField::field_value].
-            pub fn set_field_value<
-                T: std::convert::Into<std::option::Option<crate::model::document::page::Layout>>,
-            >(
-                mut self,
-                v: T,
-            ) -> Self {
-                self.field_value = v.into();
+            pub fn set_field_value<T>(mut self, v: T) -> Self
+            where
+                T: std::convert::Into<crate::model::document::page::Layout>,
+            {
+                self.field_value = std::option::Option::Some(v.into());
+                self
+            }
+
+            /// Sets or clears the value of [field_value][crate::model::document::page::FormField::field_value].
+            pub fn set_or_clear_field_value<T>(mut self, v: std::option::Option<T>) -> Self
+            where
+                T: std::convert::Into<crate::model::document::page::Layout>,
+            {
+                self.field_value = v.map(|x| x.into());
                 self
             }
 
@@ -2607,13 +2849,20 @@ pub mod document {
             }
 
             /// Sets the value of [provenance][crate::model::document::page::FormField::provenance].
-            pub fn set_provenance<
-                T: std::convert::Into<std::option::Option<crate::model::document::Provenance>>,
-            >(
-                mut self,
-                v: T,
-            ) -> Self {
-                self.provenance = v.into();
+            pub fn set_provenance<T>(mut self, v: T) -> Self
+            where
+                T: std::convert::Into<crate::model::document::Provenance>,
+            {
+                self.provenance = std::option::Option::Some(v.into());
+                self
+            }
+
+            /// Sets or clears the value of [provenance][crate::model::document::page::FormField::provenance].
+            pub fn set_or_clear_provenance<T>(mut self, v: std::option::Option<T>) -> Self
+            where
+                T: std::convert::Into<crate::model::document::Provenance>,
+            {
+                self.provenance = v.map(|x| x.into());
                 self
             }
         }
@@ -2655,24 +2904,38 @@ pub mod document {
             }
 
             /// Sets the value of [layout][crate::model::document::page::DetectedBarcode::layout].
-            pub fn set_layout<
-                T: std::convert::Into<std::option::Option<crate::model::document::page::Layout>>,
-            >(
-                mut self,
-                v: T,
-            ) -> Self {
-                self.layout = v.into();
+            pub fn set_layout<T>(mut self, v: T) -> Self
+            where
+                T: std::convert::Into<crate::model::document::page::Layout>,
+            {
+                self.layout = std::option::Option::Some(v.into());
+                self
+            }
+
+            /// Sets or clears the value of [layout][crate::model::document::page::DetectedBarcode::layout].
+            pub fn set_or_clear_layout<T>(mut self, v: std::option::Option<T>) -> Self
+            where
+                T: std::convert::Into<crate::model::document::page::Layout>,
+            {
+                self.layout = v.map(|x| x.into());
                 self
             }
 
             /// Sets the value of [barcode][crate::model::document::page::DetectedBarcode::barcode].
-            pub fn set_barcode<
-                T: std::convert::Into<std::option::Option<crate::model::Barcode>>,
-            >(
-                mut self,
-                v: T,
-            ) -> Self {
-                self.barcode = v.into();
+            pub fn set_barcode<T>(mut self, v: T) -> Self
+            where
+                T: std::convert::Into<crate::model::Barcode>,
+            {
+                self.barcode = std::option::Option::Some(v.into());
+                self
+            }
+
+            /// Sets or clears the value of [barcode][crate::model::document::page::DetectedBarcode::barcode].
+            pub fn set_or_clear_barcode<T>(mut self, v: std::option::Option<T>) -> Self
+            where
+                T: std::convert::Into<crate::model::Barcode>,
+            {
+                self.barcode = v.map(|x| x.into());
                 self
             }
         }
@@ -2921,13 +3184,20 @@ pub mod document {
         }
 
         /// Sets the value of [text_anchor][crate::model::document::Entity::text_anchor].
-        pub fn set_text_anchor<
-            T: std::convert::Into<std::option::Option<crate::model::document::TextAnchor>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.text_anchor = v.into();
+        pub fn set_text_anchor<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::document::TextAnchor>,
+        {
+            self.text_anchor = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [text_anchor][crate::model::document::Entity::text_anchor].
+        pub fn set_or_clear_text_anchor<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::document::TextAnchor>,
+        {
+            self.text_anchor = v.map(|x| x.into());
             self
         }
 
@@ -2959,13 +3229,20 @@ pub mod document {
         }
 
         /// Sets the value of [page_anchor][crate::model::document::Entity::page_anchor].
-        pub fn set_page_anchor<
-            T: std::convert::Into<std::option::Option<crate::model::document::PageAnchor>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.page_anchor = v.into();
+        pub fn set_page_anchor<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::document::PageAnchor>,
+        {
+            self.page_anchor = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [page_anchor][crate::model::document::Entity::page_anchor].
+        pub fn set_or_clear_page_anchor<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::document::PageAnchor>,
+        {
+            self.page_anchor = v.map(|x| x.into());
             self
         }
 
@@ -2976,15 +3253,20 @@ pub mod document {
         }
 
         /// Sets the value of [normalized_value][crate::model::document::Entity::normalized_value].
-        pub fn set_normalized_value<
-            T: std::convert::Into<
-                    std::option::Option<crate::model::document::entity::NormalizedValue>,
-                >,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.normalized_value = v.into();
+        pub fn set_normalized_value<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::document::entity::NormalizedValue>,
+        {
+            self.normalized_value = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [normalized_value][crate::model::document::Entity::normalized_value].
+        pub fn set_or_clear_normalized_value<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::document::entity::NormalizedValue>,
+        {
+            self.normalized_value = v.map(|x| x.into());
             self
         }
 
@@ -3000,13 +3282,20 @@ pub mod document {
         }
 
         /// Sets the value of [provenance][crate::model::document::Entity::provenance].
-        pub fn set_provenance<
-            T: std::convert::Into<std::option::Option<crate::model::document::Provenance>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.provenance = v.into();
+        pub fn set_provenance<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::document::Provenance>,
+        {
+            self.provenance = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [provenance][crate::model::document::Entity::provenance].
+        pub fn set_or_clear_provenance<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::document::Provenance>,
+        {
+            self.provenance = v.map(|x| x.into());
             self
         }
 
@@ -3635,13 +3924,20 @@ pub mod document {
             }
 
             /// Sets the value of [bounding_poly][crate::model::document::page_anchor::PageRef::bounding_poly].
-            pub fn set_bounding_poly<
-                T: std::convert::Into<std::option::Option<crate::model::BoundingPoly>>,
-            >(
-                mut self,
-                v: T,
-            ) -> Self {
-                self.bounding_poly = v.into();
+            pub fn set_bounding_poly<T>(mut self, v: T) -> Self
+            where
+                T: std::convert::Into<crate::model::BoundingPoly>,
+            {
+                self.bounding_poly = std::option::Option::Some(v.into());
+                self
+            }
+
+            /// Sets or clears the value of [bounding_poly][crate::model::document::page_anchor::PageRef::bounding_poly].
+            pub fn set_or_clear_bounding_poly<T>(mut self, v: std::option::Option<T>) -> Self
+            where
+                T: std::convert::Into<crate::model::BoundingPoly>,
+            {
+                self.bounding_poly = v.map(|x| x.into());
                 self
             }
 
@@ -4257,22 +4553,38 @@ pub mod document {
         }
 
         /// Sets the value of [create_time][crate::model::document::Revision::create_time].
-        pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.create_time = v.into();
+        pub fn set_create_time<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Timestamp>,
+        {
+            self.create_time = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [create_time][crate::model::document::Revision::create_time].
+        pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Timestamp>,
+        {
+            self.create_time = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [human_review][crate::model::document::Revision::human_review].
-        pub fn set_human_review<
-            T: std::convert::Into<std::option::Option<crate::model::document::revision::HumanReview>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.human_review = v.into();
+        pub fn set_human_review<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::document::revision::HumanReview>,
+        {
+            self.human_review = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [human_review][crate::model::document::Revision::human_review].
+        pub fn set_or_clear_human_review<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::document::revision::HumanReview>,
+        {
+            self.human_review = v.map(|x| x.into());
             self
         }
 
@@ -4447,13 +4759,20 @@ pub mod document {
         }
 
         /// Sets the value of [text_anchor][crate::model::document::TextChange::text_anchor].
-        pub fn set_text_anchor<
-            T: std::convert::Into<std::option::Option<crate::model::document::TextAnchor>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.text_anchor = v.into();
+        pub fn set_text_anchor<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::document::TextAnchor>,
+        {
+            self.text_anchor = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [text_anchor][crate::model::document::TextChange::text_anchor].
+        pub fn set_or_clear_text_anchor<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::document::TextAnchor>,
+        {
+            self.text_anchor = v.map(|x| x.into());
             self
         }
 
@@ -4573,19 +4892,36 @@ pub mod document {
             }
 
             /// Sets the value of [page_span][crate::model::document::document_layout::DocumentLayoutBlock::page_span].
-            pub fn set_page_span<T: std::convert::Into<std::option::Option<crate::model::document::document_layout::document_layout_block::LayoutPageSpan>>>(mut self, v: T) -> Self{
-                self.page_span = v.into();
+            pub fn set_page_span<T>(mut self, v: T) -> Self
+            where T: std::convert::Into<crate::model::document::document_layout::document_layout_block::LayoutPageSpan>
+            {
+                self.page_span = std::option::Option::Some(v.into());
+                self
+            }
+
+            /// Sets or clears the value of [page_span][crate::model::document::document_layout::DocumentLayoutBlock::page_span].
+            pub fn set_or_clear_page_span<T>(mut self, v: std::option::Option<T>) -> Self
+            where T: std::convert::Into<crate::model::document::document_layout::document_layout_block::LayoutPageSpan>
+            {
+                self.page_span = v.map(|x| x.into());
                 self
             }
 
             /// Sets the value of [bounding_box][crate::model::document::document_layout::DocumentLayoutBlock::bounding_box].
-            pub fn set_bounding_box<
-                T: std::convert::Into<std::option::Option<crate::model::BoundingPoly>>,
-            >(
-                mut self,
-                v: T,
-            ) -> Self {
-                self.bounding_box = v.into();
+            pub fn set_bounding_box<T>(mut self, v: T) -> Self
+            where
+                T: std::convert::Into<crate::model::BoundingPoly>,
+            {
+                self.bounding_box = std::option::Option::Some(v.into());
+                self
+            }
+
+            /// Sets or clears the value of [bounding_box][crate::model::document::document_layout::DocumentLayoutBlock::bounding_box].
+            pub fn set_or_clear_bounding_box<T>(mut self, v: std::option::Option<T>) -> Self
+            where
+                T: std::convert::Into<crate::model::BoundingPoly>,
+            {
+                self.bounding_box = v.map(|x| x.into());
                 self
             }
 
@@ -5208,17 +5544,24 @@ pub mod document {
             }
 
             /// Sets the value of [page_span][crate::model::document::chunked_document::Chunk::page_span].
-            pub fn set_page_span<
+            pub fn set_page_span<T>(mut self, v: T) -> Self
+            where
                 T: std::convert::Into<
-                        std::option::Option<
-                            crate::model::document::chunked_document::chunk::ChunkPageSpan,
-                        >,
+                        crate::model::document::chunked_document::chunk::ChunkPageSpan,
                     >,
-            >(
-                mut self,
-                v: T,
-            ) -> Self {
-                self.page_span = v.into();
+            {
+                self.page_span = std::option::Option::Some(v.into());
+                self
+            }
+
+            /// Sets or clears the value of [page_span][crate::model::document::chunked_document::Chunk::page_span].
+            pub fn set_or_clear_page_span<T>(mut self, v: std::option::Option<T>) -> Self
+            where
+                T: std::convert::Into<
+                        crate::model::document::chunked_document::chunk::ChunkPageSpan,
+                    >,
+            {
+                self.page_span = v.map(|x| x.into());
                 self
             }
 
@@ -5337,17 +5680,24 @@ pub mod document {
                 }
 
                 /// Sets the value of [page_span][crate::model::document::chunked_document::chunk::ChunkPageHeader::page_span].
-                pub fn set_page_span<
+                pub fn set_page_span<T>(mut self, v: T) -> Self
+                where
                     T: std::convert::Into<
-                            std::option::Option<
-                                crate::model::document::chunked_document::chunk::ChunkPageSpan,
-                            >,
+                            crate::model::document::chunked_document::chunk::ChunkPageSpan,
                         >,
-                >(
-                    mut self,
-                    v: T,
-                ) -> Self {
-                    self.page_span = v.into();
+                {
+                    self.page_span = std::option::Option::Some(v.into());
+                    self
+                }
+
+                /// Sets or clears the value of [page_span][crate::model::document::chunked_document::chunk::ChunkPageHeader::page_span].
+                pub fn set_or_clear_page_span<T>(mut self, v: std::option::Option<T>) -> Self
+                where
+                    T: std::convert::Into<
+                            crate::model::document::chunked_document::chunk::ChunkPageSpan,
+                        >,
+                {
+                    self.page_span = v.map(|x| x.into());
                     self
                 }
             }
@@ -5393,17 +5743,24 @@ pub mod document {
                 }
 
                 /// Sets the value of [page_span][crate::model::document::chunked_document::chunk::ChunkPageFooter::page_span].
-                pub fn set_page_span<
+                pub fn set_page_span<T>(mut self, v: T) -> Self
+                where
                     T: std::convert::Into<
-                            std::option::Option<
-                                crate::model::document::chunked_document::chunk::ChunkPageSpan,
-                            >,
+                            crate::model::document::chunked_document::chunk::ChunkPageSpan,
                         >,
-                >(
-                    mut self,
-                    v: T,
-                ) -> Self {
-                    self.page_span = v.into();
+                {
+                    self.page_span = std::option::Option::Some(v.into());
+                    self
+                }
+
+                /// Sets or clears the value of [page_span][crate::model::document::chunked_document::chunk::ChunkPageFooter::page_span].
+                pub fn set_or_clear_page_span<T>(mut self, v: std::option::Option<T>) -> Self
+                where
+                    T: std::convert::Into<
+                            crate::model::document::chunked_document::chunk::ChunkPageSpan,
+                        >,
+                {
+                    self.page_span = v.map(|x| x.into());
                     self
                 }
             }
@@ -5840,26 +6197,42 @@ pub mod document_output_config {
         }
 
         /// Sets the value of [field_mask][crate::model::document_output_config::GcsOutputConfig::field_mask].
-        pub fn set_field_mask<T: std::convert::Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.field_mask = v.into();
+        pub fn set_field_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.field_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [field_mask][crate::model::document_output_config::GcsOutputConfig::field_mask].
+        pub fn set_or_clear_field_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.field_mask = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [sharding_config][crate::model::document_output_config::GcsOutputConfig::sharding_config].
-        pub fn set_sharding_config<
+        pub fn set_sharding_config<T>(mut self, v: T) -> Self
+        where
             T: std::convert::Into<
-                    std::option::Option<
-                        crate::model::document_output_config::gcs_output_config::ShardingConfig,
-                    >,
+                    crate::model::document_output_config::gcs_output_config::ShardingConfig,
                 >,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.sharding_config = v.into();
+        {
+            self.sharding_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [sharding_config][crate::model::document_output_config::GcsOutputConfig::sharding_config].
+        pub fn set_or_clear_sharding_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<
+                    crate::model::document_output_config::gcs_output_config::ShardingConfig,
+                >,
+        {
+            self.sharding_config = v.map(|x| x.into());
             self
         }
     }
@@ -5993,13 +6366,20 @@ impl OcrConfig {
     }
 
     /// Sets the value of [hints][crate::model::OcrConfig::hints].
-    pub fn set_hints<
-        T: std::convert::Into<std::option::Option<crate::model::ocr_config::Hints>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.hints = v.into();
+    pub fn set_hints<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::ocr_config::Hints>,
+    {
+        self.hints = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [hints][crate::model::OcrConfig::hints].
+    pub fn set_or_clear_hints<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::ocr_config::Hints>,
+    {
+        self.hints = v.map(|x| x.into());
         self
     }
 
@@ -6049,13 +6429,20 @@ impl OcrConfig {
     }
 
     /// Sets the value of [premium_features][crate::model::OcrConfig::premium_features].
-    pub fn set_premium_features<
-        T: std::convert::Into<std::option::Option<crate::model::ocr_config::PremiumFeatures>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.premium_features = v.into();
+    pub fn set_premium_features<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::ocr_config::PremiumFeatures>,
+    {
+        self.premium_features = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [premium_features][crate::model::OcrConfig::premium_features].
+    pub fn set_or_clear_premium_features<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::ocr_config::PremiumFeatures>,
+    {
+        self.premium_features = v.map(|x| x.into());
         self
     }
 }
@@ -6219,33 +6606,56 @@ impl ProcessOptions {
     }
 
     /// Sets the value of [ocr_config][crate::model::ProcessOptions::ocr_config].
-    pub fn set_ocr_config<T: std::convert::Into<std::option::Option<crate::model::OcrConfig>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.ocr_config = v.into();
+    pub fn set_ocr_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::OcrConfig>,
+    {
+        self.ocr_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [ocr_config][crate::model::ProcessOptions::ocr_config].
+    pub fn set_or_clear_ocr_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::OcrConfig>,
+    {
+        self.ocr_config = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [layout_config][crate::model::ProcessOptions::layout_config].
-    pub fn set_layout_config<
-        T: std::convert::Into<std::option::Option<crate::model::process_options::LayoutConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.layout_config = v.into();
+    pub fn set_layout_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::process_options::LayoutConfig>,
+    {
+        self.layout_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [layout_config][crate::model::ProcessOptions::layout_config].
+    pub fn set_or_clear_layout_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::process_options::LayoutConfig>,
+    {
+        self.layout_config = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [schema_override][crate::model::ProcessOptions::schema_override].
-    pub fn set_schema_override<
-        T: std::convert::Into<std::option::Option<crate::model::DocumentSchema>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.schema_override = v.into();
+    pub fn set_schema_override<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::DocumentSchema>,
+    {
+        self.schema_override = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [schema_override][crate::model::ProcessOptions::schema_override].
+    pub fn set_or_clear_schema_override<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::DocumentSchema>,
+    {
+        self.schema_override = v.map(|x| x.into());
         self
     }
 
@@ -6383,17 +6793,20 @@ pub mod process_options {
         }
 
         /// Sets the value of [chunking_config][crate::model::process_options::LayoutConfig::chunking_config].
-        pub fn set_chunking_config<
-            T: std::convert::Into<
-                    std::option::Option<
-                        crate::model::process_options::layout_config::ChunkingConfig,
-                    >,
-                >,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.chunking_config = v.into();
+        pub fn set_chunking_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::process_options::layout_config::ChunkingConfig>,
+        {
+            self.chunking_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [chunking_config][crate::model::process_options::LayoutConfig::chunking_config].
+        pub fn set_or_clear_chunking_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::process_options::layout_config::ChunkingConfig>,
+        {
+            self.chunking_config = v.map(|x| x.into());
             self
         }
 
@@ -6616,22 +7029,38 @@ impl ProcessRequest {
     }
 
     /// Sets the value of [field_mask][crate::model::ProcessRequest::field_mask].
-    pub fn set_field_mask<T: std::convert::Into<std::option::Option<wkt::FieldMask>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.field_mask = v.into();
+    pub fn set_field_mask<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.field_mask = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [field_mask][crate::model::ProcessRequest::field_mask].
+    pub fn set_or_clear_field_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.field_mask = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [process_options][crate::model::ProcessRequest::process_options].
-    pub fn set_process_options<
-        T: std::convert::Into<std::option::Option<crate::model::ProcessOptions>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.process_options = v.into();
+    pub fn set_process_options<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::ProcessOptions>,
+    {
+        self.process_options = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [process_options][crate::model::ProcessRequest::process_options].
+    pub fn set_or_clear_process_options<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::ProcessOptions>,
+    {
+        self.process_options = v.map(|x| x.into());
         self
     }
 
@@ -7024,22 +7453,38 @@ impl ProcessResponse {
     }
 
     /// Sets the value of [document][crate::model::ProcessResponse::document].
-    pub fn set_document<T: std::convert::Into<std::option::Option<crate::model::Document>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.document = v.into();
+    pub fn set_document<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::Document>,
+    {
+        self.document = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [document][crate::model::ProcessResponse::document].
+    pub fn set_or_clear_document<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::Document>,
+    {
+        self.document = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [human_review_status][crate::model::ProcessResponse::human_review_status].
-    pub fn set_human_review_status<
-        T: std::convert::Into<std::option::Option<crate::model::HumanReviewStatus>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.human_review_status = v.into();
+    pub fn set_human_review_status<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::HumanReviewStatus>,
+    {
+        self.human_review_status = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [human_review_status][crate::model::ProcessResponse::human_review_status].
+    pub fn set_or_clear_human_review_status<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::HumanReviewStatus>,
+    {
+        self.human_review_status = v.map(|x| x.into());
         self
     }
 }
@@ -7121,24 +7566,38 @@ impl BatchProcessRequest {
     }
 
     /// Sets the value of [input_documents][crate::model::BatchProcessRequest::input_documents].
-    pub fn set_input_documents<
-        T: std::convert::Into<std::option::Option<crate::model::BatchDocumentsInputConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.input_documents = v.into();
+    pub fn set_input_documents<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::BatchDocumentsInputConfig>,
+    {
+        self.input_documents = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [input_documents][crate::model::BatchProcessRequest::input_documents].
+    pub fn set_or_clear_input_documents<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::BatchDocumentsInputConfig>,
+    {
+        self.input_documents = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [document_output_config][crate::model::BatchProcessRequest::document_output_config].
-    pub fn set_document_output_config<
-        T: std::convert::Into<std::option::Option<crate::model::DocumentOutputConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.document_output_config = v.into();
+    pub fn set_document_output_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::DocumentOutputConfig>,
+    {
+        self.document_output_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [document_output_config][crate::model::BatchProcessRequest::document_output_config].
+    pub fn set_or_clear_document_output_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::DocumentOutputConfig>,
+    {
+        self.document_output_config = v.map(|x| x.into());
         self
     }
 
@@ -7149,13 +7608,20 @@ impl BatchProcessRequest {
     }
 
     /// Sets the value of [process_options][crate::model::BatchProcessRequest::process_options].
-    pub fn set_process_options<
-        T: std::convert::Into<std::option::Option<crate::model::ProcessOptions>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.process_options = v.into();
+    pub fn set_process_options<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::ProcessOptions>,
+    {
+        self.process_options = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [process_options][crate::model::BatchProcessRequest::process_options].
+    pub fn set_or_clear_process_options<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::ProcessOptions>,
+    {
+        self.process_options = v.map(|x| x.into());
         self
     }
 
@@ -7258,20 +7724,38 @@ impl BatchProcessMetadata {
     }
 
     /// Sets the value of [create_time][crate::model::BatchProcessMetadata::create_time].
-    pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.create_time = v.into();
+    pub fn set_create_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [create_time][crate::model::BatchProcessMetadata::create_time].
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [update_time][crate::model::BatchProcessMetadata::update_time].
-    pub fn set_update_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.update_time = v.into();
+    pub fn set_update_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_time][crate::model::BatchProcessMetadata::update_time].
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = v.map(|x| x.into());
         self
     }
 
@@ -7347,11 +7831,20 @@ pub mod batch_process_metadata {
         }
 
         /// Sets the value of [status][crate::model::batch_process_metadata::IndividualProcessStatus::status].
-        pub fn set_status<T: std::convert::Into<std::option::Option<rpc::model::Status>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.status = v.into();
+        pub fn set_status<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<rpc::model::Status>,
+        {
+            self.status = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [status][crate::model::batch_process_metadata::IndividualProcessStatus::status].
+        pub fn set_or_clear_status<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<rpc::model::Status>,
+        {
+            self.status = v.map(|x| x.into());
             self
         }
 
@@ -7365,13 +7858,20 @@ pub mod batch_process_metadata {
         }
 
         /// Sets the value of [human_review_status][crate::model::batch_process_metadata::IndividualProcessStatus::human_review_status].
-        pub fn set_human_review_status<
-            T: std::convert::Into<std::option::Option<crate::model::HumanReviewStatus>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.human_review_status = v.into();
+        pub fn set_human_review_status<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::HumanReviewStatus>,
+        {
+            self.human_review_status = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [human_review_status][crate::model::batch_process_metadata::IndividualProcessStatus::human_review_status].
+        pub fn set_or_clear_human_review_status<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::HumanReviewStatus>,
+        {
+            self.human_review_status = v.map(|x| x.into());
             self
         }
     }
@@ -8158,13 +8658,20 @@ impl DeleteProcessorVersionMetadata {
     }
 
     /// Sets the value of [common_metadata][crate::model::DeleteProcessorVersionMetadata::common_metadata].
-    pub fn set_common_metadata<
-        T: std::convert::Into<std::option::Option<crate::model::CommonOperationMetadata>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.common_metadata = v.into();
+    pub fn set_common_metadata<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::CommonOperationMetadata>,
+    {
+        self.common_metadata = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [common_metadata][crate::model::DeleteProcessorVersionMetadata::common_metadata].
+    pub fn set_or_clear_common_metadata<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::CommonOperationMetadata>,
+    {
+        self.common_metadata = v.map(|x| x.into());
         self
     }
 }
@@ -8261,13 +8768,20 @@ impl DeployProcessorVersionMetadata {
     }
 
     /// Sets the value of [common_metadata][crate::model::DeployProcessorVersionMetadata::common_metadata].
-    pub fn set_common_metadata<
-        T: std::convert::Into<std::option::Option<crate::model::CommonOperationMetadata>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.common_metadata = v.into();
+    pub fn set_common_metadata<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::CommonOperationMetadata>,
+    {
+        self.common_metadata = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [common_metadata][crate::model::DeployProcessorVersionMetadata::common_metadata].
+    pub fn set_or_clear_common_metadata<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::CommonOperationMetadata>,
+    {
+        self.common_metadata = v.map(|x| x.into());
         self
     }
 }
@@ -8364,13 +8878,20 @@ impl UndeployProcessorVersionMetadata {
     }
 
     /// Sets the value of [common_metadata][crate::model::UndeployProcessorVersionMetadata::common_metadata].
-    pub fn set_common_metadata<
-        T: std::convert::Into<std::option::Option<crate::model::CommonOperationMetadata>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.common_metadata = v.into();
+    pub fn set_common_metadata<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::CommonOperationMetadata>,
+    {
+        self.common_metadata = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [common_metadata][crate::model::UndeployProcessorVersionMetadata::common_metadata].
+    pub fn set_or_clear_common_metadata<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::CommonOperationMetadata>,
+    {
+        self.common_metadata = v.map(|x| x.into());
         self
     }
 }
@@ -8428,11 +8949,20 @@ impl CreateProcessorRequest {
     }
 
     /// Sets the value of [processor][crate::model::CreateProcessorRequest::processor].
-    pub fn set_processor<T: std::convert::Into<std::option::Option<crate::model::Processor>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.processor = v.into();
+    pub fn set_processor<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::Processor>,
+    {
+        self.processor = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [processor][crate::model::CreateProcessorRequest::processor].
+    pub fn set_or_clear_processor<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::Processor>,
+    {
+        self.processor = v.map(|x| x.into());
         self
     }
 }
@@ -8503,13 +9033,20 @@ impl DeleteProcessorMetadata {
     }
 
     /// Sets the value of [common_metadata][crate::model::DeleteProcessorMetadata::common_metadata].
-    pub fn set_common_metadata<
-        T: std::convert::Into<std::option::Option<crate::model::CommonOperationMetadata>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.common_metadata = v.into();
+    pub fn set_common_metadata<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::CommonOperationMetadata>,
+    {
+        self.common_metadata = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [common_metadata][crate::model::DeleteProcessorMetadata::common_metadata].
+    pub fn set_or_clear_common_metadata<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::CommonOperationMetadata>,
+    {
+        self.common_metadata = v.map(|x| x.into());
         self
     }
 }
@@ -8606,13 +9143,20 @@ impl EnableProcessorMetadata {
     }
 
     /// Sets the value of [common_metadata][crate::model::EnableProcessorMetadata::common_metadata].
-    pub fn set_common_metadata<
-        T: std::convert::Into<std::option::Option<crate::model::CommonOperationMetadata>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.common_metadata = v.into();
+    pub fn set_common_metadata<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::CommonOperationMetadata>,
+    {
+        self.common_metadata = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [common_metadata][crate::model::EnableProcessorMetadata::common_metadata].
+    pub fn set_or_clear_common_metadata<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::CommonOperationMetadata>,
+    {
+        self.common_metadata = v.map(|x| x.into());
         self
     }
 }
@@ -8709,13 +9253,20 @@ impl DisableProcessorMetadata {
     }
 
     /// Sets the value of [common_metadata][crate::model::DisableProcessorMetadata::common_metadata].
-    pub fn set_common_metadata<
-        T: std::convert::Into<std::option::Option<crate::model::CommonOperationMetadata>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.common_metadata = v.into();
+    pub fn set_common_metadata<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::CommonOperationMetadata>,
+    {
+        self.common_metadata = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [common_metadata][crate::model::DisableProcessorMetadata::common_metadata].
+    pub fn set_or_clear_common_metadata<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::CommonOperationMetadata>,
+    {
+        self.common_metadata = v.map(|x| x.into());
         self
     }
 }
@@ -8834,13 +9385,20 @@ impl SetDefaultProcessorVersionMetadata {
     }
 
     /// Sets the value of [common_metadata][crate::model::SetDefaultProcessorVersionMetadata::common_metadata].
-    pub fn set_common_metadata<
-        T: std::convert::Into<std::option::Option<crate::model::CommonOperationMetadata>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.common_metadata = v.into();
+    pub fn set_common_metadata<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::CommonOperationMetadata>,
+    {
+        self.common_metadata = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [common_metadata][crate::model::SetDefaultProcessorVersionMetadata::common_metadata].
+    pub fn set_or_clear_common_metadata<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::CommonOperationMetadata>,
+    {
+        self.common_metadata = v.map(|x| x.into());
         self
     }
 }
@@ -8908,37 +9466,56 @@ impl TrainProcessorVersionRequest {
     }
 
     /// Sets the value of [processor_version][crate::model::TrainProcessorVersionRequest::processor_version].
-    pub fn set_processor_version<
-        T: std::convert::Into<std::option::Option<crate::model::ProcessorVersion>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.processor_version = v.into();
+    pub fn set_processor_version<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::ProcessorVersion>,
+    {
+        self.processor_version = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [processor_version][crate::model::TrainProcessorVersionRequest::processor_version].
+    pub fn set_or_clear_processor_version<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::ProcessorVersion>,
+    {
+        self.processor_version = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [document_schema][crate::model::TrainProcessorVersionRequest::document_schema].
-    pub fn set_document_schema<
-        T: std::convert::Into<std::option::Option<crate::model::DocumentSchema>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.document_schema = v.into();
+    pub fn set_document_schema<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::DocumentSchema>,
+    {
+        self.document_schema = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [document_schema][crate::model::TrainProcessorVersionRequest::document_schema].
+    pub fn set_or_clear_document_schema<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::DocumentSchema>,
+    {
+        self.document_schema = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [input_data][crate::model::TrainProcessorVersionRequest::input_data].
-    pub fn set_input_data<
-        T: std::convert::Into<
-                std::option::Option<crate::model::train_processor_version_request::InputData>,
-            >,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.input_data = v.into();
+    pub fn set_input_data<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::train_processor_version_request::InputData>,
+    {
+        self.input_data = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [input_data][crate::model::TrainProcessorVersionRequest::input_data].
+    pub fn set_or_clear_input_data<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::train_processor_version_request::InputData>,
+    {
+        self.input_data = v.map(|x| x.into());
         self
     }
 
@@ -9086,24 +9663,38 @@ pub mod train_processor_version_request {
         }
 
         /// Sets the value of [training_documents][crate::model::train_processor_version_request::InputData::training_documents].
-        pub fn set_training_documents<
-            T: std::convert::Into<std::option::Option<crate::model::BatchDocumentsInputConfig>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.training_documents = v.into();
+        pub fn set_training_documents<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::BatchDocumentsInputConfig>,
+        {
+            self.training_documents = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [training_documents][crate::model::train_processor_version_request::InputData::training_documents].
+        pub fn set_or_clear_training_documents<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::BatchDocumentsInputConfig>,
+        {
+            self.training_documents = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [test_documents][crate::model::train_processor_version_request::InputData::test_documents].
-        pub fn set_test_documents<
-            T: std::convert::Into<std::option::Option<crate::model::BatchDocumentsInputConfig>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.test_documents = v.into();
+        pub fn set_test_documents<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::BatchDocumentsInputConfig>,
+        {
+            self.test_documents = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [test_documents][crate::model::train_processor_version_request::InputData::test_documents].
+        pub fn set_or_clear_test_documents<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::BatchDocumentsInputConfig>,
+        {
+            self.test_documents = v.map(|x| x.into());
             self
         }
     }
@@ -9419,43 +10010,56 @@ impl TrainProcessorVersionMetadata {
     }
 
     /// Sets the value of [common_metadata][crate::model::TrainProcessorVersionMetadata::common_metadata].
-    pub fn set_common_metadata<
-        T: std::convert::Into<std::option::Option<crate::model::CommonOperationMetadata>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.common_metadata = v.into();
+    pub fn set_common_metadata<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::CommonOperationMetadata>,
+    {
+        self.common_metadata = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [common_metadata][crate::model::TrainProcessorVersionMetadata::common_metadata].
+    pub fn set_or_clear_common_metadata<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::CommonOperationMetadata>,
+    {
+        self.common_metadata = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [training_dataset_validation][crate::model::TrainProcessorVersionMetadata::training_dataset_validation].
-    pub fn set_training_dataset_validation<
-        T: std::convert::Into<
-                std::option::Option<
-                    crate::model::train_processor_version_metadata::DatasetValidation,
-                >,
-            >,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.training_dataset_validation = v.into();
+    pub fn set_training_dataset_validation<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::train_processor_version_metadata::DatasetValidation>,
+    {
+        self.training_dataset_validation = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [training_dataset_validation][crate::model::TrainProcessorVersionMetadata::training_dataset_validation].
+    pub fn set_or_clear_training_dataset_validation<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::train_processor_version_metadata::DatasetValidation>,
+    {
+        self.training_dataset_validation = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [test_dataset_validation][crate::model::TrainProcessorVersionMetadata::test_dataset_validation].
-    pub fn set_test_dataset_validation<
-        T: std::convert::Into<
-                std::option::Option<
-                    crate::model::train_processor_version_metadata::DatasetValidation,
-                >,
-            >,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.test_dataset_validation = v.into();
+    pub fn set_test_dataset_validation<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::train_processor_version_metadata::DatasetValidation>,
+    {
+        self.test_dataset_validation = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [test_dataset_validation][crate::model::TrainProcessorVersionMetadata::test_dataset_validation].
+    pub fn set_or_clear_test_dataset_validation<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::train_processor_version_metadata::DatasetValidation>,
+    {
+        self.test_dataset_validation = v.map(|x| x.into());
         self
     }
 }
@@ -9614,13 +10218,20 @@ impl ReviewDocumentRequest {
     }
 
     /// Sets the value of [document_schema][crate::model::ReviewDocumentRequest::document_schema].
-    pub fn set_document_schema<
-        T: std::convert::Into<std::option::Option<crate::model::DocumentSchema>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.document_schema = v.into();
+    pub fn set_document_schema<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::DocumentSchema>,
+    {
+        self.document_schema = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [document_schema][crate::model::ReviewDocumentRequest::document_schema].
+    pub fn set_or_clear_document_schema<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::DocumentSchema>,
+    {
+        self.document_schema = v.map(|x| x.into());
         self
     }
 
@@ -10043,13 +10654,20 @@ impl ReviewDocumentOperationMetadata {
     }
 
     /// Sets the value of [common_metadata][crate::model::ReviewDocumentOperationMetadata::common_metadata].
-    pub fn set_common_metadata<
-        T: std::convert::Into<std::option::Option<crate::model::CommonOperationMetadata>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.common_metadata = v.into();
+    pub fn set_common_metadata<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::CommonOperationMetadata>,
+    {
+        self.common_metadata = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [common_metadata][crate::model::ReviewDocumentOperationMetadata::common_metadata].
+    pub fn set_or_clear_common_metadata<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::CommonOperationMetadata>,
+    {
+        self.common_metadata = v.map(|x| x.into());
         self
     }
 
@@ -10109,13 +10727,20 @@ impl EvaluateProcessorVersionRequest {
     }
 
     /// Sets the value of [evaluation_documents][crate::model::EvaluateProcessorVersionRequest::evaluation_documents].
-    pub fn set_evaluation_documents<
-        T: std::convert::Into<std::option::Option<crate::model::BatchDocumentsInputConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.evaluation_documents = v.into();
+    pub fn set_evaluation_documents<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::BatchDocumentsInputConfig>,
+    {
+        self.evaluation_documents = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [evaluation_documents][crate::model::EvaluateProcessorVersionRequest::evaluation_documents].
+    pub fn set_or_clear_evaluation_documents<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::BatchDocumentsInputConfig>,
+    {
+        self.evaluation_documents = v.map(|x| x.into());
         self
     }
 }
@@ -10150,13 +10775,20 @@ impl EvaluateProcessorVersionMetadata {
     }
 
     /// Sets the value of [common_metadata][crate::model::EvaluateProcessorVersionMetadata::common_metadata].
-    pub fn set_common_metadata<
-        T: std::convert::Into<std::option::Option<crate::model::CommonOperationMetadata>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.common_metadata = v.into();
+    pub fn set_common_metadata<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::CommonOperationMetadata>,
+    {
+        self.common_metadata = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [common_metadata][crate::model::EvaluateProcessorVersionMetadata::common_metadata].
+    pub fn set_or_clear_common_metadata<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::CommonOperationMetadata>,
+    {
+        self.common_metadata = v.map(|x| x.into());
         self
     }
 }
@@ -10419,13 +11051,20 @@ impl DocumentSchema {
     }
 
     /// Sets the value of [metadata][crate::model::DocumentSchema::metadata].
-    pub fn set_metadata<
-        T: std::convert::Into<std::option::Option<crate::model::document_schema::Metadata>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.metadata = v.into();
+    pub fn set_metadata<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::document_schema::Metadata>,
+    {
+        self.metadata = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [metadata][crate::model::DocumentSchema::metadata].
+    pub fn set_or_clear_metadata<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::document_schema::Metadata>,
+    {
+        self.metadata = v.map(|x| x.into());
         self
     }
 }
@@ -11005,24 +11644,38 @@ impl EvaluationReference {
     }
 
     /// Sets the value of [aggregate_metrics][crate::model::EvaluationReference::aggregate_metrics].
-    pub fn set_aggregate_metrics<
-        T: std::convert::Into<std::option::Option<crate::model::evaluation::Metrics>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.aggregate_metrics = v.into();
+    pub fn set_aggregate_metrics<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::evaluation::Metrics>,
+    {
+        self.aggregate_metrics = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [aggregate_metrics][crate::model::EvaluationReference::aggregate_metrics].
+    pub fn set_or_clear_aggregate_metrics<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::evaluation::Metrics>,
+    {
+        self.aggregate_metrics = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [aggregate_metrics_exact][crate::model::EvaluationReference::aggregate_metrics_exact].
-    pub fn set_aggregate_metrics_exact<
-        T: std::convert::Into<std::option::Option<crate::model::evaluation::Metrics>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.aggregate_metrics_exact = v.into();
+    pub fn set_aggregate_metrics_exact<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::evaluation::Metrics>,
+    {
+        self.aggregate_metrics_exact = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [aggregate_metrics_exact][crate::model::EvaluationReference::aggregate_metrics_exact].
+    pub fn set_or_clear_aggregate_metrics_exact<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::evaluation::Metrics>,
+    {
+        self.aggregate_metrics_exact = v.map(|x| x.into());
         self
     }
 }
@@ -11088,33 +11741,56 @@ impl Evaluation {
     }
 
     /// Sets the value of [create_time][crate::model::Evaluation::create_time].
-    pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.create_time = v.into();
+    pub fn set_create_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [create_time][crate::model::Evaluation::create_time].
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [document_counters][crate::model::Evaluation::document_counters].
-    pub fn set_document_counters<
-        T: std::convert::Into<std::option::Option<crate::model::evaluation::Counters>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.document_counters = v.into();
+    pub fn set_document_counters<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::evaluation::Counters>,
+    {
+        self.document_counters = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [document_counters][crate::model::Evaluation::document_counters].
+    pub fn set_or_clear_document_counters<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::evaluation::Counters>,
+    {
+        self.document_counters = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [all_entities_metrics][crate::model::Evaluation::all_entities_metrics].
-    pub fn set_all_entities_metrics<
-        T: std::convert::Into<std::option::Option<crate::model::evaluation::MultiConfidenceMetrics>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.all_entities_metrics = v.into();
+    pub fn set_all_entities_metrics<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::evaluation::MultiConfidenceMetrics>,
+    {
+        self.all_entities_metrics = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [all_entities_metrics][crate::model::Evaluation::all_entities_metrics].
+    pub fn set_or_clear_all_entities_metrics<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::evaluation::MultiConfidenceMetrics>,
+    {
+        self.all_entities_metrics = v.map(|x| x.into());
         self
     }
 
@@ -11390,13 +12066,20 @@ pub mod evaluation {
         }
 
         /// Sets the value of [metrics][crate::model::evaluation::ConfidenceLevelMetrics::metrics].
-        pub fn set_metrics<
-            T: std::convert::Into<std::option::Option<crate::model::evaluation::Metrics>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.metrics = v.into();
+        pub fn set_metrics<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::evaluation::Metrics>,
+        {
+            self.metrics = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [metrics][crate::model::evaluation::ConfidenceLevelMetrics::metrics].
+        pub fn set_or_clear_metrics<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::evaluation::Metrics>,
+        {
+            self.metrics = v.map(|x| x.into());
             self
         }
     }
@@ -11864,20 +12547,38 @@ impl CommonOperationMetadata {
     }
 
     /// Sets the value of [create_time][crate::model::CommonOperationMetadata::create_time].
-    pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.create_time = v.into();
+    pub fn set_create_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [create_time][crate::model::CommonOperationMetadata::create_time].
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [update_time][crate::model::CommonOperationMetadata::update_time].
-    pub fn set_update_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.update_time = v.into();
+    pub fn set_update_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_time][crate::model::CommonOperationMetadata::update_time].
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = v.map(|x| x.into());
         self
     }
 }
@@ -12135,13 +12836,20 @@ impl ProcessorVersion {
     }
 
     /// Sets the value of [document_schema][crate::model::ProcessorVersion::document_schema].
-    pub fn set_document_schema<
-        T: std::convert::Into<std::option::Option<crate::model::DocumentSchema>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.document_schema = v.into();
+    pub fn set_document_schema<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::DocumentSchema>,
+    {
+        self.document_schema = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [document_schema][crate::model::ProcessorVersion::document_schema].
+    pub fn set_or_clear_document_schema<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::DocumentSchema>,
+    {
+        self.document_schema = v.map(|x| x.into());
         self
     }
 
@@ -12155,22 +12863,38 @@ impl ProcessorVersion {
     }
 
     /// Sets the value of [create_time][crate::model::ProcessorVersion::create_time].
-    pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.create_time = v.into();
+    pub fn set_create_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [create_time][crate::model::ProcessorVersion::create_time].
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [latest_evaluation][crate::model::ProcessorVersion::latest_evaluation].
-    pub fn set_latest_evaluation<
-        T: std::convert::Into<std::option::Option<crate::model::EvaluationReference>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.latest_evaluation = v.into();
+    pub fn set_latest_evaluation<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::EvaluationReference>,
+    {
+        self.latest_evaluation = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [latest_evaluation][crate::model::ProcessorVersion::latest_evaluation].
+    pub fn set_or_clear_latest_evaluation<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::EvaluationReference>,
+    {
+        self.latest_evaluation = v.map(|x| x.into());
         self
     }
 
@@ -12196,13 +12920,20 @@ impl ProcessorVersion {
     }
 
     /// Sets the value of [deprecation_info][crate::model::ProcessorVersion::deprecation_info].
-    pub fn set_deprecation_info<
-        T: std::convert::Into<std::option::Option<crate::model::processor_version::DeprecationInfo>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.deprecation_info = v.into();
+    pub fn set_deprecation_info<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::processor_version::DeprecationInfo>,
+    {
+        self.deprecation_info = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [deprecation_info][crate::model::ProcessorVersion::deprecation_info].
+    pub fn set_or_clear_deprecation_info<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::processor_version::DeprecationInfo>,
+    {
+        self.deprecation_info = v.map(|x| x.into());
         self
     }
 
@@ -12228,13 +12959,20 @@ impl ProcessorVersion {
     }
 
     /// Sets the value of [gen_ai_model_info][crate::model::ProcessorVersion::gen_ai_model_info].
-    pub fn set_gen_ai_model_info<
-        T: std::convert::Into<std::option::Option<crate::model::processor_version::GenAiModelInfo>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.gen_ai_model_info = v.into();
+    pub fn set_gen_ai_model_info<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::processor_version::GenAiModelInfo>,
+    {
+        self.gen_ai_model_info = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [gen_ai_model_info][crate::model::ProcessorVersion::gen_ai_model_info].
+    pub fn set_or_clear_gen_ai_model_info<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::processor_version::GenAiModelInfo>,
+    {
+        self.gen_ai_model_info = v.map(|x| x.into());
         self
     }
 }
@@ -12274,11 +13012,20 @@ pub mod processor_version {
         }
 
         /// Sets the value of [deprecation_time][crate::model::processor_version::DeprecationInfo::deprecation_time].
-        pub fn set_deprecation_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.deprecation_time = v.into();
+        pub fn set_deprecation_time<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Timestamp>,
+        {
+            self.deprecation_time = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [deprecation_time][crate::model::processor_version::DeprecationInfo::deprecation_time].
+        pub fn set_or_clear_deprecation_time<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Timestamp>,
+        {
+            self.deprecation_time = v.map(|x| x.into());
             self
         }
 
@@ -13155,11 +13902,20 @@ impl Processor {
     }
 
     /// Sets the value of [create_time][crate::model::Processor::create_time].
-    pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.create_time = v.into();
+    pub fn set_create_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [create_time][crate::model::Processor::create_time].
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = v.map(|x| x.into());
         self
     }
 

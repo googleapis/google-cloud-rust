@@ -388,7 +388,9 @@ mod v1 {
                 .set_domain(value.domain)
                 .set_entity_id(value.entity_id)
                 .set_etag(value.etag)
-                .set_project_team(value.project_team.map(|x| x.into()))
+                .set_or_clear_project_team::<control::model::ProjectTeam>(
+                    value.project_team.map(|x| x.into()),
+                )
         }
     }
 
@@ -412,22 +414,22 @@ mod v1 {
                 .set_size(value.size as i64)
                 .set_kms_key(value.kms_key_name)
                 .set_etag(value.etag)
-                .set_restore_token(value.restore_token)
+                .set_or_clear_restore_token(value.restore_token)
                 .set_content_encoding(value.content_encoding)
                 .set_content_disposition(value.content_disposition)
                 .set_content_language(value.content_language)
                 .set_cache_control(value.cache_control)
                 .set_temporary_hold(value.temporary_hold)
-                .set_event_based_hold(value.event_based_hold)
+                .set_or_clear_event_based_hold(value.event_based_hold)
                 .set_component_count(value.component_count)
-                .set_soft_delete_time(value.soft_delete_time)
-                .set_hard_delete_time(value.hard_delete_time)
-                .set_retention_expire_time(value.retention_expiration_time)
+                .set_or_clear_soft_delete_time(value.soft_delete_time)
+                .set_or_clear_hard_delete_time(value.hard_delete_time)
+                .set_or_clear_retention_expire_time(value.retention_expiration_time)
                 .set_create_time(value.time_created)
                 .set_finalize_time(value.time_finalized)
-                .set_delete_time(value.time_deleted)
+                .set_or_clear_delete_time(value.time_deleted)
                 .set_update_storage_class_time(value.time_storage_class_updated)
-                .set_custom_time(value.custom_time)
+                .set_or_clear_custom_time(value.custom_time)
                 .set_update_time(value.updated)
                 .set_acl(value.acl)
         }

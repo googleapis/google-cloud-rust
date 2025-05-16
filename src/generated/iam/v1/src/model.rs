@@ -73,20 +73,38 @@ impl SetIamPolicyRequest {
     }
 
     /// Sets the value of [policy][crate::model::SetIamPolicyRequest::policy].
-    pub fn set_policy<T: std::convert::Into<std::option::Option<crate::model::Policy>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.policy = v.into();
+    pub fn set_policy<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::Policy>,
+    {
+        self.policy = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [policy][crate::model::SetIamPolicyRequest::policy].
+    pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::Policy>,
+    {
+        self.policy = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [update_mask][crate::model::SetIamPolicyRequest::update_mask].
-    pub fn set_update_mask<T: std::convert::Into<std::option::Option<wkt::FieldMask>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.update_mask = v.into();
+    pub fn set_update_mask<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_mask][crate::model::SetIamPolicyRequest::update_mask].
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = v.map(|x| x.into());
         self
     }
 }
@@ -129,13 +147,20 @@ impl GetIamPolicyRequest {
     }
 
     /// Sets the value of [options][crate::model::GetIamPolicyRequest::options].
-    pub fn set_options<
-        T: std::convert::Into<std::option::Option<crate::model::GetPolicyOptions>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.options = v.into();
+    pub fn set_options<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::GetPolicyOptions>,
+    {
+        self.options = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [options][crate::model::GetIamPolicyRequest::options].
+    pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::GetPolicyOptions>,
+    {
+        self.options = v.map(|x| x.into());
         self
     }
 }
@@ -569,11 +594,20 @@ impl Binding {
     }
 
     /// Sets the value of [condition][crate::model::Binding::condition].
-    pub fn set_condition<T: std::convert::Into<std::option::Option<gtype::model::Expr>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.condition = v.into();
+    pub fn set_condition<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<gtype::model::Expr>,
+    {
+        self.condition = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [condition][crate::model::Binding::condition].
+    pub fn set_or_clear_condition<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<gtype::model::Expr>,
+    {
+        self.condition = v.map(|x| x.into());
         self
     }
 }
@@ -1015,11 +1049,20 @@ impl BindingDelta {
     }
 
     /// Sets the value of [condition][crate::model::BindingDelta::condition].
-    pub fn set_condition<T: std::convert::Into<std::option::Option<gtype::model::Expr>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.condition = v.into();
+    pub fn set_condition<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<gtype::model::Expr>,
+    {
+        self.condition = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [condition][crate::model::BindingDelta::condition].
+    pub fn set_or_clear_condition<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<gtype::model::Expr>,
+    {
+        self.condition = v.map(|x| x.into());
         self
     }
 }

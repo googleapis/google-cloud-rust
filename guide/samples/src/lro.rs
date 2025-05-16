@@ -69,7 +69,7 @@ pub async fn start(project_id: &str) -> crate::Result<()> {
 // ANCHOR: automatic
 pub async fn automatic(project_id: &str) -> crate::Result<()> {
     // ANCHOR: automatic-use
-    use speech::Poller;
+    use google_cloud_lro::Poller;
     // ANCHOR_END: automatic-use
     // ANCHOR: automatic-prepare
     let client = speech::client::Speech::builder().build().await?;
@@ -112,7 +112,7 @@ pub async fn automatic(project_id: &str) -> crate::Result<()> {
 // ANCHOR: polling
 pub async fn polling(project_id: &str) -> crate::Result<()> {
     // ANCHOR: polling-use
-    use speech::Poller;
+    use google_cloud_lro::{Poller, PollingResult};
     // ANCHOR_END: polling-use
     // ANCHOR: polling-prepare
     let client = speech::client::Speech::builder().build().await?;
@@ -145,13 +145,13 @@ pub async fn polling(project_id: &str) -> crate::Result<()> {
     // ANCHOR: polling-loop
     while let Some(p) = poller.poll().await {
         match p {
-            speech::PollingResult::Completed(r) => {
+            PollingResult::Completed(r) => {
                 println!("LRO completed, response={r:?}");
             }
-            speech::PollingResult::InProgress(m) => {
+            PollingResult::InProgress(m) => {
                 println!("LRO in progress, metadata={m:?}");
             }
-            speech::PollingResult::PollingError(e) => {
+            PollingResult::PollingError(e) => {
                 println!("Transient error polling the LRO: {e}");
             }
         }

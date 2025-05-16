@@ -22,21 +22,31 @@
 //! `google.protobuf.Value`, `google.protobuf.ListValue`, and/or
 //! `google.protobuf.NullValue` as part of their interface specification.
 
-/// Protobuf (and consequently the Google Cloud APIs) use `Struct` to represent
-/// JSON objects. We need a type that can be referenced from the generated code.
+/// The Google Cloud APIs use `google.protobuf.Struct` to represent JSON objects.
+///
+/// The Google Cloud client libraries for Rust map `google.protobuf.Struct` to
+/// this alias.
 pub type Struct = serde_json::Map<String, serde_json::Value>;
 
-/// Protobuf (and consequently the Google Cloud APIs) use `Value` to represent
-/// JSON values. We need a type that can be referenced from the generated code.
+/// The Google Cloud APIs use `google.protobuf.Value` to represent JSON values,
+/// including objects, lists, and scalars.
+///
+/// The Google Cloud client libraries for Rust map `google.protobuf.Value` to
+/// this alias.
 pub type Value = serde_json::Value;
 
-/// Protobuf (and consequently the Google Cloud APIs) use `ListValue` to
-/// represent a list of JSON values. We need a type that can be referenced
-/// from the generated code.
+/// The Google Cloud APIs use `google.protobuf.ListValue` to represent JSON
+/// to represent lists of JSON values.
+///
+/// The Google Cloud client libraries for Rust map `google.protobuf.ListValue`
+/// to this alias.
 pub type ListValue = Vec<serde_json::Value>;
 
-/// A message representing the `null` value. We need a type that can be
-/// referenced from the generated code.
+/// The Google Cloud APIs use `google.protobuf.NullValue` to represent JSON
+/// null values.
+///
+/// The Google Cloud client libraries for Rust map `google.protobuf.NullValue`
+/// to this unit type.
 #[derive(Clone, Debug, Default, PartialEq)]
 pub struct NullValue;
 
@@ -73,8 +83,8 @@ impl crate::message::Message for ListValue {
     }
 }
 
-/// Protobuf represents `NullValue` as an enum. In some contexts, it is
-/// useful to make it behave as if it was.
+// Protobuf represents `NullValue` as an enum. In some contexts, it is
+// useful to make it behave as if it was.
 impl NullValue {
     /// Gets the value.
     pub fn value(&self) -> Option<i32> {

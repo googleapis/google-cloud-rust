@@ -75,8 +75,9 @@ pub mod api_gateway_service {
     /// # use google_cloud_apigateway_v1::builder;
     /// use builder::api_gateway_service::ListGateways;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -189,6 +190,7 @@ pub mod api_gateway_service {
     /// # use google_cloud_apigateway_v1::builder;
     /// use builder::api_gateway_service::GetGateway;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -251,8 +253,9 @@ pub mod api_gateway_service {
     /// # use google_cloud_apigateway_v1::builder;
     /// use builder::api_gateway_service::CreateGateway;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_apigateway_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -348,11 +351,22 @@ pub mod api_gateway_service {
         /// Sets the value of [gateway][crate::model::CreateGatewayRequest::gateway].
         ///
         /// This is a **required** field for requests.
-        pub fn set_gateway<T: Into<std::option::Option<crate::model::Gateway>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.gateway = v.into();
+        pub fn set_gateway<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Gateway>,
+        {
+            self.0.request.gateway = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [gateway][crate::model::CreateGatewayRequest::gateway].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_gateway<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Gateway>,
+        {
+            self.0.request.gateway = v.map(|x| x.into());
             self
         }
     }
@@ -371,8 +385,9 @@ pub mod api_gateway_service {
     /// # use google_cloud_apigateway_v1::builder;
     /// use builder::api_gateway_service::UpdateGateway;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_apigateway_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -450,22 +465,42 @@ pub mod api_gateway_service {
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateGatewayRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateGatewayRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [gateway][crate::model::UpdateGatewayRequest::gateway].
         ///
         /// This is a **required** field for requests.
-        pub fn set_gateway<T: Into<std::option::Option<crate::model::Gateway>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.gateway = v.into();
+        pub fn set_gateway<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Gateway>,
+        {
+            self.0.request.gateway = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [gateway][crate::model::UpdateGatewayRequest::gateway].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_gateway<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Gateway>,
+        {
+            self.0.request.gateway = v.map(|x| x.into());
             self
         }
     }
@@ -484,8 +519,9 @@ pub mod api_gateway_service {
     /// # use google_cloud_apigateway_v1::builder;
     /// use builder::api_gateway_service::DeleteGateway;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_apigateway_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -587,8 +623,9 @@ pub mod api_gateway_service {
     /// # use google_cloud_apigateway_v1::builder;
     /// use builder::api_gateway_service::ListApis;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -701,6 +738,7 @@ pub mod api_gateway_service {
     /// # use google_cloud_apigateway_v1::builder;
     /// use builder::api_gateway_service::GetApi;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -763,8 +801,9 @@ pub mod api_gateway_service {
     /// # use google_cloud_apigateway_v1::builder;
     /// use builder::api_gateway_service::CreateApi;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_apigateway_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -860,8 +899,22 @@ pub mod api_gateway_service {
         /// Sets the value of [api][crate::model::CreateApiRequest::api].
         ///
         /// This is a **required** field for requests.
-        pub fn set_api<T: Into<std::option::Option<crate::model::Api>>>(mut self, v: T) -> Self {
-            self.0.request.api = v.into();
+        pub fn set_api<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Api>,
+        {
+            self.0.request.api = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [api][crate::model::CreateApiRequest::api].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_api<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Api>,
+        {
+            self.0.request.api = v.map(|x| x.into());
             self
         }
     }
@@ -880,8 +933,9 @@ pub mod api_gateway_service {
     /// # use google_cloud_apigateway_v1::builder;
     /// use builder::api_gateway_service::UpdateApi;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_apigateway_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -959,19 +1013,42 @@ pub mod api_gateway_service {
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateApiRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateApiRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [api][crate::model::UpdateApiRequest::api].
         ///
         /// This is a **required** field for requests.
-        pub fn set_api<T: Into<std::option::Option<crate::model::Api>>>(mut self, v: T) -> Self {
-            self.0.request.api = v.into();
+        pub fn set_api<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Api>,
+        {
+            self.0.request.api = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [api][crate::model::UpdateApiRequest::api].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_api<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Api>,
+        {
+            self.0.request.api = v.map(|x| x.into());
             self
         }
     }
@@ -990,8 +1067,9 @@ pub mod api_gateway_service {
     /// # use google_cloud_apigateway_v1::builder;
     /// use builder::api_gateway_service::DeleteApi;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_apigateway_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1093,8 +1171,9 @@ pub mod api_gateway_service {
     /// # use google_cloud_apigateway_v1::builder;
     /// use builder::api_gateway_service::ListApiConfigs;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -1207,6 +1286,7 @@ pub mod api_gateway_service {
     /// # use google_cloud_apigateway_v1::builder;
     /// use builder::api_gateway_service::GetApiConfig;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1278,8 +1358,9 @@ pub mod api_gateway_service {
     /// # use google_cloud_apigateway_v1::builder;
     /// use builder::api_gateway_service::CreateApiConfig;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_apigateway_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1375,11 +1456,22 @@ pub mod api_gateway_service {
         /// Sets the value of [api_config][crate::model::CreateApiConfigRequest::api_config].
         ///
         /// This is a **required** field for requests.
-        pub fn set_api_config<T: Into<std::option::Option<crate::model::ApiConfig>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.api_config = v.into();
+        pub fn set_api_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::ApiConfig>,
+        {
+            self.0.request.api_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [api_config][crate::model::CreateApiConfigRequest::api_config].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_api_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::ApiConfig>,
+        {
+            self.0.request.api_config = v.map(|x| x.into());
             self
         }
     }
@@ -1398,8 +1490,9 @@ pub mod api_gateway_service {
     /// # use google_cloud_apigateway_v1::builder;
     /// use builder::api_gateway_service::UpdateApiConfig;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_apigateway_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1477,22 +1570,42 @@ pub mod api_gateway_service {
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateApiConfigRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateApiConfigRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [api_config][crate::model::UpdateApiConfigRequest::api_config].
         ///
         /// This is a **required** field for requests.
-        pub fn set_api_config<T: Into<std::option::Option<crate::model::ApiConfig>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.api_config = v.into();
+        pub fn set_api_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::ApiConfig>,
+        {
+            self.0.request.api_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [api_config][crate::model::UpdateApiConfigRequest::api_config].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_api_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::ApiConfig>,
+        {
+            self.0.request.api_config = v.map(|x| x.into());
             self
         }
     }
@@ -1511,8 +1624,9 @@ pub mod api_gateway_service {
     /// # use google_cloud_apigateway_v1::builder;
     /// use builder::api_gateway_service::DeleteApiConfig;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_apigateway_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1614,8 +1728,9 @@ pub mod api_gateway_service {
     /// # use google_cloud_apigateway_v1::builder;
     /// use builder::api_gateway_service::ListOperations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -1725,6 +1840,7 @@ pub mod api_gateway_service {
     /// # use google_cloud_apigateway_v1::builder;
     /// use builder::api_gateway_service::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1788,6 +1904,7 @@ pub mod api_gateway_service {
     /// # use google_cloud_apigateway_v1::builder;
     /// use builder::api_gateway_service::DeleteOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1851,6 +1968,7 @@ pub mod api_gateway_service {
     /// # use google_cloud_apigateway_v1::builder;
     /// use builder::api_gateway_service::CancelOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });

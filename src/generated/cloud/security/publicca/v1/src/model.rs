@@ -128,13 +128,20 @@ impl CreateExternalAccountKeyRequest {
     }
 
     /// Sets the value of [external_account_key][crate::model::CreateExternalAccountKeyRequest::external_account_key].
-    pub fn set_external_account_key<
-        T: std::convert::Into<std::option::Option<crate::model::ExternalAccountKey>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.external_account_key = v.into();
+    pub fn set_external_account_key<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::ExternalAccountKey>,
+    {
+        self.external_account_key = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [external_account_key][crate::model::CreateExternalAccountKeyRequest::external_account_key].
+    pub fn set_or_clear_external_account_key<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::ExternalAccountKey>,
+    {
+        self.external_account_key = v.map(|x| x.into());
         self
     }
 }

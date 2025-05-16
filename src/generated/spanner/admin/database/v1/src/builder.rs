@@ -75,8 +75,9 @@ pub mod database_admin {
     /// # use google_cloud_spanner_admin_database_v1::builder;
     /// use builder::database_admin::ListDatabases;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -177,8 +178,9 @@ pub mod database_admin {
     /// # use google_cloud_spanner_admin_database_v1::builder;
     /// use builder::database_admin::CreateDatabase;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_spanner_admin_database_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -286,13 +288,20 @@ pub mod database_admin {
         }
 
         /// Sets the value of [encryption_config][crate::model::CreateDatabaseRequest::encryption_config].
-        pub fn set_encryption_config<
-            T: Into<std::option::Option<crate::model::EncryptionConfig>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.encryption_config = v.into();
+        pub fn set_encryption_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::EncryptionConfig>,
+        {
+            self.0.request.encryption_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [encryption_config][crate::model::CreateDatabaseRequest::encryption_config].
+        pub fn set_or_clear_encryption_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::EncryptionConfig>,
+        {
+            self.0.request.encryption_config = v.map(|x| x.into());
             self
         }
 
@@ -326,6 +335,7 @@ pub mod database_admin {
     /// # use google_cloud_spanner_admin_database_v1::builder;
     /// use builder::database_admin::GetDatabase;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -388,8 +398,9 @@ pub mod database_admin {
     /// # use google_cloud_spanner_admin_database_v1::builder;
     /// use builder::database_admin::UpdateDatabase;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_spanner_admin_database_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -472,22 +483,44 @@ pub mod database_admin {
         /// Sets the value of [database][crate::model::UpdateDatabaseRequest::database].
         ///
         /// This is a **required** field for requests.
-        pub fn set_database<T: Into<std::option::Option<crate::model::Database>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.database = v.into();
+        pub fn set_database<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Database>,
+        {
+            self.0.request.database = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [database][crate::model::UpdateDatabaseRequest::database].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_database<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Database>,
+        {
+            self.0.request.database = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateDatabaseRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateDatabaseRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -506,8 +539,9 @@ pub mod database_admin {
     /// # use google_cloud_spanner_admin_database_v1::builder;
     /// use builder::database_admin::UpdateDatabaseDdl;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_spanner_admin_database_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -638,6 +672,7 @@ pub mod database_admin {
     /// # use google_cloud_spanner_admin_database_v1::builder;
     /// use builder::database_admin::DropDatabase;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -700,6 +735,7 @@ pub mod database_admin {
     /// # use google_cloud_spanner_admin_database_v1::builder;
     /// use builder::database_admin::GetDatabaseDdl;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -762,6 +798,7 @@ pub mod database_admin {
     /// # use google_cloud_spanner_admin_database_v1::builder;
     /// use builder::database_admin::SetIamPolicy;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -812,20 +849,40 @@ pub mod database_admin {
         /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
-        pub fn set_policy<T: Into<std::option::Option<iam_v1::model::Policy>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.policy = v.into();
+        pub fn set_policy<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -844,6 +901,7 @@ pub mod database_admin {
     /// # use google_cloud_spanner_admin_database_v1::builder;
     /// use builder::database_admin::GetIamPolicy;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -892,11 +950,20 @@ pub mod database_admin {
         }
 
         /// Sets the value of [options][iam_v1::model::GetIamPolicyRequest::options].
-        pub fn set_options<T: Into<std::option::Option<iam_v1::model::GetPolicyOptions>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.options = v.into();
+        pub fn set_options<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = v.map(|x| x.into());
             self
         }
     }
@@ -915,6 +982,7 @@ pub mod database_admin {
     /// # use google_cloud_spanner_admin_database_v1::builder;
     /// use builder::database_admin::TestIamPermissions;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -993,8 +1061,9 @@ pub mod database_admin {
     /// # use google_cloud_spanner_admin_database_v1::builder;
     /// use builder::database_admin::CreateBackup;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_spanner_admin_database_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1090,22 +1159,40 @@ pub mod database_admin {
         /// Sets the value of [backup][crate::model::CreateBackupRequest::backup].
         ///
         /// This is a **required** field for requests.
-        pub fn set_backup<T: Into<std::option::Option<crate::model::Backup>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.backup = v.into();
+        pub fn set_backup<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Backup>,
+        {
+            self.0.request.backup = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [backup][crate::model::CreateBackupRequest::backup].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_backup<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Backup>,
+        {
+            self.0.request.backup = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [encryption_config][crate::model::CreateBackupRequest::encryption_config].
-        pub fn set_encryption_config<
-            T: Into<std::option::Option<crate::model::CreateBackupEncryptionConfig>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.encryption_config = v.into();
+        pub fn set_encryption_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::CreateBackupEncryptionConfig>,
+        {
+            self.0.request.encryption_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [encryption_config][crate::model::CreateBackupRequest::encryption_config].
+        pub fn set_or_clear_encryption_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::CreateBackupEncryptionConfig>,
+        {
+            self.0.request.encryption_config = v.map(|x| x.into());
             self
         }
     }
@@ -1124,8 +1211,9 @@ pub mod database_admin {
     /// # use google_cloud_spanner_admin_database_v1::builder;
     /// use builder::database_admin::CopyBackup;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_spanner_admin_database_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1229,22 +1317,40 @@ pub mod database_admin {
         /// Sets the value of [expire_time][crate::model::CopyBackupRequest::expire_time].
         ///
         /// This is a **required** field for requests.
-        pub fn set_expire_time<T: Into<std::option::Option<wkt::Timestamp>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.expire_time = v.into();
+        pub fn set_expire_time<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Timestamp>,
+        {
+            self.0.request.expire_time = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [expire_time][crate::model::CopyBackupRequest::expire_time].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_expire_time<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Timestamp>,
+        {
+            self.0.request.expire_time = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [encryption_config][crate::model::CopyBackupRequest::encryption_config].
-        pub fn set_encryption_config<
-            T: Into<std::option::Option<crate::model::CopyBackupEncryptionConfig>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.encryption_config = v.into();
+        pub fn set_encryption_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::CopyBackupEncryptionConfig>,
+        {
+            self.0.request.encryption_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [encryption_config][crate::model::CopyBackupRequest::encryption_config].
+        pub fn set_or_clear_encryption_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::CopyBackupEncryptionConfig>,
+        {
+            self.0.request.encryption_config = v.map(|x| x.into());
             self
         }
     }
@@ -1263,6 +1369,7 @@ pub mod database_admin {
     /// # use google_cloud_spanner_admin_database_v1::builder;
     /// use builder::database_admin::GetBackup;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1325,6 +1432,7 @@ pub mod database_admin {
     /// # use google_cloud_spanner_admin_database_v1::builder;
     /// use builder::database_admin::UpdateBackup;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1367,22 +1475,44 @@ pub mod database_admin {
         /// Sets the value of [backup][crate::model::UpdateBackupRequest::backup].
         ///
         /// This is a **required** field for requests.
-        pub fn set_backup<T: Into<std::option::Option<crate::model::Backup>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.backup = v.into();
+        pub fn set_backup<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Backup>,
+        {
+            self.0.request.backup = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [backup][crate::model::UpdateBackupRequest::backup].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_backup<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Backup>,
+        {
+            self.0.request.backup = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateBackupRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateBackupRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -1401,6 +1531,7 @@ pub mod database_admin {
     /// # use google_cloud_spanner_admin_database_v1::builder;
     /// use builder::database_admin::DeleteBackup;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1463,8 +1594,9 @@ pub mod database_admin {
     /// # use google_cloud_spanner_admin_database_v1::builder;
     /// use builder::database_admin::ListBackups;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -1571,8 +1703,9 @@ pub mod database_admin {
     /// # use google_cloud_spanner_admin_database_v1::builder;
     /// use builder::database_admin::RestoreDatabase;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_spanner_admin_database_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1669,13 +1802,20 @@ pub mod database_admin {
         }
 
         /// Sets the value of [encryption_config][crate::model::RestoreDatabaseRequest::encryption_config].
-        pub fn set_encryption_config<
-            T: Into<std::option::Option<crate::model::RestoreDatabaseEncryptionConfig>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.encryption_config = v.into();
+        pub fn set_encryption_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::RestoreDatabaseEncryptionConfig>,
+        {
+            self.0.request.encryption_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [encryption_config][crate::model::RestoreDatabaseRequest::encryption_config].
+        pub fn set_or_clear_encryption_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::RestoreDatabaseEncryptionConfig>,
+        {
+            self.0.request.encryption_config = v.map(|x| x.into());
             self
         }
 
@@ -1716,8 +1856,9 @@ pub mod database_admin {
     /// # use google_cloud_spanner_admin_database_v1::builder;
     /// use builder::database_admin::ListDatabaseOperations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -1831,8 +1972,9 @@ pub mod database_admin {
     /// # use google_cloud_spanner_admin_database_v1::builder;
     /// use builder::database_admin::ListBackupOperations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -1944,8 +2086,9 @@ pub mod database_admin {
     /// # use google_cloud_spanner_admin_database_v1::builder;
     /// use builder::database_admin::ListDatabaseRoles;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -2049,6 +2192,7 @@ pub mod database_admin {
     /// # use google_cloud_spanner_admin_database_v1::builder;
     /// use builder::database_admin::AddSplitPoints;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2130,6 +2274,7 @@ pub mod database_admin {
     /// # use google_cloud_spanner_admin_database_v1::builder;
     /// use builder::database_admin::CreateBackupSchedule;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2191,11 +2336,22 @@ pub mod database_admin {
         /// Sets the value of [backup_schedule][crate::model::CreateBackupScheduleRequest::backup_schedule].
         ///
         /// This is a **required** field for requests.
-        pub fn set_backup_schedule<T: Into<std::option::Option<crate::model::BackupSchedule>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.backup_schedule = v.into();
+        pub fn set_backup_schedule<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::BackupSchedule>,
+        {
+            self.0.request.backup_schedule = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [backup_schedule][crate::model::CreateBackupScheduleRequest::backup_schedule].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_backup_schedule<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::BackupSchedule>,
+        {
+            self.0.request.backup_schedule = v.map(|x| x.into());
             self
         }
     }
@@ -2214,6 +2370,7 @@ pub mod database_admin {
     /// # use google_cloud_spanner_admin_database_v1::builder;
     /// use builder::database_admin::GetBackupSchedule;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2279,6 +2436,7 @@ pub mod database_admin {
     /// # use google_cloud_spanner_admin_database_v1::builder;
     /// use builder::database_admin::UpdateBackupSchedule;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2324,22 +2482,44 @@ pub mod database_admin {
         /// Sets the value of [backup_schedule][crate::model::UpdateBackupScheduleRequest::backup_schedule].
         ///
         /// This is a **required** field for requests.
-        pub fn set_backup_schedule<T: Into<std::option::Option<crate::model::BackupSchedule>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.backup_schedule = v.into();
+        pub fn set_backup_schedule<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::BackupSchedule>,
+        {
+            self.0.request.backup_schedule = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [backup_schedule][crate::model::UpdateBackupScheduleRequest::backup_schedule].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_backup_schedule<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::BackupSchedule>,
+        {
+            self.0.request.backup_schedule = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateBackupScheduleRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateBackupScheduleRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -2358,6 +2538,7 @@ pub mod database_admin {
     /// # use google_cloud_spanner_admin_database_v1::builder;
     /// use builder::database_admin::DeleteBackupSchedule;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2423,8 +2604,9 @@ pub mod database_admin {
     /// # use google_cloud_spanner_admin_database_v1::builder;
     /// use builder::database_admin::ListBackupSchedules;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -2530,8 +2712,9 @@ pub mod database_admin {
     /// # use google_cloud_spanner_admin_database_v1::builder;
     /// use builder::database_admin::ListOperations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -2641,6 +2824,7 @@ pub mod database_admin {
     /// # use google_cloud_spanner_admin_database_v1::builder;
     /// use builder::database_admin::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2704,6 +2888,7 @@ pub mod database_admin {
     /// # use google_cloud_spanner_admin_database_v1::builder;
     /// use builder::database_admin::DeleteOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2767,6 +2952,7 @@ pub mod database_admin {
     /// # use google_cloud_spanner_admin_database_v1::builder;
     /// use builder::database_admin::CancelOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });

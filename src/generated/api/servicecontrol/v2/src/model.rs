@@ -90,13 +90,20 @@ impl CheckRequest {
     }
 
     /// Sets the value of [attributes][crate::model::CheckRequest::attributes].
-    pub fn set_attributes<
-        T: std::convert::Into<std::option::Option<rpc_context::model::AttributeContext>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.attributes = v.into();
+    pub fn set_attributes<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<rpc_context::model::AttributeContext>,
+    {
+        self.attributes = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [attributes][crate::model::CheckRequest::attributes].
+    pub fn set_or_clear_attributes<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<rpc_context::model::AttributeContext>,
+    {
+        self.attributes = v.map(|x| x.into());
         self
     }
 
@@ -235,11 +242,20 @@ impl CheckResponse {
     }
 
     /// Sets the value of [status][crate::model::CheckResponse::status].
-    pub fn set_status<T: std::convert::Into<std::option::Option<rpc::model::Status>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.status = v.into();
+    pub fn set_status<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<rpc::model::Status>,
+    {
+        self.status = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [status][crate::model::CheckResponse::status].
+    pub fn set_or_clear_status<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<rpc::model::Status>,
+    {
+        self.status = v.map(|x| x.into());
         self
     }
 

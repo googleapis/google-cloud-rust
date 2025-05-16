@@ -75,6 +75,7 @@ pub mod cluster_manager {
     /// # use google_cloud_container_v1::builder;
     /// use builder::cluster_manager::ListClusters;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -149,6 +150,7 @@ pub mod cluster_manager {
     /// # use google_cloud_container_v1::builder;
     /// use builder::cluster_manager::GetCluster;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -230,6 +232,7 @@ pub mod cluster_manager {
     /// # use google_cloud_container_v1::builder;
     /// use builder::cluster_manager::CreateCluster;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -286,11 +289,22 @@ pub mod cluster_manager {
         /// Sets the value of [cluster][crate::model::CreateClusterRequest::cluster].
         ///
         /// This is a **required** field for requests.
-        pub fn set_cluster<T: Into<std::option::Option<crate::model::Cluster>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.cluster = v.into();
+        pub fn set_cluster<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Cluster>,
+        {
+            self.0.request.cluster = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [cluster][crate::model::CreateClusterRequest::cluster].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_cluster<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Cluster>,
+        {
+            self.0.request.cluster = v.map(|x| x.into());
             self
         }
 
@@ -315,6 +329,7 @@ pub mod cluster_manager {
     /// # use google_cloud_container_v1::builder;
     /// use builder::cluster_manager::UpdateCluster;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -378,11 +393,22 @@ pub mod cluster_manager {
         /// Sets the value of [update][crate::model::UpdateClusterRequest::update].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update<T: Into<std::option::Option<crate::model::ClusterUpdate>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update = v.into();
+        pub fn set_update<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::ClusterUpdate>,
+        {
+            self.0.request.update = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update][crate::model::UpdateClusterRequest::update].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::ClusterUpdate>,
+        {
+            self.0.request.update = v.map(|x| x.into());
             self
         }
 
@@ -407,6 +433,7 @@ pub mod cluster_manager {
     /// # use google_cloud_container_v1::builder;
     /// use builder::cluster_manager::UpdateNodePool;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -508,111 +535,200 @@ pub mod cluster_manager {
         }
 
         /// Sets the value of [workload_metadata_config][crate::model::UpdateNodePoolRequest::workload_metadata_config].
-        pub fn set_workload_metadata_config<
-            T: Into<std::option::Option<crate::model::WorkloadMetadataConfig>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.workload_metadata_config = v.into();
+        pub fn set_workload_metadata_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::WorkloadMetadataConfig>,
+        {
+            self.0.request.workload_metadata_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [workload_metadata_config][crate::model::UpdateNodePoolRequest::workload_metadata_config].
+        pub fn set_or_clear_workload_metadata_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::WorkloadMetadataConfig>,
+        {
+            self.0.request.workload_metadata_config = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [upgrade_settings][crate::model::UpdateNodePoolRequest::upgrade_settings].
-        pub fn set_upgrade_settings<
-            T: Into<std::option::Option<crate::model::node_pool::UpgradeSettings>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.upgrade_settings = v.into();
+        pub fn set_upgrade_settings<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::node_pool::UpgradeSettings>,
+        {
+            self.0.request.upgrade_settings = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [upgrade_settings][crate::model::UpdateNodePoolRequest::upgrade_settings].
+        pub fn set_or_clear_upgrade_settings<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::node_pool::UpgradeSettings>,
+        {
+            self.0.request.upgrade_settings = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [tags][crate::model::UpdateNodePoolRequest::tags].
-        pub fn set_tags<T: Into<std::option::Option<crate::model::NetworkTags>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.tags = v.into();
+        pub fn set_tags<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::NetworkTags>,
+        {
+            self.0.request.tags = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [tags][crate::model::UpdateNodePoolRequest::tags].
+        pub fn set_or_clear_tags<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::NetworkTags>,
+        {
+            self.0.request.tags = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [taints][crate::model::UpdateNodePoolRequest::taints].
-        pub fn set_taints<T: Into<std::option::Option<crate::model::NodeTaints>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.taints = v.into();
+        pub fn set_taints<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::NodeTaints>,
+        {
+            self.0.request.taints = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [taints][crate::model::UpdateNodePoolRequest::taints].
+        pub fn set_or_clear_taints<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::NodeTaints>,
+        {
+            self.0.request.taints = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [labels][crate::model::UpdateNodePoolRequest::labels].
-        pub fn set_labels<T: Into<std::option::Option<crate::model::NodeLabels>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.labels = v.into();
+        pub fn set_labels<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::NodeLabels>,
+        {
+            self.0.request.labels = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [labels][crate::model::UpdateNodePoolRequest::labels].
+        pub fn set_or_clear_labels<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::NodeLabels>,
+        {
+            self.0.request.labels = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [linux_node_config][crate::model::UpdateNodePoolRequest::linux_node_config].
-        pub fn set_linux_node_config<
-            T: Into<std::option::Option<crate::model::LinuxNodeConfig>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.linux_node_config = v.into();
+        pub fn set_linux_node_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::LinuxNodeConfig>,
+        {
+            self.0.request.linux_node_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [linux_node_config][crate::model::UpdateNodePoolRequest::linux_node_config].
+        pub fn set_or_clear_linux_node_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::LinuxNodeConfig>,
+        {
+            self.0.request.linux_node_config = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [kubelet_config][crate::model::UpdateNodePoolRequest::kubelet_config].
-        pub fn set_kubelet_config<T: Into<std::option::Option<crate::model::NodeKubeletConfig>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.kubelet_config = v.into();
+        pub fn set_kubelet_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::NodeKubeletConfig>,
+        {
+            self.0.request.kubelet_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [kubelet_config][crate::model::UpdateNodePoolRequest::kubelet_config].
+        pub fn set_or_clear_kubelet_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::NodeKubeletConfig>,
+        {
+            self.0.request.kubelet_config = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [node_network_config][crate::model::UpdateNodePoolRequest::node_network_config].
-        pub fn set_node_network_config<
-            T: Into<std::option::Option<crate::model::NodeNetworkConfig>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.node_network_config = v.into();
+        pub fn set_node_network_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::NodeNetworkConfig>,
+        {
+            self.0.request.node_network_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [node_network_config][crate::model::UpdateNodePoolRequest::node_network_config].
+        pub fn set_or_clear_node_network_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::NodeNetworkConfig>,
+        {
+            self.0.request.node_network_config = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [gcfs_config][crate::model::UpdateNodePoolRequest::gcfs_config].
-        pub fn set_gcfs_config<T: Into<std::option::Option<crate::model::GcfsConfig>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.gcfs_config = v.into();
+        pub fn set_gcfs_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::GcfsConfig>,
+        {
+            self.0.request.gcfs_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [gcfs_config][crate::model::UpdateNodePoolRequest::gcfs_config].
+        pub fn set_or_clear_gcfs_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::GcfsConfig>,
+        {
+            self.0.request.gcfs_config = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [confidential_nodes][crate::model::UpdateNodePoolRequest::confidential_nodes].
-        pub fn set_confidential_nodes<
-            T: Into<std::option::Option<crate::model::ConfidentialNodes>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.confidential_nodes = v.into();
+        pub fn set_confidential_nodes<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::ConfidentialNodes>,
+        {
+            self.0.request.confidential_nodes = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [confidential_nodes][crate::model::UpdateNodePoolRequest::confidential_nodes].
+        pub fn set_or_clear_confidential_nodes<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::ConfidentialNodes>,
+        {
+            self.0.request.confidential_nodes = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [gvnic][crate::model::UpdateNodePoolRequest::gvnic].
-        pub fn set_gvnic<T: Into<std::option::Option<crate::model::VirtualNIC>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.gvnic = v.into();
+        pub fn set_gvnic<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::VirtualNIC>,
+        {
+            self.0.request.gvnic = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [gvnic][crate::model::UpdateNodePoolRequest::gvnic].
+        pub fn set_or_clear_gvnic<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::VirtualNIC>,
+        {
+            self.0.request.gvnic = v.map(|x| x.into());
             self
         }
 
@@ -623,42 +739,74 @@ pub mod cluster_manager {
         }
 
         /// Sets the value of [fast_socket][crate::model::UpdateNodePoolRequest::fast_socket].
-        pub fn set_fast_socket<T: Into<std::option::Option<crate::model::FastSocket>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.fast_socket = v.into();
+        pub fn set_fast_socket<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::FastSocket>,
+        {
+            self.0.request.fast_socket = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [fast_socket][crate::model::UpdateNodePoolRequest::fast_socket].
+        pub fn set_or_clear_fast_socket<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::FastSocket>,
+        {
+            self.0.request.fast_socket = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [logging_config][crate::model::UpdateNodePoolRequest::logging_config].
-        pub fn set_logging_config<
-            T: Into<std::option::Option<crate::model::NodePoolLoggingConfig>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.logging_config = v.into();
+        pub fn set_logging_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::NodePoolLoggingConfig>,
+        {
+            self.0.request.logging_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [logging_config][crate::model::UpdateNodePoolRequest::logging_config].
+        pub fn set_or_clear_logging_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::NodePoolLoggingConfig>,
+        {
+            self.0.request.logging_config = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [resource_labels][crate::model::UpdateNodePoolRequest::resource_labels].
-        pub fn set_resource_labels<T: Into<std::option::Option<crate::model::ResourceLabels>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.resource_labels = v.into();
+        pub fn set_resource_labels<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::ResourceLabels>,
+        {
+            self.0.request.resource_labels = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [resource_labels][crate::model::UpdateNodePoolRequest::resource_labels].
+        pub fn set_or_clear_resource_labels<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::ResourceLabels>,
+        {
+            self.0.request.resource_labels = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [windows_node_config][crate::model::UpdateNodePoolRequest::windows_node_config].
-        pub fn set_windows_node_config<
-            T: Into<std::option::Option<crate::model::WindowsNodeConfig>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.windows_node_config = v.into();
+        pub fn set_windows_node_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::WindowsNodeConfig>,
+        {
+            self.0.request.windows_node_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [windows_node_config][crate::model::UpdateNodePoolRequest::windows_node_config].
+        pub fn set_or_clear_windows_node_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::WindowsNodeConfig>,
+        {
+            self.0.request.windows_node_config = v.map(|x| x.into());
             self
         }
 
@@ -692,35 +840,56 @@ pub mod cluster_manager {
         }
 
         /// Sets the value of [resource_manager_tags][crate::model::UpdateNodePoolRequest::resource_manager_tags].
-        pub fn set_resource_manager_tags<
-            T: Into<std::option::Option<crate::model::ResourceManagerTags>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.resource_manager_tags = v.into();
+        pub fn set_resource_manager_tags<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::ResourceManagerTags>,
+        {
+            self.0.request.resource_manager_tags = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [resource_manager_tags][crate::model::UpdateNodePoolRequest::resource_manager_tags].
+        pub fn set_or_clear_resource_manager_tags<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::ResourceManagerTags>,
+        {
+            self.0.request.resource_manager_tags = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [containerd_config][crate::model::UpdateNodePoolRequest::containerd_config].
-        pub fn set_containerd_config<
-            T: Into<std::option::Option<crate::model::ContainerdConfig>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.containerd_config = v.into();
+        pub fn set_containerd_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::ContainerdConfig>,
+        {
+            self.0.request.containerd_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [containerd_config][crate::model::UpdateNodePoolRequest::containerd_config].
+        pub fn set_or_clear_containerd_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::ContainerdConfig>,
+        {
+            self.0.request.containerd_config = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [queued_provisioning][crate::model::UpdateNodePoolRequest::queued_provisioning].
-        pub fn set_queued_provisioning<
-            T: Into<std::option::Option<crate::model::node_pool::QueuedProvisioning>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.queued_provisioning = v.into();
+        pub fn set_queued_provisioning<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::node_pool::QueuedProvisioning>,
+        {
+            self.0.request.queued_provisioning = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [queued_provisioning][crate::model::UpdateNodePoolRequest::queued_provisioning].
+        pub fn set_or_clear_queued_provisioning<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::node_pool::QueuedProvisioning>,
+        {
+            self.0.request.queued_provisioning = v.map(|x| x.into());
             self
         }
 
@@ -750,6 +919,7 @@ pub mod cluster_manager {
     /// # use google_cloud_container_v1::builder;
     /// use builder::cluster_manager::SetNodePoolAutoscaling;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -823,11 +993,22 @@ pub mod cluster_manager {
         /// Sets the value of [autoscaling][crate::model::SetNodePoolAutoscalingRequest::autoscaling].
         ///
         /// This is a **required** field for requests.
-        pub fn set_autoscaling<T: Into<std::option::Option<crate::model::NodePoolAutoscaling>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.autoscaling = v.into();
+        pub fn set_autoscaling<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::NodePoolAutoscaling>,
+        {
+            self.0.request.autoscaling = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [autoscaling][crate::model::SetNodePoolAutoscalingRequest::autoscaling].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_autoscaling<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::NodePoolAutoscaling>,
+        {
+            self.0.request.autoscaling = v.map(|x| x.into());
             self
         }
 
@@ -852,6 +1033,7 @@ pub mod cluster_manager {
     /// # use google_cloud_container_v1::builder;
     /// use builder::cluster_manager::SetLoggingService;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -944,6 +1126,7 @@ pub mod cluster_manager {
     /// # use google_cloud_container_v1::builder;
     /// use builder::cluster_manager::SetMonitoringService;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1036,6 +1219,7 @@ pub mod cluster_manager {
     /// # use google_cloud_container_v1::builder;
     /// use builder::cluster_manager::SetAddonsConfig;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1099,11 +1283,22 @@ pub mod cluster_manager {
         /// Sets the value of [addons_config][crate::model::SetAddonsConfigRequest::addons_config].
         ///
         /// This is a **required** field for requests.
-        pub fn set_addons_config<T: Into<std::option::Option<crate::model::AddonsConfig>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.addons_config = v.into();
+        pub fn set_addons_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::AddonsConfig>,
+        {
+            self.0.request.addons_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [addons_config][crate::model::SetAddonsConfigRequest::addons_config].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_addons_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::AddonsConfig>,
+        {
+            self.0.request.addons_config = v.map(|x| x.into());
             self
         }
 
@@ -1128,6 +1323,7 @@ pub mod cluster_manager {
     /// # use google_cloud_container_v1::builder;
     /// use builder::cluster_manager::SetLocations;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1222,6 +1418,7 @@ pub mod cluster_manager {
     /// # use google_cloud_container_v1::builder;
     /// use builder::cluster_manager::UpdateMaster;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1311,6 +1508,7 @@ pub mod cluster_manager {
     /// # use google_cloud_container_v1::builder;
     /// use builder::cluster_manager::SetMasterAuth;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1385,11 +1583,22 @@ pub mod cluster_manager {
         /// Sets the value of [update][crate::model::SetMasterAuthRequest::update].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update<T: Into<std::option::Option<crate::model::MasterAuth>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update = v.into();
+        pub fn set_update<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::MasterAuth>,
+        {
+            self.0.request.update = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update][crate::model::SetMasterAuthRequest::update].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::MasterAuth>,
+        {
+            self.0.request.update = v.map(|x| x.into());
             self
         }
 
@@ -1414,6 +1623,7 @@ pub mod cluster_manager {
     /// # use google_cloud_container_v1::builder;
     /// use builder::cluster_manager::DeleteCluster;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1495,6 +1705,7 @@ pub mod cluster_manager {
     /// # use google_cloud_container_v1::builder;
     /// use builder::cluster_manager::ListOperations;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1569,6 +1780,7 @@ pub mod cluster_manager {
     /// # use google_cloud_container_v1::builder;
     /// use builder::cluster_manager::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1650,6 +1862,7 @@ pub mod cluster_manager {
     /// # use google_cloud_container_v1::builder;
     /// use builder::cluster_manager::CancelOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1731,6 +1944,7 @@ pub mod cluster_manager {
     /// # use google_cloud_container_v1::builder;
     /// use builder::cluster_manager::GetServerConfig;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1805,6 +2019,7 @@ pub mod cluster_manager {
     /// # use google_cloud_container_v1::builder;
     /// use builder::cluster_manager::GetJSONWebKeys;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1865,6 +2080,7 @@ pub mod cluster_manager {
     /// # use google_cloud_container_v1::builder;
     /// use builder::cluster_manager::ListNodePools;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1946,6 +2162,7 @@ pub mod cluster_manager {
     /// # use google_cloud_container_v1::builder;
     /// use builder::cluster_manager::GetNodePool;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2034,6 +2251,7 @@ pub mod cluster_manager {
     /// # use google_cloud_container_v1::builder;
     /// use builder::cluster_manager::CreateNodePool;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2097,11 +2315,22 @@ pub mod cluster_manager {
         /// Sets the value of [node_pool][crate::model::CreateNodePoolRequest::node_pool].
         ///
         /// This is a **required** field for requests.
-        pub fn set_node_pool<T: Into<std::option::Option<crate::model::NodePool>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.node_pool = v.into();
+        pub fn set_node_pool<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::NodePool>,
+        {
+            self.0.request.node_pool = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [node_pool][crate::model::CreateNodePoolRequest::node_pool].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_node_pool<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::NodePool>,
+        {
+            self.0.request.node_pool = v.map(|x| x.into());
             self
         }
 
@@ -2126,6 +2355,7 @@ pub mod cluster_manager {
     /// # use google_cloud_container_v1::builder;
     /// use builder::cluster_manager::DeleteNodePool;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2214,6 +2444,7 @@ pub mod cluster_manager {
     /// # use google_cloud_container_v1::builder;
     /// use builder::cluster_manager::CompleteNodePoolUpgrade;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2279,6 +2510,7 @@ pub mod cluster_manager {
     /// # use google_cloud_container_v1::builder;
     /// use builder::cluster_manager::RollbackNodePoolUpgrade;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2378,6 +2610,7 @@ pub mod cluster_manager {
     /// # use google_cloud_container_v1::builder;
     /// use builder::cluster_manager::SetNodePoolManagement;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2451,11 +2684,22 @@ pub mod cluster_manager {
         /// Sets the value of [management][crate::model::SetNodePoolManagementRequest::management].
         ///
         /// This is a **required** field for requests.
-        pub fn set_management<T: Into<std::option::Option<crate::model::NodeManagement>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.management = v.into();
+        pub fn set_management<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::NodeManagement>,
+        {
+            self.0.request.management = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [management][crate::model::SetNodePoolManagementRequest::management].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_management<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::NodeManagement>,
+        {
+            self.0.request.management = v.map(|x| x.into());
             self
         }
 
@@ -2480,6 +2724,7 @@ pub mod cluster_manager {
     /// # use google_cloud_container_v1::builder;
     /// use builder::cluster_manager::SetLabels;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2583,6 +2828,7 @@ pub mod cluster_manager {
     /// # use google_cloud_container_v1::builder;
     /// use builder::cluster_manager::SetLegacyAbac;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2672,6 +2918,7 @@ pub mod cluster_manager {
     /// # use google_cloud_container_v1::builder;
     /// use builder::cluster_manager::StartIPRotation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2759,6 +3006,7 @@ pub mod cluster_manager {
     /// # use google_cloud_container_v1::builder;
     /// use builder::cluster_manager::CompleteIPRotation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2843,6 +3091,7 @@ pub mod cluster_manager {
     /// # use google_cloud_container_v1::builder;
     /// use builder::cluster_manager::SetNodePoolSize;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2939,6 +3188,7 @@ pub mod cluster_manager {
     /// # use google_cloud_container_v1::builder;
     /// use builder::cluster_manager::SetNetworkPolicy;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3005,11 +3255,22 @@ pub mod cluster_manager {
         /// Sets the value of [network_policy][crate::model::SetNetworkPolicyRequest::network_policy].
         ///
         /// This is a **required** field for requests.
-        pub fn set_network_policy<T: Into<std::option::Option<crate::model::NetworkPolicy>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.network_policy = v.into();
+        pub fn set_network_policy<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::NetworkPolicy>,
+        {
+            self.0.request.network_policy = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [network_policy][crate::model::SetNetworkPolicyRequest::network_policy].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_network_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::NetworkPolicy>,
+        {
+            self.0.request.network_policy = v.map(|x| x.into());
             self
         }
 
@@ -3034,6 +3295,7 @@ pub mod cluster_manager {
     /// # use google_cloud_container_v1::builder;
     /// use builder::cluster_manager::SetMaintenancePolicy;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3103,13 +3365,22 @@ pub mod cluster_manager {
         /// Sets the value of [maintenance_policy][crate::model::SetMaintenancePolicyRequest::maintenance_policy].
         ///
         /// This is a **required** field for requests.
-        pub fn set_maintenance_policy<
-            T: Into<std::option::Option<crate::model::MaintenancePolicy>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.maintenance_policy = v.into();
+        pub fn set_maintenance_policy<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::MaintenancePolicy>,
+        {
+            self.0.request.maintenance_policy = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [maintenance_policy][crate::model::SetMaintenancePolicyRequest::maintenance_policy].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_maintenance_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::MaintenancePolicy>,
+        {
+            self.0.request.maintenance_policy = v.map(|x| x.into());
             self
         }
 
@@ -3134,8 +3405,9 @@ pub mod cluster_manager {
     /// # use google_cloud_container_v1::builder;
     /// use builder::cluster_manager::ListUsableSubnetworks;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -3245,6 +3517,7 @@ pub mod cluster_manager {
     /// # use google_cloud_container_v1::builder;
     /// use builder::cluster_manager::CheckAutopilotCompatibility;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });

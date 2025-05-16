@@ -31,7 +31,7 @@ jobs:
           key: ${{ github.job }}-${{ runner.os }}-cargo-${{ hashFiles('Cargo.lock', '.github/workflows/lint.yaml') }}
       - run: |
           rustup component list
-          cargo install typos-cli --version 1.30.0 --locked
+          cargo install typos-cli --version 1.32.0 --locked
       - run: typos
   misc-formatting:
     runs-on: ubuntu-24.04

@@ -17,6 +17,18 @@ use crate::message::MessageSerializer;
 /// `Any` contains an arbitrary serialized protocol buffer message along with a
 /// URL that describes the type of the serialized message.
 ///
+/// # Example
+/// ```
+/// # use google_cloud_wkt::{Any, AnyError, Duration, Timestamp};
+/// let duration = Duration::clamp(123, 456);
+/// let any = Any::try_from(&duration)?;
+/// let extracted = any.try_into_message::<Duration>()?;
+/// assert_eq!(extracted, duration);
+/// let fail = any.try_into_message::<Timestamp>();
+/// assert!(matches!(fail, Err(AnyError::TypeMismatch{..})));
+/// # Ok::<(), AnyError>(())
+/// ```
+///
 /// Protobuf library provides support to pack/unpack Any values in the form
 /// of utility functions or additional generated methods of the Any type.
 ///
@@ -77,22 +89,29 @@ pub struct Any(serde_json::Map<String, serde_json::Value>);
 /// let duration = Duration::clamp(60, 0);
 /// let any = Any::try_from(&duration)?;
 /// let extracted = any.try_into_message::<Timestamp>();
-/// assert!(matches!(extracted, Err(AnyError::TypeMismatch(_))));
+/// assert!(matches!(extracted, Err(AnyError::TypeMismatch{..})));
 /// # Ok::<(), AnyError>(())
 /// ```
 #[derive(thiserror::Error, Debug)]
 pub enum AnyError {
     /// Problem serializing an object into an [Any].
-    #[error("cannot serialize object into an Any, source={0:?}")]
+    #[error("cannot serialize object into an Any, source={0}")]
     Serialization(#[source] BoxedError),
 
     /// Problem deserializing an object from an [Any].
-    #[error("cannot deserialize from an Any, source={0:?}")]
+    #[error("cannot deserialize from an Any, source={0}")]
     Deserialization(#[source] BoxedError),
 
     /// Mismatched type, the [Any] does not contain the desired type.
-    #[error("expected type mismatch in Any deserialization type={0}")]
-    TypeMismatch(String),
+    #[error(
+        "mismatched typenames extracting from Any, the any has {has}, the target type is {want}"
+    )]
+    TypeMismatch {
+        /// The type URL contained in the `Any`.
+        has: String,
+        /// The type URL of the desired type to extract from the `Any`.
+        want: String,
+    },
 }
 
 impl AnyError {
@@ -104,8 +123,11 @@ impl AnyError {
         Self::Deserialization(v.into())
     }
 
-    pub(crate) fn mismatch<T: Into<String>>(v: T) -> Self {
-        Self::TypeMismatch(v.into())
+    pub(crate) fn mismatch(has: &str, want: &str) -> Self {
+        Self::TypeMismatch {
+            has: has.into(),
+            want: want.into(),
+        }
     }
 }
 
@@ -115,19 +137,36 @@ type Error = AnyError;
 impl Any {
     /// Returns the name of the contained type.
     ///
-    /// An any may contain any message type. The name of the message is a URL,
+    /// # Example
+    /// ```
+    /// # use google_cloud_wkt::{Any, AnyError, Duration, Timestamp};
+    /// use google_cloud_wkt::message::Message;
+    /// let any = Any::try_from(&Duration::clamp(123, 456))?;
+    /// assert_eq!(any.type_url(), Some(Duration::typename()));
+    /// # Ok::<(), AnyError>(())
+    /// ```
+    ///
+    /// An `Any` may contain any message type. The name of the message is a URL,
     /// usually with the `https://` scheme elided. All types in Google Cloud
-    /// APIs are of the form
-    /// `https://type.googleapis.com/${fully-qualified-name}`.
+    /// APIs are of the form `type.googleapis.com/${fully-qualified-name}`.
     ///
     /// Note that this is not an available URL where you can download data (such
     /// as the message schema) from.
+    ///
     pub fn type_url(&self) -> Option<&str> {
         self.0.get("@type").and_then(serde_json::Value::as_str)
     }
 
     /// Creates a new [Any] from any [Message][crate::message::Message] that
     /// also supports serialization to JSON.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_wkt::{Any, AnyError, Duration, Timestamp};
+    /// use google_cloud_wkt::message::Message;
+    /// let any = Any::try_from(&Duration::clamp(123, 456))?;
+    /// # Ok::<(), AnyError>(())
+    /// ```
     pub fn try_from<T>(message: &T) -> Result<Self, Error>
     where
         T: crate::message::Message + serde::ser::Serialize + serde::de::DeserializeOwned,
@@ -138,6 +177,16 @@ impl Any {
     }
 
     /// Extracts (if possible) a `T` value from the [Any].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_wkt::{Any, AnyError, Duration, Timestamp};
+    /// use google_cloud_wkt::message::Message;
+    /// let any = Any::try_from(&Duration::clamp(123, 456))?;
+    /// let duration = any.try_into_message::<Duration>()?;
+    /// assert_eq!(duration, Duration::clamp(123, 456));
+    /// # Ok::<(), AnyError>(())
+    /// ```
     pub fn try_into_message<T>(&self) -> Result<T, Error>
     where
         T: crate::message::Message + serde::ser::Serialize + serde::de::DeserializeOwned,
@@ -154,13 +203,11 @@ impl Any {
         serializer.deserialize_from_map(map)
     }
 
-    fn check_typename(got: &str, want: &str) -> Result<(), Error> {
-        if got == want {
+    fn check_typename(has: &str, want: &str) -> Result<(), Error> {
+        if has == want {
             return Ok(());
         }
-        Err(Error::mismatch(format!(
-            "mismatched typenames extracting from Any, the any has {got}, the target type is {want}"
-        )))
+        Err(Error::mismatch(has, want))
     }
 }
 

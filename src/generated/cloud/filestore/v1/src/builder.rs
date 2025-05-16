@@ -75,8 +75,9 @@ pub mod cloud_filestore_manager {
     /// # use google_cloud_filestore_v1::builder;
     /// use builder::cloud_filestore_manager::ListInstances;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -189,6 +190,7 @@ pub mod cloud_filestore_manager {
     /// # use google_cloud_filestore_v1::builder;
     /// use builder::cloud_filestore_manager::GetInstance;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -251,8 +253,9 @@ pub mod cloud_filestore_manager {
     /// # use google_cloud_filestore_v1::builder;
     /// use builder::cloud_filestore_manager::CreateInstance;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_filestore_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -351,11 +354,22 @@ pub mod cloud_filestore_manager {
         /// Sets the value of [instance][crate::model::CreateInstanceRequest::instance].
         ///
         /// This is a **required** field for requests.
-        pub fn set_instance<T: Into<std::option::Option<crate::model::Instance>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.instance = v.into();
+        pub fn set_instance<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Instance>,
+        {
+            self.0.request.instance = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [instance][crate::model::CreateInstanceRequest::instance].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_instance<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Instance>,
+        {
+            self.0.request.instance = v.map(|x| x.into());
             self
         }
     }
@@ -374,8 +388,9 @@ pub mod cloud_filestore_manager {
     /// # use google_cloud_filestore_v1::builder;
     /// use builder::cloud_filestore_manager::UpdateInstance;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_filestore_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -456,20 +471,38 @@ pub mod cloud_filestore_manager {
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateInstanceRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateInstanceRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [instance][crate::model::UpdateInstanceRequest::instance].
-        pub fn set_instance<T: Into<std::option::Option<crate::model::Instance>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.instance = v.into();
+        pub fn set_instance<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Instance>,
+        {
+            self.0.request.instance = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [instance][crate::model::UpdateInstanceRequest::instance].
+        pub fn set_or_clear_instance<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Instance>,
+        {
+            self.0.request.instance = v.map(|x| x.into());
             self
         }
     }
@@ -488,8 +521,9 @@ pub mod cloud_filestore_manager {
     /// # use google_cloud_filestore_v1::builder;
     /// use builder::cloud_filestore_manager::RestoreInstance;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_filestore_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -625,8 +659,9 @@ pub mod cloud_filestore_manager {
     /// # use google_cloud_filestore_v1::builder;
     /// use builder::cloud_filestore_manager::RevertInstance;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_filestore_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -737,8 +772,9 @@ pub mod cloud_filestore_manager {
     /// # use google_cloud_filestore_v1::builder;
     /// use builder::cloud_filestore_manager::DeleteInstance;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_filestore_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -847,8 +883,9 @@ pub mod cloud_filestore_manager {
     /// # use google_cloud_filestore_v1::builder;
     /// use builder::cloud_filestore_manager::ListSnapshots;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -967,6 +1004,7 @@ pub mod cloud_filestore_manager {
     /// # use google_cloud_filestore_v1::builder;
     /// use builder::cloud_filestore_manager::GetSnapshot;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1029,8 +1067,9 @@ pub mod cloud_filestore_manager {
     /// # use google_cloud_filestore_v1::builder;
     /// use builder::cloud_filestore_manager::CreateSnapshot;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_filestore_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1129,11 +1168,22 @@ pub mod cloud_filestore_manager {
         /// Sets the value of [snapshot][crate::model::CreateSnapshotRequest::snapshot].
         ///
         /// This is a **required** field for requests.
-        pub fn set_snapshot<T: Into<std::option::Option<crate::model::Snapshot>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.snapshot = v.into();
+        pub fn set_snapshot<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Snapshot>,
+        {
+            self.0.request.snapshot = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [snapshot][crate::model::CreateSnapshotRequest::snapshot].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_snapshot<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Snapshot>,
+        {
+            self.0.request.snapshot = v.map(|x| x.into());
             self
         }
     }
@@ -1152,8 +1202,9 @@ pub mod cloud_filestore_manager {
     /// # use google_cloud_filestore_v1::builder;
     /// use builder::cloud_filestore_manager::DeleteSnapshot;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_filestore_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1256,8 +1307,9 @@ pub mod cloud_filestore_manager {
     /// # use google_cloud_filestore_v1::builder;
     /// use builder::cloud_filestore_manager::UpdateSnapshot;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_filestore_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1340,22 +1392,44 @@ pub mod cloud_filestore_manager {
         /// Sets the value of [update_mask][crate::model::UpdateSnapshotRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateSnapshotRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [snapshot][crate::model::UpdateSnapshotRequest::snapshot].
         ///
         /// This is a **required** field for requests.
-        pub fn set_snapshot<T: Into<std::option::Option<crate::model::Snapshot>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.snapshot = v.into();
+        pub fn set_snapshot<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Snapshot>,
+        {
+            self.0.request.snapshot = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [snapshot][crate::model::UpdateSnapshotRequest::snapshot].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_snapshot<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Snapshot>,
+        {
+            self.0.request.snapshot = v.map(|x| x.into());
             self
         }
     }
@@ -1374,8 +1448,9 @@ pub mod cloud_filestore_manager {
     /// # use google_cloud_filestore_v1::builder;
     /// use builder::cloud_filestore_manager::ListBackups;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -1488,6 +1563,7 @@ pub mod cloud_filestore_manager {
     /// # use google_cloud_filestore_v1::builder;
     /// use builder::cloud_filestore_manager::GetBackup;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1550,8 +1626,9 @@ pub mod cloud_filestore_manager {
     /// # use google_cloud_filestore_v1::builder;
     /// use builder::cloud_filestore_manager::CreateBackup;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_filestore_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1642,11 +1719,22 @@ pub mod cloud_filestore_manager {
         /// Sets the value of [backup][crate::model::CreateBackupRequest::backup].
         ///
         /// This is a **required** field for requests.
-        pub fn set_backup<T: Into<std::option::Option<crate::model::Backup>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.backup = v.into();
+        pub fn set_backup<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Backup>,
+        {
+            self.0.request.backup = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [backup][crate::model::CreateBackupRequest::backup].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_backup<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Backup>,
+        {
+            self.0.request.backup = v.map(|x| x.into());
             self
         }
 
@@ -1673,8 +1761,9 @@ pub mod cloud_filestore_manager {
     /// # use google_cloud_filestore_v1::builder;
     /// use builder::cloud_filestore_manager::DeleteBackup;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_filestore_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1777,8 +1866,9 @@ pub mod cloud_filestore_manager {
     /// # use google_cloud_filestore_v1::builder;
     /// use builder::cloud_filestore_manager::UpdateBackup;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_filestore_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1861,22 +1951,44 @@ pub mod cloud_filestore_manager {
         /// Sets the value of [backup][crate::model::UpdateBackupRequest::backup].
         ///
         /// This is a **required** field for requests.
-        pub fn set_backup<T: Into<std::option::Option<crate::model::Backup>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.backup = v.into();
+        pub fn set_backup<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Backup>,
+        {
+            self.0.request.backup = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [backup][crate::model::UpdateBackupRequest::backup].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_backup<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Backup>,
+        {
+            self.0.request.backup = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateBackupRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateBackupRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -1895,8 +2007,9 @@ pub mod cloud_filestore_manager {
     /// # use google_cloud_filestore_v1::builder;
     /// use builder::cloud_filestore_manager::PromoteReplica;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_filestore_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -2005,8 +2118,9 @@ pub mod cloud_filestore_manager {
     /// # use google_cloud_filestore_v1::builder;
     /// use builder::cloud_filestore_manager::ListLocations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -2114,6 +2228,7 @@ pub mod cloud_filestore_manager {
     /// # use google_cloud_filestore_v1::builder;
     /// use builder::cloud_filestore_manager::GetLocation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2174,8 +2289,9 @@ pub mod cloud_filestore_manager {
     /// # use google_cloud_filestore_v1::builder;
     /// use builder::cloud_filestore_manager::ListOperations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -2285,6 +2401,7 @@ pub mod cloud_filestore_manager {
     /// # use google_cloud_filestore_v1::builder;
     /// use builder::cloud_filestore_manager::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2348,6 +2465,7 @@ pub mod cloud_filestore_manager {
     /// # use google_cloud_filestore_v1::builder;
     /// use builder::cloud_filestore_manager::DeleteOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2411,6 +2529,7 @@ pub mod cloud_filestore_manager {
     /// # use google_cloud_filestore_v1::builder;
     /// use builder::cloud_filestore_manager::CancelOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });

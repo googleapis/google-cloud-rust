@@ -38,7 +38,7 @@ mod my_application {
         client: &speech::client::Speech,
         project_id: &str,
     ) -> Result<Option<wkt::Duration>> {
-        use speech::Poller;
+        use google_cloud_lro::Poller;
         client
             .batch_recognize()
             .set_recognizer(format!(
@@ -73,7 +73,7 @@ mod test {
     }
 
     fn expected_response() -> BatchRecognizeResponse {
-        BatchRecognizeResponse::new().set_total_billed_duration(expected_duration())
+        BatchRecognizeResponse::new().set_or_clear_total_billed_duration(expected_duration())
     }
     // ANCHOR_END: expected-response
 

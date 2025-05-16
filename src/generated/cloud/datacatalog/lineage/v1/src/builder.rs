@@ -73,6 +73,7 @@ pub mod lineage {
     /// # use google_cloud_datacatalog_lineage_v1::builder;
     /// use builder::lineage::ProcessOpenLineageRunEvent;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -126,8 +127,22 @@ pub mod lineage {
         /// Sets the value of [open_lineage][crate::model::ProcessOpenLineageRunEventRequest::open_lineage].
         ///
         /// This is a **required** field for requests.
-        pub fn set_open_lineage<T: Into<std::option::Option<wkt::Struct>>>(mut self, v: T) -> Self {
-            self.0.request.open_lineage = v.into();
+        pub fn set_open_lineage<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Struct>,
+        {
+            self.0.request.open_lineage = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [open_lineage][crate::model::ProcessOpenLineageRunEventRequest::open_lineage].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_open_lineage<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Struct>,
+        {
+            self.0.request.open_lineage = v.map(|x| x.into());
             self
         }
 
@@ -152,6 +167,7 @@ pub mod lineage {
     /// # use google_cloud_datacatalog_lineage_v1::builder;
     /// use builder::lineage::CreateProcess;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -200,11 +216,22 @@ pub mod lineage {
         /// Sets the value of [process][crate::model::CreateProcessRequest::process].
         ///
         /// This is a **required** field for requests.
-        pub fn set_process<T: Into<std::option::Option<crate::model::Process>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.process = v.into();
+        pub fn set_process<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Process>,
+        {
+            self.0.request.process = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [process][crate::model::CreateProcessRequest::process].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_process<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Process>,
+        {
+            self.0.request.process = v.map(|x| x.into());
             self
         }
 
@@ -229,6 +256,7 @@ pub mod lineage {
     /// # use google_cloud_datacatalog_lineage_v1::builder;
     /// use builder::lineage::UpdateProcess;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -269,20 +297,40 @@ pub mod lineage {
         /// Sets the value of [process][crate::model::UpdateProcessRequest::process].
         ///
         /// This is a **required** field for requests.
-        pub fn set_process<T: Into<std::option::Option<crate::model::Process>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.process = v.into();
+        pub fn set_process<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Process>,
+        {
+            self.0.request.process = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [process][crate::model::UpdateProcessRequest::process].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_process<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Process>,
+        {
+            self.0.request.process = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateProcessRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateProcessRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
@@ -307,6 +355,7 @@ pub mod lineage {
     /// # use google_cloud_datacatalog_lineage_v1::builder;
     /// use builder::lineage::GetProcess;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -367,8 +416,9 @@ pub mod lineage {
     /// # use google_cloud_datacatalog_lineage_v1::builder;
     /// use builder::lineage::ListProcesses;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -467,8 +517,9 @@ pub mod lineage {
     /// # use google_cloud_datacatalog_lineage_v1::builder;
     /// use builder::lineage::DeleteProcess;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_datacatalog_lineage_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -574,6 +625,7 @@ pub mod lineage {
     /// # use google_cloud_datacatalog_lineage_v1::builder;
     /// use builder::lineage::CreateRun;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -622,8 +674,22 @@ pub mod lineage {
         /// Sets the value of [run][crate::model::CreateRunRequest::run].
         ///
         /// This is a **required** field for requests.
-        pub fn set_run<T: Into<std::option::Option<crate::model::Run>>>(mut self, v: T) -> Self {
-            self.0.request.run = v.into();
+        pub fn set_run<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Run>,
+        {
+            self.0.request.run = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [run][crate::model::CreateRunRequest::run].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_run<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Run>,
+        {
+            self.0.request.run = v.map(|x| x.into());
             self
         }
 
@@ -648,6 +714,7 @@ pub mod lineage {
     /// # use google_cloud_datacatalog_lineage_v1::builder;
     /// use builder::lineage::UpdateRun;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -688,17 +755,40 @@ pub mod lineage {
         /// Sets the value of [run][crate::model::UpdateRunRequest::run].
         ///
         /// This is a **required** field for requests.
-        pub fn set_run<T: Into<std::option::Option<crate::model::Run>>>(mut self, v: T) -> Self {
-            self.0.request.run = v.into();
+        pub fn set_run<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Run>,
+        {
+            self.0.request.run = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [run][crate::model::UpdateRunRequest::run].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_run<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Run>,
+        {
+            self.0.request.run = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateRunRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateRunRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
@@ -723,6 +813,7 @@ pub mod lineage {
     /// # use google_cloud_datacatalog_lineage_v1::builder;
     /// use builder::lineage::GetRun;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -783,8 +874,9 @@ pub mod lineage {
     /// # use google_cloud_datacatalog_lineage_v1::builder;
     /// use builder::lineage::ListRuns;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -883,8 +975,9 @@ pub mod lineage {
     /// # use google_cloud_datacatalog_lineage_v1::builder;
     /// use builder::lineage::DeleteRun;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_datacatalog_lineage_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -990,6 +1083,7 @@ pub mod lineage {
     /// # use google_cloud_datacatalog_lineage_v1::builder;
     /// use builder::lineage::CreateLineageEvent;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1041,11 +1135,22 @@ pub mod lineage {
         /// Sets the value of [lineage_event][crate::model::CreateLineageEventRequest::lineage_event].
         ///
         /// This is a **required** field for requests.
-        pub fn set_lineage_event<T: Into<std::option::Option<crate::model::LineageEvent>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.lineage_event = v.into();
+        pub fn set_lineage_event<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::LineageEvent>,
+        {
+            self.0.request.lineage_event = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [lineage_event][crate::model::CreateLineageEventRequest::lineage_event].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_lineage_event<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::LineageEvent>,
+        {
+            self.0.request.lineage_event = v.map(|x| x.into());
             self
         }
 
@@ -1070,6 +1175,7 @@ pub mod lineage {
     /// # use google_cloud_datacatalog_lineage_v1::builder;
     /// use builder::lineage::GetLineageEvent;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1130,8 +1236,9 @@ pub mod lineage {
     /// # use google_cloud_datacatalog_lineage_v1::builder;
     /// use builder::lineage::ListLineageEvents;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -1233,6 +1340,7 @@ pub mod lineage {
     /// # use google_cloud_datacatalog_lineage_v1::builder;
     /// use builder::lineage::DeleteLineageEvent;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1302,8 +1410,9 @@ pub mod lineage {
     /// # use google_cloud_datacatalog_lineage_v1::builder;
     /// use builder::lineage::SearchLinks;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -1440,8 +1549,9 @@ pub mod lineage {
     /// # use google_cloud_datacatalog_lineage_v1::builder;
     /// use builder::lineage::BatchSearchLinkProcesses;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -1562,8 +1672,9 @@ pub mod lineage {
     /// # use google_cloud_datacatalog_lineage_v1::builder;
     /// use builder::lineage::ListOperations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -1671,6 +1782,7 @@ pub mod lineage {
     /// # use google_cloud_datacatalog_lineage_v1::builder;
     /// use builder::lineage::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1732,6 +1844,7 @@ pub mod lineage {
     /// # use google_cloud_datacatalog_lineage_v1::builder;
     /// use builder::lineage::DeleteOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1793,6 +1906,7 @@ pub mod lineage {
     /// # use google_cloud_datacatalog_lineage_v1::builder;
     /// use builder::lineage::CancelOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });

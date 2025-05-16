@@ -75,6 +75,7 @@ pub mod iam_checker {
     /// # use google_cloud_policytroubleshooter_v1::builder;
     /// use builder::iam_checker::TroubleshootIamPolicy;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -118,11 +119,20 @@ pub mod iam_checker {
         }
 
         /// Sets the value of [access_tuple][crate::model::TroubleshootIamPolicyRequest::access_tuple].
-        pub fn set_access_tuple<T: Into<std::option::Option<crate::model::AccessTuple>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.access_tuple = v.into();
+        pub fn set_access_tuple<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::AccessTuple>,
+        {
+            self.0.request.access_tuple = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [access_tuple][crate::model::TroubleshootIamPolicyRequest::access_tuple].
+        pub fn set_or_clear_access_tuple<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::AccessTuple>,
+        {
+            self.0.request.access_tuple = v.map(|x| x.into());
             self
         }
     }

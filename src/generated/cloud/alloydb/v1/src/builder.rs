@@ -75,8 +75,9 @@ pub mod alloy_dbcsql_admin {
     /// # use google_cloud_alloydb_v1::builder;
     /// use builder::alloy_dbcsql_admin::RestoreFromCloudSQL;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_alloydb_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -175,11 +176,22 @@ pub mod alloy_dbcsql_admin {
         /// Sets the value of [cluster][crate::model::RestoreFromCloudSQLRequest::cluster].
         ///
         /// This is a **required** field for requests.
-        pub fn set_cluster<T: Into<std::option::Option<crate::model::Cluster>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.cluster = v.into();
+        pub fn set_cluster<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Cluster>,
+        {
+            self.0.request.cluster = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [cluster][crate::model::RestoreFromCloudSQLRequest::cluster].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_cluster<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Cluster>,
+        {
+            self.0.request.cluster = v.map(|x| x.into());
             self
         }
 
@@ -225,8 +237,9 @@ pub mod alloy_dbcsql_admin {
     /// # use google_cloud_alloydb_v1::builder;
     /// use builder::alloy_dbcsql_admin::ListLocations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -334,6 +347,7 @@ pub mod alloy_dbcsql_admin {
     /// # use google_cloud_alloydb_v1::builder;
     /// use builder::alloy_dbcsql_admin::GetLocation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -394,8 +408,9 @@ pub mod alloy_dbcsql_admin {
     /// # use google_cloud_alloydb_v1::builder;
     /// use builder::alloy_dbcsql_admin::ListOperations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -505,6 +520,7 @@ pub mod alloy_dbcsql_admin {
     /// # use google_cloud_alloydb_v1::builder;
     /// use builder::alloy_dbcsql_admin::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -568,6 +584,7 @@ pub mod alloy_dbcsql_admin {
     /// # use google_cloud_alloydb_v1::builder;
     /// use builder::alloy_dbcsql_admin::DeleteOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -631,6 +648,7 @@ pub mod alloy_dbcsql_admin {
     /// # use google_cloud_alloydb_v1::builder;
     /// use builder::alloy_dbcsql_admin::CancelOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -749,8 +767,9 @@ pub mod alloy_db_admin {
     /// # use google_cloud_alloydb_v1::builder;
     /// use builder::alloy_db_admin::ListClusters;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -863,6 +882,7 @@ pub mod alloy_db_admin {
     /// # use google_cloud_alloydb_v1::builder;
     /// use builder::alloy_db_admin::GetCluster;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -931,8 +951,9 @@ pub mod alloy_db_admin {
     /// # use google_cloud_alloydb_v1::builder;
     /// use builder::alloy_db_admin::CreateCluster;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_alloydb_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1028,11 +1049,22 @@ pub mod alloy_db_admin {
         /// Sets the value of [cluster][crate::model::CreateClusterRequest::cluster].
         ///
         /// This is a **required** field for requests.
-        pub fn set_cluster<T: Into<std::option::Option<crate::model::Cluster>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.cluster = v.into();
+        pub fn set_cluster<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Cluster>,
+        {
+            self.0.request.cluster = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [cluster][crate::model::CreateClusterRequest::cluster].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_cluster<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Cluster>,
+        {
+            self.0.request.cluster = v.map(|x| x.into());
             self
         }
 
@@ -1063,8 +1095,9 @@ pub mod alloy_db_admin {
     /// # use google_cloud_alloydb_v1::builder;
     /// use builder::alloy_db_admin::UpdateCluster;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_alloydb_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1142,22 +1175,42 @@ pub mod alloy_db_admin {
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateClusterRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateClusterRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [cluster][crate::model::UpdateClusterRequest::cluster].
         ///
         /// This is a **required** field for requests.
-        pub fn set_cluster<T: Into<std::option::Option<crate::model::Cluster>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.cluster = v.into();
+        pub fn set_cluster<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Cluster>,
+        {
+            self.0.request.cluster = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [cluster][crate::model::UpdateClusterRequest::cluster].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_cluster<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Cluster>,
+        {
+            self.0.request.cluster = v.map(|x| x.into());
             self
         }
 
@@ -1194,8 +1247,9 @@ pub mod alloy_db_admin {
     /// # use google_cloud_alloydb_v1::builder;
     /// use builder::alloy_db_admin::ExportCluster;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_alloydb_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1383,8 +1437,9 @@ pub mod alloy_db_admin {
     /// # use google_cloud_alloydb_v1::builder;
     /// use builder::alloy_db_admin::ImportCluster;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_alloydb_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1555,8 +1610,9 @@ pub mod alloy_db_admin {
     /// # use google_cloud_alloydb_v1::builder;
     /// use builder::alloy_db_admin::UpgradeCluster;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_alloydb_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1685,8 +1741,9 @@ pub mod alloy_db_admin {
     /// # use google_cloud_alloydb_v1::builder;
     /// use builder::alloy_db_admin::DeleteCluster;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_alloydb_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1812,8 +1869,9 @@ pub mod alloy_db_admin {
     /// # use google_cloud_alloydb_v1::builder;
     /// use builder::alloy_db_admin::PromoteCluster;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_alloydb_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1931,8 +1989,9 @@ pub mod alloy_db_admin {
     /// # use google_cloud_alloydb_v1::builder;
     /// use builder::alloy_db_admin::SwitchoverCluster;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_alloydb_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -2047,8 +2106,9 @@ pub mod alloy_db_admin {
     /// # use google_cloud_alloydb_v1::builder;
     /// use builder::alloy_db_admin::RestoreCluster;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_alloydb_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -2144,11 +2204,22 @@ pub mod alloy_db_admin {
         /// Sets the value of [cluster][crate::model::RestoreClusterRequest::cluster].
         ///
         /// This is a **required** field for requests.
-        pub fn set_cluster<T: Into<std::option::Option<crate::model::Cluster>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.cluster = v.into();
+        pub fn set_cluster<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Cluster>,
+        {
+            self.0.request.cluster = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [cluster][crate::model::RestoreClusterRequest::cluster].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_cluster<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Cluster>,
+        {
+            self.0.request.cluster = v.map(|x| x.into());
             self
         }
 
@@ -2221,8 +2292,9 @@ pub mod alloy_db_admin {
     /// # use google_cloud_alloydb_v1::builder;
     /// use builder::alloy_db_admin::CreateSecondaryCluster;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_alloydb_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -2321,11 +2393,22 @@ pub mod alloy_db_admin {
         /// Sets the value of [cluster][crate::model::CreateSecondaryClusterRequest::cluster].
         ///
         /// This is a **required** field for requests.
-        pub fn set_cluster<T: Into<std::option::Option<crate::model::Cluster>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.cluster = v.into();
+        pub fn set_cluster<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Cluster>,
+        {
+            self.0.request.cluster = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [cluster][crate::model::CreateSecondaryClusterRequest::cluster].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_cluster<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Cluster>,
+        {
+            self.0.request.cluster = v.map(|x| x.into());
             self
         }
 
@@ -2356,8 +2439,9 @@ pub mod alloy_db_admin {
     /// # use google_cloud_alloydb_v1::builder;
     /// use builder::alloy_db_admin::ListInstances;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -2470,6 +2554,7 @@ pub mod alloy_db_admin {
     /// # use google_cloud_alloydb_v1::builder;
     /// use builder::alloy_db_admin::GetInstance;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2538,8 +2623,9 @@ pub mod alloy_db_admin {
     /// # use google_cloud_alloydb_v1::builder;
     /// use builder::alloy_db_admin::CreateInstance;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_alloydb_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -2635,11 +2721,22 @@ pub mod alloy_db_admin {
         /// Sets the value of [instance][crate::model::CreateInstanceRequest::instance].
         ///
         /// This is a **required** field for requests.
-        pub fn set_instance<T: Into<std::option::Option<crate::model::Instance>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.instance = v.into();
+        pub fn set_instance<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Instance>,
+        {
+            self.0.request.instance = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [instance][crate::model::CreateInstanceRequest::instance].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_instance<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Instance>,
+        {
+            self.0.request.instance = v.map(|x| x.into());
             self
         }
 
@@ -2670,8 +2767,9 @@ pub mod alloy_db_admin {
     /// # use google_cloud_alloydb_v1::builder;
     /// use builder::alloy_db_admin::CreateSecondaryInstance;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_alloydb_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -2772,11 +2870,22 @@ pub mod alloy_db_admin {
         /// Sets the value of [instance][crate::model::CreateSecondaryInstanceRequest::instance].
         ///
         /// This is a **required** field for requests.
-        pub fn set_instance<T: Into<std::option::Option<crate::model::Instance>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.instance = v.into();
+        pub fn set_instance<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Instance>,
+        {
+            self.0.request.instance = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [instance][crate::model::CreateSecondaryInstanceRequest::instance].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_instance<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Instance>,
+        {
+            self.0.request.instance = v.map(|x| x.into());
             self
         }
 
@@ -2807,8 +2916,9 @@ pub mod alloy_db_admin {
     /// # use google_cloud_alloydb_v1::builder;
     /// use builder::alloy_db_admin::BatchCreateInstances;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_alloydb_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -2902,11 +3012,22 @@ pub mod alloy_db_admin {
         /// Sets the value of [requests][crate::model::BatchCreateInstancesRequest::requests].
         ///
         /// This is a **required** field for requests.
-        pub fn set_requests<T: Into<std::option::Option<crate::model::CreateInstanceRequests>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.requests = v.into();
+        pub fn set_requests<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::CreateInstanceRequests>,
+        {
+            self.0.request.requests = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [requests][crate::model::BatchCreateInstancesRequest::requests].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_requests<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::CreateInstanceRequests>,
+        {
+            self.0.request.requests = v.map(|x| x.into());
             self
         }
 
@@ -2931,8 +3052,9 @@ pub mod alloy_db_admin {
     /// # use google_cloud_alloydb_v1::builder;
     /// use builder::alloy_db_admin::UpdateInstance;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_alloydb_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -3010,22 +3132,42 @@ pub mod alloy_db_admin {
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateInstanceRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateInstanceRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [instance][crate::model::UpdateInstanceRequest::instance].
         ///
         /// This is a **required** field for requests.
-        pub fn set_instance<T: Into<std::option::Option<crate::model::Instance>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.instance = v.into();
+        pub fn set_instance<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Instance>,
+        {
+            self.0.request.instance = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [instance][crate::model::UpdateInstanceRequest::instance].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_instance<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Instance>,
+        {
+            self.0.request.instance = v.map(|x| x.into());
             self
         }
 
@@ -3062,8 +3204,9 @@ pub mod alloy_db_admin {
     /// # use google_cloud_alloydb_v1::builder;
     /// use builder::alloy_db_admin::DeleteInstance;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_alloydb_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -3183,8 +3326,9 @@ pub mod alloy_db_admin {
     /// # use google_cloud_alloydb_v1::builder;
     /// use builder::alloy_db_admin::FailoverInstance;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_alloydb_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -3299,8 +3443,9 @@ pub mod alloy_db_admin {
     /// # use google_cloud_alloydb_v1::builder;
     /// use builder::alloy_db_admin::InjectFault;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_alloydb_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -3423,8 +3568,9 @@ pub mod alloy_db_admin {
     /// # use google_cloud_alloydb_v1::builder;
     /// use builder::alloy_db_admin::RestartInstance;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_alloydb_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -3547,6 +3693,7 @@ pub mod alloy_db_admin {
     /// # use google_cloud_alloydb_v1::builder;
     /// use builder::alloy_db_admin::ExecuteSql;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3655,8 +3802,9 @@ pub mod alloy_db_admin {
     /// # use google_cloud_alloydb_v1::builder;
     /// use builder::alloy_db_admin::ListBackups;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -3769,6 +3917,7 @@ pub mod alloy_db_admin {
     /// # use google_cloud_alloydb_v1::builder;
     /// use builder::alloy_db_admin::GetBackup;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3831,8 +3980,9 @@ pub mod alloy_db_admin {
     /// # use google_cloud_alloydb_v1::builder;
     /// use builder::alloy_db_admin::CreateBackup;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_alloydb_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -3928,11 +4078,22 @@ pub mod alloy_db_admin {
         /// Sets the value of [backup][crate::model::CreateBackupRequest::backup].
         ///
         /// This is a **required** field for requests.
-        pub fn set_backup<T: Into<std::option::Option<crate::model::Backup>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.backup = v.into();
+        pub fn set_backup<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Backup>,
+        {
+            self.0.request.backup = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [backup][crate::model::CreateBackupRequest::backup].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_backup<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Backup>,
+        {
+            self.0.request.backup = v.map(|x| x.into());
             self
         }
 
@@ -3963,8 +4124,9 @@ pub mod alloy_db_admin {
     /// # use google_cloud_alloydb_v1::builder;
     /// use builder::alloy_db_admin::UpdateBackup;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_alloydb_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -4042,22 +4204,42 @@ pub mod alloy_db_admin {
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateBackupRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateBackupRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [backup][crate::model::UpdateBackupRequest::backup].
         ///
         /// This is a **required** field for requests.
-        pub fn set_backup<T: Into<std::option::Option<crate::model::Backup>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.backup = v.into();
+        pub fn set_backup<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Backup>,
+        {
+            self.0.request.backup = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [backup][crate::model::UpdateBackupRequest::backup].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_backup<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Backup>,
+        {
+            self.0.request.backup = v.map(|x| x.into());
             self
         }
 
@@ -4094,8 +4276,9 @@ pub mod alloy_db_admin {
     /// # use google_cloud_alloydb_v1::builder;
     /// use builder::alloy_db_admin::DeleteBackup;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_alloydb_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -4215,8 +4398,9 @@ pub mod alloy_db_admin {
     /// # use google_cloud_alloydb_v1::builder;
     /// use builder::alloy_db_admin::ListSupportedDatabaseFlags;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -4335,6 +4519,7 @@ pub mod alloy_db_admin {
     /// # use google_cloud_alloydb_v1::builder;
     /// use builder::alloy_db_admin::GenerateClientCertificate;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -4394,11 +4579,20 @@ pub mod alloy_db_admin {
         }
 
         /// Sets the value of [cert_duration][crate::model::GenerateClientCertificateRequest::cert_duration].
-        pub fn set_cert_duration<T: Into<std::option::Option<wkt::Duration>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.cert_duration = v.into();
+        pub fn set_cert_duration<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Duration>,
+        {
+            self.0.request.cert_duration = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [cert_duration][crate::model::GenerateClientCertificateRequest::cert_duration].
+        pub fn set_or_clear_cert_duration<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Duration>,
+        {
+            self.0.request.cert_duration = v.map(|x| x.into());
             self
         }
 
@@ -4429,6 +4623,7 @@ pub mod alloy_db_admin {
     /// # use google_cloud_alloydb_v1::builder;
     /// use builder::alloy_db_admin::GetConnectionInfo;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -4500,8 +4695,9 @@ pub mod alloy_db_admin {
     /// # use google_cloud_alloydb_v1::builder;
     /// use builder::alloy_db_admin::ListUsers;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -4614,6 +4810,7 @@ pub mod alloy_db_admin {
     /// # use google_cloud_alloydb_v1::builder;
     /// use builder::alloy_db_admin::GetUser;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -4676,6 +4873,7 @@ pub mod alloy_db_admin {
     /// # use google_cloud_alloydb_v1::builder;
     /// use builder::alloy_db_admin::CreateUser;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -4734,8 +4932,22 @@ pub mod alloy_db_admin {
         /// Sets the value of [user][crate::model::CreateUserRequest::user].
         ///
         /// This is a **required** field for requests.
-        pub fn set_user<T: Into<std::option::Option<crate::model::User>>>(mut self, v: T) -> Self {
-            self.0.request.user = v.into();
+        pub fn set_user<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::User>,
+        {
+            self.0.request.user = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [user][crate::model::CreateUserRequest::user].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_user<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::User>,
+        {
+            self.0.request.user = v.map(|x| x.into());
             self
         }
 
@@ -4766,6 +4978,7 @@ pub mod alloy_db_admin {
     /// # use google_cloud_alloydb_v1::builder;
     /// use builder::alloy_db_admin::UpdateUser;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -4806,19 +5019,42 @@ pub mod alloy_db_admin {
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateUserRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateUserRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [user][crate::model::UpdateUserRequest::user].
         ///
         /// This is a **required** field for requests.
-        pub fn set_user<T: Into<std::option::Option<crate::model::User>>>(mut self, v: T) -> Self {
-            self.0.request.user = v.into();
+        pub fn set_user<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::User>,
+        {
+            self.0.request.user = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [user][crate::model::UpdateUserRequest::user].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_user<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::User>,
+        {
+            self.0.request.user = v.map(|x| x.into());
             self
         }
 
@@ -4855,6 +5091,7 @@ pub mod alloy_db_admin {
     /// # use google_cloud_alloydb_v1::builder;
     /// use builder::alloy_db_admin::DeleteUser;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -4929,8 +5166,9 @@ pub mod alloy_db_admin {
     /// # use google_cloud_alloydb_v1::builder;
     /// use builder::alloy_db_admin::ListDatabases;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -5037,8 +5275,9 @@ pub mod alloy_db_admin {
     /// # use google_cloud_alloydb_v1::builder;
     /// use builder::alloy_db_admin::ListLocations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -5146,6 +5385,7 @@ pub mod alloy_db_admin {
     /// # use google_cloud_alloydb_v1::builder;
     /// use builder::alloy_db_admin::GetLocation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -5206,8 +5446,9 @@ pub mod alloy_db_admin {
     /// # use google_cloud_alloydb_v1::builder;
     /// use builder::alloy_db_admin::ListOperations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -5317,6 +5558,7 @@ pub mod alloy_db_admin {
     /// # use google_cloud_alloydb_v1::builder;
     /// use builder::alloy_db_admin::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -5380,6 +5622,7 @@ pub mod alloy_db_admin {
     /// # use google_cloud_alloydb_v1::builder;
     /// use builder::alloy_db_admin::DeleteOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -5443,6 +5686,7 @@ pub mod alloy_db_admin {
     /// # use google_cloud_alloydb_v1::builder;
     /// use builder::alloy_db_admin::CancelOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });

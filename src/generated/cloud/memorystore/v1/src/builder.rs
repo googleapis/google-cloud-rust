@@ -75,8 +75,9 @@ pub mod memorystore {
     /// # use google_cloud_memorystore_v1::builder;
     /// use builder::memorystore::ListInstances;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -189,6 +190,7 @@ pub mod memorystore {
     /// # use google_cloud_memorystore_v1::builder;
     /// use builder::memorystore::GetInstance;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -251,8 +253,9 @@ pub mod memorystore {
     /// # use google_cloud_memorystore_v1::builder;
     /// use builder::memorystore::CreateInstance;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_memorystore_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -348,11 +351,22 @@ pub mod memorystore {
         /// Sets the value of [instance][crate::model::CreateInstanceRequest::instance].
         ///
         /// This is a **required** field for requests.
-        pub fn set_instance<T: Into<std::option::Option<crate::model::Instance>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.instance = v.into();
+        pub fn set_instance<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Instance>,
+        {
+            self.0.request.instance = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [instance][crate::model::CreateInstanceRequest::instance].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_instance<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Instance>,
+        {
+            self.0.request.instance = v.map(|x| x.into());
             self
         }
 
@@ -377,8 +391,9 @@ pub mod memorystore {
     /// # use google_cloud_memorystore_v1::builder;
     /// use builder::memorystore::UpdateInstance;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_memorystore_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -456,22 +471,42 @@ pub mod memorystore {
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateInstanceRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateInstanceRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [instance][crate::model::UpdateInstanceRequest::instance].
         ///
         /// This is a **required** field for requests.
-        pub fn set_instance<T: Into<std::option::Option<crate::model::Instance>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.instance = v.into();
+        pub fn set_instance<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Instance>,
+        {
+            self.0.request.instance = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [instance][crate::model::UpdateInstanceRequest::instance].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_instance<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Instance>,
+        {
+            self.0.request.instance = v.map(|x| x.into());
             self
         }
 
@@ -496,8 +531,9 @@ pub mod memorystore {
     /// # use google_cloud_memorystore_v1::builder;
     /// use builder::memorystore::DeleteInstance;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_memorystore_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -605,6 +641,7 @@ pub mod memorystore {
     /// # use google_cloud_memorystore_v1::builder;
     /// use builder::memorystore::GetCertificateAuthority;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -672,8 +709,9 @@ pub mod memorystore {
     /// # use google_cloud_memorystore_v1::builder;
     /// use builder::memorystore::RescheduleMaintenance;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_memorystore_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -775,11 +813,20 @@ pub mod memorystore {
         }
 
         /// Sets the value of [schedule_time][crate::model::RescheduleMaintenanceRequest::schedule_time].
-        pub fn set_schedule_time<T: Into<std::option::Option<wkt::Timestamp>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.schedule_time = v.into();
+        pub fn set_schedule_time<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Timestamp>,
+        {
+            self.0.request.schedule_time = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [schedule_time][crate::model::RescheduleMaintenanceRequest::schedule_time].
+        pub fn set_or_clear_schedule_time<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Timestamp>,
+        {
+            self.0.request.schedule_time = v.map(|x| x.into());
             self
         }
     }
@@ -798,8 +845,9 @@ pub mod memorystore {
     /// # use google_cloud_memorystore_v1::builder;
     /// use builder::memorystore::ListBackupCollections;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -905,6 +953,7 @@ pub mod memorystore {
     /// # use google_cloud_memorystore_v1::builder;
     /// use builder::memorystore::GetBackupCollection;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -970,8 +1019,9 @@ pub mod memorystore {
     /// # use google_cloud_memorystore_v1::builder;
     /// use builder::memorystore::ListBackups;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -1072,6 +1122,7 @@ pub mod memorystore {
     /// # use google_cloud_memorystore_v1::builder;
     /// use builder::memorystore::GetBackup;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1134,8 +1185,9 @@ pub mod memorystore {
     /// # use google_cloud_memorystore_v1::builder;
     /// use builder::memorystore::DeleteBackup;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_memorystore_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1243,8 +1295,9 @@ pub mod memorystore {
     /// # use google_cloud_memorystore_v1::builder;
     /// use builder::memorystore::ExportBackup;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_memorystore_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1368,8 +1421,9 @@ pub mod memorystore {
     /// # use google_cloud_memorystore_v1::builder;
     /// use builder::memorystore::BackupInstance;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_memorystore_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1455,17 +1509,38 @@ pub mod memorystore {
         }
 
         /// Sets the value of [ttl][crate::model::BackupInstanceRequest::ttl].
-        pub fn set_ttl<T: Into<std::option::Option<wkt::Duration>>>(mut self, v: T) -> Self {
-            self.0.request.ttl = v.into();
+        pub fn set_ttl<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Duration>,
+        {
+            self.0.request.ttl = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [ttl][crate::model::BackupInstanceRequest::ttl].
+        pub fn set_or_clear_ttl<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Duration>,
+        {
+            self.0.request.ttl = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [backup_id][crate::model::BackupInstanceRequest::backup_id].
-        pub fn set_backup_id<T: Into<std::option::Option<std::string::String>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.backup_id = v.into();
+        pub fn set_backup_id<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.backup_id = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [backup_id][crate::model::BackupInstanceRequest::backup_id].
+        pub fn set_or_clear_backup_id<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.backup_id = v.map(|x| x.into());
             self
         }
     }
@@ -1484,8 +1559,9 @@ pub mod memorystore {
     /// # use google_cloud_memorystore_v1::builder;
     /// use builder::memorystore::ListLocations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -1593,6 +1669,7 @@ pub mod memorystore {
     /// # use google_cloud_memorystore_v1::builder;
     /// use builder::memorystore::GetLocation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1653,8 +1730,9 @@ pub mod memorystore {
     /// # use google_cloud_memorystore_v1::builder;
     /// use builder::memorystore::ListOperations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -1764,6 +1842,7 @@ pub mod memorystore {
     /// # use google_cloud_memorystore_v1::builder;
     /// use builder::memorystore::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1827,6 +1906,7 @@ pub mod memorystore {
     /// # use google_cloud_memorystore_v1::builder;
     /// use builder::memorystore::DeleteOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1890,6 +1970,7 @@ pub mod memorystore {
     /// # use google_cloud_memorystore_v1::builder;
     /// use builder::memorystore::CancelOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });

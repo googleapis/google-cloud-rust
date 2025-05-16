@@ -75,8 +75,9 @@ pub mod model_armor {
     /// # use google_cloud_modelarmor_v1::builder;
     /// use builder::model_armor::ListTemplates;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -189,6 +190,7 @@ pub mod model_armor {
     /// # use google_cloud_modelarmor_v1::builder;
     /// use builder::model_armor::GetTemplate;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -251,6 +253,7 @@ pub mod model_armor {
     /// # use google_cloud_modelarmor_v1::builder;
     /// use builder::model_armor::CreateTemplate;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -309,11 +312,22 @@ pub mod model_armor {
         /// Sets the value of [template][crate::model::CreateTemplateRequest::template].
         ///
         /// This is a **required** field for requests.
-        pub fn set_template<T: Into<std::option::Option<crate::model::Template>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.template = v.into();
+        pub fn set_template<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Template>,
+        {
+            self.0.request.template = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [template][crate::model::CreateTemplateRequest::template].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_template<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Template>,
+        {
+            self.0.request.template = v.map(|x| x.into());
             self
         }
 
@@ -338,6 +352,7 @@ pub mod model_armor {
     /// # use google_cloud_modelarmor_v1::builder;
     /// use builder::model_armor::UpdateTemplate;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -380,22 +395,44 @@ pub mod model_armor {
         /// Sets the value of [update_mask][crate::model::UpdateTemplateRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateTemplateRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [template][crate::model::UpdateTemplateRequest::template].
         ///
         /// This is a **required** field for requests.
-        pub fn set_template<T: Into<std::option::Option<crate::model::Template>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.template = v.into();
+        pub fn set_template<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Template>,
+        {
+            self.0.request.template = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [template][crate::model::UpdateTemplateRequest::template].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_template<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Template>,
+        {
+            self.0.request.template = v.map(|x| x.into());
             self
         }
 
@@ -420,6 +457,7 @@ pub mod model_armor {
     /// # use google_cloud_modelarmor_v1::builder;
     /// use builder::model_armor::DeleteTemplate;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -488,6 +526,7 @@ pub mod model_armor {
     /// # use google_cloud_modelarmor_v1::builder;
     /// use builder::model_armor::GetFloorSetting;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -550,6 +589,7 @@ pub mod model_armor {
     /// # use google_cloud_modelarmor_v1::builder;
     /// use builder::model_armor::UpdateFloorSetting;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -595,20 +635,40 @@ pub mod model_armor {
         /// Sets the value of [floor_setting][crate::model::UpdateFloorSettingRequest::floor_setting].
         ///
         /// This is a **required** field for requests.
-        pub fn set_floor_setting<T: Into<std::option::Option<crate::model::FloorSetting>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.floor_setting = v.into();
+        pub fn set_floor_setting<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::FloorSetting>,
+        {
+            self.0.request.floor_setting = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [floor_setting][crate::model::UpdateFloorSettingRequest::floor_setting].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_floor_setting<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::FloorSetting>,
+        {
+            self.0.request.floor_setting = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateFloorSettingRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateFloorSettingRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -627,6 +687,7 @@ pub mod model_armor {
     /// # use google_cloud_modelarmor_v1::builder;
     /// use builder::model_armor::SanitizeUserPrompt;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -680,11 +741,22 @@ pub mod model_armor {
         /// Sets the value of [user_prompt_data][crate::model::SanitizeUserPromptRequest::user_prompt_data].
         ///
         /// This is a **required** field for requests.
-        pub fn set_user_prompt_data<T: Into<std::option::Option<crate::model::DataItem>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.user_prompt_data = v.into();
+        pub fn set_user_prompt_data<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::DataItem>,
+        {
+            self.0.request.user_prompt_data = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [user_prompt_data][crate::model::SanitizeUserPromptRequest::user_prompt_data].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_user_prompt_data<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::DataItem>,
+        {
+            self.0.request.user_prompt_data = v.map(|x| x.into());
             self
         }
     }
@@ -703,6 +775,7 @@ pub mod model_armor {
     /// # use google_cloud_modelarmor_v1::builder;
     /// use builder::model_armor::SanitizeModelResponse;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -756,11 +829,22 @@ pub mod model_armor {
         /// Sets the value of [model_response_data][crate::model::SanitizeModelResponseRequest::model_response_data].
         ///
         /// This is a **required** field for requests.
-        pub fn set_model_response_data<T: Into<std::option::Option<crate::model::DataItem>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.model_response_data = v.into();
+        pub fn set_model_response_data<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::DataItem>,
+        {
+            self.0.request.model_response_data = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [model_response_data][crate::model::SanitizeModelResponseRequest::model_response_data].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_model_response_data<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::DataItem>,
+        {
+            self.0.request.model_response_data = v.map(|x| x.into());
             self
         }
 
@@ -785,8 +869,9 @@ pub mod model_armor {
     /// # use google_cloud_modelarmor_v1::builder;
     /// use builder::model_armor::ListLocations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -894,6 +979,7 @@ pub mod model_armor {
     /// # use google_cloud_modelarmor_v1::builder;
     /// use builder::model_armor::GetLocation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });

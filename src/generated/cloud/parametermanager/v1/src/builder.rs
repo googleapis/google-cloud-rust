@@ -75,8 +75,9 @@ pub mod parameter_manager {
     /// # use google_cloud_parametermanager_v1::builder;
     /// use builder::parameter_manager::ListParameters;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -189,6 +190,7 @@ pub mod parameter_manager {
     /// # use google_cloud_parametermanager_v1::builder;
     /// use builder::parameter_manager::GetParameter;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -251,6 +253,7 @@ pub mod parameter_manager {
     /// # use google_cloud_parametermanager_v1::builder;
     /// use builder::parameter_manager::CreateParameter;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -309,11 +312,22 @@ pub mod parameter_manager {
         /// Sets the value of [parameter][crate::model::CreateParameterRequest::parameter].
         ///
         /// This is a **required** field for requests.
-        pub fn set_parameter<T: Into<std::option::Option<crate::model::Parameter>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.parameter = v.into();
+        pub fn set_parameter<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Parameter>,
+        {
+            self.0.request.parameter = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [parameter][crate::model::CreateParameterRequest::parameter].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_parameter<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Parameter>,
+        {
+            self.0.request.parameter = v.map(|x| x.into());
             self
         }
 
@@ -338,6 +352,7 @@ pub mod parameter_manager {
     /// # use google_cloud_parametermanager_v1::builder;
     /// use builder::parameter_manager::UpdateParameter;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -378,22 +393,42 @@ pub mod parameter_manager {
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateParameterRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateParameterRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [parameter][crate::model::UpdateParameterRequest::parameter].
         ///
         /// This is a **required** field for requests.
-        pub fn set_parameter<T: Into<std::option::Option<crate::model::Parameter>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.parameter = v.into();
+        pub fn set_parameter<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Parameter>,
+        {
+            self.0.request.parameter = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [parameter][crate::model::UpdateParameterRequest::parameter].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_parameter<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Parameter>,
+        {
+            self.0.request.parameter = v.map(|x| x.into());
             self
         }
 
@@ -418,6 +453,7 @@ pub mod parameter_manager {
     /// # use google_cloud_parametermanager_v1::builder;
     /// use builder::parameter_manager::DeleteParameter;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -486,8 +522,9 @@ pub mod parameter_manager {
     /// # use google_cloud_parametermanager_v1::builder;
     /// use builder::parameter_manager::ListParameterVersions;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -605,6 +642,7 @@ pub mod parameter_manager {
     /// # use google_cloud_parametermanager_v1::builder;
     /// use builder::parameter_manager::GetParameterVersion;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -676,6 +714,7 @@ pub mod parameter_manager {
     /// # use google_cloud_parametermanager_v1::builder;
     /// use builder::parameter_manager::RenderParameterVersion;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -741,6 +780,7 @@ pub mod parameter_manager {
     /// # use google_cloud_parametermanager_v1::builder;
     /// use builder::parameter_manager::CreateParameterVersion;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -802,13 +842,22 @@ pub mod parameter_manager {
         /// Sets the value of [parameter_version][crate::model::CreateParameterVersionRequest::parameter_version].
         ///
         /// This is a **required** field for requests.
-        pub fn set_parameter_version<
-            T: Into<std::option::Option<crate::model::ParameterVersion>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.parameter_version = v.into();
+        pub fn set_parameter_version<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::ParameterVersion>,
+        {
+            self.0.request.parameter_version = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [parameter_version][crate::model::CreateParameterVersionRequest::parameter_version].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_parameter_version<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::ParameterVersion>,
+        {
+            self.0.request.parameter_version = v.map(|x| x.into());
             self
         }
 
@@ -833,6 +882,7 @@ pub mod parameter_manager {
     /// # use google_cloud_parametermanager_v1::builder;
     /// use builder::parameter_manager::UpdateParameterVersion;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -876,24 +926,42 @@ pub mod parameter_manager {
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateParameterVersionRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateParameterVersionRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [parameter_version][crate::model::UpdateParameterVersionRequest::parameter_version].
         ///
         /// This is a **required** field for requests.
-        pub fn set_parameter_version<
-            T: Into<std::option::Option<crate::model::ParameterVersion>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.parameter_version = v.into();
+        pub fn set_parameter_version<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::ParameterVersion>,
+        {
+            self.0.request.parameter_version = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [parameter_version][crate::model::UpdateParameterVersionRequest::parameter_version].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_parameter_version<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::ParameterVersion>,
+        {
+            self.0.request.parameter_version = v.map(|x| x.into());
             self
         }
 
@@ -918,6 +986,7 @@ pub mod parameter_manager {
     /// # use google_cloud_parametermanager_v1::builder;
     /// use builder::parameter_manager::DeleteParameterVersion;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -989,8 +1058,9 @@ pub mod parameter_manager {
     /// # use google_cloud_parametermanager_v1::builder;
     /// use builder::parameter_manager::ListLocations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -1098,6 +1168,7 @@ pub mod parameter_manager {
     /// # use google_cloud_parametermanager_v1::builder;
     /// use builder::parameter_manager::GetLocation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });

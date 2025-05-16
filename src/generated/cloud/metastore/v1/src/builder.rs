@@ -75,8 +75,9 @@ pub mod dataproc_metastore {
     /// # use google_cloud_metastore_v1::builder;
     /// use builder::dataproc_metastore::ListServices;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -189,6 +190,7 @@ pub mod dataproc_metastore {
     /// # use google_cloud_metastore_v1::builder;
     /// use builder::dataproc_metastore::GetService;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -251,8 +253,9 @@ pub mod dataproc_metastore {
     /// # use google_cloud_metastore_v1::builder;
     /// use builder::dataproc_metastore::CreateService;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_metastore_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -348,11 +351,22 @@ pub mod dataproc_metastore {
         /// Sets the value of [service][crate::model::CreateServiceRequest::service].
         ///
         /// This is a **required** field for requests.
-        pub fn set_service<T: Into<std::option::Option<crate::model::Service>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.service = v.into();
+        pub fn set_service<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Service>,
+        {
+            self.0.request.service = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [service][crate::model::CreateServiceRequest::service].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_service<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Service>,
+        {
+            self.0.request.service = v.map(|x| x.into());
             self
         }
 
@@ -377,8 +391,9 @@ pub mod dataproc_metastore {
     /// # use google_cloud_metastore_v1::builder;
     /// use builder::dataproc_metastore::UpdateService;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_metastore_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -458,22 +473,44 @@ pub mod dataproc_metastore {
         /// Sets the value of [update_mask][crate::model::UpdateServiceRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateServiceRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [service][crate::model::UpdateServiceRequest::service].
         ///
         /// This is a **required** field for requests.
-        pub fn set_service<T: Into<std::option::Option<crate::model::Service>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.service = v.into();
+        pub fn set_service<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Service>,
+        {
+            self.0.request.service = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [service][crate::model::UpdateServiceRequest::service].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_service<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Service>,
+        {
+            self.0.request.service = v.map(|x| x.into());
             self
         }
 
@@ -498,8 +535,9 @@ pub mod dataproc_metastore {
     /// # use google_cloud_metastore_v1::builder;
     /// use builder::dataproc_metastore::DeleteService;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_metastore_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -607,8 +645,9 @@ pub mod dataproc_metastore {
     /// # use google_cloud_metastore_v1::builder;
     /// use builder::dataproc_metastore::ListMetadataImports;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -726,6 +765,7 @@ pub mod dataproc_metastore {
     /// # use google_cloud_metastore_v1::builder;
     /// use builder::dataproc_metastore::GetMetadataImport;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -791,8 +831,9 @@ pub mod dataproc_metastore {
     /// # use google_cloud_metastore_v1::builder;
     /// use builder::dataproc_metastore::CreateMetadataImport;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_metastore_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -894,11 +935,22 @@ pub mod dataproc_metastore {
         /// Sets the value of [metadata_import][crate::model::CreateMetadataImportRequest::metadata_import].
         ///
         /// This is a **required** field for requests.
-        pub fn set_metadata_import<T: Into<std::option::Option<crate::model::MetadataImport>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.metadata_import = v.into();
+        pub fn set_metadata_import<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::MetadataImport>,
+        {
+            self.0.request.metadata_import = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [metadata_import][crate::model::CreateMetadataImportRequest::metadata_import].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_metadata_import<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::MetadataImport>,
+        {
+            self.0.request.metadata_import = v.map(|x| x.into());
             self
         }
 
@@ -923,8 +975,9 @@ pub mod dataproc_metastore {
     /// # use google_cloud_metastore_v1::builder;
     /// use builder::dataproc_metastore::UpdateMetadataImport;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_metastore_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1010,22 +1063,44 @@ pub mod dataproc_metastore {
         /// Sets the value of [update_mask][crate::model::UpdateMetadataImportRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateMetadataImportRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [metadata_import][crate::model::UpdateMetadataImportRequest::metadata_import].
         ///
         /// This is a **required** field for requests.
-        pub fn set_metadata_import<T: Into<std::option::Option<crate::model::MetadataImport>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.metadata_import = v.into();
+        pub fn set_metadata_import<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::MetadataImport>,
+        {
+            self.0.request.metadata_import = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [metadata_import][crate::model::UpdateMetadataImportRequest::metadata_import].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_metadata_import<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::MetadataImport>,
+        {
+            self.0.request.metadata_import = v.map(|x| x.into());
             self
         }
 
@@ -1050,8 +1125,9 @@ pub mod dataproc_metastore {
     /// # use google_cloud_metastore_v1::builder;
     /// use builder::dataproc_metastore::ExportMetadata;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_metastore_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1196,8 +1272,9 @@ pub mod dataproc_metastore {
     /// # use google_cloud_metastore_v1::builder;
     /// use builder::dataproc_metastore::RestoreService;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_metastore_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1320,8 +1397,9 @@ pub mod dataproc_metastore {
     /// # use google_cloud_metastore_v1::builder;
     /// use builder::dataproc_metastore::ListBackups;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -1434,6 +1512,7 @@ pub mod dataproc_metastore {
     /// # use google_cloud_metastore_v1::builder;
     /// use builder::dataproc_metastore::GetBackup;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1496,8 +1575,9 @@ pub mod dataproc_metastore {
     /// # use google_cloud_metastore_v1::builder;
     /// use builder::dataproc_metastore::CreateBackup;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_metastore_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1593,11 +1673,22 @@ pub mod dataproc_metastore {
         /// Sets the value of [backup][crate::model::CreateBackupRequest::backup].
         ///
         /// This is a **required** field for requests.
-        pub fn set_backup<T: Into<std::option::Option<crate::model::Backup>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.backup = v.into();
+        pub fn set_backup<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Backup>,
+        {
+            self.0.request.backup = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [backup][crate::model::CreateBackupRequest::backup].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_backup<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Backup>,
+        {
+            self.0.request.backup = v.map(|x| x.into());
             self
         }
 
@@ -1622,8 +1713,9 @@ pub mod dataproc_metastore {
     /// # use google_cloud_metastore_v1::builder;
     /// use builder::dataproc_metastore::DeleteBackup;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_metastore_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1731,8 +1823,9 @@ pub mod dataproc_metastore {
     /// # use google_cloud_metastore_v1::builder;
     /// use builder::dataproc_metastore::QueryMetadata;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_metastore_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1843,8 +1936,9 @@ pub mod dataproc_metastore {
     /// # use google_cloud_metastore_v1::builder;
     /// use builder::dataproc_metastore::MoveTableToDatabase;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_metastore_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1974,8 +2068,9 @@ pub mod dataproc_metastore {
     /// # use google_cloud_metastore_v1::builder;
     /// use builder::dataproc_metastore::AlterMetadataResourceLocation;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_metastore_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -2101,8 +2196,9 @@ pub mod dataproc_metastore {
     /// # use google_cloud_metastore_v1::builder;
     /// use builder::dataproc_metastore::ListLocations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -2210,6 +2306,7 @@ pub mod dataproc_metastore {
     /// # use google_cloud_metastore_v1::builder;
     /// use builder::dataproc_metastore::GetLocation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2270,6 +2367,7 @@ pub mod dataproc_metastore {
     /// # use google_cloud_metastore_v1::builder;
     /// use builder::dataproc_metastore::SetIamPolicy;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2320,20 +2418,40 @@ pub mod dataproc_metastore {
         /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
-        pub fn set_policy<T: Into<std::option::Option<iam_v1::model::Policy>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.policy = v.into();
+        pub fn set_policy<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -2352,6 +2470,7 @@ pub mod dataproc_metastore {
     /// # use google_cloud_metastore_v1::builder;
     /// use builder::dataproc_metastore::GetIamPolicy;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2400,11 +2519,20 @@ pub mod dataproc_metastore {
         }
 
         /// Sets the value of [options][iam_v1::model::GetIamPolicyRequest::options].
-        pub fn set_options<T: Into<std::option::Option<iam_v1::model::GetPolicyOptions>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.options = v.into();
+        pub fn set_options<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = v.map(|x| x.into());
             self
         }
     }
@@ -2423,6 +2551,7 @@ pub mod dataproc_metastore {
     /// # use google_cloud_metastore_v1::builder;
     /// use builder::dataproc_metastore::TestIamPermissions;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2501,8 +2630,9 @@ pub mod dataproc_metastore {
     /// # use google_cloud_metastore_v1::builder;
     /// use builder::dataproc_metastore::ListOperations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -2612,6 +2742,7 @@ pub mod dataproc_metastore {
     /// # use google_cloud_metastore_v1::builder;
     /// use builder::dataproc_metastore::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2675,6 +2806,7 @@ pub mod dataproc_metastore {
     /// # use google_cloud_metastore_v1::builder;
     /// use builder::dataproc_metastore::DeleteOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2738,6 +2870,7 @@ pub mod dataproc_metastore {
     /// # use google_cloud_metastore_v1::builder;
     /// use builder::dataproc_metastore::CancelOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2856,8 +2989,9 @@ pub mod dataproc_metastore_federation {
     /// # use google_cloud_metastore_v1::builder;
     /// use builder::dataproc_metastore_federation::ListFederations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -2970,6 +3104,7 @@ pub mod dataproc_metastore_federation {
     /// # use google_cloud_metastore_v1::builder;
     /// use builder::dataproc_metastore_federation::GetFederation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3032,8 +3167,9 @@ pub mod dataproc_metastore_federation {
     /// # use google_cloud_metastore_v1::builder;
     /// use builder::dataproc_metastore_federation::CreateFederation;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_metastore_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -3132,11 +3268,22 @@ pub mod dataproc_metastore_federation {
         /// Sets the value of [federation][crate::model::CreateFederationRequest::federation].
         ///
         /// This is a **required** field for requests.
-        pub fn set_federation<T: Into<std::option::Option<crate::model::Federation>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.federation = v.into();
+        pub fn set_federation<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Federation>,
+        {
+            self.0.request.federation = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [federation][crate::model::CreateFederationRequest::federation].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_federation<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Federation>,
+        {
+            self.0.request.federation = v.map(|x| x.into());
             self
         }
 
@@ -3161,8 +3308,9 @@ pub mod dataproc_metastore_federation {
     /// # use google_cloud_metastore_v1::builder;
     /// use builder::dataproc_metastore_federation::UpdateFederation;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_metastore_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -3245,22 +3393,44 @@ pub mod dataproc_metastore_federation {
         /// Sets the value of [update_mask][crate::model::UpdateFederationRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateFederationRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [federation][crate::model::UpdateFederationRequest::federation].
         ///
         /// This is a **required** field for requests.
-        pub fn set_federation<T: Into<std::option::Option<crate::model::Federation>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.federation = v.into();
+        pub fn set_federation<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Federation>,
+        {
+            self.0.request.federation = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [federation][crate::model::UpdateFederationRequest::federation].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_federation<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Federation>,
+        {
+            self.0.request.federation = v.map(|x| x.into());
             self
         }
 
@@ -3285,8 +3455,9 @@ pub mod dataproc_metastore_federation {
     /// # use google_cloud_metastore_v1::builder;
     /// use builder::dataproc_metastore_federation::DeleteFederation;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_metastore_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -3397,8 +3568,9 @@ pub mod dataproc_metastore_federation {
     /// # use google_cloud_metastore_v1::builder;
     /// use builder::dataproc_metastore_federation::ListLocations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -3506,6 +3678,7 @@ pub mod dataproc_metastore_federation {
     /// # use google_cloud_metastore_v1::builder;
     /// use builder::dataproc_metastore_federation::GetLocation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3566,6 +3739,7 @@ pub mod dataproc_metastore_federation {
     /// # use google_cloud_metastore_v1::builder;
     /// use builder::dataproc_metastore_federation::SetIamPolicy;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3616,20 +3790,40 @@ pub mod dataproc_metastore_federation {
         /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
-        pub fn set_policy<T: Into<std::option::Option<iam_v1::model::Policy>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.policy = v.into();
+        pub fn set_policy<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -3648,6 +3842,7 @@ pub mod dataproc_metastore_federation {
     /// # use google_cloud_metastore_v1::builder;
     /// use builder::dataproc_metastore_federation::GetIamPolicy;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3696,11 +3891,20 @@ pub mod dataproc_metastore_federation {
         }
 
         /// Sets the value of [options][iam_v1::model::GetIamPolicyRequest::options].
-        pub fn set_options<T: Into<std::option::Option<iam_v1::model::GetPolicyOptions>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.options = v.into();
+        pub fn set_options<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = v.map(|x| x.into());
             self
         }
     }
@@ -3719,6 +3923,7 @@ pub mod dataproc_metastore_federation {
     /// # use google_cloud_metastore_v1::builder;
     /// use builder::dataproc_metastore_federation::TestIamPermissions;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3797,8 +4002,9 @@ pub mod dataproc_metastore_federation {
     /// # use google_cloud_metastore_v1::builder;
     /// use builder::dataproc_metastore_federation::ListOperations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -3908,6 +4114,7 @@ pub mod dataproc_metastore_federation {
     /// # use google_cloud_metastore_v1::builder;
     /// use builder::dataproc_metastore_federation::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3971,6 +4178,7 @@ pub mod dataproc_metastore_federation {
     /// # use google_cloud_metastore_v1::builder;
     /// use builder::dataproc_metastore_federation::DeleteOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -4034,6 +4242,7 @@ pub mod dataproc_metastore_federation {
     /// # use google_cloud_metastore_v1::builder;
     /// use builder::dataproc_metastore_federation::CancelOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });

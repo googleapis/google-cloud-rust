@@ -73,6 +73,7 @@ pub mod api_hub {
     /// # use google_cloud_apihub_v1::builder;
     /// use builder::api_hub::CreateApi;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -127,8 +128,22 @@ pub mod api_hub {
         /// Sets the value of [api][crate::model::CreateApiRequest::api].
         ///
         /// This is a **required** field for requests.
-        pub fn set_api<T: Into<std::option::Option<crate::model::Api>>>(mut self, v: T) -> Self {
-            self.0.request.api = v.into();
+        pub fn set_api<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Api>,
+        {
+            self.0.request.api = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [api][crate::model::CreateApiRequest::api].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_api<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Api>,
+        {
+            self.0.request.api = v.map(|x| x.into());
             self
         }
     }
@@ -147,6 +162,7 @@ pub mod api_hub {
     /// # use google_cloud_apihub_v1::builder;
     /// use builder::api_hub::GetApi;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -207,8 +223,9 @@ pub mod api_hub {
     /// # use google_cloud_apihub_v1::builder;
     /// use builder::api_hub::ListApis;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -313,6 +330,7 @@ pub mod api_hub {
     /// # use google_cloud_apihub_v1::builder;
     /// use builder::api_hub::UpdateApi;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -353,19 +371,44 @@ pub mod api_hub {
         /// Sets the value of [api][crate::model::UpdateApiRequest::api].
         ///
         /// This is a **required** field for requests.
-        pub fn set_api<T: Into<std::option::Option<crate::model::Api>>>(mut self, v: T) -> Self {
-            self.0.request.api = v.into();
+        pub fn set_api<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Api>,
+        {
+            self.0.request.api = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [api][crate::model::UpdateApiRequest::api].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_api<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Api>,
+        {
+            self.0.request.api = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateApiRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateApiRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -384,6 +427,7 @@ pub mod api_hub {
     /// # use google_cloud_apihub_v1::builder;
     /// use builder::api_hub::DeleteApi;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -450,6 +494,7 @@ pub mod api_hub {
     /// # use google_cloud_apihub_v1::builder;
     /// use builder::api_hub::CreateVersion;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -504,11 +549,22 @@ pub mod api_hub {
         /// Sets the value of [version][crate::model::CreateVersionRequest::version].
         ///
         /// This is a **required** field for requests.
-        pub fn set_version<T: Into<std::option::Option<crate::model::Version>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.version = v.into();
+        pub fn set_version<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Version>,
+        {
+            self.0.request.version = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [version][crate::model::CreateVersionRequest::version].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_version<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Version>,
+        {
+            self.0.request.version = v.map(|x| x.into());
             self
         }
     }
@@ -527,6 +583,7 @@ pub mod api_hub {
     /// # use google_cloud_apihub_v1::builder;
     /// use builder::api_hub::GetVersion;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -587,8 +644,9 @@ pub mod api_hub {
     /// # use google_cloud_apihub_v1::builder;
     /// use builder::api_hub::ListVersions;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -693,6 +751,7 @@ pub mod api_hub {
     /// # use google_cloud_apihub_v1::builder;
     /// use builder::api_hub::UpdateVersion;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -733,22 +792,44 @@ pub mod api_hub {
         /// Sets the value of [version][crate::model::UpdateVersionRequest::version].
         ///
         /// This is a **required** field for requests.
-        pub fn set_version<T: Into<std::option::Option<crate::model::Version>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.version = v.into();
+        pub fn set_version<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Version>,
+        {
+            self.0.request.version = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [version][crate::model::UpdateVersionRequest::version].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_version<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Version>,
+        {
+            self.0.request.version = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateVersionRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateVersionRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -767,6 +848,7 @@ pub mod api_hub {
     /// # use google_cloud_apihub_v1::builder;
     /// use builder::api_hub::DeleteVersion;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -833,6 +915,7 @@ pub mod api_hub {
     /// # use google_cloud_apihub_v1::builder;
     /// use builder::api_hub::CreateSpec;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -887,8 +970,22 @@ pub mod api_hub {
         /// Sets the value of [spec][crate::model::CreateSpecRequest::spec].
         ///
         /// This is a **required** field for requests.
-        pub fn set_spec<T: Into<std::option::Option<crate::model::Spec>>>(mut self, v: T) -> Self {
-            self.0.request.spec = v.into();
+        pub fn set_spec<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Spec>,
+        {
+            self.0.request.spec = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [spec][crate::model::CreateSpecRequest::spec].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_spec<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Spec>,
+        {
+            self.0.request.spec = v.map(|x| x.into());
             self
         }
     }
@@ -907,6 +1004,7 @@ pub mod api_hub {
     /// # use google_cloud_apihub_v1::builder;
     /// use builder::api_hub::GetSpec;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -967,6 +1065,7 @@ pub mod api_hub {
     /// # use google_cloud_apihub_v1::builder;
     /// use builder::api_hub::GetSpecContents;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1027,8 +1126,9 @@ pub mod api_hub {
     /// # use google_cloud_apihub_v1::builder;
     /// use builder::api_hub::ListSpecs;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -1133,6 +1233,7 @@ pub mod api_hub {
     /// # use google_cloud_apihub_v1::builder;
     /// use builder::api_hub::UpdateSpec;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1173,19 +1274,44 @@ pub mod api_hub {
         /// Sets the value of [spec][crate::model::UpdateSpecRequest::spec].
         ///
         /// This is a **required** field for requests.
-        pub fn set_spec<T: Into<std::option::Option<crate::model::Spec>>>(mut self, v: T) -> Self {
-            self.0.request.spec = v.into();
+        pub fn set_spec<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Spec>,
+        {
+            self.0.request.spec = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [spec][crate::model::UpdateSpecRequest::spec].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_spec<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Spec>,
+        {
+            self.0.request.spec = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateSpecRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateSpecRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -1204,6 +1330,7 @@ pub mod api_hub {
     /// # use google_cloud_apihub_v1::builder;
     /// use builder::api_hub::DeleteSpec;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1264,6 +1391,7 @@ pub mod api_hub {
     /// # use google_cloud_apihub_v1::builder;
     /// use builder::api_hub::GetApiOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1324,8 +1452,9 @@ pub mod api_hub {
     /// # use google_cloud_apihub_v1::builder;
     /// use builder::api_hub::ListApiOperations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -1433,6 +1562,7 @@ pub mod api_hub {
     /// # use google_cloud_apihub_v1::builder;
     /// use builder::api_hub::GetDefinition;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1493,6 +1623,7 @@ pub mod api_hub {
     /// # use google_cloud_apihub_v1::builder;
     /// use builder::api_hub::CreateDeployment;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1550,11 +1681,22 @@ pub mod api_hub {
         /// Sets the value of [deployment][crate::model::CreateDeploymentRequest::deployment].
         ///
         /// This is a **required** field for requests.
-        pub fn set_deployment<T: Into<std::option::Option<crate::model::Deployment>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.deployment = v.into();
+        pub fn set_deployment<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Deployment>,
+        {
+            self.0.request.deployment = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [deployment][crate::model::CreateDeploymentRequest::deployment].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_deployment<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Deployment>,
+        {
+            self.0.request.deployment = v.map(|x| x.into());
             self
         }
     }
@@ -1573,6 +1715,7 @@ pub mod api_hub {
     /// # use google_cloud_apihub_v1::builder;
     /// use builder::api_hub::GetDeployment;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1633,8 +1776,9 @@ pub mod api_hub {
     /// # use google_cloud_apihub_v1::builder;
     /// use builder::api_hub::ListDeployments;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -1739,6 +1883,7 @@ pub mod api_hub {
     /// # use google_cloud_apihub_v1::builder;
     /// use builder::api_hub::UpdateDeployment;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1782,22 +1927,44 @@ pub mod api_hub {
         /// Sets the value of [deployment][crate::model::UpdateDeploymentRequest::deployment].
         ///
         /// This is a **required** field for requests.
-        pub fn set_deployment<T: Into<std::option::Option<crate::model::Deployment>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.deployment = v.into();
+        pub fn set_deployment<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Deployment>,
+        {
+            self.0.request.deployment = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [deployment][crate::model::UpdateDeploymentRequest::deployment].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_deployment<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Deployment>,
+        {
+            self.0.request.deployment = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateDeploymentRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateDeploymentRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -1816,6 +1983,7 @@ pub mod api_hub {
     /// # use google_cloud_apihub_v1::builder;
     /// use builder::api_hub::DeleteDeployment;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1879,6 +2047,7 @@ pub mod api_hub {
     /// # use google_cloud_apihub_v1::builder;
     /// use builder::api_hub::CreateAttribute;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1933,11 +2102,22 @@ pub mod api_hub {
         /// Sets the value of [attribute][crate::model::CreateAttributeRequest::attribute].
         ///
         /// This is a **required** field for requests.
-        pub fn set_attribute<T: Into<std::option::Option<crate::model::Attribute>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.attribute = v.into();
+        pub fn set_attribute<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Attribute>,
+        {
+            self.0.request.attribute = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [attribute][crate::model::CreateAttributeRequest::attribute].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_attribute<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Attribute>,
+        {
+            self.0.request.attribute = v.map(|x| x.into());
             self
         }
     }
@@ -1956,6 +2136,7 @@ pub mod api_hub {
     /// # use google_cloud_apihub_v1::builder;
     /// use builder::api_hub::GetAttribute;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2016,6 +2197,7 @@ pub mod api_hub {
     /// # use google_cloud_apihub_v1::builder;
     /// use builder::api_hub::UpdateAttribute;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2056,22 +2238,44 @@ pub mod api_hub {
         /// Sets the value of [attribute][crate::model::UpdateAttributeRequest::attribute].
         ///
         /// This is a **required** field for requests.
-        pub fn set_attribute<T: Into<std::option::Option<crate::model::Attribute>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.attribute = v.into();
+        pub fn set_attribute<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Attribute>,
+        {
+            self.0.request.attribute = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [attribute][crate::model::UpdateAttributeRequest::attribute].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_attribute<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Attribute>,
+        {
+            self.0.request.attribute = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateAttributeRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateAttributeRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -2090,6 +2294,7 @@ pub mod api_hub {
     /// # use google_cloud_apihub_v1::builder;
     /// use builder::api_hub::DeleteAttribute;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2150,8 +2355,9 @@ pub mod api_hub {
     /// # use google_cloud_apihub_v1::builder;
     /// use builder::api_hub::ListAttributes;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -2256,8 +2462,9 @@ pub mod api_hub {
     /// # use google_cloud_apihub_v1::builder;
     /// use builder::api_hub::SearchResources;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -2370,6 +2577,7 @@ pub mod api_hub {
     /// # use google_cloud_apihub_v1::builder;
     /// use builder::api_hub::CreateExternalApi;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2427,11 +2635,22 @@ pub mod api_hub {
         /// Sets the value of [external_api][crate::model::CreateExternalApiRequest::external_api].
         ///
         /// This is a **required** field for requests.
-        pub fn set_external_api<T: Into<std::option::Option<crate::model::ExternalApi>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.external_api = v.into();
+        pub fn set_external_api<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::ExternalApi>,
+        {
+            self.0.request.external_api = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [external_api][crate::model::CreateExternalApiRequest::external_api].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_external_api<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::ExternalApi>,
+        {
+            self.0.request.external_api = v.map(|x| x.into());
             self
         }
     }
@@ -2450,6 +2669,7 @@ pub mod api_hub {
     /// # use google_cloud_apihub_v1::builder;
     /// use builder::api_hub::GetExternalApi;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2510,6 +2730,7 @@ pub mod api_hub {
     /// # use google_cloud_apihub_v1::builder;
     /// use builder::api_hub::UpdateExternalApi;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2553,22 +2774,44 @@ pub mod api_hub {
         /// Sets the value of [external_api][crate::model::UpdateExternalApiRequest::external_api].
         ///
         /// This is a **required** field for requests.
-        pub fn set_external_api<T: Into<std::option::Option<crate::model::ExternalApi>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.external_api = v.into();
+        pub fn set_external_api<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::ExternalApi>,
+        {
+            self.0.request.external_api = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [external_api][crate::model::UpdateExternalApiRequest::external_api].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_external_api<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::ExternalApi>,
+        {
+            self.0.request.external_api = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateExternalApiRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateExternalApiRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -2587,6 +2830,7 @@ pub mod api_hub {
     /// # use google_cloud_apihub_v1::builder;
     /// use builder::api_hub::DeleteExternalApi;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2650,8 +2894,9 @@ pub mod api_hub {
     /// # use google_cloud_apihub_v1::builder;
     /// use builder::api_hub::ListExternalApis;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -2753,8 +2998,9 @@ pub mod api_hub {
     /// # use google_cloud_apihub_v1::builder;
     /// use builder::api_hub::ListLocations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -2860,6 +3106,7 @@ pub mod api_hub {
     /// # use google_cloud_apihub_v1::builder;
     /// use builder::api_hub::GetLocation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2918,8 +3165,9 @@ pub mod api_hub {
     /// # use google_cloud_apihub_v1::builder;
     /// use builder::api_hub::ListOperations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -3027,6 +3275,7 @@ pub mod api_hub {
     /// # use google_cloud_apihub_v1::builder;
     /// use builder::api_hub::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3088,6 +3337,7 @@ pub mod api_hub {
     /// # use google_cloud_apihub_v1::builder;
     /// use builder::api_hub::DeleteOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3149,6 +3399,7 @@ pub mod api_hub {
     /// # use google_cloud_apihub_v1::builder;
     /// use builder::api_hub::CancelOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3265,6 +3516,7 @@ pub mod api_hub_dependencies {
     /// # use google_cloud_apihub_v1::builder;
     /// use builder::api_hub_dependencies::CreateDependency;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3324,11 +3576,22 @@ pub mod api_hub_dependencies {
         /// Sets the value of [dependency][crate::model::CreateDependencyRequest::dependency].
         ///
         /// This is a **required** field for requests.
-        pub fn set_dependency<T: Into<std::option::Option<crate::model::Dependency>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.dependency = v.into();
+        pub fn set_dependency<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Dependency>,
+        {
+            self.0.request.dependency = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [dependency][crate::model::CreateDependencyRequest::dependency].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_dependency<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Dependency>,
+        {
+            self.0.request.dependency = v.map(|x| x.into());
             self
         }
     }
@@ -3347,6 +3610,7 @@ pub mod api_hub_dependencies {
     /// # use google_cloud_apihub_v1::builder;
     /// use builder::api_hub_dependencies::GetDependency;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3409,6 +3673,7 @@ pub mod api_hub_dependencies {
     /// # use google_cloud_apihub_v1::builder;
     /// use builder::api_hub_dependencies::UpdateDependency;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3454,22 +3719,44 @@ pub mod api_hub_dependencies {
         /// Sets the value of [dependency][crate::model::UpdateDependencyRequest::dependency].
         ///
         /// This is a **required** field for requests.
-        pub fn set_dependency<T: Into<std::option::Option<crate::model::Dependency>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.dependency = v.into();
+        pub fn set_dependency<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Dependency>,
+        {
+            self.0.request.dependency = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [dependency][crate::model::UpdateDependencyRequest::dependency].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_dependency<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Dependency>,
+        {
+            self.0.request.dependency = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateDependencyRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateDependencyRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -3488,6 +3775,7 @@ pub mod api_hub_dependencies {
     /// # use google_cloud_apihub_v1::builder;
     /// use builder::api_hub_dependencies::DeleteDependency;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3553,8 +3841,9 @@ pub mod api_hub_dependencies {
     /// # use google_cloud_apihub_v1::builder;
     /// use builder::api_hub_dependencies::ListDependencies;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -3664,8 +3953,9 @@ pub mod api_hub_dependencies {
     /// # use google_cloud_apihub_v1::builder;
     /// use builder::api_hub_dependencies::ListLocations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -3773,6 +4063,7 @@ pub mod api_hub_dependencies {
     /// # use google_cloud_apihub_v1::builder;
     /// use builder::api_hub_dependencies::GetLocation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3833,8 +4124,9 @@ pub mod api_hub_dependencies {
     /// # use google_cloud_apihub_v1::builder;
     /// use builder::api_hub_dependencies::ListOperations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -3944,6 +4236,7 @@ pub mod api_hub_dependencies {
     /// # use google_cloud_apihub_v1::builder;
     /// use builder::api_hub_dependencies::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -4007,6 +4300,7 @@ pub mod api_hub_dependencies {
     /// # use google_cloud_apihub_v1::builder;
     /// use builder::api_hub_dependencies::DeleteOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -4070,6 +4364,7 @@ pub mod api_hub_dependencies {
     /// # use google_cloud_apihub_v1::builder;
     /// use builder::api_hub_dependencies::CancelOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -4188,6 +4483,7 @@ pub mod host_project_registration_service {
     /// # use google_cloud_apihub_v1::builder;
     /// use builder::host_project_registration_service::CreateHostProjectRegistration;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -4254,13 +4550,25 @@ pub mod host_project_registration_service {
         /// Sets the value of [host_project_registration][crate::model::CreateHostProjectRegistrationRequest::host_project_registration].
         ///
         /// This is a **required** field for requests.
-        pub fn set_host_project_registration<
-            T: Into<std::option::Option<crate::model::HostProjectRegistration>>,
-        >(
+        pub fn set_host_project_registration<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::HostProjectRegistration>,
+        {
+            self.0.request.host_project_registration = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [host_project_registration][crate::model::CreateHostProjectRegistrationRequest::host_project_registration].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_host_project_registration<T>(
             mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.host_project_registration = v.into();
+            v: std::option::Option<T>,
+        ) -> Self
+        where
+            T: std::convert::Into<crate::model::HostProjectRegistration>,
+        {
+            self.0.request.host_project_registration = v.map(|x| x.into());
             self
         }
     }
@@ -4279,6 +4587,7 @@ pub mod host_project_registration_service {
     /// # use google_cloud_apihub_v1::builder;
     /// use builder::host_project_registration_service::GetHostProjectRegistration;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -4346,8 +4655,9 @@ pub mod host_project_registration_service {
     /// # use google_cloud_apihub_v1::builder;
     /// use builder::host_project_registration_service::ListHostProjectRegistrations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -4469,8 +4779,9 @@ pub mod host_project_registration_service {
     /// # use google_cloud_apihub_v1::builder;
     /// use builder::host_project_registration_service::ListLocations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -4578,6 +4889,7 @@ pub mod host_project_registration_service {
     /// # use google_cloud_apihub_v1::builder;
     /// use builder::host_project_registration_service::GetLocation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -4638,8 +4950,9 @@ pub mod host_project_registration_service {
     /// # use google_cloud_apihub_v1::builder;
     /// use builder::host_project_registration_service::ListOperations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -4749,6 +5062,7 @@ pub mod host_project_registration_service {
     /// # use google_cloud_apihub_v1::builder;
     /// use builder::host_project_registration_service::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -4812,6 +5126,7 @@ pub mod host_project_registration_service {
     /// # use google_cloud_apihub_v1::builder;
     /// use builder::host_project_registration_service::DeleteOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -4875,6 +5190,7 @@ pub mod host_project_registration_service {
     /// # use google_cloud_apihub_v1::builder;
     /// use builder::host_project_registration_service::CancelOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -4993,6 +5309,7 @@ pub mod linting_service {
     /// # use google_cloud_apihub_v1::builder;
     /// use builder::linting_service::GetStyleGuide;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -5055,6 +5372,7 @@ pub mod linting_service {
     /// # use google_cloud_apihub_v1::builder;
     /// use builder::linting_service::UpdateStyleGuide;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -5100,20 +5418,40 @@ pub mod linting_service {
         /// Sets the value of [style_guide][crate::model::UpdateStyleGuideRequest::style_guide].
         ///
         /// This is a **required** field for requests.
-        pub fn set_style_guide<T: Into<std::option::Option<crate::model::StyleGuide>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.style_guide = v.into();
+        pub fn set_style_guide<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::StyleGuide>,
+        {
+            self.0.request.style_guide = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [style_guide][crate::model::UpdateStyleGuideRequest::style_guide].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_style_guide<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::StyleGuide>,
+        {
+            self.0.request.style_guide = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateStyleGuideRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateStyleGuideRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -5132,6 +5470,7 @@ pub mod linting_service {
     /// # use google_cloud_apihub_v1::builder;
     /// use builder::linting_service::GetStyleGuideContents;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -5197,6 +5536,7 @@ pub mod linting_service {
     /// # use google_cloud_apihub_v1::builder;
     /// use builder::linting_service::LintSpec;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -5259,8 +5599,9 @@ pub mod linting_service {
     /// # use google_cloud_apihub_v1::builder;
     /// use builder::linting_service::ListLocations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -5368,6 +5709,7 @@ pub mod linting_service {
     /// # use google_cloud_apihub_v1::builder;
     /// use builder::linting_service::GetLocation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -5428,8 +5770,9 @@ pub mod linting_service {
     /// # use google_cloud_apihub_v1::builder;
     /// use builder::linting_service::ListOperations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -5539,6 +5882,7 @@ pub mod linting_service {
     /// # use google_cloud_apihub_v1::builder;
     /// use builder::linting_service::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -5602,6 +5946,7 @@ pub mod linting_service {
     /// # use google_cloud_apihub_v1::builder;
     /// use builder::linting_service::DeleteOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -5665,6 +6010,7 @@ pub mod linting_service {
     /// # use google_cloud_apihub_v1::builder;
     /// use builder::linting_service::CancelOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -5783,6 +6129,7 @@ pub mod api_hub_plugin {
     /// # use google_cloud_apihub_v1::builder;
     /// use builder::api_hub_plugin::GetPlugin;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -5845,6 +6192,7 @@ pub mod api_hub_plugin {
     /// # use google_cloud_apihub_v1::builder;
     /// use builder::api_hub_plugin::EnablePlugin;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -5907,6 +6255,7 @@ pub mod api_hub_plugin {
     /// # use google_cloud_apihub_v1::builder;
     /// use builder::api_hub_plugin::DisablePlugin;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -5969,8 +6318,9 @@ pub mod api_hub_plugin {
     /// # use google_cloud_apihub_v1::builder;
     /// use builder::api_hub_plugin::ListLocations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -6078,6 +6428,7 @@ pub mod api_hub_plugin {
     /// # use google_cloud_apihub_v1::builder;
     /// use builder::api_hub_plugin::GetLocation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -6138,8 +6489,9 @@ pub mod api_hub_plugin {
     /// # use google_cloud_apihub_v1::builder;
     /// use builder::api_hub_plugin::ListOperations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -6249,6 +6601,7 @@ pub mod api_hub_plugin {
     /// # use google_cloud_apihub_v1::builder;
     /// use builder::api_hub_plugin::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -6312,6 +6665,7 @@ pub mod api_hub_plugin {
     /// # use google_cloud_apihub_v1::builder;
     /// use builder::api_hub_plugin::DeleteOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -6375,6 +6729,7 @@ pub mod api_hub_plugin {
     /// # use google_cloud_apihub_v1::builder;
     /// use builder::api_hub_plugin::CancelOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -6493,8 +6848,9 @@ pub mod provisioning {
     /// # use google_cloud_apihub_v1::builder;
     /// use builder::provisioning::CreateApiHubInstance;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_apihub_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -6594,11 +6950,22 @@ pub mod provisioning {
         /// Sets the value of [api_hub_instance][crate::model::CreateApiHubInstanceRequest::api_hub_instance].
         ///
         /// This is a **required** field for requests.
-        pub fn set_api_hub_instance<T: Into<std::option::Option<crate::model::ApiHubInstance>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.api_hub_instance = v.into();
+        pub fn set_api_hub_instance<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::ApiHubInstance>,
+        {
+            self.0.request.api_hub_instance = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [api_hub_instance][crate::model::CreateApiHubInstanceRequest::api_hub_instance].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_api_hub_instance<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::ApiHubInstance>,
+        {
+            self.0.request.api_hub_instance = v.map(|x| x.into());
             self
         }
     }
@@ -6617,6 +6984,7 @@ pub mod provisioning {
     /// # use google_cloud_apihub_v1::builder;
     /// use builder::provisioning::GetApiHubInstance;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -6682,6 +7050,7 @@ pub mod provisioning {
     /// # use google_cloud_apihub_v1::builder;
     /// use builder::provisioning::LookupApiHubInstance;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -6747,8 +7116,9 @@ pub mod provisioning {
     /// # use google_cloud_apihub_v1::builder;
     /// use builder::provisioning::ListLocations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -6856,6 +7226,7 @@ pub mod provisioning {
     /// # use google_cloud_apihub_v1::builder;
     /// use builder::provisioning::GetLocation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -6916,8 +7287,9 @@ pub mod provisioning {
     /// # use google_cloud_apihub_v1::builder;
     /// use builder::provisioning::ListOperations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -7027,6 +7399,7 @@ pub mod provisioning {
     /// # use google_cloud_apihub_v1::builder;
     /// use builder::provisioning::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -7090,6 +7463,7 @@ pub mod provisioning {
     /// # use google_cloud_apihub_v1::builder;
     /// use builder::provisioning::DeleteOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -7153,6 +7527,7 @@ pub mod provisioning {
     /// # use google_cloud_apihub_v1::builder;
     /// use builder::provisioning::CancelOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -7271,6 +7646,7 @@ pub mod runtime_project_attachment_service {
     /// # use google_cloud_apihub_v1::builder;
     /// use builder::runtime_project_attachment_service::CreateRuntimeProjectAttachment;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -7337,13 +7713,25 @@ pub mod runtime_project_attachment_service {
         /// Sets the value of [runtime_project_attachment][crate::model::CreateRuntimeProjectAttachmentRequest::runtime_project_attachment].
         ///
         /// This is a **required** field for requests.
-        pub fn set_runtime_project_attachment<
-            T: Into<std::option::Option<crate::model::RuntimeProjectAttachment>>,
-        >(
+        pub fn set_runtime_project_attachment<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::RuntimeProjectAttachment>,
+        {
+            self.0.request.runtime_project_attachment = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [runtime_project_attachment][crate::model::CreateRuntimeProjectAttachmentRequest::runtime_project_attachment].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_runtime_project_attachment<T>(
             mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.runtime_project_attachment = v.into();
+            v: std::option::Option<T>,
+        ) -> Self
+        where
+            T: std::convert::Into<crate::model::RuntimeProjectAttachment>,
+        {
+            self.0.request.runtime_project_attachment = v.map(|x| x.into());
             self
         }
     }
@@ -7362,6 +7750,7 @@ pub mod runtime_project_attachment_service {
     /// # use google_cloud_apihub_v1::builder;
     /// use builder::runtime_project_attachment_service::GetRuntimeProjectAttachment;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -7429,8 +7818,9 @@ pub mod runtime_project_attachment_service {
     /// # use google_cloud_apihub_v1::builder;
     /// use builder::runtime_project_attachment_service::ListRuntimeProjectAttachments;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -7552,6 +7942,7 @@ pub mod runtime_project_attachment_service {
     /// # use google_cloud_apihub_v1::builder;
     /// use builder::runtime_project_attachment_service::DeleteRuntimeProjectAttachment;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -7619,6 +8010,7 @@ pub mod runtime_project_attachment_service {
     /// # use google_cloud_apihub_v1::builder;
     /// use builder::runtime_project_attachment_service::LookupRuntimeProjectAttachment;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -7686,8 +8078,9 @@ pub mod runtime_project_attachment_service {
     /// # use google_cloud_apihub_v1::builder;
     /// use builder::runtime_project_attachment_service::ListLocations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -7795,6 +8188,7 @@ pub mod runtime_project_attachment_service {
     /// # use google_cloud_apihub_v1::builder;
     /// use builder::runtime_project_attachment_service::GetLocation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -7855,8 +8249,9 @@ pub mod runtime_project_attachment_service {
     /// # use google_cloud_apihub_v1::builder;
     /// use builder::runtime_project_attachment_service::ListOperations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -7966,6 +8361,7 @@ pub mod runtime_project_attachment_service {
     /// # use google_cloud_apihub_v1::builder;
     /// use builder::runtime_project_attachment_service::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -8029,6 +8425,7 @@ pub mod runtime_project_attachment_service {
     /// # use google_cloud_apihub_v1::builder;
     /// use builder::runtime_project_attachment_service::DeleteOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -8092,6 +8489,7 @@ pub mod runtime_project_attachment_service {
     /// # use google_cloud_apihub_v1::builder;
     /// use builder::runtime_project_attachment_service::CancelOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });

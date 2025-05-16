@@ -73,8 +73,9 @@ pub mod config {
     /// # use google_cloud_config_v1::builder;
     /// use builder::config::ListDeployments;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -185,6 +186,7 @@ pub mod config {
     /// # use google_cloud_config_v1::builder;
     /// use builder::config::GetDeployment;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -245,8 +247,9 @@ pub mod config {
     /// # use google_cloud_config_v1::builder;
     /// use builder::config::CreateDeployment;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_config_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -343,11 +346,22 @@ pub mod config {
         /// Sets the value of [deployment][crate::model::CreateDeploymentRequest::deployment].
         ///
         /// This is a **required** field for requests.
-        pub fn set_deployment<T: Into<std::option::Option<crate::model::Deployment>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.deployment = v.into();
+        pub fn set_deployment<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Deployment>,
+        {
+            self.0.request.deployment = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [deployment][crate::model::CreateDeploymentRequest::deployment].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_deployment<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Deployment>,
+        {
+            self.0.request.deployment = v.map(|x| x.into());
             self
         }
 
@@ -372,8 +386,9 @@ pub mod config {
     /// # use google_cloud_config_v1::builder;
     /// use builder::config::UpdateDeployment;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_config_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -452,22 +467,42 @@ pub mod config {
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateDeploymentRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateDeploymentRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [deployment][crate::model::UpdateDeploymentRequest::deployment].
         ///
         /// This is a **required** field for requests.
-        pub fn set_deployment<T: Into<std::option::Option<crate::model::Deployment>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.deployment = v.into();
+        pub fn set_deployment<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Deployment>,
+        {
+            self.0.request.deployment = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [deployment][crate::model::UpdateDeploymentRequest::deployment].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_deployment<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Deployment>,
+        {
+            self.0.request.deployment = v.map(|x| x.into());
             self
         }
 
@@ -492,8 +527,9 @@ pub mod config {
     /// # use google_cloud_config_v1::builder;
     /// use builder::config::DeleteDeployment;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_config_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -615,8 +651,9 @@ pub mod config {
     /// # use google_cloud_config_v1::builder;
     /// use builder::config::ListRevisions;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -727,6 +764,7 @@ pub mod config {
     /// # use google_cloud_config_v1::builder;
     /// use builder::config::GetRevision;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -787,6 +825,7 @@ pub mod config {
     /// # use google_cloud_config_v1::builder;
     /// use builder::config::GetResource;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -847,8 +886,9 @@ pub mod config {
     /// # use google_cloud_config_v1::builder;
     /// use builder::config::ListResources;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -959,6 +999,7 @@ pub mod config {
     /// # use google_cloud_config_v1::builder;
     /// use builder::config::ExportDeploymentStatefile;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1030,6 +1071,7 @@ pub mod config {
     /// # use google_cloud_config_v1::builder;
     /// use builder::config::ExportRevisionStatefile;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1095,6 +1137,7 @@ pub mod config {
     /// # use google_cloud_config_v1::builder;
     /// use builder::config::ImportStatefile;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1169,6 +1212,7 @@ pub mod config {
     /// # use google_cloud_config_v1::builder;
     /// use builder::config::DeleteStatefile;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1237,8 +1281,9 @@ pub mod config {
     /// # use google_cloud_config_v1::builder;
     /// use builder::config::LockDeployment;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_config_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1336,8 +1381,9 @@ pub mod config {
     /// # use google_cloud_config_v1::builder;
     /// use builder::config::UnlockDeployment;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_config_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1446,6 +1492,7 @@ pub mod config {
     /// # use google_cloud_config_v1::builder;
     /// use builder::config::ExportLockInfo;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1506,8 +1553,9 @@ pub mod config {
     /// # use google_cloud_config_v1::builder;
     /// use builder::config::CreatePreview;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_config_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1599,11 +1647,22 @@ pub mod config {
         /// Sets the value of [preview][crate::model::CreatePreviewRequest::preview].
         ///
         /// This is a **required** field for requests.
-        pub fn set_preview<T: Into<std::option::Option<crate::model::Preview>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.preview = v.into();
+        pub fn set_preview<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Preview>,
+        {
+            self.0.request.preview = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [preview][crate::model::CreatePreviewRequest::preview].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_preview<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Preview>,
+        {
+            self.0.request.preview = v.map(|x| x.into());
             self
         }
 
@@ -1628,6 +1687,7 @@ pub mod config {
     /// # use google_cloud_config_v1::builder;
     /// use builder::config::GetPreview;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1688,8 +1748,9 @@ pub mod config {
     /// # use google_cloud_config_v1::builder;
     /// use builder::config::ListPreviews;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -1800,8 +1861,9 @@ pub mod config {
     /// # use google_cloud_config_v1::builder;
     /// use builder::config::DeletePreview;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_config_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1905,6 +1967,7 @@ pub mod config {
     /// # use google_cloud_config_v1::builder;
     /// use builder::config::ExportPreviewResult;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1968,8 +2031,9 @@ pub mod config {
     /// # use google_cloud_config_v1::builder;
     /// use builder::config::ListTerraformVersions;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -2085,6 +2149,7 @@ pub mod config {
     /// # use google_cloud_config_v1::builder;
     /// use builder::config::GetTerraformVersion;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2148,8 +2213,9 @@ pub mod config {
     /// # use google_cloud_config_v1::builder;
     /// use builder::config::ListLocations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -2255,6 +2321,7 @@ pub mod config {
     /// # use google_cloud_config_v1::builder;
     /// use builder::config::GetLocation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2313,6 +2380,7 @@ pub mod config {
     /// # use google_cloud_config_v1::builder;
     /// use builder::config::SetIamPolicy;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2361,20 +2429,40 @@ pub mod config {
         /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
-        pub fn set_policy<T: Into<std::option::Option<iam_v1::model::Policy>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.policy = v.into();
+        pub fn set_policy<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -2393,6 +2481,7 @@ pub mod config {
     /// # use google_cloud_config_v1::builder;
     /// use builder::config::GetIamPolicy;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2439,11 +2528,20 @@ pub mod config {
         }
 
         /// Sets the value of [options][iam_v1::model::GetIamPolicyRequest::options].
-        pub fn set_options<T: Into<std::option::Option<iam_v1::model::GetPolicyOptions>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.options = v.into();
+        pub fn set_options<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = v.map(|x| x.into());
             self
         }
     }
@@ -2462,6 +2560,7 @@ pub mod config {
     /// # use google_cloud_config_v1::builder;
     /// use builder::config::TestIamPermissions;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2538,8 +2637,9 @@ pub mod config {
     /// # use google_cloud_config_v1::builder;
     /// use builder::config::ListOperations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -2647,6 +2747,7 @@ pub mod config {
     /// # use google_cloud_config_v1::builder;
     /// use builder::config::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2708,6 +2809,7 @@ pub mod config {
     /// # use google_cloud_config_v1::builder;
     /// use builder::config::DeleteOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2769,6 +2871,7 @@ pub mod config {
     /// # use google_cloud_config_v1::builder;
     /// use builder::config::CancelOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });

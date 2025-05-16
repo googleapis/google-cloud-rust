@@ -75,6 +75,7 @@ pub mod applications {
     /// # use google_cloud_appengine_v1::builder;
     /// use builder::applications::GetApplication;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -135,8 +136,9 @@ pub mod applications {
     /// # use google_cloud_appengine_v1::builder;
     /// use builder::applications::CreateApplication;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_appengine_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -220,11 +222,20 @@ pub mod applications {
         }
 
         /// Sets the value of [application][crate::model::CreateApplicationRequest::application].
-        pub fn set_application<T: Into<std::option::Option<crate::model::Application>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.application = v.into();
+        pub fn set_application<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Application>,
+        {
+            self.0.request.application = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [application][crate::model::CreateApplicationRequest::application].
+        pub fn set_or_clear_application<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Application>,
+        {
+            self.0.request.application = v.map(|x| x.into());
             self
         }
     }
@@ -243,8 +254,9 @@ pub mod applications {
     /// # use google_cloud_appengine_v1::builder;
     /// use builder::applications::UpdateApplication;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_appengine_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -334,20 +346,38 @@ pub mod applications {
         }
 
         /// Sets the value of [application][crate::model::UpdateApplicationRequest::application].
-        pub fn set_application<T: Into<std::option::Option<crate::model::Application>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.application = v.into();
+        pub fn set_application<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Application>,
+        {
+            self.0.request.application = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [application][crate::model::UpdateApplicationRequest::application].
+        pub fn set_or_clear_application<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Application>,
+        {
+            self.0.request.application = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateApplicationRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateApplicationRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -366,8 +396,9 @@ pub mod applications {
     /// # use google_cloud_appengine_v1::builder;
     /// use builder::applications::RepairApplication;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_appengine_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -471,8 +502,9 @@ pub mod applications {
     /// # use google_cloud_appengine_v1::builder;
     /// use builder::applications::ListOperations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -582,6 +614,7 @@ pub mod applications {
     /// # use google_cloud_appengine_v1::builder;
     /// use builder::applications::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -698,8 +731,9 @@ pub mod services {
     /// # use google_cloud_appengine_v1::builder;
     /// use builder::services::ListServices;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -796,6 +830,7 @@ pub mod services {
     /// # use google_cloud_appengine_v1::builder;
     /// use builder::services::GetService;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -854,8 +889,9 @@ pub mod services {
     /// # use google_cloud_appengine_v1::builder;
     /// use builder::services::UpdateService;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_appengine_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -937,20 +973,38 @@ pub mod services {
         }
 
         /// Sets the value of [service][crate::model::UpdateServiceRequest::service].
-        pub fn set_service<T: Into<std::option::Option<crate::model::Service>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.service = v.into();
+        pub fn set_service<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Service>,
+        {
+            self.0.request.service = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [service][crate::model::UpdateServiceRequest::service].
+        pub fn set_or_clear_service<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Service>,
+        {
+            self.0.request.service = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateServiceRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateServiceRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
@@ -975,8 +1029,9 @@ pub mod services {
     /// # use google_cloud_appengine_v1::builder;
     /// use builder::services::DeleteService;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_appengine_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1075,8 +1130,9 @@ pub mod services {
     /// # use google_cloud_appengine_v1::builder;
     /// use builder::services::ListOperations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -1184,6 +1240,7 @@ pub mod services {
     /// # use google_cloud_appengine_v1::builder;
     /// use builder::services::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1298,8 +1355,9 @@ pub mod versions {
     /// # use google_cloud_appengine_v1::builder;
     /// use builder::versions::ListVersions;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -1402,6 +1460,7 @@ pub mod versions {
     /// # use google_cloud_appengine_v1::builder;
     /// use builder::versions::GetVersion;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1466,8 +1525,9 @@ pub mod versions {
     /// # use google_cloud_appengine_v1::builder;
     /// use builder::versions::CreateVersion;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_appengine_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1552,11 +1612,20 @@ pub mod versions {
         }
 
         /// Sets the value of [version][crate::model::CreateVersionRequest::version].
-        pub fn set_version<T: Into<std::option::Option<crate::model::Version>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.version = v.into();
+        pub fn set_version<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Version>,
+        {
+            self.0.request.version = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [version][crate::model::CreateVersionRequest::version].
+        pub fn set_or_clear_version<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Version>,
+        {
+            self.0.request.version = v.map(|x| x.into());
             self
         }
     }
@@ -1575,8 +1644,9 @@ pub mod versions {
     /// # use google_cloud_appengine_v1::builder;
     /// use builder::versions::UpdateVersion;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_appengine_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1658,20 +1728,38 @@ pub mod versions {
         }
 
         /// Sets the value of [version][crate::model::UpdateVersionRequest::version].
-        pub fn set_version<T: Into<std::option::Option<crate::model::Version>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.version = v.into();
+        pub fn set_version<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Version>,
+        {
+            self.0.request.version = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [version][crate::model::UpdateVersionRequest::version].
+        pub fn set_or_clear_version<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Version>,
+        {
+            self.0.request.version = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateVersionRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateVersionRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -1690,8 +1778,9 @@ pub mod versions {
     /// # use google_cloud_appengine_v1::builder;
     /// use builder::versions::DeleteVersion;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_appengine_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1790,8 +1879,9 @@ pub mod versions {
     /// # use google_cloud_appengine_v1::builder;
     /// use builder::versions::ListOperations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -1899,6 +1989,7 @@ pub mod versions {
     /// # use google_cloud_appengine_v1::builder;
     /// use builder::versions::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2015,8 +2106,9 @@ pub mod instances {
     /// # use google_cloud_appengine_v1::builder;
     /// use builder::instances::ListInstances;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -2115,6 +2207,7 @@ pub mod instances {
     /// # use google_cloud_appengine_v1::builder;
     /// use builder::instances::GetInstance;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2175,8 +2268,9 @@ pub mod instances {
     /// # use google_cloud_appengine_v1::builder;
     /// use builder::instances::DeleteInstance;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_appengine_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -2277,8 +2371,9 @@ pub mod instances {
     /// # use google_cloud_appengine_v1::builder;
     /// use builder::instances::DebugInstance;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_appengine_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -2382,8 +2477,9 @@ pub mod instances {
     /// # use google_cloud_appengine_v1::builder;
     /// use builder::instances::ListOperations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -2493,6 +2589,7 @@ pub mod instances {
     /// # use google_cloud_appengine_v1::builder;
     /// use builder::instances::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2609,8 +2706,9 @@ pub mod firewall {
     /// # use google_cloud_appengine_v1::builder;
     /// use builder::firewall::ListIngressRules;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -2716,6 +2814,7 @@ pub mod firewall {
     /// # use google_cloud_appengine_v1::builder;
     /// use builder::firewall::BatchUpdateIngressRules;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2790,6 +2889,7 @@ pub mod firewall {
     /// # use google_cloud_appengine_v1::builder;
     /// use builder::firewall::CreateIngressRule;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2837,11 +2937,20 @@ pub mod firewall {
         }
 
         /// Sets the value of [rule][crate::model::CreateIngressRuleRequest::rule].
-        pub fn set_rule<T: Into<std::option::Option<crate::model::FirewallRule>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.rule = v.into();
+        pub fn set_rule<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::FirewallRule>,
+        {
+            self.0.request.rule = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [rule][crate::model::CreateIngressRuleRequest::rule].
+        pub fn set_or_clear_rule<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::FirewallRule>,
+        {
+            self.0.request.rule = v.map(|x| x.into());
             self
         }
     }
@@ -2860,6 +2969,7 @@ pub mod firewall {
     /// # use google_cloud_appengine_v1::builder;
     /// use builder::firewall::GetIngressRule;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2918,6 +3028,7 @@ pub mod firewall {
     /// # use google_cloud_appengine_v1::builder;
     /// use builder::firewall::UpdateIngressRule;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2965,20 +3076,38 @@ pub mod firewall {
         }
 
         /// Sets the value of [rule][crate::model::UpdateIngressRuleRequest::rule].
-        pub fn set_rule<T: Into<std::option::Option<crate::model::FirewallRule>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.rule = v.into();
+        pub fn set_rule<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::FirewallRule>,
+        {
+            self.0.request.rule = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [rule][crate::model::UpdateIngressRuleRequest::rule].
+        pub fn set_or_clear_rule<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::FirewallRule>,
+        {
+            self.0.request.rule = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateIngressRuleRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateIngressRuleRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -2997,6 +3126,7 @@ pub mod firewall {
     /// # use google_cloud_appengine_v1::builder;
     /// use builder::firewall::DeleteIngressRule;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3058,8 +3188,9 @@ pub mod firewall {
     /// # use google_cloud_appengine_v1::builder;
     /// use builder::firewall::ListOperations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -3167,6 +3298,7 @@ pub mod firewall {
     /// # use google_cloud_appengine_v1::builder;
     /// use builder::firewall::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3283,8 +3415,9 @@ pub mod authorized_domains {
     /// # use google_cloud_appengine_v1::builder;
     /// use builder::authorized_domains::ListAuthorizedDomains;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -3388,8 +3521,9 @@ pub mod authorized_domains {
     /// # use google_cloud_appengine_v1::builder;
     /// use builder::authorized_domains::ListOperations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -3499,6 +3633,7 @@ pub mod authorized_domains {
     /// # use google_cloud_appengine_v1::builder;
     /// use builder::authorized_domains::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3617,8 +3752,9 @@ pub mod authorized_certificates {
     /// # use google_cloud_appengine_v1::builder;
     /// use builder::authorized_certificates::ListAuthorizedCertificates;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -3732,6 +3868,7 @@ pub mod authorized_certificates {
     /// # use google_cloud_appengine_v1::builder;
     /// use builder::authorized_certificates::GetAuthorizedCertificate;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3803,6 +3940,7 @@ pub mod authorized_certificates {
     /// # use google_cloud_appengine_v1::builder;
     /// use builder::authorized_certificates::CreateAuthorizedCertificate;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3854,13 +3992,20 @@ pub mod authorized_certificates {
         }
 
         /// Sets the value of [certificate][crate::model::CreateAuthorizedCertificateRequest::certificate].
-        pub fn set_certificate<
-            T: Into<std::option::Option<crate::model::AuthorizedCertificate>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.certificate = v.into();
+        pub fn set_certificate<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::AuthorizedCertificate>,
+        {
+            self.0.request.certificate = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [certificate][crate::model::CreateAuthorizedCertificateRequest::certificate].
+        pub fn set_or_clear_certificate<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::AuthorizedCertificate>,
+        {
+            self.0.request.certificate = v.map(|x| x.into());
             self
         }
     }
@@ -3879,6 +4024,7 @@ pub mod authorized_certificates {
     /// # use google_cloud_appengine_v1::builder;
     /// use builder::authorized_certificates::UpdateAuthorizedCertificate;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3930,22 +4076,38 @@ pub mod authorized_certificates {
         }
 
         /// Sets the value of [certificate][crate::model::UpdateAuthorizedCertificateRequest::certificate].
-        pub fn set_certificate<
-            T: Into<std::option::Option<crate::model::AuthorizedCertificate>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.certificate = v.into();
+        pub fn set_certificate<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::AuthorizedCertificate>,
+        {
+            self.0.request.certificate = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [certificate][crate::model::UpdateAuthorizedCertificateRequest::certificate].
+        pub fn set_or_clear_certificate<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::AuthorizedCertificate>,
+        {
+            self.0.request.certificate = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateAuthorizedCertificateRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateAuthorizedCertificateRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -3964,6 +4126,7 @@ pub mod authorized_certificates {
     /// # use google_cloud_appengine_v1::builder;
     /// use builder::authorized_certificates::DeleteAuthorizedCertificate;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -4029,8 +4192,9 @@ pub mod authorized_certificates {
     /// # use google_cloud_appengine_v1::builder;
     /// use builder::authorized_certificates::ListOperations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -4140,6 +4304,7 @@ pub mod authorized_certificates {
     /// # use google_cloud_appengine_v1::builder;
     /// use builder::authorized_certificates::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -4258,8 +4423,9 @@ pub mod domain_mappings {
     /// # use google_cloud_appengine_v1::builder;
     /// use builder::domain_mappings::ListDomainMappings;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -4363,6 +4529,7 @@ pub mod domain_mappings {
     /// # use google_cloud_appengine_v1::builder;
     /// use builder::domain_mappings::GetDomainMapping;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -4426,8 +4593,9 @@ pub mod domain_mappings {
     /// # use google_cloud_appengine_v1::builder;
     /// use builder::domain_mappings::CreateDomainMapping;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_appengine_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -4517,11 +4685,20 @@ pub mod domain_mappings {
         }
 
         /// Sets the value of [domain_mapping][crate::model::CreateDomainMappingRequest::domain_mapping].
-        pub fn set_domain_mapping<T: Into<std::option::Option<crate::model::DomainMapping>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.domain_mapping = v.into();
+        pub fn set_domain_mapping<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::DomainMapping>,
+        {
+            self.0.request.domain_mapping = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [domain_mapping][crate::model::CreateDomainMappingRequest::domain_mapping].
+        pub fn set_or_clear_domain_mapping<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::DomainMapping>,
+        {
+            self.0.request.domain_mapping = v.map(|x| x.into());
             self
         }
 
@@ -4549,8 +4726,9 @@ pub mod domain_mappings {
     /// # use google_cloud_appengine_v1::builder;
     /// use builder::domain_mappings::UpdateDomainMapping;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_appengine_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -4640,20 +4818,38 @@ pub mod domain_mappings {
         }
 
         /// Sets the value of [domain_mapping][crate::model::UpdateDomainMappingRequest::domain_mapping].
-        pub fn set_domain_mapping<T: Into<std::option::Option<crate::model::DomainMapping>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.domain_mapping = v.into();
+        pub fn set_domain_mapping<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::DomainMapping>,
+        {
+            self.0.request.domain_mapping = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [domain_mapping][crate::model::UpdateDomainMappingRequest::domain_mapping].
+        pub fn set_or_clear_domain_mapping<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::DomainMapping>,
+        {
+            self.0.request.domain_mapping = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateDomainMappingRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateDomainMappingRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -4672,8 +4868,9 @@ pub mod domain_mappings {
     /// # use google_cloud_appengine_v1::builder;
     /// use builder::domain_mappings::DeleteDomainMapping;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_appengine_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -4777,8 +4974,9 @@ pub mod domain_mappings {
     /// # use google_cloud_appengine_v1::builder;
     /// use builder::domain_mappings::ListOperations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -4888,6 +5086,7 @@ pub mod domain_mappings {
     /// # use google_cloud_appengine_v1::builder;
     /// use builder::domain_mappings::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });

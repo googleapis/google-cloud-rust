@@ -17,11 +17,6 @@ mod driver {
     use gax::error::*;
     use test_case::test_case;
 
-    fn report(e: Error) -> Error {
-        println!("\nERROR {e}\n");
-        Error::other("test failed")
-    }
-
     fn retry_policy() -> impl gax::retry_policy::RetryPolicy {
         use gax::retry_policy::RetryPolicyExt;
         use std::time::Duration;
@@ -37,7 +32,7 @@ mod driver {
     ) -> integration_tests::Result<()> {
         integration_tests::bigquery::dataset_admin(builder)
             .await
-            .map_err(report)
+            .map_err(integration_tests::report_error)
     }
 
     #[test_case(firestore::client::Firestore::builder(); "default")]
@@ -49,7 +44,7 @@ mod driver {
     ) -> integration_tests::Result<()> {
         integration_tests::firestore::basic(builder)
             .await
-            .map_err(report)
+            .map_err(integration_tests::report_error)
     }
 
     #[test_case(sm::client::SecretManagerService::builder(); "default")]
@@ -61,7 +56,7 @@ mod driver {
     ) -> integration_tests::Result<()> {
         integration_tests::secret_manager::protobuf::run(builder)
             .await
-            .map_err(report)
+            .map_err(integration_tests::report_error)
     }
 
     #[test_case(smo::client::SecretManagerService::builder(); "default")]
@@ -73,7 +68,7 @@ mod driver {
     ) -> integration_tests::Result<()> {
         integration_tests::secret_manager::openapi::run(builder)
             .await
-            .map_err(report)
+            .map_err(integration_tests::report_error)
     }
 
     #[test_case(smo::client::SecretManagerService::builder(); "default")]
@@ -85,7 +80,7 @@ mod driver {
     ) -> integration_tests::Result<()> {
         integration_tests::secret_manager::openapi_locational::run(builder)
             .await
-            .map_err(report)
+            .map_err(integration_tests::report_error)
     }
 
     #[test_case(sql::client::SqlInstancesService::builder().with_tracing().with_retry_policy(retry_policy()); "with [tracing, retry] enabled")]
@@ -95,7 +90,7 @@ mod driver {
     ) -> integration_tests::Result<()> {
         integration_tests::sql::run_sql_instances_service(builder)
             .await
-            .map_err(report)
+            .map_err(integration_tests::report_error)
     }
 
     #[test_case(sql::client::SqlTiersService::builder().with_tracing().with_retry_policy(retry_policy()); "with [tracing, retry] enabled")]
@@ -105,7 +100,7 @@ mod driver {
     ) -> integration_tests::Result<()> {
         integration_tests::sql::run_sql_tiers_service(builder)
             .await
-            .map_err(report)
+            .map_err(integration_tests::report_error)
     }
 
     #[test_case(storage_control::client::Storage::builder().with_tracing().with_retry_policy(retry_policy()); "with tracing and retry enabled")]
@@ -116,7 +111,7 @@ mod driver {
     ) -> integration_tests::Result<()> {
         integration_tests::storage::buckets(builder)
             .await
-            .map_err(report)
+            .map_err(integration_tests::report_error)
     }
 
     #[test_case(storage::client::Storage::builder().with_tracing().with_retry_policy(retry_policy()); "with tracing and retry enabled")]
@@ -126,7 +121,7 @@ mod driver {
     ) -> integration_tests::Result<()> {
         integration_tests::storage::objects(builder)
             .await
-            .map_err(report)
+            .map_err(integration_tests::report_error)
     }
 
     #[test_case(ta::client::TelcoAutomation::builder().with_tracing(); "with tracing enabled")]
@@ -136,7 +131,7 @@ mod driver {
     ) -> integration_tests::Result<()> {
         integration_tests::error_details::run(builder)
             .await
-            .map_err(report)
+            .map_err(integration_tests::report_error)
     }
 
     #[test_case(wf::client::Workflows::builder().with_tracing(); "with tracing enabled")]
@@ -146,7 +141,7 @@ mod driver {
     ) -> integration_tests::Result<()> {
         integration_tests::error_details::check_code_for_http(builder)
             .await
-            .map_err(report)
+            .map_err(integration_tests::report_error)
     }
 
     #[test_case(storage_control::client::Storage::builder().with_tracing(); "with tracing enabled")]
@@ -156,7 +151,7 @@ mod driver {
     ) -> integration_tests::Result<()> {
         integration_tests::error_details::check_code_for_grpc(builder)
             .await
-            .map_err(report)
+            .map_err(integration_tests::report_error)
     }
 
     #[test_case(wf::client::Workflows::builder(); "default")]
@@ -168,7 +163,7 @@ mod driver {
     ) -> integration_tests::Result<()> {
         integration_tests::workflows::until_done(builder)
             .await
-            .map_err(report)
+            .map_err(integration_tests::report_error)
     }
 
     #[test_case(wf::client::Workflows::builder(); "default")]
@@ -180,7 +175,7 @@ mod driver {
     ) -> integration_tests::Result<()> {
         integration_tests::workflows::explicit_loop(builder)
             .await
-            .map_err(report)
+            .map_err(integration_tests::report_error)
     }
 
     #[test_case(wf::client::Workflows::builder(); "default")]
@@ -192,7 +187,7 @@ mod driver {
     ) -> integration_tests::Result<()> {
         integration_tests::workflows::until_done(builder)
             .await
-            .map_err(report)
+            .map_err(integration_tests::report_error)
     }
 
     #[test_case(wfe::client::Executions::builder().with_retry_policy(retry_policy()).with_tracing(); "with tracing and retry enabled")]
@@ -202,6 +197,6 @@ mod driver {
     ) -> integration_tests::Result<()> {
         integration_tests::workflows_executions::list(builder)
             .await
-            .map_err(report)
+            .map_err(integration_tests::report_error)
     }
 }

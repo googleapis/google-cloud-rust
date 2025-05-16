@@ -75,8 +75,9 @@ pub mod reachability_service {
     /// # use google_cloud_networkmanagement_v1::builder;
     /// use builder::reachability_service::ListConnectivityTests;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -194,6 +195,7 @@ pub mod reachability_service {
     /// # use google_cloud_networkmanagement_v1::builder;
     /// use builder::reachability_service::GetConnectivityTest;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -259,8 +261,9 @@ pub mod reachability_service {
     /// # use google_cloud_networkmanagement_v1::builder;
     /// use builder::reachability_service::CreateConnectivityTest;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_networkmanagement_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -362,11 +365,22 @@ pub mod reachability_service {
         /// Sets the value of [resource][crate::model::CreateConnectivityTestRequest::resource].
         ///
         /// This is a **required** field for requests.
-        pub fn set_resource<T: Into<std::option::Option<crate::model::ConnectivityTest>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.resource = v.into();
+        pub fn set_resource<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::ConnectivityTest>,
+        {
+            self.0.request.resource = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [resource][crate::model::CreateConnectivityTestRequest::resource].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_resource<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::ConnectivityTest>,
+        {
+            self.0.request.resource = v.map(|x| x.into());
             self
         }
     }
@@ -385,8 +399,9 @@ pub mod reachability_service {
     /// # use google_cloud_networkmanagement_v1::builder;
     /// use builder::reachability_service::UpdateConnectivityTest;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_networkmanagement_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -472,22 +487,44 @@ pub mod reachability_service {
         /// Sets the value of [update_mask][crate::model::UpdateConnectivityTestRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateConnectivityTestRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [resource][crate::model::UpdateConnectivityTestRequest::resource].
         ///
         /// This is a **required** field for requests.
-        pub fn set_resource<T: Into<std::option::Option<crate::model::ConnectivityTest>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.resource = v.into();
+        pub fn set_resource<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::ConnectivityTest>,
+        {
+            self.0.request.resource = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [resource][crate::model::UpdateConnectivityTestRequest::resource].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_resource<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::ConnectivityTest>,
+        {
+            self.0.request.resource = v.map(|x| x.into());
             self
         }
     }
@@ -506,8 +543,9 @@ pub mod reachability_service {
     /// # use google_cloud_networkmanagement_v1::builder;
     /// use builder::reachability_service::RerunConnectivityTest;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_networkmanagement_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -613,8 +651,9 @@ pub mod reachability_service {
     /// # use google_cloud_networkmanagement_v1::builder;
     /// use builder::reachability_service::DeleteConnectivityTest;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_networkmanagement_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -719,8 +758,9 @@ pub mod reachability_service {
     /// # use google_cloud_networkmanagement_v1::builder;
     /// use builder::reachability_service::ListLocations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -828,6 +868,7 @@ pub mod reachability_service {
     /// # use google_cloud_networkmanagement_v1::builder;
     /// use builder::reachability_service::GetLocation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -888,6 +929,7 @@ pub mod reachability_service {
     /// # use google_cloud_networkmanagement_v1::builder;
     /// use builder::reachability_service::SetIamPolicy;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -938,20 +980,40 @@ pub mod reachability_service {
         /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
-        pub fn set_policy<T: Into<std::option::Option<iam_v1::model::Policy>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.policy = v.into();
+        pub fn set_policy<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -970,6 +1032,7 @@ pub mod reachability_service {
     /// # use google_cloud_networkmanagement_v1::builder;
     /// use builder::reachability_service::GetIamPolicy;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1018,11 +1081,20 @@ pub mod reachability_service {
         }
 
         /// Sets the value of [options][iam_v1::model::GetIamPolicyRequest::options].
-        pub fn set_options<T: Into<std::option::Option<iam_v1::model::GetPolicyOptions>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.options = v.into();
+        pub fn set_options<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = v.map(|x| x.into());
             self
         }
     }
@@ -1041,6 +1113,7 @@ pub mod reachability_service {
     /// # use google_cloud_networkmanagement_v1::builder;
     /// use builder::reachability_service::TestIamPermissions;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1119,8 +1192,9 @@ pub mod reachability_service {
     /// # use google_cloud_networkmanagement_v1::builder;
     /// use builder::reachability_service::ListOperations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -1230,6 +1304,7 @@ pub mod reachability_service {
     /// # use google_cloud_networkmanagement_v1::builder;
     /// use builder::reachability_service::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1293,6 +1368,7 @@ pub mod reachability_service {
     /// # use google_cloud_networkmanagement_v1::builder;
     /// use builder::reachability_service::DeleteOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1356,6 +1432,7 @@ pub mod reachability_service {
     /// # use google_cloud_networkmanagement_v1::builder;
     /// use builder::reachability_service::CancelOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1474,8 +1551,9 @@ pub mod vpc_flow_logs_service {
     /// # use google_cloud_networkmanagement_v1::builder;
     /// use builder::vpc_flow_logs_service::ListVpcFlowLogsConfigs;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -1595,6 +1673,7 @@ pub mod vpc_flow_logs_service {
     /// # use google_cloud_networkmanagement_v1::builder;
     /// use builder::vpc_flow_logs_service::GetVpcFlowLogsConfig;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1660,8 +1739,9 @@ pub mod vpc_flow_logs_service {
     /// # use google_cloud_networkmanagement_v1::builder;
     /// use builder::vpc_flow_logs_service::CreateVpcFlowLogsConfig;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_networkmanagement_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1765,13 +1845,22 @@ pub mod vpc_flow_logs_service {
         /// Sets the value of [vpc_flow_logs_config][crate::model::CreateVpcFlowLogsConfigRequest::vpc_flow_logs_config].
         ///
         /// This is a **required** field for requests.
-        pub fn set_vpc_flow_logs_config<
-            T: Into<std::option::Option<crate::model::VpcFlowLogsConfig>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.vpc_flow_logs_config = v.into();
+        pub fn set_vpc_flow_logs_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::VpcFlowLogsConfig>,
+        {
+            self.0.request.vpc_flow_logs_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [vpc_flow_logs_config][crate::model::CreateVpcFlowLogsConfigRequest::vpc_flow_logs_config].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_vpc_flow_logs_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::VpcFlowLogsConfig>,
+        {
+            self.0.request.vpc_flow_logs_config = v.map(|x| x.into());
             self
         }
     }
@@ -1790,8 +1879,9 @@ pub mod vpc_flow_logs_service {
     /// # use google_cloud_networkmanagement_v1::builder;
     /// use builder::vpc_flow_logs_service::UpdateVpcFlowLogsConfig;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_networkmanagement_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1879,24 +1969,44 @@ pub mod vpc_flow_logs_service {
         /// Sets the value of [update_mask][crate::model::UpdateVpcFlowLogsConfigRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateVpcFlowLogsConfigRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [vpc_flow_logs_config][crate::model::UpdateVpcFlowLogsConfigRequest::vpc_flow_logs_config].
         ///
         /// This is a **required** field for requests.
-        pub fn set_vpc_flow_logs_config<
-            T: Into<std::option::Option<crate::model::VpcFlowLogsConfig>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.vpc_flow_logs_config = v.into();
+        pub fn set_vpc_flow_logs_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::VpcFlowLogsConfig>,
+        {
+            self.0.request.vpc_flow_logs_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [vpc_flow_logs_config][crate::model::UpdateVpcFlowLogsConfigRequest::vpc_flow_logs_config].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_vpc_flow_logs_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::VpcFlowLogsConfig>,
+        {
+            self.0.request.vpc_flow_logs_config = v.map(|x| x.into());
             self
         }
     }
@@ -1915,8 +2025,9 @@ pub mod vpc_flow_logs_service {
     /// # use google_cloud_networkmanagement_v1::builder;
     /// use builder::vpc_flow_logs_service::DeleteVpcFlowLogsConfig;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_networkmanagement_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -2023,8 +2134,9 @@ pub mod vpc_flow_logs_service {
     /// # use google_cloud_networkmanagement_v1::builder;
     /// use builder::vpc_flow_logs_service::ListLocations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -2132,6 +2244,7 @@ pub mod vpc_flow_logs_service {
     /// # use google_cloud_networkmanagement_v1::builder;
     /// use builder::vpc_flow_logs_service::GetLocation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2192,6 +2305,7 @@ pub mod vpc_flow_logs_service {
     /// # use google_cloud_networkmanagement_v1::builder;
     /// use builder::vpc_flow_logs_service::SetIamPolicy;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2242,20 +2356,40 @@ pub mod vpc_flow_logs_service {
         /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
-        pub fn set_policy<T: Into<std::option::Option<iam_v1::model::Policy>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.policy = v.into();
+        pub fn set_policy<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -2274,6 +2408,7 @@ pub mod vpc_flow_logs_service {
     /// # use google_cloud_networkmanagement_v1::builder;
     /// use builder::vpc_flow_logs_service::GetIamPolicy;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2322,11 +2457,20 @@ pub mod vpc_flow_logs_service {
         }
 
         /// Sets the value of [options][iam_v1::model::GetIamPolicyRequest::options].
-        pub fn set_options<T: Into<std::option::Option<iam_v1::model::GetPolicyOptions>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.options = v.into();
+        pub fn set_options<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = v.map(|x| x.into());
             self
         }
     }
@@ -2345,6 +2489,7 @@ pub mod vpc_flow_logs_service {
     /// # use google_cloud_networkmanagement_v1::builder;
     /// use builder::vpc_flow_logs_service::TestIamPermissions;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2423,8 +2568,9 @@ pub mod vpc_flow_logs_service {
     /// # use google_cloud_networkmanagement_v1::builder;
     /// use builder::vpc_flow_logs_service::ListOperations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -2534,6 +2680,7 @@ pub mod vpc_flow_logs_service {
     /// # use google_cloud_networkmanagement_v1::builder;
     /// use builder::vpc_flow_logs_service::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2597,6 +2744,7 @@ pub mod vpc_flow_logs_service {
     /// # use google_cloud_networkmanagement_v1::builder;
     /// use builder::vpc_flow_logs_service::DeleteOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2660,6 +2808,7 @@ pub mod vpc_flow_logs_service {
     /// # use google_cloud_networkmanagement_v1::builder;
     /// use builder::vpc_flow_logs_service::CancelOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });

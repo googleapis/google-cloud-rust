@@ -104,82 +104,69 @@ impl Storage {
     /// delete the objects in a bucket (including archived and soft deleted
     /// objects) before deleting the bucket.
     ///
-    /// # Parameters
-    /// * `name` - the bucket name. In `projects/_/buckets/{bucket_id}` format.
-    ///
     /// # Example
     /// ```
     /// # use google_cloud_storage_control::client::Storage;
     /// async fn example(client: &Storage) -> gax::Result<()> {
-    ///     client.delete_bucket("projects/_/buckets/my-bucket").send().await?;
+    ///     client.delete_bucket()
+    ///         .set_name("projects/_/buckets/my-bucket")
+    ///         .send()
+    ///         .await?;
     ///     Ok(())
     /// }
     /// ```
-    pub fn delete_bucket<T: Into<String>>(&self, name: T) -> super::builder::storage::DeleteBucket {
-        self.storage.delete_bucket().set_name(name)
+    pub fn delete_bucket(&self) -> super::builder::storage::DeleteBucket {
+        self.storage.delete_bucket()
     }
 
     /// Returns metadata for the specified bucket.
     ///
-    /// # Parameters
-    /// * `name` - the bucket name. In `projects/_/buckets/{bucket_id}` format.
-    ///
     /// # Example
     /// ```
     /// # use google_cloud_storage_control::client::Storage;
     /// async fn example(client: &Storage) -> gax::Result<()> {
-    ///     let bucket = client.get_bucket("projects/_/buckets/my-bucket").send().await?;
+    ///     let bucket = client.get_bucket()
+    ///         .set_name("projects/_/buckets/my-bucket")
+    ///         .send()
+    ///         .await?;
     ///     assert_eq!(&bucket.name, "projects/_/buckets/my-bucket");
     ///     println!("bucket details={bucket:?}");
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_bucket<T: Into<String>>(&self, name: T) -> super::builder::storage::GetBucket {
-        self.storage.get_bucket().set_name(name)
+    pub fn get_bucket(&self) -> super::builder::storage::GetBucket {
+        self.storage.get_bucket()
     }
 
     /// Creates a new bucket.
     ///
-    /// # Parameters
-    /// * `name` - the bucket name. In `projects/_/buckets/{bucket_id}` format.
-    ///
     /// # Example
     /// ```
     /// # use google_cloud_storage_control::client::Storage;
     /// async fn example(client: &Storage) -> gax::Result<()> {
-    ///     let bucket = client.create_bucket("projects/my-project", "my-bucket").send().await?;
+    ///     let bucket = client.create_bucket()
+    ///         .set_parent("projects/my-project")
+    ///         .set_bucket_id("my-bucket")
+    ///         .send()
+    ///         .await?;
     ///     assert_eq!(&bucket.name, "projects/_/buckets/my-bucket");
     ///     println!("bucket details={bucket:?}");
     ///     Ok(())
     /// }
     /// ```
-    pub fn create_bucket<V, U>(
-        &self,
-        parent: V,
-        bucket_id: U,
-    ) -> super::builder::storage::CreateBucket
-    where
-        V: Into<String>,
-        U: Into<String>,
-    {
-        self.storage
-            .create_bucket()
-            .set_parent(parent)
-            .set_bucket_id(bucket_id)
+    pub fn create_bucket(&self) -> super::builder::storage::CreateBucket {
+        self.storage.create_bucket()
     }
 
     /// Retrieves a list of buckets for a given project.
-    ///
-    /// # Parameters
-    /// * `parent` - the project name. In `projects/{project_id}` format.
     ///
     /// # Example
     /// ```
     /// # use google_cloud_storage_control::client::Storage;
     /// async fn example(client: &Storage) -> gax::Result<()> {
     ///     use gax::paginator::{ItemPaginator, Paginator};
-    ///     let mut items = client
-    ///         .list_buckets("projects/my-project")
+    ///     let mut items = client.list_buckets()
+    ///         .set_parent("projects/my-project")
     ///         .by_item();
     ///     while let Some(bucket) = items.next().await {
     ///         let bucket = bucket?;
@@ -188,22 +175,21 @@ impl Storage {
     ///     Ok(())
     /// }
     /// ```
-    pub fn list_buckets<T: Into<String>>(&self, parent: T) -> super::builder::storage::ListBuckets {
-        self.storage.list_buckets().set_parent(parent)
+    pub fn list_buckets(&self) -> super::builder::storage::ListBuckets {
+        self.storage.list_buckets()
     }
 
     /// Permanently deletes an object and its metadata.
-    ///
-    /// # Parameters
-    /// * `bucket` - the bucket name containing the object. In
-    ///   `projects/_/buckets/{bucket_id}` format.
-    /// * `object` - the object name.
     ///
     /// # Example
     /// ```
     /// # use google_cloud_storage_control::client::Storage;
     /// async fn example(client: &Storage) -> gax::Result<()> {
-    ///     client.delete_object("projects/_/buckets/my-bucket", "my-object").send().await?;
+    ///     client.delete_object()
+    ///         .set_bucket("projects/_/buckets/my-bucket")
+    ///         .set_object("my-object")
+    ///         .send()
+    ///         .await?;
     ///     Ok(())
     /// }
     /// ```
@@ -223,29 +209,19 @@ impl Storage {
     /// until the soft delete retention period has passed.
     ///
     /// [soft delete]: https://cloud.google.com/storage/docs/soft-delete
-    pub fn delete_object<T, U>(&self, bucket: T, object: U) -> super::builder::storage::DeleteObject
-    where
-        T: Into<String>,
-        U: Into<String>,
-    {
-        self.storage
-            .delete_object()
-            .set_bucket(bucket)
-            .set_object(object)
+    pub fn delete_object(&self) -> super::builder::storage::DeleteObject {
+        self.storage.delete_object()
     }
 
     /// Retrieves the list of objects for a given bucket.
-    ///
-    /// # Parameters
-    /// * `parent` - the bucket name. In `projects/_/buckets/{bucket_id}` format.
     ///
     /// # Example
     /// ```
     /// # use google_cloud_storage_control::client::Storage;
     /// async fn example(client: &Storage) -> gax::Result<()> {
     ///     use gax::paginator::{ItemPaginator, Paginator};
-    ///     let mut items = client
-    ///         .list_objects("projects/_/buckets/my-bucket")
+    ///     let mut items = client.list_objects()
+    ///         .set_parent("projects/_/buckets/my-bucket")
     ///         .by_item();
     ///     while let Some(object) = items.next().await {
     ///         let object = object?;
@@ -254,36 +230,26 @@ impl Storage {
     ///     Ok(())
     /// }
     /// ```
-    pub fn list_objects<T: Into<String>>(&self, parent: T) -> super::builder::storage::ListObjects {
-        self.storage.list_objects().set_parent(parent)
+    pub fn list_objects(&self) -> super::builder::storage::ListObjects {
+        self.storage.list_objects()
     }
 
     /// Gets the IAM policy for a specified bucket.
-    ///
-    /// # Parameters
-    /// * `resource` should be
-    ///   * `projects/_/buckets/{bucket}` for a bucket,
-    ///   * `projects/_/buckets/{bucket}/objects/{object}` for an object, or
-    ///   * `projects/_/buckets/{bucket}/managedFolders/{managedFolder}` for a
-    ///     managed folder.
     ///
     /// # Example
     /// ```
     /// # use google_cloud_storage_control::client::Storage;
     /// async fn example(client: &Storage) -> gax::Result<()> {
-    ///     let policy = client
-    ///         .get_iam_policy("projects/_/buckets/my-bucket")
+    ///     let policy = client.get_iam_policy()
+    ///         .set_resource("projects/_/buckets/my-bucket")
     ///         .send()
     ///         .await?;
     ///     println!("policy details={policy:?}");
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_iam_policy(
-        &self,
-        resource: impl Into<String>,
-    ) -> super::builder::storage::GetIamPolicy {
-        self.storage.get_iam_policy().set_resource(resource.into())
+    pub fn get_iam_policy(&self) -> super::builder::storage::GetIamPolicy {
+        self.storage.get_iam_policy()
     }
 
     /// Updates the IAM policy for a specified bucket.
@@ -293,21 +259,14 @@ impl Storage {
     /// `get_iam_policy()` and then modify that policy before supplying it to
     /// `set_iam_policy()`.
     ///
-    /// # Parameters
-    /// * `resource` should be
-    ///   * `projects/_/buckets/{bucket}` for a bucket,
-    ///   * `projects/_/buckets/{bucket}/objects/{object}` for an object, or
-    ///   * `projects/_/buckets/{bucket}/managedFolders/{managedFolder}` for a
-    ///     managed folder.
-    ///
     /// # Example
     ///
     /// ```
     /// # use google_cloud_storage_control::client::Storage;
     /// # use iam_v1::model::Policy;
     /// async fn example(client: &Storage, updated_policy: Policy) -> gax::Result<()> {
-    ///     let policy = client
-    ///         .set_iam_policy("projects/_/buckets/my-bucket")
+    ///     let policy = client.set_iam_policy()
+    ///         .set_resource("projects/_/buckets/my-bucket")
     ///         .set_update_mask(wkt::FieldMask::default().set_paths(["bindings"]))
     ///         .set_policy(updated_policy)
     ///         .send()
@@ -316,29 +275,19 @@ impl Storage {
     ///     Ok(())
     /// }
     /// ```
-    pub fn set_iam_policy(
-        &self,
-        resource: impl Into<String>,
-    ) -> super::builder::storage::SetIamPolicy {
-        self.storage.set_iam_policy().set_resource(resource.into())
+    pub fn set_iam_policy(&self) -> super::builder::storage::SetIamPolicy {
+        self.storage.set_iam_policy()
     }
 
     /// Tests a set of permissions on the given bucket, object, or managed folder
     /// to see which, if any, are held by the caller.
     ///
-    /// # Parameters
-    /// * `resource` should be
-    ///   * `projects/_/buckets/{bucket}` for a bucket,
-    ///   * `projects/_/buckets/{bucket}/objects/{object}` for an object, or
-    ///   * `projects/_/buckets/{bucket}/managedFolders/{managedFolder}` for a
-    ///     managed folder.
-    ///
     /// # Example
     /// ```
     /// # use google_cloud_storage_control::client::Storage;
     /// async fn example(client: &Storage) -> gax::Result<()> {
-    ///     let response = client
-    ///         .test_iam_permissions("projects/_/buckets/my-bucket")
+    ///     let response = client.test_iam_permissions()
+    ///         .set_resource("projects/_/buckets/my-bucket")
     ///         .set_permissions(["storage.buckets.get"])
     ///         .send()
     ///         .await?;
@@ -346,13 +295,8 @@ impl Storage {
     ///     Ok(())
     /// }
     /// ```
-    pub fn test_iam_permissions(
-        &self,
-        resource: impl Into<String>,
-    ) -> super::builder::storage::TestIamPermissions {
-        self.storage
-            .test_iam_permissions()
-            .set_resource(resource.into())
+    pub fn test_iam_permissions(&self) -> super::builder::storage::TestIamPermissions {
+        self.storage.test_iam_permissions()
     }
 
     /// Creates a new folder.
@@ -360,16 +304,12 @@ impl Storage {
     /// This operation is only applicable to a hierarchical namespace enabled
     /// bucket.
     ///
-    /// # Parameters
-    /// * `parent` - the bucket name. In `projects/_/buckets/{bucket_id}`
-    ///   format.
-    ///
     /// # Example
     /// ```
     /// # use google_cloud_storage_control::client::Storage;
     /// async fn example(client: &Storage) -> gax::Result<()> {
-    ///     let folder = client
-    ///         .create_folder("projects/my-project/buckets/my-bucket")
+    ///     let folder = client.create_folder()
+    ///         .set_parent("projects/my-project/buckets/my-bucket")
     ///         .set_folder_id("my-folder/my-subfolder/")
     ///         .send()
     ///         .await?;
@@ -377,11 +317,8 @@ impl Storage {
     ///     Ok(())
     /// }
     /// ```
-    pub fn create_folder(
-        &self,
-        parent: impl Into<String>,
-    ) -> super::builder::storage::CreateFolder {
-        self.control.create_folder().set_parent(parent.into())
+    pub fn create_folder(&self) -> super::builder::storage::CreateFolder {
+        self.control.create_folder()
     }
 
     /// Returns metadata for the specified folder.
@@ -389,24 +326,20 @@ impl Storage {
     /// This operation is only applicable to a hierarchical namespace enabled
     /// bucket.
     ///
-    /// # Parameters
-    /// * `name` - the folder name. In
-    ///   `projects/_/buckets/{bucket_id}/folders/{folder}` format.
-    ///
     /// # Example
     /// ```
     /// # use google_cloud_storage_control::client::Storage;
     /// async fn example(client: &Storage) -> gax::Result<()> {
-    ///     let folder = client
-    ///         .get_folder("projects/_/buckets/my-bucket/folders/my-folder/my-subfolder/")
+    ///     let folder = client.get_folder()
+    ///         .set_name("projects/_/buckets/my-bucket/folders/my-folder/my-subfolder/")
     ///         .send()
     ///         .await?;
     ///     println!("folder details={folder:?}");
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_folder(&self, name: impl Into<String>) -> super::builder::storage::GetFolder {
-        self.control.get_folder().set_name(name.into())
+    pub fn get_folder(&self) -> super::builder::storage::GetFolder {
+        self.control.get_folder()
     }
 
     /// Permanently deletes an empty folder.
@@ -414,23 +347,19 @@ impl Storage {
     /// This operation is only applicable to a hierarchical namespace enabled
     /// bucket.
     ///
-    /// # Parameters
-    /// * `name` - the folder name. In
-    ///   `projects/_/buckets/{bucket_id}/folders/{folder}` format.
-    ///
     /// # Example
     /// ```
     /// # use google_cloud_storage_control::client::Storage;
     /// async fn example(client: &Storage) -> gax::Result<()> {
-    ///     client
-    ///         .delete_folder("projects/_/buckets/my-bucket/folders/my-folder/my-subfolder/")
+    ///     client.delete_folder()
+    ///         .set_name("projects/_/buckets/my-bucket/folders/my-folder/my-subfolder/")
     ///         .send()
     ///         .await?;
     ///     Ok(())
     /// }
     /// ```
-    pub fn delete_folder(&self, name: impl Into<String>) -> super::builder::storage::DeleteFolder {
-        self.control.delete_folder().set_name(name.into())
+    pub fn delete_folder(&self) -> super::builder::storage::DeleteFolder {
+        self.control.delete_folder()
     }
 
     /// Retrieves a list of folders.
@@ -438,16 +367,13 @@ impl Storage {
     /// This operation is only applicable to a hierarchical namespace enabled
     /// bucket.
     ///
-    /// # Parameters
-    /// * `parent` - the bucket name. In `projects/_/buckets/{bucket_id}` format.
-    ///
     /// # Example
     /// ```
     /// # use google_cloud_storage_control::client::Storage;
     /// async fn example(client: &Storage) -> gax::Result<()> {
     ///     use gax::paginator::ItemPaginator as _;
-    ///     let mut folders = client
-    ///         .list_folders("projects/_/buckets/my-bucket")
+    ///     let mut folders = client.list_folders()
+    ///         .set_parent("projects/_/buckets/my-bucket")
     ///         .by_item();
     ///     while let Some(folder) = folders.next().await {
     ///         let folder = folder?;
@@ -456,8 +382,45 @@ impl Storage {
     ///     Ok(())
     /// }
     /// ```
-    pub fn list_folders(&self, parent: impl Into<String>) -> super::builder::storage::ListFolders {
-        self.control.list_folders().set_parent(parent.into())
+    pub fn list_folders(&self) -> super::builder::storage::ListFolders {
+        self.control.list_folders()
+    }
+
+    /// Renames a source folder to a destination folder.
+    ///
+    /// This operation is only applicable to a hierarchical namespace enabled
+    /// bucket.
+    ///
+    /// During a rename, the source and destination folders are locked until the
+    /// long running operation completes.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage_control::client::Storage;
+    /// async fn example(client: &Storage) -> gax::Result<()> {
+    ///     use lro::Poller as _;
+    ///     let folder = client.rename_folder()
+    ///         .set_name("projects/_/buckets/my-bucket/folders/my-folder/my-subfolder/")
+    ///         .set_destination_folder_id("my-folder/my-renamed-subfolder/")
+    ///         .poller()
+    ///         .until_done()
+    ///         .await?;
+    ///     println!("folder details={folder:?}");
+    ///     Ok(())
+    /// }
+    /// ```
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    pub fn rename_folder(&self) -> super::builder::storage::RenameFolder {
+        self.control.rename_folder()
     }
 
     /// Creates a new client from the provided stub.

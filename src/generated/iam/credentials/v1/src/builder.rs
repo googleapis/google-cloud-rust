@@ -75,6 +75,7 @@ pub mod iam_credentials {
     /// # use google_cloud_iam_credentials_v1::builder;
     /// use builder::iam_credentials::GenerateAccessToken;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -150,8 +151,20 @@ pub mod iam_credentials {
         }
 
         /// Sets the value of [lifetime][crate::model::GenerateAccessTokenRequest::lifetime].
-        pub fn set_lifetime<T: Into<std::option::Option<wkt::Duration>>>(mut self, v: T) -> Self {
-            self.0.request.lifetime = v.into();
+        pub fn set_lifetime<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Duration>,
+        {
+            self.0.request.lifetime = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [lifetime][crate::model::GenerateAccessTokenRequest::lifetime].
+        pub fn set_or_clear_lifetime<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Duration>,
+        {
+            self.0.request.lifetime = v.map(|x| x.into());
             self
         }
     }
@@ -170,6 +183,7 @@ pub mod iam_credentials {
     /// # use google_cloud_iam_credentials_v1::builder;
     /// use builder::iam_credentials::GenerateIdToken;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -257,6 +271,7 @@ pub mod iam_credentials {
     /// # use google_cloud_iam_credentials_v1::builder;
     /// use builder::iam_credentials::SignBlob;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -338,6 +353,7 @@ pub mod iam_credentials {
     /// # use google_cloud_iam_credentials_v1::builder;
     /// use builder::iam_credentials::SignJwt;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });

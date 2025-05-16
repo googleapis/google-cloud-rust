@@ -73,8 +73,9 @@ pub mod gke_hub {
     /// # use google_cloud_gkehub_v1::builder;
     /// use builder::gke_hub::ListMemberships;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -185,8 +186,9 @@ pub mod gke_hub {
     /// # use google_cloud_gkehub_v1::builder;
     /// use builder::gke_hub::ListFeatures;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -295,6 +297,7 @@ pub mod gke_hub {
     /// # use google_cloud_gkehub_v1::builder;
     /// use builder::gke_hub::GetMembership;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -355,6 +358,7 @@ pub mod gke_hub {
     /// # use google_cloud_gkehub_v1::builder;
     /// use builder::gke_hub::GetFeature;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -413,8 +417,9 @@ pub mod gke_hub {
     /// # use google_cloud_gkehub_v1::builder;
     /// use builder::gke_hub::CreateMembership;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_gkehub_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -511,11 +516,22 @@ pub mod gke_hub {
         /// Sets the value of [resource][crate::model::CreateMembershipRequest::resource].
         ///
         /// This is a **required** field for requests.
-        pub fn set_resource<T: Into<std::option::Option<crate::model::Membership>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.resource = v.into();
+        pub fn set_resource<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Membership>,
+        {
+            self.0.request.resource = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [resource][crate::model::CreateMembershipRequest::resource].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_resource<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Membership>,
+        {
+            self.0.request.resource = v.map(|x| x.into());
             self
         }
 
@@ -540,8 +556,9 @@ pub mod gke_hub {
     /// # use google_cloud_gkehub_v1::builder;
     /// use builder::gke_hub::CreateFeature;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_gkehub_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -629,11 +646,20 @@ pub mod gke_hub {
         }
 
         /// Sets the value of [resource][crate::model::CreateFeatureRequest::resource].
-        pub fn set_resource<T: Into<std::option::Option<crate::model::Feature>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.resource = v.into();
+        pub fn set_resource<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Feature>,
+        {
+            self.0.request.resource = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [resource][crate::model::CreateFeatureRequest::resource].
+        pub fn set_or_clear_resource<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Feature>,
+        {
+            self.0.request.resource = v.map(|x| x.into());
             self
         }
 
@@ -658,8 +684,9 @@ pub mod gke_hub {
     /// # use google_cloud_gkehub_v1::builder;
     /// use builder::gke_hub::DeleteMembership;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_gkehub_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -774,8 +801,9 @@ pub mod gke_hub {
     /// # use google_cloud_gkehub_v1::builder;
     /// use builder::gke_hub::DeleteFeature;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_gkehub_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -885,8 +913,9 @@ pub mod gke_hub {
     /// # use google_cloud_gkehub_v1::builder;
     /// use builder::gke_hub::UpdateMembership;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_gkehub_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -975,22 +1004,44 @@ pub mod gke_hub {
         /// Sets the value of [update_mask][crate::model::UpdateMembershipRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateMembershipRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [resource][crate::model::UpdateMembershipRequest::resource].
         ///
         /// This is a **required** field for requests.
-        pub fn set_resource<T: Into<std::option::Option<crate::model::Membership>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.resource = v.into();
+        pub fn set_resource<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Membership>,
+        {
+            self.0.request.resource = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [resource][crate::model::UpdateMembershipRequest::resource].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_resource<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Membership>,
+        {
+            self.0.request.resource = v.map(|x| x.into());
             self
         }
 
@@ -1015,8 +1066,9 @@ pub mod gke_hub {
     /// # use google_cloud_gkehub_v1::builder;
     /// use builder::gke_hub::UpdateFeature;
     /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
     /// let builder = prepare_request_builder();
-    /// use google_cloud_gkehub_v1::Poller;
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1098,20 +1150,38 @@ pub mod gke_hub {
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateFeatureRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateFeatureRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [resource][crate::model::UpdateFeatureRequest::resource].
-        pub fn set_resource<T: Into<std::option::Option<crate::model::Feature>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.resource = v.into();
+        pub fn set_resource<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Feature>,
+        {
+            self.0.request.resource = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [resource][crate::model::UpdateFeatureRequest::resource].
+        pub fn set_or_clear_resource<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Feature>,
+        {
+            self.0.request.resource = v.map(|x| x.into());
             self
         }
 
@@ -1136,6 +1206,7 @@ pub mod gke_hub {
     /// # use google_cloud_gkehub_v1::builder;
     /// use builder::gke_hub::GenerateConnectManifest;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1237,8 +1308,9 @@ pub mod gke_hub {
     /// # use google_cloud_gkehub_v1::builder;
     /// use builder::gke_hub::ListOperations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -1346,6 +1418,7 @@ pub mod gke_hub {
     /// # use google_cloud_gkehub_v1::builder;
     /// use builder::gke_hub::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1407,6 +1480,7 @@ pub mod gke_hub {
     /// # use google_cloud_gkehub_v1::builder;
     /// use builder::gke_hub::DeleteOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1468,6 +1542,7 @@ pub mod gke_hub {
     /// # use google_cloud_gkehub_v1::builder;
     /// use builder::gke_hub::CancelOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });

@@ -34,6 +34,9 @@ implementors = "implementors"
 # from google/api:
 advices    = "advices"    # In the code, too late to fix.
 readablity = "readablity"
+# src/generated/api/servicemanagement/v1 has a typo, it needs to be fixed
+# upstream.
+unspecifed = "unspecifed"
 # src/generated/appengine/v1 has a typo, it needs to be fixed upstream.
 explictly = "explictly"
 # src/generated/cloud/accessapproval/v1, these are intentional and expected
