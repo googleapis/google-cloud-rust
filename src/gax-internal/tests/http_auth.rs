@@ -129,13 +129,13 @@ mod test {
     )); "on_error_response")]
     #[test_case::test_case(Ok(CacheableResource::NotModified); "on_not_modified_response")]
     async fn auth_error_non_retryable(
-        headers_reponse: AuthResult<CacheableResource<HeaderMap>>,
+        headers_response: AuthResult<CacheableResource<HeaderMap>>,
     ) -> Result<()> {
         let (endpoint, _server) = echo_server::start().await?;
         let mut mock = MockCredentials::new();
         mock.expect_headers()
             .times(1)
-            .returning(move |_extensions| headers_reponse.clone());
+            .returning(move |_extensions| headers_response.clone());
 
         let client = echo_server::builder(endpoint)
             .with_credentials(Credentials::from(mock))
