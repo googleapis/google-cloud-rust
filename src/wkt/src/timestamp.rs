@@ -14,6 +14,18 @@
 
 /// Well-known point in time representation for Google APIs.
 ///
+/// # Examples
+/// ```
+/// # use google_cloud_wkt::{Timestamp, TimestampError};
+/// let ts = Timestamp::try_from("2025-05-16T09:46:12.500Z")?;
+/// assert_eq!(ts.seconds(), 1747388772);
+/// assert_eq!(ts.nanos(), 500_000_000);
+///
+/// assert_eq!(ts, Timestamp::new(1747388772, 500_000_000)?);
+/// assert_eq!(ts, Timestamp::clamp(1747388772, 500_000_000));
+/// # Ok::<(), TimestampError>(())
+/// ```
+///
 /// A Timestamp represents a point in time independent of any time zone or local
 /// calendar, encoded as a count of seconds and fractions of seconds at
 /// nanosecond resolution. The count is relative to an epoch at UTC midnight on
@@ -110,6 +122,17 @@ impl Timestamp {
     ///
     /// If either value is out of range it returns an error.
     ///
+    /// # Examples
+    /// ```
+    /// # use google_cloud_wkt::{Timestamp, TimestampError};
+    /// let ts = Timestamp::new(1747388772, 0)?;
+    /// assert_eq!(String::try_from(&ts)?, "2025-05-16T09:46:12Z");
+    ///
+    /// let ts = Timestamp::new(1747388772, 2_000_000_000);
+    /// assert!(matches!(ts, Err(TimestampError::OutOfRange)));
+    /// # Ok::<(), TimestampError>(())
+    /// ```
+    ///
     /// # Parameters
     ///
     /// * `seconds` - the seconds on the timestamp.
@@ -125,6 +148,18 @@ impl Timestamp {
     }
 
     /// Create a normalized, clamped [Timestamp].
+    ///
+    /// # Examples
+    /// ```
+    /// # use google_cloud_wkt::{Timestamp, TimestampError};
+    /// let ts = Timestamp::clamp(1747388772, 0);
+    /// assert_eq!(String::try_from(&ts)?, "2025-05-16T09:46:12Z");
+    ///
+    /// let ts = Timestamp::clamp(1747388772, 2_000_000_000);
+    /// // extra nanoseconds are carried as seconds
+    /// assert_eq!(String::try_from(&ts)?, "2025-05-16T09:46:14Z");
+    /// # Ok::<(), TimestampError>(())
+    /// ```
     ///
     /// Timestamps must be between 0001-01-01T00:00:00Z and
     /// 9999-12-31T23:59:59.999999999Z, and the nanoseconds component must
@@ -167,6 +202,14 @@ impl Timestamp {
     /// Represents seconds of UTC time since Unix epoch (1970-01-01T00:00:00Z).
     ///
     /// Must be from 0001-01-01T00:00:00Z to 9999-12-31T23:59:59Z inclusive.
+    ///
+    /// # Examples
+    /// ```
+    /// # use google_cloud_wkt::{Timestamp, TimestampError};
+    /// let ts = Timestamp::new(120, 500_000_000)?;
+    /// assert_eq!(ts.seconds(), 120);
+    /// # Ok::<(), TimestampError>(())
+    /// ```
     pub fn seconds(&self) -> i64 {
         self.seconds
     }
@@ -176,6 +219,14 @@ impl Timestamp {
     /// Negative second values (before the Unix epoch) with fractions must still
     /// have non-negative nanos values that count forward in time. Must be from
     /// 0 to 999,999,999 inclusive.
+    ///
+    /// # Examples
+    /// ```
+    /// # use google_cloud_wkt::{Timestamp, TimestampError};
+    /// let ts = Timestamp::new(120, 500_000_000)?;
+    /// assert_eq!(ts.nanos(), 500_000_000);
+    /// # Ok::<(), TimestampError>(())
+    /// ```
     pub fn nanos(&self) -> i32 {
         self.nanos
     }
@@ -238,7 +289,18 @@ impl<'de> serde::de::Deserialize<'de> for Timestamp {
 /// Convert from [time::OffsetDateTime] to [Timestamp].
 ///
 /// This conversion may fail if the [time::OffsetDateTime] value is out of range.
+///
+/// # Examples
+/// ```
+/// # use google_cloud_wkt::Timestamp;
+/// use time::{macros::datetime, OffsetDateTime};
+/// let dt = datetime!(2025-05-16 09:46:12 UTC);
+/// let ts = Timestamp::try_from(dt)?;
+/// assert_eq!(String::try_from(&ts)?, "2025-05-16T09:46:12Z");
+/// # Ok::<(), anyhow::Error>(())
+/// ```
 #[cfg(feature = "time")]
+#[cfg_attr(docsrs, doc(cfg(feature = "time")))]
 impl TryFrom<time::OffsetDateTime> for Timestamp {
     type Error = TimestampError;
 
@@ -255,7 +317,18 @@ impl TryFrom<time::OffsetDateTime> for Timestamp {
 /// Convert from [Timestamp] to [OffsetDateTime][time::OffsetDateTime]
 ///
 /// This conversion may fail if the [Timestamp] value is out of range.
+///
+/// # Examples
+/// ```
+/// # use google_cloud_wkt::Timestamp;
+/// use time::{macros::datetime, OffsetDateTime};
+/// let ts = Timestamp::try_from("2025-05-16T09:46:12Z")?;
+/// let dt = OffsetDateTime::try_from(ts)?;
+/// assert_eq!(dt, datetime!(2025-05-16 09:46:12 UTC));
+/// # Ok::<(), anyhow::Error>(())
+/// ```
 #[cfg(feature = "time")]
+#[cfg_attr(docsrs, doc(cfg(feature = "time")))]
 impl TryFrom<Timestamp> for time::OffsetDateTime {
     type Error = time::error::ComponentRange;
     fn try_from(value: Timestamp) -> Result<Self, Self::Error> {
@@ -265,6 +338,14 @@ impl TryFrom<Timestamp> for time::OffsetDateTime {
 }
 
 /// Converts a [Timestamp] to its [String] representation.
+///
+/// # Example
+/// ```
+/// # use google_cloud_wkt::{Timestamp, TimestampError};
+/// let ts = Timestamp::new(1747388772, 0)?;
+/// assert_eq!(String::try_from(&ts)?, "2025-05-16T09:46:12Z");
+/// # Ok::<(), anyhow::Error>(())
+/// ```
 impl TryFrom<&Timestamp> for String {
     type Error = TimestampError;
     fn try_from(timestamp: &Timestamp) -> Result<Self, Self::Error> {
@@ -278,6 +359,15 @@ impl TryFrom<&Timestamp> for String {
 }
 
 /// Converts the [String] representation of a timestamp to [Timestamp].
+///
+/// # Example
+/// ```
+/// # use google_cloud_wkt::{Timestamp, TimestampError};
+/// let ts = Timestamp::try_from("2025-05-16T09:46:12.500Z")?;
+/// assert_eq!(ts.seconds(), 1747388772);
+/// assert_eq!(ts.nanos(), 500_000_000);
+/// # Ok::<(), anyhow::Error>(())
+/// ```
 impl TryFrom<&str> for Timestamp {
     type Error = TimestampError;
     fn try_from(value: &str) -> Result<Self, Self::Error> {
@@ -296,7 +386,18 @@ impl TryFrom<&str> for Timestamp {
 /// Converts from [chrono::DateTime] to [Timestamp].
 ///
 /// This conversion may fail if the [chrono::DateTime] value is out of range.
+///
+/// # Example
+/// ```
+/// # use google_cloud_wkt::{Timestamp, TimestampError};
+/// use chrono::{DateTime, TimeZone, Utc};
+/// let date : DateTime<Utc> = Utc.with_ymd_and_hms(2025, 5, 16, 10, 15, 00).unwrap();
+/// let ts = Timestamp::try_from(date)?;
+/// assert_eq!(String::try_from(&ts)?, "2025-05-16T10:15:00Z");
+/// # Ok::<(), anyhow::Error>(())
+/// ```
 #[cfg(feature = "chrono")]
+#[cfg_attr(docsrs, doc(cfg(feature = "chrono")))]
 impl TryFrom<chrono::DateTime<chrono::Utc>> for Timestamp {
     type Error = TimestampError;
 
@@ -307,7 +408,17 @@ impl TryFrom<chrono::DateTime<chrono::Utc>> for Timestamp {
 }
 
 /// Converts from [Timestamp] to [chrono::DateTime].
+///
+/// # Example
+/// ```
+/// # use google_cloud_wkt::{Timestamp, TimestampError};
+/// use chrono::{DateTime, TimeZone, Utc};
+/// let ts = Timestamp::try_from("2025-05-16T10:15:00Z")?;
+/// let date = DateTime::try_from(ts)?;
+/// # Ok::<(), anyhow::Error>(())
+/// ```
 #[cfg(feature = "chrono")]
+#[cfg_attr(docsrs, doc(cfg(feature = "chrono")))]
 impl TryFrom<Timestamp> for chrono::DateTime<chrono::Utc> {
     type Error = TimestampError;
     fn try_from(value: Timestamp) -> Result<Self, Self::Error> {
