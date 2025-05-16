@@ -31,8 +31,8 @@ pub(crate) const DEFAULT_UNIVERSE_DOMAIN: &str = "googleapis.com";
 
 /// Represents an Entity Tag (ETag) for a cacheable resource.
 ///
-/// An `EntityTag` is an opaque string token that can be used to determine if a
-/// cached resource has changed. The specific format of the ETag string is
+/// An `EntityTag` is an opaque token that can be used to determine if a
+/// cached resource has changed. The specific format of the ETag is
 /// determined by its generator (e.g., a hash of the resource content).
 ///
 /// # Security Note
