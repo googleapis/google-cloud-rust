@@ -53,21 +53,38 @@ pub struct Duration {
 }
 
 /// Represent failures in converting or creating [Duration] instances.
+/// 
+/// # Examples
+/// ```
+/// # use google_cloud_wkt::{Duration, DurationError};
+/// let duration = Duration::new(Duration::MAX_SECONDS + 2, 0);
+/// assert!(matches!(duration, Err(DurationError::OutOfRange)));
+/// 
+/// let duration = Duration::new(0, 1_500_000_000);
+/// assert!(matches!(duration, Err(DurationError::OutOfRange)));
+/// 
+/// let duration = Duration::new(120, -500_000_000);
+/// assert!(matches!(duration, Err(DurationError::MismatchedSigns)));
+/// 
+/// let ts = Duration::try_from("invalid");
+/// assert!(matches!(ts, Err(DurationError::Deserialize(_))));
+/// ```
 #[derive(thiserror::Error, Debug)]
 pub enum DurationError {
     /// One of the components (seconds and/or nanoseconds) was out of range.
     #[error("seconds and/or nanoseconds out of range")]
-    OutOfRange(),
+    OutOfRange,
 
     /// The sign of the seconds component does not match the sign of the nanoseconds component.
     #[error("if seconds and nanoseconds are not zero, they must have the same sign")]
-    MismatchedSigns(),
+    MismatchedSigns,
 
     /// Cannot deserialize the duration.
-    #[error("cannot deserialize the duration: {0:?}")]
-    Deserialize(String),
+    #[error("cannot deserialize the duration: {0}")]
+    Deserialize(#[source] BoxedError),
 }
 
+type BoxedError = Box<dyn std::error::Error + Send + Sync>;
 type Error = DurationError;
 
 impl Duration {
@@ -98,13 +115,13 @@ impl Duration {
     /// * `nanos` - the nanoseconds *added* to the interval.
     pub fn new(seconds: i64, nanos: i32) -> Result<Self, Error> {
         if !(Self::MIN_SECONDS..=Self::MAX_SECONDS).contains(&seconds) {
-            return Err(Error::OutOfRange());
+            return Err(Error::OutOfRange);
         }
         if !(Self::MIN_NANOS..=Self::MAX_NANOS).contains(&nanos) {
-            return Err(Error::OutOfRange());
+            return Err(Error::OutOfRange);
         }
         if (seconds != 0 && nanos != 0) && ((seconds < 0) != (nanos < 0)) {
-            return Err(Error::MismatchedSigns());
+            return Err(Error::MismatchedSigns);
         }
         Ok(Self { seconds, nanos })
     }
@@ -209,7 +226,7 @@ impl TryFrom<&str> for Duration {
         let seconds = seconds
             .map(str::parse::<i64>)
             .transpose()
-            .map_err(|e| DurationError::Deserialize(format!("{e}")))?
+            .map_err(|e| DurationError::Deserialize(e.into()))?
             .unwrap_or(0);
         let nanos = nanos
             .map(|s| {
@@ -218,7 +235,7 @@ impl TryFrom<&str> for Duration {
             })
             .map(|s| s.parse::<i32>())
             .transpose()
-            .map_err(|e| DurationError::Deserialize(format!("{e}")))?
+            .map_err(|e| DurationError::Deserialize(e.into()))?
             .unwrap_or(0);
 
         Duration::new(sign * seconds, sign as i32 * nanos)
@@ -231,7 +248,7 @@ impl TryFrom<std::time::Duration> for Duration {
 
     fn try_from(value: std::time::Duration) -> Result<Self, Self::Error> {
         if value.as_secs() > (i64::MAX as u64) {
-            return Err(Error::OutOfRange());
+            return Err(Error::OutOfRange);
         }
         assert!(value.as_secs() <= (i64::MAX as u64));
         assert!(value.subsec_nanos() <= (i32::MAX as u32));
@@ -245,10 +262,10 @@ impl TryFrom<Duration> for std::time::Duration {
 
     fn try_from(value: Duration) -> Result<Self, Self::Error> {
         if value.seconds < 0 {
-            return Err(Error::OutOfRange());
+            return Err(Error::OutOfRange);
         }
         if value.nanos < 0 {
-            return Err(Error::OutOfRange());
+            return Err(Error::OutOfRange);
         }
         Ok(Self::new(value.seconds as u64, value.nanos as u32))
     }
@@ -384,7 +401,7 @@ mod test {
     #[test_case(0, -1_000_000_000 ; "too many negative nanoseconds")]
     fn out_of_range(seconds: i64, nanos: i32) -> Result {
         let d = Duration::new(seconds, nanos);
-        assert!(matches!(d, Err(Error::OutOfRange())), "{d:?}");
+        assert!(matches!(d, Err(Error::OutOfRange)), "{d:?}");
         Ok(())
     }
 
@@ -392,7 +409,7 @@ mod test {
     #[test_case(-1 , 1 ; "mismatched sign case 2")]
     fn mismatched_sign(seconds: i64, nanos: i32) -> Result {
         let d = Duration::new(seconds, nanos);
-        assert!(matches!(d, Err(Error::MismatchedSigns())), "{d:?}");
+        assert!(matches!(d, Err(Error::MismatchedSigns)), "{d:?}");
         Ok(())
     }
 
@@ -480,7 +497,7 @@ mod test {
     #[test_case(time::Duration::new(-10_001 * SECONDS_IN_YEAR, 0) ; "below the range")]
     fn from_time_out_of_range(value: time::Duration) {
         let got = Duration::try_from(value);
-        assert!(matches!(got, Err(DurationError::OutOfRange())), "{got:?}");
+        assert!(matches!(got, Err(DurationError::OutOfRange)), "{got:?}");
     }
 
     #[test_case(Duration::default(), time::Duration::default() ; "default")]
@@ -577,6 +594,6 @@ mod test {
     #[test_case(chrono::Duration::new(-10_001 * SECONDS_IN_YEAR, 0).unwrap() ; "below the range")]
     fn from_chrono_time_out_of_range(value: chrono::Duration) {
         let got = Duration::try_from(value);
-        assert!(matches!(got, Err(DurationError::OutOfRange())), "{got:?}");
+        assert!(matches!(got, Err(DurationError::OutOfRange)), "{got:?}");
     }
 }
