@@ -479,6 +479,7 @@ impl Storage {
     ///         .poller()
     ///         .until_done()
     ///         .await?;
+    ///     println!("folder details={folder:?}");
     ///     Ok(())
     /// }
     /// ```
