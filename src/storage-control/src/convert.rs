@@ -55,20 +55,54 @@ impl FromProto<rpc::model::Status> for google::rpc::Status {
 // TODO(#2037) - The generator should control this code.
 impl ToProto<google::longrunning::Operation> for longrunning::model::Operation {
     type Output = google::longrunning::Operation;
-    fn to_proto(self) -> std::result::Result<google::longrunning::Operation, ConvertError> {
-        Err(ConvertError::Unimplemented)
+    fn to_proto(
+        self,
+    ) -> std::result::Result<google::longrunning::Operation, gaxi::prost::ConvertError> {
+        use crate::google::longrunning::operation::Result as P;
+        use longrunning::model::operation::Result as M;
+        let metadata = self.metadata.map(lro_any_to_prost).transpose()?;
+        #[warn(clippy::wildcard_enum_match_arm)]
+        let result = self
+            .result
+            .map(|result| match result {
+                M::Error(status) => status.to_proto().map(P::Error),
+                M::Response(any) => lro_any_to_prost(*any).map(P::Response),
+                _ => unreachable!(),
+            })
+            .transpose()?;
+
+        Ok(google::longrunning::Operation {
+            name: self.name,
+            metadata,
+            done: self.done,
+            result,
+        })
     }
 }
 
 // TODO(#2037) - The generator should control this code.
 impl FromProto<longrunning::model::Operation> for google::longrunning::Operation {
     fn cnv(self) -> std::result::Result<longrunning::model::Operation, ConvertError> {
-        Err(ConvertError::Unimplemented)
+        use crate::google::longrunning::operation::Result as P;
+        use longrunning::model::operation::Result as M;
+        let metadata = self.metadata.map(lro_any_from_prost).transpose()?;
+        let result = self
+            .result
+            .map(|result| match result {
+                P::Error(status) => status.cnv().map(|s| M::Error(s.into())),
+                P::Response(any) => lro_any_from_prost(any).map(|r| M::Response(r.into())),
+            })
+            .transpose()?;
+
+        Ok(longrunning::model::Operation::new()
+            .set_name(self.name)
+            .set_or_clear_metadata(metadata)
+            .set_done(self.done)
+            .set_result(result))
     }
 }
 
 // TODO(#2037) - The generator should control this code.
-#[allow(dead_code)]
 /// Convert from our `wkt::Any` to a `prost_types::Any`
 ///
 /// The encoded types considered for conversion are either metadata or result
@@ -118,7 +152,6 @@ fn lro_any_to_prost(
 }
 
 // TODO(#2037) - The generator should control this code.
-#[allow(dead_code)]
 /// Convert from a `prost_types::Any` to our `wkt::Any`
 ///
 /// The encoded types considered for conversion are either metadata or result
@@ -191,6 +224,114 @@ mod test {
         wkt::Any::try_from(&md).unwrap()
     }
 
+    fn wkt_lro_with_metadata() -> longrunning::model::Operation {
+        longrunning::model::Operation::new()
+            .set_name("name")
+            .set_metadata(wkt_create_metadata())
+    }
+
+    fn prost_lro_with_metadata() -> google::longrunning::Operation {
+        google::longrunning::Operation {
+            name: "name".to_string(),
+            metadata: Some(prost_create_metadata()),
+            ..Default::default()
+        }
+    }
+
+    fn wkt_lro_with_response() -> longrunning::model::Operation {
+        longrunning::model::Operation::new()
+            .set_name("name")
+            .set_done(true)
+            .set_response(wkt_folder())
+    }
+
+    fn prost_lro_with_response() -> google::longrunning::Operation {
+        google::longrunning::Operation {
+            name: "name".to_string(),
+            done: true,
+            result: Some(google::longrunning::operation::Result::Response(
+                prost_folder(),
+            )),
+            ..Default::default()
+        }
+    }
+
+    fn wkt_lro_with_error() -> longrunning::model::Operation {
+        longrunning::model::Operation::new()
+            .set_name("name")
+            .set_done(true)
+            .set_error(rpc::model::Status::new().set_code(5))
+    }
+
+    fn prost_lro_with_error() -> google::longrunning::Operation {
+        google::longrunning::Operation {
+            name: "name".to_string(),
+            done: true,
+            result: Some(google::longrunning::operation::Result::Error(
+                google::rpc::Status {
+                    code: 5,
+                    ..Default::default()
+                },
+            )),
+            ..Default::default()
+        }
+    }
+
+    #[test_case(Default::default(), Default::default(); "empty LROs")]
+    #[test_case(prost_lro_with_metadata(), wkt_lro_with_metadata(); "with metadata")]
+    #[test_case(prost_lro_with_response(), wkt_lro_with_response(); "with response")]
+    #[test_case(prost_lro_with_error(), wkt_lro_with_error(); "with error")]
+    fn lro_roundtrip(
+        prost: crate::google::longrunning::Operation,
+        wkt: longrunning::model::Operation,
+    ) -> anyhow::Result<()> {
+        assert_eq!(prost, wkt.clone().to_proto()?);
+        assert_eq!(wkt, prost.cnv()?);
+        Ok(())
+    }
+
+    #[test]
+    fn lro_to_prost_unknown_metadata() -> anyhow::Result<()> {
+        let wkt = longrunning::model::Operation::new()
+            .set_metadata(wkt::Any::try_from(&wkt::Duration::default())?);
+        let prost = wkt.to_proto();
+        assert!(matches!(prost, Err(ConvertError::UnexpectedTypeUrl(_))));
+        Ok(())
+    }
+
+    #[test]
+    fn lro_to_prost_unknown_response() -> anyhow::Result<()> {
+        let wkt = longrunning::model::Operation::new()
+            .set_response(wkt::Any::try_from(&wkt::Duration::default())?);
+        let prost = wkt.to_proto();
+        assert!(matches!(prost, Err(ConvertError::UnexpectedTypeUrl(_))));
+        Ok(())
+    }
+
+    #[test]
+    fn lro_from_prost_unknown_metadata() -> anyhow::Result<()> {
+        let unknown = prost_types::Any::from_msg(&prost_types::Duration::default())?;
+        let prost = crate::google::longrunning::Operation {
+            metadata: Some(unknown),
+            ..Default::default()
+        };
+        let wkt = prost.cnv();
+        assert!(matches!(wkt, Err(ConvertError::UnexpectedTypeUrl(_))));
+        Ok(())
+    }
+
+    #[test]
+    fn lro_from_prost_unknown_response() -> anyhow::Result<()> {
+        let unknown = prost_types::Any::from_msg(&prost_types::Duration::default())?;
+        let prost = crate::google::longrunning::Operation {
+            result: Some(google::longrunning::operation::Result::Response(unknown)),
+            ..Default::default()
+        };
+        let wkt = prost.cnv();
+        assert!(matches!(wkt, Err(ConvertError::UnexpectedTypeUrl(_))));
+        Ok(())
+    }
+
     #[test_case(prost_types::Any::default(), wkt::Any::default(); "default Any")]
     #[test_case(prost_folder(), wkt_folder(); "Any with LRO response type")]
     #[test_case(prost_create_metadata(), wkt_create_metadata(); "Any with LRO metadata type")]
@@ -202,18 +343,9 @@ mod test {
 
     #[test]
     fn lro_any_to_prost_unknown_type() -> anyhow::Result<()> {
-        #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-        struct TestMessage {}
-        impl wkt::message::Message for TestMessage {
-            fn typename() -> &'static str {
-                "type.googleapis.com/my.custom.TestMessage"
-            }
-        }
-
-        let wkt = wkt::Any::try_from(&TestMessage::default())?;
+        let wkt = wkt::Any::try_from(&wkt::Duration::default())?;
         let prost = lro_any_to_prost(wkt);
         assert!(matches!(prost, Err(ConvertError::UnexpectedTypeUrl(_))));
-
         Ok(())
     }
 
