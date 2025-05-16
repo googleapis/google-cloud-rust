@@ -163,7 +163,6 @@ impl Any {
     /// # Example
     /// ```
     /// # use google_cloud_wkt::{Any, AnyError, Duration, Timestamp};
-    /// use google_cloud_wkt::message::Message;
     /// let any = Any::try_from(&Duration::clamp(123, 456))?;
     /// # Ok::<(), AnyError>(())
     /// ```
@@ -181,7 +180,6 @@ impl Any {
     /// # Example
     /// ```
     /// # use google_cloud_wkt::{Any, AnyError, Duration, Timestamp};
-    /// use google_cloud_wkt::message::Message;
     /// let any = Any::try_from(&Duration::clamp(123, 456))?;
     /// let duration = any.try_into_message::<Duration>()?;
     /// assert_eq!(duration, Duration::clamp(123, 456));
