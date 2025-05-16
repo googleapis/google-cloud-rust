@@ -26,7 +26,7 @@ use gax::polling_error_policy::PollingErrorPolicy;
 use gax::response::{Parts, Response};
 use gax::retry_policy::RetryPolicy;
 use gax::retry_throttler::SharedRetryThrottler;
-use http::{Extensions, HeaderMap};
+use http::Extensions;
 use std::sync::Arc;
 
 #[derive(Clone, Debug)]
@@ -137,7 +137,9 @@ impl ReqwestClient {
 
         let auth_headers = match cached_auth_headers {
             CacheableResource::New { data, .. } => Ok(data),
-            CacheableResource::NotModified => Err(Error::authentication("missing auth headers".to_string())),
+            CacheableResource::NotModified => {
+                Err(Error::authentication("missing auth headers".to_string()))
+            }
         }?;
 
         for (key, value) in auth_headers.iter() {
