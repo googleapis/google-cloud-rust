@@ -1122,6 +1122,7 @@ dependencies = [
  "httptest",
  "mockall",
  "mutants",
+ "num-bigint-dig",
  "rand 0.8.5",
  "regex",
  "reqwest",
@@ -5197,6 +5198,7 @@ dependencies = [
  "num-iter",
  "num-traits",
  "rand 0.8.5",
+ "serde",
  "smallvec",
  "zeroize",
 ]

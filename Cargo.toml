@@ -305,21 +305,22 @@ tonic-build        = { version = "0.13", default-features = false }
 tracing            = { version = "0.1" }
 tracing-subscriber = { version = "0.3", default-features = false }
 # Test packags
-anyhow        = "1"
-axum          = { version = "0.8" }
-httptest      = { version = "0.16.3" }
-mockall       = { version = "0.13" }
-mutants       = { version = "0.0.3" }
-regex         = { version = "1", default-features = false }
-rsa           = { version = "0.9", default-features = false }
-rustc_version = { version = "0.4" }
-scoped-env    = { version = "2" }
-serial_test   = { version = "3" }
-tempfile      = { version = "3" }
-test-case     = { version = "3" }
-tokio-stream  = { version = "0.1", default-features = false }
-tokio-test    = { version = "0.4", default-features = false }
-url           = { version = "2" }
+anyhow         = "1"
+axum           = { version = "0.8" }
+httptest       = { version = "0.16.3" }
+mockall        = { version = "0.13" }
+mutants        = { version = "0.0.3" }
+regex          = { version = "1", default-features = false }
+rsa            = { version = "0.9", default-features = false }
+rustc_version  = { version = "0.4" }
+scoped-env     = { version = "2" }
+serial_test    = { version = "3" }
+tempfile       = { version = "3" }
+test-case      = { version = "3" }
+tokio-stream   = { version = "0.1", default-features = false }
+tokio-test     = { version = "0.4", default-features = false }
+url            = { version = "2" }
+num-bigint-dig = { version = "0.8" }
 
 # Local packages used as dependencies
 auth                          = { version = "0.20", path = "src/auth", package = "google-cloud-auth" }

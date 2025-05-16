@@ -608,6 +608,7 @@ pub mod testing {
 mod test {
     use super::*;
     use base64::Engine;
+    use num_bigint_dig::BigUint;
     use reqwest::header::AUTHORIZATION;
     use rsa::RsaPrivateKey;
     use rsa::pkcs8::{EncodePrivateKey, LineEnding};
@@ -634,11 +635,22 @@ mod test {
             .map(|s| s.to_string())
     }
 
+    pub static RSA_PRIVATE_KEY: LazyLock<RsaPrivateKey> = LazyLock::new(|| {
+        let p_str: &str = "141367881524527794394893355677826002829869068195396267579403819572502936761383874443619453704612633353803671595972343528718438130450055151198231345212263093247511629886734453413988207866331439612464122904648042654465604881130663408340669956544709445155137282157402427763452856646879397237752891502149781819597";
+        let q_str: &str = "179395413952110013801471600075409598322058038890563483332288896635704255883613060744402506322679437982046475766067250097809676406576067239936945362857700460740092421061356861438909617220234758121022105150630083703531219941303688818533566528599328339894969707615478438750812672509434761181735933851075292740309";
+        let e_str: &str = "65537";
+
+        let p = BigUint::parse_bytes(p_str.as_bytes(), 10).expect("Failed to parse prime P");
+        let q = BigUint::parse_bytes(q_str.as_bytes(), 10).expect("Failed to parse prime Q");
+        let public_exponent =
+            BigUint::parse_bytes(e_str.as_bytes(), 10).expect("Failed to parse public exponent");
+
+        RsaPrivateKey::from_primes(vec![p, q], public_exponent)
+            .expect("Failed to create RsaPrivateKey from primes")
+    });
+
     pub static PKCS8_PK: LazyLock<String> = LazyLock::new(|| {
-        let mut rng = rand::thread_rng();
-        let bits = 2048;
-        let priv_key = RsaPrivateKey::new(&mut rng, bits).expect("failed to generate a key");
-        priv_key
+        RSA_PRIVATE_KEY
             .to_pkcs8_pem(LineEnding::LF)
             .expect("Failed to encode key to PKCS#8 PEM")
             .to_string()
