@@ -93,6 +93,7 @@ pub struct Any(serde_json::Map<String, serde_json::Value>);
 /// # Ok::<(), AnyError>(())
 /// ```
 #[derive(thiserror::Error, Debug)]
+#[non_exhaustive]
 pub enum AnyError {
     /// Problem serializing an object into an [Any].
     #[error("cannot serialize object into an Any, source={0}")]
