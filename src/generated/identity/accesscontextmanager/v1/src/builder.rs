@@ -246,7 +246,7 @@ pub mod access_context_manager {
     /// # use google_cloud_identity_accesscontextmanager_v1::builder;
     /// use builder::access_context_manager::CreateAccessPolicy;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_identity_accesscontextmanager_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -416,7 +416,7 @@ pub mod access_context_manager {
     /// # use google_cloud_identity_accesscontextmanager_v1::builder;
     /// use builder::access_context_manager::UpdateAccessPolicy;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_identity_accesscontextmanager_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -562,7 +562,7 @@ pub mod access_context_manager {
     /// # use google_cloud_identity_accesscontextmanager_v1::builder;
     /// use builder::access_context_manager::DeleteAccessPolicy;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_identity_accesscontextmanager_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -855,7 +855,7 @@ pub mod access_context_manager {
     /// # use google_cloud_identity_accesscontextmanager_v1::builder;
     /// use builder::access_context_manager::CreateAccessLevel;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_identity_accesscontextmanager_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -987,7 +987,7 @@ pub mod access_context_manager {
     /// # use google_cloud_identity_accesscontextmanager_v1::builder;
     /// use builder::access_context_manager::UpdateAccessLevel;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_identity_accesscontextmanager_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1133,7 +1133,7 @@ pub mod access_context_manager {
     /// # use google_cloud_identity_accesscontextmanager_v1::builder;
     /// use builder::access_context_manager::DeleteAccessLevel;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_identity_accesscontextmanager_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1245,7 +1245,7 @@ pub mod access_context_manager {
     /// # use google_cloud_identity_accesscontextmanager_v1::builder;
     /// use builder::access_context_manager::ReplaceAccessLevels;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_identity_accesscontextmanager_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1548,7 +1548,7 @@ pub mod access_context_manager {
     /// # use google_cloud_identity_accesscontextmanager_v1::builder;
     /// use builder::access_context_manager::CreateServicePerimeter;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_identity_accesscontextmanager_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1680,7 +1680,7 @@ pub mod access_context_manager {
     /// # use google_cloud_identity_accesscontextmanager_v1::builder;
     /// use builder::access_context_manager::UpdateServicePerimeter;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_identity_accesscontextmanager_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1826,7 +1826,7 @@ pub mod access_context_manager {
     /// # use google_cloud_identity_accesscontextmanager_v1::builder;
     /// use builder::access_context_manager::DeleteServicePerimeter;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_identity_accesscontextmanager_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1938,7 +1938,7 @@ pub mod access_context_manager {
     /// # use google_cloud_identity_accesscontextmanager_v1::builder;
     /// use builder::access_context_manager::ReplaceServicePerimeters;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_identity_accesscontextmanager_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -2069,7 +2069,7 @@ pub mod access_context_manager {
     /// # use google_cloud_identity_accesscontextmanager_v1::builder;
     /// use builder::access_context_manager::CommitServicePerimeters;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_identity_accesscontextmanager_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -2367,7 +2367,7 @@ pub mod access_context_manager {
     /// # use google_cloud_identity_accesscontextmanager_v1::builder;
     /// use builder::access_context_manager::CreateGcpUserAccessBinding;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_identity_accesscontextmanager_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -2501,7 +2501,7 @@ pub mod access_context_manager {
     /// # use google_cloud_identity_accesscontextmanager_v1::builder;
     /// use builder::access_context_manager::UpdateGcpUserAccessBinding;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_identity_accesscontextmanager_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -2649,7 +2649,7 @@ pub mod access_context_manager {
     /// # use google_cloud_identity_accesscontextmanager_v1::builder;
     /// use builder::access_context_manager::DeleteGcpUserAccessBinding;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_identity_accesscontextmanager_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;

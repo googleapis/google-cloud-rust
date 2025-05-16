@@ -332,7 +332,7 @@ pub mod fleet_routing {
     /// # use google_cloud_optimization_v1::builder;
     /// use builder::fleet_routing::BatchOptimizeTours;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_optimization_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;

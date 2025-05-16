@@ -621,7 +621,7 @@ pub mod consumer_procurement_service {
     /// # use google_cloud_commerce_consumer_procurement_v1::builder;
     /// use builder::consumer_procurement_service::PlaceOrder;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_commerce_consumer_procurement_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -920,7 +920,7 @@ pub mod consumer_procurement_service {
     /// # use google_cloud_commerce_consumer_procurement_v1::builder;
     /// use builder::consumer_procurement_service::ModifyOrder;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_commerce_consumer_procurement_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1045,7 +1045,7 @@ pub mod consumer_procurement_service {
     /// # use google_cloud_commerce_consumer_procurement_v1::builder;
     /// use builder::consumer_procurement_service::CancelOrder;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_commerce_consumer_procurement_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;

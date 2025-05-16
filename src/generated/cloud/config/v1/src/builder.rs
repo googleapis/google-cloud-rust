@@ -247,7 +247,7 @@ pub mod config {
     /// # use google_cloud_config_v1::builder;
     /// use builder::config::CreateDeployment;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_config_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -386,7 +386,7 @@ pub mod config {
     /// # use google_cloud_config_v1::builder;
     /// use builder::config::UpdateDeployment;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_config_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -527,7 +527,7 @@ pub mod config {
     /// # use google_cloud_config_v1::builder;
     /// use builder::config::DeleteDeployment;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_config_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1281,7 +1281,7 @@ pub mod config {
     /// # use google_cloud_config_v1::builder;
     /// use builder::config::LockDeployment;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_config_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1381,7 +1381,7 @@ pub mod config {
     /// # use google_cloud_config_v1::builder;
     /// use builder::config::UnlockDeployment;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_config_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1553,7 +1553,7 @@ pub mod config {
     /// # use google_cloud_config_v1::builder;
     /// use builder::config::CreatePreview;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_config_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1861,7 +1861,7 @@ pub mod config {
     /// # use google_cloud_config_v1::builder;
     /// use builder::config::DeletePreview;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_config_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;

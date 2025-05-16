@@ -259,7 +259,7 @@ pub mod workflows {
     /// # use google_cloud_workflows_v1::builder;
     /// use builder::workflows::CreateWorkflow;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_workflows_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -391,7 +391,7 @@ pub mod workflows {
     /// # use google_cloud_workflows_v1::builder;
     /// use builder::workflows::DeleteWorkflow;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_workflows_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -495,7 +495,7 @@ pub mod workflows {
     /// # use google_cloud_workflows_v1::builder;
     /// use builder::workflows::UpdateWorkflow;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_workflows_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;

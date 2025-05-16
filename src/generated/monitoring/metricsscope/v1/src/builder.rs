@@ -211,7 +211,7 @@ pub mod metrics_scopes {
     /// # use google_cloud_monitoring_metricsscope_v1::builder;
     /// use builder::metrics_scopes::CreateMonitoredProject;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_monitoring_metricsscope_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -341,7 +341,7 @@ pub mod metrics_scopes {
     /// # use google_cloud_monitoring_metricsscope_v1::builder;
     /// use builder::metrics_scopes::DeleteMonitoredProject;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_monitoring_metricsscope_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;

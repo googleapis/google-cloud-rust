@@ -75,7 +75,7 @@ pub mod bigtable_instance_admin {
     /// # use google_cloud_bigtable_admin_v2::builder;
     /// use builder::bigtable_instance_admin::CreateInstance;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_bigtable_admin_v2::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -501,7 +501,7 @@ pub mod bigtable_instance_admin {
     /// # use google_cloud_bigtable_admin_v2::builder;
     /// use builder::bigtable_instance_admin::PartialUpdateInstance;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_bigtable_admin_v2::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -708,7 +708,7 @@ pub mod bigtable_instance_admin {
     /// # use google_cloud_bigtable_admin_v2::builder;
     /// use builder::bigtable_instance_admin::CreateCluster;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_bigtable_admin_v2::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -974,7 +974,7 @@ pub mod bigtable_instance_admin {
     /// # use google_cloud_bigtable_admin_v2::builder;
     /// use builder::bigtable_instance_admin::UpdateCluster;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_bigtable_admin_v2::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1154,7 +1154,7 @@ pub mod bigtable_instance_admin {
     /// # use google_cloud_bigtable_admin_v2::builder;
     /// use builder::bigtable_instance_admin::PartialUpdateCluster;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_bigtable_admin_v2::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1629,7 +1629,7 @@ pub mod bigtable_instance_admin {
     /// # use google_cloud_bigtable_admin_v2::builder;
     /// use builder::bigtable_instance_admin::UpdateAppProfile;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_bigtable_admin_v2::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -2255,7 +2255,7 @@ pub mod bigtable_instance_admin {
     /// # use google_cloud_bigtable_admin_v2::builder;
     /// use builder::bigtable_instance_admin::CreateLogicalView;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_bigtable_admin_v2::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -2562,7 +2562,7 @@ pub mod bigtable_instance_admin {
     /// # use google_cloud_bigtable_admin_v2::builder;
     /// use builder::bigtable_instance_admin::UpdateLogicalView;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_bigtable_admin_v2::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -2774,7 +2774,7 @@ pub mod bigtable_instance_admin {
     /// # use google_cloud_bigtable_admin_v2::builder;
     /// use builder::bigtable_instance_admin::CreateMaterializedView;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_bigtable_admin_v2::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -3086,7 +3086,7 @@ pub mod bigtable_instance_admin {
     /// # use google_cloud_bigtable_admin_v2::builder;
     /// use builder::bigtable_instance_admin::UpdateMaterializedView;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_bigtable_admin_v2::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -3761,7 +3761,7 @@ pub mod bigtable_table_admin {
     /// # use google_cloud_bigtable_admin_v2::builder;
     /// use builder::bigtable_table_admin::CreateTableFromSnapshot;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_bigtable_admin_v2::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -4065,7 +4065,7 @@ pub mod bigtable_table_admin {
     /// # use google_cloud_bigtable_admin_v2::builder;
     /// use builder::bigtable_table_admin::UpdateTable;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_bigtable_admin_v2::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -4272,7 +4272,7 @@ pub mod bigtable_table_admin {
     /// # use google_cloud_bigtable_admin_v2::builder;
     /// use builder::bigtable_table_admin::UndeleteTable;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_bigtable_admin_v2::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -4374,7 +4374,7 @@ pub mod bigtable_table_admin {
     /// # use google_cloud_bigtable_admin_v2::builder;
     /// use builder::bigtable_table_admin::CreateAuthorizedView;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_bigtable_admin_v2::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -4704,7 +4704,7 @@ pub mod bigtable_table_admin {
     /// # use google_cloud_bigtable_admin_v2::builder;
     /// use builder::bigtable_table_admin::UpdateAuthorizedView;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_bigtable_admin_v2::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -5286,7 +5286,7 @@ pub mod bigtable_table_admin {
     /// # use google_cloud_bigtable_admin_v2::builder;
     /// use builder::bigtable_table_admin::SnapshotTable;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_bigtable_admin_v2::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -5659,7 +5659,7 @@ pub mod bigtable_table_admin {
     /// # use google_cloud_bigtable_admin_v2::builder;
     /// use builder::bigtable_table_admin::CreateBackup;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_bigtable_admin_v2::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -6131,7 +6131,7 @@ pub mod bigtable_table_admin {
     /// # use google_cloud_bigtable_admin_v2::builder;
     /// use builder::bigtable_table_admin::RestoreTable;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_bigtable_admin_v2::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -6263,7 +6263,7 @@ pub mod bigtable_table_admin {
     /// # use google_cloud_bigtable_admin_v2::builder;
     /// use builder::bigtable_table_admin::CopyBackup;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_bigtable_admin_v2::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;

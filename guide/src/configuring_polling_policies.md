@@ -57,6 +57,8 @@ file. We use:
 
 ```toml
 {{#include ../samples/Cargo.toml:speech}}
+
+{{#include ../samples/Cargo.toml:lro}}
 ```
 
 ## Configuring the polling frequency for all requests in a client

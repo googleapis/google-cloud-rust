@@ -263,7 +263,7 @@ pub mod datastream {
     /// # use google_cloud_datastream_v1::builder;
     /// use builder::datastream::CreateConnectionProfile;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_datastream_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -421,7 +421,7 @@ pub mod datastream {
     /// # use google_cloud_datastream_v1::builder;
     /// use builder::datastream::UpdateConnectionProfile;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_datastream_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -581,7 +581,7 @@ pub mod datastream {
     /// # use google_cloud_datastream_v1::builder;
     /// use builder::datastream::DeleteConnectionProfile;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_datastream_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1090,7 +1090,7 @@ pub mod datastream {
     /// # use google_cloud_datastream_v1::builder;
     /// use builder::datastream::CreateStream;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_datastream_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1240,7 +1240,7 @@ pub mod datastream {
     /// # use google_cloud_datastream_v1::builder;
     /// use builder::datastream::UpdateStream;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_datastream_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1392,7 +1392,7 @@ pub mod datastream {
     /// # use google_cloud_datastream_v1::builder;
     /// use builder::datastream::DeleteStream;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_datastream_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1502,7 +1502,7 @@ pub mod datastream {
     /// # use google_cloud_datastream_v1::builder;
     /// use builder::datastream::RunStream;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_datastream_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -2089,7 +2089,7 @@ pub mod datastream {
     /// # use google_cloud_datastream_v1::builder;
     /// use builder::datastream::CreatePrivateConnection;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_datastream_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -2429,7 +2429,7 @@ pub mod datastream {
     /// # use google_cloud_datastream_v1::builder;
     /// use builder::datastream::DeletePrivateConnection;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_datastream_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -2550,7 +2550,7 @@ pub mod datastream {
     /// # use google_cloud_datastream_v1::builder;
     /// use builder::datastream::CreateRoute;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_datastream_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -2866,7 +2866,7 @@ pub mod datastream {
     /// # use google_cloud_datastream_v1::builder;
     /// use builder::datastream::DeleteRoute;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_datastream_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;

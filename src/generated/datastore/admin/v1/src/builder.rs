@@ -75,7 +75,7 @@ pub mod datastore_admin {
     /// # use google_cloud_datastore_admin_v1::builder;
     /// use builder::datastore_admin::ExportEntities;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_datastore_admin_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -217,7 +217,7 @@ pub mod datastore_admin {
     /// # use google_cloud_datastore_admin_v1::builder;
     /// use builder::datastore_admin::ImportEntities;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_datastore_admin_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -359,7 +359,7 @@ pub mod datastore_admin {
     /// # use google_cloud_datastore_admin_v1::builder;
     /// use builder::datastore_admin::CreateIndex;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_datastore_admin_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -477,7 +477,7 @@ pub mod datastore_admin {
     /// # use google_cloud_datastore_admin_v1::builder;
     /// use builder::datastore_admin::DeleteIndex;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_datastore_admin_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;

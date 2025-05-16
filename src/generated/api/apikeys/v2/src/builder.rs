@@ -73,7 +73,7 @@ pub mod api_keys {
     /// # use google_cloud_apikeys_v2::builder;
     /// use builder::api_keys::CreateKey;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_apikeys_v2::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -432,7 +432,7 @@ pub mod api_keys {
     /// # use google_cloud_apikeys_v2::builder;
     /// use builder::api_keys::UpdateKey;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_apikeys_v2::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -566,7 +566,7 @@ pub mod api_keys {
     /// # use google_cloud_apikeys_v2::builder;
     /// use builder::api_keys::DeleteKey;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_apikeys_v2::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -674,7 +674,7 @@ pub mod api_keys {
     /// # use google_cloud_apikeys_v2::builder;
     /// use builder::api_keys::UndeleteKey;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_apikeys_v2::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;

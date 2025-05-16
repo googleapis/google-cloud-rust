@@ -307,7 +307,7 @@ pub mod cloud_redis {
     /// # use google_cloud_redis_v1::builder;
     /// use builder::cloud_redis::CreateInstance;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_redis_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -439,7 +439,7 @@ pub mod cloud_redis {
     /// # use google_cloud_redis_v1::builder;
     /// use builder::cloud_redis::UpdateInstance;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_redis_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -577,7 +577,7 @@ pub mod cloud_redis {
     /// # use google_cloud_redis_v1::builder;
     /// use builder::cloud_redis::UpgradeInstance;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_redis_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -687,7 +687,7 @@ pub mod cloud_redis {
     /// # use google_cloud_redis_v1::builder;
     /// use builder::cloud_redis::ImportInstance;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_redis_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -811,7 +811,7 @@ pub mod cloud_redis {
     /// # use google_cloud_redis_v1::builder;
     /// use builder::cloud_redis::ExportInstance;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_redis_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -935,7 +935,7 @@ pub mod cloud_redis {
     /// # use google_cloud_redis_v1::builder;
     /// use builder::cloud_redis::FailoverInstance;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_redis_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1051,7 +1051,7 @@ pub mod cloud_redis {
     /// # use google_cloud_redis_v1::builder;
     /// use builder::cloud_redis::DeleteInstance;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_redis_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1155,7 +1155,7 @@ pub mod cloud_redis {
     /// # use google_cloud_redis_v1::builder;
     /// use builder::cloud_redis::RescheduleMaintenance;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_redis_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;

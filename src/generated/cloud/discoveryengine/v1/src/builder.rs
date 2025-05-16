@@ -164,7 +164,7 @@ pub mod completion_service {
     /// # use google_cloud_discoveryengine_v1::builder;
     /// use builder::completion_service::ImportSuggestionDenyListEntries;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_discoveryengine_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -322,7 +322,7 @@ pub mod completion_service {
     /// # use google_cloud_discoveryengine_v1::builder;
     /// use builder::completion_service::PurgeSuggestionDenyListEntries;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_discoveryengine_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -434,7 +434,7 @@ pub mod completion_service {
     /// # use google_cloud_discoveryengine_v1::builder;
     /// use builder::completion_service::ImportCompletionSuggestions;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_discoveryengine_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -625,7 +625,7 @@ pub mod completion_service {
     /// # use google_cloud_discoveryengine_v1::builder;
     /// use builder::completion_service::PurgeCompletionSuggestions;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_discoveryengine_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -3380,7 +3380,7 @@ pub mod data_store_service {
     /// # use google_cloud_discoveryengine_v1::builder;
     /// use builder::data_store_service::CreateDataStore;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_discoveryengine_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -3699,7 +3699,7 @@ pub mod data_store_service {
     /// # use google_cloud_discoveryengine_v1::builder;
     /// use builder::data_store_service::DeleteDataStore;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_discoveryengine_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -4617,7 +4617,7 @@ pub mod document_service {
     /// # use google_cloud_discoveryengine_v1::builder;
     /// use builder::document_service::ImportDocuments;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_discoveryengine_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -4934,7 +4934,7 @@ pub mod document_service {
     /// # use google_cloud_discoveryengine_v1::builder;
     /// use builder::document_service::PurgeDocuments;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_discoveryengine_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -5498,7 +5498,7 @@ pub mod engine_service {
     /// # use google_cloud_discoveryengine_v1::builder;
     /// use builder::engine_service::CreateEngine;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_discoveryengine_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -5630,7 +5630,7 @@ pub mod engine_service {
     /// # use google_cloud_discoveryengine_v1::builder;
     /// use builder::engine_service::DeleteEngine;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_discoveryengine_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -6845,7 +6845,7 @@ pub mod project_service {
     /// # use google_cloud_discoveryengine_v1::builder;
     /// use builder::project_service::ProvisionProject;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_discoveryengine_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -8256,7 +8256,7 @@ pub mod schema_service {
     /// # use google_cloud_discoveryengine_v1::builder;
     /// use builder::schema_service::CreateSchema;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_discoveryengine_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -8388,7 +8388,7 @@ pub mod schema_service {
     /// # use google_cloud_discoveryengine_v1::builder;
     /// use builder::schema_service::UpdateSchema;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_discoveryengine_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -8510,7 +8510,7 @@ pub mod schema_service {
     /// # use google_cloud_discoveryengine_v1::builder;
     /// use builder::schema_service::DeleteSchema;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_discoveryengine_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -10013,7 +10013,7 @@ pub mod search_tuning_service {
     /// # use google_cloud_discoveryengine_v1::builder;
     /// use builder::search_tuning_service::TrainCustomModel;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_discoveryengine_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -11004,7 +11004,7 @@ pub mod site_search_engine_service {
     /// # use google_cloud_discoveryengine_v1::builder;
     /// use builder::site_search_engine_service::CreateTargetSite;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_discoveryengine_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -11134,7 +11134,7 @@ pub mod site_search_engine_service {
     /// # use google_cloud_discoveryengine_v1::builder;
     /// use builder::site_search_engine_service::BatchCreateTargetSites;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_discoveryengine_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -11320,7 +11320,7 @@ pub mod site_search_engine_service {
     /// # use google_cloud_discoveryengine_v1::builder;
     /// use builder::site_search_engine_service::UpdateTargetSite;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_discoveryengine_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -11442,7 +11442,7 @@ pub mod site_search_engine_service {
     /// # use google_cloud_discoveryengine_v1::builder;
     /// use builder::site_search_engine_service::DeleteTargetSite;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_discoveryengine_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -11653,7 +11653,7 @@ pub mod site_search_engine_service {
     /// # use google_cloud_discoveryengine_v1::builder;
     /// use builder::site_search_engine_service::CreateSitemap;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_discoveryengine_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -11779,7 +11779,7 @@ pub mod site_search_engine_service {
     /// # use google_cloud_discoveryengine_v1::builder;
     /// use builder::site_search_engine_service::DeleteSitemap;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_discoveryengine_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -11965,7 +11965,7 @@ pub mod site_search_engine_service {
     /// # use google_cloud_discoveryengine_v1::builder;
     /// use builder::site_search_engine_service::EnableAdvancedSiteSearch;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_discoveryengine_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -12077,7 +12077,7 @@ pub mod site_search_engine_service {
     /// # use google_cloud_discoveryengine_v1::builder;
     /// use builder::site_search_engine_service::DisableAdvancedSiteSearch;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_discoveryengine_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -12189,7 +12189,7 @@ pub mod site_search_engine_service {
     /// # use google_cloud_discoveryengine_v1::builder;
     /// use builder::site_search_engine_service::RecrawlUris;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_discoveryengine_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -12313,7 +12313,7 @@ pub mod site_search_engine_service {
     /// # use google_cloud_discoveryengine_v1::builder;
     /// use builder::site_search_engine_service::BatchVerifyTargetSites;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_discoveryengine_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -13031,7 +13031,7 @@ pub mod user_event_service {
     /// # use google_cloud_discoveryengine_v1::builder;
     /// use builder::user_event_service::PurgeUserEvents;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_discoveryengine_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -13150,7 +13150,7 @@ pub mod user_event_service {
     /// # use google_cloud_discoveryengine_v1::builder;
     /// use builder::user_event_service::ImportUserEvents;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_discoveryengine_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;

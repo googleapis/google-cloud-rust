@@ -216,7 +216,7 @@ pub mod domains {
     /// # use google_cloud_domains_v1::builder;
     /// use builder::domains::RegisterDomain;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_domains_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -464,7 +464,7 @@ pub mod domains {
     /// # use google_cloud_domains_v1::builder;
     /// use builder::domains::TransferDomain;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_domains_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -816,7 +816,7 @@ pub mod domains {
     /// # use google_cloud_domains_v1::builder;
     /// use builder::domains::UpdateRegistration;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_domains_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -953,7 +953,7 @@ pub mod domains {
     /// # use google_cloud_domains_v1::builder;
     /// use builder::domains::ConfigureManagementSettings;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_domains_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1100,7 +1100,7 @@ pub mod domains {
     /// # use google_cloud_domains_v1::builder;
     /// use builder::domains::ConfigureDnsSettings;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_domains_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1251,7 +1251,7 @@ pub mod domains {
     /// # use google_cloud_domains_v1::builder;
     /// use builder::domains::ConfigureContactSettings;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_domains_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1415,7 +1415,7 @@ pub mod domains {
     /// # use google_cloud_domains_v1::builder;
     /// use builder::domains::ExportRegistration;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_domains_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1520,7 +1520,7 @@ pub mod domains {
     /// # use google_cloud_domains_v1::builder;
     /// use builder::domains::DeleteRegistration;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_domains_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;

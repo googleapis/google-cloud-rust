@@ -247,7 +247,7 @@ pub mod ids {
     /// # use google_cloud_ids_v1::builder;
     /// use builder::ids::CreateEndpoint;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_ids_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -383,7 +383,7 @@ pub mod ids {
     /// # use google_cloud_ids_v1::builder;
     /// use builder::ids::DeleteEndpoint;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_ids_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;

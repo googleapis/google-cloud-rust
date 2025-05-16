@@ -389,7 +389,7 @@ pub mod agents {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::agents::TrainAgent;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_dialogflow_v2::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -491,7 +491,7 @@ pub mod agents {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::agents::ExportAgent;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_dialogflow_v2::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -597,7 +597,7 @@ pub mod agents {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::agents::ImportAgent;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_dialogflow_v2::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -731,7 +731,7 @@ pub mod agents {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::agents::RestoreAgent;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_dialogflow_v2::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -4594,7 +4594,7 @@ pub mod conversation_datasets {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::conversation_datasets::CreateConversationDataset;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_dialogflow_v2::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -4906,7 +4906,7 @@ pub mod conversation_datasets {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::conversation_datasets::DeleteConversationDataset;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_dialogflow_v2::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -5021,7 +5021,7 @@ pub mod conversation_datasets {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::conversation_datasets::ImportConversationData;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_dialogflow_v2::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -5619,7 +5619,7 @@ pub mod conversation_models {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::conversation_models::CreateConversationModel;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_dialogflow_v2::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -5927,7 +5927,7 @@ pub mod conversation_models {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::conversation_models::DeleteConversationModel;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_dialogflow_v2::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -6041,7 +6041,7 @@ pub mod conversation_models {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::conversation_models::DeployConversationModel;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_dialogflow_v2::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -6155,7 +6155,7 @@ pub mod conversation_models {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::conversation_models::UndeployConversationModel;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_dialogflow_v2::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -6450,7 +6450,7 @@ pub mod conversation_models {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::conversation_models::CreateConversationModelEvaluation;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_dialogflow_v2::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -7493,7 +7493,7 @@ pub mod conversation_profiles {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::conversation_profiles::SetSuggestionFeatureConfig;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_dialogflow_v2::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -7645,7 +7645,7 @@ pub mod conversation_profiles {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::conversation_profiles::ClearSuggestionFeatureConfig;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_dialogflow_v2::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -8417,7 +8417,7 @@ pub mod documents {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::documents::CreateDocument;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_dialogflow_v2::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -8544,7 +8544,7 @@ pub mod documents {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::documents::ImportDocuments;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_dialogflow_v2::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -8704,7 +8704,7 @@ pub mod documents {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::documents::DeleteDocument;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_dialogflow_v2::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -8809,7 +8809,7 @@ pub mod documents {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::documents::UpdateDocument;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_dialogflow_v2::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -8946,7 +8946,7 @@ pub mod documents {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::documents::ReloadDocument;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_dialogflow_v2::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -9085,7 +9085,7 @@ pub mod documents {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::documents::ExportDocument;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_dialogflow_v2::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -9763,7 +9763,7 @@ pub mod encryption_spec_service {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::encryption_spec_service::InitializeEncryptionSpec;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_dialogflow_v2::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -10797,7 +10797,7 @@ pub mod entity_types {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::entity_types::BatchUpdateEntityTypes;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_dialogflow_v2::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -10968,7 +10968,7 @@ pub mod entity_types {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::entity_types::BatchDeleteEntityTypes;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_dialogflow_v2::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -11088,7 +11088,7 @@ pub mod entity_types {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::entity_types::BatchCreateEntities;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_dialogflow_v2::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -11214,7 +11214,7 @@ pub mod entity_types {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::entity_types::BatchUpdateEntities;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_dialogflow_v2::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -11358,7 +11358,7 @@ pub mod entity_types {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::entity_types::BatchDeleteEntities;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_dialogflow_v2::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -14918,7 +14918,7 @@ pub mod intents {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::intents::BatchUpdateIntents;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_dialogflow_v2::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -15093,7 +15093,7 @@ pub mod intents {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::intents::BatchDeleteIntents;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_dialogflow_v2::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;

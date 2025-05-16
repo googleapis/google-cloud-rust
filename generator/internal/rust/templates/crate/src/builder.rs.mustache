@@ -86,7 +86,7 @@ pub mod {{Codec.ModuleName}} {
     /// use builder::{{Service.Codec.ModuleName}}::{{Codec.BuilderName}};
     /// # tokio_test::block_on(async {
     {{#OperationInfo}}
-    /// use {{Model.Codec.PackageNamespace}}::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;

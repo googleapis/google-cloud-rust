@@ -265,7 +265,7 @@ pub mod connectors {
     /// # use google_cloud_connectors_v1::builder;
     /// use builder::connectors::CreateConnection;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_connectors_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -400,7 +400,7 @@ pub mod connectors {
     /// # use google_cloud_connectors_v1::builder;
     /// use builder::connectors::UpdateConnection;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_connectors_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -541,7 +541,7 @@ pub mod connectors {
     /// # use google_cloud_connectors_v1::builder;
     /// use builder::connectors::DeleteConnection;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_connectors_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1234,7 +1234,7 @@ pub mod connectors {
     /// # use google_cloud_connectors_v1::builder;
     /// use builder::connectors::RefreshConnectionSchemaMetadata;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_connectors_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;

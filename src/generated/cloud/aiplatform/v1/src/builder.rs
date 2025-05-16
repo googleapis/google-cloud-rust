@@ -77,7 +77,7 @@ pub mod dataset_service {
     /// # use google_cloud_aiplatform_v1::builder;
     /// use builder::dataset_service::CreateDataset;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_aiplatform_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -517,7 +517,7 @@ pub mod dataset_service {
     /// # use google_cloud_aiplatform_v1::builder;
     /// use builder::dataset_service::DeleteDataset;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_aiplatform_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -622,7 +622,7 @@ pub mod dataset_service {
     /// # use google_cloud_aiplatform_v1::builder;
     /// use builder::dataset_service::ImportData;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_aiplatform_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -740,7 +740,7 @@ pub mod dataset_service {
     /// # use google_cloud_aiplatform_v1::builder;
     /// use builder::dataset_service::ExportData;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_aiplatform_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -867,7 +867,7 @@ pub mod dataset_service {
     /// # use google_cloud_aiplatform_v1::builder;
     /// use builder::dataset_service::CreateDatasetVersion;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_aiplatform_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1101,7 +1101,7 @@ pub mod dataset_service {
     /// # use google_cloud_aiplatform_v1::builder;
     /// use builder::dataset_service::DeleteDatasetVersion;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_aiplatform_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1431,7 +1431,7 @@ pub mod dataset_service {
     /// # use google_cloud_aiplatform_v1::builder;
     /// use builder::dataset_service::RestoreDatasetVersion;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_aiplatform_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -2023,7 +2023,7 @@ pub mod dataset_service {
     /// # use google_cloud_aiplatform_v1::builder;
     /// use builder::dataset_service::DeleteSavedQuery;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_aiplatform_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -3225,7 +3225,7 @@ pub mod deployment_resource_pool_service {
     /// # use google_cloud_aiplatform_v1::builder;
     /// use builder::deployment_resource_pool_service::CreateDeploymentResourcePool;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_aiplatform_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -3550,7 +3550,7 @@ pub mod deployment_resource_pool_service {
     /// # use google_cloud_aiplatform_v1::builder;
     /// use builder::deployment_resource_pool_service::UpdateDeploymentResourcePool;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_aiplatform_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -3698,7 +3698,7 @@ pub mod deployment_resource_pool_service {
     /// # use google_cloud_aiplatform_v1::builder;
     /// use builder::deployment_resource_pool_service::DeleteDeploymentResourcePool;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_aiplatform_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -4793,7 +4793,7 @@ pub mod endpoint_service {
     /// # use google_cloud_aiplatform_v1::builder;
     /// use builder::endpoint_service::CreateEndpoint;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_aiplatform_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -5221,7 +5221,7 @@ pub mod endpoint_service {
     /// # use google_cloud_aiplatform_v1::builder;
     /// use builder::endpoint_service::UpdateEndpointLongRunning;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_aiplatform_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -5345,7 +5345,7 @@ pub mod endpoint_service {
     /// # use google_cloud_aiplatform_v1::builder;
     /// use builder::endpoint_service::DeleteEndpoint;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_aiplatform_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -5450,7 +5450,7 @@ pub mod endpoint_service {
     /// # use google_cloud_aiplatform_v1::builder;
     /// use builder::endpoint_service::DeployModel;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_aiplatform_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -5591,7 +5591,7 @@ pub mod endpoint_service {
     /// # use google_cloud_aiplatform_v1::builder;
     /// use builder::endpoint_service::UndeployModel;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_aiplatform_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -5718,7 +5718,7 @@ pub mod endpoint_service {
     /// # use google_cloud_aiplatform_v1::builder;
     /// use builder::endpoint_service::MutateDeployedModel;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_aiplatform_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -8080,7 +8080,7 @@ pub mod feature_online_store_admin_service {
     /// # use google_cloud_aiplatform_v1::builder;
     /// use builder::feature_online_store_admin_service::CreateFeatureOnlineStore;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_aiplatform_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -8412,7 +8412,7 @@ pub mod feature_online_store_admin_service {
     /// # use google_cloud_aiplatform_v1::builder;
     /// use builder::feature_online_store_admin_service::UpdateFeatureOnlineStore;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_aiplatform_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -8556,7 +8556,7 @@ pub mod feature_online_store_admin_service {
     /// # use google_cloud_aiplatform_v1::builder;
     /// use builder::feature_online_store_admin_service::DeleteFeatureOnlineStore;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_aiplatform_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -8672,7 +8672,7 @@ pub mod feature_online_store_admin_service {
     /// # use google_cloud_aiplatform_v1::builder;
     /// use builder::feature_online_store_admin_service::CreateFeatureView;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_aiplatform_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -8997,7 +8997,7 @@ pub mod feature_online_store_admin_service {
     /// # use google_cloud_aiplatform_v1::builder;
     /// use builder::feature_online_store_admin_service::UpdateFeatureView;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_aiplatform_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -9137,7 +9137,7 @@ pub mod feature_online_store_admin_service {
     /// # use google_cloud_aiplatform_v1::builder;
     /// use builder::feature_online_store_admin_service::DeleteFeatureView;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_aiplatform_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -11435,7 +11435,7 @@ pub mod feature_registry_service {
     /// # use google_cloud_aiplatform_v1::builder;
     /// use builder::feature_registry_service::CreateFeatureGroup;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_aiplatform_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -11756,7 +11756,7 @@ pub mod feature_registry_service {
     /// # use google_cloud_aiplatform_v1::builder;
     /// use builder::feature_registry_service::UpdateFeatureGroup;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_aiplatform_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -11898,7 +11898,7 @@ pub mod feature_registry_service {
     /// # use google_cloud_aiplatform_v1::builder;
     /// use builder::feature_registry_service::DeleteFeatureGroup;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_aiplatform_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -12012,7 +12012,7 @@ pub mod feature_registry_service {
     /// # use google_cloud_aiplatform_v1::builder;
     /// use builder::feature_registry_service::CreateFeature;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_aiplatform_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -12147,7 +12147,7 @@ pub mod feature_registry_service {
     /// # use google_cloud_aiplatform_v1::builder;
     /// use builder::feature_registry_service::BatchCreateFeatures;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_aiplatform_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -12472,7 +12472,7 @@ pub mod feature_registry_service {
     /// # use google_cloud_aiplatform_v1::builder;
     /// use builder::feature_registry_service::UpdateFeature;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_aiplatform_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -12609,7 +12609,7 @@ pub mod feature_registry_service {
     /// # use google_cloud_aiplatform_v1::builder;
     /// use builder::feature_registry_service::DeleteFeature;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_aiplatform_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -14643,7 +14643,7 @@ pub mod featurestore_service {
     /// # use google_cloud_aiplatform_v1::builder;
     /// use builder::featurestore_service::CreateFeaturestore;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_aiplatform_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -14982,7 +14982,7 @@ pub mod featurestore_service {
     /// # use google_cloud_aiplatform_v1::builder;
     /// use builder::featurestore_service::UpdateFeaturestore;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_aiplatform_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -15124,7 +15124,7 @@ pub mod featurestore_service {
     /// # use google_cloud_aiplatform_v1::builder;
     /// use builder::featurestore_service::DeleteFeaturestore;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_aiplatform_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -15238,7 +15238,7 @@ pub mod featurestore_service {
     /// # use google_cloud_aiplatform_v1::builder;
     /// use builder::featurestore_service::CreateEntityType;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_aiplatform_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -15666,7 +15666,7 @@ pub mod featurestore_service {
     /// # use google_cloud_aiplatform_v1::builder;
     /// use builder::featurestore_service::DeleteEntityType;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_aiplatform_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -15780,7 +15780,7 @@ pub mod featurestore_service {
     /// # use google_cloud_aiplatform_v1::builder;
     /// use builder::featurestore_service::CreateFeature;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_aiplatform_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -15915,7 +15915,7 @@ pub mod featurestore_service {
     /// # use google_cloud_aiplatform_v1::builder;
     /// use builder::featurestore_service::BatchCreateFeatures;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_aiplatform_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -16335,7 +16335,7 @@ pub mod featurestore_service {
     /// # use google_cloud_aiplatform_v1::builder;
     /// use builder::featurestore_service::DeleteFeature;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_aiplatform_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -16440,7 +16440,7 @@ pub mod featurestore_service {
     /// # use google_cloud_aiplatform_v1::builder;
     /// use builder::featurestore_service::ImportFeatureValues;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_aiplatform_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -16680,7 +16680,7 @@ pub mod featurestore_service {
     /// # use google_cloud_aiplatform_v1::builder;
     /// use builder::featurestore_service::BatchReadFeatureValues;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_aiplatform_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -16900,7 +16900,7 @@ pub mod featurestore_service {
     /// # use google_cloud_aiplatform_v1::builder;
     /// use builder::featurestore_service::ExportFeatureValues;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_aiplatform_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -17111,7 +17111,7 @@ pub mod featurestore_service {
     /// # use google_cloud_aiplatform_v1::builder;
     /// use builder::featurestore_service::DeleteFeatureValues;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_aiplatform_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -19884,7 +19884,7 @@ pub mod gen_ai_tuning_service {
     /// # use google_cloud_aiplatform_v1::builder;
     /// use builder::gen_ai_tuning_service::RebaseTunedModel;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_aiplatform_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -20933,7 +20933,7 @@ pub mod index_endpoint_service {
     /// # use google_cloud_aiplatform_v1::builder;
     /// use builder::index_endpoint_service::CreateIndexEndpoint;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_aiplatform_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -21365,7 +21365,7 @@ pub mod index_endpoint_service {
     /// # use google_cloud_aiplatform_v1::builder;
     /// use builder::index_endpoint_service::DeleteIndexEndpoint;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_aiplatform_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -21473,7 +21473,7 @@ pub mod index_endpoint_service {
     /// # use google_cloud_aiplatform_v1::builder;
     /// use builder::index_endpoint_service::DeployIndex;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_aiplatform_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -21602,7 +21602,7 @@ pub mod index_endpoint_service {
     /// # use google_cloud_aiplatform_v1::builder;
     /// use builder::index_endpoint_service::UndeployIndex;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_aiplatform_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -21717,7 +21717,7 @@ pub mod index_endpoint_service {
     /// # use google_cloud_aiplatform_v1::builder;
     /// use builder::index_endpoint_service::MutateDeployedIndex;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_aiplatform_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -22726,7 +22726,7 @@ pub mod index_service {
     /// # use google_cloud_aiplatform_v1::builder;
     /// use builder::index_service::CreateIndex;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_aiplatform_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -23043,7 +23043,7 @@ pub mod index_service {
     /// # use google_cloud_aiplatform_v1::builder;
     /// use builder::index_service::UpdateIndex;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_aiplatform_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -23180,7 +23180,7 @@ pub mod index_service {
     /// # use google_cloud_aiplatform_v1::builder;
     /// use builder::index_service::DeleteIndex;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_aiplatform_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -24609,7 +24609,7 @@ pub mod job_service {
     /// # use google_cloud_aiplatform_v1::builder;
     /// use builder::job_service::DeleteCustomJob;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_aiplatform_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -25069,7 +25069,7 @@ pub mod job_service {
     /// # use google_cloud_aiplatform_v1::builder;
     /// use builder::job_service::DeleteDataLabelingJob;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_aiplatform_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -25540,7 +25540,7 @@ pub mod job_service {
     /// # use google_cloud_aiplatform_v1::builder;
     /// use builder::job_service::DeleteHyperparameterTuningJob;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_aiplatform_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -25993,7 +25993,7 @@ pub mod job_service {
     /// # use google_cloud_aiplatform_v1::builder;
     /// use builder::job_service::DeleteNasJob;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_aiplatform_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -26627,7 +26627,7 @@ pub mod job_service {
     /// # use google_cloud_aiplatform_v1::builder;
     /// use builder::job_service::DeleteBatchPredictionJob;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_aiplatform_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -27284,7 +27284,7 @@ pub mod job_service {
     /// # use google_cloud_aiplatform_v1::builder;
     /// use builder::job_service::UpdateModelDeploymentMonitoringJob;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_aiplatform_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -27435,7 +27435,7 @@ pub mod job_service {
     /// # use google_cloud_aiplatform_v1::builder;
     /// use builder::job_service::DeleteModelDeploymentMonitoringJob;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_aiplatform_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -30710,7 +30710,7 @@ pub mod metadata_service {
     /// # use google_cloud_aiplatform_v1::builder;
     /// use builder::metadata_service::CreateMetadataStore;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_aiplatform_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -31022,7 +31022,7 @@ pub mod metadata_service {
     /// # use google_cloud_aiplatform_v1::builder;
     /// use builder::metadata_service::DeleteMetadataStore;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_aiplatform_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -31511,7 +31511,7 @@ pub mod metadata_service {
     /// # use google_cloud_aiplatform_v1::builder;
     /// use builder::metadata_service::DeleteArtifact;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_aiplatform_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -31622,7 +31622,7 @@ pub mod metadata_service {
     /// # use google_cloud_aiplatform_v1::builder;
     /// use builder::metadata_service::PurgeArtifacts;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_aiplatform_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -32111,7 +32111,7 @@ pub mod metadata_service {
     /// # use google_cloud_aiplatform_v1::builder;
     /// use builder::metadata_service::DeleteContext;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_aiplatform_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -32228,7 +32228,7 @@ pub mod metadata_service {
     /// # use google_cloud_aiplatform_v1::builder;
     /// use builder::metadata_service::PurgeContexts;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_aiplatform_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -33029,7 +33029,7 @@ pub mod metadata_service {
     /// # use google_cloud_aiplatform_v1::builder;
     /// use builder::metadata_service::DeleteExecution;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_aiplatform_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -33140,7 +33140,7 @@ pub mod metadata_service {
     /// # use google_cloud_aiplatform_v1::builder;
     /// use builder::metadata_service::PurgeExecutions;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_aiplatform_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -34753,7 +34753,7 @@ pub mod migration_service {
     /// # use google_cloud_aiplatform_v1::builder;
     /// use builder::migration_service::BatchMigrateResources;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_aiplatform_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -36720,7 +36720,7 @@ pub mod model_service {
     /// # use google_cloud_aiplatform_v1::builder;
     /// use builder::model_service::UploadModel;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_aiplatform_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -37410,7 +37410,7 @@ pub mod model_service {
     /// # use google_cloud_aiplatform_v1::builder;
     /// use builder::model_service::UpdateExplanationDataset;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_aiplatform_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -37540,7 +37540,7 @@ pub mod model_service {
     /// # use google_cloud_aiplatform_v1::builder;
     /// use builder::model_service::DeleteModel;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_aiplatform_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -37645,7 +37645,7 @@ pub mod model_service {
     /// # use google_cloud_aiplatform_v1::builder;
     /// use builder::model_service::DeleteModelVersion;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_aiplatform_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -37832,7 +37832,7 @@ pub mod model_service {
     /// # use google_cloud_aiplatform_v1::builder;
     /// use builder::model_service::ExportModel;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_aiplatform_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -37961,7 +37961,7 @@ pub mod model_service {
     /// # use google_cloud_aiplatform_v1::builder;
     /// use builder::model_service::CopyModel;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_aiplatform_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -39658,7 +39658,7 @@ pub mod notebook_service {
     /// # use google_cloud_aiplatform_v1::builder;
     /// use builder::notebook_service::CreateNotebookRuntimeTemplate;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_aiplatform_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -40014,7 +40014,7 @@ pub mod notebook_service {
     /// # use google_cloud_aiplatform_v1::builder;
     /// use builder::notebook_service::DeleteNotebookRuntimeTemplate;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_aiplatform_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -40231,7 +40231,7 @@ pub mod notebook_service {
     /// # use google_cloud_aiplatform_v1::builder;
     /// use builder::notebook_service::AssignNotebookRuntime;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_aiplatform_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -40581,7 +40581,7 @@ pub mod notebook_service {
     /// # use google_cloud_aiplatform_v1::builder;
     /// use builder::notebook_service::DeleteNotebookRuntime;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_aiplatform_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -40689,7 +40689,7 @@ pub mod notebook_service {
     /// # use google_cloud_aiplatform_v1::builder;
     /// use builder::notebook_service::UpgradeNotebookRuntime;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_aiplatform_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -40799,7 +40799,7 @@ pub mod notebook_service {
     /// # use google_cloud_aiplatform_v1::builder;
     /// use builder::notebook_service::StartNotebookRuntime;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_aiplatform_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -40909,7 +40909,7 @@ pub mod notebook_service {
     /// # use google_cloud_aiplatform_v1::builder;
     /// use builder::notebook_service::StopNotebookRuntime;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_aiplatform_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -41019,7 +41019,7 @@ pub mod notebook_service {
     /// # use google_cloud_aiplatform_v1::builder;
     /// use builder::notebook_service::CreateNotebookExecutionJob;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_aiplatform_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -41363,7 +41363,7 @@ pub mod notebook_service {
     /// # use google_cloud_aiplatform_v1::builder;
     /// use builder::notebook_service::DeleteNotebookExecutionJob;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_aiplatform_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -42350,7 +42350,7 @@ pub mod persistent_resource_service {
     /// # use google_cloud_aiplatform_v1::builder;
     /// use builder::persistent_resource_service::CreatePersistentResource;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_aiplatform_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -42670,7 +42670,7 @@ pub mod persistent_resource_service {
     /// # use google_cloud_aiplatform_v1::builder;
     /// use builder::persistent_resource_service::DeletePersistentResource;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_aiplatform_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -42780,7 +42780,7 @@ pub mod persistent_resource_service {
     /// # use google_cloud_aiplatform_v1::builder;
     /// use builder::persistent_resource_service::UpdatePersistentResource;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_aiplatform_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -42928,7 +42928,7 @@ pub mod persistent_resource_service {
     /// # use google_cloud_aiplatform_v1::builder;
     /// use builder::persistent_resource_service::RebootPersistentResource;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_aiplatform_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -44203,7 +44203,7 @@ pub mod pipeline_service {
     /// # use google_cloud_aiplatform_v1::builder;
     /// use builder::pipeline_service::DeleteTrainingPipeline;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_aiplatform_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -44670,7 +44670,7 @@ pub mod pipeline_service {
     /// # use google_cloud_aiplatform_v1::builder;
     /// use builder::pipeline_service::DeletePipelineJob;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_aiplatform_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -44778,7 +44778,7 @@ pub mod pipeline_service {
     /// # use google_cloud_aiplatform_v1::builder;
     /// use builder::pipeline_service::BatchDeletePipelineJobs;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_aiplatform_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -44969,7 +44969,7 @@ pub mod pipeline_service {
     /// # use google_cloud_aiplatform_v1::builder;
     /// use builder::pipeline_service::BatchCancelPipelineJobs;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_aiplatform_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -48450,7 +48450,7 @@ pub mod reasoning_engine_service {
     /// # use google_cloud_aiplatform_v1::builder;
     /// use builder::reasoning_engine_service::CreateReasoningEngine;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_aiplatform_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -48762,7 +48762,7 @@ pub mod reasoning_engine_service {
     /// # use google_cloud_aiplatform_v1::builder;
     /// use builder::reasoning_engine_service::UpdateReasoningEngine;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_aiplatform_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -48904,7 +48904,7 @@ pub mod reasoning_engine_service {
     /// # use google_cloud_aiplatform_v1::builder;
     /// use builder::reasoning_engine_service::DeleteReasoningEngine;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_aiplatform_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -49980,7 +49980,7 @@ pub mod schedule_service {
     /// # use google_cloud_aiplatform_v1::builder;
     /// use builder::schedule_service::DeleteSchedule;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_aiplatform_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -51371,7 +51371,7 @@ pub mod specialist_pool_service {
     /// # use google_cloud_aiplatform_v1::builder;
     /// use builder::specialist_pool_service::CreateSpecialistPool;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_aiplatform_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -51695,7 +51695,7 @@ pub mod specialist_pool_service {
     /// # use google_cloud_aiplatform_v1::builder;
     /// use builder::specialist_pool_service::DeleteSpecialistPool;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_aiplatform_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -51809,7 +51809,7 @@ pub mod specialist_pool_service {
     /// # use google_cloud_aiplatform_v1::builder;
     /// use builder::specialist_pool_service::UpdateSpecialistPool;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_aiplatform_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -52832,7 +52832,7 @@ pub mod tensorboard_service {
     /// # use google_cloud_aiplatform_v1::builder;
     /// use builder::tensorboard_service::CreateTensorboard;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_aiplatform_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -53025,7 +53025,7 @@ pub mod tensorboard_service {
     /// # use google_cloud_aiplatform_v1::builder;
     /// use builder::tensorboard_service::UpdateTensorboard;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_aiplatform_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -53305,7 +53305,7 @@ pub mod tensorboard_service {
     /// # use google_cloud_aiplatform_v1::builder;
     /// use builder::tensorboard_service::DeleteTensorboard;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_aiplatform_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -53953,7 +53953,7 @@ pub mod tensorboard_service {
     /// # use google_cloud_aiplatform_v1::builder;
     /// use builder::tensorboard_service::DeleteTensorboardExperiment;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_aiplatform_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -54546,7 +54546,7 @@ pub mod tensorboard_service {
     /// # use google_cloud_aiplatform_v1::builder;
     /// use builder::tensorboard_service::DeleteTensorboardRun;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_aiplatform_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -55148,7 +55148,7 @@ pub mod tensorboard_service {
     /// # use google_cloud_aiplatform_v1::builder;
     /// use builder::tensorboard_service::DeleteTensorboardTimeSeries;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_aiplatform_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -56584,7 +56584,7 @@ pub mod vertex_rag_data_service {
     /// # use google_cloud_aiplatform_v1::builder;
     /// use builder::vertex_rag_data_service::CreateRagCorpus;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_aiplatform_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -56711,7 +56711,7 @@ pub mod vertex_rag_data_service {
     /// # use google_cloud_aiplatform_v1::builder;
     /// use builder::vertex_rag_data_service::UpdateRagCorpus;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_aiplatform_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -56996,7 +56996,7 @@ pub mod vertex_rag_data_service {
     /// # use google_cloud_aiplatform_v1::builder;
     /// use builder::vertex_rag_data_service::DeleteRagCorpus;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_aiplatform_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -57214,7 +57214,7 @@ pub mod vertex_rag_data_service {
     /// # use google_cloud_aiplatform_v1::builder;
     /// use builder::vertex_rag_data_service::ImportRagFiles;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_aiplatform_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -57509,7 +57509,7 @@ pub mod vertex_rag_data_service {
     /// # use google_cloud_aiplatform_v1::builder;
     /// use builder::vertex_rag_data_service::DeleteRagFile;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_aiplatform_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -60106,7 +60106,7 @@ pub mod vizier_service {
     /// # use google_cloud_aiplatform_v1::builder;
     /// use builder::vizier_service::SuggestTrials;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_aiplatform_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -60733,7 +60733,7 @@ pub mod vizier_service {
     /// # use google_cloud_aiplatform_v1::builder;
     /// use builder::vizier_service::CheckTrialEarlyStoppingState;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_aiplatform_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;

@@ -253,7 +253,7 @@ pub mod cloud_memcache {
     /// # use google_cloud_memcache_v1::builder;
     /// use builder::cloud_memcache::CreateInstance;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_memcache_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -385,7 +385,7 @@ pub mod cloud_memcache {
     /// # use google_cloud_memcache_v1::builder;
     /// use builder::cloud_memcache::UpdateInstance;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_memcache_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -523,7 +523,7 @@ pub mod cloud_memcache {
     /// # use google_cloud_memcache_v1::builder;
     /// use builder::cloud_memcache::UpdateParameters;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_memcache_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -668,7 +668,7 @@ pub mod cloud_memcache {
     /// # use google_cloud_memcache_v1::builder;
     /// use builder::cloud_memcache::DeleteInstance;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_memcache_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -772,7 +772,7 @@ pub mod cloud_memcache {
     /// # use google_cloud_memcache_v1::builder;
     /// use builder::cloud_memcache::ApplyParameters;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_memcache_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -891,7 +891,7 @@ pub mod cloud_memcache {
     /// # use google_cloud_memcache_v1::builder;
     /// use builder::cloud_memcache::RescheduleMaintenance;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_memcache_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;

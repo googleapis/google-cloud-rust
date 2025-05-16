@@ -251,7 +251,7 @@ pub mod image_annotator {
     /// # use google_cloud_vision_v1::builder;
     /// use builder::image_annotator::AsyncBatchAnnotateImages;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_vision_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -407,7 +407,7 @@ pub mod image_annotator {
     /// # use google_cloud_vision_v1::builder;
     /// use builder::image_annotator::AsyncBatchAnnotateFiles;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_vision_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -2095,7 +2095,7 @@ pub mod product_search {
     /// # use google_cloud_vision_v1::builder;
     /// use builder::product_search::ImportProductSets;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_vision_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -2227,7 +2227,7 @@ pub mod product_search {
     /// # use google_cloud_vision_v1::builder;
     /// use builder::product_search::PurgeProducts;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_vision_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;

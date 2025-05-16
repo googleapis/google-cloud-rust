@@ -509,7 +509,7 @@ pub mod text_to_speech_long_audio_synthesize {
     /// # use google_cloud_texttospeech_v1::builder;
     /// use builder::text_to_speech_long_audio_synthesize::SynthesizeLongAudio;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_texttospeech_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;

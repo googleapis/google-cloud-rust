@@ -253,7 +253,7 @@ pub mod api_gateway_service {
     /// # use google_cloud_apigateway_v1::builder;
     /// use builder::api_gateway_service::CreateGateway;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_apigateway_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -385,7 +385,7 @@ pub mod api_gateway_service {
     /// # use google_cloud_apigateway_v1::builder;
     /// use builder::api_gateway_service::UpdateGateway;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_apigateway_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -519,7 +519,7 @@ pub mod api_gateway_service {
     /// # use google_cloud_apigateway_v1::builder;
     /// use builder::api_gateway_service::DeleteGateway;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_apigateway_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -801,7 +801,7 @@ pub mod api_gateway_service {
     /// # use google_cloud_apigateway_v1::builder;
     /// use builder::api_gateway_service::CreateApi;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_apigateway_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -933,7 +933,7 @@ pub mod api_gateway_service {
     /// # use google_cloud_apigateway_v1::builder;
     /// use builder::api_gateway_service::UpdateApi;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_apigateway_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1067,7 +1067,7 @@ pub mod api_gateway_service {
     /// # use google_cloud_apigateway_v1::builder;
     /// use builder::api_gateway_service::DeleteApi;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_apigateway_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1358,7 +1358,7 @@ pub mod api_gateway_service {
     /// # use google_cloud_apigateway_v1::builder;
     /// use builder::api_gateway_service::CreateApiConfig;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_apigateway_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1490,7 +1490,7 @@ pub mod api_gateway_service {
     /// # use google_cloud_apigateway_v1::builder;
     /// use builder::api_gateway_service::UpdateApiConfig;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_apigateway_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1624,7 +1624,7 @@ pub mod api_gateway_service {
     /// # use google_cloud_apigateway_v1::builder;
     /// use builder::api_gateway_service::DeleteApiConfig;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_apigateway_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;

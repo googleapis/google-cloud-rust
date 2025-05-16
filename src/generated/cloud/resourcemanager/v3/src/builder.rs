@@ -340,7 +340,7 @@ pub mod folders {
     /// # use google_cloud_resourcemanager_v3::builder;
     /// use builder::folders::CreateFolder;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_resourcemanager_v3::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -454,7 +454,7 @@ pub mod folders {
     /// # use google_cloud_resourcemanager_v3::builder;
     /// use builder::folders::UpdateFolder;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_resourcemanager_v3::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -590,7 +590,7 @@ pub mod folders {
     /// # use google_cloud_resourcemanager_v3::builder;
     /// use builder::folders::MoveFolder;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_resourcemanager_v3::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -698,7 +698,7 @@ pub mod folders {
     /// # use google_cloud_resourcemanager_v3::builder;
     /// use builder::folders::DeleteFolder;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_resourcemanager_v3::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -798,7 +798,7 @@ pub mod folders {
     /// # use google_cloud_resourcemanager_v3::builder;
     /// use builder::folders::UndeleteFolder;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_resourcemanager_v3::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -2090,7 +2090,7 @@ pub mod projects {
     /// # use google_cloud_resourcemanager_v3::builder;
     /// use builder::projects::CreateProject;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_resourcemanager_v3::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -2206,7 +2206,7 @@ pub mod projects {
     /// # use google_cloud_resourcemanager_v3::builder;
     /// use builder::projects::UpdateProject;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_resourcemanager_v3::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -2340,7 +2340,7 @@ pub mod projects {
     /// # use google_cloud_resourcemanager_v3::builder;
     /// use builder::projects::MoveProject;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_resourcemanager_v3::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -2448,7 +2448,7 @@ pub mod projects {
     /// # use google_cloud_resourcemanager_v3::builder;
     /// use builder::projects::DeleteProject;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_resourcemanager_v3::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -2550,7 +2550,7 @@ pub mod projects {
     /// # use google_cloud_resourcemanager_v3::builder;
     /// use builder::projects::UndeleteProject;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_resourcemanager_v3::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -3130,7 +3130,7 @@ pub mod tag_bindings {
     /// # use google_cloud_resourcemanager_v3::builder;
     /// use builder::tag_bindings::CreateTagBinding;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_resourcemanager_v3::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -3258,7 +3258,7 @@ pub mod tag_bindings {
     /// # use google_cloud_resourcemanager_v3::builder;
     /// use builder::tag_bindings::DeleteTagBinding;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_resourcemanager_v3::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -3589,7 +3589,7 @@ pub mod tag_holds {
     /// # use google_cloud_resourcemanager_v3::builder;
     /// use builder::tag_holds::CreateTagHold;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_resourcemanager_v3::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -3719,7 +3719,7 @@ pub mod tag_holds {
     /// # use google_cloud_resourcemanager_v3::builder;
     /// use builder::tag_holds::DeleteTagHold;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_resourcemanager_v3::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -4276,7 +4276,7 @@ pub mod tag_keys {
     /// # use google_cloud_resourcemanager_v3::builder;
     /// use builder::tag_keys::CreateTagKey;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_resourcemanager_v3::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -4396,7 +4396,7 @@ pub mod tag_keys {
     /// # use google_cloud_resourcemanager_v3::builder;
     /// use builder::tag_keys::UpdateTagKey;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_resourcemanager_v3::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -4534,7 +4534,7 @@ pub mod tag_keys {
     /// # use google_cloud_resourcemanager_v3::builder;
     /// use builder::tag_keys::DeleteTagKey;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_resourcemanager_v3::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -5252,7 +5252,7 @@ pub mod tag_values {
     /// # use google_cloud_resourcemanager_v3::builder;
     /// use builder::tag_values::CreateTagValue;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_resourcemanager_v3::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -5377,7 +5377,7 @@ pub mod tag_values {
     /// # use google_cloud_resourcemanager_v3::builder;
     /// use builder::tag_values::UpdateTagValue;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_resourcemanager_v3::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -5520,7 +5520,7 @@ pub mod tag_values {
     /// # use google_cloud_resourcemanager_v3::builder;
     /// use builder::tag_values::DeleteTagValue;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_resourcemanager_v3::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;

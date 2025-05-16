@@ -247,7 +247,7 @@ pub mod aml {
     /// # use google_cloud_financialservices_v1::builder;
     /// use builder::aml::CreateInstance;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_financialservices_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -383,7 +383,7 @@ pub mod aml {
     /// # use google_cloud_financialservices_v1::builder;
     /// use builder::aml::UpdateInstance;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_financialservices_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -521,7 +521,7 @@ pub mod aml {
     /// # use google_cloud_financialservices_v1::builder;
     /// use builder::aml::DeleteInstance;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_financialservices_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -629,7 +629,7 @@ pub mod aml {
     /// # use google_cloud_financialservices_v1::builder;
     /// use builder::aml::ImportRegisteredParties;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_financialservices_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -775,7 +775,7 @@ pub mod aml {
     /// # use google_cloud_financialservices_v1::builder;
     /// use builder::aml::ExportRegisteredParties;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_financialservices_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1089,7 +1089,7 @@ pub mod aml {
     /// # use google_cloud_financialservices_v1::builder;
     /// use builder::aml::CreateDataset;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_financialservices_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1225,7 +1225,7 @@ pub mod aml {
     /// # use google_cloud_financialservices_v1::builder;
     /// use builder::aml::UpdateDataset;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_financialservices_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1363,7 +1363,7 @@ pub mod aml {
     /// # use google_cloud_financialservices_v1::builder;
     /// use builder::aml::DeleteDataset;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_financialservices_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1645,7 +1645,7 @@ pub mod aml {
     /// # use google_cloud_financialservices_v1::builder;
     /// use builder::aml::CreateModel;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_financialservices_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1781,7 +1781,7 @@ pub mod aml {
     /// # use google_cloud_financialservices_v1::builder;
     /// use builder::aml::UpdateModel;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_financialservices_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1919,7 +1919,7 @@ pub mod aml {
     /// # use google_cloud_financialservices_v1::builder;
     /// use builder::aml::ExportModelMetadata;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_financialservices_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -2050,7 +2050,7 @@ pub mod aml {
     /// # use google_cloud_financialservices_v1::builder;
     /// use builder::aml::DeleteModel;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_financialservices_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -2335,7 +2335,7 @@ pub mod aml {
     /// # use google_cloud_financialservices_v1::builder;
     /// use builder::aml::CreateEngineConfig;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_financialservices_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -2476,7 +2476,7 @@ pub mod aml {
     /// # use google_cloud_financialservices_v1::builder;
     /// use builder::aml::UpdateEngineConfig;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_financialservices_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -2619,7 +2619,7 @@ pub mod aml {
     /// # use google_cloud_financialservices_v1::builder;
     /// use builder::aml::ExportEngineConfigMetadata;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_financialservices_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -2754,7 +2754,7 @@ pub mod aml {
     /// # use google_cloud_financialservices_v1::builder;
     /// use builder::aml::DeleteEngineConfig;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_financialservices_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -3229,7 +3229,7 @@ pub mod aml {
     /// # use google_cloud_financialservices_v1::builder;
     /// use builder::aml::CreatePredictionResult;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_financialservices_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -3371,7 +3371,7 @@ pub mod aml {
     /// # use google_cloud_financialservices_v1::builder;
     /// use builder::aml::UpdatePredictionResult;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_financialservices_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -3515,7 +3515,7 @@ pub mod aml {
     /// # use google_cloud_financialservices_v1::builder;
     /// use builder::aml::ExportPredictionResultMetadata;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_financialservices_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -3650,7 +3650,7 @@ pub mod aml {
     /// # use google_cloud_financialservices_v1::builder;
     /// use builder::aml::DeletePredictionResult;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_financialservices_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -3943,7 +3943,7 @@ pub mod aml {
     /// # use google_cloud_financialservices_v1::builder;
     /// use builder::aml::CreateBacktestResult;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_financialservices_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -4085,7 +4085,7 @@ pub mod aml {
     /// # use google_cloud_financialservices_v1::builder;
     /// use builder::aml::UpdateBacktestResult;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_financialservices_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -4229,7 +4229,7 @@ pub mod aml {
     /// # use google_cloud_financialservices_v1::builder;
     /// use builder::aml::ExportBacktestResultMetadata;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_financialservices_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -4364,7 +4364,7 @@ pub mod aml {
     /// # use google_cloud_financialservices_v1::builder;
     /// use builder::aml::DeleteBacktestResult;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_financialservices_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;

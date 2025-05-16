@@ -253,7 +253,7 @@ pub mod developer_connect {
     /// # use google_cloud_developerconnect_v1::builder;
     /// use builder::developer_connect::CreateConnection;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_developerconnect_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -400,7 +400,7 @@ pub mod developer_connect {
     /// # use google_cloud_developerconnect_v1::builder;
     /// use builder::developer_connect::UpdateConnection;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_developerconnect_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -559,7 +559,7 @@ pub mod developer_connect {
     /// # use google_cloud_developerconnect_v1::builder;
     /// use builder::developer_connect::DeleteConnection;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_developerconnect_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -684,7 +684,7 @@ pub mod developer_connect {
     /// # use google_cloud_developerconnect_v1::builder;
     /// use builder::developer_connect::CreateGitRepositoryLink;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_developerconnect_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -836,7 +836,7 @@ pub mod developer_connect {
     /// # use google_cloud_developerconnect_v1::builder;
     /// use builder::developer_connect::DeleteGitRepositoryLink;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_developerconnect_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;

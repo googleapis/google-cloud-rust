@@ -253,7 +253,7 @@ pub mod storage_batch_operations {
     /// # use google_cloud_storagebatchoperations_v1::builder;
     /// use builder::storage_batch_operations::CreateJob;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_storagebatchoperations_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;

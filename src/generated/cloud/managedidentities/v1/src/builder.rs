@@ -75,7 +75,7 @@ pub mod managed_identities_service {
     /// # use google_cloud_managedidentities_v1::builder;
     /// use builder::managed_identities_service::CreateMicrosoftAdDomain;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_managedidentities_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -454,7 +454,7 @@ pub mod managed_identities_service {
     /// # use google_cloud_managedidentities_v1::builder;
     /// use builder::managed_identities_service::UpdateDomain;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_managedidentities_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -590,7 +590,7 @@ pub mod managed_identities_service {
     /// # use google_cloud_managedidentities_v1::builder;
     /// use builder::managed_identities_service::DeleteDomain;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_managedidentities_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -694,7 +694,7 @@ pub mod managed_identities_service {
     /// # use google_cloud_managedidentities_v1::builder;
     /// use builder::managed_identities_service::AttachTrust;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_managedidentities_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -816,7 +816,7 @@ pub mod managed_identities_service {
     /// # use google_cloud_managedidentities_v1::builder;
     /// use builder::managed_identities_service::ReconfigureTrust;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_managedidentities_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -940,7 +940,7 @@ pub mod managed_identities_service {
     /// # use google_cloud_managedidentities_v1::builder;
     /// use builder::managed_identities_service::DetachTrust;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_managedidentities_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1062,7 +1062,7 @@ pub mod managed_identities_service {
     /// # use google_cloud_managedidentities_v1::builder;
     /// use builder::managed_identities_service::ValidateTrust;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_managedidentities_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;

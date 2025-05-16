@@ -407,7 +407,7 @@ pub mod web_risk_service {
     /// # use google_cloud_webrisk_v1::builder;
     /// use builder::web_risk_service::SubmitUri;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_webrisk_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;

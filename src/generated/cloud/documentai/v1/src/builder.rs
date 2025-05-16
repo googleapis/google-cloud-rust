@@ -254,7 +254,7 @@ pub mod document_processor_service {
     /// # use google_cloud_documentai_v1::builder;
     /// use builder::document_processor_service::BatchProcessDocuments;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_documentai_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -836,7 +836,7 @@ pub mod document_processor_service {
     /// # use google_cloud_documentai_v1::builder;
     /// use builder::document_processor_service::TrainProcessorVersion;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_documentai_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1227,7 +1227,7 @@ pub mod document_processor_service {
     /// # use google_cloud_documentai_v1::builder;
     /// use builder::document_processor_service::DeleteProcessorVersion;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_documentai_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1335,7 +1335,7 @@ pub mod document_processor_service {
     /// # use google_cloud_documentai_v1::builder;
     /// use builder::document_processor_service::DeployProcessorVersion;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_documentai_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1445,7 +1445,7 @@ pub mod document_processor_service {
     /// # use google_cloud_documentai_v1::builder;
     /// use builder::document_processor_service::UndeployProcessorVersion;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_documentai_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1642,7 +1642,7 @@ pub mod document_processor_service {
     /// # use google_cloud_documentai_v1::builder;
     /// use builder::document_processor_service::DeleteProcessor;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_documentai_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1747,7 +1747,7 @@ pub mod document_processor_service {
     /// # use google_cloud_documentai_v1::builder;
     /// use builder::document_processor_service::EnableProcessor;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_documentai_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1852,7 +1852,7 @@ pub mod document_processor_service {
     /// # use google_cloud_documentai_v1::builder;
     /// use builder::document_processor_service::DisableProcessor;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_documentai_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1962,7 +1962,7 @@ pub mod document_processor_service {
     /// # use google_cloud_documentai_v1::builder;
     /// use builder::document_processor_service::SetDefaultProcessorVersion;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_documentai_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -2082,7 +2082,7 @@ pub mod document_processor_service {
     /// # use google_cloud_documentai_v1::builder;
     /// use builder::document_processor_service::ReviewDocument;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_documentai_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -2249,7 +2249,7 @@ pub mod document_processor_service {
     /// # use google_cloud_documentai_v1::builder;
     /// use builder::document_processor_service::EvaluateProcessorVersion;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_documentai_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;

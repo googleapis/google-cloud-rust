@@ -261,7 +261,7 @@ pub mod license_manager {
     /// # use google_cloud_licensemanager_v1::builder;
     /// use builder::license_manager::CreateConfiguration;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_licensemanager_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -405,7 +405,7 @@ pub mod license_manager {
     /// # use google_cloud_licensemanager_v1::builder;
     /// use builder::license_manager::UpdateConfiguration;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_licensemanager_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -551,7 +551,7 @@ pub mod license_manager {
     /// # use google_cloud_licensemanager_v1::builder;
     /// use builder::license_manager::DeleteConfiguration;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_licensemanager_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -842,7 +842,7 @@ pub mod license_manager {
     /// # use google_cloud_licensemanager_v1::builder;
     /// use builder::license_manager::DeactivateConfiguration;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_licensemanager_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -958,7 +958,7 @@ pub mod license_manager {
     /// # use google_cloud_licensemanager_v1::builder;
     /// use builder::license_manager::ReactivateConfiguration;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_licensemanager_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;

@@ -256,7 +256,7 @@ pub mod app_connectors_service {
     /// # use google_cloud_beyondcorp_appconnectors_v1::builder;
     /// use builder::app_connectors_service::CreateAppConnector;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_beyondcorp_appconnectors_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -404,7 +404,7 @@ pub mod app_connectors_service {
     /// # use google_cloud_beyondcorp_appconnectors_v1::builder;
     /// use builder::app_connectors_service::UpdateAppConnector;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_beyondcorp_appconnectors_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -560,7 +560,7 @@ pub mod app_connectors_service {
     /// # use google_cloud_beyondcorp_appconnectors_v1::builder;
     /// use builder::app_connectors_service::DeleteAppConnector;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_beyondcorp_appconnectors_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -680,7 +680,7 @@ pub mod app_connectors_service {
     /// # use google_cloud_beyondcorp_appconnectors_v1::builder;
     /// use builder::app_connectors_service::ReportStatus;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_beyondcorp_appconnectors_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;

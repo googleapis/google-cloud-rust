@@ -75,7 +75,7 @@ pub mod alloy_dbcsql_admin {
     /// # use google_cloud_alloydb_v1::builder;
     /// use builder::alloy_dbcsql_admin::RestoreFromCloudSQL;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_alloydb_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -951,7 +951,7 @@ pub mod alloy_db_admin {
     /// # use google_cloud_alloydb_v1::builder;
     /// use builder::alloy_db_admin::CreateCluster;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_alloydb_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1095,7 +1095,7 @@ pub mod alloy_db_admin {
     /// # use google_cloud_alloydb_v1::builder;
     /// use builder::alloy_db_admin::UpdateCluster;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_alloydb_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1247,7 +1247,7 @@ pub mod alloy_db_admin {
     /// # use google_cloud_alloydb_v1::builder;
     /// use builder::alloy_db_admin::ExportCluster;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_alloydb_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1437,7 +1437,7 @@ pub mod alloy_db_admin {
     /// # use google_cloud_alloydb_v1::builder;
     /// use builder::alloy_db_admin::ImportCluster;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_alloydb_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1610,7 +1610,7 @@ pub mod alloy_db_admin {
     /// # use google_cloud_alloydb_v1::builder;
     /// use builder::alloy_db_admin::UpgradeCluster;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_alloydb_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1741,7 +1741,7 @@ pub mod alloy_db_admin {
     /// # use google_cloud_alloydb_v1::builder;
     /// use builder::alloy_db_admin::DeleteCluster;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_alloydb_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1869,7 +1869,7 @@ pub mod alloy_db_admin {
     /// # use google_cloud_alloydb_v1::builder;
     /// use builder::alloy_db_admin::PromoteCluster;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_alloydb_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1989,7 +1989,7 @@ pub mod alloy_db_admin {
     /// # use google_cloud_alloydb_v1::builder;
     /// use builder::alloy_db_admin::SwitchoverCluster;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_alloydb_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -2106,7 +2106,7 @@ pub mod alloy_db_admin {
     /// # use google_cloud_alloydb_v1::builder;
     /// use builder::alloy_db_admin::RestoreCluster;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_alloydb_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -2292,7 +2292,7 @@ pub mod alloy_db_admin {
     /// # use google_cloud_alloydb_v1::builder;
     /// use builder::alloy_db_admin::CreateSecondaryCluster;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_alloydb_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -2623,7 +2623,7 @@ pub mod alloy_db_admin {
     /// # use google_cloud_alloydb_v1::builder;
     /// use builder::alloy_db_admin::CreateInstance;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_alloydb_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -2767,7 +2767,7 @@ pub mod alloy_db_admin {
     /// # use google_cloud_alloydb_v1::builder;
     /// use builder::alloy_db_admin::CreateSecondaryInstance;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_alloydb_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -2916,7 +2916,7 @@ pub mod alloy_db_admin {
     /// # use google_cloud_alloydb_v1::builder;
     /// use builder::alloy_db_admin::BatchCreateInstances;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_alloydb_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -3052,7 +3052,7 @@ pub mod alloy_db_admin {
     /// # use google_cloud_alloydb_v1::builder;
     /// use builder::alloy_db_admin::UpdateInstance;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_alloydb_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -3204,7 +3204,7 @@ pub mod alloy_db_admin {
     /// # use google_cloud_alloydb_v1::builder;
     /// use builder::alloy_db_admin::DeleteInstance;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_alloydb_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -3326,7 +3326,7 @@ pub mod alloy_db_admin {
     /// # use google_cloud_alloydb_v1::builder;
     /// use builder::alloy_db_admin::FailoverInstance;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_alloydb_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -3443,7 +3443,7 @@ pub mod alloy_db_admin {
     /// # use google_cloud_alloydb_v1::builder;
     /// use builder::alloy_db_admin::InjectFault;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_alloydb_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -3568,7 +3568,7 @@ pub mod alloy_db_admin {
     /// # use google_cloud_alloydb_v1::builder;
     /// use builder::alloy_db_admin::RestartInstance;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_alloydb_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -3980,7 +3980,7 @@ pub mod alloy_db_admin {
     /// # use google_cloud_alloydb_v1::builder;
     /// use builder::alloy_db_admin::CreateBackup;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_alloydb_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -4124,7 +4124,7 @@ pub mod alloy_db_admin {
     /// # use google_cloud_alloydb_v1::builder;
     /// use builder::alloy_db_admin::UpdateBackup;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_alloydb_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -4276,7 +4276,7 @@ pub mod alloy_db_admin {
     /// # use google_cloud_alloydb_v1::builder;
     /// use builder::alloy_db_admin::DeleteBackup;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_alloydb_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;

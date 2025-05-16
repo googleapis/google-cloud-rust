@@ -267,7 +267,7 @@ pub mod client_connector_services_service {
     /// # use google_cloud_beyondcorp_clientconnectorservices_v1::builder;
     /// use builder::client_connector_services_service::CreateClientConnectorService;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_beyondcorp_clientconnectorservices_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -422,7 +422,7 @@ pub mod client_connector_services_service {
     /// # use google_cloud_beyondcorp_clientconnectorservices_v1::builder;
     /// use builder::client_connector_services_service::UpdateClientConnectorService;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_beyondcorp_clientconnectorservices_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -588,7 +588,7 @@ pub mod client_connector_services_service {
     /// # use google_cloud_beyondcorp_clientconnectorservices_v1::builder;
     /// use builder::client_connector_services_service::DeleteClientConnectorService;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_beyondcorp_clientconnectorservices_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;

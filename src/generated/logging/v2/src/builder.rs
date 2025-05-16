@@ -1024,7 +1024,7 @@ pub mod config_service_v_2 {
     /// # use google_cloud_logging_v2::builder;
     /// use builder::config_service_v_2::CreateBucketAsync;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_logging_v2::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1156,7 +1156,7 @@ pub mod config_service_v_2 {
     /// # use google_cloud_logging_v2::builder;
     /// use builder::config_service_v_2::UpdateBucketAsync;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_logging_v2::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -2482,7 +2482,7 @@ pub mod config_service_v_2 {
     /// # use google_cloud_logging_v2::builder;
     /// use builder::config_service_v_2::CreateLink;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_logging_v2::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -2612,7 +2612,7 @@ pub mod config_service_v_2 {
     /// # use google_cloud_logging_v2::builder;
     /// use builder::config_service_v_2::DeleteLink;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_logging_v2::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -3638,7 +3638,7 @@ pub mod config_service_v_2 {
     /// # use google_cloud_logging_v2::builder;
     /// use builder::config_service_v_2::CopyLogEntries;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_logging_v2::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;

@@ -256,7 +256,7 @@ pub mod certificate_manager {
     /// # use google_cloud_certificatemanager_v1::builder;
     /// use builder::certificate_manager::CreateCertificate;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_certificatemanager_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -393,7 +393,7 @@ pub mod certificate_manager {
     /// # use google_cloud_certificatemanager_v1::builder;
     /// use builder::certificate_manager::UpdateCertificate;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_certificatemanager_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -536,7 +536,7 @@ pub mod certificate_manager {
     /// # use google_cloud_certificatemanager_v1::builder;
     /// use builder::certificate_manager::DeleteCertificate;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_certificatemanager_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -829,7 +829,7 @@ pub mod certificate_manager {
     /// # use google_cloud_certificatemanager_v1::builder;
     /// use builder::certificate_manager::CreateCertificateMap;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_certificatemanager_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -967,7 +967,7 @@ pub mod certificate_manager {
     /// # use google_cloud_certificatemanager_v1::builder;
     /// use builder::certificate_manager::UpdateCertificateMap;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_certificatemanager_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1111,7 +1111,7 @@ pub mod certificate_manager {
     /// # use google_cloud_certificatemanager_v1::builder;
     /// use builder::certificate_manager::DeleteCertificateMap;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_certificatemanager_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1408,7 +1408,7 @@ pub mod certificate_manager {
     /// # use google_cloud_certificatemanager_v1::builder;
     /// use builder::certificate_manager::CreateCertificateMapEntry;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_certificatemanager_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1548,7 +1548,7 @@ pub mod certificate_manager {
     /// # use google_cloud_certificatemanager_v1::builder;
     /// use builder::certificate_manager::UpdateCertificateMapEntry;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_certificatemanager_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1694,7 +1694,7 @@ pub mod certificate_manager {
     /// # use google_cloud_certificatemanager_v1::builder;
     /// use builder::certificate_manager::DeleteCertificateMapEntry;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_certificatemanager_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1989,7 +1989,7 @@ pub mod certificate_manager {
     /// # use google_cloud_certificatemanager_v1::builder;
     /// use builder::certificate_manager::CreateDnsAuthorization;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_certificatemanager_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -2127,7 +2127,7 @@ pub mod certificate_manager {
     /// # use google_cloud_certificatemanager_v1::builder;
     /// use builder::certificate_manager::UpdateDnsAuthorization;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_certificatemanager_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -2271,7 +2271,7 @@ pub mod certificate_manager {
     /// # use google_cloud_certificatemanager_v1::builder;
     /// use builder::certificate_manager::DeleteDnsAuthorization;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_certificatemanager_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -2570,7 +2570,7 @@ pub mod certificate_manager {
     /// # use google_cloud_certificatemanager_v1::builder;
     /// use builder::certificate_manager::CreateCertificateIssuanceConfig;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_certificatemanager_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -2716,7 +2716,7 @@ pub mod certificate_manager {
     /// # use google_cloud_certificatemanager_v1::builder;
     /// use builder::certificate_manager::DeleteCertificateIssuanceConfig;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_certificatemanager_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -3006,7 +3006,7 @@ pub mod certificate_manager {
     /// # use google_cloud_certificatemanager_v1::builder;
     /// use builder::certificate_manager::CreateTrustConfig;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_certificatemanager_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -3143,7 +3143,7 @@ pub mod certificate_manager {
     /// # use google_cloud_certificatemanager_v1::builder;
     /// use builder::certificate_manager::UpdateTrustConfig;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_certificatemanager_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -3286,7 +3286,7 @@ pub mod certificate_manager {
     /// # use google_cloud_certificatemanager_v1::builder;
     /// use builder::certificate_manager::DeleteTrustConfig;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_certificatemanager_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;

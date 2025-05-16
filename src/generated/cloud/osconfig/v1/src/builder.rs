@@ -1334,7 +1334,7 @@ pub mod os_config_zonal_service {
     /// # use google_cloud_osconfig_v1::builder;
     /// use builder::os_config_zonal_service::CreateOSPolicyAssignment;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_osconfig_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1476,7 +1476,7 @@ pub mod os_config_zonal_service {
     /// # use google_cloud_osconfig_v1::builder;
     /// use builder::os_config_zonal_service::UpdateOSPolicyAssignment;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_osconfig_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1910,7 +1910,7 @@ pub mod os_config_zonal_service {
     /// # use google_cloud_osconfig_v1::builder;
     /// use builder::os_config_zonal_service::DeleteOSPolicyAssignment;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_osconfig_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;

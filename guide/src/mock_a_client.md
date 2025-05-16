@@ -41,6 +41,8 @@ without the custom `path`.
 
 ```toml
 {{#include ../samples/Cargo.toml:speech}}
+
+{{#include ../samples/Cargo.toml:lro}}
 ```
 
 ## Mocking a client

@@ -246,7 +246,7 @@ pub mod service_manager {
     /// # use google_cloud_api_servicemanagement_v1::builder;
     /// use builder::service_manager::CreateService;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_api_servicemanagement_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -365,7 +365,7 @@ pub mod service_manager {
     /// # use google_cloud_api_servicemanagement_v1::builder;
     /// use builder::service_manager::DeleteService;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_api_servicemanagement_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -469,7 +469,7 @@ pub mod service_manager {
     /// # use google_cloud_api_servicemanagement_v1::builder;
     /// use builder::service_manager::UndeleteService;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_api_servicemanagement_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -853,7 +853,7 @@ pub mod service_manager {
     /// # use google_cloud_api_servicemanagement_v1::builder;
     /// use builder::service_manager::SubmitConfigSource;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_api_servicemanagement_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1179,7 +1179,7 @@ pub mod service_manager {
     /// # use google_cloud_api_servicemanagement_v1::builder;
     /// use builder::service_manager::CreateServiceRollout;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_api_servicemanagement_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;

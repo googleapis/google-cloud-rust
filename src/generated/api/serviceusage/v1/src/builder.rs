@@ -75,7 +75,7 @@ pub mod service_usage {
     /// # use google_cloud_api_serviceusage_v1::builder;
     /// use builder::service_usage::EnableService;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_api_serviceusage_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -178,7 +178,7 @@ pub mod service_usage {
     /// # use google_cloud_api_serviceusage_v1::builder;
     /// use builder::service_usage::DisableService;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_api_serviceusage_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -466,7 +466,7 @@ pub mod service_usage {
     /// # use google_cloud_api_serviceusage_v1::builder;
     /// use builder::service_usage::BatchEnableServices;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_api_serviceusage_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;

@@ -267,7 +267,7 @@ pub mod cross_network_automation_service {
     /// # use google_cloud_networkconnectivity_v1::builder;
     /// use builder::cross_network_automation_service::CreateServiceConnectionMap;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_networkconnectivity_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -411,7 +411,7 @@ pub mod cross_network_automation_service {
     /// # use google_cloud_networkconnectivity_v1::builder;
     /// use builder::cross_network_automation_service::UpdateServiceConnectionMap;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_networkconnectivity_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -559,7 +559,7 @@ pub mod cross_network_automation_service {
     /// # use google_cloud_networkconnectivity_v1::builder;
     /// use builder::cross_network_automation_service::DeleteServiceConnectionMap;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_networkconnectivity_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -884,7 +884,7 @@ pub mod cross_network_automation_service {
     /// # use google_cloud_networkconnectivity_v1::builder;
     /// use builder::cross_network_automation_service::CreateServiceConnectionPolicy;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_networkconnectivity_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1034,7 +1034,7 @@ pub mod cross_network_automation_service {
     /// # use google_cloud_networkconnectivity_v1::builder;
     /// use builder::cross_network_automation_service::UpdateServiceConnectionPolicy;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_networkconnectivity_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1185,7 +1185,7 @@ pub mod cross_network_automation_service {
     /// # use google_cloud_networkconnectivity_v1::builder;
     /// use builder::cross_network_automation_service::DeleteServiceConnectionPolicy;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_networkconnectivity_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1501,7 +1501,7 @@ pub mod cross_network_automation_service {
     /// # use google_cloud_networkconnectivity_v1::builder;
     /// use builder::cross_network_automation_service::UpdateServiceClass;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_networkconnectivity_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1646,7 +1646,7 @@ pub mod cross_network_automation_service {
     /// # use google_cloud_networkconnectivity_v1::builder;
     /// use builder::cross_network_automation_service::DeleteServiceClass;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_networkconnectivity_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1969,7 +1969,7 @@ pub mod cross_network_automation_service {
     /// # use google_cloud_networkconnectivity_v1::builder;
     /// use builder::cross_network_automation_service::CreateServiceConnectionToken;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_networkconnectivity_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -2116,7 +2116,7 @@ pub mod cross_network_automation_service {
     /// # use google_cloud_networkconnectivity_v1::builder;
     /// use builder::cross_network_automation_service::DeleteServiceConnectionToken;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_networkconnectivity_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -3220,7 +3220,7 @@ pub mod hub_service {
     /// # use google_cloud_networkconnectivity_v1::builder;
     /// use builder::hub_service::CreateHub;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_networkconnectivity_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -3358,7 +3358,7 @@ pub mod hub_service {
     /// # use google_cloud_networkconnectivity_v1::builder;
     /// use builder::hub_service::UpdateHub;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_networkconnectivity_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -3498,7 +3498,7 @@ pub mod hub_service {
     /// # use google_cloud_networkconnectivity_v1::builder;
     /// use builder::hub_service::DeleteHub;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_networkconnectivity_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -4042,7 +4042,7 @@ pub mod hub_service {
     /// # use google_cloud_networkconnectivity_v1::builder;
     /// use builder::hub_service::CreateSpoke;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_networkconnectivity_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -4180,7 +4180,7 @@ pub mod hub_service {
     /// # use google_cloud_networkconnectivity_v1::builder;
     /// use builder::hub_service::UpdateSpoke;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_networkconnectivity_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -4320,7 +4320,7 @@ pub mod hub_service {
     /// # use google_cloud_networkconnectivity_v1::builder;
     /// use builder::hub_service::RejectHubSpoke;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_networkconnectivity_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -4445,7 +4445,7 @@ pub mod hub_service {
     /// # use google_cloud_networkconnectivity_v1::builder;
     /// use builder::hub_service::AcceptHubSpoke;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_networkconnectivity_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -4564,7 +4564,7 @@ pub mod hub_service {
     /// # use google_cloud_networkconnectivity_v1::builder;
     /// use builder::hub_service::AcceptSpokeUpdate;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_networkconnectivity_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -4694,7 +4694,7 @@ pub mod hub_service {
     /// # use google_cloud_networkconnectivity_v1::builder;
     /// use builder::hub_service::RejectSpokeUpdate;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_networkconnectivity_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -4830,7 +4830,7 @@ pub mod hub_service {
     /// # use google_cloud_networkconnectivity_v1::builder;
     /// use builder::hub_service::DeleteSpoke;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_networkconnectivity_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -5474,7 +5474,7 @@ pub mod hub_service {
     /// # use google_cloud_networkconnectivity_v1::builder;
     /// use builder::hub_service::UpdateGroup;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_networkconnectivity_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -6593,7 +6593,7 @@ pub mod policy_based_routing_service {
     /// # use google_cloud_networkconnectivity_v1::builder;
     /// use builder::policy_based_routing_service::CreatePolicyBasedRoute;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_networkconnectivity_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -6737,7 +6737,7 @@ pub mod policy_based_routing_service {
     /// # use google_cloud_networkconnectivity_v1::builder;
     /// use builder::policy_based_routing_service::DeletePolicyBasedRoute;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_networkconnectivity_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;

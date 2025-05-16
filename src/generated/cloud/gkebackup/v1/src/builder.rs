@@ -75,7 +75,7 @@ pub mod backup_for_gke {
     /// # use google_cloud_gkebackup_v1::builder;
     /// use builder::backup_for_gke::CreateBackupPlan;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_gkebackup_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -388,7 +388,7 @@ pub mod backup_for_gke {
     /// # use google_cloud_gkebackup_v1::builder;
     /// use builder::backup_for_gke::UpdateBackupPlan;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_gkebackup_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -525,7 +525,7 @@ pub mod backup_for_gke {
     /// # use google_cloud_gkebackup_v1::builder;
     /// use builder::backup_for_gke::DeleteBackupPlan;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_gkebackup_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -638,7 +638,7 @@ pub mod backup_for_gke {
     /// # use google_cloud_gkebackup_v1::builder;
     /// use builder::backup_for_gke::CreateBackupChannel;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_gkebackup_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -960,7 +960,7 @@ pub mod backup_for_gke {
     /// # use google_cloud_gkebackup_v1::builder;
     /// use builder::backup_for_gke::UpdateBackupChannel;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_gkebackup_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1100,7 +1100,7 @@ pub mod backup_for_gke {
     /// # use google_cloud_gkebackup_v1::builder;
     /// use builder::backup_for_gke::DeleteBackupChannel;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_gkebackup_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1407,7 +1407,7 @@ pub mod backup_for_gke {
     /// # use google_cloud_gkebackup_v1::builder;
     /// use builder::backup_for_gke::CreateBackup;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_gkebackup_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1717,7 +1717,7 @@ pub mod backup_for_gke {
     /// # use google_cloud_gkebackup_v1::builder;
     /// use builder::backup_for_gke::UpdateBackup;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_gkebackup_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1851,7 +1851,7 @@ pub mod backup_for_gke {
     /// # use google_cloud_gkebackup_v1::builder;
     /// use builder::backup_for_gke::DeleteBackup;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_gkebackup_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -2148,7 +2148,7 @@ pub mod backup_for_gke {
     /// # use google_cloud_gkebackup_v1::builder;
     /// use builder::backup_for_gke::CreateRestorePlan;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_gkebackup_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -2466,7 +2466,7 @@ pub mod backup_for_gke {
     /// # use google_cloud_gkebackup_v1::builder;
     /// use builder::backup_for_gke::UpdateRestorePlan;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_gkebackup_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -2605,7 +2605,7 @@ pub mod backup_for_gke {
     /// # use google_cloud_gkebackup_v1::builder;
     /// use builder::backup_for_gke::DeleteRestorePlan;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_gkebackup_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -2724,7 +2724,7 @@ pub mod backup_for_gke {
     /// # use google_cloud_gkebackup_v1::builder;
     /// use builder::backup_for_gke::CreateRestoreChannel;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_gkebackup_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -3046,7 +3046,7 @@ pub mod backup_for_gke {
     /// # use google_cloud_gkebackup_v1::builder;
     /// use builder::backup_for_gke::UpdateRestoreChannel;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_gkebackup_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -3186,7 +3186,7 @@ pub mod backup_for_gke {
     /// # use google_cloud_gkebackup_v1::builder;
     /// use builder::backup_for_gke::DeleteRestoreChannel;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_gkebackup_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -3489,7 +3489,7 @@ pub mod backup_for_gke {
     /// # use google_cloud_gkebackup_v1::builder;
     /// use builder::backup_for_gke::CreateRestore;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_gkebackup_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -3799,7 +3799,7 @@ pub mod backup_for_gke {
     /// # use google_cloud_gkebackup_v1::builder;
     /// use builder::backup_for_gke::UpdateRestore;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_gkebackup_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -3933,7 +3933,7 @@ pub mod backup_for_gke {
     /// # use google_cloud_gkebackup_v1::builder;
     /// use builder::backup_for_gke::DeleteRestore;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_gkebackup_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;

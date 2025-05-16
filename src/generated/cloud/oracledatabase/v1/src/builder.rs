@@ -255,7 +255,7 @@ pub mod oracle_database {
     /// # use google_cloud_oracledatabase_v1::builder;
     /// use builder::oracle_database::CreateCloudExadataInfrastructure;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_oracledatabase_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -407,7 +407,7 @@ pub mod oracle_database {
     /// # use google_cloud_oracledatabase_v1::builder;
     /// use builder::oracle_database::DeleteCloudExadataInfrastructure;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_oracledatabase_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -708,7 +708,7 @@ pub mod oracle_database {
     /// # use google_cloud_oracledatabase_v1::builder;
     /// use builder::oracle_database::CreateCloudVmCluster;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_oracledatabase_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -852,7 +852,7 @@ pub mod oracle_database {
     /// # use google_cloud_oracledatabase_v1::builder;
     /// use builder::oracle_database::DeleteCloudVmCluster;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_oracledatabase_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1684,7 +1684,7 @@ pub mod oracle_database {
     /// # use google_cloud_oracledatabase_v1::builder;
     /// use builder::oracle_database::CreateAutonomousDatabase;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_oracledatabase_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1830,7 +1830,7 @@ pub mod oracle_database {
     /// # use google_cloud_oracledatabase_v1::builder;
     /// use builder::oracle_database::DeleteAutonomousDatabase;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_oracledatabase_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1945,7 +1945,7 @@ pub mod oracle_database {
     /// # use google_cloud_oracledatabase_v1::builder;
     /// use builder::oracle_database::RestoreAutonomousDatabase;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_oracledatabase_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -2515,7 +2515,7 @@ pub mod oracle_database {
     /// # use google_cloud_oracledatabase_v1::builder;
     /// use builder::oracle_database::StopAutonomousDatabase;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_oracledatabase_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -2623,7 +2623,7 @@ pub mod oracle_database {
     /// # use google_cloud_oracledatabase_v1::builder;
     /// use builder::oracle_database::StartAutonomousDatabase;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_oracledatabase_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -2733,7 +2733,7 @@ pub mod oracle_database {
     /// # use google_cloud_oracledatabase_v1::builder;
     /// use builder::oracle_database::RestartAutonomousDatabase;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_oracledatabase_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;

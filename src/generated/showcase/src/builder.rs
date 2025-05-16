@@ -2949,7 +2949,7 @@ pub mod echo {
     /// # use google_cloud_showcase_v1beta1::builder;
     /// use builder::echo::Wait;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_showcase_v1beta1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -5932,7 +5932,7 @@ pub mod messaging {
     /// # use google_cloud_showcase_v1beta1::builder;
     /// use builder::messaging::SearchBlurbs;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_showcase_v1beta1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;

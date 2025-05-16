@@ -253,7 +253,7 @@ pub mod app_gateways_service {
     /// # use google_cloud_beyondcorp_appgateways_v1::builder;
     /// use builder::app_gateways_service::CreateAppGateway;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_beyondcorp_appgateways_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -401,7 +401,7 @@ pub mod app_gateways_service {
     /// # use google_cloud_beyondcorp_appgateways_v1::builder;
     /// use builder::app_gateways_service::DeleteAppGateway;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_beyondcorp_appgateways_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
