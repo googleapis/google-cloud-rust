@@ -17,6 +17,7 @@ use gax::exponential_backoff::{ExponentialBackoff, ExponentialBackoffBuilder};
 use gax::options::RequestOptionsBuilder;
 use gax::paginator::ItemPaginator as _;
 use gax::retry_policy::RetryPolicyExt;
+use lro::Poller;
 use std::time::Duration;
 use storage_control::model::Bucket;
 use storage_control::model::bucket::iam_config::UniformBucketLevelAccess;
@@ -208,6 +209,7 @@ async fn buckets_iam(client: &storage_control::client::Storage, bucket_name: &st
 
 async fn folders(client: &storage_control::client::Storage, bucket_name: &str) -> Result<()> {
     let folder_name = format!("{bucket_name}/folders/test-folder/");
+    let folder_rename = format!("{bucket_name}/folders/renamed-test-folder/");
 
     println!("\nTesting create_folder()");
     let create = client
@@ -235,8 +237,18 @@ async fn folders(client: &storage_control::client::Storage, bucket_name: &str) -
         "missing folder name {folder_name} in {folder_names:?}"
     );
 
+    println!("\nTesting rename_folder()");
+    let rename = client.rename_folder()
+        .set_name(format!("{bucket_name}/folders/test-folder/"))
+        .set_destination_folder_id("renamed-test-folder/")
+        .poller()
+        .until_done()
+        .await?;
+    println!("SUCCESS on rename_folder: {rename:?}");
+    assert_eq!(rename.name, folder_rename);
+
     println!("\nTesting delete_folder()");
-    client.delete_folder(folder_name).send().await?;
+    client.delete_folder(folder_rename).send().await?;
     println!("SUCCESS on delete_folder");
 
     Ok(())
