@@ -42,7 +42,7 @@
 /// encoded in JSON format as "3s", while 3 seconds and 1 nanosecond should
 /// be expressed in JSON format as "3.000000001s", and 3 seconds and 1
 /// microsecond should be expressed in JSON format as "3.000001s".
-#[derive(Clone, Debug, Default, PartialEq, PartialOrd)]
+#[derive(Clone, Copy, Debug, Default, PartialEq, PartialOrd)]
 #[non_exhaustive]
 pub struct Duration {
     /// Signed seconds of the span of time.
@@ -119,10 +119,10 @@ impl Duration {
     /// ```
     /// # use google_cloud_wkt::{Duration, DurationError};
     /// let d = Duration::new(12, 340_000_000)?;
-    /// assert_eq!(String::from(&d), "12.34s");
+    /// assert_eq!(String::from(d), "12.34s");
     ///
     /// let d = Duration::new(-12, -340_000_000)?;
-    /// assert_eq!(String::from(&d), "-12.34s");
+    /// assert_eq!(String::from(d), "-12.34s");
     /// # Ok::<(), DurationError>(())
     /// ```
     ///
@@ -165,9 +165,9 @@ impl Duration {
     /// ```
     /// # use google_cloud_wkt::{Duration, DurationError};
     /// let d = Duration::clamp(12, 340_000_000);
-    /// assert_eq!(String::from(&d), "12.34s");
+    /// assert_eq!(String::from(d), "12.34s");
     /// let d = Duration::clamp(10, 2_000_000_000);
-    /// assert_eq!(String::from(&d), "12s");
+    /// assert_eq!(String::from(d), "12s");
     /// # Ok::<(), DurationError>(())
     /// ```
     ///
@@ -251,10 +251,10 @@ impl crate::message::Message for Duration {
 /// ```
 /// # use google_cloud_wkt::Duration;
 /// let d = Duration::clamp(12, 340_000_000);
-/// assert_eq!(String::from(&d), "12.34s");
+/// assert_eq!(String::from(d), "12.34s");
 /// ```
-impl From<&Duration> for String {
-    fn from(duration: &Duration) -> String {
+impl From<Duration> for String {
+    fn from(duration: Duration) -> String {
         let sign = if duration.seconds < 0 || duration.nanos < 0 {
             "-"
         } else {
@@ -455,7 +455,7 @@ impl serde::ser::Serialize for Duration {
     where
         S: serde::ser::Serializer,
     {
-        let formatted = String::from(self);
+        let formatted = String::from(*self);
         formatted.serialize(serializer)
     }
 }
@@ -502,7 +502,7 @@ mod test {
             seconds: 0,
             nanos: 0,
         };
-        let json = serde_json::to_value(&proto)?;
+        let json = serde_json::to_value(proto)?;
         let expected = json!(r#"0s"#);
         assert_eq!(json, expected);
         let roundtrip = serde_json::from_value::<Duration>(json)?;
@@ -598,7 +598,7 @@ mod test {
     #[test_case(10_000 * SECONDS_IN_YEAR, 999_999_999, "315576000000.999999999s"; "range edge end")]
     fn roundtrip(seconds: i64, nanos: i32, want: &str) -> Result {
         let input = Duration::new(seconds, nanos)?;
-        let got = serde_json::to_value(&input)?
+        let got = serde_json::to_value(input)?
             .as_str()
             .map(str::to_string)
             .ok_or("cannot convert value to string")?;
