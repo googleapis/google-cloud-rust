@@ -333,6 +333,9 @@ mod v1 {
         updated: wkt::Timestamp,
         custom_time: Option<wkt::Timestamp>,
         acl: Vec<ObjectAccessControl>,
+        owner: Option<Owner>,
+        customer_encryption: Option<CustomerEncryption>,
+        metadata: std::collections::HashMap<std::string::String, std::string::String>,
         // The following are excluded from the protos, so we don't really need to parse them.
         media_link: String,
         self_link: String,
@@ -342,17 +345,6 @@ mod v1 {
         //     "retention": {
         //       "retainUntilTime": "datetime",
         //       "mode": string
-        //     }
-        //     "metadata": {
-        //       (key): string
-        //     },
-        //     "owner": {
-        //       "entity": string,
-        //       "entityId": string
-        //     },
-        //     "customerEncryption": {
-        //       "encryptionAlgorithm": string,
-        //       "keySha256": string
         //     }
     }
 
@@ -402,6 +394,39 @@ mod v1 {
         }
     }
 
+    #[serde_with::serde_as]
+    #[derive(Debug, Default, serde::Deserialize, PartialEq, Clone)]
+    #[serde(default, rename_all = "camelCase")]
+    struct Owner {
+        entity: String,
+        entity_id: String,
+    }
+
+    impl std::convert::From<Owner> for control::model::Owner {
+        fn from(value: Owner) -> Self {
+            Self::new()
+                .set_entity(value.entity)
+                .set_entity_id(value.entity_id)
+        }
+    }
+
+    #[serde_with::serde_as]
+    #[derive(Debug, Default, serde::Deserialize, PartialEq, Clone)]
+    #[serde(default, rename_all = "camelCase")]
+    struct CustomerEncryption {
+        encryption_algorithm: String,
+        #[serde_as(as = "serde_with::base64::Base64")]
+        key_sha256: bytes::Bytes,
+    }
+
+    impl std::convert::From<CustomerEncryption> for control::model::CustomerEncryption {
+        fn from(value: CustomerEncryption) -> Self {
+            Self::new()
+                .set_encryption_algorithm(value.encryption_algorithm)
+                .set_key_sha256_bytes(value.key_sha256)
+        }
+    }
+
     impl std::convert::From<Object> for control::model::Object {
         fn from(value: Object) -> Self {
             Self::new()
@@ -432,6 +457,9 @@ mod v1 {
                 .set_or_clear_custom_time(value.custom_time)
                 .set_update_time(value.updated)
                 .set_acl(value.acl)
+                .set_or_clear_owner(value.owner)
+                .set_metadata(value.metadata)
+                .set_or_clear_customer_encryption(value.customer_encryption)
         }
     }
 
@@ -460,7 +488,9 @@ mod v1 {
                 // datetime fields:
                 "timeCreated": "2025-05-13T10:30:00Z",
                 // list fields:
-                "acl": [{"id": "acl-id","unknownField": 5, "projectTeam": {"projectNumber": "123456", "team": "myteam"}}]
+                "acl": [{"id": "acl-id","unknownField": 5, "projectTeam": {"projectNumber": "123456", "team": "myteam"}}],
+                // map fields:
+                "metadata": {"key1": "val1", "key2": "val2", "key3": "val3"},
             });
             let object: Object = serde_json::from_value(json)
                 .expect("json value in object test should be deserializable");
@@ -490,6 +520,11 @@ mod v1 {
                     }),
                     ..Default::default()
                 }],
+                metadata: std::collections::HashMap::from([
+                    ("key1".to_string(), "val1".to_string()),
+                    ("key2".to_string(), "val2".to_string()),
+                    ("key3".to_string(), "val3".to_string()),
+                ]),
                 ..Default::default()
             };
 
@@ -525,6 +560,12 @@ mod v1 {
                     ..Default::default()
                 },
             ],
+            // map fields:
+            metadata: std::collections::HashMap::from([
+                ("key1".to_string(), "val1".to_string()),
+                ("key2".to_string(), "val2".to_string()),
+                ("key3".to_string(), "val3".to_string()),
+            ]),
             // unused in control::model
             media_link: "my-media-link".to_string(),
             ..Default::default()
@@ -567,6 +608,19 @@ mod v1 {
                     ..Default::default()
                 },
             ],
+            owner: Some(Owner{
+                entity: "user-emailAddress".to_string(),
+                entity_id: "entity-id".to_string(),
+            }),
+            metadata: std::collections::HashMap::from([
+                ("key1".to_string(), "val1".to_string()),
+                ("key2".to_string(), "val2".to_string()),
+                ("key3".to_string(), "val3".to_string()),
+            ]),
+            customer_encryption: Some(CustomerEncryption{
+                encryption_algorithm: "my-encryption-alg".to_string(),
+                key_sha256: "hash-of-encryption-key".into(),
+            }),
             // unused in control::model
             media_link: "my-media-link".to_string(),
             self_link: "my-self-link".to_string(),
@@ -620,10 +674,27 @@ mod v1 {
             assert_eq!(got.custom_time, object.custom_time);
             assert_eq!(got.soft_delete_time, object.soft_delete_time);
             assert_eq!(got.hard_delete_time, object.hard_delete_time);
+            if let Some(object) = &object.owner {
+                {
+                    let got: &control::model::Owner = &got.owner.expect("owner should not be None");
+                    let from: &Owner = object;
+                    assert_eq!(got.entity, from.entity);
+                    assert_eq!(got.entity_id, from.entity_id);
+                };
+            } else {
+                assert_eq!(got.owner, None);
+            }
+            assert_eq!(got.metadata, object.metadata);
+            if let Some(object) = &object.customer_encryption {
+                let got = got
+                    .customer_encryption
+                    .expect("customer_encryption should not be None");
+                assert_eq!(got.encryption_algorithm, object.encryption_algorithm);
+                assert_eq!(got.key_sha256_bytes, object.key_sha256);
+            } else {
+                assert_eq!(got.customer_encryption, None);
+            }
             // TODO(#2039): assert_eq!(got.checksums, object.checksums);
-            // TODO(#2039): assert_eq!(got.metadata, object.metadata);
-            // TODO(#2039): assert_eq!(got.owner, object.owner);
-            // TODO(#2039): assert_eq!(got.customer_encryption, object.customer_encryption);
         }
 
         fn object_acl_with_all_fields() -> ObjectAccessControl {
@@ -674,15 +745,15 @@ mod v1 {
             assert_eq!(got.domain, from.domain);
             assert_eq!(got.entity_id, from.entity_id);
             assert_eq!(got.etag, from.etag);
-            if let Some(got) = &got.project_team {
-                if let Some(from) = &from.project_team {
-                    assert_eq!(got.project_number, from.project_number);
-                    assert_eq!(got.team, from.team);
-                } else {
-                    panic!("expected None, got {:?}", got); // false, lets get the error.
-                }
+            if let Some(from) = &from.project_team {
+                let got = got
+                    .project_team
+                    .clone()
+                    .expect("project_team should be None");
+                assert_eq!(got.project_number, from.project_number);
+                assert_eq!(got.team, from.team);
             } else {
-                assert_eq!(from.project_team, None);
+                assert_eq!(got.project_team, None);
             }
         }
     }
