@@ -224,9 +224,9 @@ impl Storage {
             .await
             .map_err(Error::authentication)?;
         let auth_headers = match cached_auth_headers {
-            CacheableResource::New { data, .. } => data,
-            CacheableResource::NotModified => reqwest::header::HeaderMap::new(),
-        };
+            CacheableResource::New { data, .. } => Ok(data),
+            CacheableResource::NotModified => Err(Error::authentication("missing auth headers".to_string())),
+        }?;
 
         let builder = auth_headers
             .iter()

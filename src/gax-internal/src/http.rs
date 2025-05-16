@@ -136,9 +136,9 @@ impl ReqwestClient {
             .map_err(Error::authentication)?;
 
         let auth_headers = match cached_auth_headers {
-            CacheableResource::New { data, .. } => data,
-            CacheableResource::NotModified => HeaderMap::new(),
-        };
+            CacheableResource::New { data, .. } => Ok(data),
+            CacheableResource::NotModified => Err(Error::authentication("missing auth headers".to_string())),
+        }?;
 
         for (key, value) in auth_headers.iter() {
             builder = builder.header(key, value);

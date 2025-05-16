@@ -148,9 +148,9 @@ impl Client {
             .map_err(Error::authentication)?;
 
         let auth_headers = match cached_auth_headers {
-            CacheableResource::New { data, .. } => data,
-            CacheableResource::NotModified => HeaderMap::new(),
-        };
+            CacheableResource::New { data, .. } => Ok(data),
+            CacheableResource::NotModified => Err(Error::authentication("missing auth headers".to_string())),
+        }?;
         headers.extend(auth_headers);
         let metadata = tonic::metadata::MetadataMap::from_headers(headers);
         let mut request = tonic::Request::from_parts(metadata, extensions, request);

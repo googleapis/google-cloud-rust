@@ -58,7 +58,7 @@ impl std::fmt::Debug for EntityTag {
 
 /// Represents a resource that can be cached, along with its [EntityTag].
 ///
-/// This enum is used to provide cacheable data to the clients.
+/// This enum is used to provide cacheable data to the consumers of the credential provider.
 /// It allows a data provider to return either new data (with an [EntityTag]) or
 /// indicate that the client's cached version (identified by a previously provided [EntityTag])
 /// is still valid.
