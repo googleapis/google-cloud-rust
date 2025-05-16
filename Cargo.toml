@@ -109,6 +109,7 @@ members = [
   "src/generated/cloud/contactcenterinsights/v1",
   "src/generated/cloud/datacatalog/lineage/v1",
   "src/generated/cloud/datacatalog/v1",
+  "src/generated/cloud/dataform/v1",
   "src/generated/cloud/datafusion/v1",
   "src/generated/cloud/dataplex/v1",
   "src/generated/cloud/dataproc/v1",
