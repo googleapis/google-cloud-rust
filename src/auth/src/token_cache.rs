@@ -193,13 +193,30 @@ mod test {
             .return_once(|| Ok(expected_clone));
 
         let cache = TokenCache::new(mock);
-        let actual = get_cached_token(cache.token(Extensions::new()).await.unwrap())?;
+
+        let mut extensions = Extensions::new();
+        let cached_token = cache.token(extensions.clone()).await.unwrap();
+        let (actual, entity_tag) = match cached_token {
+            CacheableResource::New { entity_tag, data } => (data, entity_tag),
+            CacheableResource::NotModified => unreachable!("expecting new headers"),
+        };
+
         assert_eq!(actual, expected);
 
         // Verify that we use the cached token instead of making a new request
         // to the mock token provider.
         let actual = get_cached_token(cache.token(Extensions::new()).await.unwrap())?;
         assert_eq!(actual, expected);
+
+        // Verify that we return no token if extension is provided.
+        extensions.insert(entity_tag);
+
+        let cached_token = cache.token(extensions).await?;
+
+        match cached_token {
+            CacheableResource::New { .. } => unreachable!("expecting new headers"),
+            CacheableResource::NotModified => CacheableResource::<Token>::NotModified,
+        };
         Ok(())
     }
 

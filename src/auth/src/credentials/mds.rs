@@ -338,11 +338,26 @@ mod test {
             universe_domain: None,
             token_provider: TokenCache::new(mock),
         };
-        let headers = get_headers_from_cache(mdsc.headers(Extensions::new()).await.unwrap())?;
+
+        let mut extensions = Extensions::new();
+        let cached_headers = mdsc.headers(extensions.clone()).await.unwrap();
+        let (headers, entity_tag) = match cached_headers {
+            CacheableResource::New { entity_tag, data } => (data, entity_tag),
+            CacheableResource::NotModified => unreachable!("expecting new headers"),
+        };
         let token = headers.get(AUTHORIZATION).unwrap();
         assert_eq!(headers.len(), 1, "{headers:?}");
         assert_eq!(token, HeaderValue::from_static("Bearer test-token"));
         assert!(token.is_sensitive());
+
+        extensions.insert(entity_tag);
+
+        let cached_headers = mdsc.headers(extensions).await?;
+
+        match cached_headers {
+            CacheableResource::New { .. } => unreachable!("expecting new headers"),
+            CacheableResource::NotModified => CacheableResource::<HeaderMap>::NotModified,
+        };
         Ok(())
     }
 

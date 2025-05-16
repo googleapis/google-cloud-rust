@@ -514,12 +514,26 @@ mod test {
             quota_project_id: None,
         };
 
-        let headers = get_headers_from_cache(sac.headers(Extensions::new()).await.unwrap())?;
+        let mut extensions = Extensions::new();
+        let cached_headers = sac.headers(extensions.clone()).await.unwrap();
+        let (headers, entity_tag) = match cached_headers {
+            CacheableResource::New { entity_tag, data } => (data, entity_tag),
+            CacheableResource::NotModified => unreachable!("expecting new headers"),
+        };
         let token = headers.get(AUTHORIZATION).unwrap();
 
         assert_eq!(headers.len(), 1, "{headers:?}");
         assert_eq!(token, HeaderValue::from_static("Bearer test-token"));
         assert!(token.is_sensitive());
+
+        extensions.insert(entity_tag);
+
+        let cached_headers = sac.headers(extensions).await?;
+
+        match cached_headers {
+            CacheableResource::New { .. } => unreachable!("expecting new headers"),
+            CacheableResource::NotModified => CacheableResource::<HeaderMap>::NotModified,
+        };
         Ok(())
     }
 

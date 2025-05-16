@@ -181,7 +181,7 @@ pub trait CredentialsProvider: std::fmt::Debug {
     /// # Parameters
     /// * `extensions` - An `http::Extensions` map that can be used to pass additional
     ///   context to the credential provider. For caching purposes, this can include
-    ///   an [EntityTag] from a previously returned [CacheableResource<HeaderMap>].    
+    ///   an [EntityTag] from a previously returned [`CacheableResource<HeaderMap>`].    
     ///   If a valid `EntityTag` is provided and the underlying authentication data
     ///   has not changed, this method returns `Ok(CacheableResource::NotModified)`.
     ///

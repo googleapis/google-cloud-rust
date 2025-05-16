@@ -229,4 +229,33 @@ mod test {
         assert!(!quota_project.is_sensitive());
         Ok(())
     }
+
+    #[tokio::test]
+    #[serial_test::serial]
+    async fn create_api_key_credentials_basic_with_extensions() -> TestResult {
+        let _e = ScopedEnv::remove("GOOGLE_CLOUD_QUOTA_PROJECT");
+
+        let creds = Builder::new("test-api-key").build();
+        let mut extensions = Extensions::new();
+        let cached_headers = creds.headers(extensions.clone()).await?;
+        let (headers, entity_tag) = match cached_headers {
+            CacheableResource::New { entity_tag, data } => (data, entity_tag),
+            CacheableResource::NotModified => unreachable!("expecting new headers"),
+        };
+        let value = headers.get(API_KEY_HEADER_KEY).unwrap();
+
+        assert_eq!(headers.len(), 1, "{headers:?}");
+        assert_eq!(value, HeaderValue::from_static("test-api-key"));
+        assert!(value.is_sensitive());
+        extensions.insert(entity_tag);
+
+        let cached_headers = creds.headers(extensions).await?;
+
+        match cached_headers {
+            CacheableResource::New { .. } => unreachable!("expecting new headers"),
+            CacheableResource::NotModified => CacheableResource::<HeaderMap>::NotModified,
+        };
+
+        Ok(())
+    }
 }
