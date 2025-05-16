@@ -11254,7 +11254,7 @@ pub mod network_performance_config {
         /// Default network performance config.
         Default,
         /// Tier 1 network performance config.
-        _1,
+        Tier1,
         /// If set, the enum was initialized with an unknown value.
         ///
         /// Applications can examine the value using [Tier::value] or
@@ -11279,7 +11279,7 @@ pub mod network_performance_config {
             match self {
                 Self::Unspecified => std::option::Option::Some(0),
                 Self::Default => std::option::Option::Some(1),
-                Self::_1 => std::option::Option::Some(2),
+                Self::Tier1 => std::option::Option::Some(2),
                 Self::UnknownValue(u) => u.0.value(),
             }
         }
@@ -11292,7 +11292,7 @@ pub mod network_performance_config {
             match self {
                 Self::Unspecified => std::option::Option::Some("TIER_UNSPECIFIED"),
                 Self::Default => std::option::Option::Some("DEFAULT"),
-                Self::_1 => std::option::Option::Some("TIER_1"),
+                Self::Tier1 => std::option::Option::Some("TIER_1"),
                 Self::UnknownValue(u) => u.0.name(),
             }
         }
@@ -11316,7 +11316,7 @@ pub mod network_performance_config {
             match value {
                 0 => Self::Unspecified,
                 1 => Self::Default,
-                2 => Self::_1,
+                2 => Self::Tier1,
                 _ => Self::UnknownValue(tier::UnknownValue(
                     wkt::internal::UnknownEnumValue::Integer(value),
                 )),
@@ -11330,7 +11330,7 @@ pub mod network_performance_config {
             match value {
                 "TIER_UNSPECIFIED" => Self::Unspecified,
                 "DEFAULT" => Self::Default,
-                "TIER_1" => Self::_1,
+                "TIER_1" => Self::Tier1,
                 _ => Self::UnknownValue(tier::UnknownValue(
                     wkt::internal::UnknownEnumValue::String(value.to_string()),
                 )),
@@ -11346,7 +11346,7 @@ pub mod network_performance_config {
             match self {
                 Self::Unspecified => serializer.serialize_i32(0),
                 Self::Default => serializer.serialize_i32(1),
-                Self::_1 => serializer.serialize_i32(2),
+                Self::Tier1 => serializer.serialize_i32(2),
                 Self::UnknownValue(u) => u.0.serialize(serializer),
             }
         }

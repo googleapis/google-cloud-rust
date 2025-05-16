@@ -2154,7 +2154,7 @@ pub mod node_network_config {
             /// Default value
             Unspecified,
             /// Higher bandwidth, actual values based on VM size.
-            _1,
+            Tier1,
             /// If set, the enum was initialized with an unknown value.
             ///
             /// Applications can examine the value using [Tier::value] or
@@ -2178,7 +2178,7 @@ pub mod node_network_config {
             pub fn value(&self) -> std::option::Option<i32> {
                 match self {
                     Self::Unspecified => std::option::Option::Some(0),
-                    Self::_1 => std::option::Option::Some(1),
+                    Self::Tier1 => std::option::Option::Some(1),
                     Self::UnknownValue(u) => u.0.value(),
                 }
             }
@@ -2190,7 +2190,7 @@ pub mod node_network_config {
             pub fn name(&self) -> std::option::Option<&str> {
                 match self {
                     Self::Unspecified => std::option::Option::Some("TIER_UNSPECIFIED"),
-                    Self::_1 => std::option::Option::Some("TIER_1"),
+                    Self::Tier1 => std::option::Option::Some("TIER_1"),
                     Self::UnknownValue(u) => u.0.name(),
                 }
             }
@@ -2216,7 +2216,7 @@ pub mod node_network_config {
             fn from(value: i32) -> Self {
                 match value {
                     0 => Self::Unspecified,
-                    1 => Self::_1,
+                    1 => Self::Tier1,
                     _ => Self::UnknownValue(tier::UnknownValue(
                         wkt::internal::UnknownEnumValue::Integer(value),
                     )),
@@ -2229,7 +2229,7 @@ pub mod node_network_config {
                 use std::string::ToString;
                 match value {
                     "TIER_UNSPECIFIED" => Self::Unspecified,
-                    "TIER_1" => Self::_1,
+                    "TIER_1" => Self::Tier1,
                     _ => Self::UnknownValue(tier::UnknownValue(
                         wkt::internal::UnknownEnumValue::String(value.to_string()),
                     )),
@@ -2244,7 +2244,7 @@ pub mod node_network_config {
             {
                 match self {
                     Self::Unspecified => serializer.serialize_i32(0),
-                    Self::_1 => serializer.serialize_i32(1),
+                    Self::Tier1 => serializer.serialize_i32(1),
                     Self::UnknownValue(u) => u.0.serialize(serializer),
                 }
             }
@@ -19645,7 +19645,7 @@ pub mod network_config {
             /// Default value
             Unspecified,
             /// Higher bandwidth, actual values based on VM size.
-            _1,
+            Tier1,
             /// If set, the enum was initialized with an unknown value.
             ///
             /// Applications can examine the value using [Tier::value] or
@@ -19669,7 +19669,7 @@ pub mod network_config {
             pub fn value(&self) -> std::option::Option<i32> {
                 match self {
                     Self::Unspecified => std::option::Option::Some(0),
-                    Self::_1 => std::option::Option::Some(1),
+                    Self::Tier1 => std::option::Option::Some(1),
                     Self::UnknownValue(u) => u.0.value(),
                 }
             }
@@ -19681,7 +19681,7 @@ pub mod network_config {
             pub fn name(&self) -> std::option::Option<&str> {
                 match self {
                     Self::Unspecified => std::option::Option::Some("TIER_UNSPECIFIED"),
-                    Self::_1 => std::option::Option::Some("TIER_1"),
+                    Self::Tier1 => std::option::Option::Some("TIER_1"),
                     Self::UnknownValue(u) => u.0.name(),
                 }
             }
@@ -19707,7 +19707,7 @@ pub mod network_config {
             fn from(value: i32) -> Self {
                 match value {
                     0 => Self::Unspecified,
-                    1 => Self::_1,
+                    1 => Self::Tier1,
                     _ => Self::UnknownValue(tier::UnknownValue(
                         wkt::internal::UnknownEnumValue::Integer(value),
                     )),
@@ -19720,7 +19720,7 @@ pub mod network_config {
                 use std::string::ToString;
                 match value {
                     "TIER_UNSPECIFIED" => Self::Unspecified,
-                    "TIER_1" => Self::_1,
+                    "TIER_1" => Self::Tier1,
                     _ => Self::UnknownValue(tier::UnknownValue(
                         wkt::internal::UnknownEnumValue::String(value.to_string()),
                     )),
@@ -19735,7 +19735,7 @@ pub mod network_config {
             {
                 match self {
                     Self::Unspecified => serializer.serialize_i32(0),
-                    Self::_1 => serializer.serialize_i32(1),
+                    Self::Tier1 => serializer.serialize_i32(1),
                     Self::UnknownValue(u) => u.0.serialize(serializer),
                 }
             }
