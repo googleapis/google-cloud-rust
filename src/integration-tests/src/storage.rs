@@ -239,7 +239,7 @@ async fn folders(client: &storage_control::client::Storage, bucket_name: &str) -
 
     println!("\nTesting rename_folder()");
     let rename = client.rename_folder()
-        .set_name(format!("{bucket_name}/folders/test-folder/"))
+        .set_name(folder_name)
         .set_destination_folder_id("renamed-test-folder/")
         .poller()
         .until_done()
