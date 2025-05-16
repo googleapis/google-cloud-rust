@@ -358,7 +358,7 @@ impl TryFrom<&Timestamp> for String {
     }
 }
 
-/// Converts the [String] representation of a timestamp to [Timestamp].
+/// Converts the string representation of a timestamp to [Timestamp].
 ///
 /// # Example
 /// ```
@@ -380,6 +380,24 @@ impl TryFrom<&str> for Timestamp {
             return Timestamp::new(seconds - 1, Self::NS + nanos);
         }
         Timestamp::new(seconds, nanos)
+    }
+}
+
+/// Converts the string representation of a timestamp to [Timestamp].
+///
+/// # Example
+/// ```
+/// # use google_cloud_wkt::{Timestamp, TimestampError};
+/// let s = "2025-05-16T09:46:12.500Z".to_string();
+/// let ts = Timestamp::try_from(&s)?;
+/// assert_eq!(ts.seconds(), 1747388772);
+/// assert_eq!(ts.nanos(), 500_000_000);
+/// # Ok::<(), anyhow::Error>(())
+/// ```
+impl TryFrom<&String> for Timestamp {
+    type Error = TimestampError;
+    fn try_from(value: &String) -> Result<Self, Self::Error> {
+        Timestamp::try_from(value.as_str())
     }
 }
 
