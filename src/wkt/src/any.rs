@@ -77,22 +77,29 @@ pub struct Any(serde_json::Map<String, serde_json::Value>);
 /// let duration = Duration::clamp(60, 0);
 /// let any = Any::try_from(&duration)?;
 /// let extracted = any.try_into_message::<Timestamp>();
-/// assert!(matches!(extracted, Err(AnyError::TypeMismatch(_))));
+/// assert!(matches!(extracted, Err(AnyError::TypeMismatch{..})));
 /// # Ok::<(), AnyError>(())
 /// ```
 #[derive(thiserror::Error, Debug)]
 pub enum AnyError {
     /// Problem serializing an object into an [Any].
-    #[error("cannot serialize object into an Any, source={0:?}")]
+    #[error("cannot serialize object into an Any, source={0}")]
     Serialization(#[source] BoxedError),
 
     /// Problem deserializing an object from an [Any].
-    #[error("cannot deserialize from an Any, source={0:?}")]
+    #[error("cannot deserialize from an Any, source={0}")]
     Deserialization(#[source] BoxedError),
 
     /// Mismatched type, the [Any] does not contain the desired type.
-    #[error("expected type mismatch in Any deserialization type={0}")]
-    TypeMismatch(String),
+    #[error(
+        "mismatched typenames extracting from Any, the any has {has}, the target type is {want}"
+    )]
+    TypeMismatch {
+        /// The type URL contained in the `Any`.
+        has: String,
+        /// The type URL of the desired type to extract from the `Any`.
+        want: String,
+    },
 }
 
 impl AnyError {
@@ -104,8 +111,11 @@ impl AnyError {
         Self::Deserialization(v.into())
     }
 
-    pub(crate) fn mismatch<T: Into<String>>(v: T) -> Self {
-        Self::TypeMismatch(v.into())
+    pub(crate) fn mismatch(has: &str, want: &str) -> Self {
+        Self::TypeMismatch {
+            has: has.into(),
+            want: want.into(),
+        }
     }
 }
 
@@ -154,13 +164,11 @@ impl Any {
         serializer.deserialize_from_map(map)
     }
 
-    fn check_typename(got: &str, want: &str) -> Result<(), Error> {
-        if got == want {
+    fn check_typename(has: &str, want: &str) -> Result<(), Error> {
+        if has == want {
             return Ok(());
         }
-        Err(Error::mismatch(format!(
-            "mismatched typenames extracting from Any, the any has {got}, the target type is {want}"
-        )))
+        Err(Error::mismatch(has, want))
     }
 }
 

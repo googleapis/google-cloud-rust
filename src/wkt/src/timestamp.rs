@@ -58,19 +58,35 @@ pub struct Timestamp {
 }
 
 /// Represent failures in converting or creating [Timestamp] instances.
+///
+/// Examples
+/// ```
+/// # use google_cloud_wkt::{Timestamp, TimestampError};
+/// let ts = Timestamp::new(Timestamp::MAX_SECONDS + 2, 0);
+/// assert!(matches!(ts, Err(TimestampError::OutOfRange)));
+///
+/// let ts = Timestamp::new(0, 1_500_000_000);
+/// assert!(matches!(ts, Err(TimestampError::OutOfRange)));
+///
+/// let ts = Timestamp::try_from("invalid");
+/// assert!(matches!(ts, Err(TimestampError::Deserialize(_))));
+/// ```
 #[derive(thiserror::Error, Debug)]
 pub enum TimestampError {
     /// One of the components (seconds and/or nanoseconds) was out of range.
     #[error("seconds and/or nanoseconds out of range")]
-    OutOfRange(),
+    OutOfRange,
 
-    #[error("cannot serialize timestamp: {0}")]
-    Serialize(String),
+    /// There was a problem serializing a timestamp.
+    #[error("cannot serialize timestamp, source={0}")]
+    Serialize(#[source] BoxedError),
 
-    #[error("cannot deserialize timestamp: {0}")]
-    Deserialize(String),
+    /// There was a problem deserializing a timestamp.
+    #[error("cannot deserialize timestamp, source={0}")]
+    Deserialize(#[source] BoxedError),
 }
 
+type BoxedError = Box<dyn std::error::Error + Send + Sync>;
 type Error = TimestampError;
 
 impl Timestamp {
@@ -100,10 +116,10 @@ impl Timestamp {
     /// * `nanos` - the nanoseconds on the timestamp.
     pub fn new(seconds: i64, nanos: i32) -> Result<Self, Error> {
         if !(Self::MIN_SECONDS..=Self::MAX_SECONDS).contains(&seconds) {
-            return Err(Error::OutOfRange());
+            return Err(Error::OutOfRange);
         }
         if !(Self::MIN_NANOS..=Self::MAX_NANOS).contains(&nanos) {
-            return Err(Error::OutOfRange());
+            return Err(Error::OutOfRange);
         }
         Ok(Self { seconds, nanos })
     }
@@ -255,9 +271,9 @@ impl TryFrom<&Timestamp> for String {
         let ts = time::OffsetDateTime::from_unix_timestamp_nanos(
             timestamp.seconds as i128 * NS + timestamp.nanos as i128,
         )
-        .map_err(|e| TimestampError::Serialize(format!("{e}")))?;
+        .map_err(|e| TimestampError::Serialize(e.into()))?;
         ts.format(&Rfc3339)
-            .map_err(|e| TimestampError::Serialize(format!("{e}")))
+            .map_err(|e| TimestampError::Serialize(e.into()))
     }
 }
 
@@ -266,7 +282,7 @@ impl TryFrom<&str> for Timestamp {
     type Error = TimestampError;
     fn try_from(value: &str) -> Result<Self, Self::Error> {
         let odt = time::OffsetDateTime::parse(value, &Rfc3339)
-            .map_err(|e| TimestampError::Deserialize(format!("{e}")))?;
+            .map_err(|e| TimestampError::Deserialize(e.into()))?;
         let nanos_since_epoch = odt.unix_timestamp_nanos();
         let seconds = (nanos_since_epoch / NS) as i64;
         let nanos = (nanos_since_epoch % NS) as i32;
@@ -339,7 +355,7 @@ mod test {
     #[test_case(0, 1_000_000_000; "nanos above range")]
     fn new_out_of_range(seconds: i64, nanos: i32) -> Result {
         let t = Timestamp::new(seconds, nanos);
-        assert!(matches!(t, Err(Error::OutOfRange())), "{t:?}");
+        assert!(matches!(t, Err(Error::OutOfRange)), "{t:?}");
         Ok(())
     }
 
