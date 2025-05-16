@@ -54,7 +54,7 @@
 /// For example, "2017-01-15T01:30:15.01Z" encodes 15.01 seconds past
 /// 01:30 UTC on January 15, 2017.
 ///
-#[derive(Clone, Debug, Default, PartialEq, PartialOrd)]
+#[derive(Clone, Copy, Debug, Default, PartialEq, PartialOrd)]
 #[non_exhaustive]
 pub struct Timestamp {
     /// Represents seconds of UTC time since Unix epoch
@@ -126,7 +126,7 @@ impl Timestamp {
     /// ```
     /// # use google_cloud_wkt::{Timestamp, TimestampError};
     /// let ts = Timestamp::new(1747388772, 0)?;
-    /// assert_eq!(String::try_from(&ts)?, "2025-05-16T09:46:12Z");
+    /// assert_eq!(String::try_from(ts)?, "2025-05-16T09:46:12Z");
     ///
     /// let ts = Timestamp::new(1747388772, 2_000_000_000);
     /// assert!(matches!(ts, Err(TimestampError::OutOfRange)));
@@ -153,11 +153,11 @@ impl Timestamp {
     /// ```
     /// # use google_cloud_wkt::{Timestamp, TimestampError};
     /// let ts = Timestamp::clamp(1747388772, 0);
-    /// assert_eq!(String::try_from(&ts)?, "2025-05-16T09:46:12Z");
+    /// assert_eq!(String::try_from(ts)?, "2025-05-16T09:46:12Z");
     ///
     /// let ts = Timestamp::clamp(1747388772, 2_000_000_000);
     /// // extra nanoseconds are carried as seconds
-    /// assert_eq!(String::try_from(&ts)?, "2025-05-16T09:46:14Z");
+    /// assert_eq!(String::try_from(ts)?, "2025-05-16T09:46:14Z");
     /// # Ok::<(), TimestampError>(())
     /// ```
     ///
@@ -253,7 +253,7 @@ impl serde::ser::Serialize for Timestamp {
         S: serde::ser::Serializer,
     {
         use serde::ser::Error as _;
-        String::try_from(self)
+        String::try_from(*self)
             .map_err(S::Error::custom)?
             .serialize(serializer)
     }
@@ -296,7 +296,7 @@ impl<'de> serde::de::Deserialize<'de> for Timestamp {
 /// use time::{macros::datetime, OffsetDateTime};
 /// let dt = datetime!(2025-05-16 09:46:12 UTC);
 /// let ts = Timestamp::try_from(dt)?;
-/// assert_eq!(String::try_from(&ts)?, "2025-05-16T09:46:12Z");
+/// assert_eq!(String::try_from(ts)?, "2025-05-16T09:46:12Z");
 /// # Ok::<(), anyhow::Error>(())
 /// ```
 #[cfg(feature = "time")]
@@ -343,12 +343,12 @@ impl TryFrom<Timestamp> for time::OffsetDateTime {
 /// ```
 /// # use google_cloud_wkt::{Timestamp, TimestampError};
 /// let ts = Timestamp::new(1747388772, 0)?;
-/// assert_eq!(String::try_from(&ts)?, "2025-05-16T09:46:12Z");
+/// assert_eq!(String::try_from(ts)?, "2025-05-16T09:46:12Z");
 /// # Ok::<(), anyhow::Error>(())
 /// ```
-impl TryFrom<&Timestamp> for String {
+impl TryFrom<Timestamp> for String {
     type Error = TimestampError;
-    fn try_from(timestamp: &Timestamp) -> Result<Self, Self::Error> {
+    fn try_from(timestamp: Timestamp) -> Result<Self, Self::Error> {
         let ts = time::OffsetDateTime::from_unix_timestamp_nanos(
             timestamp.seconds as i128 * NS + timestamp.nanos as i128,
         )
@@ -393,7 +393,7 @@ impl TryFrom<&str> for Timestamp {
 /// use chrono::{DateTime, TimeZone, Utc};
 /// let date : DateTime<Utc> = Utc.with_ymd_and_hms(2025, 5, 16, 10, 15, 00).unwrap();
 /// let ts = Timestamp::try_from(date)?;
-/// assert_eq!(String::try_from(&ts)?, "2025-05-16T10:15:00Z");
+/// assert_eq!(String::try_from(ts)?, "2025-05-16T10:15:00Z");
 /// # Ok::<(), anyhow::Error>(())
 /// ```
 #[cfg(feature = "chrono")]
@@ -438,7 +438,7 @@ mod test {
     #[test]
     fn unix_epoch() -> Result {
         let proto = Timestamp::default();
-        let json = serde_json::to_value(&proto)?;
+        let json = serde_json::to_value(proto)?;
         let expected = json!("1970-01-01T00:00:00Z");
         assert_eq!(json, expected);
         let roundtrip = serde_json::from_value::<Timestamp>(json)?;
