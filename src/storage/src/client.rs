@@ -16,6 +16,7 @@ pub use crate::Error;
 pub use crate::Result;
 use auth::credentials::CacheableResource;
 pub use control::model::Object;
+use gax::error::CredentialsError;
 use http::Extensions;
 
 /// Implements a client for the Cloud Storage API.
@@ -225,9 +226,9 @@ impl Storage {
             .map_err(Error::authentication)?;
         let auth_headers = match cached_auth_headers {
             CacheableResource::New { data, .. } => Ok(data),
-            CacheableResource::NotModified => {
-                Err(Error::authentication("missing auth headers".to_string()))
-            }
+            CacheableResource::NotModified => Err(Error::authentication(
+                CredentialsError::from_str(false, "missing auth headers"),
+            )),
         }?;
 
         let builder = auth_headers

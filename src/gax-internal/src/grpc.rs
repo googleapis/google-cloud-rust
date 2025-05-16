@@ -17,7 +17,7 @@
 use auth::credentials::Credentials;
 use gax::Result;
 use gax::backoff_policy::BackoffPolicy;
-use gax::error::Error;
+use gax::error::{CredentialsError, Error};
 mod from_status;
 use auth::credentials::CacheableResource;
 use from_status::to_gax_error;
@@ -149,9 +149,9 @@ impl Client {
 
         let auth_headers = match cached_auth_headers {
             CacheableResource::New { data, .. } => Ok(data),
-            CacheableResource::NotModified => {
-                Err(Error::authentication("missing auth headers".to_string()))
-            }
+            CacheableResource::NotModified => Err(Error::authentication(
+                CredentialsError::from_str(false, "missing auth headers"),
+            )),
         }?;
         headers.extend(auth_headers);
         let metadata = tonic::metadata::MetadataMap::from_headers(headers);

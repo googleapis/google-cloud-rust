@@ -114,16 +114,20 @@ mod test {
     }
 
     #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
-    async fn auth_error_non_retryable() -> Result<()> {
+    #[test_case::test_case(Err(CredentialsError::from_str(
+        false,
+        "mock non-retryable error",
+    )); "on_error_response")]
+    #[test_case::test_case(Ok(CacheableResource::NotModified); "on_not_modified_response")]
+    async fn auth_error_non_retryable(
+        headers_reponse: AuthResult<CacheableResource<HeaderMap>>,
+    ) -> Result<()> {
         let (endpoint, _server) = start_echo_server().await?;
 
         let mut mock = MockCredentials::new();
-        mock.expect_headers().times(1).returning(|_extensions| {
-            Err(CredentialsError::from_str(
-                false,
-                "mock non-retryable error",
-            ))
-        });
+        mock.expect_headers()
+            .times(1)
+            .returning(move |_extensions| headers_reponse.clone());
 
         let client = builder(endpoint)
             .with_credentials(Credentials::from(mock))
