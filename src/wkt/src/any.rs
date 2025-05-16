@@ -16,7 +16,7 @@ use crate::message::MessageSerializer;
 
 /// `Any` contains an arbitrary serialized protocol buffer message along with a
 /// URL that describes the type of the serialized message.
-/// 
+///
 /// # Example
 /// ```
 /// # use google_cloud_wkt::{Any, AnyError, Duration, Timestamp};
@@ -145,14 +145,14 @@ impl Any {
     /// assert_eq!(any.type_url(), Some(Duration::typename()));
     /// # Ok::<(), AnyError>(())
     /// ```
-    /// 
+    ///
     /// An `Any` may contain any message type. The name of the message is a URL,
     /// usually with the `https://` scheme elided. All types in Google Cloud
     /// APIs are of the form `type.googleapis.com/${fully-qualified-name}`.
     ///
     /// Note that this is not an available URL where you can download data (such
     /// as the message schema) from.
-    /// 
+    ///
     pub fn type_url(&self) -> Option<&str> {
         self.0.get("@type").and_then(serde_json::Value::as_str)
     }
