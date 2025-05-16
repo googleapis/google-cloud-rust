@@ -191,7 +191,7 @@ impl Builder {
         MDSAccessTokenProvider::builder()
             .endpoint(final_endpoint)
             .maybe_scopes(self.scopes)
-            .endpoint_overriden(endpoint_was_overridden) // Set the mandatory field
+            .endpoint_overridden(endpoint_was_overridden) // Set the mandatory field
             .build()
     }
 
@@ -247,7 +247,7 @@ struct MDSAccessTokenProvider {
     scopes: Option<Vec<String>>,
     #[builder(into)]
     endpoint: String,
-    endpoint_overriden: bool,
+    endpoint_overridden: bool,
 }
 
 #[async_trait]
@@ -272,12 +272,6 @@ impl TokenProvider for MDSAccessTokenProvider {
                 // Process the response
                 if !response.status().is_success() {
                     let status = response.status();
-                    println!("Status Code: {status}");
-
-                    if status == 404 && !self.endpoint_overriden {
-                        return Err(CredentialsError::from_str(false, MDS_NOT_FOUND_ERROR));
-                    }
-
                     let body = response
                         .text()
                         .await
@@ -304,8 +298,11 @@ impl TokenProvider for MDSAccessTokenProvider {
             Err(e) => {
                 return Err(CredentialsError::from_str(
                     false,
-                    match self.endpoint_overriden {
-                        false => format!("Failed to fetch token. {}. Error: {}", MDS_NOT_FOUND_ERROR, e),
+                    match self.endpoint_overridden {
+                        false => format!(
+                            "Failed to fetch token. {}. Error: {}",
+                            MDS_NOT_FOUND_ERROR, e
+                        ),
                         true => format!("Failed to fetch token. Error: {}", e),
                     },
                 ));
@@ -411,9 +408,8 @@ mod test {
         assert!(mdsc.headers(Extensions::new()).await.is_err());
     }
 
-    #[tokio::test(start_paused = true)]
-    #[parallel]
-    async fn no_mds() -> TestResult {
+    #[tokio::test]
+    async fn no_default_mds() -> TestResult {
         let e = Builder::default()
             .build_token_provider()
             .token()
@@ -424,6 +420,27 @@ mod test {
         assert!(!e.is_retryable());
         assert!(
             e.source()
+                .unwrap()
+                .to_string()
+                .contains("application-default")
+        );
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn no_overriden_mds() -> TestResult {
+        let e = Builder::default()
+            .with_endpoint("http://metadata.doesnotexist")
+            .build_token_provider()
+            .token()
+            .await
+            .err()
+            .unwrap();
+
+        assert!(!e.is_retryable());
+        assert!(
+            !e.source()
                 .unwrap()
                 .to_string()
                 .contains("application-default")
