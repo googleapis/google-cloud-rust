@@ -1111,7 +1111,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-auth"
-version = "0.20.0"
+version = "0.20.1"
 dependencies = [
  "async-trait",
  "axum",
@@ -2322,7 +2322,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-gax"
-version = "0.22.0"
+version = "0.23.0"
 dependencies = [
  "anyhow",
  "base64",
@@ -2344,7 +2344,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-gax-internal"
-version = "0.3.0"
+version = "0.3.1"
 dependencies = [
  "anyhow",
  "axum",
@@ -2853,7 +2853,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-lro"
-version = "0.2.0"
+version = "0.3.0"
 dependencies = [
  "axum",
  "futures",

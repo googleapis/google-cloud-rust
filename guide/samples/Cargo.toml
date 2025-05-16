@@ -75,7 +75,7 @@ version = "0.3"
 # ANCHOR: lro-with-streams
 # ANCHOR: lro
 [dependencies.google-cloud-lro]
-version = "0.2"
+version = "0.3"
 # ANCHOR_END: lro
 features = ["unstable-stream"]
 # ANCHOR_END: lro-with-streams
@@ -84,7 +84,7 @@ path = "../../src/lro"
 # ANCHOR: gax-with-streams
 # ANCHOR: gax
 [dependencies.google-cloud-gax]
-version = "0.22"
+version = "0.23"
 # ANCHOR_END: gax
 features = ["unstable-stream"]
 # ANCHOR_END: gax-with-streams
