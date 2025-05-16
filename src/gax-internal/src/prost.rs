@@ -255,13 +255,15 @@ mod test {
             "{fmt}"
         );
 
-        let source = wkt::AnyError::TypeMismatch("blah blah blah".to_string());
+        let source = wkt::AnyError::TypeMismatch {
+            has: "has.type".into(),
+            want: "want.type".into(),
+        };
         let e = ConvertError::other(source);
         let fmt = format!("{e}");
-        assert!(
-            fmt.contains("gax/prost conversion error") && fmt.contains("blah blah blah"),
-            "{fmt}"
-        );
+        ["gax/prost conversion error", "has.type", "want.type"]
+            .into_iter()
+            .for_each(|want| assert!(fmt.contains(want), "missing {want} in {fmt}"));
     }
 
     fn err() -> ConvertError {
