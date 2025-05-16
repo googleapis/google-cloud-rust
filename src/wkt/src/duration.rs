@@ -379,6 +379,7 @@ impl TryFrom<Duration> for std::time::Duration {
 /// # Ok::<(), DurationError>(())
 /// ```
 #[cfg(feature = "time")]
+#[cfg_attr(docsrs, doc(cfg(feature = "time")))]
 impl TryFrom<time::Duration> for Duration {
     type Error = DurationError;
 
@@ -401,6 +402,7 @@ impl TryFrom<time::Duration> for Duration {
 /// # Ok::<(), DurationError>(())
 /// ```
 #[cfg(feature = "time")]
+#[cfg_attr(docsrs, doc(cfg(feature = "time")))]
 impl From<Duration> for time::Duration {
     fn from(value: Duration) -> Self {
         Self::new(value.seconds(), value.nanos())
@@ -420,6 +422,7 @@ impl From<Duration> for time::Duration {
 /// # Ok::<(), DurationError>(())
 /// ```
 #[cfg(feature = "chrono")]
+#[cfg_attr(docsrs, doc(cfg(feature = "chrono")))]
 impl TryFrom<chrono::Duration> for Duration {
     type Error = DurationError;
 
@@ -439,6 +442,7 @@ impl TryFrom<chrono::Duration> for Duration {
 /// # Ok::<(), DurationError>(())
 /// ```
 #[cfg(feature = "chrono")]
+#[cfg_attr(docsrs, doc(cfg(feature = "chrono")))]
 impl From<Duration> for chrono::Duration {
     fn from(value: Duration) -> Self {
         Self::seconds(value.seconds) + Self::nanoseconds(value.nanos as i64)
