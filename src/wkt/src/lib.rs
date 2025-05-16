@@ -23,6 +23,8 @@
 //! custom JSON encoding, and may provide conversion functions to and from
 //! native or commonly used Rust types.
 
+#![cfg_attr(docsrs, feature(doc_cfg))]
+
 mod any;
 pub use crate::any::*;
 mod duration;
