@@ -429,7 +429,7 @@ mod test {
     }
 
     #[tokio::test]
-    async fn no_overriden_mds() -> TestResult {
+    async fn no_overridden_mds() -> TestResult {
         let e = Builder::default()
             .with_endpoint("http://metadata.doesnotexist")
             .build_token_provider()
