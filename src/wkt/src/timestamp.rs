@@ -331,7 +331,7 @@ impl TryFrom<Timestamp> for time::OffsetDateTime {
 }
 
 const EXPECT_OFFSET_DATE_TIME_CONVERTS: &str = concat!(
-    "converting Timestamp to time::OffsetDataTime should always succeed. ",
+    "converting Timestamp to time::OffsetDateTime should always succeed. ",
     "The Timestamp values are always in range. ",
     "If this is not the case, please file a bug at https://github.com/googleapis/google-cloud-rust/issues"
 );
