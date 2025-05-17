@@ -683,25 +683,26 @@ mod v1 {
             assert_eq!(got.custom_time, object.custom_time);
             assert_eq!(got.soft_delete_time, object.soft_delete_time);
             assert_eq!(got.hard_delete_time, object.hard_delete_time);
-            if let Some(object) = &object.owner {
-                {
-                    let got: &control::model::Owner = &got.owner.expect("owner should not be None");
-                    let from: &Owner = object;
+            match (&object.owner, &got.owner) {
+                (None, None) => {}
+                (Some(from), None) => panic!("expected a value in the owner, {from:?}"),
+                (None, Some(got)) => panic!("unexpected value in the owner, {got:?}"),
+                (Some(from), Some(got)) => {
                     assert_eq!(got.entity, from.entity);
                     assert_eq!(got.entity_id, from.entity_id);
-                };
-            } else {
-                assert_eq!(got.owner, None);
+                }
             }
             assert_eq!(got.metadata, object.metadata);
-            if let Some(object) = &object.customer_encryption {
-                let got = got
-                    .customer_encryption
-                    .expect("customer_encryption should not be None");
-                assert_eq!(got.encryption_algorithm, object.encryption_algorithm);
-                assert_eq!(got.key_sha256_bytes, object.key_sha256);
-            } else {
-                assert_eq!(got.customer_encryption, None);
+            match (&object.customer_encryption, &got.customer_encryption) {
+                (None, None) => {}
+                (Some(from), None) => {
+                    panic!("expected a value in the customer_encryption, {from:?}")
+                }
+                (None, Some(got)) => panic!("unexpected value in the customer_encryption, {got:?}"),
+                (Some(from), Some(got)) => {
+                    assert_eq!(got.encryption_algorithm, from.encryption_algorithm);
+                    assert_eq!(got.key_sha256_bytes, from.key_sha256);
+                }
             }
             // TODO(#2039): assert_eq!(got.checksums, object.checksums);
         }
@@ -754,15 +755,16 @@ mod v1 {
             assert_eq!(got.domain, from.domain);
             assert_eq!(got.entity_id, from.entity_id);
             assert_eq!(got.etag, from.etag);
-            if let Some(from) = &from.project_team {
-                let got = got
-                    .project_team
-                    .clone()
-                    .expect("project_team should be None");
-                assert_eq!(got.project_number, from.project_number);
-                assert_eq!(got.team, from.team);
-            } else {
-                assert_eq!(got.project_team, None);
+            match (&from.project_team, &got.project_team) {
+                (None, None) => {}
+                (Some(from), None) => {
+                    panic!("expected a value in the project team, {from:?}")
+                }
+                (None, Some(got)) => panic!("unexpected value in the project team, {got:?}"),
+                (Some(from), Some(got)) => {
+                    assert_eq!(got.project_number, from.project_number);
+                    assert_eq!(got.team, from.team);
+                }
             }
         }
     }
