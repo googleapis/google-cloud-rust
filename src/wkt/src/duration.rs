@@ -273,7 +273,7 @@ impl From<Duration> for String {
     }
 }
 
-/// Converts the [String] representation of a duration to [Duration].
+/// Converts the string representation of a duration to [Duration].
 ///
 /// # Example
 /// ```
@@ -313,6 +313,24 @@ impl TryFrom<&str> for Duration {
             .unwrap_or(0);
 
         Duration::new(sign * seconds, sign as i32 * nanos)
+    }
+}
+
+/// Converts the string representation of a duration to [Duration].
+///
+/// # Example
+/// ```
+/// # use google_cloud_wkt::{Duration, DurationError};
+/// let s = "12.34s".to_string();
+/// let d = Duration::try_from(&s)?;
+/// assert_eq!(d.seconds(), 12);
+/// assert_eq!(d.nanos(), 340_000_000);
+/// # Ok::<(), DurationError>(())
+/// ```
+impl TryFrom<&String> for Duration {
+    type Error = DurationError;
+    fn try_from(value: &String) -> Result<Self, Self::Error> {
+        Duration::try_from(value.as_str())
     }
 }
 
@@ -691,6 +709,15 @@ mod test {
     fn from_std_time_in_range(input: std::time::Duration, want: Duration) {
         let got = Duration::try_from(input).unwrap();
         assert_eq!(got, want);
+    }
+
+    #[test]
+    fn convert_from_string() -> Result {
+        let input = "12.750s".to_string();
+        let a = Duration::try_from(input.as_str())?;
+        let b = Duration::try_from(&input)?;
+        assert_eq!(a, b);
+        Ok(())
     }
 
     #[test_case(std::time::Duration::new(i64::MAX as u64, 0))]
