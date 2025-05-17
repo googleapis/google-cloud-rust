@@ -188,8 +188,7 @@ pub async fn manually_poll_lro(
                         // ANCHOR_END: manual-match-error
                         // ANCHOR: manual-match-success
                         longrunning::model::operation::Result::Response(any) => {
-                            let response =
-                                any.try_into_message::<speech::model::BatchRecognizeResponse>()?;
+                            let response = any.to_msg::<speech::model::BatchRecognizeResponse>()?;
                             Ok(response)
                         }
                         // ANCHOR_END: manual-match-success
@@ -202,7 +201,7 @@ pub async fn manually_poll_lro(
         }
         // ANCHOR: manual-metadata
         if let Some(any) = &operation.metadata {
-            let metadata = any.try_into_message::<speech::model::OperationMetadata>()?;
+            let metadata = any.to_msg::<speech::model::OperationMetadata>()?;
             println!("LRO in progress, metadata={metadata:?}");
         }
         // ANCHOR_END: manual-metadata

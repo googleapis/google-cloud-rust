@@ -373,14 +373,14 @@ mod test {
             + serde::ser::Serialize,
         V: serde::ser::Serialize,
     {
-        let any = Any::try_from(&input)?;
+        let any = Any::from_msg(&input)?;
         let got = serde_json::to_value(&any)?;
         let want = serde_json::json!({
             "@type": format!("type.googleapis.com/google.protobuf.{}", typename),
             "value": value,
         });
         assert_eq!(got, want);
-        let output = any.try_into_message::<I>()?;
+        let output = any.to_msg::<I>()?;
         assert_eq!(output, input);
         Ok(())
     }
@@ -393,14 +393,14 @@ mod test {
     where
         V: serde::ser::Serialize,
     {
-        let any = Any::try_from(&input)?;
+        let any = Any::from_msg(&input)?;
         let got = serde_json::to_value(&any)?;
         let want = serde_json::json!({
             "@type": "type.googleapis.com/google.protobuf.FloatValue",
             "value": value,
         });
         assert_eq!(got, want);
-        let output = any.try_into_message::<FloatValue>()?;
+        let output = any.to_msg::<FloatValue>()?;
         // Using assert_eq does not work with NaN, as they are not considered equal,
         // use total_cmp instead.
         assert!(
@@ -418,14 +418,14 @@ mod test {
     where
         V: serde::ser::Serialize,
     {
-        let any = Any::try_from(&input)?;
+        let any = Any::from_msg(&input)?;
         let got = serde_json::to_value(&any)?;
         let want = serde_json::json!({
             "@type": "type.googleapis.com/google.protobuf.DoubleValue",
             "value": value,
         });
         assert_eq!(got, want);
-        let output = any.try_into_message::<DoubleValue>()?;
+        let output = any.to_msg::<DoubleValue>()?;
         // Using assert_eq does not work with NaN, as they are not considered equal,
         // use total_cmp instead.
         assert!(
@@ -449,8 +449,8 @@ mod test {
         T: Message + std::fmt::Debug + serde::ser::Serialize + serde::de::DeserializeOwned,
         U: Message + std::fmt::Debug + serde::ser::Serialize + serde::de::DeserializeOwned,
     {
-        let any = Any::try_from(&from)?;
-        assert!(any.try_into_message::<U>().is_err());
+        let any = Any::from_msg(&from)?;
+        assert!(any.to_msg::<U>().is_err());
         Ok(())
     }
 

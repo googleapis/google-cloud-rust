@@ -37,10 +37,10 @@ fn roundtrip_generic() -> Result {
         parent: "parent".to_string(),
         ..Default::default()
     };
-    let any = Any::try_from(&input)?;
+    let any = Any::from_msg(&input)?;
     let json = serde_json::to_value(any)?;
     let any = serde_json::from_value::<Any>(json)?;
-    let output = any.try_into_message::<TestOnly>()?;
+    let output = any.to_msg::<TestOnly>()?;
     assert_eq!(input, output);
     Ok(())
 }
@@ -48,10 +48,10 @@ fn roundtrip_generic() -> Result {
 #[test]
 fn roundtrip_duration() -> Result {
     let input = Duration::new(12, 3456)?;
-    let any = Any::try_from(&input)?;
+    let any = Any::from_msg(&input)?;
     let json = serde_json::to_value(any)?;
     let any = serde_json::from_value::<Any>(json)?;
-    let output = any.try_into_message::<Duration>()?;
+    let output = any.to_msg::<Duration>()?;
     assert_eq!(input, output);
     Ok(())
 }
@@ -59,12 +59,12 @@ fn roundtrip_duration() -> Result {
 #[test]
 fn roundtrip_any() -> Result {
     let input = Duration::new(12, 3456)?;
-    let inner = Any::try_from(&input)?;
-    let any = Any::try_from(&inner)?;
+    let inner = Any::from_msg(&input)?;
+    let any = Any::from_msg(&inner)?;
     let json = serde_json::to_value(any)?;
     let any = serde_json::from_value::<Any>(json)?;
-    let inner = any.try_into_message::<Any>()?;
-    let output = inner.try_into_message::<Duration>()?;
+    let inner = any.to_msg::<Any>()?;
+    let output = inner.to_msg::<Duration>()?;
     assert_eq!(input, output);
     Ok(())
 }

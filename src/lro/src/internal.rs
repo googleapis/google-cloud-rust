@@ -377,7 +377,7 @@ mod test {
     #[tokio::test(flavor = "multi_thread")]
     async fn poll_basic_flow() {
         let start = || async move {
-            let any = wkt::Any::try_from(&wkt::Timestamp::clamp(123, 0))
+            let any = wkt::Any::from_msg(&wkt::Timestamp::clamp(123, 0))
                 .map_err(|e| Error::other(format!("unexpected error in Any::try_from {e}")))?;
             let op = longrunning::model::Operation::default()
                 .set_name("test-only-name")
@@ -387,7 +387,7 @@ mod test {
         };
 
         let query = |_: String| async move {
-            let any = wkt::Any::try_from(&wkt::Duration::clamp(234, 0))
+            let any = wkt::Any::from_msg(&wkt::Duration::clamp(234, 0))
                 .map_err(|e| Error::other(format!("unexpected error in Any::try_from {e}")))?;
             let result = longrunning::model::operation::Result::Response(any.into());
             let op = longrunning::model::Operation::default()
@@ -432,7 +432,7 @@ mod test {
     #[tokio::test(flavor = "multi_thread")]
     async fn poll_basic_stream() {
         let start = || async move {
-            let any = wkt::Any::try_from(&wkt::Timestamp::clamp(123, 0))
+            let any = wkt::Any::from_msg(&wkt::Timestamp::clamp(123, 0))
                 .map_err(|e| Error::other(format!("unexpected error in Any::try_from {e}")))?;
             let op = longrunning::model::Operation::default()
                 .set_name("test-only-name")
@@ -442,7 +442,7 @@ mod test {
         };
 
         let query = |_: String| async move {
-            let any = wkt::Any::try_from(&wkt::Duration::clamp(234, 0))
+            let any = wkt::Any::from_msg(&wkt::Duration::clamp(234, 0))
                 .map_err(|e| Error::other(format!("unexpected error in Any::try_from {e}")))?;
             let result = longrunning::model::operation::Result::Response(any.into());
             let op = longrunning::model::Operation::default()
@@ -490,7 +490,7 @@ mod test {
     #[tokio::test(flavor = "multi_thread")]
     async fn until_done_basic_flow() -> Result<()> {
         let start = || async move {
-            let any = wkt::Any::try_from(&wkt::Timestamp::clamp(123, 0))
+            let any = wkt::Any::from_msg(&wkt::Timestamp::clamp(123, 0))
                 .map_err(|e| Error::other(format!("unexpected error in Any::try_from {e}")))?;
             let op = longrunning::model::Operation::default()
                 .set_name("test-only-name")
@@ -500,7 +500,7 @@ mod test {
         };
 
         let query = |_: String| async move {
-            let any = wkt::Any::try_from(&wkt::Duration::clamp(234, 0))
+            let any = wkt::Any::from_msg(&wkt::Duration::clamp(234, 0))
                 .map_err(|e| Error::other(format!("unexpected error in Any::try_from {e}")))?;
             let result = longrunning::model::operation::Result::Response(any.into());
             let op = longrunning::model::Operation::default()
@@ -530,7 +530,7 @@ mod test {
     #[tokio::test(flavor = "multi_thread")]
     async fn unit_poll_basic_flow() {
         let start = || async move {
-            let any = wkt::Any::try_from(&wkt::Timestamp::clamp(123, 0))
+            let any = wkt::Any::from_msg(&wkt::Timestamp::clamp(123, 0))
                 .map_err(|e| Error::other(format!("unexpected error in Any::try_from {e}")))?;
             let op = longrunning::model::Operation::default()
                 .set_name("test-only-name")
@@ -540,7 +540,7 @@ mod test {
         };
 
         let query = |_: String| async move {
-            let any = wkt::Any::try_from(&wkt::Empty::default())
+            let any = wkt::Any::from_msg(&wkt::Empty::default())
                 .map_err(|e| Error::other(format!("unexpected error in Any::try_from {e}")))?;
             let result = longrunning::model::operation::Result::Response(any.into());
             let op = longrunning::model::Operation::default()
@@ -585,7 +585,7 @@ mod test {
     #[tokio::test(flavor = "multi_thread")]
     async fn unit_poll_basic_stream() {
         let start = || async move {
-            let any = wkt::Any::try_from(&wkt::Timestamp::clamp(123, 0))
+            let any = wkt::Any::from_msg(&wkt::Timestamp::clamp(123, 0))
                 .map_err(|e| Error::other(format!("unexpected error in Any::try_from {e}")))?;
             let op = longrunning::model::Operation::default()
                 .set_name("test-only-name")
@@ -595,7 +595,7 @@ mod test {
         };
 
         let query = |_: String| async move {
-            let any = wkt::Any::try_from(&wkt::Empty::default())
+            let any = wkt::Any::from_msg(&wkt::Empty::default())
                 .map_err(|e| Error::other(format!("unexpected error in Any::try_from {e}")))?;
             let result = longrunning::model::operation::Result::Response(any.into());
             let op = longrunning::model::Operation::default()
@@ -643,7 +643,7 @@ mod test {
     #[tokio::test(flavor = "multi_thread")]
     async fn unit_until_done_basic_flow() -> Result<()> {
         let start = || async move {
-            let any = wkt::Any::try_from(&wkt::Timestamp::clamp(123, 0))
+            let any = wkt::Any::from_msg(&wkt::Timestamp::clamp(123, 0))
                 .map_err(|e| Error::other(format!("unexpected error in Any::try_from {e}")))?;
             let op = longrunning::model::Operation::default()
                 .set_name("test-only-name")
@@ -653,7 +653,7 @@ mod test {
         };
 
         let query = |_: String| async move {
-            let any = wkt::Any::try_from(&wkt::Empty::default())
+            let any = wkt::Any::from_msg(&wkt::Empty::default())
                 .map_err(|e| Error::other(format!("unexpected error in Any::try_from {e}")))?;
             let result = longrunning::model::operation::Result::Response(any.into());
             let op = longrunning::model::Operation::default()
@@ -681,7 +681,7 @@ mod test {
     #[tokio::test(flavor = "multi_thread")]
     async fn unit_metadata_poll_basic_flow() {
         let start = || async move {
-            let any = wkt::Any::try_from(&wkt::Empty::default())
+            let any = wkt::Any::from_msg(&wkt::Empty::default())
                 .map_err(|e| Error::other(format!("unexpected error in Any::try_from {e}")))?;
             let op = longrunning::model::Operation::default()
                 .set_name("test-only-name")
@@ -691,7 +691,7 @@ mod test {
         };
 
         let query = |_: String| async move {
-            let any = wkt::Any::try_from(&wkt::Duration::clamp(123, 456))
+            let any = wkt::Any::from_msg(&wkt::Duration::clamp(123, 456))
                 .map_err(|e| Error::other(format!("unexpected error in Any::try_from {e}")))?;
             let result = longrunning::model::operation::Result::Response(any.into());
             let op = longrunning::model::Operation::default()
@@ -736,7 +736,7 @@ mod test {
     #[tokio::test(flavor = "multi_thread")]
     async fn unit_metadata_poll_basic_stream() {
         let start = || async move {
-            let any = wkt::Any::try_from(&wkt::Empty::default())
+            let any = wkt::Any::from_msg(&wkt::Empty::default())
                 .map_err(|e| Error::other(format!("unexpected error in Any::try_from {e}")))?;
             let op = longrunning::model::Operation::default()
                 .set_name("test-only-name")
@@ -746,7 +746,7 @@ mod test {
         };
 
         let query = |_: String| async move {
-            let any = wkt::Any::try_from(&wkt::Duration::clamp(123, 456))
+            let any = wkt::Any::from_msg(&wkt::Duration::clamp(123, 456))
                 .map_err(|e| Error::other(format!("unexpected error in Any::try_from {e}")))?;
             let result = longrunning::model::operation::Result::Response(any.into());
             let op = longrunning::model::Operation::default()
@@ -796,7 +796,7 @@ mod test {
     #[tokio::test(flavor = "multi_thread")]
     async fn unit_metadata_until_done_basic_flow() -> Result<()> {
         let start = || async move {
-            let any = wkt::Any::try_from(&wkt::Empty::default())
+            let any = wkt::Any::from_msg(&wkt::Empty::default())
                 .map_err(|e| Error::other(format!("unexpected error in Any::try_from {e}")))?;
             let op = longrunning::model::Operation::default()
                 .set_name("test-only-name")
@@ -806,7 +806,7 @@ mod test {
         };
 
         let query = |_: String| async move {
-            let any = wkt::Any::try_from(&wkt::Duration::clamp(123, 456))
+            let any = wkt::Any::from_msg(&wkt::Duration::clamp(123, 456))
                 .map_err(|e| Error::other(format!("unexpected error in Any::try_from {e}")))?;
             let result = longrunning::model::operation::Result::Response(any.into());
             let op = longrunning::model::Operation::default()
@@ -855,7 +855,7 @@ mod test {
     async fn unit_both_until_done_basic_flow() -> Result<()> {
         type EmptyOperation = Operation<wkt::Empty, wkt::Empty>;
         let start = || async move {
-            let any = wkt::Any::try_from(&wkt::Empty::default())
+            let any = wkt::Any::from_msg(&wkt::Empty::default())
                 .map_err(|e| Error::other(format!("unexpected error in Any::try_from {e}")))?;
             let op = longrunning::model::Operation::default()
                 .set_name("test-only-name")
@@ -865,7 +865,7 @@ mod test {
         };
 
         let query = |_: String| async move {
-            let any = wkt::Any::try_from(&wkt::Empty::default())
+            let any = wkt::Any::from_msg(&wkt::Empty::default())
                 .map_err(|e| Error::other(format!("unexpected error in Any::try_from {e}")))?;
             let result = longrunning::model::operation::Result::Response(any.into());
             let op = longrunning::model::Operation::default()
@@ -909,7 +909,7 @@ mod test {
     #[tokio::test(flavor = "multi_thread")]
     async fn until_done_with_recoverable_polling_error() -> Result<()> {
         let start = || async move {
-            let any = wkt::Any::try_from(&wkt::Timestamp::clamp(123, 0))
+            let any = wkt::Any::from_msg(&wkt::Timestamp::clamp(123, 0))
                 .map_err(|e| Error::other(format!("unexpected error in Any::try_from {e}")))?;
             let op = longrunning::model::Operation::default()
                 .set_name("test-only-name")
@@ -930,7 +930,7 @@ mod test {
                         "recoverable (see policy below)",
                     ));
                 }
-                let any = wkt::Any::try_from(&wkt::Duration::clamp(234, 0))
+                let any = wkt::Any::from_msg(&wkt::Duration::clamp(234, 0))
                     .map_err(|e| Error::other(format!("unexpected error in Any::try_from {e}")))?;
                 let result = longrunning::model::operation::Result::Response(any.into());
                 let op = longrunning::model::Operation::default()
@@ -961,7 +961,7 @@ mod test {
     #[tokio::test(flavor = "multi_thread")]
     async fn until_done_with_unrecoverable_polling_error() -> Result<()> {
         let start = || async move {
-            let any = wkt::Any::try_from(&wkt::Timestamp::clamp(123, 0))
+            let any = wkt::Any::from_msg(&wkt::Timestamp::clamp(123, 0))
                 .map_err(|e| Error::other(format!("unexpected error in Any::try_from {e}")))?;
             let op = longrunning::model::Operation::default()
                 .set_name("test-only-name")

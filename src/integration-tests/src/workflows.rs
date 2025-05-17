@@ -260,9 +260,7 @@ pub async fn manual(
             }
             LR::Response(any) => {
                 println!("LRO completed successfully {any:?}");
-                let response = any
-                    .try_into_message::<wf::model::Workflow>()
-                    .map_err(Error::other);
+                let response = any.to_msg::<wf::model::Workflow>().map_err(Error::other);
                 println!("LRO completed response={response:?}");
                 return Ok(());
             }
@@ -275,7 +273,7 @@ pub async fn manual(
         if !operation.done {
             println!("operation is pending {operation:?}");
             if let Some(any) = operation.metadata {
-                match any.try_into_message::<wf::model::OperationMetadata>() {
+                match any.to_msg::<wf::model::OperationMetadata>() {
                     Err(_) => {
                         println!("    cannot extract expected metadata from {any:?}");
                     }
@@ -300,9 +298,7 @@ pub async fn manual(
             }
             LR::Response(any) => {
                 println!("LRO completed successfully {any:?}");
-                let response = any
-                    .try_into_message::<wf::model::Workflow>()
-                    .map_err(Error::other);
+                let response = any.to_msg::<wf::model::Workflow>().map_err(Error::other);
                 println!("LRO completed response={response:?}");
                 return Ok(());
             }

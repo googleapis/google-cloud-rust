@@ -422,7 +422,7 @@ impl From<wkt::Any> for StatusDetails {
         macro_rules! try_convert {
             ($($variant:ident),*) => {
                 $(
-                    if let Ok(v) = value.try_into_message::<rpc::model::$variant>() {
+                    if let Ok(v) = value.to_msg::<rpc::model::$variant>() {
                         return StatusDetails::$variant(v);
                     }
                 )*
@@ -500,8 +500,8 @@ mod test {
         let got = Status::default().set_details([d0, d1]);
         assert_eq!(got, want);
 
-        let a0 = wkt::Any::try_from(&rpc::model::ErrorInfo::new().set_reason("test-reason"))?;
-        let a1 = wkt::Any::try_from(
+        let a0 = wkt::Any::from_msg(&rpc::model::ErrorInfo::new().set_reason("test-reason"))?;
+        let a1 = wkt::Any::from_msg(
             &rpc::model::Help::new().set_links([rpc::model::help::Link::new().set_url("test-url")]),
         )?;
         let got = Status::default().set_details([a0, a1]);
@@ -722,7 +722,7 @@ mod test {
         let input = rpc::model::Status::default()
             .set_code(Code::Unavailable as i32)
             .set_message("try-again")
-            .set_details(vec![wkt::Any::try_from(&detail).unwrap()]);
+            .set_details(vec![wkt::Any::from_msg(&detail).unwrap()]);
 
         let status = Status::from(input);
         assert_eq!(status.code, Code::Unavailable);
@@ -734,7 +734,7 @@ mod test {
 
     #[test]
     fn status_from_rpc_unknown_details() {
-        let any = wkt::Any::try_from(&wkt::Duration::clamp(123, 0)).unwrap();
+        let any = wkt::Any::from_msg(&wkt::Duration::clamp(123, 0)).unwrap();
         let input = rpc::model::Status::default()
             .set_code(Code::Unavailable as i32)
             .set_message("try-again")
