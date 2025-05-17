@@ -217,12 +217,13 @@ async fn repeat_data_body_patch(client: &showcase::client::Compliance) -> Result
 }
 
 async fn unknown_enum(client: &showcase::client::Compliance) -> Result<()> {
-    let response = client
-        .get_enum().set_unknown_enum(true)
+    let response = client.get_enum().set_unknown_enum(true).send().await?;
+    tracing::info!("response: {response:?}");
+    let verify = client
+        .verify_enum()
+        .with_request(response.clone())
         .send()
         .await?;
-    tracing::info!("response: {response:?}");
-    let verify = client.verify_enum().with_request(response.clone()).send().await?;
     tracing::info!("verify: {verify:?}");
     assert_eq!(verify.continent, response.continent);
     Ok(())
