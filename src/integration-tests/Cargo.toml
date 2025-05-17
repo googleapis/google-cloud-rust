@@ -21,8 +21,11 @@ version           = "0.0.0"
 
 [features]
 log-integration-tests = ["dep:tracing-subscriber"]
+# These are normally disabled because they run against production.
 run-integration-tests = []
-run-showcase-tests    = []
+# These are normally disabled because they require installing the golang
+# toolchain.
+run-showcase-tests = []
 
 [dependencies]
 bytes.workspace       = true
