@@ -84,6 +84,7 @@ pub struct Timestamp {
 /// assert!(matches!(ts, Err(TimestampError::Deserialize(_))));
 /// ```
 #[derive(thiserror::Error, Debug)]
+#[non_exhaustive]
 pub enum TimestampError {
     /// One of the components (seconds and/or nanoseconds) was out of range.
     #[error("seconds and/or nanoseconds out of range")]

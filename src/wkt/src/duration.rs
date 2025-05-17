@@ -81,6 +81,7 @@ pub struct Duration {
 /// assert!(matches!(ts, Err(DurationError::Deserialize(_))));
 /// ```
 #[derive(thiserror::Error, Debug)]
+#[non_exhaustive]
 pub enum DurationError {
     /// One of the components (seconds and/or nanoseconds) was out of range.
     #[error("seconds and/or nanoseconds out of range")]

@@ -20,6 +20,7 @@
 //! a small helper function makes the generated code easier to read.
 
 #[derive(thiserror::Error, Debug)]
+#[non_exhaustive]
 pub enum Error {
     #[error("missing required parameter {0}")]
     MissingRequiredParameter(String),
