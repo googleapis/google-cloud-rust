@@ -90,10 +90,6 @@ pub enum TimestampError {
     #[error("seconds and/or nanoseconds out of range")]
     OutOfRange,
 
-    /// There was a problem serializing a timestamp.
-    #[error("cannot serialize timestamp, source={0}")]
-    Serialize(#[source] BoxedError),
-
     /// There was a problem deserializing a timestamp.
     #[error("cannot deserialize timestamp, source={0}")]
     Deserialize(#[source] BoxedError),
@@ -127,7 +123,7 @@ impl Timestamp {
     /// ```
     /// # use google_cloud_wkt::{Timestamp, TimestampError};
     /// let ts = Timestamp::new(1747388772, 0)?;
-    /// assert_eq!(String::try_from(ts)?, "2025-05-16T09:46:12Z");
+    /// assert_eq!(String::from(ts), "2025-05-16T09:46:12Z");
     ///
     /// let ts = Timestamp::new(1747388772, 2_000_000_000);
     /// assert!(matches!(ts, Err(TimestampError::OutOfRange)));
@@ -154,11 +150,11 @@ impl Timestamp {
     /// ```
     /// # use google_cloud_wkt::{Timestamp, TimestampError};
     /// let ts = Timestamp::clamp(1747388772, 0);
-    /// assert_eq!(String::try_from(ts)?, "2025-05-16T09:46:12Z");
+    /// assert_eq!(String::from(ts), "2025-05-16T09:46:12Z");
     ///
     /// let ts = Timestamp::clamp(1747388772, 2_000_000_000);
     /// // extra nanoseconds are carried as seconds
-    /// assert_eq!(String::try_from(ts)?, "2025-05-16T09:46:14Z");
+    /// assert_eq!(String::from(ts), "2025-05-16T09:46:14Z");
     /// # Ok::<(), TimestampError>(())
     /// ```
     ///
@@ -244,7 +240,6 @@ impl crate::message::Message for Timestamp {
     }
 }
 
-use time::format_description::well_known::Rfc3339;
 const NS: i128 = 1_000_000_000;
 
 /// Implement [`serde`](::serde) serialization for timestamps.
@@ -253,10 +248,7 @@ impl serde::ser::Serialize for Timestamp {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::Error as _;
-        String::try_from(*self)
-            .map_err(S::Error::custom)?
-            .serialize(serializer)
+        String::from(*self).serialize(serializer)
     }
 }
 
@@ -297,7 +289,7 @@ impl<'de> serde::de::Deserialize<'de> for Timestamp {
 /// use time::{macros::datetime, OffsetDateTime};
 /// let dt = datetime!(2025-05-16 09:46:12 UTC);
 /// let ts = Timestamp::try_from(dt)?;
-/// assert_eq!(String::try_from(ts)?, "2025-05-16T09:46:12Z");
+/// assert_eq!(String::from(ts), "2025-05-16T09:46:12Z");
 /// # Ok::<(), anyhow::Error>(())
 /// ```
 #[cfg(feature = "time")]
@@ -338,24 +330,34 @@ impl TryFrom<Timestamp> for time::OffsetDateTime {
     }
 }
 
+const EXPECT_OFFSET_DATE_TIME_CONVERTS: &str = concat!(
+    "converting Timestamp to time::OffsetDateTime should always succeed. ",
+    "The Timestamp values are always in range. ",
+    "If this is not the case, please file a bug at https://github.com/googleapis/google-cloud-rust/issues"
+);
+const EXPECT_TIMESTAMP_FORMAT_SUCCEEDS: &str = concat!(
+    "formatting a Timestamp using RFC-3339 should always succeed. ",
+    "The Timestamp values are always in range, and we use a well-known constant for the format specifier. ",
+    "If this is not the case, please file a bug at https://github.com/googleapis/google-cloud-rust/issues"
+);
+use time::format_description::well_known::Rfc3339;
+
 /// Converts a [Timestamp] to its [String] representation.
 ///
 /// # Example
 /// ```
 /// # use google_cloud_wkt::{Timestamp, TimestampError};
 /// let ts = Timestamp::new(1747388772, 0)?;
-/// assert_eq!(String::try_from(ts)?, "2025-05-16T09:46:12Z");
+/// assert_eq!(String::from(ts), "2025-05-16T09:46:12Z");
 /// # Ok::<(), anyhow::Error>(())
 /// ```
-impl TryFrom<Timestamp> for String {
-    type Error = TimestampError;
-    fn try_from(timestamp: Timestamp) -> Result<Self, Self::Error> {
+impl From<Timestamp> for String {
+    fn from(timestamp: Timestamp) -> Self {
         let ts = time::OffsetDateTime::from_unix_timestamp_nanos(
             timestamp.seconds as i128 * NS + timestamp.nanos as i128,
         )
-        .map_err(|e| TimestampError::Serialize(e.into()))?;
-        ts.format(&Rfc3339)
-            .map_err(|e| TimestampError::Serialize(e.into()))
+        .expect(EXPECT_OFFSET_DATE_TIME_CONVERTS);
+        ts.format(&Rfc3339).expect(EXPECT_TIMESTAMP_FORMAT_SUCCEEDS)
     }
 }
 
@@ -412,7 +414,7 @@ impl TryFrom<&String> for Timestamp {
 /// use chrono::{DateTime, TimeZone, Utc};
 /// let date : DateTime<Utc> = Utc.with_ymd_and_hms(2025, 5, 16, 10, 15, 00).unwrap();
 /// let ts = Timestamp::try_from(date)?;
-/// assert_eq!(String::try_from(ts)?, "2025-05-16T10:15:00Z");
+/// assert_eq!(String::from(ts), "2025-05-16T10:15:00Z");
 /// # Ok::<(), anyhow::Error>(())
 /// ```
 #[cfg(feature = "chrono")]
