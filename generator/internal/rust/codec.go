@@ -831,7 +831,10 @@ func enumValueVariantName(e *api.EnumValue) string {
 	// The most common case is trying to strip the prefix for `FOO_BAR_UNSPECIFIED`.
 	// The naming conventions being what they are, we need to test with a couple
 	// of different combinations. In particular, names with numbers, such as
-	// `InstancePrivateIpv6GoogleAccess` make life difficult for everyone.
+	// `InstancePrivateIpv6GoogleAccess` may be represented as
+	// `INSTANCE_PRIVATE_IPV6_GOOGLE_ACCESS` in enum values, while the automatic
+	// transformation would map it as `INSTANCE_PRIVATE_IPV_6_GOOGLE_ACCESS`.
+	// Note the extra `_` in `IPV_6` in the second case.
 	prefix := toScreamingSnake(e.Parent.Name) + "_"
 	trimmed := strings.TrimPrefix(e.Name, prefix)
 	if strings.HasPrefix(e.Name, prefix) && strings.IndexFunc(trimmed, unicode.IsLetter) == 0 {
