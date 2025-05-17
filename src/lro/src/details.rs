@@ -149,7 +149,7 @@ where
     R: wkt::message::Message + serde::ser::Serialize + serde::de::DeserializeOwned,
 {
     if let Some(any) = op.response() {
-        return any.try_into_message::<R>().map_err(Error::other);
+        return any.to_msg::<R>().map_err(Error::other);
     }
     if let Some(e) = op.error() {
         return Err(Error::rpc(gax::error::ServiceError::from(e.clone())));
@@ -161,7 +161,7 @@ fn as_metadata<R, M>(op: Operation<R, M>) -> Option<M>
 where
     M: wkt::message::Message + serde::ser::Serialize + serde::de::DeserializeOwned,
 {
-    op.metadata().and_then(|a| a.try_into_message::<M>().ok())
+    op.metadata().and_then(|a| a.to_msg::<M>().ok())
 }
 
 #[cfg(test)]
@@ -178,7 +178,7 @@ mod test {
 
     #[test]
     fn typed_operation_with_metadata() -> Result<()> {
-        let any = wkt::Any::try_from(&wkt::Timestamp::clamp(123, 0))
+        let any = wkt::Any::from_msg(&wkt::Timestamp::clamp(123, 0))
             .map_err(|e| Error::other(format!("unexpected error in Any::try_from {e}")))?;
         let op = longrunning::model::Operation::default()
             .set_name("test-only-name")
@@ -192,7 +192,7 @@ mod test {
         let got = op
             .metadata()
             .unwrap()
-            .try_into_message::<wkt::Timestamp>()
+            .to_msg::<wkt::Timestamp>()
             .map_err(Error::other)?;
         assert_eq!(got, wkt::Timestamp::clamp(123, 0));
 
@@ -201,7 +201,7 @@ mod test {
 
     #[test]
     fn typed_operation_with_response() -> Result<()> {
-        let any = wkt::Any::try_from(&wkt::Duration::clamp(23, 0))
+        let any = wkt::Any::from_msg(&wkt::Duration::clamp(23, 0))
             .map_err(|e| Error::other(format!("unexpected error in Any::try_from {e}")))?;
         let op = longrunning::model::Operation::default()
             .set_name("test-only-name")
@@ -215,7 +215,7 @@ mod test {
         let got = op
             .response()
             .unwrap()
-            .try_into_message::<wkt::Duration>()
+            .to_msg::<wkt::Duration>()
             .map_err(Error::other)?;
         assert_eq!(got, wkt::Duration::clamp(23, 0));
 
@@ -252,7 +252,7 @@ mod test {
         type O = super::Operation<R, M>;
         let op = Operation::default()
             .set_name("test-only-name")
-            .set_metadata(wkt::Any::try_from(&wkt::Timestamp::clamp(123, 0))?);
+            .set_metadata(wkt::Any::from_msg(&wkt::Timestamp::clamp(123, 0))?);
         let op = super::Operation::new(op);
         let result = Ok::<O, Error>(op);
         let (name, poll) = handle_start(result);
@@ -291,7 +291,7 @@ mod test {
         type O = super::Operation<R, M>;
         let op = Operation::default()
             .set_name("test-only-name")
-            .set_metadata(wkt::Any::try_from(&wkt::Timestamp::clamp(123, 0))?);
+            .set_metadata(wkt::Any::from_msg(&wkt::Timestamp::clamp(123, 0))?);
         let op = super::Operation::new(op);
         let result = Ok::<O, Error>(op);
         let (name, poll) = handle_poll(
@@ -319,7 +319,7 @@ mod test {
         type O = super::Operation<R, M>;
         let op = Operation::default()
             .set_name("test-only-name")
-            .set_metadata(wkt::Any::try_from(&wkt::Timestamp::clamp(123, 0))?);
+            .set_metadata(wkt::Any::from_msg(&wkt::Timestamp::clamp(123, 0))?);
         let op = super::Operation::new(op);
         let result = Ok::<O, Error>(op);
         let (name, poll) = handle_poll(
@@ -395,9 +395,9 @@ mod test {
         let op = Operation::default()
             .set_name("test-only-name")
             .set_done(true)
-            .set_metadata(wkt::Any::try_from(&wkt::Timestamp::clamp(123, 0))?)
+            .set_metadata(wkt::Any::from_msg(&wkt::Timestamp::clamp(123, 0))?)
             .set_result(operation::Result::Response(
-                wkt::Any::try_from(&wkt::Duration::clamp(234, 0))?.into(),
+                wkt::Any::from_msg(&wkt::Duration::clamp(234, 0))?.into(),
             ));
         let op = O::new(op);
         let (name, polling) = handle_common(op);
@@ -420,7 +420,7 @@ mod test {
         type O = super::Operation<R, M>;
         let op = Operation::default()
             .set_name("test-only-name")
-            .set_metadata(wkt::Any::try_from(&wkt::Timestamp::clamp(123, 0))?);
+            .set_metadata(wkt::Any::from_msg(&wkt::Timestamp::clamp(123, 0))?);
         let op = O::new(op);
         let (name, polling) = handle_common(op);
         assert_eq!(name.as_deref(), Some("test-only-name"));
@@ -440,7 +440,7 @@ mod test {
         type M = wkt::Timestamp;
         type O = super::Operation<R, M>;
         let op = Operation::default().set_result(operation::Result::Response(
-            Any::try_from(&wkt::Duration::clamp(123, 0))?.into(),
+            Any::from_msg(&wkt::Duration::clamp(123, 0))?.into(),
         ));
         let op = O::new(op);
         let result = as_result(op)?;
@@ -475,7 +475,7 @@ mod test {
         type M = wkt::Timestamp;
         type O = super::Operation<R, M>;
         let op = Operation::default().set_result(operation::Result::Response(
-            Any::try_from(&wkt::Timestamp::clamp(123, 0))?.into(),
+            Any::from_msg(&wkt::Timestamp::clamp(123, 0))?.into(),
         ));
         let op = O::new(op);
         let err = as_result(op).err().unwrap();
@@ -508,7 +508,7 @@ mod test {
         type M = wkt::Timestamp;
         type O = Operation<R, M>;
         let op = longrunning::model::Operation::default()
-            .set_metadata(Any::try_from(&wkt::Timestamp::clamp(123, 0))?);
+            .set_metadata(Any::from_msg(&wkt::Timestamp::clamp(123, 0))?);
 
         let op = O::new(op);
 
@@ -524,7 +524,7 @@ mod test {
         type M = wkt::Timestamp;
         type O = Operation<R, M>;
         let op = longrunning::model::Operation::default()
-            .set_metadata(Any::try_from(&wkt::Duration::clamp(123, 0))?);
+            .set_metadata(Any::from_msg(&wkt::Duration::clamp(123, 0))?);
         let op = O::new(op);
         let metadata = as_metadata(op);
         assert_eq!(metadata, None);

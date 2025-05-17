@@ -181,14 +181,14 @@ mod any_tests {
     #[test]
     fn test_serde_null_value() -> Result {
         let input = Value::Null;
-        let any = Any::try_from(&input)?;
+        let any = Any::from_msg(&input)?;
         let got = serde_json::to_value(&any)?;
         let want = serde_json::json!({
             "@type": "type.googleapis.com/google.protobuf.Value",
             "value": null
         });
         assert_eq!(got, want);
-        let output = any.try_into_message::<Value>()?;
+        let output = any.to_msg::<Value>()?;
         assert_eq!(output, input);
         Ok(())
     }
@@ -196,14 +196,14 @@ mod any_tests {
     #[test]
     fn test_bool_value() -> Result {
         let input = Value::Bool(true);
-        let any = Any::try_from(&input)?;
+        let any = Any::from_msg(&input)?;
         let got = serde_json::to_value(&any)?;
         let want = serde_json::json!({
             "@type": "type.googleapis.com/google.protobuf.Value",
             "value": true
         });
         assert_eq!(got, want);
-        let output = any.try_into_message::<Value>()?;
+        let output = any.to_msg::<Value>()?;
         assert_eq!(output, input);
         Ok(())
     }
@@ -211,14 +211,14 @@ mod any_tests {
     #[test]
     fn test_number_value() -> Result {
         let input = serde_json::json!(1234.5);
-        let any = Any::try_from(&input)?;
+        let any = Any::from_msg(&input)?;
         let got = serde_json::to_value(&any)?;
         let want = serde_json::json!({
             "@type": "type.googleapis.com/google.protobuf.Value",
             "value": 1234.5
         });
         assert_eq!(got, want);
-        let output = any.try_into_message::<Value>()?;
+        let output = any.to_msg::<Value>()?;
         assert_eq!(output, input);
         Ok(())
     }
@@ -226,14 +226,14 @@ mod any_tests {
     #[test]
     fn test_string_value() -> Result {
         let input = Value::String(String::from("abc123"));
-        let any = Any::try_from(&input)?;
+        let any = Any::from_msg(&input)?;
         let got = serde_json::to_value(&any)?;
         let want = serde_json::json!({
             "@type": "type.googleapis.com/google.protobuf.Value",
             "value": "abc123"
         });
         assert_eq!(got, want);
-        let output = any.try_into_message::<Value>()?;
+        let output = any.to_msg::<Value>()?;
         assert_eq!(output, input);
         Ok(())
     }
@@ -251,7 +251,7 @@ mod any_tests {
         .unwrap();
 
         let input = Value::Object(structz);
-        let any = Any::try_from(&input)?;
+        let any = Any::from_msg(&input)?;
         let got = serde_json::to_value(&any)?;
         let want = serde_json::json!({
             "@type": "type.googleapis.com/google.protobuf.Value",
@@ -263,7 +263,7 @@ mod any_tests {
             }
         });
         assert_eq!(got, want);
-        let output = any.try_into_message::<Value>()?;
+        let output = any.to_msg::<Value>()?;
         assert_eq!(output, input);
         Ok(())
     }
@@ -274,14 +274,14 @@ mod any_tests {
             .as_array()
             .cloned()
             .unwrap();
-        let any = Any::try_from(&input)?;
+        let any = Any::from_msg(&input)?;
         let got = serde_json::to_value(&any)?;
         let want = serde_json::json!({
             "@type": "type.googleapis.com/google.protobuf.ListValue",
             "value": [1, 2, 3, 4, "abc"],
         });
         assert_eq!(got, want);
-        let output = any.try_into_message::<ListValue>()?;
+        let output = any.to_msg::<ListValue>()?;
         assert_eq!(output, input);
         Ok(())
     }
@@ -297,7 +297,7 @@ mod any_tests {
         .as_object()
         .cloned()
         .unwrap();
-        let any = Any::try_from(&input)?;
+        let any = Any::from_msg(&input)?;
         let got = serde_json::to_value(&any)?;
         let want = serde_json::json!({
             "@type": "type.googleapis.com/google.protobuf.Struct",
@@ -309,7 +309,7 @@ mod any_tests {
             },
         });
         assert_eq!(got, want);
-        let output = any.try_into_message::<Struct>()?;
+        let output = any.to_msg::<Struct>()?;
         assert_eq!(output, input);
         Ok(())
     }

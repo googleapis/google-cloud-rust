@@ -79,7 +79,7 @@ mod test {
 
     // ANCHOR: finished-op
     fn make_finished_operation(response: &BatchRecognizeResponse) -> Result<Response<Operation>> {
-        let any = wkt::Any::try_from(response).map_err(Error::serde)?;
+        let any = wkt::Any::from_msg(response).map_err(Error::serde)?;
         let operation = Operation::new()
             // ANCHOR: set-done-true
             .set_done(true)

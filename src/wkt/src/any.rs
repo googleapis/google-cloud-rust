@@ -21,10 +21,10 @@ use crate::message::MessageSerializer;
 /// ```
 /// # use google_cloud_wkt::{Any, AnyError, Duration, Timestamp};
 /// let duration = Duration::clamp(123, 456);
-/// let any = Any::try_from(&duration)?;
-/// let extracted = any.try_into_message::<Duration>()?;
+/// let any = Any::from_msg(&duration)?;
+/// let extracted = any.to_msg::<Duration>()?;
 /// assert_eq!(extracted, duration);
-/// let fail = any.try_into_message::<Timestamp>();
+/// let fail = any.to_msg::<Timestamp>();
 /// assert!(matches!(fail, Err(AnyError::TypeMismatch{..})));
 /// # Ok::<(), AnyError>(())
 /// ```
@@ -78,7 +78,7 @@ pub struct Any(serde_json::Map<String, serde_json::Value>);
 ///     "@type": "type.googleapis.com/google.protobuf.Duration",
 ///     "value": "123.5" // missing `s` suffix
 /// }))?;
-/// let extracted = any.try_into_message::<Duration>();
+/// let extracted = any.to_msg::<Duration>();
 /// assert!(matches!(extracted, Err(AnyError::Deserialization(_))));
 /// # Ok::<(), Box<dyn std::error::Error>>(())
 /// ```
@@ -87,8 +87,8 @@ pub struct Any(serde_json::Map<String, serde_json::Value>);
 /// ```rust
 /// # use google_cloud_wkt::{Any, AnyError, Duration, Timestamp};
 /// let duration = Duration::clamp(60, 0);
-/// let any = Any::try_from(&duration)?;
-/// let extracted = any.try_into_message::<Timestamp>();
+/// let any = Any::from_msg(&duration)?;
+/// let extracted = any.to_msg::<Timestamp>();
 /// assert!(matches!(extracted, Err(AnyError::TypeMismatch{..})));
 /// # Ok::<(), AnyError>(())
 /// ```
@@ -142,7 +142,7 @@ impl Any {
     /// ```
     /// # use google_cloud_wkt::{Any, AnyError, Duration, Timestamp};
     /// use google_cloud_wkt::message::Message;
-    /// let any = Any::try_from(&Duration::clamp(123, 456))?;
+    /// let any = Any::from_msg(&Duration::clamp(123, 456))?;
     /// assert_eq!(any.type_url(), Some(Duration::typename()));
     /// # Ok::<(), AnyError>(())
     /// ```
@@ -164,10 +164,10 @@ impl Any {
     /// # Example
     /// ```
     /// # use google_cloud_wkt::{Any, AnyError, Duration, Timestamp};
-    /// let any = Any::try_from(&Duration::clamp(123, 456))?;
+    /// let any = Any::from_msg(&Duration::clamp(123, 456))?;
     /// # Ok::<(), AnyError>(())
     /// ```
-    pub fn try_from<T>(message: &T) -> Result<Self, Error>
+    pub fn from_msg<T>(message: &T) -> Result<Self, Error>
     where
         T: crate::message::Message + serde::ser::Serialize + serde::de::DeserializeOwned,
     {
@@ -181,12 +181,12 @@ impl Any {
     /// # Example
     /// ```
     /// # use google_cloud_wkt::{Any, AnyError, Duration, Timestamp};
-    /// let any = Any::try_from(&Duration::clamp(123, 456))?;
-    /// let duration = any.try_into_message::<Duration>()?;
+    /// let any = Any::from_msg(&Duration::clamp(123, 456))?;
+    /// let duration = any.to_msg::<Duration>()?;
     /// assert_eq!(duration, Duration::clamp(123, 456));
     /// # Ok::<(), AnyError>(())
     /// ```
-    pub fn try_into_message<T>(&self) -> Result<T, Error>
+    pub fn to_msg<T>(&self) -> Result<T, Error>
     where
         T: crate::message::Message + serde::ser::Serialize + serde::de::DeserializeOwned,
     {
@@ -271,8 +271,8 @@ mod test {
     #[test]
     fn serialize_any() -> Result {
         let d = Duration::clamp(60, 0);
-        let any = Any::try_from(&d)?;
-        let any = Any::try_from(&any)?;
+        let any = Any::from_msg(&d)?;
+        let any = Any::from_msg(&any)?;
         assert_eq!(
             any.type_url(),
             Some("type.googleapis.com/google.protobuf.Any")
@@ -303,12 +303,12 @@ mod test {
             any.type_url(),
             Some("type.googleapis.com/google.protobuf.Any")
         );
-        let any = any.try_into_message::<Any>()?;
+        let any = any.to_msg::<Any>()?;
         assert_eq!(
             any.type_url(),
             Some("type.googleapis.com/google.protobuf.Duration")
         );
-        let d = any.try_into_message::<Duration>()?;
+        let d = any.to_msg::<Duration>()?;
         assert_eq!(d, Duration::clamp(60, 0));
         Ok(())
     }
@@ -316,7 +316,7 @@ mod test {
     #[test]
     fn serialize_duration() -> Result {
         let d = Duration::clamp(60, 0);
-        let any = Any::try_from(&d)?;
+        let any = Any::from_msg(&d)?;
         assert_eq!(
             any.type_url(),
             Some("type.googleapis.com/google.protobuf.Duration")
@@ -336,7 +336,7 @@ mod test {
             any.type_url(),
             Some("type.googleapis.com/google.protobuf.Duration")
         );
-        let d = any.try_into_message::<Duration>()?;
+        let d = any.to_msg::<Duration>()?;
         assert_eq!(d, Duration::clamp(60, 0));
         Ok(())
     }
@@ -344,7 +344,7 @@ mod test {
     #[test]
     fn serialize_empty() -> Result {
         let empty = Empty::default();
-        let any = Any::try_from(&empty)?;
+        let any = Any::from_msg(&empty)?;
         assert_eq!(
             any.type_url(),
             Some("type.googleapis.com/google.protobuf.Empty")
@@ -363,7 +363,7 @@ mod test {
             any.type_url(),
             Some("type.googleapis.com/google.protobuf.Empty")
         );
-        let empty = any.try_into_message::<Empty>()?;
+        let empty = any.to_msg::<Empty>()?;
         assert_eq!(empty, Empty::default());
         Ok(())
     }
@@ -371,7 +371,7 @@ mod test {
     #[test]
     fn serialize_field_mask() -> Result {
         let d = FieldMask::default().set_paths(["a", "b"].map(str::to_string).to_vec());
-        let any = Any::try_from(&d)?;
+        let any = Any::from_msg(&d)?;
         assert_eq!(
             any.type_url(),
             Some("type.googleapis.com/google.protobuf.FieldMask")
@@ -392,7 +392,7 @@ mod test {
             any.type_url(),
             Some("type.googleapis.com/google.protobuf.FieldMask")
         );
-        let d = any.try_into_message::<FieldMask>()?;
+        let d = any.to_msg::<FieldMask>()?;
         assert_eq!(
             d,
             FieldMask::default().set_paths(["a", "b"].map(str::to_string).to_vec())
@@ -403,7 +403,7 @@ mod test {
     #[test]
     fn serialize_timestamp() -> Result {
         let d = Timestamp::clamp(123, 0);
-        let any = Any::try_from(&d)?;
+        let any = Any::from_msg(&d)?;
         assert_eq!(
             any.type_url(),
             Some("type.googleapis.com/google.protobuf.Timestamp")
@@ -422,7 +422,7 @@ mod test {
             any.type_url(),
             Some("type.googleapis.com/google.protobuf.Timestamp")
         );
-        let d = any.try_into_message::<Timestamp>()?;
+        let d = any.to_msg::<Timestamp>()?;
         assert_eq!(d, Timestamp::clamp(123, 0));
         Ok(())
     }
@@ -433,7 +433,7 @@ mod test {
             parent: "parent".to_string(),
             id: "id".to_string(),
         };
-        let any = Any::try_from(&d)?;
+        let any = Any::from_msg(&d)?;
         assert_eq!(any.type_url(), Some("type.googleapis.com/wkt.test.Stored"));
         let got = serde_json::to_value(any)?;
         let want =
@@ -448,7 +448,7 @@ mod test {
             json!({"@type": "type.googleapis.com/wkt.test.Stored", "parent": "parent", "id": "id"});
         let any = Any(input.as_object().unwrap().clone());
         assert_eq!(any.type_url(), Some("type.googleapis.com/wkt.test.Stored"));
-        let d = any.try_into_message::<Stored>()?;
+        let d = any.to_msg::<Stored>()?;
         assert_eq!(
             d,
             Stored {
@@ -470,7 +470,7 @@ mod test {
     #[test]
     fn try_from_error() -> Result {
         let input = DetectBadMessages(json!([2, 3]));
-        let got = Any::try_from(&input);
+        let got = Any::from_msg(&input);
         assert!(got.is_err(), "{got:?}");
 
         Ok(())
@@ -480,7 +480,7 @@ mod test {
     fn deserialize_missing_type_field() -> Result {
         let input = json!({"@type-is-missing": ""});
         let any = serde_json::from_value::<Any>(input)?;
-        let got = any.try_into_message::<Stored>();
+        let got = any.to_msg::<Stored>();
         assert!(got.is_err());
         Ok(())
     }
@@ -489,7 +489,7 @@ mod test {
     fn deserialize_invalid_type_field() -> Result {
         let input = json!({"@type": [1, 2, 3]});
         let any = serde_json::from_value::<Any>(input)?;
-        let got = any.try_into_message::<Stored>();
+        let got = any.to_msg::<Stored>();
         assert!(got.is_err());
         Ok(())
     }
@@ -498,7 +498,7 @@ mod test {
     fn deserialize_missing_value_field() -> Result {
         let input = json!({"@type": "type.googleapis.com/google.protobuf.Duration", "value-is-missing": "1.2s"});
         let any = serde_json::from_value::<Any>(input)?;
-        let got = any.try_into_message::<Duration>();
+        let got = any.to_msg::<Duration>();
         assert!(got.is_err());
         Ok(())
     }
@@ -508,7 +508,7 @@ mod test {
         let input =
             json!({"@type": "type.googleapis.com/google.protobuf.Duration", "value": ["1.2s"]});
         let any = serde_json::from_value::<Any>(input)?;
-        let got = any.try_into_message::<Duration>();
+        let got = any.to_msg::<Duration>();
         assert!(got.is_err());
         Ok(())
     }
@@ -518,7 +518,7 @@ mod test {
         let input =
             json!({"@type": "type.googleapis.com/google.protobuf.Duration", "value": "1.2s"});
         let any = serde_json::from_value::<Any>(input)?;
-        let got = any.try_into_message::<Timestamp>();
+        let got = any.to_msg::<Timestamp>();
         assert!(got.is_err());
         let error = got.err().unwrap();
         assert!(
