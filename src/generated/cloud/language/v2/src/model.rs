@@ -1549,11 +1549,11 @@ pub mod moderate_text_request {
         /// Use the v1 model, this model is used by default when not provided.
         /// The v1 model only returns probability (confidence) score for each
         /// category.
-        _1,
+        ModelVersion1,
         /// Use the v2 model.
         /// The v2 model only returns probability (confidence) score for each
         /// category, and returns severity score for a subset of the categories.
-        _2,
+        ModelVersion2,
         /// If set, the enum was initialized with an unknown value.
         ///
         /// Applications can examine the value using [ModelVersion::value] or
@@ -1577,8 +1577,8 @@ pub mod moderate_text_request {
         pub fn value(&self) -> std::option::Option<i32> {
             match self {
                 Self::Unspecified => std::option::Option::Some(0),
-                Self::_1 => std::option::Option::Some(1),
-                Self::_2 => std::option::Option::Some(2),
+                Self::ModelVersion1 => std::option::Option::Some(1),
+                Self::ModelVersion2 => std::option::Option::Some(2),
                 Self::UnknownValue(u) => u.0.value(),
             }
         }
@@ -1590,8 +1590,8 @@ pub mod moderate_text_request {
         pub fn name(&self) -> std::option::Option<&str> {
             match self {
                 Self::Unspecified => std::option::Option::Some("MODEL_VERSION_UNSPECIFIED"),
-                Self::_1 => std::option::Option::Some("MODEL_VERSION_1"),
-                Self::_2 => std::option::Option::Some("MODEL_VERSION_2"),
+                Self::ModelVersion1 => std::option::Option::Some("MODEL_VERSION_1"),
+                Self::ModelVersion2 => std::option::Option::Some("MODEL_VERSION_2"),
                 Self::UnknownValue(u) => u.0.name(),
             }
         }
@@ -1614,8 +1614,8 @@ pub mod moderate_text_request {
         fn from(value: i32) -> Self {
             match value {
                 0 => Self::Unspecified,
-                1 => Self::_1,
-                2 => Self::_2,
+                1 => Self::ModelVersion1,
+                2 => Self::ModelVersion2,
                 _ => Self::UnknownValue(model_version::UnknownValue(
                     wkt::internal::UnknownEnumValue::Integer(value),
                 )),
@@ -1628,8 +1628,8 @@ pub mod moderate_text_request {
             use std::string::ToString;
             match value {
                 "MODEL_VERSION_UNSPECIFIED" => Self::Unspecified,
-                "MODEL_VERSION_1" => Self::_1,
-                "MODEL_VERSION_2" => Self::_2,
+                "MODEL_VERSION_1" => Self::ModelVersion1,
+                "MODEL_VERSION_2" => Self::ModelVersion2,
                 _ => Self::UnknownValue(model_version::UnknownValue(
                     wkt::internal::UnknownEnumValue::String(value.to_string()),
                 )),
@@ -1644,8 +1644,8 @@ pub mod moderate_text_request {
         {
             match self {
                 Self::Unspecified => serializer.serialize_i32(0),
-                Self::_1 => serializer.serialize_i32(1),
-                Self::_2 => serializer.serialize_i32(2),
+                Self::ModelVersion1 => serializer.serialize_i32(1),
+                Self::ModelVersion2 => serializer.serialize_i32(2),
                 Self::UnknownValue(u) => u.0.serialize(serializer),
             }
         }

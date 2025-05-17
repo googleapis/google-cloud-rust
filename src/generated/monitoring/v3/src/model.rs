@@ -14409,15 +14409,15 @@ pub mod uptime_check_config {
                 /// Default value that matches no status codes.
                 Unspecified,
                 /// The class of status codes between 100 and 199.
-                _1Xx,
+                StatusClass1Xx,
                 /// The class of status codes between 200 and 299.
-                _2Xx,
+                StatusClass2Xx,
                 /// The class of status codes between 300 and 399.
-                _3Xx,
+                StatusClass3Xx,
                 /// The class of status codes between 400 and 499.
-                _4Xx,
+                StatusClass4Xx,
                 /// The class of status codes between 500 and 599.
-                _5Xx,
+                StatusClass5Xx,
                 /// The class of all status codes.
                 Any,
                 /// If set, the enum was initialized with an unknown value.
@@ -14443,11 +14443,11 @@ pub mod uptime_check_config {
                 pub fn value(&self) -> std::option::Option<i32> {
                     match self {
                         Self::Unspecified => std::option::Option::Some(0),
-                        Self::_1Xx => std::option::Option::Some(100),
-                        Self::_2Xx => std::option::Option::Some(200),
-                        Self::_3Xx => std::option::Option::Some(300),
-                        Self::_4Xx => std::option::Option::Some(400),
-                        Self::_5Xx => std::option::Option::Some(500),
+                        Self::StatusClass1Xx => std::option::Option::Some(100),
+                        Self::StatusClass2Xx => std::option::Option::Some(200),
+                        Self::StatusClass3Xx => std::option::Option::Some(300),
+                        Self::StatusClass4Xx => std::option::Option::Some(400),
+                        Self::StatusClass5Xx => std::option::Option::Some(500),
                         Self::Any => std::option::Option::Some(1000),
                         Self::UnknownValue(u) => u.0.value(),
                     }
@@ -14460,11 +14460,11 @@ pub mod uptime_check_config {
                 pub fn name(&self) -> std::option::Option<&str> {
                     match self {
                         Self::Unspecified => std::option::Option::Some("STATUS_CLASS_UNSPECIFIED"),
-                        Self::_1Xx => std::option::Option::Some("STATUS_CLASS_1XX"),
-                        Self::_2Xx => std::option::Option::Some("STATUS_CLASS_2XX"),
-                        Self::_3Xx => std::option::Option::Some("STATUS_CLASS_3XX"),
-                        Self::_4Xx => std::option::Option::Some("STATUS_CLASS_4XX"),
-                        Self::_5Xx => std::option::Option::Some("STATUS_CLASS_5XX"),
+                        Self::StatusClass1Xx => std::option::Option::Some("STATUS_CLASS_1XX"),
+                        Self::StatusClass2Xx => std::option::Option::Some("STATUS_CLASS_2XX"),
+                        Self::StatusClass3Xx => std::option::Option::Some("STATUS_CLASS_3XX"),
+                        Self::StatusClass4Xx => std::option::Option::Some("STATUS_CLASS_4XX"),
+                        Self::StatusClass5Xx => std::option::Option::Some("STATUS_CLASS_5XX"),
                         Self::Any => std::option::Option::Some("STATUS_CLASS_ANY"),
                         Self::UnknownValue(u) => u.0.name(),
                     }
@@ -14491,11 +14491,11 @@ pub mod uptime_check_config {
                 fn from(value: i32) -> Self {
                     match value {
                         0 => Self::Unspecified,
-                        100 => Self::_1Xx,
-                        200 => Self::_2Xx,
-                        300 => Self::_3Xx,
-                        400 => Self::_4Xx,
-                        500 => Self::_5Xx,
+                        100 => Self::StatusClass1Xx,
+                        200 => Self::StatusClass2Xx,
+                        300 => Self::StatusClass3Xx,
+                        400 => Self::StatusClass4Xx,
+                        500 => Self::StatusClass5Xx,
                         1000 => Self::Any,
                         _ => Self::UnknownValue(status_class::UnknownValue(
                             wkt::internal::UnknownEnumValue::Integer(value),
@@ -14509,11 +14509,11 @@ pub mod uptime_check_config {
                     use std::string::ToString;
                     match value {
                         "STATUS_CLASS_UNSPECIFIED" => Self::Unspecified,
-                        "STATUS_CLASS_1XX" => Self::_1Xx,
-                        "STATUS_CLASS_2XX" => Self::_2Xx,
-                        "STATUS_CLASS_3XX" => Self::_3Xx,
-                        "STATUS_CLASS_4XX" => Self::_4Xx,
-                        "STATUS_CLASS_5XX" => Self::_5Xx,
+                        "STATUS_CLASS_1XX" => Self::StatusClass1Xx,
+                        "STATUS_CLASS_2XX" => Self::StatusClass2Xx,
+                        "STATUS_CLASS_3XX" => Self::StatusClass3Xx,
+                        "STATUS_CLASS_4XX" => Self::StatusClass4Xx,
+                        "STATUS_CLASS_5XX" => Self::StatusClass5Xx,
                         "STATUS_CLASS_ANY" => Self::Any,
                         _ => Self::UnknownValue(status_class::UnknownValue(
                             wkt::internal::UnknownEnumValue::String(value.to_string()),
@@ -14529,11 +14529,11 @@ pub mod uptime_check_config {
                 {
                     match self {
                         Self::Unspecified => serializer.serialize_i32(0),
-                        Self::_1Xx => serializer.serialize_i32(100),
-                        Self::_2Xx => serializer.serialize_i32(200),
-                        Self::_3Xx => serializer.serialize_i32(300),
-                        Self::_4Xx => serializer.serialize_i32(400),
-                        Self::_5Xx => serializer.serialize_i32(500),
+                        Self::StatusClass1Xx => serializer.serialize_i32(100),
+                        Self::StatusClass2Xx => serializer.serialize_i32(200),
+                        Self::StatusClass3Xx => serializer.serialize_i32(300),
+                        Self::StatusClass4Xx => serializer.serialize_i32(400),
+                        Self::StatusClass5Xx => serializer.serialize_i32(500),
                         Self::Any => serializer.serialize_i32(1000),
                         Self::UnknownValue(u) => u.0.serialize(serializer),
                     }
