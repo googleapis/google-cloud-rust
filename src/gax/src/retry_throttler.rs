@@ -42,7 +42,7 @@
 //! [Addressing Cascading Failures]: https://sre.google/sre-book/addressing-cascading-failures/
 //!
 //! # Example
-//! 
+//!
 //! Stochastically reject calls based on observed failure rates:
 //! ```
 //! # use google_cloud_gax::*;

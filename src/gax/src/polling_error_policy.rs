@@ -116,7 +116,7 @@ pub trait PollingErrorPolicyExt: PollingErrorPolicy + Sized {
     /// let policy = Aip194Strict.with_time_limit(Duration::from_secs(10)).with_attempt_limit(3);
     /// let attempt_count = 4;
     /// assert!(policy.on_error(Instant::now(), attempt_count, transient_error()).is_exhausted());
-    /// 
+    ///
     /// use google_cloud_gax::error::{Error, ServiceError, rpc::Code, rpc::Status};
     /// fn transient_error() -> Error { Error::rpc(ServiceError::from(Status::default().set_code(Code::Unavailable))) }
     /// ```
@@ -147,7 +147,7 @@ pub trait PollingErrorPolicyExt: PollingErrorPolicy + Sized {
     /// assert!(policy.on_error(Instant::now(), 1, transient_error()).is_continue());
     /// assert!(policy.on_error(Instant::now(), 2, transient_error()).is_continue());
     /// assert!(policy.on_error(Instant::now(), 3, transient_error()).is_exhausted());
-    /// 
+    ///
     /// use google_cloud_gax::error::{Error, ServiceError, rpc::Code, rpc::Status};
     /// fn transient_error() -> Error { Error::rpc(ServiceError::from(Status::default().set_code(Code::Unavailable))) }
     /// ```
@@ -174,7 +174,7 @@ impl<T: PollingErrorPolicy> PollingErrorPolicyExt for T {}
 /// let policy = Aip194Strict.with_attempt_limit(3);
 /// let attempt_count = 4;
 /// assert!(policy.on_error(Instant::now(), attempt_count, transient_error()).is_exhausted());
-/// 
+///
 /// use google_cloud_gax::error::{Error, ServiceError, rpc::Code, rpc::Status};
 /// fn transient_error() -> Error { Error::rpc(ServiceError::from(Status::default().set_code(Code::Unavailable))) }
 /// ```
@@ -234,7 +234,7 @@ impl PollingErrorPolicy for Aip194Strict {
 /// use std::time::Instant;
 /// let policy = AlwaysContinue;
 /// assert!(policy.on_error(Instant::now(), 1, permanent_error()).is_continue());
-/// 
+///
 /// use google_cloud_gax::error::{Error, ServiceError, rpc::Code, rpc::Status};
 /// fn permanent_error() -> Error { Error::rpc(ServiceError::from(Status::default().set_code(Code::Aborted))) }
 /// ```
@@ -289,7 +289,7 @@ impl LimitedElapsedTime {
     /// let policy = LimitedElapsedTime::new(Duration::from_secs(10));
     /// let start = Instant::now() - Duration::from_secs(20);
     /// assert!(policy.on_error(start, 1, transient_error()).is_exhausted());
-    /// 
+    ///
     /// use google_cloud_gax::error::{Error, ServiceError, rpc::Code, rpc::Status};
     /// fn transient_error() -> Error { Error::rpc(ServiceError::from(Status::default().set_code(Code::Unavailable))) }
     /// ```
@@ -315,7 +315,7 @@ where
     /// let policy = LimitedElapsedTime::custom(AlwaysContinue, Duration::from_secs(10));
     /// let start = Instant::now() - Duration::from_secs(20);
     /// assert!(policy.on_error(start, 1, permanent_error()).is_exhausted());
-    /// 
+    ///
     /// use google_cloud_gax::error::{Error, ServiceError, rpc::Code, rpc::Status};
     /// fn permanent_error() -> Error { Error::rpc(ServiceError::from(Status::default().set_code(Code::Aborted))) }
     /// ```
@@ -403,7 +403,7 @@ impl LimitedAttemptCount {
     /// let policy = LimitedAttemptCount::new(5);
     /// let attempt_count = 10;
     /// assert!(policy.on_error(Instant::now(), attempt_count, transient_error()).is_exhausted());
-    /// 
+    ///
     /// use google_cloud_gax::error::{Error, ServiceError, rpc::Code, rpc::Status};
     /// fn transient_error() -> Error { Error::rpc(ServiceError::from(Status::default().set_code(Code::Unavailable))) }
     /// ```
@@ -429,7 +429,7 @@ where
     /// let policy = LimitedAttemptCount::custom(AlwaysContinue, 2);
     /// assert!(policy.on_error(Instant::now(), 1, permanent_error()).is_continue());
     /// assert!(policy.on_error(Instant::now(), 2, permanent_error()).is_exhausted());
-    /// 
+    ///
     /// use google_cloud_gax::error::{Error, ServiceError, rpc::Code, rpc::Status};
     /// fn permanent_error() -> Error { Error::rpc(ServiceError::from(Status::default().set_code(Code::Aborted))) }
     /// ```
