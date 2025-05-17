@@ -337,7 +337,7 @@ const EXPECT_OFFSET_DATE_TIME_CONVERTS: &str = concat!(
 );
 const EXPECT_TIMESTAMP_FORMAT_SUCCEEDS: &str = concat!(
     "formatting a Timestamp using RFC-3339 should always succeed. ",
-    "The Timestamp values are always in range, and we use a well-known constant for the format specificer. ",
+    "The Timestamp values are always in range, and we use a well-known constant for the format specifier. ",
     "If this is not the case, please file a bug at https://github.com/googleapis/google-cloud-rust/issues"
 );
 use time::format_description::well_known::Rfc3339;
