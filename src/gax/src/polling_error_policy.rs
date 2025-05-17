@@ -14,6 +14,18 @@
 
 //! Defines the types for polling error policies.
 //!
+//! # Example
+//! ```
+//! # use google_cloud_gax::polling_error_policy::*;
+//! # use google_cloud_gax::options;
+//! use std::time::Duration;
+//! // Poll for at most 15 minutes or at most 50 attempts: whichever limit is
+//! // reached first stops the polling loop.
+//! let policy = Aip194Strict
+//!     .with_time_limit(Duration::from_secs(15 * 60))
+//!     .with_attempt_limit(50);
+//! ```
+//!
 //! The client libraries automatically poll long-running operations (LROs) and
 //! need to (1) distinguish between transient and permanent errors, and (2)
 //! provide a mechanism to limit the polling loop duration.
@@ -29,18 +41,6 @@
 //!
 //! [ClientBuilder::with_polling_error_policy]: crate::client_builder::ClientBuilder::with_polling_error_policy
 //! [RequestOptionsBuilder::with_polling_error_policy]: crate::options::RequestOptionsBuilder::with_polling_error_policy
-//!
-//! # Example:
-//! ```
-//! # use google_cloud_gax::polling_error_policy::*;
-//! # use google_cloud_gax::options;
-//! use std::time::Duration;
-//! // Poll for at most 15 minutes or at most 50 attempts: whichever limit is
-//! // reached first stops the polling loop.
-//! let policy = Aip194Strict
-//!     .with_time_limit(Duration::from_secs(15 * 60))
-//!     .with_attempt_limit(50);
-//! ```
 
 use crate::error::Error;
 use crate::loop_state::LoopState;
@@ -115,7 +115,10 @@ pub trait PollingErrorPolicyExt: PollingErrorPolicy + Sized {
     /// use std::time::{Duration, Instant};
     /// let policy = Aip194Strict.with_time_limit(Duration::from_secs(10)).with_attempt_limit(3);
     /// let attempt_count = 4;
-    /// assert!(policy.on_error(Instant::now(), attempt_count, error::Error::authentication("transient")).is_exhausted());
+    /// assert!(policy.on_error(Instant::now(), attempt_count, transient_error()).is_exhausted());
+    ///
+    /// use google_cloud_gax::error::{Error, ServiceError, rpc::Code, rpc::Status};
+    /// fn transient_error() -> Error { Error::rpc(ServiceError::from(Status::default().set_code(Code::Unavailable))) }
     /// ```
     fn with_time_limit(self, maximum_duration: std::time::Duration) -> LimitedElapsedTime<Self> {
         LimitedElapsedTime::custom(self, maximum_duration)
@@ -140,10 +143,13 @@ pub trait PollingErrorPolicyExt: PollingErrorPolicy + Sized {
     /// use polling_error_policy::*;
     /// use std::time::Instant;
     /// let policy = Aip194Strict.with_attempt_limit(3);
-    /// assert!(policy.on_error(Instant::now(), 0, error::Error::authentication(format!("transient"))).is_continue());
-    /// assert!(policy.on_error(Instant::now(), 1, error::Error::authentication(format!("transient"))).is_continue());
-    /// assert!(policy.on_error(Instant::now(), 2, error::Error::authentication(format!("transient"))).is_continue());
-    /// assert!(policy.on_error(Instant::now(), 3, error::Error::authentication(format!("transient"))).is_exhausted());
+    /// assert!(policy.on_error(Instant::now(), 0, transient_error()).is_continue());
+    /// assert!(policy.on_error(Instant::now(), 1, transient_error()).is_continue());
+    /// assert!(policy.on_error(Instant::now(), 2, transient_error()).is_continue());
+    /// assert!(policy.on_error(Instant::now(), 3, transient_error()).is_exhausted());
+    ///
+    /// use google_cloud_gax::error::{Error, ServiceError, rpc::Code, rpc::Status};
+    /// fn transient_error() -> Error { Error::rpc(ServiceError::from(Status::default().set_code(Code::Unavailable))) }
     /// ```
     fn with_attempt_limit(self, maximum_attempts: u32) -> LimitedAttemptCount<Self> {
         LimitedAttemptCount::custom(self, maximum_attempts)
@@ -167,7 +173,10 @@ impl<T: PollingErrorPolicy> PollingErrorPolicyExt for T {}
 /// use std::time::Instant;
 /// let policy = Aip194Strict.with_attempt_limit(3);
 /// let attempt_count = 4;
-/// assert!(policy.on_error(Instant::now(), attempt_count, error::Error::authentication("transient")).is_exhausted());
+/// assert!(policy.on_error(Instant::now(), attempt_count, transient_error()).is_exhausted());
+///
+/// use google_cloud_gax::error::{Error, ServiceError, rpc::Code, rpc::Status};
+/// fn transient_error() -> Error { Error::rpc(ServiceError::from(Status::default().set_code(Code::Unavailable))) }
 /// ```
 ///
 /// [AIP-194]: https://google.aip.dev/194
@@ -224,7 +233,10 @@ impl PollingErrorPolicy for Aip194Strict {
 /// # use google_cloud_gax::polling_error_policy::*;
 /// use std::time::Instant;
 /// let policy = AlwaysContinue;
-/// assert!(policy.on_error(Instant::now(), 1, error::Error::other("err")).is_continue());
+/// assert!(policy.on_error(Instant::now(), 1, permanent_error()).is_continue());
+///
+/// use google_cloud_gax::error::{Error, ServiceError, rpc::Code, rpc::Status};
+/// fn permanent_error() -> Error { Error::rpc(ServiceError::from(Status::default().set_code(Code::Aborted))) }
 /// ```
 ///
 /// [AIP-194]: https://google.aip.dev/194
@@ -276,7 +288,10 @@ impl LimitedElapsedTime {
     /// use std::time::{Duration, Instant};
     /// let policy = LimitedElapsedTime::new(Duration::from_secs(10));
     /// let start = Instant::now() - Duration::from_secs(20);
-    /// assert!(policy.on_error(start, 1, error::Error::authentication("transient")).is_exhausted());
+    /// assert!(policy.on_error(start, 1, transient_error()).is_exhausted());
+    ///
+    /// use google_cloud_gax::error::{Error, ServiceError, rpc::Code, rpc::Status};
+    /// fn transient_error() -> Error { Error::rpc(ServiceError::from(Status::default().set_code(Code::Unavailable))) }
     /// ```
     pub fn new(maximum_duration: std::time::Duration) -> Self {
         Self {
@@ -299,7 +314,10 @@ where
     /// use std::time::{Duration, Instant};
     /// let policy = LimitedElapsedTime::custom(AlwaysContinue, Duration::from_secs(10));
     /// let start = Instant::now() - Duration::from_secs(20);
-    /// assert!(policy.on_error(start, 1, error::Error::other("err")).is_exhausted());
+    /// assert!(policy.on_error(start, 1, permanent_error()).is_exhausted());
+    ///
+    /// use google_cloud_gax::error::{Error, ServiceError, rpc::Code, rpc::Status};
+    /// fn permanent_error() -> Error { Error::rpc(ServiceError::from(Status::default().set_code(Code::Aborted))) }
     /// ```
     pub fn custom(inner: P, maximum_duration: std::time::Duration) -> Self {
         Self {
@@ -384,7 +402,10 @@ impl LimitedAttemptCount {
     /// use std::time::Instant;
     /// let policy = LimitedAttemptCount::new(5);
     /// let attempt_count = 10;
-    /// assert!(policy.on_error(Instant::now(), attempt_count, error::Error::authentication("transient")).is_exhausted());
+    /// assert!(policy.on_error(Instant::now(), attempt_count, transient_error()).is_exhausted());
+    ///
+    /// use google_cloud_gax::error::{Error, ServiceError, rpc::Code, rpc::Status};
+    /// fn transient_error() -> Error { Error::rpc(ServiceError::from(Status::default().set_code(Code::Unavailable))) }
     /// ```
     pub fn new(maximum_attempts: u32) -> Self {
         Self {
@@ -406,8 +427,11 @@ where
     /// # use google_cloud_gax::*;
     /// use std::time::Instant;
     /// let policy = LimitedAttemptCount::custom(AlwaysContinue, 2);
-    /// assert!(policy.on_error(Instant::now(), 1, error::Error::other(format!("test"))).is_continue());
-    /// assert!(policy.on_error(Instant::now(), 2, error::Error::other(format!("test"))).is_exhausted());
+    /// assert!(policy.on_error(Instant::now(), 1, permanent_error()).is_continue());
+    /// assert!(policy.on_error(Instant::now(), 2, permanent_error()).is_exhausted());
+    ///
+    /// use google_cloud_gax::error::{Error, ServiceError, rpc::Code, rpc::Status};
+    /// fn permanent_error() -> Error { Error::rpc(ServiceError::from(Status::default().set_code(Code::Aborted))) }
     /// ```
     pub fn custom(inner: P, maximum_attempts: u32) -> Self {
         Self {
