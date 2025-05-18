@@ -205,13 +205,6 @@ async fn get_endurance_secrets(
     Ok(secrets)
 }
 
-/// Print an error in a format the Google Cloud agent can parse.
-///
-/// We typically deploy this application to environments where logs are
-/// automatically forwarded to [Cloud Logging] via an agent. If we structure the
-/// logs a little bit, the agent does a better job when forwarding the errors.
-///  
-/// https://cloud.google.com/logging/docs/structured-logging
 fn report_error(error: anyhow::Error, task: &str) {
     let structured = serde_json::json!({
         "severity": "error",
