@@ -15074,8 +15074,8 @@ impl<'de> serde::de::Deserialize<'de> for NoteKind {
 #[non_exhaustive]
 pub enum CVSSVersion {
     Unspecified,
-    _2,
-    _3,
+    CvssVersion2,
+    CvssVersion3,
     /// If set, the enum was initialized with an unknown value.
     ///
     /// Applications can examine the value using [CVSSVersion::value] or
@@ -15099,8 +15099,8 @@ impl CVSSVersion {
     pub fn value(&self) -> std::option::Option<i32> {
         match self {
             Self::Unspecified => std::option::Option::Some(0),
-            Self::_2 => std::option::Option::Some(1),
-            Self::_3 => std::option::Option::Some(2),
+            Self::CvssVersion2 => std::option::Option::Some(1),
+            Self::CvssVersion3 => std::option::Option::Some(2),
             Self::UnknownValue(u) => u.0.value(),
         }
     }
@@ -15112,8 +15112,8 @@ impl CVSSVersion {
     pub fn name(&self) -> std::option::Option<&str> {
         match self {
             Self::Unspecified => std::option::Option::Some("CVSS_VERSION_UNSPECIFIED"),
-            Self::_2 => std::option::Option::Some("CVSS_VERSION_2"),
-            Self::_3 => std::option::Option::Some("CVSS_VERSION_3"),
+            Self::CvssVersion2 => std::option::Option::Some("CVSS_VERSION_2"),
+            Self::CvssVersion3 => std::option::Option::Some("CVSS_VERSION_3"),
             Self::UnknownValue(u) => u.0.name(),
         }
     }
@@ -15136,8 +15136,8 @@ impl std::convert::From<i32> for CVSSVersion {
     fn from(value: i32) -> Self {
         match value {
             0 => Self::Unspecified,
-            1 => Self::_2,
-            2 => Self::_3,
+            1 => Self::CvssVersion2,
+            2 => Self::CvssVersion3,
             _ => Self::UnknownValue(cvss_version::UnknownValue(
                 wkt::internal::UnknownEnumValue::Integer(value),
             )),
@@ -15150,8 +15150,8 @@ impl std::convert::From<&str> for CVSSVersion {
         use std::string::ToString;
         match value {
             "CVSS_VERSION_UNSPECIFIED" => Self::Unspecified,
-            "CVSS_VERSION_2" => Self::_2,
-            "CVSS_VERSION_3" => Self::_3,
+            "CVSS_VERSION_2" => Self::CvssVersion2,
+            "CVSS_VERSION_3" => Self::CvssVersion3,
             _ => Self::UnknownValue(cvss_version::UnknownValue(
                 wkt::internal::UnknownEnumValue::String(value.to_string()),
             )),
@@ -15166,8 +15166,8 @@ impl serde::ser::Serialize for CVSSVersion {
     {
         match self {
             Self::Unspecified => serializer.serialize_i32(0),
-            Self::_2 => serializer.serialize_i32(1),
-            Self::_3 => serializer.serialize_i32(2),
+            Self::CvssVersion2 => serializer.serialize_i32(1),
+            Self::CvssVersion3 => serializer.serialize_i32(2),
             Self::UnknownValue(u) => u.0.serialize(serializer),
         }
     }

@@ -12,7 +12,19 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-/// `FieldMask` represents a set of symbolic field paths, for example:
+/// `FieldMask` represents a set of symbolic field paths.
+///
+/// # Example
+/// ```
+/// # use google_cloud_wkt::FieldMask;
+/// let mask = FieldMask::default().set_paths(["f.a", "f.b.d"]);
+/// assert_eq!(mask.paths, vec!["f.a".to_string(), "f.b.d".to_string()]);
+/// # Ok::<(), anyhow::Error>(())
+/// ```
+///
+/// # Background
+///
+/// Consider this text proto representation:
 ///
 /// ```norust
 ///     paths: "f.a"
@@ -247,6 +259,14 @@ pub struct FieldMask {
 
 impl FieldMask {
     /// Set the paths.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_wkt::FieldMask;
+    /// let mask = FieldMask::default().set_paths(["abc", "xyz"]);
+    /// assert_eq!(mask.paths, vec!["abc".to_string(), "xyz".to_string()]);
+    /// # Ok::<(), anyhow::Error>(())
+    /// ```
     pub fn set_paths<T, V>(mut self, paths: T) -> Self
     where
         T: IntoIterator<Item = V>,

@@ -394,7 +394,7 @@ mod test {
 
         let metadata = op
             .metadata
-            .map(|any| any.try_into_message::<model::CreateResourceMetadata>())
+            .map(|any| any.to_msg::<model::CreateResourceMetadata>())
             .transpose()?;
         assert_eq!(
             metadata,
@@ -405,7 +405,7 @@ mod test {
         match op.result.unwrap() {
             operation::Result::Error(e) => panic!("unexpected error {e:?}"),
             operation::Result::Response(any) => {
-                let response = any.try_into_message::<model::Resource>()?;
+                let response = any.to_msg::<model::Resource>()?;
                 assert_eq!(
                     response,
                     model::Resource {
@@ -439,7 +439,7 @@ mod test {
 
         let metadata = op
             .metadata
-            .map(|any| any.try_into_message::<model::CreateResourceMetadata>())
+            .map(|any| any.to_msg::<model::CreateResourceMetadata>())
             .transpose()?;
         assert_eq!(
             metadata,
@@ -453,7 +453,7 @@ mod test {
         assert!(!op.done, "{op:?}");
         let metadata = op
             .metadata
-            .map(|any| any.try_into_message::<model::CreateResourceMetadata>())
+            .map(|any| any.to_msg::<model::CreateResourceMetadata>())
             .transpose()?;
         assert_eq!(
             metadata,
@@ -465,7 +465,7 @@ mod test {
         assert!(op.done, "{op:?}");
         let metadata = op
             .metadata
-            .map(|any| any.try_into_message::<model::CreateResourceMetadata>())
+            .map(|any| any.to_msg::<model::CreateResourceMetadata>())
             .transpose()?;
         assert_eq!(
             metadata,
@@ -476,7 +476,7 @@ mod test {
         match op.result.unwrap() {
             operation::Result::Error(e) => panic!("unexpected error {e:?}"),
             operation::Result::Response(any) => {
-                let response = any.try_into_message::<model::Resource>()?;
+                let response = any.to_msg::<model::Resource>()?;
                 assert_eq!(
                     response,
                     model::Resource {

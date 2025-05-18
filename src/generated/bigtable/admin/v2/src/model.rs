@@ -7626,11 +7626,11 @@ pub mod cluster {
         /// No node scaling specified. Defaults to NODE_SCALING_FACTOR_1X.
         Unspecified,
         /// The cluster is running with a scaling factor of 1.
-        _1X,
+        NodeScalingFactor1X,
         /// The cluster is running with a scaling factor of 2.
         /// All node count values must be in increments of 2 with this scaling factor
         /// enabled, otherwise an INVALID_ARGUMENT error will be returned.
-        _2X,
+        NodeScalingFactor2X,
         /// If set, the enum was initialized with an unknown value.
         ///
         /// Applications can examine the value using [NodeScalingFactor::value] or
@@ -7654,8 +7654,8 @@ pub mod cluster {
         pub fn value(&self) -> std::option::Option<i32> {
             match self {
                 Self::Unspecified => std::option::Option::Some(0),
-                Self::_1X => std::option::Option::Some(1),
-                Self::_2X => std::option::Option::Some(2),
+                Self::NodeScalingFactor1X => std::option::Option::Some(1),
+                Self::NodeScalingFactor2X => std::option::Option::Some(2),
                 Self::UnknownValue(u) => u.0.value(),
             }
         }
@@ -7667,8 +7667,8 @@ pub mod cluster {
         pub fn name(&self) -> std::option::Option<&str> {
             match self {
                 Self::Unspecified => std::option::Option::Some("NODE_SCALING_FACTOR_UNSPECIFIED"),
-                Self::_1X => std::option::Option::Some("NODE_SCALING_FACTOR_1X"),
-                Self::_2X => std::option::Option::Some("NODE_SCALING_FACTOR_2X"),
+                Self::NodeScalingFactor1X => std::option::Option::Some("NODE_SCALING_FACTOR_1X"),
+                Self::NodeScalingFactor2X => std::option::Option::Some("NODE_SCALING_FACTOR_2X"),
                 Self::UnknownValue(u) => u.0.name(),
             }
         }
@@ -7691,8 +7691,8 @@ pub mod cluster {
         fn from(value: i32) -> Self {
             match value {
                 0 => Self::Unspecified,
-                1 => Self::_1X,
-                2 => Self::_2X,
+                1 => Self::NodeScalingFactor1X,
+                2 => Self::NodeScalingFactor2X,
                 _ => Self::UnknownValue(node_scaling_factor::UnknownValue(
                     wkt::internal::UnknownEnumValue::Integer(value),
                 )),
@@ -7705,8 +7705,8 @@ pub mod cluster {
             use std::string::ToString;
             match value {
                 "NODE_SCALING_FACTOR_UNSPECIFIED" => Self::Unspecified,
-                "NODE_SCALING_FACTOR_1X" => Self::_1X,
-                "NODE_SCALING_FACTOR_2X" => Self::_2X,
+                "NODE_SCALING_FACTOR_1X" => Self::NodeScalingFactor1X,
+                "NODE_SCALING_FACTOR_2X" => Self::NodeScalingFactor2X,
                 _ => Self::UnknownValue(node_scaling_factor::UnknownValue(
                     wkt::internal::UnknownEnumValue::String(value.to_string()),
                 )),
@@ -7721,8 +7721,8 @@ pub mod cluster {
         {
             match self {
                 Self::Unspecified => serializer.serialize_i32(0),
-                Self::_1X => serializer.serialize_i32(1),
-                Self::_2X => serializer.serialize_i32(2),
+                Self::NodeScalingFactor1X => serializer.serialize_i32(1),
+                Self::NodeScalingFactor2X => serializer.serialize_i32(2),
                 Self::UnknownValue(u) => u.0.serialize(serializer),
             }
         }

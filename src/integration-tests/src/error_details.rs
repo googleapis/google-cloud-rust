@@ -103,7 +103,7 @@ pub async fn check_code_for_grpc(builder: storage_control::client::ClientBuilder
     let bucket_name = format!("projects/_/buckets/{bucket_id}");
     let client = builder.build().await?;
 
-    match client.get_bucket(&bucket_name).send().await {
+    match client.get_bucket().set_name(&bucket_name).send().await {
         Ok(g) => panic!("unexpected success {g:?}"),
         Err(e) => match e.as_inner::<gax::error::ServiceError>() {
             None => panic!("expected service error, got {e:?}"),

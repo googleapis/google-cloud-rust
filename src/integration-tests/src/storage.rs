@@ -56,11 +56,17 @@ pub async fn objects(builder: storage::client::ClientBuilder) -> Result<()> {
     tracing::info!("success with contents={contents:?}");
 
     control
-        .delete_object(&insert.bucket, &insert.name)
+        .delete_object()
+        .set_bucket(&insert.bucket)
+        .set_object(&insert.name)
         .set_generation(insert.generation)
         .send()
         .await?;
-    control.delete_bucket(&bucket.name).send().await?;
+    control
+        .delete_bucket()
+        .set_name(&bucket.name)
+        .send()
+        .await?;
 
     Ok(())
 }
@@ -88,7 +94,9 @@ pub async fn create_test_bucket() -> gax::Result<(storage_control::client::Stora
 
     tracing::info!("\nTesting create_bucket()");
     let create = client
-        .create_bucket("projects/_", bucket_id)
+        .create_bucket()
+        .set_parent("projects/_")
+        .set_bucket_id(bucket_id)
         .set_bucket(
             Bucket::new()
                 .set_project(format!("projects/{project_id}"))
@@ -127,7 +135,9 @@ pub async fn buckets(builder: storage_control::client::ClientBuilder) -> Result<
 
     println!("\nTesting create_bucket()");
     let create = client
-        .create_bucket("projects/_", bucket_id)
+        .create_bucket()
+        .set_parent("projects/_")
+        .set_bucket_id(bucket_id)
         .set_bucket(
             Bucket::new()
                 .set_project(format!("projects/{project_id}"))
@@ -146,13 +156,14 @@ pub async fn buckets(builder: storage_control::client::ClientBuilder) -> Result<
     assert_eq!(create.name, bucket_name);
 
     println!("\nTesting get_bucket()");
-    let get = client.get_bucket(&bucket_name).send().await?;
+    let get = client.get_bucket().set_name(&bucket_name).send().await?;
     println!("SUCCESS on get_bucket: {get:?}");
     assert_eq!(get.name, bucket_name);
 
     println!("\nTesting list_buckets()");
     let mut buckets = client
-        .list_buckets(format!("projects/{project_id}"))
+        .list_buckets()
+        .set_parent(format!("projects/{project_id}"))
         .by_item();
     let mut bucket_names = Vec::new();
     while let Some(bucket) = buckets.next().await {
@@ -168,7 +179,7 @@ pub async fn buckets(builder: storage_control::client::ClientBuilder) -> Result<
     folders(&client, &bucket_name).await?;
 
     println!("\nTesting delete_bucket()");
-    client.delete_bucket(bucket_name).send().await?;
+    client.delete_bucket().set_name(bucket_name).send().await?;
     println!("SUCCESS on delete_bucket");
 
     Ok(())
@@ -178,12 +189,17 @@ async fn buckets_iam(client: &storage_control::client::Storage, bucket_name: &st
     let service_account = crate::service_account_for_iam_tests()?;
 
     println!("\nTesting get_iam_policy()");
-    let policy = client.get_iam_policy(bucket_name).send().await?;
+    let policy = client
+        .get_iam_policy()
+        .set_resource(bucket_name)
+        .send()
+        .await?;
     println!("SUCCESS on get_iam_policy = {policy:?}");
 
     println!("\nTesting test_iam_permissions()");
     let response = client
-        .test_iam_permissions(bucket_name)
+        .test_iam_permissions()
+        .set_resource(bucket_name)
         .set_permissions(["storage.buckets.get"])
         .send()
         .await?;
@@ -197,7 +213,8 @@ async fn buckets_iam(client: &storage_control::client::Storage, bucket_name: &st
             .set_members([format!("serviceAccount:{service_account}")]),
     );
     let policy = client
-        .set_iam_policy(bucket_name)
+        .set_iam_policy()
+        .set_resource(bucket_name)
         .set_update_mask(wkt::FieldMask::default().set_paths(["bindings"]))
         .set_policy(new_policy)
         .send()
@@ -213,7 +230,8 @@ async fn folders(client: &storage_control::client::Storage, bucket_name: &str) -
 
     println!("\nTesting create_folder()");
     let create = client
-        .create_folder(bucket_name)
+        .create_folder()
+        .set_parent(bucket_name)
         .set_folder_id("test-folder/")
         .send()
         .await?;
@@ -221,12 +239,12 @@ async fn folders(client: &storage_control::client::Storage, bucket_name: &str) -
     assert_eq!(create.name, folder_name);
 
     println!("\nTesting get_folder()");
-    let get = client.get_folder(&folder_name).send().await?;
+    let get = client.get_folder().set_name(&folder_name).send().await?;
     println!("SUCCESS on get_folder: {get:?}");
     assert_eq!(get.name, folder_name);
 
     println!("\nTesting list_folders()");
-    let mut folders = client.list_folders(bucket_name).by_item();
+    let mut folders = client.list_folders().set_parent(bucket_name).by_item();
     let mut folder_names = Vec::new();
     while let Some(folder) = folders.next().await {
         folder_names.push(folder?.name);
@@ -249,7 +267,11 @@ async fn folders(client: &storage_control::client::Storage, bucket_name: &str) -
     assert_eq!(rename.name, folder_rename);
 
     println!("\nTesting delete_folder()");
-    client.delete_folder(folder_rename).send().await?;
+    client
+        .delete_folder()
+        .set_name(folder_rename)
+        .send()
+        .await?;
     println!("SUCCESS on delete_folder");
 
     Ok(())
@@ -267,7 +289,8 @@ async fn cleanup_stale_buckets(
     let stale_deadline = wkt::Timestamp::clamp(stale_deadline.as_secs() as i64, 0);
 
     let mut buckets = client
-        .list_buckets(format!("projects/{project_id}"))
+        .list_buckets()
+        .set_parent(format!("projects/{project_id}"))
         .by_item();
     let mut pending = Vec::new();
     let mut names = Vec::new();
@@ -298,19 +321,25 @@ async fn cleanup_stale_buckets(
 }
 
 async fn cleanup_bucket(client: storage_control::client::Storage, name: String) -> Result<()> {
-    let mut objects = client.list_objects(&name).set_versions(true).by_item();
+    let mut objects = client
+        .list_objects()
+        .set_parent(&name)
+        .set_versions(true)
+        .by_item();
     let mut pending = Vec::new();
     while let Some(object) = objects.next().await {
         let object = object?;
         pending.push(
             client
-                .delete_object(object.bucket, object.name)
+                .delete_object()
+                .set_bucket(object.bucket)
+                .set_object(object.name)
                 .set_generation(object.generation)
                 .send(),
         );
     }
     let _ = futures::future::join_all(pending).await;
-    client.delete_bucket(&name).send().await
+    client.delete_bucket().set_name(&name).send().await
 }
 
 fn test_backoff() -> ExponentialBackoff {

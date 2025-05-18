@@ -536,13 +536,13 @@ pub mod url_map {
         /// Not specified. `302` is assumed.
         Unspecified,
         /// `301 Moved Permanently` code.
-        _301,
+        RedirectHttpResponseCode301,
         /// `302 Moved Temporarily` code.
-        _302,
+        RedirectHttpResponseCode302,
         /// `303 See Other` code.
-        _303,
+        RedirectHttpResponseCode303,
         /// `307 Temporary Redirect` code.
-        _307,
+        RedirectHttpResponseCode307,
         /// If set, the enum was initialized with an unknown value.
         ///
         /// Applications can examine the value using [RedirectHttpResponseCode::value] or
@@ -566,10 +566,10 @@ pub mod url_map {
         pub fn value(&self) -> std::option::Option<i32> {
             match self {
                 Self::Unspecified => std::option::Option::Some(0),
-                Self::_301 => std::option::Option::Some(1),
-                Self::_302 => std::option::Option::Some(2),
-                Self::_303 => std::option::Option::Some(3),
-                Self::_307 => std::option::Option::Some(4),
+                Self::RedirectHttpResponseCode301 => std::option::Option::Some(1),
+                Self::RedirectHttpResponseCode302 => std::option::Option::Some(2),
+                Self::RedirectHttpResponseCode303 => std::option::Option::Some(3),
+                Self::RedirectHttpResponseCode307 => std::option::Option::Some(4),
                 Self::UnknownValue(u) => u.0.value(),
             }
         }
@@ -583,10 +583,18 @@ pub mod url_map {
                 Self::Unspecified => {
                     std::option::Option::Some("REDIRECT_HTTP_RESPONSE_CODE_UNSPECIFIED")
                 }
-                Self::_301 => std::option::Option::Some("REDIRECT_HTTP_RESPONSE_CODE_301"),
-                Self::_302 => std::option::Option::Some("REDIRECT_HTTP_RESPONSE_CODE_302"),
-                Self::_303 => std::option::Option::Some("REDIRECT_HTTP_RESPONSE_CODE_303"),
-                Self::_307 => std::option::Option::Some("REDIRECT_HTTP_RESPONSE_CODE_307"),
+                Self::RedirectHttpResponseCode301 => {
+                    std::option::Option::Some("REDIRECT_HTTP_RESPONSE_CODE_301")
+                }
+                Self::RedirectHttpResponseCode302 => {
+                    std::option::Option::Some("REDIRECT_HTTP_RESPONSE_CODE_302")
+                }
+                Self::RedirectHttpResponseCode303 => {
+                    std::option::Option::Some("REDIRECT_HTTP_RESPONSE_CODE_303")
+                }
+                Self::RedirectHttpResponseCode307 => {
+                    std::option::Option::Some("REDIRECT_HTTP_RESPONSE_CODE_307")
+                }
                 Self::UnknownValue(u) => u.0.name(),
             }
         }
@@ -609,10 +617,10 @@ pub mod url_map {
         fn from(value: i32) -> Self {
             match value {
                 0 => Self::Unspecified,
-                1 => Self::_301,
-                2 => Self::_302,
-                3 => Self::_303,
-                4 => Self::_307,
+                1 => Self::RedirectHttpResponseCode301,
+                2 => Self::RedirectHttpResponseCode302,
+                3 => Self::RedirectHttpResponseCode303,
+                4 => Self::RedirectHttpResponseCode307,
                 _ => Self::UnknownValue(redirect_http_response_code::UnknownValue(
                     wkt::internal::UnknownEnumValue::Integer(value),
                 )),
@@ -625,10 +633,10 @@ pub mod url_map {
             use std::string::ToString;
             match value {
                 "REDIRECT_HTTP_RESPONSE_CODE_UNSPECIFIED" => Self::Unspecified,
-                "REDIRECT_HTTP_RESPONSE_CODE_301" => Self::_301,
-                "REDIRECT_HTTP_RESPONSE_CODE_302" => Self::_302,
-                "REDIRECT_HTTP_RESPONSE_CODE_303" => Self::_303,
-                "REDIRECT_HTTP_RESPONSE_CODE_307" => Self::_307,
+                "REDIRECT_HTTP_RESPONSE_CODE_301" => Self::RedirectHttpResponseCode301,
+                "REDIRECT_HTTP_RESPONSE_CODE_302" => Self::RedirectHttpResponseCode302,
+                "REDIRECT_HTTP_RESPONSE_CODE_303" => Self::RedirectHttpResponseCode303,
+                "REDIRECT_HTTP_RESPONSE_CODE_307" => Self::RedirectHttpResponseCode307,
                 _ => Self::UnknownValue(redirect_http_response_code::UnknownValue(
                     wkt::internal::UnknownEnumValue::String(value.to_string()),
                 )),
@@ -643,10 +651,10 @@ pub mod url_map {
         {
             match self {
                 Self::Unspecified => serializer.serialize_i32(0),
-                Self::_301 => serializer.serialize_i32(1),
-                Self::_302 => serializer.serialize_i32(2),
-                Self::_303 => serializer.serialize_i32(3),
-                Self::_307 => serializer.serialize_i32(4),
+                Self::RedirectHttpResponseCode301 => serializer.serialize_i32(1),
+                Self::RedirectHttpResponseCode302 => serializer.serialize_i32(2),
+                Self::RedirectHttpResponseCode303 => serializer.serialize_i32(3),
+                Self::RedirectHttpResponseCode307 => serializer.serialize_i32(4),
                 Self::UnknownValue(u) => u.0.serialize(serializer),
             }
         }

@@ -107,6 +107,9 @@ func rust_generate(rootConfig *config.Config, cmdLine *CommandLine) error {
 		slog.Info("please manually add the typos to `.typos.toml` and fix the problem upstream")
 		return err
 	}
+	if err := runExternalCommand("git", "add", "Cargo.lock", "Cargo.toml"); err != nil {
+		return err
+	}
 
 	return nil
 }

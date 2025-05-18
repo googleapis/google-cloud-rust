@@ -480,7 +480,7 @@ func TestEnumAnnotations(t *testing.T) {
 	}
 	if diff := cmp.Diff(&enumValueAnnotation{
 		Name:        "TEST_ENUM_2025",
-		VariantName: "_2025",
+		VariantName: "TestEnum2025",
 		EnumType:    "TestEnum",
 	}, v4.Codec); diff != "" {
 		t.Errorf("mismatch in enum annotations (-want, +got)\n:%s", diff)

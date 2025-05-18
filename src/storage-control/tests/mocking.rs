@@ -36,9 +36,9 @@ mod mocking {
 
         let client = gcs::client::Storage::from_stub(mock);
 
-        let response = client.get_bucket("test-bucket").send().await;
+        let response = client.get_bucket().send().await;
         assert!(response.is_err());
-        let response = client.get_folder("test-folder").send().await;
+        let response = client.get_folder().send().await;
         assert!(response.is_err());
 
         Ok(())

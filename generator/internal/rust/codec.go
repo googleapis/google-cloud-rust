@@ -821,7 +821,7 @@ func enumValueName(e *api.EnumValue) string {
 //	    Red,
 //	    Green,
 //	    BlackAndBlue,
-//	    _123,
+//	    MyEnum123,
 //	    UnknownVariant(/* implementation detail */),
 //	}
 //
@@ -832,24 +832,18 @@ func enumValueVariantName(e *api.EnumValue) string {
 	// The naming conventions being what they are, we need to test with a couple
 	// of different combinations. In particular, names with numbers, such as
 	// `InstancePrivateIpv6GoogleAccess` make life difficult for everyone.
-	parent := toScreamingSnake(e.Parent.Name)
-	if strings.HasPrefix(e.Name, parent+"_") {
-		return enumValueVariantEscape(strings.TrimPrefix(e.Name, parent+"_"))
+	prefix := toScreamingSnake(e.Parent.Name) + "_"
+	trimmed := strings.TrimPrefix(e.Name, prefix)
+	if strings.HasPrefix(e.Name, prefix) && strings.IndexFunc(trimmed, unicode.IsLetter) == 0 {
+		return toPascal(trimmed)
 	}
 	trimNumbers := regexp.MustCompile(`_([0-9])`)
-	parent = trimNumbers.ReplaceAllString(parent, `$1`)
-	if strings.HasPrefix(e.Name, parent+"_") {
-		return enumValueVariantEscape(strings.TrimPrefix(e.Name, parent+"_"))
+	prefix = trimNumbers.ReplaceAllString(prefix, `$1`)
+	trimmed = strings.TrimPrefix(e.Name, prefix)
+	if strings.HasPrefix(e.Name, prefix) && strings.IndexFunc(trimmed, unicode.IsLetter) == 0 {
+		return toPascal(trimmed)
 	}
 	return toPascal(e.Name)
-}
-
-func enumValueVariantEscape(trimmed string) string {
-	trimmed = toPascal(trimmed)
-	if strings.IndexFunc(trimmed, unicode.IsLetter) != 0 {
-		return "_" + trimmed
-	}
-	return toPascal(trimmed)
 }
 
 func fullyQualifiedEnumValueName(v *api.EnumValue, modulePath, sourceSpecificationPackageName string, packageMapping map[string]*packagez) string {

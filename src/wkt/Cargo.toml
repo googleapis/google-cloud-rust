@@ -52,4 +52,5 @@ time                 = { workspace = true, features = ["formatting", "parsing"] 
 [dev-dependencies]
 anyhow.workspace    = true
 test-case.workspace = true
+time                = { workspace = true, features = ["formatting", "macros", "parsing"] }
 wkt                 = { path = ".", package = "google-cloud-wkt", features = ["chrono", "time"] }

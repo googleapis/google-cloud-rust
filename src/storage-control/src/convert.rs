@@ -113,35 +113,35 @@ fn lro_any_to_prost(
     match value.type_url().unwrap_or_default() {
         "" => Ok(prost_types::Any::default()),
         "type.googleapis.com/google.storage.control.v2.RenameFolderMetadata" => value
-            .try_into_message::<crate::model::RenameFolderMetadata>()
+            .to_msg::<crate::model::RenameFolderMetadata>()
             .map_err(ConvertError::other)?
             .to_proto()
             .and_then(|prost_msg| {
                 prost_types::Any::from_msg(&prost_msg).map_err(ConvertError::other)
             }),
         "type.googleapis.com/google.storage.control.v2.CreateAnywhereCacheMetadata" => value
-            .try_into_message::<crate::model::CreateAnywhereCacheMetadata>()
+            .to_msg::<crate::model::CreateAnywhereCacheMetadata>()
             .map_err(ConvertError::other)?
             .to_proto()
             .and_then(|prost_msg| {
                 prost_types::Any::from_msg(&prost_msg).map_err(ConvertError::other)
             }),
         "type.googleapis.com/google.storage.control.v2.UpdateAnywhereCacheMetadata" => value
-            .try_into_message::<crate::model::UpdateAnywhereCacheMetadata>()
+            .to_msg::<crate::model::UpdateAnywhereCacheMetadata>()
             .map_err(ConvertError::other)?
             .to_proto()
             .and_then(|prost_msg| {
                 prost_types::Any::from_msg(&prost_msg).map_err(ConvertError::other)
             }),
         "type.googleapis.com/google.storage.control.v2.Folder" => value
-            .try_into_message::<crate::model::Folder>()
+            .to_msg::<crate::model::Folder>()
             .map_err(ConvertError::other)?
             .to_proto()
             .and_then(|prost_msg| {
                 prost_types::Any::from_msg(&prost_msg).map_err(ConvertError::other)
             }),
         "type.googleapis.com/google.storage.control.v2.AnywhereCache" => value
-            .try_into_message::<crate::model::AnywhereCache>()
+            .to_msg::<crate::model::AnywhereCache>()
             .map_err(ConvertError::other)?
             .to_proto()
             .and_then(|prost_msg| {
@@ -165,27 +165,27 @@ pub(crate) fn lro_any_from_prost(
             .to_msg::<google::storage::control::v2::RenameFolderMetadata>()
             .map_err(ConvertError::other)?
             .cnv()
-            .and_then(|our_msg| wkt::Any::try_from(&our_msg).map_err(ConvertError::other)),
+            .and_then(|our_msg| wkt::Any::from_msg(&our_msg).map_err(ConvertError::other)),
         "type.googleapis.com/google.storage.control.v2.CreateAnywhereCacheMetadata" => value
             .to_msg::<google::storage::control::v2::CreateAnywhereCacheMetadata>()
             .map_err(ConvertError::other)?
             .cnv()
-            .and_then(|our_msg| wkt::Any::try_from(&our_msg).map_err(ConvertError::other)),
+            .and_then(|our_msg| wkt::Any::from_msg(&our_msg).map_err(ConvertError::other)),
         "type.googleapis.com/google.storage.control.v2.UpdateAnywhereCacheMetadata" => value
             .to_msg::<google::storage::control::v2::UpdateAnywhereCacheMetadata>()
             .map_err(ConvertError::other)?
             .cnv()
-            .and_then(|our_msg| wkt::Any::try_from(&our_msg).map_err(ConvertError::other)),
+            .and_then(|our_msg| wkt::Any::from_msg(&our_msg).map_err(ConvertError::other)),
         "type.googleapis.com/google.storage.control.v2.Folder" => value
             .to_msg::<google::storage::control::v2::Folder>()
             .map_err(ConvertError::other)?
             .cnv()
-            .and_then(|our_msg| wkt::Any::try_from(&our_msg).map_err(ConvertError::other)),
+            .and_then(|our_msg| wkt::Any::from_msg(&our_msg).map_err(ConvertError::other)),
         "type.googleapis.com/google.storage.control.v2.AnywhereCache" => value
             .to_msg::<google::storage::control::v2::AnywhereCache>()
             .map_err(ConvertError::other)?
             .cnv()
-            .and_then(|our_msg| wkt::Any::try_from(&our_msg).map_err(ConvertError::other)),
+            .and_then(|our_msg| wkt::Any::from_msg(&our_msg).map_err(ConvertError::other)),
         type_url => Err(ConvertError::UnexpectedTypeUrl(type_url.to_string())),
     }
 }
@@ -208,7 +208,7 @@ mod test {
         let folder = crate::model::Folder::new()
             .set_name("test-name")
             .set_metageneration(42);
-        wkt::Any::try_from(&folder).unwrap()
+        wkt::Any::from_msg(&folder).unwrap()
     }
 
     fn prost_create_metadata() -> prost_types::Any {
@@ -221,7 +221,7 @@ mod test {
 
     fn wkt_create_metadata() -> wkt::Any {
         let md = crate::model::CreateAnywhereCacheMetadata::new().set_zone("test-zone".to_string());
-        wkt::Any::try_from(&md).unwrap()
+        wkt::Any::from_msg(&md).unwrap()
     }
 
     fn wkt_lro_with_metadata() -> longrunning::model::Operation {
@@ -293,7 +293,7 @@ mod test {
     #[test]
     fn lro_to_prost_unknown_metadata() -> anyhow::Result<()> {
         let wkt = longrunning::model::Operation::new()
-            .set_metadata(wkt::Any::try_from(&wkt::Duration::default())?);
+            .set_metadata(wkt::Any::from_msg(&wkt::Duration::default())?);
         let prost = wkt.to_proto();
         assert!(matches!(prost, Err(ConvertError::UnexpectedTypeUrl(_))));
         Ok(())
@@ -302,7 +302,7 @@ mod test {
     #[test]
     fn lro_to_prost_unknown_response() -> anyhow::Result<()> {
         let wkt = longrunning::model::Operation::new()
-            .set_response(wkt::Any::try_from(&wkt::Duration::default())?);
+            .set_response(wkt::Any::from_msg(&wkt::Duration::default())?);
         let prost = wkt.to_proto();
         assert!(matches!(prost, Err(ConvertError::UnexpectedTypeUrl(_))));
         Ok(())
@@ -343,7 +343,7 @@ mod test {
 
     #[test]
     fn lro_any_to_prost_unknown_type() -> anyhow::Result<()> {
-        let wkt = wkt::Any::try_from(&wkt::Duration::default())?;
+        let wkt = wkt::Any::from_msg(&wkt::Duration::default())?;
         let prost = lro_any_to_prost(wkt);
         assert!(matches!(prost, Err(ConvertError::UnexpectedTypeUrl(_))));
         Ok(())

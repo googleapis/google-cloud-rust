@@ -38,52 +38,52 @@ fn any_to_prost(value: wkt::Any) -> Option<prost_types::Any> {
     use gaxi::prost::ToProto;
     let mapped = value.type_url().map(|url| match url {
         "type.googleapis.com/google.rpc.BadRequest" => value
-            .try_into_message::<rpc::model::BadRequest>()
+            .to_msg::<rpc::model::BadRequest>()
             .ok()
             .and_then(|v| v.to_proto().ok())
             .map(|v| prost_types::Any::from_msg(&v)),
         "type.googleapis.com/google.rpc.DebugInfo" => value
-            .try_into_message::<rpc::model::DebugInfo>()
+            .to_msg::<rpc::model::DebugInfo>()
             .ok()
             .and_then(|v| v.to_proto().ok())
             .map(|v| prost_types::Any::from_msg(&v)),
         "type.googleapis.com/google.rpc.ErrorInfo" => value
-            .try_into_message::<rpc::model::ErrorInfo>()
+            .to_msg::<rpc::model::ErrorInfo>()
             .ok()
             .and_then(|v| v.to_proto().ok())
             .map(|v| prost_types::Any::from_msg(&v)),
         "type.googleapis.com/google.rpc.Help" => value
-            .try_into_message::<rpc::model::Help>()
+            .to_msg::<rpc::model::Help>()
             .ok()
             .and_then(|v| v.to_proto().ok())
             .map(|v| prost_types::Any::from_msg(&v)),
         "type.googleapis.com/google.rpc.LocalizedMessage" => value
-            .try_into_message::<rpc::model::LocalizedMessage>()
+            .to_msg::<rpc::model::LocalizedMessage>()
             .ok()
             .and_then(|v| v.to_proto().ok())
             .map(|v| prost_types::Any::from_msg(&v)),
         "type.googleapis.com/google.rpc.PreconditionFailure" => value
-            .try_into_message::<rpc::model::PreconditionFailure>()
+            .to_msg::<rpc::model::PreconditionFailure>()
             .ok()
             .and_then(|v| v.to_proto().ok())
             .map(|v| prost_types::Any::from_msg(&v)),
         "type.googleapis.com/google.rpc.QuotaFailure" => value
-            .try_into_message::<rpc::model::QuotaFailure>()
+            .to_msg::<rpc::model::QuotaFailure>()
             .ok()
             .and_then(|v| v.to_proto().ok())
             .map(|v| prost_types::Any::from_msg(&v)),
         "type.googleapis.com/google.rpc.RequestInfo" => value
-            .try_into_message::<rpc::model::RequestInfo>()
+            .to_msg::<rpc::model::RequestInfo>()
             .ok()
             .and_then(|v| v.to_proto().ok())
             .map(|v| prost_types::Any::from_msg(&v)),
         "type.googleapis.com/google.rpc.ResourceInfo" => value
-            .try_into_message::<rpc::model::ResourceInfo>()
+            .to_msg::<rpc::model::ResourceInfo>()
             .ok()
             .and_then(|v| v.to_proto().ok())
             .map(|v| prost_types::Any::from_msg(&v)),
         "type.googleapis.com/google.rpc.RetryInfo" => value
-            .try_into_message::<rpc::model::RetryInfo>()
+            .to_msg::<rpc::model::RetryInfo>()
             .ok()
             .and_then(|v| v.to_proto().ok())
             .map(|v| prost_types::Any::from_msg(&v)),
@@ -99,52 +99,52 @@ fn any_from_prost(value: prost_types::Any) -> Option<wkt::Any> {
             .to_msg::<google::rpc::BadRequest>()
             .ok()
             .and_then(|v| v.cnv().ok())
-            .map(|v| wkt::Any::try_from(&v)),
+            .map(|v| wkt::Any::from_msg(&v)),
         "type.googleapis.com/google.rpc.DebugInfo" => value
             .to_msg::<google::rpc::DebugInfo>()
             .ok()
             .and_then(|v| v.cnv().ok())
-            .map(|v| wkt::Any::try_from(&v)),
+            .map(|v| wkt::Any::from_msg(&v)),
         "type.googleapis.com/google.rpc.ErrorInfo" => value
             .to_msg::<google::rpc::ErrorInfo>()
             .ok()
             .and_then(|v| v.cnv().ok())
-            .map(|v| wkt::Any::try_from(&v)),
+            .map(|v| wkt::Any::from_msg(&v)),
         "type.googleapis.com/google.rpc.Help" => value
             .to_msg::<google::rpc::Help>()
             .ok()
             .and_then(|v| v.cnv().ok())
-            .map(|v| wkt::Any::try_from(&v)),
+            .map(|v| wkt::Any::from_msg(&v)),
         "type.googleapis.com/google.rpc.LocalizedMessage" => value
             .to_msg::<google::rpc::LocalizedMessage>()
             .ok()
             .and_then(|v| v.cnv().ok())
-            .map(|v| wkt::Any::try_from(&v)),
+            .map(|v| wkt::Any::from_msg(&v)),
         "type.googleapis.com/google.rpc.PreconditionFailure" => value
             .to_msg::<google::rpc::PreconditionFailure>()
             .ok()
             .and_then(|v| v.cnv().ok())
-            .map(|v| wkt::Any::try_from(&v)),
+            .map(|v| wkt::Any::from_msg(&v)),
         "type.googleapis.com/google.rpc.QuotaFailure" => value
             .to_msg::<google::rpc::QuotaFailure>()
             .ok()
             .and_then(|v| v.cnv().ok())
-            .map(|v| wkt::Any::try_from(&v)),
+            .map(|v| wkt::Any::from_msg(&v)),
         "type.googleapis.com/google.rpc.RequestInfo" => value
             .to_msg::<google::rpc::RequestInfo>()
             .ok()
             .and_then(|v| v.cnv().ok())
-            .map(|v| wkt::Any::try_from(&v)),
+            .map(|v| wkt::Any::from_msg(&v)),
         "type.googleapis.com/google.rpc.ResourceInfo" => value
             .to_msg::<google::rpc::ResourceInfo>()
             .ok()
             .and_then(|v| v.cnv().ok())
-            .map(|v| wkt::Any::try_from(&v)),
+            .map(|v| wkt::Any::from_msg(&v)),
         "type.googleapis.com/google.rpc.RetryInfo" => value
             .to_msg::<google::rpc::RetryInfo>()
             .ok()
             .and_then(|v| v.cnv().ok())
-            .map(|v| wkt::Any::try_from(&v)),
+            .map(|v| wkt::Any::from_msg(&v)),
         _ => None,
     };
     mapped.transpose().ok().flatten()
@@ -266,55 +266,55 @@ mod test {
         use rpc::model::*;
         use wkt::Any;
         let try_from = vec![
-            Any::try_from(&BadRequest::default().set_field_violations(vec![
+            Any::from_msg(&BadRequest::default().set_field_violations(vec![
                 rpc::model::bad_request::FieldViolation::default()
                     .set_field("field")
                     .set_description("desc"),
             ])),
-            Any::try_from(
+            Any::from_msg(
                 &DebugInfo::default()
                     .set_stack_entries(vec!["stack".to_string()])
                     .set_detail("detail"),
             ),
-            Any::try_from(
+            Any::from_msg(
                 &ErrorInfo::default()
                     .set_reason("reason")
                     .set_domain("domain"),
             ),
-            Any::try_from(&Help::default().set_links(vec![
+            Any::from_msg(&Help::default().set_links(vec![
                     rpc::model::help::Link::default()
                         .set_description("desc")
                         .set_url("url"),
                 ])),
-            Any::try_from(
+            Any::from_msg(
                 &LocalizedMessage::default()
                     .set_locale("locale")
                     .set_message("message"),
             ),
-            Any::try_from(&PreconditionFailure::default().set_violations(vec![
+            Any::from_msg(&PreconditionFailure::default().set_violations(vec![
                 rpc::model::precondition_failure::Violation::default()
                     .set_type("type")
                     .set_subject("subject")
                     .set_description("desc"),
             ])),
-            Any::try_from(&QuotaFailure::default().set_violations(vec![
+            Any::from_msg(&QuotaFailure::default().set_violations(vec![
                 rpc::model::quota_failure::Violation::default()
                     .set_subject("subject")
                     .set_description("desc"),
             ])),
-            Any::try_from(
+            Any::from_msg(
                 &RequestInfo::default()
                     .set_request_id("id")
                     .set_serving_data("data"),
             ),
-            Any::try_from(
+            Any::from_msg(
                 &ResourceInfo::default()
                     .set_resource_type("type")
                     .set_resource_name("name")
                     .set_owner("owner")
                     .set_description("desc"),
             ),
-            Any::try_from(&RetryInfo::default().set_retry_delay(wkt::Duration::clamp(1, 0))),
+            Any::from_msg(&RetryInfo::default().set_retry_delay(wkt::Duration::clamp(1, 0))),
         ];
         try_from.into_iter().map(|x| x.unwrap()).collect()
     }
