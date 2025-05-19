@@ -79,14 +79,15 @@ async fn worker(
             last_report = Instant::now();
             error_count = 0;
             success_count = 0;
+            update_count = 0;
         }
-        // We want to average about 30,000 requests per minute. That will keep the
-        // test well below the quota:
+        // We want to average about 80,000 requests per minute. That will keep
+        // the test well below the quota:
         //   https://cloud.google.com/secret-manager/quotas
         let wait = tokio::time::Instant::now()
             + Duration::from_secs(60)
                 .mul_f32(total_workers as f32)
-                .div_f32(90_000_f32);
+                .div_f32(80_000_f32);
         let access = client
             .access_secret_version()
             .set_name(&version.name)

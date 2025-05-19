@@ -65,8 +65,8 @@ rustup update stable
 Clone the code and run a test:
 
 ```shell
-git clone https://github.com/googleapis/google-cloud-cpp.git
-cd google-cloud-cpp
+git clone https://github.com/googleapis/google-cloud-rust.git
+cd google-cloud-rust
 cargo run --release -p endurance-test
 ```
 
