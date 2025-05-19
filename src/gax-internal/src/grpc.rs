@@ -19,6 +19,7 @@ use gax::Result;
 use gax::backoff_policy::BackoffPolicy;
 use gax::error::Error;
 mod from_status;
+use auth::credentials::CacheableResource;
 use from_status::to_gax_error;
 use gax::exponential_backoff::ExponentialBackoff;
 use gax::retry_policy::RetryPolicy;
@@ -140,11 +141,20 @@ impl Client {
         Response: prost::Message + std::default::Default + 'static,
     {
         let mut headers = headers;
-        let auth_headers = self
+        let cached_auth_headers = self
             .credentials
             .headers(http::Extensions::new())
             .await
             .map_err(Error::authentication)?;
+
+        let auth_headers = match cached_auth_headers {
+            CacheableResource::New { data, .. } => Ok(data),
+            CacheableResource::NotModified => {
+                unreachable!("headers are not cached");
+            }
+        };
+
+        let auth_headers = auth_headers?;
         headers.extend(auth_headers);
         let metadata = tonic::metadata::MetadataMap::from_headers(headers);
         let mut request = tonic::Request::from_parts(metadata, extensions, request);

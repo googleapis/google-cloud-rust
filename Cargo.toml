@@ -326,7 +326,7 @@ url            = { version = "2" }
 num-bigint-dig = { version = "0.8" }
 
 # Local packages used as dependencies
-auth                          = { version = "0.20.1", path = "src/auth", package = "google-cloud-auth" }
+auth                          = { version = "0.21", path = "src/auth", package = "google-cloud-auth" }
 gax                           = { version = "0.23.0", path = "src/gax", package = "google-cloud-gax" }
 gaxi                          = { version = "0.3", path = "src/gax-internal", package = "google-cloud-gax-internal" }
 iam_v1                        = { version = "0.4", path = "src/generated/iam/v1", package = "google-cloud-iam-v1" }

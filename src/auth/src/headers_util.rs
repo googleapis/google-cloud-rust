@@ -13,16 +13,34 @@
 // limitations under the License.
 
 use crate::Result;
-use crate::credentials::QUOTA_PROJECT_KEY;
+use crate::credentials::{CacheableResource, QUOTA_PROJECT_KEY};
 use crate::errors;
+use crate::token::Token;
 
 use http::HeaderMap;
 use http::header::{AUTHORIZATION, HeaderName, HeaderValue};
 
 const API_KEY_HEADER_KEY: &str = "x-goog-api-key";
 
+/// A utility function to create cacheable headers.
+pub(crate) fn build_cacheable_headers(
+    cached_token: &CacheableResource<Token>,
+    quota_project_id: &Option<String>,
+) -> Result<CacheableResource<HeaderMap>> {
+    match cached_token {
+        CacheableResource::NotModified => Ok(CacheableResource::NotModified),
+        CacheableResource::New { entity_tag, data } => {
+            let headers = build_bearer_headers(data, quota_project_id)?;
+            Ok(CacheableResource::New {
+                entity_tag: entity_tag.clone(),
+                data: headers,
+            })
+        }
+    }
+}
+
 /// A utility function to create bearer headers.
-pub(crate) fn build_bearer_headers(
+fn build_bearer_headers(
     token: &crate::token::Token,
     quota_project_id: &Option<String>,
 ) -> Result<HeaderMap> {
@@ -32,8 +50,24 @@ pub(crate) fn build_bearer_headers(
     })
 }
 
+pub(crate) fn build_cacheable_api_key_headers(
+    cached_token: &CacheableResource<Token>,
+    quota_project_id: &Option<String>,
+) -> Result<CacheableResource<HeaderMap>> {
+    match cached_token {
+        CacheableResource::NotModified => Ok(CacheableResource::NotModified),
+        CacheableResource::New { entity_tag, data } => {
+            let headers = build_api_key_headers(data, quota_project_id)?;
+            Ok(CacheableResource::New {
+                entity_tag: entity_tag.clone(),
+                data: headers,
+            })
+        }
+    }
+}
+
 /// A utility function to create API key headers.
-pub(crate) fn build_api_key_headers(
+fn build_api_key_headers(
     token: &crate::token::Token,
     quota_project_id: &Option<String>,
 ) -> Result<HeaderMap> {
@@ -71,7 +105,7 @@ fn build_headers(
 #[cfg(test)]
 mod test {
     use super::*;
-    use crate::token::Token;
+    use crate::{credentials::EntityTag, token::Token};
 
     // Helper to create test tokens
     fn create_test_token(token: &str, token_type: &str) -> Token {
@@ -84,13 +118,21 @@ mod test {
     }
 
     #[test]
-    fn build_bearer_headers_basic_success() {
+    fn build_cacheable_headers_basic_success() {
         let token = create_test_token("test_token", "Bearer");
+        let cacheable_token = CacheableResource::New {
+            entity_tag: EntityTag::default(),
+            data: token,
+        };
 
-        let result = build_bearer_headers(&token, &None);
+        let result = build_cacheable_headers(&cacheable_token, &None);
 
         assert!(result.is_ok());
-        let headers = result.unwrap();
+        let cached_headers = result.unwrap();
+        let headers = match cached_headers {
+            CacheableResource::New { data, .. } => data,
+            CacheableResource::NotModified => unreachable!("expecting new headers"),
+        };
 
         assert_eq!(headers.len(), 1, "{headers:?}");
         let value = headers
@@ -102,14 +144,36 @@ mod test {
     }
 
     #[test]
-    fn build_bearer_headers_with_quota_project_success() {
-        let token = create_test_token("test_token", "Bearer");
+    fn build_cacheable_headers_basic_not_modified() {
+        let cacheable_token = CacheableResource::NotModified;
 
-        let quota_project_id = Some("test-project-123".to_string());
-        let result = build_bearer_headers(&token, &quota_project_id);
+        let result = build_cacheable_headers(&cacheable_token, &None);
 
         assert!(result.is_ok());
-        let headers = result.unwrap();
+        let cached_headers = result.unwrap();
+        match cached_headers {
+            CacheableResource::New { .. } => unreachable!("expecting new headers"),
+            CacheableResource::NotModified => CacheableResource::<Token>::NotModified,
+        };
+    }
+
+    #[test]
+    fn build_cacheable_headers_with_quota_project_success() {
+        let token = create_test_token("test_token", "Bearer");
+        let cacheable_token = CacheableResource::New {
+            entity_tag: EntityTag::default(),
+            data: token,
+        };
+
+        let quota_project_id = Some("test-project-123".to_string());
+        let result = build_cacheable_headers(&cacheable_token, &quota_project_id);
+
+        assert!(result.is_ok());
+        let cached_headers = result.unwrap();
+        let headers = match cached_headers {
+            CacheableResource::New { data, .. } => data,
+            CacheableResource::NotModified => unreachable!("expecting new headers"),
+        };
         assert_eq!(headers.len(), 2, "{headers:?}");
 
         let token = headers
@@ -155,13 +219,21 @@ mod test {
     }
 
     #[test]
-    fn build_api_key_headers_basic_success() {
+    fn build_cacheable_api_key_headers_basic_success() {
         let token = create_test_token("api_key_12345", "Bearer");
+        let cacheable_token = CacheableResource::New {
+            entity_tag: EntityTag::default(),
+            data: token,
+        };
 
-        let result = build_api_key_headers(&token, &None);
+        let result = build_cacheable_api_key_headers(&cacheable_token, &None);
 
         assert!(result.is_ok());
-        let headers = result.unwrap();
+        let cached_headers = result.unwrap();
+        let headers = match cached_headers {
+            CacheableResource::New { data, .. } => data,
+            CacheableResource::NotModified => unreachable!("expecting new headers"),
+        };
 
         assert_eq!(headers.len(), 1, "{headers:?}");
         let api_key = headers
@@ -173,14 +245,36 @@ mod test {
     }
 
     #[test]
-    fn build_api_key_headers_with_quota_project() {
-        let token = create_test_token("api_key_12345", "Bearer");
+    fn build_cacheable_api_key_headers_basic_not_modified() {
+        let cacheable_token = CacheableResource::NotModified;
 
-        let quota_project_id = Some("test-project-456".to_string());
-        let result = build_api_key_headers(&token, &quota_project_id);
+        let result = build_cacheable_api_key_headers(&cacheable_token, &None);
 
         assert!(result.is_ok());
-        let headers = result.unwrap();
+        let cached_headers = result.unwrap();
+        match cached_headers {
+            CacheableResource::New { .. } => unreachable!("expecting new headers"),
+            CacheableResource::NotModified => CacheableResource::<Token>::NotModified,
+        };
+    }
+
+    #[test]
+    fn build_cacheable_api_key_headers_with_quota_project() {
+        let token = create_test_token("api_key_12345", "Bearer");
+        let cacheable_token = CacheableResource::New {
+            entity_tag: EntityTag::default(),
+            data: token,
+        };
+
+        let quota_project_id = Some("test-project-456".to_string());
+        let result = build_cacheable_api_key_headers(&cacheable_token, &quota_project_id);
+
+        assert!(result.is_ok());
+        let cached_headers = result.unwrap();
+        let headers = match cached_headers {
+            CacheableResource::New { data, .. } => data,
+            CacheableResource::NotModified => unreachable!("expecting new headers"),
+        };
 
         assert_eq!(headers.len(), 2, "{headers:?}");
 
