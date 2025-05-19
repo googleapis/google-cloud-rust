@@ -42,7 +42,7 @@ bon.workspace         = true
 gax.workspace = true
 
 [dev-dependencies]
-axum.workspace           = true
+axum                     = { workspace = true, features = ["http2", "json", "query", "tokio"] }
 httptest.workspace       = true
 mockall.workspace        = true
 regex.workspace          = true

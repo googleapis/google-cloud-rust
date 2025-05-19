@@ -278,52 +278,52 @@ inherits    = "dev"
 incremental = false
 
 [workspace.dependencies]
-async-trait        = { version = "0.1" }
-base64             = { version = "0.22" }
-bon                = { version = "3", default-features = false }
-bytes              = { version = "1", default-features = false, features = ["serde"] }
-chrono             = { version = "0.4", default-features = false }
-crc32c             = { version = "0.6", default-features = false }
-futures            = { version = "0.3" }
-http               = { version = "1", default-features = false, features = ["std"] }
-http-body-util     = { version = "0.1" }
-lazy_static        = { version = "1", default-features = false }
-percent-encoding   = { version = "2", default-features = false }
-pin-project        = { version = "1" }
-prost              = { version = "0.13", default-features = false }
-prost-build        = { version = "0.13", default-features = false }
-prost-types        = { version = "0.13", default-features = false }
-rand               = { version = "0.9" }
-reqwest            = { version = "0.12", default-features = false, features = ["json"] }
-rustls             = { version = "0.23", default-features = false }
-rustls-pemfile     = { version = "2", default-features = false }
-serde              = { version = "1", default-features = false, features = ["serde_derive"] }
-serde_json         = { version = "1", default-features = false, features = ["std"] }
-serde_with         = { version = "3", default-features = false, features = ["base64", "macros", "std"] }
-thiserror          = { version = "2" }
-time               = { version = "0.3", default-features = false }
-tokio              = { version = "1", default-features = false }
-tonic              = { version = "0.13", default-features = false, features = ["prost", "tls-native-roots", "tls-ring"] }
-tonic-build        = { version = "0.13", default-features = false }
-tracing            = { version = "0.1" }
-tracing-subscriber = { version = "0.3", default-features = false }
+async-trait        = { default-features = false, version = "0.1" }
+base64             = { default-features = false, version = "0.22", features = ["std"] }
+bon                = { default-features = false, version = "3" }
+bytes              = { default-features = false, version = "1", features = ["serde"] }
+chrono             = { default-features = false, version = "0.4" }
+crc32c             = { default-features = false, version = "0.6" }
+futures            = { default-features = false, version = "0.3" }
+http               = { default-features = false, version = "1", features = ["std"] }
+http-body-util     = { default-features = false, version = "0.1" }
+lazy_static        = { default-features = false, version = "1" }
+percent-encoding   = { default-features = false, version = "2" }
+pin-project        = { default-features = false, version = "1" }
+prost              = { default-features = false, version = "0.13" }
+prost-build        = { default-features = false, version = "0.13" }
+prost-types        = { default-features = false, version = "0.13" }
+rand               = { default-features = false, version = "0.9" }
+reqwest            = { default-features = false, version = "0.12", features = ["json"] }
+rustls             = { default-features = false, version = "0.23" }
+rustls-pemfile     = { default-features = false, version = "2" }
+serde              = { default-features = false, version = "1", features = ["serde_derive"] }
+serde_json         = { default-features = false, version = "1", features = ["std"] }
+serde_with         = { default-features = false, version = "3", features = ["base64", "macros", "std"] }
+thiserror          = { default-features = false, version = "2" }
+time               = { default-features = false, version = "0.3" }
+tokio              = { default-features = false, version = "1" }
+tonic              = { default-features = false, version = "0.13", features = ["prost", "tls-native-roots", "tls-ring"] }
+tonic-build        = { default-features = false, version = "0.13" }
+tracing            = { default-features = false, version = "0.1", features = ["attributes"] }
+tracing-subscriber = { default-features = false, version = "0.3" }
 # Test packags
-anyhow         = "1"
-axum           = { version = "0.8" }
-httptest       = { version = "0.16.3" }
-mockall        = { version = "0.13" }
-mutants        = { version = "0.0.3" }
-regex          = { version = "1", default-features = false }
-rsa            = { version = "0.9", default-features = false }
-rustc_version  = { version = "0.4" }
-scoped-env     = { version = "2" }
-serial_test    = { version = "3" }
-tempfile       = { version = "3" }
-test-case      = { version = "3" }
-tokio-stream   = { version = "0.1", default-features = false }
-tokio-test     = { version = "0.4", default-features = false }
-url            = { version = "2" }
-num-bigint-dig = { version = "0.8" }
+anyhow         = { default-features = false, version = "1" }
+axum           = { default-features = false, version = "0.8" }
+httptest       = { default-features = false, version = "0.16.3" }
+mockall        = { default-features = false, version = "0.13" }
+mutants        = { default-features = false, version = "0.0.3" }
+regex          = { default-features = false, version = "1" }
+rsa            = { default-features = false, version = "0.9" }
+rustc_version  = { default-features = false, version = "0.4" }
+scoped-env     = { default-features = false, version = "2" }
+serial_test    = { default-features = false, version = "3" }
+tempfile       = { default-features = false, version = "3" }
+test-case      = { default-features = false, version = "3" }
+tokio-stream   = { default-features = false, version = "0.1" }
+tokio-test     = { default-features = false, version = "0.4" }
+url            = { default-features = false, version = "2" }
+num-bigint-dig = { default-features = false, version = "0.8" }
 
 # Local packages used as dependencies
 auth                          = { version = "0.21", path = "src/auth", package = "google-cloud-auth" }
