@@ -16,11 +16,13 @@ use crate::Error;
 use crate::Result;
 use gax::options::RequestOptionsBuilder;
 use gax::retry_policy::RetryPolicyExt;
+use std::path::PathBuf;
 use std::process::Stdio;
 use std::time::Duration;
 use tokio::process::Command;
 
 mod compliance;
+mod identity;
 
 const SHOWCASE_NAME: &str = "github.com/googleapis/gapic-showcase/cmd/gapic-showcase@v0.36.2";
 
@@ -37,9 +39,11 @@ pub async fn run() -> Result<()> {
         tracing::subscriber::set_default(subscriber)
     };
 
-    install().await?;
-    let child = Command::new("go")
-        .args(["run", SHOWCASE_NAME, "run"])
+    let path = install().await?;
+    let showcase: PathBuf = [path.as_str(), "bin", "gapic-showcase"].iter().collect();
+    tracing::info!("starting {showcase:?}");
+    let child = Command::new(showcase)
+        .args(["run"])
         .stdin(Stdio::null())
         .kill_on_drop(true)
         .spawn()
@@ -49,12 +53,16 @@ pub async fn run() -> Result<()> {
         tracing::error!("showcase server is not ready {child:?}");
     }
 
+    tracing::info!("running tests for Identity service");
+    identity::run().await?;
+
+    tracing::info!("running tests for Compliance service");
     compliance::run().await?;
 
     Ok(())
 }
 
-async fn install() -> Result<()> {
+async fn install() -> Result<String> {
     let install = Command::new("go")
         .args(["install", SHOWCASE_NAME])
         .stdin(Stdio::null())
@@ -67,7 +75,21 @@ async fn install() -> Result<()> {
         )));
     }
     tracing::info!("installed showcase binary: {install:?}");
-    Ok(())
+    let gopath = Command::new("go")
+        .args(["env", "GOPATH"])
+        .stdin(Stdio::null())
+        .output()
+        .await
+        .map_err(Error::other)?;
+    if !gopath.status.success() {
+        return Err(Error::other(format!(
+            "error installing showcase: {install:?}"
+        )));
+    }
+    let mut dir = gopath.stdout.clone();
+    assert!(dir.len() > 0, "{gopath:?}");
+    dir.truncate(dir.len() - 1);
+    String::from_utf8(dir).map_err(Error::other)
 }
 
 async fn wait_until_ready() -> Result<()> {
