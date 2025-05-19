@@ -40,7 +40,7 @@ pub(crate) fn build_cacheable_headers(
 }
 
 /// A utility function to create bearer headers.
-pub(crate) fn build_bearer_headers(
+fn build_bearer_headers(
     token: &crate::token::Token,
     quota_project_id: &Option<String>,
 ) -> Result<HeaderMap> {
@@ -67,7 +67,7 @@ pub(crate) fn build_cacheable_api_key_headers(
 }
 
 /// A utility function to create API key headers.
-pub(crate) fn build_api_key_headers(
+fn build_api_key_headers(
     token: &crate::token::Token,
     quota_project_id: &Option<String>,
 ) -> Result<HeaderMap> {

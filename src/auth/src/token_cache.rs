@@ -45,7 +45,7 @@ impl TokenCache {
         Self { rx_token }
     }
 
-    async fn get_latest_token_and_entity_tag(&self) -> Result<(Token, EntityTag)> {
+    async fn latest_token_and_entity_tag(&self) -> Result<(Token, EntityTag)> {
         let mut rx = self.rx_token.clone();
         let token_result = rx.borrow_and_update().clone();
         if let Some(token_result) = token_result {
@@ -74,16 +74,10 @@ impl TokenCache {
 #[async_trait::async_trait]
 impl CachedTokenProvider for TokenCache {
     async fn token(&self, extensions: Extensions) -> Result<CacheableResource<Token>> {
-        let given_tag = extensions.get::<EntityTag>();
-
-        let (token, tag) = self.get_latest_token_and_entity_tag().await?;
-        if given_tag.is_some_and(|given_tag| tag.eq(given_tag)) {
-            return Ok(CacheableResource::NotModified);
-        } else {
-            return Ok(CacheableResource::New {
-                entity_tag: tag,
-                data: token,
-            });
+        let (data, entity_tag) = self.latest_token_and_entity_tag().await?;
+        match extensions.get::<EntityTag>() {
+            Some(tag) if entity_tag.eq(tag) => Ok(CacheableResource::NotModified),
+            _ => Ok(CacheableResource::New { entity_tag, data }),
         }
     }
 }

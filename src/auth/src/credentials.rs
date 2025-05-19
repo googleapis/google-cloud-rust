@@ -25,6 +25,7 @@ use http::{Extensions, HeaderMap};
 use serde_json::Value;
 use std::future::Future;
 use std::sync::Arc;
+use std::sync::atomic::{AtomicU64, Ordering};
 
 pub(crate) const QUOTA_PROJECT_KEY: &str = "x-goog-user-project";
 pub(crate) const DEFAULT_UNIVERSE_DOMAIN: &str = "googleapis.com";
@@ -34,24 +35,14 @@ pub(crate) const DEFAULT_UNIVERSE_DOMAIN: &str = "googleapis.com";
 /// An `EntityTag` is an opaque token that can be used to determine if a
 /// cached resource has changed. The specific format of the ETag is
 /// determined by its generator.
-///
-#[derive(Clone, PartialEq, Default)]
+#[derive(Clone, Debug, PartialEq, Default)]
 pub struct EntityTag(u64);
 
-use std::sync::atomic::{AtomicU64, Ordering};
 static ENTITY_TAG_GENERATOR: AtomicU64 = AtomicU64::new(0);
 impl EntityTag {
     pub fn new() -> Self {
         let value = ENTITY_TAG_GENERATOR.fetch_add(1, Ordering::SeqCst);
         Self(value)
-    }
-}
-
-impl std::fmt::Debug for EntityTag {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.debug_struct("EntityTag")
-            .field("tag", &"[censored]")
-            .finish()
     }
 }
 
