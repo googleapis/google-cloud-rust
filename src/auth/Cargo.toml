@@ -56,5 +56,3 @@ tokio-test.workspace     = true
 url.workspace            = true
 mutants.workspace        = true
 num-bigint-dig.workspace = true
-# Blocked by https://github.com/RustCrypto/RSA/issues/466
-rand = "0.8"
