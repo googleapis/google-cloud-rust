@@ -95,11 +95,9 @@ async fn worker(
             .await;
         match access {
             Ok(_) => {
-                SUCCESS_COUNT.fetch_add(1, Ordering::SeqCst);
                 success_count += 1;
             }
             Err(e) => {
-                ERROR_COUNT.fetch_add(1, Ordering::SeqCst);
                 error_count += 1;
                 if error_count > TOO_MANY_ERRORS && success_count == 0 {
                     return Err(e.into());
