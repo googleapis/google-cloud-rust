@@ -127,7 +127,6 @@ mod test {
         false,
         "mock non-retryable error",
     )); "on_error_response")]
-    #[test_case::test_case(Ok(CacheableResource::NotModified); "on_not_modified_response")]
     async fn auth_error_non_retryable(
         headers_response: AuthResult<CacheableResource<HeaderMap>>,
     ) -> Result<()> {

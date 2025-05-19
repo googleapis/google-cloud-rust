@@ -97,13 +97,6 @@ async fn wait_for_next_token(
     token_result.expect("There should always be a token or error in the channel after changed()")
 }
 
-fn get_etag_from_token(token: &str) -> String {
-    let mut hasher = blake3::Hasher::new();
-    hasher.update(token.as_bytes());
-    let hash_bytes = hasher.finalize();
-    format!("\"{}\"", hash_bytes.to_hex())
-}
-
 async fn refresh_task<T>(
     token_provider: T,
     tx_token: watch::Sender<Option<Result<(Token, EntityTag)>>>,
@@ -113,7 +106,7 @@ async fn refresh_task<T>(
     loop {
         let token_result = token_provider.token().await;
         let result = token_result.clone().map(|token| {
-            let entity_tag = EntityTag::new(get_etag_from_token(token.token.as_str()));
+            let entity_tag = EntityTag::new();
             (token, entity_tag)
         });
 

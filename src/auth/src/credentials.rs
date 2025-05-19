@@ -35,15 +35,14 @@ pub(crate) const DEFAULT_UNIVERSE_DOMAIN: &str = "googleapis.com";
 /// cached resource has changed. The specific format of the ETag is
 /// determined by its generator (e.g., a hash of the resource content).
 ///
-/// # Security Note
-/// The `Debug` implementation for `EntityTag` censors the actual tag value
-/// to prevent accidental logging of potentially sensitive information.
 #[derive(Clone, PartialEq, Default)]
-pub struct EntityTag(pub(crate) String);
+pub struct EntityTag(u64);
 
+use std::sync::atomic::{AtomicU64, Ordering};
+static ENTITY_TAG_GENERATOR: AtomicU64 = AtomicU64::new(0);
 impl EntityTag {
-    /// Creates a new `EntityTag` from a string value.
-    pub fn new(value: String) -> Self {
+    pub fn new() -> Self {
+        let value = ENTITY_TAG_GENERATOR.fetch_add(1, Ordering::SeqCst);
         Self(value)
     }
 }

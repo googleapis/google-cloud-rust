@@ -16,7 +16,7 @@ use auth::credentials::CacheableResource;
 use auth::credentials::{Builder as AccessTokenCredentialBuilder, Credentials};
 use gax::Result;
 use gax::backoff_policy::BackoffPolicy;
-use gax::error::{CredentialsError, Error, HttpError, ServiceError};
+use gax::error::{Error, HttpError, ServiceError};
 use gax::exponential_backoff::ExponentialBackoff;
 use gax::polling_backoff_policy::PollingBackoffPolicy;
 use gax::polling_error_policy::Aip194Strict;
@@ -136,13 +136,11 @@ impl ReqwestClient {
         let auth_headers = match cached_auth_headers {
             CacheableResource::New { data, .. } => Ok(data),
             CacheableResource::NotModified => {
-                Err(Error::authentication(CredentialsError::from_str(
-                    false,
-                    "Auth headers not refreshed; client requires new headers to proceed with the request.",
-                )))
+                unreachable!("headers are not cached");
             }
-        }?;
+        };
 
+        let auth_headers = auth_headers?;
         for (key, value) in auth_headers.iter() {
             builder = builder.header(key, value);
         }

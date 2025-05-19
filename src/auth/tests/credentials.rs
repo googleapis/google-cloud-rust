@@ -238,7 +238,7 @@ mod test {
             HeaderValue::from_static("test-value"),
         )]);
         let cached_headers = CacheableResource::New {
-            entity_tag: EntityTag::new("test-entity-tag".to_string()),
+            entity_tag: EntityTag::new(),
             data: headers,
         };
         let cached_headers_clone = cached_headers.clone();

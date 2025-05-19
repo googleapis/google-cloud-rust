@@ -16,7 +16,6 @@ pub use crate::Error;
 pub use crate::Result;
 use auth::credentials::CacheableResource;
 pub use control::model::Object;
-use gax::error::CredentialsError;
 use http::Extensions;
 
 /// Implements a client for the Cloud Storage API.
@@ -160,13 +159,11 @@ impl Storage {
         let auth_headers = match cached_auth_headers {
             CacheableResource::New { data, .. } => Ok(data),
             CacheableResource::NotModified => {
-                Err(Error::authentication(CredentialsError::from_str(
-                    false,
-                    "Auth headers not refreshed; client requires new headers to proceed with the request.",
-                )))
+                unreachable!("headers are not cached");
             }
-        }?;
+        };
 
+        let auth_headers = auth_headers?;
         let builder = auth_headers
             .iter()
             .fold(builder, |b, (k, v)| b.header(k, v));
@@ -232,13 +229,11 @@ impl Storage {
         let auth_headers = match cached_auth_headers {
             CacheableResource::New { data, .. } => Ok(data),
             CacheableResource::NotModified => {
-                Err(Error::authentication(CredentialsError::from_str(
-                    false,
-                    "Auth headers not refreshed; client requires new headers to proceed with the request.",
-                )))
+                unreachable!("headers are not cached");
             }
-        }?;
+        };
 
+        let auth_headers = auth_headers?;
         let builder = auth_headers
             .iter()
             .fold(builder, |b, (k, v)| b.header(k, v));

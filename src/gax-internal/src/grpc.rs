@@ -17,7 +17,7 @@
 use auth::credentials::Credentials;
 use gax::Result;
 use gax::backoff_policy::BackoffPolicy;
-use gax::error::{CredentialsError, Error};
+use gax::error::Error;
 mod from_status;
 use auth::credentials::CacheableResource;
 use from_status::to_gax_error;
@@ -150,12 +150,11 @@ impl Client {
         let auth_headers = match cached_auth_headers {
             CacheableResource::New { data, .. } => Ok(data),
             CacheableResource::NotModified => {
-                Err(Error::authentication(CredentialsError::from_str(
-                    false,
-                    "Auth headers not refreshed; client requires new headers to proceed with the request.",
-                )))
+                unreachable!("headers are not cached");
             }
-        }?;
+        };
+
+        let auth_headers = auth_headers?;
         headers.extend(auth_headers);
         let metadata = tonic::metadata::MetadataMap::from_headers(headers);
         let mut request = tonic::Request::from_parts(metadata, extensions, request);
