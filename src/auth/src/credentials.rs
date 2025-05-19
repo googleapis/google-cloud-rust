@@ -17,6 +17,9 @@ pub mod mds;
 pub mod service_account;
 pub mod user_account;
 
+pub mod external_account;
+pub mod external_account_sources;
+
 pub(crate) mod internal;
 
 use crate::Result;
@@ -478,6 +481,7 @@ fn build_credentials(
                     |b: service_account::Builder, s: Vec<String>| b
                         .with_access_specifier(service_account::AccessSpecifier::from_scopes(s))
                 ),
+                "external_account" => external_account::new(json),
                 _ => Err(errors::non_retryable_from_str(format!(
                     "Invalid or unsupported credentials type found in JSON: {cred_type}"
                 ))),

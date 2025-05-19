@@ -28,10 +28,14 @@ type Result<T> = std::result::Result<T, CredentialsError>;
 #[cfg(test)]
 mod test {
     use super::*;
-    use http::header::{HeaderName, HeaderValue};
+    use base64::Engine;
+    use http::header::{AUTHORIZATION, HeaderName, HeaderValue};
     use http::{Extensions, HeaderMap};
+    use httptest::{Expectation, Server, matchers::*, responders::*};
     use scoped_env::ScopedEnv;
     use std::error::Error;
+
+    type TestResult = std::result::Result<(), Box<dyn std::error::Error>>;
 
     #[tokio::test]
     #[serial_test::serial]
@@ -190,6 +194,97 @@ mod test {
         let fmt = format!("{:?}", creds);
         assert!(fmt.contains("ApiKeyCredentials"), "{fmt:?}");
         assert!(!fmt.contains("test-api-key"), "{fmt:?}");
+    }
+
+    #[tokio::test]
+    async fn create_access_token_credentials_json_url_sourced_credentials() -> TestResult {
+        let source_token_response_body = json!({
+            "access_token":"an_example_token",
+        })
+        .to_string();
+
+        let token_response_body = json!({
+            "access_token":"an_exchanged_token",
+            "issued_token_type":"urn:ietf:params:oauth:token-type:access_token",
+            "token_type":"Bearer",
+            "expires_in":3600,
+            "scope":"https://www.googleapis.com/auth/cloud-platform"
+        })
+        .to_string();
+
+        let expected_basic_auth =
+            base64::engine::general_purpose::URL_SAFE_NO_PAD.encode("client_id:supersecret");
+
+        let server = Server::run();
+        server.expect(
+            Expectation::matching(all_of![
+                request::method_path("GET", "/source_token"),
+                request::headers(contains(("metadata", "True",))),
+            ])
+            .respond_with(status_code(200).body(source_token_response_body)),
+        );
+
+        server.expect(
+            Expectation::matching(all_of![
+                request::method_path("POST", "/token"),                
+                request::body(url_decoded(contains(("subject_token", "an_example_token")))),                
+                request::body(url_decoded(contains((
+                    "subject_token_type",
+                    "urn:ietf:params:oauth:token-type:jwt"
+                )))),
+                request::body(url_decoded(contains((
+                    "audience",
+                    "//iam.googleapis.com/projects/654269145772/locations/global/workloadIdentityPools/byoid-pool/providers/azure-pid"
+                )))),
+                request::headers(contains((
+                    "authorization",
+                    format!("Basic {expected_basic_auth}")
+                ))),
+                request::headers(contains((
+                    "content-type",
+                    "application/x-www-form-urlencoded"
+                ))),
+            ])
+            .respond_with(status_code(200).body(token_response_body)),
+        );
+
+        let contents = json!({
+            "type": "external_account",
+            "audience": "//iam.googleapis.com/projects/654269145772/locations/global/workloadIdentityPools/byoid-pool/providers/azure-pid",
+            "subject_token_type": "urn:ietf:params:oauth:token-type:jwt",
+            "token_url": server.url("/token").to_string(),
+            "client_id": "client_id",
+            "client_secret": "supersecret",
+            "credential_source": {
+              "url": server.url("/source_token").to_string(),
+              "headers": {
+                "Metadata": "True"
+              },
+              "format": {
+                "type": "json",
+                "subject_token_field_name": "access_token"
+              }
+            }
+          }).to_string();
+
+        let creds =
+            AccessTokenCredentialBuilder::new(serde_json::from_str(contents.as_str()).unwrap())
+                .build()
+                .unwrap();
+
+        let fmt = format!("{:?}", creds);
+        print!("{:?}", creds);
+        assert!(fmt.contains("ExternalAccountCredentials"));
+
+        let headers = creds.headers(Extensions::new()).await?;
+        let token = headers
+            .get(AUTHORIZATION)
+            .and_then(|token_value| token_value.to_str().ok())
+            .map(|s| s.to_string())
+            .unwrap();
+        assert!(token.contains("Bearer an_exchanged_token"));
+
+        Ok(())
     }
 
     mockall::mock! {
