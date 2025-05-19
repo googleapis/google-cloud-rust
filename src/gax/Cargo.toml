@@ -35,7 +35,7 @@ bytes.workspace       = true
 futures.workspace     = true
 http.workspace        = true
 pin-project.workspace = true
-rand.workspace        = true
+rand                  = { workspace = true, features = ["thread_rng"] }
 serde.workspace       = true
 serde_json.workspace  = true
 tokio                 = { workspace = true, features = ["macros", "rt-multi-thread", "time"] }
