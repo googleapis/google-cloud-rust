@@ -33,7 +33,7 @@ pub(crate) const DEFAULT_UNIVERSE_DOMAIN: &str = "googleapis.com";
 ///
 /// An `EntityTag` is an opaque token that can be used to determine if a
 /// cached resource has changed. The specific format of the ETag is
-/// determined by its generator (e.g., a hash of the resource content).
+/// determined by its generator.
 ///
 #[derive(Clone, PartialEq, Default)]
 pub struct EntityTag(u64);
