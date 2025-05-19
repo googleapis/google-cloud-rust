@@ -57,4 +57,4 @@ url.workspace            = true
 mutants.workspace        = true
 num-bigint-dig.workspace = true
 # Blocked by https://github.com/RustCrypto/RSA/issues/466
-rand = "0.8"
+rand = "0.9"
