@@ -94,12 +94,14 @@ mod test {
         mock.expect_get_recognizer().return_once(|_, _| {
             // This time, return an error.
             use gax::error::rpc::Status;
-            use gax::error::{Error, ServiceError};
+            use gax::error::{Error, ServiceErrorBuilder};
             let s = Status::default()
                 .set_code(404)
                 .set_message("Resource not found");
             Err(Error::rpc(
-                ServiceError::from(s).with_http_status_code(404_u16),
+                ServiceErrorBuilder::new(s)
+                    .with_http_status_code(404_u16)
+                    .build(),
             ))
         });
         // ANCHOR_END: error

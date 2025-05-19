@@ -23,7 +23,7 @@ fn to_gax_status(status: tonic::Status) -> rpc::Status {
 }
 
 pub fn to_gax_error(status: tonic::Status) -> gax::error::Error {
-    gax::error::Error::rpc(gax::error::ServiceError::from(to_gax_status(status)))
+    gax::error::Error::rpc(gax::error::ServiceErrorBuilder::new(to_gax_status(status)).build())
 }
 
 #[cfg(test)]

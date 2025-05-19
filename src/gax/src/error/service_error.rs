@@ -38,12 +38,42 @@ impl ServiceError {
         &self.status
     }
 
+    /// The status code, if any, associated with this error.
+    ///
+    /// Errors received via HTTP have a HTTP status code associated with them.
+    /// Not all service errors are received via HTTP. Errors received via gRPC
+    /// do not have a corresponding HTTP status code. Errors received as part
+    /// of the *payload* of a successful response also have no associated status
+    /// code.
+    ///
+    /// The latter is common in APIs that perform multiple updates, each one
+    /// failing independepently
     pub fn http_status_code(&self) -> &Option<u16> {
         &self.http_status_code
     }
 
     pub fn headers(&self) -> &Option<HashMap<String, String>> {
         &self.headers
+    }
+}
+
+/// A builder for [ServiceError].
+pub struct ServiceErrorBuilder {
+    inner: ServiceError,
+}
+
+impl ServiceErrorBuilder {
+    /// Creates a new builder to construct complex [ServiceError] instances.
+    pub fn new<T>(v: T) -> Self
+    where
+        T: Into<ServiceError>,
+    {
+        Self { inner: v.into() }
+    }
+
+    /// Consumes the builder and returns the resulting error.
+    pub fn build(self) -> ServiceError {
+        self.inner
     }
 
     /// Sets the HTTP status code for this service error.
@@ -52,7 +82,7 @@ impl ServiceError {
     /// received as part of a response message (e.g. a long-running operation)
     /// do not have them.
     pub fn with_http_status_code<T: Into<u16>>(mut self, v: T) -> Self {
-        self.http_status_code = Some(v.into());
+        self.inner.http_status_code = Some(v.into());
         self
     }
 
@@ -70,7 +100,7 @@ impl ServiceError {
         V: Into<String>,
         T: IntoIterator<Item = (K, V)>,
     {
-        self.headers = Some(v.into_iter().map(|(k, v)| (k.into(), v.into())).collect());
+        self.inner.headers = Some(v.into_iter().map(|(k, v)| (k.into(), v.into())).collect());
         self
     }
 }
@@ -126,7 +156,7 @@ mod test {
 
     #[test]
     fn from_rpc_status() {
-        let error = ServiceError::from(source());
+        let error = ServiceErrorBuilder::new(source()).build();
         assert_eq!(error.status(), &Status::from(source()));
         assert_eq!(error.http_status_code(), &None);
         assert_eq!(error.headers(), &None);
@@ -138,7 +168,7 @@ mod test {
 
     #[test]
     fn from_gax_status() {
-        let error = ServiceError::from(Status::from(source()));
+        let error = ServiceErrorBuilder::new(Status::from(source())).build();
         assert_eq!(error.status(), &Status::from(source()));
         assert_eq!(error.http_status_code(), &None);
         assert_eq!(error.headers(), &None);
@@ -150,7 +180,9 @@ mod test {
 
     #[test]
     fn with_http_status_code() {
-        let error = ServiceError::from(source()).with_http_status_code(404_u16);
+        let error = ServiceErrorBuilder::new(source())
+            .with_http_status_code(404_u16)
+            .build();
         assert_eq!(error.status(), &Status::from(source()));
         assert_eq!(error.http_status_code(), &Some(404));
         assert_eq!(error.headers(), &None);
@@ -163,7 +195,9 @@ mod test {
     #[test]
     fn with_empty() {
         let empty: [(&str, &str); 0] = [];
-        let error = ServiceError::from(source()).with_headers(empty);
+        let error = ServiceErrorBuilder::new(source())
+            .with_headers(empty)
+            .build();
         assert_eq!(error.status(), &Status::from(source()));
         assert_eq!(error.http_status_code(), &None);
         let want = HashMap::new();
@@ -177,8 +211,9 @@ mod test {
 
     #[test]
     fn with_one_header() {
-        let error =
-            ServiceError::from(source()).with_headers([("content-type", "application/json")]);
+        let error = ServiceErrorBuilder::new(source())
+            .with_headers([("content-type", "application/json")])
+            .build();
         assert_eq!(error.status(), &Status::from(source()));
         assert_eq!(error.http_status_code(), &None);
         let want = {
@@ -197,11 +232,13 @@ mod test {
 
     #[test]
     fn with_headers() {
-        let error = ServiceError::from(source()).with_headers([
-            ("content-type", "application/json"),
-            ("h0", "v0"),
-            ("h1", "v1"),
-        ]);
+        let error = ServiceErrorBuilder::new(source())
+            .with_headers([
+                ("content-type", "application/json"),
+                ("h0", "v0"),
+                ("h1", "v1"),
+            ])
+            .build();
         assert_eq!(error.status(), &Status::from(source()));
         assert_eq!(error.http_status_code(), &None);
         let want = {

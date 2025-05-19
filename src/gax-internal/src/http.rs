@@ -16,7 +16,7 @@ use auth::credentials::CacheableResource;
 use auth::credentials::{Builder as AccessTokenCredentialBuilder, Credentials};
 use gax::Result;
 use gax::backoff_policy::BackoffPolicy;
-use gax::error::{Error, HttpError, ServiceError};
+use gax::error::{Error, HttpError, ServiceErrorBuilder};
 use gax::exponential_backoff::ExponentialBackoff;
 use gax::polling_backoff_policy::PollingBackoffPolicy;
 use gax::polling_error_policy::Aip194Strict;
@@ -217,9 +217,10 @@ pub async fn to_http_error<O>(response: reqwest::Response) -> Result<O> {
     let body = response.bytes().await.map_err(Error::io)?;
     let error = if let Ok(status) = gax::error::rpc::Status::try_from(&body) {
         Error::rpc(
-            ServiceError::from(status)
+            ServiceErrorBuilder::new(status)
                 .with_headers(headers)
-                .with_http_status_code(status_code),
+                .with_http_status_code(status_code)
+                .build(),
         )
     } else {
         Error::rpc(HttpError::new(status_code, headers, Some(body)))
