@@ -607,12 +607,12 @@ fn adc_well_known_path() -> Option<String> {
 #[cfg_attr(test, mutants::skip)]
 #[doc(hidden)]
 pub mod testing {
+    use super::{CacheableResource, EntityTag};
     use crate::Result;
     use crate::credentials::Credentials;
     use crate::credentials::dynamic::CredentialsProvider;
     use http::{Extensions, HeaderMap};
     use std::sync::Arc;
-    use super::{CacheableResource, EntityTag};
 
     /// A simple credentials implementation to use in tests where authentication does not matter.
     ///
