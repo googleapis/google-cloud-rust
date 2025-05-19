@@ -612,7 +612,6 @@ pub mod testing {
     use crate::credentials::dynamic::CredentialsProvider;
     use http::{Extensions, HeaderMap};
     use std::sync::Arc;
-
     use super::{CacheableResource, EntityTag};
 
     /// A simple credentials implementation to use in tests where authentication does not matter.
