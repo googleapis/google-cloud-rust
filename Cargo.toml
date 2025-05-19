@@ -305,7 +305,7 @@ time               = { default-features = false, version = "0.3" }
 tokio              = { default-features = false, version = "1" }
 tonic              = { default-features = false, version = "0.13", features = ["prost", "tls-native-roots", "tls-ring"] }
 tonic-build        = { default-features = false, version = "0.13" }
-tracing            = { default-features = false, version = "0.1" }
+tracing            = { default-features = false, version = "0.1", features = ["attributes"] }
 tracing-subscriber = { default-features = false, version = "0.3" }
 # Test packags
 anyhow         = { default-features = false, version = "1" }
