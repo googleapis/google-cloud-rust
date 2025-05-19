@@ -41,7 +41,9 @@
 //! [Handling Overload]: https://sre.google/sre-book/handling-overload/
 //! [Addressing Cascading Failures]: https://sre.google/sre-book/addressing-cascading-failures/
 //!
-//! # Examples
+//! # Example
+//!
+//! Stochastically reject calls based on observed failure rates:
 //! ```
 //! # use google_cloud_gax::*;
 //! # use google_cloud_gax::retry_throttler::*;
@@ -49,6 +51,7 @@
 //! # Ok::<(), error::Error>(())
 //! ```
 //!
+//! Reject calls if the success rate is too low:
 //! ```
 //! # use google_cloud_gax::*;
 //! # use google_cloud_gax::retry_throttler::*;
@@ -323,7 +326,7 @@ impl CircuitBreaker {
         })
     }
 
-    /// Creates a new instance, adjusting `min_tokens` if needed.`
+    /// Creates a new instance, adjusting `min_tokens` if needed.
     ///
     /// # Parameters
     /// * `tokens` - the initial number of tokens. This is decreased by

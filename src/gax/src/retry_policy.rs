@@ -32,21 +32,22 @@
 //! [RequestOptionsBuilder::with_retry_policy]: crate::options::RequestOptionsBuilder::with_retry_policy
 //!
 //! # Examples
+//!
+//! Create a policy that only retries transient errors, and retries for at
+//! most 10 seconds or at most 5 attempts: whichever limit is reached first
+//! stops the retry loop.
 //! ```
 //! # use google_cloud_gax::retry_policy::*;
 //! use std::time::Duration;
-//! // Create a policy that only retries transient errors, and retries for at
-//! // most 10 seconds or at most 5 attempts: whichever limit is reached first
-//! // stops the retry loop.
 //! let policy = Aip194Strict.with_time_limit(Duration::from_secs(10)).with_attempt_limit(5);
 //! ```
 //!
+//! Create a policy that retries on any error (even when unsafe to do so),
+//! and stops retrying after 5 attempts or 10 seconds, whichever limit is
+//! reached first stops the retry loop.
 //! ```
 //! # use google_cloud_gax::retry_policy::*;
 //! use std::time::Duration;
-//! // Create a policy that retries on any error (even when unsafe to do so),
-//! // and stops retrying after 5 attempts or 10 seconds, whichever limit is
-//! // reached first stops the retry loop.
 //! let policy = AlwaysRetry.with_time_limit(Duration::from_secs(10)).with_attempt_limit(5);
 //! ```
 //!
@@ -171,14 +172,16 @@ pub trait RetryPolicyExt: RetryPolicy + Sized {
     /// # Example
     /// ```
     /// # use google_cloud_gax::retry_policy::*;
-    /// # use google_cloud_gax::error::*;
     /// use std::time::Instant;
     /// let policy = Aip194Strict.with_attempt_limit(3);
     /// assert_eq!(policy.remaining_time(Instant::now(), 0), None);
-    /// assert!(policy.on_error(Instant::now(), 0, true, Error::authentication(format!("transient"))).is_continue());
-    /// assert!(policy.on_error(Instant::now(), 1, true, Error::authentication(format!("transient"))).is_continue());
-    /// assert!(policy.on_error(Instant::now(), 2, true, Error::authentication(format!("transient"))).is_continue());
-    /// assert!(policy.on_error(Instant::now(), 3, true, Error::authentication(format!("transient"))).is_exhausted());
+    /// assert!(policy.on_error(Instant::now(), 0, true, transient_error()).is_continue());
+    /// assert!(policy.on_error(Instant::now(), 1, true, transient_error()).is_continue());
+    /// assert!(policy.on_error(Instant::now(), 2, true, transient_error()).is_continue());
+    /// assert!(policy.on_error(Instant::now(), 3, true, transient_error()).is_exhausted());
+    ///
+    /// use google_cloud_gax::error::{Error, ServiceError, rpc::Code, rpc::Status};
+    /// fn transient_error() -> Error { Error::rpc(ServiceError::from(Status::default().set_code(Code::Unavailable))) }
     /// ```
     fn with_attempt_limit(self, maximum_attempts: u32) -> LimitedAttemptCount<Self> {
         LimitedAttemptCount::custom(self, maximum_attempts)
@@ -199,10 +202,14 @@ impl<T: RetryPolicy> RetryPolicyExt for T {}
 /// # Example
 /// ```
 /// # use google_cloud_gax::retry_policy::*;
-/// # use google_cloud_gax::options::RequestOptionsBuilder;
-/// fn customize_retry_policy(builder: impl RequestOptionsBuilder) -> impl RequestOptionsBuilder {
-///     builder.with_retry_policy(Aip194Strict.with_attempt_limit(3))
-/// }
+/// use std::time::Instant;
+/// let policy = Aip194Strict;
+/// assert!(policy.on_error(Instant::now(), 0, true, transient_error()).is_continue());
+/// assert!(policy.on_error(Instant::now(), 0, true, permanent_error()).is_permanent());
+///
+/// use google_cloud_gax::error::{Error, ServiceError, rpc::Code, rpc::Status};
+/// fn transient_error() -> Error { Error::rpc(ServiceError::from(Status::default().set_code(Code::Unavailable))) }
+/// fn permanent_error() -> Error { Error::rpc(ServiceError::from(Status::default().set_code(Code::PermissionDenied))) }
 /// ```
 ///
 /// [AIP-194]: https://google.aip.dev/194
@@ -274,16 +281,16 @@ impl RetryPolicy for Aip194Strict {
 ///
 /// # Example
 /// ```
-/// # use std::sync::Arc;
 /// # use google_cloud_gax::retry_policy::*;
-/// # use google_cloud_gax::options::RequestOptionsBuilder;
-/// fn customize_retry_policy(builder: impl RequestOptionsBuilder) -> impl RequestOptionsBuilder {
-///     builder.with_retry_policy(
-///         AlwaysRetry.with_attempt_limit(3))
-/// }
-/// ```
+/// use std::time::Instant;
+/// let policy = AlwaysRetry;
+/// assert!(policy.on_error(Instant::now(), 0, true, transient_error()).is_continue());
+/// assert!(policy.on_error(Instant::now(), 0, true, permanent_error()).is_continue());
 ///
-/// [AIP-194]: https://google.aip.dev/194
+/// use google_cloud_gax::error::{Error, ServiceError, rpc::Code, rpc::Status};
+/// fn transient_error() -> Error { Error::rpc(ServiceError::from(Status::default().set_code(Code::Unavailable))) }
+/// fn permanent_error() -> Error { Error::rpc(ServiceError::from(Status::default().set_code(Code::PermissionDenied))) }
+/// ```
 #[derive(Clone, Debug)]
 pub struct AlwaysRetry;
 
@@ -307,10 +314,14 @@ impl RetryPolicy for AlwaysRetry {
 /// # Example
 /// ```
 /// # use google_cloud_gax::retry_policy::*;
-/// # use google_cloud_gax::options::RequestOptionsBuilder;
-/// fn customize_retry_policy(builder: impl RequestOptionsBuilder) -> impl RequestOptionsBuilder {
-///     builder.with_retry_policy(NeverRetry)
-/// }
+/// use std::time::Instant;
+/// let policy = NeverRetry;
+/// assert!(policy.on_error(Instant::now(), 0, true, transient_error()).is_exhausted());
+/// assert!(policy.on_error(Instant::now(), 0, true, permanent_error()).is_exhausted());
+///
+/// use google_cloud_gax::error::{Error, ServiceError, rpc::Code, rpc::Status};
+/// fn transient_error() -> Error { Error::rpc(ServiceError::from(Status::default().set_code(Code::Unavailable))) }
+/// fn permanent_error() -> Error { Error::rpc(ServiceError::from(Status::default().set_code(Code::PermissionDenied))) }
 /// ```
 #[derive(Clone, Debug)]
 pub struct NeverRetry;
@@ -356,16 +367,6 @@ impl LimitedElapsedTime {
     ///
     /// # Example
     /// ```
-    /// # use std::sync::Arc;
-    /// # use google_cloud_gax::retry_policy::*;
-    /// # use google_cloud_gax::options::RequestOptionsBuilder;
-    /// fn customize_retry_policy(builder: impl RequestOptionsBuilder) -> impl RequestOptionsBuilder {
-    ///     builder.with_retry_policy(LimitedElapsedTime::new(std::time::Duration::from_secs(10)))
-    /// }
-    /// ```
-    ///
-    /// # Example
-    /// ```
     /// # use google_cloud_gax::retry_policy::*;
     /// let d = std::time::Duration::from_secs(10);
     /// let policy = LimitedElapsedTime::new(d);
@@ -388,20 +389,16 @@ where
     /// # Example
     /// ```
     /// # use google_cloud_gax::retry_policy::*;
-    /// # use google_cloud_gax::options::RequestOptionsBuilder;
-    /// fn customize_retry_policy(builder: impl RequestOptionsBuilder) -> impl RequestOptionsBuilder {
-    ///     builder.with_retry_policy(LimitedElapsedTime::custom(AlwaysRetry, std::time::Duration::from_secs(10)))
-    /// }
-    /// ```
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gax::retry_policy::*;
     /// # use google_cloud_gax::error;
-    /// let d = std::time::Duration::from_secs(10);
+    /// use std::time::{Duration, Instant};
+    /// let d = Duration::from_secs(10);
     /// let policy = AlwaysRetry.with_time_limit(d);
-    /// assert!(policy.remaining_time(std::time::Instant::now(), 0) <= Some(d));
-    /// assert!(policy.on_error(std::time::Instant::now(), 1, false, error::Error::other(format!("test"))).is_continue());
+    /// assert!(policy.remaining_time(Instant::now(), 0) <= Some(d));
+    /// assert!(policy.on_error(Instant::now(), 1, false, permanent_error()).is_continue());
+    ///
+    /// use google_cloud_gax::error::{Error, ServiceError, rpc::Code, rpc::Status};
+    /// fn transient_error() -> Error { Error::rpc(ServiceError::from(Status::default().set_code(Code::Unavailable))) }
+    /// fn permanent_error() -> Error { Error::rpc(ServiceError::from(Status::default().set_code(Code::PermissionDenied))) }
     /// ```
     pub fn custom(inner: P, maximum_duration: std::time::Duration) -> Self {
         Self {
@@ -516,11 +513,13 @@ where
     /// # Example
     /// ```
     /// # use google_cloud_gax::retry_policy::*;
-    /// # use google_cloud_gax::error::Error;
     /// use std::time::Instant;
     /// let policy = LimitedAttemptCount::custom(AlwaysRetry, 2);
-    /// assert!(policy.on_error(Instant::now(), 1, false, Error::other(format!("test"))).is_continue());
-    /// assert!(policy.on_error(Instant::now(), 2, false, Error::other(format!("test"))).is_exhausted());
+    /// assert!(policy.on_error(Instant::now(), 1, false, permanent_error()).is_continue());
+    /// assert!(policy.on_error(Instant::now(), 2, false, permanent_error()).is_exhausted());
+    ///
+    /// use google_cloud_gax::error::{Error, ServiceError, rpc::Code, rpc::Status};
+    /// fn permanent_error() -> Error { Error::rpc(ServiceError::from(Status::default().set_code(Code::PermissionDenied))) }
     /// ```
     pub fn custom(inner: P, maximum_attempts: u32) -> Self {
         Self {
