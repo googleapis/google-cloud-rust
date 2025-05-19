@@ -279,7 +279,7 @@ incremental = false
 
 [workspace.dependencies]
 async-trait        = { default-features = false, version = "0.1" }
-base64             = { default-features = false, version = "0.22" }
+base64             = { default-features = false, version = "0.22", features = ["std"] }
 bon                = { default-features = false, version = "3" }
 bytes              = { default-features = false, version = "1", features = ["serde"] }
 chrono             = { default-features = false, version = "0.4" }
