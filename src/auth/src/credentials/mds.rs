@@ -77,7 +77,14 @@ const METADATA_FLAVOR: &str = "metadata-flavor";
 const METADATA_ROOT: &str = "http://metadata.google.internal";
 const MDS_DEFAULT_URI: &str = "/computeMetadata/v1/instance/service-accounts/default";
 const GCE_METADATA_HOST_ENV_VAR: &str = "GCE_METADATA_HOST";
-const MDS_NOT_FOUND_ERROR: &str = "Unable to reach http://metadata.google.internal. You are likely not in a Google Cloud Environment. To setup credentials for local testing, run `gcloud auth application-default login`";
+// TODO(#2235) - Improve this message by talking about retries when really running with MDS
+const MDS_NOT_FOUND_ERROR: &str = concat!(
+    "Could not fetch an auth token to authenticate with Google Cloud. ",
+    "The most common reason for this problem is that you are not running in a Google Cloud Environment ",
+    "and you have not configured local credentials for development and testing. ",
+    "To setup local credentials, run `gcloud auth application-default login`. ",
+    "More information on how to authenticate client libraries can be found at https://cloud.google.com/docs/authentication/client-libraries"
+);
 
 #[derive(Debug)]
 struct MDSCredentials<T>
@@ -106,6 +113,7 @@ pub struct Builder {
     quota_project_id: Option<String>,
     scopes: Option<Vec<String>>,
     universe_domain: Option<String>,
+    created_by_adc: bool,
 }
 
 impl Builder {
@@ -169,29 +177,38 @@ impl Builder {
         self
     }
 
+    // This method is used to build mds credentials from ADC
+    pub(crate) fn from_adc() -> Self {
+        Self {
+            created_by_adc: true,
+            ..Default::default()
+        }
+    }
+
     fn build_token_provider(self) -> MDSAccessTokenProvider {
         let final_endpoint: String;
-        let endpoint_was_overridden: bool;
+        let endpoint_overridden: bool;
 
         // Determine the endpoint and whether it was overridden
-        // 1. Check GCE_METADATA_HOST environment variable first
         if let Ok(host_from_env) = std::env::var(GCE_METADATA_HOST_ENV_VAR) {
+            // 1. Check GCE_METADATA_HOST environment variable first
             final_endpoint = format!("http://{}", host_from_env);
-            endpoint_was_overridden = true;
-        // 2. Else, check if an endpoint was provided to the mds::Builder
+            endpoint_overridden = true;
         } else if let Some(builder_endpoint) = self.endpoint {
+            // 2. Else, check if an endpoint was provided to the mds::Builder
             final_endpoint = builder_endpoint;
-            endpoint_was_overridden = true;
-        // 3. Else, use the default metadata root
+            endpoint_overridden = true;
         } else {
+            // 3. Else, use the default metadata root
             final_endpoint = METADATA_ROOT.to_string();
-            endpoint_was_overridden = false;
+            endpoint_overridden = false;
         };
 
         MDSAccessTokenProvider::builder()
             .endpoint(final_endpoint)
             .maybe_scopes(self.scopes)
-            .endpoint_overridden(endpoint_was_overridden) // Set the mandatory field
+            .endpoint_overriden(endpoint_overridden)
+            .created_by_adc(self.created_by_adc)
             .build()
     }
 
@@ -247,7 +264,30 @@ struct MDSAccessTokenProvider {
     scopes: Option<Vec<String>>,
     #[builder(into)]
     endpoint: String,
-    endpoint_overridden: bool,
+    endpoint_overriden: bool,
+    created_by_adc: bool,
+}
+
+impl MDSAccessTokenProvider {
+    fn build_error<S: Into<String>>(&self, is_retryable: bool, error: S) -> CredentialsError {
+        // During ADC, if no credentials is found in the well-known location and the GOOGLE_APPLICATION_CREDENTIALS
+        // environment variable is not set, we default to MDS credentials without checking if the code is really
+        // running in an environment with MDS. To help users who got to this state because of lack of credentials
+        // setup on their machines, we provide a detailed error message to them talking about local setup and other
+        // auth mechanisms available to them.
+        // If the endpoint is overriden, even if ADC was used to create the MDS credentials, we do not give a detailed
+        // error message because they deliberatley wanted to use an MDS. 
+        match self.created_by_adc && !self.endpoint_overriden {
+            true => CredentialsError::from_str(
+                is_retryable,
+                format!("{MDS_NOT_FOUND_ERROR}, error: {}", error.into()),
+            ),
+            false => CredentialsError::from_str(
+                is_retryable,
+                format!("Failed to fetch token. Error: {}", error.into()),
+            ),
+        }
+    }
 }
 
 #[async_trait]
@@ -267,47 +307,36 @@ impl TokenProvider for MDSAccessTokenProvider {
             .into_iter()
             .fold(request, |r, s| r.query(&[("scopes", s)]));
 
-        match request.send().await {
-            Ok(response) => {
-                // Process the response
-                if !response.status().is_success() {
-                    let status = response.status();
-                    let body = response
-                        .text()
-                        .await
-                        .map_err(|e| CredentialsError::new(is_retryable(status), e))?;
-                    return Err(CredentialsError::from_str(
-                        is_retryable(status),
-                        format!("Failed to fetch token. {body}"),
-                    ));
-                }
-                let response = response.json::<MDSTokenResponse>().await.map_err(|e| {
-                    let retryable = !e.is_decode();
-                    CredentialsError::new(retryable, e)
-                })?;
-                let token = Token {
-                    token: response.access_token,
-                    token_type: response.token_type,
-                    expires_at: response
-                        .expires_in
-                        .map(|d| Instant::now() + Duration::from_secs(d)),
-                    metadata: None,
-                };
-                Ok(token)
-            }
-            Err(e) => {
-                return Err(CredentialsError::from_str(
-                    false,
-                    match self.endpoint_overridden {
-                        false => format!(
-                            "Failed to fetch token. {}. Error: {}",
-                            MDS_NOT_FOUND_ERROR, e
-                        ),
-                        true => format!("Failed to fetch token. Error: {}", e),
-                    },
-                ));
-            }
+        // If the connection to MDS was not successful, it is useful to retry when really
+        // running on MDS environemnts and not useful if there is no MDS. We will mark the error
+        // as retryable and let the retry policy determine whether to retry or not. Whenever we 
+        // define a default retry policy, we can skip retrying this case.
+        let response = request
+            .send()
+            .await
+            .map_err(|e| self.build_error(true, e.to_string()))?;
+        // Process the response
+        if !response.status().is_success() {
+            let status = response.status();
+            let body = response
+                .text()
+                .await
+                .map_err(|e| CredentialsError::new(is_retryable(status), e))?;
+            return Err(self.build_error(is_retryable(status), body));
         }
+        let response = response.json::<MDSTokenResponse>().await.map_err(|e| {
+            let retryable = !e.is_decode();
+            CredentialsError::new(retryable, e)
+        })?;
+        let token = Token {
+            token: response.access_token,
+            token_type: response.token_type,
+            expires_at: response
+                .expires_in
+                .map(|d| Instant::now() + Duration::from_secs(d)),
+            metadata: None,
+        };
+        Ok(token)
     }
 }
 
@@ -318,6 +347,7 @@ mod test {
     use crate::credentials::test::{
         get_headers_from_cache, get_token_from_headers, get_token_type_from_headers,
     };
+    use crate::errors;
     use crate::token::test::MockTokenProvider;
     use axum::extract::Query;
     use axum::response::IntoResponse;
@@ -409,8 +439,8 @@ mod test {
     }
 
     #[tokio::test]
-    async fn no_default_mds() -> TestResult {
-        let e = Builder::default()
+    async fn adc_no_mds() -> TestResult {
+        let e = Builder::from_adc()
             .build_token_provider()
             .token()
             .await
@@ -429,9 +459,34 @@ mod test {
     }
 
     #[tokio::test]
-    async fn no_overridden_mds() -> TestResult {
+    #[serial]
+    async fn adc_overridden_mds() -> TestResult {
+        let _e = ScopedEnv::set(
+            super::GCE_METADATA_HOST_ENV_VAR,
+            "metdata.overriden",
+        );
+
+        let e = Builder::from_adc()
+            .build_token_provider()
+            .token()
+            .await
+            .err()
+            .unwrap();
+
+        assert!(!e.is_retryable());
+        assert!(
+            !e.source()
+                .unwrap()
+                .to_string()
+                .contains("application-default")
+        );
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn builder_no_mds() -> TestResult {
         let e = Builder::default()
-            .with_endpoint("http://metadata.doesnotexist")
             .build_token_provider()
             .token()
             .await
