@@ -524,6 +524,7 @@ impl std::error::Error for Exhausted {}
 mod tests {
     use super::*;
     use crate::error::{Error, ServiceError};
+    use http::HeaderMap;
     use std::time::{Duration, Instant};
 
     mockall::mock! {
@@ -639,14 +640,13 @@ mod tests {
     }
 
     fn http_error(code: u16, message: &str) -> Error {
-        use std::collections::HashMap;
         let error = serde_json::json!({"error": {
             "code": code,
             "message": message,
         }});
         let payload = serde_json::to_string(&error).ok();
         let payload = payload.map(bytes::Bytes::from_owner);
-        let http = crate::error::HttpError::new(code, HashMap::new(), payload);
+        let http = crate::error::HttpError::new(code, HeaderMap::new(), payload);
         Error::rpc(http)
     }
 

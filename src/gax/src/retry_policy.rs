@@ -580,6 +580,7 @@ where
 mod tests {
     use super::*;
     use crate::error::ServiceError;
+    use http::HeaderMap;
 
     // Verify `RetryPolicyArg` can be converted from the desired types.
     #[test]
@@ -723,19 +724,17 @@ mod tests {
     }
 
     fn http_unavailable() -> Error {
-        use std::collections::HashMap;
         Error::rpc(crate::error::HttpError::new(
             503_u16,
-            HashMap::new(),
+            HeaderMap::new(),
             bytes::Bytes::from_owner("SERVICE UNAVAILABLE".to_string()).into(),
         ))
     }
 
     fn http_permission_denied() -> Error {
-        use std::collections::HashMap;
         Error::rpc(crate::error::HttpError::new(
             403_u16,
-            HashMap::new(),
+            HeaderMap::new(),
             bytes::Bytes::from_owner("PERMISSION DENIED".to_string()).into(),
         ))
     }
