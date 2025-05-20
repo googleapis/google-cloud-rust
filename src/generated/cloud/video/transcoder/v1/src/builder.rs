@@ -17,7 +17,7 @@
 pub mod transcoder_service {
     use crate::Result;
 
-    /// A builder for [TranscoderService][super::super::client::TranscoderService].
+    /// A builder for [TranscoderService][crate::client::TranscoderService].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -45,7 +45,7 @@ pub mod transcoder_service {
         }
     }
 
-    /// Common implementation for [super::super::client::TranscoderService] request builders.
+    /// Common implementation for [crate::client::TranscoderService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::TranscoderService>,
@@ -68,7 +68,7 @@ pub mod transcoder_service {
         }
     }
 
-    /// The request builder for [TranscoderService::create_job][super::super::client::TranscoderService::create_job] calls.
+    /// The request builder for [TranscoderService::create_job][crate::client::TranscoderService::create_job] calls.
     ///
     /// # Example
     /// ```no_run
@@ -153,7 +153,7 @@ pub mod transcoder_service {
         }
     }
 
-    /// The request builder for [TranscoderService::list_jobs][super::super::client::TranscoderService::list_jobs] calls.
+    /// The request builder for [TranscoderService::list_jobs][crate::client::TranscoderService::list_jobs] calls.
     ///
     /// # Example
     /// ```no_run
@@ -268,7 +268,7 @@ pub mod transcoder_service {
         }
     }
 
-    /// The request builder for [TranscoderService::get_job][super::super::client::TranscoderService::get_job] calls.
+    /// The request builder for [TranscoderService::get_job][crate::client::TranscoderService::get_job] calls.
     ///
     /// # Example
     /// ```no_run
@@ -331,7 +331,7 @@ pub mod transcoder_service {
         }
     }
 
-    /// The request builder for [TranscoderService::delete_job][super::super::client::TranscoderService::delete_job] calls.
+    /// The request builder for [TranscoderService::delete_job][crate::client::TranscoderService::delete_job] calls.
     ///
     /// # Example
     /// ```no_run
@@ -400,7 +400,7 @@ pub mod transcoder_service {
         }
     }
 
-    /// The request builder for [TranscoderService::create_job_template][super::super::client::TranscoderService::create_job_template] calls.
+    /// The request builder for [TranscoderService::create_job_template][crate::client::TranscoderService::create_job_template] calls.
     ///
     /// # Example
     /// ```no_run
@@ -496,7 +496,7 @@ pub mod transcoder_service {
         }
     }
 
-    /// The request builder for [TranscoderService::list_job_templates][super::super::client::TranscoderService::list_job_templates] calls.
+    /// The request builder for [TranscoderService::list_job_templates][crate::client::TranscoderService::list_job_templates] calls.
     ///
     /// # Example
     /// ```no_run
@@ -614,7 +614,7 @@ pub mod transcoder_service {
         }
     }
 
-    /// The request builder for [TranscoderService::get_job_template][super::super::client::TranscoderService::get_job_template] calls.
+    /// The request builder for [TranscoderService::get_job_template][crate::client::TranscoderService::get_job_template] calls.
     ///
     /// # Example
     /// ```no_run
@@ -677,7 +677,7 @@ pub mod transcoder_service {
         }
     }
 
-    /// The request builder for [TranscoderService::delete_job_template][super::super::client::TranscoderService::delete_job_template] calls.
+    /// The request builder for [TranscoderService::delete_job_template][crate::client::TranscoderService::delete_job_template] calls.
     ///
     /// # Example
     /// ```no_run

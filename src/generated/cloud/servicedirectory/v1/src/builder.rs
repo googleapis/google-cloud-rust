@@ -17,7 +17,7 @@
 pub mod lookup_service {
     use crate::Result;
 
-    /// A builder for [LookupService][super::super::client::LookupService].
+    /// A builder for [LookupService][crate::client::LookupService].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -45,7 +45,7 @@ pub mod lookup_service {
         }
     }
 
-    /// Common implementation for [super::super::client::LookupService] request builders.
+    /// Common implementation for [crate::client::LookupService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::LookupService>,
@@ -68,7 +68,7 @@ pub mod lookup_service {
         }
     }
 
-    /// The request builder for [LookupService::resolve_service][super::super::client::LookupService::resolve_service] calls.
+    /// The request builder for [LookupService::resolve_service][crate::client::LookupService::resolve_service] calls.
     ///
     /// # Example
     /// ```no_run
@@ -143,7 +143,7 @@ pub mod lookup_service {
         }
     }
 
-    /// The request builder for [LookupService::list_locations][super::super::client::LookupService::list_locations] calls.
+    /// The request builder for [LookupService::list_locations][crate::client::LookupService::list_locations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -253,7 +253,7 @@ pub mod lookup_service {
         }
     }
 
-    /// The request builder for [LookupService::get_location][super::super::client::LookupService::get_location] calls.
+    /// The request builder for [LookupService::get_location][crate::client::LookupService::get_location] calls.
     ///
     /// # Example
     /// ```no_run
@@ -318,7 +318,7 @@ pub mod lookup_service {
 pub mod registration_service {
     use crate::Result;
 
-    /// A builder for [RegistrationService][super::super::client::RegistrationService].
+    /// A builder for [RegistrationService][crate::client::RegistrationService].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -346,7 +346,7 @@ pub mod registration_service {
         }
     }
 
-    /// Common implementation for [super::super::client::RegistrationService] request builders.
+    /// Common implementation for [crate::client::RegistrationService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::RegistrationService>,
@@ -369,7 +369,7 @@ pub mod registration_service {
         }
     }
 
-    /// The request builder for [RegistrationService::create_namespace][super::super::client::RegistrationService::create_namespace] calls.
+    /// The request builder for [RegistrationService::create_namespace][crate::client::RegistrationService::create_namespace] calls.
     ///
     /// # Example
     /// ```no_run
@@ -462,7 +462,7 @@ pub mod registration_service {
         }
     }
 
-    /// The request builder for [RegistrationService::list_namespaces][super::super::client::RegistrationService::list_namespaces] calls.
+    /// The request builder for [RegistrationService::list_namespaces][crate::client::RegistrationService::list_namespaces] calls.
     ///
     /// # Example
     /// ```no_run
@@ -577,7 +577,7 @@ pub mod registration_service {
         }
     }
 
-    /// The request builder for [RegistrationService::get_namespace][super::super::client::RegistrationService::get_namespace] calls.
+    /// The request builder for [RegistrationService::get_namespace][crate::client::RegistrationService::get_namespace] calls.
     ///
     /// # Example
     /// ```no_run
@@ -640,7 +640,7 @@ pub mod registration_service {
         }
     }
 
-    /// The request builder for [RegistrationService::update_namespace][super::super::client::RegistrationService::update_namespace] calls.
+    /// The request builder for [RegistrationService::update_namespace][crate::client::RegistrationService::update_namespace] calls.
     ///
     /// # Example
     /// ```no_run
@@ -739,7 +739,7 @@ pub mod registration_service {
         }
     }
 
-    /// The request builder for [RegistrationService::delete_namespace][super::super::client::RegistrationService::delete_namespace] calls.
+    /// The request builder for [RegistrationService::delete_namespace][crate::client::RegistrationService::delete_namespace] calls.
     ///
     /// # Example
     /// ```no_run
@@ -802,7 +802,7 @@ pub mod registration_service {
         }
     }
 
-    /// The request builder for [RegistrationService::create_service][super::super::client::RegistrationService::create_service] calls.
+    /// The request builder for [RegistrationService::create_service][crate::client::RegistrationService::create_service] calls.
     ///
     /// # Example
     /// ```no_run
@@ -895,7 +895,7 @@ pub mod registration_service {
         }
     }
 
-    /// The request builder for [RegistrationService::list_services][super::super::client::RegistrationService::list_services] calls.
+    /// The request builder for [RegistrationService::list_services][crate::client::RegistrationService::list_services] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1010,7 +1010,7 @@ pub mod registration_service {
         }
     }
 
-    /// The request builder for [RegistrationService::get_service][super::super::client::RegistrationService::get_service] calls.
+    /// The request builder for [RegistrationService::get_service][crate::client::RegistrationService::get_service] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1073,7 +1073,7 @@ pub mod registration_service {
         }
     }
 
-    /// The request builder for [RegistrationService::update_service][super::super::client::RegistrationService::update_service] calls.
+    /// The request builder for [RegistrationService::update_service][crate::client::RegistrationService::update_service] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1172,7 +1172,7 @@ pub mod registration_service {
         }
     }
 
-    /// The request builder for [RegistrationService::delete_service][super::super::client::RegistrationService::delete_service] calls.
+    /// The request builder for [RegistrationService::delete_service][crate::client::RegistrationService::delete_service] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1235,7 +1235,7 @@ pub mod registration_service {
         }
     }
 
-    /// The request builder for [RegistrationService::create_endpoint][super::super::client::RegistrationService::create_endpoint] calls.
+    /// The request builder for [RegistrationService::create_endpoint][crate::client::RegistrationService::create_endpoint] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1328,7 +1328,7 @@ pub mod registration_service {
         }
     }
 
-    /// The request builder for [RegistrationService::list_endpoints][super::super::client::RegistrationService::list_endpoints] calls.
+    /// The request builder for [RegistrationService::list_endpoints][crate::client::RegistrationService::list_endpoints] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1443,7 +1443,7 @@ pub mod registration_service {
         }
     }
 
-    /// The request builder for [RegistrationService::get_endpoint][super::super::client::RegistrationService::get_endpoint] calls.
+    /// The request builder for [RegistrationService::get_endpoint][crate::client::RegistrationService::get_endpoint] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1506,7 +1506,7 @@ pub mod registration_service {
         }
     }
 
-    /// The request builder for [RegistrationService::update_endpoint][super::super::client::RegistrationService::update_endpoint] calls.
+    /// The request builder for [RegistrationService::update_endpoint][crate::client::RegistrationService::update_endpoint] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1605,7 +1605,7 @@ pub mod registration_service {
         }
     }
 
-    /// The request builder for [RegistrationService::delete_endpoint][super::super::client::RegistrationService::delete_endpoint] calls.
+    /// The request builder for [RegistrationService::delete_endpoint][crate::client::RegistrationService::delete_endpoint] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1668,7 +1668,7 @@ pub mod registration_service {
         }
     }
 
-    /// The request builder for [RegistrationService::get_iam_policy][super::super::client::RegistrationService::get_iam_policy] calls.
+    /// The request builder for [RegistrationService::get_iam_policy][crate::client::RegistrationService::get_iam_policy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1749,7 +1749,7 @@ pub mod registration_service {
         }
     }
 
-    /// The request builder for [RegistrationService::set_iam_policy][super::super::client::RegistrationService::set_iam_policy] calls.
+    /// The request builder for [RegistrationService::set_iam_policy][crate::client::RegistrationService::set_iam_policy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1852,7 +1852,7 @@ pub mod registration_service {
         }
     }
 
-    /// The request builder for [RegistrationService::test_iam_permissions][super::super::client::RegistrationService::test_iam_permissions] calls.
+    /// The request builder for [RegistrationService::test_iam_permissions][crate::client::RegistrationService::test_iam_permissions] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1931,7 +1931,7 @@ pub mod registration_service {
         }
     }
 
-    /// The request builder for [RegistrationService::list_locations][super::super::client::RegistrationService::list_locations] calls.
+    /// The request builder for [RegistrationService::list_locations][crate::client::RegistrationService::list_locations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2041,7 +2041,7 @@ pub mod registration_service {
         }
     }
 
-    /// The request builder for [RegistrationService::get_location][super::super::client::RegistrationService::get_location] calls.
+    /// The request builder for [RegistrationService::get_location][crate::client::RegistrationService::get_location] calls.
     ///
     /// # Example
     /// ```no_run

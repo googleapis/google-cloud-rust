@@ -17,7 +17,7 @@
 pub mod cloud_build {
     use crate::Result;
 
-    /// A builder for [CloudBuild][super::super::client::CloudBuild].
+    /// A builder for [CloudBuild][crate::client::CloudBuild].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -45,7 +45,7 @@ pub mod cloud_build {
         }
     }
 
-    /// Common implementation for [super::super::client::CloudBuild] request builders.
+    /// Common implementation for [crate::client::CloudBuild] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudBuild>,
@@ -68,7 +68,7 @@ pub mod cloud_build {
         }
     }
 
-    /// The request builder for [CloudBuild::create_build][super::super::client::CloudBuild::create_build] calls.
+    /// The request builder for [CloudBuild::create_build][crate::client::CloudBuild::create_build] calls.
     ///
     /// # Example
     /// ```no_run
@@ -113,7 +113,7 @@ pub mod cloud_build {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_build][super::super::client::CloudBuild::create_build].
+        /// on [create_build][crate::client::CloudBuild::create_build].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_build(self.0.request, self.0.options)
@@ -198,7 +198,7 @@ pub mod cloud_build {
         }
     }
 
-    /// The request builder for [CloudBuild::get_build][super::super::client::CloudBuild::get_build] calls.
+    /// The request builder for [CloudBuild::get_build][crate::client::CloudBuild::get_build] calls.
     ///
     /// # Example
     /// ```no_run
@@ -275,7 +275,7 @@ pub mod cloud_build {
         }
     }
 
-    /// The request builder for [CloudBuild::list_builds][super::super::client::CloudBuild::list_builds] calls.
+    /// The request builder for [CloudBuild::list_builds][crate::client::CloudBuild::list_builds] calls.
     ///
     /// # Example
     /// ```no_run
@@ -390,7 +390,7 @@ pub mod cloud_build {
         }
     }
 
-    /// The request builder for [CloudBuild::cancel_build][super::super::client::CloudBuild::cancel_build] calls.
+    /// The request builder for [CloudBuild::cancel_build][crate::client::CloudBuild::cancel_build] calls.
     ///
     /// # Example
     /// ```no_run
@@ -467,7 +467,7 @@ pub mod cloud_build {
         }
     }
 
-    /// The request builder for [CloudBuild::retry_build][super::super::client::CloudBuild::retry_build] calls.
+    /// The request builder for [CloudBuild::retry_build][crate::client::CloudBuild::retry_build] calls.
     ///
     /// # Example
     /// ```no_run
@@ -512,7 +512,7 @@ pub mod cloud_build {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [retry_build][super::super::client::CloudBuild::retry_build].
+        /// on [retry_build][crate::client::CloudBuild::retry_build].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .retry_build(self.0.request, self.0.options)
@@ -583,7 +583,7 @@ pub mod cloud_build {
         }
     }
 
-    /// The request builder for [CloudBuild::approve_build][super::super::client::CloudBuild::approve_build] calls.
+    /// The request builder for [CloudBuild::approve_build][crate::client::CloudBuild::approve_build] calls.
     ///
     /// # Example
     /// ```no_run
@@ -628,7 +628,7 @@ pub mod cloud_build {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [approve_build][super::super::client::CloudBuild::approve_build].
+        /// on [approve_build][crate::client::CloudBuild::approve_build].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .approve_build(self.0.request, self.0.options)
@@ -703,7 +703,7 @@ pub mod cloud_build {
         }
     }
 
-    /// The request builder for [CloudBuild::create_build_trigger][super::super::client::CloudBuild::create_build_trigger] calls.
+    /// The request builder for [CloudBuild::create_build_trigger][crate::client::CloudBuild::create_build_trigger] calls.
     ///
     /// # Example
     /// ```no_run
@@ -797,7 +797,7 @@ pub mod cloud_build {
         }
     }
 
-    /// The request builder for [CloudBuild::get_build_trigger][super::super::client::CloudBuild::get_build_trigger] calls.
+    /// The request builder for [CloudBuild::get_build_trigger][crate::client::CloudBuild::get_build_trigger] calls.
     ///
     /// # Example
     /// ```no_run
@@ -874,7 +874,7 @@ pub mod cloud_build {
         }
     }
 
-    /// The request builder for [CloudBuild::list_build_triggers][super::super::client::CloudBuild::list_build_triggers] calls.
+    /// The request builder for [CloudBuild::list_build_triggers][crate::client::CloudBuild::list_build_triggers] calls.
     ///
     /// # Example
     /// ```no_run
@@ -986,7 +986,7 @@ pub mod cloud_build {
         }
     }
 
-    /// The request builder for [CloudBuild::delete_build_trigger][super::super::client::CloudBuild::delete_build_trigger] calls.
+    /// The request builder for [CloudBuild::delete_build_trigger][crate::client::CloudBuild::delete_build_trigger] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1066,7 +1066,7 @@ pub mod cloud_build {
         }
     }
 
-    /// The request builder for [CloudBuild::update_build_trigger][super::super::client::CloudBuild::update_build_trigger] calls.
+    /// The request builder for [CloudBuild::update_build_trigger][crate::client::CloudBuild::update_build_trigger] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1180,7 +1180,7 @@ pub mod cloud_build {
         }
     }
 
-    /// The request builder for [CloudBuild::run_build_trigger][super::super::client::CloudBuild::run_build_trigger] calls.
+    /// The request builder for [CloudBuild::run_build_trigger][crate::client::CloudBuild::run_build_trigger] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1225,7 +1225,7 @@ pub mod cloud_build {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [run_build_trigger][super::super::client::CloudBuild::run_build_trigger].
+        /// on [run_build_trigger][crate::client::CloudBuild::run_build_trigger].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .run_build_trigger(self.0.request, self.0.options)
@@ -1314,7 +1314,7 @@ pub mod cloud_build {
         }
     }
 
-    /// The request builder for [CloudBuild::receive_trigger_webhook][super::super::client::CloudBuild::receive_trigger_webhook] calls.
+    /// The request builder for [CloudBuild::receive_trigger_webhook][crate::client::CloudBuild::receive_trigger_webhook] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1414,7 +1414,7 @@ pub mod cloud_build {
         }
     }
 
-    /// The request builder for [CloudBuild::create_worker_pool][super::super::client::CloudBuild::create_worker_pool] calls.
+    /// The request builder for [CloudBuild::create_worker_pool][crate::client::CloudBuild::create_worker_pool] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1462,7 +1462,7 @@ pub mod cloud_build {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_worker_pool][super::super::client::CloudBuild::create_worker_pool].
+        /// on [create_worker_pool][crate::client::CloudBuild::create_worker_pool].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_worker_pool(self.0.request, self.0.options)
@@ -1558,7 +1558,7 @@ pub mod cloud_build {
         }
     }
 
-    /// The request builder for [CloudBuild::get_worker_pool][super::super::client::CloudBuild::get_worker_pool] calls.
+    /// The request builder for [CloudBuild::get_worker_pool][crate::client::CloudBuild::get_worker_pool] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1621,7 +1621,7 @@ pub mod cloud_build {
         }
     }
 
-    /// The request builder for [CloudBuild::delete_worker_pool][super::super::client::CloudBuild::delete_worker_pool] calls.
+    /// The request builder for [CloudBuild::delete_worker_pool][crate::client::CloudBuild::delete_worker_pool] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1669,7 +1669,7 @@ pub mod cloud_build {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_worker_pool][super::super::client::CloudBuild::delete_worker_pool].
+        /// on [delete_worker_pool][crate::client::CloudBuild::delete_worker_pool].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_worker_pool(self.0.request, self.0.options)
@@ -1751,7 +1751,7 @@ pub mod cloud_build {
         }
     }
 
-    /// The request builder for [CloudBuild::update_worker_pool][super::super::client::CloudBuild::update_worker_pool] calls.
+    /// The request builder for [CloudBuild::update_worker_pool][crate::client::CloudBuild::update_worker_pool] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1799,7 +1799,7 @@ pub mod cloud_build {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_worker_pool][super::super::client::CloudBuild::update_worker_pool].
+        /// on [update_worker_pool][crate::client::CloudBuild::update_worker_pool].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_worker_pool(self.0.request, self.0.options)
@@ -1897,7 +1897,7 @@ pub mod cloud_build {
         }
     }
 
-    /// The request builder for [CloudBuild::list_worker_pools][super::super::client::CloudBuild::list_worker_pools] calls.
+    /// The request builder for [CloudBuild::list_worker_pools][crate::client::CloudBuild::list_worker_pools] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2000,7 +2000,7 @@ pub mod cloud_build {
         }
     }
 
-    /// The request builder for [CloudBuild::get_operation][super::super::client::CloudBuild::get_operation] calls.
+    /// The request builder for [CloudBuild::get_operation][crate::client::CloudBuild::get_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2064,7 +2064,7 @@ pub mod cloud_build {
         }
     }
 
-    /// The request builder for [CloudBuild::cancel_operation][super::super::client::CloudBuild::cancel_operation] calls.
+    /// The request builder for [CloudBuild::cancel_operation][crate::client::CloudBuild::cancel_operation] calls.
     ///
     /// # Example
     /// ```no_run

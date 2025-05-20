@@ -17,7 +17,7 @@
 pub mod web_risk_service {
     use crate::Result;
 
-    /// A builder for [WebRiskService][super::super::client::WebRiskService].
+    /// A builder for [WebRiskService][crate::client::WebRiskService].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -45,7 +45,7 @@ pub mod web_risk_service {
         }
     }
 
-    /// Common implementation for [super::super::client::WebRiskService] request builders.
+    /// Common implementation for [crate::client::WebRiskService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::WebRiskService>,
@@ -68,7 +68,7 @@ pub mod web_risk_service {
         }
     }
 
-    /// The request builder for [WebRiskService::compute_threat_list_diff][super::super::client::WebRiskService::compute_threat_list_diff] calls.
+    /// The request builder for [WebRiskService::compute_threat_list_diff][crate::client::WebRiskService::compute_threat_list_diff] calls.
     ///
     /// # Example
     /// ```no_run
@@ -162,7 +162,7 @@ pub mod web_risk_service {
         }
     }
 
-    /// The request builder for [WebRiskService::search_uris][super::super::client::WebRiskService::search_uris] calls.
+    /// The request builder for [WebRiskService::search_uris][crate::client::WebRiskService::search_uris] calls.
     ///
     /// # Example
     /// ```no_run
@@ -238,7 +238,7 @@ pub mod web_risk_service {
         }
     }
 
-    /// The request builder for [WebRiskService::search_hashes][super::super::client::WebRiskService::search_hashes] calls.
+    /// The request builder for [WebRiskService::search_hashes][crate::client::WebRiskService::search_hashes] calls.
     ///
     /// # Example
     /// ```no_run
@@ -312,7 +312,7 @@ pub mod web_risk_service {
         }
     }
 
-    /// The request builder for [WebRiskService::create_submission][super::super::client::WebRiskService::create_submission] calls.
+    /// The request builder for [WebRiskService::create_submission][crate::client::WebRiskService::create_submission] calls.
     ///
     /// # Example
     /// ```no_run
@@ -400,7 +400,7 @@ pub mod web_risk_service {
         }
     }
 
-    /// The request builder for [WebRiskService::submit_uri][super::super::client::WebRiskService::submit_uri] calls.
+    /// The request builder for [WebRiskService::submit_uri][crate::client::WebRiskService::submit_uri] calls.
     ///
     /// # Example
     /// ```no_run
@@ -445,7 +445,7 @@ pub mod web_risk_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [submit_uri][super::super::client::WebRiskService::submit_uri].
+        /// on [submit_uri][crate::client::WebRiskService::submit_uri].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .submit_uri(self.0.request, self.0.options)
@@ -560,7 +560,7 @@ pub mod web_risk_service {
         }
     }
 
-    /// The request builder for [WebRiskService::list_operations][super::super::client::WebRiskService::list_operations] calls.
+    /// The request builder for [WebRiskService::list_operations][crate::client::WebRiskService::list_operations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -672,7 +672,7 @@ pub mod web_risk_service {
         }
     }
 
-    /// The request builder for [WebRiskService::get_operation][super::super::client::WebRiskService::get_operation] calls.
+    /// The request builder for [WebRiskService::get_operation][crate::client::WebRiskService::get_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -736,7 +736,7 @@ pub mod web_risk_service {
         }
     }
 
-    /// The request builder for [WebRiskService::delete_operation][super::super::client::WebRiskService::delete_operation] calls.
+    /// The request builder for [WebRiskService::delete_operation][crate::client::WebRiskService::delete_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -800,7 +800,7 @@ pub mod web_risk_service {
         }
     }
 
-    /// The request builder for [WebRiskService::cancel_operation][super::super::client::WebRiskService::cancel_operation] calls.
+    /// The request builder for [WebRiskService::cancel_operation][crate::client::WebRiskService::cancel_operation] calls.
     ///
     /// # Example
     /// ```no_run

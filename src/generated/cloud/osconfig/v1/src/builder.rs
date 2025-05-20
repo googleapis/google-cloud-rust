@@ -17,7 +17,7 @@
 pub mod os_config_service {
     use crate::Result;
 
-    /// A builder for [OsConfigService][super::super::client::OsConfigService].
+    /// A builder for [OsConfigService][crate::client::OsConfigService].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -45,7 +45,7 @@ pub mod os_config_service {
         }
     }
 
-    /// Common implementation for [super::super::client::OsConfigService] request builders.
+    /// Common implementation for [crate::client::OsConfigService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::OsConfigService>,
@@ -68,7 +68,7 @@ pub mod os_config_service {
         }
     }
 
-    /// The request builder for [OsConfigService::execute_patch_job][super::super::client::OsConfigService::execute_patch_job] calls.
+    /// The request builder for [OsConfigService::execute_patch_job][crate::client::OsConfigService::execute_patch_job] calls.
     ///
     /// # Example
     /// ```no_run
@@ -225,7 +225,7 @@ pub mod os_config_service {
         }
     }
 
-    /// The request builder for [OsConfigService::get_patch_job][super::super::client::OsConfigService::get_patch_job] calls.
+    /// The request builder for [OsConfigService::get_patch_job][crate::client::OsConfigService::get_patch_job] calls.
     ///
     /// # Example
     /// ```no_run
@@ -288,7 +288,7 @@ pub mod os_config_service {
         }
     }
 
-    /// The request builder for [OsConfigService::cancel_patch_job][super::super::client::OsConfigService::cancel_patch_job] calls.
+    /// The request builder for [OsConfigService::cancel_patch_job][crate::client::OsConfigService::cancel_patch_job] calls.
     ///
     /// # Example
     /// ```no_run
@@ -351,7 +351,7 @@ pub mod os_config_service {
         }
     }
 
-    /// The request builder for [OsConfigService::list_patch_jobs][super::super::client::OsConfigService::list_patch_jobs] calls.
+    /// The request builder for [OsConfigService::list_patch_jobs][crate::client::OsConfigService::list_patch_jobs] calls.
     ///
     /// # Example
     /// ```no_run
@@ -460,7 +460,7 @@ pub mod os_config_service {
         }
     }
 
-    /// The request builder for [OsConfigService::list_patch_job_instance_details][super::super::client::OsConfigService::list_patch_job_instance_details] calls.
+    /// The request builder for [OsConfigService::list_patch_job_instance_details][crate::client::OsConfigService::list_patch_job_instance_details] calls.
     ///
     /// # Example
     /// ```no_run
@@ -578,7 +578,7 @@ pub mod os_config_service {
         }
     }
 
-    /// The request builder for [OsConfigService::create_patch_deployment][super::super::client::OsConfigService::create_patch_deployment] calls.
+    /// The request builder for [OsConfigService::create_patch_deployment][crate::client::OsConfigService::create_patch_deployment] calls.
     ///
     /// # Example
     /// ```no_run
@@ -674,7 +674,7 @@ pub mod os_config_service {
         }
     }
 
-    /// The request builder for [OsConfigService::get_patch_deployment][super::super::client::OsConfigService::get_patch_deployment] calls.
+    /// The request builder for [OsConfigService::get_patch_deployment][crate::client::OsConfigService::get_patch_deployment] calls.
     ///
     /// # Example
     /// ```no_run
@@ -740,7 +740,7 @@ pub mod os_config_service {
         }
     }
 
-    /// The request builder for [OsConfigService::list_patch_deployments][super::super::client::OsConfigService::list_patch_deployments] calls.
+    /// The request builder for [OsConfigService::list_patch_deployments][crate::client::OsConfigService::list_patch_deployments] calls.
     ///
     /// # Example
     /// ```no_run
@@ -848,7 +848,7 @@ pub mod os_config_service {
         }
     }
 
-    /// The request builder for [OsConfigService::delete_patch_deployment][super::super::client::OsConfigService::delete_patch_deployment] calls.
+    /// The request builder for [OsConfigService::delete_patch_deployment][crate::client::OsConfigService::delete_patch_deployment] calls.
     ///
     /// # Example
     /// ```no_run
@@ -914,7 +914,7 @@ pub mod os_config_service {
         }
     }
 
-    /// The request builder for [OsConfigService::update_patch_deployment][super::super::client::OsConfigService::update_patch_deployment] calls.
+    /// The request builder for [OsConfigService::update_patch_deployment][crate::client::OsConfigService::update_patch_deployment] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1012,7 +1012,7 @@ pub mod os_config_service {
         }
     }
 
-    /// The request builder for [OsConfigService::pause_patch_deployment][super::super::client::OsConfigService::pause_patch_deployment] calls.
+    /// The request builder for [OsConfigService::pause_patch_deployment][crate::client::OsConfigService::pause_patch_deployment] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1078,7 +1078,7 @@ pub mod os_config_service {
         }
     }
 
-    /// The request builder for [OsConfigService::resume_patch_deployment][super::super::client::OsConfigService::resume_patch_deployment] calls.
+    /// The request builder for [OsConfigService::resume_patch_deployment][crate::client::OsConfigService::resume_patch_deployment] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1144,7 +1144,7 @@ pub mod os_config_service {
         }
     }
 
-    /// The request builder for [OsConfigService::get_operation][super::super::client::OsConfigService::get_operation] calls.
+    /// The request builder for [OsConfigService::get_operation][crate::client::OsConfigService::get_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1208,7 +1208,7 @@ pub mod os_config_service {
         }
     }
 
-    /// The request builder for [OsConfigService::cancel_operation][super::super::client::OsConfigService::cancel_operation] calls.
+    /// The request builder for [OsConfigService::cancel_operation][crate::client::OsConfigService::cancel_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1276,7 +1276,7 @@ pub mod os_config_service {
 pub mod os_config_zonal_service {
     use crate::Result;
 
-    /// A builder for [OsConfigZonalService][super::super::client::OsConfigZonalService].
+    /// A builder for [OsConfigZonalService][crate::client::OsConfigZonalService].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -1304,7 +1304,7 @@ pub mod os_config_zonal_service {
         }
     }
 
-    /// Common implementation for [super::super::client::OsConfigZonalService] request builders.
+    /// Common implementation for [crate::client::OsConfigZonalService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::OsConfigZonalService>,
@@ -1327,7 +1327,7 @@ pub mod os_config_zonal_service {
         }
     }
 
-    /// The request builder for [OsConfigZonalService::create_os_policy_assignment][super::super::client::OsConfigZonalService::create_os_policy_assignment] calls.
+    /// The request builder for [OsConfigZonalService::create_os_policy_assignment][crate::client::OsConfigZonalService::create_os_policy_assignment] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1377,7 +1377,7 @@ pub mod os_config_zonal_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_os_policy_assignment][super::super::client::OsConfigZonalService::create_os_policy_assignment].
+        /// on [create_os_policy_assignment][crate::client::OsConfigZonalService::create_os_policy_assignment].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_os_policy_assignment(self.0.request, self.0.options)
@@ -1469,7 +1469,7 @@ pub mod os_config_zonal_service {
         }
     }
 
-    /// The request builder for [OsConfigZonalService::update_os_policy_assignment][super::super::client::OsConfigZonalService::update_os_policy_assignment] calls.
+    /// The request builder for [OsConfigZonalService::update_os_policy_assignment][crate::client::OsConfigZonalService::update_os_policy_assignment] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1519,7 +1519,7 @@ pub mod os_config_zonal_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_os_policy_assignment][super::super::client::OsConfigZonalService::update_os_policy_assignment].
+        /// on [update_os_policy_assignment][crate::client::OsConfigZonalService::update_os_policy_assignment].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_os_policy_assignment(self.0.request, self.0.options)
@@ -1613,7 +1613,7 @@ pub mod os_config_zonal_service {
         }
     }
 
-    /// The request builder for [OsConfigZonalService::get_os_policy_assignment][super::super::client::OsConfigZonalService::get_os_policy_assignment] calls.
+    /// The request builder for [OsConfigZonalService::get_os_policy_assignment][crate::client::OsConfigZonalService::get_os_policy_assignment] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1679,7 +1679,7 @@ pub mod os_config_zonal_service {
         }
     }
 
-    /// The request builder for [OsConfigZonalService::list_os_policy_assignments][super::super::client::OsConfigZonalService::list_os_policy_assignments] calls.
+    /// The request builder for [OsConfigZonalService::list_os_policy_assignments][crate::client::OsConfigZonalService::list_os_policy_assignments] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1791,7 +1791,7 @@ pub mod os_config_zonal_service {
         }
     }
 
-    /// The request builder for [OsConfigZonalService::list_os_policy_assignment_revisions][super::super::client::OsConfigZonalService::list_os_policy_assignment_revisions] calls.
+    /// The request builder for [OsConfigZonalService::list_os_policy_assignment_revisions][crate::client::OsConfigZonalService::list_os_policy_assignment_revisions] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1903,7 +1903,7 @@ pub mod os_config_zonal_service {
         }
     }
 
-    /// The request builder for [OsConfigZonalService::delete_os_policy_assignment][super::super::client::OsConfigZonalService::delete_os_policy_assignment] calls.
+    /// The request builder for [OsConfigZonalService::delete_os_policy_assignment][crate::client::OsConfigZonalService::delete_os_policy_assignment] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1953,7 +1953,7 @@ pub mod os_config_zonal_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_os_policy_assignment][super::super::client::OsConfigZonalService::delete_os_policy_assignment].
+        /// on [delete_os_policy_assignment][crate::client::OsConfigZonalService::delete_os_policy_assignment].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_os_policy_assignment(self.0.request, self.0.options)
@@ -2017,7 +2017,7 @@ pub mod os_config_zonal_service {
         }
     }
 
-    /// The request builder for [OsConfigZonalService::get_os_policy_assignment_report][super::super::client::OsConfigZonalService::get_os_policy_assignment_report] calls.
+    /// The request builder for [OsConfigZonalService::get_os_policy_assignment_report][crate::client::OsConfigZonalService::get_os_policy_assignment_report] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2085,7 +2085,7 @@ pub mod os_config_zonal_service {
         }
     }
 
-    /// The request builder for [OsConfigZonalService::list_os_policy_assignment_reports][super::super::client::OsConfigZonalService::list_os_policy_assignment_reports] calls.
+    /// The request builder for [OsConfigZonalService::list_os_policy_assignment_reports][crate::client::OsConfigZonalService::list_os_policy_assignment_reports] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2203,7 +2203,7 @@ pub mod os_config_zonal_service {
         }
     }
 
-    /// The request builder for [OsConfigZonalService::get_inventory][super::super::client::OsConfigZonalService::get_inventory] calls.
+    /// The request builder for [OsConfigZonalService::get_inventory][crate::client::OsConfigZonalService::get_inventory] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2272,7 +2272,7 @@ pub mod os_config_zonal_service {
         }
     }
 
-    /// The request builder for [OsConfigZonalService::list_inventories][super::super::client::OsConfigZonalService::list_inventories] calls.
+    /// The request builder for [OsConfigZonalService::list_inventories][crate::client::OsConfigZonalService::list_inventories] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2387,7 +2387,7 @@ pub mod os_config_zonal_service {
         }
     }
 
-    /// The request builder for [OsConfigZonalService::get_vulnerability_report][super::super::client::OsConfigZonalService::get_vulnerability_report] calls.
+    /// The request builder for [OsConfigZonalService::get_vulnerability_report][crate::client::OsConfigZonalService::get_vulnerability_report] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2453,7 +2453,7 @@ pub mod os_config_zonal_service {
         }
     }
 
-    /// The request builder for [OsConfigZonalService::list_vulnerability_reports][super::super::client::OsConfigZonalService::list_vulnerability_reports] calls.
+    /// The request builder for [OsConfigZonalService::list_vulnerability_reports][crate::client::OsConfigZonalService::list_vulnerability_reports] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2571,7 +2571,7 @@ pub mod os_config_zonal_service {
         }
     }
 
-    /// The request builder for [OsConfigZonalService::get_operation][super::super::client::OsConfigZonalService::get_operation] calls.
+    /// The request builder for [OsConfigZonalService::get_operation][crate::client::OsConfigZonalService::get_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2635,7 +2635,7 @@ pub mod os_config_zonal_service {
         }
     }
 
-    /// The request builder for [OsConfigZonalService::cancel_operation][super::super::client::OsConfigZonalService::cancel_operation] calls.
+    /// The request builder for [OsConfigZonalService::cancel_operation][crate::client::OsConfigZonalService::cancel_operation] calls.
     ///
     /// # Example
     /// ```no_run

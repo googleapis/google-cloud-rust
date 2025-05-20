@@ -17,7 +17,7 @@
 pub mod language_service {
     use crate::Result;
 
-    /// A builder for [LanguageService][super::super::client::LanguageService].
+    /// A builder for [LanguageService][crate::client::LanguageService].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -45,7 +45,7 @@ pub mod language_service {
         }
     }
 
-    /// Common implementation for [super::super::client::LanguageService] request builders.
+    /// Common implementation for [crate::client::LanguageService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::LanguageService>,
@@ -68,7 +68,7 @@ pub mod language_service {
         }
     }
 
-    /// The request builder for [LanguageService::analyze_sentiment][super::super::client::LanguageService::analyze_sentiment] calls.
+    /// The request builder for [LanguageService::analyze_sentiment][crate::client::LanguageService::analyze_sentiment] calls.
     ///
     /// # Example
     /// ```no_run
@@ -154,7 +154,7 @@ pub mod language_service {
         }
     }
 
-    /// The request builder for [LanguageService::analyze_entities][super::super::client::LanguageService::analyze_entities] calls.
+    /// The request builder for [LanguageService::analyze_entities][crate::client::LanguageService::analyze_entities] calls.
     ///
     /// # Example
     /// ```no_run
@@ -237,7 +237,7 @@ pub mod language_service {
         }
     }
 
-    /// The request builder for [LanguageService::classify_text][super::super::client::LanguageService::classify_text] calls.
+    /// The request builder for [LanguageService::classify_text][crate::client::LanguageService::classify_text] calls.
     ///
     /// # Example
     /// ```no_run
@@ -314,7 +314,7 @@ pub mod language_service {
         }
     }
 
-    /// The request builder for [LanguageService::moderate_text][super::super::client::LanguageService::moderate_text] calls.
+    /// The request builder for [LanguageService::moderate_text][crate::client::LanguageService::moderate_text] calls.
     ///
     /// # Example
     /// ```no_run
@@ -400,7 +400,7 @@ pub mod language_service {
         }
     }
 
-    /// The request builder for [LanguageService::annotate_text][super::super::client::LanguageService::annotate_text] calls.
+    /// The request builder for [LanguageService::annotate_text][crate::client::LanguageService::annotate_text] calls.
     ///
     /// # Example
     /// ```no_run

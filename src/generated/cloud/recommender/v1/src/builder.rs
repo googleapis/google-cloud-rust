@@ -17,7 +17,7 @@
 pub mod recommender {
     use crate::Result;
 
-    /// A builder for [Recommender][super::super::client::Recommender].
+    /// A builder for [Recommender][crate::client::Recommender].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -45,7 +45,7 @@ pub mod recommender {
         }
     }
 
-    /// Common implementation for [super::super::client::Recommender] request builders.
+    /// Common implementation for [crate::client::Recommender] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::Recommender>,
@@ -68,7 +68,7 @@ pub mod recommender {
         }
     }
 
-    /// The request builder for [Recommender::list_insights][super::super::client::Recommender::list_insights] calls.
+    /// The request builder for [Recommender::list_insights][crate::client::Recommender::list_insights] calls.
     ///
     /// # Example
     /// ```no_run
@@ -177,7 +177,7 @@ pub mod recommender {
         }
     }
 
-    /// The request builder for [Recommender::get_insight][super::super::client::Recommender::get_insight] calls.
+    /// The request builder for [Recommender::get_insight][crate::client::Recommender::get_insight] calls.
     ///
     /// # Example
     /// ```no_run
@@ -240,7 +240,7 @@ pub mod recommender {
         }
     }
 
-    /// The request builder for [Recommender::mark_insight_accepted][super::super::client::Recommender::mark_insight_accepted] calls.
+    /// The request builder for [Recommender::mark_insight_accepted][crate::client::Recommender::mark_insight_accepted] calls.
     ///
     /// # Example
     /// ```no_run
@@ -326,7 +326,7 @@ pub mod recommender {
         }
     }
 
-    /// The request builder for [Recommender::list_recommendations][super::super::client::Recommender::list_recommendations] calls.
+    /// The request builder for [Recommender::list_recommendations][crate::client::Recommender::list_recommendations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -440,7 +440,7 @@ pub mod recommender {
         }
     }
 
-    /// The request builder for [Recommender::get_recommendation][super::super::client::Recommender::get_recommendation] calls.
+    /// The request builder for [Recommender::get_recommendation][crate::client::Recommender::get_recommendation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -506,7 +506,7 @@ pub mod recommender {
         }
     }
 
-    /// The request builder for [Recommender::mark_recommendation_dismissed][super::super::client::Recommender::mark_recommendation_dismissed] calls.
+    /// The request builder for [Recommender::mark_recommendation_dismissed][crate::client::Recommender::mark_recommendation_dismissed] calls.
     ///
     /// # Example
     /// ```no_run
@@ -580,7 +580,7 @@ pub mod recommender {
         }
     }
 
-    /// The request builder for [Recommender::mark_recommendation_claimed][super::super::client::Recommender::mark_recommendation_claimed] calls.
+    /// The request builder for [Recommender::mark_recommendation_claimed][crate::client::Recommender::mark_recommendation_claimed] calls.
     ///
     /// # Example
     /// ```no_run
@@ -668,7 +668,7 @@ pub mod recommender {
         }
     }
 
-    /// The request builder for [Recommender::mark_recommendation_succeeded][super::super::client::Recommender::mark_recommendation_succeeded] calls.
+    /// The request builder for [Recommender::mark_recommendation_succeeded][crate::client::Recommender::mark_recommendation_succeeded] calls.
     ///
     /// # Example
     /// ```no_run
@@ -756,7 +756,7 @@ pub mod recommender {
         }
     }
 
-    /// The request builder for [Recommender::mark_recommendation_failed][super::super::client::Recommender::mark_recommendation_failed] calls.
+    /// The request builder for [Recommender::mark_recommendation_failed][crate::client::Recommender::mark_recommendation_failed] calls.
     ///
     /// # Example
     /// ```no_run
@@ -844,7 +844,7 @@ pub mod recommender {
         }
     }
 
-    /// The request builder for [Recommender::get_recommender_config][super::super::client::Recommender::get_recommender_config] calls.
+    /// The request builder for [Recommender::get_recommender_config][crate::client::Recommender::get_recommender_config] calls.
     ///
     /// # Example
     /// ```no_run
@@ -910,7 +910,7 @@ pub mod recommender {
         }
     }
 
-    /// The request builder for [Recommender::update_recommender_config][super::super::client::Recommender::update_recommender_config] calls.
+    /// The request builder for [Recommender::update_recommender_config][crate::client::Recommender::update_recommender_config] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1016,7 +1016,7 @@ pub mod recommender {
         }
     }
 
-    /// The request builder for [Recommender::get_insight_type_config][super::super::client::Recommender::get_insight_type_config] calls.
+    /// The request builder for [Recommender::get_insight_type_config][crate::client::Recommender::get_insight_type_config] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1082,7 +1082,7 @@ pub mod recommender {
         }
     }
 
-    /// The request builder for [Recommender::update_insight_type_config][super::super::client::Recommender::update_insight_type_config] calls.
+    /// The request builder for [Recommender::update_insight_type_config][crate::client::Recommender::update_insight_type_config] calls.
     ///
     /// # Example
     /// ```no_run

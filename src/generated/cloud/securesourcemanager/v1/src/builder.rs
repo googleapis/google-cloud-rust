@@ -17,7 +17,7 @@
 pub mod secure_source_manager {
     use crate::Result;
 
-    /// A builder for [SecureSourceManager][super::super::client::SecureSourceManager].
+    /// A builder for [SecureSourceManager][crate::client::SecureSourceManager].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -45,7 +45,7 @@ pub mod secure_source_manager {
         }
     }
 
-    /// Common implementation for [super::super::client::SecureSourceManager] request builders.
+    /// Common implementation for [crate::client::SecureSourceManager] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::SecureSourceManager>,
@@ -68,7 +68,7 @@ pub mod secure_source_manager {
         }
     }
 
-    /// The request builder for [SecureSourceManager::list_instances][super::super::client::SecureSourceManager::list_instances] calls.
+    /// The request builder for [SecureSourceManager::list_instances][crate::client::SecureSourceManager::list_instances] calls.
     ///
     /// # Example
     /// ```no_run
@@ -183,7 +183,7 @@ pub mod secure_source_manager {
         }
     }
 
-    /// The request builder for [SecureSourceManager::get_instance][super::super::client::SecureSourceManager::get_instance] calls.
+    /// The request builder for [SecureSourceManager::get_instance][crate::client::SecureSourceManager::get_instance] calls.
     ///
     /// # Example
     /// ```no_run
@@ -246,7 +246,7 @@ pub mod secure_source_manager {
         }
     }
 
-    /// The request builder for [SecureSourceManager::create_instance][super::super::client::SecureSourceManager::create_instance] calls.
+    /// The request builder for [SecureSourceManager::create_instance][crate::client::SecureSourceManager::create_instance] calls.
     ///
     /// # Example
     /// ```no_run
@@ -291,7 +291,7 @@ pub mod secure_source_manager {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_instance][super::super::client::SecureSourceManager::create_instance].
+        /// on [create_instance][crate::client::SecureSourceManager::create_instance].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_instance(self.0.request, self.0.options)
@@ -384,7 +384,7 @@ pub mod secure_source_manager {
         }
     }
 
-    /// The request builder for [SecureSourceManager::delete_instance][super::super::client::SecureSourceManager::delete_instance] calls.
+    /// The request builder for [SecureSourceManager::delete_instance][crate::client::SecureSourceManager::delete_instance] calls.
     ///
     /// # Example
     /// ```no_run
@@ -429,7 +429,7 @@ pub mod secure_source_manager {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_instance][super::super::client::SecureSourceManager::delete_instance].
+        /// on [delete_instance][crate::client::SecureSourceManager::delete_instance].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_instance(self.0.request, self.0.options)
@@ -494,7 +494,7 @@ pub mod secure_source_manager {
         }
     }
 
-    /// The request builder for [SecureSourceManager::list_repositories][super::super::client::SecureSourceManager::list_repositories] calls.
+    /// The request builder for [SecureSourceManager::list_repositories][crate::client::SecureSourceManager::list_repositories] calls.
     ///
     /// # Example
     /// ```no_run
@@ -612,7 +612,7 @@ pub mod secure_source_manager {
         }
     }
 
-    /// The request builder for [SecureSourceManager::get_repository][super::super::client::SecureSourceManager::get_repository] calls.
+    /// The request builder for [SecureSourceManager::get_repository][crate::client::SecureSourceManager::get_repository] calls.
     ///
     /// # Example
     /// ```no_run
@@ -675,7 +675,7 @@ pub mod secure_source_manager {
         }
     }
 
-    /// The request builder for [SecureSourceManager::create_repository][super::super::client::SecureSourceManager::create_repository] calls.
+    /// The request builder for [SecureSourceManager::create_repository][crate::client::SecureSourceManager::create_repository] calls.
     ///
     /// # Example
     /// ```no_run
@@ -723,7 +723,7 @@ pub mod secure_source_manager {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_repository][super::super::client::SecureSourceManager::create_repository].
+        /// on [create_repository][crate::client::SecureSourceManager::create_repository].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_repository(self.0.request, self.0.options)
@@ -810,7 +810,7 @@ pub mod secure_source_manager {
         }
     }
 
-    /// The request builder for [SecureSourceManager::delete_repository][super::super::client::SecureSourceManager::delete_repository] calls.
+    /// The request builder for [SecureSourceManager::delete_repository][crate::client::SecureSourceManager::delete_repository] calls.
     ///
     /// # Example
     /// ```no_run
@@ -858,7 +858,7 @@ pub mod secure_source_manager {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_repository][super::super::client::SecureSourceManager::delete_repository].
+        /// on [delete_repository][crate::client::SecureSourceManager::delete_repository].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_repository(self.0.request, self.0.options)
@@ -923,7 +923,7 @@ pub mod secure_source_manager {
         }
     }
 
-    /// The request builder for [SecureSourceManager::get_iam_policy_repo][super::super::client::SecureSourceManager::get_iam_policy_repo] calls.
+    /// The request builder for [SecureSourceManager::get_iam_policy_repo][crate::client::SecureSourceManager::get_iam_policy_repo] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1004,7 +1004,7 @@ pub mod secure_source_manager {
         }
     }
 
-    /// The request builder for [SecureSourceManager::set_iam_policy_repo][super::super::client::SecureSourceManager::set_iam_policy_repo] calls.
+    /// The request builder for [SecureSourceManager::set_iam_policy_repo][crate::client::SecureSourceManager::set_iam_policy_repo] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1107,7 +1107,7 @@ pub mod secure_source_manager {
         }
     }
 
-    /// The request builder for [SecureSourceManager::test_iam_permissions_repo][super::super::client::SecureSourceManager::test_iam_permissions_repo] calls.
+    /// The request builder for [SecureSourceManager::test_iam_permissions_repo][crate::client::SecureSourceManager::test_iam_permissions_repo] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1186,7 +1186,7 @@ pub mod secure_source_manager {
         }
     }
 
-    /// The request builder for [SecureSourceManager::create_branch_rule][super::super::client::SecureSourceManager::create_branch_rule] calls.
+    /// The request builder for [SecureSourceManager::create_branch_rule][crate::client::SecureSourceManager::create_branch_rule] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1234,7 +1234,7 @@ pub mod secure_source_manager {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_branch_rule][super::super::client::SecureSourceManager::create_branch_rule].
+        /// on [create_branch_rule][crate::client::SecureSourceManager::create_branch_rule].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_branch_rule(self.0.request, self.0.options)
@@ -1321,7 +1321,7 @@ pub mod secure_source_manager {
         }
     }
 
-    /// The request builder for [SecureSourceManager::list_branch_rules][super::super::client::SecureSourceManager::list_branch_rules] calls.
+    /// The request builder for [SecureSourceManager::list_branch_rules][crate::client::SecureSourceManager::list_branch_rules] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1424,7 +1424,7 @@ pub mod secure_source_manager {
         }
     }
 
-    /// The request builder for [SecureSourceManager::get_branch_rule][super::super::client::SecureSourceManager::get_branch_rule] calls.
+    /// The request builder for [SecureSourceManager::get_branch_rule][crate::client::SecureSourceManager::get_branch_rule] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1487,7 +1487,7 @@ pub mod secure_source_manager {
         }
     }
 
-    /// The request builder for [SecureSourceManager::update_branch_rule][super::super::client::SecureSourceManager::update_branch_rule] calls.
+    /// The request builder for [SecureSourceManager::update_branch_rule][crate::client::SecureSourceManager::update_branch_rule] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1535,7 +1535,7 @@ pub mod secure_source_manager {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_branch_rule][super::super::client::SecureSourceManager::update_branch_rule].
+        /// on [update_branch_rule][crate::client::SecureSourceManager::update_branch_rule].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_branch_rule(self.0.request, self.0.options)
@@ -1634,7 +1634,7 @@ pub mod secure_source_manager {
         }
     }
 
-    /// The request builder for [SecureSourceManager::delete_branch_rule][super::super::client::SecureSourceManager::delete_branch_rule] calls.
+    /// The request builder for [SecureSourceManager::delete_branch_rule][crate::client::SecureSourceManager::delete_branch_rule] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1682,7 +1682,7 @@ pub mod secure_source_manager {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_branch_rule][super::super::client::SecureSourceManager::delete_branch_rule].
+        /// on [delete_branch_rule][crate::client::SecureSourceManager::delete_branch_rule].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_branch_rule(self.0.request, self.0.options)
@@ -1747,7 +1747,7 @@ pub mod secure_source_manager {
         }
     }
 
-    /// The request builder for [SecureSourceManager::list_locations][super::super::client::SecureSourceManager::list_locations] calls.
+    /// The request builder for [SecureSourceManager::list_locations][crate::client::SecureSourceManager::list_locations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1857,7 +1857,7 @@ pub mod secure_source_manager {
         }
     }
 
-    /// The request builder for [SecureSourceManager::get_location][super::super::client::SecureSourceManager::get_location] calls.
+    /// The request builder for [SecureSourceManager::get_location][crate::client::SecureSourceManager::get_location] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1918,7 +1918,7 @@ pub mod secure_source_manager {
         }
     }
 
-    /// The request builder for [SecureSourceManager::set_iam_policy][super::super::client::SecureSourceManager::set_iam_policy] calls.
+    /// The request builder for [SecureSourceManager::set_iam_policy][crate::client::SecureSourceManager::set_iam_policy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2021,7 +2021,7 @@ pub mod secure_source_manager {
         }
     }
 
-    /// The request builder for [SecureSourceManager::get_iam_policy][super::super::client::SecureSourceManager::get_iam_policy] calls.
+    /// The request builder for [SecureSourceManager::get_iam_policy][crate::client::SecureSourceManager::get_iam_policy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2102,7 +2102,7 @@ pub mod secure_source_manager {
         }
     }
 
-    /// The request builder for [SecureSourceManager::test_iam_permissions][super::super::client::SecureSourceManager::test_iam_permissions] calls.
+    /// The request builder for [SecureSourceManager::test_iam_permissions][crate::client::SecureSourceManager::test_iam_permissions] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2181,7 +2181,7 @@ pub mod secure_source_manager {
         }
     }
 
-    /// The request builder for [SecureSourceManager::list_operations][super::super::client::SecureSourceManager::list_operations] calls.
+    /// The request builder for [SecureSourceManager::list_operations][crate::client::SecureSourceManager::list_operations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2293,7 +2293,7 @@ pub mod secure_source_manager {
         }
     }
 
-    /// The request builder for [SecureSourceManager::get_operation][super::super::client::SecureSourceManager::get_operation] calls.
+    /// The request builder for [SecureSourceManager::get_operation][crate::client::SecureSourceManager::get_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2357,7 +2357,7 @@ pub mod secure_source_manager {
         }
     }
 
-    /// The request builder for [SecureSourceManager::delete_operation][super::super::client::SecureSourceManager::delete_operation] calls.
+    /// The request builder for [SecureSourceManager::delete_operation][crate::client::SecureSourceManager::delete_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2421,7 +2421,7 @@ pub mod secure_source_manager {
         }
     }
 
-    /// The request builder for [SecureSourceManager::cancel_operation][super::super::client::SecureSourceManager::cancel_operation] calls.
+    /// The request builder for [SecureSourceManager::cancel_operation][crate::client::SecureSourceManager::cancel_operation] calls.
     ///
     /// # Example
     /// ```no_run

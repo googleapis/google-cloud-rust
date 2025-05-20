@@ -17,7 +17,7 @@
 pub mod data_access_control_service {
     use crate::Result;
 
-    /// A builder for [DataAccessControlService][super::super::client::DataAccessControlService].
+    /// A builder for [DataAccessControlService][crate::client::DataAccessControlService].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -45,7 +45,7 @@ pub mod data_access_control_service {
         }
     }
 
-    /// Common implementation for [super::super::client::DataAccessControlService] request builders.
+    /// Common implementation for [crate::client::DataAccessControlService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::DataAccessControlService>,
@@ -68,7 +68,7 @@ pub mod data_access_control_service {
         }
     }
 
-    /// The request builder for [DataAccessControlService::create_data_access_label][super::super::client::DataAccessControlService::create_data_access_label] calls.
+    /// The request builder for [DataAccessControlService::create_data_access_label][crate::client::DataAccessControlService::create_data_access_label] calls.
     ///
     /// # Example
     /// ```no_run
@@ -164,7 +164,7 @@ pub mod data_access_control_service {
         }
     }
 
-    /// The request builder for [DataAccessControlService::get_data_access_label][super::super::client::DataAccessControlService::get_data_access_label] calls.
+    /// The request builder for [DataAccessControlService::get_data_access_label][crate::client::DataAccessControlService::get_data_access_label] calls.
     ///
     /// # Example
     /// ```no_run
@@ -230,7 +230,7 @@ pub mod data_access_control_service {
         }
     }
 
-    /// The request builder for [DataAccessControlService::list_data_access_labels][super::super::client::DataAccessControlService::list_data_access_labels] calls.
+    /// The request builder for [DataAccessControlService::list_data_access_labels][crate::client::DataAccessControlService::list_data_access_labels] calls.
     ///
     /// # Example
     /// ```no_run
@@ -344,7 +344,7 @@ pub mod data_access_control_service {
         }
     }
 
-    /// The request builder for [DataAccessControlService::update_data_access_label][super::super::client::DataAccessControlService::update_data_access_label] calls.
+    /// The request builder for [DataAccessControlService::update_data_access_label][crate::client::DataAccessControlService::update_data_access_label] calls.
     ///
     /// # Example
     /// ```no_run
@@ -442,7 +442,7 @@ pub mod data_access_control_service {
         }
     }
 
-    /// The request builder for [DataAccessControlService::delete_data_access_label][super::super::client::DataAccessControlService::delete_data_access_label] calls.
+    /// The request builder for [DataAccessControlService::delete_data_access_label][crate::client::DataAccessControlService::delete_data_access_label] calls.
     ///
     /// # Example
     /// ```no_run
@@ -508,7 +508,7 @@ pub mod data_access_control_service {
         }
     }
 
-    /// The request builder for [DataAccessControlService::create_data_access_scope][super::super::client::DataAccessControlService::create_data_access_scope] calls.
+    /// The request builder for [DataAccessControlService::create_data_access_scope][crate::client::DataAccessControlService::create_data_access_scope] calls.
     ///
     /// # Example
     /// ```no_run
@@ -604,7 +604,7 @@ pub mod data_access_control_service {
         }
     }
 
-    /// The request builder for [DataAccessControlService::get_data_access_scope][super::super::client::DataAccessControlService::get_data_access_scope] calls.
+    /// The request builder for [DataAccessControlService::get_data_access_scope][crate::client::DataAccessControlService::get_data_access_scope] calls.
     ///
     /// # Example
     /// ```no_run
@@ -670,7 +670,7 @@ pub mod data_access_control_service {
         }
     }
 
-    /// The request builder for [DataAccessControlService::list_data_access_scopes][super::super::client::DataAccessControlService::list_data_access_scopes] calls.
+    /// The request builder for [DataAccessControlService::list_data_access_scopes][crate::client::DataAccessControlService::list_data_access_scopes] calls.
     ///
     /// # Example
     /// ```no_run
@@ -784,7 +784,7 @@ pub mod data_access_control_service {
         }
     }
 
-    /// The request builder for [DataAccessControlService::update_data_access_scope][super::super::client::DataAccessControlService::update_data_access_scope] calls.
+    /// The request builder for [DataAccessControlService::update_data_access_scope][crate::client::DataAccessControlService::update_data_access_scope] calls.
     ///
     /// # Example
     /// ```no_run
@@ -882,7 +882,7 @@ pub mod data_access_control_service {
         }
     }
 
-    /// The request builder for [DataAccessControlService::delete_data_access_scope][super::super::client::DataAccessControlService::delete_data_access_scope] calls.
+    /// The request builder for [DataAccessControlService::delete_data_access_scope][crate::client::DataAccessControlService::delete_data_access_scope] calls.
     ///
     /// # Example
     /// ```no_run
@@ -948,7 +948,7 @@ pub mod data_access_control_service {
         }
     }
 
-    /// The request builder for [DataAccessControlService::list_operations][super::super::client::DataAccessControlService::list_operations] calls.
+    /// The request builder for [DataAccessControlService::list_operations][crate::client::DataAccessControlService::list_operations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1060,7 +1060,7 @@ pub mod data_access_control_service {
         }
     }
 
-    /// The request builder for [DataAccessControlService::get_operation][super::super::client::DataAccessControlService::get_operation] calls.
+    /// The request builder for [DataAccessControlService::get_operation][crate::client::DataAccessControlService::get_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1124,7 +1124,7 @@ pub mod data_access_control_service {
         }
     }
 
-    /// The request builder for [DataAccessControlService::delete_operation][super::super::client::DataAccessControlService::delete_operation] calls.
+    /// The request builder for [DataAccessControlService::delete_operation][crate::client::DataAccessControlService::delete_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1188,7 +1188,7 @@ pub mod data_access_control_service {
         }
     }
 
-    /// The request builder for [DataAccessControlService::cancel_operation][super::super::client::DataAccessControlService::cancel_operation] calls.
+    /// The request builder for [DataAccessControlService::cancel_operation][crate::client::DataAccessControlService::cancel_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1256,7 +1256,7 @@ pub mod data_access_control_service {
 pub mod entity_service {
     use crate::Result;
 
-    /// A builder for [EntityService][super::super::client::EntityService].
+    /// A builder for [EntityService][crate::client::EntityService].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -1284,7 +1284,7 @@ pub mod entity_service {
         }
     }
 
-    /// Common implementation for [super::super::client::EntityService] request builders.
+    /// Common implementation for [crate::client::EntityService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::EntityService>,
@@ -1307,7 +1307,7 @@ pub mod entity_service {
         }
     }
 
-    /// The request builder for [EntityService::get_watchlist][super::super::client::EntityService::get_watchlist] calls.
+    /// The request builder for [EntityService::get_watchlist][crate::client::EntityService::get_watchlist] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1370,7 +1370,7 @@ pub mod entity_service {
         }
     }
 
-    /// The request builder for [EntityService::list_watchlists][super::super::client::EntityService::list_watchlists] calls.
+    /// The request builder for [EntityService::list_watchlists][crate::client::EntityService::list_watchlists] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1479,7 +1479,7 @@ pub mod entity_service {
         }
     }
 
-    /// The request builder for [EntityService::create_watchlist][super::super::client::EntityService::create_watchlist] calls.
+    /// The request builder for [EntityService::create_watchlist][crate::client::EntityService::create_watchlist] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1570,7 +1570,7 @@ pub mod entity_service {
         }
     }
 
-    /// The request builder for [EntityService::update_watchlist][super::super::client::EntityService::update_watchlist] calls.
+    /// The request builder for [EntityService::update_watchlist][crate::client::EntityService::update_watchlist] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1665,7 +1665,7 @@ pub mod entity_service {
         }
     }
 
-    /// The request builder for [EntityService::delete_watchlist][super::super::client::EntityService::delete_watchlist] calls.
+    /// The request builder for [EntityService::delete_watchlist][crate::client::EntityService::delete_watchlist] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1734,7 +1734,7 @@ pub mod entity_service {
         }
     }
 
-    /// The request builder for [EntityService::list_operations][super::super::client::EntityService::list_operations] calls.
+    /// The request builder for [EntityService::list_operations][crate::client::EntityService::list_operations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1846,7 +1846,7 @@ pub mod entity_service {
         }
     }
 
-    /// The request builder for [EntityService::get_operation][super::super::client::EntityService::get_operation] calls.
+    /// The request builder for [EntityService::get_operation][crate::client::EntityService::get_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1910,7 +1910,7 @@ pub mod entity_service {
         }
     }
 
-    /// The request builder for [EntityService::delete_operation][super::super::client::EntityService::delete_operation] calls.
+    /// The request builder for [EntityService::delete_operation][crate::client::EntityService::delete_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1974,7 +1974,7 @@ pub mod entity_service {
         }
     }
 
-    /// The request builder for [EntityService::cancel_operation][super::super::client::EntityService::cancel_operation] calls.
+    /// The request builder for [EntityService::cancel_operation][crate::client::EntityService::cancel_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2042,7 +2042,7 @@ pub mod entity_service {
 pub mod instance_service {
     use crate::Result;
 
-    /// A builder for [InstanceService][super::super::client::InstanceService].
+    /// A builder for [InstanceService][crate::client::InstanceService].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -2070,7 +2070,7 @@ pub mod instance_service {
         }
     }
 
-    /// Common implementation for [super::super::client::InstanceService] request builders.
+    /// Common implementation for [crate::client::InstanceService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::InstanceService>,
@@ -2093,7 +2093,7 @@ pub mod instance_service {
         }
     }
 
-    /// The request builder for [InstanceService::get_instance][super::super::client::InstanceService::get_instance] calls.
+    /// The request builder for [InstanceService::get_instance][crate::client::InstanceService::get_instance] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2156,7 +2156,7 @@ pub mod instance_service {
         }
     }
 
-    /// The request builder for [InstanceService::list_operations][super::super::client::InstanceService::list_operations] calls.
+    /// The request builder for [InstanceService::list_operations][crate::client::InstanceService::list_operations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2268,7 +2268,7 @@ pub mod instance_service {
         }
     }
 
-    /// The request builder for [InstanceService::get_operation][super::super::client::InstanceService::get_operation] calls.
+    /// The request builder for [InstanceService::get_operation][crate::client::InstanceService::get_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2332,7 +2332,7 @@ pub mod instance_service {
         }
     }
 
-    /// The request builder for [InstanceService::delete_operation][super::super::client::InstanceService::delete_operation] calls.
+    /// The request builder for [InstanceService::delete_operation][crate::client::InstanceService::delete_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2396,7 +2396,7 @@ pub mod instance_service {
         }
     }
 
-    /// The request builder for [InstanceService::cancel_operation][super::super::client::InstanceService::cancel_operation] calls.
+    /// The request builder for [InstanceService::cancel_operation][crate::client::InstanceService::cancel_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2464,7 +2464,7 @@ pub mod instance_service {
 pub mod reference_list_service {
     use crate::Result;
 
-    /// A builder for [ReferenceListService][super::super::client::ReferenceListService].
+    /// A builder for [ReferenceListService][crate::client::ReferenceListService].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -2492,7 +2492,7 @@ pub mod reference_list_service {
         }
     }
 
-    /// Common implementation for [super::super::client::ReferenceListService] request builders.
+    /// Common implementation for [crate::client::ReferenceListService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::ReferenceListService>,
@@ -2515,7 +2515,7 @@ pub mod reference_list_service {
         }
     }
 
-    /// The request builder for [ReferenceListService::get_reference_list][super::super::client::ReferenceListService::get_reference_list] calls.
+    /// The request builder for [ReferenceListService::get_reference_list][crate::client::ReferenceListService::get_reference_list] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2587,7 +2587,7 @@ pub mod reference_list_service {
         }
     }
 
-    /// The request builder for [ReferenceListService::list_reference_lists][super::super::client::ReferenceListService::list_reference_lists] calls.
+    /// The request builder for [ReferenceListService::list_reference_lists][crate::client::ReferenceListService::list_reference_lists] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2701,7 +2701,7 @@ pub mod reference_list_service {
         }
     }
 
-    /// The request builder for [ReferenceListService::create_reference_list][super::super::client::ReferenceListService::create_reference_list] calls.
+    /// The request builder for [ReferenceListService::create_reference_list][crate::client::ReferenceListService::create_reference_list] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2797,7 +2797,7 @@ pub mod reference_list_service {
         }
     }
 
-    /// The request builder for [ReferenceListService::update_reference_list][super::super::client::ReferenceListService::update_reference_list] calls.
+    /// The request builder for [ReferenceListService::update_reference_list][crate::client::ReferenceListService::update_reference_list] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2895,7 +2895,7 @@ pub mod reference_list_service {
         }
     }
 
-    /// The request builder for [ReferenceListService::list_operations][super::super::client::ReferenceListService::list_operations] calls.
+    /// The request builder for [ReferenceListService::list_operations][crate::client::ReferenceListService::list_operations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3007,7 +3007,7 @@ pub mod reference_list_service {
         }
     }
 
-    /// The request builder for [ReferenceListService::get_operation][super::super::client::ReferenceListService::get_operation] calls.
+    /// The request builder for [ReferenceListService::get_operation][crate::client::ReferenceListService::get_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3071,7 +3071,7 @@ pub mod reference_list_service {
         }
     }
 
-    /// The request builder for [ReferenceListService::delete_operation][super::super::client::ReferenceListService::delete_operation] calls.
+    /// The request builder for [ReferenceListService::delete_operation][crate::client::ReferenceListService::delete_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3135,7 +3135,7 @@ pub mod reference_list_service {
         }
     }
 
-    /// The request builder for [ReferenceListService::cancel_operation][super::super::client::ReferenceListService::cancel_operation] calls.
+    /// The request builder for [ReferenceListService::cancel_operation][crate::client::ReferenceListService::cancel_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3203,7 +3203,7 @@ pub mod reference_list_service {
 pub mod rule_service {
     use crate::Result;
 
-    /// A builder for [RuleService][super::super::client::RuleService].
+    /// A builder for [RuleService][crate::client::RuleService].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -3231,7 +3231,7 @@ pub mod rule_service {
         }
     }
 
-    /// Common implementation for [super::super::client::RuleService] request builders.
+    /// Common implementation for [crate::client::RuleService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::RuleService>,
@@ -3254,7 +3254,7 @@ pub mod rule_service {
         }
     }
 
-    /// The request builder for [RuleService::create_rule][super::super::client::RuleService::create_rule] calls.
+    /// The request builder for [RuleService::create_rule][crate::client::RuleService::create_rule] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3339,7 +3339,7 @@ pub mod rule_service {
         }
     }
 
-    /// The request builder for [RuleService::get_rule][super::super::client::RuleService::get_rule] calls.
+    /// The request builder for [RuleService::get_rule][crate::client::RuleService::get_rule] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3408,7 +3408,7 @@ pub mod rule_service {
         }
     }
 
-    /// The request builder for [RuleService::list_rules][super::super::client::RuleService::list_rules] calls.
+    /// The request builder for [RuleService::list_rules][crate::client::RuleService::list_rules] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3523,7 +3523,7 @@ pub mod rule_service {
         }
     }
 
-    /// The request builder for [RuleService::update_rule][super::super::client::RuleService::update_rule] calls.
+    /// The request builder for [RuleService::update_rule][crate::client::RuleService::update_rule] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3618,7 +3618,7 @@ pub mod rule_service {
         }
     }
 
-    /// The request builder for [RuleService::delete_rule][super::super::client::RuleService::delete_rule] calls.
+    /// The request builder for [RuleService::delete_rule][crate::client::RuleService::delete_rule] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3687,7 +3687,7 @@ pub mod rule_service {
         }
     }
 
-    /// The request builder for [RuleService::list_rule_revisions][super::super::client::RuleService::list_rule_revisions] calls.
+    /// The request builder for [RuleService::list_rule_revisions][crate::client::RuleService::list_rule_revisions] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3799,7 +3799,7 @@ pub mod rule_service {
         }
     }
 
-    /// The request builder for [RuleService::create_retrohunt][super::super::client::RuleService::create_retrohunt] calls.
+    /// The request builder for [RuleService::create_retrohunt][crate::client::RuleService::create_retrohunt] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3844,7 +3844,7 @@ pub mod rule_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_retrohunt][super::super::client::RuleService::create_retrohunt].
+        /// on [create_retrohunt][crate::client::RuleService::create_retrohunt].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_retrohunt(self.0.request, self.0.options)
@@ -3923,7 +3923,7 @@ pub mod rule_service {
         }
     }
 
-    /// The request builder for [RuleService::get_retrohunt][super::super::client::RuleService::get_retrohunt] calls.
+    /// The request builder for [RuleService::get_retrohunt][crate::client::RuleService::get_retrohunt] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3986,7 +3986,7 @@ pub mod rule_service {
         }
     }
 
-    /// The request builder for [RuleService::list_retrohunts][super::super::client::RuleService::list_retrohunts] calls.
+    /// The request builder for [RuleService::list_retrohunts][crate::client::RuleService::list_retrohunts] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4095,7 +4095,7 @@ pub mod rule_service {
         }
     }
 
-    /// The request builder for [RuleService::get_rule_deployment][super::super::client::RuleService::get_rule_deployment] calls.
+    /// The request builder for [RuleService::get_rule_deployment][crate::client::RuleService::get_rule_deployment] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4161,7 +4161,7 @@ pub mod rule_service {
         }
     }
 
-    /// The request builder for [RuleService::list_rule_deployments][super::super::client::RuleService::list_rule_deployments] calls.
+    /// The request builder for [RuleService::list_rule_deployments][crate::client::RuleService::list_rule_deployments] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4275,7 +4275,7 @@ pub mod rule_service {
         }
     }
 
-    /// The request builder for [RuleService::update_rule_deployment][super::super::client::RuleService::update_rule_deployment] calls.
+    /// The request builder for [RuleService::update_rule_deployment][crate::client::RuleService::update_rule_deployment] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4377,7 +4377,7 @@ pub mod rule_service {
         }
     }
 
-    /// The request builder for [RuleService::list_operations][super::super::client::RuleService::list_operations] calls.
+    /// The request builder for [RuleService::list_operations][crate::client::RuleService::list_operations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4489,7 +4489,7 @@ pub mod rule_service {
         }
     }
 
-    /// The request builder for [RuleService::get_operation][super::super::client::RuleService::get_operation] calls.
+    /// The request builder for [RuleService::get_operation][crate::client::RuleService::get_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4553,7 +4553,7 @@ pub mod rule_service {
         }
     }
 
-    /// The request builder for [RuleService::delete_operation][super::super::client::RuleService::delete_operation] calls.
+    /// The request builder for [RuleService::delete_operation][crate::client::RuleService::delete_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4617,7 +4617,7 @@ pub mod rule_service {
         }
     }
 
-    /// The request builder for [RuleService::cancel_operation][super::super::client::RuleService::cancel_operation] calls.
+    /// The request builder for [RuleService::cancel_operation][crate::client::RuleService::cancel_operation] calls.
     ///
     /// # Example
     /// ```no_run

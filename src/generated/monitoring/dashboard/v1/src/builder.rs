@@ -17,7 +17,7 @@
 pub mod dashboards_service {
     use crate::Result;
 
-    /// A builder for [DashboardsService][super::super::client::DashboardsService].
+    /// A builder for [DashboardsService][crate::client::DashboardsService].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -45,7 +45,7 @@ pub mod dashboards_service {
         }
     }
 
-    /// Common implementation for [super::super::client::DashboardsService] request builders.
+    /// Common implementation for [crate::client::DashboardsService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::DashboardsService>,
@@ -68,7 +68,7 @@ pub mod dashboards_service {
         }
     }
 
-    /// The request builder for [DashboardsService::create_dashboard][super::super::client::DashboardsService::create_dashboard] calls.
+    /// The request builder for [DashboardsService::create_dashboard][crate::client::DashboardsService::create_dashboard] calls.
     ///
     /// # Example
     /// ```no_run
@@ -159,7 +159,7 @@ pub mod dashboards_service {
         }
     }
 
-    /// The request builder for [DashboardsService::list_dashboards][super::super::client::DashboardsService::list_dashboards] calls.
+    /// The request builder for [DashboardsService::list_dashboards][crate::client::DashboardsService::list_dashboards] calls.
     ///
     /// # Example
     /// ```no_run
@@ -262,7 +262,7 @@ pub mod dashboards_service {
         }
     }
 
-    /// The request builder for [DashboardsService::get_dashboard][super::super::client::DashboardsService::get_dashboard] calls.
+    /// The request builder for [DashboardsService::get_dashboard][crate::client::DashboardsService::get_dashboard] calls.
     ///
     /// # Example
     /// ```no_run
@@ -325,7 +325,7 @@ pub mod dashboards_service {
         }
     }
 
-    /// The request builder for [DashboardsService::delete_dashboard][super::super::client::DashboardsService::delete_dashboard] calls.
+    /// The request builder for [DashboardsService::delete_dashboard][crate::client::DashboardsService::delete_dashboard] calls.
     ///
     /// # Example
     /// ```no_run
@@ -388,7 +388,7 @@ pub mod dashboards_service {
         }
     }
 
-    /// The request builder for [DashboardsService::update_dashboard][super::super::client::DashboardsService::update_dashboard] calls.
+    /// The request builder for [DashboardsService::update_dashboard][crate::client::DashboardsService::update_dashboard] calls.
     ///
     /// # Example
     /// ```no_run

@@ -17,7 +17,7 @@
 pub mod executions {
     use crate::Result;
 
-    /// A builder for [Executions][super::super::client::Executions].
+    /// A builder for [Executions][crate::client::Executions].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -45,7 +45,7 @@ pub mod executions {
         }
     }
 
-    /// Common implementation for [super::super::client::Executions] request builders.
+    /// Common implementation for [crate::client::Executions] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::Executions>,
@@ -68,7 +68,7 @@ pub mod executions {
         }
     }
 
-    /// The request builder for [Executions::list_executions][super::super::client::Executions::list_executions] calls.
+    /// The request builder for [Executions::list_executions][crate::client::Executions::list_executions] calls.
     ///
     /// # Example
     /// ```no_run
@@ -189,7 +189,7 @@ pub mod executions {
         }
     }
 
-    /// The request builder for [Executions::create_execution][super::super::client::Executions::create_execution] calls.
+    /// The request builder for [Executions::create_execution][crate::client::Executions::create_execution] calls.
     ///
     /// # Example
     /// ```no_run
@@ -274,7 +274,7 @@ pub mod executions {
         }
     }
 
-    /// The request builder for [Executions::get_execution][super::super::client::Executions::get_execution] calls.
+    /// The request builder for [Executions::get_execution][crate::client::Executions::get_execution] calls.
     ///
     /// # Example
     /// ```no_run
@@ -343,7 +343,7 @@ pub mod executions {
         }
     }
 
-    /// The request builder for [Executions::cancel_execution][super::super::client::Executions::cancel_execution] calls.
+    /// The request builder for [Executions::cancel_execution][crate::client::Executions::cancel_execution] calls.
     ///
     /// # Example
     /// ```no_run

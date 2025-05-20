@@ -17,7 +17,7 @@
 pub mod app_hub {
     use crate::Result;
 
-    /// A builder for [AppHub][super::super::client::AppHub].
+    /// A builder for [AppHub][crate::client::AppHub].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -45,7 +45,7 @@ pub mod app_hub {
         }
     }
 
-    /// Common implementation for [super::super::client::AppHub] request builders.
+    /// Common implementation for [crate::client::AppHub] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::AppHub>,
@@ -66,7 +66,7 @@ pub mod app_hub {
         }
     }
 
-    /// The request builder for [AppHub::lookup_service_project_attachment][super::super::client::AppHub::lookup_service_project_attachment] calls.
+    /// The request builder for [AppHub::lookup_service_project_attachment][crate::client::AppHub::lookup_service_project_attachment] calls.
     ///
     /// # Example
     /// ```no_run
@@ -132,7 +132,7 @@ pub mod app_hub {
         }
     }
 
-    /// The request builder for [AppHub::list_service_project_attachments][super::super::client::AppHub::list_service_project_attachments] calls.
+    /// The request builder for [AppHub::list_service_project_attachments][crate::client::AppHub::list_service_project_attachments] calls.
     ///
     /// # Example
     /// ```no_run
@@ -254,7 +254,7 @@ pub mod app_hub {
         }
     }
 
-    /// The request builder for [AppHub::create_service_project_attachment][super::super::client::AppHub::create_service_project_attachment] calls.
+    /// The request builder for [AppHub::create_service_project_attachment][crate::client::AppHub::create_service_project_attachment] calls.
     ///
     /// # Example
     /// ```no_run
@@ -302,7 +302,7 @@ pub mod app_hub {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_service_project_attachment][super::super::client::AppHub::create_service_project_attachment].
+        /// on [create_service_project_attachment][crate::client::AppHub::create_service_project_attachment].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_service_project_attachment(self.0.request, self.0.options)
@@ -404,7 +404,7 @@ pub mod app_hub {
         }
     }
 
-    /// The request builder for [AppHub::get_service_project_attachment][super::super::client::AppHub::get_service_project_attachment] calls.
+    /// The request builder for [AppHub::get_service_project_attachment][crate::client::AppHub::get_service_project_attachment] calls.
     ///
     /// # Example
     /// ```no_run
@@ -470,7 +470,7 @@ pub mod app_hub {
         }
     }
 
-    /// The request builder for [AppHub::delete_service_project_attachment][super::super::client::AppHub::delete_service_project_attachment] calls.
+    /// The request builder for [AppHub::delete_service_project_attachment][crate::client::AppHub::delete_service_project_attachment] calls.
     ///
     /// # Example
     /// ```no_run
@@ -518,7 +518,7 @@ pub mod app_hub {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_service_project_attachment][super::super::client::AppHub::delete_service_project_attachment].
+        /// on [delete_service_project_attachment][crate::client::AppHub::delete_service_project_attachment].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_service_project_attachment(self.0.request, self.0.options)
@@ -583,7 +583,7 @@ pub mod app_hub {
         }
     }
 
-    /// The request builder for [AppHub::detach_service_project_attachment][super::super::client::AppHub::detach_service_project_attachment] calls.
+    /// The request builder for [AppHub::detach_service_project_attachment][crate::client::AppHub::detach_service_project_attachment] calls.
     ///
     /// # Example
     /// ```no_run
@@ -649,7 +649,7 @@ pub mod app_hub {
         }
     }
 
-    /// The request builder for [AppHub::list_discovered_services][super::super::client::AppHub::list_discovered_services] calls.
+    /// The request builder for [AppHub::list_discovered_services][crate::client::AppHub::list_discovered_services] calls.
     ///
     /// # Example
     /// ```no_run
@@ -769,7 +769,7 @@ pub mod app_hub {
         }
     }
 
-    /// The request builder for [AppHub::get_discovered_service][super::super::client::AppHub::get_discovered_service] calls.
+    /// The request builder for [AppHub::get_discovered_service][crate::client::AppHub::get_discovered_service] calls.
     ///
     /// # Example
     /// ```no_run
@@ -833,7 +833,7 @@ pub mod app_hub {
         }
     }
 
-    /// The request builder for [AppHub::lookup_discovered_service][super::super::client::AppHub::lookup_discovered_service] calls.
+    /// The request builder for [AppHub::lookup_discovered_service][crate::client::AppHub::lookup_discovered_service] calls.
     ///
     /// # Example
     /// ```no_run
@@ -907,7 +907,7 @@ pub mod app_hub {
         }
     }
 
-    /// The request builder for [AppHub::list_services][super::super::client::AppHub::list_services] calls.
+    /// The request builder for [AppHub::list_services][crate::client::AppHub::list_services] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1020,7 +1020,7 @@ pub mod app_hub {
         }
     }
 
-    /// The request builder for [AppHub::create_service][super::super::client::AppHub::create_service] calls.
+    /// The request builder for [AppHub::create_service][crate::client::AppHub::create_service] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1063,7 +1063,7 @@ pub mod app_hub {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_service][super::super::client::AppHub::create_service].
+        /// on [create_service][crate::client::AppHub::create_service].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_service(self.0.request, self.0.options)
@@ -1156,7 +1156,7 @@ pub mod app_hub {
         }
     }
 
-    /// The request builder for [AppHub::get_service][super::super::client::AppHub::get_service] calls.
+    /// The request builder for [AppHub::get_service][crate::client::AppHub::get_service] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1217,7 +1217,7 @@ pub mod app_hub {
         }
     }
 
-    /// The request builder for [AppHub::update_service][super::super::client::AppHub::update_service] calls.
+    /// The request builder for [AppHub::update_service][crate::client::AppHub::update_service] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1260,7 +1260,7 @@ pub mod app_hub {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_service][super::super::client::AppHub::update_service].
+        /// on [update_service][crate::client::AppHub::update_service].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_service(self.0.request, self.0.options)
@@ -1359,7 +1359,7 @@ pub mod app_hub {
         }
     }
 
-    /// The request builder for [AppHub::delete_service][super::super::client::AppHub::delete_service] calls.
+    /// The request builder for [AppHub::delete_service][crate::client::AppHub::delete_service] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1402,7 +1402,7 @@ pub mod app_hub {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_service][super::super::client::AppHub::delete_service].
+        /// on [delete_service][crate::client::AppHub::delete_service].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_service(self.0.request, self.0.options)
@@ -1467,7 +1467,7 @@ pub mod app_hub {
         }
     }
 
-    /// The request builder for [AppHub::list_discovered_workloads][super::super::client::AppHub::list_discovered_workloads] calls.
+    /// The request builder for [AppHub::list_discovered_workloads][crate::client::AppHub::list_discovered_workloads] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1589,7 +1589,7 @@ pub mod app_hub {
         }
     }
 
-    /// The request builder for [AppHub::get_discovered_workload][super::super::client::AppHub::get_discovered_workload] calls.
+    /// The request builder for [AppHub::get_discovered_workload][crate::client::AppHub::get_discovered_workload] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1653,7 +1653,7 @@ pub mod app_hub {
         }
     }
 
-    /// The request builder for [AppHub::lookup_discovered_workload][super::super::client::AppHub::lookup_discovered_workload] calls.
+    /// The request builder for [AppHub::lookup_discovered_workload][crate::client::AppHub::lookup_discovered_workload] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1727,7 +1727,7 @@ pub mod app_hub {
         }
     }
 
-    /// The request builder for [AppHub::list_workloads][super::super::client::AppHub::list_workloads] calls.
+    /// The request builder for [AppHub::list_workloads][crate::client::AppHub::list_workloads] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1840,7 +1840,7 @@ pub mod app_hub {
         }
     }
 
-    /// The request builder for [AppHub::create_workload][super::super::client::AppHub::create_workload] calls.
+    /// The request builder for [AppHub::create_workload][crate::client::AppHub::create_workload] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1883,7 +1883,7 @@ pub mod app_hub {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_workload][super::super::client::AppHub::create_workload].
+        /// on [create_workload][crate::client::AppHub::create_workload].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_workload(self.0.request, self.0.options)
@@ -1976,7 +1976,7 @@ pub mod app_hub {
         }
     }
 
-    /// The request builder for [AppHub::get_workload][super::super::client::AppHub::get_workload] calls.
+    /// The request builder for [AppHub::get_workload][crate::client::AppHub::get_workload] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2037,7 +2037,7 @@ pub mod app_hub {
         }
     }
 
-    /// The request builder for [AppHub::update_workload][super::super::client::AppHub::update_workload] calls.
+    /// The request builder for [AppHub::update_workload][crate::client::AppHub::update_workload] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2080,7 +2080,7 @@ pub mod app_hub {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_workload][super::super::client::AppHub::update_workload].
+        /// on [update_workload][crate::client::AppHub::update_workload].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_workload(self.0.request, self.0.options)
@@ -2179,7 +2179,7 @@ pub mod app_hub {
         }
     }
 
-    /// The request builder for [AppHub::delete_workload][super::super::client::AppHub::delete_workload] calls.
+    /// The request builder for [AppHub::delete_workload][crate::client::AppHub::delete_workload] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2222,7 +2222,7 @@ pub mod app_hub {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_workload][super::super::client::AppHub::delete_workload].
+        /// on [delete_workload][crate::client::AppHub::delete_workload].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_workload(self.0.request, self.0.options)
@@ -2287,7 +2287,7 @@ pub mod app_hub {
         }
     }
 
-    /// The request builder for [AppHub::list_applications][super::super::client::AppHub::list_applications] calls.
+    /// The request builder for [AppHub::list_applications][crate::client::AppHub::list_applications] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2403,7 +2403,7 @@ pub mod app_hub {
         }
     }
 
-    /// The request builder for [AppHub::create_application][super::super::client::AppHub::create_application] calls.
+    /// The request builder for [AppHub::create_application][crate::client::AppHub::create_application] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2449,7 +2449,7 @@ pub mod app_hub {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_application][super::super::client::AppHub::create_application].
+        /// on [create_application][crate::client::AppHub::create_application].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_application(self.0.request, self.0.options)
@@ -2544,7 +2544,7 @@ pub mod app_hub {
         }
     }
 
-    /// The request builder for [AppHub::get_application][super::super::client::AppHub::get_application] calls.
+    /// The request builder for [AppHub::get_application][crate::client::AppHub::get_application] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2605,7 +2605,7 @@ pub mod app_hub {
         }
     }
 
-    /// The request builder for [AppHub::update_application][super::super::client::AppHub::update_application] calls.
+    /// The request builder for [AppHub::update_application][crate::client::AppHub::update_application] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2651,7 +2651,7 @@ pub mod app_hub {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_application][super::super::client::AppHub::update_application].
+        /// on [update_application][crate::client::AppHub::update_application].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_application(self.0.request, self.0.options)
@@ -2752,7 +2752,7 @@ pub mod app_hub {
         }
     }
 
-    /// The request builder for [AppHub::delete_application][super::super::client::AppHub::delete_application] calls.
+    /// The request builder for [AppHub::delete_application][crate::client::AppHub::delete_application] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2798,7 +2798,7 @@ pub mod app_hub {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_application][super::super::client::AppHub::delete_application].
+        /// on [delete_application][crate::client::AppHub::delete_application].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_application(self.0.request, self.0.options)
@@ -2863,7 +2863,7 @@ pub mod app_hub {
         }
     }
 
-    /// The request builder for [AppHub::list_locations][super::super::client::AppHub::list_locations] calls.
+    /// The request builder for [AppHub::list_locations][crate::client::AppHub::list_locations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2971,7 +2971,7 @@ pub mod app_hub {
         }
     }
 
-    /// The request builder for [AppHub::get_location][super::super::client::AppHub::get_location] calls.
+    /// The request builder for [AppHub::get_location][crate::client::AppHub::get_location] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3030,7 +3030,7 @@ pub mod app_hub {
         }
     }
 
-    /// The request builder for [AppHub::set_iam_policy][super::super::client::AppHub::set_iam_policy] calls.
+    /// The request builder for [AppHub::set_iam_policy][crate::client::AppHub::set_iam_policy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3131,7 +3131,7 @@ pub mod app_hub {
         }
     }
 
-    /// The request builder for [AppHub::get_iam_policy][super::super::client::AppHub::get_iam_policy] calls.
+    /// The request builder for [AppHub::get_iam_policy][crate::client::AppHub::get_iam_policy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3210,7 +3210,7 @@ pub mod app_hub {
         }
     }
 
-    /// The request builder for [AppHub::test_iam_permissions][super::super::client::AppHub::test_iam_permissions] calls.
+    /// The request builder for [AppHub::test_iam_permissions][crate::client::AppHub::test_iam_permissions] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3287,7 +3287,7 @@ pub mod app_hub {
         }
     }
 
-    /// The request builder for [AppHub::list_operations][super::super::client::AppHub::list_operations] calls.
+    /// The request builder for [AppHub::list_operations][crate::client::AppHub::list_operations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3397,7 +3397,7 @@ pub mod app_hub {
         }
     }
 
-    /// The request builder for [AppHub::get_operation][super::super::client::AppHub::get_operation] calls.
+    /// The request builder for [AppHub::get_operation][crate::client::AppHub::get_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3459,7 +3459,7 @@ pub mod app_hub {
         }
     }
 
-    /// The request builder for [AppHub::delete_operation][super::super::client::AppHub::delete_operation] calls.
+    /// The request builder for [AppHub::delete_operation][crate::client::AppHub::delete_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3521,7 +3521,7 @@ pub mod app_hub {
         }
     }
 
-    /// The request builder for [AppHub::cancel_operation][super::super::client::AppHub::cancel_operation] calls.
+    /// The request builder for [AppHub::cancel_operation][crate::client::AppHub::cancel_operation] calls.
     ///
     /// # Example
     /// ```no_run

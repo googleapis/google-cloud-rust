@@ -17,7 +17,7 @@
 pub mod oracle_database {
     use crate::Result;
 
-    /// A builder for [OracleDatabase][super::super::client::OracleDatabase].
+    /// A builder for [OracleDatabase][crate::client::OracleDatabase].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -45,7 +45,7 @@ pub mod oracle_database {
         }
     }
 
-    /// Common implementation for [super::super::client::OracleDatabase] request builders.
+    /// Common implementation for [crate::client::OracleDatabase] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::OracleDatabase>,
@@ -68,7 +68,7 @@ pub mod oracle_database {
         }
     }
 
-    /// The request builder for [OracleDatabase::list_cloud_exadata_infrastructures][super::super::client::OracleDatabase::list_cloud_exadata_infrastructures] calls.
+    /// The request builder for [OracleDatabase::list_cloud_exadata_infrastructures][crate::client::OracleDatabase::list_cloud_exadata_infrastructures] calls.
     ///
     /// # Example
     /// ```no_run
@@ -180,7 +180,7 @@ pub mod oracle_database {
         }
     }
 
-    /// The request builder for [OracleDatabase::get_cloud_exadata_infrastructure][super::super::client::OracleDatabase::get_cloud_exadata_infrastructure] calls.
+    /// The request builder for [OracleDatabase::get_cloud_exadata_infrastructure][crate::client::OracleDatabase::get_cloud_exadata_infrastructure] calls.
     ///
     /// # Example
     /// ```no_run
@@ -248,7 +248,7 @@ pub mod oracle_database {
         }
     }
 
-    /// The request builder for [OracleDatabase::create_cloud_exadata_infrastructure][super::super::client::OracleDatabase::create_cloud_exadata_infrastructure] calls.
+    /// The request builder for [OracleDatabase::create_cloud_exadata_infrastructure][crate::client::OracleDatabase::create_cloud_exadata_infrastructure] calls.
     ///
     /// # Example
     /// ```no_run
@@ -298,7 +298,7 @@ pub mod oracle_database {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_cloud_exadata_infrastructure][super::super::client::OracleDatabase::create_cloud_exadata_infrastructure].
+        /// on [create_cloud_exadata_infrastructure][crate::client::OracleDatabase::create_cloud_exadata_infrastructure].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_cloud_exadata_infrastructure(self.0.request, self.0.options)
@@ -400,7 +400,7 @@ pub mod oracle_database {
         }
     }
 
-    /// The request builder for [OracleDatabase::delete_cloud_exadata_infrastructure][super::super::client::OracleDatabase::delete_cloud_exadata_infrastructure] calls.
+    /// The request builder for [OracleDatabase::delete_cloud_exadata_infrastructure][crate::client::OracleDatabase::delete_cloud_exadata_infrastructure] calls.
     ///
     /// # Example
     /// ```no_run
@@ -450,7 +450,7 @@ pub mod oracle_database {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_cloud_exadata_infrastructure][super::super::client::OracleDatabase::delete_cloud_exadata_infrastructure].
+        /// on [delete_cloud_exadata_infrastructure][crate::client::OracleDatabase::delete_cloud_exadata_infrastructure].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_cloud_exadata_infrastructure(self.0.request, self.0.options)
@@ -521,7 +521,7 @@ pub mod oracle_database {
         }
     }
 
-    /// The request builder for [OracleDatabase::list_cloud_vm_clusters][super::super::client::OracleDatabase::list_cloud_vm_clusters] calls.
+    /// The request builder for [OracleDatabase::list_cloud_vm_clusters][crate::client::OracleDatabase::list_cloud_vm_clusters] calls.
     ///
     /// # Example
     /// ```no_run
@@ -635,7 +635,7 @@ pub mod oracle_database {
         }
     }
 
-    /// The request builder for [OracleDatabase::get_cloud_vm_cluster][super::super::client::OracleDatabase::get_cloud_vm_cluster] calls.
+    /// The request builder for [OracleDatabase::get_cloud_vm_cluster][crate::client::OracleDatabase::get_cloud_vm_cluster] calls.
     ///
     /// # Example
     /// ```no_run
@@ -701,7 +701,7 @@ pub mod oracle_database {
         }
     }
 
-    /// The request builder for [OracleDatabase::create_cloud_vm_cluster][super::super::client::OracleDatabase::create_cloud_vm_cluster] calls.
+    /// The request builder for [OracleDatabase::create_cloud_vm_cluster][crate::client::OracleDatabase::create_cloud_vm_cluster] calls.
     ///
     /// # Example
     /// ```no_run
@@ -749,7 +749,7 @@ pub mod oracle_database {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_cloud_vm_cluster][super::super::client::OracleDatabase::create_cloud_vm_cluster].
+        /// on [create_cloud_vm_cluster][crate::client::OracleDatabase::create_cloud_vm_cluster].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_cloud_vm_cluster(self.0.request, self.0.options)
@@ -845,7 +845,7 @@ pub mod oracle_database {
         }
     }
 
-    /// The request builder for [OracleDatabase::delete_cloud_vm_cluster][super::super::client::OracleDatabase::delete_cloud_vm_cluster] calls.
+    /// The request builder for [OracleDatabase::delete_cloud_vm_cluster][crate::client::OracleDatabase::delete_cloud_vm_cluster] calls.
     ///
     /// # Example
     /// ```no_run
@@ -893,7 +893,7 @@ pub mod oracle_database {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_cloud_vm_cluster][super::super::client::OracleDatabase::delete_cloud_vm_cluster].
+        /// on [delete_cloud_vm_cluster][crate::client::OracleDatabase::delete_cloud_vm_cluster].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_cloud_vm_cluster(self.0.request, self.0.options)
@@ -964,7 +964,7 @@ pub mod oracle_database {
         }
     }
 
-    /// The request builder for [OracleDatabase::list_entitlements][super::super::client::OracleDatabase::list_entitlements] calls.
+    /// The request builder for [OracleDatabase::list_entitlements][crate::client::OracleDatabase::list_entitlements] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1070,7 +1070,7 @@ pub mod oracle_database {
         }
     }
 
-    /// The request builder for [OracleDatabase::list_db_servers][super::super::client::OracleDatabase::list_db_servers] calls.
+    /// The request builder for [OracleDatabase::list_db_servers][crate::client::OracleDatabase::list_db_servers] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1173,7 +1173,7 @@ pub mod oracle_database {
         }
     }
 
-    /// The request builder for [OracleDatabase::list_db_nodes][super::super::client::OracleDatabase::list_db_nodes] calls.
+    /// The request builder for [OracleDatabase::list_db_nodes][crate::client::OracleDatabase::list_db_nodes] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1276,7 +1276,7 @@ pub mod oracle_database {
         }
     }
 
-    /// The request builder for [OracleDatabase::list_gi_versions][super::super::client::OracleDatabase::list_gi_versions] calls.
+    /// The request builder for [OracleDatabase::list_gi_versions][crate::client::OracleDatabase::list_gi_versions] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1379,7 +1379,7 @@ pub mod oracle_database {
         }
     }
 
-    /// The request builder for [OracleDatabase::list_db_system_shapes][super::super::client::OracleDatabase::list_db_system_shapes] calls.
+    /// The request builder for [OracleDatabase::list_db_system_shapes][crate::client::OracleDatabase::list_db_system_shapes] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1487,7 +1487,7 @@ pub mod oracle_database {
         }
     }
 
-    /// The request builder for [OracleDatabase::list_autonomous_databases][super::super::client::OracleDatabase::list_autonomous_databases] calls.
+    /// The request builder for [OracleDatabase::list_autonomous_databases][crate::client::OracleDatabase::list_autonomous_databases] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1611,7 +1611,7 @@ pub mod oracle_database {
         }
     }
 
-    /// The request builder for [OracleDatabase::get_autonomous_database][super::super::client::OracleDatabase::get_autonomous_database] calls.
+    /// The request builder for [OracleDatabase::get_autonomous_database][crate::client::OracleDatabase::get_autonomous_database] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1677,7 +1677,7 @@ pub mod oracle_database {
         }
     }
 
-    /// The request builder for [OracleDatabase::create_autonomous_database][super::super::client::OracleDatabase::create_autonomous_database] calls.
+    /// The request builder for [OracleDatabase::create_autonomous_database][crate::client::OracleDatabase::create_autonomous_database] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1727,7 +1727,7 @@ pub mod oracle_database {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_autonomous_database][super::super::client::OracleDatabase::create_autonomous_database].
+        /// on [create_autonomous_database][crate::client::OracleDatabase::create_autonomous_database].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_autonomous_database(self.0.request, self.0.options)
@@ -1823,7 +1823,7 @@ pub mod oracle_database {
         }
     }
 
-    /// The request builder for [OracleDatabase::delete_autonomous_database][super::super::client::OracleDatabase::delete_autonomous_database] calls.
+    /// The request builder for [OracleDatabase::delete_autonomous_database][crate::client::OracleDatabase::delete_autonomous_database] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1873,7 +1873,7 @@ pub mod oracle_database {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_autonomous_database][super::super::client::OracleDatabase::delete_autonomous_database].
+        /// on [delete_autonomous_database][crate::client::OracleDatabase::delete_autonomous_database].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_autonomous_database(self.0.request, self.0.options)
@@ -1938,7 +1938,7 @@ pub mod oracle_database {
         }
     }
 
-    /// The request builder for [OracleDatabase::restore_autonomous_database][super::super::client::OracleDatabase::restore_autonomous_database] calls.
+    /// The request builder for [OracleDatabase::restore_autonomous_database][crate::client::OracleDatabase::restore_autonomous_database] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1988,7 +1988,7 @@ pub mod oracle_database {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [restore_autonomous_database][super::super::client::OracleDatabase::restore_autonomous_database].
+        /// on [restore_autonomous_database][crate::client::OracleDatabase::restore_autonomous_database].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .restore_autonomous_database(self.0.request, self.0.options)
@@ -2070,7 +2070,7 @@ pub mod oracle_database {
         }
     }
 
-    /// The request builder for [OracleDatabase::generate_autonomous_database_wallet][super::super::client::OracleDatabase::generate_autonomous_database_wallet] calls.
+    /// The request builder for [OracleDatabase::generate_autonomous_database_wallet][crate::client::OracleDatabase::generate_autonomous_database_wallet] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2158,7 +2158,7 @@ pub mod oracle_database {
         }
     }
 
-    /// The request builder for [OracleDatabase::list_autonomous_db_versions][super::super::client::OracleDatabase::list_autonomous_db_versions] calls.
+    /// The request builder for [OracleDatabase::list_autonomous_db_versions][crate::client::OracleDatabase::list_autonomous_db_versions] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2270,7 +2270,7 @@ pub mod oracle_database {
         }
     }
 
-    /// The request builder for [OracleDatabase::list_autonomous_database_character_sets][super::super::client::OracleDatabase::list_autonomous_database_character_sets] calls.
+    /// The request builder for [OracleDatabase::list_autonomous_database_character_sets][crate::client::OracleDatabase::list_autonomous_database_character_sets] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2390,7 +2390,7 @@ pub mod oracle_database {
         }
     }
 
-    /// The request builder for [OracleDatabase::list_autonomous_database_backups][super::super::client::OracleDatabase::list_autonomous_database_backups] calls.
+    /// The request builder for [OracleDatabase::list_autonomous_database_backups][crate::client::OracleDatabase::list_autonomous_database_backups] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2508,7 +2508,7 @@ pub mod oracle_database {
         }
     }
 
-    /// The request builder for [OracleDatabase::stop_autonomous_database][super::super::client::OracleDatabase::stop_autonomous_database] calls.
+    /// The request builder for [OracleDatabase::stop_autonomous_database][crate::client::OracleDatabase::stop_autonomous_database] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2556,7 +2556,7 @@ pub mod oracle_database {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [stop_autonomous_database][super::super::client::OracleDatabase::stop_autonomous_database].
+        /// on [stop_autonomous_database][crate::client::OracleDatabase::stop_autonomous_database].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .stop_autonomous_database(self.0.request, self.0.options)
@@ -2616,7 +2616,7 @@ pub mod oracle_database {
         }
     }
 
-    /// The request builder for [OracleDatabase::start_autonomous_database][super::super::client::OracleDatabase::start_autonomous_database] calls.
+    /// The request builder for [OracleDatabase::start_autonomous_database][crate::client::OracleDatabase::start_autonomous_database] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2666,7 +2666,7 @@ pub mod oracle_database {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [start_autonomous_database][super::super::client::OracleDatabase::start_autonomous_database].
+        /// on [start_autonomous_database][crate::client::OracleDatabase::start_autonomous_database].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .start_autonomous_database(self.0.request, self.0.options)
@@ -2726,7 +2726,7 @@ pub mod oracle_database {
         }
     }
 
-    /// The request builder for [OracleDatabase::restart_autonomous_database][super::super::client::OracleDatabase::restart_autonomous_database] calls.
+    /// The request builder for [OracleDatabase::restart_autonomous_database][crate::client::OracleDatabase::restart_autonomous_database] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2776,7 +2776,7 @@ pub mod oracle_database {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [restart_autonomous_database][super::super::client::OracleDatabase::restart_autonomous_database].
+        /// on [restart_autonomous_database][crate::client::OracleDatabase::restart_autonomous_database].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .restart_autonomous_database(self.0.request, self.0.options)
@@ -2836,7 +2836,7 @@ pub mod oracle_database {
         }
     }
 
-    /// The request builder for [OracleDatabase::list_locations][super::super::client::OracleDatabase::list_locations] calls.
+    /// The request builder for [OracleDatabase::list_locations][crate::client::OracleDatabase::list_locations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2946,7 +2946,7 @@ pub mod oracle_database {
         }
     }
 
-    /// The request builder for [OracleDatabase::get_location][super::super::client::OracleDatabase::get_location] calls.
+    /// The request builder for [OracleDatabase::get_location][crate::client::OracleDatabase::get_location] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3007,7 +3007,7 @@ pub mod oracle_database {
         }
     }
 
-    /// The request builder for [OracleDatabase::list_operations][super::super::client::OracleDatabase::list_operations] calls.
+    /// The request builder for [OracleDatabase::list_operations][crate::client::OracleDatabase::list_operations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3119,7 +3119,7 @@ pub mod oracle_database {
         }
     }
 
-    /// The request builder for [OracleDatabase::get_operation][super::super::client::OracleDatabase::get_operation] calls.
+    /// The request builder for [OracleDatabase::get_operation][crate::client::OracleDatabase::get_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3183,7 +3183,7 @@ pub mod oracle_database {
         }
     }
 
-    /// The request builder for [OracleDatabase::delete_operation][super::super::client::OracleDatabase::delete_operation] calls.
+    /// The request builder for [OracleDatabase::delete_operation][crate::client::OracleDatabase::delete_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3247,7 +3247,7 @@ pub mod oracle_database {
         }
     }
 
-    /// The request builder for [OracleDatabase::cancel_operation][super::super::client::OracleDatabase::cancel_operation] calls.
+    /// The request builder for [OracleDatabase::cancel_operation][crate::client::OracleDatabase::cancel_operation] calls.
     ///
     /// # Example
     /// ```no_run

@@ -17,7 +17,7 @@
 pub mod assured_workloads_service {
     use crate::Result;
 
-    /// A builder for [AssuredWorkloadsService][super::super::client::AssuredWorkloadsService].
+    /// A builder for [AssuredWorkloadsService][crate::client::AssuredWorkloadsService].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -45,7 +45,7 @@ pub mod assured_workloads_service {
         }
     }
 
-    /// Common implementation for [super::super::client::AssuredWorkloadsService] request builders.
+    /// Common implementation for [crate::client::AssuredWorkloadsService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::AssuredWorkloadsService>,
@@ -68,7 +68,7 @@ pub mod assured_workloads_service {
         }
     }
 
-    /// The request builder for [AssuredWorkloadsService::create_workload][super::super::client::AssuredWorkloadsService::create_workload] calls.
+    /// The request builder for [AssuredWorkloadsService::create_workload][crate::client::AssuredWorkloadsService::create_workload] calls.
     ///
     /// # Example
     /// ```no_run
@@ -113,7 +113,7 @@ pub mod assured_workloads_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_workload][super::super::client::AssuredWorkloadsService::create_workload].
+        /// on [create_workload][crate::client::AssuredWorkloadsService::create_workload].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_workload(self.0.request, self.0.options)
@@ -201,7 +201,7 @@ pub mod assured_workloads_service {
         }
     }
 
-    /// The request builder for [AssuredWorkloadsService::update_workload][super::super::client::AssuredWorkloadsService::update_workload] calls.
+    /// The request builder for [AssuredWorkloadsService::update_workload][crate::client::AssuredWorkloadsService::update_workload] calls.
     ///
     /// # Example
     /// ```no_run
@@ -300,7 +300,7 @@ pub mod assured_workloads_service {
         }
     }
 
-    /// The request builder for [AssuredWorkloadsService::restrict_allowed_resources][super::super::client::AssuredWorkloadsService::restrict_allowed_resources] calls.
+    /// The request builder for [AssuredWorkloadsService::restrict_allowed_resources][crate::client::AssuredWorkloadsService::restrict_allowed_resources] calls.
     ///
     /// # Example
     /// ```no_run
@@ -381,7 +381,7 @@ pub mod assured_workloads_service {
         }
     }
 
-    /// The request builder for [AssuredWorkloadsService::delete_workload][super::super::client::AssuredWorkloadsService::delete_workload] calls.
+    /// The request builder for [AssuredWorkloadsService::delete_workload][crate::client::AssuredWorkloadsService::delete_workload] calls.
     ///
     /// # Example
     /// ```no_run
@@ -450,7 +450,7 @@ pub mod assured_workloads_service {
         }
     }
 
-    /// The request builder for [AssuredWorkloadsService::get_workload][super::super::client::AssuredWorkloadsService::get_workload] calls.
+    /// The request builder for [AssuredWorkloadsService::get_workload][crate::client::AssuredWorkloadsService::get_workload] calls.
     ///
     /// # Example
     /// ```no_run
@@ -513,7 +513,7 @@ pub mod assured_workloads_service {
         }
     }
 
-    /// The request builder for [AssuredWorkloadsService::list_workloads][super::super::client::AssuredWorkloadsService::list_workloads] calls.
+    /// The request builder for [AssuredWorkloadsService::list_workloads][crate::client::AssuredWorkloadsService::list_workloads] calls.
     ///
     /// # Example
     /// ```no_run
@@ -622,7 +622,7 @@ pub mod assured_workloads_service {
         }
     }
 
-    /// The request builder for [AssuredWorkloadsService::list_operations][super::super::client::AssuredWorkloadsService::list_operations] calls.
+    /// The request builder for [AssuredWorkloadsService::list_operations][crate::client::AssuredWorkloadsService::list_operations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -734,7 +734,7 @@ pub mod assured_workloads_service {
         }
     }
 
-    /// The request builder for [AssuredWorkloadsService::get_operation][super::super::client::AssuredWorkloadsService::get_operation] calls.
+    /// The request builder for [AssuredWorkloadsService::get_operation][crate::client::AssuredWorkloadsService::get_operation] calls.
     ///
     /// # Example
     /// ```no_run

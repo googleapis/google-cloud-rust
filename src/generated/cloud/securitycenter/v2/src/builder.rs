@@ -17,7 +17,7 @@
 pub mod security_center {
     use crate::Result;
 
-    /// A builder for [SecurityCenter][super::super::client::SecurityCenter].
+    /// A builder for [SecurityCenter][crate::client::SecurityCenter].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -45,7 +45,7 @@ pub mod security_center {
         }
     }
 
-    /// Common implementation for [super::super::client::SecurityCenter] request builders.
+    /// Common implementation for [crate::client::SecurityCenter] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::SecurityCenter>,
@@ -68,7 +68,7 @@ pub mod security_center {
         }
     }
 
-    /// The request builder for [SecurityCenter::batch_create_resource_value_configs][super::super::client::SecurityCenter::batch_create_resource_value_configs] calls.
+    /// The request builder for [SecurityCenter::batch_create_resource_value_configs][crate::client::SecurityCenter::batch_create_resource_value_configs] calls.
     ///
     /// # Example
     /// ```no_run
@@ -149,7 +149,7 @@ pub mod security_center {
         }
     }
 
-    /// The request builder for [SecurityCenter::bulk_mute_findings][super::super::client::SecurityCenter::bulk_mute_findings] calls.
+    /// The request builder for [SecurityCenter::bulk_mute_findings][crate::client::SecurityCenter::bulk_mute_findings] calls.
     ///
     /// # Example
     /// ```no_run
@@ -197,7 +197,7 @@ pub mod security_center {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [bulk_mute_findings][super::super::client::SecurityCenter::bulk_mute_findings].
+        /// on [bulk_mute_findings][crate::client::SecurityCenter::bulk_mute_findings].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .bulk_mute_findings(self.0.request, self.0.options)
@@ -272,7 +272,7 @@ pub mod security_center {
         }
     }
 
-    /// The request builder for [SecurityCenter::create_big_query_export][super::super::client::SecurityCenter::create_big_query_export] calls.
+    /// The request builder for [SecurityCenter::create_big_query_export][crate::client::SecurityCenter::create_big_query_export] calls.
     ///
     /// # Example
     /// ```no_run
@@ -368,7 +368,7 @@ pub mod security_center {
         }
     }
 
-    /// The request builder for [SecurityCenter::create_finding][super::super::client::SecurityCenter::create_finding] calls.
+    /// The request builder for [SecurityCenter::create_finding][crate::client::SecurityCenter::create_finding] calls.
     ///
     /// # Example
     /// ```no_run
@@ -461,7 +461,7 @@ pub mod security_center {
         }
     }
 
-    /// The request builder for [SecurityCenter::create_mute_config][super::super::client::SecurityCenter::create_mute_config] calls.
+    /// The request builder for [SecurityCenter::create_mute_config][crate::client::SecurityCenter::create_mute_config] calls.
     ///
     /// # Example
     /// ```no_run
@@ -557,7 +557,7 @@ pub mod security_center {
         }
     }
 
-    /// The request builder for [SecurityCenter::create_notification_config][super::super::client::SecurityCenter::create_notification_config] calls.
+    /// The request builder for [SecurityCenter::create_notification_config][crate::client::SecurityCenter::create_notification_config] calls.
     ///
     /// # Example
     /// ```no_run
@@ -655,7 +655,7 @@ pub mod security_center {
         }
     }
 
-    /// The request builder for [SecurityCenter::create_source][super::super::client::SecurityCenter::create_source] calls.
+    /// The request builder for [SecurityCenter::create_source][crate::client::SecurityCenter::create_source] calls.
     ///
     /// # Example
     /// ```no_run
@@ -740,7 +740,7 @@ pub mod security_center {
         }
     }
 
-    /// The request builder for [SecurityCenter::delete_big_query_export][super::super::client::SecurityCenter::delete_big_query_export] calls.
+    /// The request builder for [SecurityCenter::delete_big_query_export][crate::client::SecurityCenter::delete_big_query_export] calls.
     ///
     /// # Example
     /// ```no_run
@@ -806,7 +806,7 @@ pub mod security_center {
         }
     }
 
-    /// The request builder for [SecurityCenter::delete_mute_config][super::super::client::SecurityCenter::delete_mute_config] calls.
+    /// The request builder for [SecurityCenter::delete_mute_config][crate::client::SecurityCenter::delete_mute_config] calls.
     ///
     /// # Example
     /// ```no_run
@@ -872,7 +872,7 @@ pub mod security_center {
         }
     }
 
-    /// The request builder for [SecurityCenter::delete_notification_config][super::super::client::SecurityCenter::delete_notification_config] calls.
+    /// The request builder for [SecurityCenter::delete_notification_config][crate::client::SecurityCenter::delete_notification_config] calls.
     ///
     /// # Example
     /// ```no_run
@@ -940,7 +940,7 @@ pub mod security_center {
         }
     }
 
-    /// The request builder for [SecurityCenter::delete_resource_value_config][super::super::client::SecurityCenter::delete_resource_value_config] calls.
+    /// The request builder for [SecurityCenter::delete_resource_value_config][crate::client::SecurityCenter::delete_resource_value_config] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1008,7 +1008,7 @@ pub mod security_center {
         }
     }
 
-    /// The request builder for [SecurityCenter::get_big_query_export][super::super::client::SecurityCenter::get_big_query_export] calls.
+    /// The request builder for [SecurityCenter::get_big_query_export][crate::client::SecurityCenter::get_big_query_export] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1074,7 +1074,7 @@ pub mod security_center {
         }
     }
 
-    /// The request builder for [SecurityCenter::get_simulation][super::super::client::SecurityCenter::get_simulation] calls.
+    /// The request builder for [SecurityCenter::get_simulation][crate::client::SecurityCenter::get_simulation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1137,7 +1137,7 @@ pub mod security_center {
         }
     }
 
-    /// The request builder for [SecurityCenter::get_valued_resource][super::super::client::SecurityCenter::get_valued_resource] calls.
+    /// The request builder for [SecurityCenter::get_valued_resource][crate::client::SecurityCenter::get_valued_resource] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1203,7 +1203,7 @@ pub mod security_center {
         }
     }
 
-    /// The request builder for [SecurityCenter::get_iam_policy][super::super::client::SecurityCenter::get_iam_policy] calls.
+    /// The request builder for [SecurityCenter::get_iam_policy][crate::client::SecurityCenter::get_iam_policy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1284,7 +1284,7 @@ pub mod security_center {
         }
     }
 
-    /// The request builder for [SecurityCenter::get_mute_config][super::super::client::SecurityCenter::get_mute_config] calls.
+    /// The request builder for [SecurityCenter::get_mute_config][crate::client::SecurityCenter::get_mute_config] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1347,7 +1347,7 @@ pub mod security_center {
         }
     }
 
-    /// The request builder for [SecurityCenter::get_notification_config][super::super::client::SecurityCenter::get_notification_config] calls.
+    /// The request builder for [SecurityCenter::get_notification_config][crate::client::SecurityCenter::get_notification_config] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1413,7 +1413,7 @@ pub mod security_center {
         }
     }
 
-    /// The request builder for [SecurityCenter::get_resource_value_config][super::super::client::SecurityCenter::get_resource_value_config] calls.
+    /// The request builder for [SecurityCenter::get_resource_value_config][crate::client::SecurityCenter::get_resource_value_config] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1479,7 +1479,7 @@ pub mod security_center {
         }
     }
 
-    /// The request builder for [SecurityCenter::get_source][super::super::client::SecurityCenter::get_source] calls.
+    /// The request builder for [SecurityCenter::get_source][crate::client::SecurityCenter::get_source] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1542,7 +1542,7 @@ pub mod security_center {
         }
     }
 
-    /// The request builder for [SecurityCenter::group_findings][super::super::client::SecurityCenter::group_findings] calls.
+    /// The request builder for [SecurityCenter::group_findings][crate::client::SecurityCenter::group_findings] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1659,7 +1659,7 @@ pub mod security_center {
         }
     }
 
-    /// The request builder for [SecurityCenter::list_attack_paths][super::super::client::SecurityCenter::list_attack_paths] calls.
+    /// The request builder for [SecurityCenter::list_attack_paths][crate::client::SecurityCenter::list_attack_paths] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1768,7 +1768,7 @@ pub mod security_center {
         }
     }
 
-    /// The request builder for [SecurityCenter::list_big_query_exports][super::super::client::SecurityCenter::list_big_query_exports] calls.
+    /// The request builder for [SecurityCenter::list_big_query_exports][crate::client::SecurityCenter::list_big_query_exports] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1876,7 +1876,7 @@ pub mod security_center {
         }
     }
 
-    /// The request builder for [SecurityCenter::list_findings][super::super::client::SecurityCenter::list_findings] calls.
+    /// The request builder for [SecurityCenter::list_findings][crate::client::SecurityCenter::list_findings] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2009,7 +2009,7 @@ pub mod security_center {
         }
     }
 
-    /// The request builder for [SecurityCenter::list_mute_configs][super::super::client::SecurityCenter::list_mute_configs] calls.
+    /// The request builder for [SecurityCenter::list_mute_configs][crate::client::SecurityCenter::list_mute_configs] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2112,7 +2112,7 @@ pub mod security_center {
         }
     }
 
-    /// The request builder for [SecurityCenter::list_notification_configs][super::super::client::SecurityCenter::list_notification_configs] calls.
+    /// The request builder for [SecurityCenter::list_notification_configs][crate::client::SecurityCenter::list_notification_configs] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2224,7 +2224,7 @@ pub mod security_center {
         }
     }
 
-    /// The request builder for [SecurityCenter::list_resource_value_configs][super::super::client::SecurityCenter::list_resource_value_configs] calls.
+    /// The request builder for [SecurityCenter::list_resource_value_configs][crate::client::SecurityCenter::list_resource_value_configs] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2336,7 +2336,7 @@ pub mod security_center {
         }
     }
 
-    /// The request builder for [SecurityCenter::list_sources][super::super::client::SecurityCenter::list_sources] calls.
+    /// The request builder for [SecurityCenter::list_sources][crate::client::SecurityCenter::list_sources] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2439,7 +2439,7 @@ pub mod security_center {
         }
     }
 
-    /// The request builder for [SecurityCenter::list_valued_resources][super::super::client::SecurityCenter::list_valued_resources] calls.
+    /// The request builder for [SecurityCenter::list_valued_resources][crate::client::SecurityCenter::list_valued_resources] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2559,7 +2559,7 @@ pub mod security_center {
         }
     }
 
-    /// The request builder for [SecurityCenter::set_finding_state][super::super::client::SecurityCenter::set_finding_state] calls.
+    /// The request builder for [SecurityCenter::set_finding_state][crate::client::SecurityCenter::set_finding_state] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2630,7 +2630,7 @@ pub mod security_center {
         }
     }
 
-    /// The request builder for [SecurityCenter::set_iam_policy][super::super::client::SecurityCenter::set_iam_policy] calls.
+    /// The request builder for [SecurityCenter::set_iam_policy][crate::client::SecurityCenter::set_iam_policy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2733,7 +2733,7 @@ pub mod security_center {
         }
     }
 
-    /// The request builder for [SecurityCenter::set_mute][super::super::client::SecurityCenter::set_mute] calls.
+    /// The request builder for [SecurityCenter::set_mute][crate::client::SecurityCenter::set_mute] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2804,7 +2804,7 @@ pub mod security_center {
         }
     }
 
-    /// The request builder for [SecurityCenter::test_iam_permissions][super::super::client::SecurityCenter::test_iam_permissions] calls.
+    /// The request builder for [SecurityCenter::test_iam_permissions][crate::client::SecurityCenter::test_iam_permissions] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2883,7 +2883,7 @@ pub mod security_center {
         }
     }
 
-    /// The request builder for [SecurityCenter::update_big_query_export][super::super::client::SecurityCenter::update_big_query_export] calls.
+    /// The request builder for [SecurityCenter::update_big_query_export][crate::client::SecurityCenter::update_big_query_export] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2981,7 +2981,7 @@ pub mod security_center {
         }
     }
 
-    /// The request builder for [SecurityCenter::update_external_system][super::super::client::SecurityCenter::update_external_system] calls.
+    /// The request builder for [SecurityCenter::update_external_system][crate::client::SecurityCenter::update_external_system] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3079,7 +3079,7 @@ pub mod security_center {
         }
     }
 
-    /// The request builder for [SecurityCenter::update_finding][super::super::client::SecurityCenter::update_finding] calls.
+    /// The request builder for [SecurityCenter::update_finding][crate::client::SecurityCenter::update_finding] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3174,7 +3174,7 @@ pub mod security_center {
         }
     }
 
-    /// The request builder for [SecurityCenter::update_mute_config][super::super::client::SecurityCenter::update_mute_config] calls.
+    /// The request builder for [SecurityCenter::update_mute_config][crate::client::SecurityCenter::update_mute_config] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3272,7 +3272,7 @@ pub mod security_center {
         }
     }
 
-    /// The request builder for [SecurityCenter::update_notification_config][super::super::client::SecurityCenter::update_notification_config] calls.
+    /// The request builder for [SecurityCenter::update_notification_config][crate::client::SecurityCenter::update_notification_config] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3372,7 +3372,7 @@ pub mod security_center {
         }
     }
 
-    /// The request builder for [SecurityCenter::update_resource_value_config][super::super::client::SecurityCenter::update_resource_value_config] calls.
+    /// The request builder for [SecurityCenter::update_resource_value_config][crate::client::SecurityCenter::update_resource_value_config] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3472,7 +3472,7 @@ pub mod security_center {
         }
     }
 
-    /// The request builder for [SecurityCenter::update_security_marks][super::super::client::SecurityCenter::update_security_marks] calls.
+    /// The request builder for [SecurityCenter::update_security_marks][crate::client::SecurityCenter::update_security_marks] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3570,7 +3570,7 @@ pub mod security_center {
         }
     }
 
-    /// The request builder for [SecurityCenter::update_source][super::super::client::SecurityCenter::update_source] calls.
+    /// The request builder for [SecurityCenter::update_source][crate::client::SecurityCenter::update_source] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3665,7 +3665,7 @@ pub mod security_center {
         }
     }
 
-    /// The request builder for [SecurityCenter::list_operations][super::super::client::SecurityCenter::list_operations] calls.
+    /// The request builder for [SecurityCenter::list_operations][crate::client::SecurityCenter::list_operations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3777,7 +3777,7 @@ pub mod security_center {
         }
     }
 
-    /// The request builder for [SecurityCenter::get_operation][super::super::client::SecurityCenter::get_operation] calls.
+    /// The request builder for [SecurityCenter::get_operation][crate::client::SecurityCenter::get_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3841,7 +3841,7 @@ pub mod security_center {
         }
     }
 
-    /// The request builder for [SecurityCenter::delete_operation][super::super::client::SecurityCenter::delete_operation] calls.
+    /// The request builder for [SecurityCenter::delete_operation][crate::client::SecurityCenter::delete_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3905,7 +3905,7 @@ pub mod security_center {
         }
     }
 
-    /// The request builder for [SecurityCenter::cancel_operation][super::super::client::SecurityCenter::cancel_operation] calls.
+    /// The request builder for [SecurityCenter::cancel_operation][crate::client::SecurityCenter::cancel_operation] calls.
     ///
     /// # Example
     /// ```no_run

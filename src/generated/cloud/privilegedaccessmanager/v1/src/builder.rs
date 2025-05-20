@@ -17,7 +17,7 @@
 pub mod privileged_access_manager {
     use crate::Result;
 
-    /// A builder for [PrivilegedAccessManager][super::super::client::PrivilegedAccessManager].
+    /// A builder for [PrivilegedAccessManager][crate::client::PrivilegedAccessManager].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -45,7 +45,7 @@ pub mod privileged_access_manager {
         }
     }
 
-    /// Common implementation for [super::super::client::PrivilegedAccessManager] request builders.
+    /// Common implementation for [crate::client::PrivilegedAccessManager] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::PrivilegedAccessManager>,
@@ -68,7 +68,7 @@ pub mod privileged_access_manager {
         }
     }
 
-    /// The request builder for [PrivilegedAccessManager::check_onboarding_status][super::super::client::PrivilegedAccessManager::check_onboarding_status] calls.
+    /// The request builder for [PrivilegedAccessManager::check_onboarding_status][crate::client::PrivilegedAccessManager::check_onboarding_status] calls.
     ///
     /// # Example
     /// ```no_run
@@ -134,7 +134,7 @@ pub mod privileged_access_manager {
         }
     }
 
-    /// The request builder for [PrivilegedAccessManager::list_entitlements][super::super::client::PrivilegedAccessManager::list_entitlements] calls.
+    /// The request builder for [PrivilegedAccessManager::list_entitlements][crate::client::PrivilegedAccessManager::list_entitlements] calls.
     ///
     /// # Example
     /// ```no_run
@@ -252,7 +252,7 @@ pub mod privileged_access_manager {
         }
     }
 
-    /// The request builder for [PrivilegedAccessManager::search_entitlements][super::super::client::PrivilegedAccessManager::search_entitlements] calls.
+    /// The request builder for [PrivilegedAccessManager::search_entitlements][crate::client::PrivilegedAccessManager::search_entitlements] calls.
     ///
     /// # Example
     /// ```no_run
@@ -379,7 +379,7 @@ pub mod privileged_access_manager {
         }
     }
 
-    /// The request builder for [PrivilegedAccessManager::get_entitlement][super::super::client::PrivilegedAccessManager::get_entitlement] calls.
+    /// The request builder for [PrivilegedAccessManager::get_entitlement][crate::client::PrivilegedAccessManager::get_entitlement] calls.
     ///
     /// # Example
     /// ```no_run
@@ -442,7 +442,7 @@ pub mod privileged_access_manager {
         }
     }
 
-    /// The request builder for [PrivilegedAccessManager::create_entitlement][super::super::client::PrivilegedAccessManager::create_entitlement] calls.
+    /// The request builder for [PrivilegedAccessManager::create_entitlement][crate::client::PrivilegedAccessManager::create_entitlement] calls.
     ///
     /// # Example
     /// ```no_run
@@ -490,7 +490,7 @@ pub mod privileged_access_manager {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_entitlement][super::super::client::PrivilegedAccessManager::create_entitlement].
+        /// on [create_entitlement][crate::client::PrivilegedAccessManager::create_entitlement].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_entitlement(self.0.request, self.0.options)
@@ -585,7 +585,7 @@ pub mod privileged_access_manager {
         }
     }
 
-    /// The request builder for [PrivilegedAccessManager::delete_entitlement][super::super::client::PrivilegedAccessManager::delete_entitlement] calls.
+    /// The request builder for [PrivilegedAccessManager::delete_entitlement][crate::client::PrivilegedAccessManager::delete_entitlement] calls.
     ///
     /// # Example
     /// ```no_run
@@ -633,7 +633,7 @@ pub mod privileged_access_manager {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_entitlement][super::super::client::PrivilegedAccessManager::delete_entitlement].
+        /// on [delete_entitlement][crate::client::PrivilegedAccessManager::delete_entitlement].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_entitlement(self.0.request, self.0.options)
@@ -704,7 +704,7 @@ pub mod privileged_access_manager {
         }
     }
 
-    /// The request builder for [PrivilegedAccessManager::update_entitlement][super::super::client::PrivilegedAccessManager::update_entitlement] calls.
+    /// The request builder for [PrivilegedAccessManager::update_entitlement][crate::client::PrivilegedAccessManager::update_entitlement] calls.
     ///
     /// # Example
     /// ```no_run
@@ -752,7 +752,7 @@ pub mod privileged_access_manager {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_entitlement][super::super::client::PrivilegedAccessManager::update_entitlement].
+        /// on [update_entitlement][crate::client::PrivilegedAccessManager::update_entitlement].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_entitlement(self.0.request, self.0.options)
@@ -847,7 +847,7 @@ pub mod privileged_access_manager {
         }
     }
 
-    /// The request builder for [PrivilegedAccessManager::list_grants][super::super::client::PrivilegedAccessManager::list_grants] calls.
+    /// The request builder for [PrivilegedAccessManager::list_grants][crate::client::PrivilegedAccessManager::list_grants] calls.
     ///
     /// # Example
     /// ```no_run
@@ -962,7 +962,7 @@ pub mod privileged_access_manager {
         }
     }
 
-    /// The request builder for [PrivilegedAccessManager::search_grants][super::super::client::PrivilegedAccessManager::search_grants] calls.
+    /// The request builder for [PrivilegedAccessManager::search_grants][crate::client::PrivilegedAccessManager::search_grants] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1084,7 +1084,7 @@ pub mod privileged_access_manager {
         }
     }
 
-    /// The request builder for [PrivilegedAccessManager::get_grant][super::super::client::PrivilegedAccessManager::get_grant] calls.
+    /// The request builder for [PrivilegedAccessManager::get_grant][crate::client::PrivilegedAccessManager::get_grant] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1147,7 +1147,7 @@ pub mod privileged_access_manager {
         }
     }
 
-    /// The request builder for [PrivilegedAccessManager::create_grant][super::super::client::PrivilegedAccessManager::create_grant] calls.
+    /// The request builder for [PrivilegedAccessManager::create_grant][crate::client::PrivilegedAccessManager::create_grant] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1238,7 +1238,7 @@ pub mod privileged_access_manager {
         }
     }
 
-    /// The request builder for [PrivilegedAccessManager::approve_grant][super::super::client::PrivilegedAccessManager::approve_grant] calls.
+    /// The request builder for [PrivilegedAccessManager::approve_grant][crate::client::PrivilegedAccessManager::approve_grant] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1307,7 +1307,7 @@ pub mod privileged_access_manager {
         }
     }
 
-    /// The request builder for [PrivilegedAccessManager::deny_grant][super::super::client::PrivilegedAccessManager::deny_grant] calls.
+    /// The request builder for [PrivilegedAccessManager::deny_grant][crate::client::PrivilegedAccessManager::deny_grant] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1376,7 +1376,7 @@ pub mod privileged_access_manager {
         }
     }
 
-    /// The request builder for [PrivilegedAccessManager::revoke_grant][super::super::client::PrivilegedAccessManager::revoke_grant] calls.
+    /// The request builder for [PrivilegedAccessManager::revoke_grant][crate::client::PrivilegedAccessManager::revoke_grant] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1421,7 +1421,7 @@ pub mod privileged_access_manager {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [revoke_grant][super::super::client::PrivilegedAccessManager::revoke_grant].
+        /// on [revoke_grant][crate::client::PrivilegedAccessManager::revoke_grant].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .revoke_grant(self.0.request, self.0.options)
@@ -1484,7 +1484,7 @@ pub mod privileged_access_manager {
         }
     }
 
-    /// The request builder for [PrivilegedAccessManager::list_locations][super::super::client::PrivilegedAccessManager::list_locations] calls.
+    /// The request builder for [PrivilegedAccessManager::list_locations][crate::client::PrivilegedAccessManager::list_locations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1594,7 +1594,7 @@ pub mod privileged_access_manager {
         }
     }
 
-    /// The request builder for [PrivilegedAccessManager::get_location][super::super::client::PrivilegedAccessManager::get_location] calls.
+    /// The request builder for [PrivilegedAccessManager::get_location][crate::client::PrivilegedAccessManager::get_location] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1655,7 +1655,7 @@ pub mod privileged_access_manager {
         }
     }
 
-    /// The request builder for [PrivilegedAccessManager::list_operations][super::super::client::PrivilegedAccessManager::list_operations] calls.
+    /// The request builder for [PrivilegedAccessManager::list_operations][crate::client::PrivilegedAccessManager::list_operations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1767,7 +1767,7 @@ pub mod privileged_access_manager {
         }
     }
 
-    /// The request builder for [PrivilegedAccessManager::get_operation][super::super::client::PrivilegedAccessManager::get_operation] calls.
+    /// The request builder for [PrivilegedAccessManager::get_operation][crate::client::PrivilegedAccessManager::get_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1831,7 +1831,7 @@ pub mod privileged_access_manager {
         }
     }
 
-    /// The request builder for [PrivilegedAccessManager::delete_operation][super::super::client::PrivilegedAccessManager::delete_operation] calls.
+    /// The request builder for [PrivilegedAccessManager::delete_operation][crate::client::PrivilegedAccessManager::delete_operation] calls.
     ///
     /// # Example
     /// ```no_run

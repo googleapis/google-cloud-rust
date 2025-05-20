@@ -17,7 +17,7 @@
 pub mod dataproc_metastore {
     use crate::Result;
 
-    /// A builder for [DataprocMetastore][super::super::client::DataprocMetastore].
+    /// A builder for [DataprocMetastore][crate::client::DataprocMetastore].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -45,7 +45,7 @@ pub mod dataproc_metastore {
         }
     }
 
-    /// Common implementation for [super::super::client::DataprocMetastore] request builders.
+    /// Common implementation for [crate::client::DataprocMetastore] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::DataprocMetastore>,
@@ -68,7 +68,7 @@ pub mod dataproc_metastore {
         }
     }
 
-    /// The request builder for [DataprocMetastore::list_services][super::super::client::DataprocMetastore::list_services] calls.
+    /// The request builder for [DataprocMetastore::list_services][crate::client::DataprocMetastore::list_services] calls.
     ///
     /// # Example
     /// ```no_run
@@ -183,7 +183,7 @@ pub mod dataproc_metastore {
         }
     }
 
-    /// The request builder for [DataprocMetastore::get_service][super::super::client::DataprocMetastore::get_service] calls.
+    /// The request builder for [DataprocMetastore::get_service][crate::client::DataprocMetastore::get_service] calls.
     ///
     /// # Example
     /// ```no_run
@@ -246,7 +246,7 @@ pub mod dataproc_metastore {
         }
     }
 
-    /// The request builder for [DataprocMetastore::create_service][super::super::client::DataprocMetastore::create_service] calls.
+    /// The request builder for [DataprocMetastore::create_service][crate::client::DataprocMetastore::create_service] calls.
     ///
     /// # Example
     /// ```no_run
@@ -291,7 +291,7 @@ pub mod dataproc_metastore {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_service][super::super::client::DataprocMetastore::create_service].
+        /// on [create_service][crate::client::DataprocMetastore::create_service].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_service(self.0.request, self.0.options)
@@ -384,7 +384,7 @@ pub mod dataproc_metastore {
         }
     }
 
-    /// The request builder for [DataprocMetastore::update_service][super::super::client::DataprocMetastore::update_service] calls.
+    /// The request builder for [DataprocMetastore::update_service][crate::client::DataprocMetastore::update_service] calls.
     ///
     /// # Example
     /// ```no_run
@@ -429,7 +429,7 @@ pub mod dataproc_metastore {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_service][super::super::client::DataprocMetastore::update_service].
+        /// on [update_service][crate::client::DataprocMetastore::update_service].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_service(self.0.request, self.0.options)
@@ -528,7 +528,7 @@ pub mod dataproc_metastore {
         }
     }
 
-    /// The request builder for [DataprocMetastore::delete_service][super::super::client::DataprocMetastore::delete_service] calls.
+    /// The request builder for [DataprocMetastore::delete_service][crate::client::DataprocMetastore::delete_service] calls.
     ///
     /// # Example
     /// ```no_run
@@ -573,7 +573,7 @@ pub mod dataproc_metastore {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_service][super::super::client::DataprocMetastore::delete_service].
+        /// on [delete_service][crate::client::DataprocMetastore::delete_service].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_service(self.0.request, self.0.options)
@@ -638,7 +638,7 @@ pub mod dataproc_metastore {
         }
     }
 
-    /// The request builder for [DataprocMetastore::list_metadata_imports][super::super::client::DataprocMetastore::list_metadata_imports] calls.
+    /// The request builder for [DataprocMetastore::list_metadata_imports][crate::client::DataprocMetastore::list_metadata_imports] calls.
     ///
     /// # Example
     /// ```no_run
@@ -758,7 +758,7 @@ pub mod dataproc_metastore {
         }
     }
 
-    /// The request builder for [DataprocMetastore::get_metadata_import][super::super::client::DataprocMetastore::get_metadata_import] calls.
+    /// The request builder for [DataprocMetastore::get_metadata_import][crate::client::DataprocMetastore::get_metadata_import] calls.
     ///
     /// # Example
     /// ```no_run
@@ -824,7 +824,7 @@ pub mod dataproc_metastore {
         }
     }
 
-    /// The request builder for [DataprocMetastore::create_metadata_import][super::super::client::DataprocMetastore::create_metadata_import] calls.
+    /// The request builder for [DataprocMetastore::create_metadata_import][crate::client::DataprocMetastore::create_metadata_import] calls.
     ///
     /// # Example
     /// ```no_run
@@ -872,7 +872,7 @@ pub mod dataproc_metastore {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_metadata_import][super::super::client::DataprocMetastore::create_metadata_import].
+        /// on [create_metadata_import][crate::client::DataprocMetastore::create_metadata_import].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_metadata_import(self.0.request, self.0.options)
@@ -968,7 +968,7 @@ pub mod dataproc_metastore {
         }
     }
 
-    /// The request builder for [DataprocMetastore::update_metadata_import][super::super::client::DataprocMetastore::update_metadata_import] calls.
+    /// The request builder for [DataprocMetastore::update_metadata_import][crate::client::DataprocMetastore::update_metadata_import] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1016,7 +1016,7 @@ pub mod dataproc_metastore {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_metadata_import][super::super::client::DataprocMetastore::update_metadata_import].
+        /// on [update_metadata_import][crate::client::DataprocMetastore::update_metadata_import].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_metadata_import(self.0.request, self.0.options)
@@ -1118,7 +1118,7 @@ pub mod dataproc_metastore {
         }
     }
 
-    /// The request builder for [DataprocMetastore::export_metadata][super::super::client::DataprocMetastore::export_metadata] calls.
+    /// The request builder for [DataprocMetastore::export_metadata][crate::client::DataprocMetastore::export_metadata] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1163,7 +1163,7 @@ pub mod dataproc_metastore {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [export_metadata][super::super::client::DataprocMetastore::export_metadata].
+        /// on [export_metadata][crate::client::DataprocMetastore::export_metadata].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .export_metadata(self.0.request, self.0.options)
@@ -1265,7 +1265,7 @@ pub mod dataproc_metastore {
         }
     }
 
-    /// The request builder for [DataprocMetastore::restore_service][super::super::client::DataprocMetastore::restore_service] calls.
+    /// The request builder for [DataprocMetastore::restore_service][crate::client::DataprocMetastore::restore_service] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1310,7 +1310,7 @@ pub mod dataproc_metastore {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [restore_service][super::super::client::DataprocMetastore::restore_service].
+        /// on [restore_service][crate::client::DataprocMetastore::restore_service].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .restore_service(self.0.request, self.0.options)
@@ -1390,7 +1390,7 @@ pub mod dataproc_metastore {
         }
     }
 
-    /// The request builder for [DataprocMetastore::list_backups][super::super::client::DataprocMetastore::list_backups] calls.
+    /// The request builder for [DataprocMetastore::list_backups][crate::client::DataprocMetastore::list_backups] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1505,7 +1505,7 @@ pub mod dataproc_metastore {
         }
     }
 
-    /// The request builder for [DataprocMetastore::get_backup][super::super::client::DataprocMetastore::get_backup] calls.
+    /// The request builder for [DataprocMetastore::get_backup][crate::client::DataprocMetastore::get_backup] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1568,7 +1568,7 @@ pub mod dataproc_metastore {
         }
     }
 
-    /// The request builder for [DataprocMetastore::create_backup][super::super::client::DataprocMetastore::create_backup] calls.
+    /// The request builder for [DataprocMetastore::create_backup][crate::client::DataprocMetastore::create_backup] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1613,7 +1613,7 @@ pub mod dataproc_metastore {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_backup][super::super::client::DataprocMetastore::create_backup].
+        /// on [create_backup][crate::client::DataprocMetastore::create_backup].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_backup(self.0.request, self.0.options)
@@ -1706,7 +1706,7 @@ pub mod dataproc_metastore {
         }
     }
 
-    /// The request builder for [DataprocMetastore::delete_backup][super::super::client::DataprocMetastore::delete_backup] calls.
+    /// The request builder for [DataprocMetastore::delete_backup][crate::client::DataprocMetastore::delete_backup] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1751,7 +1751,7 @@ pub mod dataproc_metastore {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_backup][super::super::client::DataprocMetastore::delete_backup].
+        /// on [delete_backup][crate::client::DataprocMetastore::delete_backup].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_backup(self.0.request, self.0.options)
@@ -1816,7 +1816,7 @@ pub mod dataproc_metastore {
         }
     }
 
-    /// The request builder for [DataprocMetastore::query_metadata][super::super::client::DataprocMetastore::query_metadata] calls.
+    /// The request builder for [DataprocMetastore::query_metadata][crate::client::DataprocMetastore::query_metadata] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1861,7 +1861,7 @@ pub mod dataproc_metastore {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [query_metadata][super::super::client::DataprocMetastore::query_metadata].
+        /// on [query_metadata][crate::client::DataprocMetastore::query_metadata].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .query_metadata(self.0.request, self.0.options)
@@ -1929,7 +1929,7 @@ pub mod dataproc_metastore {
         }
     }
 
-    /// The request builder for [DataprocMetastore::move_table_to_database][super::super::client::DataprocMetastore::move_table_to_database] calls.
+    /// The request builder for [DataprocMetastore::move_table_to_database][crate::client::DataprocMetastore::move_table_to_database] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1977,7 +1977,7 @@ pub mod dataproc_metastore {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [move_table_to_database][super::super::client::DataprocMetastore::move_table_to_database].
+        /// on [move_table_to_database][crate::client::DataprocMetastore::move_table_to_database].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .move_table_to_database(self.0.request, self.0.options)
@@ -2061,7 +2061,7 @@ pub mod dataproc_metastore {
         }
     }
 
-    /// The request builder for [DataprocMetastore::alter_metadata_resource_location][super::super::client::DataprocMetastore::alter_metadata_resource_location] calls.
+    /// The request builder for [DataprocMetastore::alter_metadata_resource_location][crate::client::DataprocMetastore::alter_metadata_resource_location] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2111,7 +2111,7 @@ pub mod dataproc_metastore {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [alter_metadata_resource_location][super::super::client::DataprocMetastore::alter_metadata_resource_location].
+        /// on [alter_metadata_resource_location][crate::client::DataprocMetastore::alter_metadata_resource_location].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .alter_metadata_resource_location(self.0.request, self.0.options)
@@ -2189,7 +2189,7 @@ pub mod dataproc_metastore {
         }
     }
 
-    /// The request builder for [DataprocMetastore::list_locations][super::super::client::DataprocMetastore::list_locations] calls.
+    /// The request builder for [DataprocMetastore::list_locations][crate::client::DataprocMetastore::list_locations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2299,7 +2299,7 @@ pub mod dataproc_metastore {
         }
     }
 
-    /// The request builder for [DataprocMetastore::get_location][super::super::client::DataprocMetastore::get_location] calls.
+    /// The request builder for [DataprocMetastore::get_location][crate::client::DataprocMetastore::get_location] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2360,7 +2360,7 @@ pub mod dataproc_metastore {
         }
     }
 
-    /// The request builder for [DataprocMetastore::set_iam_policy][super::super::client::DataprocMetastore::set_iam_policy] calls.
+    /// The request builder for [DataprocMetastore::set_iam_policy][crate::client::DataprocMetastore::set_iam_policy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2463,7 +2463,7 @@ pub mod dataproc_metastore {
         }
     }
 
-    /// The request builder for [DataprocMetastore::get_iam_policy][super::super::client::DataprocMetastore::get_iam_policy] calls.
+    /// The request builder for [DataprocMetastore::get_iam_policy][crate::client::DataprocMetastore::get_iam_policy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2544,7 +2544,7 @@ pub mod dataproc_metastore {
         }
     }
 
-    /// The request builder for [DataprocMetastore::test_iam_permissions][super::super::client::DataprocMetastore::test_iam_permissions] calls.
+    /// The request builder for [DataprocMetastore::test_iam_permissions][crate::client::DataprocMetastore::test_iam_permissions] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2623,7 +2623,7 @@ pub mod dataproc_metastore {
         }
     }
 
-    /// The request builder for [DataprocMetastore::list_operations][super::super::client::DataprocMetastore::list_operations] calls.
+    /// The request builder for [DataprocMetastore::list_operations][crate::client::DataprocMetastore::list_operations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2735,7 +2735,7 @@ pub mod dataproc_metastore {
         }
     }
 
-    /// The request builder for [DataprocMetastore::get_operation][super::super::client::DataprocMetastore::get_operation] calls.
+    /// The request builder for [DataprocMetastore::get_operation][crate::client::DataprocMetastore::get_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2799,7 +2799,7 @@ pub mod dataproc_metastore {
         }
     }
 
-    /// The request builder for [DataprocMetastore::delete_operation][super::super::client::DataprocMetastore::delete_operation] calls.
+    /// The request builder for [DataprocMetastore::delete_operation][crate::client::DataprocMetastore::delete_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2863,7 +2863,7 @@ pub mod dataproc_metastore {
         }
     }
 
-    /// The request builder for [DataprocMetastore::cancel_operation][super::super::client::DataprocMetastore::cancel_operation] calls.
+    /// The request builder for [DataprocMetastore::cancel_operation][crate::client::DataprocMetastore::cancel_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2931,7 +2931,7 @@ pub mod dataproc_metastore {
 pub mod dataproc_metastore_federation {
     use crate::Result;
 
-    /// A builder for [DataprocMetastoreFederation][super::super::client::DataprocMetastoreFederation].
+    /// A builder for [DataprocMetastoreFederation][crate::client::DataprocMetastoreFederation].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -2959,7 +2959,7 @@ pub mod dataproc_metastore_federation {
         }
     }
 
-    /// Common implementation for [super::super::client::DataprocMetastoreFederation] request builders.
+    /// Common implementation for [crate::client::DataprocMetastoreFederation] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::DataprocMetastoreFederation>,
@@ -2982,7 +2982,7 @@ pub mod dataproc_metastore_federation {
         }
     }
 
-    /// The request builder for [DataprocMetastoreFederation::list_federations][super::super::client::DataprocMetastoreFederation::list_federations] calls.
+    /// The request builder for [DataprocMetastoreFederation::list_federations][crate::client::DataprocMetastoreFederation::list_federations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3097,7 +3097,7 @@ pub mod dataproc_metastore_federation {
         }
     }
 
-    /// The request builder for [DataprocMetastoreFederation::get_federation][super::super::client::DataprocMetastoreFederation::get_federation] calls.
+    /// The request builder for [DataprocMetastoreFederation::get_federation][crate::client::DataprocMetastoreFederation::get_federation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3160,7 +3160,7 @@ pub mod dataproc_metastore_federation {
         }
     }
 
-    /// The request builder for [DataprocMetastoreFederation::create_federation][super::super::client::DataprocMetastoreFederation::create_federation] calls.
+    /// The request builder for [DataprocMetastoreFederation::create_federation][crate::client::DataprocMetastoreFederation::create_federation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3208,7 +3208,7 @@ pub mod dataproc_metastore_federation {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_federation][super::super::client::DataprocMetastoreFederation::create_federation].
+        /// on [create_federation][crate::client::DataprocMetastoreFederation::create_federation].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_federation(self.0.request, self.0.options)
@@ -3301,7 +3301,7 @@ pub mod dataproc_metastore_federation {
         }
     }
 
-    /// The request builder for [DataprocMetastoreFederation::update_federation][super::super::client::DataprocMetastoreFederation::update_federation] calls.
+    /// The request builder for [DataprocMetastoreFederation::update_federation][crate::client::DataprocMetastoreFederation::update_federation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3349,7 +3349,7 @@ pub mod dataproc_metastore_federation {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_federation][super::super::client::DataprocMetastoreFederation::update_federation].
+        /// on [update_federation][crate::client::DataprocMetastoreFederation::update_federation].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_federation(self.0.request, self.0.options)
@@ -3448,7 +3448,7 @@ pub mod dataproc_metastore_federation {
         }
     }
 
-    /// The request builder for [DataprocMetastoreFederation::delete_federation][super::super::client::DataprocMetastoreFederation::delete_federation] calls.
+    /// The request builder for [DataprocMetastoreFederation::delete_federation][crate::client::DataprocMetastoreFederation::delete_federation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3496,7 +3496,7 @@ pub mod dataproc_metastore_federation {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_federation][super::super::client::DataprocMetastoreFederation::delete_federation].
+        /// on [delete_federation][crate::client::DataprocMetastoreFederation::delete_federation].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_federation(self.0.request, self.0.options)
@@ -3561,7 +3561,7 @@ pub mod dataproc_metastore_federation {
         }
     }
 
-    /// The request builder for [DataprocMetastoreFederation::list_locations][super::super::client::DataprocMetastoreFederation::list_locations] calls.
+    /// The request builder for [DataprocMetastoreFederation::list_locations][crate::client::DataprocMetastoreFederation::list_locations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3671,7 +3671,7 @@ pub mod dataproc_metastore_federation {
         }
     }
 
-    /// The request builder for [DataprocMetastoreFederation::get_location][super::super::client::DataprocMetastoreFederation::get_location] calls.
+    /// The request builder for [DataprocMetastoreFederation::get_location][crate::client::DataprocMetastoreFederation::get_location] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3732,7 +3732,7 @@ pub mod dataproc_metastore_federation {
         }
     }
 
-    /// The request builder for [DataprocMetastoreFederation::set_iam_policy][super::super::client::DataprocMetastoreFederation::set_iam_policy] calls.
+    /// The request builder for [DataprocMetastoreFederation::set_iam_policy][crate::client::DataprocMetastoreFederation::set_iam_policy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3835,7 +3835,7 @@ pub mod dataproc_metastore_federation {
         }
     }
 
-    /// The request builder for [DataprocMetastoreFederation::get_iam_policy][super::super::client::DataprocMetastoreFederation::get_iam_policy] calls.
+    /// The request builder for [DataprocMetastoreFederation::get_iam_policy][crate::client::DataprocMetastoreFederation::get_iam_policy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3916,7 +3916,7 @@ pub mod dataproc_metastore_federation {
         }
     }
 
-    /// The request builder for [DataprocMetastoreFederation::test_iam_permissions][super::super::client::DataprocMetastoreFederation::test_iam_permissions] calls.
+    /// The request builder for [DataprocMetastoreFederation::test_iam_permissions][crate::client::DataprocMetastoreFederation::test_iam_permissions] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3995,7 +3995,7 @@ pub mod dataproc_metastore_federation {
         }
     }
 
-    /// The request builder for [DataprocMetastoreFederation::list_operations][super::super::client::DataprocMetastoreFederation::list_operations] calls.
+    /// The request builder for [DataprocMetastoreFederation::list_operations][crate::client::DataprocMetastoreFederation::list_operations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4107,7 +4107,7 @@ pub mod dataproc_metastore_federation {
         }
     }
 
-    /// The request builder for [DataprocMetastoreFederation::get_operation][super::super::client::DataprocMetastoreFederation::get_operation] calls.
+    /// The request builder for [DataprocMetastoreFederation::get_operation][crate::client::DataprocMetastoreFederation::get_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4171,7 +4171,7 @@ pub mod dataproc_metastore_federation {
         }
     }
 
-    /// The request builder for [DataprocMetastoreFederation::delete_operation][super::super::client::DataprocMetastoreFederation::delete_operation] calls.
+    /// The request builder for [DataprocMetastoreFederation::delete_operation][crate::client::DataprocMetastoreFederation::delete_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4235,7 +4235,7 @@ pub mod dataproc_metastore_federation {
         }
     }
 
-    /// The request builder for [DataprocMetastoreFederation::cancel_operation][super::super::client::DataprocMetastoreFederation::cancel_operation] calls.
+    /// The request builder for [DataprocMetastoreFederation::cancel_operation][crate::client::DataprocMetastoreFederation::cancel_operation] calls.
     ///
     /// # Example
     /// ```no_run

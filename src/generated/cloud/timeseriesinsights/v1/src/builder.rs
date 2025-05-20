@@ -17,7 +17,7 @@
 pub mod timeseries_insights_controller {
     use crate::Result;
 
-    /// A builder for [TimeseriesInsightsController][super::super::client::TimeseriesInsightsController].
+    /// A builder for [TimeseriesInsightsController][crate::client::TimeseriesInsightsController].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -45,7 +45,7 @@ pub mod timeseries_insights_controller {
         }
     }
 
-    /// Common implementation for [super::super::client::TimeseriesInsightsController] request builders.
+    /// Common implementation for [crate::client::TimeseriesInsightsController] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::TimeseriesInsightsController>,
@@ -68,7 +68,7 @@ pub mod timeseries_insights_controller {
         }
     }
 
-    /// The request builder for [TimeseriesInsightsController::list_data_sets][super::super::client::TimeseriesInsightsController::list_data_sets] calls.
+    /// The request builder for [TimeseriesInsightsController::list_data_sets][crate::client::TimeseriesInsightsController::list_data_sets] calls.
     ///
     /// # Example
     /// ```no_run
@@ -171,7 +171,7 @@ pub mod timeseries_insights_controller {
         }
     }
 
-    /// The request builder for [TimeseriesInsightsController::create_data_set][super::super::client::TimeseriesInsightsController::create_data_set] calls.
+    /// The request builder for [TimeseriesInsightsController::create_data_set][crate::client::TimeseriesInsightsController::create_data_set] calls.
     ///
     /// # Example
     /// ```no_run
@@ -256,7 +256,7 @@ pub mod timeseries_insights_controller {
         }
     }
 
-    /// The request builder for [TimeseriesInsightsController::delete_data_set][super::super::client::TimeseriesInsightsController::delete_data_set] calls.
+    /// The request builder for [TimeseriesInsightsController::delete_data_set][crate::client::TimeseriesInsightsController::delete_data_set] calls.
     ///
     /// # Example
     /// ```no_run
@@ -319,7 +319,7 @@ pub mod timeseries_insights_controller {
         }
     }
 
-    /// The request builder for [TimeseriesInsightsController::append_events][super::super::client::TimeseriesInsightsController::append_events] calls.
+    /// The request builder for [TimeseriesInsightsController::append_events][crate::client::TimeseriesInsightsController::append_events] calls.
     ///
     /// # Example
     /// ```no_run
@@ -393,7 +393,7 @@ pub mod timeseries_insights_controller {
         }
     }
 
-    /// The request builder for [TimeseriesInsightsController::query_data_set][super::super::client::TimeseriesInsightsController::query_data_set] calls.
+    /// The request builder for [TimeseriesInsightsController::query_data_set][crate::client::TimeseriesInsightsController::query_data_set] calls.
     ///
     /// # Example
     /// ```no_run
@@ -556,7 +556,7 @@ pub mod timeseries_insights_controller {
         }
     }
 
-    /// The request builder for [TimeseriesInsightsController::evaluate_slice][super::super::client::TimeseriesInsightsController::evaluate_slice] calls.
+    /// The request builder for [TimeseriesInsightsController::evaluate_slice][crate::client::TimeseriesInsightsController::evaluate_slice] calls.
     ///
     /// # Example
     /// ```no_run
@@ -690,7 +690,7 @@ pub mod timeseries_insights_controller {
         }
     }
 
-    /// The request builder for [TimeseriesInsightsController::evaluate_timeseries][super::super::client::TimeseriesInsightsController::evaluate_timeseries] calls.
+    /// The request builder for [TimeseriesInsightsController::evaluate_timeseries][crate::client::TimeseriesInsightsController::evaluate_timeseries] calls.
     ///
     /// # Example
     /// ```no_run

@@ -17,7 +17,7 @@
 pub mod certificate_manager {
     use crate::Result;
 
-    /// A builder for [CertificateManager][super::super::client::CertificateManager].
+    /// A builder for [CertificateManager][crate::client::CertificateManager].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -45,7 +45,7 @@ pub mod certificate_manager {
         }
     }
 
-    /// Common implementation for [super::super::client::CertificateManager] request builders.
+    /// Common implementation for [crate::client::CertificateManager] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateManager>,
@@ -68,7 +68,7 @@ pub mod certificate_manager {
         }
     }
 
-    /// The request builder for [CertificateManager::list_certificates][super::super::client::CertificateManager::list_certificates] calls.
+    /// The request builder for [CertificateManager::list_certificates][crate::client::CertificateManager::list_certificates] calls.
     ///
     /// # Example
     /// ```no_run
@@ -186,7 +186,7 @@ pub mod certificate_manager {
         }
     }
 
-    /// The request builder for [CertificateManager::get_certificate][super::super::client::CertificateManager::get_certificate] calls.
+    /// The request builder for [CertificateManager::get_certificate][crate::client::CertificateManager::get_certificate] calls.
     ///
     /// # Example
     /// ```no_run
@@ -249,7 +249,7 @@ pub mod certificate_manager {
         }
     }
 
-    /// The request builder for [CertificateManager::create_certificate][super::super::client::CertificateManager::create_certificate] calls.
+    /// The request builder for [CertificateManager::create_certificate][crate::client::CertificateManager::create_certificate] calls.
     ///
     /// # Example
     /// ```no_run
@@ -297,7 +297,7 @@ pub mod certificate_manager {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_certificate][super::super::client::CertificateManager::create_certificate].
+        /// on [create_certificate][crate::client::CertificateManager::create_certificate].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_certificate(self.0.request, self.0.options)
@@ -386,7 +386,7 @@ pub mod certificate_manager {
         }
     }
 
-    /// The request builder for [CertificateManager::update_certificate][super::super::client::CertificateManager::update_certificate] calls.
+    /// The request builder for [CertificateManager::update_certificate][crate::client::CertificateManager::update_certificate] calls.
     ///
     /// # Example
     /// ```no_run
@@ -434,7 +434,7 @@ pub mod certificate_manager {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_certificate][super::super::client::CertificateManager::update_certificate].
+        /// on [update_certificate][crate::client::CertificateManager::update_certificate].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_certificate(self.0.request, self.0.options)
@@ -529,7 +529,7 @@ pub mod certificate_manager {
         }
     }
 
-    /// The request builder for [CertificateManager::delete_certificate][super::super::client::CertificateManager::delete_certificate] calls.
+    /// The request builder for [CertificateManager::delete_certificate][crate::client::CertificateManager::delete_certificate] calls.
     ///
     /// # Example
     /// ```no_run
@@ -577,7 +577,7 @@ pub mod certificate_manager {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_certificate][super::super::client::CertificateManager::delete_certificate].
+        /// on [delete_certificate][crate::client::CertificateManager::delete_certificate].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_certificate(self.0.request, self.0.options)
@@ -636,7 +636,7 @@ pub mod certificate_manager {
         }
     }
 
-    /// The request builder for [CertificateManager::list_certificate_maps][super::super::client::CertificateManager::list_certificate_maps] calls.
+    /// The request builder for [CertificateManager::list_certificate_maps][crate::client::CertificateManager::list_certificate_maps] calls.
     ///
     /// # Example
     /// ```no_run
@@ -756,7 +756,7 @@ pub mod certificate_manager {
         }
     }
 
-    /// The request builder for [CertificateManager::get_certificate_map][super::super::client::CertificateManager::get_certificate_map] calls.
+    /// The request builder for [CertificateManager::get_certificate_map][crate::client::CertificateManager::get_certificate_map] calls.
     ///
     /// # Example
     /// ```no_run
@@ -822,7 +822,7 @@ pub mod certificate_manager {
         }
     }
 
-    /// The request builder for [CertificateManager::create_certificate_map][super::super::client::CertificateManager::create_certificate_map] calls.
+    /// The request builder for [CertificateManager::create_certificate_map][crate::client::CertificateManager::create_certificate_map] calls.
     ///
     /// # Example
     /// ```no_run
@@ -870,7 +870,7 @@ pub mod certificate_manager {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_certificate_map][super::super::client::CertificateManager::create_certificate_map].
+        /// on [create_certificate_map][crate::client::CertificateManager::create_certificate_map].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_certificate_map(self.0.request, self.0.options)
@@ -960,7 +960,7 @@ pub mod certificate_manager {
         }
     }
 
-    /// The request builder for [CertificateManager::update_certificate_map][super::super::client::CertificateManager::update_certificate_map] calls.
+    /// The request builder for [CertificateManager::update_certificate_map][crate::client::CertificateManager::update_certificate_map] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1008,7 +1008,7 @@ pub mod certificate_manager {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_certificate_map][super::super::client::CertificateManager::update_certificate_map].
+        /// on [update_certificate_map][crate::client::CertificateManager::update_certificate_map].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_certificate_map(self.0.request, self.0.options)
@@ -1104,7 +1104,7 @@ pub mod certificate_manager {
         }
     }
 
-    /// The request builder for [CertificateManager::delete_certificate_map][super::super::client::CertificateManager::delete_certificate_map] calls.
+    /// The request builder for [CertificateManager::delete_certificate_map][crate::client::CertificateManager::delete_certificate_map] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1152,7 +1152,7 @@ pub mod certificate_manager {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_certificate_map][super::super::client::CertificateManager::delete_certificate_map].
+        /// on [delete_certificate_map][crate::client::CertificateManager::delete_certificate_map].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_certificate_map(self.0.request, self.0.options)
@@ -1211,7 +1211,7 @@ pub mod certificate_manager {
         }
     }
 
-    /// The request builder for [CertificateManager::list_certificate_map_entries][super::super::client::CertificateManager::list_certificate_map_entries] calls.
+    /// The request builder for [CertificateManager::list_certificate_map_entries][crate::client::CertificateManager::list_certificate_map_entries] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1335,7 +1335,7 @@ pub mod certificate_manager {
         }
     }
 
-    /// The request builder for [CertificateManager::get_certificate_map_entry][super::super::client::CertificateManager::get_certificate_map_entry] calls.
+    /// The request builder for [CertificateManager::get_certificate_map_entry][crate::client::CertificateManager::get_certificate_map_entry] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1401,7 +1401,7 @@ pub mod certificate_manager {
         }
     }
 
-    /// The request builder for [CertificateManager::create_certificate_map_entry][super::super::client::CertificateManager::create_certificate_map_entry] calls.
+    /// The request builder for [CertificateManager::create_certificate_map_entry][crate::client::CertificateManager::create_certificate_map_entry] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1451,7 +1451,7 @@ pub mod certificate_manager {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_certificate_map_entry][super::super::client::CertificateManager::create_certificate_map_entry].
+        /// on [create_certificate_map_entry][crate::client::CertificateManager::create_certificate_map_entry].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_certificate_map_entry(self.0.request, self.0.options)
@@ -1541,7 +1541,7 @@ pub mod certificate_manager {
         }
     }
 
-    /// The request builder for [CertificateManager::update_certificate_map_entry][super::super::client::CertificateManager::update_certificate_map_entry] calls.
+    /// The request builder for [CertificateManager::update_certificate_map_entry][crate::client::CertificateManager::update_certificate_map_entry] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1591,7 +1591,7 @@ pub mod certificate_manager {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_certificate_map_entry][super::super::client::CertificateManager::update_certificate_map_entry].
+        /// on [update_certificate_map_entry][crate::client::CertificateManager::update_certificate_map_entry].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_certificate_map_entry(self.0.request, self.0.options)
@@ -1687,7 +1687,7 @@ pub mod certificate_manager {
         }
     }
 
-    /// The request builder for [CertificateManager::delete_certificate_map_entry][super::super::client::CertificateManager::delete_certificate_map_entry] calls.
+    /// The request builder for [CertificateManager::delete_certificate_map_entry][crate::client::CertificateManager::delete_certificate_map_entry] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1737,7 +1737,7 @@ pub mod certificate_manager {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_certificate_map_entry][super::super::client::CertificateManager::delete_certificate_map_entry].
+        /// on [delete_certificate_map_entry][crate::client::CertificateManager::delete_certificate_map_entry].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_certificate_map_entry(self.0.request, self.0.options)
@@ -1796,7 +1796,7 @@ pub mod certificate_manager {
         }
     }
 
-    /// The request builder for [CertificateManager::list_dns_authorizations][super::super::client::CertificateManager::list_dns_authorizations] calls.
+    /// The request builder for [CertificateManager::list_dns_authorizations][crate::client::CertificateManager::list_dns_authorizations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1916,7 +1916,7 @@ pub mod certificate_manager {
         }
     }
 
-    /// The request builder for [CertificateManager::get_dns_authorization][super::super::client::CertificateManager::get_dns_authorization] calls.
+    /// The request builder for [CertificateManager::get_dns_authorization][crate::client::CertificateManager::get_dns_authorization] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1982,7 +1982,7 @@ pub mod certificate_manager {
         }
     }
 
-    /// The request builder for [CertificateManager::create_dns_authorization][super::super::client::CertificateManager::create_dns_authorization] calls.
+    /// The request builder for [CertificateManager::create_dns_authorization][crate::client::CertificateManager::create_dns_authorization] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2030,7 +2030,7 @@ pub mod certificate_manager {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_dns_authorization][super::super::client::CertificateManager::create_dns_authorization].
+        /// on [create_dns_authorization][crate::client::CertificateManager::create_dns_authorization].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_dns_authorization(self.0.request, self.0.options)
@@ -2120,7 +2120,7 @@ pub mod certificate_manager {
         }
     }
 
-    /// The request builder for [CertificateManager::update_dns_authorization][super::super::client::CertificateManager::update_dns_authorization] calls.
+    /// The request builder for [CertificateManager::update_dns_authorization][crate::client::CertificateManager::update_dns_authorization] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2168,7 +2168,7 @@ pub mod certificate_manager {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_dns_authorization][super::super::client::CertificateManager::update_dns_authorization].
+        /// on [update_dns_authorization][crate::client::CertificateManager::update_dns_authorization].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_dns_authorization(self.0.request, self.0.options)
@@ -2264,7 +2264,7 @@ pub mod certificate_manager {
         }
     }
 
-    /// The request builder for [CertificateManager::delete_dns_authorization][super::super::client::CertificateManager::delete_dns_authorization] calls.
+    /// The request builder for [CertificateManager::delete_dns_authorization][crate::client::CertificateManager::delete_dns_authorization] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2312,7 +2312,7 @@ pub mod certificate_manager {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_dns_authorization][super::super::client::CertificateManager::delete_dns_authorization].
+        /// on [delete_dns_authorization][crate::client::CertificateManager::delete_dns_authorization].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_dns_authorization(self.0.request, self.0.options)
@@ -2371,7 +2371,7 @@ pub mod certificate_manager {
         }
     }
 
-    /// The request builder for [CertificateManager::list_certificate_issuance_configs][super::super::client::CertificateManager::list_certificate_issuance_configs] calls.
+    /// The request builder for [CertificateManager::list_certificate_issuance_configs][crate::client::CertificateManager::list_certificate_issuance_configs] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2495,7 +2495,7 @@ pub mod certificate_manager {
         }
     }
 
-    /// The request builder for [CertificateManager::get_certificate_issuance_config][super::super::client::CertificateManager::get_certificate_issuance_config] calls.
+    /// The request builder for [CertificateManager::get_certificate_issuance_config][crate::client::CertificateManager::get_certificate_issuance_config] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2563,7 +2563,7 @@ pub mod certificate_manager {
         }
     }
 
-    /// The request builder for [CertificateManager::create_certificate_issuance_config][super::super::client::CertificateManager::create_certificate_issuance_config] calls.
+    /// The request builder for [CertificateManager::create_certificate_issuance_config][crate::client::CertificateManager::create_certificate_issuance_config] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2613,7 +2613,7 @@ pub mod certificate_manager {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_certificate_issuance_config][super::super::client::CertificateManager::create_certificate_issuance_config].
+        /// on [create_certificate_issuance_config][crate::client::CertificateManager::create_certificate_issuance_config].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_certificate_issuance_config(self.0.request, self.0.options)
@@ -2709,7 +2709,7 @@ pub mod certificate_manager {
         }
     }
 
-    /// The request builder for [CertificateManager::delete_certificate_issuance_config][super::super::client::CertificateManager::delete_certificate_issuance_config] calls.
+    /// The request builder for [CertificateManager::delete_certificate_issuance_config][crate::client::CertificateManager::delete_certificate_issuance_config] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2759,7 +2759,7 @@ pub mod certificate_manager {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_certificate_issuance_config][super::super::client::CertificateManager::delete_certificate_issuance_config].
+        /// on [delete_certificate_issuance_config][crate::client::CertificateManager::delete_certificate_issuance_config].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_certificate_issuance_config(self.0.request, self.0.options)
@@ -2818,7 +2818,7 @@ pub mod certificate_manager {
         }
     }
 
-    /// The request builder for [CertificateManager::list_trust_configs][super::super::client::CertificateManager::list_trust_configs] calls.
+    /// The request builder for [CertificateManager::list_trust_configs][crate::client::CertificateManager::list_trust_configs] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2936,7 +2936,7 @@ pub mod certificate_manager {
         }
     }
 
-    /// The request builder for [CertificateManager::get_trust_config][super::super::client::CertificateManager::get_trust_config] calls.
+    /// The request builder for [CertificateManager::get_trust_config][crate::client::CertificateManager::get_trust_config] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2999,7 +2999,7 @@ pub mod certificate_manager {
         }
     }
 
-    /// The request builder for [CertificateManager::create_trust_config][super::super::client::CertificateManager::create_trust_config] calls.
+    /// The request builder for [CertificateManager::create_trust_config][crate::client::CertificateManager::create_trust_config] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3047,7 +3047,7 @@ pub mod certificate_manager {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_trust_config][super::super::client::CertificateManager::create_trust_config].
+        /// on [create_trust_config][crate::client::CertificateManager::create_trust_config].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_trust_config(self.0.request, self.0.options)
@@ -3136,7 +3136,7 @@ pub mod certificate_manager {
         }
     }
 
-    /// The request builder for [CertificateManager::update_trust_config][super::super::client::CertificateManager::update_trust_config] calls.
+    /// The request builder for [CertificateManager::update_trust_config][crate::client::CertificateManager::update_trust_config] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3184,7 +3184,7 @@ pub mod certificate_manager {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_trust_config][super::super::client::CertificateManager::update_trust_config].
+        /// on [update_trust_config][crate::client::CertificateManager::update_trust_config].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_trust_config(self.0.request, self.0.options)
@@ -3279,7 +3279,7 @@ pub mod certificate_manager {
         }
     }
 
-    /// The request builder for [CertificateManager::delete_trust_config][super::super::client::CertificateManager::delete_trust_config] calls.
+    /// The request builder for [CertificateManager::delete_trust_config][crate::client::CertificateManager::delete_trust_config] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3327,7 +3327,7 @@ pub mod certificate_manager {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_trust_config][super::super::client::CertificateManager::delete_trust_config].
+        /// on [delete_trust_config][crate::client::CertificateManager::delete_trust_config].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_trust_config(self.0.request, self.0.options)
@@ -3392,7 +3392,7 @@ pub mod certificate_manager {
         }
     }
 
-    /// The request builder for [CertificateManager::list_locations][super::super::client::CertificateManager::list_locations] calls.
+    /// The request builder for [CertificateManager::list_locations][crate::client::CertificateManager::list_locations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3502,7 +3502,7 @@ pub mod certificate_manager {
         }
     }
 
-    /// The request builder for [CertificateManager::get_location][super::super::client::CertificateManager::get_location] calls.
+    /// The request builder for [CertificateManager::get_location][crate::client::CertificateManager::get_location] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3563,7 +3563,7 @@ pub mod certificate_manager {
         }
     }
 
-    /// The request builder for [CertificateManager::list_operations][super::super::client::CertificateManager::list_operations] calls.
+    /// The request builder for [CertificateManager::list_operations][crate::client::CertificateManager::list_operations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3675,7 +3675,7 @@ pub mod certificate_manager {
         }
     }
 
-    /// The request builder for [CertificateManager::get_operation][super::super::client::CertificateManager::get_operation] calls.
+    /// The request builder for [CertificateManager::get_operation][crate::client::CertificateManager::get_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3739,7 +3739,7 @@ pub mod certificate_manager {
         }
     }
 
-    /// The request builder for [CertificateManager::delete_operation][super::super::client::CertificateManager::delete_operation] calls.
+    /// The request builder for [CertificateManager::delete_operation][crate::client::CertificateManager::delete_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3803,7 +3803,7 @@ pub mod certificate_manager {
         }
     }
 
-    /// The request builder for [CertificateManager::cancel_operation][super::super::client::CertificateManager::cancel_operation] calls.
+    /// The request builder for [CertificateManager::cancel_operation][crate::client::CertificateManager::cancel_operation] calls.
     ///
     /// # Example
     /// ```no_run

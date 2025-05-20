@@ -17,7 +17,7 @@
 pub mod secret_manager_service {
     use crate::Result;
 
-    /// A builder for [SecretManagerService][super::super::client::SecretManagerService].
+    /// A builder for [SecretManagerService][crate::client::SecretManagerService].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -45,7 +45,7 @@ pub mod secret_manager_service {
         }
     }
 
-    /// Common implementation for [super::super::client::SecretManagerService] request builders.
+    /// Common implementation for [crate::client::SecretManagerService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::SecretManagerService>,
@@ -68,7 +68,7 @@ pub mod secret_manager_service {
         }
     }
 
-    /// The request builder for [SecretManagerService::list_locations][super::super::client::SecretManagerService::list_locations] calls.
+    /// The request builder for [SecretManagerService::list_locations][crate::client::SecretManagerService::list_locations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -213,7 +213,7 @@ pub mod secret_manager_service {
         }
     }
 
-    /// The request builder for [SecretManagerService::get_location][super::super::client::SecretManagerService::get_location] calls.
+    /// The request builder for [SecretManagerService::get_location][crate::client::SecretManagerService::get_location] calls.
     ///
     /// # Example
     /// ```no_run
@@ -284,7 +284,7 @@ pub mod secret_manager_service {
         }
     }
 
-    /// The request builder for [SecretManagerService::list_secrets][super::super::client::SecretManagerService::list_secrets] calls.
+    /// The request builder for [SecretManagerService::list_secrets][crate::client::SecretManagerService::list_secrets] calls.
     ///
     /// # Example
     /// ```no_run
@@ -429,7 +429,7 @@ pub mod secret_manager_service {
         }
     }
 
-    /// The request builder for [SecretManagerService::create_secret][super::super::client::SecretManagerService::create_secret] calls.
+    /// The request builder for [SecretManagerService::create_secret][crate::client::SecretManagerService::create_secret] calls.
     ///
     /// # Example
     /// ```no_run
@@ -518,7 +518,7 @@ pub mod secret_manager_service {
         }
     }
 
-    /// The request builder for [SecretManagerService::list_secrets_by_project_and_location][super::super::client::SecretManagerService::list_secrets_by_project_and_location] calls.
+    /// The request builder for [SecretManagerService::list_secrets_by_project_and_location][crate::client::SecretManagerService::list_secrets_by_project_and_location] calls.
     ///
     /// # Example
     /// ```no_run
@@ -676,7 +676,7 @@ pub mod secret_manager_service {
         }
     }
 
-    /// The request builder for [SecretManagerService::create_secret_by_project_and_location][super::super::client::SecretManagerService::create_secret_by_project_and_location] calls.
+    /// The request builder for [SecretManagerService::create_secret_by_project_and_location][crate::client::SecretManagerService::create_secret_by_project_and_location] calls.
     ///
     /// # Example
     /// ```no_run
@@ -778,7 +778,7 @@ pub mod secret_manager_service {
         }
     }
 
-    /// The request builder for [SecretManagerService::add_secret_version][super::super::client::SecretManagerService::add_secret_version] calls.
+    /// The request builder for [SecretManagerService::add_secret_version][crate::client::SecretManagerService::add_secret_version] calls.
     ///
     /// # Example
     /// ```no_run
@@ -878,7 +878,7 @@ pub mod secret_manager_service {
         }
     }
 
-    /// The request builder for [SecretManagerService::add_secret_version_by_project_and_location_and_secret][super::super::client::SecretManagerService::add_secret_version_by_project_and_location_and_secret] calls.
+    /// The request builder for [SecretManagerService::add_secret_version_by_project_and_location_and_secret][crate::client::SecretManagerService::add_secret_version_by_project_and_location_and_secret] calls.
     ///
     /// # Example
     /// ```no_run
@@ -983,7 +983,7 @@ pub mod secret_manager_service {
         }
     }
 
-    /// The request builder for [SecretManagerService::get_secret][super::super::client::SecretManagerService::get_secret] calls.
+    /// The request builder for [SecretManagerService::get_secret][crate::client::SecretManagerService::get_secret] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1054,7 +1054,7 @@ pub mod secret_manager_service {
         }
     }
 
-    /// The request builder for [SecretManagerService::delete_secret][super::super::client::SecretManagerService::delete_secret] calls.
+    /// The request builder for [SecretManagerService::delete_secret][crate::client::SecretManagerService::delete_secret] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1143,7 +1143,7 @@ pub mod secret_manager_service {
         }
     }
 
-    /// The request builder for [SecretManagerService::update_secret][super::super::client::SecretManagerService::update_secret] calls.
+    /// The request builder for [SecretManagerService::update_secret][crate::client::SecretManagerService::update_secret] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1240,7 +1240,7 @@ pub mod secret_manager_service {
         }
     }
 
-    /// The request builder for [SecretManagerService::get_secret_by_project_and_location_and_secret][super::super::client::SecretManagerService::get_secret_by_project_and_location_and_secret] calls.
+    /// The request builder for [SecretManagerService::get_secret_by_project_and_location_and_secret][crate::client::SecretManagerService::get_secret_by_project_and_location_and_secret] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1326,7 +1326,7 @@ pub mod secret_manager_service {
         }
     }
 
-    /// The request builder for [SecretManagerService::delete_secret_by_project_and_location_and_secret][super::super::client::SecretManagerService::delete_secret_by_project_and_location_and_secret] calls.
+    /// The request builder for [SecretManagerService::delete_secret_by_project_and_location_and_secret][crate::client::SecretManagerService::delete_secret_by_project_and_location_and_secret] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1430,7 +1430,7 @@ pub mod secret_manager_service {
         }
     }
 
-    /// The request builder for [SecretManagerService::update_secret_by_project_and_location_and_secret][super::super::client::SecretManagerService::update_secret_by_project_and_location_and_secret] calls.
+    /// The request builder for [SecretManagerService::update_secret_by_project_and_location_and_secret][crate::client::SecretManagerService::update_secret_by_project_and_location_and_secret] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1542,7 +1542,7 @@ pub mod secret_manager_service {
         }
     }
 
-    /// The request builder for [SecretManagerService::list_secret_versions][super::super::client::SecretManagerService::list_secret_versions] calls.
+    /// The request builder for [SecretManagerService::list_secret_versions][crate::client::SecretManagerService::list_secret_versions] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1700,7 +1700,7 @@ pub mod secret_manager_service {
         }
     }
 
-    /// The request builder for [SecretManagerService::list_secret_versions_by_project_and_location_and_secret][super::super::client::SecretManagerService::list_secret_versions_by_project_and_location_and_secret] calls.
+    /// The request builder for [SecretManagerService::list_secret_versions_by_project_and_location_and_secret][crate::client::SecretManagerService::list_secret_versions_by_project_and_location_and_secret] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1873,7 +1873,7 @@ pub mod secret_manager_service {
         }
     }
 
-    /// The request builder for [SecretManagerService::get_secret_version][super::super::client::SecretManagerService::get_secret_version] calls.
+    /// The request builder for [SecretManagerService::get_secret_version][crate::client::SecretManagerService::get_secret_version] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1955,7 +1955,7 @@ pub mod secret_manager_service {
         }
     }
 
-    /// The request builder for [SecretManagerService::get_secret_version_by_project_and_location_and_secret_and_version][super::super::client::SecretManagerService::get_secret_version_by_project_and_location_and_secret_and_version] calls.
+    /// The request builder for [SecretManagerService::get_secret_version_by_project_and_location_and_secret_and_version][crate::client::SecretManagerService::get_secret_version_by_project_and_location_and_secret_and_version] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2056,7 +2056,7 @@ pub mod secret_manager_service {
         }
     }
 
-    /// The request builder for [SecretManagerService::access_secret_version][super::super::client::SecretManagerService::access_secret_version] calls.
+    /// The request builder for [SecretManagerService::access_secret_version][crate::client::SecretManagerService::access_secret_version] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2138,7 +2138,7 @@ pub mod secret_manager_service {
         }
     }
 
-    /// The request builder for [SecretManagerService::access_secret_version_by_project_and_location_and_secret_and_version][super::super::client::SecretManagerService::access_secret_version_by_project_and_location_and_secret_and_version] calls.
+    /// The request builder for [SecretManagerService::access_secret_version_by_project_and_location_and_secret_and_version][crate::client::SecretManagerService::access_secret_version_by_project_and_location_and_secret_and_version] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2239,7 +2239,7 @@ pub mod secret_manager_service {
         }
     }
 
-    /// The request builder for [SecretManagerService::disable_secret_version][super::super::client::SecretManagerService::disable_secret_version] calls.
+    /// The request builder for [SecretManagerService::disable_secret_version][crate::client::SecretManagerService::disable_secret_version] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2347,7 +2347,7 @@ pub mod secret_manager_service {
         }
     }
 
-    /// The request builder for [SecretManagerService::disable_secret_version_by_project_and_location_and_secret_and_version][super::super::client::SecretManagerService::disable_secret_version_by_project_and_location_and_secret_and_version] calls.
+    /// The request builder for [SecretManagerService::disable_secret_version_by_project_and_location_and_secret_and_version][crate::client::SecretManagerService::disable_secret_version_by_project_and_location_and_secret_and_version] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2462,7 +2462,7 @@ pub mod secret_manager_service {
         }
     }
 
-    /// The request builder for [SecretManagerService::enable_secret_version][super::super::client::SecretManagerService::enable_secret_version] calls.
+    /// The request builder for [SecretManagerService::enable_secret_version][crate::client::SecretManagerService::enable_secret_version] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2570,7 +2570,7 @@ pub mod secret_manager_service {
         }
     }
 
-    /// The request builder for [SecretManagerService::enable_secret_version_by_project_and_location_and_secret_and_version][super::super::client::SecretManagerService::enable_secret_version_by_project_and_location_and_secret_and_version] calls.
+    /// The request builder for [SecretManagerService::enable_secret_version_by_project_and_location_and_secret_and_version][crate::client::SecretManagerService::enable_secret_version_by_project_and_location_and_secret_and_version] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2685,7 +2685,7 @@ pub mod secret_manager_service {
         }
     }
 
-    /// The request builder for [SecretManagerService::destroy_secret_version][super::super::client::SecretManagerService::destroy_secret_version] calls.
+    /// The request builder for [SecretManagerService::destroy_secret_version][crate::client::SecretManagerService::destroy_secret_version] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2793,7 +2793,7 @@ pub mod secret_manager_service {
         }
     }
 
-    /// The request builder for [SecretManagerService::destroy_secret_version_by_project_and_location_and_secret_and_version][super::super::client::SecretManagerService::destroy_secret_version_by_project_and_location_and_secret_and_version] calls.
+    /// The request builder for [SecretManagerService::destroy_secret_version_by_project_and_location_and_secret_and_version][crate::client::SecretManagerService::destroy_secret_version_by_project_and_location_and_secret_and_version] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2908,7 +2908,7 @@ pub mod secret_manager_service {
         }
     }
 
-    /// The request builder for [SecretManagerService::set_iam_policy][super::super::client::SecretManagerService::set_iam_policy] calls.
+    /// The request builder for [SecretManagerService::set_iam_policy][crate::client::SecretManagerService::set_iam_policy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3023,7 +3023,7 @@ pub mod secret_manager_service {
         }
     }
 
-    /// The request builder for [SecretManagerService::set_iam_policy_by_project_and_location_and_secret][super::super::client::SecretManagerService::set_iam_policy_by_project_and_location_and_secret] calls.
+    /// The request builder for [SecretManagerService::set_iam_policy_by_project_and_location_and_secret][crate::client::SecretManagerService::set_iam_policy_by_project_and_location_and_secret] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3140,7 +3140,7 @@ pub mod secret_manager_service {
         }
     }
 
-    /// The request builder for [SecretManagerService::get_iam_policy][super::super::client::SecretManagerService::get_iam_policy] calls.
+    /// The request builder for [SecretManagerService::get_iam_policy][crate::client::SecretManagerService::get_iam_policy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3232,7 +3232,7 @@ pub mod secret_manager_service {
         }
     }
 
-    /// The request builder for [SecretManagerService::get_iam_policy_by_project_and_location_and_secret][super::super::client::SecretManagerService::get_iam_policy_by_project_and_location_and_secret] calls.
+    /// The request builder for [SecretManagerService::get_iam_policy_by_project_and_location_and_secret][crate::client::SecretManagerService::get_iam_policy_by_project_and_location_and_secret] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3339,7 +3339,7 @@ pub mod secret_manager_service {
         }
     }
 
-    /// The request builder for [SecretManagerService::test_iam_permissions][super::super::client::SecretManagerService::test_iam_permissions] calls.
+    /// The request builder for [SecretManagerService::test_iam_permissions][crate::client::SecretManagerService::test_iam_permissions] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3432,7 +3432,7 @@ pub mod secret_manager_service {
         }
     }
 
-    /// The request builder for [SecretManagerService::test_iam_permissions_by_project_and_location_and_secret][super::super::client::SecretManagerService::test_iam_permissions_by_project_and_location_and_secret] calls.
+    /// The request builder for [SecretManagerService::test_iam_permissions_by_project_and_location_and_secret][crate::client::SecretManagerService::test_iam_permissions_by_project_and_location_and_secret] calls.
     ///
     /// # Example
     /// ```no_run

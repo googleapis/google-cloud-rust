@@ -17,7 +17,7 @@
 pub mod dlp_service {
     use crate::Result;
 
-    /// A builder for [DlpService][super::super::client::DlpService].
+    /// A builder for [DlpService][crate::client::DlpService].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -45,7 +45,7 @@ pub mod dlp_service {
         }
     }
 
-    /// Common implementation for [super::super::client::DlpService] request builders.
+    /// Common implementation for [crate::client::DlpService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::DlpService>,
@@ -68,7 +68,7 @@ pub mod dlp_service {
         }
     }
 
-    /// The request builder for [DlpService::inspect_content][super::super::client::DlpService::inspect_content] calls.
+    /// The request builder for [DlpService::inspect_content][crate::client::DlpService::inspect_content] calls.
     ///
     /// # Example
     /// ```no_run
@@ -177,7 +177,7 @@ pub mod dlp_service {
         }
     }
 
-    /// The request builder for [DlpService::redact_image][super::super::client::DlpService::redact_image] calls.
+    /// The request builder for [DlpService::redact_image][crate::client::DlpService::redact_image] calls.
     ///
     /// # Example
     /// ```no_run
@@ -297,7 +297,7 @@ pub mod dlp_service {
         }
     }
 
-    /// The request builder for [DlpService::deidentify_content][super::super::client::DlpService::deidentify_content] calls.
+    /// The request builder for [DlpService::deidentify_content][crate::client::DlpService::deidentify_content] calls.
     ///
     /// # Example
     /// ```no_run
@@ -433,7 +433,7 @@ pub mod dlp_service {
         }
     }
 
-    /// The request builder for [DlpService::reidentify_content][super::super::client::DlpService::reidentify_content] calls.
+    /// The request builder for [DlpService::reidentify_content][crate::client::DlpService::reidentify_content] calls.
     ///
     /// # Example
     /// ```no_run
@@ -571,7 +571,7 @@ pub mod dlp_service {
         }
     }
 
-    /// The request builder for [DlpService::list_info_types][super::super::client::DlpService::list_info_types] calls.
+    /// The request builder for [DlpService::list_info_types][crate::client::DlpService::list_info_types] calls.
     ///
     /// # Example
     /// ```no_run
@@ -650,7 +650,7 @@ pub mod dlp_service {
         }
     }
 
-    /// The request builder for [DlpService::create_inspect_template][super::super::client::DlpService::create_inspect_template] calls.
+    /// The request builder for [DlpService::create_inspect_template][crate::client::DlpService::create_inspect_template] calls.
     ///
     /// # Example
     /// ```no_run
@@ -750,7 +750,7 @@ pub mod dlp_service {
         }
     }
 
-    /// The request builder for [DlpService::update_inspect_template][super::super::client::DlpService::update_inspect_template] calls.
+    /// The request builder for [DlpService::update_inspect_template][crate::client::DlpService::update_inspect_template] calls.
     ///
     /// # Example
     /// ```no_run
@@ -852,7 +852,7 @@ pub mod dlp_service {
         }
     }
 
-    /// The request builder for [DlpService::get_inspect_template][super::super::client::DlpService::get_inspect_template] calls.
+    /// The request builder for [DlpService::get_inspect_template][crate::client::DlpService::get_inspect_template] calls.
     ///
     /// # Example
     /// ```no_run
@@ -918,7 +918,7 @@ pub mod dlp_service {
         }
     }
 
-    /// The request builder for [DlpService::list_inspect_templates][super::super::client::DlpService::list_inspect_templates] calls.
+    /// The request builder for [DlpService::list_inspect_templates][crate::client::DlpService::list_inspect_templates] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1038,7 +1038,7 @@ pub mod dlp_service {
         }
     }
 
-    /// The request builder for [DlpService::delete_inspect_template][super::super::client::DlpService::delete_inspect_template] calls.
+    /// The request builder for [DlpService::delete_inspect_template][crate::client::DlpService::delete_inspect_template] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1104,7 +1104,7 @@ pub mod dlp_service {
         }
     }
 
-    /// The request builder for [DlpService::create_deidentify_template][super::super::client::DlpService::create_deidentify_template] calls.
+    /// The request builder for [DlpService::create_deidentify_template][crate::client::DlpService::create_deidentify_template] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1206,7 +1206,7 @@ pub mod dlp_service {
         }
     }
 
-    /// The request builder for [DlpService::update_deidentify_template][super::super::client::DlpService::update_deidentify_template] calls.
+    /// The request builder for [DlpService::update_deidentify_template][crate::client::DlpService::update_deidentify_template] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1310,7 +1310,7 @@ pub mod dlp_service {
         }
     }
 
-    /// The request builder for [DlpService::get_deidentify_template][super::super::client::DlpService::get_deidentify_template] calls.
+    /// The request builder for [DlpService::get_deidentify_template][crate::client::DlpService::get_deidentify_template] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1376,7 +1376,7 @@ pub mod dlp_service {
         }
     }
 
-    /// The request builder for [DlpService::list_deidentify_templates][super::super::client::DlpService::list_deidentify_templates] calls.
+    /// The request builder for [DlpService::list_deidentify_templates][crate::client::DlpService::list_deidentify_templates] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1500,7 +1500,7 @@ pub mod dlp_service {
         }
     }
 
-    /// The request builder for [DlpService::delete_deidentify_template][super::super::client::DlpService::delete_deidentify_template] calls.
+    /// The request builder for [DlpService::delete_deidentify_template][crate::client::DlpService::delete_deidentify_template] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1568,7 +1568,7 @@ pub mod dlp_service {
         }
     }
 
-    /// The request builder for [DlpService::create_job_trigger][super::super::client::DlpService::create_job_trigger] calls.
+    /// The request builder for [DlpService::create_job_trigger][crate::client::DlpService::create_job_trigger] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1668,7 +1668,7 @@ pub mod dlp_service {
         }
     }
 
-    /// The request builder for [DlpService::update_job_trigger][super::super::client::DlpService::update_job_trigger] calls.
+    /// The request builder for [DlpService::update_job_trigger][crate::client::DlpService::update_job_trigger] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1770,7 +1770,7 @@ pub mod dlp_service {
         }
     }
 
-    /// The request builder for [DlpService::hybrid_inspect_job_trigger][super::super::client::DlpService::hybrid_inspect_job_trigger] calls.
+    /// The request builder for [DlpService::hybrid_inspect_job_trigger][crate::client::DlpService::hybrid_inspect_job_trigger] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1856,7 +1856,7 @@ pub mod dlp_service {
         }
     }
 
-    /// The request builder for [DlpService::get_job_trigger][super::super::client::DlpService::get_job_trigger] calls.
+    /// The request builder for [DlpService::get_job_trigger][crate::client::DlpService::get_job_trigger] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1919,7 +1919,7 @@ pub mod dlp_service {
         }
     }
 
-    /// The request builder for [DlpService::list_job_triggers][super::super::client::DlpService::list_job_triggers] calls.
+    /// The request builder for [DlpService::list_job_triggers][crate::client::DlpService::list_job_triggers] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2046,7 +2046,7 @@ pub mod dlp_service {
         }
     }
 
-    /// The request builder for [DlpService::delete_job_trigger][super::super::client::DlpService::delete_job_trigger] calls.
+    /// The request builder for [DlpService::delete_job_trigger][crate::client::DlpService::delete_job_trigger] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2112,7 +2112,7 @@ pub mod dlp_service {
         }
     }
 
-    /// The request builder for [DlpService::activate_job_trigger][super::super::client::DlpService::activate_job_trigger] calls.
+    /// The request builder for [DlpService::activate_job_trigger][crate::client::DlpService::activate_job_trigger] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2178,7 +2178,7 @@ pub mod dlp_service {
         }
     }
 
-    /// The request builder for [DlpService::create_discovery_config][super::super::client::DlpService::create_discovery_config] calls.
+    /// The request builder for [DlpService::create_discovery_config][crate::client::DlpService::create_discovery_config] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2272,7 +2272,7 @@ pub mod dlp_service {
         }
     }
 
-    /// The request builder for [DlpService::update_discovery_config][super::super::client::DlpService::update_discovery_config] calls.
+    /// The request builder for [DlpService::update_discovery_config][crate::client::DlpService::update_discovery_config] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2378,7 +2378,7 @@ pub mod dlp_service {
         }
     }
 
-    /// The request builder for [DlpService::get_discovery_config][super::super::client::DlpService::get_discovery_config] calls.
+    /// The request builder for [DlpService::get_discovery_config][crate::client::DlpService::get_discovery_config] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2444,7 +2444,7 @@ pub mod dlp_service {
         }
     }
 
-    /// The request builder for [DlpService::list_discovery_configs][super::super::client::DlpService::list_discovery_configs] calls.
+    /// The request builder for [DlpService::list_discovery_configs][crate::client::DlpService::list_discovery_configs] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2558,7 +2558,7 @@ pub mod dlp_service {
         }
     }
 
-    /// The request builder for [DlpService::delete_discovery_config][super::super::client::DlpService::delete_discovery_config] calls.
+    /// The request builder for [DlpService::delete_discovery_config][crate::client::DlpService::delete_discovery_config] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2624,7 +2624,7 @@ pub mod dlp_service {
         }
     }
 
-    /// The request builder for [DlpService::create_dlp_job][super::super::client::DlpService::create_dlp_job] calls.
+    /// The request builder for [DlpService::create_dlp_job][crate::client::DlpService::create_dlp_job] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2741,7 +2741,7 @@ pub mod dlp_service {
         }
     }
 
-    /// The request builder for [DlpService::list_dlp_jobs][super::super::client::DlpService::list_dlp_jobs] calls.
+    /// The request builder for [DlpService::list_dlp_jobs][crate::client::DlpService::list_dlp_jobs] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2868,7 +2868,7 @@ pub mod dlp_service {
         }
     }
 
-    /// The request builder for [DlpService::get_dlp_job][super::super::client::DlpService::get_dlp_job] calls.
+    /// The request builder for [DlpService::get_dlp_job][crate::client::DlpService::get_dlp_job] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2931,7 +2931,7 @@ pub mod dlp_service {
         }
     }
 
-    /// The request builder for [DlpService::delete_dlp_job][super::super::client::DlpService::delete_dlp_job] calls.
+    /// The request builder for [DlpService::delete_dlp_job][crate::client::DlpService::delete_dlp_job] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2994,7 +2994,7 @@ pub mod dlp_service {
         }
     }
 
-    /// The request builder for [DlpService::cancel_dlp_job][super::super::client::DlpService::cancel_dlp_job] calls.
+    /// The request builder for [DlpService::cancel_dlp_job][crate::client::DlpService::cancel_dlp_job] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3057,7 +3057,7 @@ pub mod dlp_service {
         }
     }
 
-    /// The request builder for [DlpService::create_stored_info_type][super::super::client::DlpService::create_stored_info_type] calls.
+    /// The request builder for [DlpService::create_stored_info_type][crate::client::DlpService::create_stored_info_type] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3157,7 +3157,7 @@ pub mod dlp_service {
         }
     }
 
-    /// The request builder for [DlpService::update_stored_info_type][super::super::client::DlpService::update_stored_info_type] calls.
+    /// The request builder for [DlpService::update_stored_info_type][crate::client::DlpService::update_stored_info_type] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3259,7 +3259,7 @@ pub mod dlp_service {
         }
     }
 
-    /// The request builder for [DlpService::get_stored_info_type][super::super::client::DlpService::get_stored_info_type] calls.
+    /// The request builder for [DlpService::get_stored_info_type][crate::client::DlpService::get_stored_info_type] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3325,7 +3325,7 @@ pub mod dlp_service {
         }
     }
 
-    /// The request builder for [DlpService::list_stored_info_types][super::super::client::DlpService::list_stored_info_types] calls.
+    /// The request builder for [DlpService::list_stored_info_types][crate::client::DlpService::list_stored_info_types] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3445,7 +3445,7 @@ pub mod dlp_service {
         }
     }
 
-    /// The request builder for [DlpService::delete_stored_info_type][super::super::client::DlpService::delete_stored_info_type] calls.
+    /// The request builder for [DlpService::delete_stored_info_type][crate::client::DlpService::delete_stored_info_type] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3511,7 +3511,7 @@ pub mod dlp_service {
         }
     }
 
-    /// The request builder for [DlpService::list_project_data_profiles][super::super::client::DlpService::list_project_data_profiles] calls.
+    /// The request builder for [DlpService::list_project_data_profiles][crate::client::DlpService::list_project_data_profiles] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3635,7 +3635,7 @@ pub mod dlp_service {
         }
     }
 
-    /// The request builder for [DlpService::list_table_data_profiles][super::super::client::DlpService::list_table_data_profiles] calls.
+    /// The request builder for [DlpService::list_table_data_profiles][crate::client::DlpService::list_table_data_profiles] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3755,7 +3755,7 @@ pub mod dlp_service {
         }
     }
 
-    /// The request builder for [DlpService::list_column_data_profiles][super::super::client::DlpService::list_column_data_profiles] calls.
+    /// The request builder for [DlpService::list_column_data_profiles][crate::client::DlpService::list_column_data_profiles] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3877,7 +3877,7 @@ pub mod dlp_service {
         }
     }
 
-    /// The request builder for [DlpService::get_project_data_profile][super::super::client::DlpService::get_project_data_profile] calls.
+    /// The request builder for [DlpService::get_project_data_profile][crate::client::DlpService::get_project_data_profile] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3943,7 +3943,7 @@ pub mod dlp_service {
         }
     }
 
-    /// The request builder for [DlpService::list_file_store_data_profiles][super::super::client::DlpService::list_file_store_data_profiles] calls.
+    /// The request builder for [DlpService::list_file_store_data_profiles][crate::client::DlpService::list_file_store_data_profiles] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4067,7 +4067,7 @@ pub mod dlp_service {
         }
     }
 
-    /// The request builder for [DlpService::get_file_store_data_profile][super::super::client::DlpService::get_file_store_data_profile] calls.
+    /// The request builder for [DlpService::get_file_store_data_profile][crate::client::DlpService::get_file_store_data_profile] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4135,7 +4135,7 @@ pub mod dlp_service {
         }
     }
 
-    /// The request builder for [DlpService::delete_file_store_data_profile][super::super::client::DlpService::delete_file_store_data_profile] calls.
+    /// The request builder for [DlpService::delete_file_store_data_profile][crate::client::DlpService::delete_file_store_data_profile] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4203,7 +4203,7 @@ pub mod dlp_service {
         }
     }
 
-    /// The request builder for [DlpService::get_table_data_profile][super::super::client::DlpService::get_table_data_profile] calls.
+    /// The request builder for [DlpService::get_table_data_profile][crate::client::DlpService::get_table_data_profile] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4269,7 +4269,7 @@ pub mod dlp_service {
         }
     }
 
-    /// The request builder for [DlpService::get_column_data_profile][super::super::client::DlpService::get_column_data_profile] calls.
+    /// The request builder for [DlpService::get_column_data_profile][crate::client::DlpService::get_column_data_profile] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4335,7 +4335,7 @@ pub mod dlp_service {
         }
     }
 
-    /// The request builder for [DlpService::delete_table_data_profile][super::super::client::DlpService::delete_table_data_profile] calls.
+    /// The request builder for [DlpService::delete_table_data_profile][crate::client::DlpService::delete_table_data_profile] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4401,7 +4401,7 @@ pub mod dlp_service {
         }
     }
 
-    /// The request builder for [DlpService::hybrid_inspect_dlp_job][super::super::client::DlpService::hybrid_inspect_dlp_job] calls.
+    /// The request builder for [DlpService::hybrid_inspect_dlp_job][crate::client::DlpService::hybrid_inspect_dlp_job] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4485,7 +4485,7 @@ pub mod dlp_service {
         }
     }
 
-    /// The request builder for [DlpService::finish_dlp_job][super::super::client::DlpService::finish_dlp_job] calls.
+    /// The request builder for [DlpService::finish_dlp_job][crate::client::DlpService::finish_dlp_job] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4548,7 +4548,7 @@ pub mod dlp_service {
         }
     }
 
-    /// The request builder for [DlpService::create_connection][super::super::client::DlpService::create_connection] calls.
+    /// The request builder for [DlpService::create_connection][crate::client::DlpService::create_connection] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4636,7 +4636,7 @@ pub mod dlp_service {
         }
     }
 
-    /// The request builder for [DlpService::get_connection][super::super::client::DlpService::get_connection] calls.
+    /// The request builder for [DlpService::get_connection][crate::client::DlpService::get_connection] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4699,7 +4699,7 @@ pub mod dlp_service {
         }
     }
 
-    /// The request builder for [DlpService::list_connections][super::super::client::DlpService::list_connections] calls.
+    /// The request builder for [DlpService::list_connections][crate::client::DlpService::list_connections] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4808,7 +4808,7 @@ pub mod dlp_service {
         }
     }
 
-    /// The request builder for [DlpService::search_connections][super::super::client::DlpService::search_connections] calls.
+    /// The request builder for [DlpService::search_connections][crate::client::DlpService::search_connections] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4920,7 +4920,7 @@ pub mod dlp_service {
         }
     }
 
-    /// The request builder for [DlpService::delete_connection][super::super::client::DlpService::delete_connection] calls.
+    /// The request builder for [DlpService::delete_connection][crate::client::DlpService::delete_connection] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4986,7 +4986,7 @@ pub mod dlp_service {
         }
     }
 
-    /// The request builder for [DlpService::update_connection][super::super::client::DlpService::update_connection] calls.
+    /// The request builder for [DlpService::update_connection][crate::client::DlpService::update_connection] calls.
     ///
     /// # Example
     /// ```no_run

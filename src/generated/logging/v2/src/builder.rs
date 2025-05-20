@@ -17,7 +17,7 @@
 pub mod logging_service_v_2 {
     use crate::Result;
 
-    /// A builder for [LoggingServiceV2][super::super::client::LoggingServiceV2].
+    /// A builder for [LoggingServiceV2][crate::client::LoggingServiceV2].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -45,7 +45,7 @@ pub mod logging_service_v_2 {
         }
     }
 
-    /// Common implementation for [super::super::client::LoggingServiceV2] request builders.
+    /// Common implementation for [crate::client::LoggingServiceV2] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::LoggingServiceV2>,
@@ -68,7 +68,7 @@ pub mod logging_service_v_2 {
         }
     }
 
-    /// The request builder for [LoggingServiceV2::delete_log][super::super::client::LoggingServiceV2::delete_log] calls.
+    /// The request builder for [LoggingServiceV2::delete_log][crate::client::LoggingServiceV2::delete_log] calls.
     ///
     /// # Example
     /// ```no_run
@@ -131,7 +131,7 @@ pub mod logging_service_v_2 {
         }
     }
 
-    /// The request builder for [LoggingServiceV2::write_log_entries][super::super::client::LoggingServiceV2::write_log_entries] calls.
+    /// The request builder for [LoggingServiceV2::write_log_entries][crate::client::LoggingServiceV2::write_log_entries] calls.
     ///
     /// # Example
     /// ```no_run
@@ -246,7 +246,7 @@ pub mod logging_service_v_2 {
         }
     }
 
-    /// The request builder for [LoggingServiceV2::list_log_entries][super::super::client::LoggingServiceV2::list_log_entries] calls.
+    /// The request builder for [LoggingServiceV2::list_log_entries][crate::client::LoggingServiceV2::list_log_entries] calls.
     ///
     /// # Example
     /// ```no_run
@@ -366,7 +366,7 @@ pub mod logging_service_v_2 {
         }
     }
 
-    /// The request builder for [LoggingServiceV2::list_monitored_resource_descriptors][super::super::client::LoggingServiceV2::list_monitored_resource_descriptors] calls.
+    /// The request builder for [LoggingServiceV2::list_monitored_resource_descriptors][crate::client::LoggingServiceV2::list_monitored_resource_descriptors] calls.
     ///
     /// # Example
     /// ```no_run
@@ -470,7 +470,7 @@ pub mod logging_service_v_2 {
         }
     }
 
-    /// The request builder for [LoggingServiceV2::list_logs][super::super::client::LoggingServiceV2::list_logs] calls.
+    /// The request builder for [LoggingServiceV2::list_logs][crate::client::LoggingServiceV2::list_logs] calls.
     ///
     /// # Example
     /// ```no_run
@@ -556,7 +556,7 @@ pub mod logging_service_v_2 {
         }
     }
 
-    /// The request builder for [LoggingServiceV2::list_operations][super::super::client::LoggingServiceV2::list_operations] calls.
+    /// The request builder for [LoggingServiceV2::list_operations][crate::client::LoggingServiceV2::list_operations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -668,7 +668,7 @@ pub mod logging_service_v_2 {
         }
     }
 
-    /// The request builder for [LoggingServiceV2::get_operation][super::super::client::LoggingServiceV2::get_operation] calls.
+    /// The request builder for [LoggingServiceV2::get_operation][crate::client::LoggingServiceV2::get_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -732,7 +732,7 @@ pub mod logging_service_v_2 {
         }
     }
 
-    /// The request builder for [LoggingServiceV2::cancel_operation][super::super::client::LoggingServiceV2::cancel_operation] calls.
+    /// The request builder for [LoggingServiceV2::cancel_operation][crate::client::LoggingServiceV2::cancel_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -800,7 +800,7 @@ pub mod logging_service_v_2 {
 pub mod config_service_v_2 {
     use crate::Result;
 
-    /// A builder for [ConfigServiceV2][super::super::client::ConfigServiceV2].
+    /// A builder for [ConfigServiceV2][crate::client::ConfigServiceV2].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -828,7 +828,7 @@ pub mod config_service_v_2 {
         }
     }
 
-    /// Common implementation for [super::super::client::ConfigServiceV2] request builders.
+    /// Common implementation for [crate::client::ConfigServiceV2] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::ConfigServiceV2>,
@@ -851,7 +851,7 @@ pub mod config_service_v_2 {
         }
     }
 
-    /// The request builder for [ConfigServiceV2::list_buckets][super::super::client::ConfigServiceV2::list_buckets] calls.
+    /// The request builder for [ConfigServiceV2::list_buckets][crate::client::ConfigServiceV2::list_buckets] calls.
     ///
     /// # Example
     /// ```no_run
@@ -954,7 +954,7 @@ pub mod config_service_v_2 {
         }
     }
 
-    /// The request builder for [ConfigServiceV2::get_bucket][super::super::client::ConfigServiceV2::get_bucket] calls.
+    /// The request builder for [ConfigServiceV2::get_bucket][crate::client::ConfigServiceV2::get_bucket] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1017,7 +1017,7 @@ pub mod config_service_v_2 {
         }
     }
 
-    /// The request builder for [ConfigServiceV2::create_bucket_async][super::super::client::ConfigServiceV2::create_bucket_async] calls.
+    /// The request builder for [ConfigServiceV2::create_bucket_async][crate::client::ConfigServiceV2::create_bucket_async] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1062,7 +1062,7 @@ pub mod config_service_v_2 {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_bucket_async][super::super::client::ConfigServiceV2::create_bucket_async].
+        /// on [create_bucket_async][crate::client::ConfigServiceV2::create_bucket_async].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_bucket_async(self.0.request, self.0.options)
@@ -1149,7 +1149,7 @@ pub mod config_service_v_2 {
         }
     }
 
-    /// The request builder for [ConfigServiceV2::update_bucket_async][super::super::client::ConfigServiceV2::update_bucket_async] calls.
+    /// The request builder for [ConfigServiceV2::update_bucket_async][crate::client::ConfigServiceV2::update_bucket_async] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1194,7 +1194,7 @@ pub mod config_service_v_2 {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_bucket_async][super::super::client::ConfigServiceV2::update_bucket_async].
+        /// on [update_bucket_async][crate::client::ConfigServiceV2::update_bucket_async].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_bucket_async(self.0.request, self.0.options)
@@ -1295,7 +1295,7 @@ pub mod config_service_v_2 {
         }
     }
 
-    /// The request builder for [ConfigServiceV2::create_bucket][super::super::client::ConfigServiceV2::create_bucket] calls.
+    /// The request builder for [ConfigServiceV2::create_bucket][crate::client::ConfigServiceV2::create_bucket] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1388,7 +1388,7 @@ pub mod config_service_v_2 {
         }
     }
 
-    /// The request builder for [ConfigServiceV2::update_bucket][super::super::client::ConfigServiceV2::update_bucket] calls.
+    /// The request builder for [ConfigServiceV2::update_bucket][crate::client::ConfigServiceV2::update_bucket] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1495,7 +1495,7 @@ pub mod config_service_v_2 {
         }
     }
 
-    /// The request builder for [ConfigServiceV2::delete_bucket][super::super::client::ConfigServiceV2::delete_bucket] calls.
+    /// The request builder for [ConfigServiceV2::delete_bucket][crate::client::ConfigServiceV2::delete_bucket] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1558,7 +1558,7 @@ pub mod config_service_v_2 {
         }
     }
 
-    /// The request builder for [ConfigServiceV2::undelete_bucket][super::super::client::ConfigServiceV2::undelete_bucket] calls.
+    /// The request builder for [ConfigServiceV2::undelete_bucket][crate::client::ConfigServiceV2::undelete_bucket] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1621,7 +1621,7 @@ pub mod config_service_v_2 {
         }
     }
 
-    /// The request builder for [ConfigServiceV2::list_views][super::super::client::ConfigServiceV2::list_views] calls.
+    /// The request builder for [ConfigServiceV2::list_views][crate::client::ConfigServiceV2::list_views] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1724,7 +1724,7 @@ pub mod config_service_v_2 {
         }
     }
 
-    /// The request builder for [ConfigServiceV2::get_view][super::super::client::ConfigServiceV2::get_view] calls.
+    /// The request builder for [ConfigServiceV2::get_view][crate::client::ConfigServiceV2::get_view] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1787,7 +1787,7 @@ pub mod config_service_v_2 {
         }
     }
 
-    /// The request builder for [ConfigServiceV2::create_view][super::super::client::ConfigServiceV2::create_view] calls.
+    /// The request builder for [ConfigServiceV2::create_view][crate::client::ConfigServiceV2::create_view] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1880,7 +1880,7 @@ pub mod config_service_v_2 {
         }
     }
 
-    /// The request builder for [ConfigServiceV2::update_view][super::super::client::ConfigServiceV2::update_view] calls.
+    /// The request builder for [ConfigServiceV2::update_view][crate::client::ConfigServiceV2::update_view] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1983,7 +1983,7 @@ pub mod config_service_v_2 {
         }
     }
 
-    /// The request builder for [ConfigServiceV2::delete_view][super::super::client::ConfigServiceV2::delete_view] calls.
+    /// The request builder for [ConfigServiceV2::delete_view][crate::client::ConfigServiceV2::delete_view] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2046,7 +2046,7 @@ pub mod config_service_v_2 {
         }
     }
 
-    /// The request builder for [ConfigServiceV2::list_sinks][super::super::client::ConfigServiceV2::list_sinks] calls.
+    /// The request builder for [ConfigServiceV2::list_sinks][crate::client::ConfigServiceV2::list_sinks] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2149,7 +2149,7 @@ pub mod config_service_v_2 {
         }
     }
 
-    /// The request builder for [ConfigServiceV2::get_sink][super::super::client::ConfigServiceV2::get_sink] calls.
+    /// The request builder for [ConfigServiceV2::get_sink][crate::client::ConfigServiceV2::get_sink] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2212,7 +2212,7 @@ pub mod config_service_v_2 {
         }
     }
 
-    /// The request builder for [ConfigServiceV2::create_sink][super::super::client::ConfigServiceV2::create_sink] calls.
+    /// The request builder for [ConfigServiceV2::create_sink][crate::client::ConfigServiceV2::create_sink] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2303,7 +2303,7 @@ pub mod config_service_v_2 {
         }
     }
 
-    /// The request builder for [ConfigServiceV2::update_sink][super::super::client::ConfigServiceV2::update_sink] calls.
+    /// The request builder for [ConfigServiceV2::update_sink][crate::client::ConfigServiceV2::update_sink] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2412,7 +2412,7 @@ pub mod config_service_v_2 {
         }
     }
 
-    /// The request builder for [ConfigServiceV2::delete_sink][super::super::client::ConfigServiceV2::delete_sink] calls.
+    /// The request builder for [ConfigServiceV2::delete_sink][crate::client::ConfigServiceV2::delete_sink] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2475,7 +2475,7 @@ pub mod config_service_v_2 {
         }
     }
 
-    /// The request builder for [ConfigServiceV2::create_link][super::super::client::ConfigServiceV2::create_link] calls.
+    /// The request builder for [ConfigServiceV2::create_link][crate::client::ConfigServiceV2::create_link] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2520,7 +2520,7 @@ pub mod config_service_v_2 {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_link][super::super::client::ConfigServiceV2::create_link].
+        /// on [create_link][crate::client::ConfigServiceV2::create_link].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_link(self.0.request, self.0.options)
@@ -2605,7 +2605,7 @@ pub mod config_service_v_2 {
         }
     }
 
-    /// The request builder for [ConfigServiceV2::delete_link][super::super::client::ConfigServiceV2::delete_link] calls.
+    /// The request builder for [ConfigServiceV2::delete_link][crate::client::ConfigServiceV2::delete_link] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2650,7 +2650,7 @@ pub mod config_service_v_2 {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_link][super::super::client::ConfigServiceV2::delete_link].
+        /// on [delete_link][crate::client::ConfigServiceV2::delete_link].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_link(self.0.request, self.0.options)
@@ -2709,7 +2709,7 @@ pub mod config_service_v_2 {
         }
     }
 
-    /// The request builder for [ConfigServiceV2::list_links][super::super::client::ConfigServiceV2::list_links] calls.
+    /// The request builder for [ConfigServiceV2::list_links][crate::client::ConfigServiceV2::list_links] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2812,7 +2812,7 @@ pub mod config_service_v_2 {
         }
     }
 
-    /// The request builder for [ConfigServiceV2::get_link][super::super::client::ConfigServiceV2::get_link] calls.
+    /// The request builder for [ConfigServiceV2::get_link][crate::client::ConfigServiceV2::get_link] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2875,7 +2875,7 @@ pub mod config_service_v_2 {
         }
     }
 
-    /// The request builder for [ConfigServiceV2::list_exclusions][super::super::client::ConfigServiceV2::list_exclusions] calls.
+    /// The request builder for [ConfigServiceV2::list_exclusions][crate::client::ConfigServiceV2::list_exclusions] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2978,7 +2978,7 @@ pub mod config_service_v_2 {
         }
     }
 
-    /// The request builder for [ConfigServiceV2::get_exclusion][super::super::client::ConfigServiceV2::get_exclusion] calls.
+    /// The request builder for [ConfigServiceV2::get_exclusion][crate::client::ConfigServiceV2::get_exclusion] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3041,7 +3041,7 @@ pub mod config_service_v_2 {
         }
     }
 
-    /// The request builder for [ConfigServiceV2::create_exclusion][super::super::client::ConfigServiceV2::create_exclusion] calls.
+    /// The request builder for [ConfigServiceV2::create_exclusion][crate::client::ConfigServiceV2::create_exclusion] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3126,7 +3126,7 @@ pub mod config_service_v_2 {
         }
     }
 
-    /// The request builder for [ConfigServiceV2::update_exclusion][super::super::client::ConfigServiceV2::update_exclusion] calls.
+    /// The request builder for [ConfigServiceV2::update_exclusion][crate::client::ConfigServiceV2::update_exclusion] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3233,7 +3233,7 @@ pub mod config_service_v_2 {
         }
     }
 
-    /// The request builder for [ConfigServiceV2::delete_exclusion][super::super::client::ConfigServiceV2::delete_exclusion] calls.
+    /// The request builder for [ConfigServiceV2::delete_exclusion][crate::client::ConfigServiceV2::delete_exclusion] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3296,7 +3296,7 @@ pub mod config_service_v_2 {
         }
     }
 
-    /// The request builder for [ConfigServiceV2::get_cmek_settings][super::super::client::ConfigServiceV2::get_cmek_settings] calls.
+    /// The request builder for [ConfigServiceV2::get_cmek_settings][crate::client::ConfigServiceV2::get_cmek_settings] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3359,7 +3359,7 @@ pub mod config_service_v_2 {
         }
     }
 
-    /// The request builder for [ConfigServiceV2::update_cmek_settings][super::super::client::ConfigServiceV2::update_cmek_settings] calls.
+    /// The request builder for [ConfigServiceV2::update_cmek_settings][crate::client::ConfigServiceV2::update_cmek_settings] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3465,7 +3465,7 @@ pub mod config_service_v_2 {
         }
     }
 
-    /// The request builder for [ConfigServiceV2::get_settings][super::super::client::ConfigServiceV2::get_settings] calls.
+    /// The request builder for [ConfigServiceV2::get_settings][crate::client::ConfigServiceV2::get_settings] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3528,7 +3528,7 @@ pub mod config_service_v_2 {
         }
     }
 
-    /// The request builder for [ConfigServiceV2::update_settings][super::super::client::ConfigServiceV2::update_settings] calls.
+    /// The request builder for [ConfigServiceV2::update_settings][crate::client::ConfigServiceV2::update_settings] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3631,7 +3631,7 @@ pub mod config_service_v_2 {
         }
     }
 
-    /// The request builder for [ConfigServiceV2::copy_log_entries][super::super::client::ConfigServiceV2::copy_log_entries] calls.
+    /// The request builder for [ConfigServiceV2::copy_log_entries][crate::client::ConfigServiceV2::copy_log_entries] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3676,7 +3676,7 @@ pub mod config_service_v_2 {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [copy_log_entries][super::super::client::ConfigServiceV2::copy_log_entries].
+        /// on [copy_log_entries][crate::client::ConfigServiceV2::copy_log_entries].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .copy_log_entries(self.0.request, self.0.options)
@@ -3750,7 +3750,7 @@ pub mod config_service_v_2 {
         }
     }
 
-    /// The request builder for [ConfigServiceV2::list_operations][super::super::client::ConfigServiceV2::list_operations] calls.
+    /// The request builder for [ConfigServiceV2::list_operations][crate::client::ConfigServiceV2::list_operations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3862,7 +3862,7 @@ pub mod config_service_v_2 {
         }
     }
 
-    /// The request builder for [ConfigServiceV2::get_operation][super::super::client::ConfigServiceV2::get_operation] calls.
+    /// The request builder for [ConfigServiceV2::get_operation][crate::client::ConfigServiceV2::get_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3926,7 +3926,7 @@ pub mod config_service_v_2 {
         }
     }
 
-    /// The request builder for [ConfigServiceV2::cancel_operation][super::super::client::ConfigServiceV2::cancel_operation] calls.
+    /// The request builder for [ConfigServiceV2::cancel_operation][crate::client::ConfigServiceV2::cancel_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3994,7 +3994,7 @@ pub mod config_service_v_2 {
 pub mod metrics_service_v_2 {
     use crate::Result;
 
-    /// A builder for [MetricsServiceV2][super::super::client::MetricsServiceV2].
+    /// A builder for [MetricsServiceV2][crate::client::MetricsServiceV2].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -4022,7 +4022,7 @@ pub mod metrics_service_v_2 {
         }
     }
 
-    /// Common implementation for [super::super::client::MetricsServiceV2] request builders.
+    /// Common implementation for [crate::client::MetricsServiceV2] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::MetricsServiceV2>,
@@ -4045,7 +4045,7 @@ pub mod metrics_service_v_2 {
         }
     }
 
-    /// The request builder for [MetricsServiceV2::list_log_metrics][super::super::client::MetricsServiceV2::list_log_metrics] calls.
+    /// The request builder for [MetricsServiceV2::list_log_metrics][crate::client::MetricsServiceV2::list_log_metrics] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4148,7 +4148,7 @@ pub mod metrics_service_v_2 {
         }
     }
 
-    /// The request builder for [MetricsServiceV2::get_log_metric][super::super::client::MetricsServiceV2::get_log_metric] calls.
+    /// The request builder for [MetricsServiceV2::get_log_metric][crate::client::MetricsServiceV2::get_log_metric] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4211,7 +4211,7 @@ pub mod metrics_service_v_2 {
         }
     }
 
-    /// The request builder for [MetricsServiceV2::create_log_metric][super::super::client::MetricsServiceV2::create_log_metric] calls.
+    /// The request builder for [MetricsServiceV2::create_log_metric][crate::client::MetricsServiceV2::create_log_metric] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4296,7 +4296,7 @@ pub mod metrics_service_v_2 {
         }
     }
 
-    /// The request builder for [MetricsServiceV2::update_log_metric][super::super::client::MetricsServiceV2::update_log_metric] calls.
+    /// The request builder for [MetricsServiceV2::update_log_metric][crate::client::MetricsServiceV2::update_log_metric] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4381,7 +4381,7 @@ pub mod metrics_service_v_2 {
         }
     }
 
-    /// The request builder for [MetricsServiceV2::delete_log_metric][super::super::client::MetricsServiceV2::delete_log_metric] calls.
+    /// The request builder for [MetricsServiceV2::delete_log_metric][crate::client::MetricsServiceV2::delete_log_metric] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4444,7 +4444,7 @@ pub mod metrics_service_v_2 {
         }
     }
 
-    /// The request builder for [MetricsServiceV2::list_operations][super::super::client::MetricsServiceV2::list_operations] calls.
+    /// The request builder for [MetricsServiceV2::list_operations][crate::client::MetricsServiceV2::list_operations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4556,7 +4556,7 @@ pub mod metrics_service_v_2 {
         }
     }
 
-    /// The request builder for [MetricsServiceV2::get_operation][super::super::client::MetricsServiceV2::get_operation] calls.
+    /// The request builder for [MetricsServiceV2::get_operation][crate::client::MetricsServiceV2::get_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4620,7 +4620,7 @@ pub mod metrics_service_v_2 {
         }
     }
 
-    /// The request builder for [MetricsServiceV2::cancel_operation][super::super::client::MetricsServiceV2::cancel_operation] calls.
+    /// The request builder for [MetricsServiceV2::cancel_operation][crate::client::MetricsServiceV2::cancel_operation] calls.
     ///
     /// # Example
     /// ```no_run

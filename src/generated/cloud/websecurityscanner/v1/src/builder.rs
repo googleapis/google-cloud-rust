@@ -17,7 +17,7 @@
 pub mod web_security_scanner {
     use crate::Result;
 
-    /// A builder for [WebSecurityScanner][super::super::client::WebSecurityScanner].
+    /// A builder for [WebSecurityScanner][crate::client::WebSecurityScanner].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -45,7 +45,7 @@ pub mod web_security_scanner {
         }
     }
 
-    /// Common implementation for [super::super::client::WebSecurityScanner] request builders.
+    /// Common implementation for [crate::client::WebSecurityScanner] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::WebSecurityScanner>,
@@ -68,7 +68,7 @@ pub mod web_security_scanner {
         }
     }
 
-    /// The request builder for [WebSecurityScanner::create_scan_config][super::super::client::WebSecurityScanner::create_scan_config] calls.
+    /// The request builder for [WebSecurityScanner::create_scan_config][crate::client::WebSecurityScanner::create_scan_config] calls.
     ///
     /// # Example
     /// ```no_run
@@ -150,7 +150,7 @@ pub mod web_security_scanner {
         }
     }
 
-    /// The request builder for [WebSecurityScanner::delete_scan_config][super::super::client::WebSecurityScanner::delete_scan_config] calls.
+    /// The request builder for [WebSecurityScanner::delete_scan_config][crate::client::WebSecurityScanner::delete_scan_config] calls.
     ///
     /// # Example
     /// ```no_run
@@ -214,7 +214,7 @@ pub mod web_security_scanner {
         }
     }
 
-    /// The request builder for [WebSecurityScanner::get_scan_config][super::super::client::WebSecurityScanner::get_scan_config] calls.
+    /// The request builder for [WebSecurityScanner::get_scan_config][crate::client::WebSecurityScanner::get_scan_config] calls.
     ///
     /// # Example
     /// ```no_run
@@ -275,7 +275,7 @@ pub mod web_security_scanner {
         }
     }
 
-    /// The request builder for [WebSecurityScanner::list_scan_configs][super::super::client::WebSecurityScanner::list_scan_configs] calls.
+    /// The request builder for [WebSecurityScanner::list_scan_configs][crate::client::WebSecurityScanner::list_scan_configs] calls.
     ///
     /// # Example
     /// ```no_run
@@ -376,7 +376,7 @@ pub mod web_security_scanner {
         }
     }
 
-    /// The request builder for [WebSecurityScanner::update_scan_config][super::super::client::WebSecurityScanner::update_scan_config] calls.
+    /// The request builder for [WebSecurityScanner::update_scan_config][crate::client::WebSecurityScanner::update_scan_config] calls.
     ///
     /// # Example
     /// ```no_run
@@ -470,7 +470,7 @@ pub mod web_security_scanner {
         }
     }
 
-    /// The request builder for [WebSecurityScanner::start_scan_run][super::super::client::WebSecurityScanner::start_scan_run] calls.
+    /// The request builder for [WebSecurityScanner::start_scan_run][crate::client::WebSecurityScanner::start_scan_run] calls.
     ///
     /// # Example
     /// ```no_run
@@ -531,7 +531,7 @@ pub mod web_security_scanner {
         }
     }
 
-    /// The request builder for [WebSecurityScanner::get_scan_run][super::super::client::WebSecurityScanner::get_scan_run] calls.
+    /// The request builder for [WebSecurityScanner::get_scan_run][crate::client::WebSecurityScanner::get_scan_run] calls.
     ///
     /// # Example
     /// ```no_run
@@ -592,7 +592,7 @@ pub mod web_security_scanner {
         }
     }
 
-    /// The request builder for [WebSecurityScanner::list_scan_runs][super::super::client::WebSecurityScanner::list_scan_runs] calls.
+    /// The request builder for [WebSecurityScanner::list_scan_runs][crate::client::WebSecurityScanner::list_scan_runs] calls.
     ///
     /// # Example
     /// ```no_run
@@ -693,7 +693,7 @@ pub mod web_security_scanner {
         }
     }
 
-    /// The request builder for [WebSecurityScanner::stop_scan_run][super::super::client::WebSecurityScanner::stop_scan_run] calls.
+    /// The request builder for [WebSecurityScanner::stop_scan_run][crate::client::WebSecurityScanner::stop_scan_run] calls.
     ///
     /// # Example
     /// ```no_run
@@ -754,7 +754,7 @@ pub mod web_security_scanner {
         }
     }
 
-    /// The request builder for [WebSecurityScanner::list_crawled_urls][super::super::client::WebSecurityScanner::list_crawled_urls] calls.
+    /// The request builder for [WebSecurityScanner::list_crawled_urls][crate::client::WebSecurityScanner::list_crawled_urls] calls.
     ///
     /// # Example
     /// ```no_run
@@ -855,7 +855,7 @@ pub mod web_security_scanner {
         }
     }
 
-    /// The request builder for [WebSecurityScanner::get_finding][super::super::client::WebSecurityScanner::get_finding] calls.
+    /// The request builder for [WebSecurityScanner::get_finding][crate::client::WebSecurityScanner::get_finding] calls.
     ///
     /// # Example
     /// ```no_run
@@ -916,7 +916,7 @@ pub mod web_security_scanner {
         }
     }
 
-    /// The request builder for [WebSecurityScanner::list_findings][super::super::client::WebSecurityScanner::list_findings] calls.
+    /// The request builder for [WebSecurityScanner::list_findings][crate::client::WebSecurityScanner::list_findings] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1023,7 +1023,7 @@ pub mod web_security_scanner {
         }
     }
 
-    /// The request builder for [WebSecurityScanner::list_finding_type_stats][super::super::client::WebSecurityScanner::list_finding_type_stats] calls.
+    /// The request builder for [WebSecurityScanner::list_finding_type_stats][crate::client::WebSecurityScanner::list_finding_type_stats] calls.
     ///
     /// # Example
     /// ```no_run

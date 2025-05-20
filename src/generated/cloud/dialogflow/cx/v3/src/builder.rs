@@ -17,7 +17,7 @@
 pub mod agents {
     use crate::Result;
 
-    /// A builder for [Agents][super::super::client::Agents].
+    /// A builder for [Agents][crate::client::Agents].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -45,7 +45,7 @@ pub mod agents {
         }
     }
 
-    /// Common implementation for [super::super::client::Agents] request builders.
+    /// Common implementation for [crate::client::Agents] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::Agents>,
@@ -66,7 +66,7 @@ pub mod agents {
         }
     }
 
-    /// The request builder for [Agents::list_agents][super::super::client::Agents::list_agents] calls.
+    /// The request builder for [Agents::list_agents][crate::client::Agents::list_agents] calls.
     ///
     /// # Example
     /// ```no_run
@@ -167,7 +167,7 @@ pub mod agents {
         }
     }
 
-    /// The request builder for [Agents::get_agent][super::super::client::Agents::get_agent] calls.
+    /// The request builder for [Agents::get_agent][crate::client::Agents::get_agent] calls.
     ///
     /// # Example
     /// ```no_run
@@ -228,7 +228,7 @@ pub mod agents {
         }
     }
 
-    /// The request builder for [Agents::create_agent][super::super::client::Agents::create_agent] calls.
+    /// The request builder for [Agents::create_agent][crate::client::Agents::create_agent] calls.
     ///
     /// # Example
     /// ```no_run
@@ -311,7 +311,7 @@ pub mod agents {
         }
     }
 
-    /// The request builder for [Agents::update_agent][super::super::client::Agents::update_agent] calls.
+    /// The request builder for [Agents::update_agent][crate::client::Agents::update_agent] calls.
     ///
     /// # Example
     /// ```no_run
@@ -404,7 +404,7 @@ pub mod agents {
         }
     }
 
-    /// The request builder for [Agents::delete_agent][super::super::client::Agents::delete_agent] calls.
+    /// The request builder for [Agents::delete_agent][crate::client::Agents::delete_agent] calls.
     ///
     /// # Example
     /// ```no_run
@@ -465,7 +465,7 @@ pub mod agents {
         }
     }
 
-    /// The request builder for [Agents::export_agent][super::super::client::Agents::export_agent] calls.
+    /// The request builder for [Agents::export_agent][crate::client::Agents::export_agent] calls.
     ///
     /// # Example
     /// ```no_run
@@ -508,7 +508,7 @@ pub mod agents {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [export_agent][super::super::client::Agents::export_agent].
+        /// on [export_agent][crate::client::Agents::export_agent].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .export_agent(self.0.request, self.0.options)
@@ -608,7 +608,7 @@ pub mod agents {
         }
     }
 
-    /// The request builder for [Agents::restore_agent][super::super::client::Agents::restore_agent] calls.
+    /// The request builder for [Agents::restore_agent][crate::client::Agents::restore_agent] calls.
     ///
     /// # Example
     /// ```no_run
@@ -651,7 +651,7 @@ pub mod agents {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [restore_agent][super::super::client::Agents::restore_agent].
+        /// on [restore_agent][crate::client::Agents::restore_agent].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .restore_agent(self.0.request, self.0.options)
@@ -766,7 +766,7 @@ pub mod agents {
         }
     }
 
-    /// The request builder for [Agents::validate_agent][super::super::client::Agents::validate_agent] calls.
+    /// The request builder for [Agents::validate_agent][crate::client::Agents::validate_agent] calls.
     ///
     /// # Example
     /// ```no_run
@@ -833,7 +833,7 @@ pub mod agents {
         }
     }
 
-    /// The request builder for [Agents::get_agent_validation_result][super::super::client::Agents::get_agent_validation_result] calls.
+    /// The request builder for [Agents::get_agent_validation_result][crate::client::Agents::get_agent_validation_result] calls.
     ///
     /// # Example
     /// ```no_run
@@ -905,7 +905,7 @@ pub mod agents {
         }
     }
 
-    /// The request builder for [Agents::get_generative_settings][super::super::client::Agents::get_generative_settings] calls.
+    /// The request builder for [Agents::get_generative_settings][crate::client::Agents::get_generative_settings] calls.
     ///
     /// # Example
     /// ```no_run
@@ -977,7 +977,7 @@ pub mod agents {
         }
     }
 
-    /// The request builder for [Agents::update_generative_settings][super::super::client::Agents::update_generative_settings] calls.
+    /// The request builder for [Agents::update_generative_settings][crate::client::Agents::update_generative_settings] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1075,7 +1075,7 @@ pub mod agents {
         }
     }
 
-    /// The request builder for [Agents::list_locations][super::super::client::Agents::list_locations] calls.
+    /// The request builder for [Agents::list_locations][crate::client::Agents::list_locations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1183,7 +1183,7 @@ pub mod agents {
         }
     }
 
-    /// The request builder for [Agents::get_location][super::super::client::Agents::get_location] calls.
+    /// The request builder for [Agents::get_location][crate::client::Agents::get_location] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1242,7 +1242,7 @@ pub mod agents {
         }
     }
 
-    /// The request builder for [Agents::list_operations][super::super::client::Agents::list_operations] calls.
+    /// The request builder for [Agents::list_operations][crate::client::Agents::list_operations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1352,7 +1352,7 @@ pub mod agents {
         }
     }
 
-    /// The request builder for [Agents::get_operation][super::super::client::Agents::get_operation] calls.
+    /// The request builder for [Agents::get_operation][crate::client::Agents::get_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1414,7 +1414,7 @@ pub mod agents {
         }
     }
 
-    /// The request builder for [Agents::cancel_operation][super::super::client::Agents::cancel_operation] calls.
+    /// The request builder for [Agents::cancel_operation][crate::client::Agents::cancel_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1480,7 +1480,7 @@ pub mod agents {
 pub mod changelogs {
     use crate::Result;
 
-    /// A builder for [Changelogs][super::super::client::Changelogs].
+    /// A builder for [Changelogs][crate::client::Changelogs].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -1508,7 +1508,7 @@ pub mod changelogs {
         }
     }
 
-    /// Common implementation for [super::super::client::Changelogs] request builders.
+    /// Common implementation for [crate::client::Changelogs] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::Changelogs>,
@@ -1531,7 +1531,7 @@ pub mod changelogs {
         }
     }
 
-    /// The request builder for [Changelogs::list_changelogs][super::super::client::Changelogs::list_changelogs] calls.
+    /// The request builder for [Changelogs::list_changelogs][crate::client::Changelogs::list_changelogs] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1640,7 +1640,7 @@ pub mod changelogs {
         }
     }
 
-    /// The request builder for [Changelogs::get_changelog][super::super::client::Changelogs::get_changelog] calls.
+    /// The request builder for [Changelogs::get_changelog][crate::client::Changelogs::get_changelog] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1703,7 +1703,7 @@ pub mod changelogs {
         }
     }
 
-    /// The request builder for [Changelogs::list_locations][super::super::client::Changelogs::list_locations] calls.
+    /// The request builder for [Changelogs::list_locations][crate::client::Changelogs::list_locations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1813,7 +1813,7 @@ pub mod changelogs {
         }
     }
 
-    /// The request builder for [Changelogs::get_location][super::super::client::Changelogs::get_location] calls.
+    /// The request builder for [Changelogs::get_location][crate::client::Changelogs::get_location] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1874,7 +1874,7 @@ pub mod changelogs {
         }
     }
 
-    /// The request builder for [Changelogs::list_operations][super::super::client::Changelogs::list_operations] calls.
+    /// The request builder for [Changelogs::list_operations][crate::client::Changelogs::list_operations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1986,7 +1986,7 @@ pub mod changelogs {
         }
     }
 
-    /// The request builder for [Changelogs::get_operation][super::super::client::Changelogs::get_operation] calls.
+    /// The request builder for [Changelogs::get_operation][crate::client::Changelogs::get_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2050,7 +2050,7 @@ pub mod changelogs {
         }
     }
 
-    /// The request builder for [Changelogs::cancel_operation][super::super::client::Changelogs::cancel_operation] calls.
+    /// The request builder for [Changelogs::cancel_operation][crate::client::Changelogs::cancel_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2118,7 +2118,7 @@ pub mod changelogs {
 pub mod deployments {
     use crate::Result;
 
-    /// A builder for [Deployments][super::super::client::Deployments].
+    /// A builder for [Deployments][crate::client::Deployments].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -2146,7 +2146,7 @@ pub mod deployments {
         }
     }
 
-    /// Common implementation for [super::super::client::Deployments] request builders.
+    /// Common implementation for [crate::client::Deployments] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::Deployments>,
@@ -2169,7 +2169,7 @@ pub mod deployments {
         }
     }
 
-    /// The request builder for [Deployments::list_deployments][super::super::client::Deployments::list_deployments] calls.
+    /// The request builder for [Deployments::list_deployments][crate::client::Deployments::list_deployments] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2272,7 +2272,7 @@ pub mod deployments {
         }
     }
 
-    /// The request builder for [Deployments::get_deployment][super::super::client::Deployments::get_deployment] calls.
+    /// The request builder for [Deployments::get_deployment][crate::client::Deployments::get_deployment] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2335,7 +2335,7 @@ pub mod deployments {
         }
     }
 
-    /// The request builder for [Deployments::list_locations][super::super::client::Deployments::list_locations] calls.
+    /// The request builder for [Deployments::list_locations][crate::client::Deployments::list_locations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2445,7 +2445,7 @@ pub mod deployments {
         }
     }
 
-    /// The request builder for [Deployments::get_location][super::super::client::Deployments::get_location] calls.
+    /// The request builder for [Deployments::get_location][crate::client::Deployments::get_location] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2506,7 +2506,7 @@ pub mod deployments {
         }
     }
 
-    /// The request builder for [Deployments::list_operations][super::super::client::Deployments::list_operations] calls.
+    /// The request builder for [Deployments::list_operations][crate::client::Deployments::list_operations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2618,7 +2618,7 @@ pub mod deployments {
         }
     }
 
-    /// The request builder for [Deployments::get_operation][super::super::client::Deployments::get_operation] calls.
+    /// The request builder for [Deployments::get_operation][crate::client::Deployments::get_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2682,7 +2682,7 @@ pub mod deployments {
         }
     }
 
-    /// The request builder for [Deployments::cancel_operation][super::super::client::Deployments::cancel_operation] calls.
+    /// The request builder for [Deployments::cancel_operation][crate::client::Deployments::cancel_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2750,7 +2750,7 @@ pub mod deployments {
 pub mod entity_types {
     use crate::Result;
 
-    /// A builder for [EntityTypes][super::super::client::EntityTypes].
+    /// A builder for [EntityTypes][crate::client::EntityTypes].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -2778,7 +2778,7 @@ pub mod entity_types {
         }
     }
 
-    /// Common implementation for [super::super::client::EntityTypes] request builders.
+    /// Common implementation for [crate::client::EntityTypes] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::EntityTypes>,
@@ -2801,7 +2801,7 @@ pub mod entity_types {
         }
     }
 
-    /// The request builder for [EntityTypes::get_entity_type][super::super::client::EntityTypes::get_entity_type] calls.
+    /// The request builder for [EntityTypes::get_entity_type][crate::client::EntityTypes::get_entity_type] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2870,7 +2870,7 @@ pub mod entity_types {
         }
     }
 
-    /// The request builder for [EntityTypes::create_entity_type][super::super::client::EntityTypes::create_entity_type] calls.
+    /// The request builder for [EntityTypes::create_entity_type][crate::client::EntityTypes::create_entity_type] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2964,7 +2964,7 @@ pub mod entity_types {
         }
     }
 
-    /// The request builder for [EntityTypes::update_entity_type][super::super::client::EntityTypes::update_entity_type] calls.
+    /// The request builder for [EntityTypes::update_entity_type][crate::client::EntityTypes::update_entity_type] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3068,7 +3068,7 @@ pub mod entity_types {
         }
     }
 
-    /// The request builder for [EntityTypes::delete_entity_type][super::super::client::EntityTypes::delete_entity_type] calls.
+    /// The request builder for [EntityTypes::delete_entity_type][crate::client::EntityTypes::delete_entity_type] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3140,7 +3140,7 @@ pub mod entity_types {
         }
     }
 
-    /// The request builder for [EntityTypes::list_entity_types][super::super::client::EntityTypes::list_entity_types] calls.
+    /// The request builder for [EntityTypes::list_entity_types][crate::client::EntityTypes::list_entity_types] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3249,7 +3249,7 @@ pub mod entity_types {
         }
     }
 
-    /// The request builder for [EntityTypes::export_entity_types][super::super::client::EntityTypes::export_entity_types] calls.
+    /// The request builder for [EntityTypes::export_entity_types][crate::client::EntityTypes::export_entity_types] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3297,7 +3297,7 @@ pub mod entity_types {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [export_entity_types][super::super::client::EntityTypes::export_entity_types].
+        /// on [export_entity_types][crate::client::EntityTypes::export_entity_types].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .export_entity_types(self.0.request, self.0.options)
@@ -3427,7 +3427,7 @@ pub mod entity_types {
         }
     }
 
-    /// The request builder for [EntityTypes::import_entity_types][super::super::client::EntityTypes::import_entity_types] calls.
+    /// The request builder for [EntityTypes::import_entity_types][crate::client::EntityTypes::import_entity_types] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3475,7 +3475,7 @@ pub mod entity_types {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [import_entity_types][super::super::client::EntityTypes::import_entity_types].
+        /// on [import_entity_types][crate::client::EntityTypes::import_entity_types].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .import_entity_types(self.0.request, self.0.options)
@@ -3596,7 +3596,7 @@ pub mod entity_types {
         }
     }
 
-    /// The request builder for [EntityTypes::list_locations][super::super::client::EntityTypes::list_locations] calls.
+    /// The request builder for [EntityTypes::list_locations][crate::client::EntityTypes::list_locations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3706,7 +3706,7 @@ pub mod entity_types {
         }
     }
 
-    /// The request builder for [EntityTypes::get_location][super::super::client::EntityTypes::get_location] calls.
+    /// The request builder for [EntityTypes::get_location][crate::client::EntityTypes::get_location] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3767,7 +3767,7 @@ pub mod entity_types {
         }
     }
 
-    /// The request builder for [EntityTypes::list_operations][super::super::client::EntityTypes::list_operations] calls.
+    /// The request builder for [EntityTypes::list_operations][crate::client::EntityTypes::list_operations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3879,7 +3879,7 @@ pub mod entity_types {
         }
     }
 
-    /// The request builder for [EntityTypes::get_operation][super::super::client::EntityTypes::get_operation] calls.
+    /// The request builder for [EntityTypes::get_operation][crate::client::EntityTypes::get_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3943,7 +3943,7 @@ pub mod entity_types {
         }
     }
 
-    /// The request builder for [EntityTypes::cancel_operation][super::super::client::EntityTypes::cancel_operation] calls.
+    /// The request builder for [EntityTypes::cancel_operation][crate::client::EntityTypes::cancel_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4011,7 +4011,7 @@ pub mod entity_types {
 pub mod environments {
     use crate::Result;
 
-    /// A builder for [Environments][super::super::client::Environments].
+    /// A builder for [Environments][crate::client::Environments].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -4039,7 +4039,7 @@ pub mod environments {
         }
     }
 
-    /// Common implementation for [super::super::client::Environments] request builders.
+    /// Common implementation for [crate::client::Environments] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::Environments>,
@@ -4062,7 +4062,7 @@ pub mod environments {
         }
     }
 
-    /// The request builder for [Environments::list_environments][super::super::client::Environments::list_environments] calls.
+    /// The request builder for [Environments::list_environments][crate::client::Environments::list_environments] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4168,7 +4168,7 @@ pub mod environments {
         }
     }
 
-    /// The request builder for [Environments::get_environment][super::super::client::Environments::get_environment] calls.
+    /// The request builder for [Environments::get_environment][crate::client::Environments::get_environment] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4231,7 +4231,7 @@ pub mod environments {
         }
     }
 
-    /// The request builder for [Environments::create_environment][super::super::client::Environments::create_environment] calls.
+    /// The request builder for [Environments::create_environment][crate::client::Environments::create_environment] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4279,7 +4279,7 @@ pub mod environments {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_environment][super::super::client::Environments::create_environment].
+        /// on [create_environment][crate::client::Environments::create_environment].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_environment(self.0.request, self.0.options)
@@ -4355,7 +4355,7 @@ pub mod environments {
         }
     }
 
-    /// The request builder for [Environments::update_environment][super::super::client::Environments::update_environment] calls.
+    /// The request builder for [Environments::update_environment][crate::client::Environments::update_environment] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4403,7 +4403,7 @@ pub mod environments {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_environment][super::super::client::Environments::update_environment].
+        /// on [update_environment][crate::client::Environments::update_environment].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_environment(self.0.request, self.0.options)
@@ -4493,7 +4493,7 @@ pub mod environments {
         }
     }
 
-    /// The request builder for [Environments::delete_environment][super::super::client::Environments::delete_environment] calls.
+    /// The request builder for [Environments::delete_environment][crate::client::Environments::delete_environment] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4559,7 +4559,7 @@ pub mod environments {
         }
     }
 
-    /// The request builder for [Environments::lookup_environment_history][super::super::client::Environments::lookup_environment_history] calls.
+    /// The request builder for [Environments::lookup_environment_history][crate::client::Environments::lookup_environment_history] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4671,7 +4671,7 @@ pub mod environments {
         }
     }
 
-    /// The request builder for [Environments::run_continuous_test][super::super::client::Environments::run_continuous_test] calls.
+    /// The request builder for [Environments::run_continuous_test][crate::client::Environments::run_continuous_test] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4719,7 +4719,7 @@ pub mod environments {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [run_continuous_test][super::super::client::Environments::run_continuous_test].
+        /// on [run_continuous_test][crate::client::Environments::run_continuous_test].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .run_continuous_test(self.0.request, self.0.options)
@@ -4781,7 +4781,7 @@ pub mod environments {
         }
     }
 
-    /// The request builder for [Environments::list_continuous_test_results][super::super::client::Environments::list_continuous_test_results] calls.
+    /// The request builder for [Environments::list_continuous_test_results][crate::client::Environments::list_continuous_test_results] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4893,7 +4893,7 @@ pub mod environments {
         }
     }
 
-    /// The request builder for [Environments::deploy_flow][super::super::client::Environments::deploy_flow] calls.
+    /// The request builder for [Environments::deploy_flow][crate::client::Environments::deploy_flow] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4938,7 +4938,7 @@ pub mod environments {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [deploy_flow][super::super::client::Environments::deploy_flow].
+        /// on [deploy_flow][crate::client::Environments::deploy_flow].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .deploy_flow(self.0.request, self.0.options)
@@ -5006,7 +5006,7 @@ pub mod environments {
         }
     }
 
-    /// The request builder for [Environments::list_locations][super::super::client::Environments::list_locations] calls.
+    /// The request builder for [Environments::list_locations][crate::client::Environments::list_locations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -5116,7 +5116,7 @@ pub mod environments {
         }
     }
 
-    /// The request builder for [Environments::get_location][super::super::client::Environments::get_location] calls.
+    /// The request builder for [Environments::get_location][crate::client::Environments::get_location] calls.
     ///
     /// # Example
     /// ```no_run
@@ -5177,7 +5177,7 @@ pub mod environments {
         }
     }
 
-    /// The request builder for [Environments::list_operations][super::super::client::Environments::list_operations] calls.
+    /// The request builder for [Environments::list_operations][crate::client::Environments::list_operations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -5289,7 +5289,7 @@ pub mod environments {
         }
     }
 
-    /// The request builder for [Environments::get_operation][super::super::client::Environments::get_operation] calls.
+    /// The request builder for [Environments::get_operation][crate::client::Environments::get_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -5353,7 +5353,7 @@ pub mod environments {
         }
     }
 
-    /// The request builder for [Environments::cancel_operation][super::super::client::Environments::cancel_operation] calls.
+    /// The request builder for [Environments::cancel_operation][crate::client::Environments::cancel_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -5421,7 +5421,7 @@ pub mod environments {
 pub mod experiments {
     use crate::Result;
 
-    /// A builder for [Experiments][super::super::client::Experiments].
+    /// A builder for [Experiments][crate::client::Experiments].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -5449,7 +5449,7 @@ pub mod experiments {
         }
     }
 
-    /// Common implementation for [super::super::client::Experiments] request builders.
+    /// Common implementation for [crate::client::Experiments] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::Experiments>,
@@ -5472,7 +5472,7 @@ pub mod experiments {
         }
     }
 
-    /// The request builder for [Experiments::list_experiments][super::super::client::Experiments::list_experiments] calls.
+    /// The request builder for [Experiments::list_experiments][crate::client::Experiments::list_experiments] calls.
     ///
     /// # Example
     /// ```no_run
@@ -5575,7 +5575,7 @@ pub mod experiments {
         }
     }
 
-    /// The request builder for [Experiments::get_experiment][super::super::client::Experiments::get_experiment] calls.
+    /// The request builder for [Experiments::get_experiment][crate::client::Experiments::get_experiment] calls.
     ///
     /// # Example
     /// ```no_run
@@ -5638,7 +5638,7 @@ pub mod experiments {
         }
     }
 
-    /// The request builder for [Experiments::create_experiment][super::super::client::Experiments::create_experiment] calls.
+    /// The request builder for [Experiments::create_experiment][crate::client::Experiments::create_experiment] calls.
     ///
     /// # Example
     /// ```no_run
@@ -5726,7 +5726,7 @@ pub mod experiments {
         }
     }
 
-    /// The request builder for [Experiments::update_experiment][super::super::client::Experiments::update_experiment] calls.
+    /// The request builder for [Experiments::update_experiment][crate::client::Experiments::update_experiment] calls.
     ///
     /// # Example
     /// ```no_run
@@ -5828,7 +5828,7 @@ pub mod experiments {
         }
     }
 
-    /// The request builder for [Experiments::delete_experiment][super::super::client::Experiments::delete_experiment] calls.
+    /// The request builder for [Experiments::delete_experiment][crate::client::Experiments::delete_experiment] calls.
     ///
     /// # Example
     /// ```no_run
@@ -5894,7 +5894,7 @@ pub mod experiments {
         }
     }
 
-    /// The request builder for [Experiments::start_experiment][super::super::client::Experiments::start_experiment] calls.
+    /// The request builder for [Experiments::start_experiment][crate::client::Experiments::start_experiment] calls.
     ///
     /// # Example
     /// ```no_run
@@ -5957,7 +5957,7 @@ pub mod experiments {
         }
     }
 
-    /// The request builder for [Experiments::stop_experiment][super::super::client::Experiments::stop_experiment] calls.
+    /// The request builder for [Experiments::stop_experiment][crate::client::Experiments::stop_experiment] calls.
     ///
     /// # Example
     /// ```no_run
@@ -6020,7 +6020,7 @@ pub mod experiments {
         }
     }
 
-    /// The request builder for [Experiments::list_locations][super::super::client::Experiments::list_locations] calls.
+    /// The request builder for [Experiments::list_locations][crate::client::Experiments::list_locations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -6130,7 +6130,7 @@ pub mod experiments {
         }
     }
 
-    /// The request builder for [Experiments::get_location][super::super::client::Experiments::get_location] calls.
+    /// The request builder for [Experiments::get_location][crate::client::Experiments::get_location] calls.
     ///
     /// # Example
     /// ```no_run
@@ -6191,7 +6191,7 @@ pub mod experiments {
         }
     }
 
-    /// The request builder for [Experiments::list_operations][super::super::client::Experiments::list_operations] calls.
+    /// The request builder for [Experiments::list_operations][crate::client::Experiments::list_operations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -6303,7 +6303,7 @@ pub mod experiments {
         }
     }
 
-    /// The request builder for [Experiments::get_operation][super::super::client::Experiments::get_operation] calls.
+    /// The request builder for [Experiments::get_operation][crate::client::Experiments::get_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -6367,7 +6367,7 @@ pub mod experiments {
         }
     }
 
-    /// The request builder for [Experiments::cancel_operation][super::super::client::Experiments::cancel_operation] calls.
+    /// The request builder for [Experiments::cancel_operation][crate::client::Experiments::cancel_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -6435,7 +6435,7 @@ pub mod experiments {
 pub mod flows {
     use crate::Result;
 
-    /// A builder for [Flows][super::super::client::Flows].
+    /// A builder for [Flows][crate::client::Flows].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -6463,7 +6463,7 @@ pub mod flows {
         }
     }
 
-    /// Common implementation for [super::super::client::Flows] request builders.
+    /// Common implementation for [crate::client::Flows] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::Flows>,
@@ -6484,7 +6484,7 @@ pub mod flows {
         }
     }
 
-    /// The request builder for [Flows::create_flow][super::super::client::Flows::create_flow] calls.
+    /// The request builder for [Flows::create_flow][crate::client::Flows::create_flow] calls.
     ///
     /// # Example
     /// ```no_run
@@ -6573,7 +6573,7 @@ pub mod flows {
         }
     }
 
-    /// The request builder for [Flows::delete_flow][super::super::client::Flows::delete_flow] calls.
+    /// The request builder for [Flows::delete_flow][crate::client::Flows::delete_flow] calls.
     ///
     /// # Example
     /// ```no_run
@@ -6640,7 +6640,7 @@ pub mod flows {
         }
     }
 
-    /// The request builder for [Flows::list_flows][super::super::client::Flows::list_flows] calls.
+    /// The request builder for [Flows::list_flows][crate::client::Flows::list_flows] calls.
     ///
     /// # Example
     /// ```no_run
@@ -6747,7 +6747,7 @@ pub mod flows {
         }
     }
 
-    /// The request builder for [Flows::get_flow][super::super::client::Flows::get_flow] calls.
+    /// The request builder for [Flows::get_flow][crate::client::Flows::get_flow] calls.
     ///
     /// # Example
     /// ```no_run
@@ -6814,7 +6814,7 @@ pub mod flows {
         }
     }
 
-    /// The request builder for [Flows::update_flow][super::super::client::Flows::update_flow] calls.
+    /// The request builder for [Flows::update_flow][crate::client::Flows::update_flow] calls.
     ///
     /// # Example
     /// ```no_run
@@ -6913,7 +6913,7 @@ pub mod flows {
         }
     }
 
-    /// The request builder for [Flows::train_flow][super::super::client::Flows::train_flow] calls.
+    /// The request builder for [Flows::train_flow][crate::client::Flows::train_flow] calls.
     ///
     /// # Example
     /// ```no_run
@@ -6956,7 +6956,7 @@ pub mod flows {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [train_flow][super::super::client::Flows::train_flow].
+        /// on [train_flow][crate::client::Flows::train_flow].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .train_flow(self.0.request, self.0.options)
@@ -7015,7 +7015,7 @@ pub mod flows {
         }
     }
 
-    /// The request builder for [Flows::validate_flow][super::super::client::Flows::validate_flow] calls.
+    /// The request builder for [Flows::validate_flow][crate::client::Flows::validate_flow] calls.
     ///
     /// # Example
     /// ```no_run
@@ -7082,7 +7082,7 @@ pub mod flows {
         }
     }
 
-    /// The request builder for [Flows::get_flow_validation_result][super::super::client::Flows::get_flow_validation_result] calls.
+    /// The request builder for [Flows::get_flow_validation_result][crate::client::Flows::get_flow_validation_result] calls.
     ///
     /// # Example
     /// ```no_run
@@ -7154,7 +7154,7 @@ pub mod flows {
         }
     }
 
-    /// The request builder for [Flows::import_flow][super::super::client::Flows::import_flow] calls.
+    /// The request builder for [Flows::import_flow][crate::client::Flows::import_flow] calls.
     ///
     /// # Example
     /// ```no_run
@@ -7197,7 +7197,7 @@ pub mod flows {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [import_flow][super::super::client::Flows::import_flow].
+        /// on [import_flow][crate::client::Flows::import_flow].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .import_flow(self.0.request, self.0.options)
@@ -7311,7 +7311,7 @@ pub mod flows {
         }
     }
 
-    /// The request builder for [Flows::export_flow][super::super::client::Flows::export_flow] calls.
+    /// The request builder for [Flows::export_flow][crate::client::Flows::export_flow] calls.
     ///
     /// # Example
     /// ```no_run
@@ -7354,7 +7354,7 @@ pub mod flows {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [export_flow][super::super::client::Flows::export_flow].
+        /// on [export_flow][crate::client::Flows::export_flow].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .export_flow(self.0.request, self.0.options)
@@ -7421,7 +7421,7 @@ pub mod flows {
         }
     }
 
-    /// The request builder for [Flows::list_locations][super::super::client::Flows::list_locations] calls.
+    /// The request builder for [Flows::list_locations][crate::client::Flows::list_locations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -7529,7 +7529,7 @@ pub mod flows {
         }
     }
 
-    /// The request builder for [Flows::get_location][super::super::client::Flows::get_location] calls.
+    /// The request builder for [Flows::get_location][crate::client::Flows::get_location] calls.
     ///
     /// # Example
     /// ```no_run
@@ -7588,7 +7588,7 @@ pub mod flows {
         }
     }
 
-    /// The request builder for [Flows::list_operations][super::super::client::Flows::list_operations] calls.
+    /// The request builder for [Flows::list_operations][crate::client::Flows::list_operations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -7698,7 +7698,7 @@ pub mod flows {
         }
     }
 
-    /// The request builder for [Flows::get_operation][super::super::client::Flows::get_operation] calls.
+    /// The request builder for [Flows::get_operation][crate::client::Flows::get_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -7760,7 +7760,7 @@ pub mod flows {
         }
     }
 
-    /// The request builder for [Flows::cancel_operation][super::super::client::Flows::cancel_operation] calls.
+    /// The request builder for [Flows::cancel_operation][crate::client::Flows::cancel_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -7826,7 +7826,7 @@ pub mod flows {
 pub mod generators {
     use crate::Result;
 
-    /// A builder for [Generators][super::super::client::Generators].
+    /// A builder for [Generators][crate::client::Generators].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -7854,7 +7854,7 @@ pub mod generators {
         }
     }
 
-    /// Common implementation for [super::super::client::Generators] request builders.
+    /// Common implementation for [crate::client::Generators] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::Generators>,
@@ -7877,7 +7877,7 @@ pub mod generators {
         }
     }
 
-    /// The request builder for [Generators::list_generators][super::super::client::Generators::list_generators] calls.
+    /// The request builder for [Generators::list_generators][crate::client::Generators::list_generators] calls.
     ///
     /// # Example
     /// ```no_run
@@ -7986,7 +7986,7 @@ pub mod generators {
         }
     }
 
-    /// The request builder for [Generators::get_generator][super::super::client::Generators::get_generator] calls.
+    /// The request builder for [Generators::get_generator][crate::client::Generators::get_generator] calls.
     ///
     /// # Example
     /// ```no_run
@@ -8055,7 +8055,7 @@ pub mod generators {
         }
     }
 
-    /// The request builder for [Generators::create_generator][super::super::client::Generators::create_generator] calls.
+    /// The request builder for [Generators::create_generator][crate::client::Generators::create_generator] calls.
     ///
     /// # Example
     /// ```no_run
@@ -8146,7 +8146,7 @@ pub mod generators {
         }
     }
 
-    /// The request builder for [Generators::update_generator][super::super::client::Generators::update_generator] calls.
+    /// The request builder for [Generators::update_generator][crate::client::Generators::update_generator] calls.
     ///
     /// # Example
     /// ```no_run
@@ -8247,7 +8247,7 @@ pub mod generators {
         }
     }
 
-    /// The request builder for [Generators::delete_generator][super::super::client::Generators::delete_generator] calls.
+    /// The request builder for [Generators::delete_generator][crate::client::Generators::delete_generator] calls.
     ///
     /// # Example
     /// ```no_run
@@ -8316,7 +8316,7 @@ pub mod generators {
         }
     }
 
-    /// The request builder for [Generators::list_locations][super::super::client::Generators::list_locations] calls.
+    /// The request builder for [Generators::list_locations][crate::client::Generators::list_locations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -8426,7 +8426,7 @@ pub mod generators {
         }
     }
 
-    /// The request builder for [Generators::get_location][super::super::client::Generators::get_location] calls.
+    /// The request builder for [Generators::get_location][crate::client::Generators::get_location] calls.
     ///
     /// # Example
     /// ```no_run
@@ -8487,7 +8487,7 @@ pub mod generators {
         }
     }
 
-    /// The request builder for [Generators::list_operations][super::super::client::Generators::list_operations] calls.
+    /// The request builder for [Generators::list_operations][crate::client::Generators::list_operations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -8599,7 +8599,7 @@ pub mod generators {
         }
     }
 
-    /// The request builder for [Generators::get_operation][super::super::client::Generators::get_operation] calls.
+    /// The request builder for [Generators::get_operation][crate::client::Generators::get_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -8663,7 +8663,7 @@ pub mod generators {
         }
     }
 
-    /// The request builder for [Generators::cancel_operation][super::super::client::Generators::cancel_operation] calls.
+    /// The request builder for [Generators::cancel_operation][crate::client::Generators::cancel_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -8731,7 +8731,7 @@ pub mod generators {
 pub mod intents {
     use crate::Result;
 
-    /// A builder for [Intents][super::super::client::Intents].
+    /// A builder for [Intents][crate::client::Intents].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -8759,7 +8759,7 @@ pub mod intents {
         }
     }
 
-    /// Common implementation for [super::super::client::Intents] request builders.
+    /// Common implementation for [crate::client::Intents] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::Intents>,
@@ -8780,7 +8780,7 @@ pub mod intents {
         }
     }
 
-    /// The request builder for [Intents::list_intents][super::super::client::Intents::list_intents] calls.
+    /// The request builder for [Intents::list_intents][crate::client::Intents::list_intents] calls.
     ///
     /// # Example
     /// ```no_run
@@ -8893,7 +8893,7 @@ pub mod intents {
         }
     }
 
-    /// The request builder for [Intents::get_intent][super::super::client::Intents::get_intent] calls.
+    /// The request builder for [Intents::get_intent][crate::client::Intents::get_intent] calls.
     ///
     /// # Example
     /// ```no_run
@@ -8960,7 +8960,7 @@ pub mod intents {
         }
     }
 
-    /// The request builder for [Intents::create_intent][super::super::client::Intents::create_intent] calls.
+    /// The request builder for [Intents::create_intent][crate::client::Intents::create_intent] calls.
     ///
     /// # Example
     /// ```no_run
@@ -9049,7 +9049,7 @@ pub mod intents {
         }
     }
 
-    /// The request builder for [Intents::update_intent][super::super::client::Intents::update_intent] calls.
+    /// The request builder for [Intents::update_intent][crate::client::Intents::update_intent] calls.
     ///
     /// # Example
     /// ```no_run
@@ -9148,7 +9148,7 @@ pub mod intents {
         }
     }
 
-    /// The request builder for [Intents::delete_intent][super::super::client::Intents::delete_intent] calls.
+    /// The request builder for [Intents::delete_intent][crate::client::Intents::delete_intent] calls.
     ///
     /// # Example
     /// ```no_run
@@ -9209,7 +9209,7 @@ pub mod intents {
         }
     }
 
-    /// The request builder for [Intents::import_intents][super::super::client::Intents::import_intents] calls.
+    /// The request builder for [Intents::import_intents][crate::client::Intents::import_intents] calls.
     ///
     /// # Example
     /// ```no_run
@@ -9252,7 +9252,7 @@ pub mod intents {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [import_intents][super::super::client::Intents::import_intents].
+        /// on [import_intents][crate::client::Intents::import_intents].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .import_intents(self.0.request, self.0.options)
@@ -9358,7 +9358,7 @@ pub mod intents {
         }
     }
 
-    /// The request builder for [Intents::export_intents][super::super::client::Intents::export_intents] calls.
+    /// The request builder for [Intents::export_intents][crate::client::Intents::export_intents] calls.
     ///
     /// # Example
     /// ```no_run
@@ -9401,7 +9401,7 @@ pub mod intents {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [export_intents][super::super::client::Intents::export_intents].
+        /// on [export_intents][crate::client::Intents::export_intents].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .export_intents(self.0.request, self.0.options)
@@ -9517,7 +9517,7 @@ pub mod intents {
         }
     }
 
-    /// The request builder for [Intents::list_locations][super::super::client::Intents::list_locations] calls.
+    /// The request builder for [Intents::list_locations][crate::client::Intents::list_locations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -9625,7 +9625,7 @@ pub mod intents {
         }
     }
 
-    /// The request builder for [Intents::get_location][super::super::client::Intents::get_location] calls.
+    /// The request builder for [Intents::get_location][crate::client::Intents::get_location] calls.
     ///
     /// # Example
     /// ```no_run
@@ -9684,7 +9684,7 @@ pub mod intents {
         }
     }
 
-    /// The request builder for [Intents::list_operations][super::super::client::Intents::list_operations] calls.
+    /// The request builder for [Intents::list_operations][crate::client::Intents::list_operations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -9794,7 +9794,7 @@ pub mod intents {
         }
     }
 
-    /// The request builder for [Intents::get_operation][super::super::client::Intents::get_operation] calls.
+    /// The request builder for [Intents::get_operation][crate::client::Intents::get_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -9856,7 +9856,7 @@ pub mod intents {
         }
     }
 
-    /// The request builder for [Intents::cancel_operation][super::super::client::Intents::cancel_operation] calls.
+    /// The request builder for [Intents::cancel_operation][crate::client::Intents::cancel_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -9922,7 +9922,7 @@ pub mod intents {
 pub mod pages {
     use crate::Result;
 
-    /// A builder for [Pages][super::super::client::Pages].
+    /// A builder for [Pages][crate::client::Pages].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -9950,7 +9950,7 @@ pub mod pages {
         }
     }
 
-    /// Common implementation for [super::super::client::Pages] request builders.
+    /// Common implementation for [crate::client::Pages] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::Pages>,
@@ -9971,7 +9971,7 @@ pub mod pages {
         }
     }
 
-    /// The request builder for [Pages::list_pages][super::super::client::Pages::list_pages] calls.
+    /// The request builder for [Pages::list_pages][crate::client::Pages::list_pages] calls.
     ///
     /// # Example
     /// ```no_run
@@ -10078,7 +10078,7 @@ pub mod pages {
         }
     }
 
-    /// The request builder for [Pages::get_page][super::super::client::Pages::get_page] calls.
+    /// The request builder for [Pages::get_page][crate::client::Pages::get_page] calls.
     ///
     /// # Example
     /// ```no_run
@@ -10145,7 +10145,7 @@ pub mod pages {
         }
     }
 
-    /// The request builder for [Pages::create_page][super::super::client::Pages::create_page] calls.
+    /// The request builder for [Pages::create_page][crate::client::Pages::create_page] calls.
     ///
     /// # Example
     /// ```no_run
@@ -10234,7 +10234,7 @@ pub mod pages {
         }
     }
 
-    /// The request builder for [Pages::update_page][super::super::client::Pages::update_page] calls.
+    /// The request builder for [Pages::update_page][crate::client::Pages::update_page] calls.
     ///
     /// # Example
     /// ```no_run
@@ -10333,7 +10333,7 @@ pub mod pages {
         }
     }
 
-    /// The request builder for [Pages::delete_page][super::super::client::Pages::delete_page] calls.
+    /// The request builder for [Pages::delete_page][crate::client::Pages::delete_page] calls.
     ///
     /// # Example
     /// ```no_run
@@ -10400,7 +10400,7 @@ pub mod pages {
         }
     }
 
-    /// The request builder for [Pages::list_locations][super::super::client::Pages::list_locations] calls.
+    /// The request builder for [Pages::list_locations][crate::client::Pages::list_locations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -10508,7 +10508,7 @@ pub mod pages {
         }
     }
 
-    /// The request builder for [Pages::get_location][super::super::client::Pages::get_location] calls.
+    /// The request builder for [Pages::get_location][crate::client::Pages::get_location] calls.
     ///
     /// # Example
     /// ```no_run
@@ -10567,7 +10567,7 @@ pub mod pages {
         }
     }
 
-    /// The request builder for [Pages::list_operations][super::super::client::Pages::list_operations] calls.
+    /// The request builder for [Pages::list_operations][crate::client::Pages::list_operations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -10677,7 +10677,7 @@ pub mod pages {
         }
     }
 
-    /// The request builder for [Pages::get_operation][super::super::client::Pages::get_operation] calls.
+    /// The request builder for [Pages::get_operation][crate::client::Pages::get_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -10739,7 +10739,7 @@ pub mod pages {
         }
     }
 
-    /// The request builder for [Pages::cancel_operation][super::super::client::Pages::cancel_operation] calls.
+    /// The request builder for [Pages::cancel_operation][crate::client::Pages::cancel_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -10805,7 +10805,7 @@ pub mod pages {
 pub mod security_settings_service {
     use crate::Result;
 
-    /// A builder for [SecuritySettingsService][super::super::client::SecuritySettingsService].
+    /// A builder for [SecuritySettingsService][crate::client::SecuritySettingsService].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -10833,7 +10833,7 @@ pub mod security_settings_service {
         }
     }
 
-    /// Common implementation for [super::super::client::SecuritySettingsService] request builders.
+    /// Common implementation for [crate::client::SecuritySettingsService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::SecuritySettingsService>,
@@ -10856,7 +10856,7 @@ pub mod security_settings_service {
         }
     }
 
-    /// The request builder for [SecuritySettingsService::create_security_settings][super::super::client::SecuritySettingsService::create_security_settings] calls.
+    /// The request builder for [SecuritySettingsService::create_security_settings][crate::client::SecuritySettingsService::create_security_settings] calls.
     ///
     /// # Example
     /// ```no_run
@@ -10944,7 +10944,7 @@ pub mod security_settings_service {
         }
     }
 
-    /// The request builder for [SecuritySettingsService::get_security_settings][super::super::client::SecuritySettingsService::get_security_settings] calls.
+    /// The request builder for [SecuritySettingsService::get_security_settings][crate::client::SecuritySettingsService::get_security_settings] calls.
     ///
     /// # Example
     /// ```no_run
@@ -11010,7 +11010,7 @@ pub mod security_settings_service {
         }
     }
 
-    /// The request builder for [SecuritySettingsService::update_security_settings][super::super::client::SecuritySettingsService::update_security_settings] calls.
+    /// The request builder for [SecuritySettingsService::update_security_settings][crate::client::SecuritySettingsService::update_security_settings] calls.
     ///
     /// # Example
     /// ```no_run
@@ -11112,7 +11112,7 @@ pub mod security_settings_service {
         }
     }
 
-    /// The request builder for [SecuritySettingsService::list_security_settings][super::super::client::SecuritySettingsService::list_security_settings] calls.
+    /// The request builder for [SecuritySettingsService::list_security_settings][crate::client::SecuritySettingsService::list_security_settings] calls.
     ///
     /// # Example
     /// ```no_run
@@ -11220,7 +11220,7 @@ pub mod security_settings_service {
         }
     }
 
-    /// The request builder for [SecuritySettingsService::delete_security_settings][super::super::client::SecuritySettingsService::delete_security_settings] calls.
+    /// The request builder for [SecuritySettingsService::delete_security_settings][crate::client::SecuritySettingsService::delete_security_settings] calls.
     ///
     /// # Example
     /// ```no_run
@@ -11286,7 +11286,7 @@ pub mod security_settings_service {
         }
     }
 
-    /// The request builder for [SecuritySettingsService::list_locations][super::super::client::SecuritySettingsService::list_locations] calls.
+    /// The request builder for [SecuritySettingsService::list_locations][crate::client::SecuritySettingsService::list_locations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -11396,7 +11396,7 @@ pub mod security_settings_service {
         }
     }
 
-    /// The request builder for [SecuritySettingsService::get_location][super::super::client::SecuritySettingsService::get_location] calls.
+    /// The request builder for [SecuritySettingsService::get_location][crate::client::SecuritySettingsService::get_location] calls.
     ///
     /// # Example
     /// ```no_run
@@ -11457,7 +11457,7 @@ pub mod security_settings_service {
         }
     }
 
-    /// The request builder for [SecuritySettingsService::list_operations][super::super::client::SecuritySettingsService::list_operations] calls.
+    /// The request builder for [SecuritySettingsService::list_operations][crate::client::SecuritySettingsService::list_operations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -11569,7 +11569,7 @@ pub mod security_settings_service {
         }
     }
 
-    /// The request builder for [SecuritySettingsService::get_operation][super::super::client::SecuritySettingsService::get_operation] calls.
+    /// The request builder for [SecuritySettingsService::get_operation][crate::client::SecuritySettingsService::get_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -11633,7 +11633,7 @@ pub mod security_settings_service {
         }
     }
 
-    /// The request builder for [SecuritySettingsService::cancel_operation][super::super::client::SecuritySettingsService::cancel_operation] calls.
+    /// The request builder for [SecuritySettingsService::cancel_operation][crate::client::SecuritySettingsService::cancel_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -11701,7 +11701,7 @@ pub mod security_settings_service {
 pub mod sessions {
     use crate::Result;
 
-    /// A builder for [Sessions][super::super::client::Sessions].
+    /// A builder for [Sessions][crate::client::Sessions].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -11729,7 +11729,7 @@ pub mod sessions {
         }
     }
 
-    /// Common implementation for [super::super::client::Sessions] request builders.
+    /// Common implementation for [crate::client::Sessions] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::Sessions>,
@@ -11750,7 +11750,7 @@ pub mod sessions {
         }
     }
 
-    /// The request builder for [Sessions::detect_intent][super::super::client::Sessions::detect_intent] calls.
+    /// The request builder for [Sessions::detect_intent][crate::client::Sessions::detect_intent] calls.
     ///
     /// # Example
     /// ```no_run
@@ -11869,7 +11869,7 @@ pub mod sessions {
         }
     }
 
-    /// The request builder for [Sessions::match_intent][super::super::client::Sessions::match_intent] calls.
+    /// The request builder for [Sessions::match_intent][crate::client::Sessions::match_intent] calls.
     ///
     /// # Example
     /// ```no_run
@@ -11976,7 +11976,7 @@ pub mod sessions {
         }
     }
 
-    /// The request builder for [Sessions::fulfill_intent][super::super::client::Sessions::fulfill_intent] calls.
+    /// The request builder for [Sessions::fulfill_intent][crate::client::Sessions::fulfill_intent] calls.
     ///
     /// # Example
     /// ```no_run
@@ -12083,7 +12083,7 @@ pub mod sessions {
         }
     }
 
-    /// The request builder for [Sessions::submit_answer_feedback][super::super::client::Sessions::submit_answer_feedback] calls.
+    /// The request builder for [Sessions::submit_answer_feedback][crate::client::Sessions::submit_answer_feedback] calls.
     ///
     /// # Example
     /// ```no_run
@@ -12195,7 +12195,7 @@ pub mod sessions {
         }
     }
 
-    /// The request builder for [Sessions::list_locations][super::super::client::Sessions::list_locations] calls.
+    /// The request builder for [Sessions::list_locations][crate::client::Sessions::list_locations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -12303,7 +12303,7 @@ pub mod sessions {
         }
     }
 
-    /// The request builder for [Sessions::get_location][super::super::client::Sessions::get_location] calls.
+    /// The request builder for [Sessions::get_location][crate::client::Sessions::get_location] calls.
     ///
     /// # Example
     /// ```no_run
@@ -12362,7 +12362,7 @@ pub mod sessions {
         }
     }
 
-    /// The request builder for [Sessions::list_operations][super::super::client::Sessions::list_operations] calls.
+    /// The request builder for [Sessions::list_operations][crate::client::Sessions::list_operations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -12472,7 +12472,7 @@ pub mod sessions {
         }
     }
 
-    /// The request builder for [Sessions::get_operation][super::super::client::Sessions::get_operation] calls.
+    /// The request builder for [Sessions::get_operation][crate::client::Sessions::get_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -12534,7 +12534,7 @@ pub mod sessions {
         }
     }
 
-    /// The request builder for [Sessions::cancel_operation][super::super::client::Sessions::cancel_operation] calls.
+    /// The request builder for [Sessions::cancel_operation][crate::client::Sessions::cancel_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -12600,7 +12600,7 @@ pub mod sessions {
 pub mod session_entity_types {
     use crate::Result;
 
-    /// A builder for [SessionEntityTypes][super::super::client::SessionEntityTypes].
+    /// A builder for [SessionEntityTypes][crate::client::SessionEntityTypes].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -12628,7 +12628,7 @@ pub mod session_entity_types {
         }
     }
 
-    /// Common implementation for [super::super::client::SessionEntityTypes] request builders.
+    /// Common implementation for [crate::client::SessionEntityTypes] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::SessionEntityTypes>,
@@ -12651,7 +12651,7 @@ pub mod session_entity_types {
         }
     }
 
-    /// The request builder for [SessionEntityTypes::list_session_entity_types][super::super::client::SessionEntityTypes::list_session_entity_types] calls.
+    /// The request builder for [SessionEntityTypes::list_session_entity_types][crate::client::SessionEntityTypes::list_session_entity_types] calls.
     ///
     /// # Example
     /// ```no_run
@@ -12761,7 +12761,7 @@ pub mod session_entity_types {
         }
     }
 
-    /// The request builder for [SessionEntityTypes::get_session_entity_type][super::super::client::SessionEntityTypes::get_session_entity_type] calls.
+    /// The request builder for [SessionEntityTypes::get_session_entity_type][crate::client::SessionEntityTypes::get_session_entity_type] calls.
     ///
     /// # Example
     /// ```no_run
@@ -12827,7 +12827,7 @@ pub mod session_entity_types {
         }
     }
 
-    /// The request builder for [SessionEntityTypes::create_session_entity_type][super::super::client::SessionEntityTypes::create_session_entity_type] calls.
+    /// The request builder for [SessionEntityTypes::create_session_entity_type][crate::client::SessionEntityTypes::create_session_entity_type] calls.
     ///
     /// # Example
     /// ```no_run
@@ -12917,7 +12917,7 @@ pub mod session_entity_types {
         }
     }
 
-    /// The request builder for [SessionEntityTypes::update_session_entity_type][super::super::client::SessionEntityTypes::update_session_entity_type] calls.
+    /// The request builder for [SessionEntityTypes::update_session_entity_type][crate::client::SessionEntityTypes::update_session_entity_type] calls.
     ///
     /// # Example
     /// ```no_run
@@ -13017,7 +13017,7 @@ pub mod session_entity_types {
         }
     }
 
-    /// The request builder for [SessionEntityTypes::delete_session_entity_type][super::super::client::SessionEntityTypes::delete_session_entity_type] calls.
+    /// The request builder for [SessionEntityTypes::delete_session_entity_type][crate::client::SessionEntityTypes::delete_session_entity_type] calls.
     ///
     /// # Example
     /// ```no_run
@@ -13085,7 +13085,7 @@ pub mod session_entity_types {
         }
     }
 
-    /// The request builder for [SessionEntityTypes::list_locations][super::super::client::SessionEntityTypes::list_locations] calls.
+    /// The request builder for [SessionEntityTypes::list_locations][crate::client::SessionEntityTypes::list_locations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -13195,7 +13195,7 @@ pub mod session_entity_types {
         }
     }
 
-    /// The request builder for [SessionEntityTypes::get_location][super::super::client::SessionEntityTypes::get_location] calls.
+    /// The request builder for [SessionEntityTypes::get_location][crate::client::SessionEntityTypes::get_location] calls.
     ///
     /// # Example
     /// ```no_run
@@ -13256,7 +13256,7 @@ pub mod session_entity_types {
         }
     }
 
-    /// The request builder for [SessionEntityTypes::list_operations][super::super::client::SessionEntityTypes::list_operations] calls.
+    /// The request builder for [SessionEntityTypes::list_operations][crate::client::SessionEntityTypes::list_operations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -13368,7 +13368,7 @@ pub mod session_entity_types {
         }
     }
 
-    /// The request builder for [SessionEntityTypes::get_operation][super::super::client::SessionEntityTypes::get_operation] calls.
+    /// The request builder for [SessionEntityTypes::get_operation][crate::client::SessionEntityTypes::get_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -13432,7 +13432,7 @@ pub mod session_entity_types {
         }
     }
 
-    /// The request builder for [SessionEntityTypes::cancel_operation][super::super::client::SessionEntityTypes::cancel_operation] calls.
+    /// The request builder for [SessionEntityTypes::cancel_operation][crate::client::SessionEntityTypes::cancel_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -13500,7 +13500,7 @@ pub mod session_entity_types {
 pub mod test_cases {
     use crate::Result;
 
-    /// A builder for [TestCases][super::super::client::TestCases].
+    /// A builder for [TestCases][crate::client::TestCases].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -13528,7 +13528,7 @@ pub mod test_cases {
         }
     }
 
-    /// Common implementation for [super::super::client::TestCases] request builders.
+    /// Common implementation for [crate::client::TestCases] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::TestCases>,
@@ -13551,7 +13551,7 @@ pub mod test_cases {
         }
     }
 
-    /// The request builder for [TestCases::list_test_cases][super::super::client::TestCases::list_test_cases] calls.
+    /// The request builder for [TestCases::list_test_cases][crate::client::TestCases::list_test_cases] calls.
     ///
     /// # Example
     /// ```no_run
@@ -13663,7 +13663,7 @@ pub mod test_cases {
         }
     }
 
-    /// The request builder for [TestCases::batch_delete_test_cases][super::super::client::TestCases::batch_delete_test_cases] calls.
+    /// The request builder for [TestCases::batch_delete_test_cases][crate::client::TestCases::batch_delete_test_cases] calls.
     ///
     /// # Example
     /// ```no_run
@@ -13742,7 +13742,7 @@ pub mod test_cases {
         }
     }
 
-    /// The request builder for [TestCases::get_test_case][super::super::client::TestCases::get_test_case] calls.
+    /// The request builder for [TestCases::get_test_case][crate::client::TestCases::get_test_case] calls.
     ///
     /// # Example
     /// ```no_run
@@ -13805,7 +13805,7 @@ pub mod test_cases {
         }
     }
 
-    /// The request builder for [TestCases::create_test_case][super::super::client::TestCases::create_test_case] calls.
+    /// The request builder for [TestCases::create_test_case][crate::client::TestCases::create_test_case] calls.
     ///
     /// # Example
     /// ```no_run
@@ -13890,7 +13890,7 @@ pub mod test_cases {
         }
     }
 
-    /// The request builder for [TestCases::update_test_case][super::super::client::TestCases::update_test_case] calls.
+    /// The request builder for [TestCases::update_test_case][crate::client::TestCases::update_test_case] calls.
     ///
     /// # Example
     /// ```no_run
@@ -13989,7 +13989,7 @@ pub mod test_cases {
         }
     }
 
-    /// The request builder for [TestCases::run_test_case][super::super::client::TestCases::run_test_case] calls.
+    /// The request builder for [TestCases::run_test_case][crate::client::TestCases::run_test_case] calls.
     ///
     /// # Example
     /// ```no_run
@@ -14034,7 +14034,7 @@ pub mod test_cases {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [run_test_case][super::super::client::TestCases::run_test_case].
+        /// on [run_test_case][crate::client::TestCases::run_test_case].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .run_test_case(self.0.request, self.0.options)
@@ -14100,7 +14100,7 @@ pub mod test_cases {
         }
     }
 
-    /// The request builder for [TestCases::batch_run_test_cases][super::super::client::TestCases::batch_run_test_cases] calls.
+    /// The request builder for [TestCases::batch_run_test_cases][crate::client::TestCases::batch_run_test_cases] calls.
     ///
     /// # Example
     /// ```no_run
@@ -14148,7 +14148,7 @@ pub mod test_cases {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [batch_run_test_cases][super::super::client::TestCases::batch_run_test_cases].
+        /// on [batch_run_test_cases][crate::client::TestCases::batch_run_test_cases].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .batch_run_test_cases(self.0.request, self.0.options)
@@ -14229,7 +14229,7 @@ pub mod test_cases {
         }
     }
 
-    /// The request builder for [TestCases::calculate_coverage][super::super::client::TestCases::calculate_coverage] calls.
+    /// The request builder for [TestCases::calculate_coverage][crate::client::TestCases::calculate_coverage] calls.
     ///
     /// # Example
     /// ```no_run
@@ -14306,7 +14306,7 @@ pub mod test_cases {
         }
     }
 
-    /// The request builder for [TestCases::import_test_cases][super::super::client::TestCases::import_test_cases] calls.
+    /// The request builder for [TestCases::import_test_cases][crate::client::TestCases::import_test_cases] calls.
     ///
     /// # Example
     /// ```no_run
@@ -14351,7 +14351,7 @@ pub mod test_cases {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [import_test_cases][super::super::client::TestCases::import_test_cases].
+        /// on [import_test_cases][crate::client::TestCases::import_test_cases].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .import_test_cases(self.0.request, self.0.options)
@@ -14443,7 +14443,7 @@ pub mod test_cases {
         }
     }
 
-    /// The request builder for [TestCases::export_test_cases][super::super::client::TestCases::export_test_cases] calls.
+    /// The request builder for [TestCases::export_test_cases][crate::client::TestCases::export_test_cases] calls.
     ///
     /// # Example
     /// ```no_run
@@ -14488,7 +14488,7 @@ pub mod test_cases {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [export_test_cases][super::super::client::TestCases::export_test_cases].
+        /// on [export_test_cases][crate::client::TestCases::export_test_cases].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .export_test_cases(self.0.request, self.0.options)
@@ -14587,7 +14587,7 @@ pub mod test_cases {
         }
     }
 
-    /// The request builder for [TestCases::list_test_case_results][super::super::client::TestCases::list_test_case_results] calls.
+    /// The request builder for [TestCases::list_test_case_results][crate::client::TestCases::list_test_case_results] calls.
     ///
     /// # Example
     /// ```no_run
@@ -14701,7 +14701,7 @@ pub mod test_cases {
         }
     }
 
-    /// The request builder for [TestCases::get_test_case_result][super::super::client::TestCases::get_test_case_result] calls.
+    /// The request builder for [TestCases::get_test_case_result][crate::client::TestCases::get_test_case_result] calls.
     ///
     /// # Example
     /// ```no_run
@@ -14767,7 +14767,7 @@ pub mod test_cases {
         }
     }
 
-    /// The request builder for [TestCases::list_locations][super::super::client::TestCases::list_locations] calls.
+    /// The request builder for [TestCases::list_locations][crate::client::TestCases::list_locations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -14877,7 +14877,7 @@ pub mod test_cases {
         }
     }
 
-    /// The request builder for [TestCases::get_location][super::super::client::TestCases::get_location] calls.
+    /// The request builder for [TestCases::get_location][crate::client::TestCases::get_location] calls.
     ///
     /// # Example
     /// ```no_run
@@ -14938,7 +14938,7 @@ pub mod test_cases {
         }
     }
 
-    /// The request builder for [TestCases::list_operations][super::super::client::TestCases::list_operations] calls.
+    /// The request builder for [TestCases::list_operations][crate::client::TestCases::list_operations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -15050,7 +15050,7 @@ pub mod test_cases {
         }
     }
 
-    /// The request builder for [TestCases::get_operation][super::super::client::TestCases::get_operation] calls.
+    /// The request builder for [TestCases::get_operation][crate::client::TestCases::get_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -15114,7 +15114,7 @@ pub mod test_cases {
         }
     }
 
-    /// The request builder for [TestCases::cancel_operation][super::super::client::TestCases::cancel_operation] calls.
+    /// The request builder for [TestCases::cancel_operation][crate::client::TestCases::cancel_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -15182,7 +15182,7 @@ pub mod test_cases {
 pub mod transition_route_groups {
     use crate::Result;
 
-    /// A builder for [TransitionRouteGroups][super::super::client::TransitionRouteGroups].
+    /// A builder for [TransitionRouteGroups][crate::client::TransitionRouteGroups].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -15210,7 +15210,7 @@ pub mod transition_route_groups {
         }
     }
 
-    /// Common implementation for [super::super::client::TransitionRouteGroups] request builders.
+    /// Common implementation for [crate::client::TransitionRouteGroups] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::TransitionRouteGroups>,
@@ -15233,7 +15233,7 @@ pub mod transition_route_groups {
         }
     }
 
-    /// The request builder for [TransitionRouteGroups::list_transition_route_groups][super::super::client::TransitionRouteGroups::list_transition_route_groups] calls.
+    /// The request builder for [TransitionRouteGroups::list_transition_route_groups][crate::client::TransitionRouteGroups::list_transition_route_groups] calls.
     ///
     /// # Example
     /// ```no_run
@@ -15351,7 +15351,7 @@ pub mod transition_route_groups {
         }
     }
 
-    /// The request builder for [TransitionRouteGroups::get_transition_route_group][super::super::client::TransitionRouteGroups::get_transition_route_group] calls.
+    /// The request builder for [TransitionRouteGroups::get_transition_route_group][crate::client::TransitionRouteGroups::get_transition_route_group] calls.
     ///
     /// # Example
     /// ```no_run
@@ -15425,7 +15425,7 @@ pub mod transition_route_groups {
         }
     }
 
-    /// The request builder for [TransitionRouteGroups::create_transition_route_group][super::super::client::TransitionRouteGroups::create_transition_route_group] calls.
+    /// The request builder for [TransitionRouteGroups::create_transition_route_group][crate::client::TransitionRouteGroups::create_transition_route_group] calls.
     ///
     /// # Example
     /// ```no_run
@@ -15521,7 +15521,7 @@ pub mod transition_route_groups {
         }
     }
 
-    /// The request builder for [TransitionRouteGroups::update_transition_route_group][super::super::client::TransitionRouteGroups::update_transition_route_group] calls.
+    /// The request builder for [TransitionRouteGroups::update_transition_route_group][crate::client::TransitionRouteGroups::update_transition_route_group] calls.
     ///
     /// # Example
     /// ```no_run
@@ -15627,7 +15627,7 @@ pub mod transition_route_groups {
         }
     }
 
-    /// The request builder for [TransitionRouteGroups::delete_transition_route_group][super::super::client::TransitionRouteGroups::delete_transition_route_group] calls.
+    /// The request builder for [TransitionRouteGroups::delete_transition_route_group][crate::client::TransitionRouteGroups::delete_transition_route_group] calls.
     ///
     /// # Example
     /// ```no_run
@@ -15701,7 +15701,7 @@ pub mod transition_route_groups {
         }
     }
 
-    /// The request builder for [TransitionRouteGroups::list_locations][super::super::client::TransitionRouteGroups::list_locations] calls.
+    /// The request builder for [TransitionRouteGroups::list_locations][crate::client::TransitionRouteGroups::list_locations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -15811,7 +15811,7 @@ pub mod transition_route_groups {
         }
     }
 
-    /// The request builder for [TransitionRouteGroups::get_location][super::super::client::TransitionRouteGroups::get_location] calls.
+    /// The request builder for [TransitionRouteGroups::get_location][crate::client::TransitionRouteGroups::get_location] calls.
     ///
     /// # Example
     /// ```no_run
@@ -15872,7 +15872,7 @@ pub mod transition_route_groups {
         }
     }
 
-    /// The request builder for [TransitionRouteGroups::list_operations][super::super::client::TransitionRouteGroups::list_operations] calls.
+    /// The request builder for [TransitionRouteGroups::list_operations][crate::client::TransitionRouteGroups::list_operations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -15984,7 +15984,7 @@ pub mod transition_route_groups {
         }
     }
 
-    /// The request builder for [TransitionRouteGroups::get_operation][super::super::client::TransitionRouteGroups::get_operation] calls.
+    /// The request builder for [TransitionRouteGroups::get_operation][crate::client::TransitionRouteGroups::get_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -16048,7 +16048,7 @@ pub mod transition_route_groups {
         }
     }
 
-    /// The request builder for [TransitionRouteGroups::cancel_operation][super::super::client::TransitionRouteGroups::cancel_operation] calls.
+    /// The request builder for [TransitionRouteGroups::cancel_operation][crate::client::TransitionRouteGroups::cancel_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -16116,7 +16116,7 @@ pub mod transition_route_groups {
 pub mod versions {
     use crate::Result;
 
-    /// A builder for [Versions][super::super::client::Versions].
+    /// A builder for [Versions][crate::client::Versions].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -16144,7 +16144,7 @@ pub mod versions {
         }
     }
 
-    /// Common implementation for [super::super::client::Versions] request builders.
+    /// Common implementation for [crate::client::Versions] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::Versions>,
@@ -16165,7 +16165,7 @@ pub mod versions {
         }
     }
 
-    /// The request builder for [Versions::list_versions][super::super::client::Versions::list_versions] calls.
+    /// The request builder for [Versions::list_versions][crate::client::Versions::list_versions] calls.
     ///
     /// # Example
     /// ```no_run
@@ -16266,7 +16266,7 @@ pub mod versions {
         }
     }
 
-    /// The request builder for [Versions::get_version][super::super::client::Versions::get_version] calls.
+    /// The request builder for [Versions::get_version][crate::client::Versions::get_version] calls.
     ///
     /// # Example
     /// ```no_run
@@ -16327,7 +16327,7 @@ pub mod versions {
         }
     }
 
-    /// The request builder for [Versions::create_version][super::super::client::Versions::create_version] calls.
+    /// The request builder for [Versions::create_version][crate::client::Versions::create_version] calls.
     ///
     /// # Example
     /// ```no_run
@@ -16370,7 +16370,7 @@ pub mod versions {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_version][super::super::client::Versions::create_version].
+        /// on [create_version][crate::client::Versions::create_version].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_version(self.0.request, self.0.options)
@@ -16452,7 +16452,7 @@ pub mod versions {
         }
     }
 
-    /// The request builder for [Versions::update_version][super::super::client::Versions::update_version] calls.
+    /// The request builder for [Versions::update_version][crate::client::Versions::update_version] calls.
     ///
     /// # Example
     /// ```no_run
@@ -16549,7 +16549,7 @@ pub mod versions {
         }
     }
 
-    /// The request builder for [Versions::delete_version][super::super::client::Versions::delete_version] calls.
+    /// The request builder for [Versions::delete_version][crate::client::Versions::delete_version] calls.
     ///
     /// # Example
     /// ```no_run
@@ -16610,7 +16610,7 @@ pub mod versions {
         }
     }
 
-    /// The request builder for [Versions::load_version][super::super::client::Versions::load_version] calls.
+    /// The request builder for [Versions::load_version][crate::client::Versions::load_version] calls.
     ///
     /// # Example
     /// ```no_run
@@ -16653,7 +16653,7 @@ pub mod versions {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [load_version][super::super::client::Versions::load_version].
+        /// on [load_version][crate::client::Versions::load_version].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .load_version(self.0.request, self.0.options)
@@ -16718,7 +16718,7 @@ pub mod versions {
         }
     }
 
-    /// The request builder for [Versions::compare_versions][super::super::client::Versions::compare_versions] calls.
+    /// The request builder for [Versions::compare_versions][crate::client::Versions::compare_versions] calls.
     ///
     /// # Example
     /// ```no_run
@@ -16793,7 +16793,7 @@ pub mod versions {
         }
     }
 
-    /// The request builder for [Versions::list_locations][super::super::client::Versions::list_locations] calls.
+    /// The request builder for [Versions::list_locations][crate::client::Versions::list_locations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -16901,7 +16901,7 @@ pub mod versions {
         }
     }
 
-    /// The request builder for [Versions::get_location][super::super::client::Versions::get_location] calls.
+    /// The request builder for [Versions::get_location][crate::client::Versions::get_location] calls.
     ///
     /// # Example
     /// ```no_run
@@ -16960,7 +16960,7 @@ pub mod versions {
         }
     }
 
-    /// The request builder for [Versions::list_operations][super::super::client::Versions::list_operations] calls.
+    /// The request builder for [Versions::list_operations][crate::client::Versions::list_operations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -17070,7 +17070,7 @@ pub mod versions {
         }
     }
 
-    /// The request builder for [Versions::get_operation][super::super::client::Versions::get_operation] calls.
+    /// The request builder for [Versions::get_operation][crate::client::Versions::get_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -17132,7 +17132,7 @@ pub mod versions {
         }
     }
 
-    /// The request builder for [Versions::cancel_operation][super::super::client::Versions::cancel_operation] calls.
+    /// The request builder for [Versions::cancel_operation][crate::client::Versions::cancel_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -17198,7 +17198,7 @@ pub mod versions {
 pub mod webhooks {
     use crate::Result;
 
-    /// A builder for [Webhooks][super::super::client::Webhooks].
+    /// A builder for [Webhooks][crate::client::Webhooks].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -17226,7 +17226,7 @@ pub mod webhooks {
         }
     }
 
-    /// Common implementation for [super::super::client::Webhooks] request builders.
+    /// Common implementation for [crate::client::Webhooks] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::Webhooks>,
@@ -17247,7 +17247,7 @@ pub mod webhooks {
         }
     }
 
-    /// The request builder for [Webhooks::list_webhooks][super::super::client::Webhooks::list_webhooks] calls.
+    /// The request builder for [Webhooks::list_webhooks][crate::client::Webhooks::list_webhooks] calls.
     ///
     /// # Example
     /// ```no_run
@@ -17348,7 +17348,7 @@ pub mod webhooks {
         }
     }
 
-    /// The request builder for [Webhooks::get_webhook][super::super::client::Webhooks::get_webhook] calls.
+    /// The request builder for [Webhooks::get_webhook][crate::client::Webhooks::get_webhook] calls.
     ///
     /// # Example
     /// ```no_run
@@ -17409,7 +17409,7 @@ pub mod webhooks {
         }
     }
 
-    /// The request builder for [Webhooks::create_webhook][super::super::client::Webhooks::create_webhook] calls.
+    /// The request builder for [Webhooks::create_webhook][crate::client::Webhooks::create_webhook] calls.
     ///
     /// # Example
     /// ```no_run
@@ -17492,7 +17492,7 @@ pub mod webhooks {
         }
     }
 
-    /// The request builder for [Webhooks::update_webhook][super::super::client::Webhooks::update_webhook] calls.
+    /// The request builder for [Webhooks::update_webhook][crate::client::Webhooks::update_webhook] calls.
     ///
     /// # Example
     /// ```no_run
@@ -17585,7 +17585,7 @@ pub mod webhooks {
         }
     }
 
-    /// The request builder for [Webhooks::delete_webhook][super::super::client::Webhooks::delete_webhook] calls.
+    /// The request builder for [Webhooks::delete_webhook][crate::client::Webhooks::delete_webhook] calls.
     ///
     /// # Example
     /// ```no_run
@@ -17652,7 +17652,7 @@ pub mod webhooks {
         }
     }
 
-    /// The request builder for [Webhooks::list_locations][super::super::client::Webhooks::list_locations] calls.
+    /// The request builder for [Webhooks::list_locations][crate::client::Webhooks::list_locations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -17760,7 +17760,7 @@ pub mod webhooks {
         }
     }
 
-    /// The request builder for [Webhooks::get_location][super::super::client::Webhooks::get_location] calls.
+    /// The request builder for [Webhooks::get_location][crate::client::Webhooks::get_location] calls.
     ///
     /// # Example
     /// ```no_run
@@ -17819,7 +17819,7 @@ pub mod webhooks {
         }
     }
 
-    /// The request builder for [Webhooks::list_operations][super::super::client::Webhooks::list_operations] calls.
+    /// The request builder for [Webhooks::list_operations][crate::client::Webhooks::list_operations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -17929,7 +17929,7 @@ pub mod webhooks {
         }
     }
 
-    /// The request builder for [Webhooks::get_operation][super::super::client::Webhooks::get_operation] calls.
+    /// The request builder for [Webhooks::get_operation][crate::client::Webhooks::get_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -17991,7 +17991,7 @@ pub mod webhooks {
         }
     }
 
-    /// The request builder for [Webhooks::cancel_operation][super::super::client::Webhooks::cancel_operation] calls.
+    /// The request builder for [Webhooks::cancel_operation][crate::client::Webhooks::cancel_operation] calls.
     ///
     /// # Example
     /// ```no_run

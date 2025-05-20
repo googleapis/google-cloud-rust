@@ -17,7 +17,7 @@
 pub mod network_security {
     use crate::Result;
 
-    /// A builder for [NetworkSecurity][super::super::client::NetworkSecurity].
+    /// A builder for [NetworkSecurity][crate::client::NetworkSecurity].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -45,7 +45,7 @@ pub mod network_security {
         }
     }
 
-    /// Common implementation for [super::super::client::NetworkSecurity] request builders.
+    /// Common implementation for [crate::client::NetworkSecurity] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::NetworkSecurity>,
@@ -68,7 +68,7 @@ pub mod network_security {
         }
     }
 
-    /// The request builder for [NetworkSecurity::list_authorization_policies][super::super::client::NetworkSecurity::list_authorization_policies] calls.
+    /// The request builder for [NetworkSecurity::list_authorization_policies][crate::client::NetworkSecurity::list_authorization_policies] calls.
     ///
     /// # Example
     /// ```no_run
@@ -180,7 +180,7 @@ pub mod network_security {
         }
     }
 
-    /// The request builder for [NetworkSecurity::get_authorization_policy][super::super::client::NetworkSecurity::get_authorization_policy] calls.
+    /// The request builder for [NetworkSecurity::get_authorization_policy][crate::client::NetworkSecurity::get_authorization_policy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -246,7 +246,7 @@ pub mod network_security {
         }
     }
 
-    /// The request builder for [NetworkSecurity::create_authorization_policy][super::super::client::NetworkSecurity::create_authorization_policy] calls.
+    /// The request builder for [NetworkSecurity::create_authorization_policy][crate::client::NetworkSecurity::create_authorization_policy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -296,7 +296,7 @@ pub mod network_security {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_authorization_policy][super::super::client::NetworkSecurity::create_authorization_policy].
+        /// on [create_authorization_policy][crate::client::NetworkSecurity::create_authorization_policy].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_authorization_policy(self.0.request, self.0.options)
@@ -386,7 +386,7 @@ pub mod network_security {
         }
     }
 
-    /// The request builder for [NetworkSecurity::update_authorization_policy][super::super::client::NetworkSecurity::update_authorization_policy] calls.
+    /// The request builder for [NetworkSecurity::update_authorization_policy][crate::client::NetworkSecurity::update_authorization_policy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -436,7 +436,7 @@ pub mod network_security {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_authorization_policy][super::super::client::NetworkSecurity::update_authorization_policy].
+        /// on [update_authorization_policy][crate::client::NetworkSecurity::update_authorization_policy].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_authorization_policy(self.0.request, self.0.options)
@@ -528,7 +528,7 @@ pub mod network_security {
         }
     }
 
-    /// The request builder for [NetworkSecurity::delete_authorization_policy][super::super::client::NetworkSecurity::delete_authorization_policy] calls.
+    /// The request builder for [NetworkSecurity::delete_authorization_policy][crate::client::NetworkSecurity::delete_authorization_policy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -578,7 +578,7 @@ pub mod network_security {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_authorization_policy][super::super::client::NetworkSecurity::delete_authorization_policy].
+        /// on [delete_authorization_policy][crate::client::NetworkSecurity::delete_authorization_policy].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_authorization_policy(self.0.request, self.0.options)
@@ -637,7 +637,7 @@ pub mod network_security {
         }
     }
 
-    /// The request builder for [NetworkSecurity::list_server_tls_policies][super::super::client::NetworkSecurity::list_server_tls_policies] calls.
+    /// The request builder for [NetworkSecurity::list_server_tls_policies][crate::client::NetworkSecurity::list_server_tls_policies] calls.
     ///
     /// # Example
     /// ```no_run
@@ -745,7 +745,7 @@ pub mod network_security {
         }
     }
 
-    /// The request builder for [NetworkSecurity::get_server_tls_policy][super::super::client::NetworkSecurity::get_server_tls_policy] calls.
+    /// The request builder for [NetworkSecurity::get_server_tls_policy][crate::client::NetworkSecurity::get_server_tls_policy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -811,7 +811,7 @@ pub mod network_security {
         }
     }
 
-    /// The request builder for [NetworkSecurity::create_server_tls_policy][super::super::client::NetworkSecurity::create_server_tls_policy] calls.
+    /// The request builder for [NetworkSecurity::create_server_tls_policy][crate::client::NetworkSecurity::create_server_tls_policy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -859,7 +859,7 @@ pub mod network_security {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_server_tls_policy][super::super::client::NetworkSecurity::create_server_tls_policy].
+        /// on [create_server_tls_policy][crate::client::NetworkSecurity::create_server_tls_policy].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_server_tls_policy(self.0.request, self.0.options)
@@ -949,7 +949,7 @@ pub mod network_security {
         }
     }
 
-    /// The request builder for [NetworkSecurity::update_server_tls_policy][super::super::client::NetworkSecurity::update_server_tls_policy] calls.
+    /// The request builder for [NetworkSecurity::update_server_tls_policy][crate::client::NetworkSecurity::update_server_tls_policy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -997,7 +997,7 @@ pub mod network_security {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_server_tls_policy][super::super::client::NetworkSecurity::update_server_tls_policy].
+        /// on [update_server_tls_policy][crate::client::NetworkSecurity::update_server_tls_policy].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_server_tls_policy(self.0.request, self.0.options)
@@ -1089,7 +1089,7 @@ pub mod network_security {
         }
     }
 
-    /// The request builder for [NetworkSecurity::delete_server_tls_policy][super::super::client::NetworkSecurity::delete_server_tls_policy] calls.
+    /// The request builder for [NetworkSecurity::delete_server_tls_policy][crate::client::NetworkSecurity::delete_server_tls_policy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1137,7 +1137,7 @@ pub mod network_security {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_server_tls_policy][super::super::client::NetworkSecurity::delete_server_tls_policy].
+        /// on [delete_server_tls_policy][crate::client::NetworkSecurity::delete_server_tls_policy].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_server_tls_policy(self.0.request, self.0.options)
@@ -1196,7 +1196,7 @@ pub mod network_security {
         }
     }
 
-    /// The request builder for [NetworkSecurity::list_client_tls_policies][super::super::client::NetworkSecurity::list_client_tls_policies] calls.
+    /// The request builder for [NetworkSecurity::list_client_tls_policies][crate::client::NetworkSecurity::list_client_tls_policies] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1304,7 +1304,7 @@ pub mod network_security {
         }
     }
 
-    /// The request builder for [NetworkSecurity::get_client_tls_policy][super::super::client::NetworkSecurity::get_client_tls_policy] calls.
+    /// The request builder for [NetworkSecurity::get_client_tls_policy][crate::client::NetworkSecurity::get_client_tls_policy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1370,7 +1370,7 @@ pub mod network_security {
         }
     }
 
-    /// The request builder for [NetworkSecurity::create_client_tls_policy][super::super::client::NetworkSecurity::create_client_tls_policy] calls.
+    /// The request builder for [NetworkSecurity::create_client_tls_policy][crate::client::NetworkSecurity::create_client_tls_policy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1418,7 +1418,7 @@ pub mod network_security {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_client_tls_policy][super::super::client::NetworkSecurity::create_client_tls_policy].
+        /// on [create_client_tls_policy][crate::client::NetworkSecurity::create_client_tls_policy].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_client_tls_policy(self.0.request, self.0.options)
@@ -1508,7 +1508,7 @@ pub mod network_security {
         }
     }
 
-    /// The request builder for [NetworkSecurity::update_client_tls_policy][super::super::client::NetworkSecurity::update_client_tls_policy] calls.
+    /// The request builder for [NetworkSecurity::update_client_tls_policy][crate::client::NetworkSecurity::update_client_tls_policy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1556,7 +1556,7 @@ pub mod network_security {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_client_tls_policy][super::super::client::NetworkSecurity::update_client_tls_policy].
+        /// on [update_client_tls_policy][crate::client::NetworkSecurity::update_client_tls_policy].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_client_tls_policy(self.0.request, self.0.options)
@@ -1648,7 +1648,7 @@ pub mod network_security {
         }
     }
 
-    /// The request builder for [NetworkSecurity::delete_client_tls_policy][super::super::client::NetworkSecurity::delete_client_tls_policy] calls.
+    /// The request builder for [NetworkSecurity::delete_client_tls_policy][crate::client::NetworkSecurity::delete_client_tls_policy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1696,7 +1696,7 @@ pub mod network_security {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_client_tls_policy][super::super::client::NetworkSecurity::delete_client_tls_policy].
+        /// on [delete_client_tls_policy][crate::client::NetworkSecurity::delete_client_tls_policy].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_client_tls_policy(self.0.request, self.0.options)
@@ -1755,7 +1755,7 @@ pub mod network_security {
         }
     }
 
-    /// The request builder for [NetworkSecurity::list_locations][super::super::client::NetworkSecurity::list_locations] calls.
+    /// The request builder for [NetworkSecurity::list_locations][crate::client::NetworkSecurity::list_locations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1865,7 +1865,7 @@ pub mod network_security {
         }
     }
 
-    /// The request builder for [NetworkSecurity::get_location][super::super::client::NetworkSecurity::get_location] calls.
+    /// The request builder for [NetworkSecurity::get_location][crate::client::NetworkSecurity::get_location] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1926,7 +1926,7 @@ pub mod network_security {
         }
     }
 
-    /// The request builder for [NetworkSecurity::set_iam_policy][super::super::client::NetworkSecurity::set_iam_policy] calls.
+    /// The request builder for [NetworkSecurity::set_iam_policy][crate::client::NetworkSecurity::set_iam_policy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2029,7 +2029,7 @@ pub mod network_security {
         }
     }
 
-    /// The request builder for [NetworkSecurity::get_iam_policy][super::super::client::NetworkSecurity::get_iam_policy] calls.
+    /// The request builder for [NetworkSecurity::get_iam_policy][crate::client::NetworkSecurity::get_iam_policy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2110,7 +2110,7 @@ pub mod network_security {
         }
     }
 
-    /// The request builder for [NetworkSecurity::test_iam_permissions][super::super::client::NetworkSecurity::test_iam_permissions] calls.
+    /// The request builder for [NetworkSecurity::test_iam_permissions][crate::client::NetworkSecurity::test_iam_permissions] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2189,7 +2189,7 @@ pub mod network_security {
         }
     }
 
-    /// The request builder for [NetworkSecurity::list_operations][super::super::client::NetworkSecurity::list_operations] calls.
+    /// The request builder for [NetworkSecurity::list_operations][crate::client::NetworkSecurity::list_operations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2301,7 +2301,7 @@ pub mod network_security {
         }
     }
 
-    /// The request builder for [NetworkSecurity::get_operation][super::super::client::NetworkSecurity::get_operation] calls.
+    /// The request builder for [NetworkSecurity::get_operation][crate::client::NetworkSecurity::get_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2365,7 +2365,7 @@ pub mod network_security {
         }
     }
 
-    /// The request builder for [NetworkSecurity::delete_operation][super::super::client::NetworkSecurity::delete_operation] calls.
+    /// The request builder for [NetworkSecurity::delete_operation][crate::client::NetworkSecurity::delete_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2429,7 +2429,7 @@ pub mod network_security {
         }
     }
 
-    /// The request builder for [NetworkSecurity::cancel_operation][super::super::client::NetworkSecurity::cancel_operation] calls.
+    /// The request builder for [NetworkSecurity::cancel_operation][crate::client::NetworkSecurity::cancel_operation] calls.
     ///
     /// # Example
     /// ```no_run

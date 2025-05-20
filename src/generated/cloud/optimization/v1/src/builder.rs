@@ -17,7 +17,7 @@
 pub mod fleet_routing {
     use crate::Result;
 
-    /// A builder for [FleetRouting][super::super::client::FleetRouting].
+    /// A builder for [FleetRouting][crate::client::FleetRouting].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -45,7 +45,7 @@ pub mod fleet_routing {
         }
     }
 
-    /// Common implementation for [super::super::client::FleetRouting] request builders.
+    /// Common implementation for [crate::client::FleetRouting] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::FleetRouting>,
@@ -68,7 +68,7 @@ pub mod fleet_routing {
         }
     }
 
-    /// The request builder for [FleetRouting::optimize_tours][super::super::client::FleetRouting::optimize_tours] calls.
+    /// The request builder for [FleetRouting::optimize_tours][crate::client::FleetRouting::optimize_tours] calls.
     ///
     /// # Example
     /// ```no_run
@@ -325,7 +325,7 @@ pub mod fleet_routing {
         }
     }
 
-    /// The request builder for [FleetRouting::batch_optimize_tours][super::super::client::FleetRouting::batch_optimize_tours] calls.
+    /// The request builder for [FleetRouting::batch_optimize_tours][crate::client::FleetRouting::batch_optimize_tours] calls.
     ///
     /// # Example
     /// ```no_run
@@ -373,7 +373,7 @@ pub mod fleet_routing {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [batch_optimize_tours][super::super::client::FleetRouting::batch_optimize_tours].
+        /// on [batch_optimize_tours][crate::client::FleetRouting::batch_optimize_tours].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .batch_optimize_tours(self.0.request, self.0.options)
@@ -446,7 +446,7 @@ pub mod fleet_routing {
         }
     }
 
-    /// The request builder for [FleetRouting::get_operation][super::super::client::FleetRouting::get_operation] calls.
+    /// The request builder for [FleetRouting::get_operation][crate::client::FleetRouting::get_operation] calls.
     ///
     /// # Example
     /// ```no_run

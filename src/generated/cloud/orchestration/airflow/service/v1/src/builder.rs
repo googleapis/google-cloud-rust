@@ -17,7 +17,7 @@
 pub mod environments {
     use crate::Result;
 
-    /// A builder for [Environments][super::super::client::Environments].
+    /// A builder for [Environments][crate::client::Environments].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -45,7 +45,7 @@ pub mod environments {
         }
     }
 
-    /// Common implementation for [super::super::client::Environments] request builders.
+    /// Common implementation for [crate::client::Environments] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::Environments>,
@@ -68,7 +68,7 @@ pub mod environments {
         }
     }
 
-    /// The request builder for [Environments::create_environment][super::super::client::Environments::create_environment] calls.
+    /// The request builder for [Environments::create_environment][crate::client::Environments::create_environment] calls.
     ///
     /// # Example
     /// ```no_run
@@ -116,7 +116,7 @@ pub mod environments {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_environment][super::super::client::Environments::create_environment].
+        /// on [create_environment][crate::client::Environments::create_environment].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_environment(self.0.request, self.0.options)
@@ -191,7 +191,7 @@ pub mod environments {
         }
     }
 
-    /// The request builder for [Environments::get_environment][super::super::client::Environments::get_environment] calls.
+    /// The request builder for [Environments::get_environment][crate::client::Environments::get_environment] calls.
     ///
     /// # Example
     /// ```no_run
@@ -252,7 +252,7 @@ pub mod environments {
         }
     }
 
-    /// The request builder for [Environments::list_environments][super::super::client::Environments::list_environments] calls.
+    /// The request builder for [Environments::list_environments][crate::client::Environments::list_environments] calls.
     ///
     /// # Example
     /// ```no_run
@@ -356,7 +356,7 @@ pub mod environments {
         }
     }
 
-    /// The request builder for [Environments::update_environment][super::super::client::Environments::update_environment] calls.
+    /// The request builder for [Environments::update_environment][crate::client::Environments::update_environment] calls.
     ///
     /// # Example
     /// ```no_run
@@ -404,7 +404,7 @@ pub mod environments {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_environment][super::super::client::Environments::update_environment].
+        /// on [update_environment][crate::client::Environments::update_environment].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_environment(self.0.request, self.0.options)
@@ -497,7 +497,7 @@ pub mod environments {
         }
     }
 
-    /// The request builder for [Environments::delete_environment][super::super::client::Environments::delete_environment] calls.
+    /// The request builder for [Environments::delete_environment][crate::client::Environments::delete_environment] calls.
     ///
     /// # Example
     /// ```no_run
@@ -545,7 +545,7 @@ pub mod environments {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_environment][super::super::client::Environments::delete_environment].
+        /// on [delete_environment][crate::client::Environments::delete_environment].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_environment(self.0.request, self.0.options)
@@ -602,7 +602,7 @@ pub mod environments {
         }
     }
 
-    /// The request builder for [Environments::execute_airflow_command][super::super::client::Environments::execute_airflow_command] calls.
+    /// The request builder for [Environments::execute_airflow_command][crate::client::Environments::execute_airflow_command] calls.
     ///
     /// # Example
     /// ```no_run
@@ -689,7 +689,7 @@ pub mod environments {
         }
     }
 
-    /// The request builder for [Environments::stop_airflow_command][super::super::client::Environments::stop_airflow_command] calls.
+    /// The request builder for [Environments::stop_airflow_command][crate::client::Environments::stop_airflow_command] calls.
     ///
     /// # Example
     /// ```no_run
@@ -777,7 +777,7 @@ pub mod environments {
         }
     }
 
-    /// The request builder for [Environments::poll_airflow_command][super::super::client::Environments::poll_airflow_command] calls.
+    /// The request builder for [Environments::poll_airflow_command][crate::client::Environments::poll_airflow_command] calls.
     ///
     /// # Example
     /// ```no_run
@@ -865,7 +865,7 @@ pub mod environments {
         }
     }
 
-    /// The request builder for [Environments::list_workloads][super::super::client::Environments::list_workloads] calls.
+    /// The request builder for [Environments::list_workloads][crate::client::Environments::list_workloads] calls.
     ///
     /// # Example
     /// ```no_run
@@ -974,7 +974,7 @@ pub mod environments {
         }
     }
 
-    /// The request builder for [Environments::check_upgrade][super::super::client::Environments::check_upgrade] calls.
+    /// The request builder for [Environments::check_upgrade][crate::client::Environments::check_upgrade] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1019,7 +1019,7 @@ pub mod environments {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [check_upgrade][super::super::client::Environments::check_upgrade].
+        /// on [check_upgrade][crate::client::Environments::check_upgrade].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .check_upgrade(self.0.request, self.0.options)
@@ -1085,7 +1085,7 @@ pub mod environments {
         }
     }
 
-    /// The request builder for [Environments::create_user_workloads_secret][super::super::client::Environments::create_user_workloads_secret] calls.
+    /// The request builder for [Environments::create_user_workloads_secret][crate::client::Environments::create_user_workloads_secret] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1175,7 +1175,7 @@ pub mod environments {
         }
     }
 
-    /// The request builder for [Environments::get_user_workloads_secret][super::super::client::Environments::get_user_workloads_secret] calls.
+    /// The request builder for [Environments::get_user_workloads_secret][crate::client::Environments::get_user_workloads_secret] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1241,7 +1241,7 @@ pub mod environments {
         }
     }
 
-    /// The request builder for [Environments::list_user_workloads_secrets][super::super::client::Environments::list_user_workloads_secrets] calls.
+    /// The request builder for [Environments::list_user_workloads_secrets][crate::client::Environments::list_user_workloads_secrets] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1353,7 +1353,7 @@ pub mod environments {
         }
     }
 
-    /// The request builder for [Environments::update_user_workloads_secret][super::super::client::Environments::update_user_workloads_secret] calls.
+    /// The request builder for [Environments::update_user_workloads_secret][crate::client::Environments::update_user_workloads_secret] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1431,7 +1431,7 @@ pub mod environments {
         }
     }
 
-    /// The request builder for [Environments::delete_user_workloads_secret][super::super::client::Environments::delete_user_workloads_secret] calls.
+    /// The request builder for [Environments::delete_user_workloads_secret][crate::client::Environments::delete_user_workloads_secret] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1499,7 +1499,7 @@ pub mod environments {
         }
     }
 
-    /// The request builder for [Environments::create_user_workloads_config_map][super::super::client::Environments::create_user_workloads_config_map] calls.
+    /// The request builder for [Environments::create_user_workloads_config_map][crate::client::Environments::create_user_workloads_config_map] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1592,7 +1592,7 @@ pub mod environments {
         }
     }
 
-    /// The request builder for [Environments::get_user_workloads_config_map][super::super::client::Environments::get_user_workloads_config_map] calls.
+    /// The request builder for [Environments::get_user_workloads_config_map][crate::client::Environments::get_user_workloads_config_map] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1660,7 +1660,7 @@ pub mod environments {
         }
     }
 
-    /// The request builder for [Environments::list_user_workloads_config_maps][super::super::client::Environments::list_user_workloads_config_maps] calls.
+    /// The request builder for [Environments::list_user_workloads_config_maps][crate::client::Environments::list_user_workloads_config_maps] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1772,7 +1772,7 @@ pub mod environments {
         }
     }
 
-    /// The request builder for [Environments::update_user_workloads_config_map][super::super::client::Environments::update_user_workloads_config_map] calls.
+    /// The request builder for [Environments::update_user_workloads_config_map][crate::client::Environments::update_user_workloads_config_map] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1853,7 +1853,7 @@ pub mod environments {
         }
     }
 
-    /// The request builder for [Environments::delete_user_workloads_config_map][super::super::client::Environments::delete_user_workloads_config_map] calls.
+    /// The request builder for [Environments::delete_user_workloads_config_map][crate::client::Environments::delete_user_workloads_config_map] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1921,7 +1921,7 @@ pub mod environments {
         }
     }
 
-    /// The request builder for [Environments::save_snapshot][super::super::client::Environments::save_snapshot] calls.
+    /// The request builder for [Environments::save_snapshot][crate::client::Environments::save_snapshot] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1966,7 +1966,7 @@ pub mod environments {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [save_snapshot][super::super::client::Environments::save_snapshot].
+        /// on [save_snapshot][crate::client::Environments::save_snapshot].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .save_snapshot(self.0.request, self.0.options)
@@ -2030,7 +2030,7 @@ pub mod environments {
         }
     }
 
-    /// The request builder for [Environments::load_snapshot][super::super::client::Environments::load_snapshot] calls.
+    /// The request builder for [Environments::load_snapshot][crate::client::Environments::load_snapshot] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2075,7 +2075,7 @@ pub mod environments {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [load_snapshot][super::super::client::Environments::load_snapshot].
+        /// on [load_snapshot][crate::client::Environments::load_snapshot].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .load_snapshot(self.0.request, self.0.options)
@@ -2163,7 +2163,7 @@ pub mod environments {
         }
     }
 
-    /// The request builder for [Environments::database_failover][super::super::client::Environments::database_failover] calls.
+    /// The request builder for [Environments::database_failover][crate::client::Environments::database_failover] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2211,7 +2211,7 @@ pub mod environments {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [database_failover][super::super::client::Environments::database_failover].
+        /// on [database_failover][crate::client::Environments::database_failover].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .database_failover(self.0.request, self.0.options)
@@ -2269,7 +2269,7 @@ pub mod environments {
         }
     }
 
-    /// The request builder for [Environments::fetch_database_properties][super::super::client::Environments::fetch_database_properties] calls.
+    /// The request builder for [Environments::fetch_database_properties][crate::client::Environments::fetch_database_properties] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2337,7 +2337,7 @@ pub mod environments {
         }
     }
 
-    /// The request builder for [Environments::list_operations][super::super::client::Environments::list_operations] calls.
+    /// The request builder for [Environments::list_operations][crate::client::Environments::list_operations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2449,7 +2449,7 @@ pub mod environments {
         }
     }
 
-    /// The request builder for [Environments::get_operation][super::super::client::Environments::get_operation] calls.
+    /// The request builder for [Environments::get_operation][crate::client::Environments::get_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2513,7 +2513,7 @@ pub mod environments {
         }
     }
 
-    /// The request builder for [Environments::delete_operation][super::super::client::Environments::delete_operation] calls.
+    /// The request builder for [Environments::delete_operation][crate::client::Environments::delete_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2581,7 +2581,7 @@ pub mod environments {
 pub mod image_versions {
     use crate::Result;
 
-    /// A builder for [ImageVersions][super::super::client::ImageVersions].
+    /// A builder for [ImageVersions][crate::client::ImageVersions].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -2609,7 +2609,7 @@ pub mod image_versions {
         }
     }
 
-    /// Common implementation for [super::super::client::ImageVersions] request builders.
+    /// Common implementation for [crate::client::ImageVersions] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::ImageVersions>,
@@ -2632,7 +2632,7 @@ pub mod image_versions {
         }
     }
 
-    /// The request builder for [ImageVersions::list_image_versions][super::super::client::ImageVersions::list_image_versions] calls.
+    /// The request builder for [ImageVersions::list_image_versions][crate::client::ImageVersions::list_image_versions] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2742,7 +2742,7 @@ pub mod image_versions {
         }
     }
 
-    /// The request builder for [ImageVersions::list_operations][super::super::client::ImageVersions::list_operations] calls.
+    /// The request builder for [ImageVersions::list_operations][crate::client::ImageVersions::list_operations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2854,7 +2854,7 @@ pub mod image_versions {
         }
     }
 
-    /// The request builder for [ImageVersions::get_operation][super::super::client::ImageVersions::get_operation] calls.
+    /// The request builder for [ImageVersions::get_operation][crate::client::ImageVersions::get_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2918,7 +2918,7 @@ pub mod image_versions {
         }
     }
 
-    /// The request builder for [ImageVersions::delete_operation][super::super::client::ImageVersions::delete_operation] calls.
+    /// The request builder for [ImageVersions::delete_operation][crate::client::ImageVersions::delete_operation] calls.
     ///
     /// # Example
     /// ```no_run

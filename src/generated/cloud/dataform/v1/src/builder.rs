@@ -17,7 +17,7 @@
 pub mod dataform {
     use crate::Result;
 
-    /// A builder for [Dataform][super::super::client::Dataform].
+    /// A builder for [Dataform][crate::client::Dataform].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -45,7 +45,7 @@ pub mod dataform {
         }
     }
 
-    /// Common implementation for [super::super::client::Dataform] request builders.
+    /// Common implementation for [crate::client::Dataform] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::Dataform>,
@@ -66,7 +66,7 @@ pub mod dataform {
         }
     }
 
-    /// The request builder for [Dataform::list_repositories][super::super::client::Dataform::list_repositories] calls.
+    /// The request builder for [Dataform::list_repositories][crate::client::Dataform::list_repositories] calls.
     ///
     /// # Example
     /// ```no_run
@@ -182,7 +182,7 @@ pub mod dataform {
         }
     }
 
-    /// The request builder for [Dataform::get_repository][super::super::client::Dataform::get_repository] calls.
+    /// The request builder for [Dataform::get_repository][crate::client::Dataform::get_repository] calls.
     ///
     /// # Example
     /// ```no_run
@@ -243,7 +243,7 @@ pub mod dataform {
         }
     }
 
-    /// The request builder for [Dataform::create_repository][super::super::client::Dataform::create_repository] calls.
+    /// The request builder for [Dataform::create_repository][crate::client::Dataform::create_repository] calls.
     ///
     /// # Example
     /// ```no_run
@@ -337,7 +337,7 @@ pub mod dataform {
         }
     }
 
-    /// The request builder for [Dataform::update_repository][super::super::client::Dataform::update_repository] calls.
+    /// The request builder for [Dataform::update_repository][crate::client::Dataform::update_repository] calls.
     ///
     /// # Example
     /// ```no_run
@@ -433,7 +433,7 @@ pub mod dataform {
         }
     }
 
-    /// The request builder for [Dataform::delete_repository][super::super::client::Dataform::delete_repository] calls.
+    /// The request builder for [Dataform::delete_repository][crate::client::Dataform::delete_repository] calls.
     ///
     /// # Example
     /// ```no_run
@@ -503,7 +503,7 @@ pub mod dataform {
         }
     }
 
-    /// The request builder for [Dataform::commit_repository_changes][super::super::client::Dataform::commit_repository_changes] calls.
+    /// The request builder for [Dataform::commit_repository_changes][crate::client::Dataform::commit_repository_changes] calls.
     ///
     /// # Example
     /// ```no_run
@@ -609,7 +609,7 @@ pub mod dataform {
         }
     }
 
-    /// The request builder for [Dataform::read_repository_file][super::super::client::Dataform::read_repository_file] calls.
+    /// The request builder for [Dataform::read_repository_file][crate::client::Dataform::read_repository_file] calls.
     ///
     /// # Example
     /// ```no_run
@@ -687,7 +687,7 @@ pub mod dataform {
         }
     }
 
-    /// The request builder for [Dataform::query_repository_directory_contents][super::super::client::Dataform::query_repository_directory_contents] calls.
+    /// The request builder for [Dataform::query_repository_directory_contents][crate::client::Dataform::query_repository_directory_contents] calls.
     ///
     /// # Example
     /// ```no_run
@@ -809,7 +809,7 @@ pub mod dataform {
         }
     }
 
-    /// The request builder for [Dataform::fetch_repository_history][super::super::client::Dataform::fetch_repository_history] calls.
+    /// The request builder for [Dataform::fetch_repository_history][crate::client::Dataform::fetch_repository_history] calls.
     ///
     /// # Example
     /// ```no_run
@@ -917,7 +917,7 @@ pub mod dataform {
         }
     }
 
-    /// The request builder for [Dataform::compute_repository_access_token_status][super::super::client::Dataform::compute_repository_access_token_status] calls.
+    /// The request builder for [Dataform::compute_repository_access_token_status][crate::client::Dataform::compute_repository_access_token_status] calls.
     ///
     /// # Example
     /// ```no_run
@@ -985,7 +985,7 @@ pub mod dataform {
         }
     }
 
-    /// The request builder for [Dataform::fetch_remote_branches][super::super::client::Dataform::fetch_remote_branches] calls.
+    /// The request builder for [Dataform::fetch_remote_branches][crate::client::Dataform::fetch_remote_branches] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1049,7 +1049,7 @@ pub mod dataform {
         }
     }
 
-    /// The request builder for [Dataform::list_workspaces][super::super::client::Dataform::list_workspaces] calls.
+    /// The request builder for [Dataform::list_workspaces][crate::client::Dataform::list_workspaces] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1162,7 +1162,7 @@ pub mod dataform {
         }
     }
 
-    /// The request builder for [Dataform::get_workspace][super::super::client::Dataform::get_workspace] calls.
+    /// The request builder for [Dataform::get_workspace][crate::client::Dataform::get_workspace] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1223,7 +1223,7 @@ pub mod dataform {
         }
     }
 
-    /// The request builder for [Dataform::create_workspace][super::super::client::Dataform::create_workspace] calls.
+    /// The request builder for [Dataform::create_workspace][crate::client::Dataform::create_workspace] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1314,7 +1314,7 @@ pub mod dataform {
         }
     }
 
-    /// The request builder for [Dataform::delete_workspace][super::super::client::Dataform::delete_workspace] calls.
+    /// The request builder for [Dataform::delete_workspace][crate::client::Dataform::delete_workspace] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1375,7 +1375,7 @@ pub mod dataform {
         }
     }
 
-    /// The request builder for [Dataform::install_npm_packages][super::super::client::Dataform::install_npm_packages] calls.
+    /// The request builder for [Dataform::install_npm_packages][crate::client::Dataform::install_npm_packages] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1439,7 +1439,7 @@ pub mod dataform {
         }
     }
 
-    /// The request builder for [Dataform::pull_git_commits][super::super::client::Dataform::pull_git_commits] calls.
+    /// The request builder for [Dataform::pull_git_commits][crate::client::Dataform::pull_git_commits] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1528,7 +1528,7 @@ pub mod dataform {
         }
     }
 
-    /// The request builder for [Dataform::push_git_commits][super::super::client::Dataform::push_git_commits] calls.
+    /// The request builder for [Dataform::push_git_commits][crate::client::Dataform::push_git_commits] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1595,7 +1595,7 @@ pub mod dataform {
         }
     }
 
-    /// The request builder for [Dataform::fetch_file_git_statuses][super::super::client::Dataform::fetch_file_git_statuses] calls.
+    /// The request builder for [Dataform::fetch_file_git_statuses][crate::client::Dataform::fetch_file_git_statuses] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1659,7 +1659,7 @@ pub mod dataform {
         }
     }
 
-    /// The request builder for [Dataform::fetch_git_ahead_behind][super::super::client::Dataform::fetch_git_ahead_behind] calls.
+    /// The request builder for [Dataform::fetch_git_ahead_behind][crate::client::Dataform::fetch_git_ahead_behind] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1729,7 +1729,7 @@ pub mod dataform {
         }
     }
 
-    /// The request builder for [Dataform::commit_workspace_changes][super::super::client::Dataform::commit_workspace_changes] calls.
+    /// The request builder for [Dataform::commit_workspace_changes][crate::client::Dataform::commit_workspace_changes] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1832,7 +1832,7 @@ pub mod dataform {
         }
     }
 
-    /// The request builder for [Dataform::reset_workspace_changes][super::super::client::Dataform::reset_workspace_changes] calls.
+    /// The request builder for [Dataform::reset_workspace_changes][crate::client::Dataform::reset_workspace_changes] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1913,7 +1913,7 @@ pub mod dataform {
         }
     }
 
-    /// The request builder for [Dataform::fetch_file_diff][super::super::client::Dataform::fetch_file_diff] calls.
+    /// The request builder for [Dataform::fetch_file_diff][crate::client::Dataform::fetch_file_diff] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1982,7 +1982,7 @@ pub mod dataform {
         }
     }
 
-    /// The request builder for [Dataform::query_directory_contents][super::super::client::Dataform::query_directory_contents] calls.
+    /// The request builder for [Dataform::query_directory_contents][crate::client::Dataform::query_directory_contents] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2096,7 +2096,7 @@ pub mod dataform {
         }
     }
 
-    /// The request builder for [Dataform::search_files][super::super::client::Dataform::search_files] calls.
+    /// The request builder for [Dataform::search_files][crate::client::Dataform::search_files] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2203,7 +2203,7 @@ pub mod dataform {
         }
     }
 
-    /// The request builder for [Dataform::make_directory][super::super::client::Dataform::make_directory] calls.
+    /// The request builder for [Dataform::make_directory][crate::client::Dataform::make_directory] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2272,7 +2272,7 @@ pub mod dataform {
         }
     }
 
-    /// The request builder for [Dataform::remove_directory][super::super::client::Dataform::remove_directory] calls.
+    /// The request builder for [Dataform::remove_directory][crate::client::Dataform::remove_directory] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2341,7 +2341,7 @@ pub mod dataform {
         }
     }
 
-    /// The request builder for [Dataform::move_directory][super::super::client::Dataform::move_directory] calls.
+    /// The request builder for [Dataform::move_directory][crate::client::Dataform::move_directory] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2418,7 +2418,7 @@ pub mod dataform {
         }
     }
 
-    /// The request builder for [Dataform::read_file][super::super::client::Dataform::read_file] calls.
+    /// The request builder for [Dataform::read_file][crate::client::Dataform::read_file] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2493,7 +2493,7 @@ pub mod dataform {
         }
     }
 
-    /// The request builder for [Dataform::remove_file][super::super::client::Dataform::remove_file] calls.
+    /// The request builder for [Dataform::remove_file][crate::client::Dataform::remove_file] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2562,7 +2562,7 @@ pub mod dataform {
         }
     }
 
-    /// The request builder for [Dataform::move_file][super::super::client::Dataform::move_file] calls.
+    /// The request builder for [Dataform::move_file][crate::client::Dataform::move_file] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2639,7 +2639,7 @@ pub mod dataform {
         }
     }
 
-    /// The request builder for [Dataform::write_file][super::super::client::Dataform::write_file] calls.
+    /// The request builder for [Dataform::write_file][crate::client::Dataform::write_file] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2716,7 +2716,7 @@ pub mod dataform {
         }
     }
 
-    /// The request builder for [Dataform::list_release_configs][super::super::client::Dataform::list_release_configs] calls.
+    /// The request builder for [Dataform::list_release_configs][crate::client::Dataform::list_release_configs] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2822,7 +2822,7 @@ pub mod dataform {
         }
     }
 
-    /// The request builder for [Dataform::get_release_config][super::super::client::Dataform::get_release_config] calls.
+    /// The request builder for [Dataform::get_release_config][crate::client::Dataform::get_release_config] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2886,7 +2886,7 @@ pub mod dataform {
         }
     }
 
-    /// The request builder for [Dataform::create_release_config][super::super::client::Dataform::create_release_config] calls.
+    /// The request builder for [Dataform::create_release_config][crate::client::Dataform::create_release_config] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2980,7 +2980,7 @@ pub mod dataform {
         }
     }
 
-    /// The request builder for [Dataform::update_release_config][super::super::client::Dataform::update_release_config] calls.
+    /// The request builder for [Dataform::update_release_config][crate::client::Dataform::update_release_config] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3076,7 +3076,7 @@ pub mod dataform {
         }
     }
 
-    /// The request builder for [Dataform::delete_release_config][super::super::client::Dataform::delete_release_config] calls.
+    /// The request builder for [Dataform::delete_release_config][crate::client::Dataform::delete_release_config] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3140,7 +3140,7 @@ pub mod dataform {
         }
     }
 
-    /// The request builder for [Dataform::list_compilation_results][super::super::client::Dataform::list_compilation_results] calls.
+    /// The request builder for [Dataform::list_compilation_results][crate::client::Dataform::list_compilation_results] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3260,7 +3260,7 @@ pub mod dataform {
         }
     }
 
-    /// The request builder for [Dataform::get_compilation_result][super::super::client::Dataform::get_compilation_result] calls.
+    /// The request builder for [Dataform::get_compilation_result][crate::client::Dataform::get_compilation_result] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3324,7 +3324,7 @@ pub mod dataform {
         }
     }
 
-    /// The request builder for [Dataform::create_compilation_result][super::super::client::Dataform::create_compilation_result] calls.
+    /// The request builder for [Dataform::create_compilation_result][crate::client::Dataform::create_compilation_result] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3412,7 +3412,7 @@ pub mod dataform {
         }
     }
 
-    /// The request builder for [Dataform::query_compilation_result_actions][super::super::client::Dataform::query_compilation_result_actions] calls.
+    /// The request builder for [Dataform::query_compilation_result_actions][crate::client::Dataform::query_compilation_result_actions] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3528,7 +3528,7 @@ pub mod dataform {
         }
     }
 
-    /// The request builder for [Dataform::list_workflow_configs][super::super::client::Dataform::list_workflow_configs] calls.
+    /// The request builder for [Dataform::list_workflow_configs][crate::client::Dataform::list_workflow_configs] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3634,7 +3634,7 @@ pub mod dataform {
         }
     }
 
-    /// The request builder for [Dataform::get_workflow_config][super::super::client::Dataform::get_workflow_config] calls.
+    /// The request builder for [Dataform::get_workflow_config][crate::client::Dataform::get_workflow_config] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3698,7 +3698,7 @@ pub mod dataform {
         }
     }
 
-    /// The request builder for [Dataform::create_workflow_config][super::super::client::Dataform::create_workflow_config] calls.
+    /// The request builder for [Dataform::create_workflow_config][crate::client::Dataform::create_workflow_config] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3792,7 +3792,7 @@ pub mod dataform {
         }
     }
 
-    /// The request builder for [Dataform::update_workflow_config][super::super::client::Dataform::update_workflow_config] calls.
+    /// The request builder for [Dataform::update_workflow_config][crate::client::Dataform::update_workflow_config] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3888,7 +3888,7 @@ pub mod dataform {
         }
     }
 
-    /// The request builder for [Dataform::delete_workflow_config][super::super::client::Dataform::delete_workflow_config] calls.
+    /// The request builder for [Dataform::delete_workflow_config][crate::client::Dataform::delete_workflow_config] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3952,7 +3952,7 @@ pub mod dataform {
         }
     }
 
-    /// The request builder for [Dataform::list_workflow_invocations][super::super::client::Dataform::list_workflow_invocations] calls.
+    /// The request builder for [Dataform::list_workflow_invocations][crate::client::Dataform::list_workflow_invocations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4074,7 +4074,7 @@ pub mod dataform {
         }
     }
 
-    /// The request builder for [Dataform::get_workflow_invocation][super::super::client::Dataform::get_workflow_invocation] calls.
+    /// The request builder for [Dataform::get_workflow_invocation][crate::client::Dataform::get_workflow_invocation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4138,7 +4138,7 @@ pub mod dataform {
         }
     }
 
-    /// The request builder for [Dataform::create_workflow_invocation][super::super::client::Dataform::create_workflow_invocation] calls.
+    /// The request builder for [Dataform::create_workflow_invocation][crate::client::Dataform::create_workflow_invocation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4226,7 +4226,7 @@ pub mod dataform {
         }
     }
 
-    /// The request builder for [Dataform::delete_workflow_invocation][super::super::client::Dataform::delete_workflow_invocation] calls.
+    /// The request builder for [Dataform::delete_workflow_invocation][crate::client::Dataform::delete_workflow_invocation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4292,7 +4292,7 @@ pub mod dataform {
         }
     }
 
-    /// The request builder for [Dataform::cancel_workflow_invocation][super::super::client::Dataform::cancel_workflow_invocation] calls.
+    /// The request builder for [Dataform::cancel_workflow_invocation][crate::client::Dataform::cancel_workflow_invocation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4358,7 +4358,7 @@ pub mod dataform {
         }
     }
 
-    /// The request builder for [Dataform::query_workflow_invocation_actions][super::super::client::Dataform::query_workflow_invocation_actions] calls.
+    /// The request builder for [Dataform::query_workflow_invocation_actions][crate::client::Dataform::query_workflow_invocation_actions] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4468,7 +4468,7 @@ pub mod dataform {
         }
     }
 
-    /// The request builder for [Dataform::get_config][super::super::client::Dataform::get_config] calls.
+    /// The request builder for [Dataform::get_config][crate::client::Dataform::get_config] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4529,7 +4529,7 @@ pub mod dataform {
         }
     }
 
-    /// The request builder for [Dataform::update_config][super::super::client::Dataform::update_config] calls.
+    /// The request builder for [Dataform::update_config][crate::client::Dataform::update_config] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4622,7 +4622,7 @@ pub mod dataform {
         }
     }
 
-    /// The request builder for [Dataform::list_locations][super::super::client::Dataform::list_locations] calls.
+    /// The request builder for [Dataform::list_locations][crate::client::Dataform::list_locations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4730,7 +4730,7 @@ pub mod dataform {
         }
     }
 
-    /// The request builder for [Dataform::get_location][super::super::client::Dataform::get_location] calls.
+    /// The request builder for [Dataform::get_location][crate::client::Dataform::get_location] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4789,7 +4789,7 @@ pub mod dataform {
         }
     }
 
-    /// The request builder for [Dataform::set_iam_policy][super::super::client::Dataform::set_iam_policy] calls.
+    /// The request builder for [Dataform::set_iam_policy][crate::client::Dataform::set_iam_policy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4890,7 +4890,7 @@ pub mod dataform {
         }
     }
 
-    /// The request builder for [Dataform::get_iam_policy][super::super::client::Dataform::get_iam_policy] calls.
+    /// The request builder for [Dataform::get_iam_policy][crate::client::Dataform::get_iam_policy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4969,7 +4969,7 @@ pub mod dataform {
         }
     }
 
-    /// The request builder for [Dataform::test_iam_permissions][super::super::client::Dataform::test_iam_permissions] calls.
+    /// The request builder for [Dataform::test_iam_permissions][crate::client::Dataform::test_iam_permissions] calls.
     ///
     /// # Example
     /// ```no_run

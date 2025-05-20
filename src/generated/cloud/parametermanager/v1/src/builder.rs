@@ -17,7 +17,7 @@
 pub mod parameter_manager {
     use crate::Result;
 
-    /// A builder for [ParameterManager][super::super::client::ParameterManager].
+    /// A builder for [ParameterManager][crate::client::ParameterManager].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -45,7 +45,7 @@ pub mod parameter_manager {
         }
     }
 
-    /// Common implementation for [super::super::client::ParameterManager] request builders.
+    /// Common implementation for [crate::client::ParameterManager] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::ParameterManager>,
@@ -68,7 +68,7 @@ pub mod parameter_manager {
         }
     }
 
-    /// The request builder for [ParameterManager::list_parameters][super::super::client::ParameterManager::list_parameters] calls.
+    /// The request builder for [ParameterManager::list_parameters][crate::client::ParameterManager::list_parameters] calls.
     ///
     /// # Example
     /// ```no_run
@@ -183,7 +183,7 @@ pub mod parameter_manager {
         }
     }
 
-    /// The request builder for [ParameterManager::get_parameter][super::super::client::ParameterManager::get_parameter] calls.
+    /// The request builder for [ParameterManager::get_parameter][crate::client::ParameterManager::get_parameter] calls.
     ///
     /// # Example
     /// ```no_run
@@ -246,7 +246,7 @@ pub mod parameter_manager {
         }
     }
 
-    /// The request builder for [ParameterManager::create_parameter][super::super::client::ParameterManager::create_parameter] calls.
+    /// The request builder for [ParameterManager::create_parameter][crate::client::ParameterManager::create_parameter] calls.
     ///
     /// # Example
     /// ```no_run
@@ -345,7 +345,7 @@ pub mod parameter_manager {
         }
     }
 
-    /// The request builder for [ParameterManager::update_parameter][super::super::client::ParameterManager::update_parameter] calls.
+    /// The request builder for [ParameterManager::update_parameter][crate::client::ParameterManager::update_parameter] calls.
     ///
     /// # Example
     /// ```no_run
@@ -446,7 +446,7 @@ pub mod parameter_manager {
         }
     }
 
-    /// The request builder for [ParameterManager::delete_parameter][super::super::client::ParameterManager::delete_parameter] calls.
+    /// The request builder for [ParameterManager::delete_parameter][crate::client::ParameterManager::delete_parameter] calls.
     ///
     /// # Example
     /// ```no_run
@@ -515,7 +515,7 @@ pub mod parameter_manager {
         }
     }
 
-    /// The request builder for [ParameterManager::list_parameter_versions][super::super::client::ParameterManager::list_parameter_versions] calls.
+    /// The request builder for [ParameterManager::list_parameter_versions][crate::client::ParameterManager::list_parameter_versions] calls.
     ///
     /// # Example
     /// ```no_run
@@ -635,7 +635,7 @@ pub mod parameter_manager {
         }
     }
 
-    /// The request builder for [ParameterManager::get_parameter_version][super::super::client::ParameterManager::get_parameter_version] calls.
+    /// The request builder for [ParameterManager::get_parameter_version][crate::client::ParameterManager::get_parameter_version] calls.
     ///
     /// # Example
     /// ```no_run
@@ -707,7 +707,7 @@ pub mod parameter_manager {
         }
     }
 
-    /// The request builder for [ParameterManager::render_parameter_version][super::super::client::ParameterManager::render_parameter_version] calls.
+    /// The request builder for [ParameterManager::render_parameter_version][crate::client::ParameterManager::render_parameter_version] calls.
     ///
     /// # Example
     /// ```no_run
@@ -773,7 +773,7 @@ pub mod parameter_manager {
         }
     }
 
-    /// The request builder for [ParameterManager::create_parameter_version][super::super::client::ParameterManager::create_parameter_version] calls.
+    /// The request builder for [ParameterManager::create_parameter_version][crate::client::ParameterManager::create_parameter_version] calls.
     ///
     /// # Example
     /// ```no_run
@@ -875,7 +875,7 @@ pub mod parameter_manager {
         }
     }
 
-    /// The request builder for [ParameterManager::update_parameter_version][super::super::client::ParameterManager::update_parameter_version] calls.
+    /// The request builder for [ParameterManager::update_parameter_version][crate::client::ParameterManager::update_parameter_version] calls.
     ///
     /// # Example
     /// ```no_run
@@ -979,7 +979,7 @@ pub mod parameter_manager {
         }
     }
 
-    /// The request builder for [ParameterManager::delete_parameter_version][super::super::client::ParameterManager::delete_parameter_version] calls.
+    /// The request builder for [ParameterManager::delete_parameter_version][crate::client::ParameterManager::delete_parameter_version] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1051,7 +1051,7 @@ pub mod parameter_manager {
         }
     }
 
-    /// The request builder for [ParameterManager::list_locations][super::super::client::ParameterManager::list_locations] calls.
+    /// The request builder for [ParameterManager::list_locations][crate::client::ParameterManager::list_locations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1161,7 +1161,7 @@ pub mod parameter_manager {
         }
     }
 
-    /// The request builder for [ParameterManager::get_location][super::super::client::ParameterManager::get_location] calls.
+    /// The request builder for [ParameterManager::get_location][crate::client::ParameterManager::get_location] calls.
     ///
     /// # Example
     /// ```no_run

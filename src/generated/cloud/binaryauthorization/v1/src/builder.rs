@@ -17,7 +17,7 @@
 pub mod binauthz_management_service_v_1 {
     use crate::Result;
 
-    /// A builder for [BinauthzManagementServiceV1][super::super::client::BinauthzManagementServiceV1].
+    /// A builder for [BinauthzManagementServiceV1][crate::client::BinauthzManagementServiceV1].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -45,7 +45,7 @@ pub mod binauthz_management_service_v_1 {
         }
     }
 
-    /// Common implementation for [super::super::client::BinauthzManagementServiceV1] request builders.
+    /// Common implementation for [crate::client::BinauthzManagementServiceV1] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::BinauthzManagementServiceV1>,
@@ -68,7 +68,7 @@ pub mod binauthz_management_service_v_1 {
         }
     }
 
-    /// The request builder for [BinauthzManagementServiceV1::get_policy][super::super::client::BinauthzManagementServiceV1::get_policy] calls.
+    /// The request builder for [BinauthzManagementServiceV1::get_policy][crate::client::BinauthzManagementServiceV1::get_policy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -131,7 +131,7 @@ pub mod binauthz_management_service_v_1 {
         }
     }
 
-    /// The request builder for [BinauthzManagementServiceV1::update_policy][super::super::client::BinauthzManagementServiceV1::update_policy] calls.
+    /// The request builder for [BinauthzManagementServiceV1::update_policy][crate::client::BinauthzManagementServiceV1::update_policy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -208,7 +208,7 @@ pub mod binauthz_management_service_v_1 {
         }
     }
 
-    /// The request builder for [BinauthzManagementServiceV1::create_attestor][super::super::client::BinauthzManagementServiceV1::create_attestor] calls.
+    /// The request builder for [BinauthzManagementServiceV1::create_attestor][crate::client::BinauthzManagementServiceV1::create_attestor] calls.
     ///
     /// # Example
     /// ```no_run
@@ -301,7 +301,7 @@ pub mod binauthz_management_service_v_1 {
         }
     }
 
-    /// The request builder for [BinauthzManagementServiceV1::get_attestor][super::super::client::BinauthzManagementServiceV1::get_attestor] calls.
+    /// The request builder for [BinauthzManagementServiceV1::get_attestor][crate::client::BinauthzManagementServiceV1::get_attestor] calls.
     ///
     /// # Example
     /// ```no_run
@@ -364,7 +364,7 @@ pub mod binauthz_management_service_v_1 {
         }
     }
 
-    /// The request builder for [BinauthzManagementServiceV1::update_attestor][super::super::client::BinauthzManagementServiceV1::update_attestor] calls.
+    /// The request builder for [BinauthzManagementServiceV1::update_attestor][crate::client::BinauthzManagementServiceV1::update_attestor] calls.
     ///
     /// # Example
     /// ```no_run
@@ -441,7 +441,7 @@ pub mod binauthz_management_service_v_1 {
         }
     }
 
-    /// The request builder for [BinauthzManagementServiceV1::list_attestors][super::super::client::BinauthzManagementServiceV1::list_attestors] calls.
+    /// The request builder for [BinauthzManagementServiceV1::list_attestors][crate::client::BinauthzManagementServiceV1::list_attestors] calls.
     ///
     /// # Example
     /// ```no_run
@@ -544,7 +544,7 @@ pub mod binauthz_management_service_v_1 {
         }
     }
 
-    /// The request builder for [BinauthzManagementServiceV1::delete_attestor][super::super::client::BinauthzManagementServiceV1::delete_attestor] calls.
+    /// The request builder for [BinauthzManagementServiceV1::delete_attestor][crate::client::BinauthzManagementServiceV1::delete_attestor] calls.
     ///
     /// # Example
     /// ```no_run
@@ -611,7 +611,7 @@ pub mod binauthz_management_service_v_1 {
 pub mod system_policy_v_1 {
     use crate::Result;
 
-    /// A builder for [SystemPolicyV1][super::super::client::SystemPolicyV1].
+    /// A builder for [SystemPolicyV1][crate::client::SystemPolicyV1].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -639,7 +639,7 @@ pub mod system_policy_v_1 {
         }
     }
 
-    /// Common implementation for [super::super::client::SystemPolicyV1] request builders.
+    /// Common implementation for [crate::client::SystemPolicyV1] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::SystemPolicyV1>,
@@ -662,7 +662,7 @@ pub mod system_policy_v_1 {
         }
     }
 
-    /// The request builder for [SystemPolicyV1::get_system_policy][super::super::client::SystemPolicyV1::get_system_policy] calls.
+    /// The request builder for [SystemPolicyV1::get_system_policy][crate::client::SystemPolicyV1::get_system_policy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -729,7 +729,7 @@ pub mod system_policy_v_1 {
 pub mod validation_helper_v_1 {
     use crate::Result;
 
-    /// A builder for [ValidationHelperV1][super::super::client::ValidationHelperV1].
+    /// A builder for [ValidationHelperV1][crate::client::ValidationHelperV1].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -757,7 +757,7 @@ pub mod validation_helper_v_1 {
         }
     }
 
-    /// Common implementation for [super::super::client::ValidationHelperV1] request builders.
+    /// Common implementation for [crate::client::ValidationHelperV1] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::ValidationHelperV1>,
@@ -780,7 +780,7 @@ pub mod validation_helper_v_1 {
         }
     }
 
-    /// The request builder for [ValidationHelperV1::validate_attestation_occurrence][super::super::client::ValidationHelperV1::validate_attestation_occurrence] calls.
+    /// The request builder for [ValidationHelperV1::validate_attestation_occurrence][crate::client::ValidationHelperV1::validate_attestation_occurrence] calls.
     ///
     /// # Example
     /// ```no_run

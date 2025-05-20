@@ -17,7 +17,7 @@
 pub mod iam {
     use crate::Result;
 
-    /// A builder for [Iam][super::super::client::Iam].
+    /// A builder for [Iam][crate::client::Iam].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -45,7 +45,7 @@ pub mod iam {
         }
     }
 
-    /// Common implementation for [super::super::client::Iam] request builders.
+    /// Common implementation for [crate::client::Iam] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::Iam>,
@@ -66,7 +66,7 @@ pub mod iam {
         }
     }
 
-    /// The request builder for [Iam::list_service_accounts][super::super::client::Iam::list_service_accounts] calls.
+    /// The request builder for [Iam::list_service_accounts][crate::client::Iam::list_service_accounts] calls.
     ///
     /// # Example
     /// ```no_run
@@ -172,7 +172,7 @@ pub mod iam {
         }
     }
 
-    /// The request builder for [Iam::get_service_account][super::super::client::Iam::get_service_account] calls.
+    /// The request builder for [Iam::get_service_account][crate::client::Iam::get_service_account] calls.
     ///
     /// # Example
     /// ```no_run
@@ -236,7 +236,7 @@ pub mod iam {
         }
     }
 
-    /// The request builder for [Iam::create_service_account][super::super::client::Iam::create_service_account] calls.
+    /// The request builder for [Iam::create_service_account][crate::client::Iam::create_service_account] calls.
     ///
     /// # Example
     /// ```no_run
@@ -326,7 +326,7 @@ pub mod iam {
         }
     }
 
-    /// The request builder for [Iam::update_service_account][super::super::client::Iam::update_service_account] calls.
+    /// The request builder for [Iam::update_service_account][crate::client::Iam::update_service_account] calls.
     ///
     /// # Example
     /// ```no_run
@@ -434,7 +434,7 @@ pub mod iam {
         }
     }
 
-    /// The request builder for [Iam::patch_service_account][super::super::client::Iam::patch_service_account] calls.
+    /// The request builder for [Iam::patch_service_account][crate::client::Iam::patch_service_account] calls.
     ///
     /// # Example
     /// ```no_run
@@ -526,7 +526,7 @@ pub mod iam {
         }
     }
 
-    /// The request builder for [Iam::delete_service_account][super::super::client::Iam::delete_service_account] calls.
+    /// The request builder for [Iam::delete_service_account][crate::client::Iam::delete_service_account] calls.
     ///
     /// # Example
     /// ```no_run
@@ -590,7 +590,7 @@ pub mod iam {
         }
     }
 
-    /// The request builder for [Iam::undelete_service_account][super::super::client::Iam::undelete_service_account] calls.
+    /// The request builder for [Iam::undelete_service_account][crate::client::Iam::undelete_service_account] calls.
     ///
     /// # Example
     /// ```no_run
@@ -652,7 +652,7 @@ pub mod iam {
         }
     }
 
-    /// The request builder for [Iam::enable_service_account][super::super::client::Iam::enable_service_account] calls.
+    /// The request builder for [Iam::enable_service_account][crate::client::Iam::enable_service_account] calls.
     ///
     /// # Example
     /// ```no_run
@@ -714,7 +714,7 @@ pub mod iam {
         }
     }
 
-    /// The request builder for [Iam::disable_service_account][super::super::client::Iam::disable_service_account] calls.
+    /// The request builder for [Iam::disable_service_account][crate::client::Iam::disable_service_account] calls.
     ///
     /// # Example
     /// ```no_run
@@ -776,7 +776,7 @@ pub mod iam {
         }
     }
 
-    /// The request builder for [Iam::list_service_account_keys][super::super::client::Iam::list_service_account_keys] calls.
+    /// The request builder for [Iam::list_service_account_keys][crate::client::Iam::list_service_account_keys] calls.
     ///
     /// # Example
     /// ```no_run
@@ -851,7 +851,7 @@ pub mod iam {
         }
     }
 
-    /// The request builder for [Iam::get_service_account_key][super::super::client::Iam::get_service_account_key] calls.
+    /// The request builder for [Iam::get_service_account_key][crate::client::Iam::get_service_account_key] calls.
     ///
     /// # Example
     /// ```no_run
@@ -924,7 +924,7 @@ pub mod iam {
         }
     }
 
-    /// The request builder for [Iam::create_service_account_key][super::super::client::Iam::create_service_account_key] calls.
+    /// The request builder for [Iam::create_service_account_key][crate::client::Iam::create_service_account_key] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1008,7 +1008,7 @@ pub mod iam {
         }
     }
 
-    /// The request builder for [Iam::upload_service_account_key][super::super::client::Iam::upload_service_account_key] calls.
+    /// The request builder for [Iam::upload_service_account_key][crate::client::Iam::upload_service_account_key] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1078,7 +1078,7 @@ pub mod iam {
         }
     }
 
-    /// The request builder for [Iam::delete_service_account_key][super::super::client::Iam::delete_service_account_key] calls.
+    /// The request builder for [Iam::delete_service_account_key][crate::client::Iam::delete_service_account_key] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1144,7 +1144,7 @@ pub mod iam {
         }
     }
 
-    /// The request builder for [Iam::disable_service_account_key][super::super::client::Iam::disable_service_account_key] calls.
+    /// The request builder for [Iam::disable_service_account_key][crate::client::Iam::disable_service_account_key] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1210,7 +1210,7 @@ pub mod iam {
         }
     }
 
-    /// The request builder for [Iam::enable_service_account_key][super::super::client::Iam::enable_service_account_key] calls.
+    /// The request builder for [Iam::enable_service_account_key][crate::client::Iam::enable_service_account_key] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1276,7 +1276,7 @@ pub mod iam {
         }
     }
 
-    /// The request builder for [Iam::sign_blob][super::super::client::Iam::sign_blob] calls.
+    /// The request builder for [Iam::sign_blob][crate::client::Iam::sign_blob] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1347,7 +1347,7 @@ pub mod iam {
         }
     }
 
-    /// The request builder for [Iam::sign_jwt][super::super::client::Iam::sign_jwt] calls.
+    /// The request builder for [Iam::sign_jwt][crate::client::Iam::sign_jwt] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1418,7 +1418,7 @@ pub mod iam {
         }
     }
 
-    /// The request builder for [Iam::get_iam_policy][super::super::client::Iam::get_iam_policy] calls.
+    /// The request builder for [Iam::get_iam_policy][crate::client::Iam::get_iam_policy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1497,7 +1497,7 @@ pub mod iam {
         }
     }
 
-    /// The request builder for [Iam::set_iam_policy][super::super::client::Iam::set_iam_policy] calls.
+    /// The request builder for [Iam::set_iam_policy][crate::client::Iam::set_iam_policy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1598,7 +1598,7 @@ pub mod iam {
         }
     }
 
-    /// The request builder for [Iam::test_iam_permissions][super::super::client::Iam::test_iam_permissions] calls.
+    /// The request builder for [Iam::test_iam_permissions][crate::client::Iam::test_iam_permissions] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1675,7 +1675,7 @@ pub mod iam {
         }
     }
 
-    /// The request builder for [Iam::query_grantable_roles][super::super::client::Iam::query_grantable_roles] calls.
+    /// The request builder for [Iam::query_grantable_roles][crate::client::Iam::query_grantable_roles] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1787,7 +1787,7 @@ pub mod iam {
         }
     }
 
-    /// The request builder for [Iam::list_roles][super::super::client::Iam::list_roles] calls.
+    /// The request builder for [Iam::list_roles][crate::client::Iam::list_roles] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1898,7 +1898,7 @@ pub mod iam {
         }
     }
 
-    /// The request builder for [Iam::get_role][super::super::client::Iam::get_role] calls.
+    /// The request builder for [Iam::get_role][crate::client::Iam::get_role] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1957,7 +1957,7 @@ pub mod iam {
         }
     }
 
-    /// The request builder for [Iam::create_role][super::super::client::Iam::create_role] calls.
+    /// The request builder for [Iam::create_role][crate::client::Iam::create_role] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2040,7 +2040,7 @@ pub mod iam {
         }
     }
 
-    /// The request builder for [Iam::update_role][super::super::client::Iam::update_role] calls.
+    /// The request builder for [Iam::update_role][crate::client::Iam::update_role] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2135,7 +2135,7 @@ pub mod iam {
         }
     }
 
-    /// The request builder for [Iam::delete_role][super::super::client::Iam::delete_role] calls.
+    /// The request builder for [Iam::delete_role][crate::client::Iam::delete_role] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2200,7 +2200,7 @@ pub mod iam {
         }
     }
 
-    /// The request builder for [Iam::undelete_role][super::super::client::Iam::undelete_role] calls.
+    /// The request builder for [Iam::undelete_role][crate::client::Iam::undelete_role] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2265,7 +2265,7 @@ pub mod iam {
         }
     }
 
-    /// The request builder for [Iam::query_testable_permissions][super::super::client::Iam::query_testable_permissions] calls.
+    /// The request builder for [Iam::query_testable_permissions][crate::client::Iam::query_testable_permissions] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2373,7 +2373,7 @@ pub mod iam {
         }
     }
 
-    /// The request builder for [Iam::query_auditable_services][super::super::client::Iam::query_auditable_services] calls.
+    /// The request builder for [Iam::query_auditable_services][crate::client::Iam::query_auditable_services] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2435,7 +2435,7 @@ pub mod iam {
         }
     }
 
-    /// The request builder for [Iam::lint_policy][super::super::client::Iam::lint_policy] calls.
+    /// The request builder for [Iam::lint_policy][crate::client::Iam::lint_policy] calls.
     ///
     /// # Example
     /// ```no_run

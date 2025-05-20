@@ -17,7 +17,7 @@
 pub mod video_intelligence_service {
     use crate::Result;
 
-    /// A builder for [VideoIntelligenceService][super::super::client::VideoIntelligenceService].
+    /// A builder for [VideoIntelligenceService][crate::client::VideoIntelligenceService].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -45,7 +45,7 @@ pub mod video_intelligence_service {
         }
     }
 
-    /// Common implementation for [super::super::client::VideoIntelligenceService] request builders.
+    /// Common implementation for [crate::client::VideoIntelligenceService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::VideoIntelligenceService>,
@@ -68,7 +68,7 @@ pub mod video_intelligence_service {
         }
     }
 
-    /// The request builder for [VideoIntelligenceService::annotate_video][super::super::client::VideoIntelligenceService::annotate_video] calls.
+    /// The request builder for [VideoIntelligenceService::annotate_video][crate::client::VideoIntelligenceService::annotate_video] calls.
     ///
     /// # Example
     /// ```no_run
@@ -113,7 +113,7 @@ pub mod video_intelligence_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [annotate_video][super::super::client::VideoIntelligenceService::annotate_video].
+        /// on [annotate_video][crate::client::VideoIntelligenceService::annotate_video].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .annotate_video(self.0.request, self.0.options)
@@ -220,7 +220,7 @@ pub mod video_intelligence_service {
         }
     }
 
-    /// The request builder for [VideoIntelligenceService::list_operations][super::super::client::VideoIntelligenceService::list_operations] calls.
+    /// The request builder for [VideoIntelligenceService::list_operations][crate::client::VideoIntelligenceService::list_operations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -332,7 +332,7 @@ pub mod video_intelligence_service {
         }
     }
 
-    /// The request builder for [VideoIntelligenceService::get_operation][super::super::client::VideoIntelligenceService::get_operation] calls.
+    /// The request builder for [VideoIntelligenceService::get_operation][crate::client::VideoIntelligenceService::get_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -396,7 +396,7 @@ pub mod video_intelligence_service {
         }
     }
 
-    /// The request builder for [VideoIntelligenceService::delete_operation][super::super::client::VideoIntelligenceService::delete_operation] calls.
+    /// The request builder for [VideoIntelligenceService::delete_operation][crate::client::VideoIntelligenceService::delete_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -460,7 +460,7 @@ pub mod video_intelligence_service {
         }
     }
 
-    /// The request builder for [VideoIntelligenceService::cancel_operation][super::super::client::VideoIntelligenceService::cancel_operation] calls.
+    /// The request builder for [VideoIntelligenceService::cancel_operation][crate::client::VideoIntelligenceService::cancel_operation] calls.
     ///
     /// # Example
     /// ```no_run

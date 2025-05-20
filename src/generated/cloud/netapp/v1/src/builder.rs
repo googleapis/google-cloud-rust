@@ -17,7 +17,7 @@
 pub mod net_app {
     use crate::Result;
 
-    /// A builder for [NetApp][super::super::client::NetApp].
+    /// A builder for [NetApp][crate::client::NetApp].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -45,7 +45,7 @@ pub mod net_app {
         }
     }
 
-    /// Common implementation for [super::super::client::NetApp] request builders.
+    /// Common implementation for [crate::client::NetApp] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>,
@@ -66,7 +66,7 @@ pub mod net_app {
         }
     }
 
-    /// The request builder for [NetApp::list_storage_pools][super::super::client::NetApp::list_storage_pools] calls.
+    /// The request builder for [NetApp::list_storage_pools][crate::client::NetApp::list_storage_pools] calls.
     ///
     /// # Example
     /// ```no_run
@@ -182,7 +182,7 @@ pub mod net_app {
         }
     }
 
-    /// The request builder for [NetApp::create_storage_pool][super::super::client::NetApp::create_storage_pool] calls.
+    /// The request builder for [NetApp::create_storage_pool][crate::client::NetApp::create_storage_pool] calls.
     ///
     /// # Example
     /// ```no_run
@@ -228,7 +228,7 @@ pub mod net_app {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_storage_pool][super::super::client::NetApp::create_storage_pool].
+        /// on [create_storage_pool][crate::client::NetApp::create_storage_pool].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_storage_pool(self.0.request, self.0.options)
@@ -317,7 +317,7 @@ pub mod net_app {
         }
     }
 
-    /// The request builder for [NetApp::get_storage_pool][super::super::client::NetApp::get_storage_pool] calls.
+    /// The request builder for [NetApp::get_storage_pool][crate::client::NetApp::get_storage_pool] calls.
     ///
     /// # Example
     /// ```no_run
@@ -378,7 +378,7 @@ pub mod net_app {
         }
     }
 
-    /// The request builder for [NetApp::update_storage_pool][super::super::client::NetApp::update_storage_pool] calls.
+    /// The request builder for [NetApp::update_storage_pool][crate::client::NetApp::update_storage_pool] calls.
     ///
     /// # Example
     /// ```no_run
@@ -424,7 +424,7 @@ pub mod net_app {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_storage_pool][super::super::client::NetApp::update_storage_pool].
+        /// on [update_storage_pool][crate::client::NetApp::update_storage_pool].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_storage_pool(self.0.request, self.0.options)
@@ -519,7 +519,7 @@ pub mod net_app {
         }
     }
 
-    /// The request builder for [NetApp::delete_storage_pool][super::super::client::NetApp::delete_storage_pool] calls.
+    /// The request builder for [NetApp::delete_storage_pool][crate::client::NetApp::delete_storage_pool] calls.
     ///
     /// # Example
     /// ```no_run
@@ -565,7 +565,7 @@ pub mod net_app {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_storage_pool][super::super::client::NetApp::delete_storage_pool].
+        /// on [delete_storage_pool][crate::client::NetApp::delete_storage_pool].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_storage_pool(self.0.request, self.0.options)
@@ -624,7 +624,7 @@ pub mod net_app {
         }
     }
 
-    /// The request builder for [NetApp::validate_directory_service][super::super::client::NetApp::validate_directory_service] calls.
+    /// The request builder for [NetApp::validate_directory_service][crate::client::NetApp::validate_directory_service] calls.
     ///
     /// # Example
     /// ```no_run
@@ -672,7 +672,7 @@ pub mod net_app {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [validate_directory_service][super::super::client::NetApp::validate_directory_service].
+        /// on [validate_directory_service][crate::client::NetApp::validate_directory_service].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .validate_directory_service(self.0.request, self.0.options)
@@ -740,7 +740,7 @@ pub mod net_app {
         }
     }
 
-    /// The request builder for [NetApp::switch_active_replica_zone][super::super::client::NetApp::switch_active_replica_zone] calls.
+    /// The request builder for [NetApp::switch_active_replica_zone][crate::client::NetApp::switch_active_replica_zone] calls.
     ///
     /// # Example
     /// ```no_run
@@ -788,7 +788,7 @@ pub mod net_app {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [switch_active_replica_zone][super::super::client::NetApp::switch_active_replica_zone].
+        /// on [switch_active_replica_zone][crate::client::NetApp::switch_active_replica_zone].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .switch_active_replica_zone(self.0.request, self.0.options)
@@ -847,7 +847,7 @@ pub mod net_app {
         }
     }
 
-    /// The request builder for [NetApp::list_volumes][super::super::client::NetApp::list_volumes] calls.
+    /// The request builder for [NetApp::list_volumes][crate::client::NetApp::list_volumes] calls.
     ///
     /// # Example
     /// ```no_run
@@ -960,7 +960,7 @@ pub mod net_app {
         }
     }
 
-    /// The request builder for [NetApp::get_volume][super::super::client::NetApp::get_volume] calls.
+    /// The request builder for [NetApp::get_volume][crate::client::NetApp::get_volume] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1021,7 +1021,7 @@ pub mod net_app {
         }
     }
 
-    /// The request builder for [NetApp::create_volume][super::super::client::NetApp::create_volume] calls.
+    /// The request builder for [NetApp::create_volume][crate::client::NetApp::create_volume] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1064,7 +1064,7 @@ pub mod net_app {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_volume][super::super::client::NetApp::create_volume].
+        /// on [create_volume][crate::client::NetApp::create_volume].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_volume(self.0.request, self.0.options)
@@ -1151,7 +1151,7 @@ pub mod net_app {
         }
     }
 
-    /// The request builder for [NetApp::update_volume][super::super::client::NetApp::update_volume] calls.
+    /// The request builder for [NetApp::update_volume][crate::client::NetApp::update_volume] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1194,7 +1194,7 @@ pub mod net_app {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_volume][super::super::client::NetApp::update_volume].
+        /// on [update_volume][crate::client::NetApp::update_volume].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_volume(self.0.request, self.0.options)
@@ -1287,7 +1287,7 @@ pub mod net_app {
         }
     }
 
-    /// The request builder for [NetApp::delete_volume][super::super::client::NetApp::delete_volume] calls.
+    /// The request builder for [NetApp::delete_volume][crate::client::NetApp::delete_volume] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1330,7 +1330,7 @@ pub mod net_app {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_volume][super::super::client::NetApp::delete_volume].
+        /// on [delete_volume][crate::client::NetApp::delete_volume].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_volume(self.0.request, self.0.options)
@@ -1395,7 +1395,7 @@ pub mod net_app {
         }
     }
 
-    /// The request builder for [NetApp::revert_volume][super::super::client::NetApp::revert_volume] calls.
+    /// The request builder for [NetApp::revert_volume][crate::client::NetApp::revert_volume] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1438,7 +1438,7 @@ pub mod net_app {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [revert_volume][super::super::client::NetApp::revert_volume].
+        /// on [revert_volume][crate::client::NetApp::revert_volume].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .revert_volume(self.0.request, self.0.options)
@@ -1503,7 +1503,7 @@ pub mod net_app {
         }
     }
 
-    /// The request builder for [NetApp::list_snapshots][super::super::client::NetApp::list_snapshots] calls.
+    /// The request builder for [NetApp::list_snapshots][crate::client::NetApp::list_snapshots] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1616,7 +1616,7 @@ pub mod net_app {
         }
     }
 
-    /// The request builder for [NetApp::get_snapshot][super::super::client::NetApp::get_snapshot] calls.
+    /// The request builder for [NetApp::get_snapshot][crate::client::NetApp::get_snapshot] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1677,7 +1677,7 @@ pub mod net_app {
         }
     }
 
-    /// The request builder for [NetApp::create_snapshot][super::super::client::NetApp::create_snapshot] calls.
+    /// The request builder for [NetApp::create_snapshot][crate::client::NetApp::create_snapshot] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1720,7 +1720,7 @@ pub mod net_app {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_snapshot][super::super::client::NetApp::create_snapshot].
+        /// on [create_snapshot][crate::client::NetApp::create_snapshot].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_snapshot(self.0.request, self.0.options)
@@ -1807,7 +1807,7 @@ pub mod net_app {
         }
     }
 
-    /// The request builder for [NetApp::delete_snapshot][super::super::client::NetApp::delete_snapshot] calls.
+    /// The request builder for [NetApp::delete_snapshot][crate::client::NetApp::delete_snapshot] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1850,7 +1850,7 @@ pub mod net_app {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_snapshot][super::super::client::NetApp::delete_snapshot].
+        /// on [delete_snapshot][crate::client::NetApp::delete_snapshot].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_snapshot(self.0.request, self.0.options)
@@ -1909,7 +1909,7 @@ pub mod net_app {
         }
     }
 
-    /// The request builder for [NetApp::update_snapshot][super::super::client::NetApp::update_snapshot] calls.
+    /// The request builder for [NetApp::update_snapshot][crate::client::NetApp::update_snapshot] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1952,7 +1952,7 @@ pub mod net_app {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_snapshot][super::super::client::NetApp::update_snapshot].
+        /// on [update_snapshot][crate::client::NetApp::update_snapshot].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_snapshot(self.0.request, self.0.options)
@@ -2045,7 +2045,7 @@ pub mod net_app {
         }
     }
 
-    /// The request builder for [NetApp::list_active_directories][super::super::client::NetApp::list_active_directories] calls.
+    /// The request builder for [NetApp::list_active_directories][crate::client::NetApp::list_active_directories] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2163,7 +2163,7 @@ pub mod net_app {
         }
     }
 
-    /// The request builder for [NetApp::get_active_directory][super::super::client::NetApp::get_active_directory] calls.
+    /// The request builder for [NetApp::get_active_directory][crate::client::NetApp::get_active_directory] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2227,7 +2227,7 @@ pub mod net_app {
         }
     }
 
-    /// The request builder for [NetApp::create_active_directory][super::super::client::NetApp::create_active_directory] calls.
+    /// The request builder for [NetApp::create_active_directory][crate::client::NetApp::create_active_directory] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2273,7 +2273,7 @@ pub mod net_app {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_active_directory][super::super::client::NetApp::create_active_directory].
+        /// on [create_active_directory][crate::client::NetApp::create_active_directory].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_active_directory(self.0.request, self.0.options)
@@ -2363,7 +2363,7 @@ pub mod net_app {
         }
     }
 
-    /// The request builder for [NetApp::update_active_directory][super::super::client::NetApp::update_active_directory] calls.
+    /// The request builder for [NetApp::update_active_directory][crate::client::NetApp::update_active_directory] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2409,7 +2409,7 @@ pub mod net_app {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_active_directory][super::super::client::NetApp::update_active_directory].
+        /// on [update_active_directory][crate::client::NetApp::update_active_directory].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_active_directory(self.0.request, self.0.options)
@@ -2505,7 +2505,7 @@ pub mod net_app {
         }
     }
 
-    /// The request builder for [NetApp::delete_active_directory][super::super::client::NetApp::delete_active_directory] calls.
+    /// The request builder for [NetApp::delete_active_directory][crate::client::NetApp::delete_active_directory] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2551,7 +2551,7 @@ pub mod net_app {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_active_directory][super::super::client::NetApp::delete_active_directory].
+        /// on [delete_active_directory][crate::client::NetApp::delete_active_directory].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_active_directory(self.0.request, self.0.options)
@@ -2610,7 +2610,7 @@ pub mod net_app {
         }
     }
 
-    /// The request builder for [NetApp::list_kms_configs][super::super::client::NetApp::list_kms_configs] calls.
+    /// The request builder for [NetApp::list_kms_configs][crate::client::NetApp::list_kms_configs] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2723,7 +2723,7 @@ pub mod net_app {
         }
     }
 
-    /// The request builder for [NetApp::create_kms_config][super::super::client::NetApp::create_kms_config] calls.
+    /// The request builder for [NetApp::create_kms_config][crate::client::NetApp::create_kms_config] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2766,7 +2766,7 @@ pub mod net_app {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_kms_config][super::super::client::NetApp::create_kms_config].
+        /// on [create_kms_config][crate::client::NetApp::create_kms_config].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_kms_config(self.0.request, self.0.options)
@@ -2853,7 +2853,7 @@ pub mod net_app {
         }
     }
 
-    /// The request builder for [NetApp::get_kms_config][super::super::client::NetApp::get_kms_config] calls.
+    /// The request builder for [NetApp::get_kms_config][crate::client::NetApp::get_kms_config] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2914,7 +2914,7 @@ pub mod net_app {
         }
     }
 
-    /// The request builder for [NetApp::update_kms_config][super::super::client::NetApp::update_kms_config] calls.
+    /// The request builder for [NetApp::update_kms_config][crate::client::NetApp::update_kms_config] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2957,7 +2957,7 @@ pub mod net_app {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_kms_config][super::super::client::NetApp::update_kms_config].
+        /// on [update_kms_config][crate::client::NetApp::update_kms_config].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_kms_config(self.0.request, self.0.options)
@@ -3050,7 +3050,7 @@ pub mod net_app {
         }
     }
 
-    /// The request builder for [NetApp::encrypt_volumes][super::super::client::NetApp::encrypt_volumes] calls.
+    /// The request builder for [NetApp::encrypt_volumes][crate::client::NetApp::encrypt_volumes] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3093,7 +3093,7 @@ pub mod net_app {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [encrypt_volumes][super::super::client::NetApp::encrypt_volumes].
+        /// on [encrypt_volumes][crate::client::NetApp::encrypt_volumes].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .encrypt_volumes(self.0.request, self.0.options)
@@ -3150,7 +3150,7 @@ pub mod net_app {
         }
     }
 
-    /// The request builder for [NetApp::verify_kms_config][super::super::client::NetApp::verify_kms_config] calls.
+    /// The request builder for [NetApp::verify_kms_config][crate::client::NetApp::verify_kms_config] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3211,7 +3211,7 @@ pub mod net_app {
         }
     }
 
-    /// The request builder for [NetApp::delete_kms_config][super::super::client::NetApp::delete_kms_config] calls.
+    /// The request builder for [NetApp::delete_kms_config][crate::client::NetApp::delete_kms_config] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3254,7 +3254,7 @@ pub mod net_app {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_kms_config][super::super::client::NetApp::delete_kms_config].
+        /// on [delete_kms_config][crate::client::NetApp::delete_kms_config].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_kms_config(self.0.request, self.0.options)
@@ -3313,7 +3313,7 @@ pub mod net_app {
         }
     }
 
-    /// The request builder for [NetApp::list_replications][super::super::client::NetApp::list_replications] calls.
+    /// The request builder for [NetApp::list_replications][crate::client::NetApp::list_replications] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3429,7 +3429,7 @@ pub mod net_app {
         }
     }
 
-    /// The request builder for [NetApp::get_replication][super::super::client::NetApp::get_replication] calls.
+    /// The request builder for [NetApp::get_replication][crate::client::NetApp::get_replication] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3490,7 +3490,7 @@ pub mod net_app {
         }
     }
 
-    /// The request builder for [NetApp::create_replication][super::super::client::NetApp::create_replication] calls.
+    /// The request builder for [NetApp::create_replication][crate::client::NetApp::create_replication] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3536,7 +3536,7 @@ pub mod net_app {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_replication][super::super::client::NetApp::create_replication].
+        /// on [create_replication][crate::client::NetApp::create_replication].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_replication(self.0.request, self.0.options)
@@ -3625,7 +3625,7 @@ pub mod net_app {
         }
     }
 
-    /// The request builder for [NetApp::delete_replication][super::super::client::NetApp::delete_replication] calls.
+    /// The request builder for [NetApp::delete_replication][crate::client::NetApp::delete_replication] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3671,7 +3671,7 @@ pub mod net_app {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_replication][super::super::client::NetApp::delete_replication].
+        /// on [delete_replication][crate::client::NetApp::delete_replication].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_replication(self.0.request, self.0.options)
@@ -3730,7 +3730,7 @@ pub mod net_app {
         }
     }
 
-    /// The request builder for [NetApp::update_replication][super::super::client::NetApp::update_replication] calls.
+    /// The request builder for [NetApp::update_replication][crate::client::NetApp::update_replication] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3776,7 +3776,7 @@ pub mod net_app {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_replication][super::super::client::NetApp::update_replication].
+        /// on [update_replication][crate::client::NetApp::update_replication].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_replication(self.0.request, self.0.options)
@@ -3871,7 +3871,7 @@ pub mod net_app {
         }
     }
 
-    /// The request builder for [NetApp::stop_replication][super::super::client::NetApp::stop_replication] calls.
+    /// The request builder for [NetApp::stop_replication][crate::client::NetApp::stop_replication] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3914,7 +3914,7 @@ pub mod net_app {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [stop_replication][super::super::client::NetApp::stop_replication].
+        /// on [stop_replication][crate::client::NetApp::stop_replication].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .stop_replication(self.0.request, self.0.options)
@@ -3979,7 +3979,7 @@ pub mod net_app {
         }
     }
 
-    /// The request builder for [NetApp::resume_replication][super::super::client::NetApp::resume_replication] calls.
+    /// The request builder for [NetApp::resume_replication][crate::client::NetApp::resume_replication] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4025,7 +4025,7 @@ pub mod net_app {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [resume_replication][super::super::client::NetApp::resume_replication].
+        /// on [resume_replication][crate::client::NetApp::resume_replication].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .resume_replication(self.0.request, self.0.options)
@@ -4084,7 +4084,7 @@ pub mod net_app {
         }
     }
 
-    /// The request builder for [NetApp::reverse_replication_direction][super::super::client::NetApp::reverse_replication_direction] calls.
+    /// The request builder for [NetApp::reverse_replication_direction][crate::client::NetApp::reverse_replication_direction] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4132,7 +4132,7 @@ pub mod net_app {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [reverse_replication_direction][super::super::client::NetApp::reverse_replication_direction].
+        /// on [reverse_replication_direction][crate::client::NetApp::reverse_replication_direction].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .reverse_replication_direction(self.0.request, self.0.options)
@@ -4191,7 +4191,7 @@ pub mod net_app {
         }
     }
 
-    /// The request builder for [NetApp::establish_peering][super::super::client::NetApp::establish_peering] calls.
+    /// The request builder for [NetApp::establish_peering][crate::client::NetApp::establish_peering] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4237,7 +4237,7 @@ pub mod net_app {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [establish_peering][super::super::client::NetApp::establish_peering].
+        /// on [establish_peering][crate::client::NetApp::establish_peering].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .establish_peering(self.0.request, self.0.options)
@@ -4331,7 +4331,7 @@ pub mod net_app {
         }
     }
 
-    /// The request builder for [NetApp::sync_replication][super::super::client::NetApp::sync_replication] calls.
+    /// The request builder for [NetApp::sync_replication][crate::client::NetApp::sync_replication] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4374,7 +4374,7 @@ pub mod net_app {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [sync_replication][super::super::client::NetApp::sync_replication].
+        /// on [sync_replication][crate::client::NetApp::sync_replication].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .sync_replication(self.0.request, self.0.options)
@@ -4433,7 +4433,7 @@ pub mod net_app {
         }
     }
 
-    /// The request builder for [NetApp::create_backup_vault][super::super::client::NetApp::create_backup_vault] calls.
+    /// The request builder for [NetApp::create_backup_vault][crate::client::NetApp::create_backup_vault] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4479,7 +4479,7 @@ pub mod net_app {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_backup_vault][super::super::client::NetApp::create_backup_vault].
+        /// on [create_backup_vault][crate::client::NetApp::create_backup_vault].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_backup_vault(self.0.request, self.0.options)
@@ -4568,7 +4568,7 @@ pub mod net_app {
         }
     }
 
-    /// The request builder for [NetApp::get_backup_vault][super::super::client::NetApp::get_backup_vault] calls.
+    /// The request builder for [NetApp::get_backup_vault][crate::client::NetApp::get_backup_vault] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4629,7 +4629,7 @@ pub mod net_app {
         }
     }
 
-    /// The request builder for [NetApp::list_backup_vaults][super::super::client::NetApp::list_backup_vaults] calls.
+    /// The request builder for [NetApp::list_backup_vaults][crate::client::NetApp::list_backup_vaults] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4745,7 +4745,7 @@ pub mod net_app {
         }
     }
 
-    /// The request builder for [NetApp::update_backup_vault][super::super::client::NetApp::update_backup_vault] calls.
+    /// The request builder for [NetApp::update_backup_vault][crate::client::NetApp::update_backup_vault] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4791,7 +4791,7 @@ pub mod net_app {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_backup_vault][super::super::client::NetApp::update_backup_vault].
+        /// on [update_backup_vault][crate::client::NetApp::update_backup_vault].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_backup_vault(self.0.request, self.0.options)
@@ -4886,7 +4886,7 @@ pub mod net_app {
         }
     }
 
-    /// The request builder for [NetApp::delete_backup_vault][super::super::client::NetApp::delete_backup_vault] calls.
+    /// The request builder for [NetApp::delete_backup_vault][crate::client::NetApp::delete_backup_vault] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4932,7 +4932,7 @@ pub mod net_app {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_backup_vault][super::super::client::NetApp::delete_backup_vault].
+        /// on [delete_backup_vault][crate::client::NetApp::delete_backup_vault].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_backup_vault(self.0.request, self.0.options)
@@ -4991,7 +4991,7 @@ pub mod net_app {
         }
     }
 
-    /// The request builder for [NetApp::create_backup][super::super::client::NetApp::create_backup] calls.
+    /// The request builder for [NetApp::create_backup][crate::client::NetApp::create_backup] calls.
     ///
     /// # Example
     /// ```no_run
@@ -5034,7 +5034,7 @@ pub mod net_app {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_backup][super::super::client::NetApp::create_backup].
+        /// on [create_backup][crate::client::NetApp::create_backup].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_backup(self.0.request, self.0.options)
@@ -5121,7 +5121,7 @@ pub mod net_app {
         }
     }
 
-    /// The request builder for [NetApp::get_backup][super::super::client::NetApp::get_backup] calls.
+    /// The request builder for [NetApp::get_backup][crate::client::NetApp::get_backup] calls.
     ///
     /// # Example
     /// ```no_run
@@ -5182,7 +5182,7 @@ pub mod net_app {
         }
     }
 
-    /// The request builder for [NetApp::list_backups][super::super::client::NetApp::list_backups] calls.
+    /// The request builder for [NetApp::list_backups][crate::client::NetApp::list_backups] calls.
     ///
     /// # Example
     /// ```no_run
@@ -5295,7 +5295,7 @@ pub mod net_app {
         }
     }
 
-    /// The request builder for [NetApp::delete_backup][super::super::client::NetApp::delete_backup] calls.
+    /// The request builder for [NetApp::delete_backup][crate::client::NetApp::delete_backup] calls.
     ///
     /// # Example
     /// ```no_run
@@ -5338,7 +5338,7 @@ pub mod net_app {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_backup][super::super::client::NetApp::delete_backup].
+        /// on [delete_backup][crate::client::NetApp::delete_backup].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_backup(self.0.request, self.0.options)
@@ -5397,7 +5397,7 @@ pub mod net_app {
         }
     }
 
-    /// The request builder for [NetApp::update_backup][super::super::client::NetApp::update_backup] calls.
+    /// The request builder for [NetApp::update_backup][crate::client::NetApp::update_backup] calls.
     ///
     /// # Example
     /// ```no_run
@@ -5440,7 +5440,7 @@ pub mod net_app {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_backup][super::super::client::NetApp::update_backup].
+        /// on [update_backup][crate::client::NetApp::update_backup].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_backup(self.0.request, self.0.options)
@@ -5533,7 +5533,7 @@ pub mod net_app {
         }
     }
 
-    /// The request builder for [NetApp::create_backup_policy][super::super::client::NetApp::create_backup_policy] calls.
+    /// The request builder for [NetApp::create_backup_policy][crate::client::NetApp::create_backup_policy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -5579,7 +5579,7 @@ pub mod net_app {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_backup_policy][super::super::client::NetApp::create_backup_policy].
+        /// on [create_backup_policy][crate::client::NetApp::create_backup_policy].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_backup_policy(self.0.request, self.0.options)
@@ -5668,7 +5668,7 @@ pub mod net_app {
         }
     }
 
-    /// The request builder for [NetApp::get_backup_policy][super::super::client::NetApp::get_backup_policy] calls.
+    /// The request builder for [NetApp::get_backup_policy][crate::client::NetApp::get_backup_policy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -5729,7 +5729,7 @@ pub mod net_app {
         }
     }
 
-    /// The request builder for [NetApp::list_backup_policies][super::super::client::NetApp::list_backup_policies] calls.
+    /// The request builder for [NetApp::list_backup_policies][crate::client::NetApp::list_backup_policies] calls.
     ///
     /// # Example
     /// ```no_run
@@ -5847,7 +5847,7 @@ pub mod net_app {
         }
     }
 
-    /// The request builder for [NetApp::update_backup_policy][super::super::client::NetApp::update_backup_policy] calls.
+    /// The request builder for [NetApp::update_backup_policy][crate::client::NetApp::update_backup_policy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -5893,7 +5893,7 @@ pub mod net_app {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_backup_policy][super::super::client::NetApp::update_backup_policy].
+        /// on [update_backup_policy][crate::client::NetApp::update_backup_policy].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_backup_policy(self.0.request, self.0.options)
@@ -5988,7 +5988,7 @@ pub mod net_app {
         }
     }
 
-    /// The request builder for [NetApp::delete_backup_policy][super::super::client::NetApp::delete_backup_policy] calls.
+    /// The request builder for [NetApp::delete_backup_policy][crate::client::NetApp::delete_backup_policy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -6034,7 +6034,7 @@ pub mod net_app {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_backup_policy][super::super::client::NetApp::delete_backup_policy].
+        /// on [delete_backup_policy][crate::client::NetApp::delete_backup_policy].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_backup_policy(self.0.request, self.0.options)
@@ -6093,7 +6093,7 @@ pub mod net_app {
         }
     }
 
-    /// The request builder for [NetApp::list_quota_rules][super::super::client::NetApp::list_quota_rules] calls.
+    /// The request builder for [NetApp::list_quota_rules][crate::client::NetApp::list_quota_rules] calls.
     ///
     /// # Example
     /// ```no_run
@@ -6206,7 +6206,7 @@ pub mod net_app {
         }
     }
 
-    /// The request builder for [NetApp::get_quota_rule][super::super::client::NetApp::get_quota_rule] calls.
+    /// The request builder for [NetApp::get_quota_rule][crate::client::NetApp::get_quota_rule] calls.
     ///
     /// # Example
     /// ```no_run
@@ -6267,7 +6267,7 @@ pub mod net_app {
         }
     }
 
-    /// The request builder for [NetApp::create_quota_rule][super::super::client::NetApp::create_quota_rule] calls.
+    /// The request builder for [NetApp::create_quota_rule][crate::client::NetApp::create_quota_rule] calls.
     ///
     /// # Example
     /// ```no_run
@@ -6310,7 +6310,7 @@ pub mod net_app {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_quota_rule][super::super::client::NetApp::create_quota_rule].
+        /// on [create_quota_rule][crate::client::NetApp::create_quota_rule].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_quota_rule(self.0.request, self.0.options)
@@ -6397,7 +6397,7 @@ pub mod net_app {
         }
     }
 
-    /// The request builder for [NetApp::update_quota_rule][super::super::client::NetApp::update_quota_rule] calls.
+    /// The request builder for [NetApp::update_quota_rule][crate::client::NetApp::update_quota_rule] calls.
     ///
     /// # Example
     /// ```no_run
@@ -6440,7 +6440,7 @@ pub mod net_app {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_quota_rule][super::super::client::NetApp::update_quota_rule].
+        /// on [update_quota_rule][crate::client::NetApp::update_quota_rule].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_quota_rule(self.0.request, self.0.options)
@@ -6529,7 +6529,7 @@ pub mod net_app {
         }
     }
 
-    /// The request builder for [NetApp::delete_quota_rule][super::super::client::NetApp::delete_quota_rule] calls.
+    /// The request builder for [NetApp::delete_quota_rule][crate::client::NetApp::delete_quota_rule] calls.
     ///
     /// # Example
     /// ```no_run
@@ -6572,7 +6572,7 @@ pub mod net_app {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_quota_rule][super::super::client::NetApp::delete_quota_rule].
+        /// on [delete_quota_rule][crate::client::NetApp::delete_quota_rule].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_quota_rule(self.0.request, self.0.options)
@@ -6631,7 +6631,7 @@ pub mod net_app {
         }
     }
 
-    /// The request builder for [NetApp::list_locations][super::super::client::NetApp::list_locations] calls.
+    /// The request builder for [NetApp::list_locations][crate::client::NetApp::list_locations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -6739,7 +6739,7 @@ pub mod net_app {
         }
     }
 
-    /// The request builder for [NetApp::get_location][super::super::client::NetApp::get_location] calls.
+    /// The request builder for [NetApp::get_location][crate::client::NetApp::get_location] calls.
     ///
     /// # Example
     /// ```no_run
@@ -6798,7 +6798,7 @@ pub mod net_app {
         }
     }
 
-    /// The request builder for [NetApp::list_operations][super::super::client::NetApp::list_operations] calls.
+    /// The request builder for [NetApp::list_operations][crate::client::NetApp::list_operations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -6908,7 +6908,7 @@ pub mod net_app {
         }
     }
 
-    /// The request builder for [NetApp::get_operation][super::super::client::NetApp::get_operation] calls.
+    /// The request builder for [NetApp::get_operation][crate::client::NetApp::get_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -6970,7 +6970,7 @@ pub mod net_app {
         }
     }
 
-    /// The request builder for [NetApp::delete_operation][super::super::client::NetApp::delete_operation] calls.
+    /// The request builder for [NetApp::delete_operation][crate::client::NetApp::delete_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -7032,7 +7032,7 @@ pub mod net_app {
         }
     }
 
-    /// The request builder for [NetApp::cancel_operation][super::super::client::NetApp::cancel_operation] calls.
+    /// The request builder for [NetApp::cancel_operation][crate::client::NetApp::cancel_operation] calls.
     ///
     /// # Example
     /// ```no_run

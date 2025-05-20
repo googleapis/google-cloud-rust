@@ -17,7 +17,7 @@
 pub mod cloud_redis {
     use crate::Result;
 
-    /// A builder for [CloudRedis][super::super::client::CloudRedis].
+    /// A builder for [CloudRedis][crate::client::CloudRedis].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -45,7 +45,7 @@ pub mod cloud_redis {
         }
     }
 
-    /// Common implementation for [super::super::client::CloudRedis] request builders.
+    /// Common implementation for [crate::client::CloudRedis] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudRedis>,
@@ -68,7 +68,7 @@ pub mod cloud_redis {
         }
     }
 
-    /// The request builder for [CloudRedis::list_instances][super::super::client::CloudRedis::list_instances] calls.
+    /// The request builder for [CloudRedis::list_instances][crate::client::CloudRedis::list_instances] calls.
     ///
     /// # Example
     /// ```no_run
@@ -171,7 +171,7 @@ pub mod cloud_redis {
         }
     }
 
-    /// The request builder for [CloudRedis::get_instance][super::super::client::CloudRedis::get_instance] calls.
+    /// The request builder for [CloudRedis::get_instance][crate::client::CloudRedis::get_instance] calls.
     ///
     /// # Example
     /// ```no_run
@@ -234,7 +234,7 @@ pub mod cloud_redis {
         }
     }
 
-    /// The request builder for [CloudRedis::get_instance_auth_string][super::super::client::CloudRedis::get_instance_auth_string] calls.
+    /// The request builder for [CloudRedis::get_instance_auth_string][crate::client::CloudRedis::get_instance_auth_string] calls.
     ///
     /// # Example
     /// ```no_run
@@ -300,7 +300,7 @@ pub mod cloud_redis {
         }
     }
 
-    /// The request builder for [CloudRedis::create_instance][super::super::client::CloudRedis::create_instance] calls.
+    /// The request builder for [CloudRedis::create_instance][crate::client::CloudRedis::create_instance] calls.
     ///
     /// # Example
     /// ```no_run
@@ -345,7 +345,7 @@ pub mod cloud_redis {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_instance][super::super::client::CloudRedis::create_instance].
+        /// on [create_instance][crate::client::CloudRedis::create_instance].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_instance(self.0.request, self.0.options)
@@ -432,7 +432,7 @@ pub mod cloud_redis {
         }
     }
 
-    /// The request builder for [CloudRedis::update_instance][super::super::client::CloudRedis::update_instance] calls.
+    /// The request builder for [CloudRedis::update_instance][crate::client::CloudRedis::update_instance] calls.
     ///
     /// # Example
     /// ```no_run
@@ -477,7 +477,7 @@ pub mod cloud_redis {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_instance][super::super::client::CloudRedis::update_instance].
+        /// on [update_instance][crate::client::CloudRedis::update_instance].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_instance(self.0.request, self.0.options)
@@ -570,7 +570,7 @@ pub mod cloud_redis {
         }
     }
 
-    /// The request builder for [CloudRedis::upgrade_instance][super::super::client::CloudRedis::upgrade_instance] calls.
+    /// The request builder for [CloudRedis::upgrade_instance][crate::client::CloudRedis::upgrade_instance] calls.
     ///
     /// # Example
     /// ```no_run
@@ -615,7 +615,7 @@ pub mod cloud_redis {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [upgrade_instance][super::super::client::CloudRedis::upgrade_instance].
+        /// on [upgrade_instance][crate::client::CloudRedis::upgrade_instance].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .upgrade_instance(self.0.request, self.0.options)
@@ -680,7 +680,7 @@ pub mod cloud_redis {
         }
     }
 
-    /// The request builder for [CloudRedis::import_instance][super::super::client::CloudRedis::import_instance] calls.
+    /// The request builder for [CloudRedis::import_instance][crate::client::CloudRedis::import_instance] calls.
     ///
     /// # Example
     /// ```no_run
@@ -725,7 +725,7 @@ pub mod cloud_redis {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [import_instance][super::super::client::CloudRedis::import_instance].
+        /// on [import_instance][crate::client::CloudRedis::import_instance].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .import_instance(self.0.request, self.0.options)
@@ -804,7 +804,7 @@ pub mod cloud_redis {
         }
     }
 
-    /// The request builder for [CloudRedis::export_instance][super::super::client::CloudRedis::export_instance] calls.
+    /// The request builder for [CloudRedis::export_instance][crate::client::CloudRedis::export_instance] calls.
     ///
     /// # Example
     /// ```no_run
@@ -849,7 +849,7 @@ pub mod cloud_redis {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [export_instance][super::super::client::CloudRedis::export_instance].
+        /// on [export_instance][crate::client::CloudRedis::export_instance].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .export_instance(self.0.request, self.0.options)
@@ -928,7 +928,7 @@ pub mod cloud_redis {
         }
     }
 
-    /// The request builder for [CloudRedis::failover_instance][super::super::client::CloudRedis::failover_instance] calls.
+    /// The request builder for [CloudRedis::failover_instance][crate::client::CloudRedis::failover_instance] calls.
     ///
     /// # Example
     /// ```no_run
@@ -976,7 +976,7 @@ pub mod cloud_redis {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [failover_instance][super::super::client::CloudRedis::failover_instance].
+        /// on [failover_instance][crate::client::CloudRedis::failover_instance].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .failover_instance(self.0.request, self.0.options)
@@ -1044,7 +1044,7 @@ pub mod cloud_redis {
         }
     }
 
-    /// The request builder for [CloudRedis::delete_instance][super::super::client::CloudRedis::delete_instance] calls.
+    /// The request builder for [CloudRedis::delete_instance][crate::client::CloudRedis::delete_instance] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1089,7 +1089,7 @@ pub mod cloud_redis {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_instance][super::super::client::CloudRedis::delete_instance].
+        /// on [delete_instance][crate::client::CloudRedis::delete_instance].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_instance(self.0.request, self.0.options)
@@ -1148,7 +1148,7 @@ pub mod cloud_redis {
         }
     }
 
-    /// The request builder for [CloudRedis::reschedule_maintenance][super::super::client::CloudRedis::reschedule_maintenance] calls.
+    /// The request builder for [CloudRedis::reschedule_maintenance][crate::client::CloudRedis::reschedule_maintenance] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1196,7 +1196,7 @@ pub mod cloud_redis {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [reschedule_maintenance][super::super::client::CloudRedis::reschedule_maintenance].
+        /// on [reschedule_maintenance][crate::client::CloudRedis::reschedule_maintenance].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .reschedule_maintenance(self.0.request, self.0.options)
@@ -1284,7 +1284,7 @@ pub mod cloud_redis {
         }
     }
 
-    /// The request builder for [CloudRedis::list_locations][super::super::client::CloudRedis::list_locations] calls.
+    /// The request builder for [CloudRedis::list_locations][crate::client::CloudRedis::list_locations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1394,7 +1394,7 @@ pub mod cloud_redis {
         }
     }
 
-    /// The request builder for [CloudRedis::get_location][super::super::client::CloudRedis::get_location] calls.
+    /// The request builder for [CloudRedis::get_location][crate::client::CloudRedis::get_location] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1455,7 +1455,7 @@ pub mod cloud_redis {
         }
     }
 
-    /// The request builder for [CloudRedis::list_operations][super::super::client::CloudRedis::list_operations] calls.
+    /// The request builder for [CloudRedis::list_operations][crate::client::CloudRedis::list_operations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1567,7 +1567,7 @@ pub mod cloud_redis {
         }
     }
 
-    /// The request builder for [CloudRedis::get_operation][super::super::client::CloudRedis::get_operation] calls.
+    /// The request builder for [CloudRedis::get_operation][crate::client::CloudRedis::get_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1631,7 +1631,7 @@ pub mod cloud_redis {
         }
     }
 
-    /// The request builder for [CloudRedis::delete_operation][super::super::client::CloudRedis::delete_operation] calls.
+    /// The request builder for [CloudRedis::delete_operation][crate::client::CloudRedis::delete_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1695,7 +1695,7 @@ pub mod cloud_redis {
         }
     }
 
-    /// The request builder for [CloudRedis::cancel_operation][super::super::client::CloudRedis::cancel_operation] calls.
+    /// The request builder for [CloudRedis::cancel_operation][crate::client::CloudRedis::cancel_operation] calls.
     ///
     /// # Example
     /// ```no_run

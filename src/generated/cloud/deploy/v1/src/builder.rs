@@ -17,7 +17,7 @@
 pub mod cloud_deploy {
     use crate::Result;
 
-    /// A builder for [CloudDeploy][super::super::client::CloudDeploy].
+    /// A builder for [CloudDeploy][crate::client::CloudDeploy].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -45,7 +45,7 @@ pub mod cloud_deploy {
         }
     }
 
-    /// Common implementation for [super::super::client::CloudDeploy] request builders.
+    /// Common implementation for [crate::client::CloudDeploy] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudDeploy>,
@@ -68,7 +68,7 @@ pub mod cloud_deploy {
         }
     }
 
-    /// The request builder for [CloudDeploy::list_delivery_pipelines][super::super::client::CloudDeploy::list_delivery_pipelines] calls.
+    /// The request builder for [CloudDeploy::list_delivery_pipelines][crate::client::CloudDeploy::list_delivery_pipelines] calls.
     ///
     /// # Example
     /// ```no_run
@@ -188,7 +188,7 @@ pub mod cloud_deploy {
         }
     }
 
-    /// The request builder for [CloudDeploy::get_delivery_pipeline][super::super::client::CloudDeploy::get_delivery_pipeline] calls.
+    /// The request builder for [CloudDeploy::get_delivery_pipeline][crate::client::CloudDeploy::get_delivery_pipeline] calls.
     ///
     /// # Example
     /// ```no_run
@@ -254,7 +254,7 @@ pub mod cloud_deploy {
         }
     }
 
-    /// The request builder for [CloudDeploy::create_delivery_pipeline][super::super::client::CloudDeploy::create_delivery_pipeline] calls.
+    /// The request builder for [CloudDeploy::create_delivery_pipeline][crate::client::CloudDeploy::create_delivery_pipeline] calls.
     ///
     /// # Example
     /// ```no_run
@@ -302,7 +302,7 @@ pub mod cloud_deploy {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_delivery_pipeline][super::super::client::CloudDeploy::create_delivery_pipeline].
+        /// on [create_delivery_pipeline][crate::client::CloudDeploy::create_delivery_pipeline].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_delivery_pipeline(self.0.request, self.0.options)
@@ -404,7 +404,7 @@ pub mod cloud_deploy {
         }
     }
 
-    /// The request builder for [CloudDeploy::update_delivery_pipeline][super::super::client::CloudDeploy::update_delivery_pipeline] calls.
+    /// The request builder for [CloudDeploy::update_delivery_pipeline][crate::client::CloudDeploy::update_delivery_pipeline] calls.
     ///
     /// # Example
     /// ```no_run
@@ -452,7 +452,7 @@ pub mod cloud_deploy {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_delivery_pipeline][super::super::client::CloudDeploy::update_delivery_pipeline].
+        /// on [update_delivery_pipeline][crate::client::CloudDeploy::update_delivery_pipeline].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_delivery_pipeline(self.0.request, self.0.options)
@@ -566,7 +566,7 @@ pub mod cloud_deploy {
         }
     }
 
-    /// The request builder for [CloudDeploy::delete_delivery_pipeline][super::super::client::CloudDeploy::delete_delivery_pipeline] calls.
+    /// The request builder for [CloudDeploy::delete_delivery_pipeline][crate::client::CloudDeploy::delete_delivery_pipeline] calls.
     ///
     /// # Example
     /// ```no_run
@@ -614,7 +614,7 @@ pub mod cloud_deploy {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_delivery_pipeline][super::super::client::CloudDeploy::delete_delivery_pipeline].
+        /// on [delete_delivery_pipeline][crate::client::CloudDeploy::delete_delivery_pipeline].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_delivery_pipeline(self.0.request, self.0.options)
@@ -703,7 +703,7 @@ pub mod cloud_deploy {
         }
     }
 
-    /// The request builder for [CloudDeploy::list_targets][super::super::client::CloudDeploy::list_targets] calls.
+    /// The request builder for [CloudDeploy::list_targets][crate::client::CloudDeploy::list_targets] calls.
     ///
     /// # Example
     /// ```no_run
@@ -818,7 +818,7 @@ pub mod cloud_deploy {
         }
     }
 
-    /// The request builder for [CloudDeploy::rollback_target][super::super::client::CloudDeploy::rollback_target] calls.
+    /// The request builder for [CloudDeploy::rollback_target][crate::client::CloudDeploy::rollback_target] calls.
     ///
     /// # Example
     /// ```no_run
@@ -944,7 +944,7 @@ pub mod cloud_deploy {
         }
     }
 
-    /// The request builder for [CloudDeploy::get_target][super::super::client::CloudDeploy::get_target] calls.
+    /// The request builder for [CloudDeploy::get_target][crate::client::CloudDeploy::get_target] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1007,7 +1007,7 @@ pub mod cloud_deploy {
         }
     }
 
-    /// The request builder for [CloudDeploy::create_target][super::super::client::CloudDeploy::create_target] calls.
+    /// The request builder for [CloudDeploy::create_target][crate::client::CloudDeploy::create_target] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1052,7 +1052,7 @@ pub mod cloud_deploy {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_target][super::super::client::CloudDeploy::create_target].
+        /// on [create_target][crate::client::CloudDeploy::create_target].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_target(self.0.request, self.0.options)
@@ -1151,7 +1151,7 @@ pub mod cloud_deploy {
         }
     }
 
-    /// The request builder for [CloudDeploy::update_target][super::super::client::CloudDeploy::update_target] calls.
+    /// The request builder for [CloudDeploy::update_target][crate::client::CloudDeploy::update_target] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1196,7 +1196,7 @@ pub mod cloud_deploy {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_target][super::super::client::CloudDeploy::update_target].
+        /// on [update_target][crate::client::CloudDeploy::update_target].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_target(self.0.request, self.0.options)
@@ -1307,7 +1307,7 @@ pub mod cloud_deploy {
         }
     }
 
-    /// The request builder for [CloudDeploy::delete_target][super::super::client::CloudDeploy::delete_target] calls.
+    /// The request builder for [CloudDeploy::delete_target][crate::client::CloudDeploy::delete_target] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1352,7 +1352,7 @@ pub mod cloud_deploy {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_target][super::super::client::CloudDeploy::delete_target].
+        /// on [delete_target][crate::client::CloudDeploy::delete_target].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_target(self.0.request, self.0.options)
@@ -1435,7 +1435,7 @@ pub mod cloud_deploy {
         }
     }
 
-    /// The request builder for [CloudDeploy::list_custom_target_types][super::super::client::CloudDeploy::list_custom_target_types] calls.
+    /// The request builder for [CloudDeploy::list_custom_target_types][crate::client::CloudDeploy::list_custom_target_types] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1555,7 +1555,7 @@ pub mod cloud_deploy {
         }
     }
 
-    /// The request builder for [CloudDeploy::get_custom_target_type][super::super::client::CloudDeploy::get_custom_target_type] calls.
+    /// The request builder for [CloudDeploy::get_custom_target_type][crate::client::CloudDeploy::get_custom_target_type] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1621,7 +1621,7 @@ pub mod cloud_deploy {
         }
     }
 
-    /// The request builder for [CloudDeploy::create_custom_target_type][super::super::client::CloudDeploy::create_custom_target_type] calls.
+    /// The request builder for [CloudDeploy::create_custom_target_type][crate::client::CloudDeploy::create_custom_target_type] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1669,7 +1669,7 @@ pub mod cloud_deploy {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_custom_target_type][super::super::client::CloudDeploy::create_custom_target_type].
+        /// on [create_custom_target_type][crate::client::CloudDeploy::create_custom_target_type].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_custom_target_type(self.0.request, self.0.options)
@@ -1771,7 +1771,7 @@ pub mod cloud_deploy {
         }
     }
 
-    /// The request builder for [CloudDeploy::update_custom_target_type][super::super::client::CloudDeploy::update_custom_target_type] calls.
+    /// The request builder for [CloudDeploy::update_custom_target_type][crate::client::CloudDeploy::update_custom_target_type] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1819,7 +1819,7 @@ pub mod cloud_deploy {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_custom_target_type][super::super::client::CloudDeploy::update_custom_target_type].
+        /// on [update_custom_target_type][crate::client::CloudDeploy::update_custom_target_type].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_custom_target_type(self.0.request, self.0.options)
@@ -1933,7 +1933,7 @@ pub mod cloud_deploy {
         }
     }
 
-    /// The request builder for [CloudDeploy::delete_custom_target_type][super::super::client::CloudDeploy::delete_custom_target_type] calls.
+    /// The request builder for [CloudDeploy::delete_custom_target_type][crate::client::CloudDeploy::delete_custom_target_type] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1981,7 +1981,7 @@ pub mod cloud_deploy {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_custom_target_type][super::super::client::CloudDeploy::delete_custom_target_type].
+        /// on [delete_custom_target_type][crate::client::CloudDeploy::delete_custom_target_type].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_custom_target_type(self.0.request, self.0.options)
@@ -2064,7 +2064,7 @@ pub mod cloud_deploy {
         }
     }
 
-    /// The request builder for [CloudDeploy::list_releases][super::super::client::CloudDeploy::list_releases] calls.
+    /// The request builder for [CloudDeploy::list_releases][crate::client::CloudDeploy::list_releases] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2179,7 +2179,7 @@ pub mod cloud_deploy {
         }
     }
 
-    /// The request builder for [CloudDeploy::get_release][super::super::client::CloudDeploy::get_release] calls.
+    /// The request builder for [CloudDeploy::get_release][crate::client::CloudDeploy::get_release] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2242,7 +2242,7 @@ pub mod cloud_deploy {
         }
     }
 
-    /// The request builder for [CloudDeploy::create_release][super::super::client::CloudDeploy::create_release] calls.
+    /// The request builder for [CloudDeploy::create_release][crate::client::CloudDeploy::create_release] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2287,7 +2287,7 @@ pub mod cloud_deploy {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_release][super::super::client::CloudDeploy::create_release].
+        /// on [create_release][crate::client::CloudDeploy::create_release].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_release(self.0.request, self.0.options)
@@ -2397,7 +2397,7 @@ pub mod cloud_deploy {
         }
     }
 
-    /// The request builder for [CloudDeploy::abandon_release][super::super::client::CloudDeploy::abandon_release] calls.
+    /// The request builder for [CloudDeploy::abandon_release][crate::client::CloudDeploy::abandon_release] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2460,7 +2460,7 @@ pub mod cloud_deploy {
         }
     }
 
-    /// The request builder for [CloudDeploy::create_deploy_policy][super::super::client::CloudDeploy::create_deploy_policy] calls.
+    /// The request builder for [CloudDeploy::create_deploy_policy][crate::client::CloudDeploy::create_deploy_policy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2508,7 +2508,7 @@ pub mod cloud_deploy {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_deploy_policy][super::super::client::CloudDeploy::create_deploy_policy].
+        /// on [create_deploy_policy][crate::client::CloudDeploy::create_deploy_policy].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_deploy_policy(self.0.request, self.0.options)
@@ -2609,7 +2609,7 @@ pub mod cloud_deploy {
         }
     }
 
-    /// The request builder for [CloudDeploy::update_deploy_policy][super::super::client::CloudDeploy::update_deploy_policy] calls.
+    /// The request builder for [CloudDeploy::update_deploy_policy][crate::client::CloudDeploy::update_deploy_policy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2657,7 +2657,7 @@ pub mod cloud_deploy {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_deploy_policy][super::super::client::CloudDeploy::update_deploy_policy].
+        /// on [update_deploy_policy][crate::client::CloudDeploy::update_deploy_policy].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_deploy_policy(self.0.request, self.0.options)
@@ -2770,7 +2770,7 @@ pub mod cloud_deploy {
         }
     }
 
-    /// The request builder for [CloudDeploy::delete_deploy_policy][super::super::client::CloudDeploy::delete_deploy_policy] calls.
+    /// The request builder for [CloudDeploy::delete_deploy_policy][crate::client::CloudDeploy::delete_deploy_policy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2818,7 +2818,7 @@ pub mod cloud_deploy {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_deploy_policy][super::super::client::CloudDeploy::delete_deploy_policy].
+        /// on [delete_deploy_policy][crate::client::CloudDeploy::delete_deploy_policy].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_deploy_policy(self.0.request, self.0.options)
@@ -2901,7 +2901,7 @@ pub mod cloud_deploy {
         }
     }
 
-    /// The request builder for [CloudDeploy::list_deploy_policies][super::super::client::CloudDeploy::list_deploy_policies] calls.
+    /// The request builder for [CloudDeploy::list_deploy_policies][crate::client::CloudDeploy::list_deploy_policies] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3021,7 +3021,7 @@ pub mod cloud_deploy {
         }
     }
 
-    /// The request builder for [CloudDeploy::get_deploy_policy][super::super::client::CloudDeploy::get_deploy_policy] calls.
+    /// The request builder for [CloudDeploy::get_deploy_policy][crate::client::CloudDeploy::get_deploy_policy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3084,7 +3084,7 @@ pub mod cloud_deploy {
         }
     }
 
-    /// The request builder for [CloudDeploy::approve_rollout][super::super::client::CloudDeploy::approve_rollout] calls.
+    /// The request builder for [CloudDeploy::approve_rollout][crate::client::CloudDeploy::approve_rollout] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3166,7 +3166,7 @@ pub mod cloud_deploy {
         }
     }
 
-    /// The request builder for [CloudDeploy::advance_rollout][super::super::client::CloudDeploy::advance_rollout] calls.
+    /// The request builder for [CloudDeploy::advance_rollout][crate::client::CloudDeploy::advance_rollout] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3248,7 +3248,7 @@ pub mod cloud_deploy {
         }
     }
 
-    /// The request builder for [CloudDeploy::cancel_rollout][super::super::client::CloudDeploy::cancel_rollout] calls.
+    /// The request builder for [CloudDeploy::cancel_rollout][crate::client::CloudDeploy::cancel_rollout] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3322,7 +3322,7 @@ pub mod cloud_deploy {
         }
     }
 
-    /// The request builder for [CloudDeploy::list_rollouts][super::super::client::CloudDeploy::list_rollouts] calls.
+    /// The request builder for [CloudDeploy::list_rollouts][crate::client::CloudDeploy::list_rollouts] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3437,7 +3437,7 @@ pub mod cloud_deploy {
         }
     }
 
-    /// The request builder for [CloudDeploy::get_rollout][super::super::client::CloudDeploy::get_rollout] calls.
+    /// The request builder for [CloudDeploy::get_rollout][crate::client::CloudDeploy::get_rollout] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3500,7 +3500,7 @@ pub mod cloud_deploy {
         }
     }
 
-    /// The request builder for [CloudDeploy::create_rollout][super::super::client::CloudDeploy::create_rollout] calls.
+    /// The request builder for [CloudDeploy::create_rollout][crate::client::CloudDeploy::create_rollout] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3545,7 +3545,7 @@ pub mod cloud_deploy {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_rollout][super::super::client::CloudDeploy::create_rollout].
+        /// on [create_rollout][crate::client::CloudDeploy::create_rollout].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_rollout(self.0.request, self.0.options)
@@ -3661,7 +3661,7 @@ pub mod cloud_deploy {
         }
     }
 
-    /// The request builder for [CloudDeploy::ignore_job][super::super::client::CloudDeploy::ignore_job] calls.
+    /// The request builder for [CloudDeploy::ignore_job][crate::client::CloudDeploy::ignore_job] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3751,7 +3751,7 @@ pub mod cloud_deploy {
         }
     }
 
-    /// The request builder for [CloudDeploy::retry_job][super::super::client::CloudDeploy::retry_job] calls.
+    /// The request builder for [CloudDeploy::retry_job][crate::client::CloudDeploy::retry_job] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3841,7 +3841,7 @@ pub mod cloud_deploy {
         }
     }
 
-    /// The request builder for [CloudDeploy::list_job_runs][super::super::client::CloudDeploy::list_job_runs] calls.
+    /// The request builder for [CloudDeploy::list_job_runs][crate::client::CloudDeploy::list_job_runs] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3956,7 +3956,7 @@ pub mod cloud_deploy {
         }
     }
 
-    /// The request builder for [CloudDeploy::get_job_run][super::super::client::CloudDeploy::get_job_run] calls.
+    /// The request builder for [CloudDeploy::get_job_run][crate::client::CloudDeploy::get_job_run] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4019,7 +4019,7 @@ pub mod cloud_deploy {
         }
     }
 
-    /// The request builder for [CloudDeploy::terminate_job_run][super::super::client::CloudDeploy::terminate_job_run] calls.
+    /// The request builder for [CloudDeploy::terminate_job_run][crate::client::CloudDeploy::terminate_job_run] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4093,7 +4093,7 @@ pub mod cloud_deploy {
         }
     }
 
-    /// The request builder for [CloudDeploy::get_config][super::super::client::CloudDeploy::get_config] calls.
+    /// The request builder for [CloudDeploy::get_config][crate::client::CloudDeploy::get_config] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4156,7 +4156,7 @@ pub mod cloud_deploy {
         }
     }
 
-    /// The request builder for [CloudDeploy::create_automation][super::super::client::CloudDeploy::create_automation] calls.
+    /// The request builder for [CloudDeploy::create_automation][crate::client::CloudDeploy::create_automation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4204,7 +4204,7 @@ pub mod cloud_deploy {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_automation][super::super::client::CloudDeploy::create_automation].
+        /// on [create_automation][crate::client::CloudDeploy::create_automation].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_automation(self.0.request, self.0.options)
@@ -4303,7 +4303,7 @@ pub mod cloud_deploy {
         }
     }
 
-    /// The request builder for [CloudDeploy::update_automation][super::super::client::CloudDeploy::update_automation] calls.
+    /// The request builder for [CloudDeploy::update_automation][crate::client::CloudDeploy::update_automation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4351,7 +4351,7 @@ pub mod cloud_deploy {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_automation][super::super::client::CloudDeploy::update_automation].
+        /// on [update_automation][crate::client::CloudDeploy::update_automation].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_automation(self.0.request, self.0.options)
@@ -4462,7 +4462,7 @@ pub mod cloud_deploy {
         }
     }
 
-    /// The request builder for [CloudDeploy::delete_automation][super::super::client::CloudDeploy::delete_automation] calls.
+    /// The request builder for [CloudDeploy::delete_automation][crate::client::CloudDeploy::delete_automation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4510,7 +4510,7 @@ pub mod cloud_deploy {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_automation][super::super::client::CloudDeploy::delete_automation].
+        /// on [delete_automation][crate::client::CloudDeploy::delete_automation].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_automation(self.0.request, self.0.options)
@@ -4593,7 +4593,7 @@ pub mod cloud_deploy {
         }
     }
 
-    /// The request builder for [CloudDeploy::get_automation][super::super::client::CloudDeploy::get_automation] calls.
+    /// The request builder for [CloudDeploy::get_automation][crate::client::CloudDeploy::get_automation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4656,7 +4656,7 @@ pub mod cloud_deploy {
         }
     }
 
-    /// The request builder for [CloudDeploy::list_automations][super::super::client::CloudDeploy::list_automations] calls.
+    /// The request builder for [CloudDeploy::list_automations][crate::client::CloudDeploy::list_automations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4771,7 +4771,7 @@ pub mod cloud_deploy {
         }
     }
 
-    /// The request builder for [CloudDeploy::get_automation_run][super::super::client::CloudDeploy::get_automation_run] calls.
+    /// The request builder for [CloudDeploy::get_automation_run][crate::client::CloudDeploy::get_automation_run] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4837,7 +4837,7 @@ pub mod cloud_deploy {
         }
     }
 
-    /// The request builder for [CloudDeploy::list_automation_runs][super::super::client::CloudDeploy::list_automation_runs] calls.
+    /// The request builder for [CloudDeploy::list_automation_runs][crate::client::CloudDeploy::list_automation_runs] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4957,7 +4957,7 @@ pub mod cloud_deploy {
         }
     }
 
-    /// The request builder for [CloudDeploy::cancel_automation_run][super::super::client::CloudDeploy::cancel_automation_run] calls.
+    /// The request builder for [CloudDeploy::cancel_automation_run][crate::client::CloudDeploy::cancel_automation_run] calls.
     ///
     /// # Example
     /// ```no_run
@@ -5023,7 +5023,7 @@ pub mod cloud_deploy {
         }
     }
 
-    /// The request builder for [CloudDeploy::list_locations][super::super::client::CloudDeploy::list_locations] calls.
+    /// The request builder for [CloudDeploy::list_locations][crate::client::CloudDeploy::list_locations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -5133,7 +5133,7 @@ pub mod cloud_deploy {
         }
     }
 
-    /// The request builder for [CloudDeploy::get_location][super::super::client::CloudDeploy::get_location] calls.
+    /// The request builder for [CloudDeploy::get_location][crate::client::CloudDeploy::get_location] calls.
     ///
     /// # Example
     /// ```no_run
@@ -5194,7 +5194,7 @@ pub mod cloud_deploy {
         }
     }
 
-    /// The request builder for [CloudDeploy::set_iam_policy][super::super::client::CloudDeploy::set_iam_policy] calls.
+    /// The request builder for [CloudDeploy::set_iam_policy][crate::client::CloudDeploy::set_iam_policy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -5297,7 +5297,7 @@ pub mod cloud_deploy {
         }
     }
 
-    /// The request builder for [CloudDeploy::get_iam_policy][super::super::client::CloudDeploy::get_iam_policy] calls.
+    /// The request builder for [CloudDeploy::get_iam_policy][crate::client::CloudDeploy::get_iam_policy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -5378,7 +5378,7 @@ pub mod cloud_deploy {
         }
     }
 
-    /// The request builder for [CloudDeploy::test_iam_permissions][super::super::client::CloudDeploy::test_iam_permissions] calls.
+    /// The request builder for [CloudDeploy::test_iam_permissions][crate::client::CloudDeploy::test_iam_permissions] calls.
     ///
     /// # Example
     /// ```no_run
@@ -5457,7 +5457,7 @@ pub mod cloud_deploy {
         }
     }
 
-    /// The request builder for [CloudDeploy::list_operations][super::super::client::CloudDeploy::list_operations] calls.
+    /// The request builder for [CloudDeploy::list_operations][crate::client::CloudDeploy::list_operations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -5569,7 +5569,7 @@ pub mod cloud_deploy {
         }
     }
 
-    /// The request builder for [CloudDeploy::get_operation][super::super::client::CloudDeploy::get_operation] calls.
+    /// The request builder for [CloudDeploy::get_operation][crate::client::CloudDeploy::get_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -5633,7 +5633,7 @@ pub mod cloud_deploy {
         }
     }
 
-    /// The request builder for [CloudDeploy::delete_operation][super::super::client::CloudDeploy::delete_operation] calls.
+    /// The request builder for [CloudDeploy::delete_operation][crate::client::CloudDeploy::delete_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -5697,7 +5697,7 @@ pub mod cloud_deploy {
         }
     }
 
-    /// The request builder for [CloudDeploy::cancel_operation][super::super::client::CloudDeploy::cancel_operation] calls.
+    /// The request builder for [CloudDeploy::cancel_operation][crate::client::CloudDeploy::cancel_operation] calls.
     ///
     /// # Example
     /// ```no_run

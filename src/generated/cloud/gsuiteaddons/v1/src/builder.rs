@@ -17,7 +17,7 @@
 pub mod g_suite_add_ons {
     use crate::Result;
 
-    /// A builder for [GSuiteAddOns][super::super::client::GSuiteAddOns].
+    /// A builder for [GSuiteAddOns][crate::client::GSuiteAddOns].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -45,7 +45,7 @@ pub mod g_suite_add_ons {
         }
     }
 
-    /// Common implementation for [super::super::client::GSuiteAddOns] request builders.
+    /// Common implementation for [crate::client::GSuiteAddOns] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::GSuiteAddOns>,
@@ -68,7 +68,7 @@ pub mod g_suite_add_ons {
         }
     }
 
-    /// The request builder for [GSuiteAddOns::get_authorization][super::super::client::GSuiteAddOns::get_authorization] calls.
+    /// The request builder for [GSuiteAddOns::get_authorization][crate::client::GSuiteAddOns::get_authorization] calls.
     ///
     /// # Example
     /// ```no_run
@@ -134,7 +134,7 @@ pub mod g_suite_add_ons {
         }
     }
 
-    /// The request builder for [GSuiteAddOns::create_deployment][super::super::client::GSuiteAddOns::create_deployment] calls.
+    /// The request builder for [GSuiteAddOns::create_deployment][crate::client::GSuiteAddOns::create_deployment] calls.
     ///
     /// # Example
     /// ```no_run
@@ -230,7 +230,7 @@ pub mod g_suite_add_ons {
         }
     }
 
-    /// The request builder for [GSuiteAddOns::replace_deployment][super::super::client::GSuiteAddOns::replace_deployment] calls.
+    /// The request builder for [GSuiteAddOns::replace_deployment][crate::client::GSuiteAddOns::replace_deployment] calls.
     ///
     /// # Example
     /// ```no_run
@@ -310,7 +310,7 @@ pub mod g_suite_add_ons {
         }
     }
 
-    /// The request builder for [GSuiteAddOns::get_deployment][super::super::client::GSuiteAddOns::get_deployment] calls.
+    /// The request builder for [GSuiteAddOns::get_deployment][crate::client::GSuiteAddOns::get_deployment] calls.
     ///
     /// # Example
     /// ```no_run
@@ -373,7 +373,7 @@ pub mod g_suite_add_ons {
         }
     }
 
-    /// The request builder for [GSuiteAddOns::list_deployments][super::super::client::GSuiteAddOns::list_deployments] calls.
+    /// The request builder for [GSuiteAddOns::list_deployments][crate::client::GSuiteAddOns::list_deployments] calls.
     ///
     /// # Example
     /// ```no_run
@@ -476,7 +476,7 @@ pub mod g_suite_add_ons {
         }
     }
 
-    /// The request builder for [GSuiteAddOns::delete_deployment][super::super::client::GSuiteAddOns::delete_deployment] calls.
+    /// The request builder for [GSuiteAddOns::delete_deployment][crate::client::GSuiteAddOns::delete_deployment] calls.
     ///
     /// # Example
     /// ```no_run
@@ -548,7 +548,7 @@ pub mod g_suite_add_ons {
         }
     }
 
-    /// The request builder for [GSuiteAddOns::install_deployment][super::super::client::GSuiteAddOns::install_deployment] calls.
+    /// The request builder for [GSuiteAddOns::install_deployment][crate::client::GSuiteAddOns::install_deployment] calls.
     ///
     /// # Example
     /// ```no_run
@@ -614,7 +614,7 @@ pub mod g_suite_add_ons {
         }
     }
 
-    /// The request builder for [GSuiteAddOns::uninstall_deployment][super::super::client::GSuiteAddOns::uninstall_deployment] calls.
+    /// The request builder for [GSuiteAddOns::uninstall_deployment][crate::client::GSuiteAddOns::uninstall_deployment] calls.
     ///
     /// # Example
     /// ```no_run
@@ -680,7 +680,7 @@ pub mod g_suite_add_ons {
         }
     }
 
-    /// The request builder for [GSuiteAddOns::get_install_status][super::super::client::GSuiteAddOns::get_install_status] calls.
+    /// The request builder for [GSuiteAddOns::get_install_status][crate::client::GSuiteAddOns::get_install_status] calls.
     ///
     /// # Example
     /// ```no_run

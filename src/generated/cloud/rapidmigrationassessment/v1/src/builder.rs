@@ -17,7 +17,7 @@
 pub mod rapid_migration_assessment {
     use crate::Result;
 
-    /// A builder for [RapidMigrationAssessment][super::super::client::RapidMigrationAssessment].
+    /// A builder for [RapidMigrationAssessment][crate::client::RapidMigrationAssessment].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -45,7 +45,7 @@ pub mod rapid_migration_assessment {
         }
     }
 
-    /// Common implementation for [super::super::client::RapidMigrationAssessment] request builders.
+    /// Common implementation for [crate::client::RapidMigrationAssessment] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::RapidMigrationAssessment>,
@@ -68,7 +68,7 @@ pub mod rapid_migration_assessment {
         }
     }
 
-    /// The request builder for [RapidMigrationAssessment::create_collector][super::super::client::RapidMigrationAssessment::create_collector] calls.
+    /// The request builder for [RapidMigrationAssessment::create_collector][crate::client::RapidMigrationAssessment::create_collector] calls.
     ///
     /// # Example
     /// ```no_run
@@ -113,7 +113,7 @@ pub mod rapid_migration_assessment {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_collector][super::super::client::RapidMigrationAssessment::create_collector].
+        /// on [create_collector][crate::client::RapidMigrationAssessment::create_collector].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_collector(self.0.request, self.0.options)
@@ -206,7 +206,7 @@ pub mod rapid_migration_assessment {
         }
     }
 
-    /// The request builder for [RapidMigrationAssessment::create_annotation][super::super::client::RapidMigrationAssessment::create_annotation] calls.
+    /// The request builder for [RapidMigrationAssessment::create_annotation][crate::client::RapidMigrationAssessment::create_annotation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -254,7 +254,7 @@ pub mod rapid_migration_assessment {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_annotation][super::super::client::RapidMigrationAssessment::create_annotation].
+        /// on [create_annotation][crate::client::RapidMigrationAssessment::create_annotation].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_annotation(self.0.request, self.0.options)
@@ -339,7 +339,7 @@ pub mod rapid_migration_assessment {
         }
     }
 
-    /// The request builder for [RapidMigrationAssessment::get_annotation][super::super::client::RapidMigrationAssessment::get_annotation] calls.
+    /// The request builder for [RapidMigrationAssessment::get_annotation][crate::client::RapidMigrationAssessment::get_annotation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -402,7 +402,7 @@ pub mod rapid_migration_assessment {
         }
     }
 
-    /// The request builder for [RapidMigrationAssessment::list_collectors][super::super::client::RapidMigrationAssessment::list_collectors] calls.
+    /// The request builder for [RapidMigrationAssessment::list_collectors][crate::client::RapidMigrationAssessment::list_collectors] calls.
     ///
     /// # Example
     /// ```no_run
@@ -517,7 +517,7 @@ pub mod rapid_migration_assessment {
         }
     }
 
-    /// The request builder for [RapidMigrationAssessment::get_collector][super::super::client::RapidMigrationAssessment::get_collector] calls.
+    /// The request builder for [RapidMigrationAssessment::get_collector][crate::client::RapidMigrationAssessment::get_collector] calls.
     ///
     /// # Example
     /// ```no_run
@@ -580,7 +580,7 @@ pub mod rapid_migration_assessment {
         }
     }
 
-    /// The request builder for [RapidMigrationAssessment::update_collector][super::super::client::RapidMigrationAssessment::update_collector] calls.
+    /// The request builder for [RapidMigrationAssessment::update_collector][crate::client::RapidMigrationAssessment::update_collector] calls.
     ///
     /// # Example
     /// ```no_run
@@ -625,7 +625,7 @@ pub mod rapid_migration_assessment {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_collector][super::super::client::RapidMigrationAssessment::update_collector].
+        /// on [update_collector][crate::client::RapidMigrationAssessment::update_collector].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_collector(self.0.request, self.0.options)
@@ -724,7 +724,7 @@ pub mod rapid_migration_assessment {
         }
     }
 
-    /// The request builder for [RapidMigrationAssessment::delete_collector][super::super::client::RapidMigrationAssessment::delete_collector] calls.
+    /// The request builder for [RapidMigrationAssessment::delete_collector][crate::client::RapidMigrationAssessment::delete_collector] calls.
     ///
     /// # Example
     /// ```no_run
@@ -769,7 +769,7 @@ pub mod rapid_migration_assessment {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_collector][super::super::client::RapidMigrationAssessment::delete_collector].
+        /// on [delete_collector][crate::client::RapidMigrationAssessment::delete_collector].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_collector(self.0.request, self.0.options)
@@ -832,7 +832,7 @@ pub mod rapid_migration_assessment {
         }
     }
 
-    /// The request builder for [RapidMigrationAssessment::resume_collector][super::super::client::RapidMigrationAssessment::resume_collector] calls.
+    /// The request builder for [RapidMigrationAssessment::resume_collector][crate::client::RapidMigrationAssessment::resume_collector] calls.
     ///
     /// # Example
     /// ```no_run
@@ -877,7 +877,7 @@ pub mod rapid_migration_assessment {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [resume_collector][super::super::client::RapidMigrationAssessment::resume_collector].
+        /// on [resume_collector][crate::client::RapidMigrationAssessment::resume_collector].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .resume_collector(self.0.request, self.0.options)
@@ -940,7 +940,7 @@ pub mod rapid_migration_assessment {
         }
     }
 
-    /// The request builder for [RapidMigrationAssessment::register_collector][super::super::client::RapidMigrationAssessment::register_collector] calls.
+    /// The request builder for [RapidMigrationAssessment::register_collector][crate::client::RapidMigrationAssessment::register_collector] calls.
     ///
     /// # Example
     /// ```no_run
@@ -988,7 +988,7 @@ pub mod rapid_migration_assessment {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [register_collector][super::super::client::RapidMigrationAssessment::register_collector].
+        /// on [register_collector][crate::client::RapidMigrationAssessment::register_collector].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .register_collector(self.0.request, self.0.options)
@@ -1051,7 +1051,7 @@ pub mod rapid_migration_assessment {
         }
     }
 
-    /// The request builder for [RapidMigrationAssessment::pause_collector][super::super::client::RapidMigrationAssessment::pause_collector] calls.
+    /// The request builder for [RapidMigrationAssessment::pause_collector][crate::client::RapidMigrationAssessment::pause_collector] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1096,7 +1096,7 @@ pub mod rapid_migration_assessment {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [pause_collector][super::super::client::RapidMigrationAssessment::pause_collector].
+        /// on [pause_collector][crate::client::RapidMigrationAssessment::pause_collector].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .pause_collector(self.0.request, self.0.options)
@@ -1159,7 +1159,7 @@ pub mod rapid_migration_assessment {
         }
     }
 
-    /// The request builder for [RapidMigrationAssessment::list_locations][super::super::client::RapidMigrationAssessment::list_locations] calls.
+    /// The request builder for [RapidMigrationAssessment::list_locations][crate::client::RapidMigrationAssessment::list_locations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1269,7 +1269,7 @@ pub mod rapid_migration_assessment {
         }
     }
 
-    /// The request builder for [RapidMigrationAssessment::get_location][super::super::client::RapidMigrationAssessment::get_location] calls.
+    /// The request builder for [RapidMigrationAssessment::get_location][crate::client::RapidMigrationAssessment::get_location] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1330,7 +1330,7 @@ pub mod rapid_migration_assessment {
         }
     }
 
-    /// The request builder for [RapidMigrationAssessment::list_operations][super::super::client::RapidMigrationAssessment::list_operations] calls.
+    /// The request builder for [RapidMigrationAssessment::list_operations][crate::client::RapidMigrationAssessment::list_operations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1442,7 +1442,7 @@ pub mod rapid_migration_assessment {
         }
     }
 
-    /// The request builder for [RapidMigrationAssessment::get_operation][super::super::client::RapidMigrationAssessment::get_operation] calls.
+    /// The request builder for [RapidMigrationAssessment::get_operation][crate::client::RapidMigrationAssessment::get_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1506,7 +1506,7 @@ pub mod rapid_migration_assessment {
         }
     }
 
-    /// The request builder for [RapidMigrationAssessment::delete_operation][super::super::client::RapidMigrationAssessment::delete_operation] calls.
+    /// The request builder for [RapidMigrationAssessment::delete_operation][crate::client::RapidMigrationAssessment::delete_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1570,7 +1570,7 @@ pub mod rapid_migration_assessment {
         }
     }
 
-    /// The request builder for [RapidMigrationAssessment::cancel_operation][super::super::client::RapidMigrationAssessment::cancel_operation] calls.
+    /// The request builder for [RapidMigrationAssessment::cancel_operation][crate::client::RapidMigrationAssessment::cancel_operation] calls.
     ///
     /// # Example
     /// ```no_run

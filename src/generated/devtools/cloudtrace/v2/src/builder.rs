@@ -17,7 +17,7 @@
 pub mod trace_service {
     use crate::Result;
 
-    /// A builder for [TraceService][super::super::client::TraceService].
+    /// A builder for [TraceService][crate::client::TraceService].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -45,7 +45,7 @@ pub mod trace_service {
         }
     }
 
-    /// Common implementation for [super::super::client::TraceService] request builders.
+    /// Common implementation for [crate::client::TraceService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::TraceService>,
@@ -68,7 +68,7 @@ pub mod trace_service {
         }
     }
 
-    /// The request builder for [TraceService::batch_write_spans][super::super::client::TraceService::batch_write_spans] calls.
+    /// The request builder for [TraceService::batch_write_spans][crate::client::TraceService::batch_write_spans] calls.
     ///
     /// # Example
     /// ```no_run
@@ -144,7 +144,7 @@ pub mod trace_service {
         }
     }
 
-    /// The request builder for [TraceService::create_span][super::super::client::TraceService::create_span] calls.
+    /// The request builder for [TraceService::create_span][crate::client::TraceService::create_span] calls.
     ///
     /// # Example
     /// ```no_run

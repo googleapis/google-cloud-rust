@@ -17,7 +17,7 @@
 pub mod advisory_notifications_service {
     use crate::Result;
 
-    /// A builder for [AdvisoryNotificationsService][super::super::client::AdvisoryNotificationsService].
+    /// A builder for [AdvisoryNotificationsService][crate::client::AdvisoryNotificationsService].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -45,7 +45,7 @@ pub mod advisory_notifications_service {
         }
     }
 
-    /// Common implementation for [super::super::client::AdvisoryNotificationsService] request builders.
+    /// Common implementation for [crate::client::AdvisoryNotificationsService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::AdvisoryNotificationsService>,
@@ -68,7 +68,7 @@ pub mod advisory_notifications_service {
         }
     }
 
-    /// The request builder for [AdvisoryNotificationsService::list_notifications][super::super::client::AdvisoryNotificationsService::list_notifications] calls.
+    /// The request builder for [AdvisoryNotificationsService::list_notifications][crate::client::AdvisoryNotificationsService::list_notifications] calls.
     ///
     /// # Example
     /// ```no_run
@@ -186,7 +186,7 @@ pub mod advisory_notifications_service {
         }
     }
 
-    /// The request builder for [AdvisoryNotificationsService::get_notification][super::super::client::AdvisoryNotificationsService::get_notification] calls.
+    /// The request builder for [AdvisoryNotificationsService::get_notification][crate::client::AdvisoryNotificationsService::get_notification] calls.
     ///
     /// # Example
     /// ```no_run
@@ -255,7 +255,7 @@ pub mod advisory_notifications_service {
         }
     }
 
-    /// The request builder for [AdvisoryNotificationsService::get_settings][super::super::client::AdvisoryNotificationsService::get_settings] calls.
+    /// The request builder for [AdvisoryNotificationsService::get_settings][crate::client::AdvisoryNotificationsService::get_settings] calls.
     ///
     /// # Example
     /// ```no_run
@@ -318,7 +318,7 @@ pub mod advisory_notifications_service {
         }
     }
 
-    /// The request builder for [AdvisoryNotificationsService::update_settings][super::super::client::AdvisoryNotificationsService::update_settings] calls.
+    /// The request builder for [AdvisoryNotificationsService::update_settings][crate::client::AdvisoryNotificationsService::update_settings] calls.
     ///
     /// # Example
     /// ```no_run

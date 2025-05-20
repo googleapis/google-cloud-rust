@@ -17,7 +17,7 @@
 pub mod grafeas {
     use crate::Result;
 
-    /// A builder for [Grafeas][super::super::client::Grafeas].
+    /// A builder for [Grafeas][crate::client::Grafeas].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -45,7 +45,7 @@ pub mod grafeas {
         }
     }
 
-    /// Common implementation for [super::super::client::Grafeas] request builders.
+    /// Common implementation for [crate::client::Grafeas] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::Grafeas>,
@@ -66,7 +66,7 @@ pub mod grafeas {
         }
     }
 
-    /// The request builder for [Grafeas::get_occurrence][super::super::client::Grafeas::get_occurrence] calls.
+    /// The request builder for [Grafeas::get_occurrence][crate::client::Grafeas::get_occurrence] calls.
     ///
     /// # Example
     /// ```no_run
@@ -127,7 +127,7 @@ pub mod grafeas {
         }
     }
 
-    /// The request builder for [Grafeas::list_occurrences][super::super::client::Grafeas::list_occurrences] calls.
+    /// The request builder for [Grafeas::list_occurrences][crate::client::Grafeas::list_occurrences] calls.
     ///
     /// # Example
     /// ```no_run
@@ -234,7 +234,7 @@ pub mod grafeas {
         }
     }
 
-    /// The request builder for [Grafeas::delete_occurrence][super::super::client::Grafeas::delete_occurrence] calls.
+    /// The request builder for [Grafeas::delete_occurrence][crate::client::Grafeas::delete_occurrence] calls.
     ///
     /// # Example
     /// ```no_run
@@ -298,7 +298,7 @@ pub mod grafeas {
         }
     }
 
-    /// The request builder for [Grafeas::create_occurrence][super::super::client::Grafeas::create_occurrence] calls.
+    /// The request builder for [Grafeas::create_occurrence][crate::client::Grafeas::create_occurrence] calls.
     ///
     /// # Example
     /// ```no_run
@@ -384,7 +384,7 @@ pub mod grafeas {
         }
     }
 
-    /// The request builder for [Grafeas::batch_create_occurrences][super::super::client::Grafeas::batch_create_occurrences] calls.
+    /// The request builder for [Grafeas::batch_create_occurrences][crate::client::Grafeas::batch_create_occurrences] calls.
     ///
     /// # Example
     /// ```no_run
@@ -461,7 +461,7 @@ pub mod grafeas {
         }
     }
 
-    /// The request builder for [Grafeas::update_occurrence][super::super::client::Grafeas::update_occurrence] calls.
+    /// The request builder for [Grafeas::update_occurrence][crate::client::Grafeas::update_occurrence] calls.
     ///
     /// # Example
     /// ```no_run
@@ -565,7 +565,7 @@ pub mod grafeas {
         }
     }
 
-    /// The request builder for [Grafeas::get_occurrence_note][super::super::client::Grafeas::get_occurrence_note] calls.
+    /// The request builder for [Grafeas::get_occurrence_note][crate::client::Grafeas::get_occurrence_note] calls.
     ///
     /// # Example
     /// ```no_run
@@ -629,7 +629,7 @@ pub mod grafeas {
         }
     }
 
-    /// The request builder for [Grafeas::get_note][super::super::client::Grafeas::get_note] calls.
+    /// The request builder for [Grafeas::get_note][crate::client::Grafeas::get_note] calls.
     ///
     /// # Example
     /// ```no_run
@@ -690,7 +690,7 @@ pub mod grafeas {
         }
     }
 
-    /// The request builder for [Grafeas::list_notes][super::super::client::Grafeas::list_notes] calls.
+    /// The request builder for [Grafeas::list_notes][crate::client::Grafeas::list_notes] calls.
     ///
     /// # Example
     /// ```no_run
@@ -797,7 +797,7 @@ pub mod grafeas {
         }
     }
 
-    /// The request builder for [Grafeas::delete_note][super::super::client::Grafeas::delete_note] calls.
+    /// The request builder for [Grafeas::delete_note][crate::client::Grafeas::delete_note] calls.
     ///
     /// # Example
     /// ```no_run
@@ -858,7 +858,7 @@ pub mod grafeas {
         }
     }
 
-    /// The request builder for [Grafeas::create_note][super::super::client::Grafeas::create_note] calls.
+    /// The request builder for [Grafeas::create_note][crate::client::Grafeas::create_note] calls.
     ///
     /// # Example
     /// ```no_run
@@ -949,7 +949,7 @@ pub mod grafeas {
         }
     }
 
-    /// The request builder for [Grafeas::batch_create_notes][super::super::client::Grafeas::batch_create_notes] calls.
+    /// The request builder for [Grafeas::batch_create_notes][crate::client::Grafeas::batch_create_notes] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1026,7 +1026,7 @@ pub mod grafeas {
         }
     }
 
-    /// The request builder for [Grafeas::update_note][super::super::client::Grafeas::update_note] calls.
+    /// The request builder for [Grafeas::update_note][crate::client::Grafeas::update_note] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1127,7 +1127,7 @@ pub mod grafeas {
         }
     }
 
-    /// The request builder for [Grafeas::list_note_occurrences][super::super::client::Grafeas::list_note_occurrences] calls.
+    /// The request builder for [Grafeas::list_note_occurrences][crate::client::Grafeas::list_note_occurrences] calls.
     ///
     /// # Example
     /// ```no_run

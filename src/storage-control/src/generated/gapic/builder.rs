@@ -17,7 +17,7 @@
 pub mod storage {
     use crate::Result;
 
-    /// Common implementation for [super::super::client::Storage] request builders.
+    /// Common implementation for [crate::client::Storage] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::Storage>,

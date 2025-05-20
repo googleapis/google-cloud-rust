@@ -17,7 +17,7 @@
 pub mod firestore_admin {
     use crate::Result;
 
-    /// A builder for [FirestoreAdmin][super::super::client::FirestoreAdmin].
+    /// A builder for [FirestoreAdmin][crate::client::FirestoreAdmin].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -45,7 +45,7 @@ pub mod firestore_admin {
         }
     }
 
-    /// Common implementation for [super::super::client::FirestoreAdmin] request builders.
+    /// Common implementation for [crate::client::FirestoreAdmin] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::FirestoreAdmin>,
@@ -68,7 +68,7 @@ pub mod firestore_admin {
         }
     }
 
-    /// The request builder for [FirestoreAdmin::create_index][super::super::client::FirestoreAdmin::create_index] calls.
+    /// The request builder for [FirestoreAdmin::create_index][crate::client::FirestoreAdmin::create_index] calls.
     ///
     /// # Example
     /// ```no_run
@@ -113,7 +113,7 @@ pub mod firestore_admin {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_index][super::super::client::FirestoreAdmin::create_index].
+        /// on [create_index][crate::client::FirestoreAdmin::create_index].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_index(self.0.request, self.0.options)
@@ -192,7 +192,7 @@ pub mod firestore_admin {
         }
     }
 
-    /// The request builder for [FirestoreAdmin::list_indexes][super::super::client::FirestoreAdmin::list_indexes] calls.
+    /// The request builder for [FirestoreAdmin::list_indexes][crate::client::FirestoreAdmin::list_indexes] calls.
     ///
     /// # Example
     /// ```no_run
@@ -301,7 +301,7 @@ pub mod firestore_admin {
         }
     }
 
-    /// The request builder for [FirestoreAdmin::get_index][super::super::client::FirestoreAdmin::get_index] calls.
+    /// The request builder for [FirestoreAdmin::get_index][crate::client::FirestoreAdmin::get_index] calls.
     ///
     /// # Example
     /// ```no_run
@@ -364,7 +364,7 @@ pub mod firestore_admin {
         }
     }
 
-    /// The request builder for [FirestoreAdmin::delete_index][super::super::client::FirestoreAdmin::delete_index] calls.
+    /// The request builder for [FirestoreAdmin::delete_index][crate::client::FirestoreAdmin::delete_index] calls.
     ///
     /// # Example
     /// ```no_run
@@ -427,7 +427,7 @@ pub mod firestore_admin {
         }
     }
 
-    /// The request builder for [FirestoreAdmin::get_field][super::super::client::FirestoreAdmin::get_field] calls.
+    /// The request builder for [FirestoreAdmin::get_field][crate::client::FirestoreAdmin::get_field] calls.
     ///
     /// # Example
     /// ```no_run
@@ -490,7 +490,7 @@ pub mod firestore_admin {
         }
     }
 
-    /// The request builder for [FirestoreAdmin::update_field][super::super::client::FirestoreAdmin::update_field] calls.
+    /// The request builder for [FirestoreAdmin::update_field][crate::client::FirestoreAdmin::update_field] calls.
     ///
     /// # Example
     /// ```no_run
@@ -535,7 +535,7 @@ pub mod firestore_admin {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_field][super::super::client::FirestoreAdmin::update_field].
+        /// on [update_field][crate::client::FirestoreAdmin::update_field].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_field(self.0.request, self.0.options)
@@ -624,7 +624,7 @@ pub mod firestore_admin {
         }
     }
 
-    /// The request builder for [FirestoreAdmin::list_fields][super::super::client::FirestoreAdmin::list_fields] calls.
+    /// The request builder for [FirestoreAdmin::list_fields][crate::client::FirestoreAdmin::list_fields] calls.
     ///
     /// # Example
     /// ```no_run
@@ -733,7 +733,7 @@ pub mod firestore_admin {
         }
     }
 
-    /// The request builder for [FirestoreAdmin::export_documents][super::super::client::FirestoreAdmin::export_documents] calls.
+    /// The request builder for [FirestoreAdmin::export_documents][crate::client::FirestoreAdmin::export_documents] calls.
     ///
     /// # Example
     /// ```no_run
@@ -778,7 +778,7 @@ pub mod firestore_admin {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [export_documents][super::super::client::FirestoreAdmin::export_documents].
+        /// on [export_documents][crate::client::FirestoreAdmin::export_documents].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .export_documents(self.0.request, self.0.options)
@@ -884,7 +884,7 @@ pub mod firestore_admin {
         }
     }
 
-    /// The request builder for [FirestoreAdmin::import_documents][super::super::client::FirestoreAdmin::import_documents] calls.
+    /// The request builder for [FirestoreAdmin::import_documents][crate::client::FirestoreAdmin::import_documents] calls.
     ///
     /// # Example
     /// ```no_run
@@ -929,7 +929,7 @@ pub mod firestore_admin {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [import_documents][super::super::client::FirestoreAdmin::import_documents].
+        /// on [import_documents][crate::client::FirestoreAdmin::import_documents].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .import_documents(self.0.request, self.0.options)
@@ -1017,7 +1017,7 @@ pub mod firestore_admin {
         }
     }
 
-    /// The request builder for [FirestoreAdmin::bulk_delete_documents][super::super::client::FirestoreAdmin::bulk_delete_documents] calls.
+    /// The request builder for [FirestoreAdmin::bulk_delete_documents][crate::client::FirestoreAdmin::bulk_delete_documents] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1065,7 +1065,7 @@ pub mod firestore_admin {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [bulk_delete_documents][super::super::client::FirestoreAdmin::bulk_delete_documents].
+        /// on [bulk_delete_documents][crate::client::FirestoreAdmin::bulk_delete_documents].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .bulk_delete_documents(self.0.request, self.0.options)
@@ -1149,7 +1149,7 @@ pub mod firestore_admin {
         }
     }
 
-    /// The request builder for [FirestoreAdmin::create_database][super::super::client::FirestoreAdmin::create_database] calls.
+    /// The request builder for [FirestoreAdmin::create_database][crate::client::FirestoreAdmin::create_database] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1194,7 +1194,7 @@ pub mod firestore_admin {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_database][super::super::client::FirestoreAdmin::create_database].
+        /// on [create_database][crate::client::FirestoreAdmin::create_database].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_database(self.0.request, self.0.options)
@@ -1284,7 +1284,7 @@ pub mod firestore_admin {
         }
     }
 
-    /// The request builder for [FirestoreAdmin::get_database][super::super::client::FirestoreAdmin::get_database] calls.
+    /// The request builder for [FirestoreAdmin::get_database][crate::client::FirestoreAdmin::get_database] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1347,7 +1347,7 @@ pub mod firestore_admin {
         }
     }
 
-    /// The request builder for [FirestoreAdmin::list_databases][super::super::client::FirestoreAdmin::list_databases] calls.
+    /// The request builder for [FirestoreAdmin::list_databases][crate::client::FirestoreAdmin::list_databases] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1416,7 +1416,7 @@ pub mod firestore_admin {
         }
     }
 
-    /// The request builder for [FirestoreAdmin::update_database][super::super::client::FirestoreAdmin::update_database] calls.
+    /// The request builder for [FirestoreAdmin::update_database][crate::client::FirestoreAdmin::update_database] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1461,7 +1461,7 @@ pub mod firestore_admin {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_database][super::super::client::FirestoreAdmin::update_database].
+        /// on [update_database][crate::client::FirestoreAdmin::update_database].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_database(self.0.request, self.0.options)
@@ -1553,7 +1553,7 @@ pub mod firestore_admin {
         }
     }
 
-    /// The request builder for [FirestoreAdmin::delete_database][super::super::client::FirestoreAdmin::delete_database] calls.
+    /// The request builder for [FirestoreAdmin::delete_database][crate::client::FirestoreAdmin::delete_database] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1598,7 +1598,7 @@ pub mod firestore_admin {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_database][super::super::client::FirestoreAdmin::delete_database].
+        /// on [delete_database][crate::client::FirestoreAdmin::delete_database].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_database(self.0.request, self.0.options)
@@ -1664,7 +1664,7 @@ pub mod firestore_admin {
         }
     }
 
-    /// The request builder for [FirestoreAdmin::create_user_creds][super::super::client::FirestoreAdmin::create_user_creds] calls.
+    /// The request builder for [FirestoreAdmin::create_user_creds][crate::client::FirestoreAdmin::create_user_creds] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1757,7 +1757,7 @@ pub mod firestore_admin {
         }
     }
 
-    /// The request builder for [FirestoreAdmin::get_user_creds][super::super::client::FirestoreAdmin::get_user_creds] calls.
+    /// The request builder for [FirestoreAdmin::get_user_creds][crate::client::FirestoreAdmin::get_user_creds] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1820,7 +1820,7 @@ pub mod firestore_admin {
         }
     }
 
-    /// The request builder for [FirestoreAdmin::list_user_creds][super::super::client::FirestoreAdmin::list_user_creds] calls.
+    /// The request builder for [FirestoreAdmin::list_user_creds][crate::client::FirestoreAdmin::list_user_creds] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1883,7 +1883,7 @@ pub mod firestore_admin {
         }
     }
 
-    /// The request builder for [FirestoreAdmin::enable_user_creds][super::super::client::FirestoreAdmin::enable_user_creds] calls.
+    /// The request builder for [FirestoreAdmin::enable_user_creds][crate::client::FirestoreAdmin::enable_user_creds] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1946,7 +1946,7 @@ pub mod firestore_admin {
         }
     }
 
-    /// The request builder for [FirestoreAdmin::disable_user_creds][super::super::client::FirestoreAdmin::disable_user_creds] calls.
+    /// The request builder for [FirestoreAdmin::disable_user_creds][crate::client::FirestoreAdmin::disable_user_creds] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2012,7 +2012,7 @@ pub mod firestore_admin {
         }
     }
 
-    /// The request builder for [FirestoreAdmin::reset_user_password][super::super::client::FirestoreAdmin::reset_user_password] calls.
+    /// The request builder for [FirestoreAdmin::reset_user_password][crate::client::FirestoreAdmin::reset_user_password] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2078,7 +2078,7 @@ pub mod firestore_admin {
         }
     }
 
-    /// The request builder for [FirestoreAdmin::delete_user_creds][super::super::client::FirestoreAdmin::delete_user_creds] calls.
+    /// The request builder for [FirestoreAdmin::delete_user_creds][crate::client::FirestoreAdmin::delete_user_creds] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2141,7 +2141,7 @@ pub mod firestore_admin {
         }
     }
 
-    /// The request builder for [FirestoreAdmin::get_backup][super::super::client::FirestoreAdmin::get_backup] calls.
+    /// The request builder for [FirestoreAdmin::get_backup][crate::client::FirestoreAdmin::get_backup] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2204,7 +2204,7 @@ pub mod firestore_admin {
         }
     }
 
-    /// The request builder for [FirestoreAdmin::list_backups][super::super::client::FirestoreAdmin::list_backups] calls.
+    /// The request builder for [FirestoreAdmin::list_backups][crate::client::FirestoreAdmin::list_backups] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2273,7 +2273,7 @@ pub mod firestore_admin {
         }
     }
 
-    /// The request builder for [FirestoreAdmin::delete_backup][super::super::client::FirestoreAdmin::delete_backup] calls.
+    /// The request builder for [FirestoreAdmin::delete_backup][crate::client::FirestoreAdmin::delete_backup] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2336,7 +2336,7 @@ pub mod firestore_admin {
         }
     }
 
-    /// The request builder for [FirestoreAdmin::restore_database][super::super::client::FirestoreAdmin::restore_database] calls.
+    /// The request builder for [FirestoreAdmin::restore_database][crate::client::FirestoreAdmin::restore_database] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2381,7 +2381,7 @@ pub mod firestore_admin {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [restore_database][super::super::client::FirestoreAdmin::restore_database].
+        /// on [restore_database][crate::client::FirestoreAdmin::restore_database].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .restore_database(self.0.request, self.0.options)
@@ -2475,7 +2475,7 @@ pub mod firestore_admin {
         }
     }
 
-    /// The request builder for [FirestoreAdmin::create_backup_schedule][super::super::client::FirestoreAdmin::create_backup_schedule] calls.
+    /// The request builder for [FirestoreAdmin::create_backup_schedule][crate::client::FirestoreAdmin::create_backup_schedule] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2563,7 +2563,7 @@ pub mod firestore_admin {
         }
     }
 
-    /// The request builder for [FirestoreAdmin::get_backup_schedule][super::super::client::FirestoreAdmin::get_backup_schedule] calls.
+    /// The request builder for [FirestoreAdmin::get_backup_schedule][crate::client::FirestoreAdmin::get_backup_schedule] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2629,7 +2629,7 @@ pub mod firestore_admin {
         }
     }
 
-    /// The request builder for [FirestoreAdmin::list_backup_schedules][super::super::client::FirestoreAdmin::list_backup_schedules] calls.
+    /// The request builder for [FirestoreAdmin::list_backup_schedules][crate::client::FirestoreAdmin::list_backup_schedules] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2695,7 +2695,7 @@ pub mod firestore_admin {
         }
     }
 
-    /// The request builder for [FirestoreAdmin::update_backup_schedule][super::super::client::FirestoreAdmin::update_backup_schedule] calls.
+    /// The request builder for [FirestoreAdmin::update_backup_schedule][crate::client::FirestoreAdmin::update_backup_schedule] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2793,7 +2793,7 @@ pub mod firestore_admin {
         }
     }
 
-    /// The request builder for [FirestoreAdmin::delete_backup_schedule][super::super::client::FirestoreAdmin::delete_backup_schedule] calls.
+    /// The request builder for [FirestoreAdmin::delete_backup_schedule][crate::client::FirestoreAdmin::delete_backup_schedule] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2859,7 +2859,7 @@ pub mod firestore_admin {
         }
     }
 
-    /// The request builder for [FirestoreAdmin::list_operations][super::super::client::FirestoreAdmin::list_operations] calls.
+    /// The request builder for [FirestoreAdmin::list_operations][crate::client::FirestoreAdmin::list_operations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2971,7 +2971,7 @@ pub mod firestore_admin {
         }
     }
 
-    /// The request builder for [FirestoreAdmin::get_operation][super::super::client::FirestoreAdmin::get_operation] calls.
+    /// The request builder for [FirestoreAdmin::get_operation][crate::client::FirestoreAdmin::get_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3035,7 +3035,7 @@ pub mod firestore_admin {
         }
     }
 
-    /// The request builder for [FirestoreAdmin::delete_operation][super::super::client::FirestoreAdmin::delete_operation] calls.
+    /// The request builder for [FirestoreAdmin::delete_operation][crate::client::FirestoreAdmin::delete_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3099,7 +3099,7 @@ pub mod firestore_admin {
         }
     }
 
-    /// The request builder for [FirestoreAdmin::cancel_operation][super::super::client::FirestoreAdmin::cancel_operation] calls.
+    /// The request builder for [FirestoreAdmin::cancel_operation][crate::client::FirestoreAdmin::cancel_operation] calls.
     ///
     /// # Example
     /// ```no_run

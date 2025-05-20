@@ -17,7 +17,7 @@
 pub mod service_health {
     use crate::Result;
 
-    /// A builder for [ServiceHealth][super::super::client::ServiceHealth].
+    /// A builder for [ServiceHealth][crate::client::ServiceHealth].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -45,7 +45,7 @@ pub mod service_health {
         }
     }
 
-    /// Common implementation for [super::super::client::ServiceHealth] request builders.
+    /// Common implementation for [crate::client::ServiceHealth] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::ServiceHealth>,
@@ -68,7 +68,7 @@ pub mod service_health {
         }
     }
 
-    /// The request builder for [ServiceHealth::list_events][super::super::client::ServiceHealth::list_events] calls.
+    /// The request builder for [ServiceHealth::list_events][crate::client::ServiceHealth::list_events] calls.
     ///
     /// # Example
     /// ```no_run
@@ -183,7 +183,7 @@ pub mod service_health {
         }
     }
 
-    /// The request builder for [ServiceHealth::get_event][super::super::client::ServiceHealth::get_event] calls.
+    /// The request builder for [ServiceHealth::get_event][crate::client::ServiceHealth::get_event] calls.
     ///
     /// # Example
     /// ```no_run
@@ -246,7 +246,7 @@ pub mod service_health {
         }
     }
 
-    /// The request builder for [ServiceHealth::list_organization_events][super::super::client::ServiceHealth::list_organization_events] calls.
+    /// The request builder for [ServiceHealth::list_organization_events][crate::client::ServiceHealth::list_organization_events] calls.
     ///
     /// # Example
     /// ```no_run
@@ -368,7 +368,7 @@ pub mod service_health {
         }
     }
 
-    /// The request builder for [ServiceHealth::get_organization_event][super::super::client::ServiceHealth::get_organization_event] calls.
+    /// The request builder for [ServiceHealth::get_organization_event][crate::client::ServiceHealth::get_organization_event] calls.
     ///
     /// # Example
     /// ```no_run
@@ -434,7 +434,7 @@ pub mod service_health {
         }
     }
 
-    /// The request builder for [ServiceHealth::list_organization_impacts][super::super::client::ServiceHealth::list_organization_impacts] calls.
+    /// The request builder for [ServiceHealth::list_organization_impacts][crate::client::ServiceHealth::list_organization_impacts] calls.
     ///
     /// # Example
     /// ```no_run
@@ -552,7 +552,7 @@ pub mod service_health {
         }
     }
 
-    /// The request builder for [ServiceHealth::get_organization_impact][super::super::client::ServiceHealth::get_organization_impact] calls.
+    /// The request builder for [ServiceHealth::get_organization_impact][crate::client::ServiceHealth::get_organization_impact] calls.
     ///
     /// # Example
     /// ```no_run
@@ -618,7 +618,7 @@ pub mod service_health {
         }
     }
 
-    /// The request builder for [ServiceHealth::list_locations][super::super::client::ServiceHealth::list_locations] calls.
+    /// The request builder for [ServiceHealth::list_locations][crate::client::ServiceHealth::list_locations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -728,7 +728,7 @@ pub mod service_health {
         }
     }
 
-    /// The request builder for [ServiceHealth::get_location][super::super::client::ServiceHealth::get_location] calls.
+    /// The request builder for [ServiceHealth::get_location][crate::client::ServiceHealth::get_location] calls.
     ///
     /// # Example
     /// ```no_run

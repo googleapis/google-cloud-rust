@@ -17,7 +17,7 @@
 pub mod attached_clusters {
     use crate::Result;
 
-    /// A builder for [AttachedClusters][super::super::client::AttachedClusters].
+    /// A builder for [AttachedClusters][crate::client::AttachedClusters].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -45,7 +45,7 @@ pub mod attached_clusters {
         }
     }
 
-    /// Common implementation for [super::super::client::AttachedClusters] request builders.
+    /// Common implementation for [crate::client::AttachedClusters] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::AttachedClusters>,
@@ -68,7 +68,7 @@ pub mod attached_clusters {
         }
     }
 
-    /// The request builder for [AttachedClusters::create_attached_cluster][super::super::client::AttachedClusters::create_attached_cluster] calls.
+    /// The request builder for [AttachedClusters::create_attached_cluster][crate::client::AttachedClusters::create_attached_cluster] calls.
     ///
     /// # Example
     /// ```no_run
@@ -116,7 +116,7 @@ pub mod attached_clusters {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_attached_cluster][super::super::client::AttachedClusters::create_attached_cluster].
+        /// on [create_attached_cluster][crate::client::AttachedClusters::create_attached_cluster].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_attached_cluster(self.0.request, self.0.options)
@@ -212,7 +212,7 @@ pub mod attached_clusters {
         }
     }
 
-    /// The request builder for [AttachedClusters::update_attached_cluster][super::super::client::AttachedClusters::update_attached_cluster] calls.
+    /// The request builder for [AttachedClusters::update_attached_cluster][crate::client::AttachedClusters::update_attached_cluster] calls.
     ///
     /// # Example
     /// ```no_run
@@ -260,7 +260,7 @@ pub mod attached_clusters {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_attached_cluster][super::super::client::AttachedClusters::update_attached_cluster].
+        /// on [update_attached_cluster][crate::client::AttachedClusters::update_attached_cluster].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_attached_cluster(self.0.request, self.0.options)
@@ -362,7 +362,7 @@ pub mod attached_clusters {
         }
     }
 
-    /// The request builder for [AttachedClusters::import_attached_cluster][super::super::client::AttachedClusters::import_attached_cluster] calls.
+    /// The request builder for [AttachedClusters::import_attached_cluster][crate::client::AttachedClusters::import_attached_cluster] calls.
     ///
     /// # Example
     /// ```no_run
@@ -410,7 +410,7 @@ pub mod attached_clusters {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [import_attached_cluster][super::super::client::AttachedClusters::import_attached_cluster].
+        /// on [import_attached_cluster][crate::client::AttachedClusters::import_attached_cluster].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .import_attached_cluster(self.0.request, self.0.options)
@@ -518,7 +518,7 @@ pub mod attached_clusters {
         }
     }
 
-    /// The request builder for [AttachedClusters::get_attached_cluster][super::super::client::AttachedClusters::get_attached_cluster] calls.
+    /// The request builder for [AttachedClusters::get_attached_cluster][crate::client::AttachedClusters::get_attached_cluster] calls.
     ///
     /// # Example
     /// ```no_run
@@ -584,7 +584,7 @@ pub mod attached_clusters {
         }
     }
 
-    /// The request builder for [AttachedClusters::list_attached_clusters][super::super::client::AttachedClusters::list_attached_clusters] calls.
+    /// The request builder for [AttachedClusters::list_attached_clusters][crate::client::AttachedClusters::list_attached_clusters] calls.
     ///
     /// # Example
     /// ```no_run
@@ -692,7 +692,7 @@ pub mod attached_clusters {
         }
     }
 
-    /// The request builder for [AttachedClusters::delete_attached_cluster][super::super::client::AttachedClusters::delete_attached_cluster] calls.
+    /// The request builder for [AttachedClusters::delete_attached_cluster][crate::client::AttachedClusters::delete_attached_cluster] calls.
     ///
     /// # Example
     /// ```no_run
@@ -740,7 +740,7 @@ pub mod attached_clusters {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_attached_cluster][super::super::client::AttachedClusters::delete_attached_cluster].
+        /// on [delete_attached_cluster][crate::client::AttachedClusters::delete_attached_cluster].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_attached_cluster(self.0.request, self.0.options)
@@ -823,7 +823,7 @@ pub mod attached_clusters {
         }
     }
 
-    /// The request builder for [AttachedClusters::get_attached_server_config][super::super::client::AttachedClusters::get_attached_server_config] calls.
+    /// The request builder for [AttachedClusters::get_attached_server_config][crate::client::AttachedClusters::get_attached_server_config] calls.
     ///
     /// # Example
     /// ```no_run
@@ -891,7 +891,7 @@ pub mod attached_clusters {
         }
     }
 
-    /// The request builder for [AttachedClusters::generate_attached_cluster_install_manifest][super::super::client::AttachedClusters::generate_attached_cluster_install_manifest] calls.
+    /// The request builder for [AttachedClusters::generate_attached_cluster_install_manifest][crate::client::AttachedClusters::generate_attached_cluster_install_manifest] calls.
     ///
     /// # Example
     /// ```no_run
@@ -997,7 +997,7 @@ pub mod attached_clusters {
         }
     }
 
-    /// The request builder for [AttachedClusters::generate_attached_cluster_agent_token][super::super::client::AttachedClusters::generate_attached_cluster_agent_token] calls.
+    /// The request builder for [AttachedClusters::generate_attached_cluster_agent_token][crate::client::AttachedClusters::generate_attached_cluster_agent_token] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1119,7 +1119,7 @@ pub mod attached_clusters {
         }
     }
 
-    /// The request builder for [AttachedClusters::list_operations][super::super::client::AttachedClusters::list_operations] calls.
+    /// The request builder for [AttachedClusters::list_operations][crate::client::AttachedClusters::list_operations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1231,7 +1231,7 @@ pub mod attached_clusters {
         }
     }
 
-    /// The request builder for [AttachedClusters::get_operation][super::super::client::AttachedClusters::get_operation] calls.
+    /// The request builder for [AttachedClusters::get_operation][crate::client::AttachedClusters::get_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1295,7 +1295,7 @@ pub mod attached_clusters {
         }
     }
 
-    /// The request builder for [AttachedClusters::delete_operation][super::super::client::AttachedClusters::delete_operation] calls.
+    /// The request builder for [AttachedClusters::delete_operation][crate::client::AttachedClusters::delete_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1359,7 +1359,7 @@ pub mod attached_clusters {
         }
     }
 
-    /// The request builder for [AttachedClusters::cancel_operation][super::super::client::AttachedClusters::cancel_operation] calls.
+    /// The request builder for [AttachedClusters::cancel_operation][crate::client::AttachedClusters::cancel_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1427,7 +1427,7 @@ pub mod attached_clusters {
 pub mod aws_clusters {
     use crate::Result;
 
-    /// A builder for [AwsClusters][super::super::client::AwsClusters].
+    /// A builder for [AwsClusters][crate::client::AwsClusters].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -1455,7 +1455,7 @@ pub mod aws_clusters {
         }
     }
 
-    /// Common implementation for [super::super::client::AwsClusters] request builders.
+    /// Common implementation for [crate::client::AwsClusters] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::AwsClusters>,
@@ -1478,7 +1478,7 @@ pub mod aws_clusters {
         }
     }
 
-    /// The request builder for [AwsClusters::create_aws_cluster][super::super::client::AwsClusters::create_aws_cluster] calls.
+    /// The request builder for [AwsClusters::create_aws_cluster][crate::client::AwsClusters::create_aws_cluster] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1526,7 +1526,7 @@ pub mod aws_clusters {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_aws_cluster][super::super::client::AwsClusters::create_aws_cluster].
+        /// on [create_aws_cluster][crate::client::AwsClusters::create_aws_cluster].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_aws_cluster(self.0.request, self.0.options)
@@ -1619,7 +1619,7 @@ pub mod aws_clusters {
         }
     }
 
-    /// The request builder for [AwsClusters::update_aws_cluster][super::super::client::AwsClusters::update_aws_cluster] calls.
+    /// The request builder for [AwsClusters::update_aws_cluster][crate::client::AwsClusters::update_aws_cluster] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1667,7 +1667,7 @@ pub mod aws_clusters {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_aws_cluster][super::super::client::AwsClusters::update_aws_cluster].
+        /// on [update_aws_cluster][crate::client::AwsClusters::update_aws_cluster].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_aws_cluster(self.0.request, self.0.options)
@@ -1766,7 +1766,7 @@ pub mod aws_clusters {
         }
     }
 
-    /// The request builder for [AwsClusters::get_aws_cluster][super::super::client::AwsClusters::get_aws_cluster] calls.
+    /// The request builder for [AwsClusters::get_aws_cluster][crate::client::AwsClusters::get_aws_cluster] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1829,7 +1829,7 @@ pub mod aws_clusters {
         }
     }
 
-    /// The request builder for [AwsClusters::list_aws_clusters][super::super::client::AwsClusters::list_aws_clusters] calls.
+    /// The request builder for [AwsClusters::list_aws_clusters][crate::client::AwsClusters::list_aws_clusters] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1932,7 +1932,7 @@ pub mod aws_clusters {
         }
     }
 
-    /// The request builder for [AwsClusters::delete_aws_cluster][super::super::client::AwsClusters::delete_aws_cluster] calls.
+    /// The request builder for [AwsClusters::delete_aws_cluster][crate::client::AwsClusters::delete_aws_cluster] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1980,7 +1980,7 @@ pub mod aws_clusters {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_aws_cluster][super::super::client::AwsClusters::delete_aws_cluster].
+        /// on [delete_aws_cluster][crate::client::AwsClusters::delete_aws_cluster].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_aws_cluster(self.0.request, self.0.options)
@@ -2063,7 +2063,7 @@ pub mod aws_clusters {
         }
     }
 
-    /// The request builder for [AwsClusters::generate_aws_cluster_agent_token][super::super::client::AwsClusters::generate_aws_cluster_agent_token] calls.
+    /// The request builder for [AwsClusters::generate_aws_cluster_agent_token][crate::client::AwsClusters::generate_aws_cluster_agent_token] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2191,7 +2191,7 @@ pub mod aws_clusters {
         }
     }
 
-    /// The request builder for [AwsClusters::generate_aws_access_token][super::super::client::AwsClusters::generate_aws_access_token] calls.
+    /// The request builder for [AwsClusters::generate_aws_access_token][crate::client::AwsClusters::generate_aws_access_token] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2257,7 +2257,7 @@ pub mod aws_clusters {
         }
     }
 
-    /// The request builder for [AwsClusters::create_aws_node_pool][super::super::client::AwsClusters::create_aws_node_pool] calls.
+    /// The request builder for [AwsClusters::create_aws_node_pool][crate::client::AwsClusters::create_aws_node_pool] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2305,7 +2305,7 @@ pub mod aws_clusters {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_aws_node_pool][super::super::client::AwsClusters::create_aws_node_pool].
+        /// on [create_aws_node_pool][crate::client::AwsClusters::create_aws_node_pool].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_aws_node_pool(self.0.request, self.0.options)
@@ -2400,7 +2400,7 @@ pub mod aws_clusters {
         }
     }
 
-    /// The request builder for [AwsClusters::update_aws_node_pool][super::super::client::AwsClusters::update_aws_node_pool] calls.
+    /// The request builder for [AwsClusters::update_aws_node_pool][crate::client::AwsClusters::update_aws_node_pool] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2448,7 +2448,7 @@ pub mod aws_clusters {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_aws_node_pool][super::super::client::AwsClusters::update_aws_node_pool].
+        /// on [update_aws_node_pool][crate::client::AwsClusters::update_aws_node_pool].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_aws_node_pool(self.0.request, self.0.options)
@@ -2549,7 +2549,7 @@ pub mod aws_clusters {
         }
     }
 
-    /// The request builder for [AwsClusters::rollback_aws_node_pool_update][super::super::client::AwsClusters::rollback_aws_node_pool_update] calls.
+    /// The request builder for [AwsClusters::rollback_aws_node_pool_update][crate::client::AwsClusters::rollback_aws_node_pool_update] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2599,7 +2599,7 @@ pub mod aws_clusters {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [rollback_aws_node_pool_update][super::super::client::AwsClusters::rollback_aws_node_pool_update].
+        /// on [rollback_aws_node_pool_update][crate::client::AwsClusters::rollback_aws_node_pool_update].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .rollback_aws_node_pool_update(self.0.request, self.0.options)
@@ -2664,7 +2664,7 @@ pub mod aws_clusters {
         }
     }
 
-    /// The request builder for [AwsClusters::get_aws_node_pool][super::super::client::AwsClusters::get_aws_node_pool] calls.
+    /// The request builder for [AwsClusters::get_aws_node_pool][crate::client::AwsClusters::get_aws_node_pool] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2727,7 +2727,7 @@ pub mod aws_clusters {
         }
     }
 
-    /// The request builder for [AwsClusters::list_aws_node_pools][super::super::client::AwsClusters::list_aws_node_pools] calls.
+    /// The request builder for [AwsClusters::list_aws_node_pools][crate::client::AwsClusters::list_aws_node_pools] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2833,7 +2833,7 @@ pub mod aws_clusters {
         }
     }
 
-    /// The request builder for [AwsClusters::delete_aws_node_pool][super::super::client::AwsClusters::delete_aws_node_pool] calls.
+    /// The request builder for [AwsClusters::delete_aws_node_pool][crate::client::AwsClusters::delete_aws_node_pool] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2881,7 +2881,7 @@ pub mod aws_clusters {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_aws_node_pool][super::super::client::AwsClusters::delete_aws_node_pool].
+        /// on [delete_aws_node_pool][crate::client::AwsClusters::delete_aws_node_pool].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_aws_node_pool(self.0.request, self.0.options)
@@ -2964,7 +2964,7 @@ pub mod aws_clusters {
         }
     }
 
-    /// The request builder for [AwsClusters::get_aws_open_id_config][super::super::client::AwsClusters::get_aws_open_id_config] calls.
+    /// The request builder for [AwsClusters::get_aws_open_id_config][crate::client::AwsClusters::get_aws_open_id_config] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3030,7 +3030,7 @@ pub mod aws_clusters {
         }
     }
 
-    /// The request builder for [AwsClusters::get_aws_json_web_keys][super::super::client::AwsClusters::get_aws_json_web_keys] calls.
+    /// The request builder for [AwsClusters::get_aws_json_web_keys][crate::client::AwsClusters::get_aws_json_web_keys] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3096,7 +3096,7 @@ pub mod aws_clusters {
         }
     }
 
-    /// The request builder for [AwsClusters::get_aws_server_config][super::super::client::AwsClusters::get_aws_server_config] calls.
+    /// The request builder for [AwsClusters::get_aws_server_config][crate::client::AwsClusters::get_aws_server_config] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3162,7 +3162,7 @@ pub mod aws_clusters {
         }
     }
 
-    /// The request builder for [AwsClusters::list_operations][super::super::client::AwsClusters::list_operations] calls.
+    /// The request builder for [AwsClusters::list_operations][crate::client::AwsClusters::list_operations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3274,7 +3274,7 @@ pub mod aws_clusters {
         }
     }
 
-    /// The request builder for [AwsClusters::get_operation][super::super::client::AwsClusters::get_operation] calls.
+    /// The request builder for [AwsClusters::get_operation][crate::client::AwsClusters::get_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3338,7 +3338,7 @@ pub mod aws_clusters {
         }
     }
 
-    /// The request builder for [AwsClusters::delete_operation][super::super::client::AwsClusters::delete_operation] calls.
+    /// The request builder for [AwsClusters::delete_operation][crate::client::AwsClusters::delete_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3402,7 +3402,7 @@ pub mod aws_clusters {
         }
     }
 
-    /// The request builder for [AwsClusters::cancel_operation][super::super::client::AwsClusters::cancel_operation] calls.
+    /// The request builder for [AwsClusters::cancel_operation][crate::client::AwsClusters::cancel_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3470,7 +3470,7 @@ pub mod aws_clusters {
 pub mod azure_clusters {
     use crate::Result;
 
-    /// A builder for [AzureClusters][super::super::client::AzureClusters].
+    /// A builder for [AzureClusters][crate::client::AzureClusters].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -3498,7 +3498,7 @@ pub mod azure_clusters {
         }
     }
 
-    /// Common implementation for [super::super::client::AzureClusters] request builders.
+    /// Common implementation for [crate::client::AzureClusters] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::AzureClusters>,
@@ -3521,7 +3521,7 @@ pub mod azure_clusters {
         }
     }
 
-    /// The request builder for [AzureClusters::create_azure_client][super::super::client::AzureClusters::create_azure_client] calls.
+    /// The request builder for [AzureClusters::create_azure_client][crate::client::AzureClusters::create_azure_client] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3569,7 +3569,7 @@ pub mod azure_clusters {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_azure_client][super::super::client::AzureClusters::create_azure_client].
+        /// on [create_azure_client][crate::client::AzureClusters::create_azure_client].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_azure_client(self.0.request, self.0.options)
@@ -3664,7 +3664,7 @@ pub mod azure_clusters {
         }
     }
 
-    /// The request builder for [AzureClusters::get_azure_client][super::super::client::AzureClusters::get_azure_client] calls.
+    /// The request builder for [AzureClusters::get_azure_client][crate::client::AzureClusters::get_azure_client] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3727,7 +3727,7 @@ pub mod azure_clusters {
         }
     }
 
-    /// The request builder for [AzureClusters::list_azure_clients][super::super::client::AzureClusters::list_azure_clients] calls.
+    /// The request builder for [AzureClusters::list_azure_clients][crate::client::AzureClusters::list_azure_clients] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3833,7 +3833,7 @@ pub mod azure_clusters {
         }
     }
 
-    /// The request builder for [AzureClusters::delete_azure_client][super::super::client::AzureClusters::delete_azure_client] calls.
+    /// The request builder for [AzureClusters::delete_azure_client][crate::client::AzureClusters::delete_azure_client] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3881,7 +3881,7 @@ pub mod azure_clusters {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_azure_client][super::super::client::AzureClusters::delete_azure_client].
+        /// on [delete_azure_client][crate::client::AzureClusters::delete_azure_client].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_azure_client(self.0.request, self.0.options)
@@ -3952,7 +3952,7 @@ pub mod azure_clusters {
         }
     }
 
-    /// The request builder for [AzureClusters::create_azure_cluster][super::super::client::AzureClusters::create_azure_cluster] calls.
+    /// The request builder for [AzureClusters::create_azure_cluster][crate::client::AzureClusters::create_azure_cluster] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4000,7 +4000,7 @@ pub mod azure_clusters {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_azure_cluster][super::super::client::AzureClusters::create_azure_cluster].
+        /// on [create_azure_cluster][crate::client::AzureClusters::create_azure_cluster].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_azure_cluster(self.0.request, self.0.options)
@@ -4095,7 +4095,7 @@ pub mod azure_clusters {
         }
     }
 
-    /// The request builder for [AzureClusters::update_azure_cluster][super::super::client::AzureClusters::update_azure_cluster] calls.
+    /// The request builder for [AzureClusters::update_azure_cluster][crate::client::AzureClusters::update_azure_cluster] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4143,7 +4143,7 @@ pub mod azure_clusters {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_azure_cluster][super::super::client::AzureClusters::update_azure_cluster].
+        /// on [update_azure_cluster][crate::client::AzureClusters::update_azure_cluster].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_azure_cluster(self.0.request, self.0.options)
@@ -4244,7 +4244,7 @@ pub mod azure_clusters {
         }
     }
 
-    /// The request builder for [AzureClusters::get_azure_cluster][super::super::client::AzureClusters::get_azure_cluster] calls.
+    /// The request builder for [AzureClusters::get_azure_cluster][crate::client::AzureClusters::get_azure_cluster] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4307,7 +4307,7 @@ pub mod azure_clusters {
         }
     }
 
-    /// The request builder for [AzureClusters::list_azure_clusters][super::super::client::AzureClusters::list_azure_clusters] calls.
+    /// The request builder for [AzureClusters::list_azure_clusters][crate::client::AzureClusters::list_azure_clusters] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4413,7 +4413,7 @@ pub mod azure_clusters {
         }
     }
 
-    /// The request builder for [AzureClusters::delete_azure_cluster][super::super::client::AzureClusters::delete_azure_cluster] calls.
+    /// The request builder for [AzureClusters::delete_azure_cluster][crate::client::AzureClusters::delete_azure_cluster] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4461,7 +4461,7 @@ pub mod azure_clusters {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_azure_cluster][super::super::client::AzureClusters::delete_azure_cluster].
+        /// on [delete_azure_cluster][crate::client::AzureClusters::delete_azure_cluster].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_azure_cluster(self.0.request, self.0.options)
@@ -4544,7 +4544,7 @@ pub mod azure_clusters {
         }
     }
 
-    /// The request builder for [AzureClusters::generate_azure_cluster_agent_token][super::super::client::AzureClusters::generate_azure_cluster_agent_token] calls.
+    /// The request builder for [AzureClusters::generate_azure_cluster_agent_token][crate::client::AzureClusters::generate_azure_cluster_agent_token] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4672,7 +4672,7 @@ pub mod azure_clusters {
         }
     }
 
-    /// The request builder for [AzureClusters::generate_azure_access_token][super::super::client::AzureClusters::generate_azure_access_token] calls.
+    /// The request builder for [AzureClusters::generate_azure_access_token][crate::client::AzureClusters::generate_azure_access_token] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4740,7 +4740,7 @@ pub mod azure_clusters {
         }
     }
 
-    /// The request builder for [AzureClusters::create_azure_node_pool][super::super::client::AzureClusters::create_azure_node_pool] calls.
+    /// The request builder for [AzureClusters::create_azure_node_pool][crate::client::AzureClusters::create_azure_node_pool] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4788,7 +4788,7 @@ pub mod azure_clusters {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_azure_node_pool][super::super::client::AzureClusters::create_azure_node_pool].
+        /// on [create_azure_node_pool][crate::client::AzureClusters::create_azure_node_pool].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_azure_node_pool(self.0.request, self.0.options)
@@ -4884,7 +4884,7 @@ pub mod azure_clusters {
         }
     }
 
-    /// The request builder for [AzureClusters::update_azure_node_pool][super::super::client::AzureClusters::update_azure_node_pool] calls.
+    /// The request builder for [AzureClusters::update_azure_node_pool][crate::client::AzureClusters::update_azure_node_pool] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4932,7 +4932,7 @@ pub mod azure_clusters {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_azure_node_pool][super::super::client::AzureClusters::update_azure_node_pool].
+        /// on [update_azure_node_pool][crate::client::AzureClusters::update_azure_node_pool].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_azure_node_pool(self.0.request, self.0.options)
@@ -5034,7 +5034,7 @@ pub mod azure_clusters {
         }
     }
 
-    /// The request builder for [AzureClusters::get_azure_node_pool][super::super::client::AzureClusters::get_azure_node_pool] calls.
+    /// The request builder for [AzureClusters::get_azure_node_pool][crate::client::AzureClusters::get_azure_node_pool] calls.
     ///
     /// # Example
     /// ```no_run
@@ -5100,7 +5100,7 @@ pub mod azure_clusters {
         }
     }
 
-    /// The request builder for [AzureClusters::list_azure_node_pools][super::super::client::AzureClusters::list_azure_node_pools] calls.
+    /// The request builder for [AzureClusters::list_azure_node_pools][crate::client::AzureClusters::list_azure_node_pools] calls.
     ///
     /// # Example
     /// ```no_run
@@ -5208,7 +5208,7 @@ pub mod azure_clusters {
         }
     }
 
-    /// The request builder for [AzureClusters::delete_azure_node_pool][super::super::client::AzureClusters::delete_azure_node_pool] calls.
+    /// The request builder for [AzureClusters::delete_azure_node_pool][crate::client::AzureClusters::delete_azure_node_pool] calls.
     ///
     /// # Example
     /// ```no_run
@@ -5256,7 +5256,7 @@ pub mod azure_clusters {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_azure_node_pool][super::super::client::AzureClusters::delete_azure_node_pool].
+        /// on [delete_azure_node_pool][crate::client::AzureClusters::delete_azure_node_pool].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_azure_node_pool(self.0.request, self.0.options)
@@ -5339,7 +5339,7 @@ pub mod azure_clusters {
         }
     }
 
-    /// The request builder for [AzureClusters::get_azure_open_id_config][super::super::client::AzureClusters::get_azure_open_id_config] calls.
+    /// The request builder for [AzureClusters::get_azure_open_id_config][crate::client::AzureClusters::get_azure_open_id_config] calls.
     ///
     /// # Example
     /// ```no_run
@@ -5405,7 +5405,7 @@ pub mod azure_clusters {
         }
     }
 
-    /// The request builder for [AzureClusters::get_azure_json_web_keys][super::super::client::AzureClusters::get_azure_json_web_keys] calls.
+    /// The request builder for [AzureClusters::get_azure_json_web_keys][crate::client::AzureClusters::get_azure_json_web_keys] calls.
     ///
     /// # Example
     /// ```no_run
@@ -5471,7 +5471,7 @@ pub mod azure_clusters {
         }
     }
 
-    /// The request builder for [AzureClusters::get_azure_server_config][super::super::client::AzureClusters::get_azure_server_config] calls.
+    /// The request builder for [AzureClusters::get_azure_server_config][crate::client::AzureClusters::get_azure_server_config] calls.
     ///
     /// # Example
     /// ```no_run
@@ -5537,7 +5537,7 @@ pub mod azure_clusters {
         }
     }
 
-    /// The request builder for [AzureClusters::list_operations][super::super::client::AzureClusters::list_operations] calls.
+    /// The request builder for [AzureClusters::list_operations][crate::client::AzureClusters::list_operations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -5649,7 +5649,7 @@ pub mod azure_clusters {
         }
     }
 
-    /// The request builder for [AzureClusters::get_operation][super::super::client::AzureClusters::get_operation] calls.
+    /// The request builder for [AzureClusters::get_operation][crate::client::AzureClusters::get_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -5713,7 +5713,7 @@ pub mod azure_clusters {
         }
     }
 
-    /// The request builder for [AzureClusters::delete_operation][super::super::client::AzureClusters::delete_operation] calls.
+    /// The request builder for [AzureClusters::delete_operation][crate::client::AzureClusters::delete_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -5777,7 +5777,7 @@ pub mod azure_clusters {
         }
     }
 
-    /// The request builder for [AzureClusters::cancel_operation][super::super::client::AzureClusters::cancel_operation] calls.
+    /// The request builder for [AzureClusters::cancel_operation][crate::client::AzureClusters::cancel_operation] calls.
     ///
     /// # Example
     /// ```no_run

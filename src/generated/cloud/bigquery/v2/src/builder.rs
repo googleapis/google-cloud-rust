@@ -17,7 +17,7 @@
 pub mod dataset_service {
     use crate::Result;
 
-    /// A builder for [DatasetService][super::super::client::DatasetService].
+    /// A builder for [DatasetService][crate::client::DatasetService].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -45,7 +45,7 @@ pub mod dataset_service {
         }
     }
 
-    /// Common implementation for [super::super::client::DatasetService] request builders.
+    /// Common implementation for [crate::client::DatasetService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::DatasetService>,
@@ -68,7 +68,7 @@ pub mod dataset_service {
         }
     }
 
-    /// The request builder for [DatasetService::get_dataset][super::super::client::DatasetService::get_dataset] calls.
+    /// The request builder for [DatasetService::get_dataset][crate::client::DatasetService::get_dataset] calls.
     ///
     /// # Example
     /// ```no_run
@@ -154,7 +154,7 @@ pub mod dataset_service {
         }
     }
 
-    /// The request builder for [DatasetService::insert_dataset][super::super::client::DatasetService::insert_dataset] calls.
+    /// The request builder for [DatasetService::insert_dataset][crate::client::DatasetService::insert_dataset] calls.
     ///
     /// # Example
     /// ```no_run
@@ -245,7 +245,7 @@ pub mod dataset_service {
         }
     }
 
-    /// The request builder for [DatasetService::patch_dataset][super::super::client::DatasetService::patch_dataset] calls.
+    /// The request builder for [DatasetService::patch_dataset][crate::client::DatasetService::patch_dataset] calls.
     ///
     /// # Example
     /// ```no_run
@@ -358,7 +358,7 @@ pub mod dataset_service {
         }
     }
 
-    /// The request builder for [DatasetService::update_dataset][super::super::client::DatasetService::update_dataset] calls.
+    /// The request builder for [DatasetService::update_dataset][crate::client::DatasetService::update_dataset] calls.
     ///
     /// # Example
     /// ```no_run
@@ -471,7 +471,7 @@ pub mod dataset_service {
         }
     }
 
-    /// The request builder for [DatasetService::delete_dataset][super::super::client::DatasetService::delete_dataset] calls.
+    /// The request builder for [DatasetService::delete_dataset][crate::client::DatasetService::delete_dataset] calls.
     ///
     /// # Example
     /// ```no_run
@@ -548,7 +548,7 @@ pub mod dataset_service {
         }
     }
 
-    /// The request builder for [DatasetService::list_datasets][super::super::client::DatasetService::list_datasets] calls.
+    /// The request builder for [DatasetService::list_datasets][crate::client::DatasetService::list_datasets] calls.
     ///
     /// # Example
     /// ```no_run
@@ -647,7 +647,7 @@ pub mod dataset_service {
         }
     }
 
-    /// The request builder for [DatasetService::undelete_dataset][super::super::client::DatasetService::undelete_dataset] calls.
+    /// The request builder for [DatasetService::undelete_dataset][crate::client::DatasetService::undelete_dataset] calls.
     ///
     /// # Example
     /// ```no_run
@@ -740,7 +740,7 @@ pub mod dataset_service {
 pub mod model_service {
     use crate::Result;
 
-    /// A builder for [ModelService][super::super::client::ModelService].
+    /// A builder for [ModelService][crate::client::ModelService].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -768,7 +768,7 @@ pub mod model_service {
         }
     }
 
-    /// Common implementation for [super::super::client::ModelService] request builders.
+    /// Common implementation for [crate::client::ModelService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::ModelService>,
@@ -791,7 +791,7 @@ pub mod model_service {
         }
     }
 
-    /// The request builder for [ModelService::get_model][super::super::client::ModelService::get_model] calls.
+    /// The request builder for [ModelService::get_model][crate::client::ModelService::get_model] calls.
     ///
     /// # Example
     /// ```no_run
@@ -870,7 +870,7 @@ pub mod model_service {
         }
     }
 
-    /// The request builder for [ModelService::list_models][super::super::client::ModelService::list_models] calls.
+    /// The request builder for [ModelService::list_models][crate::client::ModelService::list_models] calls.
     ///
     /// # Example
     /// ```no_run
@@ -965,7 +965,7 @@ pub mod model_service {
         }
     }
 
-    /// The request builder for [ModelService::patch_model][super::super::client::ModelService::patch_model] calls.
+    /// The request builder for [ModelService::patch_model][crate::client::ModelService::patch_model] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1066,7 +1066,7 @@ pub mod model_service {
         }
     }
 
-    /// The request builder for [ModelService::delete_model][super::super::client::ModelService::delete_model] calls.
+    /// The request builder for [ModelService::delete_model][crate::client::ModelService::delete_model] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1149,7 +1149,7 @@ pub mod model_service {
 pub mod project_service {
     use crate::Result;
 
-    /// A builder for [ProjectService][super::super::client::ProjectService].
+    /// A builder for [ProjectService][crate::client::ProjectService].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -1177,7 +1177,7 @@ pub mod project_service {
         }
     }
 
-    /// Common implementation for [super::super::client::ProjectService] request builders.
+    /// Common implementation for [crate::client::ProjectService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::ProjectService>,
@@ -1200,7 +1200,7 @@ pub mod project_service {
         }
     }
 
-    /// The request builder for [ProjectService::get_service_account][super::super::client::ProjectService::get_service_account] calls.
+    /// The request builder for [ProjectService::get_service_account][crate::client::ProjectService::get_service_account] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1270,7 +1270,7 @@ pub mod project_service {
 pub mod routine_service {
     use crate::Result;
 
-    /// A builder for [RoutineService][super::super::client::RoutineService].
+    /// A builder for [RoutineService][crate::client::RoutineService].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -1298,7 +1298,7 @@ pub mod routine_service {
         }
     }
 
-    /// Common implementation for [super::super::client::RoutineService] request builders.
+    /// Common implementation for [crate::client::RoutineService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::RoutineService>,
@@ -1321,7 +1321,7 @@ pub mod routine_service {
         }
     }
 
-    /// The request builder for [RoutineService::get_routine][super::super::client::RoutineService::get_routine] calls.
+    /// The request builder for [RoutineService::get_routine][crate::client::RoutineService::get_routine] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1400,7 +1400,7 @@ pub mod routine_service {
         }
     }
 
-    /// The request builder for [RoutineService::insert_routine][super::super::client::RoutineService::insert_routine] calls.
+    /// The request builder for [RoutineService::insert_routine][crate::client::RoutineService::insert_routine] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1493,7 +1493,7 @@ pub mod routine_service {
         }
     }
 
-    /// The request builder for [RoutineService::update_routine][super::super::client::RoutineService::update_routine] calls.
+    /// The request builder for [RoutineService::update_routine][crate::client::RoutineService::update_routine] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1594,7 +1594,7 @@ pub mod routine_service {
         }
     }
 
-    /// The request builder for [RoutineService::delete_routine][super::super::client::RoutineService::delete_routine] calls.
+    /// The request builder for [RoutineService::delete_routine][crate::client::RoutineService::delete_routine] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1673,7 +1673,7 @@ pub mod routine_service {
         }
     }
 
-    /// The request builder for [RoutineService::list_routines][super::super::client::RoutineService::list_routines] calls.
+    /// The request builder for [RoutineService::list_routines][crate::client::RoutineService::list_routines] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1778,7 +1778,7 @@ pub mod routine_service {
 pub mod row_access_policy_service {
     use crate::Result;
 
-    /// A builder for [RowAccessPolicyService][super::super::client::RowAccessPolicyService].
+    /// A builder for [RowAccessPolicyService][crate::client::RowAccessPolicyService].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -1806,7 +1806,7 @@ pub mod row_access_policy_service {
         }
     }
 
-    /// Common implementation for [super::super::client::RowAccessPolicyService] request builders.
+    /// Common implementation for [crate::client::RowAccessPolicyService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::RowAccessPolicyService>,
@@ -1829,7 +1829,7 @@ pub mod row_access_policy_service {
         }
     }
 
-    /// The request builder for [RowAccessPolicyService::list_row_access_policies][super::super::client::RowAccessPolicyService::list_row_access_policies] calls.
+    /// The request builder for [RowAccessPolicyService::list_row_access_policies][crate::client::RowAccessPolicyService::list_row_access_policies] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1953,7 +1953,7 @@ pub mod row_access_policy_service {
         }
     }
 
-    /// The request builder for [RowAccessPolicyService::get_row_access_policy][super::super::client::RowAccessPolicyService::get_row_access_policy] calls.
+    /// The request builder for [RowAccessPolicyService::get_row_access_policy][crate::client::RowAccessPolicyService::get_row_access_policy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2043,7 +2043,7 @@ pub mod row_access_policy_service {
         }
     }
 
-    /// The request builder for [RowAccessPolicyService::create_row_access_policy][super::super::client::RowAccessPolicyService::create_row_access_policy] calls.
+    /// The request builder for [RowAccessPolicyService::create_row_access_policy][crate::client::RowAccessPolicyService::create_row_access_policy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2147,7 +2147,7 @@ pub mod row_access_policy_service {
         }
     }
 
-    /// The request builder for [RowAccessPolicyService::update_row_access_policy][super::super::client::RowAccessPolicyService::update_row_access_policy] calls.
+    /// The request builder for [RowAccessPolicyService::update_row_access_policy][crate::client::RowAccessPolicyService::update_row_access_policy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2259,7 +2259,7 @@ pub mod row_access_policy_service {
         }
     }
 
-    /// The request builder for [RowAccessPolicyService::delete_row_access_policy][super::super::client::RowAccessPolicyService::delete_row_access_policy] calls.
+    /// The request builder for [RowAccessPolicyService::delete_row_access_policy][crate::client::RowAccessPolicyService::delete_row_access_policy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2367,7 +2367,7 @@ pub mod row_access_policy_service {
         }
     }
 
-    /// The request builder for [RowAccessPolicyService::batch_delete_row_access_policies][super::super::client::RowAccessPolicyService::batch_delete_row_access_policies] calls.
+    /// The request builder for [RowAccessPolicyService::batch_delete_row_access_policies][crate::client::RowAccessPolicyService::batch_delete_row_access_policies] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2486,7 +2486,7 @@ pub mod row_access_policy_service {
 pub mod table_service {
     use crate::Result;
 
-    /// A builder for [TableService][super::super::client::TableService].
+    /// A builder for [TableService][crate::client::TableService].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -2514,7 +2514,7 @@ pub mod table_service {
         }
     }
 
-    /// Common implementation for [super::super::client::TableService] request builders.
+    /// Common implementation for [crate::client::TableService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::TableService>,
@@ -2537,7 +2537,7 @@ pub mod table_service {
         }
     }
 
-    /// The request builder for [TableService::get_table][super::super::client::TableService::get_table] calls.
+    /// The request builder for [TableService::get_table][crate::client::TableService::get_table] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2631,7 +2631,7 @@ pub mod table_service {
         }
     }
 
-    /// The request builder for [TableService::insert_table][super::super::client::TableService::insert_table] calls.
+    /// The request builder for [TableService::insert_table][crate::client::TableService::insert_table] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2724,7 +2724,7 @@ pub mod table_service {
         }
     }
 
-    /// The request builder for [TableService::patch_table][super::super::client::TableService::patch_table] calls.
+    /// The request builder for [TableService::patch_table][crate::client::TableService::patch_table] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2834,7 +2834,7 @@ pub mod table_service {
         }
     }
 
-    /// The request builder for [TableService::update_table][super::super::client::TableService::update_table] calls.
+    /// The request builder for [TableService::update_table][crate::client::TableService::update_table] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2944,7 +2944,7 @@ pub mod table_service {
         }
     }
 
-    /// The request builder for [TableService::delete_table][super::super::client::TableService::delete_table] calls.
+    /// The request builder for [TableService::delete_table][crate::client::TableService::delete_table] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3023,7 +3023,7 @@ pub mod table_service {
         }
     }
 
-    /// The request builder for [TableService::list_tables][super::super::client::TableService::list_tables] calls.
+    /// The request builder for [TableService::list_tables][crate::client::TableService::list_tables] calls.
     ///
     /// # Example
     /// ```no_run

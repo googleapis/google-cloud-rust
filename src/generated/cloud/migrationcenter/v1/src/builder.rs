@@ -17,7 +17,7 @@
 pub mod migration_center {
     use crate::Result;
 
-    /// A builder for [MigrationCenter][super::super::client::MigrationCenter].
+    /// A builder for [MigrationCenter][crate::client::MigrationCenter].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -45,7 +45,7 @@ pub mod migration_center {
         }
     }
 
-    /// Common implementation for [super::super::client::MigrationCenter] request builders.
+    /// Common implementation for [crate::client::MigrationCenter] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::MigrationCenter>,
@@ -68,7 +68,7 @@ pub mod migration_center {
         }
     }
 
-    /// The request builder for [MigrationCenter::list_assets][super::super::client::MigrationCenter::list_assets] calls.
+    /// The request builder for [MigrationCenter::list_assets][crate::client::MigrationCenter::list_assets] calls.
     ///
     /// # Example
     /// ```no_run
@@ -189,7 +189,7 @@ pub mod migration_center {
         }
     }
 
-    /// The request builder for [MigrationCenter::get_asset][super::super::client::MigrationCenter::get_asset] calls.
+    /// The request builder for [MigrationCenter::get_asset][crate::client::MigrationCenter::get_asset] calls.
     ///
     /// # Example
     /// ```no_run
@@ -258,7 +258,7 @@ pub mod migration_center {
         }
     }
 
-    /// The request builder for [MigrationCenter::update_asset][super::super::client::MigrationCenter::update_asset] calls.
+    /// The request builder for [MigrationCenter::update_asset][crate::client::MigrationCenter::update_asset] calls.
     ///
     /// # Example
     /// ```no_run
@@ -363,7 +363,7 @@ pub mod migration_center {
         }
     }
 
-    /// The request builder for [MigrationCenter::batch_update_assets][super::super::client::MigrationCenter::batch_update_assets] calls.
+    /// The request builder for [MigrationCenter::batch_update_assets][crate::client::MigrationCenter::batch_update_assets] calls.
     ///
     /// # Example
     /// ```no_run
@@ -442,7 +442,7 @@ pub mod migration_center {
         }
     }
 
-    /// The request builder for [MigrationCenter::delete_asset][super::super::client::MigrationCenter::delete_asset] calls.
+    /// The request builder for [MigrationCenter::delete_asset][crate::client::MigrationCenter::delete_asset] calls.
     ///
     /// # Example
     /// ```no_run
@@ -511,7 +511,7 @@ pub mod migration_center {
         }
     }
 
-    /// The request builder for [MigrationCenter::batch_delete_assets][super::super::client::MigrationCenter::batch_delete_assets] calls.
+    /// The request builder for [MigrationCenter::batch_delete_assets][crate::client::MigrationCenter::batch_delete_assets] calls.
     ///
     /// # Example
     /// ```no_run
@@ -596,7 +596,7 @@ pub mod migration_center {
         }
     }
 
-    /// The request builder for [MigrationCenter::report_asset_frames][super::super::client::MigrationCenter::report_asset_frames] calls.
+    /// The request builder for [MigrationCenter::report_asset_frames][crate::client::MigrationCenter::report_asset_frames] calls.
     ///
     /// # Example
     /// ```no_run
@@ -688,7 +688,7 @@ pub mod migration_center {
         }
     }
 
-    /// The request builder for [MigrationCenter::aggregate_assets_values][super::super::client::MigrationCenter::aggregate_assets_values] calls.
+    /// The request builder for [MigrationCenter::aggregate_assets_values][crate::client::MigrationCenter::aggregate_assets_values] calls.
     ///
     /// # Example
     /// ```no_run
@@ -771,7 +771,7 @@ pub mod migration_center {
         }
     }
 
-    /// The request builder for [MigrationCenter::create_import_job][super::super::client::MigrationCenter::create_import_job] calls.
+    /// The request builder for [MigrationCenter::create_import_job][crate::client::MigrationCenter::create_import_job] calls.
     ///
     /// # Example
     /// ```no_run
@@ -816,7 +816,7 @@ pub mod migration_center {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_import_job][super::super::client::MigrationCenter::create_import_job].
+        /// on [create_import_job][crate::client::MigrationCenter::create_import_job].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_import_job(self.0.request, self.0.options)
@@ -909,7 +909,7 @@ pub mod migration_center {
         }
     }
 
-    /// The request builder for [MigrationCenter::list_import_jobs][super::super::client::MigrationCenter::list_import_jobs] calls.
+    /// The request builder for [MigrationCenter::list_import_jobs][crate::client::MigrationCenter::list_import_jobs] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1030,7 +1030,7 @@ pub mod migration_center {
         }
     }
 
-    /// The request builder for [MigrationCenter::get_import_job][super::super::client::MigrationCenter::get_import_job] calls.
+    /// The request builder for [MigrationCenter::get_import_job][crate::client::MigrationCenter::get_import_job] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1099,7 +1099,7 @@ pub mod migration_center {
         }
     }
 
-    /// The request builder for [MigrationCenter::delete_import_job][super::super::client::MigrationCenter::delete_import_job] calls.
+    /// The request builder for [MigrationCenter::delete_import_job][crate::client::MigrationCenter::delete_import_job] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1144,7 +1144,7 @@ pub mod migration_center {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_import_job][super::super::client::MigrationCenter::delete_import_job].
+        /// on [delete_import_job][crate::client::MigrationCenter::delete_import_job].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_import_job(self.0.request, self.0.options)
@@ -1215,7 +1215,7 @@ pub mod migration_center {
         }
     }
 
-    /// The request builder for [MigrationCenter::update_import_job][super::super::client::MigrationCenter::update_import_job] calls.
+    /// The request builder for [MigrationCenter::update_import_job][crate::client::MigrationCenter::update_import_job] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1260,7 +1260,7 @@ pub mod migration_center {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_import_job][super::super::client::MigrationCenter::update_import_job].
+        /// on [update_import_job][crate::client::MigrationCenter::update_import_job].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_import_job(self.0.request, self.0.options)
@@ -1359,7 +1359,7 @@ pub mod migration_center {
         }
     }
 
-    /// The request builder for [MigrationCenter::validate_import_job][super::super::client::MigrationCenter::validate_import_job] calls.
+    /// The request builder for [MigrationCenter::validate_import_job][crate::client::MigrationCenter::validate_import_job] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1407,7 +1407,7 @@ pub mod migration_center {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [validate_import_job][super::super::client::MigrationCenter::validate_import_job].
+        /// on [validate_import_job][crate::client::MigrationCenter::validate_import_job].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .validate_import_job(self.0.request, self.0.options)
@@ -1472,7 +1472,7 @@ pub mod migration_center {
         }
     }
 
-    /// The request builder for [MigrationCenter::run_import_job][super::super::client::MigrationCenter::run_import_job] calls.
+    /// The request builder for [MigrationCenter::run_import_job][crate::client::MigrationCenter::run_import_job] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1517,7 +1517,7 @@ pub mod migration_center {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [run_import_job][super::super::client::MigrationCenter::run_import_job].
+        /// on [run_import_job][crate::client::MigrationCenter::run_import_job].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .run_import_job(self.0.request, self.0.options)
@@ -1582,7 +1582,7 @@ pub mod migration_center {
         }
     }
 
-    /// The request builder for [MigrationCenter::get_import_data_file][super::super::client::MigrationCenter::get_import_data_file] calls.
+    /// The request builder for [MigrationCenter::get_import_data_file][crate::client::MigrationCenter::get_import_data_file] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1648,7 +1648,7 @@ pub mod migration_center {
         }
     }
 
-    /// The request builder for [MigrationCenter::list_import_data_files][super::super::client::MigrationCenter::list_import_data_files] calls.
+    /// The request builder for [MigrationCenter::list_import_data_files][crate::client::MigrationCenter::list_import_data_files] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1768,7 +1768,7 @@ pub mod migration_center {
         }
     }
 
-    /// The request builder for [MigrationCenter::create_import_data_file][super::super::client::MigrationCenter::create_import_data_file] calls.
+    /// The request builder for [MigrationCenter::create_import_data_file][crate::client::MigrationCenter::create_import_data_file] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1816,7 +1816,7 @@ pub mod migration_center {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_import_data_file][super::super::client::MigrationCenter::create_import_data_file].
+        /// on [create_import_data_file][crate::client::MigrationCenter::create_import_data_file].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_import_data_file(self.0.request, self.0.options)
@@ -1912,7 +1912,7 @@ pub mod migration_center {
         }
     }
 
-    /// The request builder for [MigrationCenter::delete_import_data_file][super::super::client::MigrationCenter::delete_import_data_file] calls.
+    /// The request builder for [MigrationCenter::delete_import_data_file][crate::client::MigrationCenter::delete_import_data_file] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1960,7 +1960,7 @@ pub mod migration_center {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_import_data_file][super::super::client::MigrationCenter::delete_import_data_file].
+        /// on [delete_import_data_file][crate::client::MigrationCenter::delete_import_data_file].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_import_data_file(self.0.request, self.0.options)
@@ -2025,7 +2025,7 @@ pub mod migration_center {
         }
     }
 
-    /// The request builder for [MigrationCenter::list_groups][super::super::client::MigrationCenter::list_groups] calls.
+    /// The request builder for [MigrationCenter::list_groups][crate::client::MigrationCenter::list_groups] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2140,7 +2140,7 @@ pub mod migration_center {
         }
     }
 
-    /// The request builder for [MigrationCenter::get_group][super::super::client::MigrationCenter::get_group] calls.
+    /// The request builder for [MigrationCenter::get_group][crate::client::MigrationCenter::get_group] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2203,7 +2203,7 @@ pub mod migration_center {
         }
     }
 
-    /// The request builder for [MigrationCenter::create_group][super::super::client::MigrationCenter::create_group] calls.
+    /// The request builder for [MigrationCenter::create_group][crate::client::MigrationCenter::create_group] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2248,7 +2248,7 @@ pub mod migration_center {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_group][super::super::client::MigrationCenter::create_group].
+        /// on [create_group][crate::client::MigrationCenter::create_group].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_group(self.0.request, self.0.options)
@@ -2341,7 +2341,7 @@ pub mod migration_center {
         }
     }
 
-    /// The request builder for [MigrationCenter::update_group][super::super::client::MigrationCenter::update_group] calls.
+    /// The request builder for [MigrationCenter::update_group][crate::client::MigrationCenter::update_group] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2386,7 +2386,7 @@ pub mod migration_center {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_group][super::super::client::MigrationCenter::update_group].
+        /// on [update_group][crate::client::MigrationCenter::update_group].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_group(self.0.request, self.0.options)
@@ -2485,7 +2485,7 @@ pub mod migration_center {
         }
     }
 
-    /// The request builder for [MigrationCenter::delete_group][super::super::client::MigrationCenter::delete_group] calls.
+    /// The request builder for [MigrationCenter::delete_group][crate::client::MigrationCenter::delete_group] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2530,7 +2530,7 @@ pub mod migration_center {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_group][super::super::client::MigrationCenter::delete_group].
+        /// on [delete_group][crate::client::MigrationCenter::delete_group].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_group(self.0.request, self.0.options)
@@ -2595,7 +2595,7 @@ pub mod migration_center {
         }
     }
 
-    /// The request builder for [MigrationCenter::add_assets_to_group][super::super::client::MigrationCenter::add_assets_to_group] calls.
+    /// The request builder for [MigrationCenter::add_assets_to_group][crate::client::MigrationCenter::add_assets_to_group] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2643,7 +2643,7 @@ pub mod migration_center {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [add_assets_to_group][super::super::client::MigrationCenter::add_assets_to_group].
+        /// on [add_assets_to_group][crate::client::MigrationCenter::add_assets_to_group].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .add_assets_to_group(self.0.request, self.0.options)
@@ -2734,7 +2734,7 @@ pub mod migration_center {
         }
     }
 
-    /// The request builder for [MigrationCenter::remove_assets_from_group][super::super::client::MigrationCenter::remove_assets_from_group] calls.
+    /// The request builder for [MigrationCenter::remove_assets_from_group][crate::client::MigrationCenter::remove_assets_from_group] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2782,7 +2782,7 @@ pub mod migration_center {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [remove_assets_from_group][super::super::client::MigrationCenter::remove_assets_from_group].
+        /// on [remove_assets_from_group][crate::client::MigrationCenter::remove_assets_from_group].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .remove_assets_from_group(self.0.request, self.0.options)
@@ -2873,7 +2873,7 @@ pub mod migration_center {
         }
     }
 
-    /// The request builder for [MigrationCenter::list_error_frames][super::super::client::MigrationCenter::list_error_frames] calls.
+    /// The request builder for [MigrationCenter::list_error_frames][crate::client::MigrationCenter::list_error_frames] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2982,7 +2982,7 @@ pub mod migration_center {
         }
     }
 
-    /// The request builder for [MigrationCenter::get_error_frame][super::super::client::MigrationCenter::get_error_frame] calls.
+    /// The request builder for [MigrationCenter::get_error_frame][crate::client::MigrationCenter::get_error_frame] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3051,7 +3051,7 @@ pub mod migration_center {
         }
     }
 
-    /// The request builder for [MigrationCenter::list_sources][super::super::client::MigrationCenter::list_sources] calls.
+    /// The request builder for [MigrationCenter::list_sources][crate::client::MigrationCenter::list_sources] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3166,7 +3166,7 @@ pub mod migration_center {
         }
     }
 
-    /// The request builder for [MigrationCenter::get_source][super::super::client::MigrationCenter::get_source] calls.
+    /// The request builder for [MigrationCenter::get_source][crate::client::MigrationCenter::get_source] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3229,7 +3229,7 @@ pub mod migration_center {
         }
     }
 
-    /// The request builder for [MigrationCenter::create_source][super::super::client::MigrationCenter::create_source] calls.
+    /// The request builder for [MigrationCenter::create_source][crate::client::MigrationCenter::create_source] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3274,7 +3274,7 @@ pub mod migration_center {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_source][super::super::client::MigrationCenter::create_source].
+        /// on [create_source][crate::client::MigrationCenter::create_source].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_source(self.0.request, self.0.options)
@@ -3367,7 +3367,7 @@ pub mod migration_center {
         }
     }
 
-    /// The request builder for [MigrationCenter::update_source][super::super::client::MigrationCenter::update_source] calls.
+    /// The request builder for [MigrationCenter::update_source][crate::client::MigrationCenter::update_source] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3412,7 +3412,7 @@ pub mod migration_center {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_source][super::super::client::MigrationCenter::update_source].
+        /// on [update_source][crate::client::MigrationCenter::update_source].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_source(self.0.request, self.0.options)
@@ -3511,7 +3511,7 @@ pub mod migration_center {
         }
     }
 
-    /// The request builder for [MigrationCenter::delete_source][super::super::client::MigrationCenter::delete_source] calls.
+    /// The request builder for [MigrationCenter::delete_source][crate::client::MigrationCenter::delete_source] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3556,7 +3556,7 @@ pub mod migration_center {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_source][super::super::client::MigrationCenter::delete_source].
+        /// on [delete_source][crate::client::MigrationCenter::delete_source].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_source(self.0.request, self.0.options)
@@ -3621,7 +3621,7 @@ pub mod migration_center {
         }
     }
 
-    /// The request builder for [MigrationCenter::list_preference_sets][super::super::client::MigrationCenter::list_preference_sets] calls.
+    /// The request builder for [MigrationCenter::list_preference_sets][crate::client::MigrationCenter::list_preference_sets] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3735,7 +3735,7 @@ pub mod migration_center {
         }
     }
 
-    /// The request builder for [MigrationCenter::get_preference_set][super::super::client::MigrationCenter::get_preference_set] calls.
+    /// The request builder for [MigrationCenter::get_preference_set][crate::client::MigrationCenter::get_preference_set] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3801,7 +3801,7 @@ pub mod migration_center {
         }
     }
 
-    /// The request builder for [MigrationCenter::create_preference_set][super::super::client::MigrationCenter::create_preference_set] calls.
+    /// The request builder for [MigrationCenter::create_preference_set][crate::client::MigrationCenter::create_preference_set] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3849,7 +3849,7 @@ pub mod migration_center {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_preference_set][super::super::client::MigrationCenter::create_preference_set].
+        /// on [create_preference_set][crate::client::MigrationCenter::create_preference_set].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_preference_set(self.0.request, self.0.options)
@@ -3945,7 +3945,7 @@ pub mod migration_center {
         }
     }
 
-    /// The request builder for [MigrationCenter::update_preference_set][super::super::client::MigrationCenter::update_preference_set] calls.
+    /// The request builder for [MigrationCenter::update_preference_set][crate::client::MigrationCenter::update_preference_set] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3993,7 +3993,7 @@ pub mod migration_center {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_preference_set][super::super::client::MigrationCenter::update_preference_set].
+        /// on [update_preference_set][crate::client::MigrationCenter::update_preference_set].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_preference_set(self.0.request, self.0.options)
@@ -4095,7 +4095,7 @@ pub mod migration_center {
         }
     }
 
-    /// The request builder for [MigrationCenter::delete_preference_set][super::super::client::MigrationCenter::delete_preference_set] calls.
+    /// The request builder for [MigrationCenter::delete_preference_set][crate::client::MigrationCenter::delete_preference_set] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4143,7 +4143,7 @@ pub mod migration_center {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_preference_set][super::super::client::MigrationCenter::delete_preference_set].
+        /// on [delete_preference_set][crate::client::MigrationCenter::delete_preference_set].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_preference_set(self.0.request, self.0.options)
@@ -4208,7 +4208,7 @@ pub mod migration_center {
         }
     }
 
-    /// The request builder for [MigrationCenter::get_settings][super::super::client::MigrationCenter::get_settings] calls.
+    /// The request builder for [MigrationCenter::get_settings][crate::client::MigrationCenter::get_settings] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4271,7 +4271,7 @@ pub mod migration_center {
         }
     }
 
-    /// The request builder for [MigrationCenter::update_settings][super::super::client::MigrationCenter::update_settings] calls.
+    /// The request builder for [MigrationCenter::update_settings][crate::client::MigrationCenter::update_settings] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4316,7 +4316,7 @@ pub mod migration_center {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_settings][super::super::client::MigrationCenter::update_settings].
+        /// on [update_settings][crate::client::MigrationCenter::update_settings].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_settings(self.0.request, self.0.options)
@@ -4415,7 +4415,7 @@ pub mod migration_center {
         }
     }
 
-    /// The request builder for [MigrationCenter::create_report_config][super::super::client::MigrationCenter::create_report_config] calls.
+    /// The request builder for [MigrationCenter::create_report_config][crate::client::MigrationCenter::create_report_config] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4463,7 +4463,7 @@ pub mod migration_center {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_report_config][super::super::client::MigrationCenter::create_report_config].
+        /// on [create_report_config][crate::client::MigrationCenter::create_report_config].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_report_config(self.0.request, self.0.options)
@@ -4558,7 +4558,7 @@ pub mod migration_center {
         }
     }
 
-    /// The request builder for [MigrationCenter::get_report_config][super::super::client::MigrationCenter::get_report_config] calls.
+    /// The request builder for [MigrationCenter::get_report_config][crate::client::MigrationCenter::get_report_config] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4621,7 +4621,7 @@ pub mod migration_center {
         }
     }
 
-    /// The request builder for [MigrationCenter::list_report_configs][super::super::client::MigrationCenter::list_report_configs] calls.
+    /// The request builder for [MigrationCenter::list_report_configs][crate::client::MigrationCenter::list_report_configs] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4739,7 +4739,7 @@ pub mod migration_center {
         }
     }
 
-    /// The request builder for [MigrationCenter::delete_report_config][super::super::client::MigrationCenter::delete_report_config] calls.
+    /// The request builder for [MigrationCenter::delete_report_config][crate::client::MigrationCenter::delete_report_config] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4787,7 +4787,7 @@ pub mod migration_center {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_report_config][super::super::client::MigrationCenter::delete_report_config].
+        /// on [delete_report_config][crate::client::MigrationCenter::delete_report_config].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_report_config(self.0.request, self.0.options)
@@ -4858,7 +4858,7 @@ pub mod migration_center {
         }
     }
 
-    /// The request builder for [MigrationCenter::create_report][super::super::client::MigrationCenter::create_report] calls.
+    /// The request builder for [MigrationCenter::create_report][crate::client::MigrationCenter::create_report] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4903,7 +4903,7 @@ pub mod migration_center {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_report][super::super::client::MigrationCenter::create_report].
+        /// on [create_report][crate::client::MigrationCenter::create_report].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_report(self.0.request, self.0.options)
@@ -4996,7 +4996,7 @@ pub mod migration_center {
         }
     }
 
-    /// The request builder for [MigrationCenter::get_report][super::super::client::MigrationCenter::get_report] calls.
+    /// The request builder for [MigrationCenter::get_report][crate::client::MigrationCenter::get_report] calls.
     ///
     /// # Example
     /// ```no_run
@@ -5065,7 +5065,7 @@ pub mod migration_center {
         }
     }
 
-    /// The request builder for [MigrationCenter::list_reports][super::super::client::MigrationCenter::list_reports] calls.
+    /// The request builder for [MigrationCenter::list_reports][crate::client::MigrationCenter::list_reports] calls.
     ///
     /// # Example
     /// ```no_run
@@ -5186,7 +5186,7 @@ pub mod migration_center {
         }
     }
 
-    /// The request builder for [MigrationCenter::delete_report][super::super::client::MigrationCenter::delete_report] calls.
+    /// The request builder for [MigrationCenter::delete_report][crate::client::MigrationCenter::delete_report] calls.
     ///
     /// # Example
     /// ```no_run
@@ -5231,7 +5231,7 @@ pub mod migration_center {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_report][super::super::client::MigrationCenter::delete_report].
+        /// on [delete_report][crate::client::MigrationCenter::delete_report].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_report(self.0.request, self.0.options)
@@ -5296,7 +5296,7 @@ pub mod migration_center {
         }
     }
 
-    /// The request builder for [MigrationCenter::list_locations][super::super::client::MigrationCenter::list_locations] calls.
+    /// The request builder for [MigrationCenter::list_locations][crate::client::MigrationCenter::list_locations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -5406,7 +5406,7 @@ pub mod migration_center {
         }
     }
 
-    /// The request builder for [MigrationCenter::get_location][super::super::client::MigrationCenter::get_location] calls.
+    /// The request builder for [MigrationCenter::get_location][crate::client::MigrationCenter::get_location] calls.
     ///
     /// # Example
     /// ```no_run
@@ -5467,7 +5467,7 @@ pub mod migration_center {
         }
     }
 
-    /// The request builder for [MigrationCenter::list_operations][super::super::client::MigrationCenter::list_operations] calls.
+    /// The request builder for [MigrationCenter::list_operations][crate::client::MigrationCenter::list_operations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -5579,7 +5579,7 @@ pub mod migration_center {
         }
     }
 
-    /// The request builder for [MigrationCenter::get_operation][super::super::client::MigrationCenter::get_operation] calls.
+    /// The request builder for [MigrationCenter::get_operation][crate::client::MigrationCenter::get_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -5643,7 +5643,7 @@ pub mod migration_center {
         }
     }
 
-    /// The request builder for [MigrationCenter::delete_operation][super::super::client::MigrationCenter::delete_operation] calls.
+    /// The request builder for [MigrationCenter::delete_operation][crate::client::MigrationCenter::delete_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -5707,7 +5707,7 @@ pub mod migration_center {
         }
     }
 
-    /// The request builder for [MigrationCenter::cancel_operation][super::super::client::MigrationCenter::cancel_operation] calls.
+    /// The request builder for [MigrationCenter::cancel_operation][crate::client::MigrationCenter::cancel_operation] calls.
     ///
     /// # Example
     /// ```no_run

@@ -17,7 +17,7 @@
 pub mod text_to_speech {
     use crate::Result;
 
-    /// A builder for [TextToSpeech][super::super::client::TextToSpeech].
+    /// A builder for [TextToSpeech][crate::client::TextToSpeech].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -45,7 +45,7 @@ pub mod text_to_speech {
         }
     }
 
-    /// Common implementation for [super::super::client::TextToSpeech] request builders.
+    /// Common implementation for [crate::client::TextToSpeech] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::TextToSpeech>,
@@ -68,7 +68,7 @@ pub mod text_to_speech {
         }
     }
 
-    /// The request builder for [TextToSpeech::list_voices][super::super::client::TextToSpeech::list_voices] calls.
+    /// The request builder for [TextToSpeech::list_voices][crate::client::TextToSpeech::list_voices] calls.
     ///
     /// # Example
     /// ```no_run
@@ -129,7 +129,7 @@ pub mod text_to_speech {
         }
     }
 
-    /// The request builder for [TextToSpeech::synthesize_speech][super::super::client::TextToSpeech::synthesize_speech] calls.
+    /// The request builder for [TextToSpeech::synthesize_speech][crate::client::TextToSpeech::synthesize_speech] calls.
     ///
     /// # Example
     /// ```no_run
@@ -271,7 +271,7 @@ pub mod text_to_speech {
         }
     }
 
-    /// The request builder for [TextToSpeech::list_operations][super::super::client::TextToSpeech::list_operations] calls.
+    /// The request builder for [TextToSpeech::list_operations][crate::client::TextToSpeech::list_operations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -383,7 +383,7 @@ pub mod text_to_speech {
         }
     }
 
-    /// The request builder for [TextToSpeech::get_operation][super::super::client::TextToSpeech::get_operation] calls.
+    /// The request builder for [TextToSpeech::get_operation][crate::client::TextToSpeech::get_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -451,7 +451,7 @@ pub mod text_to_speech {
 pub mod text_to_speech_long_audio_synthesize {
     use crate::Result;
 
-    /// A builder for [TextToSpeechLongAudioSynthesize][super::super::client::TextToSpeechLongAudioSynthesize].
+    /// A builder for [TextToSpeechLongAudioSynthesize][crate::client::TextToSpeechLongAudioSynthesize].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -479,7 +479,7 @@ pub mod text_to_speech_long_audio_synthesize {
         }
     }
 
-    /// Common implementation for [super::super::client::TextToSpeechLongAudioSynthesize] request builders.
+    /// Common implementation for [crate::client::TextToSpeechLongAudioSynthesize] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::TextToSpeechLongAudioSynthesize>,
@@ -502,7 +502,7 @@ pub mod text_to_speech_long_audio_synthesize {
         }
     }
 
-    /// The request builder for [TextToSpeechLongAudioSynthesize::synthesize_long_audio][super::super::client::TextToSpeechLongAudioSynthesize::synthesize_long_audio] calls.
+    /// The request builder for [TextToSpeechLongAudioSynthesize::synthesize_long_audio][crate::client::TextToSpeechLongAudioSynthesize::synthesize_long_audio] calls.
     ///
     /// # Example
     /// ```no_run
@@ -550,7 +550,7 @@ pub mod text_to_speech_long_audio_synthesize {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [synthesize_long_audio][super::super::client::TextToSpeechLongAudioSynthesize::synthesize_long_audio].
+        /// on [synthesize_long_audio][crate::client::TextToSpeechLongAudioSynthesize::synthesize_long_audio].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .synthesize_long_audio(self.0.request, self.0.options)
@@ -684,7 +684,7 @@ pub mod text_to_speech_long_audio_synthesize {
         }
     }
 
-    /// The request builder for [TextToSpeechLongAudioSynthesize::list_operations][super::super::client::TextToSpeechLongAudioSynthesize::list_operations] calls.
+    /// The request builder for [TextToSpeechLongAudioSynthesize::list_operations][crate::client::TextToSpeechLongAudioSynthesize::list_operations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -796,7 +796,7 @@ pub mod text_to_speech_long_audio_synthesize {
         }
     }
 
-    /// The request builder for [TextToSpeechLongAudioSynthesize::get_operation][super::super::client::TextToSpeechLongAudioSynthesize::get_operation] calls.
+    /// The request builder for [TextToSpeechLongAudioSynthesize::get_operation][crate::client::TextToSpeechLongAudioSynthesize::get_operation] calls.
     ///
     /// # Example
     /// ```no_run

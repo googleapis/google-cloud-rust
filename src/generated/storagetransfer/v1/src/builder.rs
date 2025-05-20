@@ -17,7 +17,7 @@
 pub mod storage_transfer_service {
     use crate::Result;
 
-    /// A builder for [StorageTransferService][super::super::client::StorageTransferService].
+    /// A builder for [StorageTransferService][crate::client::StorageTransferService].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -45,7 +45,7 @@ pub mod storage_transfer_service {
         }
     }
 
-    /// Common implementation for [super::super::client::StorageTransferService] request builders.
+    /// Common implementation for [crate::client::StorageTransferService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::StorageTransferService>,
@@ -68,7 +68,7 @@ pub mod storage_transfer_service {
         }
     }
 
-    /// The request builder for [StorageTransferService::get_google_service_account][super::super::client::StorageTransferService::get_google_service_account] calls.
+    /// The request builder for [StorageTransferService::get_google_service_account][crate::client::StorageTransferService::get_google_service_account] calls.
     ///
     /// # Example
     /// ```no_run
@@ -136,7 +136,7 @@ pub mod storage_transfer_service {
         }
     }
 
-    /// The request builder for [StorageTransferService::create_transfer_job][super::super::client::StorageTransferService::create_transfer_job] calls.
+    /// The request builder for [StorageTransferService::create_transfer_job][crate::client::StorageTransferService::create_transfer_job] calls.
     ///
     /// # Example
     /// ```no_run
@@ -216,7 +216,7 @@ pub mod storage_transfer_service {
         }
     }
 
-    /// The request builder for [StorageTransferService::update_transfer_job][super::super::client::StorageTransferService::update_transfer_job] calls.
+    /// The request builder for [StorageTransferService::update_transfer_job][crate::client::StorageTransferService::update_transfer_job] calls.
     ///
     /// # Example
     /// ```no_run
@@ -333,7 +333,7 @@ pub mod storage_transfer_service {
         }
     }
 
-    /// The request builder for [StorageTransferService::get_transfer_job][super::super::client::StorageTransferService::get_transfer_job] calls.
+    /// The request builder for [StorageTransferService::get_transfer_job][crate::client::StorageTransferService::get_transfer_job] calls.
     ///
     /// # Example
     /// ```no_run
@@ -404,7 +404,7 @@ pub mod storage_transfer_service {
         }
     }
 
-    /// The request builder for [StorageTransferService::list_transfer_jobs][super::super::client::StorageTransferService::list_transfer_jobs] calls.
+    /// The request builder for [StorageTransferService::list_transfer_jobs][crate::client::StorageTransferService::list_transfer_jobs] calls.
     ///
     /// # Example
     /// ```no_run
@@ -510,7 +510,7 @@ pub mod storage_transfer_service {
         }
     }
 
-    /// The request builder for [StorageTransferService::pause_transfer_operation][super::super::client::StorageTransferService::pause_transfer_operation] calls.
+    /// The request builder for [StorageTransferService::pause_transfer_operation][crate::client::StorageTransferService::pause_transfer_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -576,7 +576,7 @@ pub mod storage_transfer_service {
         }
     }
 
-    /// The request builder for [StorageTransferService::resume_transfer_operation][super::super::client::StorageTransferService::resume_transfer_operation] calls.
+    /// The request builder for [StorageTransferService::resume_transfer_operation][crate::client::StorageTransferService::resume_transfer_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -644,7 +644,7 @@ pub mod storage_transfer_service {
         }
     }
 
-    /// The request builder for [StorageTransferService::run_transfer_job][super::super::client::StorageTransferService::run_transfer_job] calls.
+    /// The request builder for [StorageTransferService::run_transfer_job][crate::client::StorageTransferService::run_transfer_job] calls.
     ///
     /// # Example
     /// ```no_run
@@ -689,7 +689,7 @@ pub mod storage_transfer_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [run_transfer_job][super::super::client::StorageTransferService::run_transfer_job].
+        /// on [run_transfer_job][crate::client::StorageTransferService::run_transfer_job].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .run_transfer_job(self.0.request, self.0.options)
@@ -756,7 +756,7 @@ pub mod storage_transfer_service {
         }
     }
 
-    /// The request builder for [StorageTransferService::delete_transfer_job][super::super::client::StorageTransferService::delete_transfer_job] calls.
+    /// The request builder for [StorageTransferService::delete_transfer_job][crate::client::StorageTransferService::delete_transfer_job] calls.
     ///
     /// # Example
     /// ```no_run
@@ -830,7 +830,7 @@ pub mod storage_transfer_service {
         }
     }
 
-    /// The request builder for [StorageTransferService::create_agent_pool][super::super::client::StorageTransferService::create_agent_pool] calls.
+    /// The request builder for [StorageTransferService::create_agent_pool][crate::client::StorageTransferService::create_agent_pool] calls.
     ///
     /// # Example
     /// ```no_run
@@ -923,7 +923,7 @@ pub mod storage_transfer_service {
         }
     }
 
-    /// The request builder for [StorageTransferService::update_agent_pool][super::super::client::StorageTransferService::update_agent_pool] calls.
+    /// The request builder for [StorageTransferService::update_agent_pool][crate::client::StorageTransferService::update_agent_pool] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1018,7 +1018,7 @@ pub mod storage_transfer_service {
         }
     }
 
-    /// The request builder for [StorageTransferService::get_agent_pool][super::super::client::StorageTransferService::get_agent_pool] calls.
+    /// The request builder for [StorageTransferService::get_agent_pool][crate::client::StorageTransferService::get_agent_pool] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1081,7 +1081,7 @@ pub mod storage_transfer_service {
         }
     }
 
-    /// The request builder for [StorageTransferService::list_agent_pools][super::super::client::StorageTransferService::list_agent_pools] calls.
+    /// The request builder for [StorageTransferService::list_agent_pools][crate::client::StorageTransferService::list_agent_pools] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1190,7 +1190,7 @@ pub mod storage_transfer_service {
         }
     }
 
-    /// The request builder for [StorageTransferService::delete_agent_pool][super::super::client::StorageTransferService::delete_agent_pool] calls.
+    /// The request builder for [StorageTransferService::delete_agent_pool][crate::client::StorageTransferService::delete_agent_pool] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1253,7 +1253,7 @@ pub mod storage_transfer_service {
         }
     }
 
-    /// The request builder for [StorageTransferService::list_operations][super::super::client::StorageTransferService::list_operations] calls.
+    /// The request builder for [StorageTransferService::list_operations][crate::client::StorageTransferService::list_operations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1365,7 +1365,7 @@ pub mod storage_transfer_service {
         }
     }
 
-    /// The request builder for [StorageTransferService::get_operation][super::super::client::StorageTransferService::get_operation] calls.
+    /// The request builder for [StorageTransferService::get_operation][crate::client::StorageTransferService::get_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1429,7 +1429,7 @@ pub mod storage_transfer_service {
         }
     }
 
-    /// The request builder for [StorageTransferService::cancel_operation][super::super::client::StorageTransferService::cancel_operation] calls.
+    /// The request builder for [StorageTransferService::cancel_operation][crate::client::StorageTransferService::cancel_operation] calls.
     ///
     /// # Example
     /// ```no_run

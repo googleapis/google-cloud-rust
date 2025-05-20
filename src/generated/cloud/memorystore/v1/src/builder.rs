@@ -17,7 +17,7 @@
 pub mod memorystore {
     use crate::Result;
 
-    /// A builder for [Memorystore][super::super::client::Memorystore].
+    /// A builder for [Memorystore][crate::client::Memorystore].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -45,7 +45,7 @@ pub mod memorystore {
         }
     }
 
-    /// Common implementation for [super::super::client::Memorystore] request builders.
+    /// Common implementation for [crate::client::Memorystore] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::Memorystore>,
@@ -68,7 +68,7 @@ pub mod memorystore {
         }
     }
 
-    /// The request builder for [Memorystore::list_instances][super::super::client::Memorystore::list_instances] calls.
+    /// The request builder for [Memorystore::list_instances][crate::client::Memorystore::list_instances] calls.
     ///
     /// # Example
     /// ```no_run
@@ -183,7 +183,7 @@ pub mod memorystore {
         }
     }
 
-    /// The request builder for [Memorystore::get_instance][super::super::client::Memorystore::get_instance] calls.
+    /// The request builder for [Memorystore::get_instance][crate::client::Memorystore::get_instance] calls.
     ///
     /// # Example
     /// ```no_run
@@ -246,7 +246,7 @@ pub mod memorystore {
         }
     }
 
-    /// The request builder for [Memorystore::create_instance][super::super::client::Memorystore::create_instance] calls.
+    /// The request builder for [Memorystore::create_instance][crate::client::Memorystore::create_instance] calls.
     ///
     /// # Example
     /// ```no_run
@@ -291,7 +291,7 @@ pub mod memorystore {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_instance][super::super::client::Memorystore::create_instance].
+        /// on [create_instance][crate::client::Memorystore::create_instance].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_instance(self.0.request, self.0.options)
@@ -384,7 +384,7 @@ pub mod memorystore {
         }
     }
 
-    /// The request builder for [Memorystore::update_instance][super::super::client::Memorystore::update_instance] calls.
+    /// The request builder for [Memorystore::update_instance][crate::client::Memorystore::update_instance] calls.
     ///
     /// # Example
     /// ```no_run
@@ -429,7 +429,7 @@ pub mod memorystore {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_instance][super::super::client::Memorystore::update_instance].
+        /// on [update_instance][crate::client::Memorystore::update_instance].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_instance(self.0.request, self.0.options)
@@ -524,7 +524,7 @@ pub mod memorystore {
         }
     }
 
-    /// The request builder for [Memorystore::delete_instance][super::super::client::Memorystore::delete_instance] calls.
+    /// The request builder for [Memorystore::delete_instance][crate::client::Memorystore::delete_instance] calls.
     ///
     /// # Example
     /// ```no_run
@@ -569,7 +569,7 @@ pub mod memorystore {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_instance][super::super::client::Memorystore::delete_instance].
+        /// on [delete_instance][crate::client::Memorystore::delete_instance].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_instance(self.0.request, self.0.options)
@@ -634,7 +634,7 @@ pub mod memorystore {
         }
     }
 
-    /// The request builder for [Memorystore::get_certificate_authority][super::super::client::Memorystore::get_certificate_authority] calls.
+    /// The request builder for [Memorystore::get_certificate_authority][crate::client::Memorystore::get_certificate_authority] calls.
     ///
     /// # Example
     /// ```no_run
@@ -702,7 +702,7 @@ pub mod memorystore {
         }
     }
 
-    /// The request builder for [Memorystore::reschedule_maintenance][super::super::client::Memorystore::reschedule_maintenance] calls.
+    /// The request builder for [Memorystore::reschedule_maintenance][crate::client::Memorystore::reschedule_maintenance] calls.
     ///
     /// # Example
     /// ```no_run
@@ -750,7 +750,7 @@ pub mod memorystore {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [reschedule_maintenance][super::super::client::Memorystore::reschedule_maintenance].
+        /// on [reschedule_maintenance][crate::client::Memorystore::reschedule_maintenance].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .reschedule_maintenance(self.0.request, self.0.options)
@@ -838,7 +838,7 @@ pub mod memorystore {
         }
     }
 
-    /// The request builder for [Memorystore::list_backup_collections][super::super::client::Memorystore::list_backup_collections] calls.
+    /// The request builder for [Memorystore::list_backup_collections][crate::client::Memorystore::list_backup_collections] calls.
     ///
     /// # Example
     /// ```no_run
@@ -946,7 +946,7 @@ pub mod memorystore {
         }
     }
 
-    /// The request builder for [Memorystore::get_backup_collection][super::super::client::Memorystore::get_backup_collection] calls.
+    /// The request builder for [Memorystore::get_backup_collection][crate::client::Memorystore::get_backup_collection] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1012,7 +1012,7 @@ pub mod memorystore {
         }
     }
 
-    /// The request builder for [Memorystore::list_backups][super::super::client::Memorystore::list_backups] calls.
+    /// The request builder for [Memorystore::list_backups][crate::client::Memorystore::list_backups] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1115,7 +1115,7 @@ pub mod memorystore {
         }
     }
 
-    /// The request builder for [Memorystore::get_backup][super::super::client::Memorystore::get_backup] calls.
+    /// The request builder for [Memorystore::get_backup][crate::client::Memorystore::get_backup] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1178,7 +1178,7 @@ pub mod memorystore {
         }
     }
 
-    /// The request builder for [Memorystore::delete_backup][super::super::client::Memorystore::delete_backup] calls.
+    /// The request builder for [Memorystore::delete_backup][crate::client::Memorystore::delete_backup] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1223,7 +1223,7 @@ pub mod memorystore {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_backup][super::super::client::Memorystore::delete_backup].
+        /// on [delete_backup][crate::client::Memorystore::delete_backup].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_backup(self.0.request, self.0.options)
@@ -1288,7 +1288,7 @@ pub mod memorystore {
         }
     }
 
-    /// The request builder for [Memorystore::export_backup][super::super::client::Memorystore::export_backup] calls.
+    /// The request builder for [Memorystore::export_backup][crate::client::Memorystore::export_backup] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1333,7 +1333,7 @@ pub mod memorystore {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [export_backup][super::super::client::Memorystore::export_backup].
+        /// on [export_backup][crate::client::Memorystore::export_backup].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .export_backup(self.0.request, self.0.options)
@@ -1414,7 +1414,7 @@ pub mod memorystore {
         }
     }
 
-    /// The request builder for [Memorystore::backup_instance][super::super::client::Memorystore::backup_instance] calls.
+    /// The request builder for [Memorystore::backup_instance][crate::client::Memorystore::backup_instance] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1459,7 +1459,7 @@ pub mod memorystore {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [backup_instance][super::super::client::Memorystore::backup_instance].
+        /// on [backup_instance][crate::client::Memorystore::backup_instance].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .backup_instance(self.0.request, self.0.options)
@@ -1552,7 +1552,7 @@ pub mod memorystore {
         }
     }
 
-    /// The request builder for [Memorystore::list_locations][super::super::client::Memorystore::list_locations] calls.
+    /// The request builder for [Memorystore::list_locations][crate::client::Memorystore::list_locations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1662,7 +1662,7 @@ pub mod memorystore {
         }
     }
 
-    /// The request builder for [Memorystore::get_location][super::super::client::Memorystore::get_location] calls.
+    /// The request builder for [Memorystore::get_location][crate::client::Memorystore::get_location] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1723,7 +1723,7 @@ pub mod memorystore {
         }
     }
 
-    /// The request builder for [Memorystore::list_operations][super::super::client::Memorystore::list_operations] calls.
+    /// The request builder for [Memorystore::list_operations][crate::client::Memorystore::list_operations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1835,7 +1835,7 @@ pub mod memorystore {
         }
     }
 
-    /// The request builder for [Memorystore::get_operation][super::super::client::Memorystore::get_operation] calls.
+    /// The request builder for [Memorystore::get_operation][crate::client::Memorystore::get_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1899,7 +1899,7 @@ pub mod memorystore {
         }
     }
 
-    /// The request builder for [Memorystore::delete_operation][super::super::client::Memorystore::delete_operation] calls.
+    /// The request builder for [Memorystore::delete_operation][crate::client::Memorystore::delete_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1963,7 +1963,7 @@ pub mod memorystore {
         }
     }
 
-    /// The request builder for [Memorystore::cancel_operation][super::super::client::Memorystore::cancel_operation] calls.
+    /// The request builder for [Memorystore::cancel_operation][crate::client::Memorystore::cancel_operation] calls.
     ///
     /// # Example
     /// ```no_run

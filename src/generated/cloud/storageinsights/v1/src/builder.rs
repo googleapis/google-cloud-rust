@@ -17,7 +17,7 @@
 pub mod storage_insights {
     use crate::Result;
 
-    /// A builder for [StorageInsights][super::super::client::StorageInsights].
+    /// A builder for [StorageInsights][crate::client::StorageInsights].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -45,7 +45,7 @@ pub mod storage_insights {
         }
     }
 
-    /// Common implementation for [super::super::client::StorageInsights] request builders.
+    /// Common implementation for [crate::client::StorageInsights] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::StorageInsights>,
@@ -68,7 +68,7 @@ pub mod storage_insights {
         }
     }
 
-    /// The request builder for [StorageInsights::list_report_configs][super::super::client::StorageInsights::list_report_configs] calls.
+    /// The request builder for [StorageInsights::list_report_configs][crate::client::StorageInsights::list_report_configs] calls.
     ///
     /// # Example
     /// ```no_run
@@ -186,7 +186,7 @@ pub mod storage_insights {
         }
     }
 
-    /// The request builder for [StorageInsights::get_report_config][super::super::client::StorageInsights::get_report_config] calls.
+    /// The request builder for [StorageInsights::get_report_config][crate::client::StorageInsights::get_report_config] calls.
     ///
     /// # Example
     /// ```no_run
@@ -249,7 +249,7 @@ pub mod storage_insights {
         }
     }
 
-    /// The request builder for [StorageInsights::create_report_config][super::super::client::StorageInsights::create_report_config] calls.
+    /// The request builder for [StorageInsights::create_report_config][crate::client::StorageInsights::create_report_config] calls.
     ///
     /// # Example
     /// ```no_run
@@ -343,7 +343,7 @@ pub mod storage_insights {
         }
     }
 
-    /// The request builder for [StorageInsights::update_report_config][super::super::client::StorageInsights::update_report_config] calls.
+    /// The request builder for [StorageInsights::update_report_config][crate::client::StorageInsights::update_report_config] calls.
     ///
     /// # Example
     /// ```no_run
@@ -451,7 +451,7 @@ pub mod storage_insights {
         }
     }
 
-    /// The request builder for [StorageInsights::delete_report_config][super::super::client::StorageInsights::delete_report_config] calls.
+    /// The request builder for [StorageInsights::delete_report_config][crate::client::StorageInsights::delete_report_config] calls.
     ///
     /// # Example
     /// ```no_run
@@ -529,7 +529,7 @@ pub mod storage_insights {
         }
     }
 
-    /// The request builder for [StorageInsights::list_report_details][super::super::client::StorageInsights::list_report_details] calls.
+    /// The request builder for [StorageInsights::list_report_details][crate::client::StorageInsights::list_report_details] calls.
     ///
     /// # Example
     /// ```no_run
@@ -647,7 +647,7 @@ pub mod storage_insights {
         }
     }
 
-    /// The request builder for [StorageInsights::get_report_detail][super::super::client::StorageInsights::get_report_detail] calls.
+    /// The request builder for [StorageInsights::get_report_detail][crate::client::StorageInsights::get_report_detail] calls.
     ///
     /// # Example
     /// ```no_run
@@ -710,7 +710,7 @@ pub mod storage_insights {
         }
     }
 
-    /// The request builder for [StorageInsights::list_locations][super::super::client::StorageInsights::list_locations] calls.
+    /// The request builder for [StorageInsights::list_locations][crate::client::StorageInsights::list_locations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -820,7 +820,7 @@ pub mod storage_insights {
         }
     }
 
-    /// The request builder for [StorageInsights::get_location][super::super::client::StorageInsights::get_location] calls.
+    /// The request builder for [StorageInsights::get_location][crate::client::StorageInsights::get_location] calls.
     ///
     /// # Example
     /// ```no_run
@@ -881,7 +881,7 @@ pub mod storage_insights {
         }
     }
 
-    /// The request builder for [StorageInsights::list_operations][super::super::client::StorageInsights::list_operations] calls.
+    /// The request builder for [StorageInsights::list_operations][crate::client::StorageInsights::list_operations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -993,7 +993,7 @@ pub mod storage_insights {
         }
     }
 
-    /// The request builder for [StorageInsights::get_operation][super::super::client::StorageInsights::get_operation] calls.
+    /// The request builder for [StorageInsights::get_operation][crate::client::StorageInsights::get_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1057,7 +1057,7 @@ pub mod storage_insights {
         }
     }
 
-    /// The request builder for [StorageInsights::delete_operation][super::super::client::StorageInsights::delete_operation] calls.
+    /// The request builder for [StorageInsights::delete_operation][crate::client::StorageInsights::delete_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1121,7 +1121,7 @@ pub mod storage_insights {
         }
     }
 
-    /// The request builder for [StorageInsights::cancel_operation][super::super::client::StorageInsights::cancel_operation] calls.
+    /// The request builder for [StorageInsights::cancel_operation][crate::client::StorageInsights::cancel_operation] calls.
     ///
     /// # Example
     /// ```no_run

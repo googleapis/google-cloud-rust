@@ -17,7 +17,7 @@
 pub mod quota_controller {
     use crate::Result;
 
-    /// A builder for [QuotaController][super::super::client::QuotaController].
+    /// A builder for [QuotaController][crate::client::QuotaController].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -45,7 +45,7 @@ pub mod quota_controller {
         }
     }
 
-    /// Common implementation for [super::super::client::QuotaController] request builders.
+    /// Common implementation for [crate::client::QuotaController] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::QuotaController>,
@@ -68,7 +68,7 @@ pub mod quota_controller {
         }
     }
 
-    /// The request builder for [QuotaController::allocate_quota][super::super::client::QuotaController::allocate_quota] calls.
+    /// The request builder for [QuotaController::allocate_quota][crate::client::QuotaController::allocate_quota] calls.
     ///
     /// # Example
     /// ```no_run
@@ -157,7 +157,7 @@ pub mod quota_controller {
 pub mod service_controller {
     use crate::Result;
 
-    /// A builder for [ServiceController][super::super::client::ServiceController].
+    /// A builder for [ServiceController][crate::client::ServiceController].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -185,7 +185,7 @@ pub mod service_controller {
         }
     }
 
-    /// Common implementation for [super::super::client::ServiceController] request builders.
+    /// Common implementation for [crate::client::ServiceController] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::ServiceController>,
@@ -208,7 +208,7 @@ pub mod service_controller {
         }
     }
 
-    /// The request builder for [ServiceController::check][super::super::client::ServiceController::check] calls.
+    /// The request builder for [ServiceController::check][crate::client::ServiceController::check] calls.
     ///
     /// # Example
     /// ```no_run
@@ -293,7 +293,7 @@ pub mod service_controller {
         }
     }
 
-    /// The request builder for [ServiceController::report][super::super::client::ServiceController::report] calls.
+    /// The request builder for [ServiceController::report][crate::client::ServiceController::report] calls.
     ///
     /// # Example
     /// ```no_run

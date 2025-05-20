@@ -17,7 +17,7 @@
 pub mod model_armor {
     use crate::Result;
 
-    /// A builder for [ModelArmor][super::super::client::ModelArmor].
+    /// A builder for [ModelArmor][crate::client::ModelArmor].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -45,7 +45,7 @@ pub mod model_armor {
         }
     }
 
-    /// Common implementation for [super::super::client::ModelArmor] request builders.
+    /// Common implementation for [crate::client::ModelArmor] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::ModelArmor>,
@@ -68,7 +68,7 @@ pub mod model_armor {
         }
     }
 
-    /// The request builder for [ModelArmor::list_templates][super::super::client::ModelArmor::list_templates] calls.
+    /// The request builder for [ModelArmor::list_templates][crate::client::ModelArmor::list_templates] calls.
     ///
     /// # Example
     /// ```no_run
@@ -183,7 +183,7 @@ pub mod model_armor {
         }
     }
 
-    /// The request builder for [ModelArmor::get_template][super::super::client::ModelArmor::get_template] calls.
+    /// The request builder for [ModelArmor::get_template][crate::client::ModelArmor::get_template] calls.
     ///
     /// # Example
     /// ```no_run
@@ -246,7 +246,7 @@ pub mod model_armor {
         }
     }
 
-    /// The request builder for [ModelArmor::create_template][super::super::client::ModelArmor::create_template] calls.
+    /// The request builder for [ModelArmor::create_template][crate::client::ModelArmor::create_template] calls.
     ///
     /// # Example
     /// ```no_run
@@ -345,7 +345,7 @@ pub mod model_armor {
         }
     }
 
-    /// The request builder for [ModelArmor::update_template][super::super::client::ModelArmor::update_template] calls.
+    /// The request builder for [ModelArmor::update_template][crate::client::ModelArmor::update_template] calls.
     ///
     /// # Example
     /// ```no_run
@@ -450,7 +450,7 @@ pub mod model_armor {
         }
     }
 
-    /// The request builder for [ModelArmor::delete_template][super::super::client::ModelArmor::delete_template] calls.
+    /// The request builder for [ModelArmor::delete_template][crate::client::ModelArmor::delete_template] calls.
     ///
     /// # Example
     /// ```no_run
@@ -519,7 +519,7 @@ pub mod model_armor {
         }
     }
 
-    /// The request builder for [ModelArmor::get_floor_setting][super::super::client::ModelArmor::get_floor_setting] calls.
+    /// The request builder for [ModelArmor::get_floor_setting][crate::client::ModelArmor::get_floor_setting] calls.
     ///
     /// # Example
     /// ```no_run
@@ -582,7 +582,7 @@ pub mod model_armor {
         }
     }
 
-    /// The request builder for [ModelArmor::update_floor_setting][super::super::client::ModelArmor::update_floor_setting] calls.
+    /// The request builder for [ModelArmor::update_floor_setting][crate::client::ModelArmor::update_floor_setting] calls.
     ///
     /// # Example
     /// ```no_run
@@ -680,7 +680,7 @@ pub mod model_armor {
         }
     }
 
-    /// The request builder for [ModelArmor::sanitize_user_prompt][super::super::client::ModelArmor::sanitize_user_prompt] calls.
+    /// The request builder for [ModelArmor::sanitize_user_prompt][crate::client::ModelArmor::sanitize_user_prompt] calls.
     ///
     /// # Example
     /// ```no_run
@@ -768,7 +768,7 @@ pub mod model_armor {
         }
     }
 
-    /// The request builder for [ModelArmor::sanitize_model_response][super::super::client::ModelArmor::sanitize_model_response] calls.
+    /// The request builder for [ModelArmor::sanitize_model_response][crate::client::ModelArmor::sanitize_model_response] calls.
     ///
     /// # Example
     /// ```no_run
@@ -862,7 +862,7 @@ pub mod model_armor {
         }
     }
 
-    /// The request builder for [ModelArmor::list_locations][super::super::client::ModelArmor::list_locations] calls.
+    /// The request builder for [ModelArmor::list_locations][crate::client::ModelArmor::list_locations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -972,7 +972,7 @@ pub mod model_armor {
         }
     }
 
-    /// The request builder for [ModelArmor::get_location][super::super::client::ModelArmor::get_location] calls.
+    /// The request builder for [ModelArmor::get_location][crate::client::ModelArmor::get_location] calls.
     ///
     /// # Example
     /// ```no_run

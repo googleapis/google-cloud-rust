@@ -17,7 +17,7 @@
 pub mod app_gateways_service {
     use crate::Result;
 
-    /// A builder for [AppGatewaysService][super::super::client::AppGatewaysService].
+    /// A builder for [AppGatewaysService][crate::client::AppGatewaysService].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -45,7 +45,7 @@ pub mod app_gateways_service {
         }
     }
 
-    /// Common implementation for [super::super::client::AppGatewaysService] request builders.
+    /// Common implementation for [crate::client::AppGatewaysService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::AppGatewaysService>,
@@ -68,7 +68,7 @@ pub mod app_gateways_service {
         }
     }
 
-    /// The request builder for [AppGatewaysService::list_app_gateways][super::super::client::AppGatewaysService::list_app_gateways] calls.
+    /// The request builder for [AppGatewaysService::list_app_gateways][crate::client::AppGatewaysService::list_app_gateways] calls.
     ///
     /// # Example
     /// ```no_run
@@ -183,7 +183,7 @@ pub mod app_gateways_service {
         }
     }
 
-    /// The request builder for [AppGatewaysService::get_app_gateway][super::super::client::AppGatewaysService::get_app_gateway] calls.
+    /// The request builder for [AppGatewaysService::get_app_gateway][crate::client::AppGatewaysService::get_app_gateway] calls.
     ///
     /// # Example
     /// ```no_run
@@ -246,7 +246,7 @@ pub mod app_gateways_service {
         }
     }
 
-    /// The request builder for [AppGatewaysService::create_app_gateway][super::super::client::AppGatewaysService::create_app_gateway] calls.
+    /// The request builder for [AppGatewaysService::create_app_gateway][crate::client::AppGatewaysService::create_app_gateway] calls.
     ///
     /// # Example
     /// ```no_run
@@ -294,7 +294,7 @@ pub mod app_gateways_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_app_gateway][super::super::client::AppGatewaysService::create_app_gateway].
+        /// on [create_app_gateway][crate::client::AppGatewaysService::create_app_gateway].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_app_gateway(self.0.request, self.0.options)
@@ -394,7 +394,7 @@ pub mod app_gateways_service {
         }
     }
 
-    /// The request builder for [AppGatewaysService::delete_app_gateway][super::super::client::AppGatewaysService::delete_app_gateway] calls.
+    /// The request builder for [AppGatewaysService::delete_app_gateway][crate::client::AppGatewaysService::delete_app_gateway] calls.
     ///
     /// # Example
     /// ```no_run
@@ -442,7 +442,7 @@ pub mod app_gateways_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_app_gateway][super::super::client::AppGatewaysService::delete_app_gateway].
+        /// on [delete_app_gateway][crate::client::AppGatewaysService::delete_app_gateway].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_app_gateway(self.0.request, self.0.options)
@@ -514,7 +514,7 @@ pub mod app_gateways_service {
         }
     }
 
-    /// The request builder for [AppGatewaysService::list_locations][super::super::client::AppGatewaysService::list_locations] calls.
+    /// The request builder for [AppGatewaysService::list_locations][crate::client::AppGatewaysService::list_locations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -624,7 +624,7 @@ pub mod app_gateways_service {
         }
     }
 
-    /// The request builder for [AppGatewaysService::get_location][super::super::client::AppGatewaysService::get_location] calls.
+    /// The request builder for [AppGatewaysService::get_location][crate::client::AppGatewaysService::get_location] calls.
     ///
     /// # Example
     /// ```no_run
@@ -685,7 +685,7 @@ pub mod app_gateways_service {
         }
     }
 
-    /// The request builder for [AppGatewaysService::set_iam_policy][super::super::client::AppGatewaysService::set_iam_policy] calls.
+    /// The request builder for [AppGatewaysService::set_iam_policy][crate::client::AppGatewaysService::set_iam_policy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -788,7 +788,7 @@ pub mod app_gateways_service {
         }
     }
 
-    /// The request builder for [AppGatewaysService::get_iam_policy][super::super::client::AppGatewaysService::get_iam_policy] calls.
+    /// The request builder for [AppGatewaysService::get_iam_policy][crate::client::AppGatewaysService::get_iam_policy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -869,7 +869,7 @@ pub mod app_gateways_service {
         }
     }
 
-    /// The request builder for [AppGatewaysService::test_iam_permissions][super::super::client::AppGatewaysService::test_iam_permissions] calls.
+    /// The request builder for [AppGatewaysService::test_iam_permissions][crate::client::AppGatewaysService::test_iam_permissions] calls.
     ///
     /// # Example
     /// ```no_run
@@ -948,7 +948,7 @@ pub mod app_gateways_service {
         }
     }
 
-    /// The request builder for [AppGatewaysService::list_operations][super::super::client::AppGatewaysService::list_operations] calls.
+    /// The request builder for [AppGatewaysService::list_operations][crate::client::AppGatewaysService::list_operations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1060,7 +1060,7 @@ pub mod app_gateways_service {
         }
     }
 
-    /// The request builder for [AppGatewaysService::get_operation][super::super::client::AppGatewaysService::get_operation] calls.
+    /// The request builder for [AppGatewaysService::get_operation][crate::client::AppGatewaysService::get_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1124,7 +1124,7 @@ pub mod app_gateways_service {
         }
     }
 
-    /// The request builder for [AppGatewaysService::delete_operation][super::super::client::AppGatewaysService::delete_operation] calls.
+    /// The request builder for [AppGatewaysService::delete_operation][crate::client::AppGatewaysService::delete_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1188,7 +1188,7 @@ pub mod app_gateways_service {
         }
     }
 
-    /// The request builder for [AppGatewaysService::cancel_operation][super::super::client::AppGatewaysService::cancel_operation] calls.
+    /// The request builder for [AppGatewaysService::cancel_operation][crate::client::AppGatewaysService::cancel_operation] calls.
     ///
     /// # Example
     /// ```no_run

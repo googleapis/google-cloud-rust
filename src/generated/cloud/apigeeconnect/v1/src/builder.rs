@@ -17,7 +17,7 @@
 pub mod connection_service {
     use crate::Result;
 
-    /// A builder for [ConnectionService][super::super::client::ConnectionService].
+    /// A builder for [ConnectionService][crate::client::ConnectionService].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -45,7 +45,7 @@ pub mod connection_service {
         }
     }
 
-    /// Common implementation for [super::super::client::ConnectionService] request builders.
+    /// Common implementation for [crate::client::ConnectionService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::ConnectionService>,
@@ -68,7 +68,7 @@ pub mod connection_service {
         }
     }
 
-    /// The request builder for [ConnectionService::list_connections][super::super::client::ConnectionService::list_connections] calls.
+    /// The request builder for [ConnectionService::list_connections][crate::client::ConnectionService::list_connections] calls.
     ///
     /// # Example
     /// ```no_run

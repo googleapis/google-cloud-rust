@@ -17,7 +17,7 @@
 pub mod developer_connect {
     use crate::Result;
 
-    /// A builder for [DeveloperConnect][super::super::client::DeveloperConnect].
+    /// A builder for [DeveloperConnect][crate::client::DeveloperConnect].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -45,7 +45,7 @@ pub mod developer_connect {
         }
     }
 
-    /// Common implementation for [super::super::client::DeveloperConnect] request builders.
+    /// Common implementation for [crate::client::DeveloperConnect] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::DeveloperConnect>,
@@ -68,7 +68,7 @@ pub mod developer_connect {
         }
     }
 
-    /// The request builder for [DeveloperConnect::list_connections][super::super::client::DeveloperConnect::list_connections] calls.
+    /// The request builder for [DeveloperConnect::list_connections][crate::client::DeveloperConnect::list_connections] calls.
     ///
     /// # Example
     /// ```no_run
@@ -183,7 +183,7 @@ pub mod developer_connect {
         }
     }
 
-    /// The request builder for [DeveloperConnect::get_connection][super::super::client::DeveloperConnect::get_connection] calls.
+    /// The request builder for [DeveloperConnect::get_connection][crate::client::DeveloperConnect::get_connection] calls.
     ///
     /// # Example
     /// ```no_run
@@ -246,7 +246,7 @@ pub mod developer_connect {
         }
     }
 
-    /// The request builder for [DeveloperConnect::create_connection][super::super::client::DeveloperConnect::create_connection] calls.
+    /// The request builder for [DeveloperConnect::create_connection][crate::client::DeveloperConnect::create_connection] calls.
     ///
     /// # Example
     /// ```no_run
@@ -294,7 +294,7 @@ pub mod developer_connect {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_connection][super::super::client::DeveloperConnect::create_connection].
+        /// on [create_connection][crate::client::DeveloperConnect::create_connection].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_connection(self.0.request, self.0.options)
@@ -393,7 +393,7 @@ pub mod developer_connect {
         }
     }
 
-    /// The request builder for [DeveloperConnect::update_connection][super::super::client::DeveloperConnect::update_connection] calls.
+    /// The request builder for [DeveloperConnect::update_connection][crate::client::DeveloperConnect::update_connection] calls.
     ///
     /// # Example
     /// ```no_run
@@ -441,7 +441,7 @@ pub mod developer_connect {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_connection][super::super::client::DeveloperConnect::update_connection].
+        /// on [update_connection][crate::client::DeveloperConnect::update_connection].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_connection(self.0.request, self.0.options)
@@ -552,7 +552,7 @@ pub mod developer_connect {
         }
     }
 
-    /// The request builder for [DeveloperConnect::delete_connection][super::super::client::DeveloperConnect::delete_connection] calls.
+    /// The request builder for [DeveloperConnect::delete_connection][crate::client::DeveloperConnect::delete_connection] calls.
     ///
     /// # Example
     /// ```no_run
@@ -600,7 +600,7 @@ pub mod developer_connect {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_connection][super::super::client::DeveloperConnect::delete_connection].
+        /// on [delete_connection][crate::client::DeveloperConnect::delete_connection].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_connection(self.0.request, self.0.options)
@@ -677,7 +677,7 @@ pub mod developer_connect {
         }
     }
 
-    /// The request builder for [DeveloperConnect::create_git_repository_link][super::super::client::DeveloperConnect::create_git_repository_link] calls.
+    /// The request builder for [DeveloperConnect::create_git_repository_link][crate::client::DeveloperConnect::create_git_repository_link] calls.
     ///
     /// # Example
     /// ```no_run
@@ -727,7 +727,7 @@ pub mod developer_connect {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_git_repository_link][super::super::client::DeveloperConnect::create_git_repository_link].
+        /// on [create_git_repository_link][crate::client::DeveloperConnect::create_git_repository_link].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_git_repository_link(self.0.request, self.0.options)
@@ -829,7 +829,7 @@ pub mod developer_connect {
         }
     }
 
-    /// The request builder for [DeveloperConnect::delete_git_repository_link][super::super::client::DeveloperConnect::delete_git_repository_link] calls.
+    /// The request builder for [DeveloperConnect::delete_git_repository_link][crate::client::DeveloperConnect::delete_git_repository_link] calls.
     ///
     /// # Example
     /// ```no_run
@@ -879,7 +879,7 @@ pub mod developer_connect {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_git_repository_link][super::super::client::DeveloperConnect::delete_git_repository_link].
+        /// on [delete_git_repository_link][crate::client::DeveloperConnect::delete_git_repository_link].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_git_repository_link(self.0.request, self.0.options)
@@ -956,7 +956,7 @@ pub mod developer_connect {
         }
     }
 
-    /// The request builder for [DeveloperConnect::list_git_repository_links][super::super::client::DeveloperConnect::list_git_repository_links] calls.
+    /// The request builder for [DeveloperConnect::list_git_repository_links][crate::client::DeveloperConnect::list_git_repository_links] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1078,7 +1078,7 @@ pub mod developer_connect {
         }
     }
 
-    /// The request builder for [DeveloperConnect::get_git_repository_link][super::super::client::DeveloperConnect::get_git_repository_link] calls.
+    /// The request builder for [DeveloperConnect::get_git_repository_link][crate::client::DeveloperConnect::get_git_repository_link] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1144,7 +1144,7 @@ pub mod developer_connect {
         }
     }
 
-    /// The request builder for [DeveloperConnect::fetch_read_write_token][super::super::client::DeveloperConnect::fetch_read_write_token] calls.
+    /// The request builder for [DeveloperConnect::fetch_read_write_token][crate::client::DeveloperConnect::fetch_read_write_token] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1210,7 +1210,7 @@ pub mod developer_connect {
         }
     }
 
-    /// The request builder for [DeveloperConnect::fetch_read_token][super::super::client::DeveloperConnect::fetch_read_token] calls.
+    /// The request builder for [DeveloperConnect::fetch_read_token][crate::client::DeveloperConnect::fetch_read_token] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1273,7 +1273,7 @@ pub mod developer_connect {
         }
     }
 
-    /// The request builder for [DeveloperConnect::fetch_linkable_git_repositories][super::super::client::DeveloperConnect::fetch_linkable_git_repositories] calls.
+    /// The request builder for [DeveloperConnect::fetch_linkable_git_repositories][crate::client::DeveloperConnect::fetch_linkable_git_repositories] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1385,7 +1385,7 @@ pub mod developer_connect {
         }
     }
 
-    /// The request builder for [DeveloperConnect::fetch_git_hub_installations][super::super::client::DeveloperConnect::fetch_git_hub_installations] calls.
+    /// The request builder for [DeveloperConnect::fetch_git_hub_installations][crate::client::DeveloperConnect::fetch_git_hub_installations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1453,7 +1453,7 @@ pub mod developer_connect {
         }
     }
 
-    /// The request builder for [DeveloperConnect::fetch_git_refs][super::super::client::DeveloperConnect::fetch_git_refs] calls.
+    /// The request builder for [DeveloperConnect::fetch_git_refs][crate::client::DeveloperConnect::fetch_git_refs] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1539,7 +1539,7 @@ pub mod developer_connect {
         }
     }
 
-    /// The request builder for [DeveloperConnect::list_locations][super::super::client::DeveloperConnect::list_locations] calls.
+    /// The request builder for [DeveloperConnect::list_locations][crate::client::DeveloperConnect::list_locations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1649,7 +1649,7 @@ pub mod developer_connect {
         }
     }
 
-    /// The request builder for [DeveloperConnect::get_location][super::super::client::DeveloperConnect::get_location] calls.
+    /// The request builder for [DeveloperConnect::get_location][crate::client::DeveloperConnect::get_location] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1710,7 +1710,7 @@ pub mod developer_connect {
         }
     }
 
-    /// The request builder for [DeveloperConnect::list_operations][super::super::client::DeveloperConnect::list_operations] calls.
+    /// The request builder for [DeveloperConnect::list_operations][crate::client::DeveloperConnect::list_operations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1822,7 +1822,7 @@ pub mod developer_connect {
         }
     }
 
-    /// The request builder for [DeveloperConnect::get_operation][super::super::client::DeveloperConnect::get_operation] calls.
+    /// The request builder for [DeveloperConnect::get_operation][crate::client::DeveloperConnect::get_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1886,7 +1886,7 @@ pub mod developer_connect {
         }
     }
 
-    /// The request builder for [DeveloperConnect::delete_operation][super::super::client::DeveloperConnect::delete_operation] calls.
+    /// The request builder for [DeveloperConnect::delete_operation][crate::client::DeveloperConnect::delete_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1950,7 +1950,7 @@ pub mod developer_connect {
         }
     }
 
-    /// The request builder for [DeveloperConnect::cancel_operation][super::super::client::DeveloperConnect::cancel_operation] calls.
+    /// The request builder for [DeveloperConnect::cancel_operation][crate::client::DeveloperConnect::cancel_operation] calls.
     ///
     /// # Example
     /// ```no_run

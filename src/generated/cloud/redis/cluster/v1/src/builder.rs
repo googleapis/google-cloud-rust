@@ -17,7 +17,7 @@
 pub mod cloud_redis_cluster {
     use crate::Result;
 
-    /// A builder for [CloudRedisCluster][super::super::client::CloudRedisCluster].
+    /// A builder for [CloudRedisCluster][crate::client::CloudRedisCluster].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -45,7 +45,7 @@ pub mod cloud_redis_cluster {
         }
     }
 
-    /// Common implementation for [super::super::client::CloudRedisCluster] request builders.
+    /// Common implementation for [crate::client::CloudRedisCluster] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudRedisCluster>,
@@ -68,7 +68,7 @@ pub mod cloud_redis_cluster {
         }
     }
 
-    /// The request builder for [CloudRedisCluster::list_clusters][super::super::client::CloudRedisCluster::list_clusters] calls.
+    /// The request builder for [CloudRedisCluster::list_clusters][crate::client::CloudRedisCluster::list_clusters] calls.
     ///
     /// # Example
     /// ```no_run
@@ -171,7 +171,7 @@ pub mod cloud_redis_cluster {
         }
     }
 
-    /// The request builder for [CloudRedisCluster::get_cluster][super::super::client::CloudRedisCluster::get_cluster] calls.
+    /// The request builder for [CloudRedisCluster::get_cluster][crate::client::CloudRedisCluster::get_cluster] calls.
     ///
     /// # Example
     /// ```no_run
@@ -234,7 +234,7 @@ pub mod cloud_redis_cluster {
         }
     }
 
-    /// The request builder for [CloudRedisCluster::update_cluster][super::super::client::CloudRedisCluster::update_cluster] calls.
+    /// The request builder for [CloudRedisCluster::update_cluster][crate::client::CloudRedisCluster::update_cluster] calls.
     ///
     /// # Example
     /// ```no_run
@@ -279,7 +279,7 @@ pub mod cloud_redis_cluster {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_cluster][super::super::client::CloudRedisCluster::update_cluster].
+        /// on [update_cluster][crate::client::CloudRedisCluster::update_cluster].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_cluster(self.0.request, self.0.options)
@@ -375,7 +375,7 @@ pub mod cloud_redis_cluster {
         }
     }
 
-    /// The request builder for [CloudRedisCluster::delete_cluster][super::super::client::CloudRedisCluster::delete_cluster] calls.
+    /// The request builder for [CloudRedisCluster::delete_cluster][crate::client::CloudRedisCluster::delete_cluster] calls.
     ///
     /// # Example
     /// ```no_run
@@ -420,7 +420,7 @@ pub mod cloud_redis_cluster {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_cluster][super::super::client::CloudRedisCluster::delete_cluster].
+        /// on [delete_cluster][crate::client::CloudRedisCluster::delete_cluster].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_cluster(self.0.request, self.0.options)
@@ -485,7 +485,7 @@ pub mod cloud_redis_cluster {
         }
     }
 
-    /// The request builder for [CloudRedisCluster::create_cluster][super::super::client::CloudRedisCluster::create_cluster] calls.
+    /// The request builder for [CloudRedisCluster::create_cluster][crate::client::CloudRedisCluster::create_cluster] calls.
     ///
     /// # Example
     /// ```no_run
@@ -530,7 +530,7 @@ pub mod cloud_redis_cluster {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_cluster][super::super::client::CloudRedisCluster::create_cluster].
+        /// on [create_cluster][crate::client::CloudRedisCluster::create_cluster].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_cluster(self.0.request, self.0.options)
@@ -620,7 +620,7 @@ pub mod cloud_redis_cluster {
         }
     }
 
-    /// The request builder for [CloudRedisCluster::get_cluster_certificate_authority][super::super::client::CloudRedisCluster::get_cluster_certificate_authority] calls.
+    /// The request builder for [CloudRedisCluster::get_cluster_certificate_authority][crate::client::CloudRedisCluster::get_cluster_certificate_authority] calls.
     ///
     /// # Example
     /// ```no_run
@@ -688,7 +688,7 @@ pub mod cloud_redis_cluster {
         }
     }
 
-    /// The request builder for [CloudRedisCluster::reschedule_cluster_maintenance][super::super::client::CloudRedisCluster::reschedule_cluster_maintenance] calls.
+    /// The request builder for [CloudRedisCluster::reschedule_cluster_maintenance][crate::client::CloudRedisCluster::reschedule_cluster_maintenance] calls.
     ///
     /// # Example
     /// ```no_run
@@ -738,7 +738,7 @@ pub mod cloud_redis_cluster {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [reschedule_cluster_maintenance][super::super::client::CloudRedisCluster::reschedule_cluster_maintenance].
+        /// on [reschedule_cluster_maintenance][crate::client::CloudRedisCluster::reschedule_cluster_maintenance].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .reschedule_cluster_maintenance(self.0.request, self.0.options)
@@ -823,7 +823,7 @@ pub mod cloud_redis_cluster {
         }
     }
 
-    /// The request builder for [CloudRedisCluster::list_backup_collections][super::super::client::CloudRedisCluster::list_backup_collections] calls.
+    /// The request builder for [CloudRedisCluster::list_backup_collections][crate::client::CloudRedisCluster::list_backup_collections] calls.
     ///
     /// # Example
     /// ```no_run
@@ -931,7 +931,7 @@ pub mod cloud_redis_cluster {
         }
     }
 
-    /// The request builder for [CloudRedisCluster::get_backup_collection][super::super::client::CloudRedisCluster::get_backup_collection] calls.
+    /// The request builder for [CloudRedisCluster::get_backup_collection][crate::client::CloudRedisCluster::get_backup_collection] calls.
     ///
     /// # Example
     /// ```no_run
@@ -997,7 +997,7 @@ pub mod cloud_redis_cluster {
         }
     }
 
-    /// The request builder for [CloudRedisCluster::list_backups][super::super::client::CloudRedisCluster::list_backups] calls.
+    /// The request builder for [CloudRedisCluster::list_backups][crate::client::CloudRedisCluster::list_backups] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1100,7 +1100,7 @@ pub mod cloud_redis_cluster {
         }
     }
 
-    /// The request builder for [CloudRedisCluster::get_backup][super::super::client::CloudRedisCluster::get_backup] calls.
+    /// The request builder for [CloudRedisCluster::get_backup][crate::client::CloudRedisCluster::get_backup] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1163,7 +1163,7 @@ pub mod cloud_redis_cluster {
         }
     }
 
-    /// The request builder for [CloudRedisCluster::delete_backup][super::super::client::CloudRedisCluster::delete_backup] calls.
+    /// The request builder for [CloudRedisCluster::delete_backup][crate::client::CloudRedisCluster::delete_backup] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1208,7 +1208,7 @@ pub mod cloud_redis_cluster {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_backup][super::super::client::CloudRedisCluster::delete_backup].
+        /// on [delete_backup][crate::client::CloudRedisCluster::delete_backup].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_backup(self.0.request, self.0.options)
@@ -1273,7 +1273,7 @@ pub mod cloud_redis_cluster {
         }
     }
 
-    /// The request builder for [CloudRedisCluster::export_backup][super::super::client::CloudRedisCluster::export_backup] calls.
+    /// The request builder for [CloudRedisCluster::export_backup][crate::client::CloudRedisCluster::export_backup] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1318,7 +1318,7 @@ pub mod cloud_redis_cluster {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [export_backup][super::super::client::CloudRedisCluster::export_backup].
+        /// on [export_backup][crate::client::CloudRedisCluster::export_backup].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .export_backup(self.0.request, self.0.options)
@@ -1396,7 +1396,7 @@ pub mod cloud_redis_cluster {
         }
     }
 
-    /// The request builder for [CloudRedisCluster::backup_cluster][super::super::client::CloudRedisCluster::backup_cluster] calls.
+    /// The request builder for [CloudRedisCluster::backup_cluster][crate::client::CloudRedisCluster::backup_cluster] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1441,7 +1441,7 @@ pub mod cloud_redis_cluster {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [backup_cluster][super::super::client::CloudRedisCluster::backup_cluster].
+        /// on [backup_cluster][crate::client::CloudRedisCluster::backup_cluster].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .backup_cluster(self.0.request, self.0.options)
@@ -1531,7 +1531,7 @@ pub mod cloud_redis_cluster {
         }
     }
 
-    /// The request builder for [CloudRedisCluster::list_locations][super::super::client::CloudRedisCluster::list_locations] calls.
+    /// The request builder for [CloudRedisCluster::list_locations][crate::client::CloudRedisCluster::list_locations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1641,7 +1641,7 @@ pub mod cloud_redis_cluster {
         }
     }
 
-    /// The request builder for [CloudRedisCluster::get_location][super::super::client::CloudRedisCluster::get_location] calls.
+    /// The request builder for [CloudRedisCluster::get_location][crate::client::CloudRedisCluster::get_location] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1702,7 +1702,7 @@ pub mod cloud_redis_cluster {
         }
     }
 
-    /// The request builder for [CloudRedisCluster::list_operations][super::super::client::CloudRedisCluster::list_operations] calls.
+    /// The request builder for [CloudRedisCluster::list_operations][crate::client::CloudRedisCluster::list_operations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1814,7 +1814,7 @@ pub mod cloud_redis_cluster {
         }
     }
 
-    /// The request builder for [CloudRedisCluster::get_operation][super::super::client::CloudRedisCluster::get_operation] calls.
+    /// The request builder for [CloudRedisCluster::get_operation][crate::client::CloudRedisCluster::get_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1878,7 +1878,7 @@ pub mod cloud_redis_cluster {
         }
     }
 
-    /// The request builder for [CloudRedisCluster::delete_operation][super::super::client::CloudRedisCluster::delete_operation] calls.
+    /// The request builder for [CloudRedisCluster::delete_operation][crate::client::CloudRedisCluster::delete_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1942,7 +1942,7 @@ pub mod cloud_redis_cluster {
         }
     }
 
-    /// The request builder for [CloudRedisCluster::cancel_operation][super::super::client::CloudRedisCluster::cancel_operation] calls.
+    /// The request builder for [CloudRedisCluster::cancel_operation][crate::client::CloudRedisCluster::cancel_operation] calls.
     ///
     /// # Example
     /// ```no_run

@@ -17,7 +17,7 @@
 pub mod client_connector_services_service {
     use crate::Result;
 
-    /// A builder for [ClientConnectorServicesService][super::super::client::ClientConnectorServicesService].
+    /// A builder for [ClientConnectorServicesService][crate::client::ClientConnectorServicesService].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -45,7 +45,7 @@ pub mod client_connector_services_service {
         }
     }
 
-    /// Common implementation for [super::super::client::ClientConnectorServicesService] request builders.
+    /// Common implementation for [crate::client::ClientConnectorServicesService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::ClientConnectorServicesService>,
@@ -68,7 +68,7 @@ pub mod client_connector_services_service {
         }
     }
 
-    /// The request builder for [ClientConnectorServicesService::list_client_connector_services][super::super::client::ClientConnectorServicesService::list_client_connector_services] calls.
+    /// The request builder for [ClientConnectorServicesService::list_client_connector_services][crate::client::ClientConnectorServicesService::list_client_connector_services] calls.
     ///
     /// # Example
     /// ```no_run
@@ -192,7 +192,7 @@ pub mod client_connector_services_service {
         }
     }
 
-    /// The request builder for [ClientConnectorServicesService::get_client_connector_service][super::super::client::ClientConnectorServicesService::get_client_connector_service] calls.
+    /// The request builder for [ClientConnectorServicesService::get_client_connector_service][crate::client::ClientConnectorServicesService::get_client_connector_service] calls.
     ///
     /// # Example
     /// ```no_run
@@ -260,7 +260,7 @@ pub mod client_connector_services_service {
         }
     }
 
-    /// The request builder for [ClientConnectorServicesService::create_client_connector_service][super::super::client::ClientConnectorServicesService::create_client_connector_service] calls.
+    /// The request builder for [ClientConnectorServicesService::create_client_connector_service][crate::client::ClientConnectorServicesService::create_client_connector_service] calls.
     ///
     /// # Example
     /// ```no_run
@@ -310,7 +310,7 @@ pub mod client_connector_services_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_client_connector_service][super::super::client::ClientConnectorServicesService::create_client_connector_service].
+        /// on [create_client_connector_service][crate::client::ClientConnectorServicesService::create_client_connector_service].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_client_connector_service(self.0.request, self.0.options)
@@ -415,7 +415,7 @@ pub mod client_connector_services_service {
         }
     }
 
-    /// The request builder for [ClientConnectorServicesService::update_client_connector_service][super::super::client::ClientConnectorServicesService::update_client_connector_service] calls.
+    /// The request builder for [ClientConnectorServicesService::update_client_connector_service][crate::client::ClientConnectorServicesService::update_client_connector_service] calls.
     ///
     /// # Example
     /// ```no_run
@@ -465,7 +465,7 @@ pub mod client_connector_services_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_client_connector_service][super::super::client::ClientConnectorServicesService::update_client_connector_service].
+        /// on [update_client_connector_service][crate::client::ClientConnectorServicesService::update_client_connector_service].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_client_connector_service(self.0.request, self.0.options)
@@ -581,7 +581,7 @@ pub mod client_connector_services_service {
         }
     }
 
-    /// The request builder for [ClientConnectorServicesService::delete_client_connector_service][super::super::client::ClientConnectorServicesService::delete_client_connector_service] calls.
+    /// The request builder for [ClientConnectorServicesService::delete_client_connector_service][crate::client::ClientConnectorServicesService::delete_client_connector_service] calls.
     ///
     /// # Example
     /// ```no_run
@@ -631,7 +631,7 @@ pub mod client_connector_services_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_client_connector_service][super::super::client::ClientConnectorServicesService::delete_client_connector_service].
+        /// on [delete_client_connector_service][crate::client::ClientConnectorServicesService::delete_client_connector_service].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_client_connector_service(self.0.request, self.0.options)
@@ -707,7 +707,7 @@ pub mod client_connector_services_service {
         }
     }
 
-    /// The request builder for [ClientConnectorServicesService::list_locations][super::super::client::ClientConnectorServicesService::list_locations] calls.
+    /// The request builder for [ClientConnectorServicesService::list_locations][crate::client::ClientConnectorServicesService::list_locations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -817,7 +817,7 @@ pub mod client_connector_services_service {
         }
     }
 
-    /// The request builder for [ClientConnectorServicesService::get_location][super::super::client::ClientConnectorServicesService::get_location] calls.
+    /// The request builder for [ClientConnectorServicesService::get_location][crate::client::ClientConnectorServicesService::get_location] calls.
     ///
     /// # Example
     /// ```no_run
@@ -878,7 +878,7 @@ pub mod client_connector_services_service {
         }
     }
 
-    /// The request builder for [ClientConnectorServicesService::set_iam_policy][super::super::client::ClientConnectorServicesService::set_iam_policy] calls.
+    /// The request builder for [ClientConnectorServicesService::set_iam_policy][crate::client::ClientConnectorServicesService::set_iam_policy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -981,7 +981,7 @@ pub mod client_connector_services_service {
         }
     }
 
-    /// The request builder for [ClientConnectorServicesService::get_iam_policy][super::super::client::ClientConnectorServicesService::get_iam_policy] calls.
+    /// The request builder for [ClientConnectorServicesService::get_iam_policy][crate::client::ClientConnectorServicesService::get_iam_policy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1062,7 +1062,7 @@ pub mod client_connector_services_service {
         }
     }
 
-    /// The request builder for [ClientConnectorServicesService::test_iam_permissions][super::super::client::ClientConnectorServicesService::test_iam_permissions] calls.
+    /// The request builder for [ClientConnectorServicesService::test_iam_permissions][crate::client::ClientConnectorServicesService::test_iam_permissions] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1141,7 +1141,7 @@ pub mod client_connector_services_service {
         }
     }
 
-    /// The request builder for [ClientConnectorServicesService::list_operations][super::super::client::ClientConnectorServicesService::list_operations] calls.
+    /// The request builder for [ClientConnectorServicesService::list_operations][crate::client::ClientConnectorServicesService::list_operations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1253,7 +1253,7 @@ pub mod client_connector_services_service {
         }
     }
 
-    /// The request builder for [ClientConnectorServicesService::get_operation][super::super::client::ClientConnectorServicesService::get_operation] calls.
+    /// The request builder for [ClientConnectorServicesService::get_operation][crate::client::ClientConnectorServicesService::get_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1317,7 +1317,7 @@ pub mod client_connector_services_service {
         }
     }
 
-    /// The request builder for [ClientConnectorServicesService::delete_operation][super::super::client::ClientConnectorServicesService::delete_operation] calls.
+    /// The request builder for [ClientConnectorServicesService::delete_operation][crate::client::ClientConnectorServicesService::delete_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1381,7 +1381,7 @@ pub mod client_connector_services_service {
         }
     }
 
-    /// The request builder for [ClientConnectorServicesService::cancel_operation][super::super::client::ClientConnectorServicesService::cancel_operation] calls.
+    /// The request builder for [ClientConnectorServicesService::cancel_operation][crate::client::ClientConnectorServicesService::cancel_operation] calls.
     ///
     /// # Example
     /// ```no_run

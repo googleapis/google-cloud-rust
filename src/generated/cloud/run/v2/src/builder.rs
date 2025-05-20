@@ -17,7 +17,7 @@
 pub mod builds {
     use crate::Result;
 
-    /// A builder for [Builds][super::super::client::Builds].
+    /// A builder for [Builds][crate::client::Builds].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -45,7 +45,7 @@ pub mod builds {
         }
     }
 
-    /// Common implementation for [super::super::client::Builds] request builders.
+    /// Common implementation for [crate::client::Builds] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::Builds>,
@@ -66,7 +66,7 @@ pub mod builds {
         }
     }
 
-    /// The request builder for [Builds::submit_build][super::super::client::Builds::submit_build] calls.
+    /// The request builder for [Builds::submit_build][crate::client::Builds::submit_build] calls.
     ///
     /// # Example
     /// ```no_run
@@ -229,7 +229,7 @@ pub mod builds {
         }
     }
 
-    /// The request builder for [Builds::list_operations][super::super::client::Builds::list_operations] calls.
+    /// The request builder for [Builds::list_operations][crate::client::Builds::list_operations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -339,7 +339,7 @@ pub mod builds {
         }
     }
 
-    /// The request builder for [Builds::get_operation][super::super::client::Builds::get_operation] calls.
+    /// The request builder for [Builds::get_operation][crate::client::Builds::get_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -401,7 +401,7 @@ pub mod builds {
         }
     }
 
-    /// The request builder for [Builds::delete_operation][super::super::client::Builds::delete_operation] calls.
+    /// The request builder for [Builds::delete_operation][crate::client::Builds::delete_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -463,7 +463,7 @@ pub mod builds {
         }
     }
 
-    /// The request builder for [Builds::wait_operation][super::super::client::Builds::wait_operation] calls.
+    /// The request builder for [Builds::wait_operation][crate::client::Builds::wait_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -547,7 +547,7 @@ pub mod builds {
 pub mod executions {
     use crate::Result;
 
-    /// A builder for [Executions][super::super::client::Executions].
+    /// A builder for [Executions][crate::client::Executions].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -575,7 +575,7 @@ pub mod executions {
         }
     }
 
-    /// Common implementation for [super::super::client::Executions] request builders.
+    /// Common implementation for [crate::client::Executions] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::Executions>,
@@ -598,7 +598,7 @@ pub mod executions {
         }
     }
 
-    /// The request builder for [Executions::get_execution][super::super::client::Executions::get_execution] calls.
+    /// The request builder for [Executions::get_execution][crate::client::Executions::get_execution] calls.
     ///
     /// # Example
     /// ```no_run
@@ -661,7 +661,7 @@ pub mod executions {
         }
     }
 
-    /// The request builder for [Executions::list_executions][super::super::client::Executions::list_executions] calls.
+    /// The request builder for [Executions::list_executions][crate::client::Executions::list_executions] calls.
     ///
     /// # Example
     /// ```no_run
@@ -770,7 +770,7 @@ pub mod executions {
         }
     }
 
-    /// The request builder for [Executions::delete_execution][super::super::client::Executions::delete_execution] calls.
+    /// The request builder for [Executions::delete_execution][crate::client::Executions::delete_execution] calls.
     ///
     /// # Example
     /// ```no_run
@@ -815,7 +815,7 @@ pub mod executions {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_execution][super::super::client::Executions::delete_execution].
+        /// on [delete_execution][crate::client::Executions::delete_execution].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_execution(self.0.request, self.0.options)
@@ -882,7 +882,7 @@ pub mod executions {
         }
     }
 
-    /// The request builder for [Executions::cancel_execution][super::super::client::Executions::cancel_execution] calls.
+    /// The request builder for [Executions::cancel_execution][crate::client::Executions::cancel_execution] calls.
     ///
     /// # Example
     /// ```no_run
@@ -927,7 +927,7 @@ pub mod executions {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [cancel_execution][super::super::client::Executions::cancel_execution].
+        /// on [cancel_execution][crate::client::Executions::cancel_execution].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .cancel_execution(self.0.request, self.0.options)
@@ -994,7 +994,7 @@ pub mod executions {
         }
     }
 
-    /// The request builder for [Executions::list_operations][super::super::client::Executions::list_operations] calls.
+    /// The request builder for [Executions::list_operations][crate::client::Executions::list_operations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1106,7 +1106,7 @@ pub mod executions {
         }
     }
 
-    /// The request builder for [Executions::get_operation][super::super::client::Executions::get_operation] calls.
+    /// The request builder for [Executions::get_operation][crate::client::Executions::get_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1170,7 +1170,7 @@ pub mod executions {
         }
     }
 
-    /// The request builder for [Executions::delete_operation][super::super::client::Executions::delete_operation] calls.
+    /// The request builder for [Executions::delete_operation][crate::client::Executions::delete_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1234,7 +1234,7 @@ pub mod executions {
         }
     }
 
-    /// The request builder for [Executions::wait_operation][super::super::client::Executions::wait_operation] calls.
+    /// The request builder for [Executions::wait_operation][crate::client::Executions::wait_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1320,7 +1320,7 @@ pub mod executions {
 pub mod jobs {
     use crate::Result;
 
-    /// A builder for [Jobs][super::super::client::Jobs].
+    /// A builder for [Jobs][crate::client::Jobs].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -1348,7 +1348,7 @@ pub mod jobs {
         }
     }
 
-    /// Common implementation for [super::super::client::Jobs] request builders.
+    /// Common implementation for [crate::client::Jobs] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::Jobs>,
@@ -1369,7 +1369,7 @@ pub mod jobs {
         }
     }
 
-    /// The request builder for [Jobs::create_job][super::super::client::Jobs::create_job] calls.
+    /// The request builder for [Jobs::create_job][crate::client::Jobs::create_job] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1412,7 +1412,7 @@ pub mod jobs {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_job][super::super::client::Jobs::create_job].
+        /// on [create_job][crate::client::Jobs::create_job].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_job(self.0.request, self.0.options)
@@ -1502,7 +1502,7 @@ pub mod jobs {
         }
     }
 
-    /// The request builder for [Jobs::get_job][super::super::client::Jobs::get_job] calls.
+    /// The request builder for [Jobs::get_job][crate::client::Jobs::get_job] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1563,7 +1563,7 @@ pub mod jobs {
         }
     }
 
-    /// The request builder for [Jobs::list_jobs][super::super::client::Jobs::list_jobs] calls.
+    /// The request builder for [Jobs::list_jobs][crate::client::Jobs::list_jobs] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1670,7 +1670,7 @@ pub mod jobs {
         }
     }
 
-    /// The request builder for [Jobs::update_job][super::super::client::Jobs::update_job] calls.
+    /// The request builder for [Jobs::update_job][crate::client::Jobs::update_job] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1713,7 +1713,7 @@ pub mod jobs {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_job][super::super::client::Jobs::update_job].
+        /// on [update_job][crate::client::Jobs::update_job].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_job(self.0.request, self.0.options)
@@ -1793,7 +1793,7 @@ pub mod jobs {
         }
     }
 
-    /// The request builder for [Jobs::delete_job][super::super::client::Jobs::delete_job] calls.
+    /// The request builder for [Jobs::delete_job][crate::client::Jobs::delete_job] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1836,7 +1836,7 @@ pub mod jobs {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_job][super::super::client::Jobs::delete_job].
+        /// on [delete_job][crate::client::Jobs::delete_job].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_job(self.0.request, self.0.options)
@@ -1902,7 +1902,7 @@ pub mod jobs {
         }
     }
 
-    /// The request builder for [Jobs::run_job][super::super::client::Jobs::run_job] calls.
+    /// The request builder for [Jobs::run_job][crate::client::Jobs::run_job] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1945,7 +1945,7 @@ pub mod jobs {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [run_job][super::super::client::Jobs::run_job].
+        /// on [run_job][crate::client::Jobs::run_job].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .run_job(self.0.request, self.0.options)
@@ -2030,7 +2030,7 @@ pub mod jobs {
         }
     }
 
-    /// The request builder for [Jobs::get_iam_policy][super::super::client::Jobs::get_iam_policy] calls.
+    /// The request builder for [Jobs::get_iam_policy][crate::client::Jobs::get_iam_policy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2109,7 +2109,7 @@ pub mod jobs {
         }
     }
 
-    /// The request builder for [Jobs::set_iam_policy][super::super::client::Jobs::set_iam_policy] calls.
+    /// The request builder for [Jobs::set_iam_policy][crate::client::Jobs::set_iam_policy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2210,7 +2210,7 @@ pub mod jobs {
         }
     }
 
-    /// The request builder for [Jobs::test_iam_permissions][super::super::client::Jobs::test_iam_permissions] calls.
+    /// The request builder for [Jobs::test_iam_permissions][crate::client::Jobs::test_iam_permissions] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2287,7 +2287,7 @@ pub mod jobs {
         }
     }
 
-    /// The request builder for [Jobs::list_operations][super::super::client::Jobs::list_operations] calls.
+    /// The request builder for [Jobs::list_operations][crate::client::Jobs::list_operations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2397,7 +2397,7 @@ pub mod jobs {
         }
     }
 
-    /// The request builder for [Jobs::get_operation][super::super::client::Jobs::get_operation] calls.
+    /// The request builder for [Jobs::get_operation][crate::client::Jobs::get_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2459,7 +2459,7 @@ pub mod jobs {
         }
     }
 
-    /// The request builder for [Jobs::delete_operation][super::super::client::Jobs::delete_operation] calls.
+    /// The request builder for [Jobs::delete_operation][crate::client::Jobs::delete_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2521,7 +2521,7 @@ pub mod jobs {
         }
     }
 
-    /// The request builder for [Jobs::wait_operation][super::super::client::Jobs::wait_operation] calls.
+    /// The request builder for [Jobs::wait_operation][crate::client::Jobs::wait_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2605,7 +2605,7 @@ pub mod jobs {
 pub mod revisions {
     use crate::Result;
 
-    /// A builder for [Revisions][super::super::client::Revisions].
+    /// A builder for [Revisions][crate::client::Revisions].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -2633,7 +2633,7 @@ pub mod revisions {
         }
     }
 
-    /// Common implementation for [super::super::client::Revisions] request builders.
+    /// Common implementation for [crate::client::Revisions] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::Revisions>,
@@ -2656,7 +2656,7 @@ pub mod revisions {
         }
     }
 
-    /// The request builder for [Revisions::get_revision][super::super::client::Revisions::get_revision] calls.
+    /// The request builder for [Revisions::get_revision][crate::client::Revisions::get_revision] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2719,7 +2719,7 @@ pub mod revisions {
         }
     }
 
-    /// The request builder for [Revisions::list_revisions][super::super::client::Revisions::list_revisions] calls.
+    /// The request builder for [Revisions::list_revisions][crate::client::Revisions::list_revisions] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2828,7 +2828,7 @@ pub mod revisions {
         }
     }
 
-    /// The request builder for [Revisions::delete_revision][super::super::client::Revisions::delete_revision] calls.
+    /// The request builder for [Revisions::delete_revision][crate::client::Revisions::delete_revision] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2873,7 +2873,7 @@ pub mod revisions {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_revision][super::super::client::Revisions::delete_revision].
+        /// on [delete_revision][crate::client::Revisions::delete_revision].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_revision(self.0.request, self.0.options)
@@ -2940,7 +2940,7 @@ pub mod revisions {
         }
     }
 
-    /// The request builder for [Revisions::list_operations][super::super::client::Revisions::list_operations] calls.
+    /// The request builder for [Revisions::list_operations][crate::client::Revisions::list_operations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3052,7 +3052,7 @@ pub mod revisions {
         }
     }
 
-    /// The request builder for [Revisions::get_operation][super::super::client::Revisions::get_operation] calls.
+    /// The request builder for [Revisions::get_operation][crate::client::Revisions::get_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3116,7 +3116,7 @@ pub mod revisions {
         }
     }
 
-    /// The request builder for [Revisions::delete_operation][super::super::client::Revisions::delete_operation] calls.
+    /// The request builder for [Revisions::delete_operation][crate::client::Revisions::delete_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3180,7 +3180,7 @@ pub mod revisions {
         }
     }
 
-    /// The request builder for [Revisions::wait_operation][super::super::client::Revisions::wait_operation] calls.
+    /// The request builder for [Revisions::wait_operation][crate::client::Revisions::wait_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3266,7 +3266,7 @@ pub mod revisions {
 pub mod services {
     use crate::Result;
 
-    /// A builder for [Services][super::super::client::Services].
+    /// A builder for [Services][crate::client::Services].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -3294,7 +3294,7 @@ pub mod services {
         }
     }
 
-    /// Common implementation for [super::super::client::Services] request builders.
+    /// Common implementation for [crate::client::Services] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::Services>,
@@ -3315,7 +3315,7 @@ pub mod services {
         }
     }
 
-    /// The request builder for [Services::create_service][super::super::client::Services::create_service] calls.
+    /// The request builder for [Services::create_service][crate::client::Services::create_service] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3358,7 +3358,7 @@ pub mod services {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_service][super::super::client::Services::create_service].
+        /// on [create_service][crate::client::Services::create_service].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_service(self.0.request, self.0.options)
@@ -3448,7 +3448,7 @@ pub mod services {
         }
     }
 
-    /// The request builder for [Services::get_service][super::super::client::Services::get_service] calls.
+    /// The request builder for [Services::get_service][crate::client::Services::get_service] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3509,7 +3509,7 @@ pub mod services {
         }
     }
 
-    /// The request builder for [Services::list_services][super::super::client::Services::list_services] calls.
+    /// The request builder for [Services::list_services][crate::client::Services::list_services] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3616,7 +3616,7 @@ pub mod services {
         }
     }
 
-    /// The request builder for [Services::update_service][super::super::client::Services::update_service] calls.
+    /// The request builder for [Services::update_service][crate::client::Services::update_service] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3659,7 +3659,7 @@ pub mod services {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_service][super::super::client::Services::update_service].
+        /// on [update_service][crate::client::Services::update_service].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_service(self.0.request, self.0.options)
@@ -3757,7 +3757,7 @@ pub mod services {
         }
     }
 
-    /// The request builder for [Services::delete_service][super::super::client::Services::delete_service] calls.
+    /// The request builder for [Services::delete_service][crate::client::Services::delete_service] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3800,7 +3800,7 @@ pub mod services {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_service][super::super::client::Services::delete_service].
+        /// on [delete_service][crate::client::Services::delete_service].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_service(self.0.request, self.0.options)
@@ -3866,7 +3866,7 @@ pub mod services {
         }
     }
 
-    /// The request builder for [Services::get_iam_policy][super::super::client::Services::get_iam_policy] calls.
+    /// The request builder for [Services::get_iam_policy][crate::client::Services::get_iam_policy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3945,7 +3945,7 @@ pub mod services {
         }
     }
 
-    /// The request builder for [Services::set_iam_policy][super::super::client::Services::set_iam_policy] calls.
+    /// The request builder for [Services::set_iam_policy][crate::client::Services::set_iam_policy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4046,7 +4046,7 @@ pub mod services {
         }
     }
 
-    /// The request builder for [Services::test_iam_permissions][super::super::client::Services::test_iam_permissions] calls.
+    /// The request builder for [Services::test_iam_permissions][crate::client::Services::test_iam_permissions] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4123,7 +4123,7 @@ pub mod services {
         }
     }
 
-    /// The request builder for [Services::list_operations][super::super::client::Services::list_operations] calls.
+    /// The request builder for [Services::list_operations][crate::client::Services::list_operations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4233,7 +4233,7 @@ pub mod services {
         }
     }
 
-    /// The request builder for [Services::get_operation][super::super::client::Services::get_operation] calls.
+    /// The request builder for [Services::get_operation][crate::client::Services::get_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4295,7 +4295,7 @@ pub mod services {
         }
     }
 
-    /// The request builder for [Services::delete_operation][super::super::client::Services::delete_operation] calls.
+    /// The request builder for [Services::delete_operation][crate::client::Services::delete_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4357,7 +4357,7 @@ pub mod services {
         }
     }
 
-    /// The request builder for [Services::wait_operation][super::super::client::Services::wait_operation] calls.
+    /// The request builder for [Services::wait_operation][crate::client::Services::wait_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4441,7 +4441,7 @@ pub mod services {
 pub mod tasks {
     use crate::Result;
 
-    /// A builder for [Tasks][super::super::client::Tasks].
+    /// A builder for [Tasks][crate::client::Tasks].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -4469,7 +4469,7 @@ pub mod tasks {
         }
     }
 
-    /// Common implementation for [super::super::client::Tasks] request builders.
+    /// Common implementation for [crate::client::Tasks] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::Tasks>,
@@ -4490,7 +4490,7 @@ pub mod tasks {
         }
     }
 
-    /// The request builder for [Tasks::get_task][super::super::client::Tasks::get_task] calls.
+    /// The request builder for [Tasks::get_task][crate::client::Tasks::get_task] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4551,7 +4551,7 @@ pub mod tasks {
         }
     }
 
-    /// The request builder for [Tasks::list_tasks][super::super::client::Tasks::list_tasks] calls.
+    /// The request builder for [Tasks::list_tasks][crate::client::Tasks::list_tasks] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4658,7 +4658,7 @@ pub mod tasks {
         }
     }
 
-    /// The request builder for [Tasks::list_operations][super::super::client::Tasks::list_operations] calls.
+    /// The request builder for [Tasks::list_operations][crate::client::Tasks::list_operations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4768,7 +4768,7 @@ pub mod tasks {
         }
     }
 
-    /// The request builder for [Tasks::get_operation][super::super::client::Tasks::get_operation] calls.
+    /// The request builder for [Tasks::get_operation][crate::client::Tasks::get_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4830,7 +4830,7 @@ pub mod tasks {
         }
     }
 
-    /// The request builder for [Tasks::delete_operation][super::super::client::Tasks::delete_operation] calls.
+    /// The request builder for [Tasks::delete_operation][crate::client::Tasks::delete_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4892,7 +4892,7 @@ pub mod tasks {
         }
     }
 
-    /// The request builder for [Tasks::wait_operation][super::super::client::Tasks::wait_operation] calls.
+    /// The request builder for [Tasks::wait_operation][crate::client::Tasks::wait_operation] calls.
     ///
     /// # Example
     /// ```no_run

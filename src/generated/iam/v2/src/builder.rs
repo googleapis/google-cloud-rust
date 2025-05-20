@@ -17,7 +17,7 @@
 pub mod policies {
     use crate::Result;
 
-    /// A builder for [Policies][super::super::client::Policies].
+    /// A builder for [Policies][crate::client::Policies].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -45,7 +45,7 @@ pub mod policies {
         }
     }
 
-    /// Common implementation for [super::super::client::Policies] request builders.
+    /// Common implementation for [crate::client::Policies] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::Policies>,
@@ -66,7 +66,7 @@ pub mod policies {
         }
     }
 
-    /// The request builder for [Policies::list_policies][super::super::client::Policies::list_policies] calls.
+    /// The request builder for [Policies::list_policies][crate::client::Policies::list_policies] calls.
     ///
     /// # Example
     /// ```no_run
@@ -167,7 +167,7 @@ pub mod policies {
         }
     }
 
-    /// The request builder for [Policies::get_policy][super::super::client::Policies::get_policy] calls.
+    /// The request builder for [Policies::get_policy][crate::client::Policies::get_policy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -228,7 +228,7 @@ pub mod policies {
         }
     }
 
-    /// The request builder for [Policies::create_policy][super::super::client::Policies::create_policy] calls.
+    /// The request builder for [Policies::create_policy][crate::client::Policies::create_policy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -271,7 +271,7 @@ pub mod policies {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_policy][super::super::client::Policies::create_policy].
+        /// on [create_policy][crate::client::Policies::create_policy].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_policy(self.0.request, self.0.options)
@@ -358,7 +358,7 @@ pub mod policies {
         }
     }
 
-    /// The request builder for [Policies::update_policy][super::super::client::Policies::update_policy] calls.
+    /// The request builder for [Policies::update_policy][crate::client::Policies::update_policy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -401,7 +401,7 @@ pub mod policies {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_policy][super::super::client::Policies::update_policy].
+        /// on [update_policy][crate::client::Policies::update_policy].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_policy(self.0.request, self.0.options)
@@ -474,7 +474,7 @@ pub mod policies {
         }
     }
 
-    /// The request builder for [Policies::delete_policy][super::super::client::Policies::delete_policy] calls.
+    /// The request builder for [Policies::delete_policy][crate::client::Policies::delete_policy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -517,7 +517,7 @@ pub mod policies {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_policy][super::super::client::Policies::delete_policy].
+        /// on [delete_policy][crate::client::Policies::delete_policy].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_policy(self.0.request, self.0.options)
@@ -582,7 +582,7 @@ pub mod policies {
         }
     }
 
-    /// The request builder for [Policies::get_operation][super::super::client::Policies::get_operation] calls.
+    /// The request builder for [Policies::get_operation][crate::client::Policies::get_operation] calls.
     ///
     /// # Example
     /// ```no_run

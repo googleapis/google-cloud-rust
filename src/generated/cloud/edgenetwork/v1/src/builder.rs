@@ -17,7 +17,7 @@
 pub mod edge_network {
     use crate::Result;
 
-    /// A builder for [EdgeNetwork][super::super::client::EdgeNetwork].
+    /// A builder for [EdgeNetwork][crate::client::EdgeNetwork].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -45,7 +45,7 @@ pub mod edge_network {
         }
     }
 
-    /// Common implementation for [super::super::client::EdgeNetwork] request builders.
+    /// Common implementation for [crate::client::EdgeNetwork] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeNetwork>,
@@ -68,7 +68,7 @@ pub mod edge_network {
         }
     }
 
-    /// The request builder for [EdgeNetwork::initialize_zone][super::super::client::EdgeNetwork::initialize_zone] calls.
+    /// The request builder for [EdgeNetwork::initialize_zone][crate::client::EdgeNetwork::initialize_zone] calls.
     ///
     /// # Example
     /// ```no_run
@@ -131,7 +131,7 @@ pub mod edge_network {
         }
     }
 
-    /// The request builder for [EdgeNetwork::list_zones][super::super::client::EdgeNetwork::list_zones] calls.
+    /// The request builder for [EdgeNetwork::list_zones][crate::client::EdgeNetwork::list_zones] calls.
     ///
     /// # Example
     /// ```no_run
@@ -246,7 +246,7 @@ pub mod edge_network {
         }
     }
 
-    /// The request builder for [EdgeNetwork::get_zone][super::super::client::EdgeNetwork::get_zone] calls.
+    /// The request builder for [EdgeNetwork::get_zone][crate::client::EdgeNetwork::get_zone] calls.
     ///
     /// # Example
     /// ```no_run
@@ -309,7 +309,7 @@ pub mod edge_network {
         }
     }
 
-    /// The request builder for [EdgeNetwork::list_networks][super::super::client::EdgeNetwork::list_networks] calls.
+    /// The request builder for [EdgeNetwork::list_networks][crate::client::EdgeNetwork::list_networks] calls.
     ///
     /// # Example
     /// ```no_run
@@ -424,7 +424,7 @@ pub mod edge_network {
         }
     }
 
-    /// The request builder for [EdgeNetwork::get_network][super::super::client::EdgeNetwork::get_network] calls.
+    /// The request builder for [EdgeNetwork::get_network][crate::client::EdgeNetwork::get_network] calls.
     ///
     /// # Example
     /// ```no_run
@@ -487,7 +487,7 @@ pub mod edge_network {
         }
     }
 
-    /// The request builder for [EdgeNetwork::diagnose_network][super::super::client::EdgeNetwork::diagnose_network] calls.
+    /// The request builder for [EdgeNetwork::diagnose_network][crate::client::EdgeNetwork::diagnose_network] calls.
     ///
     /// # Example
     /// ```no_run
@@ -550,7 +550,7 @@ pub mod edge_network {
         }
     }
 
-    /// The request builder for [EdgeNetwork::create_network][super::super::client::EdgeNetwork::create_network] calls.
+    /// The request builder for [EdgeNetwork::create_network][crate::client::EdgeNetwork::create_network] calls.
     ///
     /// # Example
     /// ```no_run
@@ -595,7 +595,7 @@ pub mod edge_network {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_network][super::super::client::EdgeNetwork::create_network].
+        /// on [create_network][crate::client::EdgeNetwork::create_network].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_network(self.0.request, self.0.options)
@@ -688,7 +688,7 @@ pub mod edge_network {
         }
     }
 
-    /// The request builder for [EdgeNetwork::delete_network][super::super::client::EdgeNetwork::delete_network] calls.
+    /// The request builder for [EdgeNetwork::delete_network][crate::client::EdgeNetwork::delete_network] calls.
     ///
     /// # Example
     /// ```no_run
@@ -733,7 +733,7 @@ pub mod edge_network {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_network][super::super::client::EdgeNetwork::delete_network].
+        /// on [delete_network][crate::client::EdgeNetwork::delete_network].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_network(self.0.request, self.0.options)
@@ -798,7 +798,7 @@ pub mod edge_network {
         }
     }
 
-    /// The request builder for [EdgeNetwork::list_subnets][super::super::client::EdgeNetwork::list_subnets] calls.
+    /// The request builder for [EdgeNetwork::list_subnets][crate::client::EdgeNetwork::list_subnets] calls.
     ///
     /// # Example
     /// ```no_run
@@ -913,7 +913,7 @@ pub mod edge_network {
         }
     }
 
-    /// The request builder for [EdgeNetwork::get_subnet][super::super::client::EdgeNetwork::get_subnet] calls.
+    /// The request builder for [EdgeNetwork::get_subnet][crate::client::EdgeNetwork::get_subnet] calls.
     ///
     /// # Example
     /// ```no_run
@@ -976,7 +976,7 @@ pub mod edge_network {
         }
     }
 
-    /// The request builder for [EdgeNetwork::create_subnet][super::super::client::EdgeNetwork::create_subnet] calls.
+    /// The request builder for [EdgeNetwork::create_subnet][crate::client::EdgeNetwork::create_subnet] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1021,7 +1021,7 @@ pub mod edge_network {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_subnet][super::super::client::EdgeNetwork::create_subnet].
+        /// on [create_subnet][crate::client::EdgeNetwork::create_subnet].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_subnet(self.0.request, self.0.options)
@@ -1114,7 +1114,7 @@ pub mod edge_network {
         }
     }
 
-    /// The request builder for [EdgeNetwork::update_subnet][super::super::client::EdgeNetwork::update_subnet] calls.
+    /// The request builder for [EdgeNetwork::update_subnet][crate::client::EdgeNetwork::update_subnet] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1159,7 +1159,7 @@ pub mod edge_network {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_subnet][super::super::client::EdgeNetwork::update_subnet].
+        /// on [update_subnet][crate::client::EdgeNetwork::update_subnet].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_subnet(self.0.request, self.0.options)
@@ -1258,7 +1258,7 @@ pub mod edge_network {
         }
     }
 
-    /// The request builder for [EdgeNetwork::delete_subnet][super::super::client::EdgeNetwork::delete_subnet] calls.
+    /// The request builder for [EdgeNetwork::delete_subnet][crate::client::EdgeNetwork::delete_subnet] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1303,7 +1303,7 @@ pub mod edge_network {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_subnet][super::super::client::EdgeNetwork::delete_subnet].
+        /// on [delete_subnet][crate::client::EdgeNetwork::delete_subnet].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_subnet(self.0.request, self.0.options)
@@ -1368,7 +1368,7 @@ pub mod edge_network {
         }
     }
 
-    /// The request builder for [EdgeNetwork::list_interconnects][super::super::client::EdgeNetwork::list_interconnects] calls.
+    /// The request builder for [EdgeNetwork::list_interconnects][crate::client::EdgeNetwork::list_interconnects] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1486,7 +1486,7 @@ pub mod edge_network {
         }
     }
 
-    /// The request builder for [EdgeNetwork::get_interconnect][super::super::client::EdgeNetwork::get_interconnect] calls.
+    /// The request builder for [EdgeNetwork::get_interconnect][crate::client::EdgeNetwork::get_interconnect] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1549,7 +1549,7 @@ pub mod edge_network {
         }
     }
 
-    /// The request builder for [EdgeNetwork::diagnose_interconnect][super::super::client::EdgeNetwork::diagnose_interconnect] calls.
+    /// The request builder for [EdgeNetwork::diagnose_interconnect][crate::client::EdgeNetwork::diagnose_interconnect] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1615,7 +1615,7 @@ pub mod edge_network {
         }
     }
 
-    /// The request builder for [EdgeNetwork::list_interconnect_attachments][super::super::client::EdgeNetwork::list_interconnect_attachments] calls.
+    /// The request builder for [EdgeNetwork::list_interconnect_attachments][crate::client::EdgeNetwork::list_interconnect_attachments] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1739,7 +1739,7 @@ pub mod edge_network {
         }
     }
 
-    /// The request builder for [EdgeNetwork::get_interconnect_attachment][super::super::client::EdgeNetwork::get_interconnect_attachment] calls.
+    /// The request builder for [EdgeNetwork::get_interconnect_attachment][crate::client::EdgeNetwork::get_interconnect_attachment] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1807,7 +1807,7 @@ pub mod edge_network {
         }
     }
 
-    /// The request builder for [EdgeNetwork::create_interconnect_attachment][super::super::client::EdgeNetwork::create_interconnect_attachment] calls.
+    /// The request builder for [EdgeNetwork::create_interconnect_attachment][crate::client::EdgeNetwork::create_interconnect_attachment] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1857,7 +1857,7 @@ pub mod edge_network {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_interconnect_attachment][super::super::client::EdgeNetwork::create_interconnect_attachment].
+        /// on [create_interconnect_attachment][crate::client::EdgeNetwork::create_interconnect_attachment].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_interconnect_attachment(self.0.request, self.0.options)
@@ -1956,7 +1956,7 @@ pub mod edge_network {
         }
     }
 
-    /// The request builder for [EdgeNetwork::delete_interconnect_attachment][super::super::client::EdgeNetwork::delete_interconnect_attachment] calls.
+    /// The request builder for [EdgeNetwork::delete_interconnect_attachment][crate::client::EdgeNetwork::delete_interconnect_attachment] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2006,7 +2006,7 @@ pub mod edge_network {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_interconnect_attachment][super::super::client::EdgeNetwork::delete_interconnect_attachment].
+        /// on [delete_interconnect_attachment][crate::client::EdgeNetwork::delete_interconnect_attachment].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_interconnect_attachment(self.0.request, self.0.options)
@@ -2071,7 +2071,7 @@ pub mod edge_network {
         }
     }
 
-    /// The request builder for [EdgeNetwork::list_routers][super::super::client::EdgeNetwork::list_routers] calls.
+    /// The request builder for [EdgeNetwork::list_routers][crate::client::EdgeNetwork::list_routers] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2186,7 +2186,7 @@ pub mod edge_network {
         }
     }
 
-    /// The request builder for [EdgeNetwork::get_router][super::super::client::EdgeNetwork::get_router] calls.
+    /// The request builder for [EdgeNetwork::get_router][crate::client::EdgeNetwork::get_router] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2249,7 +2249,7 @@ pub mod edge_network {
         }
     }
 
-    /// The request builder for [EdgeNetwork::diagnose_router][super::super::client::EdgeNetwork::diagnose_router] calls.
+    /// The request builder for [EdgeNetwork::diagnose_router][crate::client::EdgeNetwork::diagnose_router] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2312,7 +2312,7 @@ pub mod edge_network {
         }
     }
 
-    /// The request builder for [EdgeNetwork::create_router][super::super::client::EdgeNetwork::create_router] calls.
+    /// The request builder for [EdgeNetwork::create_router][crate::client::EdgeNetwork::create_router] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2357,7 +2357,7 @@ pub mod edge_network {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_router][super::super::client::EdgeNetwork::create_router].
+        /// on [create_router][crate::client::EdgeNetwork::create_router].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_router(self.0.request, self.0.options)
@@ -2450,7 +2450,7 @@ pub mod edge_network {
         }
     }
 
-    /// The request builder for [EdgeNetwork::update_router][super::super::client::EdgeNetwork::update_router] calls.
+    /// The request builder for [EdgeNetwork::update_router][crate::client::EdgeNetwork::update_router] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2495,7 +2495,7 @@ pub mod edge_network {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_router][super::super::client::EdgeNetwork::update_router].
+        /// on [update_router][crate::client::EdgeNetwork::update_router].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_router(self.0.request, self.0.options)
@@ -2594,7 +2594,7 @@ pub mod edge_network {
         }
     }
 
-    /// The request builder for [EdgeNetwork::delete_router][super::super::client::EdgeNetwork::delete_router] calls.
+    /// The request builder for [EdgeNetwork::delete_router][crate::client::EdgeNetwork::delete_router] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2639,7 +2639,7 @@ pub mod edge_network {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_router][super::super::client::EdgeNetwork::delete_router].
+        /// on [delete_router][crate::client::EdgeNetwork::delete_router].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_router(self.0.request, self.0.options)
@@ -2704,7 +2704,7 @@ pub mod edge_network {
         }
     }
 
-    /// The request builder for [EdgeNetwork::list_locations][super::super::client::EdgeNetwork::list_locations] calls.
+    /// The request builder for [EdgeNetwork::list_locations][crate::client::EdgeNetwork::list_locations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2814,7 +2814,7 @@ pub mod edge_network {
         }
     }
 
-    /// The request builder for [EdgeNetwork::get_location][super::super::client::EdgeNetwork::get_location] calls.
+    /// The request builder for [EdgeNetwork::get_location][crate::client::EdgeNetwork::get_location] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2875,7 +2875,7 @@ pub mod edge_network {
         }
     }
 
-    /// The request builder for [EdgeNetwork::list_operations][super::super::client::EdgeNetwork::list_operations] calls.
+    /// The request builder for [EdgeNetwork::list_operations][crate::client::EdgeNetwork::list_operations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2987,7 +2987,7 @@ pub mod edge_network {
         }
     }
 
-    /// The request builder for [EdgeNetwork::get_operation][super::super::client::EdgeNetwork::get_operation] calls.
+    /// The request builder for [EdgeNetwork::get_operation][crate::client::EdgeNetwork::get_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3051,7 +3051,7 @@ pub mod edge_network {
         }
     }
 
-    /// The request builder for [EdgeNetwork::delete_operation][super::super::client::EdgeNetwork::delete_operation] calls.
+    /// The request builder for [EdgeNetwork::delete_operation][crate::client::EdgeNetwork::delete_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3115,7 +3115,7 @@ pub mod edge_network {
         }
     }
 
-    /// The request builder for [EdgeNetwork::cancel_operation][super::super::client::EdgeNetwork::cancel_operation] calls.
+    /// The request builder for [EdgeNetwork::cancel_operation][crate::client::EdgeNetwork::cancel_operation] calls.
     ///
     /// # Example
     /// ```no_run

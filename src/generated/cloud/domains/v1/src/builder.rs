@@ -17,7 +17,7 @@
 pub mod domains {
     use crate::Result;
 
-    /// A builder for [Domains][super::super::client::Domains].
+    /// A builder for [Domains][crate::client::Domains].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -45,7 +45,7 @@ pub mod domains {
         }
     }
 
-    /// Common implementation for [super::super::client::Domains] request builders.
+    /// Common implementation for [crate::client::Domains] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::Domains>,
@@ -66,7 +66,7 @@ pub mod domains {
         }
     }
 
-    /// The request builder for [Domains::search_domains][super::super::client::Domains::search_domains] calls.
+    /// The request builder for [Domains::search_domains][crate::client::Domains::search_domains] calls.
     ///
     /// # Example
     /// ```no_run
@@ -135,7 +135,7 @@ pub mod domains {
         }
     }
 
-    /// The request builder for [Domains::retrieve_register_parameters][super::super::client::Domains::retrieve_register_parameters] calls.
+    /// The request builder for [Domains::retrieve_register_parameters][crate::client::Domains::retrieve_register_parameters] calls.
     ///
     /// # Example
     /// ```no_run
@@ -209,7 +209,7 @@ pub mod domains {
         }
     }
 
-    /// The request builder for [Domains::register_domain][super::super::client::Domains::register_domain] calls.
+    /// The request builder for [Domains::register_domain][crate::client::Domains::register_domain] calls.
     ///
     /// # Example
     /// ```no_run
@@ -252,7 +252,7 @@ pub mod domains {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [register_domain][super::super::client::Domains::register_domain].
+        /// on [register_domain][crate::client::Domains::register_domain].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .register_domain(self.0.request, self.0.options)
@@ -383,7 +383,7 @@ pub mod domains {
         }
     }
 
-    /// The request builder for [Domains::retrieve_transfer_parameters][super::super::client::Domains::retrieve_transfer_parameters] calls.
+    /// The request builder for [Domains::retrieve_transfer_parameters][crate::client::Domains::retrieve_transfer_parameters] calls.
     ///
     /// # Example
     /// ```no_run
@@ -457,7 +457,7 @@ pub mod domains {
         }
     }
 
-    /// The request builder for [Domains::transfer_domain][super::super::client::Domains::transfer_domain] calls.
+    /// The request builder for [Domains::transfer_domain][crate::client::Domains::transfer_domain] calls.
     ///
     /// # Example
     /// ```no_run
@@ -500,7 +500,7 @@ pub mod domains {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [transfer_domain][super::super::client::Domains::transfer_domain].
+        /// on [transfer_domain][crate::client::Domains::transfer_domain].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .transfer_domain(self.0.request, self.0.options)
@@ -638,7 +638,7 @@ pub mod domains {
         }
     }
 
-    /// The request builder for [Domains::list_registrations][super::super::client::Domains::list_registrations] calls.
+    /// The request builder for [Domains::list_registrations][crate::client::Domains::list_registrations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -748,7 +748,7 @@ pub mod domains {
         }
     }
 
-    /// The request builder for [Domains::get_registration][super::super::client::Domains::get_registration] calls.
+    /// The request builder for [Domains::get_registration][crate::client::Domains::get_registration] calls.
     ///
     /// # Example
     /// ```no_run
@@ -809,7 +809,7 @@ pub mod domains {
         }
     }
 
-    /// The request builder for [Domains::update_registration][super::super::client::Domains::update_registration] calls.
+    /// The request builder for [Domains::update_registration][crate::client::Domains::update_registration] calls.
     ///
     /// # Example
     /// ```no_run
@@ -855,7 +855,7 @@ pub mod domains {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_registration][super::super::client::Domains::update_registration].
+        /// on [update_registration][crate::client::Domains::update_registration].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_registration(self.0.request, self.0.options)
@@ -946,7 +946,7 @@ pub mod domains {
         }
     }
 
-    /// The request builder for [Domains::configure_management_settings][super::super::client::Domains::configure_management_settings] calls.
+    /// The request builder for [Domains::configure_management_settings][crate::client::Domains::configure_management_settings] calls.
     ///
     /// # Example
     /// ```no_run
@@ -994,7 +994,7 @@ pub mod domains {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [configure_management_settings][super::super::client::Domains::configure_management_settings].
+        /// on [configure_management_settings][crate::client::Domains::configure_management_settings].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .configure_management_settings(self.0.request, self.0.options)
@@ -1093,7 +1093,7 @@ pub mod domains {
         }
     }
 
-    /// The request builder for [Domains::configure_dns_settings][super::super::client::Domains::configure_dns_settings] calls.
+    /// The request builder for [Domains::configure_dns_settings][crate::client::Domains::configure_dns_settings] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1139,7 +1139,7 @@ pub mod domains {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [configure_dns_settings][super::super::client::Domains::configure_dns_settings].
+        /// on [configure_dns_settings][crate::client::Domains::configure_dns_settings].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .configure_dns_settings(self.0.request, self.0.options)
@@ -1244,7 +1244,7 @@ pub mod domains {
         }
     }
 
-    /// The request builder for [Domains::configure_contact_settings][super::super::client::Domains::configure_contact_settings] calls.
+    /// The request builder for [Domains::configure_contact_settings][crate::client::Domains::configure_contact_settings] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1292,7 +1292,7 @@ pub mod domains {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [configure_contact_settings][super::super::client::Domains::configure_contact_settings].
+        /// on [configure_contact_settings][crate::client::Domains::configure_contact_settings].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .configure_contact_settings(self.0.request, self.0.options)
@@ -1408,7 +1408,7 @@ pub mod domains {
         }
     }
 
-    /// The request builder for [Domains::export_registration][super::super::client::Domains::export_registration] calls.
+    /// The request builder for [Domains::export_registration][crate::client::Domains::export_registration] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1454,7 +1454,7 @@ pub mod domains {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [export_registration][super::super::client::Domains::export_registration].
+        /// on [export_registration][crate::client::Domains::export_registration].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .export_registration(self.0.request, self.0.options)
@@ -1513,7 +1513,7 @@ pub mod domains {
         }
     }
 
-    /// The request builder for [Domains::delete_registration][super::super::client::Domains::delete_registration] calls.
+    /// The request builder for [Domains::delete_registration][crate::client::Domains::delete_registration] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1559,7 +1559,7 @@ pub mod domains {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_registration][super::super::client::Domains::delete_registration].
+        /// on [delete_registration][crate::client::Domains::delete_registration].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_registration(self.0.request, self.0.options)
@@ -1618,7 +1618,7 @@ pub mod domains {
         }
     }
 
-    /// The request builder for [Domains::retrieve_authorization_code][super::super::client::Domains::retrieve_authorization_code] calls.
+    /// The request builder for [Domains::retrieve_authorization_code][crate::client::Domains::retrieve_authorization_code] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1684,7 +1684,7 @@ pub mod domains {
         }
     }
 
-    /// The request builder for [Domains::reset_authorization_code][super::super::client::Domains::reset_authorization_code] calls.
+    /// The request builder for [Domains::reset_authorization_code][crate::client::Domains::reset_authorization_code] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1748,7 +1748,7 @@ pub mod domains {
         }
     }
 
-    /// The request builder for [Domains::list_operations][super::super::client::Domains::list_operations] calls.
+    /// The request builder for [Domains::list_operations][crate::client::Domains::list_operations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1858,7 +1858,7 @@ pub mod domains {
         }
     }
 
-    /// The request builder for [Domains::get_operation][super::super::client::Domains::get_operation] calls.
+    /// The request builder for [Domains::get_operation][crate::client::Domains::get_operation] calls.
     ///
     /// # Example
     /// ```no_run

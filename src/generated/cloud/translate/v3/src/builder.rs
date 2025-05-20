@@ -17,7 +17,7 @@
 pub mod translation_service {
     use crate::Result;
 
-    /// A builder for [TranslationService][super::super::client::TranslationService].
+    /// A builder for [TranslationService][crate::client::TranslationService].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -45,7 +45,7 @@ pub mod translation_service {
         }
     }
 
-    /// Common implementation for [super::super::client::TranslationService] request builders.
+    /// Common implementation for [crate::client::TranslationService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::TranslationService>,
@@ -68,7 +68,7 @@ pub mod translation_service {
         }
     }
 
-    /// The request builder for [TranslationService::translate_text][super::super::client::TranslationService::translate_text] calls.
+    /// The request builder for [TranslationService::translate_text][crate::client::TranslationService::translate_text] calls.
     ///
     /// # Example
     /// ```no_run
@@ -217,7 +217,7 @@ pub mod translation_service {
         }
     }
 
-    /// The request builder for [TranslationService::romanize_text][super::super::client::TranslationService::romanize_text] calls.
+    /// The request builder for [TranslationService::romanize_text][crate::client::TranslationService::romanize_text] calls.
     ///
     /// # Example
     /// ```no_run
@@ -299,7 +299,7 @@ pub mod translation_service {
         }
     }
 
-    /// The request builder for [TranslationService::detect_language][super::super::client::TranslationService::detect_language] calls.
+    /// The request builder for [TranslationService::detect_language][crate::client::TranslationService::detect_language] calls.
     ///
     /// # Example
     /// ```no_run
@@ -407,7 +407,7 @@ pub mod translation_service {
         }
     }
 
-    /// The request builder for [TranslationService::get_supported_languages][super::super::client::TranslationService::get_supported_languages] calls.
+    /// The request builder for [TranslationService::get_supported_languages][crate::client::TranslationService::get_supported_languages] calls.
     ///
     /// # Example
     /// ```no_run
@@ -485,7 +485,7 @@ pub mod translation_service {
         }
     }
 
-    /// The request builder for [TranslationService::translate_document][super::super::client::TranslationService::translate_document] calls.
+    /// The request builder for [TranslationService::translate_document][crate::client::TranslationService::translate_document] calls.
     ///
     /// # Example
     /// ```no_run
@@ -664,7 +664,7 @@ pub mod translation_service {
         }
     }
 
-    /// The request builder for [TranslationService::batch_translate_text][super::super::client::TranslationService::batch_translate_text] calls.
+    /// The request builder for [TranslationService::batch_translate_text][crate::client::TranslationService::batch_translate_text] calls.
     ///
     /// # Example
     /// ```no_run
@@ -712,7 +712,7 @@ pub mod translation_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [batch_translate_text][super::super::client::TranslationService::batch_translate_text].
+        /// on [batch_translate_text][crate::client::TranslationService::batch_translate_text].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .batch_translate_text(self.0.request, self.0.options)
@@ -861,7 +861,7 @@ pub mod translation_service {
         }
     }
 
-    /// The request builder for [TranslationService::batch_translate_document][super::super::client::TranslationService::batch_translate_document] calls.
+    /// The request builder for [TranslationService::batch_translate_document][crate::client::TranslationService::batch_translate_document] calls.
     ///
     /// # Example
     /// ```no_run
@@ -909,7 +909,7 @@ pub mod translation_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [batch_translate_document][super::super::client::TranslationService::batch_translate_document].
+        /// on [batch_translate_document][crate::client::TranslationService::batch_translate_document].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .batch_translate_document(self.0.request, self.0.options)
@@ -1079,7 +1079,7 @@ pub mod translation_service {
         }
     }
 
-    /// The request builder for [TranslationService::create_glossary][super::super::client::TranslationService::create_glossary] calls.
+    /// The request builder for [TranslationService::create_glossary][crate::client::TranslationService::create_glossary] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1124,7 +1124,7 @@ pub mod translation_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_glossary][super::super::client::TranslationService::create_glossary].
+        /// on [create_glossary][crate::client::TranslationService::create_glossary].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_glossary(self.0.request, self.0.options)
@@ -1206,7 +1206,7 @@ pub mod translation_service {
         }
     }
 
-    /// The request builder for [TranslationService::update_glossary][super::super::client::TranslationService::update_glossary] calls.
+    /// The request builder for [TranslationService::update_glossary][crate::client::TranslationService::update_glossary] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1251,7 +1251,7 @@ pub mod translation_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_glossary][super::super::client::TranslationService::update_glossary].
+        /// on [update_glossary][crate::client::TranslationService::update_glossary].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_glossary(self.0.request, self.0.options)
@@ -1343,7 +1343,7 @@ pub mod translation_service {
         }
     }
 
-    /// The request builder for [TranslationService::list_glossaries][super::super::client::TranslationService::list_glossaries] calls.
+    /// The request builder for [TranslationService::list_glossaries][crate::client::TranslationService::list_glossaries] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1452,7 +1452,7 @@ pub mod translation_service {
         }
     }
 
-    /// The request builder for [TranslationService::get_glossary][super::super::client::TranslationService::get_glossary] calls.
+    /// The request builder for [TranslationService::get_glossary][crate::client::TranslationService::get_glossary] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1515,7 +1515,7 @@ pub mod translation_service {
         }
     }
 
-    /// The request builder for [TranslationService::delete_glossary][super::super::client::TranslationService::delete_glossary] calls.
+    /// The request builder for [TranslationService::delete_glossary][crate::client::TranslationService::delete_glossary] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1560,7 +1560,7 @@ pub mod translation_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_glossary][super::super::client::TranslationService::delete_glossary].
+        /// on [delete_glossary][crate::client::TranslationService::delete_glossary].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_glossary(self.0.request, self.0.options)
@@ -1620,7 +1620,7 @@ pub mod translation_service {
         }
     }
 
-    /// The request builder for [TranslationService::get_glossary_entry][super::super::client::TranslationService::get_glossary_entry] calls.
+    /// The request builder for [TranslationService::get_glossary_entry][crate::client::TranslationService::get_glossary_entry] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1686,7 +1686,7 @@ pub mod translation_service {
         }
     }
 
-    /// The request builder for [TranslationService::list_glossary_entries][super::super::client::TranslationService::list_glossary_entries] calls.
+    /// The request builder for [TranslationService::list_glossary_entries][crate::client::TranslationService::list_glossary_entries] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1794,7 +1794,7 @@ pub mod translation_service {
         }
     }
 
-    /// The request builder for [TranslationService::create_glossary_entry][super::super::client::TranslationService::create_glossary_entry] calls.
+    /// The request builder for [TranslationService::create_glossary_entry][crate::client::TranslationService::create_glossary_entry] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1882,7 +1882,7 @@ pub mod translation_service {
         }
     }
 
-    /// The request builder for [TranslationService::update_glossary_entry][super::super::client::TranslationService::update_glossary_entry] calls.
+    /// The request builder for [TranslationService::update_glossary_entry][crate::client::TranslationService::update_glossary_entry] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1962,7 +1962,7 @@ pub mod translation_service {
         }
     }
 
-    /// The request builder for [TranslationService::delete_glossary_entry][super::super::client::TranslationService::delete_glossary_entry] calls.
+    /// The request builder for [TranslationService::delete_glossary_entry][crate::client::TranslationService::delete_glossary_entry] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2028,7 +2028,7 @@ pub mod translation_service {
         }
     }
 
-    /// The request builder for [TranslationService::create_dataset][super::super::client::TranslationService::create_dataset] calls.
+    /// The request builder for [TranslationService::create_dataset][crate::client::TranslationService::create_dataset] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2073,7 +2073,7 @@ pub mod translation_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_dataset][super::super::client::TranslationService::create_dataset].
+        /// on [create_dataset][crate::client::TranslationService::create_dataset].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_dataset(self.0.request, self.0.options)
@@ -2154,7 +2154,7 @@ pub mod translation_service {
         }
     }
 
-    /// The request builder for [TranslationService::get_dataset][super::super::client::TranslationService::get_dataset] calls.
+    /// The request builder for [TranslationService::get_dataset][crate::client::TranslationService::get_dataset] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2217,7 +2217,7 @@ pub mod translation_service {
         }
     }
 
-    /// The request builder for [TranslationService::list_datasets][super::super::client::TranslationService::list_datasets] calls.
+    /// The request builder for [TranslationService::list_datasets][crate::client::TranslationService::list_datasets] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2320,7 +2320,7 @@ pub mod translation_service {
         }
     }
 
-    /// The request builder for [TranslationService::delete_dataset][super::super::client::TranslationService::delete_dataset] calls.
+    /// The request builder for [TranslationService::delete_dataset][crate::client::TranslationService::delete_dataset] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2365,7 +2365,7 @@ pub mod translation_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_dataset][super::super::client::TranslationService::delete_dataset].
+        /// on [delete_dataset][crate::client::TranslationService::delete_dataset].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_dataset(self.0.request, self.0.options)
@@ -2425,7 +2425,7 @@ pub mod translation_service {
         }
     }
 
-    /// The request builder for [TranslationService::create_adaptive_mt_dataset][super::super::client::TranslationService::create_adaptive_mt_dataset] calls.
+    /// The request builder for [TranslationService::create_adaptive_mt_dataset][crate::client::TranslationService::create_adaptive_mt_dataset] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2515,7 +2515,7 @@ pub mod translation_service {
         }
     }
 
-    /// The request builder for [TranslationService::delete_adaptive_mt_dataset][super::super::client::TranslationService::delete_adaptive_mt_dataset] calls.
+    /// The request builder for [TranslationService::delete_adaptive_mt_dataset][crate::client::TranslationService::delete_adaptive_mt_dataset] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2583,7 +2583,7 @@ pub mod translation_service {
         }
     }
 
-    /// The request builder for [TranslationService::get_adaptive_mt_dataset][super::super::client::TranslationService::get_adaptive_mt_dataset] calls.
+    /// The request builder for [TranslationService::get_adaptive_mt_dataset][crate::client::TranslationService::get_adaptive_mt_dataset] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2649,7 +2649,7 @@ pub mod translation_service {
         }
     }
 
-    /// The request builder for [TranslationService::list_adaptive_mt_datasets][super::super::client::TranslationService::list_adaptive_mt_datasets] calls.
+    /// The request builder for [TranslationService::list_adaptive_mt_datasets][crate::client::TranslationService::list_adaptive_mt_datasets] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2765,7 +2765,7 @@ pub mod translation_service {
         }
     }
 
-    /// The request builder for [TranslationService::adaptive_mt_translate][super::super::client::TranslationService::adaptive_mt_translate] calls.
+    /// The request builder for [TranslationService::adaptive_mt_translate][crate::client::TranslationService::adaptive_mt_translate] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2895,7 +2895,7 @@ pub mod translation_service {
         }
     }
 
-    /// The request builder for [TranslationService::get_adaptive_mt_file][super::super::client::TranslationService::get_adaptive_mt_file] calls.
+    /// The request builder for [TranslationService::get_adaptive_mt_file][crate::client::TranslationService::get_adaptive_mt_file] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2961,7 +2961,7 @@ pub mod translation_service {
         }
     }
 
-    /// The request builder for [TranslationService::delete_adaptive_mt_file][super::super::client::TranslationService::delete_adaptive_mt_file] calls.
+    /// The request builder for [TranslationService::delete_adaptive_mt_file][crate::client::TranslationService::delete_adaptive_mt_file] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3027,7 +3027,7 @@ pub mod translation_service {
         }
     }
 
-    /// The request builder for [TranslationService::import_adaptive_mt_file][super::super::client::TranslationService::import_adaptive_mt_file] calls.
+    /// The request builder for [TranslationService::import_adaptive_mt_file][crate::client::TranslationService::import_adaptive_mt_file] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3137,7 +3137,7 @@ pub mod translation_service {
         }
     }
 
-    /// The request builder for [TranslationService::list_adaptive_mt_files][super::super::client::TranslationService::list_adaptive_mt_files] calls.
+    /// The request builder for [TranslationService::list_adaptive_mt_files][crate::client::TranslationService::list_adaptive_mt_files] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3245,7 +3245,7 @@ pub mod translation_service {
         }
     }
 
-    /// The request builder for [TranslationService::list_adaptive_mt_sentences][super::super::client::TranslationService::list_adaptive_mt_sentences] calls.
+    /// The request builder for [TranslationService::list_adaptive_mt_sentences][crate::client::TranslationService::list_adaptive_mt_sentences] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3357,7 +3357,7 @@ pub mod translation_service {
         }
     }
 
-    /// The request builder for [TranslationService::import_data][super::super::client::TranslationService::import_data] calls.
+    /// The request builder for [TranslationService::import_data][crate::client::TranslationService::import_data] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3402,7 +3402,7 @@ pub mod translation_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [import_data][super::super::client::TranslationService::import_data].
+        /// on [import_data][crate::client::TranslationService::import_data].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .import_data(self.0.request, self.0.options)
@@ -3483,7 +3483,7 @@ pub mod translation_service {
         }
     }
 
-    /// The request builder for [TranslationService::export_data][super::super::client::TranslationService::export_data] calls.
+    /// The request builder for [TranslationService::export_data][crate::client::TranslationService::export_data] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3528,7 +3528,7 @@ pub mod translation_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [export_data][super::super::client::TranslationService::export_data].
+        /// on [export_data][crate::client::TranslationService::export_data].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .export_data(self.0.request, self.0.options)
@@ -3609,7 +3609,7 @@ pub mod translation_service {
         }
     }
 
-    /// The request builder for [TranslationService::list_examples][super::super::client::TranslationService::list_examples] calls.
+    /// The request builder for [TranslationService::list_examples][crate::client::TranslationService::list_examples] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3718,7 +3718,7 @@ pub mod translation_service {
         }
     }
 
-    /// The request builder for [TranslationService::create_model][super::super::client::TranslationService::create_model] calls.
+    /// The request builder for [TranslationService::create_model][crate::client::TranslationService::create_model] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3763,7 +3763,7 @@ pub mod translation_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_model][super::super::client::TranslationService::create_model].
+        /// on [create_model][crate::client::TranslationService::create_model].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_model(self.0.request, self.0.options)
@@ -3842,7 +3842,7 @@ pub mod translation_service {
         }
     }
 
-    /// The request builder for [TranslationService::list_models][super::super::client::TranslationService::list_models] calls.
+    /// The request builder for [TranslationService::list_models][crate::client::TranslationService::list_models] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3951,7 +3951,7 @@ pub mod translation_service {
         }
     }
 
-    /// The request builder for [TranslationService::get_model][super::super::client::TranslationService::get_model] calls.
+    /// The request builder for [TranslationService::get_model][crate::client::TranslationService::get_model] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4014,7 +4014,7 @@ pub mod translation_service {
         }
     }
 
-    /// The request builder for [TranslationService::delete_model][super::super::client::TranslationService::delete_model] calls.
+    /// The request builder for [TranslationService::delete_model][crate::client::TranslationService::delete_model] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4059,7 +4059,7 @@ pub mod translation_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_model][super::super::client::TranslationService::delete_model].
+        /// on [delete_model][crate::client::TranslationService::delete_model].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_model(self.0.request, self.0.options)
@@ -4119,7 +4119,7 @@ pub mod translation_service {
         }
     }
 
-    /// The request builder for [TranslationService::list_locations][super::super::client::TranslationService::list_locations] calls.
+    /// The request builder for [TranslationService::list_locations][crate::client::TranslationService::list_locations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4229,7 +4229,7 @@ pub mod translation_service {
         }
     }
 
-    /// The request builder for [TranslationService::get_location][super::super::client::TranslationService::get_location] calls.
+    /// The request builder for [TranslationService::get_location][crate::client::TranslationService::get_location] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4290,7 +4290,7 @@ pub mod translation_service {
         }
     }
 
-    /// The request builder for [TranslationService::list_operations][super::super::client::TranslationService::list_operations] calls.
+    /// The request builder for [TranslationService::list_operations][crate::client::TranslationService::list_operations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4402,7 +4402,7 @@ pub mod translation_service {
         }
     }
 
-    /// The request builder for [TranslationService::get_operation][super::super::client::TranslationService::get_operation] calls.
+    /// The request builder for [TranslationService::get_operation][crate::client::TranslationService::get_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4466,7 +4466,7 @@ pub mod translation_service {
         }
     }
 
-    /// The request builder for [TranslationService::delete_operation][super::super::client::TranslationService::delete_operation] calls.
+    /// The request builder for [TranslationService::delete_operation][crate::client::TranslationService::delete_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4530,7 +4530,7 @@ pub mod translation_service {
         }
     }
 
-    /// The request builder for [TranslationService::cancel_operation][super::super::client::TranslationService::cancel_operation] calls.
+    /// The request builder for [TranslationService::cancel_operation][crate::client::TranslationService::cancel_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4594,7 +4594,7 @@ pub mod translation_service {
         }
     }
 
-    /// The request builder for [TranslationService::wait_operation][super::super::client::TranslationService::wait_operation] calls.
+    /// The request builder for [TranslationService::wait_operation][crate::client::TranslationService::wait_operation] calls.
     ///
     /// # Example
     /// ```no_run

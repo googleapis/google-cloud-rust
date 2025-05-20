@@ -17,7 +17,7 @@
 pub mod data_policy_service {
     use crate::Result;
 
-    /// A builder for [DataPolicyService][super::super::client::DataPolicyService].
+    /// A builder for [DataPolicyService][crate::client::DataPolicyService].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -45,7 +45,7 @@ pub mod data_policy_service {
         }
     }
 
-    /// Common implementation for [super::super::client::DataPolicyService] request builders.
+    /// Common implementation for [crate::client::DataPolicyService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::DataPolicyService>,
@@ -68,7 +68,7 @@ pub mod data_policy_service {
         }
     }
 
-    /// The request builder for [DataPolicyService::create_data_policy][super::super::client::DataPolicyService::create_data_policy] calls.
+    /// The request builder for [DataPolicyService::create_data_policy][crate::client::DataPolicyService::create_data_policy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -156,7 +156,7 @@ pub mod data_policy_service {
         }
     }
 
-    /// The request builder for [DataPolicyService::update_data_policy][super::super::client::DataPolicyService::update_data_policy] calls.
+    /// The request builder for [DataPolicyService::update_data_policy][crate::client::DataPolicyService::update_data_policy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -254,7 +254,7 @@ pub mod data_policy_service {
         }
     }
 
-    /// The request builder for [DataPolicyService::rename_data_policy][super::super::client::DataPolicyService::rename_data_policy] calls.
+    /// The request builder for [DataPolicyService::rename_data_policy][crate::client::DataPolicyService::rename_data_policy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -328,7 +328,7 @@ pub mod data_policy_service {
         }
     }
 
-    /// The request builder for [DataPolicyService::delete_data_policy][super::super::client::DataPolicyService::delete_data_policy] calls.
+    /// The request builder for [DataPolicyService::delete_data_policy][crate::client::DataPolicyService::delete_data_policy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -394,7 +394,7 @@ pub mod data_policy_service {
         }
     }
 
-    /// The request builder for [DataPolicyService::get_data_policy][super::super::client::DataPolicyService::get_data_policy] calls.
+    /// The request builder for [DataPolicyService::get_data_policy][crate::client::DataPolicyService::get_data_policy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -457,7 +457,7 @@ pub mod data_policy_service {
         }
     }
 
-    /// The request builder for [DataPolicyService::list_data_policies][super::super::client::DataPolicyService::list_data_policies] calls.
+    /// The request builder for [DataPolicyService::list_data_policies][crate::client::DataPolicyService::list_data_policies] calls.
     ///
     /// # Example
     /// ```no_run
@@ -569,7 +569,7 @@ pub mod data_policy_service {
         }
     }
 
-    /// The request builder for [DataPolicyService::get_iam_policy][super::super::client::DataPolicyService::get_iam_policy] calls.
+    /// The request builder for [DataPolicyService::get_iam_policy][crate::client::DataPolicyService::get_iam_policy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -650,7 +650,7 @@ pub mod data_policy_service {
         }
     }
 
-    /// The request builder for [DataPolicyService::set_iam_policy][super::super::client::DataPolicyService::set_iam_policy] calls.
+    /// The request builder for [DataPolicyService::set_iam_policy][crate::client::DataPolicyService::set_iam_policy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -753,7 +753,7 @@ pub mod data_policy_service {
         }
     }
 
-    /// The request builder for [DataPolicyService::test_iam_permissions][super::super::client::DataPolicyService::test_iam_permissions] calls.
+    /// The request builder for [DataPolicyService::test_iam_permissions][crate::client::DataPolicyService::test_iam_permissions] calls.
     ///
     /// # Example
     /// ```no_run

@@ -17,7 +17,7 @@
 pub mod case_attachment_service {
     use crate::Result;
 
-    /// A builder for [CaseAttachmentService][super::super::client::CaseAttachmentService].
+    /// A builder for [CaseAttachmentService][crate::client::CaseAttachmentService].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -45,7 +45,7 @@ pub mod case_attachment_service {
         }
     }
 
-    /// Common implementation for [super::super::client::CaseAttachmentService] request builders.
+    /// Common implementation for [crate::client::CaseAttachmentService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::CaseAttachmentService>,
@@ -68,7 +68,7 @@ pub mod case_attachment_service {
         }
     }
 
-    /// The request builder for [CaseAttachmentService::list_attachments][super::super::client::CaseAttachmentService::list_attachments] calls.
+    /// The request builder for [CaseAttachmentService::list_attachments][crate::client::CaseAttachmentService::list_attachments] calls.
     ///
     /// # Example
     /// ```no_run
@@ -175,7 +175,7 @@ pub mod case_attachment_service {
 pub mod case_service {
     use crate::Result;
 
-    /// A builder for [CaseService][super::super::client::CaseService].
+    /// A builder for [CaseService][crate::client::CaseService].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -203,7 +203,7 @@ pub mod case_service {
         }
     }
 
-    /// Common implementation for [super::super::client::CaseService] request builders.
+    /// Common implementation for [crate::client::CaseService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::CaseService>,
@@ -226,7 +226,7 @@ pub mod case_service {
         }
     }
 
-    /// The request builder for [CaseService::get_case][super::super::client::CaseService::get_case] calls.
+    /// The request builder for [CaseService::get_case][crate::client::CaseService::get_case] calls.
     ///
     /// # Example
     /// ```no_run
@@ -289,7 +289,7 @@ pub mod case_service {
         }
     }
 
-    /// The request builder for [CaseService::list_cases][super::super::client::CaseService::list_cases] calls.
+    /// The request builder for [CaseService::list_cases][crate::client::CaseService::list_cases] calls.
     ///
     /// # Example
     /// ```no_run
@@ -398,7 +398,7 @@ pub mod case_service {
         }
     }
 
-    /// The request builder for [CaseService::search_cases][super::super::client::CaseService::search_cases] calls.
+    /// The request builder for [CaseService::search_cases][crate::client::CaseService::search_cases] calls.
     ///
     /// # Example
     /// ```no_run
@@ -505,7 +505,7 @@ pub mod case_service {
         }
     }
 
-    /// The request builder for [CaseService::create_case][super::super::client::CaseService::create_case] calls.
+    /// The request builder for [CaseService::create_case][crate::client::CaseService::create_case] calls.
     ///
     /// # Example
     /// ```no_run
@@ -590,7 +590,7 @@ pub mod case_service {
         }
     }
 
-    /// The request builder for [CaseService::update_case][super::super::client::CaseService::update_case] calls.
+    /// The request builder for [CaseService::update_case][crate::client::CaseService::update_case] calls.
     ///
     /// # Example
     /// ```no_run
@@ -685,7 +685,7 @@ pub mod case_service {
         }
     }
 
-    /// The request builder for [CaseService::escalate_case][super::super::client::CaseService::escalate_case] calls.
+    /// The request builder for [CaseService::escalate_case][crate::client::CaseService::escalate_case] calls.
     ///
     /// # Example
     /// ```no_run
@@ -766,7 +766,7 @@ pub mod case_service {
         }
     }
 
-    /// The request builder for [CaseService::close_case][super::super::client::CaseService::close_case] calls.
+    /// The request builder for [CaseService::close_case][crate::client::CaseService::close_case] calls.
     ///
     /// # Example
     /// ```no_run
@@ -829,7 +829,7 @@ pub mod case_service {
         }
     }
 
-    /// The request builder for [CaseService::search_case_classifications][super::super::client::CaseService::search_case_classifications] calls.
+    /// The request builder for [CaseService::search_case_classifications][crate::client::CaseService::search_case_classifications] calls.
     ///
     /// # Example
     /// ```no_run
@@ -943,7 +943,7 @@ pub mod case_service {
 pub mod comment_service {
     use crate::Result;
 
-    /// A builder for [CommentService][super::super::client::CommentService].
+    /// A builder for [CommentService][crate::client::CommentService].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -971,7 +971,7 @@ pub mod comment_service {
         }
     }
 
-    /// Common implementation for [super::super::client::CommentService] request builders.
+    /// Common implementation for [crate::client::CommentService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::CommentService>,
@@ -994,7 +994,7 @@ pub mod comment_service {
         }
     }
 
-    /// The request builder for [CommentService::list_comments][super::super::client::CommentService::list_comments] calls.
+    /// The request builder for [CommentService::list_comments][crate::client::CommentService::list_comments] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1097,7 +1097,7 @@ pub mod comment_service {
         }
     }
 
-    /// The request builder for [CommentService::create_comment][super::super::client::CommentService::create_comment] calls.
+    /// The request builder for [CommentService::create_comment][crate::client::CommentService::create_comment] calls.
     ///
     /// # Example
     /// ```no_run

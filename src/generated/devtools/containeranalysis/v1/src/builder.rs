@@ -17,7 +17,7 @@
 pub mod container_analysis {
     use crate::Result;
 
-    /// A builder for [ContainerAnalysis][super::super::client::ContainerAnalysis].
+    /// A builder for [ContainerAnalysis][crate::client::ContainerAnalysis].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -45,7 +45,7 @@ pub mod container_analysis {
         }
     }
 
-    /// Common implementation for [super::super::client::ContainerAnalysis] request builders.
+    /// Common implementation for [crate::client::ContainerAnalysis] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::ContainerAnalysis>,
@@ -68,7 +68,7 @@ pub mod container_analysis {
         }
     }
 
-    /// The request builder for [ContainerAnalysis::set_iam_policy][super::super::client::ContainerAnalysis::set_iam_policy] calls.
+    /// The request builder for [ContainerAnalysis::set_iam_policy][crate::client::ContainerAnalysis::set_iam_policy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -171,7 +171,7 @@ pub mod container_analysis {
         }
     }
 
-    /// The request builder for [ContainerAnalysis::get_iam_policy][super::super::client::ContainerAnalysis::get_iam_policy] calls.
+    /// The request builder for [ContainerAnalysis::get_iam_policy][crate::client::ContainerAnalysis::get_iam_policy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -252,7 +252,7 @@ pub mod container_analysis {
         }
     }
 
-    /// The request builder for [ContainerAnalysis::test_iam_permissions][super::super::client::ContainerAnalysis::test_iam_permissions] calls.
+    /// The request builder for [ContainerAnalysis::test_iam_permissions][crate::client::ContainerAnalysis::test_iam_permissions] calls.
     ///
     /// # Example
     /// ```no_run
@@ -331,7 +331,7 @@ pub mod container_analysis {
         }
     }
 
-    /// The request builder for [ContainerAnalysis::get_vulnerability_occurrences_summary][super::super::client::ContainerAnalysis::get_vulnerability_occurrences_summary] calls.
+    /// The request builder for [ContainerAnalysis::get_vulnerability_occurrences_summary][crate::client::ContainerAnalysis::get_vulnerability_occurrences_summary] calls.
     ///
     /// # Example
     /// ```no_run
@@ -405,7 +405,7 @@ pub mod container_analysis {
         }
     }
 
-    /// The request builder for [ContainerAnalysis::export_sbom][super::super::client::ContainerAnalysis::export_sbom] calls.
+    /// The request builder for [ContainerAnalysis::export_sbom][crate::client::ContainerAnalysis::export_sbom] calls.
     ///
     /// # Example
     /// ```no_run
