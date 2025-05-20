@@ -28,19 +28,19 @@ use gax::error::Error;
 
 pub(crate) mod dynamic;
 
-/// Defines the trait used to implement [super::client::StorageControl].
+/// Defines the trait used to implement [super::client::Storage].
 ///
 /// Application developers may need to implement this trait to mock
-/// `client::StorageControl`.  In other use-cases, application developers only
-/// use `client::StorageControl` and need not be concerned with this trait or
+/// `client::Storage`.  In other use-cases, application developers only
+/// use `client::Storage` and need not be concerned with this trait or
 /// its implementations.
 ///
 /// Services gain new RPCs routinely. Consequently, this trait gains new methods
 /// too. To avoid breaking applications the trait provides a default
 /// implementation of each method. Most of these implementations just return an
 /// error.
-pub trait StorageControl: std::fmt::Debug + Send + Sync {
-    /// Implements [super::client::StorageControl::create_folder].
+pub trait Storage: std::fmt::Debug + Send + Sync {
+    /// Implements [super::client::Storage::create_folder].
     fn create_folder(
         &self,
         _req: crate::model::CreateFolderRequest,
@@ -53,7 +53,7 @@ pub trait StorageControl: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [super::client::StorageControl::delete_folder].
+    /// Implements [super::client::Storage::delete_folder].
     fn delete_folder(
         &self,
         _req: crate::model::DeleteFolderRequest,
@@ -64,7 +64,7 @@ pub trait StorageControl: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [super::client::StorageControl::get_folder].
+    /// Implements [super::client::Storage::get_folder].
     fn get_folder(
         &self,
         _req: crate::model::GetFolderRequest,
@@ -77,7 +77,7 @@ pub trait StorageControl: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [super::client::StorageControl::list_folders].
+    /// Implements [super::client::Storage::list_folders].
     fn list_folders(
         &self,
         _req: crate::model::ListFoldersRequest,
@@ -90,7 +90,7 @@ pub trait StorageControl: std::fmt::Debug + Send + Sync {
         >(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [super::client::StorageControl::rename_folder].
+    /// Implements [super::client::Storage::rename_folder].
     fn rename_folder(
         &self,
         _req: crate::model::RenameFolderRequest,
@@ -103,7 +103,7 @@ pub trait StorageControl: std::fmt::Debug + Send + Sync {
         )
     }
 
-    /// Implements [super::client::StorageControl::get_storage_layout].
+    /// Implements [super::client::Storage::get_storage_layout].
     fn get_storage_layout(
         &self,
         _req: crate::model::GetStorageLayoutRequest,
@@ -116,7 +116,7 @@ pub trait StorageControl: std::fmt::Debug + Send + Sync {
         )
     }
 
-    /// Implements [super::client::StorageControl::create_managed_folder].
+    /// Implements [super::client::Storage::create_managed_folder].
     fn create_managed_folder(
         &self,
         _req: crate::model::CreateManagedFolderRequest,
@@ -129,7 +129,7 @@ pub trait StorageControl: std::fmt::Debug + Send + Sync {
         )
     }
 
-    /// Implements [super::client::StorageControl::delete_managed_folder].
+    /// Implements [super::client::Storage::delete_managed_folder].
     fn delete_managed_folder(
         &self,
         _req: crate::model::DeleteManagedFolderRequest,
@@ -140,7 +140,7 @@ pub trait StorageControl: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [super::client::StorageControl::get_managed_folder].
+    /// Implements [super::client::Storage::get_managed_folder].
     fn get_managed_folder(
         &self,
         _req: crate::model::GetManagedFolderRequest,
@@ -153,7 +153,7 @@ pub trait StorageControl: std::fmt::Debug + Send + Sync {
         )
     }
 
-    /// Implements [super::client::StorageControl::list_managed_folders].
+    /// Implements [super::client::Storage::list_managed_folders].
     fn list_managed_folders(
         &self,
         _req: crate::model::ListManagedFoldersRequest,
@@ -166,7 +166,7 @@ pub trait StorageControl: std::fmt::Debug + Send + Sync {
         >(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [super::client::StorageControl::create_anywhere_cache].
+    /// Implements [super::client::Storage::create_anywhere_cache].
     fn create_anywhere_cache(
         &self,
         _req: crate::model::CreateAnywhereCacheRequest,
@@ -179,7 +179,7 @@ pub trait StorageControl: std::fmt::Debug + Send + Sync {
         )
     }
 
-    /// Implements [super::client::StorageControl::update_anywhere_cache].
+    /// Implements [super::client::Storage::update_anywhere_cache].
     fn update_anywhere_cache(
         &self,
         _req: crate::model::UpdateAnywhereCacheRequest,
@@ -192,7 +192,7 @@ pub trait StorageControl: std::fmt::Debug + Send + Sync {
         )
     }
 
-    /// Implements [super::client::StorageControl::disable_anywhere_cache].
+    /// Implements [super::client::Storage::disable_anywhere_cache].
     fn disable_anywhere_cache(
         &self,
         _req: crate::model::DisableAnywhereCacheRequest,
@@ -205,7 +205,7 @@ pub trait StorageControl: std::fmt::Debug + Send + Sync {
         )
     }
 
-    /// Implements [super::client::StorageControl::pause_anywhere_cache].
+    /// Implements [super::client::Storage::pause_anywhere_cache].
     fn pause_anywhere_cache(
         &self,
         _req: crate::model::PauseAnywhereCacheRequest,
@@ -218,7 +218,7 @@ pub trait StorageControl: std::fmt::Debug + Send + Sync {
         )
     }
 
-    /// Implements [super::client::StorageControl::resume_anywhere_cache].
+    /// Implements [super::client::Storage::resume_anywhere_cache].
     fn resume_anywhere_cache(
         &self,
         _req: crate::model::ResumeAnywhereCacheRequest,
@@ -231,7 +231,7 @@ pub trait StorageControl: std::fmt::Debug + Send + Sync {
         )
     }
 
-    /// Implements [super::client::StorageControl::get_anywhere_cache].
+    /// Implements [super::client::Storage::get_anywhere_cache].
     fn get_anywhere_cache(
         &self,
         _req: crate::model::GetAnywhereCacheRequest,
@@ -244,7 +244,7 @@ pub trait StorageControl: std::fmt::Debug + Send + Sync {
         )
     }
 
-    /// Implements [super::client::StorageControl::list_anywhere_caches].
+    /// Implements [super::client::Storage::list_anywhere_caches].
     fn list_anywhere_caches(
         &self,
         _req: crate::model::ListAnywhereCachesRequest,
@@ -257,7 +257,7 @@ pub trait StorageControl: std::fmt::Debug + Send + Sync {
         >(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [super::client::StorageControl::get_operation].
+    /// Implements [super::client::Storage::get_operation].
     fn get_operation(
         &self,
         _req: longrunning::model::GetOperationRequest,

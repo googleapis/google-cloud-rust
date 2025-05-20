@@ -20,18 +20,18 @@ use crate::Result;
 
 /// Implements a client for the Storage Control API.
 #[derive(Clone, Debug)]
-pub struct StorageControl {
-    inner: std::sync::Arc<dyn super::stub::dynamic::StorageControl>,
+pub struct Storage {
+    inner: std::sync::Arc<dyn super::stub::dynamic::Storage>,
 }
 
-impl StorageControl {
+impl Storage {
     /// Creates a new client from the provided stub.
     ///
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stub::StorageControl + 'static,
+        T: super::stub::Storage + 'static,
     {
         Self {
             inner: std::sync::Arc::new(stub),
@@ -45,7 +45,7 @@ impl StorageControl {
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<std::sync::Arc<dyn super::stub::dynamic::StorageControl>> {
+    ) -> Result<std::sync::Arc<dyn super::stub::dynamic::Storage>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -54,40 +54,40 @@ impl StorageControl {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::StorageControl> {
-        super::transport::StorageControl::new(conf).await
+    ) -> Result<impl super::stub::Storage> {
+        super::transport::Storage::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::StorageControl> {
+    ) -> Result<impl super::stub::Storage> {
         Self::build_transport(conf)
             .await
-            .map(super::tracing::StorageControl::new)
+            .map(super::tracing::Storage::new)
     }
 
     /// Creates a new folder. This operation is only applicable to a hierarchical
     /// namespace enabled bucket.
-    pub fn create_folder(&self) -> super::builder::storage_control::CreateFolder {
-        super::builder::storage_control::CreateFolder::new(self.inner.clone())
+    pub fn create_folder(&self) -> super::builder::storage::CreateFolder {
+        super::builder::storage::CreateFolder::new(self.inner.clone())
     }
 
     /// Permanently deletes an empty folder. This operation is only applicable to a
     /// hierarchical namespace enabled bucket.
-    pub fn delete_folder(&self) -> super::builder::storage_control::DeleteFolder {
-        super::builder::storage_control::DeleteFolder::new(self.inner.clone())
+    pub fn delete_folder(&self) -> super::builder::storage::DeleteFolder {
+        super::builder::storage::DeleteFolder::new(self.inner.clone())
     }
 
     /// Returns metadata for the specified folder. This operation is only
     /// applicable to a hierarchical namespace enabled bucket.
-    pub fn get_folder(&self) -> super::builder::storage_control::GetFolder {
-        super::builder::storage_control::GetFolder::new(self.inner.clone())
+    pub fn get_folder(&self) -> super::builder::storage::GetFolder {
+        super::builder::storage::GetFolder::new(self.inner.clone())
     }
 
     /// Retrieves a list of folders. This operation is only applicable to a
     /// hierarchical namespace enabled bucket.
-    pub fn list_folders(&self) -> super::builder::storage_control::ListFolders {
-        super::builder::storage_control::ListFolders::new(self.inner.clone())
+    pub fn list_folders(&self) -> super::builder::storage::ListFolders {
+        super::builder::storage::ListFolders::new(self.inner.clone())
     }
 
     /// Renames a source folder to a destination folder. This operation is only
@@ -104,33 +104,33 @@ impl StorageControl {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn rename_folder(&self) -> super::builder::storage_control::RenameFolder {
-        super::builder::storage_control::RenameFolder::new(self.inner.clone())
+    pub fn rename_folder(&self) -> super::builder::storage::RenameFolder {
+        super::builder::storage::RenameFolder::new(self.inner.clone())
     }
 
     /// Returns the storage layout configuration for a given bucket.
-    pub fn get_storage_layout(&self) -> super::builder::storage_control::GetStorageLayout {
-        super::builder::storage_control::GetStorageLayout::new(self.inner.clone())
+    pub fn get_storage_layout(&self) -> super::builder::storage::GetStorageLayout {
+        super::builder::storage::GetStorageLayout::new(self.inner.clone())
     }
 
     /// Creates a new managed folder.
-    pub fn create_managed_folder(&self) -> super::builder::storage_control::CreateManagedFolder {
-        super::builder::storage_control::CreateManagedFolder::new(self.inner.clone())
+    pub fn create_managed_folder(&self) -> super::builder::storage::CreateManagedFolder {
+        super::builder::storage::CreateManagedFolder::new(self.inner.clone())
     }
 
     /// Permanently deletes an empty managed folder.
-    pub fn delete_managed_folder(&self) -> super::builder::storage_control::DeleteManagedFolder {
-        super::builder::storage_control::DeleteManagedFolder::new(self.inner.clone())
+    pub fn delete_managed_folder(&self) -> super::builder::storage::DeleteManagedFolder {
+        super::builder::storage::DeleteManagedFolder::new(self.inner.clone())
     }
 
     /// Returns metadata for the specified managed folder.
-    pub fn get_managed_folder(&self) -> super::builder::storage_control::GetManagedFolder {
-        super::builder::storage_control::GetManagedFolder::new(self.inner.clone())
+    pub fn get_managed_folder(&self) -> super::builder::storage::GetManagedFolder {
+        super::builder::storage::GetManagedFolder::new(self.inner.clone())
     }
 
     /// Retrieves a list of managed folders for a given bucket.
-    pub fn list_managed_folders(&self) -> super::builder::storage_control::ListManagedFolders {
-        super::builder::storage_control::ListManagedFolders::new(self.inner.clone())
+    pub fn list_managed_folders(&self) -> super::builder::storage::ListManagedFolders {
+        super::builder::storage::ListManagedFolders::new(self.inner.clone())
     }
 
     /// Creates an Anywhere Cache instance.
@@ -144,8 +144,8 @@ impl StorageControl {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_anywhere_cache(&self) -> super::builder::storage_control::CreateAnywhereCache {
-        super::builder::storage_control::CreateAnywhereCache::new(self.inner.clone())
+    pub fn create_anywhere_cache(&self) -> super::builder::storage::CreateAnywhereCache {
+        super::builder::storage::CreateAnywhereCache::new(self.inner.clone())
     }
 
     /// Updates an Anywhere Cache instance. Mutable fields include `ttl` and
@@ -160,42 +160,42 @@ impl StorageControl {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_anywhere_cache(&self) -> super::builder::storage_control::UpdateAnywhereCache {
-        super::builder::storage_control::UpdateAnywhereCache::new(self.inner.clone())
+    pub fn update_anywhere_cache(&self) -> super::builder::storage::UpdateAnywhereCache {
+        super::builder::storage::UpdateAnywhereCache::new(self.inner.clone())
     }
 
     /// Disables an Anywhere Cache instance. A disabled instance is read-only. The
     /// disablement could be revoked by calling ResumeAnywhereCache. The cache
     /// instance will be deleted automatically if it remains in the disabled state
     /// for at least one hour.
-    pub fn disable_anywhere_cache(&self) -> super::builder::storage_control::DisableAnywhereCache {
-        super::builder::storage_control::DisableAnywhereCache::new(self.inner.clone())
+    pub fn disable_anywhere_cache(&self) -> super::builder::storage::DisableAnywhereCache {
+        super::builder::storage::DisableAnywhereCache::new(self.inner.clone())
     }
 
     /// Pauses an Anywhere Cache instance.
-    pub fn pause_anywhere_cache(&self) -> super::builder::storage_control::PauseAnywhereCache {
-        super::builder::storage_control::PauseAnywhereCache::new(self.inner.clone())
+    pub fn pause_anywhere_cache(&self) -> super::builder::storage::PauseAnywhereCache {
+        super::builder::storage::PauseAnywhereCache::new(self.inner.clone())
     }
 
     /// Resumes a disabled or paused Anywhere Cache instance.
-    pub fn resume_anywhere_cache(&self) -> super::builder::storage_control::ResumeAnywhereCache {
-        super::builder::storage_control::ResumeAnywhereCache::new(self.inner.clone())
+    pub fn resume_anywhere_cache(&self) -> super::builder::storage::ResumeAnywhereCache {
+        super::builder::storage::ResumeAnywhereCache::new(self.inner.clone())
     }
 
     /// Gets an Anywhere Cache instance.
-    pub fn get_anywhere_cache(&self) -> super::builder::storage_control::GetAnywhereCache {
-        super::builder::storage_control::GetAnywhereCache::new(self.inner.clone())
+    pub fn get_anywhere_cache(&self) -> super::builder::storage::GetAnywhereCache {
+        super::builder::storage::GetAnywhereCache::new(self.inner.clone())
     }
 
     /// Lists Anywhere Cache instances for a given bucket.
-    pub fn list_anywhere_caches(&self) -> super::builder::storage_control::ListAnywhereCaches {
-        super::builder::storage_control::ListAnywhereCaches::new(self.inner.clone())
+    pub fn list_anywhere_caches(&self) -> super::builder::storage::ListAnywhereCaches {
+        super::builder::storage::ListAnywhereCaches::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(&self) -> super::builder::storage_control::GetOperation {
-        super::builder::storage_control::GetOperation::new(self.inner.clone())
+    pub fn get_operation(&self) -> super::builder::storage::GetOperation {
+        super::builder::storage::GetOperation::new(self.inner.clone())
     }
 }
