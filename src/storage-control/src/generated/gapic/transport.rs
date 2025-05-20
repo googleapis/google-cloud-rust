@@ -35,28 +35,28 @@ mod info {
     }
 }
 
-/// Implements [Storage](super::stub::Storage) using a Tonic-generated client.
+/// Implements [StorageControl](super::stub::StorageControl) using a Tonic-generated client.
 #[derive(Clone)]
-pub struct Storage {
+pub struct StorageControl {
     inner: gaxi::grpc::Client,
 }
 
-impl std::fmt::Debug for Storage {
+impl std::fmt::Debug for StorageControl {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
-        f.debug_struct("Storage")
+        f.debug_struct("StorageControl")
             .field("inner", &self.inner)
             .finish()
     }
 }
 
-impl Storage {
+impl StorageControl {
     pub async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
         let inner = gaxi::grpc::Client::new(config, DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
 }
 
-impl super::stub::Storage for Storage {
+impl super::stub::StorageControl for StorageControl {
     async fn delete_bucket(
         &self,
         req: crate::model::DeleteBucketRequest,
