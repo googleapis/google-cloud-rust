@@ -439,6 +439,7 @@ mod test {
     }
 
     #[tokio::test]
+    #[serial]
     async fn adc_no_mds() -> TestResult {
         let e = Builder::from_adc()
             .build_token_provider()
@@ -447,12 +448,10 @@ mod test {
             .err()
             .unwrap();
 
-        assert!(e.is_retryable());
+        assert!(e.is_retryable(), "{e:?}");
         assert!(
-            e.source()
-                .unwrap()
-                .to_string()
-                .contains("application-default")
+            format!("{:?}", e.source()).contains("application-default"),
+            "{e:?}"
         );
 
         Ok(())
@@ -472,18 +471,17 @@ mod test {
 
         let _e = ScopedEnv::remove(super::GCE_METADATA_HOST_ENV_VAR);
 
-        assert!(e.is_retryable());
+        assert!(e.is_retryable(), "{e:?}");
         assert!(
-            !e.source()
-                .unwrap()
-                .to_string()
-                .contains("application-default")
+            !format!("{:?}", e.source()).contains("application-default"),
+            "{e:?}"
         );
 
         Ok(())
     }
 
     #[tokio::test]
+    #[serial]
     async fn builder_no_mds() -> TestResult {
         let e = Builder::default()
             .build_token_provider()
@@ -492,12 +490,10 @@ mod test {
             .err()
             .unwrap();
 
-        assert!(e.is_retryable());
+        assert!(e.is_retryable(), "{e:?}");
         assert!(
-            !e.source()
-                .unwrap()
-                .to_string()
-                .contains("application-default")
+            !format!("{:?}", e.source()).contains("application-default"),
+            "{e:?}"
         );
 
         Ok(())
