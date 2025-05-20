@@ -511,7 +511,7 @@ fn build_credentials(
 ) -> Result<Credentials> {
     match json {
         None => config_builder!(
-            mds::Builder::default(),
+            mds::Builder::from_adc(),
             quota_project_id,
             scopes,
             |b: mds::Builder, s: Vec<String>| b.with_scopes(s)
