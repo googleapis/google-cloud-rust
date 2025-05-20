@@ -315,6 +315,8 @@ pub(crate) mod info {
 }
 
 mod v1 {
+    use base64::Engine as _;
+
     #[serde_with::serde_as]
     #[derive(Debug, Default, serde::Deserialize, PartialEq, Clone)]
     #[serde(default, rename_all = "camelCase")]
@@ -354,16 +356,74 @@ mod v1 {
         owner: Option<Owner>,
         customer_encryption: Option<CustomerEncryption>,
         metadata: std::collections::HashMap<std::string::String, std::string::String>,
+        #[serde_as(as = "Option<Crc32c>")]
+        crc32c: Option<u32>,
+        #[serde_as(as = "serde_with::base64::Base64")]
+        md5_hash: bytes::Bytes,
         // The following are excluded from the protos, so we don't really need to parse them.
         media_link: String,
         self_link: String,
         // TODO(#2039) - add all the other fields:
-        //     "md5Hash": string,
-        //     "crc32c": string,
         //     "retention": {
         //       "retainUntilTime": "datetime",
         //       "mode": string
         //     }
+    }
+
+    struct Crc32c;
+
+    impl<'de> serde_with::DeserializeAs<'de, u32> for Crc32c {
+        fn deserialize_as<D>(deserializer: D) -> Result<u32, D::Error>
+        where
+            D: serde::de::Deserializer<'de>,
+        {
+            struct Crc32cVisitor;
+
+            impl serde::de::Visitor<'_> for Crc32cVisitor {
+                type Value = u32;
+
+                fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                    formatter.write_str("a base64 encoded string")
+                }
+
+                fn visit_str<E>(self, value: &str) -> Result<Self::Value, E>
+                where
+                    E: serde::de::Error,
+                {
+                    let bytes = base64::prelude::BASE64_STANDARD
+                        .decode(value)
+                        .map_err(serde::de::Error::custom)?;
+
+                    let length = bytes.len();
+                    if bytes.len() != 4 {
+                        return Err(serde::de::Error::invalid_length(
+                            length,
+                            &"Expected a Byte Vector of length 4.",
+                        ));
+                    }
+                    return Ok(((bytes[0] as u32) << 24)
+                        + ((bytes[1] as u32) << 16)
+                        + ((bytes[2] as u32) << 8)
+                        + (bytes[3] as u32));
+                }
+            }
+
+            deserializer.deserialize_str(Crc32cVisitor)
+        }
+    }
+
+    fn convert_to_checksums(
+        crc32c: Option<u32>,
+        md5_hash: bytes::Bytes,
+    ) -> Option<control::model::ObjectChecksums> {
+        if crc32c.is_none() && md5_hash.is_empty() {
+            return None;
+        }
+        Some(
+            control::model::ObjectChecksums::new()
+                .set_or_clear_crc32c(crc32c)
+                .set_md5_hash(md5_hash),
+        )
     }
 
     #[serde_with::serde_as]
@@ -478,6 +538,7 @@ mod v1 {
                 .set_or_clear_owner(value.owner)
                 .set_metadata(value.metadata)
                 .set_or_clear_customer_encryption(value.customer_encryption)
+                .set_or_clear_checksums(convert_to_checksums(value.crc32c, value.md5_hash))
         }
     }
 
@@ -510,7 +571,10 @@ mod v1 {
                 // map fields:
                 "metadata": {"key1": "val1", "key2": "val2", "key3": "val3"},
                 // base64 fields:
-                "customerEncryption": {"encryptionAlgorithm": "algorithm", "keySha256": "dGhlIHF1aWNrIGJyb3duIGZveCBqdW1wcyBvdmVyIHRoZSBsYXp5IGRvZw"}
+                "customerEncryption": {"encryptionAlgorithm": "algorithm", "keySha256": "dGhlIHF1aWNrIGJyb3duIGZveCBqdW1wcyBvdmVyIHRoZSBsYXp5IGRvZw"},
+                "md5Hash": "dGhlIHF1aWNrIGJyb3duIGZveCBqdW1wcyBvdmVyIHRoZSBsYXp5IGRvZw",
+                // base64 encoded uint32 in BigEndian order field:
+                "crc32c": "nWafdQ==",
             });
             let object: Object = serde_json::from_value(json)
                 .expect("json value in object test should be deserializable");
@@ -552,6 +616,9 @@ mod v1 {
                     encryption_algorithm: "algorithm".to_string(),
                     key_sha256: bytes::Bytes::from("the quick brown fox jumps over the lazy dog"),
                 }),
+                md5_hash: bytes::Bytes::from("the quick brown fox jumps over the lazy dog"),
+                // base64 encoded uint32 in BigEndian order field:
+                crc32c: Some(2640748405),
                 ..Default::default()
             };
 
@@ -648,6 +715,8 @@ mod v1 {
                 encryption_algorithm: "my-encryption-alg".to_string(),
                 key_sha256: "hash-of-encryption-key".into(),
             }),
+            md5_hash: "md5Hash".into(),
+            crc32c: Some(4321),
             // unused in control::model
             media_link: "my-media-link".to_string(),
             self_link: "my-self-link".to_string(),
@@ -720,6 +789,16 @@ mod v1 {
                 (Some(from), Some(got)) => {
                     assert_eq!(got.encryption_algorithm, from.encryption_algorithm);
                     assert_eq!(got.key_sha256_bytes, from.key_sha256);
+                }
+            }
+            match got.checksums {
+                Some(checksums) => {
+                    assert_eq!(object.md5_hash, checksums.md5_hash);
+                    assert_eq!(object.crc32c, checksums.crc32c)
+                }
+                None => {
+                    assert!(object.md5_hash.is_empty());
+                    assert!(object.crc32c.is_none());
                 }
             }
             // TODO(#2039): assert_eq!(got.checksums, object.checksums);
