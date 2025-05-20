@@ -38,6 +38,23 @@ pub mod storage {
         }
     }
 
+    /// The request builder for [Storage::delete_bucket][crate::client::Storage::delete_bucket] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_storage_control::builder;
+    /// use builder::storage::DeleteBucket;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteBucket {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteBucket(RequestBuilder<crate::model::DeleteBucketRequest>);
 
@@ -121,6 +138,23 @@ pub mod storage {
         }
     }
 
+    /// The request builder for [Storage::get_bucket][crate::client::Storage::get_bucket] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_storage_control::builder;
+    /// use builder::storage::GetBucket;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetBucket {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetBucket(RequestBuilder<crate::model::GetBucketRequest>);
 
@@ -222,6 +256,23 @@ pub mod storage {
         }
     }
 
+    /// The request builder for [Storage::create_bucket][crate::client::Storage::create_bucket] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_storage_control::builder;
+    /// use builder::storage::CreateBucket;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateBucket {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateBucket(RequestBuilder<crate::model::CreateBucketRequest>);
 
@@ -307,6 +358,27 @@ pub mod storage {
         }
     }
 
+    /// The request builder for [Storage::list_buckets][crate::client::Storage::list_buckets] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_storage_control::builder;
+    /// use builder::storage::ListBuckets;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListBuckets {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListBuckets(RequestBuilder<crate::model::ListBucketsRequest>);
 
@@ -411,6 +483,23 @@ pub mod storage {
         }
     }
 
+    /// The request builder for [Storage::lock_bucket_retention_policy][crate::client::Storage::lock_bucket_retention_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_storage_control::builder;
+    /// use builder::storage::LockBucketRetentionPolicy;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> LockBucketRetentionPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct LockBucketRetentionPolicy(
         RequestBuilder<crate::model::LockBucketRetentionPolicyRequest>,
@@ -468,6 +557,23 @@ pub mod storage {
         }
     }
 
+    /// The request builder for [Storage::get_iam_policy][crate::client::Storage::get_iam_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_storage_control::builder;
+    /// use builder::storage::GetIamPolicy;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetIamPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
@@ -530,6 +636,23 @@ pub mod storage {
         }
     }
 
+    /// The request builder for [Storage::set_iam_policy][crate::client::Storage::set_iam_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_storage_control::builder;
+    /// use builder::storage::SetIamPolicy;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> SetIamPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
@@ -614,6 +737,23 @@ pub mod storage {
         }
     }
 
+    /// The request builder for [Storage::test_iam_permissions][crate::client::Storage::test_iam_permissions] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_storage_control::builder;
+    /// use builder::storage::TestIamPermissions;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> TestIamPermissions {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
@@ -674,6 +814,23 @@ pub mod storage {
         }
     }
 
+    /// The request builder for [Storage::update_bucket][crate::client::Storage::update_bucket] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_storage_control::builder;
+    /// use builder::storage::UpdateBucket;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateBucket {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateBucket(RequestBuilder<crate::model::UpdateBucketRequest>);
 
@@ -808,6 +965,23 @@ pub mod storage {
         }
     }
 
+    /// The request builder for [Storage::compose_object][crate::client::Storage::compose_object] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_storage_control::builder;
+    /// use builder::storage::ComposeObject;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ComposeObject {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ComposeObject(RequestBuilder<crate::model::ComposeObjectRequest>);
 
@@ -967,6 +1141,23 @@ pub mod storage {
         }
     }
 
+    /// The request builder for [Storage::delete_object][crate::client::Storage::delete_object] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_storage_control::builder;
+    /// use builder::storage::DeleteObject;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteObject {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteObject(RequestBuilder<crate::model::DeleteObjectRequest>);
 
@@ -1121,6 +1312,23 @@ pub mod storage {
         }
     }
 
+    /// The request builder for [Storage::restore_object][crate::client::Storage::restore_object] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_storage_control::builder;
+    /// use builder::storage::RestoreObject;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> RestoreObject {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct RestoreObject(RequestBuilder<crate::model::RestoreObjectRequest>);
 
@@ -1301,6 +1509,23 @@ pub mod storage {
         }
     }
 
+    /// The request builder for [Storage::get_object][crate::client::Storage::get_object] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_storage_control::builder;
+    /// use builder::storage::GetObject;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetObject {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetObject(RequestBuilder<crate::model::GetObjectRequest>);
 
@@ -1497,6 +1722,23 @@ pub mod storage {
         }
     }
 
+    /// The request builder for [Storage::update_object][crate::client::Storage::update_object] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_storage_control::builder;
+    /// use builder::storage::UpdateObject;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateObject {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateObject(RequestBuilder<crate::model::UpdateObjectRequest>);
 
@@ -1679,6 +1921,27 @@ pub mod storage {
         }
     }
 
+    /// The request builder for [Storage::list_objects][crate::client::Storage::list_objects] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_storage_control::builder;
+    /// use builder::storage::ListObjects;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListObjects {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListObjects(RequestBuilder<crate::model::ListObjectsRequest>);
 
@@ -1831,6 +2094,23 @@ pub mod storage {
         }
     }
 
+    /// The request builder for [Storage::rewrite_object][crate::client::Storage::rewrite_object] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_storage_control::builder;
+    /// use builder::storage::RewriteObject;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> RewriteObject {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct RewriteObject(RequestBuilder<crate::model::RewriteObjectRequest>);
 
@@ -2175,6 +2455,23 @@ pub mod storage {
         }
     }
 
+    /// The request builder for [Storage::move_object][crate::client::Storage::move_object] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_storage_control::builder;
+    /// use builder::storage::MoveObject;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> MoveObject {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct MoveObject(RequestBuilder<crate::model::MoveObjectRequest>);
 
