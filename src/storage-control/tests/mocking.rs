@@ -19,8 +19,8 @@ mod mocking {
 
     mockall::mock! {
         #[derive(Debug)]
-        Storage {}
-        impl gcs::stub::Storage for Storage {
+        StorageControl {}
+        impl gcs::stub::StorageControl for StorageControl {
             async fn get_bucket(&self, req: gcs::model::GetBucketRequest, _options: gax::options::RequestOptions) -> gax::Result<gax::response::Response<gcs::model::Bucket>>;
             async fn get_folder(&self, req: gcs::model::GetFolderRequest, _options: gax::options::RequestOptions) -> gax::Result<gax::response::Response<gcs::model::Folder>>;
         }
@@ -28,13 +28,13 @@ mod mocking {
 
     #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
     async fn test_mocks() -> Result<()> {
-        let mut mock = MockStorage::new();
+        let mut mock = MockStorageControl::new();
         mock.expect_get_bucket()
             .return_once(|_, _| Err(gax::error::Error::other("simulated failure")));
         mock.expect_get_folder()
             .return_once(|_, _| Err(gax::error::Error::other("simulated failure")));
 
-        let client = gcs::client::Storage::from_stub(mock);
+        let client = gcs::client::StorageControl::from_stub(mock);
 
         let response = client.get_bucket().send().await;
         assert!(response.is_err());
