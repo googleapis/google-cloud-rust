@@ -36,6 +36,17 @@ use gax::error::Error;
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait Storage: std::fmt::Debug + Send + Sync {
+    /// Implements [super::client::Storage::delete_bucket].
+    fn delete_bucket(
+        &self,
+        _req: crate::model::DeleteBucketRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        std::future::ready::<crate::Result<gax::response::Response<()>>>(Err(Error::other(
+            "unimplemented",
+        )))
+    }
+
     /// Implements [super::client::Storage::get_bucket].
     fn get_bucket(
         &self,
@@ -47,6 +58,222 @@ pub trait Storage: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<gax::response::Response<crate::model::Bucket>>>(Err(
             Error::other("unimplemented"),
         ))
+    }
+
+    /// Implements [super::client::Storage::create_bucket].
+    fn create_bucket(
+        &self,
+        _req: crate::model::CreateBucketRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Bucket>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::Bucket>>>(Err(
+            Error::other("unimplemented"),
+        ))
+    }
+
+    /// Implements [super::client::Storage::list_buckets].
+    fn list_buckets(
+        &self,
+        _req: crate::model::ListBucketsRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ListBucketsResponse>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::ListBucketsResponse>>,
+        >(Err(Error::other("unimplemented")))
+    }
+
+    /// Implements [super::client::Storage::lock_bucket_retention_policy].
+    fn lock_bucket_retention_policy(
+        &self,
+        _req: crate::model::LockBucketRetentionPolicyRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Bucket>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::Bucket>>>(Err(
+            Error::other("unimplemented"),
+        ))
+    }
+
+    /// Implements [super::client::Storage::get_iam_policy].
+    fn get_iam_policy(
+        &self,
+        _req: iam_v1::model::GetIamPolicyRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<iam_v1::model::Policy>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<iam_v1::model::Policy>>>(Err(
+            Error::other("unimplemented"),
+        ))
+    }
+
+    /// Implements [super::client::Storage::set_iam_policy].
+    fn set_iam_policy(
+        &self,
+        _req: iam_v1::model::SetIamPolicyRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<iam_v1::model::Policy>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<iam_v1::model::Policy>>>(Err(
+            Error::other("unimplemented"),
+        ))
+    }
+
+    /// Implements [super::client::Storage::test_iam_permissions].
+    fn test_iam_permissions(
+        &self,
+        _req: iam_v1::model::TestIamPermissionsRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>>,
+        >(Err(Error::other("unimplemented")))
+    }
+
+    /// Implements [super::client::Storage::update_bucket].
+    fn update_bucket(
+        &self,
+        _req: crate::model::UpdateBucketRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Bucket>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::Bucket>>>(Err(
+            Error::other("unimplemented"),
+        ))
+    }
+
+    /// Implements [super::client::Storage::compose_object].
+    fn compose_object(
+        &self,
+        _req: crate::model::ComposeObjectRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Object>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::Object>>>(Err(
+            Error::other("unimplemented"),
+        ))
+    }
+
+    /// Implements [super::client::Storage::delete_object].
+    fn delete_object(
+        &self,
+        _req: crate::model::DeleteObjectRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        std::future::ready::<crate::Result<gax::response::Response<()>>>(Err(Error::other(
+            "unimplemented",
+        )))
+    }
+
+    /// Implements [super::client::Storage::restore_object].
+    fn restore_object(
+        &self,
+        _req: crate::model::RestoreObjectRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Object>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::Object>>>(Err(
+            Error::other("unimplemented"),
+        ))
+    }
+
+    /// Implements [super::client::Storage::get_object].
+    fn get_object(
+        &self,
+        _req: crate::model::GetObjectRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Object>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::Object>>>(Err(
+            Error::other("unimplemented"),
+        ))
+    }
+
+    /// Implements [super::client::Storage::update_object].
+    fn update_object(
+        &self,
+        _req: crate::model::UpdateObjectRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Object>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::Object>>>(Err(
+            Error::other("unimplemented"),
+        ))
+    }
+
+    /// Implements [super::client::Storage::list_objects].
+    fn list_objects(
+        &self,
+        _req: crate::model::ListObjectsRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ListObjectsResponse>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::ListObjectsResponse>>,
+        >(Err(Error::other("unimplemented")))
+    }
+
+    /// Implements [super::client::Storage::rewrite_object].
+    fn rewrite_object(
+        &self,
+        _req: crate::model::RewriteObjectRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::RewriteResponse>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::RewriteResponse>>>(
+            Err(Error::other("unimplemented")),
+        )
+    }
+
+    /// Implements [super::client::Storage::move_object].
+    fn move_object(
+        &self,
+        _req: crate::model::MoveObjectRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Object>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::Object>>>(Err(
+            Error::other("unimplemented"),
+        ))
+    }
+    /// Implements [super::client::Storage::create_folder].
+    fn create_folder(
+        &self,
+        _req: crate::model::CreateFolderRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Folder>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::Folder>>>(Err(
+            Error::other("unimplemented"),
+        ))
+    }
+
+    /// Implements [super::client::Storage::delete_folder].
+    fn delete_folder(
+        &self,
+        _req: crate::model::DeleteFolderRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        std::future::ready::<crate::Result<gax::response::Response<()>>>(Err(Error::other(
+            "unimplemented",
+        )))
     }
 
     /// Implements [super::client::Storage::get_folder].
@@ -61,20 +288,358 @@ pub trait Storage: std::fmt::Debug + Send + Sync {
             Error::other("unimplemented"),
         ))
     }
+
+    /// Implements [super::client::Storage::list_folders].
+    fn list_folders(
+        &self,
+        _req: crate::model::ListFoldersRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ListFoldersResponse>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::ListFoldersResponse>>,
+        >(Err(Error::other("unimplemented")))
+    }
+
+    /// Implements [super::client::Storage::rename_folder].
+    fn rename_folder(
+        &self,
+        _req: crate::model::RenameFolderRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
+    }
+
+    /// Implements [super::client::Storage::get_storage_layout].
+    fn get_storage_layout(
+        &self,
+        _req: crate::model::GetStorageLayoutRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::StorageLayout>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::StorageLayout>>>(
+            Err(Error::other("unimplemented")),
+        )
+    }
+
+    /// Implements [super::client::Storage::create_managed_folder].
+    fn create_managed_folder(
+        &self,
+        _req: crate::model::CreateManagedFolderRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ManagedFolder>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::ManagedFolder>>>(
+            Err(Error::other("unimplemented")),
+        )
+    }
+
+    /// Implements [super::client::Storage::delete_managed_folder].
+    fn delete_managed_folder(
+        &self,
+        _req: crate::model::DeleteManagedFolderRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        std::future::ready::<crate::Result<gax::response::Response<()>>>(Err(Error::other(
+            "unimplemented",
+        )))
+    }
+
+    /// Implements [super::client::Storage::get_managed_folder].
+    fn get_managed_folder(
+        &self,
+        _req: crate::model::GetManagedFolderRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ManagedFolder>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::ManagedFolder>>>(
+            Err(Error::other("unimplemented")),
+        )
+    }
+
+    /// Implements [super::client::Storage::list_managed_folders].
+    fn list_managed_folders(
+        &self,
+        _req: crate::model::ListManagedFoldersRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ListManagedFoldersResponse>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::ListManagedFoldersResponse>>,
+        >(Err(Error::other("unimplemented")))
+    }
+
+    /// Implements [super::client::Storage::create_anywhere_cache].
+    fn create_anywhere_cache(
+        &self,
+        _req: crate::model::CreateAnywhereCacheRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
+    }
+
+    /// Implements [super::client::Storage::update_anywhere_cache].
+    fn update_anywhere_cache(
+        &self,
+        _req: crate::model::UpdateAnywhereCacheRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
+    }
+
+    /// Implements [super::client::Storage::disable_anywhere_cache].
+    fn disable_anywhere_cache(
+        &self,
+        _req: crate::model::DisableAnywhereCacheRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::AnywhereCache>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::AnywhereCache>>>(
+            Err(Error::other("unimplemented")),
+        )
+    }
+
+    /// Implements [super::client::Storage::pause_anywhere_cache].
+    fn pause_anywhere_cache(
+        &self,
+        _req: crate::model::PauseAnywhereCacheRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::AnywhereCache>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::AnywhereCache>>>(
+            Err(Error::other("unimplemented")),
+        )
+    }
+
+    /// Implements [super::client::Storage::resume_anywhere_cache].
+    fn resume_anywhere_cache(
+        &self,
+        _req: crate::model::ResumeAnywhereCacheRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::AnywhereCache>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::AnywhereCache>>>(
+            Err(Error::other("unimplemented")),
+        )
+    }
+
+    /// Implements [super::client::Storage::get_anywhere_cache].
+    fn get_anywhere_cache(
+        &self,
+        _req: crate::model::GetAnywhereCacheRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::AnywhereCache>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::AnywhereCache>>>(
+            Err(Error::other("unimplemented")),
+        )
+    }
+
+    /// Implements [super::client::Storage::list_anywhere_caches].
+    fn list_anywhere_caches(
+        &self,
+        _req: crate::model::ListAnywhereCachesRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ListAnywhereCachesResponse>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::ListAnywhereCachesResponse>>,
+        >(Err(Error::other("unimplemented")))
+    }
+
+    /// Implements [super::client::Storage::get_operation].
+    fn get_operation(
+        &self,
+        _req: longrunning::model::GetOperationRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
+    }
 }
 
 impl<T> crate::generated::gapic::stub::Storage for std::sync::Arc<T>
 where
     T: Storage,
 {
+    fn delete_bucket(
+        &self,
+        req: crate::model::DeleteBucketRequest,
+        options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> {
+        T::delete_bucket(self, req, options)
+    }
+
     fn get_bucket(
         &self,
         req: crate::model::GetBucketRequest,
         options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Bucket>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::Bucket>>>
+    {
         T::get_bucket(self, req, options)
+    }
+
+    fn create_bucket(
+        &self,
+        req: crate::model::CreateBucketRequest,
+        options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::Bucket>>>
+    {
+        T::create_bucket(self, req, options)
+    }
+
+    fn list_buckets(
+        &self,
+        req: crate::model::ListBucketsRequest,
+        options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ListBucketsResponse>>,
+    > {
+        T::list_buckets(self, req, options)
+    }
+
+    fn lock_bucket_retention_policy(
+        &self,
+        req: crate::model::LockBucketRetentionPolicyRequest,
+        options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::Bucket>>>
+    {
+        T::lock_bucket_retention_policy(self, req, options)
+    }
+
+    fn get_iam_policy(
+        &self,
+        req: iam_v1::model::GetIamPolicyRequest,
+        options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<iam_v1::model::Policy>>>
+    {
+        T::get_iam_policy(self, req, options)
+    }
+
+    fn set_iam_policy(
+        &self,
+        req: iam_v1::model::SetIamPolicyRequest,
+        options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<iam_v1::model::Policy>>>
+    {
+        T::set_iam_policy(self, req, options)
+    }
+
+    fn test_iam_permissions(
+        &self,
+        req: iam_v1::model::TestIamPermissionsRequest,
+        options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>>,
+    > {
+        T::test_iam_permissions(self, req, options)
+    }
+
+    fn update_bucket(
+        &self,
+        req: crate::model::UpdateBucketRequest,
+        options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::Bucket>>>
+    {
+        T::update_bucket(self, req, options)
+    }
+
+    fn compose_object(
+        &self,
+        req: crate::model::ComposeObjectRequest,
+        options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::Object>>>
+    {
+        T::compose_object(self, req, options)
+    }
+
+    fn delete_object(
+        &self,
+        req: crate::model::DeleteObjectRequest,
+        options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> {
+        T::delete_object(self, req, options)
+    }
+
+    fn restore_object(
+        &self,
+        req: crate::model::RestoreObjectRequest,
+        options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::Object>>>
+    {
+        T::restore_object(self, req, options)
+    }
+
+    fn get_object(
+        &self,
+        req: crate::model::GetObjectRequest,
+        options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::Object>>>
+    {
+        T::get_object(self, req, options)
+    }
+
+    fn update_object(
+        &self,
+        req: crate::model::UpdateObjectRequest,
+        options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::Object>>>
+    {
+        T::update_object(self, req, options)
+    }
+
+    fn list_objects(
+        &self,
+        req: crate::model::ListObjectsRequest,
+        options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ListObjectsResponse>>,
+    > {
+        T::list_objects(self, req, options)
+    }
+
+    fn rewrite_object(
+        &self,
+        req: crate::model::RewriteObjectRequest,
+        options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::RewriteResponse>>,
+    > {
+        T::rewrite_object(self, req, options)
+    }
+
+    fn move_object(
+        &self,
+        req: crate::model::MoveObjectRequest,
+        options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::Object>>>
+    {
+        T::move_object(self, req, options)
     }
 }
 
@@ -82,13 +647,177 @@ impl<T> crate::generated::gapic_control::stub::StorageControl for std::sync::Arc
 where
     T: Storage,
 {
+    fn create_folder(
+        &self,
+        req: crate::model::CreateFolderRequest,
+        options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::Folder>>>
+    {
+        T::create_folder(self, req, options)
+    }
+
+    fn delete_folder(
+        &self,
+        req: crate::model::DeleteFolderRequest,
+        options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> {
+        T::delete_folder(self, req, options)
+    }
+
     fn get_folder(
         &self,
         req: crate::model::GetFolderRequest,
         options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Folder>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::Folder>>>
+    {
         T::get_folder(self, req, options)
+    }
+
+    fn list_folders(
+        &self,
+        req: crate::model::ListFoldersRequest,
+        options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ListFoldersResponse>>,
+    > {
+        T::list_folders(self, req, options)
+    }
+
+    fn rename_folder(
+        &self,
+        req: crate::model::RenameFolderRequest,
+        options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > {
+        T::rename_folder(self, req, options)
+    }
+
+    fn get_storage_layout(
+        &self,
+        req: crate::model::GetStorageLayoutRequest,
+        options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::StorageLayout>>,
+    > {
+        T::get_storage_layout(self, req, options)
+    }
+
+    fn create_managed_folder(
+        &self,
+        req: crate::model::CreateManagedFolderRequest,
+        options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ManagedFolder>>,
+    > {
+        T::create_managed_folder(self, req, options)
+    }
+
+    fn delete_managed_folder(
+        &self,
+        req: crate::model::DeleteManagedFolderRequest,
+        options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> {
+        T::delete_managed_folder(self, req, options)
+    }
+
+    fn get_managed_folder(
+        &self,
+        req: crate::model::GetManagedFolderRequest,
+        options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ManagedFolder>>,
+    > {
+        T::get_managed_folder(self, req, options)
+    }
+
+    fn list_managed_folders(
+        &self,
+        req: crate::model::ListManagedFoldersRequest,
+        options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ListManagedFoldersResponse>>,
+    > {
+        T::list_managed_folders(self, req, options)
+    }
+
+    fn create_anywhere_cache(
+        &self,
+        req: crate::model::CreateAnywhereCacheRequest,
+        options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > {
+        T::create_anywhere_cache(self, req, options)
+    }
+
+    fn update_anywhere_cache(
+        &self,
+        req: crate::model::UpdateAnywhereCacheRequest,
+        options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > {
+        T::update_anywhere_cache(self, req, options)
+    }
+
+    fn disable_anywhere_cache(
+        &self,
+        req: crate::model::DisableAnywhereCacheRequest,
+        options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::AnywhereCache>>,
+    > {
+        T::disable_anywhere_cache(self, req, options)
+    }
+
+    fn pause_anywhere_cache(
+        &self,
+        req: crate::model::PauseAnywhereCacheRequest,
+        options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::AnywhereCache>>,
+    > {
+        T::pause_anywhere_cache(self, req, options)
+    }
+
+    fn resume_anywhere_cache(
+        &self,
+        req: crate::model::ResumeAnywhereCacheRequest,
+        options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::AnywhereCache>>,
+    > {
+        T::resume_anywhere_cache(self, req, options)
+    }
+
+    fn get_anywhere_cache(
+        &self,
+        req: crate::model::GetAnywhereCacheRequest,
+        options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::AnywhereCache>>,
+    > {
+        T::get_anywhere_cache(self, req, options)
+    }
+
+    fn list_anywhere_caches(
+        &self,
+        req: crate::model::ListAnywhereCachesRequest,
+        options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ListAnywhereCachesResponse>>,
+    > {
+        T::list_anywhere_caches(self, req, options)
+    }
+
+    fn get_operation(
+        &self,
+        req: longrunning::model::GetOperationRequest,
+        options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > {
+        T::get_operation(self, req, options)
     }
 }
