@@ -316,7 +316,6 @@ pub(crate) mod info {
 
 mod v1 {
     use base64::Engine as _;
-    use wkt::Timestamp;
 
     #[serde_with::serde_as]
     #[derive(Debug, Default, serde::Deserialize, PartialEq, Clone)]
@@ -371,7 +370,7 @@ mod v1 {
     #[derive(Debug, Default, serde::Deserialize, PartialEq, Clone)]
     #[serde(default, rename_all = "camelCase")]
     struct Retention {
-        retain_until_time: Timestamp,
+        retain_until_time: wkt::Timestamp,
         mode: String,
     }
 
