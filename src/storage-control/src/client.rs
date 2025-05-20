@@ -82,7 +82,7 @@
 #[derive(Clone, Debug)]
 pub struct Storage {
     storage: super::generated::gapic::client::Storage,
-    control: super::generated::gapic_control::client::StorageControl,
+    control: super::generated::gapic_control::client::Storage,
 }
 
 impl Storage {
@@ -434,13 +434,13 @@ impl Storage {
         let stub = std::sync::Arc::new(stub);
         Self {
             storage: super::generated::gapic::client::Storage::from_stub(stub.clone()),
-            control: super::generated::gapic_control::client::StorageControl::from_stub(stub),
+            control: super::generated::gapic_control::client::Storage::from_stub(stub),
         }
     }
 
     pub(crate) async fn new(config: gaxi::options::ClientConfig) -> crate::Result<Self> {
         let storage = super::generated::gapic::client::Storage::new(config.clone()).await?;
-        let control = super::generated::gapic_control::client::StorageControl::new(config).await?;
+        let control = super::generated::gapic_control::client::Storage::new(config).await?;
         Ok(Self { storage, control })
     }
 }

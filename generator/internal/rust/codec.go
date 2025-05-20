@@ -78,6 +78,8 @@ func newCodec(protobufSource bool, options map[string]string) (*codec, error) {
 		switch {
 		case key == "package-name-override":
 			codec.packageNameOverride = definition
+		case key == "service-name-override":
+			codec.serviceNameOverride = definition
 		case key == "module-path":
 			codec.modulePath = definition
 		case key == "copyright-year":
@@ -190,6 +192,8 @@ func parsePackageOption(key, definition string) (*packageOption, error) {
 type codec struct {
 	// Package name override. If not empty, overrides the default package name.
 	packageNameOverride string
+	// Service name override. If not empty, overrides the default service name.
+	serviceNameOverride string
 	// The year when the files were first generated.
 	generationYear string
 	// The full path of the generated module within the crate. This defaults to
@@ -1653,6 +1657,13 @@ func PackageName(api *api.API, packageNameOverride string) string {
 		name = api.Name
 	}
 	return "google-cloud-" + name
+}
+
+func ServiceName(s *api.Service, serviceNameOverride string) string {
+	if len(serviceNameOverride) > 0 {
+		return serviceNameOverride
+	}
+	return s.Name
 }
 
 func (c *codec) generateMethod(m *api.Method) bool {

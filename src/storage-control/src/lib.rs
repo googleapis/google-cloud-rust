@@ -35,7 +35,7 @@ pub mod builder {
     // TODO(#1813) - Consider renaming this to storage_control
     pub mod storage {
         pub use crate::generated::gapic::builder::storage::*;
-        pub use crate::generated::gapic_control::builder::storage_control::*;
+        pub use crate::generated::gapic_control::builder::storage::*;
     }
 }
 pub mod model {

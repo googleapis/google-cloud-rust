@@ -78,7 +78,7 @@ where
     }
 }
 
-impl<T> crate::generated::gapic_control::stub::StorageControl for std::sync::Arc<T>
+impl<T> crate::generated::gapic_control::stub::Storage for std::sync::Arc<T>
 where
     T: Storage,
 {
