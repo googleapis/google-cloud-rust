@@ -308,6 +308,45 @@ func TestServiceAnnotationsLROTypes(t *testing.T) {
 	}
 }
 
+func TestServiceAnnotationsNameOverrides(t *testing.T) {
+	model := serviceAnnotationsModel()
+	service, ok := model.State.ServiceByID[".test.v1.ResourceService"]
+	if !ok {
+		t.Fatal("cannot find .test.v1.ResourceService")
+	}
+	method, ok := model.State.MethodByID[".test.v1.ResourceService.GetResource"]
+	if !ok {
+		t.Fatal("cannot find .test.v1.ResourceService.GetResource")
+	}
+
+	codec, err := newCodec(true, map[string]string{
+		"service-name-overrides": "ResourceService=Renamed",
+	})
+	if err != nil {
+		t.Fatal(err)
+	}
+	annotateModel(model, codec)
+
+	serviceFilter := cmpopts.IgnoreFields(serviceAnnotations{}, "PackageModuleName", "Methods")
+	wantService := &serviceAnnotations{
+		Name:       "Renamed",
+		ModuleName: "renamed",
+	}
+	if diff := cmp.Diff(wantService, service.Codec, serviceFilter); diff != "" {
+		t.Errorf("mismatch in service annotations (-want, +got)\n:%s", diff)
+	}
+
+	methodFilter := cmpopts.IgnoreFields(methodAnnotation{}, "Name", "BuilderName", "BodyAccessor", "PathInfo", "SystemParameters", "ReturnType")
+	wantMethod := &methodAnnotation{
+		ServiceNameToPascal: "Renamed",
+		ServiceNameToCamel:  "renamed",
+		ServiceNameToSnake:  "renamed",
+	}
+	if diff := cmp.Diff(wantMethod, method.Codec, methodFilter); diff != "" {
+		t.Errorf("mismatch in method annotations (-want, +got)\n:%s", diff)
+	}
+}
+
 func TestOneOfAnnotations(t *testing.T) {
 	singular := &api.Field{
 		Name:     "oneof_field",
