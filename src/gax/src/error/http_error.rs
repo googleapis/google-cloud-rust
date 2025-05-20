@@ -19,16 +19,12 @@ use bytes::Bytes;
 pub struct HttpError {
     status_code: u16,
     payload: Option<Bytes>,
-    headers: std::collections::HashMap<String, String>,
+    headers: http::HeaderMap,
 }
 
 impl HttpError {
     /// Creates a new [HttpError] with the given status code, payload, and headers.
-    pub fn new(
-        status_code: u16,
-        headers: std::collections::HashMap<String, String>,
-        payload: Option<Bytes>,
-    ) -> Self {
+    pub fn new(status_code: u16, headers: http::HeaderMap, payload: Option<Bytes>) -> Self {
         Self {
             status_code,
             headers,
@@ -49,7 +45,7 @@ impl HttpError {
 
     /// Returns a reference to the headers associated with the HTTP error
     /// response.
-    pub fn headers(&self) -> &std::collections::HashMap<String, String> {
+    pub fn headers(&self) -> &http::HeaderMap {
         &self.headers
     }
 }
@@ -76,14 +72,19 @@ impl std::error::Error for HttpError {}
 #[cfg(test)]
 mod tests {
     use super::*;
+    use http::{HeaderMap, HeaderName, HeaderValue};
     use serde_json::json;
-    use std::collections::HashMap;
+
+    fn test_headers() -> HeaderMap {
+        HeaderMap::from_iter(
+            [("content-type", "application/json")]
+                .map(|(k, v)| (HeaderName::from_static(k), HeaderValue::from_static(v))),
+        )
+    }
 
     #[test]
     fn display_without_payload() {
-        let headers = HashMap::from_iter(
-            [("content-type", "application/json")].map(|(k, v)| (k.to_string(), v.to_string())),
-        );
+        let headers = test_headers();
         let error = HttpError::new(400, headers, None);
         let display = format!("{error}");
 
@@ -100,9 +101,7 @@ mod tests {
 
     #[test]
     fn display_handles_blob() {
-        let headers = HashMap::from_iter(
-            [("content-type", "application/json")].map(|(k, v)| (k.to_string(), v.to_string())),
-        );
+        let headers = test_headers();
         let error = HttpError::new(
             400,
             headers,
@@ -125,9 +124,7 @@ mod tests {
 
     #[test]
     fn display_includes_status() {
-        let headers = HashMap::from_iter(
-            [("content-type", "application/json")].map(|(k, v)| (k.to_string(), v.to_string())),
-        );
+        let headers = test_headers();
         let payload =
             json!({"error": { "code": 400, "status": "INVALID_ARGUMENT", "message": "something"}});
         let error = HttpError::new(

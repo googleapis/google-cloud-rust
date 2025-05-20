@@ -69,8 +69,8 @@ impl Error {
     /// ```
     /// # use google_cloud_gax::error::Error;
     /// # use google_cloud_gax::error::HttpError;
-    /// # use std::collections::HashMap;
-    /// let error = Error::rpc(HttpError::new(404, HashMap::new(), None));
+    /// use http::HeaderMap;
+    /// let error = Error::rpc(HttpError::new(404, HeaderMap::new(), None));
     /// if let Some(e) = error.as_inner::<HttpError>() {
     ///     assert_eq!(e.status_code(), 404);
     /// }
