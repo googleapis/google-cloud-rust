@@ -72,6 +72,7 @@ pub trait RetryPolicy: Send + Sync + std::fmt::Debug {
     /// * `idempotent` - if `true` assume the operation is idempotent. Many more
     ///   errors are retryable on idempotent operations.
     /// * `error` - the last error when attempting the request.
+    #[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
     fn on_error(
         &self,
         loop_start: std::time::Instant,
@@ -90,6 +91,7 @@ pub trait RetryPolicy: Send + Sync + std::fmt::Debug {
     /// * `loop_start` - when the retry loop started.
     /// * `attempt_count` - the number of attempts. This method is never called
     ///   before the first attempt.
+    #[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
     fn on_throttle(&self, _loop_start: std::time::Instant, _attempt_count: u32) -> Option<Error> {
         None
     }
@@ -104,6 +106,7 @@ pub trait RetryPolicy: Send + Sync + std::fmt::Debug {
     /// * `loop_start` - when the retry loop started.
     /// * `attempt_count` - the number of attempts. This method is called before
     ///   the first attempt, so the first value is zero.
+    #[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
     fn remaining_time(
         &self,
         _loop_start: std::time::Instant,

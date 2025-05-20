@@ -87,12 +87,15 @@ pub trait RetryThrottler: Send + Sync + std::fmt::Debug {
     /// `false`. Note that the retry loop may stop if too many attempts are
     /// throttled: they are treated as transient errors and may exhaust the
     /// retry policy.
+    #[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
     fn throttle_retry_attempt(&self) -> bool;
 
     /// Called by the retry loop after a retry failure.
+    #[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
     fn on_retry_failure(&mut self, flow: &LoopState);
 
     /// Called by the retry loop when a RPC succeeds.
+    #[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
     fn on_success(&mut self);
 }
 
