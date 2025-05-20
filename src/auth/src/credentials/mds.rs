@@ -321,7 +321,7 @@ impl TokenProvider for MDSAccessTokenProvider {
             let body = response
                 .text()
                 .await
-                .map_err(|e| CredentialsError::new(is_retryable(status), e))?;
+                .map_err(|e| self.build_error(is_retryable(status), e.to_string()))?;
             return Err(self.build_error(is_retryable(status), body));
         }
         let response = response.json::<MDSTokenResponse>().await.map_err(|e| {
