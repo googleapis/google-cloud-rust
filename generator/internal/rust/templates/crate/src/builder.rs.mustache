@@ -76,8 +76,6 @@ pub mod {{Codec.ModuleName}} {
     }
 
     {{#Codec.Methods}}
-    {{! TODO(#1813) - fix and generate builder docs for veneers }}
-    {{^Codec.HasVeneer}}
     /// The request builder for [{{Codec.ServiceNameToPascal}}::{{Codec.Name}}][crate::client::{{Codec.ServiceNameToPascal}}::{{Codec.Name}}] calls.
     ///
     /// # Example
@@ -114,7 +112,6 @@ pub mod {{Codec.ModuleName}} {
     ///   // ... details omitted ...
     /// }
     /// ```
-    {{/Codec.HasVeneer}}
     #[derive(Clone, Debug)]
     pub struct {{Codec.BuilderName}}(RequestBuilder<{{InputType.Codec.QualifiedName}}>);
 
@@ -138,8 +135,6 @@ pub mod {{Codec.ModuleName}} {
         }
 
         /// Sends the request.
-        {{! TODO(#1813) - fix and generate builder docs for veneers }}
-        {{^Codec.HasVeneer}}
         {{#OperationInfo}}
         ///
         /// # Long running operations
@@ -147,7 +142,6 @@ pub mod {{Codec.ModuleName}} {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [{{Method.Codec.Name}}][crate::client::{{Method.Codec.ServiceNameToPascal}}::{{Method.Codec.Name}}].
         {{/OperationInfo}}
-        {{/Codec.HasVeneer}}
         pub async fn send(self) -> Result<{{Codec.ReturnType}}> {
             {{!
                 In rare cases `self.0.stub.foo` is ambiguous: we are calling
