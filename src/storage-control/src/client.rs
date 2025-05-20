@@ -12,23 +12,23 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-//! Contains the Storage client and related types.
+//! Contains the StorageControl client and related types.
 
 /// Implements a client for the Cloud Storage API.
 ///
 /// # Example
 /// ```
 /// # tokio_test::block_on(async {
-/// # use google_cloud_storage_control::client::Storage;
-/// let client = Storage::builder().build().await?;
+/// # use google_cloud_storage_control::client::StorageControl;
+/// let client = StorageControl::builder().build().await?;
 /// // use `client` to make requests to Cloud Storage.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///
 /// # Configuration
 ///
-/// To configure `Storage` use the `with_*` methods in the type returned
-/// by [builder()][Storage::builder]. The default configuration should
+/// To configure `StorageControl` use the `with_*` methods in the type returned
+/// by [builder()][StorageControl::builder]. The default configuration should
 /// work for most applications. Common configuration changes include
 ///
 /// * [with_endpoint()]: by default this client uses the global default endpoint
@@ -42,8 +42,8 @@
 ///
 /// # Pooling and Cloning
 ///
-/// `Storage` holds a connection pool internally, it is advised to
-/// create one and the reuse it.  You do not need to wrap `Storage` in
+/// `StorageControl` holds a connection pool internally, it is advised to
+/// create one and the reuse it.  You do not need to wrap `StorageControl` in
 /// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
 /// already uses an `Arc` internally.
 ///
@@ -80,18 +80,18 @@
 /// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
 /// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 #[derive(Clone, Debug)]
-pub struct Storage {
+pub struct StorageControl {
     storage: super::generated::gapic::client::Storage,
     control: super::generated::gapic_control::client::StorageControl,
 }
 
-impl Storage {
-    /// Returns a builder for [Storage].
+impl StorageControl {
+    /// Returns a builder for [StorageControl].
     ///
     /// ```no_run
     /// # tokio_test::block_on(async {
-    /// # use google_cloud_storage_control::client::Storage;
-    /// let client = Storage::builder().build().await?;
+    /// # use google_cloud_storage_control::client::StorageControl;
+    /// let client = StorageControl::builder().build().await?;
     /// # gax::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> ClientBuilder {
@@ -106,8 +106,8 @@ impl Storage {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_storage_control::client::Storage;
-    /// async fn example(client: &Storage) -> gax::Result<()> {
+    /// # use google_cloud_storage_control::client::StorageControl;
+    /// async fn example(client: &StorageControl) -> gax::Result<()> {
     ///     client.delete_bucket()
     ///         .set_name("projects/_/buckets/my-bucket")
     ///         .send()
@@ -123,8 +123,8 @@ impl Storage {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_storage_control::client::Storage;
-    /// async fn example(client: &Storage) -> gax::Result<()> {
+    /// # use google_cloud_storage_control::client::StorageControl;
+    /// async fn example(client: &StorageControl) -> gax::Result<()> {
     ///     let bucket = client.get_bucket()
     ///         .set_name("projects/_/buckets/my-bucket")
     ///         .send()
@@ -142,8 +142,8 @@ impl Storage {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_storage_control::client::Storage;
-    /// async fn example(client: &Storage) -> gax::Result<()> {
+    /// # use google_cloud_storage_control::client::StorageControl;
+    /// async fn example(client: &StorageControl) -> gax::Result<()> {
     ///     let bucket = client.create_bucket()
     ///         .set_parent("projects/my-project")
     ///         .set_bucket_id("my-bucket")
@@ -162,8 +162,8 @@ impl Storage {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_storage_control::client::Storage;
-    /// async fn example(client: &Storage) -> gax::Result<()> {
+    /// # use google_cloud_storage_control::client::StorageControl;
+    /// async fn example(client: &StorageControl) -> gax::Result<()> {
     ///     use gax::paginator::{ItemPaginator, Paginator};
     ///     let mut items = client.list_buckets()
     ///         .set_parent("projects/my-project")
@@ -183,8 +183,8 @@ impl Storage {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_storage_control::client::Storage;
-    /// async fn example(client: &Storage) -> gax::Result<()> {
+    /// # use google_cloud_storage_control::client::StorageControl;
+    /// async fn example(client: &StorageControl) -> gax::Result<()> {
     ///     client.delete_object()
     ///         .set_bucket("projects/_/buckets/my-bucket")
     ///         .set_object("my-object")
@@ -217,8 +217,8 @@ impl Storage {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_storage_control::client::Storage;
-    /// async fn example(client: &Storage) -> gax::Result<()> {
+    /// # use google_cloud_storage_control::client::StorageControl;
+    /// async fn example(client: &StorageControl) -> gax::Result<()> {
     ///     use gax::paginator::{ItemPaginator, Paginator};
     ///     let mut items = client.list_objects()
     ///         .set_parent("projects/_/buckets/my-bucket")
@@ -238,8 +238,8 @@ impl Storage {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_storage_control::client::Storage;
-    /// async fn example(client: &Storage) -> gax::Result<()> {
+    /// # use google_cloud_storage_control::client::StorageControl;
+    /// async fn example(client: &StorageControl) -> gax::Result<()> {
     ///     let policy = client.get_iam_policy()
     ///         .set_resource("projects/_/buckets/my-bucket")
     ///         .send()
@@ -262,9 +262,9 @@ impl Storage {
     /// # Example
     ///
     /// ```
-    /// # use google_cloud_storage_control::client::Storage;
+    /// # use google_cloud_storage_control::client::StorageControl;
     /// # use iam_v1::model::Policy;
-    /// async fn example(client: &Storage, updated_policy: Policy) -> gax::Result<()> {
+    /// async fn example(client: &StorageControl, updated_policy: Policy) -> gax::Result<()> {
     ///     let policy = client.set_iam_policy()
     ///         .set_resource("projects/_/buckets/my-bucket")
     ///         .set_update_mask(wkt::FieldMask::default().set_paths(["bindings"]))
@@ -284,8 +284,8 @@ impl Storage {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_storage_control::client::Storage;
-    /// async fn example(client: &Storage) -> gax::Result<()> {
+    /// # use google_cloud_storage_control::client::StorageControl;
+    /// async fn example(client: &StorageControl) -> gax::Result<()> {
     ///     let response = client.test_iam_permissions()
     ///         .set_resource("projects/_/buckets/my-bucket")
     ///         .set_permissions(["storage.buckets.get"])
@@ -306,8 +306,8 @@ impl Storage {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_storage_control::client::Storage;
-    /// async fn example(client: &Storage) -> gax::Result<()> {
+    /// # use google_cloud_storage_control::client::StorageControl;
+    /// async fn example(client: &StorageControl) -> gax::Result<()> {
     ///     let folder = client.create_folder()
     ///         .set_parent("projects/my-project/buckets/my-bucket")
     ///         .set_folder_id("my-folder/my-subfolder/")
@@ -328,8 +328,8 @@ impl Storage {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_storage_control::client::Storage;
-    /// async fn example(client: &Storage) -> gax::Result<()> {
+    /// # use google_cloud_storage_control::client::StorageControl;
+    /// async fn example(client: &StorageControl) -> gax::Result<()> {
     ///     let folder = client.get_folder()
     ///         .set_name("projects/_/buckets/my-bucket/folders/my-folder/my-subfolder/")
     ///         .send()
@@ -349,8 +349,8 @@ impl Storage {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_storage_control::client::Storage;
-    /// async fn example(client: &Storage) -> gax::Result<()> {
+    /// # use google_cloud_storage_control::client::StorageControl;
+    /// async fn example(client: &StorageControl) -> gax::Result<()> {
     ///     client.delete_folder()
     ///         .set_name("projects/_/buckets/my-bucket/folders/my-folder/my-subfolder/")
     ///         .send()
@@ -369,8 +369,8 @@ impl Storage {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_storage_control::client::Storage;
-    /// async fn example(client: &Storage) -> gax::Result<()> {
+    /// # use google_cloud_storage_control::client::StorageControl;
+    /// async fn example(client: &StorageControl) -> gax::Result<()> {
     ///     use gax::paginator::ItemPaginator as _;
     ///     let mut folders = client.list_folders()
     ///         .set_parent("projects/_/buckets/my-bucket")
@@ -396,8 +396,8 @@ impl Storage {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_storage_control::client::Storage;
-    /// async fn example(client: &Storage) -> gax::Result<()> {
+    /// # use google_cloud_storage_control::client::StorageControl;
+    /// async fn example(client: &StorageControl) -> gax::Result<()> {
     ///     use lro::Poller as _;
     ///     let folder = client.rename_folder()
     ///         .set_name("projects/_/buckets/my-bucket/folders/my-folder/my-subfolder/")
@@ -429,7 +429,7 @@ impl Storage {
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stub::Storage + 'static,
+        T: super::stub::StorageControl + 'static,
     {
         let stub = std::sync::Arc::new(stub);
         Self {
@@ -445,14 +445,14 @@ impl Storage {
     }
 }
 
-/// A builder for [Storage].
+/// A builder for [StorageControl].
 ///
 /// ```
 /// # tokio_test::block_on(async {
 /// # use google_cloud_storage_control::*;
 /// # use client::ClientBuilder;
-/// # use client::Storage;
-/// let builder : ClientBuilder = Storage::builder();
+/// # use client::StorageControl;
+/// let builder : ClientBuilder = StorageControl::builder();
 /// let client = builder
 ///     .with_endpoint("https://storage.googleapis.com")
 ///     .build().await?;
@@ -462,10 +462,10 @@ pub type ClientBuilder =
     gax::client_builder::ClientBuilder<client_builder::Factory, gaxi::options::Credentials>;
 
 pub(crate) mod client_builder {
-    use super::Storage;
+    use super::StorageControl;
     pub struct Factory;
     impl gax::client_builder::internal::ClientFactory for Factory {
-        type Client = Storage;
+        type Client = StorageControl;
         type Credentials = gaxi::options::Credentials;
         async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
             Self::Client::new(config).await
