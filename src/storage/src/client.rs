@@ -370,6 +370,7 @@ mod v1 {
         //     }
     }
 
+    // CRC32c checksum is a unsigned 32-bit int encoded using base64 in big-endian byte order.
     struct Crc32c;
 
     impl<'de> serde_with::DeserializeAs<'de, u32> for Crc32c {
@@ -412,7 +413,7 @@ mod v1 {
         }
     }
 
-    fn convert_to_checksums(
+    fn new_object_checksums(
         crc32c: Option<u32>,
         md5_hash: bytes::Bytes,
     ) -> Option<control::model::ObjectChecksums> {
@@ -538,13 +539,14 @@ mod v1 {
                 .set_or_clear_owner(value.owner)
                 .set_metadata(value.metadata)
                 .set_or_clear_customer_encryption(value.customer_encryption)
-                .set_or_clear_checksums(convert_to_checksums(value.crc32c, value.md5_hash))
+                .set_or_clear_checksums(new_object_checksums(value.crc32c, value.md5_hash))
         }
     }
 
     #[cfg(test)]
     mod tests {
         use super::*;
+        use serde_with::DeserializeAs;
         use test_case::test_case;
 
         #[test]
@@ -574,7 +576,7 @@ mod v1 {
                 "customerEncryption": {"encryptionAlgorithm": "algorithm", "keySha256": "dGhlIHF1aWNrIGJyb3duIGZveCBqdW1wcyBvdmVyIHRoZSBsYXp5IGRvZw"},
                 "md5Hash": "dGhlIHF1aWNrIGJyb3duIGZveCBqdW1wcyBvdmVyIHRoZSBsYXp5IGRvZw",
                 // base64 encoded uint32 in BigEndian order field:
-                "crc32c": "nWafdQ==",
+                "crc32c": "SZYC0g==",
             });
             let object: Object = serde_json::from_value(json)
                 .expect("json value in object test should be deserializable");
@@ -618,7 +620,7 @@ mod v1 {
                 }),
                 md5_hash: bytes::Bytes::from("the quick brown fox jumps over the lazy dog"),
                 // base64 encoded uint32 in BigEndian order field:
-                crc32c: Some(2640748405),
+                crc32c: Some(1234567890),
                 ..Default::default()
             };
 
@@ -863,6 +865,24 @@ mod v1 {
                     assert_eq!(got.team, from.team);
                 }
             }
+        }
+
+        #[test_case("AAAAAA==", 0_u32; "zero")]
+        #[test_case("SZYC0g==", 1234567890_u32; "number")]
+        #[test_case("/////w==", u32::MAX; "max u32")]
+        fn test_deserialize_crc32c(s: &str, want: u32) {
+            let got = Crc32c::deserialize_as(serde_json::json!(s))
+                .expect("deserialization should not error");
+            assert_eq!(got, want);
+        }
+
+        #[test_case(""; "empty")]
+        #[test_case("invalid"; "invalid")]
+        #[test_case("AAA="; "too small")]
+        #[test_case("AAAAAAAAAAA="; "too large")]
+        fn test_deserialize_crc32c_err(input: &str) {
+            Crc32c::deserialize_as(serde_json::json!(input))
+                .expect_err("expected error deserializing string");
         }
     }
 }
