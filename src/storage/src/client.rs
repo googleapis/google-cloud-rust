@@ -803,7 +803,6 @@ mod v1 {
                     assert!(object.crc32c.is_none());
                 }
             }
-            // TODO(#2039): assert_eq!(got.checksums, object.checksums);
         }
 
         fn object_acl_with_all_fields() -> ObjectAccessControl {
