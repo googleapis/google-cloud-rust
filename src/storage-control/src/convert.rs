@@ -57,7 +57,6 @@ impl FromProto<rpc::model::Status> for google::rpc::Status {
     }
 }
 
-// TODO(#2037) - The generator should control this code.
 impl ToProto<google::longrunning::Operation> for longrunning::model::Operation {
     type Output = google::longrunning::Operation;
     fn to_proto(
@@ -85,7 +84,6 @@ impl ToProto<google::longrunning::Operation> for longrunning::model::Operation {
     }
 }
 
-// TODO(#2037) - The generator should control this code.
 impl FromProto<longrunning::model::Operation> for google::longrunning::Operation {
     fn cnv(self) -> std::result::Result<longrunning::model::Operation, ConvertError> {
         use crate::google::longrunning::operation::Result as P;
