@@ -154,3 +154,51 @@ impl super::stub::{{Codec.Name}} for {{Codec.Name}} {
 }
 
 {{/Codec.Services}}
+{{#Codec.HasLROs}}
+use gaxi::prost::{ConvertError, FromProto, ToProto};
+/// Convert from our `wkt::Any` to a `prost_types::Any`
+///
+/// The encoded types considered for conversion are either metadata or result
+/// types for LROs in this service.
+pub(crate) fn lro_any_to_prost(
+    value: wkt::Any,
+) -> std::result::Result<prost_types::Any, ConvertError> {
+    match value.type_url().unwrap_or_default() {
+        "" => Ok(prost_types::Any::default()),
+{{#Codec.Services}}
+{{#Codec.LROTypes}}
+        "type.googleapis.com/{{Codec.SourceFQN}}" => value
+            .to_msg::<{{Codec.QualifiedName}}>()
+            .map_err(ConvertError::other)?
+            .to_proto()
+            .and_then(|prost_msg| {
+                prost_types::Any::from_msg(&prost_msg).map_err(ConvertError::other)
+            }),
+{{/Codec.LROTypes}}
+{{/Codec.Services}}
+        type_url => Err(ConvertError::UnexpectedTypeUrl(type_url.to_string())),
+    }
+}
+
+/// Convert from a `prost_types::Any` to our `wkt::Any`
+///
+/// The encoded types considered for conversion are either metadata or result
+/// types for LROs in this service.
+pub(crate) fn lro_any_from_prost(
+    value: prost_types::Any,
+) -> std::result::Result<wkt::Any, ConvertError> {
+    match value.type_url.as_str() {
+        "" => Ok(wkt::Any::default()),
+{{#Codec.Services}}
+{{#Codec.LROTypes}}
+        "type.googleapis.com/{{Codec.SourceFQN}}" => value
+            .to_msg::<crate::{{Codec.PackageModuleName}}::{{Codec.Name}}>()
+            .map_err(ConvertError::other)?
+            .cnv()
+            .and_then(|our_msg| wkt::Any::from_msg(&our_msg).map_err(ConvertError::other)),
+{{/Codec.LROTypes}}
+{{/Codec.Services}}
+        type_url => Err(ConvertError::UnexpectedTypeUrl(type_url.to_string())),
+    }
+}
+{{/Codec.HasLROs}}
