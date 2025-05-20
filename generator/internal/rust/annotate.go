@@ -477,9 +477,10 @@ func (c *codec) annotateService(s *api.Service, model *api.API) {
 			}
 		}
 	}
-	moduleName := toSnake(s.Name)
+	serviceName := ServiceName(s, c.serviceNameOverrides)
+	moduleName := toSnake(serviceName)
 	ann := &serviceAnnotations{
-		Name:              toPascal(s.Name),
+		Name:              toPascal(serviceName),
 		PackageModuleName: packageToModuleName(s.Package),
 		ModuleName:        moduleName,
 		DocLines: c.formatDocComments(
@@ -564,6 +565,7 @@ func (c *codec) annotateMethod(m *api.Method, s *api.Service, state *api.APIStat
 	if m.ReturnsEmpty {
 		returnType = "()"
 	}
+	serviceName := ServiceName(s, c.serviceNameOverrides)
 	annotation := &methodAnnotation{
 		Name:                strcase.ToSnake(m.Name),
 		BuilderName:         toPascal(m.Name),
@@ -572,9 +574,9 @@ func (c *codec) annotateMethod(m *api.Method, s *api.Service, state *api.APIStat
 		PathInfo:            m.PathInfo,
 		PathParams:          language.PathParams(m, state),
 		QueryParams:         language.QueryParams(m, state),
-		ServiceNameToPascal: toPascal(s.Name),
-		ServiceNameToCamel:  toCamel(s.Name),
-		ServiceNameToSnake:  toSnake(s.Name),
+		ServiceNameToPascal: toPascal(serviceName),
+		ServiceNameToCamel:  toCamel(serviceName),
+		ServiceNameToSnake:  toSnake(serviceName),
 		SystemParameters:    c.systemParameters,
 		ReturnType:          returnType,
 		HasVeneer:           c.hasVeneer,
