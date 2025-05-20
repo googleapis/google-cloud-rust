@@ -321,6 +321,26 @@ impl StorageControl {
         self.control.create_folder()
     }
 
+    /// Permanently deletes an empty folder.
+    ///
+    /// This operation is only applicable to a hierarchical namespace enabled
+    /// bucket.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage_control::client::StorageControl;
+    /// async fn example(client: &StorageControl) -> gax::Result<()> {
+    ///     client.delete_folder()
+    ///         .set_name("projects/_/buckets/my-bucket/folders/my-folder/my-subfolder/")
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn delete_folder(&self) -> super::builder::storage_control::DeleteFolder {
+        self.control.delete_folder()
+    }
+
     /// Returns metadata for the specified folder.
     ///
     /// This operation is only applicable to a hierarchical namespace enabled
@@ -340,26 +360,6 @@ impl StorageControl {
     /// ```
     pub fn get_folder(&self) -> super::builder::storage_control::GetFolder {
         self.control.get_folder()
-    }
-
-    /// Permanently deletes an empty folder.
-    ///
-    /// This operation is only applicable to a hierarchical namespace enabled
-    /// bucket.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_storage_control::client::StorageControl;
-    /// async fn example(client: &StorageControl) -> gax::Result<()> {
-    ///     client.delete_folder()
-    ///         .set_name("projects/_/buckets/my-bucket/folders/my-folder/my-subfolder/")
-    ///         .send()
-    ///         .await?;
-    ///     Ok(())
-    /// }
-    /// ```
-    pub fn delete_folder(&self) -> super::builder::storage_control::DeleteFolder {
-        self.control.delete_folder()
     }
 
     /// Retrieves a list of folders.
@@ -421,6 +421,97 @@ impl StorageControl {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn rename_folder(&self) -> super::builder::storage_control::RenameFolder {
         self.control.rename_folder()
+    }
+
+    /// Returns the storage layout configuration for a given bucket.
+    pub fn get_storage_layout(&self) -> super::builder::storage_control::GetStorageLayout {
+        self.control.get_storage_layout()
+    }
+
+    /// Creates a new managed folder.
+    pub fn create_managed_folder(&self) -> super::builder::storage_control::CreateManagedFolder {
+        self.control.create_managed_folder()
+    }
+
+    /// Permanently deletes an empty managed folder.
+    pub fn delete_managed_folder(&self) -> super::builder::storage_control::DeleteManagedFolder {
+        self.control.delete_managed_folder()
+    }
+
+    /// Returns metadata for the specified managed folder.
+    pub fn get_managed_folder(&self) -> super::builder::storage_control::GetManagedFolder {
+        self.control.get_managed_folder()
+    }
+
+    /// Retrieves a list of managed folders for a given bucket.
+    pub fn list_managed_folders(&self) -> super::builder::storage_control::ListManagedFolders {
+        self.control.list_managed_folders()
+    }
+
+    /// Creates an Anywhere Cache instance.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    pub fn create_anywhere_cache(&self) -> super::builder::storage_control::CreateAnywhereCache {
+        self.control.create_anywhere_cache()
+    }
+
+    /// Updates an Anywhere Cache instance. Mutable fields include `ttl` and
+    /// `admission_policy`.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    pub fn update_anywhere_cache(&self) -> super::builder::storage_control::UpdateAnywhereCache {
+        self.control.update_anywhere_cache()
+    }
+
+    /// Disables an Anywhere Cache instance. A disabled instance is read-only. The
+    /// disablement could be revoked by calling ResumeAnywhereCache. The cache
+    /// instance will be deleted automatically if it remains in the disabled state
+    /// for at least one hour.
+    pub fn disable_anywhere_cache(&self) -> super::builder::storage_control::DisableAnywhereCache {
+        self.control.disable_anywhere_cache()
+    }
+
+    /// Pauses an Anywhere Cache instance.
+    pub fn pause_anywhere_cache(&self) -> super::builder::storage_control::PauseAnywhereCache {
+        self.control.pause_anywhere_cache()
+    }
+
+    /// Resumes a disabled or paused Anywhere Cache instance.
+    pub fn resume_anywhere_cache(&self) -> super::builder::storage_control::ResumeAnywhereCache {
+        self.control.resume_anywhere_cache()
+    }
+
+    /// Gets an Anywhere Cache instance.
+    pub fn get_anywhere_cache(&self) -> super::builder::storage_control::GetAnywhereCache {
+        self.control.get_anywhere_cache()
+    }
+
+    /// Lists Anywhere Cache instances for a given bucket.
+    pub fn list_anywhere_caches(&self) -> super::builder::storage_control::ListAnywhereCaches {
+        self.control.list_anywhere_caches()
+    }
+
+    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
+    ///
+    /// [google.longrunning.Operations]: longrunning::client::Operations
+    pub fn get_operation(&self) -> super::builder::storage_control::GetOperation {
+        self.control.get_operation()
     }
 
     /// Creates a new client from the provided stub.
