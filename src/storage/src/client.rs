@@ -574,9 +574,18 @@ mod v1 {
                 "metadata": {"key1": "val1", "key2": "val2", "key3": "val3"},
                 // base64 fields:
                 "customerEncryption": {"encryptionAlgorithm": "algorithm", "keySha256": "dGhlIHF1aWNrIGJyb3duIGZveCBqdW1wcyBvdmVyIHRoZSBsYXp5IGRvZw"},
-                "md5Hash": "dGhlIHF1aWNrIGJyb3duIGZveCBqdW1wcyBvdmVyIHRoZSBsYXp5IGRvZw",
+                // checksum fields:
+                // $ echo 'The quick brown fox jumps over the lazy dog' > quick.txt
+                //
+                // $ gcloud storage hash quick.txt
+                // ---
+                // crc32c_hash: /ieOcg==
+                // digest_format: base64
+                // md5_hash: N8S4ft/8XRmP9aGFzufuCQ==
+                // url: quick.txt
+                "md5Hash": "N8S4ft/8XRmP9aGFzufuCQ==",
                 // base64 encoded uint32 in BigEndian order field:
-                "crc32c": "SZYC0g==",
+                "crc32c": "/ieOcg==",
             });
             let object: Object = serde_json::from_value(json)
                 .expect("json value in object test should be deserializable");
@@ -618,9 +627,12 @@ mod v1 {
                     encryption_algorithm: "algorithm".to_string(),
                     key_sha256: bytes::Bytes::from("the quick brown fox jumps over the lazy dog"),
                 }),
-                md5_hash: bytes::Bytes::from("the quick brown fox jumps over the lazy dog"),
+                md5_hash: vec![
+                    55, 196, 184, 126, 223, 252, 93, 25, 143, 245, 161, 133, 206, 231, 238, 9,
+                ]
+                .into(),
                 // base64 encoded uint32 in BigEndian order field:
-                crc32c: Some(1234567890),
+                crc32c: Some(4264005234),
                 ..Default::default()
             };
 
