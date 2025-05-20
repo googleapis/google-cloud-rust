@@ -191,15 +191,15 @@ impl Builder {
 
         // Determine the endpoint and whether it was overridden
         if let Ok(host_from_env) = std::env::var(GCE_METADATA_HOST_ENV_VAR) {
-            // 1. Check GCE_METADATA_HOST environment variable first
+            // Check GCE_METADATA_HOST environment variable first
             final_endpoint = format!("http://{}", host_from_env);
             endpoint_overridden = true;
         } else if let Some(builder_endpoint) = self.endpoint {
-            // 2. Else, check if an endpoint was provided to the mds::Builder
+            // Else, check if an endpoint was provided to the mds::Builder
             final_endpoint = builder_endpoint;
             endpoint_overridden = true;
         } else {
-            // 3. Else, use the default metadata root
+            // Else, use the default metadata root
             final_endpoint = METADATA_ROOT.to_string();
             endpoint_overridden = false;
         };
@@ -207,7 +207,7 @@ impl Builder {
         MDSAccessTokenProvider::builder()
             .endpoint(final_endpoint)
             .maybe_scopes(self.scopes)
-            .endpoint_overriden(endpoint_overridden)
+            .endpoint_overridden(endpoint_overridden)
             .created_by_adc(self.created_by_adc)
             .build()
     }
@@ -264,7 +264,7 @@ struct MDSAccessTokenProvider {
     scopes: Option<Vec<String>>,
     #[builder(into)]
     endpoint: String,
-    endpoint_overriden: bool,
+    endpoint_overridden: bool,
     created_by_adc: bool,
 }
 
@@ -275,9 +275,9 @@ impl MDSAccessTokenProvider {
         // running in an environment with MDS. To help users who got to this state because of lack of credentials
         // setup on their machines, we provide a detailed error message to them talking about local setup and other
         // auth mechanisms available to them.
-        // If the endpoint is overriden, even if ADC was used to create the MDS credentials, we do not give a detailed
-        // error message because they deliberatley wanted to use an MDS. 
-        match self.created_by_adc && !self.endpoint_overriden {
+        // If the endpoint is overridden, even if ADC was used to create the MDS credentials, we do not give a detailed
+        // error message because they deliberately wanted to use an MDS.
+        match self.created_by_adc && !self.endpoint_overridden {
             true => CredentialsError::from_str(
                 is_retryable,
                 format!("{MDS_NOT_FOUND_ERROR}, error: {}", error.into()),
@@ -308,8 +308,8 @@ impl TokenProvider for MDSAccessTokenProvider {
             .fold(request, |r, s| r.query(&[("scopes", s)]));
 
         // If the connection to MDS was not successful, it is useful to retry when really
-        // running on MDS environemnts and not useful if there is no MDS. We will mark the error
-        // as retryable and let the retry policy determine whether to retry or not. Whenever we 
+        // running on MDS environments and not useful if there is no MDS. We will mark the error
+        // as retryable and let the retry policy determine whether to retry or not. Whenever we
         // define a default retry policy, we can skip retrying this case.
         let response = request
             .send()
@@ -447,7 +447,7 @@ mod test {
             .err()
             .unwrap();
 
-        assert!(!e.is_retryable());
+        assert!(e.is_retryable());
         assert!(
             e.source()
                 .unwrap()
@@ -461,10 +461,7 @@ mod test {
     #[tokio::test]
     #[serial]
     async fn adc_overridden_mds() -> TestResult {
-        let _e = ScopedEnv::set(
-            super::GCE_METADATA_HOST_ENV_VAR,
-            "metdata.overriden",
-        );
+        let _e = ScopedEnv::set(super::GCE_METADATA_HOST_ENV_VAR, "metadata.overridden");
 
         let e = Builder::from_adc()
             .build_token_provider()
@@ -473,7 +470,9 @@ mod test {
             .err()
             .unwrap();
 
-        assert!(!e.is_retryable());
+        let _e = ScopedEnv::remove(super::GCE_METADATA_HOST_ENV_VAR);
+
+        assert!(e.is_retryable());
         assert!(
             !e.source()
                 .unwrap()
@@ -493,7 +492,7 @@ mod test {
             .err()
             .unwrap();
 
-        assert!(!e.is_retryable());
+        assert!(e.is_retryable());
         assert!(
             !e.source()
                 .unwrap()
